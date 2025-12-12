@@ -53,6 +53,7 @@ from nerfstudio.models.depth_nerfacto import DepthNerfactoModelConfig
 from nerfstudio.models.generfacto import GenerfactoModelConfig
 from nerfstudio.models.instant_ngp import InstantNGPModelConfig
 from nerfstudio.models.mipnerf import MipNerfModel
+from nerfstudio.models.lookcloser import LookCloserModelConfig
 from nerfstudio.models.nerfacto import NerfactoModelConfig
 from nerfstudio.models.neus import NeuSModelConfig
 from nerfstudio.models.neus_facto import NeuSFactoModelConfig
@@ -82,6 +83,7 @@ descriptions = {
     "neus-facto": "Implementation of NeuS-Facto. (slow)",
     "splatfacto": "Gaussian Splatting model",
     "splatfacto-big": "Larger version of Splatfacto with higher quality.",
+    "lookcloser": "Experimental LookCloser (FA-NeRF) integration with togglable components.",
 }
 
 method_configs["nerfacto"] = TrainerConfig(
@@ -100,6 +102,50 @@ method_configs["nerfacto"] = TrainerConfig(
             eval_num_rays_per_chunk=1 << 15,
             average_init_density=0.01,
             camera_optimizer=CameraOptimizerConfig(mode="SO3xR3"),
+        ),
+    ),
+    optimizers={
+        "proposal_networks": {
+            "optimizer": AdamOptimizerConfig(lr=1e-2, eps=1e-15),
+            "scheduler": ExponentialDecaySchedulerConfig(lr_final=0.0001, max_steps=200000),
+        },
+        "fields": {
+            "optimizer": AdamOptimizerConfig(lr=1e-2, eps=1e-15),
+            "scheduler": ExponentialDecaySchedulerConfig(lr_final=0.0001, max_steps=200000),
+        },
+        "camera_opt": {
+            "optimizer": AdamOptimizerConfig(lr=1e-3, eps=1e-15),
+            "scheduler": ExponentialDecaySchedulerConfig(lr_final=1e-4, max_steps=5000),
+        },
+    },
+    viewer=ViewerConfig(num_rays_per_chunk=1 << 15),
+    vis="viewer",
+)
+
+# LookCloser: mirrors the default Nerfacto recipe but exposes fine-grained flags for
+# LookCloser/FA-NeRF components. The model inherits Nerfacto internals so the
+# integration can evolve without changing the pipeline contract.
+method_configs["lookcloser"] = TrainerConfig(
+    method_name="lookcloser",
+    steps_per_eval_batch=500,
+    steps_per_save=2000,
+    max_num_iterations=30000,
+    mixed_precision=True,
+    pipeline=VanillaPipelineConfig(
+        datamanager=ParallelDataManagerConfig(
+            dataparser=NerfstudioDataParserConfig(),
+            train_num_rays_per_batch=4096,
+            eval_num_rays_per_batch=4096,
+        ),
+        model=LookCloserModelConfig(
+            eval_num_rays_per_chunk=1 << 15,
+            average_init_density=0.01,
+            camera_optimizer=CameraOptimizerConfig(mode="SO3xR3"),
+            enable_progressive_image_regression=True,
+            enable_frequency_grid=True,
+            enable_frequency_weighting=True,
+            enable_adaptive_ray_marching=True,
+            enable_frequency_aware_sampling=True,
         ),
     ),
     optimizers={
