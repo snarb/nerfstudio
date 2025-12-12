@@ -45,6 +45,7 @@ import torch.nn.functional as F
 from torch.utils.data import Sampler
 
 from nerfstudio.cameras.rays import RayBundle, RaySamples
+from nerfstudio.engine.callbacks import TrainingCallback, TrainingCallbackAttributes, TrainingCallbackLocation
 from nerfstudio.field_components.field_heads import FieldHeadNames
 from nerfstudio.models.nerfacto import (
     NerfactoModel,
@@ -53,6 +54,7 @@ from nerfstudio.models.nerfacto import (
     pred_normal_loss,
     scale_gradients_by_distance_squared,
 )
+from nerfstudio.model_components.losses import distortion_loss, interlevel_loss
 from nerfstudio.utils import writer
 
 try:
@@ -238,7 +240,102 @@ class LookCloserModel(NerfactoModel):
 
         for i in range(self.config.num_proposal_iterations):
             outputs[f"prop_depth_{i}"] = self.renderer_depth(weights=weights_list[i], ray_samples=ray_samples_list[i])
+        outputs["t_vals"] = ray_samples.frustums.starts
         return outputs
+
+    # ------------------------------------------------------------------
+    # Losses and training callbacks
+    # ------------------------------------------------------------------
+    def get_loss_dict(self, outputs, batch, metrics_dict=None):
+        """Compute losses using the Charbonnier reconstruction objective and extras."""
+
+        image = batch["image"].to(self.device)
+        pred_rgb, gt_rgb = self.renderer_rgb.blend_background_for_loss_computation(
+            pred_image=outputs["rgb"], pred_accumulation=outputs["accumulation"], gt_image=image
+        )
+
+        epsilon = 1e-4
+        loss_dict = {}
+        loss_dict["charbonnier_rgb"] = torch.sqrt((pred_rgb - gt_rgb) ** 2 + epsilon).mean()
+
+        if self.training:
+            loss_dict["interlevel_loss"] = self.config.interlevel_loss_mult * interlevel_loss(
+                outputs["weights_list"], outputs["ray_samples_list"]
+            )
+            if metrics_dict is not None and "distortion" in metrics_dict:
+                loss_dict["distortion_loss"] = 0.01 * metrics_dict["distortion"]
+
+            if self.config.predict_normals:
+                loss_dict["orientation_loss"] = self.config.orientation_loss_mult * torch.mean(
+                    outputs["rendered_orientation_loss"]
+                )
+                loss_dict["pred_normal_loss"] = self.config.pred_normal_loss_mult * torch.mean(
+                    outputs["rendered_pred_normal_loss"]
+                )
+
+            # Depth supervision if provided
+            if "sparse_depth" in batch and batch["sparse_depth"] is not None:
+                gt_depth_sparse = batch["sparse_depth"].to(self.device)
+                valid = gt_depth_sparse > 0
+                if valid.any() and self.step < 5000:
+                    diff = outputs["depth"][valid] - gt_depth_sparse[valid]
+                    loss_dict["depth_loss"] = torch.sqrt(diff**2 + epsilon).mean() * 0.001
+
+            # Camera optimizer losses
+            self.camera_optimizer.get_loss_dict(loss_dict)
+
+            # Runtime grid update using available batch metadata
+            self._maybe_update_frequency_grid(outputs, batch)
+
+        return loss_dict
+
+    def get_metrics_dict(self, outputs, batch):
+        metrics_dict = super().get_metrics_dict(outputs, batch)
+        if self.training:
+            metrics_dict["distortion"] = distortion_loss(outputs["weights_list"], outputs["ray_samples_list"])
+        metrics_dict.update(self._boolean_metrics_from_flags())
+        return metrics_dict
+
+    def get_training_callbacks(self, training_callback_attributes):
+        callbacks = super().get_training_callbacks(training_callback_attributes)
+        if self.config.enable_frequency_grid:
+            callbacks.append(
+                TrainingCallback(
+                    where_to_run=[TrainingCallbackLocation.AFTER_TRAIN_ITERATION],
+                    update_every_num_iters=1,
+                    func=lambda step: setattr(self, "step", step),
+                )
+            )
+        return callbacks
+
+    # ------------------------------------------------------------------
+    # Runtime frequency grid updates
+    # ------------------------------------------------------------------
+    def _maybe_update_frequency_grid(self, outputs, batch) -> None:
+        if (
+            not self.config.enable_frequency_grid
+            or not self.config.enable_progressive_image_regression
+            or self.frequency_grid is None
+            or "f2d" not in batch
+            or self.step % 1024 != 0
+        ):
+            return
+
+        f2d_vals = batch["f2d"].to(self.device)
+        depth = outputs.get("depth")
+        if depth is None:
+            return
+        focals = batch.get("focal", None)
+        if focals is None:
+            return
+        rays = batch.get("ray_bundle", None)
+        if rays is None:
+            return
+
+        f3d = f2d_vals * (focals / (depth + 1e-6))
+        levels = self.frequency_grid.freq_to_level(f3d)
+        positions = rays.origins + rays.directions * depth
+        self.frequency_grid.update_max(positions, levels)
 
     def _log_component_status(self) -> None:
         """Log a concise summary of which LookCloser components are active."""
@@ -348,6 +445,11 @@ class FrequencyGridManager:
         level = torch.log(torch.clamp(scalar, min=min_res) / min_res) / math.log(base)
         return torch.clamp(torch.round(level), 0, self.num_levels - 1)
 
+    def freq_to_level_torch(self, scalar: torch.Tensor, min_res: int = 16, max_res: int = 2048) -> torch.Tensor:
+        base = self._get_base(min_res=min_res, max_res=max_res)
+        level = torch.log(torch.clamp(scalar, min=min_res) / min_res) / math.log(base)
+        return torch.clamp(torch.round(level), 0, self.num_levels - 1).long()
+
     def world_to_grid(self, positions: torch.Tensor) -> torch.Tensor:
         aabb_min, aabb_max = self.aabb[0], self.aabb[1]
         normed = (positions - aabb_min) / (aabb_max - aabb_min + 1e-6)
@@ -365,6 +467,43 @@ class FrequencyGridManager:
         idx = self.world_to_grid(positions)
         ix, iy, iz = idx[..., 0], idx[..., 1], idx[..., 2]
         self.grid[ix, iy, iz] = torch.maximum(self.grid[ix, iy, iz], levels.to(self.grid.device).float())
+
+    def initialize_from_sparse(
+        self,
+        sparse_points: Iterable[Tuple[int, torch.Tensor]],
+        image_frequencies: Dict[Tuple[int, int], float],
+        cameras: Dict[int, object],
+    ) -> None:
+        """Populate the grid using sparse SfM points and per-image frequencies."""
+
+        point_freqs: Dict[int, List[float]] = {pid: [] for pid, _ in sparse_points}
+        for (img_id, pt_id), f2d_scalar in image_frequencies.items():
+            if img_id not in cameras:
+                continue
+            cam = cameras[img_id]
+            if pt_id not in point_freqs:
+                point_freqs[pt_id] = []
+            cam_center = getattr(cam, "camera_center", None)
+            if cam_center is None:
+                continue
+            pt_entry = dict(sparse_points).get(pt_id, None)
+            if pt_entry is None:
+                continue
+            dist = torch.linalg.norm(pt_entry - cam_center)
+            f3d = float(f2d_scalar) * float(getattr(cam, "focal_length", 1.0) / (dist + 1e-6))
+            point_freqs[pt_id].append(f3d)
+
+        for pt_id, freqs in point_freqs.items():
+            if not freqs:
+                continue
+            median_f = float(np.median(freqs))
+            level = self.freq_to_level(torch.tensor(median_f))
+            pt_entry = dict(sparse_points).get(pt_id, None)
+            if pt_entry is None:
+                continue
+            idx = self.world_to_grid(pt_entry)
+            ix, iy, iz = idx[..., 0], idx[..., 1], idx[..., 2]
+            self.grid[ix, iy, iz] = torch.maximum(self.grid[ix, iy, iz], level.to(self.grid.device).float())
 
 
 # -----------------------------------------------------------------------------
@@ -494,6 +633,37 @@ def estimate_2d_frequencies(images: List[torch.Tensor]) -> List[torch.Tensor]:
 
 
 # -----------------------------------------------------------------------------
+# Patch registry helpers
+# -----------------------------------------------------------------------------
+
+
+@dataclass
+class PatchSample:
+    img_idx: int
+    uv_center: Tuple[int, int]
+    f2d: float
+
+
+def generate_patch_registry(dense_freq_maps: List[torch.Tensor], patch_size: int = 32) -> List[PatchSample]:
+    registry: List[PatchSample] = []
+    for img_idx, freq_map in enumerate(dense_freq_maps):
+        h, w = freq_map.shape
+        for i in range(h):
+            for j in range(w):
+                registry.append(PatchSample(img_idx=img_idx, uv_center=(i * patch_size, j * patch_size), f2d=float(freq_map[i, j])))
+    return registry
+
+
+def prepare_global_f2d_tensor(image_freq_map: Dict[Tuple[int, int], float], total_pixels: int) -> torch.Tensor:
+    tensor = torch.zeros(total_pixels, dtype=torch.float32)
+    for (img_id, pix_id), freq in image_freq_map.items():
+        idx = img_id * total_pixels + pix_id if total_pixels > 0 else 0
+        if idx < tensor.shape[0]:
+            tensor[idx] = freq
+    return tensor
+
+
+# -----------------------------------------------------------------------------
 # Frequency-aware pixel sampler
 # -----------------------------------------------------------------------------
 
@@ -543,7 +713,13 @@ class FASPixelSampler(Sampler[List[int]]):
 # -----------------------------------------------------------------------------
 
 
-def adaptive_step_march(ray_bundle: RayBundle, freq_grid: FrequencyGridManager, n_min: int = 16, n_max: int = 2048, num_levels: int = 16):
+def adaptive_step_march(
+    ray_bundle: RayBundle,
+    freq_grid: FrequencyGridManager,
+    n_min: int = 16,
+    n_max: int = 2048,
+    num_levels: int = 16,
+):
     rays_o = ray_bundle.origins
     rays_d = ray_bundle.directions
     b_val = math.exp((math.log(n_max) - math.log(n_min)) / (num_levels - 1))
