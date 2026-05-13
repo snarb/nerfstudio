@@ -63,6 +63,8 @@ from nerfstudio.models.vanilla_nerf import NeRFModel, VanillaModelConfig
 from nerfstudio.pipelines.base_pipeline import VanillaPipelineConfig
 from nerfstudio.pipelines.dynamic_batch import DynamicBatchPipelineConfig
 from nerfstudio.plugins.registry import discover_methods
+from nerfstudio.models.lookcloser import LookCloserModelConfig
+from nerfstudio.pipelines.lookcloser_pipeline import LookCloserPipelineConfig
 
 method_configs: Dict[str, Union[TrainerConfig, ExternalMethodDummyTrainerConfig]] = {}
 descriptions = {
@@ -82,7 +84,41 @@ descriptions = {
     "neus-facto": "Implementation of NeuS-Facto. (slow)",
     "splatfacto": "Gaussian Splatting model",
     "splatfacto-big": "Larger version of Splatfacto with higher quality.",
+    "lookcloser": "LookCloser: Frequency-Aware NeRF with Adaptive Ray Marching.",
 }
+
+method_configs["lookcloser"] = TrainerConfig(
+        method_name="lookcloser",
+        steps_per_eval_batch=500,
+        steps_per_save=2000,
+        max_num_iterations=30000,
+        mixed_precision=True,
+        pipeline=LookCloserPipelineConfig(
+            datamanager=VanillaDataManagerConfig(
+                dataparser=NerfstudioDataParserConfig(),
+                train_num_rays_per_batch=4096,
+                eval_num_rays_per_batch=4096,
+            ),
+            model=LookCloserModelConfig(
+                eval_num_rays_per_chunk=1 << 15,
+                # Adjust these to match your hardware/scene requirements
+                enable_adaptive_ray_marching=True,
+                num_frequency_levels=16,
+                grid_resolution=128,
+            ),
+            # Directory name where 'ns-process-lookcloser-freqs' saves maps
+            frequency_map_dir="lookcloser_frequencies",
+            grid_update_interval=1024,
+        ),
+        optimizers={
+            "fields": {
+                "optimizer": AdamOptimizerConfig(lr=1e-2, eps=1e-15),
+                "scheduler": ExponentialDecaySchedulerConfig(lr_final=0.0001, max_steps=30000),
+            },
+        },
+        viewer=ViewerConfig(num_rays_per_chunk=1 << 15),
+        vis="viewer",
+    )
 
 method_configs["nerfacto"] = TrainerConfig(
     method_name="nerfacto",
