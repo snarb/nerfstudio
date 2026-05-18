@@ -38,3 +38,11 @@ Use the following Conda environment:
 ```bash
 conda activate /home/ubuntu/anaconda3/envs/nerfstudio
 ```
+
+## Data
+
+Use following images for preprocessing and overfitting tuning and debugging: 
+
+ /home/ubuntu/repos/look-closer/E004_D014_graded.png  - 6K image for overfitting 
+
+/home/ubuntu/repos/look-closer/E004_D014_HD.jpg - the same image in HD for a fast visual inspection if needed.
