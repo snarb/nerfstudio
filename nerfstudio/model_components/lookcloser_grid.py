@@ -29,12 +29,22 @@ class FrequencyGridManager(nn.Module):
         num_levels: int = 16,
         min_res: float = 16.0,
         max_res: float = 2048.0,
+        enabled: bool = True,
+        fallback_level: float = 0.0,
     ):
         super().__init__()
+        if resolution <= 0:
+            raise ValueError("FrequencyGridManager resolution must be > 0.")
+        if num_levels < 2:
+            raise ValueError("FrequencyGridManager num_levels must be >= 2.")
+        if min_res <= 0 or max_res <= min_res:
+            raise ValueError("Expected 0 < min_res < max_res for FrequencyGridManager.")
         self.resolution = resolution
         self.num_levels = num_levels
         self.min_res = min_res
         self.max_res = max_res
+        self.enabled = bool(enabled)
+        self.fallback_level = float(np.clip(fallback_level, 0, num_levels - 1))
 
         # Store AABB bounds for world-to-grid conversion
         self.aabb_min = scene_box.aabb[0]
@@ -99,6 +109,14 @@ class FrequencyGridManager(nn.Module):
         Returns:
             levels: (N, 1) Frequency levels.
         """
+        if not self.enabled:
+            return torch.full(
+                (positions.shape[0], 1),
+                self.fallback_level,
+                dtype=self.grid.dtype,
+                device=positions.device,
+            )
+
         indices = self.grid_to_indices(positions) # (N, 3)
         levels = self.grid[indices[:, 0], indices[:, 1], indices[:, 2]]
         return levels.unsqueeze(-1)
@@ -109,6 +127,8 @@ class FrequencyGridManager(nn.Module):
         Uses scatter_reduce_ for efficient GPU execution.
         """
         if positions.numel() == 0:
+            return
+        if not self.enabled:
             return
 
         indices = self.grid_to_indices(positions) # (N, 3)
@@ -148,6 +168,9 @@ class FrequencyGridManager(nn.Module):
             cameras: Cameras object.
         """
         device = self.grid.device
+        if not self.enabled:
+            CONSOLE.print("[yellow]LookCloser:[/yellow] Frequency grid disabled; sparse initialization skipped.")
+            return
         sparse_points = sparse_points.to(device)
 
         # Unpack observations
@@ -273,6 +296,8 @@ class FrequencyGridManager(nn.Module):
             focals: (N, 1) Focal lengths.
             patch_f2d: (N, 1) Associated 2D frequency target from input metadata.
         """
+        if not self.enabled:
+            return
         # Calculate f_3D
         # f_3D = f_2D * (focal / depth)
 

@@ -24,6 +24,9 @@ class LookCloserPixelSamplerConfig(PixelSamplerConfig):
     frequency_map_dir: str = "lookcloser_frequencies"
     """Name of the directory inside the data_dir where pre-computed frequency maps are stored."""
 
+    enable_fas: bool = True
+    """Whether to use Frequency-Averaged Sampling; disabled falls back to uniform PixelSampler behavior."""
+
     num_levels: int = 16
     """Number of frequency levels to bucket pixels into."""
 
@@ -45,6 +48,9 @@ class LookCloserPixelSamplerConfig(PixelSamplerConfig):
     patch_size: int = 32
     """Fallback patch size for legacy frequency maps without sidecar metadata."""
 
+    stride: int = 32
+    """Fallback frequency-map stride for legacy maps without sidecar metadata."""
+
 
 class LookCloserPixelSampler(PixelSampler):
     """
@@ -60,6 +66,7 @@ class LookCloserPixelSampler(PixelSampler):
     def __init__(self, config: LookCloserPixelSamplerConfig, **kwargs):
         super().__init__(config, **kwargs)
         self.config = config
+        self.dataset = kwargs.get("dataset")
         self.buckets: Dict[int, Tensor] = {}
         self.samples_per_level: np.ndarray = np.zeros(self.config.num_levels, dtype=int)
 
@@ -69,12 +76,18 @@ class LookCloserPixelSampler(PixelSampler):
         # Standard Nerfstudio architecture doesn't pass dataset to __init__.
         # We will lazy-load on the first call to `sample`.
         self.is_initialized = False
+        self.patch_size = int(self.config.patch_size)
+        self.patch_stride = int(self.config.stride)
 
     def _initialize_buckets(self, dataset: Dataset):
         """
         Loads frequency maps and buckets all pixels.
         This is a heavy operation run once at startup.
         """
+        if not self.config.enable_fas:
+            self.is_initialized = True
+            return
+
         CONSOLE.print("[bold green]LookCloserPixelSampler:[/bold green] Initializing frequency buckets...")
 
         # 1. Locate Data Directory
@@ -117,6 +130,7 @@ class LookCloserPixelSampler(PixelSampler):
         bucket_lists = {l: [] for l in range(self.config.num_levels)}
 
         patch_sizes: List[int] = []
+        patch_strides: List[int] = []
 
         # We must align with the dataset's image indexing.
         for img_idx, image_path in enumerate(dataset.image_filenames):
@@ -133,8 +147,10 @@ class LookCloserPixelSampler(PixelSampler):
             if metadata_path.exists():
                 metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
                 patch_sizes.append(int(metadata.get("patch_size", self.config.patch_size)))
+                patch_strides.append(int(metadata.get("stride", metadata.get("patch_size", self.config.stride))))
             else:
                 patch_sizes.append(int(self.config.patch_size))
+                patch_strides.append(int(self.config.stride))
 
             # The freq map might be patch-wise (smaller resolution).
             # We need pixel-wise buckets.
@@ -206,7 +222,14 @@ class LookCloserPixelSampler(PixelSampler):
                 "LookCloserPixelSampler currently requires one patch_size across all frequency maps, "
                 f"got {unique_patch_sizes}."
             )
+        unique_patch_strides = sorted(set(patch_strides))
+        if len(unique_patch_strides) > 1:
+            raise ValueError(
+                "LookCloserPixelSampler currently requires one stride across all frequency maps, "
+                f"got {unique_patch_strides}."
+            )
         self.patch_size = unique_patch_sizes[0] if unique_patch_sizes else int(self.config.patch_size)
+        self.patch_stride = unique_patch_strides[0] if unique_patch_strides else int(self.config.stride)
 
         # 6. Calculate Sampling Distribution (1:3 Ramp)
         ramp = np.linspace(
@@ -245,6 +268,9 @@ class LookCloserPixelSampler(PixelSampler):
 
         # Since we need the stored buckets, and `sample_method` is stateless regarding the dataset in the base class signature,
         # we must ensure we have initialized.
+        if not self.config.enable_fas:
+            return super().sample_method(batch_size, num_images, image_height, image_width, mask, device)
+
         if not self.is_initialized:
             # We can't initialize here effectively without the dataset object.
             # We'll return random fallback if not initialized (sanity check).
@@ -285,8 +311,8 @@ class LookCloserPixelSampler(PixelSampler):
                 x_off = torch.randint(0, self.patch_size, (n_samples,), device=device)
 
                 img_idx = selected_patches[:, 0]
-                y_coord = selected_patches[:, 1] * self.patch_size + y_off
-                x_coord = selected_patches[:, 2] * self.patch_size + x_off
+                y_coord = selected_patches[:, 1] * self.patch_stride + y_off
+                x_coord = selected_patches[:, 2] * self.patch_stride + x_off
 
                 # Clamp to image bounds
                 y_coord = torch.clamp(y_coord, 0, image_height - 1)
@@ -317,14 +343,19 @@ class LookCloserPixelSampler(PixelSampler):
         # depending on how DataManager calls it.
         # In VanillaDataManager: pixel_sampler.sample(self.train_dataset)
 
+        if not self.config.enable_fas:
+            return super().sample(image_batch)
+
         if not self.is_initialized:
-            if isinstance(image_batch, Dataset):
+            if self.dataset is not None:
+                self._initialize_buckets(self.dataset)
+            elif isinstance(image_batch, Dataset):
                 self._initialize_buckets(image_batch)
             else:
-                # If image_batch is a dict or something else, we might be in trouble for init.
-                # But typically it's the dataset.
-                assert False #ToDo: bad code
-                pass
+                CONSOLE.print(
+                    "[yellow]LookCloserPixelSampler:[/yellow] Dataset unavailable; falling back to uniform sampling."
+                )
+                return super().sample(image_batch)
 
         # Call the standard sample logic which internally calls sample_method
         return super().sample(image_batch)

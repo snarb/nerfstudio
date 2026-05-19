@@ -30,6 +30,9 @@ class LookCloserPipelineConfig(VanillaPipelineConfig):
     frequency_map_dir: str = "lookcloser_frequencies"
     """Name of the directory inside the data folder containing pre-computed frequency maps."""
 
+    enable_frequency_grid: bool = True
+    """Whether to load 2D maps and run periodic 3D frequency-grid updates."""
+
     grid_update_interval: int = 1024
     """Step interval for updating the 3D frequency grid using dense depth rendering."""
 
@@ -60,15 +63,18 @@ class LookCloserPipeline(VanillaPipeline):
             test_mode: Literal["test", "val", "inference"] = "val",
             world_size: int = 1,
             local_rank: int = 0,
-            grad_scaler: Optional[torch.cuda.amp.GradScaler] = None,
+        grad_scaler: Optional[torch.cuda.amp.GradScaler] = None,
     ):
         super().__init__(config, device, test_mode, world_size, local_rank, grad_scaler)
+        if not self.config.enable_frequency_grid and hasattr(self.model, "freq_grid"):
+            self.model.freq_grid.enabled = False
 
         # Cache for frequency maps (Index -> Tensor)
         # We load them lazily or upfront. For simplicity/speed during training, we load upfront.
         self.cached_freq_maps: Dict[int, Tensor] = {}
         self.cached_freq_patch_sizes: Dict[int, int] = {}
-        self._load_frequency_maps()
+        if self.config.enable_frequency_grid:
+            self._load_frequency_maps()
 
     def _load_frequency_maps(self):
         """Loads pre-computed 2D frequency maps from disk into CPU memory."""
@@ -136,6 +142,7 @@ class LookCloserPipeline(VanillaPipeline):
         # "Every 1024 training steps... render depth... update voxel"
         if (
                 self.config.grid_update_interval > 0
+                and self.config.enable_frequency_grid
                 and step % self.config.grid_update_interval == 0
                 and step > 0
         ):

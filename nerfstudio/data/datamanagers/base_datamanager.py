@@ -454,6 +454,7 @@ class VanillaDataManager(DataManager, Generic[TDataset]):
             is_equirectangular=is_equirectangular,
             num_rays_per_batch=num_rays_per_batch,
             fisheye_crop_radius=fisheye_crop_radius,
+            dataset=dataset,
         )
 
     def setup_train(self):

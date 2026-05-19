@@ -1,7 +1,6 @@
 # nerfstudio/scripts/lookcloser_preprocess.py
 
 import json
-import sys
 import csv
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -190,15 +189,14 @@ def load_image_as_tensor(path: Path, device: torch.device) -> torch.Tensor:
     RGBA is composited on white.
     """
     pil = Image.open(path)
+    if pil.mode in ("RGBA", "LA") or (pil.mode == "P" and "transparency" in pil.info):
+        rgba = pil.convert("RGBA")
+        white = Image.new("RGBA", rgba.size, (255, 255, 255, 255))
+        pil = Image.alpha_composite(white, rgba).convert("RGB")
+    else:
+        pil = pil.convert("RGB")
+
     img = TF.to_tensor(pil).permute(1, 2, 0).contiguous()
-
-    if img.shape[-1] == 4:
-        rgb = img[..., :3]
-        alpha = img[..., 3:4]
-        img = rgb * alpha + (1.0 - alpha)
-
-    if img.shape[-1] != 3:
-        img = img[..., :3]
 
     return img.to(device=device, dtype=torch.float32)
 
@@ -687,7 +685,8 @@ class DebugBundle:
 
 def train_progressive_and_estimate_frequency_map(
     image_tensor: torch.Tensor,
-    steps: int,
+    steps: Optional[int],
+    train_steps_per_level: Optional[int],
     batch_size: int,
     lr: float,
     ssim_threshold: float,
@@ -809,11 +808,16 @@ def train_progressive_and_estimate_frequency_map(
 
         model.train()
 
-    # distribute train steps across levels
-    steps = int(steps)
-    per_level = max(1, steps // n_levels)
-    per_level_steps = [per_level] * n_levels
-    per_level_steps[-1] += steps - per_level * n_levels
+    # Distribute train steps across levels. Prefer explicit per-level training so each
+    # frequency band gets enough optimization before SSIM assignment.
+    if train_steps_per_level is not None:
+        per_level_steps = [int(train_steps_per_level)] * n_levels
+        steps = int(train_steps_per_level) * n_levels
+    else:
+        steps = int(steps or 0)
+        per_level = max(1, steps // n_levels)
+        per_level_steps = [per_level] * n_levels
+        per_level_steps[-1] += steps - per_level * n_levels
 
     global_step = 0
 
@@ -852,7 +856,8 @@ def train_progressive_and_estimate_frequency_map(
             f"resolved={resolved_ratio * 100:.1f}%"
         )
 
-        if (level_map >= 0).all():
+        pending_debug = bool(debug_levels and any(lvl > level for lvl in debug_levels))
+        if (level_map >= 0).all() and not pending_debug:
             # Still render missing requested debug levels using current model if needed.
             if debug_levels:
                 for lvl in debug_levels:
@@ -1202,8 +1207,11 @@ class LookCloserPreprocessConfig:
     output_root: Path = Path("lookcloser_debug_outputs")
     """Output root for direct image debug/sweep artifacts."""
 
-    steps_per_image: int = 3000
-    """Total 2D NGP training steps per image."""
+    steps_per_image: Optional[int] = None
+    """Optional legacy total 2D NGP training steps per image. Prefer train_steps_per_level."""
+
+    train_steps_per_level: int = 1000
+    """2D NGP optimization steps per active frequency level."""
 
     train_batch_size: int = 1 << 14
     """Random pixels sampled per training step."""
@@ -1276,6 +1284,66 @@ class LookCloserPreprocessConfig:
     uv_audit_patch_count: int = 10
     """Fixed patch count for GT/max/diff UV audit."""
 
+    sweep_steps_per_level_options: Tuple[int, ...] = (250, 500, 1000)
+    """Sweep values for train_steps_per_level in direct image sweep mode."""
+
+    sweep_ssim_threshold_options: Tuple[float, ...] = (0.90, 0.93, 0.95, 0.97)
+    """Sweep values for SSIM threshold."""
+
+    sweep_patch_size_options: Tuple[int, ...] = (16, 32, 64)
+    """Sweep values for patch size."""
+
+    sweep_max_res_options: Tuple[int, ...] = (2048, 4096)
+    """Sweep values for max hash-grid resolution."""
+
+    def __post_init__(self) -> None:
+        self._validate()
+
+    def _validate(self) -> None:
+        if self.patch_size <= 0:
+            raise ValueError("patch_size must be > 0.")
+        if self.eval_patch_batch_size <= 0:
+            raise ValueError("eval_patch_batch_size must be > 0.")
+        if self.train_batch_size <= 0:
+            raise ValueError("train_batch_size must be > 0.")
+        if self.n_levels < 2:
+            raise ValueError("n_levels must be >= 2.")
+        if self.n_features <= 0:
+            raise ValueError("n_features must be > 0.")
+        if self.min_res <= 0 or self.max_res <= self.min_res:
+            raise ValueError("Expected 0 < min_res < max_res.")
+        if not (0.0 < self.ssim_threshold <= 1.0):
+            raise ValueError("ssim_threshold must be in (0, 1].")
+        if self.steps_per_image is not None and self.steps_per_image <= 0:
+            raise ValueError("steps_per_image must be > 0 when provided.")
+        if self.steps_per_image is None and self.train_steps_per_level <= 0:
+            raise ValueError("train_steps_per_level must be > 0 when steps_per_image is not provided.")
+        if self.ssim_window_size <= 0 or self.ssim_window_size % 2 == 0:
+            raise ValueError("ssim_window_size must be a positive odd integer.")
+        if self.audit_patch_count < 0 or self.uv_audit_patch_count < 0 or self.debug_patch_count < 0:
+            raise ValueError("debug/audit patch counts must be >= 0.")
+        for name, values in {
+            "sweep_steps_per_level_options": self.sweep_steps_per_level_options,
+            "sweep_patch_size_options": self.sweep_patch_size_options,
+            "sweep_max_res_options": self.sweep_max_res_options,
+        }.items():
+            if not values or any(v <= 0 for v in values):
+                raise ValueError(f"{name} must contain positive values.")
+        if not self.sweep_ssim_threshold_options or any(
+            not (0.0 < v <= 1.0) for v in self.sweep_ssim_threshold_options
+        ):
+            raise ValueError("sweep_ssim_threshold_options must contain values in (0, 1].")
+
+    def _legacy_steps_per_level(self) -> Optional[int]:
+        if self.steps_per_image is None:
+            return self.train_steps_per_level
+        return None
+
+    def _total_training_steps(self) -> int:
+        if self.steps_per_image is not None:
+            return int(self.steps_per_image)
+        return int(self.train_steps_per_level) * int(self.n_levels)
+
     def _get_data_dir(self, outputs) -> Path:
         data_dir = getattr(self.dataparser, "data", None)
         if data_dir is not None:
@@ -1298,6 +1366,7 @@ class LookCloserPreprocessConfig:
         model, freq_map, level_map, debug_bundle = train_progressive_and_estimate_frequency_map(
             image_tensor=image_tensor,
             steps=self.steps_per_image,
+            train_steps_per_level=self._legacy_steps_per_level(),
             batch_size=self.train_batch_size,
             lr=self.lr,
             ssim_threshold=self.ssim_threshold,
@@ -1342,7 +1411,7 @@ class LookCloserPreprocessConfig:
                 min_res=self.min_res,
                 max_res=self.max_res,
                 patch_size=self.patch_size,
-                steps=self.steps_per_image,
+                steps=self._total_training_steps(),
                 batch_size=self.train_batch_size,
                 render_full=self.debug_render_full or self.run_mode == "debug-overfit",
                 crop_coords=crop_coords,
@@ -1398,6 +1467,7 @@ class LookCloserPreprocessConfig:
 
         original = {
             "steps_per_image": self.steps_per_image,
+            "train_steps_per_level": self.train_steps_per_level,
             "ssim_threshold": self.ssim_threshold,
             "patch_size": self.patch_size,
             "max_res": self.max_res,
@@ -1405,7 +1475,11 @@ class LookCloserPreprocessConfig:
         }
 
         rows = []
-        phase_a = [(steps, thr, 32, 4096) for steps in [1000, 3000, 6000] for thr in [0.90, 0.93, 0.95, 0.97]]
+        phase_a = [
+            (steps, thr, 32, max(self.sweep_max_res_options))
+            for steps in self.sweep_steps_per_level_options
+            for thr in self.sweep_ssim_threshold_options
+        ]
         best_row = None
 
         try:
@@ -1418,16 +1492,17 @@ class LookCloserPreprocessConfig:
                 if best_row is None or self._sweep_score(row) > self._sweep_score(best_row):
                     best_row = row
 
-            best_steps = int(best_row["steps"]) if best_row is not None else 3000
+            best_steps = int(best_row["train_steps_per_level"]) if best_row is not None else self.train_steps_per_level
             best_threshold = float(best_row["ssim_threshold"]) if best_row is not None else 0.95
-            for patch_size in [16, 32, 64]:
-                for max_res in [2048, 4096]:
+            for patch_size in self.sweep_patch_size_options:
+                for max_res in self.sweep_max_res_options:
                     row = self._run_one_sweep_case(
                         img_path, image, crop_coords, sweep_root, "B", best_steps, best_threshold, patch_size, max_res
                     )
                     rows.append(row)
         finally:
             self.steps_per_image = original["steps_per_image"]
+            self.train_steps_per_level = original["train_steps_per_level"]
             self.ssim_threshold = original["ssim_threshold"]
             self.patch_size = original["patch_size"]
             self.max_res = original["max_res"]
@@ -1436,7 +1511,7 @@ class LookCloserPreprocessConfig:
         fieldnames = [
             "phase",
             "run_dir",
-            "steps",
+            "train_steps_per_level",
             "ssim_threshold",
             "patch_size",
             "max_res",
@@ -1466,7 +1541,8 @@ class LookCloserPreprocessConfig:
         patch_size: int,
         max_res: int,
     ) -> Dict[str, object]:
-        self.steps_per_image = int(steps)
+        self.steps_per_image = None
+        self.train_steps_per_level = int(steps)
         self.ssim_threshold = float(threshold)
         self.patch_size = int(patch_size)
         self.max_res = int(max_res)
@@ -1486,7 +1562,7 @@ class LookCloserPreprocessConfig:
         return {
             "phase": phase,
             "run_dir": str(out_dir),
-            "steps": int(steps),
+            "train_steps_per_level": int(steps),
             "ssim_threshold": float(threshold),
             "patch_size": int(patch_size),
             "max_res": int(max_res),

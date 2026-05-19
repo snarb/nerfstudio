@@ -65,6 +65,7 @@ from nerfstudio.pipelines.dynamic_batch import DynamicBatchPipelineConfig
 from nerfstudio.plugins.registry import discover_methods
 from nerfstudio.models.lookcloser import LookCloserModelConfig
 from nerfstudio.pipelines.lookcloser_pipeline import LookCloserPipelineConfig
+from nerfstudio.lookcloser_pixel_sampler import LookCloserPixelSamplerConfig
 
 method_configs: Dict[str, Union[TrainerConfig, ExternalMethodDummyTrainerConfig]] = {}
 descriptions = {
@@ -98,16 +99,30 @@ method_configs["lookcloser"] = TrainerConfig(
                 dataparser=NerfstudioDataParserConfig(),
                 train_num_rays_per_batch=4096,
                 eval_num_rays_per_batch=4096,
+                pixel_sampler=LookCloserPixelSamplerConfig(
+                    enable_fas=True,
+                    frequency_map_dir="lookcloser_frequencies",
+                    num_levels=16,
+                    min_res=16.0,
+                    max_res=2048.0,
+                    sampling_ramp_start=1.0,
+                    sampling_ramp_end=3.0,
+                    patch_size=32,
+                    stride=32,
+                ),
             ),
             model=LookCloserModelConfig(
                 eval_num_rays_per_chunk=1 << 15,
                 # Adjust these to match your hardware/scene requirements
+                enable_frequency_grid=True,
+                enable_feature_reweighting=True,
                 enable_adaptive_ray_marching=True,
                 num_frequency_levels=16,
                 grid_resolution=128,
             ),
             # Directory name where 'ns-process-lookcloser-freqs' saves maps
             frequency_map_dir="lookcloser_frequencies",
+            enable_frequency_grid=True,
             grid_update_interval=1024,
         ),
         optimizers={

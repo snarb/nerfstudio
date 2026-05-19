@@ -41,6 +41,12 @@ class LookCloserField(Field):
             min_res: int = 16,
             max_res: int = 2048,
             log2_hashmap_size: int = 19,
+            features_per_level: int = 2,
+            hidden_dim: int = 64,
+            geo_num_layers: int = 1,
+            color_num_layers: int = 2,
+            sh_degree: int = 4,
+            enable_feature_reweighting: bool = True,
             spatial_distortion=None,
     ) -> None:
         super().__init__()
@@ -52,6 +58,8 @@ class LookCloserField(Field):
         self.register_buffer("aabb", aabb)
         self.geo_feat_dim = geo_feat_dim
         self.num_levels = num_levels
+        self.features_per_level = features_per_level
+        self.enable_feature_reweighting = enable_feature_reweighting
         self.freq_grid = freq_grid
         self.spatial_distortion = spatial_distortion
 
@@ -68,13 +76,13 @@ class LookCloserField(Field):
             encoding_config={
                 "otype": "HashGrid",
                 "n_levels": num_levels,
-                "n_features_per_level": 2,
+                "n_features_per_level": features_per_level,
                 "log2_hashmap_size": log2_hashmap_size,
                 "base_resolution": min_res,
                 "per_level_scale": per_level_scale,
             },
         )
-        self.n_features = num_levels * 2
+        self.n_features = num_levels * features_per_level
 
         # 2. Geometry MLP (Density Decoder)
         # Input: 32 (features) -> Output: 16 (1 density + 15 geometry features)
@@ -85,8 +93,8 @@ class LookCloserField(Field):
                 "otype": "FullyFusedMLP",
                 "activation": "ReLU",
                 "output_activation": "None",
-                "n_neurons": 64,
-                "n_hidden_layers": 1,
+                "n_neurons": hidden_dim,
+                "n_hidden_layers": geo_num_layers,
             },
         )
 
@@ -96,21 +104,74 @@ class LookCloserField(Field):
             n_input_dims=3,
             encoding_config={
                 "otype": "SphericalHarmonics",
-                "degree": 4,
+                "degree": sh_degree,
             },
         )
+        direction_dim = sh_degree * sh_degree
 
         self.mlp_color = tcnn.Network(
-            n_input_dims=self.geo_feat_dim + 16,
+            n_input_dims=self.geo_feat_dim + direction_dim,
             n_output_dims=3,
             network_config={
                 "otype": "FullyFusedMLP",
                 "activation": "ReLU",
                 "output_activation": "Sigmoid",
-                "n_neurons": 64,
-                "n_hidden_layers": 2,
+                "n_neurons": hidden_dim,
+                "n_hidden_layers": color_num_layers,
             },
         )
+
+    def _normalize_positions(self, positions: Tensor) -> Tuple[Tensor, Tensor, Tuple[int, ...], Tensor]:
+        """Normalizes world positions to the hash-grid unit cube."""
+        world_positions_flat = positions.reshape(-1, 3)
+        if self.spatial_distortion is not None:
+            normalized = self.spatial_distortion(positions)
+            normalized = (normalized + 2.0) / 4.0
+        else:
+            normalized = SceneBox.get_normalized_positions(positions, self.aabb)
+
+        selector = ((normalized > 0.0) & (normalized < 1.0)).all(dim=-1)
+        normalized = normalized * selector[..., None]
+        prefix_shape = normalized.shape[:-1]
+        return normalized.view(-1, 3), selector, prefix_shape, world_positions_flat
+
+    def _encode_with_optional_reweighting(
+        self,
+        normalized_positions_flat: Tensor,
+        query_positions_flat: Tensor,
+        l_grid: Optional[Tensor] = None,
+    ) -> Tensor:
+        features = self.encoding(normalized_positions_flat)
+        if not self.enable_feature_reweighting:
+            return features
+        if l_grid is None:
+            l_grid = self.freq_grid.query(query_positions_flat)
+        weights = self.get_weights(l_grid, batch_size=normalized_positions_flat.shape[0])
+        return features * weights
+
+    def query_points(
+        self,
+        positions: Tensor,
+        directions: Tensor,
+        l_grid: Optional[Tensor] = None,
+    ) -> Tuple[Tensor, Tensor]:
+        """Queries density and RGB for world-space points used by custom ray marchers."""
+        positions_flat, selector, _, query_positions_flat = self._normalize_positions(positions)
+        if l_grid is not None:
+            l_grid = l_grid.reshape(-1, 1)
+        features = self._encode_with_optional_reweighting(
+            positions_flat,
+            query_positions_flat=query_positions_flat,
+            l_grid=l_grid,
+        )
+        h = self.mlp_geo(features)
+        density = F.softplus(h[..., 0:1] + 1.0)
+        density = density * selector.reshape(-1, 1)
+        geo_feat = h[..., 1:]
+
+        d_encoded = self.direction_encoding(directions.reshape(-1, 3))
+        rgb = self.mlp_color(torch.cat([geo_feat, d_encoded], dim=-1))
+        return density, rgb
 
     def get_weights(self, l_grid: Tensor, batch_size: int) -> Tensor:
         """
@@ -160,40 +221,19 @@ class LookCloserField(Field):
 
         final_weights = (mask_keep * 1.0) + (mask_decay * w_factor)
 
-        # Expand to match feature dimensions (2 features per level)
-        # Shape becomes (B, 32)
-        return final_weights.repeat_interleave(2, dim=1)
+        return final_weights.repeat_interleave(self.features_per_level, dim=1)
 
     def get_density(self, ray_samples: RaySamples) -> Tuple[Tensor, Tensor]:
         """
         Computes density and geometry features with frequency-aware re-weighting.
         """
-        if self.spatial_distortion is not None:
-            positions = ray_samples.frustums.get_positions()
-            positions = self.spatial_distortion(positions)
-            positions = (positions + 2.0) / 4.0
-        else:
-            positions = SceneBox.get_normalized_positions(
-                ray_samples.frustums.get_positions(), self.aabb
-            )
+        positions = ray_samples.frustums.get_positions()
+        positions_flat, selector, prefix_shape, query_positions_flat = self._normalize_positions(positions)
 
-        # Clip positions to [0, 1] for tcnn
-        selector = ((positions > 0.0) & (positions < 1.0)).all(dim=-1)
-        positions = positions * selector[..., None]
-
-        prefix_shape = positions.shape[:-1]
-        positions_flat = positions.view(-1, 3)
-
-        # 1. Query Frequency Grid
-        # Get the max frequency level allowed at these positions
-        l_grid = self.freq_grid.query(positions_flat)  # (N, 1)
-
-        # 2. Raw Hash Encoding
-        features = self.encoding(positions_flat)  # (N, 32)
-
-        # 3. Feature Re-weighting
-        weights = self.get_weights(l_grid, batch_size=positions_flat.shape[0])
-        weighted_features = features * weights
+        weighted_features = self._encode_with_optional_reweighting(
+            positions_flat,
+            query_positions_flat=query_positions_flat,
+        )
 
         # 4. Geometry Decoding
         h = self.mlp_geo(weighted_features)

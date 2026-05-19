@@ -35,6 +35,9 @@ class LookCloserModelConfig(ModelConfig):
     _target: Type = field(default_factory=lambda: LookCloserModel)
 
     # Grid parameters
+    enable_frequency_grid: bool = True
+    """Whether to use the 3D frequency grid; disabled runs use fallback_frequency_level."""
+
     grid_resolution: int = 128
     """Resolution of the frequency voxel grid."""
 
@@ -46,6 +49,34 @@ class LookCloserModelConfig(ModelConfig):
 
     max_res: float = 2048.0
     """Maximum resolution (N_max)."""
+
+    fallback_frequency_level: float = 0.0
+    """Frequency level returned when the frequency grid is disabled."""
+
+    # Field / feature re-weighting settings
+    enable_feature_reweighting: bool = True
+    """Whether to apply LookCloser Eq. 6 frequency-aware feature re-weighting."""
+
+    geo_feat_dim: int = 15
+    """Geometry feature dimension emitted by the density MLP."""
+
+    hash_features_per_level: int = 2
+    """Feature channels per hash-grid level."""
+
+    log2_hashmap_size: int = 19
+    """Hash table size exponent for the 3D field hash grid."""
+
+    field_hidden_dim: int = 64
+    """Hidden width for LookCloser field MLPs."""
+
+    geo_num_layers: int = 1
+    """Hidden layer count for the density/geometry MLP."""
+
+    color_num_layers: int = 2
+    """Hidden layer count for the color MLP."""
+
+    sh_degree: int = 4
+    """Spherical harmonics degree passed to tinycudann for view direction encoding."""
 
     # Loss weights
     distortion_loss_mult: float = 0.01
@@ -63,6 +94,18 @@ class LookCloserModelConfig(ModelConfig):
 
     max_steps_per_ray: int = 1024
     """Maximum number of steps per ray for adaptive marching."""
+
+    adaptive_min_step_size: float = 1e-4
+    """Minimum adaptive ray marching step size."""
+
+    adaptive_max_step_size: float = 0.1
+    """Maximum adaptive ray marching step size."""
+
+    transmittance_threshold: float = 1e-4
+    """Ray termination threshold for remaining transmittance."""
+
+    fixed_num_samples_per_ray: int = 256
+    """Number of uniform samples per ray when adaptive ray marching is disabled."""
 
     background_color: Literal["random", "last_sample", "black", "white"] = "random"
     """Background color strategy."""
@@ -83,6 +126,18 @@ class LookCloserModel(Model):
     def populate_modules(self):
         """Set up fields and modules."""
         super().populate_modules()
+        if self.config.num_frequency_levels < 2:
+            raise ValueError("num_frequency_levels must be >= 2.")
+        if self.config.min_res <= 0 or self.config.max_res <= self.config.min_res:
+            raise ValueError("Expected 0 < min_res < max_res.")
+        if self.config.grid_resolution <= 0:
+            raise ValueError("grid_resolution must be > 0.")
+        if self.config.fixed_num_samples_per_ray <= 0:
+            raise ValueError("fixed_num_samples_per_ray must be > 0.")
+        if self.config.adaptive_min_step_size <= 0 or self.config.adaptive_max_step_size <= 0:
+            raise ValueError("adaptive step sizes must be > 0.")
+        if self.config.adaptive_max_step_size < self.config.adaptive_min_step_size:
+            raise ValueError("adaptive_max_step_size must be >= adaptive_min_step_size.")
 
         # 1. Frequency Grid Manager (Persistent State)
         self.freq_grid = FrequencyGridManager(
@@ -91,6 +146,8 @@ class LookCloserModel(Model):
             num_levels=self.config.num_frequency_levels,
             min_res=self.config.min_res,
             max_res=self.config.max_res,
+            enabled=self.config.enable_frequency_grid,
+            fallback_level=self.config.fallback_frequency_level,
         )
 
         # 2. LookCloser Field (Frequency-Aware)
@@ -100,6 +157,14 @@ class LookCloserModel(Model):
             num_levels=self.config.num_frequency_levels,
             min_res=self.config.min_res,
             max_res=self.config.max_res,
+            geo_feat_dim=self.config.geo_feat_dim,
+            log2_hashmap_size=self.config.log2_hashmap_size,
+            features_per_level=self.config.hash_features_per_level,
+            hidden_dim=self.config.field_hidden_dim,
+            geo_num_layers=self.config.geo_num_layers,
+            color_num_layers=self.config.color_num_layers,
+            sh_degree=self.config.sh_degree,
+            enable_feature_reweighting=self.config.enable_feature_reweighting,
         )
 
         # 3. Renderers
@@ -153,8 +218,8 @@ class LookCloserModel(Model):
         # Constants
         N_min = self.config.min_res
         b_val = self.freq_grid.b
-        min_step_size = 1e-4
-        max_step_size = 0.1
+        min_step_size = self.config.adaptive_min_step_size
+        max_step_size = self.config.adaptive_max_step_size
 
         step_iter = 0
 
@@ -211,7 +276,7 @@ class LookCloserModel(Model):
             t_vals[active_mask] += dt
 
             # G. Pruning
-            opaque = transmittance < 1e-4
+            opaque = transmittance < self.config.transmittance_threshold
             out_of_bounds = t_vals > ray_bundle.fars
             newly_finished = (opaque | out_of_bounds).flatten() & active_mask
             active_mask = active_mask & (~newly_finished)
@@ -281,11 +346,85 @@ class LookCloserModel(Model):
             "loss_weights": history_weights
         }
 
+    def fixed_ray_marching(self, ray_bundle: RayBundle) -> Dict[str, torch.Tensor]:
+        """Baseline fixed-step ray marcher used when Adaptive RM is disabled."""
+        rays_o = ray_bundle.origins
+        rays_d = ray_bundle.directions
+        n_rays = rays_o.shape[0]
+        device = rays_o.device
+
+        num_samples = int(self.config.fixed_num_samples_per_ray)
+        if num_samples <= 0:
+            raise ValueError("fixed_num_samples_per_ray must be > 0.")
+
+        nears = ray_bundle.nears
+        fars = ray_bundle.fars
+        span = (fars - nears).clamp(min=1e-6)
+
+        edges = torch.linspace(0.0, 1.0, num_samples + 1, device=device)
+        starts = nears + span * edges[:-1].view(1, num_samples, 1)
+        ends = nears + span * edges[1:].view(1, num_samples, 1)
+        mids = 0.5 * (starts + ends)
+        deltas = ends - starts
+
+        positions = rays_o[:, None, :] + rays_d[:, None, :] * mids
+        directions = rays_d[:, None, :].expand(-1, num_samples, -1)
+
+        density, rgb = self.field.query_points(
+            positions.reshape(-1, 3),
+            directions.reshape(-1, 3),
+        )
+        density = F.relu(density).view(n_rays, num_samples, 1)
+        rgb = rgb.view(n_rays, num_samples, 3)
+
+        alpha = 1.0 - torch.exp(-density * deltas)
+        trans = torch.cumprod(
+            torch.cat([torch.ones((n_rays, 1, 1), device=device), 1.0 - alpha + 1e-10], dim=1),
+            dim=1,
+        )[:, :-1]
+        weights = alpha * trans
+
+        acc_rgb = torch.sum(weights * rgb, dim=1)
+        acc_depth = torch.sum(weights * mids, dim=1)
+        acc_weights = torch.sum(weights, dim=1)
+        transmittance = 1.0 - acc_weights
+
+        if self.renderer_rgb.background_color == "white":
+            acc_rgb = acc_rgb + transmittance
+        elif self.renderer_rgb.background_color == "random":
+            acc_rgb = acc_rgb + transmittance * torch.rand_like(acc_rgb)
+
+        norm_starts = edges[:-1].view(1, num_samples, 1).expand(n_rays, -1, -1)
+        norm_ends = edges[1:].view(1, num_samples, 1).expand(n_rays, -1, -1)
+        dummy_dirs = torch.zeros((n_rays, num_samples, 3), device=device)
+        dummy_origins = torch.zeros((n_rays, num_samples, 3), device=device)
+
+        loss_ray_samples = RaySamples(
+            frustums=Frustums(
+                origins=dummy_origins,
+                directions=dummy_dirs,
+                starts=norm_starts,
+                ends=norm_ends,
+                pixel_area=torch.zeros_like(norm_starts),
+            ),
+            camera_indices=torch.zeros_like(norm_starts, dtype=torch.long),
+            deltas=norm_ends - norm_starts,
+            spacing_starts=norm_starts,
+            spacing_ends=norm_ends,
+        )
+
+        return {
+            "rgb": acc_rgb,
+            "depth": acc_depth / (acc_weights + 1e-6),
+            "accumulation": acc_weights,
+            "loss_ray_samples": loss_ray_samples,
+            "loss_weights": weights,
+        }
+
     def get_outputs(self, ray_bundle: RayBundle) -> Dict[str, torch.Tensor]:
         if self.config.enable_adaptive_ray_marching:
             return self.adaptive_ray_marching(ray_bundle)
-        else:
-            raise NotImplementedError("Only adaptive ray marching is supported.")
+        return self.fixed_ray_marching(ray_bundle)
 
     def get_metrics_dict(self, outputs, batch):
         metrics_dict = {}
