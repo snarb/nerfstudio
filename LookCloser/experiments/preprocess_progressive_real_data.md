@@ -23,22 +23,24 @@ conda run -p /home/ubuntu/anaconda3/envs/nerfstudio python ../nerfstudio/scripts
 
 | Crop | L0 | L2 | L4 | L8 | L12 | L15 | Non-empty levels | Min frac | Max frac |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| HD preview | 0.402 | 0.508 | 0.650 | 0.883 | 0.973 | 0.984 | 10 | 0.008 | 0.000 |
-| 6K source | 0.684 | 0.729 | 0.760 | 0.907 | 0.981 | 0.985 | 4 | 0.000 | 0.000 |
+| HD preview | 0.402 | 0.493 | 0.672 | 0.891 | 0.972 | 0.985 | 8 | 0.000 | 0.000 |
+| 6K source | 0.685 | 0.728 | 0.756 | 0.909 | 0.982 | 0.986 | 4 | 0.000 | 0.000 |
 
 Artifacts:
 
 - HD patch levels: [patch_mosaic.png](preprocess_progressive_real_data_artifacts/hd_crop/overfit_hd/patch_mosaic.png)
-- HD frequency overlay: [freq_overlay.png](preprocess_progressive_real_data_artifacts/hd_crop/overfit_hd/freq_overlay.png)
+- HD level heatmap: [level_heatmap.png](preprocess_progressive_real_data_artifacts/hd_crop/overfit_hd/level_heatmap.png), [level_overlay.png](preprocess_progressive_real_data_artifacts/hd_crop/overfit_hd/level_overlay.png), [legend](preprocess_progressive_real_data_artifacts/hd_crop/overfit_hd/level_heatmap_legend.png), [L12+ mask](preprocess_progressive_real_data_artifacts/hd_crop/overfit_hd/high_frequency_mask_L12_plus.png)
 - HD patch audits: [low](preprocess_progressive_real_data_artifacts/hd_crop/overfit_hd/patch_audit/low_freq_patches.png), [high](preprocess_progressive_real_data_artifacts/hd_crop/overfit_hd/patch_audit/high_freq_patches.png), [random](preprocess_progressive_real_data_artifacts/hd_crop/overfit_hd/patch_audit/random_freq_patches.png)
 - 6K patch levels: [patch_mosaic.png](preprocess_progressive_real_data_artifacts/6k_crop/overfit_hd/patch_mosaic.png)
-- 6K frequency overlay: [freq_overlay.png](preprocess_progressive_real_data_artifacts/6k_crop/overfit_hd/freq_overlay.png)
+- 6K level heatmap: [level_heatmap.png](preprocess_progressive_real_data_artifacts/6k_crop/overfit_hd/level_heatmap.png), [level_overlay.png](preprocess_progressive_real_data_artifacts/6k_crop/overfit_hd/level_overlay.png), [legend](preprocess_progressive_real_data_artifacts/6k_crop/overfit_hd/level_heatmap_legend.png), [L12+ mask](preprocess_progressive_real_data_artifacts/6k_crop/overfit_hd/high_frequency_mask_L12_plus.png)
 - 6K patch audits: [low](preprocess_progressive_real_data_artifacts/6k_crop/overfit_hd/patch_audit/low_freq_patches.png), [high](preprocess_progressive_real_data_artifacts/6k_crop/overfit_hd/patch_audit/high_freq_patches.png), [random](preprocess_progressive_real_data_artifacts/6k_crop/overfit_hd/patch_audit/random_freq_patches.png)
 - Raw stats: [HD stats.json](preprocess_progressive_real_data_artifacts/hd_crop/overfit_hd/stats.json), [6K stats.json](preprocess_progressive_real_data_artifacts/6k_crop/overfit_hd/stats.json)
 
 ## Insights
 
 The progressive logic now runs on the real images. Mean SSIM increases with active level for both crops, and the mosaics visually progress from low-frequency reconstructions at L0/L2 to detailed reconstructions at L12/L15.
+
+The useful heatmap diagnostic is the assigned-level heatmap, not scalar-resolution normalization. The old scalar-resolution color scale hid most L10-L12 patches because the HashGrid schedule is exponential. The new `level_heatmap.png` normalizes directly over levels `0..15`, so yellow/orange patches are visibly higher frequency than blue/green patches. These maps are still patch-level complexity maps, not pixel-level edge maps.
 
 The assignment path uses unresolved-only patches, so a patch keeps the first level that crosses the SSIM threshold instead of being overwritten by later levels. `render_masked` is used in training and evaluation, avoiding the invalid full-level-training plus inference-only-mask test.
 

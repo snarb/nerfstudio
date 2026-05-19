@@ -398,6 +398,48 @@ def colorize_freq_map(freq_map: torch.Tensor, min_res: float, max_res: float) ->
     return Image.fromarray(to_uint8_np(rgb))
 
 
+def colorize_level_map(level_map: torch.Tensor, n_levels: int) -> Image.Image:
+    """Blue-to-red heatmap normalized by discrete assigned frequency level."""
+    levels = level_map.detach().cpu().float().numpy()
+    norm = levels / max(float(n_levels - 1), 1.0)
+    norm = np.clip(norm, 0.0, 1.0)
+
+    # Blue -> cyan -> yellow -> red. This makes mid/high levels visibly distinct,
+    # unlike scalar resolution normalization where exponential schedules hide L10-L12.
+    stops = np.array(
+        [
+            [35, 42, 200],
+            [36, 160, 230],
+            [250, 220, 60],
+            [220, 40, 30],
+        ],
+        dtype=np.float32,
+    ) / 255.0
+    x = norm * (len(stops) - 1)
+    idx0 = np.floor(x).astype(np.int64)
+    idx1 = np.clip(idx0 + 1, 0, len(stops) - 1)
+    t = (x - idx0)[..., None]
+    rgb = stops[idx0] * (1.0 - t) + stops[idx1] * t
+    return Image.fromarray(to_uint8_np(rgb))
+
+
+def make_level_legend(n_levels: int, out_path: Path) -> None:
+    cell_w = 32
+    label_h = 22
+    bar_h = 24
+    width = cell_w * n_levels
+    height = bar_h + label_h
+    levels = torch.arange(n_levels, dtype=torch.float32).view(1, n_levels)
+    legend = colorize_level_map(levels, n_levels).resize((width, bar_h), resample=Image.Resampling.NEAREST)
+    canvas = Image.new("RGB", (width, height), color=(255, 255, 255))
+    canvas.paste(legend, (0, 0))
+    draw = ImageDraw.Draw(canvas)
+    for lvl in range(n_levels):
+        x = lvl * cell_w
+        draw.text((x + 4, bar_h + 4), str(lvl), fill=(0, 0, 0))
+    canvas.save(out_path)
+
+
 def upsample_heatmap_to_image(
     heatmap: Image.Image,
     image_h: int,
@@ -409,24 +451,46 @@ def upsample_heatmap_to_image(
 def save_freq_overlay(
     image: torch.Tensor,
     freq_map: torch.Tensor,
+    level_map: torch.Tensor,
     out_dir: Path,
     min_res: float,
     max_res: float,
+    n_levels: int,
+    high_frequency_level: int = 12,
 ) -> None:
     h, w, _ = image.shape
 
     img_pil = Image.fromarray(to_uint8_np(image.detach().cpu().numpy()))
-    heat_small = colorize_freq_map(freq_map, min_res=min_res, max_res=max_res)
-    heat_big = upsample_heatmap_to_image(heat_small, h, w)
+    scalar_heat_small = colorize_freq_map(freq_map, min_res=min_res, max_res=max_res)
+    scalar_heat_big = upsample_heatmap_to_image(scalar_heat_small, h, w)
 
-    heat_small.save(out_dir / "freq_heatmap_patch_grid.png")
-    heat_big.save(out_dir / "freq_heatmap_fullres.png")
+    level_heat_small = colorize_level_map(level_map, n_levels=n_levels)
+    level_heat_big = upsample_heatmap_to_image(level_heat_small, h, w)
 
-    overlay = Image.blend(img_pil.convert("RGB"), heat_big.convert("RGB"), alpha=0.45)
+    level_heat_small.save(out_dir / "level_heatmap_patch_grid.png")
+    level_heat_big.save(out_dir / "level_heatmap.png")
+    make_level_legend(n_levels, out_dir / "level_heatmap_legend.png")
+
+    overlay = Image.blend(img_pil.convert("RGB"), level_heat_big.convert("RGB"), alpha=0.45)
+    overlay.save(out_dir / "level_overlay.png")
+
+    threshold = int(np.clip(high_frequency_level, 0, n_levels - 1))
+    high_mask_small = (level_map.detach().cpu().long() >= threshold).float()
+    high_mask_big = upsample_heatmap_to_image(
+        Image.fromarray(to_uint8_np(high_mask_small.numpy())),
+        h,
+        w,
+    )
+    high_mask_big.save(out_dir / f"high_frequency_mask_L{threshold}_plus.png")
+
+    # Compatibility names now point to the level-based diagnostic.
+    level_heat_small.save(out_dir / "freq_heatmap_patch_grid.png")
+    level_heat_big.save(out_dir / "freq_heatmap_fullres.png")
+    level_heat_big.save(out_dir / "freq_heatmap.png")
     overlay.save(out_dir / "freq_overlay.png")
 
-    # Names requested by the focused preprocessing debug workflow.
-    heat_big.save(out_dir / "freq_heatmap.png")
+    scalar_heat_small.save(out_dir / "scalar_resolution_heatmap_patch_grid.png")
+    scalar_heat_big.save(out_dir / "scalar_resolution_heatmap.png")
 
 
 def save_freq_histogram(level_map: torch.Tensor, n_levels: int, out_path: Path) -> None:
@@ -1106,9 +1170,11 @@ def save_debug_artifacts(
     save_freq_overlay(
         image_tensor,
         freq_map,
+        level_map,
         out_dir,
         min_res=float(min_res),
         max_res=float(max_res),
+        n_levels=model.n_levels,
     )
     save_freq_histogram(level_map, model.n_levels, out_dir / "freq_histogram.png")
 
