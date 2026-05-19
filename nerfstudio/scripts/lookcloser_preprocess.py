@@ -279,13 +279,26 @@ def render_full_image(
         for start in range(0, uv.shape[0], chunk):
             outs.append(model.render_masked(uv[start : start + chunk], max_active_level=level))
 
-    return torch.cat(outs, dim=0).view(h, w, 3)
+    return torch.cat(outs, dim=0).view(h, w, 3).float()
 
 
 def psnr_from_mse(mse: float) -> float:
     if mse <= 0:
         return 99.0
     return float(10.0 * np.log10(1.0 / mse))
+
+
+def get_scene_size_from_scene_box(scene_box) -> Optional[float]:
+    """Returns the longest AABB side for LookCloser's max_res=2048*scene_size baseline."""
+    aabb = getattr(scene_box, "aabb", None)
+    if aabb is None:
+        return None
+    if torch.is_tensor(aabb):
+        size = torch.max(aabb[1] - aabb[0]).item()
+    else:
+        arr = np.asarray(aabb)
+        size = float(np.max(arr[1] - arr[0]))
+    return float(size)
 
 
 # ============================================================
@@ -515,7 +528,7 @@ def render_patches_nchw(
     with torch.no_grad():
         pred_flat = model.render_masked(uv, max_active_level=level)
     b = xs.shape[0]
-    return pred_flat.view(b, patch_size, patch_size, 3).permute(0, 3, 1, 2).contiguous()
+    return pred_flat.view(b, patch_size, patch_size, 3).permute(0, 3, 1, 2).contiguous().float()
 
 
 def make_patch_audit_mosaic(
@@ -771,8 +784,8 @@ def train_progressive_and_estimate_frequency_map(
         with torch.no_grad():
             pred_flat = model.render_masked(uv, max_active_level=level)
             b = len(debug_positions)
-            pred = pred_flat.view(b, patch_size, patch_size, 3).permute(0, 3, 1, 2).contiguous()
-            scores = compute_ssim(gt, pred, window_size=ssim_window_size, size_average=False)
+            pred = pred_flat.view(b, patch_size, patch_size, 3).permute(0, 3, 1, 2).contiguous().float()
+            scores = compute_ssim(gt.float(), pred, window_size=ssim_window_size, size_average=False)
 
         debug_patch_gt = gt.detach().cpu()
         pred_by_level[level] = pred.detach().cpu()
@@ -797,9 +810,9 @@ def train_progressive_and_estimate_frequency_map(
 
                 pred_flat = model.render_masked(uv, max_active_level=level)
                 b = idxs.shape[0]
-                pred = pred_flat.view(b, patch_size, patch_size, 3).permute(0, 3, 1, 2).contiguous()
+                pred = pred_flat.view(b, patch_size, patch_size, 3).permute(0, 3, 1, 2).contiguous().float()
 
-                scores = compute_ssim(gt, pred, window_size=ssim_window_size, size_average=False)
+                scores = compute_ssim(gt.float(), pred, window_size=ssim_window_size, size_average=False)
                 ok = scores >= float(ssim_threshold)
 
                 if ok.any():
@@ -821,6 +834,9 @@ def train_progressive_and_estimate_frequency_map(
 
     global_step = 0
 
+    # Train and evaluate each checkpoint with the same active prefix of HashGrid
+    # levels. Full-level training followed by inference-only masking would not
+    # measure the minimum level that can actually learn the patch.
     model.train()
     for level in range(n_levels):
         for _ in range(per_level_steps[level]):
@@ -840,6 +856,7 @@ def train_progressive_and_estimate_frequency_map(
 
             optimizer.zero_grad(set_to_none=True)
             pred = model.render_masked(uv, max_active_level=level)
+            target = target.to(dtype=pred.dtype)
             loss = F.mse_loss(pred, target)
             loss.backward()
             optimizer.step()
@@ -1070,6 +1087,7 @@ def save_debug_artifacts(
     out_dir: Path,
     min_res: int,
     max_res: int,
+    log2_hashmap_size: int,
     patch_size: int,
     steps: int,
     batch_size: int,
@@ -1135,7 +1153,7 @@ def save_debug_artifacts(
         max_res=max_res,
         n_levels=model.n_levels,
         n_features=model.n_features,
-        log2_hashmap_size=None,
+        log2_hashmap_size=log2_hashmap_size,
     )
 
     save_patch_audit_artifacts(
@@ -1231,8 +1249,16 @@ class LookCloserPreprocessConfig:
     n_levels: int = 16
     n_features: int = 2
     min_res: int = 16
-    max_res: int = 2048
-    log2_hashmap_size: int = 19
+    max_res: Optional[int] = None
+    """Override maximum HashGrid resolution. If unset, uses max_res_base * scene_size."""
+
+    max_res_base: int = 2048
+    """Baseline HashGrid max resolution multiplier."""
+
+    scene_size: Optional[float] = None
+    """Scene size for direct image runs. Dataset runs infer this from the dataparser scene box."""
+
+    log2_hashmap_size: int = 23
 
     ssim_window_size: int = 11
 
@@ -1310,8 +1336,14 @@ class LookCloserPreprocessConfig:
             raise ValueError("n_levels must be >= 2.")
         if self.n_features <= 0:
             raise ValueError("n_features must be > 0.")
-        if self.min_res <= 0 or self.max_res <= self.min_res:
-            raise ValueError("Expected 0 < min_res < max_res.")
+        if self.min_res <= 0:
+            raise ValueError("min_res must be > 0.")
+        if self.max_res is not None and self.max_res <= self.min_res:
+            raise ValueError("Expected max_res > min_res.")
+        if self.max_res_base <= 0:
+            raise ValueError("max_res_base must be > 0.")
+        if self.scene_size is not None and self.scene_size <= 0:
+            raise ValueError("scene_size must be > 0 when provided.")
         if not (0.0 < self.ssim_threshold <= 1.0):
             raise ValueError("ssim_threshold must be in (0, 1].")
         if self.steps_per_image is not None and self.steps_per_image <= 0:
@@ -1344,6 +1376,12 @@ class LookCloserPreprocessConfig:
             return int(self.steps_per_image)
         return int(self.train_steps_per_level) * int(self.n_levels)
 
+    def _effective_max_res(self, scene_size: Optional[float]) -> int:
+        if self.max_res is not None:
+            return int(self.max_res)
+        effective_scene_size = float(scene_size if scene_size is not None else self.scene_size if self.scene_size is not None else 1.0)
+        return int(round(float(self.max_res_base) * effective_scene_size))
+
     def _get_data_dir(self, outputs) -> Path:
         data_dir = getattr(self.dataparser, "data", None)
         if data_dir is not None:
@@ -1360,8 +1398,10 @@ class LookCloserPreprocessConfig:
         debug_out_dir: Optional[Path],
         crop_coords: Optional[Tuple[int, int, int, int]] = None,
         patch_audit_out_dir: Optional[Path] = None,
+        scene_size: Optional[float] = None,
     ) -> None:
         debug_levels = parse_debug_levels(self.debug_levels, self.n_levels)
+        max_res = self._effective_max_res(scene_size)
 
         model, freq_map, level_map, debug_bundle = train_progressive_and_estimate_frequency_map(
             image_tensor=image_tensor,
@@ -1375,7 +1415,7 @@ class LookCloserPreprocessConfig:
             n_levels=self.n_levels,
             n_features=self.n_features,
             min_res=self.min_res,
-            max_res=self.max_res,
+            max_res=max_res,
             log2_hashmap_size=self.log2_hashmap_size,
             ssim_window_size=self.ssim_window_size,
             debug_levels=debug_levels if debug_out_dir is not None else None,
@@ -1393,7 +1433,7 @@ class LookCloserPreprocessConfig:
                 patch_size=self.patch_size,
                 stride=self.patch_size,
                 min_res=self.min_res,
-                max_res=self.max_res,
+                max_res=max_res,
                 n_levels=self.n_levels,
                 n_features=self.n_features,
                 log2_hashmap_size=self.log2_hashmap_size,
@@ -1409,7 +1449,8 @@ class LookCloserPreprocessConfig:
                 debug_bundle=debug_bundle,
                 out_dir=debug_out_dir,
                 min_res=self.min_res,
-                max_res=self.max_res,
+                max_res=max_res,
+                log2_hashmap_size=self.log2_hashmap_size,
                 patch_size=self.patch_size,
                 steps=self._total_training_steps(),
                 batch_size=self.train_batch_size,
@@ -1457,6 +1498,7 @@ class LookCloserPreprocessConfig:
             debug_out_dir=out_dir,
             crop_coords=crop_coords,
             patch_audit_out_dir=self.output_root / "patch_audit" if self.run_mode == "preprocess" else None,
+            scene_size=self.scene_size,
         )
 
     def _run_sweep(self, device: torch.device) -> None:
@@ -1555,6 +1597,7 @@ class LookCloserPreprocessConfig:
             save_freq_path=None,
             debug_out_dir=out_dir,
             crop_coords=crop_coords,
+            scene_size=self.scene_size,
         )
 
         stats_path = out_dir / "stats.json"
@@ -1599,6 +1642,9 @@ class LookCloserPreprocessConfig:
 
         dataparser = self.dataparser.setup()
         outputs = dataparser.get_dataparser_outputs(split="train")
+        scene_size = self.scene_size
+        if scene_size is None:
+            scene_size = get_scene_size_from_scene_box(getattr(outputs, "scene_box", None))
 
         data_dir = self._get_data_dir(outputs)
         output_dir = data_dir / self.output_name
@@ -1627,6 +1673,7 @@ class LookCloserPreprocessConfig:
                 save_freq_path=None,
                 debug_out_dir=debug_out_dir,
                 crop_coords=crop_coords,
+                scene_size=scene_size,
             )
 
             CONSOLE.print("[bold green]Debug-overfit complete.[/bold green]")
@@ -1657,6 +1704,7 @@ class LookCloserPreprocessConfig:
                 image_tensor=image,
                 save_freq_path=save_path,
                 debug_out_dir=debug_out_dir,
+                scene_size=scene_size,
             )
 
             del image

@@ -34,7 +34,7 @@ class LookCloserPixelSamplerConfig(PixelSamplerConfig):
     """Minimum resolution used during pre-processing (base of geometric progression)."""
 
     max_res: float = 2048.0
-    """Maximum resolution used during pre-processing."""
+    """Fallback maximum resolution for legacy maps without preprocessing metadata."""
 
     sampling_ramp_start: float = 1.0
     """Start of the linear probability ramp for sampling."""
@@ -122,10 +122,7 @@ class LookCloserPixelSampler(PixelSampler):
                 f"near {data_dir}. Please run the preprocessing script first."
             )
 
-        # 2. Geometric Progression Constants
-        b = np.exp((np.log(self.config.max_res) - np.log(self.config.min_res)) / (self.config.num_levels - 1))
-
-        # 3. Iterate and Bucket
+        # 2. Iterate and Bucket
         # We use temporary lists to hold indices, then stack to Tensor to save memory.
         bucket_lists = {l: [] for l in range(self.config.num_levels)}
 
@@ -144,10 +141,16 @@ class LookCloserPixelSampler(PixelSampler):
             f_map = torch.load(freq_file, map_location="cpu")
             H_map, W_map = f_map.shape
             metadata_path = freq_file.with_suffix(".json")
+            min_res = float(self.config.min_res)
+            max_res = float(self.config.max_res)
+            num_levels = int(self.config.num_levels)
             if metadata_path.exists():
                 metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
                 patch_sizes.append(int(metadata.get("patch_size", self.config.patch_size)))
                 patch_strides.append(int(metadata.get("stride", metadata.get("patch_size", self.config.stride))))
+                min_res = float(metadata.get("min_res", min_res))
+                max_res = float(metadata.get("max_res", max_res))
+                num_levels = int(metadata.get("n_levels", num_levels))
             else:
                 patch_sizes.append(int(self.config.patch_size))
                 patch_strides.append(int(self.config.stride))
@@ -174,7 +177,8 @@ class LookCloserPixelSampler(PixelSampler):
 
             # Compute levels for the map
             # l = log_b(f / min_res)
-            levels_map = torch.log(f_map / self.config.min_res) / np.log(b)
+            b = np.exp((np.log(max_res) - np.log(min_res)) / (num_levels - 1))
+            levels_map = torch.log(f_map / min_res) / np.log(b)
             levels_map = torch.clamp(torch.round(levels_map), 0, self.config.num_levels - 1).long()
 
             # Indices of the map

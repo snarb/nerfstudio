@@ -47,8 +47,11 @@ class LookCloserModelConfig(ModelConfig):
     min_res: float = 16.0
     """Minimum resolution (N_min)."""
 
-    max_res: float = 2048.0
-    """Maximum resolution (N_max)."""
+    max_res: Optional[float] = None
+    """Maximum resolution (N_max). If unset, uses max_res_base * scene_size."""
+
+    max_res_base: float = 2048.0
+    """Per-scene-size maximum hash-grid resolution multiplier."""
 
     fallback_frequency_level: float = 0.0
     """Frequency level returned when the frequency grid is disabled."""
@@ -63,7 +66,7 @@ class LookCloserModelConfig(ModelConfig):
     hash_features_per_level: int = 2
     """Feature channels per hash-grid level."""
 
-    log2_hashmap_size: int = 19
+    log2_hashmap_size: int = 23
     """Hash table size exponent for the 3D field hash grid."""
 
     field_hidden_dim: int = 64
@@ -128,7 +131,9 @@ class LookCloserModel(Model):
         super().populate_modules()
         if self.config.num_frequency_levels < 2:
             raise ValueError("num_frequency_levels must be >= 2.")
-        if self.config.min_res <= 0 or self.config.max_res <= self.config.min_res:
+        scene_size = float(torch.max(self.scene_box.aabb[1] - self.scene_box.aabb[0]).item())
+        max_res = float(self.config.max_res) if self.config.max_res is not None else self.config.max_res_base * scene_size
+        if self.config.min_res <= 0 or max_res <= self.config.min_res:
             raise ValueError("Expected 0 < min_res < max_res.")
         if self.config.grid_resolution <= 0:
             raise ValueError("grid_resolution must be > 0.")
@@ -145,7 +150,7 @@ class LookCloserModel(Model):
             resolution=self.config.grid_resolution,
             num_levels=self.config.num_frequency_levels,
             min_res=self.config.min_res,
-            max_res=self.config.max_res,
+            max_res=max_res,
             enabled=self.config.enable_frequency_grid,
             fallback_level=self.config.fallback_frequency_level,
         )
@@ -156,7 +161,7 @@ class LookCloserModel(Model):
             freq_grid=self.freq_grid,
             num_levels=self.config.num_frequency_levels,
             min_res=self.config.min_res,
-            max_res=self.config.max_res,
+            max_res=max_res,
             geo_feat_dim=self.config.geo_feat_dim,
             log2_hashmap_size=self.config.log2_hashmap_size,
             features_per_level=self.config.hash_features_per_level,

@@ -40,7 +40,7 @@ class LookCloserField(Field):
             num_levels: int = 16,
             min_res: int = 16,
             max_res: int = 2048,
-            log2_hashmap_size: int = 19,
+            log2_hashmap_size: int = 23,
             features_per_level: int = 2,
             hidden_dim: int = 64,
             geo_num_layers: int = 1,

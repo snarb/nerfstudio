@@ -22,6 +22,9 @@ Recent changes are scoped to validating 2D frequency-map preprocessing, not the 
 - Added `sweep` mode for the minimal hyperparameter sweep over steps, SSIM threshold, patch size, and max resolution. Results are summarized in `sweep_summary.csv`.
 - Frequency maps still store scalar resolution values, but preprocessing now writes sidecar JSON metadata containing `patch_size`, `stride`, `min_res`, `max_res`, `n_levels`, and the level-resolution schedule.
 - `lookcloser_pixel_sampler.py` and `lookcloser_pipeline.py` now read this metadata when available, avoiding hidden `patch_size=32` assumptions for new maps.
+- Progressive 2D preprocessing trains and evaluates each HashGrid prefix with the same `render_masked(..., level)` path, and casts tiny-cuda-nn half outputs safely for training loss and SSIM/debug artifacts.
+- Baseline HashGrid defaults follow the paper setup: 16 levels (`0..15`), 2 features per level, `min_res=16`, `max_res=2048 * scene_size`, and `log2_hashmap_size=23`. The LookCloser model infers `scene_size` from the longest AABB side; preprocessing infers it from the dataparser scene box for dataset runs and accepts `--scene-size` for direct image debugging.
+- Frequency-averaged sampling buckets scalar frequency maps using the per-map metadata `min_res/max_res/n_levels` when present, so maps generated with scene-size-scaled `max_res` are not decoded with stale fallback constants.
 
 ## Configurable LookCloser modules
 
