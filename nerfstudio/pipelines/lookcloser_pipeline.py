@@ -5,6 +5,7 @@ Extends VanillaPipeline to handle periodic "Side-Channel" updates of the frequen
 
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, List, Literal, Optional, Type, Union
@@ -35,6 +36,9 @@ class LookCloserPipelineConfig(VanillaPipelineConfig):
     grid_update_batch_size: int = 2048
     """Number of rays to sample for the grid update step."""
 
+    frequency_patch_size: int = 32
+    """Fallback patch size for legacy frequency maps without sidecar metadata."""
+
 
 class LookCloserPipeline(VanillaPipeline):
     """
@@ -63,6 +67,7 @@ class LookCloserPipeline(VanillaPipeline):
         # Cache for frequency maps (Index -> Tensor)
         # We load them lazily or upfront. For simplicity/speed during training, we load upfront.
         self.cached_freq_maps: Dict[int, Tensor] = {}
+        self.cached_freq_patch_sizes: Dict[int, int] = {}
         self._load_frequency_maps()
 
     def _load_frequency_maps(self):
@@ -107,6 +112,14 @@ class LookCloserPipeline(VanillaPipeline):
                 if map_path.exists():
                     # Load to CPU to save VRAM
                     self.cached_freq_maps[idx] = torch.load(map_path, map_location="cpu")
+                    metadata_path = map_path.with_suffix(".json")
+                    if metadata_path.exists():
+                        metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+                        self.cached_freq_patch_sizes[idx] = int(
+                            metadata.get("patch_size", self.config.frequency_patch_size)
+                        )
+                    else:
+                        self.cached_freq_patch_sizes[idx] = int(self.config.frequency_patch_size)
                     count += 1
 
         CONSOLE.print(f"LookCloserPipeline: Loaded {count} frequency maps.")
@@ -178,12 +191,9 @@ class LookCloserPipeline(VanillaPipeline):
             img_idx = rand_img_indices[i].item()
             y, x = rand_y[i].item(), rand_x[i].item()
 
-            # The freq map is subsampled (stride=32 usually).
+            # The freq map is patch-wise. Prefer preprocessing metadata over legacy fallback.
             # We must convert pixel coordinates to map coordinates.
-            # Assuming standard stride from preprocessing (32).
-            # Ideally, we should store metadata about stride.
-            # For this implementation, we assume stride=32 based on the provided script.
-            stride = 32
+            stride = self.cached_freq_patch_sizes.get(img_idx, int(self.config.frequency_patch_size))
             map_y = min(y // stride, self.cached_freq_maps[img_idx].shape[0] - 1)
             map_x = min(x // stride, self.cached_freq_maps[img_idx].shape[1] - 1)
 

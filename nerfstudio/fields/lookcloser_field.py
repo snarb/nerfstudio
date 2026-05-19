@@ -9,13 +9,13 @@ import torch
 import torch.nn.functional as F
 from torch import Tensor, nn
 
-import tinycudann as tcnn
-
 from nerfstudio.cameras.rays import RaySamples
+from nerfstudio.data.scene_box import SceneBox
 from nerfstudio.field_components.encodings import NeRFEncoding
 from nerfstudio.field_components.field_heads import FieldHeadNames
 from nerfstudio.fields.base_field import Field
 from nerfstudio.model_components.lookcloser_grid import FrequencyGridManager
+from nerfstudio.utils.external import TCNN_EXISTS, tcnn, tcnn_import_exception
 
 
 class LookCloserField(Field):
@@ -44,6 +44,11 @@ class LookCloserField(Field):
             spatial_distortion=None,
     ) -> None:
         super().__init__()
+        if not TCNN_EXISTS:
+            raise ImportError(
+                "LookCloserField requires tinycudann. Install the CUDA extension or avoid importing this field."
+            ) from tcnn_import_exception
+
         self.register_buffer("aabb", aabb)
         self.geo_feat_dim = geo_feat_dim
         self.num_levels = num_levels

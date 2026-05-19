@@ -1,5 +1,6 @@
 # nerfstudio/data/pixel_samplers/lookcloser_pixel_sampler.py
 
+import json
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, List, Optional, Type, Union
@@ -40,6 +41,9 @@ class LookCloserPixelSamplerConfig(PixelSamplerConfig):
 
     debug_mode: bool = False
     """If true, prints sampling stats."""
+
+    patch_size: int = 32
+    """Fallback patch size for legacy frequency maps without sidecar metadata."""
 
 
 class LookCloserPixelSampler(PixelSampler):
@@ -112,7 +116,7 @@ class LookCloserPixelSampler(PixelSampler):
         # We use temporary lists to hold indices, then stack to Tensor to save memory.
         bucket_lists = {l: [] for l in range(self.config.num_levels)}
 
-        total_pixels = 0
+        patch_sizes: List[int] = []
 
         # We must align with the dataset's image indexing.
         for img_idx, image_path in enumerate(dataset.image_filenames):
@@ -125,6 +129,12 @@ class LookCloserPixelSampler(PixelSampler):
 
             f_map = torch.load(freq_file, map_location="cpu")
             H_map, W_map = f_map.shape
+            metadata_path = freq_file.with_suffix(".json")
+            if metadata_path.exists():
+                metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+                patch_sizes.append(int(metadata.get("patch_size", self.config.patch_size)))
+            else:
+                patch_sizes.append(int(self.config.patch_size))
 
             # The freq map might be patch-wise (smaller resolution).
             # We need pixel-wise buckets.
@@ -189,18 +199,14 @@ class LookCloserPixelSampler(PixelSampler):
             if self.config.debug_mode:
                 CONSOLE.print(f"Level {l}: {len(self.buckets[l])} patches")
 
-        # 5. Determine patch size / stride from dataset info vs map size
-        # We grab one image metadata to guess the downscale factor
-        # This assumes uniform scaling across dataset.
-        sample_img_h = dataset.metadata["image_height"] if "image_height" in dataset.metadata else None
-        # If not in metadata, we can't easily guess without loading an image.
-        # But we know the preprocessing script used a stride (default 32).
-        # We'll treat the stored coordinates as "top-left" of a patch
-        # and assume a patch size in the sample method.
-        # Let's verify stride from map size vs image size if possible, otherwise default to 32.
-        # (For robust implementation, we'll assume 32 based on the LookCloser default).
-        #ToDo: check
-        self.patch_size = 32
+        # 5. Determine patch size from preprocessing metadata when available.
+        unique_patch_sizes = sorted(set(patch_sizes))
+        if len(unique_patch_sizes) > 1:
+            raise ValueError(
+                "LookCloserPixelSampler currently requires one patch_size across all frequency maps, "
+                f"got {unique_patch_sizes}."
+            )
+        self.patch_size = unique_patch_sizes[0] if unique_patch_sizes else int(self.config.patch_size)
 
         # 6. Calculate Sampling Distribution (1:3 Ramp)
         ramp = np.linspace(

@@ -2,9 +2,10 @@
 
 import json
 import sys
-from dataclasses import dataclass
+import csv
+from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, Iterable, List, Optional, Tuple
 
 import numpy as np
 import torch
@@ -17,9 +18,12 @@ from typing_extensions import Literal
 
 try:
     import tinycudann as tcnn
-except ImportError:
-    print("Error: tinycudann is not installed. Please install it to use LookCloser preprocessing.")
-    sys.exit(1)
+    _TCNN_IMPORT_ERROR: Optional[Exception] = None
+except Exception as e:
+    # Keep module import and --help usable on machines without a visible CUDA GPU.
+    # Actual preprocessing still fails early when the 2D HashGrid is constructed.
+    tcnn = None
+    _TCNN_IMPORT_ERROR = e
 
 try:
     from pytorch_msssim import ssim as _pt_ssim  # type: ignore
@@ -32,6 +36,7 @@ except Exception as e:
     raise ImportError("torchvision is required for image loading.") from e
 
 from nerfstudio.configs.dataparser_configs import AnnotatedDataParserUnion
+from nerfstudio.data.dataparsers.nerfstudio_dataparser import NerfstudioDataParserConfig
 from nerfstudio.utils.rich_utils import CONSOLE
 
 
@@ -111,6 +116,11 @@ class InstantNGP2D(nn.Module):
         log2_hashmap_size: int = 19,
     ):
         super().__init__()
+
+        if tcnn is None:
+            raise RuntimeError(
+                "tinycudann could not be imported. LookCloser preprocessing requires CUDA and tinycudann."
+            ) from _TCNN_IMPORT_ERROR
 
         self.n_levels = int(n_levels)
         self.n_features = int(n_features)
@@ -210,6 +220,32 @@ def random_crop_image(
     x0 = int(rng.randint(0, max(1, w - cw + 1)))
 
     return image[y0 : y0 + ch, x0 : x0 + cw, :].contiguous()
+
+
+def crop_image_with_coords(
+    image: torch.Tensor,
+    crop_size: int,
+    crop_x: Optional[int] = None,
+    crop_y: Optional[int] = None,
+    seed: int = 0,
+) -> Tuple[torch.Tensor, Tuple[int, int, int, int]]:
+    """Returns crop and (x0, y0, width, height) in the source image."""
+    h, w, _ = image.shape
+    if crop_size <= 0:
+        return image, (0, 0, w, h)
+
+    ch = min(int(crop_size), h)
+    cw = min(int(crop_size), w)
+
+    if crop_x is None or crop_y is None:
+        rng = np.random.RandomState(seed)
+        y0 = int(rng.randint(0, max(1, h - ch + 1)))
+        x0 = int(rng.randint(0, max(1, w - cw + 1)))
+    else:
+        x0 = int(np.clip(crop_x, 0, max(0, w - cw)))
+        y0 = int(np.clip(crop_y, 0, max(0, h - ch)))
+
+    return image[y0 : y0 + ch, x0 : x0 + cw, :].contiguous(), (x0, y0, cw, ch)
 
 
 def to_uint8_np(image: np.ndarray) -> np.ndarray:
@@ -378,6 +414,38 @@ def save_freq_overlay(
     overlay = Image.blend(img_pil.convert("RGB"), heat_big.convert("RGB"), alpha=0.45)
     overlay.save(out_dir / "freq_overlay.png")
 
+    # Names requested by the focused preprocessing debug workflow.
+    heat_big.save(out_dir / "freq_heatmap.png")
+
+
+def save_freq_histogram(level_map: torch.Tensor, n_levels: int, out_path: Path) -> None:
+    counts = torch.bincount(level_map.detach().cpu().long().flatten(), minlength=n_levels).numpy()
+    width = max(420, n_levels * 32)
+    height = 260
+    margin_l, margin_r, margin_t, margin_b = 44, 16, 20, 44
+    plot_w = width - margin_l - margin_r
+    plot_h = height - margin_t - margin_b
+    max_count = max(int(counts.max()), 1)
+
+    canvas = Image.new("RGB", (width, height), color=(255, 255, 255))
+    draw = ImageDraw.Draw(canvas)
+    draw.line((margin_l, margin_t, margin_l, margin_t + plot_h), fill=(0, 0, 0))
+    draw.line((margin_l, margin_t + plot_h, margin_l + plot_w, margin_t + plot_h), fill=(0, 0, 0))
+
+    bar_gap = 2
+    bar_w = max(1, int(plot_w / n_levels) - bar_gap)
+    for lvl, count in enumerate(counts):
+        x0 = margin_l + int(lvl * plot_w / n_levels) + bar_gap // 2
+        x1 = x0 + bar_w
+        bar_h = int((float(count) / max_count) * plot_h)
+        y0 = margin_t + plot_h - bar_h
+        draw.rectangle((x0, y0, x1, margin_t + plot_h), fill=(64, 114, 196))
+        draw.text((x0, margin_t + plot_h + 6), str(lvl), fill=(0, 0, 0))
+
+    draw.text((8, 6), "patch count by assigned level", fill=(0, 0, 0))
+    draw.text((8, height - 18), f"max bin={max_count}", fill=(0, 0, 0))
+    canvas.save(out_path)
+
 
 def save_patch_mosaic(
     gt_patches: torch.Tensor,
@@ -435,6 +503,110 @@ def save_patch_mosaic(
     canvas.save(out_path)
 
 
+def render_patches_nchw(
+    model: InstantNGP2D,
+    image_tensor: torch.Tensor,
+    xs: torch.Tensor,
+    ys: torch.Tensor,
+    patch_size: int,
+    level: int,
+) -> torch.Tensor:
+    h, w, _ = image_tensor.shape
+    uv = make_patch_uv(xs, ys, h, w, patch_size)
+    model.eval()
+    with torch.no_grad():
+        pred_flat = model.render_masked(uv, max_active_level=level)
+    b = xs.shape[0]
+    return pred_flat.view(b, patch_size, patch_size, 3).permute(0, 3, 1, 2).contiguous()
+
+
+def make_patch_audit_mosaic(
+    title: str,
+    coords: List[Tuple[int, int]],
+    gt: torch.Tensor,
+    assigned_pred: torch.Tensor,
+    max_pred: torch.Tensor,
+    assigned_levels: List[int],
+    assigned_freqs: List[float],
+    assigned_ssim: torch.Tensor,
+    max_ssim: torch.Tensor,
+    out_path: Path,
+) -> None:
+    gt_np = gt.detach().cpu().permute(0, 2, 3, 1).numpy()
+    assigned_np = assigned_pred.detach().cpu().permute(0, 2, 3, 1).numpy()
+    max_np = max_pred.detach().cpu().permute(0, 2, 3, 1).numpy()
+    assigned_scores = assigned_ssim.detach().cpu().numpy()
+    max_scores = max_ssim.detach().cpu().numpy()
+
+    n, p = gt_np.shape[0], gt_np.shape[1]
+    label_w = 210
+    col_w = p
+    row_h = max(p, 72)
+    header_h = 28
+    width = label_w + 3 * col_w
+    height = header_h + n * row_h
+
+    canvas = Image.new("RGB", (width, height), color=(20, 20, 20))
+    draw = ImageDraw.Draw(canvas)
+    draw.text((8, 7), title, fill=(255, 255, 255))
+    draw.text((label_w + 8, 7), "GT", fill=(255, 255, 255))
+    draw.text((label_w + col_w + 8, 7), "assigned", fill=(255, 255, 255))
+    draw.text((label_w + 2 * col_w + 8, 7), "max", fill=(255, 255, 255))
+
+    for i in range(n):
+        y = header_h + i * row_h
+        x_coord, y_coord = coords[i]
+        label = (
+            f"x={x_coord} y={y_coord}\n"
+            f"L{assigned_levels[i]} res={assigned_freqs[i]:.0f}\n"
+            f"SSIM {assigned_scores[i]:.3f}/{max_scores[i]:.3f}"
+        )
+        draw.text((8, y + 7), label, fill=(235, 235, 235))
+        canvas.paste(Image.fromarray(to_uint8_np(gt_np[i])), (label_w, y))
+        canvas.paste(Image.fromarray(to_uint8_np(assigned_np[i])), (label_w + col_w, y))
+        canvas.paste(Image.fromarray(to_uint8_np(max_np[i])), (label_w + 2 * col_w, y))
+
+    canvas.save(out_path)
+
+
+def save_uv_audit_mosaic(
+    coords: List[Tuple[int, int]],
+    gt: torch.Tensor,
+    max_pred: torch.Tensor,
+    max_ssim: torch.Tensor,
+    out_path: Path,
+) -> None:
+    gt_np = gt.detach().cpu().permute(0, 2, 3, 1).numpy()
+    pred_np = max_pred.detach().cpu().permute(0, 2, 3, 1).numpy()
+    diff_np = np.abs(gt_np - pred_np)
+    scores = max_ssim.detach().cpu().numpy()
+
+    n, p = gt_np.shape[0], gt_np.shape[1]
+    label_w = 160
+    row_h = max(p, 56)
+    header_h = 28
+    width = label_w + 3 * p
+    height = header_h + n * row_h
+
+    canvas = Image.new("RGB", (width, height), color=(20, 20, 20))
+    draw = ImageDraw.Draw(canvas)
+    draw.text((8, 7), "fixed max-level UV audit", fill=(255, 255, 255))
+    draw.text((label_w + 8, 7), "GT", fill=(255, 255, 255))
+    draw.text((label_w + p + 8, 7), "max pred", fill=(255, 255, 255))
+    draw.text((label_w + 2 * p + 8, 7), "diff", fill=(255, 255, 255))
+
+    for i in range(n):
+        y = header_h + i * row_h
+        x_coord, y_coord = coords[i]
+        draw.text((8, y + 7), f"x={x_coord} y={y_coord}\nSSIM {scores[i]:.3f}", fill=(235, 235, 235))
+        canvas.paste(Image.fromarray(to_uint8_np(gt_np[i])), (label_w, y))
+        canvas.paste(Image.fromarray(to_uint8_np(pred_np[i])), (label_w + p, y))
+        diff_vis = diff_np[i] / max(float(diff_np[i].max()), 1e-8)
+        canvas.paste(Image.fromarray(to_uint8_np(diff_vis)), (label_w + 2 * p, y))
+
+    canvas.save(out_path)
+
+
 def save_stats_json(
     path: Path,
     image_name: str,
@@ -443,6 +615,12 @@ def save_stats_json(
     level_map: torch.Tensor,
     min_res: float,
     max_res: float,
+    n_levels: int,
+    patch_size: int,
+    stride: int,
+    steps: int,
+    batch_size: int,
+    crop_coords: Optional[Tuple[int, int, int, int]] = None,
     debug_ssim_by_level: Optional[Dict[int, torch.Tensor]] = None,
     full_recon_metrics: Optional[Dict[str, float]] = None,
 ) -> None:
@@ -454,26 +632,34 @@ def save_stats_json(
         hist[str(int(lvl))] = int((level_cpu == int(lvl)).sum().item())
 
     flat = freq_cpu.flatten().numpy()
+    level_flat = level_cpu.flatten()
+    total = max(int(level_flat.numel()), 1)
+    percentiles = [0, 5, 25, 50, 75, 95, 100]
+    b = float(np.exp((np.log(max_res) - np.log(min_res)) / max(n_levels - 1, 1)))
+    level_schedule = [float(min_res * (b ** lvl)) for lvl in range(n_levels)]
 
     stats = {
         "image": image_name,
-        "image_h": int(image_shape[0]),
-        "image_w": int(image_shape[1]),
-        "freq_min": float(freq_cpu.min().item()),
-        "freq_max": float(freq_cpu.max().item()),
-        "freq_mean": float(freq_cpu.mean().item()),
-        "freq_percentiles": {
-            "p00": float(np.percentile(flat, 0)),
-            "p05": float(np.percentile(flat, 5)),
-            "p25": float(np.percentile(flat, 25)),
-            "p50": float(np.percentile(flat, 50)),
-            "p75": float(np.percentile(flat, 75)),
-            "p95": float(np.percentile(flat, 95)),
-            "p100": float(np.percentile(flat, 100)),
-        },
+        "shape": [int(freq_cpu.shape[0]), int(freq_cpu.shape[1])],
+        "image_shape": [int(image_shape[0]), int(image_shape[1])],
+        "crop_coords_xywh": list(crop_coords) if crop_coords is not None else None,
+        "steps": int(steps),
+        "batch_size": int(batch_size),
+        "patch_size": int(patch_size),
+        "stride": int(stride),
+        "min": float(freq_cpu.min().item()),
+        "max": float(freq_cpu.max().item()),
+        "mean": float(freq_cpu.mean().item()),
+        "median": float(freq_cpu.median().item()),
+        "percentiles": {str(p): float(np.percentile(flat, p)) for p in percentiles},
+        "fraction_min_level": float((level_flat == 0).sum().item() / total),
+        "fraction_max_level": float((level_flat == int(n_levels - 1)).sum().item() / total),
+        "number_of_non_empty_levels": int(torch.unique(level_cpu).numel()),
         "level_histogram": hist,
         "min_res": float(min_res),
         "max_res": float(max_res),
+        "n_levels": int(n_levels),
+        "level_resolution_schedule": level_schedule,
     }
 
     if debug_ssim_by_level is not None:
@@ -702,6 +888,173 @@ def train_progressive_and_estimate_frequency_map(
 # Saving debug artifacts
 # ============================================================
 
+def save_frequency_metadata(
+    path: Path,
+    image_name: str,
+    image_shape: Tuple[int, int],
+    crop_coords: Optional[Tuple[int, int, int, int]],
+    patch_size: int,
+    stride: int,
+    min_res: int,
+    max_res: int,
+    n_levels: int,
+    n_features: int,
+    log2_hashmap_size: Optional[int],
+) -> None:
+    b = float(np.exp((np.log(max_res) - np.log(min_res)) / max(n_levels - 1, 1)))
+    data = {
+        "image": image_name,
+        "image_shape": [int(image_shape[0]), int(image_shape[1])],
+        "crop_coords_xywh": list(crop_coords) if crop_coords is not None else None,
+        "value_type": "scalar_resolution",
+        "patch_size": int(patch_size),
+        "stride": int(stride),
+        "min_res": int(min_res),
+        "max_res": int(max_res),
+        "n_levels": int(n_levels),
+        "n_features": int(n_features),
+        "log2_hashmap_size": None if log2_hashmap_size is None else int(log2_hashmap_size),
+        "per_level_scale": b,
+        "level_resolution_schedule": [float(min_res * (b ** lvl)) for lvl in range(n_levels)],
+    }
+    path.write_text(json.dumps(data, indent=2), encoding="utf-8")
+
+
+def _positions_from_flat_indices(
+    flat_indices: Iterable[int],
+    width_steps: int,
+    patch_size: int,
+) -> List[Tuple[int, int, int, int]]:
+    out = []
+    for flat_idx in flat_indices:
+        iy = int(flat_idx) // width_steps
+        ix = int(flat_idx) % width_steps
+        out.append((iy, ix, ix * patch_size, iy * patch_size))
+    return out
+
+
+def _pick_level_positions(
+    level_map: torch.Tensor,
+    mode: Literal["min", "max", "random"],
+    count: int,
+    seed: int,
+    patch_size: int,
+) -> List[Tuple[int, int, int, int]]:
+    level_cpu = level_map.detach().cpu().long()
+    h_steps, w_steps = level_cpu.shape
+    rng = np.random.RandomState(seed)
+
+    if mode == "random":
+        candidates = np.arange(h_steps * w_steps)
+    else:
+        target = int(level_cpu.min().item() if mode == "min" else level_cpu.max().item())
+        candidates = (level_cpu.flatten() == target).nonzero(as_tuple=False).flatten().numpy()
+
+    if candidates.size == 0:
+        candidates = np.arange(h_steps * w_steps)
+
+    if candidates.size > count:
+        picked = rng.choice(candidates, size=count, replace=False)
+    else:
+        picked = candidates
+
+    return _positions_from_flat_indices(picked.tolist(), w_steps, patch_size)
+
+
+def save_patch_audit_artifacts(
+    image_tensor: torch.Tensor,
+    model: InstantNGP2D,
+    freq_map: torch.Tensor,
+    level_map: torch.Tensor,
+    out_dir: Path,
+    patch_size: int,
+    count: int,
+    seed: int,
+) -> None:
+    out_dir.mkdir(parents=True, exist_ok=True)
+    device = image_tensor.device
+
+    for mode, filename, title in [
+        ("min", "low_freq_patches.png", "low frequency patches"),
+        ("max", "high_freq_patches.png", "high frequency patches"),
+        ("random", "random_freq_patches.png", "random frequency patches"),
+    ]:
+        positions = _pick_level_positions(level_map, mode, count, seed + len(mode), patch_size)
+        if not positions:
+            continue
+
+        iys = [p[0] for p in positions]
+        ixs = [p[1] for p in positions]
+        xs = torch.tensor([p[2] for p in positions], device=device, dtype=torch.long)
+        ys = torch.tensor([p[3] for p in positions], device=device, dtype=torch.long)
+        coords = [(int(x.item()), int(y.item())) for x, y in zip(xs, ys)]
+
+        gt = extract_gt_patches(image_tensor, xs, ys, patch_size)
+        assigned_levels = [int(level_map[iy, ix].item()) for iy, ix in zip(iys, ixs)]
+        assigned_freqs = [float(freq_map[iy, ix].item()) for iy, ix in zip(iys, ixs)]
+
+        assigned_preds = []
+        assigned_scores = []
+        for level in sorted(set(assigned_levels)):
+            mask = torch.tensor([lvl == level for lvl in assigned_levels], device=device, dtype=torch.bool)
+            pred = render_patches_nchw(model, image_tensor, xs[mask], ys[mask], patch_size, level)
+            assigned_preds.append((mask.detach().cpu(), pred.detach().cpu()))
+
+        assigned_pred = torch.empty_like(gt.detach().cpu())
+        for mask_cpu, pred_cpu in assigned_preds:
+            assigned_pred[mask_cpu] = pred_cpu
+
+        max_pred = render_patches_nchw(
+            model, image_tensor, xs, ys, patch_size, model.n_levels - 1
+        ).detach().cpu()
+
+        assigned_ssim = compute_ssim(gt.detach().cpu(), assigned_pred, size_average=False)
+        max_ssim = compute_ssim(gt.detach().cpu(), max_pred, size_average=False)
+
+        make_patch_audit_mosaic(
+            title=title,
+            coords=coords,
+            gt=gt.detach().cpu(),
+            assigned_pred=assigned_pred,
+            max_pred=max_pred,
+            assigned_levels=assigned_levels,
+            assigned_freqs=assigned_freqs,
+            assigned_ssim=assigned_ssim,
+            max_ssim=max_ssim,
+            out_path=out_dir / filename,
+        )
+
+
+def save_uv_audit_artifacts(
+    image_tensor: torch.Tensor,
+    model: InstantNGP2D,
+    out_dir: Path,
+    patch_size: int,
+    count: int,
+    seed: int,
+) -> None:
+    out_dir.mkdir(parents=True, exist_ok=True)
+    h, w, _ = image_tensor.shape
+    y_starts = compute_patch_starts(h, patch_size, patch_size)
+    x_starts = compute_patch_starts(w, patch_size, patch_size)
+    all_positions = [(iy, ix) for iy in range(len(y_starts)) for ix in range(len(x_starts))]
+    rng = np.random.RandomState(seed)
+    if len(all_positions) > count:
+        picked = rng.choice(len(all_positions), size=count, replace=False)
+        positions = [all_positions[int(i)] for i in picked]
+    else:
+        positions = all_positions
+
+    device = image_tensor.device
+    xs = torch.tensor([x_starts[ix] for _, ix in positions], device=device, dtype=torch.long)
+    ys = torch.tensor([y_starts[iy] for iy, _ in positions], device=device, dtype=torch.long)
+    coords = [(int(x.item()), int(y.item())) for x, y in zip(xs, ys)]
+
+    gt = extract_gt_patches(image_tensor, xs, ys, patch_size)
+    max_pred = render_patches_nchw(model, image_tensor, xs, ys, patch_size, model.n_levels - 1)
+    max_ssim = compute_ssim(gt, max_pred, size_average=False)
+    save_uv_audit_mosaic(coords, gt.detach().cpu(), max_pred.detach().cpu(), max_ssim.detach().cpu(), out_dir / "fixed_patches.png")
+
 def save_debug_artifacts(
     image_tensor: torch.Tensor,
     image_name: str,
@@ -712,7 +1065,15 @@ def save_debug_artifacts(
     out_dir: Path,
     min_res: int,
     max_res: int,
+    patch_size: int,
+    steps: int,
+    batch_size: int,
     render_full: bool,
+    crop_coords: Optional[Tuple[int, int, int, int]] = None,
+    audit_patch_count: int = 16,
+    uv_audit_patch_count: int = 10,
+    audit_seed: int = 0,
+    patch_audit_out_dir: Optional[Path] = None,
 ) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -726,6 +1087,7 @@ def save_debug_artifacts(
         min_res=float(min_res),
         max_res=float(max_res),
     )
+    save_freq_histogram(level_map, model.n_levels, out_dir / "freq_histogram.png")
 
     full_metrics = None
 
@@ -757,6 +1119,40 @@ def save_debug_artifacts(
             out_dir / "patch_mosaic.png",
         )
 
+    save_frequency_metadata(
+        out_dir / "metadata.json",
+        image_name=image_name,
+        image_shape=(h, w),
+        crop_coords=crop_coords,
+        patch_size=patch_size,
+        stride=patch_size,
+        min_res=min_res,
+        max_res=max_res,
+        n_levels=model.n_levels,
+        n_features=model.n_features,
+        log2_hashmap_size=None,
+    )
+
+    save_patch_audit_artifacts(
+        image_tensor=image_tensor,
+        model=model,
+        freq_map=freq_map,
+        level_map=level_map,
+        out_dir=patch_audit_out_dir if patch_audit_out_dir is not None else out_dir / "patch_audit",
+        patch_size=patch_size,
+        count=audit_patch_count,
+        seed=audit_seed,
+    )
+
+    save_uv_audit_artifacts(
+        image_tensor=image_tensor,
+        model=model,
+        out_dir=out_dir / "uv_audit",
+        patch_size=patch_size,
+        count=uv_audit_patch_count,
+        seed=audit_seed,
+    )
+
     save_stats_json(
         out_dir / "stats.json",
         image_name=image_name,
@@ -765,6 +1161,12 @@ def save_debug_artifacts(
         level_map=level_map,
         min_res=float(min_res),
         max_res=float(max_res),
+        n_levels=model.n_levels,
+        patch_size=patch_size,
+        stride=patch_size,
+        steps=steps,
+        batch_size=batch_size,
+        crop_coords=crop_coords,
         debug_ssim_by_level=debug_bundle.ssim_by_level,
         full_recon_metrics=full_metrics,
     )
@@ -780,10 +1182,10 @@ def save_debug_artifacts(
 class LookCloserPreprocessConfig:
     """LookCloser 2D frequency preprocessing + debug visualization."""
 
-    dataparser: AnnotatedDataParserUnion
+    dataparser: AnnotatedDataParserUnion = field(default_factory=NerfstudioDataParserConfig)
     """Data parser config to load the dataset."""
 
-    run_mode: Literal["preprocess", "debug-overfit"] = "preprocess"
+    run_mode: Literal["preprocess", "debug-overfit", "sweep"] = "preprocess"
     """
     preprocess:
         process train images and save frequency maps.
@@ -793,6 +1195,12 @@ class LookCloserPreprocessConfig:
 
     output_name: str = "lookcloser_frequencies"
     """Directory name for frequency .pt maps, inside dataset data dir."""
+
+    image_path: Optional[Path] = None
+    """Optional direct image path for standalone HD/6K preprocessing debug runs."""
+
+    output_root: Path = Path("lookcloser_debug_outputs")
+    """Output root for direct image debug/sweep artifacts."""
 
     steps_per_image: int = 3000
     """Total 2D NGP training steps per image."""
@@ -856,6 +1264,18 @@ class LookCloserPreprocessConfig:
     Crop size for quick overfit sanity-check. Use 0 to disable crop.
     """
 
+    crop_x: Optional[int] = None
+    """Optional crop top-left x for direct image debug runs."""
+
+    crop_y: Optional[int] = None
+    """Optional crop top-left y for direct image debug runs."""
+
+    audit_patch_count: int = 16
+    """Patch count for low/high/random patch audit mosaics."""
+
+    uv_audit_patch_count: int = 10
+    """Fixed patch count for GT/max/diff UV audit."""
+
     def _get_data_dir(self, outputs) -> Path:
         data_dir = getattr(self.dataparser, "data", None)
         if data_dir is not None:
@@ -870,6 +1290,8 @@ class LookCloserPreprocessConfig:
         image_tensor: torch.Tensor,
         save_freq_path: Optional[Path],
         debug_out_dir: Optional[Path],
+        crop_coords: Optional[Tuple[int, int, int, int]] = None,
+        patch_audit_out_dir: Optional[Path] = None,
     ) -> None:
         debug_levels = parse_debug_levels(self.debug_levels, self.n_levels)
 
@@ -894,6 +1316,19 @@ class LookCloserPreprocessConfig:
 
         if save_freq_path is not None:
             torch.save(freq_map.detach().cpu(), save_freq_path)
+            save_frequency_metadata(
+                save_freq_path.with_suffix(".json"),
+                image_name=img_path.name,
+                image_shape=(int(image_tensor.shape[0]), int(image_tensor.shape[1])),
+                crop_coords=crop_coords,
+                patch_size=self.patch_size,
+                stride=self.patch_size,
+                min_res=self.min_res,
+                max_res=self.max_res,
+                n_levels=self.n_levels,
+                n_features=self.n_features,
+                log2_hashmap_size=self.log2_hashmap_size,
+            )
 
         if debug_out_dir is not None:
             save_debug_artifacts(
@@ -906,11 +1341,169 @@ class LookCloserPreprocessConfig:
                 out_dir=debug_out_dir,
                 min_res=self.min_res,
                 max_res=self.max_res,
+                patch_size=self.patch_size,
+                steps=self.steps_per_image,
+                batch_size=self.train_batch_size,
                 render_full=self.debug_render_full or self.run_mode == "debug-overfit",
+                crop_coords=crop_coords,
+                audit_patch_count=self.audit_patch_count,
+                uv_audit_patch_count=self.uv_audit_patch_count,
+                audit_seed=self.debug_seed,
+                patch_audit_out_dir=patch_audit_out_dir,
             )
 
         del model, freq_map, level_map, debug_bundle
         torch.cuda.empty_cache()
+
+    def _load_direct_image_crop(self, device: torch.device) -> Tuple[Path, torch.Tensor, Tuple[int, int, int, int]]:
+        if self.image_path is None:
+            raise ValueError("image_path is required for direct debug/sweep runs.")
+        img_path = Path(self.image_path)
+        image = load_image_as_tensor(img_path, device=device)
+        crop, crop_coords = crop_image_with_coords(
+            image,
+            crop_size=self.debug_crop_size,
+            crop_x=self.crop_x,
+            crop_y=self.crop_y,
+            seed=self.debug_seed,
+        )
+        return img_path, crop, crop_coords
+
+    def _run_direct_image(self, device: torch.device) -> None:
+        img_path, image, crop_coords = self._load_direct_image_crop(device)
+        self.output_root.mkdir(parents=True, exist_ok=True)
+
+        if self.run_mode == "debug-overfit":
+            out_dir = self.output_root / "overfit_hd"
+            save_freq_path = None
+        else:
+            out_dir = self.output_root / "freq_hd"
+            save_freq_path = out_dir / f"{img_path.stem}.pt"
+            out_dir.mkdir(parents=True, exist_ok=True)
+
+        self._process_single_image(
+            img_path=img_path,
+            image_tensor=image,
+            save_freq_path=save_freq_path,
+            debug_out_dir=out_dir,
+            crop_coords=crop_coords,
+            patch_audit_out_dir=self.output_root / "patch_audit" if self.run_mode == "preprocess" else None,
+        )
+
+    def _run_sweep(self, device: torch.device) -> None:
+        img_path, image, crop_coords = self._load_direct_image_crop(device)
+        sweep_root = self.output_root / "sweep_hd"
+        sweep_root.mkdir(parents=True, exist_ok=True)
+        summary_path = sweep_root / "sweep_summary.csv"
+
+        original = {
+            "steps_per_image": self.steps_per_image,
+            "ssim_threshold": self.ssim_threshold,
+            "patch_size": self.patch_size,
+            "max_res": self.max_res,
+            "debug_render_full": self.debug_render_full,
+        }
+
+        rows = []
+        phase_a = [(steps, thr, 32, 4096) for steps in [1000, 3000, 6000] for thr in [0.90, 0.93, 0.95, 0.97]]
+        best_row = None
+
+        try:
+            self.debug_render_full = False
+            for steps, threshold, patch_size, max_res in phase_a:
+                row = self._run_one_sweep_case(
+                    img_path, image, crop_coords, sweep_root, "A", steps, threshold, patch_size, max_res
+                )
+                rows.append(row)
+                if best_row is None or self._sweep_score(row) > self._sweep_score(best_row):
+                    best_row = row
+
+            best_steps = int(best_row["steps"]) if best_row is not None else 3000
+            best_threshold = float(best_row["ssim_threshold"]) if best_row is not None else 0.95
+            for patch_size in [16, 32, 64]:
+                for max_res in [2048, 4096]:
+                    row = self._run_one_sweep_case(
+                        img_path, image, crop_coords, sweep_root, "B", best_steps, best_threshold, patch_size, max_res
+                    )
+                    rows.append(row)
+        finally:
+            self.steps_per_image = original["steps_per_image"]
+            self.ssim_threshold = original["ssim_threshold"]
+            self.patch_size = original["patch_size"]
+            self.max_res = original["max_res"]
+            self.debug_render_full = original["debug_render_full"]
+
+        fieldnames = [
+            "phase",
+            "run_dir",
+            "steps",
+            "ssim_threshold",
+            "patch_size",
+            "max_res",
+            "mean",
+            "median",
+            "fraction_min_level",
+            "fraction_max_level",
+            "number_of_non_empty_levels",
+        ]
+        with summary_path.open("w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer.writeheader()
+            for row in rows:
+                writer.writerow({k: row.get(k, "") for k in fieldnames})
+
+        CONSOLE.print(f"[lookcloser-sweep] Saved summary: {summary_path}")
+
+    def _run_one_sweep_case(
+        self,
+        img_path: Path,
+        image: torch.Tensor,
+        crop_coords: Tuple[int, int, int, int],
+        sweep_root: Path,
+        phase: str,
+        steps: int,
+        threshold: float,
+        patch_size: int,
+        max_res: int,
+    ) -> Dict[str, object]:
+        self.steps_per_image = int(steps)
+        self.ssim_threshold = float(threshold)
+        self.patch_size = int(patch_size)
+        self.max_res = int(max_res)
+
+        run_name = f"phase_{phase}_steps_{steps}_ssim_{threshold:.2f}_patch_{patch_size}_maxres_{max_res}"
+        out_dir = sweep_root / run_name
+        self._process_single_image(
+            img_path=img_path,
+            image_tensor=image,
+            save_freq_path=None,
+            debug_out_dir=out_dir,
+            crop_coords=crop_coords,
+        )
+
+        stats_path = out_dir / "stats.json"
+        stats = json.loads(stats_path.read_text(encoding="utf-8")) if stats_path.exists() else {}
+        return {
+            "phase": phase,
+            "run_dir": str(out_dir),
+            "steps": int(steps),
+            "ssim_threshold": float(threshold),
+            "patch_size": int(patch_size),
+            "max_res": int(max_res),
+            "mean": stats.get("mean"),
+            "median": stats.get("median"),
+            "fraction_min_level": stats.get("fraction_min_level"),
+            "fraction_max_level": stats.get("fraction_max_level"),
+            "number_of_non_empty_levels": stats.get("number_of_non_empty_levels"),
+        }
+
+    @staticmethod
+    def _sweep_score(row: Dict[str, object]) -> float:
+        non_empty = float(row.get("number_of_non_empty_levels") or 0.0)
+        frac_min = float(row.get("fraction_min_level") or 0.0)
+        frac_max = float(row.get("fraction_max_level") or 0.0)
+        # Prefer non-collapsed maps. Visual audit remains the final choice.
+        return non_empty - 4.0 * max(frac_min, frac_max)
 
     def main(self):
         if self.device != "cuda":
@@ -918,14 +1511,22 @@ class LookCloserPreprocessConfig:
 
         CONSOLE.print("[bold green]Starting LookCloser preprocessing...[/bold green]")
 
+        device = torch.device(self.device)
+
+        if self.image_path is not None:
+            if self.run_mode == "sweep":
+                self._run_sweep(device)
+            else:
+                self._run_direct_image(device)
+            CONSOLE.print("[bold green]LookCloser direct image run complete.[/bold green]")
+            return
+
         dataparser = self.dataparser.setup()
         outputs = dataparser.get_dataparser_outputs(split="train")
 
         data_dir = self._get_data_dir(outputs)
         output_dir = data_dir / self.output_name
         debug_root = data_dir / self.debug_dir_name
-
-        device = torch.device(self.device)
 
         CONSOLE.print(f"Loaded {len(outputs.image_filenames)} train images.")
         CONSOLE.print(f"Data dir: {data_dir}")
@@ -935,7 +1536,13 @@ class LookCloserPreprocessConfig:
             CONSOLE.print(f"[bold yellow]Debug-overfit image:[/bold yellow] {img_path}")
 
             image = load_image_as_tensor(img_path, device=device)
-            image = random_crop_image(image, self.debug_crop_size, seed=self.debug_seed)
+            image, crop_coords = crop_image_with_coords(
+                image,
+                self.debug_crop_size,
+                crop_x=self.crop_x,
+                crop_y=self.crop_y,
+                seed=self.debug_seed,
+            )
 
             debug_out_dir = debug_root / f"{img_path.stem}_debug_overfit"
             self._process_single_image(
@@ -943,6 +1550,7 @@ class LookCloserPreprocessConfig:
                 image_tensor=image,
                 save_freq_path=None,
                 debug_out_dir=debug_out_dir,
+                crop_coords=crop_coords,
             )
 
             CONSOLE.print("[bold green]Debug-overfit complete.[/bold green]")

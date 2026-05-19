@@ -41,3 +41,10 @@ Experiment Markdown File Structure:
 - Insights: What was learned and next steps.
 
 Keep cosine.
+
+## Environment
+
+Use the following Conda environment:
+```bash
+conda activate /home/ubuntu/anaconda3/envs/nerfstudio
+```
