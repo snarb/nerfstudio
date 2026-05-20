@@ -1,6 +1,7 @@
 ## Key files:
 
 - `nerfstudio/scripts/lookcloser_preprocess.py` — 2D patch frequency preprocessing.
+- `nerfstudio/scripts/lookcloser_debug_preprocess.py` — focused standalone preprocessing debug checks.
 - `nerfstudio/model_components/lookcloser_grid.py` — 3D frequency grid.
 - `nerfstudio/fields/lookcloser_field.py` — frequency-aware field.
 - `nerfstudio/lookcloser_pixel_sampler.py` — frequency-aware sampler.
@@ -12,6 +13,8 @@
 
 Recent changes are scoped to validating 2D frequency-map preprocessing, not the full LookCloser model.
 
+- Added standalone `lookcloser_debug_preprocess.py --mode overfit`, which overfits a 2D HashGrid on a 256x256 crop from `E004_D014_HD.jpg`, renders the same crop at max level, and writes `gt.png`, `recon_full.png`, `diff.png`, and `stats.json` under `lookcloser_debug_outputs/overfit_hd`.
+- The overfit script asserts the core coordinate contract directly: `image[y, x]` maps to `uv=((x+0.5)/W, (y+0.5)/H)`, generated UV grids preserve x/y order, `pred.view(P, P, 3)` matches GT patch row-major order, and GT/rendered patches use identical crop coordinates.
 - `lookcloser_preprocess.py` now supports direct image runs via `--image-path`, so HD/6K crops can be tested without a Nerfstudio dataparser.
 - Added `debug-overfit` artifacts for 2D HashGrid crop overfit: `gt.png`, `recon_full.png`, `diff.png`, `stats.json`.
 - Added progressive level visualization for fixed debug levels, defaulting to `0,2,4,8,12,15`, to verify that lower levels are blurry and higher levels add detail.
