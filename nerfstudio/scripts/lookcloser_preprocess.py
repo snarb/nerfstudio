@@ -403,6 +403,12 @@ def colorize_level_map(level_map: torch.Tensor, n_levels: int) -> Image.Image:
     levels = level_map.detach().cpu().float().numpy()
     norm = levels / max(float(n_levels - 1), 1.0)
     norm = np.clip(norm, 0.0, 1.0)
+    return colorize_normalized_levels(norm)
+
+
+def colorize_normalized_levels(norm: np.ndarray) -> Image.Image:
+    """Colorize normalized level values in [0, 1]."""
+    norm = np.clip(norm, 0.0, 1.0)
 
     # Blue -> cyan -> yellow -> red. This makes mid/high levels visibly distinct,
     # unlike scalar resolution normalization where exponential schedules hide L10-L12.
@@ -421,6 +427,25 @@ def colorize_level_map(level_map: torch.Tensor, n_levels: int) -> Image.Image:
     t = (x - idx0)[..., None]
     rgb = stops[idx0] * (1.0 - t) + stops[idx1] * t
     return Image.fromarray(to_uint8_np(rgb))
+
+
+def colorize_level_map_quantile(level_map: torch.Tensor, n_levels: int) -> Image.Image:
+    """
+    Diagnostic heatmap with robust per-image contrast stretching.
+
+    This does not change assigned levels or frequency-map semantics; it only makes
+    local variation visible when the absolute level range is narrow.
+    """
+    levels = level_map.detach().cpu().float().numpy()
+    lo, hi = np.percentile(levels, [5, 95])
+    if hi <= lo:
+        lo = float(np.min(levels))
+        hi = float(np.max(levels))
+    if hi <= lo:
+        norm = np.zeros_like(levels, dtype=np.float32)
+    else:
+        norm = (levels - float(lo)) / float(hi - lo)
+    return colorize_normalized_levels(norm)
 
 
 def make_level_legend(n_levels: int, out_path: Path) -> None:
@@ -456,7 +481,7 @@ def save_freq_overlay(
     min_res: float,
     max_res: float,
     n_levels: int,
-    high_frequency_level: int = 12,
+    high_frequency_level: int = 13,
 ) -> None:
     h, w, _ = image.shape
 
@@ -466,6 +491,8 @@ def save_freq_overlay(
 
     level_heat_small = colorize_level_map(level_map, n_levels=n_levels)
     level_heat_big = upsample_heatmap_to_image(level_heat_small, h, w)
+    level_quantile_small = colorize_level_map_quantile(level_map, n_levels=n_levels)
+    level_quantile_big = upsample_heatmap_to_image(level_quantile_small, h, w)
 
     level_heat_small.save(out_dir / "level_heatmap_patch_grid.png")
     level_heat_big.save(out_dir / "level_heatmap.png")
@@ -473,6 +500,10 @@ def save_freq_overlay(
 
     overlay = Image.blend(img_pil.convert("RGB"), level_heat_big.convert("RGB"), alpha=0.45)
     overlay.save(out_dir / "level_overlay.png")
+    quantile_overlay = Image.blend(img_pil.convert("RGB"), level_quantile_big.convert("RGB"), alpha=0.45)
+    level_quantile_small.save(out_dir / "level_heatmap_quantile_patch_grid.png")
+    level_quantile_big.save(out_dir / "level_heatmap_quantile.png")
+    quantile_overlay.save(out_dir / "level_overlay_quantile.png")
 
     threshold = int(np.clip(high_frequency_level, 0, n_levels - 1))
     high_mask_small = (level_map.detach().cpu().long() >= threshold).float()
@@ -482,6 +513,12 @@ def save_freq_overlay(
         w,
     )
     high_mask_big.save(out_dir / f"high_frequency_mask_L{threshold}_plus.png")
+    high_mask_np = np.asarray(high_mask_big, dtype=np.float32) / 255.0
+    img_np = np.asarray(img_pil.convert("RGB"), dtype=np.float32) / 255.0
+    red = np.zeros_like(img_np)
+    red[..., 0] = 1.0
+    high_overlay_np = img_np * (1.0 - 0.55 * high_mask_np[..., None]) + red * (0.55 * high_mask_np[..., None])
+    Image.fromarray(to_uint8_np(high_overlay_np)).save(out_dir / f"high_frequency_overlay_L{threshold}_plus.png")
 
     # Compatibility names now point to the level-based diagnostic.
     level_heat_small.save(out_dir / "freq_heatmap_patch_grid.png")
@@ -1056,6 +1093,7 @@ def save_patch_audit_artifacts(
     patch_size: int,
     count: int,
     seed: int,
+    ssim_window_size: int,
 ) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
     device = image_tensor.device
@@ -1094,8 +1132,18 @@ def save_patch_audit_artifacts(
             model, image_tensor, xs, ys, patch_size, model.n_levels - 1
         ).detach().cpu()
 
-        assigned_ssim = compute_ssim(gt.detach().cpu(), assigned_pred, size_average=False)
-        max_ssim = compute_ssim(gt.detach().cpu(), max_pred, size_average=False)
+        assigned_ssim = compute_ssim(
+            gt.detach().cpu(),
+            assigned_pred,
+            window_size=ssim_window_size,
+            size_average=False,
+        )
+        max_ssim = compute_ssim(
+            gt.detach().cpu(),
+            max_pred,
+            window_size=ssim_window_size,
+            size_average=False,
+        )
 
         make_patch_audit_mosaic(
             title=title,
@@ -1118,6 +1166,7 @@ def save_uv_audit_artifacts(
     patch_size: int,
     count: int,
     seed: int,
+    ssim_window_size: int,
 ) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
     h, w, _ = image_tensor.shape
@@ -1138,7 +1187,7 @@ def save_uv_audit_artifacts(
 
     gt = extract_gt_patches(image_tensor, xs, ys, patch_size)
     max_pred = render_patches_nchw(model, image_tensor, xs, ys, patch_size, model.n_levels - 1)
-    max_ssim = compute_ssim(gt, max_pred, size_average=False)
+    max_ssim = compute_ssim(gt, max_pred, window_size=ssim_window_size, size_average=False)
     save_uv_audit_mosaic(coords, gt.detach().cpu(), max_pred.detach().cpu(), max_ssim.detach().cpu(), out_dir / "fixed_patches.png")
 
 def save_debug_artifacts(
@@ -1153,6 +1202,7 @@ def save_debug_artifacts(
     max_res: int,
     log2_hashmap_size: int,
     patch_size: int,
+    ssim_window_size: int,
     steps: int,
     batch_size: int,
     render_full: bool,
@@ -1161,6 +1211,7 @@ def save_debug_artifacts(
     uv_audit_patch_count: int = 10,
     audit_seed: int = 0,
     patch_audit_out_dir: Optional[Path] = None,
+    high_frequency_level: int = 13,
 ) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -1175,6 +1226,7 @@ def save_debug_artifacts(
         min_res=float(min_res),
         max_res=float(max_res),
         n_levels=model.n_levels,
+        high_frequency_level=high_frequency_level,
     )
     save_freq_histogram(level_map, model.n_levels, out_dir / "freq_histogram.png")
 
@@ -1231,6 +1283,7 @@ def save_debug_artifacts(
         patch_size=patch_size,
         count=audit_patch_count,
         seed=audit_seed,
+        ssim_window_size=ssim_window_size,
     )
 
     save_uv_audit_artifacts(
@@ -1240,6 +1293,7 @@ def save_debug_artifacts(
         patch_size=patch_size,
         count=uv_audit_patch_count,
         seed=audit_seed,
+        ssim_window_size=ssim_window_size,
     )
 
     save_stats_json(
@@ -1303,10 +1357,10 @@ class LookCloserPreprocessConfig:
     lr: float = 1e-2
     """Adam learning rate."""
 
-    ssim_threshold: float = 0.95
+    ssim_threshold: float = 0.97
     """Patch is assigned to the first level where SSIM >= threshold."""
 
-    patch_size: int = 32
+    patch_size: int = 8
     """Patch size and stride."""
 
     eval_patch_batch_size: int = 64
@@ -1326,7 +1380,7 @@ class LookCloserPreprocessConfig:
 
     log2_hashmap_size: int = 23
 
-    ssim_window_size: int = 11
+    ssim_window_size: int = 7
 
     device: Literal["cuda"] = "cuda"
     """CUDA only; tinycudann is CUDA-only."""
@@ -1376,6 +1430,9 @@ class LookCloserPreprocessConfig:
     uv_audit_patch_count: int = 10
     """Fixed patch count for GT/max/diff UV audit."""
 
+    high_frequency_level: int = 13
+    """Assigned level threshold used for high-frequency mask and overlay debug artifacts."""
+
     sweep_steps_per_level_options: Tuple[int, ...] = (250, 500, 1000)
     """Sweep values for train_steps_per_level in direct image sweep mode."""
 
@@ -1420,6 +1477,8 @@ class LookCloserPreprocessConfig:
             raise ValueError("ssim_window_size must be a positive odd integer.")
         if self.audit_patch_count < 0 or self.uv_audit_patch_count < 0 or self.debug_patch_count < 0:
             raise ValueError("debug/audit patch counts must be >= 0.")
+        if self.high_frequency_level < 0:
+            raise ValueError("high_frequency_level must be >= 0.")
         for name, values in {
             "sweep_steps_per_level_options": self.sweep_steps_per_level_options,
             "sweep_patch_size_options": self.sweep_patch_size_options,
@@ -1518,6 +1577,7 @@ class LookCloserPreprocessConfig:
                 max_res=max_res,
                 log2_hashmap_size=self.log2_hashmap_size,
                 patch_size=self.patch_size,
+                ssim_window_size=self.ssim_window_size,
                 steps=self._total_training_steps(),
                 batch_size=self.train_batch_size,
                 render_full=self.debug_render_full or self.run_mode == "debug-overfit",
@@ -1526,6 +1586,7 @@ class LookCloserPreprocessConfig:
                 uv_audit_patch_count=self.uv_audit_patch_count,
                 audit_seed=self.debug_seed,
                 patch_audit_out_dir=patch_audit_out_dir,
+                high_frequency_level=self.high_frequency_level,
             )
 
         del model, freq_map, level_map, debug_bundle
