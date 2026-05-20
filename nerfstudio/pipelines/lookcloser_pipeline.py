@@ -42,6 +42,9 @@ class LookCloserPipelineConfig(VanillaPipelineConfig):
     frequency_patch_size: int = 32
     """Fallback patch size for legacy frequency maps without sidecar metadata."""
 
+    frequency_stride: int = 32
+    """Fallback frequency-map stride for legacy maps without sidecar metadata."""
+
 
 class LookCloserPipeline(VanillaPipeline):
     """
@@ -73,8 +76,49 @@ class LookCloserPipeline(VanillaPipeline):
         # We load them lazily or upfront. For simplicity/speed during training, we load upfront.
         self.cached_freq_maps: Dict[int, Tensor] = {}
         self.cached_freq_patch_sizes: Dict[int, int] = {}
+        self.cached_freq_strides: Dict[int, int] = {}
+        self.cached_freq_image_shapes: Dict[int, tuple[int, int]] = {}
         if self.config.enable_frequency_grid:
             self._load_frequency_maps()
+
+    def _read_frequency_metadata(self, map_path: Path) -> Optional[Dict]:
+        metadata_path = map_path.with_suffix(".json")
+        if not metadata_path.exists():
+            return None
+        metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+        value_type = metadata.get("value_type")
+        if value_type != "scalar_resolution":
+            raise ValueError(
+                f"Frequency map {map_path} has value_type={value_type!r}; "
+                "LookCloser downstream expects scalar_resolution values, not level indices."
+            )
+        return metadata
+
+    def _validate_frequency_schedule(self, map_path: Path, metadata: Dict) -> None:
+        grid = self.model.freq_grid
+        min_res = float(metadata.get("min_res", grid.min_res))
+        max_res = float(metadata.get("max_res", grid.max_res))
+        n_levels = int(metadata.get("n_levels", grid.num_levels))
+        if (
+            abs(min_res - float(grid.min_res)) > 1e-6
+            or abs(max_res - float(grid.max_res)) > 1e-6
+            or n_levels != int(grid.num_levels)
+        ):
+            raise ValueError(
+                f"Frequency metadata for {map_path} does not match the model frequency grid: "
+                f"metadata(min_res={min_res}, max_res={max_res}, n_levels={n_levels}) vs "
+                f"grid(min_res={grid.min_res}, max_res={grid.max_res}, n_levels={grid.num_levels})."
+            )
+
+    @staticmethod
+    def _expected_map_shape(image_shape: tuple[int, int], patch_size: int, stride: int) -> tuple[int, int]:
+        image_h, image_w = image_shape
+        if image_h < patch_size or image_w < patch_size:
+            raise ValueError(f"Image shape {image_shape} is smaller than patch_size={patch_size}.")
+        return (
+            ((image_h - patch_size) // stride) + 1,
+            ((image_w - patch_size) // stride) + 1,
+        )
 
     def _load_frequency_maps(self):
         """Loads pre-computed 2D frequency maps from disk into CPU memory."""
@@ -117,15 +161,46 @@ class LookCloserPipeline(VanillaPipeline):
                 map_path = freq_dir / f"{stem}.pt"
                 if map_path.exists():
                     # Load to CPU to save VRAM
-                    self.cached_freq_maps[idx] = torch.load(map_path, map_location="cpu")
-                    metadata_path = map_path.with_suffix(".json")
-                    if metadata_path.exists():
-                        metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+                    freq_map = torch.load(map_path, map_location="cpu").float()
+                    if freq_map.ndim != 2:
+                        raise ValueError(f"Frequency map {map_path} must be a 2D tensor, got shape {tuple(freq_map.shape)}.")
+                    if not torch.isfinite(freq_map).all() or torch.min(freq_map).item() <= 0.0:
+                        raise ValueError(f"Frequency map {map_path} must contain finite positive scalar resolution values.")
+
+                    metadata = self._read_frequency_metadata(map_path)
+                    if metadata is not None:
+                        self._validate_frequency_schedule(map_path, metadata)
                         self.cached_freq_patch_sizes[idx] = int(
                             metadata.get("patch_size", self.config.frequency_patch_size)
                         )
+                        self.cached_freq_strides[idx] = int(
+                            metadata.get("stride", metadata.get("patch_size", self.config.frequency_stride))
+                        )
+                        image_shape = metadata.get("image_shape")
+                        if image_shape is not None:
+                            image_shape_tuple = (int(image_shape[0]), int(image_shape[1]))
+                            expected_shape = self._expected_map_shape(
+                                image_shape_tuple,
+                                self.cached_freq_patch_sizes[idx],
+                                self.cached_freq_strides[idx],
+                            )
+                            if tuple(freq_map.shape) != expected_shape:
+                                raise ValueError(
+                                    f"Frequency map {map_path} shape {tuple(freq_map.shape)} does not match "
+                                    f"metadata-derived patch grid {expected_shape} for image_shape={image_shape_tuple}, "
+                                    f"patch_size={self.cached_freq_patch_sizes[idx]}, "
+                                    f"stride={self.cached_freq_strides[idx]}."
+                                )
+                            self.cached_freq_image_shapes[idx] = image_shape_tuple
                     else:
+                        if torch.max(freq_map).item() <= float(self.model.freq_grid.num_levels - 1):
+                            raise ValueError(
+                                f"Frequency map {map_path} has no metadata and looks like level-index data "
+                                f"(max={torch.max(freq_map).item():.3f}). Expected scalar resolution values."
+                            )
                         self.cached_freq_patch_sizes[idx] = int(self.config.frequency_patch_size)
+                        self.cached_freq_strides[idx] = int(self.config.frequency_stride)
+                    self.cached_freq_maps[idx] = freq_map
                     count += 1
 
         CONSOLE.print(f"LookCloserPipeline: Loaded {count} frequency maps.")
@@ -200,11 +275,17 @@ class LookCloserPipeline(VanillaPipeline):
 
             # The freq map is patch-wise. Prefer preprocessing metadata over legacy fallback.
             # We must convert pixel coordinates to map coordinates.
-            stride = self.cached_freq_patch_sizes.get(img_idx, int(self.config.frequency_patch_size))
-            map_y = min(y // stride, self.cached_freq_maps[img_idx].shape[0] - 1)
-            map_x = min(x // stride, self.cached_freq_maps[img_idx].shape[1] - 1)
+            stride = self.cached_freq_strides.get(img_idx, int(self.config.frequency_stride))
+            patch_size = self.cached_freq_patch_sizes.get(img_idx, int(self.config.frequency_patch_size))
+            freq_map = self.cached_freq_maps[img_idx]
+            covered_h = (freq_map.shape[0] - 1) * stride + patch_size
+            covered_w = (freq_map.shape[1] - 1) * stride + patch_size
+            y_for_map = min(y, covered_h - 1)
+            x_for_map = min(x, covered_w - 1)
+            map_y = min(y_for_map // stride, freq_map.shape[0] - 1)
+            map_x = min(x_for_map // stride, freq_map.shape[1] - 1)
 
-            f = self.cached_freq_maps[img_idx][map_y, map_x]
+            f = freq_map[map_y, map_x]
             f2d_values.append(f)
             valid_mask.append(True)
 

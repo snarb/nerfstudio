@@ -310,7 +310,7 @@ def compute_patch_starts(length: int, patch_size: int, stride: int) -> List[int]
     Important: no tail patches by default.
 
     Reason:
-    Downstream sampler currently assumes map_y * patch_size and map_x * patch_size.
+    Downstream maps patch cell (iy, ix) to top-left (iy * stride, ix * stride).
     Adding tail patches would require storing true starts as metadata.
     """
     if length < patch_size:

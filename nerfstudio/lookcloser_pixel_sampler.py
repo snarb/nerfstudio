@@ -78,6 +78,30 @@ class LookCloserPixelSampler(PixelSampler):
         self.is_initialized = False
         self.patch_size = int(self.config.patch_size)
         self.patch_stride = int(self.config.stride)
+        self.image_shapes: Dict[int, tuple[int, int]] = {}
+
+    def _read_frequency_metadata(self, freq_file: Path) -> Optional[Dict]:
+        metadata_path = freq_file.with_suffix(".json")
+        if not metadata_path.exists():
+            return None
+        metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+        value_type = metadata.get("value_type")
+        if value_type != "scalar_resolution":
+            raise ValueError(
+                f"Frequency map {freq_file} has value_type={value_type!r}; "
+                "LookCloser downstream expects scalar_resolution values, not level indices."
+            )
+        return metadata
+
+    @staticmethod
+    def _expected_map_shape(image_shape: tuple[int, int], patch_size: int, stride: int) -> tuple[int, int]:
+        image_h, image_w = image_shape
+        if image_h < patch_size or image_w < patch_size:
+            raise ValueError(f"Image shape {image_shape} is smaller than patch_size={patch_size}.")
+        return (
+            ((image_h - patch_size) // stride) + 1,
+            ((image_w - patch_size) // stride) + 1,
+        )
 
     def _initialize_buckets(self, dataset: Dataset):
         """
@@ -122,12 +146,12 @@ class LookCloserPixelSampler(PixelSampler):
                 f"near {data_dir}. Please run the preprocessing script first."
             )
 
-        # 2. Iterate and Bucket
-        # We use temporary lists to hold indices, then stack to Tensor to save memory.
-        bucket_lists = {l: [] for l in range(self.config.num_levels)}
-
+        map_records = []
         patch_sizes: List[int] = []
         patch_strides: List[int] = []
+        min_res_values: List[float] = []
+        max_res_values: List[float] = []
+        num_level_values: List[int] = []
 
         # We must align with the dataset's image indexing.
         for img_idx, image_path in enumerate(dataset.image_filenames):
@@ -138,42 +162,96 @@ class LookCloserPixelSampler(PixelSampler):
                     f"[yellow]Warning:[/yellow] Frequency map missing for {image_path.name}. Skipping image in sampling.")
                 continue
 
-            f_map = torch.load(freq_file, map_location="cpu")
+            f_map = torch.load(freq_file, map_location="cpu").float()
+            if f_map.ndim != 2:
+                raise ValueError(f"Frequency map {freq_file} must be a 2D tensor, got shape {tuple(f_map.shape)}.")
+            if not torch.isfinite(f_map).all() or torch.min(f_map).item() <= 0.0:
+                raise ValueError(f"Frequency map {freq_file} must contain finite positive scalar resolution values.")
+
             H_map, W_map = f_map.shape
-            metadata_path = freq_file.with_suffix(".json")
+            metadata = self._read_frequency_metadata(freq_file)
             min_res = float(self.config.min_res)
             max_res = float(self.config.max_res)
             num_levels = int(self.config.num_levels)
-            if metadata_path.exists():
-                metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
-                patch_sizes.append(int(metadata.get("patch_size", self.config.patch_size)))
-                patch_strides.append(int(metadata.get("stride", metadata.get("patch_size", self.config.stride))))
+            patch_size = int(self.config.patch_size)
+            patch_stride = int(self.config.stride)
+            image_shape = None
+            if metadata is not None:
+                patch_size = int(metadata["patch_size"])
+                patch_stride = int(metadata.get("stride", metadata["patch_size"]))
                 min_res = float(metadata.get("min_res", min_res))
                 max_res = float(metadata.get("max_res", max_res))
                 num_levels = int(metadata.get("n_levels", num_levels))
+                image_shape_raw = metadata.get("image_shape")
+                if image_shape_raw is not None:
+                    image_shape = (int(image_shape_raw[0]), int(image_shape_raw[1]))
+                    expected_shape = self._expected_map_shape(image_shape, patch_size, patch_stride)
+                    if (H_map, W_map) != expected_shape:
+                        raise ValueError(
+                            f"Frequency map {freq_file} shape {(H_map, W_map)} does not match metadata-derived "
+                            f"patch grid {expected_shape} for image_shape={image_shape}, "
+                            f"patch_size={patch_size}, stride={patch_stride}."
+                        )
             else:
-                patch_sizes.append(int(self.config.patch_size))
-                patch_strides.append(int(self.config.stride))
+                if torch.max(f_map).item() <= float(num_levels - 1):
+                    raise ValueError(
+                        f"Frequency map {freq_file} has no metadata and looks like level-index data "
+                        f"(max={torch.max(f_map).item():.3f}). Expected scalar resolution values."
+                    )
 
-            # The freq map might be patch-wise (smaller resolution).
-            # We need pixel-wise buckets.
-            # We replicate the frequency values to match the full image resolution or
-            # we store patch indices and sample within patches.
-            #
-            # For simplicity and correctness with the plan ("Bucket all pixels"),
-            # let's assume we map pixels to the patch frequency value.
-            #
-            # Optimization:
-            # Storing 16 Million indices for a single 4K image is expensive.
-            # However, the plan explicitly says "Bucket pixels".
-            # To make this efficient, we'll store (img_idx, y_coord, x_coord) as Int32 (Short if possible).
-            #
-            # If the map is 1/32 scale, we can just store the map indices and
-            # during sampling add a random offset [0, 31].
+            if patch_size <= 0 or patch_stride <= 0:
+                raise ValueError(f"Invalid patch metadata for {freq_file}: patch_size={patch_size}, stride={patch_stride}.")
+            if min_res <= 0 or max_res <= min_res or num_levels < 2:
+                raise ValueError(
+                    f"Invalid frequency schedule for {freq_file}: "
+                    f"min_res={min_res}, max_res={max_res}, n_levels={num_levels}."
+                )
 
-            # Upsample f_map to image size? No, that explodes memory.
-            # We bucked the PATCHES.
-            # Then when we sample a patch, we pick a random pixel inside it.
+            patch_sizes.append(patch_size)
+            patch_strides.append(patch_stride)
+            min_res_values.append(min_res)
+            max_res_values.append(max_res)
+            num_level_values.append(num_levels)
+            if image_shape is not None:
+                self.image_shapes[img_idx] = image_shape
+
+            map_records.append((img_idx, freq_file, f_map, min_res, max_res, num_levels))
+
+        unique_patch_sizes = sorted(set(patch_sizes))
+        if len(unique_patch_sizes) > 1:
+            raise ValueError(
+                "LookCloserPixelSampler currently requires one patch_size across all frequency maps, "
+                f"got {unique_patch_sizes}."
+            )
+        unique_patch_strides = sorted(set(patch_strides))
+        if len(unique_patch_strides) > 1:
+            raise ValueError(
+                "LookCloserPixelSampler currently requires one stride across all frequency maps, "
+                f"got {unique_patch_strides}."
+            )
+        unique_min_res = sorted(set(min_res_values))
+        unique_max_res = sorted(set(max_res_values))
+        unique_num_levels = sorted(set(num_level_values))
+        if len(unique_min_res) > 1 or len(unique_max_res) > 1 or len(unique_num_levels) > 1:
+            raise ValueError(
+                "LookCloserPixelSampler requires one frequency schedule across all maps, got "
+                f"min_res={unique_min_res}, max_res={unique_max_res}, n_levels={unique_num_levels}."
+            )
+
+        self.patch_size = unique_patch_sizes[0] if unique_patch_sizes else int(self.config.patch_size)
+        self.patch_stride = unique_patch_strides[0] if unique_patch_strides else int(self.config.stride)
+        num_levels_for_buckets = unique_num_levels[0] if unique_num_levels else int(self.config.num_levels)
+        if num_levels_for_buckets != int(self.config.num_levels):
+            raise ValueError(
+                "Frequency-map n_levels does not match LookCloserPixelSamplerConfig.num_levels: "
+                f"{num_levels_for_buckets} != {self.config.num_levels}. Use one schedule for preprocessing and training."
+            )
+
+        # 2. Iterate and Bucket
+        # We bucket patch cells, then sample random pixels inside each selected cell.
+        bucket_lists = {l: [] for l in range(self.config.num_levels)}
+
+        for img_idx, freq_file, f_map, min_res, max_res, num_levels in map_records:
 
             # Compute levels for the map
             # l = log_b(f / min_res)
@@ -219,23 +297,7 @@ class LookCloserPixelSampler(PixelSampler):
             if self.config.debug_mode:
                 CONSOLE.print(f"Level {l}: {len(self.buckets[l])} patches")
 
-        # 5. Determine patch size from preprocessing metadata when available.
-        unique_patch_sizes = sorted(set(patch_sizes))
-        if len(unique_patch_sizes) > 1:
-            raise ValueError(
-                "LookCloserPixelSampler currently requires one patch_size across all frequency maps, "
-                f"got {unique_patch_sizes}."
-            )
-        unique_patch_strides = sorted(set(patch_strides))
-        if len(unique_patch_strides) > 1:
-            raise ValueError(
-                "LookCloserPixelSampler currently requires one stride across all frequency maps, "
-                f"got {unique_patch_strides}."
-            )
-        self.patch_size = unique_patch_sizes[0] if unique_patch_sizes else int(self.config.patch_size)
-        self.patch_stride = unique_patch_strides[0] if unique_patch_strides else int(self.config.stride)
-
-        # 6. Calculate Sampling Distribution (1:3 Ramp)
+        # 5. Calculate Sampling Distribution (1:3 Ramp)
         ramp = np.linspace(
             self.config.sampling_ramp_start,
             self.config.sampling_ramp_end,
@@ -307,7 +369,7 @@ class LookCloserPixelSampler(PixelSampler):
 
                 # Now convert patch top-left to random pixel within patch
                 # Add random offset [0, patch_size)
-                # Note: We need to ensure we don't go out of bounds if the image isn't perfect multiple of 32
+                # Note: We need to ensure we don't go out of bounds if the image has uncovered tail pixels.
                 # We simply clamp.
 
                 # Offsets
@@ -318,9 +380,23 @@ class LookCloserPixelSampler(PixelSampler):
                 y_coord = selected_patches[:, 1] * self.patch_stride + y_off
                 x_coord = selected_patches[:, 2] * self.patch_stride + x_off
 
-                # Clamp to image bounds
-                y_coord = torch.clamp(y_coord, 0, image_height - 1)
-                x_coord = torch.clamp(x_coord, 0, image_width - 1)
+                # Clamp to the selected image's shape when metadata is available.
+                if self.image_shapes:
+                    heights = torch.tensor(
+                        [self.image_shapes.get(int(i.item()), (image_height, image_width))[0] for i in img_idx],
+                        device=device,
+                        dtype=torch.long,
+                    )
+                    widths = torch.tensor(
+                        [self.image_shapes.get(int(i.item()), (image_height, image_width))[1] for i in img_idx],
+                        device=device,
+                        dtype=torch.long,
+                    )
+                    y_coord = torch.minimum(torch.clamp_min(y_coord, 0), heights - 1)
+                    x_coord = torch.minimum(torch.clamp_min(x_coord, 0), widths - 1)
+                else:
+                    y_coord = torch.clamp(y_coord, 0, image_height - 1)
+                    x_coord = torch.clamp(x_coord, 0, image_width - 1)
 
                 indices_list.append(torch.stack([img_idx, y_coord, x_coord], dim=1))
             else:
