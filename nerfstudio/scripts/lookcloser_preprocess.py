@@ -750,6 +750,7 @@ def save_stats_json(
     b = float(np.exp((np.log(max_res) - np.log(min_res)) / max(n_levels - 1, 1)))
     level_schedule = [float(min_res * (b ** lvl)) for lvl in range(n_levels)]
 
+    non_empty_levels = int(torch.unique(level_cpu).numel())
     stats = {
         "image": image_name,
         "shape": [int(freq_cpu.shape[0]), int(freq_cpu.shape[1])],
@@ -766,7 +767,8 @@ def save_stats_json(
         "percentiles": {str(p): float(np.percentile(flat, p)) for p in percentiles},
         "fraction_min_level": float((level_flat == 0).sum().item() / total),
         "fraction_max_level": float((level_flat == int(n_levels - 1)).sum().item() / total),
-        "number_of_non_empty_levels": int(torch.unique(level_cpu).numel()),
+        "non_empty_levels": non_empty_levels,
+        "number_of_non_empty_levels": non_empty_levels,
         "level_histogram": hist,
         "min_res": float(min_res),
         "max_res": float(max_res),
@@ -1218,6 +1220,7 @@ def save_debug_artifacts(
     h, w, _ = image_tensor.shape
 
     save_tensor_image_hwc(image_tensor, out_dir / "gt.png")
+    torch.save(freq_map.detach().cpu(), out_dir / "freq_map.pt")
     save_freq_overlay(
         image_tensor,
         freq_map,
@@ -1298,6 +1301,23 @@ def save_debug_artifacts(
 
     save_stats_json(
         out_dir / "stats.json",
+        image_name=image_name,
+        image_shape=(h, w),
+        freq_map=freq_map,
+        level_map=level_map,
+        min_res=float(min_res),
+        max_res=float(max_res),
+        n_levels=model.n_levels,
+        patch_size=patch_size,
+        stride=patch_size,
+        steps=steps,
+        batch_size=batch_size,
+        crop_coords=crop_coords,
+        debug_ssim_by_level=debug_bundle.ssim_by_level,
+        full_recon_metrics=full_metrics,
+    )
+    save_stats_json(
+        out_dir / "freq_stats.json",
         image_name=image_name,
         image_shape=(h, w),
         freq_map=freq_map,
