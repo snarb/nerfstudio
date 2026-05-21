@@ -102,6 +102,20 @@ class LocalWriterConfig(InstantiateConfig):
 
 
 @dataclass
+class CSVWriterConfig(PrintableConfig):
+    """Compact scalar CSV writer config."""
+
+    enable: bool = False
+    """if True writes compact scalar training/eval metrics to CSV"""
+    relative_log_filename: Path = Path("metrics_compact.csv")
+    """CSV filename relative to the experiment log directory"""
+    write_interval: int = 100
+    """write non-eval progress rows only every N steps"""
+    improvement_tolerance: float = 0.001
+    """relative tolerance used when deciding whether eval metrics improved"""
+
+
+@dataclass
 class LoggingConfig(PrintableConfig):
     """Configuration of loggers and profilers"""
 
@@ -114,6 +128,8 @@ class LoggingConfig(PrintableConfig):
      e.g. if 20, averages will be computed over past 20 occurrences."""
     local_writer: LocalWriterConfig = field(default_factory=lambda: LocalWriterConfig(enable=True))
     """if provided, will print stats locally. if None, will disable printing"""
+    csv_writer: CSVWriterConfig = field(default_factory=CSVWriterConfig)
+    """compact CSV scalar logger"""
     profiler: Literal["none", "basic", "pytorch"] = "basic"
     """how to profile the code;
         "basic" - prints speed of all decorated functions at the end of a program.

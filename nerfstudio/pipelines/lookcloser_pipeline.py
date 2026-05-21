@@ -8,7 +8,7 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, List, Literal, Optional, Type, Union
+from typing import Dict, List, Literal, Optional, Tuple, Type, Union
 
 import torch
 from torch import Tensor
@@ -77,7 +77,7 @@ class LookCloserPipeline(VanillaPipeline):
         self.cached_freq_maps: Dict[int, Tensor] = {}
         self.cached_freq_patch_sizes: Dict[int, int] = {}
         self.cached_freq_strides: Dict[int, int] = {}
-        self.cached_freq_image_shapes: Dict[int, tuple[int, int]] = {}
+        self.cached_freq_image_shapes: Dict[int, Tuple[int, int]] = {}
         if self.config.enable_frequency_grid:
             self._load_frequency_maps()
 
@@ -111,7 +111,7 @@ class LookCloserPipeline(VanillaPipeline):
             )
 
     @staticmethod
-    def _expected_map_shape(image_shape: tuple[int, int], patch_size: int, stride: int) -> tuple[int, int]:
+    def _expected_map_shape(image_shape: Tuple[int, int], patch_size: int, stride: int) -> Tuple[int, int]:
         image_h, image_w = image_shape
         if image_h < patch_size or image_w < patch_size:
             raise ValueError(f"Image shape {image_shape} is smaller than patch_size={patch_size}.")

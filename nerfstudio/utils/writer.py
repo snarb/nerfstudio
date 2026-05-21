@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import enum
 import os
+import csv
 from abc import abstractmethod
 from pathlib import Path
 from time import time
@@ -167,6 +168,8 @@ def write_out_storage():
         for event in EVENT_STORAGE:
             write_func = getattr(writer, event["write_type"].value)
             write_func(event["name"], event["event"], event["step"])
+        if hasattr(writer, "flush_step"):
+            writer.flush_step()
 
     EVENT_STORAGE.clear()
 
@@ -207,6 +210,7 @@ def setup_event_writer(
     log_dir: Path,
     experiment_name: str,
     project_name: str = "nerfstudio-project",
+    csv_writer_config: Optional[Any] = None,
 ) -> None:
     """Initialization of all event writers specified in config
     Args:
@@ -226,6 +230,14 @@ def setup_event_writer(
         using_event_writer = True
     if is_tensorboard_enabled:
         curr_writer = TensorboardWriter(log_dir=log_dir)
+        EVENT_WRITERS.append(curr_writer)
+        using_event_writer = True
+    if csv_writer_config is not None and csv_writer_config.enable:
+        curr_writer = CSVMetricWriter(
+            log_path=log_dir / csv_writer_config.relative_log_filename,
+            write_interval=csv_writer_config.write_interval,
+            improvement_tolerance=csv_writer_config.improvement_tolerance,
+        )
         EVENT_WRITERS.append(curr_writer)
         using_event_writer = True
     if using_event_writer:
@@ -358,6 +370,175 @@ class TensorboardWriter(Writer):
             config: config dictionary to write out
         """
         self.tb_writer.add_text("config", str(config_dict))
+
+
+class CSVMetricWriter(Writer):
+    """Compact scalar CSV writer for quick training health checks."""
+
+    FIELD_MAP = {
+        "Train Loss": "train_loss",
+        "Train Loss Dict/rgb_loss": "train_rgb_loss",
+        "Train Metrics Dict/psnr": "train_psnr",
+        "Eval Loss": "eval_loss",
+        "Eval Loss Dict/rgb_loss": "eval_rgb_loss",
+        "Eval Metrics Dict/psnr": "eval_batch_psnr",
+        "Eval Images Metrics/psnr": "eval_image_psnr",
+        "Eval Images Metrics/ssim": "eval_image_ssim",
+        "Eval Images Metrics/lpips": "eval_image_lpips",
+        "Eval Images Metrics Dict (all images)/psnr": "eval_all_psnr",
+        "Eval Images Metrics Dict (all images)/ssim": "eval_all_ssim",
+        "Eval Images Metrics Dict (all images)/lpips": "eval_all_lpips",
+        "GPU Memory (MB)": "gpu_mem_mb",
+        EventName.ITER_TRAIN_TIME.value: "iter_time_s",
+        EventName.TRAIN_RAYS_PER_SEC.value: "train_rays_per_sec",
+        EventName.TEST_RAYS_PER_SEC.value: "test_rays_per_sec",
+        EventName.ETA.value: "eta_s",
+        "learning_rate/fields": "lr_fields",
+        "learning_rate/proposal_networks": "lr_proposal_networks",
+        "learning_rate/means": "lr_means",
+    }
+    FIELDNAMES = [
+        "step",
+        "train_loss",
+        "train_rgb_loss",
+        "train_psnr",
+        "eval_loss",
+        "eval_rgb_loss",
+        "eval_batch_psnr",
+        "eval_image_psnr",
+        "eval_image_ssim",
+        "eval_image_lpips",
+        "eval_all_psnr",
+        "eval_all_ssim",
+        "eval_all_lpips",
+        "gpu_mem_mb",
+        "iter_time_s",
+        "train_rays_per_sec",
+        "test_rays_per_sec",
+        "eta_s",
+        "lr_fields",
+        "lr_proposal_networks",
+        "lr_means",
+        "best_eval_psnr",
+        "best_eval_ssim",
+        "best_eval_loss",
+        "eval_psnr_delta",
+        "eval_ssim_delta",
+        "eval_loss_delta",
+        "no_improve_evals",
+        "status",
+    ]
+
+    def __init__(self, log_path: Path, write_interval: int = 100, improvement_tolerance: float = 0.001):
+        self.log_path = log_path
+        self.log_path.parent.mkdir(parents=True, exist_ok=True)
+        self.write_interval = max(1, int(write_interval))
+        self.improvement_tolerance = improvement_tolerance
+        self.current_step: Optional[int] = None
+        self.current_row: Dict[str, Any] = {}
+        self.best_eval_psnr: Optional[float] = None
+        self.best_eval_ssim: Optional[float] = None
+        self.best_eval_loss: Optional[float] = None
+        self.last_eval_psnr: Optional[float] = None
+        self.last_eval_ssim: Optional[float] = None
+        self.last_eval_loss: Optional[float] = None
+        self.no_improve_evals = 0
+        self.file = self.log_path.open("w", encoding="utf-8", newline="")
+        self.csv_writer = csv.DictWriter(self.file, fieldnames=self.FIELDNAMES, extrasaction="ignore")
+        self.csv_writer.writeheader()
+        self.file.flush()
+        CONSOLE.log(f"CSV metrics log: {self.log_path}")
+
+    def write_image(self, name: str, image: Float[Tensor, "H W C"], step: int) -> None:
+        return
+
+    def write_config(self, name: str, config_dict: Dict[str, Any], step: int):
+        return
+
+    def write_scalar(self, name: str, scalar: Union[float, torch.Tensor], step: int) -> None:
+        field = self.FIELD_MAP.get(name)
+        if field is None:
+            return
+        if self.current_step is not None and step != self.current_step:
+            self.flush_step()
+        self.current_step = step
+        self.current_row["step"] = step
+        self.current_row[field] = self._to_float(scalar)
+
+    def flush_step(self) -> None:
+        if not self.current_row:
+            return
+        if not self._should_write_row():
+            self.current_row = {}
+            self.current_step = None
+            return
+        self._update_status()
+        row = {key: self._format_value(self.current_row.get(key, "")) for key in self.FIELDNAMES}
+        self.csv_writer.writerow(row)
+        self.file.flush()
+        self.current_row = {}
+        self.current_step = None
+
+    def _should_write_row(self) -> bool:
+        if self.current_step is not None and self.current_step % self.write_interval == 0:
+            return True
+        metric_prefixes = ("train_loss", "eval_", "best_eval", "no_improve")
+        return any(str(key).startswith(metric_prefixes) for key in self.current_row)
+
+    @staticmethod
+    def _to_float(value: Union[float, torch.Tensor]) -> float:
+        if isinstance(value, torch.Tensor):
+            value = value.detach().float().mean().cpu().item()
+        return float(value)
+
+    @staticmethod
+    def _format_value(value: Any) -> Any:
+        if isinstance(value, float):
+            return f"{value:.6g}"
+        return value
+
+    def _update_status(self) -> None:
+        row = self.current_row
+        eval_psnr = row.get("eval_all_psnr", row.get("eval_image_psnr", row.get("eval_batch_psnr")))
+        eval_ssim = row.get("eval_all_ssim", row.get("eval_image_ssim"))
+        eval_loss = row.get("eval_loss")
+
+        if eval_psnr is not None:
+            row["eval_psnr_delta"] = 0.0 if self.last_eval_psnr is None else eval_psnr - self.last_eval_psnr
+            improved = self.best_eval_psnr is None or eval_psnr > self.best_eval_psnr * (1.0 + self.improvement_tolerance)
+            if improved:
+                self.best_eval_psnr = eval_psnr
+                self.no_improve_evals = 0
+            else:
+                self.no_improve_evals += 1
+            self.last_eval_psnr = eval_psnr
+
+        if eval_ssim is not None:
+            row["eval_ssim_delta"] = 0.0 if self.last_eval_ssim is None else eval_ssim - self.last_eval_ssim
+            if self.best_eval_ssim is None or eval_ssim > self.best_eval_ssim:
+                self.best_eval_ssim = eval_ssim
+            self.last_eval_ssim = eval_ssim
+
+        if eval_loss is not None:
+            row["eval_loss_delta"] = 0.0 if self.last_eval_loss is None else eval_loss - self.last_eval_loss
+            if self.best_eval_loss is None or eval_loss < self.best_eval_loss:
+                self.best_eval_loss = eval_loss
+            self.last_eval_loss = eval_loss
+
+        row["best_eval_psnr"] = self.best_eval_psnr if self.best_eval_psnr is not None else ""
+        row["best_eval_ssim"] = self.best_eval_ssim if self.best_eval_ssim is not None else ""
+        row["best_eval_loss"] = self.best_eval_loss if self.best_eval_loss is not None else ""
+        row["no_improve_evals"] = self.no_improve_evals
+        row["status"] = self._status(row)
+
+    def _status(self, row: Dict[str, Any]) -> str:
+        if row.get("eval_loss_delta", 0.0) > 0.0 and row.get("eval_psnr_delta", 0.0) < 0.0:
+            return "overfit_watch"
+        if self.no_improve_evals >= 5:
+            return "plateau_watch"
+        if row.get("eval_psnr_delta", 0.0) > 0.0 or row.get("eval_ssim_delta", 0.0) > 0.0:
+            return "improving"
+        return "ok"
 
 
 @decorate_all([check_main_thread])

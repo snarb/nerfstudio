@@ -9,6 +9,19 @@
 - `nerfstudio/pipelines/lookcloser_pipeline.py` — training pipeline and grid updates.
 - `nerfstudio/configs/method_configs.py` — `lookcloser` method config.
 
+## Training monitoring additions
+
+Baseline training can now write compact scalar CSV logs without TensorBoard.
+
+- `nerfstudio/configs/base_config.py` adds `logging.csv_writer` with `enable`, `relative_log_filename`, `write_interval`, and `improvement_tolerance`.
+- `nerfstudio/utils/writer.py` adds `CSVMetricWriter`, which writes one compact row for selected train/eval scalars and includes `best_eval_*`, metric deltas, `no_improve_evals`, and a simple `status` field (`ok`, `improving`, `plateau_watch`, `overfit_watch`).
+- `nerfstudio/utils/decorators.py` treats `logging.csv_writer.enable=True` as an eval-enabled logger, so validation metrics are computed even when TensorBoard/WandB/Comet are off.
+- `nerfstudio/engine/trainer.py` passes the CSV writer config into writer setup.
+- `nerfstudio/configs/method_configs.py` now includes `instant-ngp-big`, a larger Instant-NGP variant with `log2_hashmap_size=23`, `max_res=4096`, larger train ray batch, and larger eval chunk.
+- Example run flags: `--vis viewer --logging.local-writer.enable False --logging.csv-writer.enable True --logging.csv-writer.write-interval 100 --logging.profiler none`. This disables TensorBoard/WandB event files while still running validation and writing `metrics_compact.csv` into the run directory.
+- Use the CSV to monitor whether training is worth continuing: compare current eval metrics to `best_eval_*`, and watch `status`. `plateau_watch` means eval quality has not improved for repeated evals; `overfit_watch` means train is still moving while eval loss/PSNR is getting worse.
+- Current 3k baseline insight: NGP variants overfit/plateau well before 30k steps, and the original `splatfacto-big` result is likely inflated because it used `load_3D_points=True` from a COLMAP reconstruction that included eval images. Fair 3DGS comparisons should use train-only COLMAP points or disable 3D point initialization.
+
 ## Preprocessing debug/test additions
 
 Recent changes are scoped to validating 2D frequency-map preprocessing, not the full LookCloser model.

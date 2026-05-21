@@ -213,6 +213,7 @@ class Trainer:
             log_dir=writer_log_path,
             experiment_name=self.config.experiment_name,
             project_name=self.config.project_name,
+            csv_writer_config=self.config.logging.csv_writer,
         )
         writer.setup_local_writer(
             self.config.logging, max_iter=self.config.max_num_iterations, banner_messages=banner_messages
@@ -353,6 +354,7 @@ class Trainer:
             and not self.config.is_tensorboard_enabled()
             and not self.config.is_wandb_enabled()
             and not self.config.is_comet_enabled()
+            and not self.config.logging.csv_writer.enable
         ):
             string: str = (
                 "[NOTE] Not running eval iterations since only viewer is enabled.\n"

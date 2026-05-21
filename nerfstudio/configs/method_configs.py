@@ -73,6 +73,7 @@ descriptions = {
     "nerfacto-huge": "Larger version of Nerfacto with higher quality.",
     "depth-nerfacto": "Nerfacto with depth supervision.",
     "instant-ngp": "Implementation of Instant-NGP. Recommended real-time model for unbounded scenes.",
+    "instant-ngp-big": "Larger Instant-NGP variant with a bigger hash table and training batch.",
     "instant-ngp-bounded": "Implementation of Instant-NGP. Recommended for bounded real and synthetic scenes",
     "mipnerf": "High quality model for bounded scenes. (slow)",
     "semantic-nerfw": "Predicts semantic segmentations and filters out transient objects.",
@@ -312,6 +313,30 @@ method_configs["instant-ngp"] = TrainerConfig(
             eval_num_rays_per_batch=4096,
         ),
         model=InstantNGPModelConfig(eval_num_rays_per_chunk=8192),
+    ),
+    optimizers={
+        "fields": {
+            "optimizer": AdamOptimizerConfig(lr=1e-2, eps=1e-15),
+            "scheduler": ExponentialDecaySchedulerConfig(lr_final=0.0001, max_steps=200000),
+        }
+    },
+    viewer=ViewerConfig(num_rays_per_chunk=1 << 12),
+    vis="viewer",
+)
+
+method_configs["instant-ngp-big"] = TrainerConfig(
+    method_name="instant-ngp-big",
+    steps_per_eval_batch=500,
+    steps_per_save=2000,
+    max_num_iterations=30000,
+    mixed_precision=True,
+    pipeline=DynamicBatchPipelineConfig(
+        datamanager=VanillaDataManagerConfig(
+            dataparser=NerfstudioDataParserConfig(),
+            train_num_rays_per_batch=8192,
+            eval_num_rays_per_batch=4096,
+        ),
+        model=InstantNGPModelConfig(eval_num_rays_per_chunk=16384, log2_hashmap_size=23, max_res=4096),
     ),
     optimizers={
         "fields": {

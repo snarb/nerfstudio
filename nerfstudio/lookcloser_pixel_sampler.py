@@ -3,7 +3,7 @@
 import json
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, List, Optional, Type, Union
+from typing import Dict, List, Optional, Tuple, Type, Union
 
 import numpy as np
 import torch
@@ -78,7 +78,7 @@ class LookCloserPixelSampler(PixelSampler):
         self.is_initialized = False
         self.patch_size = int(self.config.patch_size)
         self.patch_stride = int(self.config.stride)
-        self.image_shapes: Dict[int, tuple[int, int]] = {}
+        self.image_shapes: Dict[int, Tuple[int, int]] = {}
 
     def _read_frequency_metadata(self, freq_file: Path) -> Optional[Dict]:
         metadata_path = freq_file.with_suffix(".json")
@@ -94,7 +94,7 @@ class LookCloserPixelSampler(PixelSampler):
         return metadata
 
     @staticmethod
-    def _expected_map_shape(image_shape: tuple[int, int], patch_size: int, stride: int) -> tuple[int, int]:
+    def _expected_map_shape(image_shape: Tuple[int, int], patch_size: int, stride: int) -> Tuple[int, int]:
         image_h, image_w = image_shape
         if image_h < patch_size or image_w < patch_size:
             raise ValueError(f"Image shape {image_shape} is smaller than patch_size={patch_size}.")
