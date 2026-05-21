@@ -26,6 +26,20 @@ At the initial stage, final validation stage, and when debugging unclear problem
 High-res 6K image: /home/ubuntu/repos/look-closer/E004_D014_graded.png
 Fast preview: /home/ubuntu/repos/look-closer/E004_D014_HD.jpg
 
+## Training data
+
+Training data location:  /fsx/oregon/tank_bkup/6A_4_EXR/nerfstudio_data/007740/
+
+There are 2 subfolders: 
+
+"3k" : use it by default for all trainings and evaluations.
+
+"hd": use it for previews to not use a lot of tokens
+
+"6k": for final finetuning when asked by user explicitly
+
+
+
 ## Architecture
 The architecture documentation is stored in ./architecture.md. Update it after each major change, but keep cosine.
 
