@@ -40,7 +40,20 @@ There are 2 subfolders:
 
 
 
+## Evaluation data
+
+Use
+
+E004_B014.png
+D004_A014.png
+I004_D014.png
+
+images in the training data dir only for evaluation and not for the training.
+
+
+
 ## Architecture
+
 The architecture documentation is stored in ./architecture.md. Update it after each major change, but keep cosine.
 
 ## Experiments
