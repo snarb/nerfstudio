@@ -18,11 +18,9 @@ from nerfstudio.engine.callbacks import TrainingCallback, TrainingCallbackAttrib
 from nerfstudio.field_components.field_heads import FieldHeadNames
 from nerfstudio.fields.lookcloser_field import LookCloserField
 from nerfstudio.model_components.lookcloser_grid import FrequencyGridManager
-from nerfstudio.model_components.losses import (
-    MSELoss,
-    nerfstudio_distortion_loss,
-)
+from nerfstudio.model_components.losses import nerfstudio_distortion_loss
 from nerfstudio.model_components.renderers import RGBRenderer
+from nerfstudio.model_components.scene_colliders import AABBBoxCollider
 from nerfstudio.models.base_model import Model, ModelConfig
 from nerfstudio.utils import colormaps
 from nerfstudio.utils.colors import get_color
@@ -178,9 +176,15 @@ class LookCloserModel(Model):
 
         # 3. Renderers
         self.renderer_rgb = RGBRenderer(background_color=self.config.background_color)
+        if self.config.enable_collider:
+            self.collider = AABBBoxCollider(scene_box=self.scene_box)
 
         # Metrics
-        self.psnr = MSELoss()
+        from torchmetrics.functional import structural_similarity_index_measure
+        from torchmetrics.image import PeakSignalNoiseRatio
+
+        self.psnr = PeakSignalNoiseRatio(data_range=1.0)
+        self.ssim = structural_similarity_index_measure
 
     def get_param_groups(self) -> Dict[str, List[Parameter]]:
         param_groups = {}
@@ -299,8 +303,8 @@ class LookCloserModel(Model):
         if self.renderer_rgb.background_color == "white":
             acc_rgb = acc_rgb + transmittance
         elif self.renderer_rgb.background_color == "random":
-             bg = torch.rand_like(acc_rgb)
-             acc_rgb = acc_rgb + transmittance * bg
+            bg = torch.rand_like(acc_rgb) if self.training else torch.zeros_like(acc_rgb)
+            acc_rgb = acc_rgb + transmittance * bg
 
         # --- 4. Construct RaySamples for Loss ---
         # We need to normalize t -> s [0, 1] for MipNeRF 360 distortion loss
@@ -366,8 +370,8 @@ class LookCloserModel(Model):
         if num_samples <= 0:
             raise ValueError("fixed_num_samples_per_ray must be > 0.")
 
-        nears = ray_bundle.nears
-        fars = ray_bundle.fars
+        nears = ray_bundle.nears[:, None, :]
+        fars = ray_bundle.fars[:, None, :]
         span = (fars - nears).clamp(min=1e-6)
 
         edges = torch.linspace(0.0, 1.0, num_samples + 1, device=device)
@@ -401,7 +405,8 @@ class LookCloserModel(Model):
         if self.renderer_rgb.background_color == "white":
             acc_rgb = acc_rgb + transmittance
         elif self.renderer_rgb.background_color == "random":
-            acc_rgb = acc_rgb + transmittance * torch.rand_like(acc_rgb)
+            bg = torch.rand_like(acc_rgb) if self.training else torch.zeros_like(acc_rgb)
+            acc_rgb = acc_rgb + transmittance * bg
 
         norm_starts = edges[:-1].view(1, num_samples, 1).expand(n_rays, -1, -1)
         norm_ends = edges[1:].view(1, num_samples, 1).expand(n_rays, -1, -1)
@@ -453,10 +458,11 @@ class LookCloserModel(Model):
         # 2. Distortion Loss (Mip-NeRF 360)
         # Uses the standard Nerfstudio implementation which expects (RaySamples, weights)
         if self.config.distortion_loss_mult > 0:
-            loss_dict["distortion_loss"] = self.config.distortion_loss_mult * nerfstudio_distortion_loss(
+            distortion = nerfstudio_distortion_loss(
                 ray_samples=outputs["loss_ray_samples"],
                 weights=outputs["loss_weights"]
-            )
+            ).mean()
+            loss_dict["distortion_loss"] = self.config.distortion_loss_mult * distortion
 
         # 3. Depth Loss (Sparse Supervision)
         if (
@@ -487,14 +493,16 @@ class LookCloserModel(Model):
         combined_acc = torch.cat([acc], dim=1)
         combined_depth = torch.cat([depth], dim=1)
 
-        # Switch images from [H, W, C] to [C, H, W] for metrics
-        image = torch.moveaxis(image, -1, 0)
-        rgb = torch.moveaxis(rgb, -1, 0)
+        # Switch images from [H, W, C] to [1, C, H, W] for metrics.
+        image = torch.moveaxis(image, -1, 0)[None, ...]
+        rgb = torch.moveaxis(rgb, -1, 0)[None, ...]
 
         psnr = self.psnr(image, rgb)
+        ssim = self.ssim(image, rgb)
 
         metrics_dict = {
             "psnr": float(psnr.item()),
+            "ssim": float(ssim),
         }
         images_dict = {
             "img": combined_rgb,
