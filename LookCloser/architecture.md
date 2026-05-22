@@ -11,43 +11,7 @@
 
 ## Training monitoring additions
 
-Baseline training can now write compact scalar CSV logs without TensorBoard.
-
-- `nerfstudio/configs/base_config.py` adds `logging.csv_writer` with `enable`, `relative_log_filename`, `write_interval`, and `improvement_tolerance`.
-- `nerfstudio/utils/writer.py` adds `CSVMetricWriter`, which writes one compact row for selected train/eval scalars and includes `best_eval_*`, metric deltas, `no_improve_evals`, and a simple `status` field (`ok`, `improving`, `plateau_watch`, `overfit_watch`).
-- `nerfstudio/utils/decorators.py` treats `logging.csv_writer.enable=True` as an eval-enabled logger, so validation metrics are computed even when TensorBoard/WandB/Comet are off.
-- `nerfstudio/engine/trainer.py` passes the CSV writer config into writer setup.
-- `nerfstudio/configs/method_configs.py` now includes `instant-ngp-big`, a larger Instant-NGP variant with `log2_hashmap_size=23`, `max_res=4096`, larger train ray batch, and larger eval chunk.
-- Example run flags: `--vis viewer --logging.local-writer.enable False --logging.csv-writer.enable True --logging.csv-writer.write-interval 100 --logging.profiler none`. This disables TensorBoard/WandB event files while still running validation and writing `metrics_compact.csv` into the run directory.
-- Use the CSV to monitor whether training is worth continuing: compare current eval metrics to `best_eval_*`, and watch `status`. `plateau_watch` means eval quality has not improved for repeated evals; `overfit_watch` means train is still moving while eval loss/PSNR is getting worse.
-- Current 3k baseline insight: NGP variants overfit/plateau well before 30k steps, and the original `splatfacto-big` result is likely inflated because it used `load_3D_points=True` from a COLMAP reconstruction that included eval images. Fair 3DGS comparisons should use train-only COLMAP points or disable 3D point initialization.
-
-## Preprocessing debug/test additions
-
-Recent changes are scoped to validating 2D frequency-map preprocessing, not the full LookCloser model.
-
-- Added standalone `lookcloser_debug_preprocess.py --mode overfit`, which overfits a 2D HashGrid on a 256x256 crop from `E004_D014_HD.jpg`, renders the same crop at max level, and writes `gt.png`, `recon_full.png`, `diff.png`, and `stats.json` under `lookcloser_debug_outputs/overfit_hd`.
-- The overfit script asserts the core coordinate contract directly: `image[y, x]` maps to `uv=((x+0.5)/W, (y+0.5)/H)`, generated UV grids preserve x/y order, `pred.view(P, P, 3)` matches GT patch row-major order, and GT/rendered patches use identical crop coordinates.
-- `lookcloser_preprocess.py` now supports direct image runs via `--image-path`, so HD/6K crops can be tested without a Nerfstudio dataparser.
-- Added `debug-overfit` artifacts for 2D HashGrid crop overfit: `gt.png`, `recon_full.png`, `diff.png`, `stats.json`.
-- Added progressive level visualization for fixed debug levels, defaulting to `0,2,4,8,12,15`, to verify that lower levels are blurry and higher levels add detail.
-- Added UV/patch audit output with fixed patches: GT patch, max-level prediction, diff, and labeled `(x, y)` patch coordinates.
-- Added frequency-map diagnostics: `freq_heatmap.png`, `freq_overlay.png`, `freq_histogram.png`, and `freq_stats.json` / `stats.json`.
-- Added patch audit mosaics: `low_freq_patches.png`, `high_freq_patches.png`, and `random_freq_patches.png`.
-- Patch audit entries include GT, assigned-level reconstruction, max-level reconstruction, assigned level/resolution, assigned SSIM, and max SSIM.
-- Added `sweep` mode for the minimal hyperparameter sweep over steps, SSIM threshold, patch size, and max resolution. Results are summarized in `sweep_summary.csv`.
-- Frequency maps still store scalar resolution values, but preprocessing now writes sidecar JSON metadata containing `patch_size`, `stride`, `min_res`, `max_res`, `n_levels`, and the level-resolution schedule.
-- `lookcloser_pixel_sampler.py` and `lookcloser_pipeline.py` read this metadata for new maps, require `value_type="scalar_resolution"`, validate the metadata-derived patch-grid shape, and reject maps that look like level-index tensors. Legacy maps without metadata can still use explicit config fallbacks, but they are checked instead of silently assuming patch size 32.
-- Runtime grid updates validate preprocessing `min_res/max_res/n_levels` against the model `FrequencyGridManager`, so scalar 2D frequencies are converted to levels with the same schedule used by the 3D grid.
-- When `max_res` is derived from scene size, preprocessing and the model both use `round(max_res_base * scene_size)` before constructing the frequency schedule.
-- Progressive 2D preprocessing trains and evaluates each HashGrid prefix with the same `render_masked(..., level)` path, and casts tiny-cuda-nn half outputs safely for training loss and SSIM/debug artifacts.
-- Baseline HashGrid defaults follow the paper setup: 16 levels (`0..15`), 2 features per level, `min_res=16`, `max_res=2048 * scene_size`, and `log2_hashmap_size=23`. The LookCloser model infers `scene_size` from the longest AABB side; preprocessing infers it from the dataparser scene box for dataset runs and accepts `--scene-size` for direct image debugging.
-- Frequency-averaged sampling buckets scalar frequency maps using the per-map metadata `min_res/max_res/n_levels` when present, so maps generated with scene-size-scaled `max_res` are not decoded with stale fallback constants.
-- Debug frequency maps now include level-based diagnostics: `level_heatmap.png`, `level_overlay.png`, `level_heatmap_legend.png`, and `high_frequency_mask_L{threshold}_plus.png`. Compatibility files `freq_heatmap.png` and `freq_overlay.png` use the level-based visualization; scalar-resolution heatmaps are saved separately.
-- Heatmap debugging now also writes quantile-stretched diagnostic views, `level_heatmap_quantile.png` and `level_overlay_quantile.png`, so narrow assigned-level ranges are easier to inspect without changing `level_heatmap.png` semantics. The high-frequency diagnostic threshold is configurable with `--high-frequency-level`, and a readable red overlay is saved as `high_frequency_overlay_L{threshold}_plus.png`.
-- Direct-image frequency debug runs now write the requested stable artifact names under `lookcloser_debug_outputs/freq_hd`: `freq_map.pt`, `freq_heatmap.png`, `freq_overlay.png`, `freq_histogram.png`, and `freq_stats.json`. The stats file includes the map shape, min/max/mean/median, percentiles 0/5/25/50/75/95/100, min/max-level fractions, and `non_empty_levels`.
-- 6K heatmap tuning on the same tiny-detail crop selected `patch_size=8`, `ssim_window_size=7`, `ssim_threshold=0.97`, and diagnostic `high_frequency_level=13` as the default preprocessing/debug configuration. The final 64x64 patch grid populated 13 levels, with L12+ fraction `0.402`, L13+ fraction `0.125`, and max-level fraction `0.026`; it produced a clearer overlay on rods/cables/hard edges than patch sizes 12 or 16. Results are documented in `experiments/preprocess_heatmap_hyperparameter_tuning_6k.md`.
-- Kneedle selector comparison was tested on the 6K tiny-detail crop and then removed from the runtime preprocessing script. Plain Kneedle selected levels about 2.5-3.0 levels lower than the existing selection logic and visually under-selected rods/cables, so the codebase keeps the tuned SSIM-threshold assignment path instead of adding a Kneedle selector.
+Baseline runs can enable `--logging.csv-writer.enable True` to write compact `metrics_compact.csv` rows for train/eval trends, `best_eval_*`, plateau and overfit status, which is useful because recent 3k baselines plateau early and best checkpoint metrics are more informative than final-step metrics.
 
 ## Configurable LookCloser modules
 
