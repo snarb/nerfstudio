@@ -23,6 +23,14 @@ For the 3k `007740` split use `nerfstudio-data --scene-scale 2.5` for current 3k
 
 With `scene_scale=2.5`, a short 3k sweep over LookCloser `max_res_base` found `2048` to be the best early eval-PSNR setting among `1024`, `2048`, and `4096`. Keep `pipeline.model.max_res_base=2048` as the current quality-first default; `1024` is close and slightly faster, so it is useful for fast debugging runs. 
 
+## Nerfstudio instant-ngp comparison hooks
+
+For raw instant-ngp parity experiments, `nerfstudio.models.instant_ngp.InstantNGPModelConfig` exposes the underlying `NerfactoField` hash-grid and MLP shape: `base_res`, `num_levels`, `features_per_level`, `num_layers`, `hidden_dim`, `num_layers_color`, and `hidden_dim_color`. This allows testing raw-like settings such as 8 hash levels with 4 features per level without changing the default nerfstudio `instant-ngp` behavior.
+
+The same comparison path also exposes `rgb_output_activation`, `loss_type`, and `raw_no_appearance_embedding`. These are for ablations against raw instant-ngp only: raw-like Huber loss and removing the appearance embedding were tested separately from the default `instant-ngp-big` baseline because they changed optimization behavior substantially.
+
+`nerfstudio.data.dataparsers.instant_ngp_dataparser.InstantNGP` now reads `fl_y` directly when it is present in `transforms.json`. This avoids silently falling back to `fl_x` for non-square intrinsics in instant-ngp formatted transform files.
+
 ## Configurable LookCloser modules
 
 The paper-level modules can be ablated independently through config flags.

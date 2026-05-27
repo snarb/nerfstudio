@@ -55,8 +55,26 @@ class InstantNGPModelConfig(ModelConfig):
     """Levels of the grid used for the field."""
     max_res: int = 2048
     """Maximum resolution of the hashmap for the base mlp."""
+    base_res: int = 16
+    """Minimum resolution of the hashmap for the base mlp."""
+    num_levels: int = 16
+    """Number of hashgrid levels for the base mlp."""
+    features_per_level: int = 2
+    """Number of hashgrid feature channels per level."""
     log2_hashmap_size: int = 19
     """Size of the hashmap for the base mlp"""
+    num_layers: int = 2
+    """Number of layers for the density/base MLP."""
+    hidden_dim: int = 64
+    """Hidden dimension for the density/base MLP."""
+    num_layers_color: int = 3
+    """Number of layers for the color MLP."""
+    hidden_dim_color: int = 64
+    """Hidden dimension for the color MLP."""
+    rgb_output_activation: Literal["sigmoid", "none"] = "sigmoid"
+    """Output activation for the RGB MLP."""
+    loss_type: Literal["mse", "instant_ngp_huber"] = "mse"
+    """RGB loss type. instant_ngp_huber uses raw instant-ngp's Huber(delta=0.1)/5 convention."""
     alpha_thre: float = 0.01
     """Threshold for opacity skipping."""
     cone_angle: float = 0.004
@@ -71,6 +89,8 @@ class InstantNGPModelConfig(ModelConfig):
     """Use gradient scaler where the gradients are lower for points closer to the camera."""
     use_appearance_embedding: bool = False
     """Whether to use an appearance embedding."""
+    raw_no_appearance_embedding: bool = False
+    """Disable appearance embeddings for raw instant-ngp parity without changing legacy configs."""
     background_color: Literal["random", "black", "white"] = "random"
     """
     The color that is given to masked areas.
@@ -102,11 +122,21 @@ class NGPModel(Model):
         else:
             scene_contraction = SceneContraction(order=float("inf"))
 
+        appearance_embedding_dim = 0 if (self.config.raw_no_appearance_embedding or self.config.use_appearance_embedding) else 32
+
         self.field = NerfactoField(
             aabb=self.scene_box.aabb,
-            appearance_embedding_dim=0 if self.config.use_appearance_embedding else 32,
+            appearance_embedding_dim=appearance_embedding_dim,
             num_images=self.num_train_data,
+            num_layers=self.config.num_layers,
+            hidden_dim=self.config.hidden_dim,
+            num_levels=self.config.num_levels,
+            base_res=self.config.base_res,
             log2_hashmap_size=self.config.log2_hashmap_size,
+            features_per_level=self.config.features_per_level,
+            num_layers_color=self.config.num_layers_color,
+            hidden_dim_color=self.config.hidden_dim_color,
+            rgb_output_activation=self.config.rgb_output_activation,
             max_res=self.config.max_res,
             spatial_distortion=scene_contraction,
         )
@@ -232,7 +262,12 @@ class NGPModel(Model):
             pred_accumulation=outputs["accumulation"],
             gt_image=image,
         )
-        rgb_loss = self.rgb_loss(image, pred_rgb)
+        if self.config.loss_type == "instant_ngp_huber":
+            # Raw instant-ngp uses Huber(delta=0.1) and divides by 5 so its local
+            # quadratic region is comparable to L2.
+            rgb_loss = torch.nn.functional.huber_loss(pred_rgb, image, delta=0.1, reduction="mean") / 5.0
+        else:
+            rgb_loss = self.rgb_loss(image, pred_rgb)
         loss_dict = {"rgb_loss": rgb_loss}
         return loss_dict
 

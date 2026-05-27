@@ -28,31 +28,83 @@ Fast preview: /home/ubuntu/repos/look-closer/E004_D014_HD.jpg
 
 ## Training data
 
-Training data location:  /fsx/oregon/tank_bkup/6A_4_EXR/nerfstudio_data/007740/
+For the HD multicamera bounded Instant-NGP baseline, use the processed nerfstudio dataset with the 3 eval views already separated by filename:
 
-There are 2 subfolders: 
+`/fsx/oregon/tank_bkup/6A_4_EXR/nerfstudio_processed/007740_hd_aabb4_multicamera_eval3_ns`
 
-"3k" : use it by default for all trainings and evaluations.
-
-"hd": use it for previews to not use a lot of tokens
-
-"6k": for final finetuning when asked by user explicitly
+This dataset should parse as 66 train images and 3 eval images when using `nerfstudio-data --eval-mode filename`.
 
 
 
 ## Evaluation 
 
-Use
-
-- E004_B014.png
-- D004_A014.png
-- I004_D014.png
-
- from the training data directory only for evaluation, not for training. 
-
 Use PSNR and SSIM metrics for the evaluation reports, and do not include loss.
 
 After training, save the rendered images from the epoch with the lowest evaluation loss to the experiment subfolder.
+
+### Current bounded Instant-NGP baseline data
+
+Rendered outputs and metrics from the baseline run are documented in:
+
+`./experiments/baseline_bounded_ngp.md`
+
+### Quiet bounded Instant-NGP runner
+
+Use this wrapper for baseline reruns to keep chat/context small:
+
+```bash
+conda activate /home/ubuntu/anaconda3/envs/nerfstudio
+python /home/ubuntu/repos/nerfstudio/LookCloser/scripts/run_bounded_ngp_quiet.py
+```
+
+The runner:
+
+- launches `ns-train` with stdout/stderr redirected to `train_stdout.log`;
+- prints only compact status lines (`step=...`, eval loss, PSNR, SSIM);
+- monitors `metrics_compact.csv`;
+- stops training when eval loss does not improve at an eval boundary;
+- runs `ns-eval` on the latest checkpoint and writes renders;
+- redirects verbose eval output to `eval_stdout.log`.
+
+Default runner parameters:
+
+- method: `instant-ngp-bounded`
+- dataparser: `nerfstudio-data`
+- data: `/fsx/oregon/tank_bkup/6A_4_EXR/nerfstudio_processed/007740_hd_aabb4_multicamera_eval3_ns`
+- output dir: `/fsx/oregon/tank_bkup/6A_4_EXR/nerfstudio_runs`
+- experiment name: `007740_hd_aabb4_multicamera_eval3_ns_focus_scene15`
+- eval mode: `filename`
+- scene scale: `1.5`
+- center method: `focus`
+- orientation method: `up`
+- auto scale poses: `True`
+- downscale factor: `1`
+- train rays per batch: `8192`
+- eval/save interval: `15188`
+- max iterations: `60752`
+- compact CSV logger enabled
+- local terminal writer disabled
+
+Use `--dry-run` to print the full command without training:
+
+```bash
+python /home/ubuntu/repos/nerfstudio/LookCloser/scripts/run_bounded_ngp_quiet.py --dry-run
+```
+
+Use `--no-stop-on-no-improve` only when explicitly asked to train all configured iterations regardless of eval loss.
+
+Eval loss is used internally for early stopping.
+
+### Context hygiene for long runs
+
+Do not run long `ns-train` or `ns-eval` jobs in a TTY unless the user needs the full live output. The rich progress bars and config dump waste a lot of context.
+
+Prefer the quiet runner above. If running commands manually, redirect noisy output to files:
+
+```bash
+ns-train ... > "$RUN_DIR/train_stdout.log" 2>&1
+ns-eval ... > "$RUN_DIR/eval_stdout.log" 2>&1
+```
 
 ## Architecture
 

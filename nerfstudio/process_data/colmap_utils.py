@@ -99,6 +99,7 @@ def run_colmap(
     matching_method: Literal["vocab_tree", "exhaustive", "sequential"] = "vocab_tree",
     refine_intrinsics: bool = True,
     colmap_cmd: str = "colmap",
+    use_single_camera_mode: bool = True,
 ) -> None:
     """Runs COLMAP on the images.
 
@@ -112,6 +113,7 @@ def run_colmap(
         matching_method: Matching method to use.
         refine_intrinsics: If True, refine intrinsics.
         colmap_cmd: Path to the COLMAP executable.
+        use_single_camera_mode: If True, use one shared COLMAP camera. Otherwise, allow one camera per image.
     """
 
     colmap_version = get_colmap_version(colmap_cmd)
@@ -124,7 +126,7 @@ def run_colmap(
         f"{colmap_cmd} feature_extractor",
         f"--database_path {colmap_dir / 'database.db'}",
         f"--image_path {image_dir}",
-        "--ImageReader.single_camera 1",
+        f"--ImageReader.single_camera {int(use_single_camera_mode)}",
         f"--ImageReader.camera_model {camera_model.value}",
         f"--SiftExtraction.use_gpu {int(gpu)}",
     ]

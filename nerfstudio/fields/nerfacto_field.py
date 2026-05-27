@@ -84,6 +84,7 @@ class NerfactoField(Field):
         num_layers_transient: int = 2,
         features_per_level: int = 2,
         hidden_dim_color: int = 64,
+        rgb_output_activation: Literal["sigmoid", "none"] = "sigmoid",
         hidden_dim_transient: int = 64,
         appearance_embedding_dim: int = 32,
         transient_embedding_dim: int = 16,
@@ -196,7 +197,7 @@ class NerfactoField(Field):
             layer_width=hidden_dim_color,
             out_dim=3,
             activation=nn.ReLU(),
-            out_activation=nn.Sigmoid(),
+            out_activation=nn.Sigmoid() if rgb_output_activation == "sigmoid" else None,
             implementation=implementation,
         )
 

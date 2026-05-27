@@ -1,0 +1,21 @@
+{
+  "mode": "overfit",
+  "image_path": "/home/ubuntu/repos/look-closer/E004_D014_HD.jpg",
+  "image_width": 1280,
+  "image_height": 640,
+  "crop": {
+    "x": 512,
+    "y": 192,
+    "w": 256,
+    "h": 256
+  },
+  "steps": 8000,
+  "batch_size": 8192,
+  "min_res": 16,
+  "max_res": 2048,
+  "n_levels": 16,
+  "max_level": 15,
+  "final_mse": 8.303822141897399e-06,
+  "psnr": 50.80721961472946,
+  "ssim": 0.9975013732910156
+}
