@@ -34,7 +34,7 @@ For the HD multicamera bounded Instant-NGP baseline, use the processed nerfstudi
 
 This dataset should parse as 66 train images and 3 eval images when using `nerfstudio-data --eval-mode filename`.
 
-
+This is bounded indoor scene.
 
 ## Evaluation 
 

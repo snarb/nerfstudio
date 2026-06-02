@@ -211,6 +211,8 @@ class LookCloserPipeline(VanillaPipeline):
         Standard training step + Periodic Grid Update.
         """
         # 1. Standard Training Step
+        if hasattr(self.model, "current_train_step"):
+            self.model.current_train_step = step
         model_outputs, loss_dict, metrics_dict = super().get_train_loss_dict(step)
 
         # 2. Side-Channel Grid Update
@@ -246,22 +248,25 @@ class LookCloserPipeline(VanillaPipeline):
         if not available_indices:
             return
 
-        rand_img_indices = torch.tensor(available_indices)[
+        rand_img_indices = torch.tensor(available_indices, dtype=torch.long)[
             torch.randint(0, len(available_indices), (num_samples,))
         ]
+        camera_indices_cpu = rand_img_indices.long()
 
         # Randomly choose pixels (y, x)
         # We need image dimensions. Cameras object holds this.
         cameras = dataset.cameras
-        H = cameras.height[rand_img_indices].squeeze(-1)  # (N,)
-        W = cameras.width[rand_img_indices].squeeze(-1)  # (N,)
+        H = cameras.height[camera_indices_cpu].squeeze(-1)  # (N,)
+        W = cameras.width[camera_indices_cpu].squeeze(-1)  # (N,)
 
-        rand_y = (torch.rand(num_samples) * H).long()
-        rand_x = (torch.rand(num_samples) * W).long()
+        H = H.long()
+        W = W.long()
+        rand_y = (torch.rand(num_samples) * H.float()).long()
+        rand_x = (torch.rand(num_samples) * W.float()).long()
 
         # Clamp to be safe
-        rand_y = torch.clamp(rand_y, 0, H - 1)
-        rand_x = torch.clamp(rand_x, 0, W - 1)
+        rand_y = torch.minimum(torch.clamp_min(rand_y, 0), H - 1)
+        rand_x = torch.minimum(torch.clamp_min(rand_x, 0), W - 1)
 
         # --- 2. Retrieve f_2D ---
         # Since maps vary in size, we can't batch lookup easily.
@@ -295,7 +300,7 @@ class LookCloserPipeline(VanillaPipeline):
         # Generate rays for these specific pixels
         # coord: (y, x)
         coords = torch.stack([rand_y, rand_x], dim=-1).to(self.device)  # (N, 2)
-        camera_indices = rand_img_indices.to(self.device).unsqueeze(-1)  # (N, 1)
+        camera_indices = camera_indices_cpu.to(self.device).unsqueeze(-1)  # (N, 1)
 
         ray_bundle = cameras.generate_rays(
             camera_indices=camera_indices,
@@ -315,8 +320,8 @@ class LookCloserPipeline(VanillaPipeline):
 
         # Get focals for these rays
         # (fx + fy)/2
-        fx = cameras.fx[camera_indices.squeeze()].to(self.device).squeeze()
-        fy = cameras.fy[camera_indices.squeeze()].to(self.device).squeeze()
+        fx = cameras.fx[camera_indices_cpu].to(self.device).squeeze()
+        fy = cameras.fy[camera_indices_cpu].to(self.device).squeeze()
         focals = (fx + fy) / 2.0
 
         # Get positions (surface intersection)
