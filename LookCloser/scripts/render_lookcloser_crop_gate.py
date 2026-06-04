@@ -26,6 +26,7 @@ DEFAULT_BASELINE = Path(
 )
 
 CROPS = [
+    ("left_stand_eval0", 0, (300, 0, 650, 650)),
     ("floor_crack_eval0", 0, (1110, 715, 1410, 900)),
     ("fingers_right_eval1", 1, (860, 290, 1210, 590)),
     ("stand_label_eval2", 2, (60, 450, 290, 900)),

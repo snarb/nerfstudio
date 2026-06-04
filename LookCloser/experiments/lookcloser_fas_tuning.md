@@ -77,3 +77,41 @@ The HD frequency maps assign most patches to high frequency levels: about `77.3%
 Mixed FAS at `0.35` strength with a `2048` step warmup and `4096` step ramp is the best FAS-only numeric result so far: mean PSNR and SSIM beat the previous no-FAS reference, and seeds 43/44 beat the previous single-run PSNR leader. However, it fails the visual-first crop gate and worsens LPIPS. Treat it as a numeric-leader candidate, not as a solved tiny-detail improvement.
 
 Next FAS-focused tests should avoid more aggressive high-frequency-only sampling. More plausible directions are modest FAS mixtures with visual-gated selection, or a FAS probability schedule that better matches the observed high-frequency map distribution without starving uniform coverage.
+
+## Artifact Follow-up
+
+User visual inspection found a significant `eval_img_0000.png` artifact in the previous seed-44 PSNR leader: the left vertical metal stand was broken around the connector/wrist area. The exact crop comparison is saved at:
+
+```text
+/home/ubuntu/repos/nerfstudio/LookCloser/lookcloser_debug_outputs/fas_artifact_stand/problem_crop_compare/problem_crop_compare.png
+```
+
+The comparison shows seed 43 of the same `fas_strength=0.35`, `fas_warmup_steps=2048`, `fas_ramp_steps=4096` setup fixes the reported eval0 stand discontinuity better than seed 44 while retaining improved global metrics:
+
+| Candidate | Step | PSNR | SSIM | LPIPS | Visual note |
+|---|---:|---:|---:|---:|---|
+| seed 43 | 34816 | 29.135916 | 0.681484 | 0.367407 | Preferred FAS visual candidate; eval0 stand is more continuous |
+| seed 44 | 35840 | 29.189543 | 0.675507 | 0.369188 | Highest PSNR but rejected as primary due broken eval0 stand artifact |
+
+The crop gate now includes `left_stand_eval0`. Updated crop sheets:
+
+```text
+/fsx/oregon/tank_bkup/6A_4_EXR/nerfstudio_runs/007740_hd_aabb4_multicamera_eval3_ns_fg_arm_iso_fas_tuning/lookcloser/fas_mix035_w2048_r4096_seed43/crop_gate_with_left_stand_stride4/all_crops.png
+/fsx/oregon/tank_bkup/6A_4_EXR/nerfstudio_runs/007740_hd_aabb4_multicamera_eval3_ns_fg_arm_iso_fas_tuning/lookcloser/fas_mix035_w2048_r4096_seed44/crop_gate_with_left_stand_stride4/all_crops.png
+```
+
+Local artifact outlier scans compare sliding windows against GT and the no-FAS baseline:
+
+```text
+/home/ubuntu/repos/nerfstudio/LookCloser/lookcloser_debug_outputs/fas_artifact_stand/outliers_fas_s43_vs_nofas
+/home/ubuntu/repos/nerfstudio/LookCloser/lookcloser_debug_outputs/fas_artifact_stand/outliers_fas_s44_vs_nofas
+```
+
+The scanner catches thin stand/wire regressions that global PSNR/SSIM can hide. Seed 43 has a better eval0 stand crop, but it still has thin-wire outliers on other eval views. Two FAS schedules were tested and rejected early while trying to reduce these artifacts:
+
+| Variant | Status | Reason |
+|---|---|---|
+| `fas_strength=0.35`, `fas_warmup_steps=8192`, `fas_ramp_steps=8192` | Rejected early | Eval loss regressed after the delayed ramp and did not approach the metric leader |
+| `fas_strength=0.20`, `fas_warmup_steps=2048`, `fas_ramp_steps=4096` | Rejected early | Ramp-complete evals were unstable; two seeds lagged badly |
+
+Current FAS recommendation: use seed 43 of the `0.35/2048/4096` setup as the visual candidate. Keep the no-FAS reference for LPIPS/thin-wire stability comparisons.
