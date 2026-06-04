@@ -42,6 +42,15 @@ class LookCloserPixelSamplerConfig(PixelSamplerConfig):
     sampling_ramp_end: float = 3.0
     """End of the linear probability ramp for sampling (high-freq gets more samples)."""
 
+    fas_strength: float = 1.0
+    """Fraction of each batch sampled with FAS. Remaining rays are sampled uniformly."""
+
+    fas_warmup_steps: int = 0
+    """Number of initial sampler calls that use uniform sampling before enabling FAS."""
+
+    fas_ramp_steps: int = 0
+    """Number of sampler calls over which FAS strength ramps from zero to fas_strength."""
+
     debug_mode: bool = False
     """If true, prints sampling stats."""
 
@@ -79,6 +88,8 @@ class LookCloserPixelSampler(PixelSampler):
         self.patch_size = int(self.config.patch_size)
         self.patch_stride = int(self.config.stride)
         self.image_shapes: Dict[int, Tuple[int, int]] = {}
+        self.sample_count = 0
+        self.current_fas_strength = 1.0
 
     def _read_frequency_metadata(self, freq_file: Path) -> Optional[Dict]:
         metadata_path = freq_file.with_suffix(".json")
@@ -310,6 +321,17 @@ class LookCloserPixelSampler(PixelSampler):
         self.is_initialized = True
         CONSOLE.print("[bold green]LookCloserPixelSampler:[/bold green] Initialization complete.")
 
+    def _active_fas_strength(self) -> float:
+        target = float(np.clip(self.config.fas_strength, 0.0, 1.0))
+        warmup_steps = max(int(self.config.fas_warmup_steps), 0)
+        ramp_steps = max(int(self.config.fas_ramp_steps), 0)
+        if self.sample_count < warmup_steps:
+            return 0.0
+        if ramp_steps <= 0:
+            return target
+        ramp_position = min(max(self.sample_count - warmup_steps, 0) / float(ramp_steps), 1.0)
+        return target * ramp_position
+
     def sample_method(
             self,
             batch_size: int,
@@ -342,10 +364,15 @@ class LookCloserPixelSampler(PixelSampler):
             # We'll return random fallback if not initialized (sanity check).
             return super().sample_method(batch_size, num_images, image_height, image_width, mask, device)
 
+        fas_batch_size = int(round(batch_size * self.current_fas_strength))
+        uniform_batch_size = batch_size - fas_batch_size
+        if fas_batch_size <= 0:
+            return super().sample_method(batch_size, num_images, image_height, image_width, mask, device)
+
         # Determine samples per level for this batch
-        counts = (self.probs * batch_size).astype(int)
+        counts = (self.probs * fas_batch_size).astype(int)
         # Fix rounding to match batch_size exactly
-        diff = batch_size - counts.sum()
+        diff = fas_batch_size - counts.sum()
         if diff > 0:
             counts[-1] += diff
         elif diff < 0:
@@ -353,6 +380,18 @@ class LookCloserPixelSampler(PixelSampler):
             counts[-1] += diff
 
         indices_list = []
+
+        if uniform_batch_size > 0:
+            indices_list.append(
+                super().sample_method(
+                    uniform_batch_size,
+                    num_images,
+                    image_height,
+                    image_width,
+                    mask,
+                    device,
+                )
+            )
 
         for l in range(self.config.num_levels):
             n_samples = counts[l]
@@ -438,4 +477,7 @@ class LookCloserPixelSampler(PixelSampler):
                 return super().sample(image_batch)
 
         # Call the standard sample logic which internally calls sample_method
-        return super().sample(image_batch)
+        self.current_fas_strength = self._active_fas_strength()
+        batch = super().sample(image_batch)
+        self.sample_count += 1
+        return batch

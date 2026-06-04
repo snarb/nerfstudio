@@ -65,6 +65,49 @@ SSIM=0.6659
 LPIPS=0.3653
 ```
 
+## FAS Numeric-Leader Candidate
+
+Use the same params as the primary metric-leader run, but remove `--disable-fas` and add:
+
+```text
+--fas-strength 0.35
+--fas-warmup-steps 2048
+--fas-ramp-steps 4096
+```
+
+This keeps Feature Re-weighting off and enables a mixed uniform/FAS sampler instead of full FAS from step 0.
+
+Best FAS numeric-leader checkpoint observed:
+
+```text
+/fsx/oregon/tank_bkup/6A_4_EXR/nerfstudio_runs/007740_hd_aabb4_multicamera_eval3_ns_fg_arm_iso_fas_tuning/lookcloser/fas_mix035_w2048_r4096_seed44/nerfstudio_models/step-000035840.ckpt
+```
+
+Best FAS numeric-leader renders:
+
+```text
+/fsx/oregon/tank_bkup/6A_4_EXR/nerfstudio_runs/007740_hd_aabb4_multicamera_eval3_ns_fg_arm_iso_fas_tuning/lookcloser/fas_mix035_w2048_r4096_seed44/renders_best_step-000035840
+```
+
+Observed single-run metrics:
+
+```text
+PSNR=29.1895
+SSIM=0.6755
+LPIPS=0.3692
+```
+
+Three-seed mean metrics:
+
+```text
+PSNR=29.0519
+SSIM=0.6740
+LPIPS=0.3784
+eval_loss=0.02470537
+```
+
+This is the current PSNR/SSIM leader, but it does not pass the high-frequency crop visual gate and its LPIPS is worse than the no-FAS reference. Treat it as a numeric candidate, not as a final visual-quality replacement.
+
 ## Secondary Visual-Balance Run
 
 Use the same params as above, but set:
@@ -96,8 +139,8 @@ LPIPS=0.3664
 
 ## Next Tests
 
-1. Test FAS next, with Feature Re-weighting still off.
-2. Keep the metric-leader params fixed and enable only FAS by removing `--disable-fas`.
-3. If FAS improves stand-label and tangled-cable crops without hurting global SSIM/LPIPS, then test Feature Re-weighting on top of that.
-4. If FAS does not improve the crop gate, keep FAS off and test Feature Re-weighting alone.
-5. Only after those two isolated tests should FAS + Feature Re-weighting be tested together.
+1. Keep using the no-FAS reference when visual crop quality is the primary decision surface.
+2. Use the mixed-FAS candidate above when PSNR/SSIM is the primary decision surface.
+3. For further FAS-only work, avoid aggressive `sampling_ramp_start=0` full-FAS schedules; they were rejected early.
+4. Next FAS tests should stay modest and visual-gated, for example nearby `fas_strength` values around `0.25-0.50` with warmup/ramp retained.
+5. Do not test Feature Re-weighting on top of FAS until the FAS crop gate improves.

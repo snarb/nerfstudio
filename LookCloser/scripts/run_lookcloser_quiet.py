@@ -67,6 +67,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--disable-fas", action="store_true")
     parser.add_argument("--sampling-ramp-start", type=float, default=1.0)
     parser.add_argument("--sampling-ramp-end", type=float, default=3.0)
+    parser.add_argument("--fas-strength", type=float, default=1.0)
+    parser.add_argument("--fas-warmup-steps", type=int, default=0)
+    parser.add_argument("--fas-ramp-steps", type=int, default=0)
 
     parser.add_argument("--hash-features-per-level", type=int, default=2)
     parser.add_argument("--log2-hashmap-size", type=int, default=23)
@@ -193,6 +196,12 @@ def train_command(args: argparse.Namespace) -> List[str]:
             str(args.sampling_ramp_start),
             "--pipeline.datamanager.pixel-sampler.sampling-ramp-end",
             str(args.sampling_ramp_end),
+            "--pipeline.datamanager.pixel-sampler.fas-strength",
+            str(args.fas_strength),
+            "--pipeline.datamanager.pixel-sampler.fas-warmup-steps",
+            str(args.fas_warmup_steps),
+            "--pipeline.datamanager.pixel-sampler.fas-ramp-steps",
+            str(args.fas_ramp_steps),
             "--pipeline.datamanager.pixel-sampler.patch-size",
             str(args.frequency_patch_size),
             "--pipeline.datamanager.pixel-sampler.stride",
@@ -500,6 +509,9 @@ def summarize_params(args: argparse.Namespace) -> str:
         "enable_fas": not args.disable_fas,
         "sampling_ramp_start": args.sampling_ramp_start,
         "sampling_ramp_end": args.sampling_ramp_end,
+        "fas_strength": args.fas_strength,
+        "fas_warmup_steps": args.fas_warmup_steps,
+        "fas_ramp_steps": args.fas_ramp_steps,
         "near_plane": args.near_plane,
         "alpha_thre": args.alpha_thre,
         "cone_angle": args.cone_angle,
