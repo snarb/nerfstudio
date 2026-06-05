@@ -51,6 +51,15 @@ class LookCloserPixelSamplerConfig(PixelSamplerConfig):
     fas_ramp_steps: int = 0
     """Number of sampler calls over which FAS strength ramps from zero to fas_strength."""
 
+    fas_level_count_alpha: float = 0.0
+    """Blend frequency-ramp weights with observed bucket population counts; 0 preserves ramp-only FAS."""
+
+    fas_patch_group_size: int = 1
+    """Number of locally distributed pixels to sample per selected frequency-map patch; 1 preserves random offsets."""
+
+    fas_max_sampling_level: int = -1
+    """Optional maximum frequency level for FAS buckets; negative preserves all preprocessed levels."""
+
     debug_mode: bool = False
     """If true, prints sampling stats."""
 
@@ -78,6 +87,7 @@ class LookCloserPixelSampler(PixelSampler):
         self.dataset = kwargs.get("dataset")
         self.buckets: Dict[int, Tensor] = {}
         self.samples_per_level: np.ndarray = np.zeros(self.config.num_levels, dtype=int)
+        self.level_counts: np.ndarray = np.zeros(self.config.num_levels, dtype=np.float64)
 
         # We need to initialize the buckets.
         # Since PixelSampler is initialized with the DataManager, we assume the dataset
@@ -269,6 +279,10 @@ class LookCloserPixelSampler(PixelSampler):
             b = np.exp((np.log(max_res) - np.log(min_res)) / (num_levels - 1))
             levels_map = torch.log(f_map / min_res) / np.log(b)
             levels_map = torch.clamp(torch.round(levels_map), 0, self.config.num_levels - 1).long()
+            max_sampling_level = int(self.config.fas_max_sampling_level)
+            if max_sampling_level >= 0:
+                max_sampling_level = min(max_sampling_level, self.config.num_levels - 1)
+                levels_map = torch.clamp(levels_map, 0, max_sampling_level)
 
             # Indices of the map
             ys, xs = torch.meshgrid(
@@ -308,16 +322,26 @@ class LookCloserPixelSampler(PixelSampler):
             if self.config.debug_mode:
                 CONSOLE.print(f"Level {l}: {len(self.buckets[l])} patches")
 
-        # 5. Calculate Sampling Distribution (1:3 Ramp)
+        # 5. Calculate Sampling Distribution (1:3 Ramp, optionally bucket-count aware)
         ramp = np.linspace(
             self.config.sampling_ramp_start,
             self.config.sampling_ramp_end,
             self.config.num_levels
         )
-        probs = ramp / ramp.sum()
+        level_counts = np.array([self.buckets[l].shape[0] for l in range(self.config.num_levels)], dtype=np.float64)
+        non_empty = level_counts > 0
+        count_alpha = max(float(self.config.fas_level_count_alpha), 0.0)
+        if count_alpha > 0.0:
+            weights = ramp * np.where(non_empty, np.power(np.maximum(level_counts, 1.0), count_alpha), 0.0)
+        else:
+            weights = ramp * np.where(non_empty, 1.0, 0.0)
+        if weights.sum() <= 0:
+            weights = ramp
+        probs = weights / weights.sum()
 
         # We calculate exact counts per batch later
         self.probs = probs
+        self.level_counts = level_counts
         self.is_initialized = True
         CONSOLE.print("[bold green]LookCloserPixelSampler:[/bold green] Initialization complete.")
 
@@ -402,18 +426,28 @@ class LookCloserPixelSampler(PixelSampler):
             num_in_bucket = bucket.shape[0]
 
             if num_in_bucket > 0:
-                # Random selection from bucket
-                rand_idx = torch.randint(0, num_in_bucket, (n_samples,))
-                selected_patches = bucket[rand_idx].to(device).long()  # (N, 3) [img, y_patch, x_patch]
+                group_size = max(int(self.config.fas_patch_group_size), 1)
+                if group_size == 1:
+                    rand_idx = torch.randint(0, num_in_bucket, (n_samples,))
+                    selected_patches = bucket[rand_idx].to(device).long()  # (N, 3) [img, y_patch, x_patch]
+                    y_off = torch.randint(0, self.patch_size, (n_samples,), device=device)
+                    x_off = torch.randint(0, self.patch_size, (n_samples,), device=device)
+                else:
+                    patches_needed = int(np.ceil(n_samples / float(group_size)))
+                    rand_idx = torch.randint(0, num_in_bucket, (patches_needed,))
+                    selected_cells = bucket[rand_idx].to(device).long()
+                    selected_patches = selected_cells.repeat_interleave(group_size, dim=0)[:n_samples]
 
-                # Now convert patch top-left to random pixel within patch
-                # Add random offset [0, patch_size)
-                # Note: We need to ensure we don't go out of bounds if the image has uncovered tail pixels.
-                # We simply clamp.
-
-                # Offsets
-                y_off = torch.randint(0, self.patch_size, (n_samples,), device=device)
-                x_off = torch.randint(0, self.patch_size, (n_samples,), device=device)
+                    grid_side = int(np.ceil(np.sqrt(group_size)))
+                    local_ids = torch.arange(group_size, device=device).repeat(patches_needed)[:n_samples]
+                    local_y = local_ids // grid_side
+                    local_x = local_ids % grid_side
+                    sub_h = max(self.patch_size // grid_side, 1)
+                    sub_w = max(self.patch_size // grid_side, 1)
+                    y_off = local_y * sub_h + torch.randint(0, sub_h, (n_samples,), device=device)
+                    x_off = local_x * sub_w + torch.randint(0, sub_w, (n_samples,), device=device)
+                    y_off = torch.clamp(y_off, 0, self.patch_size - 1)
+                    x_off = torch.clamp(x_off, 0, self.patch_size - 1)
 
                 img_idx = selected_patches[:, 0]
                 y_coord = selected_patches[:, 1] * self.patch_stride + y_off
@@ -450,7 +484,7 @@ class LookCloserPixelSampler(PixelSampler):
         all_indices = torch.cat(indices_list, dim=0)
 
         # Shuffle to mix frequency levels in the batch
-        shuffle_mask = torch.randperm(batch_size, device=device)
+        shuffle_mask = torch.randperm(all_indices.shape[0], device=device)
         return all_indices[shuffle_mask]
 
     def sample(self, image_batch: Dict):

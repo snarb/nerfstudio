@@ -70,6 +70,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--fas-strength", type=float, default=1.0)
     parser.add_argument("--fas-warmup-steps", type=int, default=0)
     parser.add_argument("--fas-ramp-steps", type=int, default=0)
+    parser.add_argument("--fas-level-count-alpha", type=float, default=0.0)
+    parser.add_argument("--fas-patch-group-size", type=int, default=1)
+    parser.add_argument("--fas-max-sampling-level", type=int, default=-1)
 
     parser.add_argument("--hash-features-per-level", type=int, default=2)
     parser.add_argument("--log2-hashmap-size", type=int, default=23)
@@ -202,6 +205,12 @@ def train_command(args: argparse.Namespace) -> List[str]:
             str(args.fas_warmup_steps),
             "--pipeline.datamanager.pixel-sampler.fas-ramp-steps",
             str(args.fas_ramp_steps),
+            "--pipeline.datamanager.pixel-sampler.fas-level-count-alpha",
+            str(args.fas_level_count_alpha),
+            "--pipeline.datamanager.pixel-sampler.fas-patch-group-size",
+            str(args.fas_patch_group_size),
+            "--pipeline.datamanager.pixel-sampler.fas-max-sampling-level",
+            str(args.fas_max_sampling_level),
             "--pipeline.datamanager.pixel-sampler.patch-size",
             str(args.frequency_patch_size),
             "--pipeline.datamanager.pixel-sampler.stride",
@@ -512,6 +521,9 @@ def summarize_params(args: argparse.Namespace) -> str:
         "fas_strength": args.fas_strength,
         "fas_warmup_steps": args.fas_warmup_steps,
         "fas_ramp_steps": args.fas_ramp_steps,
+        "fas_level_count_alpha": args.fas_level_count_alpha,
+        "fas_patch_group_size": args.fas_patch_group_size,
+        "fas_max_sampling_level": args.fas_max_sampling_level,
         "near_plane": args.near_plane,
         "alpha_thre": args.alpha_thre,
         "cone_angle": args.cone_angle,

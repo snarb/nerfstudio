@@ -26,6 +26,7 @@ DEFAULT_BASELINE = Path(
 )
 
 CROPS = [
+    ("left_stand_connector_eval0", 0, (320, 0, 617, 530)),
     ("left_stand_eval0", 0, (300, 0, 650, 650)),
     ("floor_crack_eval0", 0, (1110, 715, 1410, 900)),
     ("fingers_right_eval1", 1, (860, 290, 1210, 590)),
@@ -42,6 +43,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--data", type=Path, default=DEFAULT_DATA)
     parser.add_argument("--baseline-renders", type=Path, default=DEFAULT_BASELINE)
     parser.add_argument("--checkpoint", type=Path, default=None)
+    parser.add_argument("--crop-name", default=None)
     parser.add_argument("--stride", type=int, default=4)
     parser.add_argument("--eval-num-rays-per-chunk", type=int, default=1024)
     return parser.parse_args()
@@ -108,8 +110,11 @@ def main() -> int:
 
     rows = []
     sheets = []
+    crops = [crop for crop in CROPS if args.crop_name is None or crop[0] == args.crop_name]
+    if not crops:
+        raise ValueError(f"Unknown crop name {args.crop_name!r}. Available: {[crop[0] for crop in CROPS]}")
     with torch.no_grad():
-        for name, eval_idx, (x0, y0, x1, y1) in CROPS:
+        for name, eval_idx, (x0, y0, x1, y1) in crops:
             camera, _ = dataloader.get_camera(eval_idx)
             ys = torch.arange(y0, y1, args.stride)
             xs = torch.arange(x0, x1, args.stride)

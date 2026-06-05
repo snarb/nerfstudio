@@ -139,8 +139,8 @@ LPIPS=0.3664
 
 ## Next Tests
 
-1. Use seed 43 of the mixed-FAS candidate when PSNR/SSIM gain and the eval0 stand artifact matter together.
-2. Keep the no-FAS reference available when LPIPS or thin-wire crop stability is the primary decision surface.
-3. For further FAS-only work, avoid aggressive `sampling_ramp_start=0` full-FAS schedules; they were rejected early.
-4. `fas_strength=0.20` and delayed `0.35` with `8192/8192` warmup/ramp were rejected early because eval loss regressed after ramp.
+1. Do not promote the mixed-FAS seed-43 run despite its global PSNR/SSIM gain; strict `left_stand_connector_eval0` inspection still shows a broken vertical stand.
+2. Keep the no-FAS reference as the accepted stable baseline for LPIPS and thin-wire/stand crop stability.
+3. For further FAS-only work, start with the strict target crop gate before full training: render `left_stand_connector_eval0` after the first meaningful FAS-active checkpoint and reject immediately if the stand is broken.
+4. Rejected FAS knobs so far: aggressive `sampling_ramp_start=0`, lower `fas_strength=0.20/0.25`, delayed `0.35` with `8192/8192`, count-aware buckets, patch grouping, flatter ramp `1.0 -> 1.5`, `fas_max_sampling_level=12`, and no-warmup capped FAS.
 5. Do not test Feature Re-weighting on top of FAS until the FAS outlier/crop gate improves.

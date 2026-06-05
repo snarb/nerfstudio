@@ -114,4 +114,25 @@ The scanner catches thin stand/wire regressions that global PSNR/SSIM can hide. 
 | `fas_strength=0.35`, `fas_warmup_steps=8192`, `fas_ramp_steps=8192` | Rejected early | Eval loss regressed after the delayed ramp and did not approach the metric leader |
 | `fas_strength=0.20`, `fas_warmup_steps=2048`, `fas_ramp_steps=4096` | Rejected early | Ramp-complete evals were unstable; two seeds lagged badly |
 
-Current FAS recommendation: use seed 43 of the `0.35/2048/4096` setup as the visual candidate. Keep the no-FAS reference for LPIPS/thin-wire stability comparisons.
+After stricter user inspection, seed 43 is also rejected: it improves some broad high-frequency detail but the vertical stand is still not physically continuous.
+
+### Strict Stand-Connector Gate
+
+The crop gate now includes exact `left_stand_connector_eval0` and can render only that crop with `--crop-name left_stand_connector_eval0`. The outlier scanner now writes `named_crops.csv` and `named_crops.png` for the same target regions plus sliding-window outliers.
+
+Baseline reference for the downsampled target crop: PSNR `26.5161`, SSIM `0.8709`.
+
+Short FAS gate tests were run to `step=3071/3072`, then visually checked before any full metric run:
+
+| Variant | Best target-crop PSNR | Best target-crop SSIM | Visual decision |
+|---|---:|---:|---|
+| `fas_strength=0.35`, `warmup=2048`, `ramp=4096`, `fas_level_count_alpha=0.5` | 26.1009 | 0.8117 | Rejected; stand remains weaker/broken |
+| same plus `fas_patch_group_size=4` | 25.8693 | 0.8024 | Rejected; local grouping did not fix continuity |
+| `fas_strength=0.25`, `warmup=2048`, `ramp=4096` | 25.7730 | 0.8068 | Rejected; softer mix still fails |
+| `fas_strength=0.35`, ramp `1.0 -> 1.5` | 25.9709 | 0.8090 | Rejected; flatter level ramp still fails |
+| `fas_strength=0.35`, `warmup=2048`, `ramp=4096`, `fas_max_sampling_level=12` | 25.9357 | 0.8099 | Rejected; cap matches model max level but crop still fails |
+| `fas_strength=0.35`, no warmup/ramp, `fas_max_sampling_level=12` | 26.0458 | 0.8088 | Rejected; FAS active from start still fails |
+
+Partial preprocessing checks with `ssim_threshold=0.93` were started but stopped because full map regeneration was too slow for this gate loop. A stronger direct finding was the schedule mismatch: training uses `adaptive_max_frequency_level=12` while the original FAS bucket schedule includes levels `13-15`; the new `fas_max_sampling_level` knob can test this explicitly. That cap alone did not fix the stand artifact.
+
+Current FAS status: no FAS-enabled variant passes the strict eval0 stand-connector gate while also preserving the no-FAS metric baseline. Keep the no-FAS reference as the accepted stable baseline until a later FAS/preprocessing fix passes this visual-first gate.
