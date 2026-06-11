@@ -13,6 +13,8 @@
 
 Baseline runs can enable `--logging.csv-writer.enable True` to write compact `metrics_compact.csv` rows for train/eval trends, `best_eval_*`, plateau and overfit status, which is useful because recent 3k baselines plateau early and best checkpoint metrics are more informative than final-step metrics.
 
+Use `scripts/detect_structural_artifacts.py` as the automatic detector for serious structural artifacts in rendered crops or triptychs, especially broken/dislocated thin structures, holes, and floaters. Include its `artifact_score` alongside the current evaluation signals (SSIM, PSNR, LPIPS, and eval loss) when comparing candidate checkpoints; lower `artifact_score` is better and `0.0` means no qualifying severe local-SSIM artifact blobs. When needed, the script also saves bbox overlays, heatmaps, and suspicion maps for visual analysis of problematic artifacts.
+
 ## Scene bounds / AABB
 
 LookCloser now replaces the default `NearFarCollider(near=2, far=6)` with `AABBBoxCollider(scene_box)` when `pipeline.model.enable_collider=True`. This is important for fixed-step ablations because the fixed marcher should sample only the nerfstudio scene box instead of a hand-picked near/far slab.
