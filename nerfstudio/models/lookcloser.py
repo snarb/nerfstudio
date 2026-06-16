@@ -20,7 +20,7 @@ from nerfstudio.engine.callbacks import TrainingCallback, TrainingCallbackAttrib
 from nerfstudio.field_components.field_heads import FieldHeadNames
 from nerfstudio.fields.lookcloser_field import LookCloserField
 from nerfstudio.model_components.lookcloser_grid import FrequencyGridManager
-from nerfstudio.model_components.lookcloser_samplers import FrequencyAwareVolumetricSampler
+from nerfstudio.model_components.lookcloser_samplers import FrequencyAwareSamplerStats, FrequencyAwareVolumetricSampler
 from nerfstudio.model_components.losses import nerfstudio_distortion_loss, scale_gradients_by_distance_squared
 from nerfstudio.model_components.renderers import AccumulationRenderer, DepthRenderer, RGBRenderer
 from nerfstudio.model_components.scene_colliders import AABBBoxCollider
@@ -41,6 +41,9 @@ class LookCloserModelConfig(ModelConfig):
 
     grid_resolution: int = 128
     """Resolution of the frequency voxel grid."""
+
+    occupancy_grid_levels: int = 1
+    """Number of nerfacc occupancy-grid AABB cascade levels."""
 
     num_frequency_levels: int = 16
     """Number of discrete frequency levels."""
@@ -96,6 +99,9 @@ class LookCloserModelConfig(ModelConfig):
     """Number of steps to apply depth loss."""
 
     # Marching settings
+    ray_sampling_mode: Literal["auto", "adaptive", "occupancy", "fixed"] = "auto"
+    """Ray sampling mode; auto preserves enable_adaptive_ray_marching backward compatibility."""
+
     enable_adaptive_ray_marching: bool = True
     """Whether to use frequency-guided adaptive step sizes."""
 
@@ -120,22 +126,52 @@ class LookCloserModelConfig(ModelConfig):
     adaptive_warmup_steps: int = 0
     """Use fixed ray marching for this many initial training steps before adaptive marching."""
 
-    transmittance_threshold: float = 1e-4
+    adaptive_fixed_fallback_samples_per_ray: int = 0
+    """Uniform fallback samples per ray appended to adaptive ARM samples; 0 preserves pure ARM."""
+
+    transmittance_threshold: float = 0.0
     """Ray termination threshold for remaining transmittance."""
 
     render_step_size: Optional[float] = None
     """Step size used when updating the nerfacc occupancy grid."""
 
-    render_step_size_mult: float = 0.75
+    render_step_size_mult: float = 1.0
     """Multiplier for the default scene-diagonal/1000 coarse traversal step size."""
 
-    near_plane: float = 0.02
+    occupancy_occ_thre: float = 1e-2
+    """Nerfacc occupancy binarization threshold cap."""
+
+    occupancy_ema_decay: float = 0.95
+    """Nerfacc max-with-decay occupancy update factor."""
+
+    occupancy_warmup_steps: int = 4096
+    """Nerfacc dense all-cells occupancy update warmup steps."""
+
+    occupancy_update_interval: int = 16
+    """Run nerfacc occupancy updates every N training steps."""
+
+    occupancy_update_step_size: Optional[float] = None
+    """Scale density values for occupancy updates; unset uses render_step_size."""
+
+    occupancy_thre_clamp_mult: float = 1.0
+    """Multiplier on mean(occs) in custom threshold clamp; 1.0 preserves nerfacc default."""
+
+    occupancy_dilation_radius: int = 0
+    """Voxel dilation radius applied to binary occupancy after every grid update."""
+
+    occupancy_binary_warmup_steps: int = 4096
+    """Keep occupancy binaries fully occupied for this many initial steps to avoid cold-start empty grids."""
+
+    occupancy_fixed_fallback_samples_per_ray: int = 0
+    """Uniform safety samples per ray appended to occupancy traversal; 0 preserves pure occupancy traversal."""
+
+    near_plane: float = 0.01
     """Near plane passed to nerfacc adaptive traversal."""
 
     far_plane: float = 1000.0
     """Far plane passed to nerfacc adaptive traversal."""
 
-    alpha_thre: float = 0.0025
+    alpha_thre: float = 0.0
     """Opacity threshold for nerfacc adaptive traversal visibility pruning."""
 
     cone_angle: float = 0.0
@@ -181,6 +217,8 @@ class LookCloserModel(Model):
             raise ValueError("Expected 0 < min_res < max_res.")
         if self.config.grid_resolution <= 0:
             raise ValueError("grid_resolution must be > 0.")
+        if self.config.occupancy_grid_levels <= 0:
+            raise ValueError("occupancy_grid_levels must be > 0.")
         if self.config.appearance_embedding_dim < 0:
             raise ValueError("appearance_embedding_dim must be >= 0.")
         if self.config.fixed_num_samples_per_ray <= 0:
@@ -200,8 +238,26 @@ class LookCloserModel(Model):
                 raise ValueError("adaptive_max_frequency_level must be >= adaptive_min_frequency_level.")
         if self.config.adaptive_warmup_steps < 0:
             raise ValueError("adaptive_warmup_steps must be >= 0.")
+        if self.config.adaptive_fixed_fallback_samples_per_ray < 0:
+            raise ValueError("adaptive_fixed_fallback_samples_per_ray must be >= 0.")
+        if self.config.occupancy_fixed_fallback_samples_per_ray < 0:
+            raise ValueError("occupancy_fixed_fallback_samples_per_ray must be >= 0.")
         if self.config.render_step_size_mult <= 0:
             raise ValueError("render_step_size_mult must be > 0.")
+        if self.config.occupancy_occ_thre <= 0:
+            raise ValueError("occupancy_occ_thre must be > 0.")
+        if not 0 < self.config.occupancy_ema_decay <= 1:
+            raise ValueError("Expected 0 < occupancy_ema_decay <= 1.")
+        if self.config.occupancy_warmup_steps < 0:
+            raise ValueError("occupancy_warmup_steps must be >= 0.")
+        if self.config.occupancy_update_interval <= 0:
+            raise ValueError("occupancy_update_interval must be > 0.")
+        if self.config.occupancy_update_step_size is not None and self.config.occupancy_update_step_size <= 0:
+            raise ValueError("occupancy_update_step_size must be > 0.")
+        if self.config.occupancy_thre_clamp_mult <= 0:
+            raise ValueError("occupancy_thre_clamp_mult must be > 0.")
+        if self.config.occupancy_dilation_radius < 0:
+            raise ValueError("occupancy_dilation_radius must be >= 0.")
         if self.config.near_plane < 0 or self.config.far_plane <= self.config.near_plane:
             raise ValueError("Expected 0 <= near_plane < far_plane.")
 
@@ -249,7 +305,7 @@ class LookCloserModel(Model):
         self.occupancy_grid = nerfacc.OccGridEstimator(
             roi_aabb=self.scene_aabb,
             resolution=self.config.grid_resolution,
-            levels=1,
+            levels=self.config.occupancy_grid_levels,
         )
         self.adaptive_sampler = FrequencyAwareVolumetricSampler(
             occupancy_grid=self.occupancy_grid,
@@ -266,20 +322,39 @@ class LookCloserModel(Model):
         self.ssim = structural_similarity_index_measure
         self.lpips = LearnedPerceptualImagePatchSimilarity(normalize=True)
         self.current_train_step = 0
+        self._last_occupancy_binaries: Optional[torch.Tensor] = None
+        self._last_occupancy_stats: Dict[str, float] = {}
+
+    def _resolved_ray_sampling_mode(self) -> str:
+        if self.config.ray_sampling_mode != "auto":
+            return self.config.ray_sampling_mode
+        return "adaptive" if self.config.enable_adaptive_ray_marching else "fixed"
 
     def get_training_callbacks(
         self, training_callback_attributes: TrainingCallbackAttributes
     ) -> List[TrainingCallback]:
         callbacks = super().get_training_callbacks(training_callback_attributes)
-        if not self.config.enable_adaptive_ray_marching:
+        if self._resolved_ray_sampling_mode() == "fixed":
             return callbacks
 
         def update_occupancy_grid(step: int):
             assert self.config.render_step_size is not None
+            update_step_size = (
+                float(self.config.occupancy_update_step_size)
+                if self.config.occupancy_update_step_size is not None
+                else float(self.config.render_step_size)
+            )
             self.occupancy_grid.update_every_n_steps(
                 step=step,
-                occ_eval_fn=lambda x: self.field.density_fn(x) * float(self.config.render_step_size),
+                occ_eval_fn=lambda x: self.field.density_fn(x) * update_step_size,
+                occ_thre=float(self.config.occupancy_occ_thre),
+                ema_decay=float(self.config.occupancy_ema_decay),
+                warmup_steps=int(self.config.occupancy_warmup_steps),
+                n=int(self.config.occupancy_update_interval),
             )
+            if step % int(self.config.occupancy_update_interval) != 0:
+                return
+            self._postprocess_occupancy_grid(step)
 
         callbacks.append(
             TrainingCallback(
@@ -289,6 +364,191 @@ class LookCloserModel(Model):
             )
         )
         return callbacks
+
+    def _postprocess_occupancy_grid(self, step: Optional[int] = None) -> None:
+        grid = self.occupancy_grid
+        occ_mean = float(grid.occs.mean().item())
+        occ_max = float(grid.occs.max().item())
+        default_thre = min(occ_mean, float(self.config.occupancy_occ_thre))
+        effective_thre = default_thre
+        if self.config.occupancy_thre_clamp_mult != 1.0:
+            effective_thre = min(
+                occ_mean * float(self.config.occupancy_thre_clamp_mult),
+                float(self.config.occupancy_occ_thre),
+            )
+            grid.binaries = (grid.occs > effective_thre).view(grid.binaries.shape)
+        if self.config.occupancy_dilation_radius > 0:
+            self._dilate_occ_binaries(int(self.config.occupancy_dilation_radius))
+        if step is not None and step < int(self.config.occupancy_binary_warmup_steps):
+            grid.binaries.fill_(True)
+
+        binaries = grid.binaries.detach()
+        previous = self._last_occupancy_binaries
+        flipped_on = 0.0
+        flipped_off = 0.0
+        if previous is not None and previous.shape == binaries.shape:
+            flipped_on = float((binaries & ~previous).sum().item())
+            flipped_off = float((~binaries & previous).sum().item())
+        self._last_occupancy_binaries = binaries.clone()
+        level_dims = tuple(range(1, binaries.ndim))
+        ratios = binaries.float().mean(dim=level_dims)
+        self._last_occupancy_stats = {
+            "occupancy_ratio": float(binaries.float().mean().item()),
+            "occupancy_ratio_level0": float(ratios[0].item()) if ratios.numel() > 0 else 0.0,
+            "occupancy_occs_mean": occ_mean,
+            "occupancy_occs_max": occ_max,
+            "occupancy_effective_threshold": effective_thre,
+            "occupancy_default_threshold": default_thre,
+            "occupancy_effective_alpha_thre": min(float(self.config.alpha_thre), occ_mean),
+            "occupancy_flipped_on": flipped_on,
+            "occupancy_flipped_off": flipped_off,
+        }
+
+    def _dilate_occ_binaries(self, radius: int) -> None:
+        if radius <= 0:
+            return
+        binaries = self.occupancy_grid.binaries.float()[:, None]
+        kernel_size = 2 * radius + 1
+        self.occupancy_grid.binaries = (
+            F.max_pool3d(binaries, kernel_size=kernel_size, stride=1, padding=radius)[:, 0] > 0
+        )
+
+    def _fallback_ray_samples(self, ray_bundle: RayBundle, samples_per_ray: int) -> Tuple[RaySamples, torch.Tensor]:
+        device = ray_bundle.origins.device
+        num_rays = len(ray_bundle)
+        if samples_per_ray <= 0 or num_rays == 0:
+            empty = torch.zeros((0, 1), dtype=ray_bundle.origins.dtype, device=device)
+            return (
+                RaySamples(
+                    frustums=Frustums(
+                        origins=torch.zeros((0, 3), dtype=ray_bundle.origins.dtype, device=device),
+                        directions=torch.zeros((0, 3), dtype=ray_bundle.directions.dtype, device=device),
+                        starts=empty,
+                        ends=empty,
+                        pixel_area=empty,
+                    ),
+                    camera_indices=torch.zeros((0, 1), dtype=torch.long, device=device),
+                    deltas=empty,
+                    spacing_starts=empty,
+                    spacing_ends=empty,
+                ),
+                torch.zeros((0,), dtype=torch.long, device=device),
+            )
+
+        nears = ray_bundle.nears.reshape(-1) if ray_bundle.nears is not None else torch.full((num_rays,), self.config.near_plane, device=device)
+        fars = ray_bundle.fars.reshape(-1) if ray_bundle.fars is not None else torch.full((num_rays,), self.config.far_plane, device=device)
+        valid_rays = torch.isfinite(nears) & torch.isfinite(fars) & (fars > nears)
+        if not valid_rays.any():
+            return self._fallback_ray_samples(ray_bundle, 0)
+
+        edges = torch.linspace(0.0, 1.0, samples_per_ray + 1, device=device, dtype=ray_bundle.origins.dtype)
+        valid_indices = torch.nonzero(valid_rays, as_tuple=False).flatten()
+        starts = nears[valid_indices, None] + (fars[valid_indices] - nears[valid_indices])[:, None] * edges[:-1][None, :]
+        ends = nears[valid_indices, None] + (fars[valid_indices] - nears[valid_indices])[:, None] * edges[1:][None, :]
+        ray_indices = valid_indices[:, None].expand(-1, samples_per_ray).reshape(-1)
+        starts_flat = starts.reshape(-1)
+        ends_flat = ends.reshape(-1)
+        origins = ray_bundle.origins[ray_indices]
+        directions = ray_bundle.directions[ray_indices]
+        camera_indices = ray_bundle.camera_indices
+        if camera_indices is not None:
+            camera_indices = camera_indices.contiguous()[ray_indices]
+
+        ray_samples = RaySamples(
+            frustums=Frustums(
+                origins=origins,
+                directions=directions,
+                starts=starts_flat[..., None],
+                ends=ends_flat[..., None],
+                pixel_area=ray_bundle[ray_indices].pixel_area,
+            ),
+            camera_indices=camera_indices,
+            deltas=(ends_flat - starts_flat)[..., None],
+            spacing_starts=((starts_flat - nears[ray_indices]) / (fars[ray_indices] - nears[ray_indices]).clamp_min(1e-6))[..., None],
+            spacing_ends=((ends_flat - nears[ray_indices]) / (fars[ray_indices] - nears[ray_indices]).clamp_min(1e-6))[..., None],
+        )
+        if ray_bundle.times is not None:
+            ray_samples.times = ray_bundle.times[ray_indices]
+        return ray_samples, ray_indices
+
+    @staticmethod
+    def _concat_packed_ray_samples(
+        first_samples: RaySamples,
+        first_indices: torch.Tensor,
+        second_samples: RaySamples,
+        second_indices: torch.Tensor,
+    ) -> Tuple[RaySamples, torch.Tensor]:
+        if second_indices.numel() == 0:
+            return first_samples, first_indices
+        if first_indices.numel() == 0:
+            return second_samples, second_indices
+
+        ray_indices = torch.cat([first_indices, second_indices], dim=0)
+        starts = torch.cat([first_samples.frustums.starts[..., 0], second_samples.frustums.starts[..., 0]], dim=0)
+        ends = torch.cat([first_samples.frustums.ends[..., 0], second_samples.frustums.ends[..., 0]], dim=0)
+        max_t = torch.cat([starts, ends]).max().detach().clamp_min(1.0) + 1.0
+        order = torch.argsort(ray_indices.to(starts.dtype) * max_t + starts)
+        ray_indices = ray_indices[order]
+
+        def cat_attr(name: str) -> Optional[torch.Tensor]:
+            a = getattr(first_samples, name)
+            b = getattr(second_samples, name)
+            if a is None or b is None:
+                return None
+            return torch.cat([a, b], dim=0)[order]
+
+        origins = torch.cat([first_samples.frustums.origins, second_samples.frustums.origins], dim=0)[order]
+        directions = torch.cat([first_samples.frustums.directions, second_samples.frustums.directions], dim=0)[order]
+        pixel_area = torch.cat([first_samples.frustums.pixel_area, second_samples.frustums.pixel_area], dim=0)[order]
+        starts_sorted = torch.cat([first_samples.frustums.starts, second_samples.frustums.starts], dim=0)[order]
+        ends_sorted = torch.cat([first_samples.frustums.ends, second_samples.frustums.ends], dim=0)[order]
+        ray_samples = RaySamples(
+            frustums=Frustums(
+                origins=origins,
+                directions=directions,
+                starts=starts_sorted,
+                ends=ends_sorted,
+                pixel_area=pixel_area,
+            ),
+            camera_indices=cat_attr("camera_indices"),
+            deltas=cat_attr("deltas"),
+            spacing_starts=cat_attr("spacing_starts"),
+            spacing_ends=cat_attr("spacing_ends"),
+        )
+        if first_samples.times is not None and second_samples.times is not None:
+            ray_samples.times = torch.cat([first_samples.times, second_samples.times], dim=0)[order]
+        return ray_samples, ray_indices
+
+    def _append_fallback_samples(
+        self,
+        ray_bundle: RayBundle,
+        ray_samples: RaySamples,
+        ray_indices: torch.Tensor,
+        stats,
+        fallback_count: Optional[int] = None,
+    ) -> Tuple[RaySamples, torch.Tensor, object, int]:
+        if fallback_count is None:
+            fallback_count = int(self.config.adaptive_fixed_fallback_samples_per_ray)
+        if fallback_count <= 0:
+            return ray_samples, ray_indices, stats, 0
+        fallback_samples, fallback_indices = self._fallback_ray_samples(ray_bundle, fallback_count)
+        if fallback_indices.numel() == 0:
+            return ray_samples, ray_indices, stats, 0
+        merged_samples, merged_indices = self._concat_packed_ray_samples(
+            ray_samples,
+            ray_indices,
+            fallback_samples,
+            fallback_indices,
+        )
+        num_rays = len(ray_bundle)
+        packed = nerfacc.pack_info(merged_indices, num_rays)
+        sample_counts = packed[:, 1]
+        stats.num_samples = torch.tensor(merged_indices.numel(), device=merged_indices.device)
+        stats.mean_samples_per_ray = sample_counts.float().mean()
+        stats.max_samples_per_ray = sample_counts.max().float()
+        if int(self.config.max_steps_per_ray) > 0:
+            stats.saturation_rate = (sample_counts >= int(self.config.max_steps_per_ray)).float().mean()
+        return merged_samples, merged_indices, stats, int(fallback_indices.numel())
 
     def get_param_groups(self) -> Dict[str, List[Parameter]]:
         param_groups = {}
@@ -338,6 +598,28 @@ class LookCloserModel(Model):
         per_ray.scatter_add_(0, ray_indices, per_sample)
         return per_ray[:, None]
 
+    @staticmethod
+    def _dense_distortion_loss(
+        spacing_starts: torch.Tensor,
+        spacing_ends: torch.Tensor,
+        weights: torch.Tensor,
+    ) -> torch.Tensor:
+        """Linear-time Mip-NeRF 360 distortion loss for dense, sorted ray samples."""
+        if weights.numel() == 0:
+            return weights.sum(dim=-2)
+
+        starts = spacing_starts.reshape(*spacing_starts.shape[:-1])
+        ends = spacing_ends.reshape(*spacing_ends.shape[:-1])
+        w = weights.reshape(*weights.shape[:-1])
+        mid = 0.5 * (starts + ends)
+        interval = (ends - starts).clamp_min(0.0)
+
+        prefix_w = torch.cumsum(w, dim=-1) - w
+        prefix_wm = torch.cumsum(w * mid, dim=-1) - w * mid
+        inter = 2.0 * w * (mid * prefix_w - prefix_wm)
+        intra = (w**2) * interval / 3.0
+        return (inter + intra).sum(dim=-1, keepdim=True)
+
     def adaptive_ray_marching(self, ray_bundle: RayBundle) -> Dict[str, torch.Tensor]:
         """Packed frequency-aware ray marching using nerfacc occupancy traversal."""
         assert self.config.render_step_size is not None
@@ -364,6 +646,12 @@ class LookCloserModel(Model):
             ),
             max_steps_per_ray=int(self.config.max_steps_per_ray),
         )
+        ray_samples, ray_indices, stats, fallback_samples = self._append_fallback_samples(
+            ray_bundle=ray_bundle,
+            ray_samples=ray_samples,
+            ray_indices=ray_indices,
+            stats=stats,
+        )
 
         if ray_indices.numel() == 0:
             rgb = torch.zeros((num_rays, 3), device=ray_bundle.origins.device)
@@ -384,6 +672,7 @@ class LookCloserModel(Model):
                 "adaptive_samples_mean": stats.mean_samples_per_ray,
                 "adaptive_samples_max": stats.max_samples_per_ray,
                 "adaptive_saturation_rate": stats.saturation_rate,
+                "adaptive_fallback_samples": torch.tensor(float(fallback_samples), device=ray_bundle.origins.device),
                 "packed_spacing_starts": ray_samples.spacing_starts,
                 "packed_spacing_ends": ray_samples.spacing_ends,
                 "packed_ray_indices": ray_indices,
@@ -420,6 +709,131 @@ class LookCloserModel(Model):
             "adaptive_samples_mean": stats.mean_samples_per_ray,
             "adaptive_samples_max": stats.max_samples_per_ray,
             "adaptive_saturation_rate": stats.saturation_rate,
+            "adaptive_fallback_samples": torch.tensor(float(fallback_samples), device=ray_bundle.origins.device),
+            "packed_spacing_starts": ray_samples.spacing_starts,
+            "packed_spacing_ends": ray_samples.spacing_ends,
+            "packed_ray_indices": ray_indices,
+            "packed_weights": weights,
+        }
+
+    def occupancy_ray_marching(self, ray_bundle: RayBundle) -> Dict[str, torch.Tensor]:
+        """Packed constant-step nerfacc occupancy traversal without frequency-aware subdivision."""
+        assert self.config.render_step_size is not None
+        rays_o = ray_bundle.origins.contiguous()
+        rays_d = ray_bundle.directions.contiguous()
+        num_rays = len(ray_bundle)
+        t_min = ray_bundle.nears.contiguous().reshape(-1) if ray_bundle.nears is not None else None
+        t_max = ray_bundle.fars.contiguous().reshape(-1) if ray_bundle.fars is not None else None
+
+        def sigma_fn(t_starts: torch.Tensor, t_ends: torch.Tensor, ray_indices: torch.Tensor) -> torch.Tensor:
+            positions = rays_o[ray_indices] + rays_d[ray_indices] * ((t_starts + t_ends)[:, None] * 0.5)
+            return self.field.density_fn(positions).squeeze(-1)
+
+        with torch.no_grad():
+            ray_indices, starts, ends = self.occupancy_grid.sampling(
+                rays_o=rays_o,
+                rays_d=rays_d,
+                t_min=t_min,
+                t_max=t_max,
+                sigma_fn=sigma_fn if self.training else None,
+                render_step_size=float(self.config.render_step_size),
+                near_plane=float(self.config.near_plane),
+                far_plane=float(self.config.far_plane),
+                early_stop_eps=float(self.config.transmittance_threshold),
+                stratified=self.training,
+                cone_angle=float(self.config.cone_angle),
+                alpha_thre=float(self.config.alpha_thre),
+            )
+
+        device = rays_o.device
+        if starts.numel() == 0:
+            empty = torch.zeros((0, 1), dtype=rays_o.dtype, device=device)
+            return {
+                "rgb": self.renderer_rgb.combine_rgb(
+                    rgb=torch.zeros((0, 3), dtype=rays_o.dtype, device=device),
+                    weights=empty,
+                    background_color=self.config.background_color,
+                    ray_indices=ray_indices,
+                    num_rays=num_rays,
+                ),
+                "depth": torch.zeros((num_rays, 1), dtype=rays_o.dtype, device=device),
+                "accumulation": torch.zeros((num_rays, 1), dtype=rays_o.dtype, device=device),
+                "num_samples_per_ray": torch.zeros((num_rays,), dtype=torch.long, device=device),
+                "occupancy_traversal_num_samples": torch.tensor(0.0, device=device),
+                "occupancy_traversal_samples_mean": torch.tensor(0.0, device=device),
+                "occupancy_traversal_samples_max": torch.tensor(0.0, device=device),
+                "packed_spacing_starts": empty,
+                "packed_spacing_ends": empty,
+                "packed_ray_indices": ray_indices,
+                "packed_weights": empty,
+            }
+
+        stats = FrequencyAwareSamplerStats(
+            num_samples=torch.tensor(starts.numel(), device=device),
+            mean_samples_per_ray=torch.zeros((), device=device),
+            max_samples_per_ray=torch.zeros((), device=device),
+            saturation_rate=torch.zeros((), device=device),
+        )
+        origins = rays_o[ray_indices]
+        directions = rays_d[ray_indices]
+        camera_indices = ray_bundle.camera_indices
+        if camera_indices is not None:
+            camera_indices = camera_indices.contiguous()[ray_indices]
+
+        ray_samples = RaySamples(
+            frustums=Frustums(
+                origins=origins,
+                directions=directions,
+                starts=starts[..., None],
+                ends=ends[..., None],
+                pixel_area=ray_bundle[ray_indices].pixel_area,
+            ),
+            camera_indices=camera_indices,
+            deltas=(ends - starts)[..., None],
+            spacing_starts=starts[..., None],
+            spacing_ends=ends[..., None],
+        )
+        if ray_bundle.times is not None:
+            ray_samples.times = ray_bundle.times[ray_indices]
+        ray_samples, ray_indices, stats, fallback_samples = self._append_fallback_samples(
+            ray_bundle=ray_bundle,
+            ray_samples=ray_samples,
+            ray_indices=ray_indices,
+            stats=stats,
+            fallback_count=int(self.config.occupancy_fixed_fallback_samples_per_ray),
+        )
+
+        field_outputs = self.field(ray_samples)
+        if self.config.use_gradient_scaling:
+            field_outputs = scale_gradients_by_distance_squared(field_outputs, ray_samples)
+
+        packed_info = nerfacc.pack_info(ray_indices, num_rays)
+        weights = nerfacc.render_weight_from_density(
+            t_starts=ray_samples.frustums.starts[..., 0],
+            t_ends=ray_samples.frustums.ends[..., 0],
+            sigmas=field_outputs[FieldHeadNames.DENSITY][..., 0],
+            packed_info=packed_info,
+        )[0][..., None]
+
+        rgb = self.renderer_rgb(
+            rgb=field_outputs[FieldHeadNames.RGB],
+            weights=weights,
+            ray_indices=ray_indices,
+            num_rays=num_rays,
+        )
+        accumulation = self.renderer_accumulation(weights=weights, ray_indices=ray_indices, num_rays=num_rays)
+        depth = self.renderer_depth(weights=weights, ray_samples=ray_samples, ray_indices=ray_indices, num_rays=num_rays)
+        sample_counts = packed_info[:, 1]
+
+        return {
+            "rgb": rgb,
+            "depth": depth,
+            "accumulation": accumulation,
+            "num_samples_per_ray": sample_counts,
+            "occupancy_traversal_num_samples": torch.tensor(float(starts.numel()), device=device),
+            "occupancy_traversal_samples_mean": sample_counts.float().mean(),
+            "occupancy_traversal_samples_max": sample_counts.max().float(),
+            "occupancy_fallback_samples": torch.tensor(float(fallback_samples), device=device),
             "packed_spacing_starts": ray_samples.spacing_starts,
             "packed_spacing_ends": ray_samples.spacing_ends,
             "packed_ray_indices": ray_indices,
@@ -675,10 +1089,15 @@ class LookCloserModel(Model):
         }
 
     def get_outputs(self, ray_bundle: RayBundle) -> Dict[str, torch.Tensor]:
-        if self.config.enable_adaptive_ray_marching:
+        mode = self._resolved_ray_sampling_mode()
+        if mode == "adaptive":
             if self.training and self.current_train_step < self.config.adaptive_warmup_steps:
                 return self.fixed_ray_marching(ray_bundle)
             return self.adaptive_ray_marching(ray_bundle)
+        if mode == "occupancy":
+            return self.occupancy_ray_marching(ray_bundle)
+        if mode != "fixed":
+            raise ValueError(f"Unknown ray_sampling_mode={self.config.ray_sampling_mode!r}.")
         return self.fixed_ray_marching(ray_bundle)
 
     @torch.no_grad()
@@ -709,10 +1128,22 @@ class LookCloserModel(Model):
         metrics_dict["psnr"] = self.psnr(outputs["rgb"], image)
         if "num_samples_per_ray" in outputs:
             metrics_dict["num_samples_per_batch"] = outputs["num_samples_per_ray"].sum()
+            metrics_dict["samples_per_ray_mean"] = outputs["num_samples_per_ray"].float().mean()
+            metrics_dict["zero_sample_ray_rate"] = (outputs["num_samples_per_ray"] == 0).float().mean()
         if "adaptive_samples_mean" in outputs:
             metrics_dict["adaptive_samples_mean"] = outputs["adaptive_samples_mean"]
             metrics_dict["adaptive_samples_max"] = outputs["adaptive_samples_max"]
             metrics_dict["adaptive_saturation_rate"] = outputs["adaptive_saturation_rate"]
+        if "adaptive_fallback_samples" in outputs:
+            metrics_dict["adaptive_fallback_samples"] = outputs["adaptive_fallback_samples"]
+        if "occupancy_traversal_samples_mean" in outputs:
+            metrics_dict["occupancy_traversal_num_samples"] = outputs["occupancy_traversal_num_samples"]
+            metrics_dict["occupancy_traversal_samples_mean"] = outputs["occupancy_traversal_samples_mean"]
+            metrics_dict["occupancy_traversal_samples_max"] = outputs["occupancy_traversal_samples_max"]
+        if "occupancy_fallback_samples" in outputs:
+            metrics_dict["occupancy_fallback_samples"] = outputs["occupancy_fallback_samples"]
+        for name, value in self._last_occupancy_stats.items():
+            metrics_dict[name] = value
         return metrics_dict
 
     def get_loss_dict(self, outputs, batch, metrics_dict=None):
@@ -743,9 +1174,10 @@ class LookCloserModel(Model):
                     num_rays=outputs["rgb"].shape[0],
                 ).mean()
             else:
-                distortion = nerfstudio_distortion_loss(
-                    ray_samples=outputs["loss_ray_samples"],
-                    weights=outputs["loss_weights"]
+                distortion = self._dense_distortion_loss(
+                    spacing_starts=outputs["loss_ray_samples"].spacing_starts,
+                    spacing_ends=outputs["loss_ray_samples"].spacing_ends,
+                    weights=outputs["loss_weights"],
                 ).mean()
             loss_dict["distortion_loss"] = self.config.distortion_loss_mult * distortion
 

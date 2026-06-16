@@ -51,6 +51,12 @@ class LookCloserPixelSamplerConfig(PixelSamplerConfig):
     fas_ramp_steps: int = 0
     """Number of sampler calls over which FAS strength ramps from zero to fas_strength."""
 
+    fas_decay_start_steps: int = -1
+    """Sampler step where FAS strength starts decaying back to uniform; negative disables decay."""
+
+    fas_decay_steps: int = 0
+    """Number of sampler calls over which FAS strength decays to zero after fas_decay_start_steps."""
+
     fas_level_count_alpha: float = 0.0
     """Blend frequency-ramp weights with observed bucket population counts; 0 preserves ramp-only FAS."""
 
@@ -352,9 +358,19 @@ class LookCloserPixelSampler(PixelSampler):
         if self.sample_count < warmup_steps:
             return 0.0
         if ramp_steps <= 0:
-            return target
-        ramp_position = min(max(self.sample_count - warmup_steps, 0) / float(ramp_steps), 1.0)
-        return target * ramp_position
+            strength = target
+        else:
+            ramp_position = min(max(self.sample_count - warmup_steps, 0) / float(ramp_steps), 1.0)
+            strength = target * ramp_position
+
+        decay_start = int(self.config.fas_decay_start_steps)
+        decay_steps = max(int(self.config.fas_decay_steps), 0)
+        if decay_start >= 0 and self.sample_count >= decay_start:
+            if decay_steps <= 0:
+                return 0.0
+            decay_position = min((self.sample_count - decay_start) / float(decay_steps), 1.0)
+            strength *= 1.0 - decay_position
+        return strength
 
     def sample_method(
             self,
@@ -393,15 +409,21 @@ class LookCloserPixelSampler(PixelSampler):
         if fas_batch_size <= 0:
             return super().sample_method(batch_size, num_images, image_height, image_width, mask, device)
 
-        # Determine samples per level for this batch
-        counts = (self.probs * fas_batch_size).astype(int)
-        # Fix rounding to match batch_size exactly
-        diff = fas_batch_size - counts.sum()
+        # Determine samples per level for this batch. Assign rounding leftovers
+        # by largest fractional remainder so capped/empty high levels do not get
+        # accidental fallback-uniform samples.
+        expected_counts = self.probs * fas_batch_size
+        counts = np.floor(expected_counts).astype(int)
+        diff = int(fas_batch_size - counts.sum())
         if diff > 0:
-            counts[-1] += diff
+            remainders = expected_counts - counts
+            for level in np.argsort(-remainders)[:diff]:
+                counts[level] += 1
         elif diff < 0:
-            # Should not happen with astype(int) usually under-estimating
-            counts[-1] += diff
+            remainders = expected_counts - counts
+            for level in np.argsort(remainders)[: -diff]:
+                if counts[level] > 0:
+                    counts[level] -= 1
 
         indices_list = []
 

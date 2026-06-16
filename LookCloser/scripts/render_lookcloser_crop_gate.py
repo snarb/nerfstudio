@@ -28,6 +28,8 @@ DEFAULT_BASELINE = Path(
 CROPS = [
     ("left_stand_connector_eval0", 0, (320, 0, 617, 530)),
     ("left_stand_eval0", 0, (300, 0, 650, 650)),
+    ("left_hand_background_eval0", 0, (300, 210, 560, 500)),
+    ("left_hand_outlet_stand_eval0", 0, (300, 250, 500, 560)),
     ("floor_crack_eval0", 0, (1110, 715, 1410, 900)),
     ("fingers_right_eval1", 1, (860, 290, 1210, 590)),
     ("stand_label_eval2", 2, (60, 450, 290, 900)),
@@ -46,6 +48,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--crop-name", default=None)
     parser.add_argument("--stride", type=int, default=4)
     parser.add_argument("--eval-num-rays-per-chunk", type=int, default=1024)
+    parser.add_argument("--override-alpha-thre", type=float, default=None)
+    parser.add_argument("--override-adaptive-coarse-step-size", type=float, default=None)
+    parser.add_argument("--override-enable-adaptive-ray-marching", default=None, choices=("true", "false"))
+    parser.add_argument("--override-fixed-num-samples-per-ray", type=int, default=None)
+    parser.add_argument("--override-max-steps-per-ray", type=int, default=None)
     return parser.parse_args()
 
 
@@ -72,9 +79,22 @@ def eval_config_for_checkpoint(
     config: Path,
     checkpoint: Path,
     eval_num_rays_per_chunk: int,
+    args: argparse.Namespace,
 ) -> Path:
     step = checkpoint_step(checkpoint)
-    eval_config = config.with_name(f"crop_gate_config_step_{step}.yml")
+    suffix = []
+    if args.override_alpha_thre is not None:
+        suffix.append(f"alpha{args.override_alpha_thre:g}")
+    if args.override_adaptive_coarse_step_size is not None:
+        suffix.append(f"coarse{args.override_adaptive_coarse_step_size:g}")
+    if args.override_enable_adaptive_ray_marching is not None:
+        suffix.append(f"arm{args.override_enable_adaptive_ray_marching}")
+    if args.override_fixed_num_samples_per_ray is not None:
+        suffix.append(f"fixed{args.override_fixed_num_samples_per_ray}")
+    if args.override_max_steps_per_ray is not None:
+        suffix.append(f"maxsteps{args.override_max_steps_per_ray}")
+    suffix_text = "" if not suffix else "_" + "_".join(suffix).replace(".", "p")
+    eval_config = config.with_name(f"crop_gate_config_step_{step}{suffix_text}.yml")
     text = config.read_text(encoding="utf-8")
     if re.search(r"^load_step:", text, flags=re.MULTILINE):
         text = re.sub(r"^load_step:.*$", f"load_step: {step}", count=1, string=text, flags=re.MULTILINE)
@@ -87,6 +107,24 @@ def eval_config_for_checkpoint(
         count=1,
         flags=re.MULTILINE,
     )
+    overrides = {
+        "alpha_thre": args.override_alpha_thre,
+        "adaptive_coarse_step_size": args.override_adaptive_coarse_step_size,
+        "fixed_num_samples_per_ray": args.override_fixed_num_samples_per_ray,
+        "max_steps_per_ray": args.override_max_steps_per_ray,
+    }
+    if args.override_enable_adaptive_ray_marching is not None:
+        overrides["enable_adaptive_ray_marching"] = args.override_enable_adaptive_ray_marching
+    for key, value in overrides.items():
+        if value is None:
+            continue
+        text = re.sub(
+            rf"^(\s*{re.escape(key)}:\s*).*$",
+            rf"\g<1>{value}",
+            text,
+            count=1,
+            flags=re.MULTILINE,
+        )
     eval_config.write_text(text, encoding="utf-8")
     return eval_config
 
@@ -102,6 +140,7 @@ def main() -> int:
             config,
             checkpoint,
             args.eval_num_rays_per_chunk,
+            args,
         )
 
     _, pipeline, checkpoint, step = eval_setup(config, eval_num_rays_per_chunk=args.eval_num_rays_per_chunk)
