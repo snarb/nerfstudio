@@ -48,12 +48,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--eval-image-interval", type=int, default=None)
     parser.add_argument("--eval-all-interval", type=int, default=None)
     parser.add_argument("--save-interval", type=int, default=None)
-    parser.add_argument("--max-num-iterations", type=int, default=60752)
+    parser.add_argument("--max-num-iterations", type=int, default=200000)
     parser.add_argument("--train-num-rays-per-batch", type=int, default=4096)
     parser.add_argument("--eval-num-rays-per-batch", type=int, default=4096)
     parser.add_argument("--eval-num-rays-per-chunk", type=int, default=2048)
     parser.add_argument("--background-color", choices=("random", "last_sample", "black", "white"), default="black")
     parser.add_argument("--reconstruction-loss-type", choices=("charbonnier", "mse", "huber"), default="charbonnier")
+    parser.add_argument("--huber-delta", type=float, default=0.1)
 
     parser.add_argument("--frequency-map-dir", default="lookcloser_frequencies")
     parser.add_argument("--frequency-patch-size", type=int, default=8)
@@ -72,6 +73,7 @@ def parse_args() -> argparse.Namespace:
 
     parser.add_argument("--disable-frequency-grid", action="store_true")
     parser.add_argument("--disable-feature-reweighting", action="store_true")
+    parser.add_argument("--feature-reweighting-strength", type=float, default=1.0)
     parser.add_argument(
         "--ray-sampling-mode",
         choices=("auto", "adaptive", "occupancy", "fixed"),
@@ -105,6 +107,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--adaptive-coarse-step-size", type=float, default=None)
     parser.add_argument("--adaptive-min-frequency-level", type=float, default=0.0)
     parser.add_argument("--adaptive-max-frequency-level", type=float, default=None)
+    parser.add_argument("--adaptive-interval-level-mode", choices=("midpoint", "max3"), default="midpoint")
     parser.add_argument("--adaptive-warmup-steps", type=int, default=0)
     parser.add_argument("--adaptive-fixed-fallback-samples-per-ray", type=int, default=0)
     parser.add_argument("--transmittance-threshold", type=float, default=0.0)
@@ -127,10 +130,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--distortion-loss-mult", type=float, default=0.01)
     parser.add_argument("--depth-loss-mult", type=float, default=0.001)
     parser.add_argument("--depth-loss-steps", type=int, default=5000)
-
     parser.add_argument("--load-dir", type=Path, default=None)
     parser.add_argument("--load-step", type=int, default=None)
     parser.add_argument("--load-checkpoint", type=Path, default=None)
+    parser.add_argument("--no-load-scheduler", dest="load_scheduler", action="store_false")
+    parser.add_argument("--no-load-optimizers", dest="load_optimizers", action="store_false")
+    parser.add_argument("--fields-lr", type=float, default=None)
+    parser.add_argument("--fields-lr-final", type=float, default=None)
     parser.add_argument("--summary-path", type=Path, default=DEFAULT_SUMMARY)
     parser.add_argument("--no-update-summary", dest="update_summary", action="store_false")
     parser.add_argument("--eval-checkpoint", choices=("best", "latest", "artifact", "roi"), default="best")
@@ -146,7 +152,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--artifact-crop-right", type=int, default=0)
     parser.add_argument(
         "--artifact-detector-preset",
-        choices=("legacy", "significant"),
+        choices=("legacy", "significant", "micro"),
         default="legacy",
         help="Threshold preset passed to full-frame and ROI artifact detectors.",
     )
@@ -218,6 +224,14 @@ def train_command(args: argparse.Namespace) -> List[str]:
         cmd.extend(["--load-step", str(args.load_step)])
     if args.load_checkpoint is not None:
         cmd.extend(["--load-checkpoint", str(args.load_checkpoint)])
+    if not args.load_scheduler:
+        cmd.extend(["--load-scheduler", "False"])
+    if not args.load_optimizers:
+        cmd.extend(["--load-optimizers", "False"])
+    if args.fields_lr is not None:
+        cmd.extend(["--optimizers.fields.optimizer.lr", str(args.fields_lr)])
+    if args.fields_lr_final is not None:
+        cmd.extend(["--optimizers.fields.scheduler.lr-final", str(args.fields_lr_final)])
 
     cmd.extend(
         [
@@ -289,6 +303,8 @@ def train_command(args: argparse.Namespace) -> List[str]:
             args.background_color,
             "--pipeline.model.reconstruction-loss-type",
             args.reconstruction_loss_type,
+            "--pipeline.model.huber-delta",
+            str(args.huber_delta),
             "--pipeline.model.enable-frequency-grid",
             bool_text(enable_frequency_grid),
             "--pipeline.model.grid-resolution",
@@ -305,6 +321,8 @@ def train_command(args: argparse.Namespace) -> List[str]:
             str(args.fallback_frequency_level),
             "--pipeline.model.enable-feature-reweighting",
             bool_text(not args.disable_feature_reweighting),
+            "--pipeline.model.feature-reweighting-strength",
+            str(args.feature_reweighting_strength),
             "--pipeline.model.hash-features-per-level",
             str(args.hash_features_per_level),
             "--pipeline.model.log2-hashmap-size",
@@ -333,6 +351,8 @@ def train_command(args: argparse.Namespace) -> List[str]:
             str(args.adaptive_max_step_size),
             "--pipeline.model.adaptive-min-frequency-level",
             str(args.adaptive_min_frequency_level),
+            "--pipeline.model.adaptive-interval-level-mode",
+            args.adaptive_interval_level_mode,
             "--pipeline.model.adaptive-warmup-steps",
             str(args.adaptive_warmup_steps),
             "--pipeline.model.adaptive-fixed-fallback-samples-per-ray",
@@ -434,8 +454,11 @@ def read_csv_rows(metrics_path: Path) -> List[Dict[str, str]]:
         return list(csv.DictReader(f))
 
 
+PSNR_TIE_THRESHOLD_DB = 0.07  # checkpoints within this PSNR range are considered tied; LPIPS breaks the tie
+
+
 def eval_rows(metrics_path: Path) -> List[Dict[str, str]]:
-    return [row for row in read_csv_rows(metrics_path) if row.get("eval_loss")]
+    return [row for row in read_csv_rows(metrics_path) if row.get("eval_all_psnr") or row.get("eval_loss")]
 
 
 def latest_train_step(metrics_path: Path) -> Optional[str]:
@@ -451,7 +474,7 @@ def print_eval_row(row: Dict[str, str]) -> None:
         f"psnr={row.get('eval_all_psnr')} "
         f"ssim={row.get('eval_all_ssim')} "
         f"lpips={row.get('eval_all_lpips')} "
-        f"delta={row.get('eval_loss_delta')} "
+        f"delta={row.get('eval_psnr_delta') or row.get('eval_loss_delta')} "
         f"status={row.get('status')}",
         flush=True,
     )
@@ -473,16 +496,34 @@ def best_eval_checkpoint(metrics_path: Path, model_dir: Path) -> Tuple[Optional[
         return None, "missing"
     if not rows:
         return checkpoints[-1], "latest_no_eval_rows"
-    best_row = min(rows, key=lambda row: float(row["eval_loss"]))
+
+    psnr_rows = [row for row in rows if row.get("eval_all_psnr")]
+    if psnr_rows:
+        best_psnr = max(float(r["eval_all_psnr"]) for r in psnr_rows)
+        # All checkpoints within PSNR_TIE_THRESHOLD_DB of the best are tied.
+        # Among ties, prefer lowest LPIPS (better perceptual quality, fewer artifacts).
+        tied = [r for r in psnr_rows if best_psnr - float(r["eval_all_psnr"]) < PSNR_TIE_THRESHOLD_DB]
+        lpips_tied = [r for r in tied if r.get("eval_all_lpips")]
+        if lpips_tied:
+            best_row = min(lpips_tied, key=lambda r: float(r["eval_all_lpips"]))
+            reason = f"best_psnr{best_psnr:.3f}_lpips_tiebreak"
+        else:
+            best_row = max(psnr_rows, key=lambda r: float(r["eval_all_psnr"]))
+            reason = "best_eval_all_psnr"
+    else:
+        # Fallback: no full-image PSNR available, use batch eval_loss
+        best_row = min(rows, key=lambda r: float(r["eval_loss"]))
+        reason = "best_eval_loss_fallback"
+
     target_step = int(best_row["step"])
     by_step = {checkpoint_step(ckpt): ckpt for ckpt in checkpoints}
     if target_step in by_step:
-        return by_step[target_step], f"best_eval_loss_step_{target_step}"
+        return by_step[target_step], f"{reason}_step_{target_step}"
     earlier_or_equal = [step for step in by_step if step <= target_step]
     if earlier_or_equal:
         step = max(earlier_or_equal)
-        return by_step[step], f"nearest_saved_checkpoint_for_best_eval_loss_step_{target_step}"
-    return checkpoints[-1], f"latest_no_checkpoint_for_best_eval_loss_step_{target_step}"
+        return by_step[step], f"nearest_saved_for_{reason}_step_{target_step}"
+    return checkpoints[-1], f"latest_no_checkpoint_for_{reason}_step_{target_step}"
 
 
 def stop_process(proc: subprocess.Popen) -> None:
@@ -937,6 +978,7 @@ def summarize_params(args: argparse.Namespace) -> str:
         "max_num_iterations": args.max_num_iterations,
         "background_color": args.background_color,
         "reconstruction_loss_type": args.reconstruction_loss_type,
+        "huber_delta": args.huber_delta,
         "frequency_map_dir": args.frequency_map_dir,
         "artifact_render_names": artifact_render_names(args),
         "artifact_crop_top": args.artifact_crop_top,
@@ -956,11 +998,16 @@ def summarize_params(args: argparse.Namespace) -> str:
         "fallback_frequency_level": args.fallback_frequency_level,
         "grid_update_interval": args.grid_update_interval,
         "grid_update_batch_size": args.grid_update_batch_size,
+        "load_scheduler": args.load_scheduler,
+        "load_optimizers": args.load_optimizers,
+        "fields_lr": args.fields_lr,
+        "fields_lr_final": args.fields_lr_final,
         "geo_num_layers": args.geo_num_layers,
         "color_num_layers": args.color_num_layers,
         "appearance_embedding_dim": args.appearance_embedding_dim,
         "enable_frequency_grid": not args.disable_frequency_grid,
         "enable_feature_reweighting": not args.disable_feature_reweighting,
+        "feature_reweighting_strength": args.feature_reweighting_strength,
         "ray_sampling_mode": args.ray_sampling_mode,
         "enable_adaptive_ray_marching": not args.disable_adaptive_ray_marching,
         "enable_fas": not args.disable_fas,
@@ -996,6 +1043,7 @@ def summarize_params(args: argparse.Namespace) -> str:
         "fixed_num_samples_per_ray": args.fixed_num_samples_per_ray,
         "adaptive_min_frequency_level": args.adaptive_min_frequency_level,
         "adaptive_max_frequency_level": args.adaptive_max_frequency_level,
+        "adaptive_interval_level_mode": args.adaptive_interval_level_mode,
         "adaptive_warmup_steps": args.adaptive_warmup_steps,
         "adaptive_fixed_fallback_samples_per_ray": args.adaptive_fixed_fallback_samples_per_ray,
         "transmittance_threshold": args.transmittance_threshold,
@@ -1150,13 +1198,24 @@ def main() -> int:
                 if len(current_evals) > seen_eval_count:
                     seen_eval_count = len(current_evals)
                     if args.stop_on_no_improve and len(current_evals) >= 2:
-                        prev = float(current_evals[-2]["eval_loss"])
-                        last = float(current_evals[-1]["eval_loss"])
-                        if last >= prev:
-                            print(f"stopping: eval loss did not improve ({last:.8g} >= {prev:.8g})", flush=True)
-                            stopped_for_plateau = True
-                            stop_process(proc)
-                            break
+                        prev_row = current_evals[-2]
+                        last_row = current_evals[-1]
+                        if prev_row.get("eval_all_psnr") and last_row.get("eval_all_psnr"):
+                            prev = float(prev_row["eval_all_psnr"])
+                            last = float(last_row["eval_all_psnr"])
+                            if last <= prev:
+                                print(f"stopping: eval psnr did not improve ({last:.6g} <= {prev:.6g})", flush=True)
+                                stopped_for_plateau = True
+                                stop_process(proc)
+                                break
+                        else:
+                            prev = float(prev_row["eval_loss"])
+                            last = float(last_row["eval_loss"])
+                            if last >= prev:
+                                print(f"stopping: eval loss did not improve ({last:.8g} >= {prev:.8g})", flush=True)
+                                stopped_for_plateau = True
+                                stop_process(proc)
+                                break
         except KeyboardInterrupt:
             print("interrupted: stopping train process", flush=True)
             stop_process(proc)
