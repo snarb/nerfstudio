@@ -38,9 +38,9 @@ This is bounded indoor scene.
 
 ## Evaluation 
 
-Use PSNR and SSIM metrics for the evaluation reports, and do not include loss.
+Use PSNR, SSIM, and LPIPS metrics for the evaluation reports. Do not include loss in reports.
 
-After training, save the rendered images from the epoch with the lowest evaluation loss to the experiment subfolder.
+After training, save the rendered images from the best checkpoint selected by `eval_all_psnr` (highest PSNR across all eval images; LPIPS as tie-breaker within `0.07 dB`).
 
 ### Current bounded Instant-NGP baseline data
 
