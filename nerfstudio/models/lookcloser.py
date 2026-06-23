@@ -51,8 +51,8 @@ class LookCloserModelConfig(ModelConfig):
     min_res: float = 16.0
     """Minimum resolution (N_min)."""
 
-    max_res: Optional[float] = None
-    """Maximum resolution (N_max). If unset, uses max_res_base * scene_size."""
+    max_res: Optional[float] = 8192.0
+    """Maximum resolution (N_max). If unset, uses max_res_base * scene_size. 8192 matches the HD frequency maps generated for this scene."""
 
     max_res_base: float = 2048.0
     """Per-scene-size maximum hash-grid resolution multiplier."""
@@ -102,7 +102,7 @@ class LookCloserModelConfig(ModelConfig):
     """Number of steps to apply depth loss."""
 
     # Marching settings
-    ray_sampling_mode: Literal["auto", "adaptive", "occupancy", "fixed"] = "auto"
+    ray_sampling_mode: Literal["auto", "adaptive", "occupancy", "fixed"] = "adaptive"
     """Ray sampling mode; auto preserves enable_adaptive_ray_marching backward compatibility."""
 
     enable_adaptive_ray_marching: bool = True
@@ -117,7 +117,7 @@ class LookCloserModelConfig(ModelConfig):
     adaptive_max_step_size: float = 0.1
     """Maximum adaptive ray marching step size."""
 
-    adaptive_coarse_step_size: Optional[float] = None
+    adaptive_coarse_step_size: Optional[float] = 0.00625
     """Coarse nerfacc traversal step for adaptive marching; unset uses adaptive_max_step_size."""
 
     adaptive_min_frequency_level: float = 0.0
@@ -189,7 +189,7 @@ class LookCloserModelConfig(ModelConfig):
     fixed_num_samples_per_ray: int = 256
     """Number of uniform samples per ray when adaptive ray marching is disabled."""
 
-    background_color: Literal["random", "last_sample", "black", "white"] = "random"
+    background_color: Literal["random", "last_sample", "black", "white"] = "black"
     """Background color strategy."""
 
     reconstruction_loss_type: Literal["charbonnier", "mse", "huber"] = "charbonnier"

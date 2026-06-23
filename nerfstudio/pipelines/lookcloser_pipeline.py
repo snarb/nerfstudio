@@ -39,10 +39,10 @@ class LookCloserPipelineConfig(VanillaPipelineConfig):
     grid_update_batch_size: int = 2048
     """Number of rays to sample for the grid update step."""
 
-    frequency_patch_size: int = 32
+    frequency_patch_size: int = 8
     """Fallback patch size for legacy frequency maps without sidecar metadata."""
 
-    frequency_stride: int = 32
+    frequency_stride: int = 8
     """Fallback frequency-map stride for legacy maps without sidecar metadata."""
 
 

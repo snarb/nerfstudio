@@ -101,11 +101,11 @@ method_configs["lookcloser"] = TrainerConfig(
                 train_num_rays_per_batch=4096,
                 eval_num_rays_per_batch=4096,
                 pixel_sampler=LookCloserPixelSamplerConfig(
-                    enable_fas=True,
+                    enable_fas=False,
                     frequency_map_dir="lookcloser_frequencies",
                     num_levels=16,
                     min_res=16.0,
-                    max_res=2048.0,
+                    max_res=8192.0,
                     sampling_ramp_start=1.0,
                     sampling_ramp_end=3.0,
                     fas_strength=1.0,
@@ -114,18 +114,29 @@ method_configs["lookcloser"] = TrainerConfig(
                     fas_level_count_alpha=0.0,
                     fas_patch_group_size=1,
                     fas_max_sampling_level=-1,
-                    patch_size=32,
-                    stride=32,
+                    patch_size=8,
+                    stride=8,
                 ),
             ),
             model=LookCloserModelConfig(
                 eval_num_rays_per_chunk=1 << 15,
-                # Adjust these to match your hardware/scene requirements
+                # Adjust these to match your hardware/scene requirements.
+                # Defaults below reproduce the current leader recipe
+                # (budget-aware ARM + Feature Reweighting): see LookCloser/architecture.md
+                # and LookCloser/experiments/budget_arm_recipe.md.
                 enable_frequency_grid=True,
                 enable_feature_reweighting=True,
+                feature_reweighting_strength=1.0,
                 enable_adaptive_ray_marching=True,
+                ray_sampling_mode="adaptive",
+                max_steps_per_ray=1024,
+                adaptive_coarse_step_size=0.00625,
                 num_frequency_levels=16,
                 grid_resolution=128,
+                max_res=8192.0,
+                reconstruction_loss_type="charbonnier",
+                distortion_loss_mult=0.01,
+                background_color="black",
             ),
             # Directory name where 'ns-process-lookcloser-freqs' saves maps
             frequency_map_dir="lookcloser_frequencies",
