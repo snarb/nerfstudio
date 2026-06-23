@@ -25,7 +25,7 @@ DEFAULT_OUTPUT = REPO_ROOT / "LookCloser" / "repro_runs" / "lookcloser_runs"
 DEFAULT_EXPERIMENT = "007740_hd_aabb4_multicamera_eval3_ns_lookcloser_frequency_grid"
 DEFAULT_REPORT = REPO_ROOT / "LookCloser" / "experiments" / "lookcloser_frequency_grid_optimization.md"
 SEEDS = (42, 43, 44)
-MAX_NUM_ITERATIONS = 60752
+MAX_NUM_ITERATIONS = 200000
 
 
 @dataclass(frozen=True)
@@ -369,6 +369,8 @@ def add_config_args(cmd: List[str], config: Dict[str, Any]) -> None:
         cmd.append("--disable-frequency-grid")
     if not config.get("enable_feature_reweighting", True):
         cmd.append("--disable-feature-reweighting")
+    if "feature_reweighting_strength" in config:
+        cmd.extend(["--feature-reweighting-strength", str(config["feature_reweighting_strength"])])
     if not config.get("enable_adaptive_ray_marching", True):
         cmd.append("--disable-adaptive-ray-marching")
     if not config.get("enable_fas", True):
@@ -591,6 +593,7 @@ def base_config() -> Dict[str, Any]:
         "fixed_num_samples_per_ray": 512,
         "enable_frequency_grid": True,
         "enable_feature_reweighting": True,
+        "feature_reweighting_strength": 1.0,
         "enable_adaptive_ray_marching": False,
         "enable_fas": True,
         "sampling_ramp_start": 1.0,

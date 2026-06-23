@@ -48,6 +48,7 @@ class LookCloserField(Field):
             color_num_layers: int = 2,
             sh_degree: int = 4,
             enable_feature_reweighting: bool = True,
+            feature_reweighting_strength: float = 1.0,
             appearance_embedding_dim: int = 0,
             num_images: int = 0,
             spatial_distortion=None,
@@ -63,6 +64,7 @@ class LookCloserField(Field):
         self.num_levels = num_levels
         self.features_per_level = features_per_level
         self.enable_feature_reweighting = enable_feature_reweighting
+        self.feature_reweighting_strength = float(feature_reweighting_strength)
         self.freq_grid = freq_grid
         self.spatial_distortion = spatial_distortion
         self.appearance_embedding_dim = int(appearance_embedding_dim)
@@ -243,6 +245,8 @@ class LookCloserField(Field):
         mask_decay = (feature_levels > l_grid_expanded).float()
 
         final_weights = (mask_keep * 1.0) + (mask_decay * w_factor)
+        if self.feature_reweighting_strength != 1.0:
+            final_weights = 1.0 + self.feature_reweighting_strength * (final_weights - 1.0)
 
         return final_weights.repeat_interleave(self.features_per_level, dim=1)
 

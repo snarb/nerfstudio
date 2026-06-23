@@ -82,6 +82,8 @@ class TrainerConfig(ExperimentConfig):
     """Path to config YAML file."""
     load_checkpoint: Optional[Path] = None
     """Path to checkpoint file."""
+    load_optimizers: bool = True
+    """Whether to load optimizer and scaler state from checkpoint."""
     log_gradients: bool = False
     """Optionally log gradients during training"""
     gradient_accumulation_steps: Dict[str, int] = field(default_factory=lambda: {})
@@ -435,10 +437,12 @@ class Trainer:
             self._start_step = loaded_state["step"] + 1
             # load the checkpoints for pipeline, optimizers, and gradient scalar
             self.pipeline.load_pipeline(loaded_state["pipeline"], loaded_state["step"])
-            self.optimizers.load_optimizers(loaded_state["optimizers"])
+            if self.config.load_optimizers:
+                self.optimizers.load_optimizers(loaded_state["optimizers"])
             if "schedulers" in loaded_state and self.config.load_scheduler:
                 self.optimizers.load_schedulers(loaded_state["schedulers"])
-            self.grad_scaler.load_state_dict(loaded_state["scalers"])
+            if self.config.load_optimizers:
+                self.grad_scaler.load_state_dict(loaded_state["scalers"])
             CONSOLE.print(f"Done loading Nerfstudio checkpoint from {load_path}")
         elif load_checkpoint is not None:
             assert load_checkpoint.exists(), f"Checkpoint {load_checkpoint} does not exist"
@@ -446,10 +450,12 @@ class Trainer:
             self._start_step = loaded_state["step"] + 1
             # load the checkpoints for pipeline, optimizers, and gradient scalar
             self.pipeline.load_pipeline(loaded_state["pipeline"], loaded_state["step"])
-            self.optimizers.load_optimizers(loaded_state["optimizers"])
+            if self.config.load_optimizers:
+                self.optimizers.load_optimizers(loaded_state["optimizers"])
             if "schedulers" in loaded_state and self.config.load_scheduler:
                 self.optimizers.load_schedulers(loaded_state["schedulers"])
-            self.grad_scaler.load_state_dict(loaded_state["scalers"])
+            if self.config.load_optimizers:
+                self.grad_scaler.load_state_dict(loaded_state["scalers"])
             CONSOLE.print(f"Done loading Nerfstudio checkpoint from {load_checkpoint}")
         else:
             CONSOLE.print("No Nerfstudio checkpoint to load, so training from scratch.")

@@ -64,6 +64,9 @@ class LookCloserModelConfig(ModelConfig):
     enable_feature_reweighting: bool = True
     """Whether to apply LookCloser Eq. 6 frequency-aware feature re-weighting."""
 
+    feature_reweighting_strength: float = 1.0
+    """Blend strength for feature re-weighting; 1.0 preserves Eq. 6, 0.0 is identity."""
+
     geo_feat_dim: int = 15
     """Geometry feature dimension emitted by the density MLP."""
 
@@ -129,6 +132,9 @@ class LookCloserModelConfig(ModelConfig):
     adaptive_fixed_fallback_samples_per_ray: int = 0
     """Uniform fallback samples per ray appended to adaptive ARM samples; 0 preserves pure ARM."""
 
+    adaptive_interval_level_mode: Literal["midpoint", "max3"] = "midpoint"
+    """Frequency level query mode for ARM interval subdivision."""
+
     transmittance_threshold: float = 0.0
     """Ray termination threshold for remaining transmittance."""
 
@@ -189,6 +195,9 @@ class LookCloserModelConfig(ModelConfig):
     reconstruction_loss_type: Literal["charbonnier", "mse", "huber"] = "charbonnier"
     """RGB reconstruction loss for LookCloser training."""
 
+    huber_delta: float = 0.1
+    """Delta used by Huber RGB reconstruction loss."""
+
 
 class LookCloserModel(Model):
     """
@@ -221,6 +230,10 @@ class LookCloserModel(Model):
             raise ValueError("occupancy_grid_levels must be > 0.")
         if self.config.appearance_embedding_dim < 0:
             raise ValueError("appearance_embedding_dim must be >= 0.")
+        if self.config.feature_reweighting_strength < 0:
+            raise ValueError("feature_reweighting_strength must be >= 0.")
+        if self.config.huber_delta <= 0:
+            raise ValueError("huber_delta must be > 0.")
         if self.config.fixed_num_samples_per_ray <= 0:
             raise ValueError("fixed_num_samples_per_ray must be > 0.")
         if self.config.adaptive_min_step_size <= 0 or self.config.adaptive_max_step_size <= 0:
@@ -289,6 +302,7 @@ class LookCloserModel(Model):
             num_images=self.num_train_data,
             sh_degree=self.config.sh_degree,
             enable_feature_reweighting=self.config.enable_feature_reweighting,
+            feature_reweighting_strength=self.config.feature_reweighting_strength,
         )
 
         # 3. Renderers
@@ -635,15 +649,15 @@ class LookCloserModel(Model):
             near_plane=float(self.config.near_plane),
             far_plane=float(self.config.far_plane),
             alpha_thre=float(self.config.alpha_thre),
+            early_stop_eps=float(self.config.transmittance_threshold),
             cone_angle=float(self.config.cone_angle),
             adaptive_min_step_size=float(self.config.adaptive_min_step_size),
             adaptive_max_step_size=float(self.config.adaptive_max_step_size),
             adaptive_min_frequency_level=float(self.config.adaptive_min_frequency_level),
             adaptive_max_frequency_level=(
-                None
-                if self.config.adaptive_max_frequency_level is None
-                else float(self.config.adaptive_max_frequency_level)
+                None if self.config.adaptive_max_frequency_level is None else float(self.config.adaptive_max_frequency_level)
             ),
+            adaptive_interval_level_mode=self.config.adaptive_interval_level_mode,
             max_steps_per_ray=int(self.config.max_steps_per_ray),
         )
         ray_samples, ray_indices, stats, fallback_samples = self._append_fallback_samples(
@@ -779,6 +793,17 @@ class LookCloserModel(Model):
         camera_indices = ray_bundle.camera_indices
         if camera_indices is not None:
             camera_indices = camera_indices.contiguous()[ray_indices]
+        if t_min is None:
+            ray_nears = torch.full_like(starts, float(self.config.near_plane))
+        else:
+            ray_nears = t_min[ray_indices].to(dtype=starts.dtype)
+        if t_max is None:
+            ray_fars = torch.full_like(ends, float(self.config.far_plane))
+        else:
+            ray_fars = t_max[ray_indices].to(dtype=ends.dtype)
+        ray_spans = (ray_fars - ray_nears).clamp_min(1e-6)
+        spacing_starts = ((starts - ray_nears) / ray_spans).clamp(0.0, 1.0)
+        spacing_ends = ((ends - ray_nears) / ray_spans).clamp(0.0, 1.0)
 
         ray_samples = RaySamples(
             frustums=Frustums(
@@ -790,8 +815,8 @@ class LookCloserModel(Model):
             ),
             camera_indices=camera_indices,
             deltas=(ends - starts)[..., None],
-            spacing_starts=starts[..., None],
-            spacing_ends=ends[..., None],
+            spacing_starts=spacing_starts[..., None],
+            spacing_ends=spacing_ends[..., None],
         )
         if ray_bundle.times is not None:
             ray_samples.times = ray_bundle.times[ray_indices]
@@ -1153,12 +1178,13 @@ class LookCloserModel(Model):
         # 1. Charbonnier Reconstruction Loss
         if self.config.reconstruction_loss_type == "charbonnier":
             epsilon = 1e-4
-            diff_sq = (outputs["rgb"] - image) ** 2
-            loss_dict["rgb_loss"] = torch.sqrt(diff_sq + epsilon).mean()
+            loss_dict["rgb_loss"] = torch.sqrt((outputs["rgb"] - image) ** 2 + epsilon).mean()
         elif self.config.reconstruction_loss_type == "mse":
-            loss_dict["rgb_loss"] = F.mse_loss(outputs["rgb"], image)
+            loss_dict["rgb_loss"] = self.rgb_loss(image, outputs["rgb"])
         elif self.config.reconstruction_loss_type == "huber":
-            loss_dict["rgb_loss"] = F.huber_loss(outputs["rgb"], image, delta=0.1, reduction="mean") / 5.0
+            loss_dict["rgb_loss"] = (
+                F.huber_loss(outputs["rgb"], image, delta=float(self.config.huber_delta), reduction="mean") / 5.0
+            )
         else:
             raise ValueError(f"Unknown reconstruction_loss_type={self.config.reconstruction_loss_type!r}.")
 

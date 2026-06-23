@@ -93,7 +93,7 @@ method_configs["lookcloser"] = TrainerConfig(
         method_name="lookcloser",
         steps_per_eval_batch=500,
         steps_per_save=2000,
-        max_num_iterations=30000,
+        max_num_iterations=200000,
         mixed_precision=True,
         pipeline=LookCloserPipelineConfig(
             datamanager=VanillaDataManagerConfig(
@@ -135,7 +135,7 @@ method_configs["lookcloser"] = TrainerConfig(
         optimizers={
             "fields": {
                 "optimizer": AdamOptimizerConfig(lr=1e-2, eps=1e-15),
-                "scheduler": ExponentialDecaySchedulerConfig(lr_final=0.0001, max_steps=30000),
+                "scheduler": ExponentialDecaySchedulerConfig(lr_final=0.0001, max_steps=200000),
             },
         },
         viewer=ViewerConfig(num_rays_per_chunk=1 << 15),

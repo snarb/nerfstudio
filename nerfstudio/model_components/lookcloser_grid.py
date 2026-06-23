@@ -73,7 +73,7 @@ class FrequencyGridManager(nn.Module):
         # Normalize to [0, 1] within AABB
         norm_pos = (positions - self.aabb_min_buf) / self.aabb_size_buf
 
-        # Scale to grid resolution and clamp
+        # Scale to grid resolution and clamp.
         grid_coords = torch.clamp(norm_pos * (self.resolution - 1), 0, self.resolution - 1.001)
         return grid_coords
 

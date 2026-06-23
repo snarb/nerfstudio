@@ -201,6 +201,35 @@ def summarize_occ_values(values: torch.Tensor) -> Dict[str, Optional[float]]:
     }
 
 
+def analyze_sample_counts(model, outputs) -> Dict[str, object]:
+    counts = outputs.get("num_samples_per_ray")
+    if counts is None:
+        return {"available": False}
+    counts = counts.reshape(-1).detach().to(model.device)
+    if counts.numel() == 0:
+        return {"available": True, "count": 0}
+    max_steps = int(getattr(model.config, "max_steps_per_ray", 0))
+    result: Dict[str, object] = {
+        "available": True,
+        "count": int(counts.numel()),
+        "min": float(counts.min().item()),
+        "mean": float(counts.float().mean().item()),
+        "max": float(counts.max().item()),
+        "zero_count": int((counts == 0).sum().item()),
+        "zero_rate": float((counts == 0).float().mean().item()),
+        "configured_max_steps_per_ray": max_steps,
+    }
+    if max_steps > 0:
+        saturated = counts >= max_steps
+        result["saturated_count"] = int(saturated.sum().item())
+        result["saturated_rate"] = float(saturated.float().mean().item())
+    quantiles = torch.quantile(counts.float(), torch.tensor([0.5, 0.9, 0.99], device=counts.device))
+    result["p50"] = float(quantiles[0].item())
+    result["p90"] = float(quantiles[1].item())
+    result["p99"] = float(quantiles[2].item())
+    return result
+
+
 def analyze_surface(model, ray_bundle, outputs, min_accumulation: float) -> Dict[str, object]:
     depth = outputs["depth"].reshape(-1).to(model.device)
     accumulation = outputs.get("accumulation", torch.ones_like(depth[:, None])).reshape(-1).to(model.device)
@@ -343,6 +372,12 @@ def write_markdown(path: Path, data: Dict[str, object]) -> None:
         "```json",
         json.dumps(data["rays"], indent=2, sort_keys=True),
         "```",
+        "",
+        "## ARM sample counts in artifact pixels",
+        "",
+        "```json",
+        json.dumps(data["sample_counts"], indent=2, sort_keys=True),
+        "```",
     ]
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
@@ -377,6 +412,7 @@ def main() -> int:
         ray_bundle = generate_ray_bundle(pipeline, args.eval_index, pixels_yx)
         ray_bundle = collided_ray_bundle(model, ray_bundle)
         outputs = model.get_outputs(ray_bundle)
+        sample_counts = analyze_sample_counts(model, outputs)
         surface = analyze_surface(model, ray_bundle, outputs, args.min_accumulation)
         rays = analyze_rays(model, ray_bundle, outputs, args.ray_samples, args.near_surface_margin)
         occupancy = occupancy_global_stats(model)
@@ -391,6 +427,7 @@ def main() -> int:
         "occupancy_global": occupancy,
         "surface": surface,
         "rays": rays,
+        "sample_counts": sample_counts,
         "classification": classify(surface, rays),
         "overlay": str(output_dir / "artifact_pixels_overlay.png"),
     }
