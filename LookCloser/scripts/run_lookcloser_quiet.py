@@ -216,7 +216,7 @@ def train_command(args: argparse.Namespace) -> List[str]:
         "--max-num-iterations",
         str(args.max_num_iterations),
         "--save-only-latest-checkpoint",
-        "False",
+        bool_text(args.prune_checkpoints),
     ]
     if args.load_dir is not None:
         cmd.extend(["--load-dir", str(args.load_dir)])
