@@ -104,6 +104,9 @@ class LookCloserPixelSampler(PixelSampler):
         self.patch_size = int(self.config.patch_size)
         self.patch_stride = int(self.config.stride)
         self.image_shapes: Dict[int, Tuple[int, int]] = {}
+        # Pre-computed tensor lookups for image shapes (built lazily after init)
+        self._shapes_h_tensor: Optional[torch.Tensor] = None
+        self._shapes_w_tensor: Optional[torch.Tensor] = None
         self.sample_count = 0
         self.current_fas_strength = 1.0
 
@@ -349,6 +352,15 @@ class LookCloserPixelSampler(PixelSampler):
         self.probs = probs
         self.level_counts = level_counts
         self.is_initialized = True
+
+        # Pre-compute image shape lookup tensors for fast GPU indexing (avoids .item() per sample)
+        if self.image_shapes:
+            max_idx = max(self.image_shapes.keys()) + 1
+            h_arr = [self.image_shapes.get(i, (0, 0))[0] for i in range(max_idx)]
+            w_arr = [self.image_shapes.get(i, (0, 0))[1] for i in range(max_idx)]
+            self._shapes_h_tensor = torch.tensor(h_arr, dtype=torch.long)
+            self._shapes_w_tensor = torch.tensor(w_arr, dtype=torch.long)
+
         CONSOLE.print("[bold green]LookCloserPixelSampler:[/bold green] Initialization complete.")
 
     def _active_fas_strength(self) -> float:
@@ -477,16 +489,25 @@ class LookCloserPixelSampler(PixelSampler):
 
                 # Clamp to the selected image's shape when metadata is available.
                 if self.image_shapes:
-                    heights = torch.tensor(
-                        [self.image_shapes.get(int(i.item()), (image_height, image_width))[0] for i in img_idx],
-                        device=device,
-                        dtype=torch.long,
-                    )
-                    widths = torch.tensor(
-                        [self.image_shapes.get(int(i.item()), (image_height, image_width))[1] for i in img_idx],
-                        device=device,
-                        dtype=torch.long,
-                    )
+                    if self._shapes_h_tensor is not None:
+                        # Fast path: vectorized tensor lookup (avoids N .item() GPU→CPU syncs)
+                        img_idx_dev = img_idx.to(device)
+                        h_lut = self._shapes_h_tensor.to(device)
+                        w_lut = self._shapes_w_tensor.to(device)
+                        heights = h_lut[img_idx_dev]
+                        widths = w_lut[img_idx_dev]
+                    else:
+                        # Slow fallback (should not happen after init)
+                        heights = torch.tensor(
+                            [self.image_shapes.get(int(i.item()), (image_height, image_width))[0] for i in img_idx],
+                            device=device,
+                            dtype=torch.long,
+                        )
+                        widths = torch.tensor(
+                            [self.image_shapes.get(int(i.item()), (image_height, image_width))[1] for i in img_idx],
+                            device=device,
+                            dtype=torch.long,
+                        )
                     y_coord = torch.minimum(torch.clamp_min(y_coord, 0), heights - 1)
                     x_coord = torch.minimum(torch.clamp_min(x_coord, 0), widths - 1)
                 else:
