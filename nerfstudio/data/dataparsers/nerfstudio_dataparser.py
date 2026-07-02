@@ -120,6 +120,7 @@ class Nerfstudio(DataParser):
         height = []
         width = []
         distort = []
+        times = []
 
         # sort the frames by fname
         fnames = []
@@ -168,6 +169,8 @@ class Nerfstudio(DataParser):
 
             image_filenames.append(fname)
             poses.append(np.array(frame["transform_matrix"]))
+            if "time" in frame:
+                times.append(float(frame["time"]))
             if "mask_path" in frame:
                 mask_filepath = Path(frame["mask_path"])
                 mask_fname = self._get_fname(
@@ -256,6 +259,13 @@ class Nerfstudio(DataParser):
         idx_tensor = torch.tensor(indices, dtype=torch.long)
         poses = poses[idx_tensor]
 
+        # Optional per-frame time (e.g. for temporal models). Only populated when every frame
+        # specifies a "time" field, so non-temporal datasets are unaffected. `times` is collected
+        # over the full (sorted) `frames` list, so it is indexed by idx_tensor like `poses`.
+        camera_times = None
+        if len(times) == len(frames) and len(times) > 0:
+            camera_times = torch.tensor(times, dtype=torch.float32)[idx_tensor]
+
         # in x,y,z order
         # assumes that the scene is centered at the origin
         aabb_scale = self.config.scene_scale
@@ -308,6 +318,7 @@ class Nerfstudio(DataParser):
             width=width,
             camera_to_worlds=poses[:, :3, :4],
             camera_type=camera_type,
+            times=camera_times,
             metadata=metadata,
         )
 

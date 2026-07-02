@@ -316,6 +316,8 @@ class HashEncoding(Encoding):
         hash_init_scale: Value to initialize hash grid.
         implementation: Implementation of hash encoding. Fallback to torch if tcnn not available.
         interpolation: Interpolation override for tcnn hashgrid. Not supported for torch unless linear.
+        in_dim: Number of input dimensions to encode. Defaults to 3 (xyz). Values other than 3
+            (e.g. 4 for temporal xyzt) are only supported with the tcnn backend.
     """
 
     def __init__(
@@ -328,8 +330,14 @@ class HashEncoding(Encoding):
         hash_init_scale: float = 0.001,
         implementation: Literal["tcnn", "torch"] = "tcnn",
         interpolation: Optional[Literal["Nearest", "Linear", "Smoothstep"]] = None,
+        in_dim: int = 3,
     ) -> None:
-        super().__init__(in_dim=3)
+        super().__init__(in_dim=in_dim)
+        if in_dim != 3 and implementation != "tcnn":
+            raise NotImplementedError(
+                "Temporal 4D hash grid currently supports only tiny-cuda-nn. "
+                f"HashEncoding with in_dim={in_dim} requires implementation='tcnn'."
+            )
         self.num_levels = num_levels
         self.min_res = min_res
         self.features_per_level = features_per_level
@@ -360,7 +368,7 @@ class HashEncoding(Encoding):
                 interpolation=interpolation,
             )
             self.tcnn_encoding = tcnn.Encoding(
-                n_input_dims=3,
+                n_input_dims=self.in_dim,
                 encoding_config=encoding_config,
             )
 
