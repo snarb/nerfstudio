@@ -105,7 +105,7 @@ ROI plateaus at ~0.87 due to occupancy binary pruning of thin structures; more s
 # Phase 1: 20k steps (~20 min)
 python run_lookcloser_quiet.py \
   --ray-sampling-mode occupancy --train-num-rays-per-batch 8192 \
-  --log2-hashmap-size 21 --cone-angle 0.004 --disable-fas \
+  --log2-hashmap-size 21 --cone-angle 0.000 --disable-fas \
   --occupancy-warmup-steps 4096 --occupancy-binary-warmup-steps 4096 \
   --max-num-iterations 20000 --step-interval 20000
 
