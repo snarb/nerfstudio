@@ -11,29 +11,30 @@ what the leaders are, exact hyperparameters, how to launch, and how the data was
 
 ## 1. Dataset
 
-- **Path:** `/opt/dlami/nvme/temporal_ngp_ds_eval12`  (local NVMe; `images/`, `transforms.json`,
-  `lookcloser_frequencies/`, `person_masks/`, `sparse_pc.ply`)
-- **Source clip:** frames **007700–007900** (inclusive) of the **6A_4_EXR** multicamera capture
-  (base `/fsx/oregon/tank_bkup/6A_4_EXR`), same camera rig as the static single-frame LookCloser
-  scene `007740_hd_aabb4_multicamera_eval3_ns`. Cameras are STATIC across time; only people move.
-- **Train:** stride **4** → 51 timesteps (7700,7704,…,7900) × **52 cameras** = **2523** full-HD images.
-- **Eval:** stride **12** → 17 timesteps (7700,7712,…,7892) × **3 held-out cameras**
-  (D004_A014, E004_B014, I004_D014) = **51** images. Held-out cameras never seen in train;
-  stride-12 eval times ⊂ stride-4 train times (full eval-time coverage → no off-grid temporal smear).
-- **`transforms.json`:** `--eval-mode filename` (train = `frame_train_*`, eval = `frame_eval_*`); each
-  frame has `"time" = (frame_idx-7700)/200 ∈ [0,1]` and reuses the rig's intrinsics/extrinsics verbatim.
-- **Frequency maps:** `lookcloser_frequencies/frame_*.pt` (+`.json`) — per-image 2D required-resolution
-  maps (patch 8, stride 8, levels 16, res 16→8192) used to bake the 3D frequency grid for ARM/FR.
+- **Path:** `/opt/dlami/nvme/temporal_ds_stride7_45f`  (local NVMe; `images/`, `transforms.json`,
+  `build_manifest.json`, `sparse_pc.ply`)
+- **Source clip:** **6A_4_EXR** multicamera capture (base `/fsx/oregon/tank_bkup/6A_4_EXR/<frame>/<CAM>.exr`,
+  6144×3072 float16 linear HDR; frames available 7389–8050). Same rig as the static single-frame scene
+  `007740_hd_aabb4_multicamera_eval3_ns`. Cameras STATIC across time; only people move.
+- **Frames:** **45 at stride 7**, starting at **007740** (7740, 7747, …, 8048). 007740 is the first frame.
+- **Train:** 45 timesteps × **52 cameras** = **2340** images. **Eval:** 45 timesteps × **3 held-out cameras**
+  (D004_A014, E004_B014, I004_D014) = **135** images. Total **2475** (1920×1080).
+- **`transforms.json`:** `--eval-mode filename` (train=`frame_train_<CAM>_<frame>.jpg`, eval=`frame_eval_...`);
+  each entry: rig intrinsics + transform_matrix reused verbatim, `"frame_idx"`, `"time"=(frame-7740)/308 ∈ [0,1]`.
+- **Frequency maps for ARM/FR:** NOT yet regenerated for this dataset — rebake per-image freq maps + the 3D
+  grid (`bake_frequency_grid.py`) before running ARM/FR here.
 
-### How the images were color-graded (⚠ known issue)
-EXR→JPG via `/home/ubuntu/repos/red-to-exr/color_corretion.py`, `GRADE=True`:
-per-image auto-exposure to `EXPOSURE_TARGET=0.30` (70th-pctile luma), ACES filmic, S-curve
-`CONTRAST_STRENGTH=4.0`, `SATURATION=0.92`, `BLACK_LIFT=0.04`, vignette 0.28.
-**Result is duller/darker than the static set** (temporal GT mean≈0.40, highlights clipped ≈0.84, vs
-static 0.53 / 0.99) → renders look "washed/soft". Same-camera frame-to-frame exposure is stable
-(std≈0.009), so it's a consistent grade mismatch, not flicker. **TODO:** re-grade to match the static set
-(brighter target, no desaturation/black-lift, full-range highlights) and retrain; absolute metrics below
-will shift after re-grading.
+### How the images were color-graded (FIXED — matches static 007740)
+EXR→JPG via `/home/ubuntu/repos/look-closer/hollywood_grade_batch.py` (the REAL static pipeline; its default
+input is literally `.../6A_4_EXR/007740`). Config: `GRADE=True, EXPOSURE_TARGET=0.44, DISPLAY_BRIGHTNESS=1.10,
+SATURATION=0.96, BLACK_LIFT=0.055, VIGNETTE_STRENGTH=0.16, CONTRAST_STRENGTH=4.0`, ACES filmic + teal/orange
+split-tone, **16:9 center-crop (cw≈5461) → 1920×1080**. **NO per-frame auto-exposure:** each camera's gain is
+computed ONCE on frame 007740 and frozen for all 45 frames (gains 50.5–64.0) → temporally consistent, no flicker.
+Verified vs static 007740: mean/p99 within ±0.002 (tonally exact); SSIM ≈0.93 capped only by a sub-pixel
+resample-sharpness residual (a tiny Gaussian blur → SSIM 0.99). This REPLACES the earlier dull grade
+(old `color_corretion.py`, EXPOSURE_TARGET 0.30, mean≈0.40/p99≈0.84).
+**NOTE:** all leader metrics in §3 were measured on the OLD dull dataset — retrain on this dataset to get
+final numbers (they will change).
 
 ---
 

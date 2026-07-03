@@ -23,7 +23,7 @@ from typing import Dict, List, Optional, Tuple
 
 
 # Local NVMe copy (decoupled from the flaky shared /fsx; far faster disk-streaming during training).
-DEFAULT_DATA = Path("/opt/dlami/nvme/temporal_ngp_ds_eval12")
+DEFAULT_DATA = Path("/opt/dlami/nvme/temporal_ds_stride7_45f")
 DEFAULT_OUTPUT = Path("/opt/dlami/nvme/temporal_runs")
 DEFAULT_EXPERIMENT = "temporal_leader_noarm"
 DEFAULT_SUMMARY = Path(__file__).resolve().parents[1] / "experiments" / "temporal_ngp_results.md"
