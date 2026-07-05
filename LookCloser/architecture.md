@@ -9,41 +9,6 @@
 - `nerfstudio/pipelines/lookcloser_pipeline.py` — training pipeline and grid updates.
 - `nerfstudio/configs/method_configs.py` — `lookcloser` method config.
 
-## Dataset format
-
-A LookCloser dataset is a standard nerfstudio dataset directory (`images/` + `transforms.json`)
-plus a `lookcloser_frequencies/` subfolder holding one precomputed frequency map per train image:
-
-```
-<dataset_root>/
-  images/
-  transforms.json
-  lookcloser_frequencies/
-    frame_train_00001.pt     ← float32 tensor, scalar resolution per patch
-    frame_train_00001.json   ← sidecar metadata (patch_size, stride, level schedule, etc.)
-    ...
-```
-
-Maps are produced by `nerfstudio/scripts/lookcloser_preprocess.py` (see Key files).
-
-### Static (single-frame) dataset
-```
-fsx: /fsx/oregon/tank_bkup/6A_4_EXR/nerfstudio_processed/007740_hd_aabb4_multicamera_eval3_ns/
-```
-
-### Temporal (per-frame) dataset
-
-45 stride-7 frames, each its own nerfstudio dataset with the layout above, so any single frame
-can be trained on its own like the static dataset:
-
-```
-fsx:           /fsx/oregon/tank_bkup/6A_4_EXR/nerfstudio_processed/temporal_perframe_stride7_45f/<frame_id>/
-clever-shadow: /home/brans/temporal_perframe_stride7_45f/<frame_id>/
-```
-
-`<frame_id>` ranges from `007740` to `008048`. When working on `clever-shadow`, use its local
-copy above — it does not have `/fsx` mounted.
-
 ## Training monitoring additions
 
 Baseline runs can enable `--logging.csv-writer.enable True` to write compact `metrics_compact.csv` rows for train/eval trends, `best_eval_*`, plateau and overfit status, which is useful because recent 3k baselines plateau early and best checkpoint metrics are more informative than final-step metrics.
