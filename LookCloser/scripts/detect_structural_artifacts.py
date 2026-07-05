@@ -30,6 +30,7 @@ Why largest connected component, not mean error: uniform blur spreads error
 thinly (high mean, no big blob); a break/hole is a dense concentrated failure.
 """
 import argparse
+from pathlib import Path
 import numpy as np
 from PIL import Image
 from skimage.metrics import structural_similarity as ssim
@@ -50,8 +51,45 @@ SEV_MIN = 0.70       # min MEAN severity of a blob to count as significant:
                      # hard failures (breaks/holes, mean err ~0.73+) pass
 SSIM_SUSPECT = 0.50  # softer pixel threshold for the suspicion map
 AREA_SUSPECT = 60    # softer area threshold for the suspicion map
+PRESETS = {
+    "legacy": {},
+    # Calibrated after component audits to focus the scalar on substantial hard
+    # failures instead of floor/edge/equipment detector floor.
+    "significant": {
+        "ssim_severe": 0.40,
+        "area_box": 250,
+        "area_serious": 250,
+        "sev_min": 0.85,
+    },
+}
 
 # region tuple layout: (area, x0, y0, x1, y1, mean_severity)
+
+
+def _intersects(a, b):
+    ax0, ay0, ax1, ay1 = a
+    bx0, by0, bx1, by1 = b
+    return ax0 <= bx1 and ax1 >= bx0 and ay0 <= by1 and ay1 >= by0
+
+
+def _filter_regions(regions, *, shape, include_bboxes=None, exclude_bboxes=None, drop_border_components=0):
+    include_bboxes = include_bboxes or []
+    exclude_bboxes = exclude_bboxes or []
+    height, width = shape[:2]
+    filtered = []
+    for region in regions:
+        _, x0, y0, x1, y1, _ = region
+        box = (x0, y0, x1, y1)
+        if include_bboxes and not any(_intersects(box, include) for include in include_bboxes):
+            continue
+        if exclude_bboxes and any(_intersects(box, exclude) for exclude in exclude_bboxes):
+            continue
+        if drop_border_components > 0:
+            margin = drop_border_components
+            if x0 <= margin or y0 <= margin or x1 >= width - 1 - margin or y1 >= height - 1 - margin:
+                continue
+        filtered.append(region)
+    return filtered
 
 
 def structural_error(gt, cand, win=7):
@@ -83,19 +121,37 @@ def detect_defects(gt, cand, *, ssim_severe=SSIM_SEVERE,
                    area_serious=AREA_SERIOUS, area_box=AREA_BOX,
                    sev_min=SEV_MIN,
                    ssim_suspect=SSIM_SUSPECT, area_suspect=AREA_SUSPECT,
-                   close_size=7, win=7):
+                   close_size=7, win=7,
+                   include_bboxes=None, exclude_bboxes=None,
+                   drop_border_components=0):
     """Full analysis. Returns dict with: serious (bool), artifact_score (float),
     artifact_count (int), major/minor region lists, suspicion mask, error map."""
     err = structural_error(gt, cand, win=win)
     regions, _ = _components(err, 1.0 - ssim_severe, area_box, close_size)
     regions = [r for r in regions if r[5] >= sev_min]   # severity gate
+    regions = _filter_regions(
+        regions,
+        shape=err.shape,
+        include_bboxes=include_bboxes,
+        exclude_bboxes=exclude_bboxes,
+        drop_border_components=drop_border_components,
+    )
     major = [r for r in regions if r[0] >= area_serious]
     minor = [r for r in regions if r[0] < area_serious]
     suspect_regions, suspect_mask = _components(
         err, 1.0 - ssim_suspect, area_suspect, close_size=5)
+    suspect_regions = _filter_regions(
+        suspect_regions,
+        shape=err.shape,
+        include_bboxes=include_bboxes,
+        exclude_bboxes=exclude_bboxes,
+        drop_border_components=drop_border_components,
+    )
     score = 1000.0 * sum(a * sev for a, _, _, _, _, sev in regions) / err.size
+    serious_score = 1000.0 * sum(a * sev for a, _, _, _, _, sev in major) / err.size
     return dict(serious=bool(major),
                 artifact_score=round(score, 3),
+                serious_artifact_score=round(serious_score, 3),
                 artifact_count=len(regions),
                 largest_area=regions[0][0] if regions else 0,
                 major=major, minor=minor,
@@ -112,20 +168,38 @@ def artifact_score(gt, cand, **kw):
     return detect_defects(gt, cand, **kw)["artifact_score"]
 
 
+def detector_kwargs_from_args(args):
+    kwargs = dict(PRESETS.get(getattr(args, "preset", "legacy"), {}))
+    for key in ("ssim_severe", "area_serious", "area_box", "sev_min", "ssim_suspect", "area_suspect"):
+        value = getattr(args, key, None)
+        if value is not None:
+            kwargs[key] = value
+    return kwargs
+
+
 # ----------------------------- io / viz --------------------------------------
 def load_pair(args, gt_idx, cand_idx):
     if args.gt_file and args.cand_file:
         gt = np.asarray(Image.open(args.gt_file).convert("RGB"))
-        cand = np.asarray(Image.open(args.cand_file).convert("RGB"))
+        cand_image = Image.open(args.cand_file).convert("RGB")
+        gt_h, gt_w = gt.shape[:2]
+        if cand_image.width == gt_w * 2 and cand_image.height == gt_h:
+            cand_image = cand_image.crop((gt_w, 0, gt_w * 2, gt_h))
+        cand = np.asarray(cand_image)
     else:
         im = np.asarray(Image.open(args.image).convert("RGB"))
         pw = im.shape[1] // args.panels
         gt = im[:, gt_idx * pw:(gt_idx + 1) * pw]
         cand = im[:, cand_idx * pw:(cand_idx + 1) * pw]
     t, b = args.crop_top, args.crop_bottom
-    gt = gt[t:gt.shape[0] - b]; cand = cand[t:cand.shape[0] - b]
-    h = min(gt.shape[0], cand.shape[0]); w = min(gt.shape[1], cand.shape[1])
-    return gt[:h, :w], cand[:h, :w]
+    l, r = args.crop_left, args.crop_right
+    bottom = gt.shape[0] - b if b > 0 else gt.shape[0]
+    right = gt.shape[1] - r if r > 0 else gt.shape[1]
+    gt = gt[t:bottom, l:right]
+    cand = cand[t:bottom, l:right]
+    if gt.shape != cand.shape:
+        raise ValueError(f"GT/candidate shape mismatch after loading: gt={gt.shape}, cand={cand.shape}")
+    return gt, cand
 
 
 def save_heatmap(gt, err, path):
@@ -184,23 +258,71 @@ def main():
                     help="extra panel index to evaluate (e.g. instant_ngp=1)")
     ap.add_argument("--crop-top", type=int, default=0)
     ap.add_argument("--crop-bottom", type=int, default=0)
+    ap.add_argument("--crop-left", type=int, default=0)
+    ap.add_argument("--crop-right", type=int, default=0)
+    ap.add_argument("--include-bbox", type=int, nargs=4, action="append", default=None,
+                    metavar=("X0", "Y0", "X1", "Y1"),
+                    help="Only score components intersecting this cropped-image bbox. Repeatable.")
+    ap.add_argument("--exclude-bbox", type=int, nargs=4, action="append", default=None,
+                    metavar=("X0", "Y0", "X1", "Y1"),
+                    help="Drop components intersecting this cropped-image bbox. Repeatable.")
+    ap.add_argument("--drop-border-components", type=int, default=0, metavar="PX",
+                    help="Drop components touching the cropped-image border within this margin.")
+    ap.add_argument("--preset", choices=sorted(PRESETS), default="legacy",
+                    help="Detector threshold preset. 'legacy' preserves historical behavior.")
+    ap.add_argument("--ssim-severe", type=float, default=None)
+    ap.add_argument("--area-serious", type=int, default=None)
+    ap.add_argument("--area-box", type=int, default=None)
+    ap.add_argument("--sev-min", type=float, default=None)
+    ap.add_argument("--ssim-suspect", type=float, default=None)
+    ap.add_argument("--area-suspect", type=int, default=None)
+    ap.add_argument("--json-out", default=None,
+                    help="Optional JSON path with candidate result and bbox details.")
+    ap.add_argument("--print-json", action="store_true",
+                    help="Also print the candidate result as JSON after the legacy text lines.")
     ap.add_argument("--out", default="defect")
     args = ap.parse_args()
 
+    out_parent = Path(args.out).parent
+    if out_parent != Path("."):
+        out_parent.mkdir(parents=True, exist_ok=True)
+
     gt, cand = load_pair(args, args.gt, args.cand)
-    res = detect_defects(gt, cand)
+    filter_kwargs = dict(
+        include_bboxes=args.include_bbox,
+        exclude_bboxes=args.exclude_bbox,
+        drop_border_components=args.drop_border_components,
+    )
+    detector_kwargs = detector_kwargs_from_args(args)
+    filter_kwargs.update(detector_kwargs)
+    res = detect_defects(gt, cand, **filter_kwargs)
     save_heatmap(gt, res["error_map"], f"{args.out}_heatmap.png")
     save_boxes(cand, res, f"{args.out}_boxes.png", "candidate")
     save_suspicion(cand, res, f"{args.out}_suspicion.png", "candidate")
     print(f"[candidate] serious={res['serious']}  "
           f"artifact_score={res['artifact_score']}  count={res['artifact_count']}  "
-          f"largest={res['largest_area']}px")
+          f"largest={res['largest_area']}px  serious_artifact_score={res['serious_artifact_score']}")
     print(f"  major: {[r[:5] for r in res['major']]}")
     print(f"  minor: {[r[:5] for r in res['minor']]}")
+    json_ready = {
+        key: value for key, value in res.items()
+        if key not in {"suspect_mask", "error_map"}
+    }
+    json_ready["major"] = [list(r) for r in res["major"]]
+    json_ready["minor"] = [list(r) for r in res["minor"]]
+    json_ready["suspect_regions"] = [list(r) for r in res["suspect_regions"]]
+    if args.json_out is not None:
+        json_path = Path(args.json_out)
+        json_path.parent.mkdir(parents=True, exist_ok=True)
+        import json
+        json_path.write_text(json.dumps(json_ready, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    if args.print_json:
+        import json
+        print(json.dumps(json_ready, sort_keys=True))
 
     if args.also is not None:
         _, neg = load_pair(args, args.gt, args.also)
-        rn = detect_defects(gt, neg)
+        rn = detect_defects(gt, neg, **filter_kwargs)
         save_boxes(neg, rn, f"{args.out}_neg_boxes.png", "instant_ngp")
         save_suspicion(neg, rn, f"{args.out}_neg_suspicion.png", "instant_ngp")
         print(f"[panel {args.also}] serious={rn['serious']}  "
@@ -208,7 +330,7 @@ def main():
               f"largest={rn['largest_area']}px")
 
     # sanity: identical images must score 0
-    res0 = detect_defects(gt, gt)
+    res0 = detect_defects(gt, gt, **detector_kwargs)
     print(f"[gt vs gt sanity] serious={res0['serious']}  "
           f"artifact_score={res0['artifact_score']}")
 

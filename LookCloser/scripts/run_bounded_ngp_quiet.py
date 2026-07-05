@@ -54,6 +54,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--summary-path", type=Path, default=DEFAULT_SUMMARY)
     parser.add_argument("--no-update-summary", dest="update_summary", action="store_false")
     parser.add_argument("--eval-checkpoint", choices=("best", "latest"), default="best")
+    parser.add_argument("--eval-num-rays-per-chunk", type=int, default=None)
     parser.add_argument("--poll-seconds", type=float, default=30.0)
     parser.set_defaults(stop_on_no_improve=True, render_final=True, update_summary=True)
     parser.add_argument("--no-stop-on-no-improve", dest="stop_on_no_improve", action="store_false")
@@ -247,7 +248,7 @@ def stop_process(proc: subprocess.Popen) -> None:
             proc.wait()
 
 
-def eval_config_for_step(config: Path, checkpoint: Path) -> Path:
+def eval_config_for_step(config: Path, checkpoint: Path, eval_num_rays_per_chunk: Optional[int] = None) -> Path:
     step = checkpoint_step(checkpoint)
     eval_config = config.with_name(f"eval_config_step_{step}.yml")
     text = config.read_text(encoding="utf-8")
@@ -255,13 +256,23 @@ def eval_config_for_step(config: Path, checkpoint: Path) -> Path:
         text = re.sub(r"^load_step:.*$", f"load_step: {step}", text, count=1, flags=re.MULTILINE)
     else:
         text = text.replace("load_scheduler:", f"load_step: {step}\nload_scheduler:", 1)
+    if eval_num_rays_per_chunk is not None:
+        text = re.sub(
+            r"^(\s*eval_num_rays_per_chunk:\s*).*$",
+            rf"\g<1>{eval_num_rays_per_chunk}",
+            text,
+            count=1,
+            flags=re.MULTILINE,
+        )
     eval_config.write_text(text, encoding="utf-8")
     return eval_config
 
 
-def run_final_eval(run_path: Path, checkpoint: Path, eval_label: str) -> Dict[str, object]:
+def run_final_eval(
+    run_path: Path, checkpoint: Path, eval_label: str, eval_num_rays_per_chunk: Optional[int] = None
+) -> Dict[str, object]:
     config = run_path / "config.yml"
-    eval_config = eval_config_for_step(config, checkpoint)
+    eval_config = eval_config_for_step(config, checkpoint, eval_num_rays_per_chunk)
     output_json = run_path / f"eval_{eval_label}_{checkpoint.stem}.json"
     render_dir = run_path / f"renders_{eval_label}_{checkpoint.stem}"
     log_path = run_path / "eval_stdout.log"
@@ -420,7 +431,7 @@ def main() -> int:
     print(f"train_log={train_log}", flush=True)
 
     if args.render_final and selected_ckpt is not None:
-        eval_data = run_final_eval(run_path, selected_ckpt, args.eval_checkpoint)
+        eval_data = run_final_eval(run_path, selected_ckpt, args.eval_checkpoint, args.eval_num_rays_per_chunk)
         if args.update_summary:
             update_summary(args, run_path, selection, eval_data)
     if stopped_for_plateau:

@@ -11,6 +11,7 @@ from torch import Tensor, nn
 
 from nerfstudio.cameras.rays import RaySamples
 from nerfstudio.data.scene_box import SceneBox
+from nerfstudio.field_components.embedding import Embedding
 from nerfstudio.field_components.encodings import NeRFEncoding
 from nerfstudio.field_components.field_heads import FieldHeadNames
 from nerfstudio.fields.base_field import Field
@@ -47,6 +48,9 @@ class LookCloserField(Field):
             color_num_layers: int = 2,
             sh_degree: int = 4,
             enable_feature_reweighting: bool = True,
+            feature_reweighting_strength: float = 1.0,
+            appearance_embedding_dim: int = 0,
+            num_images: int = 0,
             spatial_distortion=None,
     ) -> None:
         super().__init__()
@@ -60,8 +64,17 @@ class LookCloserField(Field):
         self.num_levels = num_levels
         self.features_per_level = features_per_level
         self.enable_feature_reweighting = enable_feature_reweighting
+        self.feature_reweighting_strength = float(feature_reweighting_strength)
         self.freq_grid = freq_grid
         self.spatial_distortion = spatial_distortion
+        self.appearance_embedding_dim = int(appearance_embedding_dim)
+        self.num_images = int(num_images)
+        if self.appearance_embedding_dim > 0:
+            if self.num_images <= 0:
+                raise ValueError("num_images must be > 0 when appearance embeddings are enabled.")
+            self.embedding_appearance = Embedding(self.num_images, self.appearance_embedding_dim)
+        else:
+            self.embedding_appearance = None
 
         # Eq. 6 Parameters
         self.l_min = 0.0
@@ -110,7 +123,7 @@ class LookCloserField(Field):
         direction_dim = sh_degree * sh_degree
 
         self.mlp_color = tcnn.Network(
-            n_input_dims=self.geo_feat_dim + direction_dim,
+            n_input_dims=self.geo_feat_dim + direction_dim + self.appearance_embedding_dim,
             n_output_dims=3,
             network_config={
                 "otype": "FullyFusedMLP",
@@ -154,6 +167,7 @@ class LookCloserField(Field):
         positions: Tensor,
         directions: Tensor,
         l_grid: Optional[Tensor] = None,
+        camera_indices: Optional[Tensor] = None,
     ) -> Tuple[Tensor, Tensor]:
         """Queries density and RGB for world-space points used by custom ray marchers."""
         positions_flat, selector, _, query_positions_flat = self._normalize_positions(positions)
@@ -170,7 +184,18 @@ class LookCloserField(Field):
         geo_feat = h[..., 1:]
 
         d_encoded = self.direction_encoding(directions.reshape(-1, 3))
-        rgb = self.mlp_color(torch.cat([geo_feat, d_encoded], dim=-1))
+        color_inputs = [geo_feat, d_encoded]
+        if self.embedding_appearance is not None:
+            if self.training and camera_indices is not None:
+                embedded_appearance = self.embedding_appearance(camera_indices.reshape(-1).long())
+            else:
+                embedded_appearance = torch.zeros(
+                    (geo_feat.shape[0], self.appearance_embedding_dim),
+                    device=geo_feat.device,
+                    dtype=geo_feat.dtype,
+                )
+            color_inputs.append(embedded_appearance)
+        rgb = self.mlp_color(torch.cat(color_inputs, dim=-1))
         return density, rgb
 
     def get_weights(self, l_grid: Tensor, batch_size: int) -> Tensor:
@@ -220,6 +245,8 @@ class LookCloserField(Field):
         mask_decay = (feature_levels > l_grid_expanded).float()
 
         final_weights = (mask_keep * 1.0) + (mask_decay * w_factor)
+        if self.feature_reweighting_strength != 1.0:
+            final_weights = 1.0 + self.feature_reweighting_strength * (final_weights - 1.0)
 
         return final_weights.repeat_interleave(self.features_per_level, dim=1)
 
@@ -242,7 +269,6 @@ class LookCloserField(Field):
         density_before_activation = h[..., 0:1]
         geo_feat = h[..., 1:]
 
-        # Rectify density
         density = F.softplus(density_before_activation + 1.0)
 
         # Reshape back to ray samples structure
@@ -272,8 +298,21 @@ class LookCloserField(Field):
         # Flatten density embedding
         geo_feat_flat = density_embedding.reshape(-1, self.geo_feat_dim)
 
+        color_inputs = [geo_feat_flat, d_encoded]
+        if self.embedding_appearance is not None:
+            camera_indices = ray_samples.camera_indices
+            if self.training and camera_indices is not None:
+                embedded_appearance = self.embedding_appearance(camera_indices.reshape(-1).long())
+            else:
+                embedded_appearance = torch.zeros(
+                    (geo_feat_flat.shape[0], self.appearance_embedding_dim),
+                    device=geo_feat_flat.device,
+                    dtype=geo_feat_flat.dtype,
+                )
+            color_inputs.append(embedded_appearance)
+
         # Concatenate and Decode
-        color_input = torch.cat([geo_feat_flat, d_encoded], dim=-1)
+        color_input = torch.cat(color_inputs, dim=-1)
         rgb = self.mlp_color(color_input)
 
         # Reshape

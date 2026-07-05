@@ -92,14 +92,20 @@ class RGBRenderer(nn.Module):
         """
         if ray_indices is not None and num_rays is not None:
             # Necessary for packed samples from volumetric ray sampler
-            if background_color == "last_sample":
-                raise NotImplementedError("Background color 'last_sample' not implemented for packed samples.")
             comp_rgb = nerfacc.accumulate_along_rays(
                 weights[..., 0], values=rgb, ray_indices=ray_indices, n_rays=num_rays
             )
             accumulated_weight = nerfacc.accumulate_along_rays(
                 weights[..., 0], values=None, ray_indices=ray_indices, n_rays=num_rays
             )
+            if background_color == "last_sample":
+                packed_info = nerfacc.pack_info(ray_indices, num_rays)
+                starts = packed_info[:, 0]
+                counts = packed_info[:, 1]
+                last_indices = torch.clamp(starts + counts - 1, min=0)
+                background_color = torch.zeros_like(comp_rgb)
+                nonempty = counts > 0
+                background_color[nonempty] = rgb[last_indices[nonempty]].to(background_color.dtype)
         else:
             comp_rgb = torch.sum(weights * rgb, dim=-2)
             accumulated_weight = torch.sum(weights, dim=-2)
