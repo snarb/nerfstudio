@@ -51,12 +51,57 @@ A 3D voxel grid (resolution 128) storing a scalar frequency level per voxel. Upd
 during training by projecting pixels through train cameras, computing 2D SSIM-based frequency from
 preprocessed maps, and writing the level into intersected voxels.
 
-Drives all three other components. Must be preprocessed before training:
+Drives all three other components. Must be preprocessed before training.
+
+#### Preprocessing — static dataset (007740, single-frame)
 ```bash
 python scripts/run_lookcloser_preprocess_quiet.py
 ```
-Preprocessing settings: `patch_size=8`, `ssim_window_size=7`, `high_frequency_level=13`,
-`train_steps_per_level=1000`, `ssim_threshold=0.95`. Maps saved to `lookcloser_frequencies/`.
+
+#### Preprocessing — temporal dataset (all 45 frames, sequential)
+```bash
+python scripts/run_temporal_preprocess.py          # full run (~6.3 days)
+python scripts/run_temporal_preprocess.py --only-frame 007740   # single frame
+```
+
+#### Preprocessing hyperparameters (used for static leader and temporal dataset)
+
+| Parameter | Value | Notes |
+|---|---|---|
+| `patch_size` | 8 | Patch and stride size in pixels |
+| `ssim_window_size` | 7 | SSIM kernel size |
+| `ssim_threshold` | 0.95 | Patch assigned to next level when SSIM drops below this |
+| `train_steps_per_level` | 1000 | 2D HashGrid gradient steps per frequency level |
+| `train_batch_size` | 8192 | Patch batch size during 2D training |
+| `n_levels` | 16 | Number of frequency levels (must match model `num_frequency_levels`) |
+| `min_res` | 16 | Coarsest HashGrid resolution |
+| `max_res_base` | 2048 | Scales with scene to set per-image max_res (effective max_res=8192 for HD) |
+| `high_frequency_level` | 13 | Level index used for debug visualization overlays |
+| `scene_scale` | 2.0 | Dataparser pose normalization (does not affect 2D map values) |
+| `scale_factor` | 1.15 | Dataparser scale factor |
+| `center_method` | focus | Dataparser centering |
+| `orientation_method` | up | Dataparser orientation |
+
+Selected after sweeps in `experiments/lookcloser_frequency_map_preprocessing.md`.
+`ssim_threshold=0.95` was chosen over 0.97 (max-level collapse) and 0.93 (under-labeling).
+
+#### Frequency map storage layout
+
+Each train image produces two files with the same stem as the image:
+
+- `frame_train_NNNNN.pt` — PyTorch float32 tensor, shape `(H // patch_size, W // patch_size)` = `(135, 240)` for 1080×1920. Values are scalar resolution in pixels (16–8192), not level indices.
+- `frame_train_NNNNN.json` — sidecar metadata: `image_shape`, `patch_size`, `stride`, `min_res`, `max_res`, `n_levels`, `per_level_scale`, `level_resolution_schedule`.
+
+**Static dataset** (132 files = 66 images × 2):
+```
+/fsx/oregon/tank_bkup/6A_4_EXR/nerfstudio_processed/007740_hd_aabb4_multicamera_eval3_ns/lookcloser_frequencies/
+```
+
+**Temporal dataset** (132 files per frame, 45 frames):
+```
+/fsx/oregon/tank_bkup/6A_4_EXR/nerfstudio_processed/temporal_perframe_stride7_45f/<frame_id>/lookcloser_frequencies/
+```
+e.g. `007740/lookcloser_frequencies/`, `007747/lookcloser_frequencies/`, … `008048/lookcloser_frequencies/`.
 
 Key param: `max_res` of frequency maps **must** match the model `max_res` (both 8192 for HD).
 
