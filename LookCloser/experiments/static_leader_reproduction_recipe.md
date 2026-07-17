@@ -10,11 +10,11 @@ remain in `experiments/static_leader_e2e_reproduction.md`.
 
 ## One-command run
 
-From the clean main worktree `/home/brans/repos/nerfstudio_main_promotion/LookCloser`:
+From the clean main worktree `/home/brans/repos/nerfstudio/LookCloser`:
 
 ```bash
 /home/brans/repos/nerfstudio/.venv/bin/python \
-  /home/brans/repos/nerfstudio_main_promotion/LookCloser/scripts/run_static_leader_e2e.py \
+  /home/brans/repos/nerfstudio/LookCloser/scripts/run_static_leader_e2e.py \
   --campaign-name <unique-name>
 ```
 

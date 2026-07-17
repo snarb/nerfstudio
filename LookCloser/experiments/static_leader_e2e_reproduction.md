@@ -117,7 +117,7 @@ remains 200000, so the model trajectory through that checkpoint matches the hist
 
 The controller is:
 
-`/home/brans/repos/nerfstudio_main_promotion/LookCloser/scripts/run_static_leader_e2e.py`.
+`/home/brans/repos/nerfstudio/LookCloser/scripts/run_static_leader_e2e.py`.
 
 Its one-command defaults now select the accepted stable-occupancy worktree and historical FP16 TCNN
 overlay. It records the two commands, selected/generated seed, dataset provenance, GPU snapshots,

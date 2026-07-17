@@ -13,16 +13,15 @@
 
 ## Git and worktree layout
 
-- `/home/brans/repos/nerfstudio_main_promotion` is the clean `main` worktree. Its no-argument
+- `/home/brans/repos/nerfstudio` is the clean canonical `main` worktree. Its no-argument
   defaults and `scripts/run_static_leader_e2e.py` reproduce the accepted quality recipe.
 - `/home/brans/repos/nerfstudio_leader_speed` is the clean named branch
   `nerfstudio_leader_speed`. Every current speed/variance change is committed there; unpromoted
   controls stay default-off and are not treated as accepted results.
 - Speed provenance is fail-closed on branch name, exact committed HEAD, an empty worktree and hashes
-  of all 35 reviewed source/test files. The previous detached-HEAD plus dirty-patch convention is
-  retired.
-- `/home/brans/repos/nerfstudio` remains the older `freqmap-speed` worktree with unrelated retained
-  user work; it is neither the canonical main worktree nor a benchmark source.
+  of all 35 reviewed source/test files. The previous uncommitted-patch convention is retired.
+- The older freqmap/temporal work is preserved on branch `freqmap-speed` at commit `74cb6d1d`; it is
+  not a benchmark source and does not occupy a worktree.
 
 ## Training monitoring additions
 
