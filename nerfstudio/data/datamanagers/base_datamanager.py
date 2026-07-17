@@ -53,6 +53,7 @@ from nerfstudio.configs.dataparser_configs import AnnotatedDataParserUnion
 from nerfstudio.data.dataparsers.base_dataparser import DataparserOutputs
 from nerfstudio.data.dataparsers.blender_dataparser import BlenderDataParserConfig
 from nerfstudio.data.datasets.base_dataset import InputDataset
+from nerfstudio.data.datamanagers.cpu_batch_prefetch import DeterministicCPUBatchPrefetcher
 from nerfstudio.data.pixel_samplers import PatchPixelSamplerConfig, PixelSampler, PixelSamplerConfig
 from nerfstudio.data.utils.dataloaders import (
     CacheDataloader,
@@ -286,6 +287,12 @@ class VanillaDataManagerConfig(DataManagerConfig):
     """Specifies the dataparser used to unpack the data."""
     cache_images_type: Literal["uint8", "float32"] = "float32"
     """The image type returned from manager, caching images in uint8 saves memory"""
+    cache_train_rays: bool = False
+    """Precompute static training-camera ray fields on device for exact indexed lookup."""
+    cache_train_rays_chunk_size: int = 1 << 20
+    """Maximum number of rays generated at once while constructing the training-ray cache."""
+    cpu_fas_prefetch: bool = False
+    """Prefetch one deterministic CPU FAS pixel batch; opt-in and queue depth is fixed at one."""
     train_num_rays_per_batch: int = 1024
     """Number of rays per batch to use per training iteration."""
     train_num_images_to_sample_from: Union[int, float] = float("inf")
@@ -473,7 +480,113 @@ class VanillaDataManager(DataManager, Generic[TDataset]):
         )
         self.iter_train_image_dataloader = iter(self.train_image_dataloader)
         self.train_pixel_sampler = self._get_pixel_sampler(self.train_dataset, self.config.train_num_rays_per_batch)
-        self.train_ray_generator = RayGenerator(self.train_dataset.cameras.to(self.device))
+        self.train_ray_generator = RayGenerator(
+            self.train_dataset.cameras.to(self.device),
+            cache_rays=self.config.cache_train_rays,
+            cache_chunk_size=self.config.cache_train_rays_chunk_size,
+        )
+        self._train_batch_prefetch: Optional[DeterministicCPUBatchPrefetcher] = None
+        self._train_batch_prefetch_closed = False
+        self._train_prefetch_cpu_image_batch: Optional[Dict[str, Any]] = None
+        self._train_prefetch_source_image_batch: Optional[Dict[str, Any]] = None
+        self._train_prefetch_snapshot = None
+        if self.config.cpu_fas_prefetch:
+            self._prepare_cpu_fas_prefetch()
+
+    @staticmethod
+    def _copy_batch_to_cpu(value: Any) -> Any:
+        """Build a CPU-only cached view without mutating the dataloader batch."""
+
+        if isinstance(value, torch.Tensor):
+            return value.detach().cpu()
+        if isinstance(value, dict):
+            return {key: VanillaDataManager._copy_batch_to_cpu(item) for key, item in value.items()}
+        if isinstance(value, list):
+            return [VanillaDataManager._copy_batch_to_cpu(item) for item in value]
+        if isinstance(value, tuple):
+            return tuple(VanillaDataManager._copy_batch_to_cpu(item) for item in value)
+        return value
+
+    def _prepare_cpu_fas_prefetch(self) -> None:
+        """Validate the narrow deterministic prefetch protocol and cache its CPU input."""
+
+        if self.world_size != 1:
+            raise ValueError("CPU FAS prefetch currently requires world_size=1")
+        if not self.config.cache_train_rays:
+            raise ValueError("CPU FAS prefetch requires the static training-ray cache")
+        if int(self.config.train_num_rays_per_batch) != 4096:
+            raise ValueError("CPU FAS prefetch v1 is restricted to a fixed 4096-ray batch")
+        if not self.train_image_dataloader.cache_all_images:
+            raise ValueError("CPU FAS prefetch requires all training images to be cached")
+        image_batch = self.train_image_dataloader.cached_collated_batch
+        if not isinstance(image_batch, dict):
+            raise RuntimeError("CPU FAS prefetch requires one cached dictionary image batch")
+        sampler = self.train_pixel_sampler
+        if sampler is None or not callable(getattr(sampler, "build_prefetch_snapshot", None)):
+            raise TypeError("CPU FAS prefetch requires LookCloser snapshot support")
+        if not callable(getattr(sampler, "prefetch_live_signature", None)):
+            raise TypeError("CPU FAS prefetch requires LookCloser signature support")
+        if not bool(getattr(getattr(sampler, "config", None), "enable_fas", False)):
+            raise ValueError("CPU FAS prefetch requires LookCloser FAS to be enabled")
+        if not hasattr(sampler, "sample_count"):
+            raise TypeError("CPU FAS prefetch requires a logical sampler sample_count")
+        self._train_prefetch_source_image_batch = image_batch
+        self._train_prefetch_cpu_image_batch = cast(Dict[str, Any], self._copy_batch_to_cpu(image_batch))
+
+    def _ensure_train_batch_prefetch(self) -> DeterministicCPUBatchPrefetcher:
+        """Create the worker lazily, after checkpoint RNG restoration and on first use."""
+
+        if self._train_batch_prefetch_closed:
+            raise RuntimeError("CPU FAS prefetch was already closed")
+        if self._train_batch_prefetch is not None:
+            return self._train_batch_prefetch
+        sampler = self.train_pixel_sampler
+        image_batch = self._train_prefetch_cpu_image_batch
+        source_image_batch = self._train_prefetch_source_image_batch
+        if sampler is None or image_batch is None or source_image_batch is None:
+            raise RuntimeError("CPU FAS prefetch was not prepared")
+        if not bool(getattr(sampler, "is_initialized", False)):
+            sampler._initialize_buckets(self.train_dataset)
+        self._train_prefetch_snapshot = sampler.build_prefetch_snapshot(image_batch)
+        snapshot = self._train_prefetch_snapshot
+        self._train_batch_prefetch = DeterministicCPUBatchPrefetcher(
+            sample_batch=snapshot.sample,
+            fallback_sample_batch=lambda: sampler.sample(source_image_batch),
+            get_sample_count=lambda: int(sampler.sample_count),
+            commit_sample_count=lambda value: setattr(sampler, "sample_count", int(value)),
+            get_signature=lambda: sampler.prefetch_live_signature(source_image_batch),
+            supported_signature=sampler.prefetch_live_signature(source_image_batch),
+        )
+        return self._train_batch_prefetch
+
+    def _restore_prefetched_batch_devices(self, batch: Dict[str, Any]) -> Dict[str, Any]:
+        """Reproduce synchronous collate devices on the main thread, never in the worker."""
+
+        source = self._train_prefetch_source_image_batch
+        if source is None:
+            raise RuntimeError("CPU FAS prefetch source batch is unavailable")
+        restored = dict(batch)
+        for key, value in restored.items():
+            if key in ("indices", "full_image") or not isinstance(value, torch.Tensor):
+                continue
+            source_value = source.get(key)
+            if isinstance(source_value, torch.Tensor) and source_value.device.type != "cpu":
+                restored[key] = value.to(source_value.device)
+        return restored
+
+    def train_batch_prefetch_barrier(self) -> None:
+        """Join/discard derived work for callers that require an empty queue."""
+
+        if self._train_batch_prefetch is not None:
+            self._train_batch_prefetch.discard_pending()
+
+    def close_train_batch_prefetch(self) -> None:
+        """Rollback pending work and release the opt-in worker."""
+
+        if self._train_batch_prefetch is not None:
+            self._train_batch_prefetch.close()
+            self._train_batch_prefetch = None
+        self._train_batch_prefetch_closed = True
 
     def setup_eval(self):
         """Sets up the data loader for evaluation"""
@@ -507,10 +620,36 @@ class VanillaDataManager(DataManager, Generic[TDataset]):
     def next_train(self, step: int) -> Tuple[RayBundle, Dict]:
         """Returns the next batch of data from the train dataloader."""
         self.train_count += 1
-        image_batch = next(self.iter_train_image_dataloader)
         assert self.train_pixel_sampler is not None
-        assert isinstance(image_batch, dict)
-        batch = self.train_pixel_sampler.sample(image_batch)
+        if self.config.cpu_fas_prefetch:
+            batch = self._ensure_train_batch_prefetch().next_batch(step)
+            batch = self._restore_prefetched_batch_devices(batch)
+        else:
+            image_batch = next(self.iter_train_image_dataloader)
+            assert isinstance(image_batch, dict)
+            batch = self.train_pixel_sampler.sample(image_batch)
+        ray_indices = batch["indices"]
+        ray_bundle = self.train_ray_generator(ray_indices)
+        return ray_bundle, batch
+
+    def next_train_seeded_prefetch(
+        self,
+        step: int,
+        explicit_seed: int,
+        next_explicit_seed: int,
+    ) -> Tuple[RayBundle, Dict]:
+        """Return a prefetched FAS batch from a step-addressed private CPU RNG stream."""
+
+        if not self.config.cpu_fas_prefetch:
+            raise RuntimeError("Seeded train prefetch requires cpu_fas_prefetch")
+        self.train_count += 1
+        assert self.train_pixel_sampler is not None
+        batch = self._ensure_train_batch_prefetch().next_batch_seeded(
+            step,
+            explicit_seed,
+            next_explicit_seed,
+        )
+        batch = self._restore_prefetched_batch_devices(batch)
         ray_indices = batch["indices"]
         ray_bundle = self.train_ray_generator(ray_indices)
         return ray_bundle, batch

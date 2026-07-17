@@ -18,6 +18,8 @@ from nerfstudio.fields.base_field import Field
 from nerfstudio.model_components.lookcloser_grid import FrequencyGridManager
 from nerfstudio.utils.external import TCNN_EXISTS, tcnn, tcnn_import_exception
 
+TCNNNetworkJITScope = Literal["both", "geometry", "color"]
+
 
 class LookCloserField(Field):
     """
@@ -51,6 +53,8 @@ class LookCloserField(Field):
             feature_reweighting_strength: float = 1.0,
             appearance_embedding_dim: int = 0,
             num_images: int = 0,
+            tcnn_network_jit: bool = False,
+            tcnn_network_jit_scope: TCNNNetworkJITScope = "both",
             spatial_distortion=None,
     ) -> None:
         super().__init__()
@@ -79,6 +83,12 @@ class LookCloserField(Field):
         # Eq. 6 Parameters
         self.l_min = 0.0
         self.l_max = float(num_levels - 1)
+        self.register_buffer(
+            "_feature_weight_lut",
+            torch.empty((0, num_levels * features_per_level), dtype=torch.float32),
+            persistent=False,
+        )
+        self._feature_weight_lut_strength: Optional[float] = None
 
         # 1. Hash Encoding (Instant-NGP style)
         # Calculate per-level scale 'b'
@@ -133,6 +143,38 @@ class LookCloserField(Field):
                 "n_hidden_layers": color_num_layers,
             },
         )
+        self.set_tcnn_network_jit(tcnn_network_jit, scope=tcnn_network_jit_scope)
+
+    def _tcnn_networks_for_scope(self, scope: TCNNNetworkJITScope) -> Tuple[nn.Module, ...]:
+        """Return the TCNN networks selected by a validated JIT scope."""
+
+        if scope == "both":
+            return self.mlp_geo, self.mlp_color
+        if scope == "geometry":
+            return (self.mlp_geo,)
+        if scope == "color":
+            return (self.mlp_color,)
+        raise ValueError(f"Unsupported TCNN network JIT scope: {scope!r}")
+
+    def set_tcnn_network_jit(self, enabled: bool, scope: TCNNNetworkJITScope = "both") -> None:
+        """Toggle JIT on the selected TCNN network(s) without reconstruction."""
+
+        networks = self._tcnn_networks_for_scope(scope)
+        enabled = bool(enabled)
+        if all(bool(network.jit_fusion) == enabled for network in networks):
+            return
+        if enabled and not tcnn.supports_jit_fusion():
+            raise RuntimeError("tiny-cuda-nn JIT fusion was requested but is unsupported by this binding/GPU")
+        for network in networks:
+            network.jit_fusion = enabled
+
+    def get_tcnn_network_jit(self, scope: TCNNNetworkJITScope = "both") -> bool:
+        """Return selected JIT state, requiring all networks in the scope to agree."""
+
+        states = tuple(bool(network.jit_fusion) for network in self._tcnn_networks_for_scope(scope))
+        if any(state != states[0] for state in states[1:]):
+            raise RuntimeError(f"LookCloser TCNN network JIT states disagree within scope {scope!r}")
+        return states[0]
 
     def _normalize_positions(self, positions: Tensor) -> Tuple[Tensor, Tensor, Tuple[int, ...], Tensor]:
         """Normalizes world positions to the hash-grid unit cube."""
@@ -157,10 +199,33 @@ class LookCloserField(Field):
         features = self.encoding(normalized_positions_flat)
         if not self.enable_feature_reweighting:
             return features
+        queried_discrete_grid = l_grid is None and self.freq_grid.enabled
         if l_grid is None:
             l_grid = self.freq_grid.query(query_positions_flat)
-        weights = self.get_weights(l_grid, batch_size=normalized_positions_flat.shape[0])
+        if queried_discrete_grid:
+            weights = self._get_discrete_feature_weights(l_grid)
+        else:
+            # Preserve the analytical path for explicit/fractional levels and for
+            # the disabled-grid fallback, whose configured level may be fractional.
+            weights = self.get_weights(l_grid, batch_size=normalized_positions_flat.shape[0])
         return features * weights
+
+    def _get_discrete_feature_weights(self, l_grid: Tensor) -> Tensor:
+        """Look up exact analytical weights for the grid's integer levels."""
+        strength = float(self.feature_reweighting_strength)
+        if (
+            self._feature_weight_lut.numel() == 0
+            or self._feature_weight_lut.device != l_grid.device
+            or self._feature_weight_lut.dtype != l_grid.dtype
+            or self._feature_weight_lut_strength != strength
+        ):
+            levels = torch.arange(
+                self.num_levels, device=l_grid.device, dtype=l_grid.dtype
+            ).unsqueeze(-1)
+            self._feature_weight_lut = self.get_weights(levels, batch_size=self.num_levels)
+            self._feature_weight_lut_strength = strength
+        indices = l_grid.reshape(-1).to(torch.long).clamp_(0, self.num_levels - 1)
+        return self._feature_weight_lut[indices]
 
     def query_points(
         self,
