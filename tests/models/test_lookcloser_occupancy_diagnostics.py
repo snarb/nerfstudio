@@ -221,4 +221,7 @@ def test_disabled_default_policy_does_not_read_occupancy_values() -> None:
 
 
 def test_model_config_keeps_occupancy_diagnostics_enabled_by_default() -> None:
-    assert LookCloserModelConfig().occupancy_diagnostics is True
+    config = LookCloserModelConfig()
+    assert config.occupancy_diagnostics is True
+    assert config.stable_occupancy_reduction is True
+    assert config.adaptive_warmup_steps == 4096

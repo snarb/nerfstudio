@@ -141,8 +141,8 @@ class LookCloserModelConfig(ModelConfig):
     adaptive_max_frequency_level: Optional[float] = None
     """Maximum frequency-grid level used only for adaptive interval sizing."""
 
-    adaptive_warmup_steps: int = 0
-    """Use fixed ray marching for this many initial training steps before adaptive marching."""
+    adaptive_warmup_steps: int = 4096
+    """Use the leader's fixed 256-sample warmup before adaptive marching."""
 
     adaptive_fixed_fallback_samples_per_ray: int = 0
     """Uniform fallback samples per ray appended to adaptive ARM samples; 0 preserves pure ARM."""
@@ -189,8 +189,8 @@ class LookCloserModelConfig(ModelConfig):
     occupancy_fixed_fallback_samples_per_ray: int = 0
     """Uniform safety samples per ray appended to occupancy traversal; 0 preserves pure occupancy traversal."""
 
-    stable_occupancy_reduction: bool = False
-    """Reduce duplicate occupancy candidates by max; false preserves the historical nerfacc assignment."""
+    stable_occupancy_reduction: bool = True
+    """Reduce duplicate occupancy candidates by max; disable only for legacy forensic controls."""
 
     occupancy_diagnostics: bool = True
     """Collect occupancy-grid reduction metrics after updates; disable to remove their hot-path overhead."""

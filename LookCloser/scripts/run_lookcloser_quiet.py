@@ -21,9 +21,9 @@ from typing import Dict, List, Optional, Tuple
 import yaml
 
 
-DEFAULT_DATA = Path("/fsx/oregon/tank_bkup/6A_4_EXR/nerfstudio_processed/007740_hd_aabb4_multicamera_eval3_ns")
-DEFAULT_OUTPUT = Path("/fsx/oregon/tank_bkup/6A_4_EXR/nerfstudio_runs")
-DEFAULT_EXPERIMENT = "007740_hd_aabb4_multicamera_eval3_ns_lookcloser_frequency_grid"
+DEFAULT_DATA = Path("/home/brans/temporal_perframe_stride7_45f/007740")
+DEFAULT_OUTPUT = Path("/home/brans/lookcloser_leader_repro_runs")
+DEFAULT_EXPERIMENT = "007740_static_leader_stage_a"
 DEFAULT_SUMMARY = Path(__file__).resolve().parents[1] / "experiments" / "lookcloser_frequency_grid_optimization.md"
 ARTIFACT_DETECTOR = Path(__file__).resolve().parent / "detect_structural_artifacts.py"
 ROI_ARTIFACT_SCORER = Path(__file__).resolve().parent / "score_artifact_rois.py"
@@ -40,8 +40,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--experiment-name", default=DEFAULT_EXPERIMENT)
     parser.add_argument("--timestamp", default=datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S"))
-    parser.add_argument("--scene-scale", type=float, default=2.0)
-    parser.add_argument("--scale-factor", type=float, default=1.15)
+    parser.add_argument("--scene-scale", type=float, default=1.5)
+    parser.add_argument("--scale-factor", type=float, default=1.0)
     parser.add_argument("--center-method", default="focus")
     parser.add_argument("--orientation-method", default="up")
     parser.add_argument("--eval-mode", default="filename")
@@ -52,7 +52,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--eval-image-interval", type=int, default=None)
     parser.add_argument("--eval-all-interval", type=int, default=None)
     parser.add_argument("--save-interval", type=int, default=None)
-    parser.add_argument("--max-num-iterations", type=int, default=200000)
+    parser.add_argument("--max-num-iterations", type=int, default=75941)
     parser.add_argument("--train-num-rays-per-batch", type=int, default=4096)
     parser.add_argument(
         "--cache-train-rays",
@@ -89,7 +89,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--occupancy-grid-levels", type=int, default=1)
     parser.add_argument("--num-frequency-levels", type=int, default=16)
     parser.add_argument("--min-res", type=float, default=16.0)
-    parser.add_argument("--max-res", type=float, default=None)
+    parser.add_argument("--max-res", type=float, default=8192.0)
     parser.add_argument("--max-res-base", type=float, default=2048.0)
     parser.add_argument("--fallback-frequency-level", type=float, default=0.0)
     parser.add_argument("--grid-update-interval", type=int, default=1024)
@@ -180,7 +180,7 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Use deterministic minimum-one/largest-remainder ARM capping without tail truncation.",
     )
-    parser.add_argument("--adaptive-warmup-steps", type=int, default=0)
+    parser.add_argument("--adaptive-warmup-steps", type=int, default=4096)
     parser.add_argument("--adaptive-fixed-fallback-samples-per-ray", type=int, default=0)
     parser.add_argument("--transmittance-threshold", type=float, default=0.0)
     parser.add_argument("--near-plane", type=float, default=0.01)
@@ -198,7 +198,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--occupancy-dilation-radius", type=int, default=0)
     parser.add_argument("--occupancy-binary-warmup-steps", type=int, default=4096)
     parser.add_argument("--occupancy-fixed-fallback-samples-per-ray", type=int, default=0)
-    parser.add_argument("--stable-occupancy-reduction", action="store_true")
+    parser.add_argument(
+        "--stable-occupancy-reduction",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Use the accepted duplicate-cell max reducer; disable only for a legacy forensic control.",
+    )
     parser.add_argument(
         "--occupancy-diagnostics",
         action=argparse.BooleanOptionalAction,
@@ -267,13 +272,23 @@ def parse_args() -> argparse.Namespace:
         help="Comma-separated ROI crop names for ROI artifact scoring; use 'all' to score every ROI in score_artifact_rois.py.",
     )
     parser.add_argument("--poll-seconds", type=float, default=30.0)
-    parser.set_defaults(stop_on_no_improve=True, render_final=True, update_summary=True, artifact_score=True, artifact_roi_score=True)
-    parser.add_argument("--no-stop-on-no-improve", dest="stop_on_no_improve", action="store_false")
+    parser.set_defaults(render_final=True, update_summary=True, artifact_score=True, artifact_roi_score=True)
+    parser.add_argument(
+        "--stop-on-no-improve",
+        action=argparse.BooleanOptionalAction,
+        default=False,
+        help="Optional diagnostic early stop; the accepted leader trajectory never enables it.",
+    )
     parser.add_argument("--no-render-final", dest="render_final", action="store_false")
     parser.add_argument("--no-artifact-score", dest="artifact_score", action="store_false")
     parser.add_argument("--no-artifact-roi-score", dest="artifact_roi_score", action="store_false")
+    parser.add_argument(
+        "--prune-checkpoints",
+        action=argparse.BooleanOptionalAction,
+        default=False,
+        help="Delete non-selected checkpoints after final evaluation; off for leader provenance.",
+    )
     parser.add_argument("--keep-all-checkpoints", dest="prune_checkpoints", action="store_false")
-    parser.set_defaults(prune_checkpoints=True)
     parser.add_argument("--dry-run", action="store_true")
     return parser.parse_args()
 

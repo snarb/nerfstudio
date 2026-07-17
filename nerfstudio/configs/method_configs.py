@@ -28,10 +28,7 @@ from nerfstudio.configs.base_config import ViewerConfig
 from nerfstudio.configs.external_methods import ExternalMethodDummyTrainerConfig, get_external_methods
 from nerfstudio.data.datamanagers.base_datamanager import VanillaDataManager, VanillaDataManagerConfig
 from nerfstudio.data.datamanagers.full_images_datamanager import FullImageDatamanagerConfig
-from nerfstudio.data.datamanagers.parallel_datamanager import (
-    ParallelDataManager,
-    ParallelDataManagerConfig,
-)
+from nerfstudio.data.datamanagers.parallel_datamanager import ParallelDataManager, ParallelDataManagerConfig
 from nerfstudio.data.datamanagers.random_cameras_datamanager import RandomCamerasDataManagerConfig
 from nerfstudio.data.dataparsers.blender_dataparser import BlenderDataParserConfig
 from nerfstudio.data.dataparsers.dnerf_dataparser import DNeRFDataParserConfig
@@ -55,10 +52,6 @@ from nerfstudio.fields.sdf_field import SDFFieldConfig
 from nerfstudio.models.depth_nerfacto import DepthNerfactoModelConfig
 from nerfstudio.models.generfacto import GenerfactoModelConfig
 from nerfstudio.models.instant_ngp import InstantNGPModelConfig
-from nerfstudio.models.temporal_instant_ngp import TemporalInstantNGPModelConfig
-from nerfstudio.models.temporal_decomp import TemporalDecompModelConfig
-from nerfstudio.data.datamanagers.temporal_decomp_datamanager import TemporalDecompDataManagerConfig
-from nerfstudio.data.datamanagers.person_stream_datamanager import PersonStreamDataManagerConfig
 from nerfstudio.models.mipnerf import MipNerfModel
 from nerfstudio.models.nerfacto import NerfactoModelConfig
 from nerfstudio.models.neus import NeuSModelConfig
@@ -73,8 +66,6 @@ from nerfstudio.plugins.registry import discover_methods
 from nerfstudio.models.lookcloser import LookCloserModelConfig
 from nerfstudio.pipelines.lookcloser_pipeline import LookCloserPipelineConfig
 from nerfstudio.lookcloser_pixel_sampler import LookCloserPixelSamplerConfig
-from nerfstudio.motion_fas_pixel_sampler import MotionFASPixelSamplerConfig
-from nerfstudio.data.person_weighted_pixel_sampler import PersonWeightedPixelSamplerConfig
 
 method_configs: Dict[str, Union[TrainerConfig, ExternalMethodDummyTrainerConfig]] = {}
 descriptions = {
@@ -84,10 +75,6 @@ descriptions = {
     "instant-ngp": "Implementation of Instant-NGP. Recommended real-time model for unbounded scenes.",
     "instant-ngp-big": "Larger Instant-NGP variant with a bigger hash table and training batch.",
     "instant-ngp-bounded": "Implementation of Instant-NGP. Recommended for bounded real and synthetic scenes",
-    "instant-ngp-time": "Temporal bounded Instant-NGP: F(x,y,z,t) via a 4D hash grid (H1).",
-    "instant-ngp-time-fasmotion": "Temporal Instant-NGP (H2) with combined frequency+motion (person-mask) pixel sampling.",
-    "instant-ngp-time-decomp": "Temporal Instant-NGP with mask-gated static/dynamic decomposition (H2D) on the streaming (load_from_disk) setup.",
-    "instant-ngp-time-personsample": "Temporal Instant-NGP (winner config) with person-oversampled streaming pixel sampling (person_frac uniform + person, no FAS).",
     "mipnerf": "High quality model for bounded scenes. (slow)",
     "semantic-nerfw": "Predicts semantic segmentations and filters out transient objects.",
     "vanilla-nerf": "Original NeRF model. (slow)",
@@ -104,13 +91,25 @@ descriptions = {
 
 method_configs["lookcloser"] = TrainerConfig(
         method_name="lookcloser",
-        steps_per_eval_batch=500,
-        steps_per_save=2000,
-        max_num_iterations=200000,
+        # These defaults are Stage A of the accepted 007740 A→A_fw03 recipe.
+        # Use LookCloser/scripts/run_static_leader_e2e.py for the automatic FR=0.3 continuation.
+        steps_per_eval_batch=15188,
+        steps_per_eval_image=15188,
+        steps_per_eval_all_images=15188,
+        steps_per_save=15188,
+        max_num_iterations=75941,
+        save_only_latest_checkpoint=False,
         mixed_precision=True,
         pipeline=LookCloserPipelineConfig(
             datamanager=VanillaDataManagerConfig(
-                dataparser=NerfstudioDataParserConfig(),
+                dataparser=NerfstudioDataParserConfig(
+                    eval_mode="filename",
+                    scene_scale=1.5,
+                    scale_factor=1.0,
+                    orientation_method="up",
+                    center_method="focus",
+                    auto_scale_poses=True,
+                ),
                 train_num_rays_per_batch=4096,
                 eval_num_rays_per_batch=4096,
                 pixel_sampler=LookCloserPixelSamplerConfig(
@@ -132,11 +131,9 @@ method_configs["lookcloser"] = TrainerConfig(
                 ),
             ),
             model=LookCloserModelConfig(
-                eval_num_rays_per_chunk=1 << 15,
-                # Adjust these to match your hardware/scene requirements.
-                # Defaults below reproduce the current leader recipe
-                # (budget-aware ARM + Feature Reweighting): see LookCloser/architecture.md
-                # and LookCloser/experiments/budget_arm_recipe.md.
+                eval_num_rays_per_chunk=2048,
+                # Accepted stable-FP16 Stage-A defaults. The E2E controller performs
+                # the checkpointed FR 1.0→0.3 ancestry and automatic quality gates.
                 enable_frequency_grid=True,
                 enable_feature_reweighting=True,
                 feature_reweighting_strength=1.0,
@@ -144,6 +141,10 @@ method_configs["lookcloser"] = TrainerConfig(
                 ray_sampling_mode="adaptive",
                 max_steps_per_ray=1024,
                 adaptive_coarse_step_size=0.00625,
+                adaptive_warmup_steps=4096,
+                occupancy_warmup_steps=4096,
+                occupancy_binary_warmup_steps=4096,
+                stable_occupancy_reduction=True,
                 num_frequency_levels=16,
                 grid_resolution=128,
                 max_res=8192.0,
@@ -162,7 +163,7 @@ method_configs["lookcloser"] = TrainerConfig(
                 "scheduler": ExponentialDecaySchedulerConfig(lr_final=0.0001, max_steps=200000),
             },
         },
-        viewer=ViewerConfig(num_rays_per_chunk=1 << 15),
+        viewer=ViewerConfig(num_rays_per_chunk=2048),
         vis="viewer",
     )
 
@@ -387,209 +388,6 @@ method_configs["instant-ngp-bounded"] = TrainerConfig(
     pipeline=DynamicBatchPipelineConfig(
         datamanager=VanillaDataManagerConfig(dataparser=InstantNGPDataParserConfig(), train_num_rays_per_batch=8192),
         model=InstantNGPModelConfig(
-            eval_num_rays_per_chunk=8192,
-            grid_levels=1,
-            alpha_thre=0.0,
-            cone_angle=0.0,
-            disable_scene_contraction=True,
-            near_plane=0.01,
-            background_color="black",
-        ),
-    ),
-    optimizers={
-        "fields": {
-            "optimizer": AdamOptimizerConfig(lr=1e-2, eps=1e-15),
-            "scheduler": ExponentialDecaySchedulerConfig(lr_final=0.0001, max_steps=200000),
-        }
-    },
-    viewer=ViewerConfig(num_rays_per_chunk=1 << 12),
-    vis="viewer",
-)
-method_configs["instant-ngp-time"] = TrainerConfig(
-    method_name="instant-ngp-time",
-    steps_per_eval_batch=500,
-    steps_per_save=2000,
-    max_num_iterations=30000,
-    mixed_precision=True,
-    # VanillaPipeline (not DynamicBatch) so we can use the parallel disk-streaming datamanager:
-    # DynamicBatchPipeline requires a VanillaDataManager with a train_pixel_sampler, which the
-    # RayBatchStream-based ParallelDataManager does not expose. The temporal dataset (thousands of
-    # full-HD frames) does not fit in RAM, so stream images from disk instead of caching them all.
-    pipeline=VanillaPipelineConfig(
-        datamanager=ParallelDataManagerConfig(
-            dataparser=NerfstudioDataParserConfig(eval_mode="filename"),
-            train_num_rays_per_batch=8192,
-            load_from_disk=True,
-            dataloader_num_workers=3,
-            prefetch_factor=4,
-        ),
-        model=TemporalInstantNGPModelConfig(
-            eval_num_rays_per_chunk=8192,
-            grid_levels=1,
-            alpha_thre=0.0,
-            cone_angle=0.0,
-            disable_scene_contraction=True,
-            near_plane=0.01,
-            background_color="black",
-        ),
-    ),
-    optimizers={
-        "fields": {
-            "optimizer": AdamOptimizerConfig(lr=1e-2, eps=1e-15),
-            "scheduler": ExponentialDecaySchedulerConfig(lr_final=0.0001, max_steps=200000),
-        }
-    },
-    viewer=ViewerConfig(num_rays_per_chunk=1 << 12),
-    vis="viewer",
-)
-method_configs["instant-ngp-time-fasmotion"] = TrainerConfig(
-    method_name="instant-ngp-time-fasmotion",
-    steps_per_eval_batch=500,
-    steps_per_save=2000,
-    max_num_iterations=30000,
-    mixed_precision=True,
-    # Combined frequency (FAS) + motion (person-mask) pixel sampling needs PER-IMAGE
-    # pixel sampling, which the RayBatchStream-based ParallelDataManager does not
-    # expose. So we use a VanillaDataManager (which owns a train_pixel_sampler) and
-    # cache the eval-12th train set (~2523 full-HD imgs ~16GB as uint8) in RAM. We
-    # wrap it in a DynamicBatchPipeline because that pipeline already drives a
-    # VanillaDataManager's train_pixel_sampler and restores dynamic batching; the
-    # custom MotionFASPixelSampler is cleanly supported through pixel_sampler.
-    pipeline=DynamicBatchPipelineConfig(
-        datamanager=VanillaDataManagerConfig(
-            dataparser=NerfstudioDataParserConfig(eval_mode="filename"),
-            train_num_rays_per_batch=8192,
-            eval_num_rays_per_batch=4096,
-            cache_images_type="uint8",
-            pixel_sampler=MotionFASPixelSamplerConfig(
-                # Default mode="off" => pure FAS (parent behaviour); enable via CLI.
-                mode="off",
-                # FAS (frequency) settings: match the static reference / temporal freq maps.
-                enable_fas=True,
-                frequency_map_dir="lookcloser_frequencies",
-                num_levels=16,
-                min_res=16.0,
-                max_res=8192.0,
-                sampling_ramp_start=1.0,
-                sampling_ramp_end=3.0,
-                fas_strength=1.0,
-                fas_warmup_steps=0,
-                fas_ramp_steps=0,
-                fas_level_count_alpha=0.0,
-                fas_patch_group_size=1,
-                fas_max_sampling_level=-1,
-                patch_size=8,
-                stride=8,
-                # Variant A (split) defaults.
-                uniform_frac=0.5,
-                freq_frac=0.25,
-                motion_frac=0.25,
-                # Variant B (region) default.
-                person_frac=0.8,
-                # Motion (person-mask) source + schedule.
-                motion_map_dir="person_masks",
-                motion_warmup_steps=0,
-                motion_ramp_steps=0,
-            ),
-        ),
-        model=TemporalInstantNGPModelConfig(
-            eval_num_rays_per_chunk=8192,
-            # Winner (eval-12th) H2 settings: static 3D log2=21/max_res=4096,
-            # 4D log2=21/max_res=4096, occ warmup/binary 4096, black bg, near 0.01.
-            hypothesis="H2",
-            static_log2_hashmap_size=21,
-            static_max_res=4096,
-            log2_hashmap_size=21,
-            max_res=4096,
-            occ_warmup_steps=4096,
-            occ_binary_warmup_steps=4096,
-            grid_levels=1,
-            alpha_thre=0.0,
-            cone_angle=0.0,
-            disable_scene_contraction=True,
-            near_plane=0.01,
-            background_color="black",
-        ),
-    ),
-    optimizers={
-        "fields": {
-            "optimizer": AdamOptimizerConfig(lr=1e-2, eps=1e-15),
-            "scheduler": ExponentialDecaySchedulerConfig(lr_final=0.0001, max_steps=200000),
-        }
-    },
-    viewer=ViewerConfig(num_rays_per_chunk=1 << 12),
-    vis="viewer",
-)
-method_configs["instant-ngp-time-decomp"] = TrainerConfig(
-    method_name="instant-ngp-time-decomp",
-    steps_per_eval_batch=500,
-    steps_per_save=2000,
-    max_num_iterations=30000,
-    mixed_precision=True,
-    # WINNER streaming setup: VanillaPipeline + ParallelDataManager(load_from_disk=True).
-    # The decomposition datamanager attaches a per-ray person label (batch["is_person"]) by
-    # looking up the cached person masks in the MAIN process (masks are never pickled into
-    # the dataloader workers).
-    pipeline=VanillaPipelineConfig(
-        datamanager=TemporalDecompDataManagerConfig(
-            dataparser=NerfstudioDataParserConfig(eval_mode="filename"),
-            train_num_rays_per_batch=8192,
-            load_from_disk=True,
-            dataloader_num_workers=3,
-            prefetch_factor=4,
-            motion_map_dir="person_masks",
-        ),
-        model=TemporalDecompModelConfig(
-            eval_num_rays_per_chunk=8192,
-            # Decomposition on: static 3D branch + dynamic 4D branch (H2D forced internally).
-            decompose=True,
-            dynamic_sparsity_mult=0.05,
-            # Winner (eval-12th) settings: static 3D log2=21/max_res=4096,
-            # 4D log2=21/max_res=4096, occ warmup/binary 4096, black bg, near 0.01.
-            static_log2_hashmap_size=21,
-            static_max_res=4096,
-            log2_hashmap_size=21,
-            max_res=4096,
-            occ_warmup_steps=4096,
-            occ_binary_warmup_steps=4096,
-            grid_levels=1,
-            alpha_thre=0.0,
-            cone_angle=0.0,
-            disable_scene_contraction=True,
-            near_plane=0.01,
-            background_color="black",
-        ),
-    ),
-    optimizers={
-        "fields": {
-            "optimizer": AdamOptimizerConfig(lr=1e-2, eps=1e-15),
-            "scheduler": ExponentialDecaySchedulerConfig(lr_final=0.0001, max_steps=200000),
-        }
-    },
-    viewer=ViewerConfig(num_rays_per_chunk=1 << 12),
-    vis="viewer",
-)
-method_configs["instant-ngp-time-personsample"] = TrainerConfig(
-    method_name="instant-ngp-time-personsample",
-    steps_per_eval_batch=500,
-    steps_per_save=2000,
-    max_num_iterations=30000,
-    mixed_precision=True,
-    # Identical to the WINNER (instant-ngp-time: VanillaPipeline + streaming ParallelDataManager,
-    # load_from_disk) EXCEPT the train pixel sampler oversamples the person region:
-    # person_frac of rays come from inside the YOLO person masks, the rest are uniform. No FAS,
-    # no frequency. Sampling runs in the dataloader workers, so there is no RAM/setup penalty.
-    pipeline=VanillaPipelineConfig(
-        datamanager=PersonStreamDataManagerConfig(
-            dataparser=NerfstudioDataParserConfig(eval_mode="filename"),
-            train_num_rays_per_batch=8192,
-            load_from_disk=True,
-            dataloader_num_workers=3,
-            prefetch_factor=4,
-            motion_map_dir="person_masks",
-            pixel_sampler=PersonWeightedPixelSamplerConfig(person_frac=0.3, mask_downsample=4),
-        ),
-        model=TemporalInstantNGPModelConfig(
             eval_num_rays_per_chunk=8192,
             grid_levels=1,
             alpha_thre=0.0,

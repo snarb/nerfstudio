@@ -547,6 +547,38 @@ def test_occupancy_diagnostics_boolean_flag_is_default_preserving_and_opt_out(mo
     assert disabled_params["occupancy_diagnostics"] is False
 
 
+def test_no_argument_runner_resolves_accepted_stage_a_defaults(monkeypatch) -> None:
+    runner = _load_runner()
+    monkeypatch.setattr(sys, "argv", [str(RUNNER)])
+
+    args = runner.parse_args()
+    command = runner.train_command(args)
+    params = json.loads(runner.summarize_params(args))
+
+    assert args.data == Path("/home/brans/temporal_perframe_stride7_45f/007740")
+    assert args.output_dir == Path("/home/brans/lookcloser_leader_repro_runs")
+    assert args.seed == 42
+    assert args.scene_scale == 1.5
+    assert args.scale_factor == 1.0
+    assert args.max_num_iterations == 75_941
+    assert args.train_num_rays_per_batch == 4096
+    assert args.eval_num_rays_per_chunk == 2048
+    assert args.max_res == 8192.0
+    assert args.adaptive_warmup_steps == 4096
+    assert args.occupancy_warmup_steps == 4096
+    assert args.occupancy_binary_warmup_steps == 4096
+    assert args.stable_occupancy_reduction is True
+    assert args.stop_on_no_improve is False
+    assert args.prune_checkpoints is False
+    assert params["stable_occupancy_reduction"] is True
+    stable = command.index("--pipeline.model.stable-occupancy-reduction")
+    assert command[stable + 1] == "True"
+    assert "--fused-adam" not in command
+    assert "--tcnn-network-jit" not in command
+    assert "--independent-rng-streams" not in command
+    assert "--cpu-fas-prefetch" not in command
+
+
 @pytest.mark.parametrize(
     "options,match",
     [
