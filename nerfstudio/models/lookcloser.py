@@ -7,7 +7,7 @@ from __future__ import annotations
 
 from collections import defaultdict
 from dataclasses import dataclass, field
-from typing import Dict, List, Literal, Optional, Tuple, Type
+from typing import Callable, Dict, List, Literal, Optional, Tuple, Type
 
 import nerfacc
 import numpy as np
@@ -18,15 +18,18 @@ from torch.nn import Parameter
 from nerfstudio.cameras.rays import Frustums, RayBundle, RaySamples
 from nerfstudio.engine.callbacks import TrainingCallback, TrainingCallbackAttributes, TrainingCallbackLocation
 from nerfstudio.field_components.field_heads import FieldHeadNames
-from nerfstudio.fields.lookcloser_field import LookCloserField
+from nerfstudio.fields.lookcloser_field import LookCloserField, TCNNNetworkJITScope
 from nerfstudio.model_components.lookcloser_grid import FrequencyGridManager
+from nerfstudio.model_components.lookcloser_occupancy import stable_ema_max_update_
 from nerfstudio.model_components.lookcloser_samplers import FrequencyAwareSamplerStats, FrequencyAwareVolumetricSampler
 from nerfstudio.model_components.losses import nerfstudio_distortion_loss, scale_gradients_by_distance_squared
+from nerfstudio.model_components import renderers as renderer_module
 from nerfstudio.model_components.renderers import AccumulationRenderer, DepthRenderer, RGBRenderer
 from nerfstudio.model_components.scene_colliders import AABBBoxCollider
 from nerfstudio.models.base_model import Model, ModelConfig
 from nerfstudio.utils import colormaps
 from nerfstudio.utils.colors import get_color
+from nerfstudio.utils.lookcloser_rng import fork_seeded_rng
 
 
 @dataclass
@@ -34,6 +37,12 @@ class LookCloserModelConfig(ModelConfig):
     """Configuration for LookCloser Model."""
 
     _target: Type = field(default_factory=lambda: LookCloserModel)
+
+    training_seed: int = 42
+    """Recorded campaign seed used to derive the occupancy RNG stream."""
+
+    independent_rng_streams: bool = False
+    """Isolate occupancy candidate sampling from pixel/FAS and frequency-grid RNG."""
 
     # Grid parameters
     enable_frequency_grid: bool = True
@@ -91,6 +100,12 @@ class LookCloserModelConfig(ModelConfig):
     sh_degree: int = 4
     """Spherical harmonics degree passed to tinycudann for view direction encoding."""
 
+    tcnn_network_jit: bool = False
+    """Opt in to tiny-cuda-nn runtime JIT fusion for the network(s) selected by the JIT scope."""
+
+    tcnn_network_jit_scope: TCNNNetworkJITScope = "both"
+    """TCNN field network(s) affected by initial and live JIT enablement."""
+
     # Loss weights
     distortion_loss_mult: float = 0.01
     """Multiplier for Mip-NeRF 360 distortion loss."""
@@ -135,6 +150,9 @@ class LookCloserModelConfig(ModelConfig):
     adaptive_interval_level_mode: Literal["midpoint", "max3"] = "midpoint"
     """Frequency level query mode for ARM interval subdivision."""
 
+    corrected_arm_allocator: bool = False
+    """Use minimum-one/largest-remainder capping with deterministic interval merging."""
+
     transmittance_threshold: float = 0.0
     """Ray termination threshold for remaining transmittance."""
 
@@ -170,6 +188,12 @@ class LookCloserModelConfig(ModelConfig):
 
     occupancy_fixed_fallback_samples_per_ray: int = 0
     """Uniform safety samples per ray appended to occupancy traversal; 0 preserves pure occupancy traversal."""
+
+    stable_occupancy_reduction: bool = False
+    """Reduce duplicate occupancy candidates by max; false preserves the historical nerfacc assignment."""
+
+    occupancy_diagnostics: bool = True
+    """Collect occupancy-grid reduction metrics after updates; disable to remove their hot-path overhead."""
 
     near_plane: float = 0.01
     """Near plane passed to nerfacc adaptive traversal."""
@@ -208,6 +232,30 @@ class LookCloserModel(Model):
     """
 
     config: LookCloserModelConfig
+
+    @staticmethod
+    def _render_packed_black(
+        rgb_samples: torch.Tensor,
+        weights: torch.Tensor,
+        ray_samples: RaySamples,
+        ray_indices: torch.Tensor,
+        num_rays: int,
+    ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+        """Render packed samples while sharing the black-background accumulation."""
+        scalar_weights = weights[..., 0]
+        rgb = nerfacc.accumulate_along_rays(
+            scalar_weights, values=rgb_samples, ray_indices=ray_indices, n_rays=num_rays
+        )
+        accumulation = nerfacc.accumulate_along_rays(
+            scalar_weights, values=None, ray_indices=ray_indices, n_rays=num_rays
+        )
+        steps = (ray_samples.frustums.starts + ray_samples.frustums.ends) * 0.5
+        depth = nerfacc.accumulate_along_rays(
+            scalar_weights, values=steps, ray_indices=ray_indices, n_rays=num_rays
+        )
+        depth = depth / (accumulation + 1e-10)
+        depth = torch.clip(depth, steps.min(), steps.max())
+        return rgb, accumulation, depth
     field: LookCloserField
     freq_grid: FrequencyGridManager
 
@@ -301,6 +349,8 @@ class LookCloserModel(Model):
             appearance_embedding_dim=self.config.appearance_embedding_dim,
             num_images=self.num_train_data,
             sh_degree=self.config.sh_degree,
+            tcnn_network_jit=self.config.tcnn_network_jit,
+            tcnn_network_jit_scope=self.config.tcnn_network_jit_scope,
             enable_feature_reweighting=self.config.enable_feature_reweighting,
             feature_reweighting_strength=self.config.feature_reweighting_strength,
         )
@@ -358,15 +408,32 @@ class LookCloserModel(Model):
                 if self.config.occupancy_update_step_size is not None
                 else float(self.config.render_step_size)
             )
-            self.occupancy_grid.update_every_n_steps(
-                step=step,
-                occ_eval_fn=lambda x: self.field.density_fn(x) * update_step_size,
-                occ_thre=float(self.config.occupancy_occ_thre),
-                ema_decay=float(self.config.occupancy_ema_decay),
-                warmup_steps=int(self.config.occupancy_warmup_steps),
-                n=int(self.config.occupancy_update_interval),
-            )
-            if step % int(self.config.occupancy_update_interval) != 0:
+            update_interval = int(self.config.occupancy_update_interval)
+            if self.config.stable_occupancy_reduction and step % update_interval != 0:
+                return
+
+            def apply_update() -> None:
+                if self.config.stable_occupancy_reduction:
+                    self._stable_update_occupancy_grid(
+                        step=step,
+                        occ_eval_fn=lambda x: self.field.density_fn(x) * update_step_size,
+                    )
+                else:
+                    self.occupancy_grid.update_every_n_steps(
+                        step=step,
+                        occ_eval_fn=lambda x: self.field.density_fn(x) * update_step_size,
+                        occ_thre=float(self.config.occupancy_occ_thre),
+                        ema_decay=float(self.config.occupancy_ema_decay),
+                        warmup_steps=int(self.config.occupancy_warmup_steps),
+                        n=update_interval,
+                    )
+
+            if self.config.independent_rng_streams:
+                with fork_seeded_rng(self.config.training_seed, "occupancy", step, self.device):
+                    apply_update()
+            else:
+                apply_update()
+            if step % update_interval != 0:
                 return
             self._postprocess_occupancy_grid(step)
 
@@ -379,15 +446,54 @@ class LookCloserModel(Model):
         )
         return callbacks
 
+    @torch.no_grad()
+    def _stable_update_occupancy_grid(
+        self,
+        step: int,
+        occ_eval_fn: Callable[[torch.Tensor], torch.Tensor],
+    ) -> None:
+        """Nerfacc 0.5.2 occupancy update with stable duplicate-ID reduction."""
+
+        grid = self.occupancy_grid
+        if step < int(self.config.occupancy_warmup_steps):
+            level_indices = grid._get_all_cells()
+        else:
+            level_indices = grid._sample_uniform_and_occupied_cells(grid.cells_per_lvl // 4)
+
+        for level, indices in enumerate(level_indices):
+            grid_coords = grid.grid_coords[indices]
+            positions = (
+                grid_coords + torch.rand_like(grid_coords, dtype=torch.float32)
+            ) / grid.resolution
+            positions = grid.aabbs[level, :3] + positions * (
+                grid.aabbs[level, 3:] - grid.aabbs[level, :3]
+            )
+            candidates = occ_eval_fn(positions).squeeze(-1)
+            cell_ids = level * grid.cells_per_lvl + indices
+            stable_ema_max_update_(
+                grid.occs,
+                cell_ids,
+                candidates,
+                float(self.config.occupancy_ema_decay),
+            )
+
+        grid.binaries = (
+            grid.occs > torch.clamp(grid.occs.mean(), max=float(self.config.occupancy_occ_thre))
+        ).view(grid.binaries.shape)
+
     def _postprocess_occupancy_grid(self, step: Optional[int] = None) -> None:
         grid = self.occupancy_grid
-        occ_mean = float(grid.occs.mean().item())
-        occ_max = float(grid.occs.max().item())
-        default_thre = min(occ_mean, float(self.config.occupancy_occ_thre))
-        effective_thre = default_thre
-        if self.config.occupancy_thre_clamp_mult != 1.0:
+        diagnostics = bool(self.config.occupancy_diagnostics)
+        clamp_mult = float(self.config.occupancy_thre_clamp_mult)
+        occ_mean: Optional[float] = None
+        if diagnostics or clamp_mult != 1.0:
+            occ_mean = float(grid.occs.mean().item())
+
+        effective_thre: Optional[float] = None
+        if clamp_mult != 1.0:
+            assert occ_mean is not None
             effective_thre = min(
-                occ_mean * float(self.config.occupancy_thre_clamp_mult),
+                occ_mean * clamp_mult,
                 float(self.config.occupancy_occ_thre),
             )
             grid.binaries = (grid.occs > effective_thre).view(grid.binaries.shape)
@@ -396,6 +502,18 @@ class LookCloserModel(Model):
         if step is not None and step < int(self.config.occupancy_binary_warmup_steps):
             grid.binaries.fill_(True)
 
+        if not diagnostics:
+            # These fields are diagnostic-only, non-persistent state. Clear any
+            # values left by a runtime policy switch without cloning the grid.
+            self._last_occupancy_binaries = None
+            self._last_occupancy_stats = {}
+            return
+
+        assert occ_mean is not None
+        occ_max = float(grid.occs.max().item())
+        default_thre = min(occ_mean, float(self.config.occupancy_occ_thre))
+        if effective_thre is None:
+            effective_thre = default_thre
         binaries = grid.binaries.detach()
         previous = self._last_occupancy_binaries
         flipped_on = 0.0
@@ -560,6 +678,7 @@ class LookCloserModel(Model):
         stats.num_samples = torch.tensor(merged_indices.numel(), device=merged_indices.device)
         stats.mean_samples_per_ray = sample_counts.float().mean()
         stats.max_samples_per_ray = sample_counts.max().float()
+        stats.packed_info = packed
         if int(self.config.max_steps_per_ray) > 0:
             stats.saturation_rate = (sample_counts >= int(self.config.max_steps_per_ray)).float().mean()
         return merged_samples, merged_indices, stats, int(fallback_indices.numel())
@@ -659,6 +778,7 @@ class LookCloserModel(Model):
             ),
             adaptive_interval_level_mode=self.config.adaptive_interval_level_mode,
             max_steps_per_ray=int(self.config.max_steps_per_ray),
+            corrected_allocator=bool(self.config.corrected_arm_allocator),
         )
         ray_samples, ray_indices, stats, fallback_samples = self._append_fallback_samples(
             ray_bundle=ray_bundle,
@@ -697,7 +817,7 @@ class LookCloserModel(Model):
         if self.config.use_gradient_scaling:
             field_outputs = scale_gradients_by_distance_squared(field_outputs, ray_samples)
 
-        packed_info = nerfacc.pack_info(ray_indices, num_rays)
+        packed_info = stats.packed_info
         weights = nerfacc.render_weight_from_density(
             t_starts=ray_samples.frustums.starts[..., 0],
             t_ends=ray_samples.frustums.ends[..., 0],
@@ -705,14 +825,31 @@ class LookCloserModel(Model):
             packed_info=packed_info,
         )[0][..., None]
 
-        rgb = self.renderer_rgb(
-            rgb=field_outputs[FieldHeadNames.RGB],
-            weights=weights,
-            ray_indices=ray_indices,
-            num_rays=num_rays,
-        )
-        accumulation = self.renderer_accumulation(weights=weights, ray_indices=ray_indices, num_rays=num_rays)
-        depth = self.renderer_depth(weights=weights, ray_samples=ray_samples, ray_indices=ray_indices, num_rays=num_rays)
+        if (
+            self.training
+            and self.config.background_color == "black"
+            and renderer_module.BACKGROUND_COLOR_OVERRIDE is None
+        ):
+            rgb, accumulation, depth = self._render_packed_black(
+                rgb_samples=field_outputs[FieldHeadNames.RGB],
+                weights=weights,
+                ray_samples=ray_samples,
+                ray_indices=ray_indices,
+                num_rays=num_rays,
+            )
+        else:
+            rgb = self.renderer_rgb(
+                rgb=field_outputs[FieldHeadNames.RGB],
+                weights=weights,
+                ray_indices=ray_indices,
+                num_rays=num_rays,
+            )
+            accumulation = self.renderer_accumulation(
+                weights=weights, ray_indices=ray_indices, num_rays=num_rays
+            )
+            depth = self.renderer_depth(
+                weights=weights, ray_samples=ray_samples, ray_indices=ray_indices, num_rays=num_rays
+            )
 
         return {
             "rgb": rgb,
@@ -787,6 +924,7 @@ class LookCloserModel(Model):
             mean_samples_per_ray=torch.zeros((), device=device),
             max_samples_per_ray=torch.zeros((), device=device),
             saturation_rate=torch.zeros((), device=device),
+            packed_info=nerfacc.pack_info(ray_indices, num_rays),
         )
         origins = rays_o[ray_indices]
         directions = rays_d[ray_indices]

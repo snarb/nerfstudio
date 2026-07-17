@@ -20,14 +20,17 @@ from __future__ import annotations
 
 import dataclasses
 import functools
+import math
 import os
+import random
 import time
 from collections import defaultdict
 from dataclasses import dataclass, field
 from pathlib import Path
 from threading import Lock
-from typing import DefaultDict, Dict, List, Literal, Optional, Tuple, Type, cast
+from typing import Any, DefaultDict, Dict, List, Literal, Optional, Tuple, Type, cast
 
+import numpy as np
 import torch
 import viser
 from rich import box, style
@@ -51,6 +54,42 @@ TRAIN_INTERATION_OUTPUT = Tuple[torch.Tensor, Dict[str, torch.Tensor], Dict[str,
 TORCH_DEVICE = str
 
 
+def _capture_rng_state() -> Dict[str, Any]:
+    """Capture every process-global RNG stream used by the training path."""
+
+    return {
+        "python": random.getstate(),
+        "numpy": np.random.get_state(),
+        "torch_cpu": torch.get_rng_state(),
+        "torch_cuda": torch.cuda.get_rng_state_all() if torch.cuda.is_available() else [],
+    }
+
+
+def _restore_rng_state(state: Dict[str, Any]) -> None:
+    """Restore a checkpointed RNG snapshot after setup/load has consumed randomness."""
+
+    random.setstate(state["python"])
+    np.random.set_state(state["numpy"])
+    torch.set_rng_state(state["torch_cpu"])
+    if torch.cuda.is_available() and state.get("torch_cuda"):
+        torch.cuda.set_rng_state_all(state["torch_cuda"])
+
+
+def _validate_grad_scaler_checkpoint_config(
+    scaler_state: Dict[str, Any], configured_growth_interval: int
+) -> None:
+    """Fail closed when a resumed checkpoint would silently replace the requested scaler policy."""
+
+    checkpoint_interval = scaler_state.get("growth_interval")
+    if checkpoint_interval is None:
+        raise ValueError("Checkpoint GradScaler state has no growth_interval")
+    if int(checkpoint_interval) != configured_growth_interval:
+        raise ValueError(
+            "Checkpoint GradScaler growth_interval does not match the configured policy: "
+            f"{checkpoint_interval} != {configured_growth_interval}"
+        )
+
+
 @dataclass
 class TrainerConfig(ExperimentConfig):
     """Configuration for training regimen"""
@@ -71,6 +110,10 @@ class TrainerConfig(ExperimentConfig):
     """Whether or not to use mixed precision for training."""
     use_grad_scaler: bool = False
     """Use gradient scaler even if the automatic mixed precision is disabled."""
+    grad_scaler_init_scale: float = 65536.0
+    """Initial AMP GradScaler scale. The default matches PyTorch's historical behavior."""
+    grad_scaler_growth_interval: int = 2000
+    """Successful updates between AMP scale growth. The default matches PyTorch."""
     save_only_latest_checkpoint: bool = True
     """Whether to only save the latest checkpoint or all checkpoints."""
     # optional parameters if we want to resume training
@@ -90,6 +133,12 @@ class TrainerConfig(ExperimentConfig):
     """Number of steps to accumulate gradients over. Contains a mapping of {param_group:num}"""
     start_paused: bool = False
     """Whether to start the training in a paused state."""
+    fused_adam_switch_step: Optional[int] = None
+    """Optional trainer step that enables fused Adam in-process before that update."""
+    fused_adam_switch_group: str = "fields"
+    """Optimizer parameter group changed by ``fused_adam_switch_step``."""
+    replay_eval_trajectory: bool = False
+    """Replay scheduled eval sampler/dataloader side effects without model forwards or renders."""
 
 
 class Trainer:
@@ -135,8 +184,27 @@ class Trainer:
             self.mixed_precision = False
             CONSOLE.print("Mixed precision is disabled for CPU training.")
         self._start_step: int = 0
+        self._loaded_rng_state: Optional[Dict[str, Any]] = None
+        if self.config.fused_adam_switch_step is not None and self.config.fused_adam_switch_step < 0:
+            raise ValueError("fused_adam_switch_step must be non-negative")
+        if self.config.fused_adam_switch_step is not None:
+            optimizer_group = self.config.fused_adam_switch_group
+            optimizer_entry = self.config.optimizers.get(optimizer_group)
+            if optimizer_entry is None:
+                raise ValueError(f"Unknown fused_adam_switch_group: {optimizer_group}")
+            if getattr(optimizer_entry["optimizer"], "fused", None) is True:
+                raise ValueError("fused Adam cannot be enabled both initially and by a live switch")
+        if not math.isfinite(self.config.grad_scaler_init_scale) or self.config.grad_scaler_init_scale <= 0:
+            raise ValueError("grad_scaler_init_scale must be finite and positive")
+        if self.config.grad_scaler_growth_interval <= 0:
+            raise ValueError("grad_scaler_growth_interval must be positive")
+        self._fused_adam_switch_applied = False
         # optimizers
-        self.grad_scaler = GradScaler(enabled=self.use_grad_scaler)
+        self.grad_scaler = GradScaler(
+            enabled=self.use_grad_scaler,
+            init_scale=self.config.grad_scaler_init_scale,
+            growth_interval=self.config.grad_scaler_growth_interval,
+        )
 
         self.base_dir: Path = config.get_base_dir()
         # directory to save checkpoints
@@ -242,6 +310,12 @@ class Trainer:
             )
 
         self._init_viewer_state()
+        # Setup after _load_checkpoint creates callbacks and writers and may
+        # consume process-global RNG. Restore at the last possible point so the
+        # first resumed iteration sees exactly the state captured after save.
+        if self._loaded_rng_state is not None:
+            _restore_rng_state(self._loaded_rng_state)
+            self._loaded_rng_state = None
         with TimeWriter(writer, EventName.TOTAL_TRAIN_TIME):
             num_iterations = self.config.max_num_iterations - self._start_step
             step = 0
@@ -258,6 +332,8 @@ class Trainer:
                 with self.train_lock:
                     with TimeWriter(writer, EventName.ITER_TRAIN_TIME, step=step) as train_t:
                         self.pipeline.train()
+
+                        self._apply_live_optimizer_switch(step)
 
                         # training callbacks before the training iteration
                         for callback in self.callbacks:
@@ -314,9 +390,21 @@ class Trainer:
         # save checkpoint at the end of training, and write out any remaining events
         self._after_train()
 
+    def _apply_live_optimizer_switch(self, step: int) -> None:
+        """Enable fused Adam at a scheduled update without replacing optimizer state."""
+
+        switch_step = self.config.fused_adam_switch_step
+        if self._fused_adam_switch_applied or switch_step is None or step < switch_step:
+            return
+        group = self.config.fused_adam_switch_group
+        self.optimizers.set_adam_fused(True, param_group_names=[group])
+        self._fused_adam_switch_applied = True
+        CONSOLE.print(f"Trainer: optimizer group '{group}' switched to fused Adam at step {step}.")
+
     def shutdown(self) -> None:
         """Stop the trainer and stop all associated threads/processes (such as the viewer)."""
         self.stop_training = True  # tell the training loop to stop
+        self._close_train_batch_prefetch()
         if self.viewer_state is not None:
             # stop the viewer
             # this condition excludes the case where `viser_server` is either `None` or an
@@ -327,6 +415,9 @@ class Trainer:
     def _after_train(self) -> None:
         """Function to run after training is complete"""
         self.training_state = "completed"  # used to update the webui state
+        # The derived one-batch queue is intentionally absent from checkpoints.
+        # Join/discard it before the terminal save and final callbacks.
+        self._close_train_batch_prefetch()
         # save checkpoint at the end of training
         self.save_checkpoint(self.step)
         # write out any remaining events (e.g., total train time)
@@ -404,6 +495,18 @@ class Trainer:
         while True:
             time.sleep(0.01)
 
+    def _close_train_batch_prefetch(self) -> None:
+        close = getattr(self.pipeline.datamanager, "close_train_batch_prefetch", None)
+        if callable(close):
+            close()
+
+    def _train_batch_prefetch_barrier(self) -> None:
+        """Discard derived CPU work before an external RNG or persistence boundary."""
+
+        barrier = getattr(self.pipeline.datamanager, "train_batch_prefetch_barrier", None)
+        if callable(barrier):
+            barrier()
+
     @check_viewer_enabled
     def _update_viewer_rays_per_sec(self, train_t: TimeWriter, vis_t: TimeWriter, step: int) -> None:
         """Performs update on rays/sec calculation for training
@@ -433,7 +536,9 @@ class Trainer:
                 load_step = sorted(int(x[x.find("-") + 1 : x.find(".")]) for x in os.listdir(load_dir))[-1]
             load_path: Path = load_dir / f"step-{load_step:09d}.ckpt"
             assert load_path.exists(), f"Checkpoint {load_path} does not exist"
-            loaded_state = torch.load(load_path, map_location="cpu")
+            # PyTorch 2.6 changed the default to weights_only=True. Historical
+            # Nerfstudio checkpoints contain trusted Adam/scaler NumPy values.
+            loaded_state = torch.load(load_path, map_location="cpu", weights_only=False)
             self._start_step = loaded_state["step"] + 1
             # load the checkpoints for pipeline, optimizers, and gradient scalar
             self.pipeline.load_pipeline(loaded_state["pipeline"], loaded_state["step"])
@@ -442,11 +547,15 @@ class Trainer:
             if "schedulers" in loaded_state and self.config.load_scheduler:
                 self.optimizers.load_schedulers(loaded_state["schedulers"])
             if self.config.load_optimizers:
+                _validate_grad_scaler_checkpoint_config(
+                    loaded_state["scalers"], self.config.grad_scaler_growth_interval
+                )
                 self.grad_scaler.load_state_dict(loaded_state["scalers"])
+            self._loaded_rng_state = loaded_state.get("rng_state")
             CONSOLE.print(f"Done loading Nerfstudio checkpoint from {load_path}")
         elif load_checkpoint is not None:
             assert load_checkpoint.exists(), f"Checkpoint {load_checkpoint} does not exist"
-            loaded_state = torch.load(load_checkpoint, map_location="cpu")
+            loaded_state = torch.load(load_checkpoint, map_location="cpu", weights_only=False)
             self._start_step = loaded_state["step"] + 1
             # load the checkpoints for pipeline, optimizers, and gradient scalar
             self.pipeline.load_pipeline(loaded_state["pipeline"], loaded_state["step"])
@@ -455,7 +564,11 @@ class Trainer:
             if "schedulers" in loaded_state and self.config.load_scheduler:
                 self.optimizers.load_schedulers(loaded_state["schedulers"])
             if self.config.load_optimizers:
+                _validate_grad_scaler_checkpoint_config(
+                    loaded_state["scalers"], self.config.grad_scaler_growth_interval
+                )
                 self.grad_scaler.load_state_dict(loaded_state["scalers"])
+            self._loaded_rng_state = loaded_state.get("rng_state")
             CONSOLE.print(f"Done loading Nerfstudio checkpoint from {load_checkpoint}")
         else:
             CONSOLE.print("No Nerfstudio checkpoint to load, so training from scratch.")
@@ -467,6 +580,7 @@ class Trainer:
         Args:
             step: number of steps in training for given checkpoint
         """
+        self._train_batch_prefetch_barrier()
         # possibly make the checkpoint directory
         if not self.checkpoint_dir.exists():
             self.checkpoint_dir.mkdir(parents=True, exist_ok=True)
@@ -481,6 +595,7 @@ class Trainer:
                 "optimizers": {k: v.state_dict() for (k, v) in self.optimizers.optimizers.items()},
                 "schedulers": {k: v.state_dict() for (k, v) in self.optimizers.schedulers.items()},
                 "scalers": self.grad_scaler.state_dict(),
+                "rng_state": _capture_rng_state(),
             },
             ckpt_path,
         )
@@ -545,6 +660,18 @@ class Trainer:
         Args:
             step: Current training step.
         """
+        scheduled = (
+            step_check(step, self.config.steps_per_eval_batch)
+            or step_check(step, self.config.steps_per_eval_image)
+            or step_check(step, self.config.steps_per_eval_all_images)
+        )
+        if not scheduled:
+            return
+        self._train_batch_prefetch_barrier()
+        if self.config.replay_eval_trajectory:
+            self._replay_eval_trajectory(step)
+            return
+
         # a batch of eval rays
         if step_check(step, self.config.steps_per_eval_batch):
             _, eval_loss_dict, eval_metrics_dict = self.pipeline.get_eval_loss_dict(step=step)
@@ -572,3 +699,37 @@ class Trainer:
         if step_check(step, self.config.steps_per_eval_all_images):
             metrics_dict = self.pipeline.get_average_eval_image_metrics(step=step)
             writer.put_dict(name="Eval Images Metrics Dict (all images)", scalar_dict=metrics_dict, step=step)
+
+    def _replay_eval_trajectory(self, step: int) -> None:
+        """Match scheduled evaluation's RNG and dataloader state without rendering.
+
+        Batch eval advances the eval pixel sampler (Torch RNG and FAS counters),
+        single-image eval advances ``RandIndicesEvalDataloader`` (Python RNG),
+        and all-image eval leaves the fixed loader at the same terminal counter.
+        """
+
+        replayed: List[str] = []
+        datamanager = self.pipeline.datamanager
+        if step_check(step, self.config.steps_per_eval_batch):
+            self.pipeline.eval()
+            datamanager.next_eval(step)
+            self.pipeline.train()
+            replayed.append("batch")
+        if step_check(step, self.config.steps_per_eval_image):
+            self.pipeline.eval()
+            datamanager.next_eval_image(step)
+            self.pipeline.train()
+            replayed.append("image")
+        if step_check(step, self.config.steps_per_eval_all_images):
+            fixed_loader = getattr(datamanager, "fixed_indices_eval_dataloader", None)
+            if fixed_loader is None:
+                raise RuntimeError("Eval trajectory replay requires fixed_indices_eval_dataloader")
+            self.pipeline.eval()
+            for _camera, _batch in fixed_loader:
+                pass
+            self.pipeline.train()
+            replayed.append("all")
+        if replayed:
+            CONSOLE.print(
+                f"Trainer: replayed scheduled eval trajectory at step {step}: {','.join(replayed)}."
+            )

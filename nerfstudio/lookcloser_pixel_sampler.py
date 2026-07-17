@@ -15,6 +15,152 @@ from nerfstudio.data.pixel_samplers import PixelSampler, PixelSamplerConfig
 from nerfstudio.utils.rich_utils import CONSOLE
 
 
+@dataclass(frozen=True)
+class LookCloserFASPrefetchSnapshot:
+    """Immutable CPU inputs and scalar policy for private-generator FAS."""
+
+    image: Tensor
+    image_idx: Tensor
+    buckets: Tuple[Tensor, ...]
+    probs: np.ndarray
+    image_heights: Tensor
+    image_widths: Tensor
+    num_levels: int
+    num_rays_per_batch: int
+    patch_size: int
+    patch_stride: int
+    fas_strength: float
+    fas_warmup_steps: int
+    fas_ramp_steps: int
+    fas_decay_start_steps: int
+    fas_decay_steps: int
+    fas_patch_group_size: int
+    config_signature: Tuple[object, ...]
+    data_version: int
+    image_order: Tuple[int, ...]
+
+    def _active_fas_strength(self, sample_count: int) -> float:
+        target = float(np.clip(self.fas_strength, 0.0, 1.0))
+        if sample_count < self.fas_warmup_steps:
+            return 0.0
+        if self.fas_ramp_steps <= 0:
+            strength = target
+        else:
+            ramp_position = min(
+                max(sample_count - self.fas_warmup_steps, 0) / float(self.fas_ramp_steps),
+                1.0,
+            )
+            strength = target * ramp_position
+        if self.fas_decay_start_steps >= 0 and sample_count >= self.fas_decay_start_steps:
+            if self.fas_decay_steps <= 0:
+                return 0.0
+            decay_position = min(
+                (sample_count - self.fas_decay_start_steps) / float(self.fas_decay_steps),
+                1.0,
+            )
+            strength *= 1.0 - decay_position
+        return strength
+
+    def sample(self, generator: torch.Generator, sample_count: int) -> Dict:
+        """Pure CPU equivalent of the supported synchronous FAS path."""
+
+        num_images, image_height, image_width, _ = self.image.shape
+        batch_size = self.num_rays_per_batch
+        fas_batch_size = int(round(batch_size * self._active_fas_strength(sample_count)))
+        uniform_batch_size = batch_size - fas_batch_size
+        indices_list: List[Tensor] = []
+        bounds = torch.tensor([num_images, image_height, image_width])
+        if uniform_batch_size > 0:
+            uniform = torch.rand((uniform_batch_size, 3), generator=generator) * bounds
+            indices_list.append(uniform.long())
+
+        if fas_batch_size <= 0:
+            indices = indices_list[0]
+            c, y, x = (part.flatten() for part in torch.split(indices, 1, dim=-1))
+            collated_batch = {"image": self.image[c, y, x]}
+            indices[:, 0] = self.image_idx[c]
+            collated_batch["indices"] = indices
+            return collated_batch
+
+        if fas_batch_size > 0:
+            expected_counts = self.probs * fas_batch_size
+            counts = np.floor(expected_counts).astype(int)
+            diff = int(fas_batch_size - counts.sum())
+            if diff > 0:
+                remainders = expected_counts - counts
+                for level in np.argsort(-remainders)[:diff]:
+                    counts[level] += 1
+            elif diff < 0:
+                remainders = expected_counts - counts
+                for level in np.argsort(remainders)[: -diff]:
+                    if counts[level] > 0:
+                        counts[level] -= 1
+
+            for level in range(self.num_levels):
+                n_samples = int(counts[level])
+                if n_samples == 0:
+                    continue
+                bucket = self.buckets[level]
+                if bucket.shape[0] == 0:
+                    fallback = torch.rand((n_samples, 3), generator=generator) * bounds
+                    indices_list.append(fallback.long())
+                    continue
+
+                group_size = max(self.fas_patch_group_size, 1)
+                if group_size == 1:
+                    rand_idx = torch.randint(0, bucket.shape[0], (n_samples,), generator=generator)
+                    selected_patches = bucket[rand_idx].long()
+                    y_off = torch.randint(0, self.patch_size, (n_samples,), generator=generator)
+                    x_off = torch.randint(0, self.patch_size, (n_samples,), generator=generator)
+                else:
+                    patches_needed = int(np.ceil(n_samples / float(group_size)))
+                    rand_idx = torch.randint(0, bucket.shape[0], (patches_needed,), generator=generator)
+                    selected_cells = bucket[rand_idx].long()
+                    selected_patches = selected_cells.repeat_interleave(group_size, dim=0)[:n_samples]
+                    grid_side = int(np.ceil(np.sqrt(group_size)))
+                    local_ids = torch.arange(group_size).repeat(patches_needed)[:n_samples]
+                    local_y = local_ids // grid_side
+                    local_x = local_ids % grid_side
+                    sub_h = max(self.patch_size // grid_side, 1)
+                    sub_w = max(self.patch_size // grid_side, 1)
+                    y_off = local_y * sub_h + torch.randint(
+                        0, sub_h, (n_samples,), generator=generator
+                    )
+                    x_off = local_x * sub_w + torch.randint(
+                        0, sub_w, (n_samples,), generator=generator
+                    )
+                    y_off = torch.clamp(y_off, 0, self.patch_size - 1)
+                    x_off = torch.clamp(x_off, 0, self.patch_size - 1)
+
+                img_idx = selected_patches[:, 0]
+                y_coord = selected_patches[:, 1] * self.patch_stride + y_off
+                x_coord = selected_patches[:, 2] * self.patch_stride + x_off
+                valid = (img_idx >= 0) & (img_idx < self.image_heights.shape[0])
+                safe_indices = img_idx.clamp(0, self.image_heights.shape[0] - 1)
+                heights = torch.where(
+                    valid,
+                    self.image_heights[safe_indices],
+                    torch.full_like(img_idx, image_height),
+                )
+                widths = torch.where(
+                    valid,
+                    self.image_widths[safe_indices],
+                    torch.full_like(img_idx, image_width),
+                )
+                y_coord = torch.minimum(torch.clamp_min(y_coord, 0), heights - 1)
+                x_coord = torch.minimum(torch.clamp_min(x_coord, 0), widths - 1)
+                indices_list.append(torch.stack([img_idx, y_coord, x_coord], dim=1))
+
+        all_indices = torch.cat(indices_list, dim=0)
+        shuffle_mask = torch.randperm(all_indices.shape[0], generator=generator)
+        indices = all_indices[shuffle_mask]
+        c, y, x = (part.flatten() for part in torch.split(indices, 1, dim=-1))
+        collated_batch = {"image": self.image[c, y, x]}
+        indices[:, 0] = self.image_idx[c]
+        collated_batch["indices"] = indices
+        return collated_batch
+
+
 @dataclass
 class LookCloserPixelSamplerConfig(PixelSamplerConfig):
     """Configuration for the LookCloser Frequency-Averaged Pixel Sampler."""
@@ -66,6 +212,9 @@ class LookCloserPixelSamplerConfig(PixelSamplerConfig):
     fas_max_sampling_level: int = -1
     """Optional maximum frequency level for FAS buckets; negative preserves all preprocessed levels."""
 
+    fas_consolidate_h2d: bool = False
+    """Consolidate per-level selected-cell CPU-to-CUDA copies into one exact transfer."""
+
     debug_mode: bool = False
     """If true, prints sampling stats."""
 
@@ -104,11 +253,41 @@ class LookCloserPixelSampler(PixelSampler):
         self.patch_size = int(self.config.patch_size)
         self.patch_stride = int(self.config.stride)
         self.image_shapes: Dict[int, Tuple[int, int]] = {}
-        # Pre-computed tensor lookups for image shapes (built lazily after init)
-        self._shapes_h_tensor: Optional[torch.Tensor] = None
-        self._shapes_w_tensor: Optional[torch.Tensor] = None
+        self._image_shape_lut_cache: Dict[Tuple[str, int, int, int], Tuple[Tensor, Tensor]] = {}
         self.sample_count = 0
         self.current_fas_strength = 1.0
+        self._prefetch_data_version = 0
+
+    def _image_shapes_for_indices(
+        self,
+        img_idx: Tensor,
+        num_images: int,
+        image_height: int,
+        image_width: int,
+    ) -> Tuple[Tensor, Tensor]:
+        """Gather per-image bounds without per-ray device-to-host scalar reads."""
+        device = img_idx.device
+        cache_key = (str(device), int(num_images), int(image_height), int(image_width))
+        cached = self._image_shape_lut_cache.get(cache_key)
+        if cached is None:
+            max_metadata_index = max(self.image_shapes, default=-1)
+            lut_size = max(int(num_images), max_metadata_index + 1, 1)
+            heights = torch.full((lut_size,), int(image_height), dtype=torch.long)
+            widths = torch.full((lut_size,), int(image_width), dtype=torch.long)
+            for image_index, (height, width) in self.image_shapes.items():
+                if 0 <= image_index < lut_size:
+                    heights[image_index] = int(height)
+                    widths[image_index] = int(width)
+            cached = (heights.to(device), widths.to(device))
+            self._image_shape_lut_cache[cache_key] = cached
+        height_lut, width_lut = cached
+        valid = (img_idx >= 0) & (img_idx < height_lut.shape[0])
+        safe_indices = img_idx.clamp(0, height_lut.shape[0] - 1)
+        default_heights = torch.full_like(img_idx, int(image_height))
+        default_widths = torch.full_like(img_idx, int(image_width))
+        heights = torch.where(valid, height_lut[safe_indices], default_heights)
+        widths = torch.where(valid, width_lut[safe_indices], default_widths)
+        return heights, widths
 
     def _read_frequency_metadata(self, freq_file: Path) -> Optional[Dict]:
         metadata_path = freq_file.with_suffix(".json")
@@ -351,16 +530,9 @@ class LookCloserPixelSampler(PixelSampler):
         # We calculate exact counts per batch later
         self.probs = probs
         self.level_counts = level_counts
+        self._image_shape_lut_cache.clear()
         self.is_initialized = True
-
-        # Pre-compute image shape lookup tensors for fast GPU indexing (avoids .item() per sample)
-        if self.image_shapes:
-            max_idx = max(self.image_shapes.keys()) + 1
-            h_arr = [self.image_shapes.get(i, (0, 0))[0] for i in range(max_idx)]
-            w_arr = [self.image_shapes.get(i, (0, 0))[1] for i in range(max_idx)]
-            self._shapes_h_tensor = torch.tensor(h_arr, dtype=torch.long)
-            self._shapes_w_tensor = torch.tensor(w_arr, dtype=torch.long)
-
+        self._prefetch_data_version += 1
         CONSOLE.print("[bold green]LookCloserPixelSampler:[/bold green] Initialization complete.")
 
     def _active_fas_strength(self) -> float:
@@ -383,6 +555,120 @@ class LookCloserPixelSampler(PixelSampler):
             decay_position = min((self.sample_count - decay_start) / float(decay_steps), 1.0)
             strength *= 1.0 - decay_position
         return strength
+
+    def _sample_levels_consolidated_h2d(
+        self,
+        counts: np.ndarray,
+        num_images: int,
+        image_height: int,
+        image_width: int,
+        device: Union[torch.device, str],
+    ) -> List[Tensor]:
+        """Sample FAS levels while transferring all selected CPU cells to CUDA once.
+
+        CPU bucket-index draws and CUDA offset/fallback draws remain in the same
+        level order as the legacy path. Only the deterministic selected-cell
+        transfers are delayed and concatenated. This path is CUDA-only because
+        on CPU the bucket and offset draws share one generator and cannot be
+        reordered without changing the trajectory.
+        """
+        selected_cell_chunks: List[Tensor] = []
+        # Each entry is either a completed fallback tensor or the information
+        # needed to finish a non-empty level after the consolidated transfer.
+        level_entries = []
+        selected_cell_count = 0
+
+        for level in range(self.config.num_levels):
+            n_samples = int(counts[level])
+            if n_samples == 0:
+                continue
+
+            bucket = self.buckets[level]
+            num_in_bucket = bucket.shape[0]
+            if num_in_bucket <= 0:
+                # Keep fallback draws interleaved with non-empty-level draws in
+                # exactly the same order as the legacy implementation.
+                fallback = torch.rand((n_samples, 3), device=device) * torch.tensor(
+                    [num_images, image_height, image_width], device=device
+                )
+                level_entries.append((fallback.long(), None))
+                continue
+
+            group_size = max(int(self.config.fas_patch_group_size), 1)
+            selected_start = selected_cell_count
+            if group_size == 1:
+                rand_idx = torch.randint(0, num_in_bucket, (n_samples,))
+                selected_cells_cpu = bucket[rand_idx]
+                cells_for_level = n_samples
+                y_off = torch.randint(0, self.patch_size, (n_samples,), device=device)
+                x_off = torch.randint(0, self.patch_size, (n_samples,), device=device)
+            else:
+                patches_needed = int(np.ceil(n_samples / float(group_size)))
+                rand_idx = torch.randint(0, num_in_bucket, (patches_needed,))
+                selected_cells_cpu = bucket[rand_idx]
+                cells_for_level = patches_needed
+
+                grid_side = int(np.ceil(np.sqrt(group_size)))
+                local_ids = torch.arange(group_size, device=device).repeat(patches_needed)[:n_samples]
+                local_y = local_ids // grid_side
+                local_x = local_ids % grid_side
+                sub_h = max(self.patch_size // grid_side, 1)
+                sub_w = max(self.patch_size // grid_side, 1)
+                y_off = local_y * sub_h + torch.randint(0, sub_h, (n_samples,), device=device)
+                x_off = local_x * sub_w + torch.randint(0, sub_w, (n_samples,), device=device)
+                y_off = torch.clamp(y_off, 0, self.patch_size - 1)
+                x_off = torch.clamp(x_off, 0, self.patch_size - 1)
+
+            selected_cell_chunks.append(selected_cells_cpu)
+            selected_cell_count += cells_for_level
+            level_entries.append(
+                (
+                    None,
+                    (
+                        selected_start,
+                        selected_cell_count,
+                        n_samples,
+                        group_size,
+                        y_off,
+                        x_off,
+                    ),
+                )
+            )
+
+        if selected_cell_chunks:
+            selected_cells = torch.cat(selected_cell_chunks, dim=0).to(device).long()
+        else:
+            selected_cells = torch.empty((0, 3), dtype=torch.long, device=device)
+
+        sampled_levels: List[Tensor] = []
+        for fallback, selected_entry in level_entries:
+            if fallback is not None:
+                sampled_levels.append(fallback)
+                continue
+
+            selected_start, selected_end, n_samples, group_size, y_off, x_off = selected_entry
+            selected_patches = selected_cells[selected_start:selected_end]
+            if group_size != 1:
+                selected_patches = selected_patches.repeat_interleave(group_size, dim=0)[:n_samples]
+
+            img_idx = selected_patches[:, 0]
+            y_coord = selected_patches[:, 1] * self.patch_stride + y_off
+            x_coord = selected_patches[:, 2] * self.patch_stride + x_off
+            if self.image_shapes:
+                heights, widths = self._image_shapes_for_indices(
+                    img_idx,
+                    num_images=num_images,
+                    image_height=image_height,
+                    image_width=image_width,
+                )
+                y_coord = torch.minimum(torch.clamp_min(y_coord, 0), heights - 1)
+                x_coord = torch.minimum(torch.clamp_min(x_coord, 0), widths - 1)
+            else:
+                y_coord = torch.clamp(y_coord, 0, image_height - 1)
+                x_coord = torch.clamp(x_coord, 0, image_width - 1)
+            sampled_levels.append(torch.stack([img_idx, y_coord, x_coord], dim=1))
+
+        return sampled_levels
 
     def sample_method(
             self,
@@ -451,6 +737,22 @@ class LookCloserPixelSampler(PixelSampler):
                 )
             )
 
+        target_device = torch.device(device)
+        if self.config.fas_consolidate_h2d and target_device.type == "cuda":
+            indices_list.extend(
+                self._sample_levels_consolidated_h2d(
+                    counts,
+                    num_images=num_images,
+                    image_height=image_height,
+                    image_width=image_width,
+                    device=device,
+                )
+            )
+
+            all_indices = torch.cat(indices_list, dim=0)
+            shuffle_mask = torch.randperm(all_indices.shape[0], device=device)
+            return all_indices[shuffle_mask]
+
         for l in range(self.config.num_levels):
             n_samples = counts[l]
             if n_samples == 0:
@@ -489,25 +791,12 @@ class LookCloserPixelSampler(PixelSampler):
 
                 # Clamp to the selected image's shape when metadata is available.
                 if self.image_shapes:
-                    if self._shapes_h_tensor is not None:
-                        # Fast path: vectorized tensor lookup (avoids N .item() GPU→CPU syncs)
-                        img_idx_dev = img_idx.to(device)
-                        h_lut = self._shapes_h_tensor.to(device)
-                        w_lut = self._shapes_w_tensor.to(device)
-                        heights = h_lut[img_idx_dev]
-                        widths = w_lut[img_idx_dev]
-                    else:
-                        # Slow fallback (should not happen after init)
-                        heights = torch.tensor(
-                            [self.image_shapes.get(int(i.item()), (image_height, image_width))[0] for i in img_idx],
-                            device=device,
-                            dtype=torch.long,
-                        )
-                        widths = torch.tensor(
-                            [self.image_shapes.get(int(i.item()), (image_height, image_width))[1] for i in img_idx],
-                            device=device,
-                            dtype=torch.long,
-                        )
+                    heights, widths = self._image_shapes_for_indices(
+                        img_idx,
+                        num_images=num_images,
+                        image_height=image_height,
+                        image_width=image_width,
+                    )
                     y_coord = torch.minimum(torch.clamp_min(y_coord, 0), heights - 1)
                     x_coord = torch.minimum(torch.clamp_min(x_coord, 0), widths - 1)
                 else:
@@ -530,7 +819,7 @@ class LookCloserPixelSampler(PixelSampler):
         shuffle_mask = torch.randperm(all_indices.shape[0], device=device)
         return all_indices[shuffle_mask]
 
-    def sample(self, image_batch: Dict):
+    def sample(self, image_batch: Dict, *, commit_sample_count: bool = True):
         """
         Main sampling entry point called by DataManager.
         """
@@ -556,5 +845,108 @@ class LookCloserPixelSampler(PixelSampler):
         # Call the standard sample logic which internally calls sample_method
         self.current_fas_strength = self._active_fas_strength()
         batch = super().sample(image_batch)
-        self.sample_count += 1
+        if commit_sample_count:
+            self.sample_count += 1
         return batch
+
+    def _prefetch_config_signature(self) -> Tuple[object, ...]:
+        return (
+            bool(self.config.enable_fas),
+            int(self.config.num_levels),
+            float(self.config.sampling_ramp_start),
+            float(self.config.sampling_ramp_end),
+            float(self.config.fas_strength),
+            int(self.config.fas_warmup_steps),
+            int(self.config.fas_ramp_steps),
+            int(self.config.fas_decay_start_steps),
+            int(self.config.fas_decay_steps),
+            float(self.config.fas_level_count_alpha),
+            int(self.config.fas_patch_group_size),
+            int(self.config.fas_max_sampling_level),
+            bool(self.config.fas_consolidate_h2d),
+            int(self.patch_size),
+            int(self.patch_stride),
+            bool(self.config.keep_full_image),
+        )
+
+    @staticmethod
+    def _prefetch_image_order(image_batch: Dict) -> Tuple[int, ...]:
+        image_idx = image_batch.get("image_idx")
+        if not isinstance(image_idx, Tensor):
+            raise TypeError("CPU FAS prefetch requires tensor image_idx")
+        return tuple(int(value) for value in image_idx.detach().cpu().tolist())
+
+    @staticmethod
+    def _prefetch_tensor_identity(value: Tensor) -> Tuple[object, ...]:
+        """Track replacement and in-place mutation without a device-to-host copy."""
+
+        return (
+            id(value),
+            int(value.data_ptr()),
+            str(value.device),
+            tuple(value.shape),
+            tuple(value.stride()),
+            str(value.dtype),
+            int(value._version),
+        )
+
+    def prefetch_live_signature(self, image_batch: Dict) -> Tuple[object, ...]:
+        image = image_batch.get("image")
+        image_idx = image_batch.get("image_idx")
+        if not isinstance(image, Tensor):
+            raise TypeError("CPU FAS prefetch requires one homogeneous image tensor")
+        if not isinstance(image_idx, Tensor):
+            raise TypeError("CPU FAS prefetch requires tensor image_idx")
+        return (
+            int(self.num_rays_per_batch),
+            self._prefetch_config_signature(),
+            int(self._prefetch_data_version),
+            self._prefetch_tensor_identity(image),
+            self._prefetch_tensor_identity(image_idx),
+        )
+
+    def build_prefetch_snapshot(self, image_batch: Dict) -> LookCloserFASPrefetchSnapshot:
+        """Freeze the exact CPU-only FAS inputs consumed by the worker."""
+
+        if set(image_batch) != {"image", "image_idx"}:
+            raise ValueError("CPU FAS prefetch supports image/image_idx batches without masks or metadata")
+        image = image_batch["image"]
+        image_idx = image_batch["image_idx"]
+        if not isinstance(image, Tensor) or image.device.type != "cpu" or image.ndim != 4:
+            raise ValueError("CPU FAS prefetch requires one homogeneous CPU image tensor")
+        if not isinstance(image_idx, Tensor):
+            raise TypeError("CPU FAS prefetch requires tensor image_idx")
+        if not self.config.enable_fas or not self.is_initialized:
+            raise RuntimeError("CPU FAS buckets must be initialized before snapshotting")
+        if self.config.keep_full_image:
+            raise ValueError("CPU FAS prefetch does not support keep_full_image")
+        num_images, image_height, image_width, _ = image.shape
+        max_metadata_index = max(self.image_shapes, default=-1)
+        lut_size = max(int(num_images), max_metadata_index + 1, 1)
+        image_heights = torch.full((lut_size,), int(image_height), dtype=torch.long)
+        image_widths = torch.full((lut_size,), int(image_width), dtype=torch.long)
+        for image_index, (height, width) in self.image_shapes.items():
+            if 0 <= image_index < lut_size:
+                image_heights[image_index] = int(height)
+                image_widths[image_index] = int(width)
+        return LookCloserFASPrefetchSnapshot(
+            image=image.detach(),
+            image_idx=image_idx.detach().cpu().clone(),
+            buckets=tuple(self.buckets[level].detach().cpu().clone() for level in range(self.config.num_levels)),
+            probs=self.probs.copy(),
+            image_heights=image_heights,
+            image_widths=image_widths,
+            num_levels=int(self.config.num_levels),
+            num_rays_per_batch=int(self.num_rays_per_batch),
+            patch_size=int(self.patch_size),
+            patch_stride=int(self.patch_stride),
+            fas_strength=float(self.config.fas_strength),
+            fas_warmup_steps=max(int(self.config.fas_warmup_steps), 0),
+            fas_ramp_steps=max(int(self.config.fas_ramp_steps), 0),
+            fas_decay_start_steps=int(self.config.fas_decay_start_steps),
+            fas_decay_steps=max(int(self.config.fas_decay_steps), 0),
+            fas_patch_group_size=max(int(self.config.fas_patch_group_size), 1),
+            config_signature=self._prefetch_config_signature(),
+            data_version=int(self._prefetch_data_version),
+            image_order=self._prefetch_image_order(image_batch),
+        )

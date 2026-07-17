@@ -7,14 +7,18 @@ import argparse
 import csv
 import hashlib
 import json
+import math
 import re
 import signal
 import subprocess
 import sys
 import time
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
+
+import yaml
 
 
 DEFAULT_DATA = Path("/fsx/oregon/tank_bkup/6A_4_EXR/nerfstudio_processed/007740_hd_aabb4_multicamera_eval3_ns")
@@ -50,6 +54,21 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--save-interval", type=int, default=None)
     parser.add_argument("--max-num-iterations", type=int, default=200000)
     parser.add_argument("--train-num-rays-per-batch", type=int, default=4096)
+    parser.add_argument(
+        "--cache-train-rays",
+        action="store_true",
+        help="Precompute static training rays on device; opt-in speed path for fixed cameras.",
+    )
+    parser.add_argument("--cache-train-rays-chunk-size", type=int, default=1 << 20)
+    parser.add_argument(
+        "--cpu-fas-prefetch",
+        action="store_true",
+        help="Opt in to private-generator one-batch CPU FAS prefetch (fixed B4096/static-ray-cache only).",
+    )
+    parser.add_argument("--train-rays-switch-step", type=int, default=None)
+    parser.add_argument("--train-rays-after-switch", type=int, default=None)
+    parser.add_argument("--feature-reweighting-switch-step", type=int, default=None)
+    parser.add_argument("--feature-reweighting-after-switch", type=float, default=None)
     parser.add_argument("--eval-num-rays-per-batch", type=int, default=4096)
     parser.add_argument("--eval-num-rays-per-chunk", type=int, default=2048)
     parser.add_argument("--background-color", choices=("random", "last_sample", "black", "white"), default="black")
@@ -60,6 +79,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--frequency-patch-size", type=int, default=8)
     parser.add_argument("--frequency-stride", type=int, default=8)
     parser.add_argument("--allow-missing-frequency-maps", action="store_true")
+    parser.add_argument(
+        "--independent-rng-streams",
+        action="store_true",
+        help="Opt in to step-addressed pixel/FAS, occupancy, and frequency-grid RNG streams.",
+    )
 
     parser.add_argument("--grid-resolution", type=int, default=128)
     parser.add_argument("--occupancy-grid-levels", type=int, default=1)
@@ -70,6 +94,19 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--fallback-frequency-level", type=float, default=0.0)
     parser.add_argument("--grid-update-interval", type=int, default=1024)
     parser.add_argument("--grid-update-batch-size", type=int, default=2048)
+    parser.add_argument(
+        "--target-num-samples-per-batch",
+        type=int,
+        default=0,
+        help="Dynamic field-point budget; non-positive preserves the historical fixed ray batch.",
+    )
+    parser.add_argument("--target-num-samples-switch-step", type=int, default=None)
+    parser.add_argument("--target-num-samples-after-switch", type=int, default=None)
+    parser.add_argument("--dynamic-rays-ema", type=float, default=0.9)
+    parser.add_argument("--dynamic-rays-start-step", type=int, default=0)
+    parser.add_argument("--dynamic-rays-min", type=int, default=256)
+    parser.add_argument("--dynamic-rays-max", type=int, default=32768)
+    parser.add_argument("--dynamic-rays-change-limit", type=float, default=1.25)
 
     parser.add_argument("--disable-frequency-grid", action="store_true")
     parser.add_argument("--disable-feature-reweighting", action="store_true")
@@ -92,6 +129,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--fas-level-count-alpha", type=float, default=0.0)
     parser.add_argument("--fas-patch-group-size", type=int, default=1)
     parser.add_argument("--fas-max-sampling-level", type=int, default=-1)
+    parser.add_argument(
+        "--fas-consolidate-h2d",
+        action="store_true",
+        help="Preserve FAS RNG order while consolidating selected-cell CPU-to-CUDA copies.",
+    )
 
     parser.add_argument("--hash-features-per-level", type=int, default=2)
     parser.add_argument("--log2-hashmap-size", type=int, default=23)
@@ -100,6 +142,31 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--color-num-layers", type=int, default=2)
     parser.add_argument("--appearance-embedding-dim", type=int, default=0)
     parser.add_argument("--sh-degree", type=int, default=4)
+    parser.add_argument("--tcnn-network-jit", action="store_true")
+    parser.add_argument(
+        "--tcnn-network-jit-scope",
+        choices=("both", "geometry", "color"),
+        default="both",
+        help="TCNN MLP subset affected by initial or scheduled JIT enablement.",
+    )
+    parser.add_argument(
+        "--tcnn-network-jit-switch-step",
+        type=int,
+        default=None,
+        help="Enable the selected TCNN field MLP scope in-process before this trainer update.",
+    )
+    parser.add_argument(
+        "--tcnn-network-jit-second-switch-step",
+        type=int,
+        default=None,
+        help="Enable an additional TCNN field MLP scope at this later trainer update.",
+    )
+    parser.add_argument(
+        "--tcnn-network-jit-second-switch-scope",
+        choices=("both", "geometry", "color"),
+        default=None,
+        help="TCNN MLP subset enabled by the optional second live JIT switch.",
+    )
     parser.add_argument("--fixed-num-samples-per-ray", type=int, default=256)
     parser.add_argument("--max-steps-per-ray", type=int, default=1024)
     parser.add_argument("--adaptive-min-step-size", type=float, default=1e-4)
@@ -108,6 +175,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--adaptive-min-frequency-level", type=float, default=0.0)
     parser.add_argument("--adaptive-max-frequency-level", type=float, default=None)
     parser.add_argument("--adaptive-interval-level-mode", choices=("midpoint", "max3"), default="midpoint")
+    parser.add_argument(
+        "--corrected-arm-allocator",
+        action="store_true",
+        help="Use deterministic minimum-one/largest-remainder ARM capping without tail truncation.",
+    )
     parser.add_argument("--adaptive-warmup-steps", type=int, default=0)
     parser.add_argument("--adaptive-fixed-fallback-samples-per-ray", type=int, default=0)
     parser.add_argument("--transmittance-threshold", type=float, default=0.0)
@@ -126,6 +198,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--occupancy-dilation-radius", type=int, default=0)
     parser.add_argument("--occupancy-binary-warmup-steps", type=int, default=4096)
     parser.add_argument("--occupancy-fixed-fallback-samples-per-ray", type=int, default=0)
+    parser.add_argument("--stable-occupancy-reduction", action="store_true")
+    parser.add_argument(
+        "--occupancy-diagnostics",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help="Collect occupancy update metrics; --no-occupancy-diagnostics removes their hot-path reductions.",
+    )
     parser.add_argument("--use-gradient-scaling", action="store_true")
     parser.add_argument("--distortion-loss-mult", type=float, default=0.01)
     parser.add_argument("--depth-loss-mult", type=float, default=0.001)
@@ -137,6 +216,31 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--no-load-optimizers", dest="load_optimizers", action="store_false")
     parser.add_argument("--fields-lr", type=float, default=None)
     parser.add_argument("--fields-lr-final", type=float, default=None)
+    parser.add_argument("--fields-scheduler-max-steps", type=int, default=None)
+    parser.add_argument(
+        "--grad-scaler-init-scale",
+        type=float,
+        default=None,
+        help="Override AMP GradScaler initial scale; omitted preserves the historical 65536 default.",
+    )
+    parser.add_argument(
+        "--grad-scaler-growth-interval",
+        type=int,
+        default=None,
+        help="Override successful updates between AMP scale growth; omitted preserves 2000.",
+    )
+    parser.add_argument("--fused-adam", action="store_true")
+    parser.add_argument(
+        "--fused-adam-switch-step",
+        type=int,
+        default=None,
+        help="Enable fused Adam in-process before this trainer update, preserving optimizer state.",
+    )
+    parser.add_argument(
+        "--replay-eval-trajectory",
+        action="store_true",
+        help="Replay scheduled eval sampler/RNG side effects without intermediate model eval or renders.",
+    )
     parser.add_argument("--summary-path", type=Path, default=DEFAULT_SUMMARY)
     parser.add_argument("--no-update-summary", dest="update_summary", action="store_false")
     parser.add_argument("--eval-checkpoint", choices=("best", "latest", "artifact", "roi"), default="best")
@@ -190,6 +294,19 @@ def train_command(args: argparse.Namespace) -> List[str]:
     save_interval = str(args.save_interval or args.step_interval)
     enable_frequency_grid = not args.disable_frequency_grid
     enable_fas = enable_frequency_grid and not args.disable_fas
+    if args.cpu_fas_prefetch:
+        if not args.cache_train_rays:
+            raise ValueError("--cpu-fas-prefetch requires --cache-train-rays")
+        if args.train_num_rays_per_batch != 4096:
+            raise ValueError("--cpu-fas-prefetch v1 requires --train-num-rays-per-batch 4096")
+        if not enable_fas:
+            raise ValueError("--cpu-fas-prefetch requires FAS")
+        if (
+            args.train_rays_switch_step is not None
+            or args.target_num_samples_per_batch > 0
+            or args.target_num_samples_switch_step is not None
+        ):
+            raise ValueError("--cpu-fas-prefetch v1 does not support ray-batch or dynamic point-target schedules")
     cmd = [
         "ns-train",
         "lookcloser",
@@ -232,6 +349,90 @@ def train_command(args: argparse.Namespace) -> List[str]:
         cmd.extend(["--optimizers.fields.optimizer.lr", str(args.fields_lr)])
     if args.fields_lr_final is not None:
         cmd.extend(["--optimizers.fields.scheduler.lr-final", str(args.fields_lr_final)])
+    if args.fields_scheduler_max_steps is not None:
+        cmd.extend(["--optimizers.fields.scheduler.max-steps", str(args.fields_scheduler_max_steps)])
+    if args.grad_scaler_init_scale is not None:
+        if not math.isfinite(args.grad_scaler_init_scale) or args.grad_scaler_init_scale <= 0:
+            raise ValueError("--grad-scaler-init-scale must be finite and positive")
+        cmd.extend(["--grad-scaler-init-scale", str(args.grad_scaler_init_scale)])
+    if args.grad_scaler_growth_interval is not None:
+        if args.grad_scaler_growth_interval <= 0:
+            raise ValueError("--grad-scaler-growth-interval must be positive")
+        cmd.extend(["--grad-scaler-growth-interval", str(args.grad_scaler_growth_interval)])
+    if args.fused_adam and args.fused_adam_switch_step is not None:
+        raise ValueError("--fused-adam and --fused-adam-switch-step are mutually exclusive")
+    if args.fused_adam:
+        cmd.extend(["--optimizers.fields.optimizer.fused", "True"])
+    if args.fused_adam_switch_step is not None:
+        cmd.extend(["--fused-adam-switch-step", str(args.fused_adam_switch_step)])
+    if args.replay_eval_trajectory:
+        cmd.extend(["--replay-eval-trajectory", "True"])
+    if (args.train_rays_switch_step is None) != (args.train_rays_after_switch is None):
+        raise ValueError("--train-rays-switch-step and --train-rays-after-switch must be set together")
+    if args.train_rays_switch_step is not None:
+        cmd.extend(
+            [
+                "--pipeline.train-rays-switch-step",
+                str(args.train_rays_switch_step),
+                "--pipeline.train-rays-after-switch",
+                str(args.train_rays_after_switch),
+            ]
+        )
+    if (args.feature_reweighting_switch_step is None) != (args.feature_reweighting_after_switch is None):
+        raise ValueError(
+            "--feature-reweighting-switch-step and --feature-reweighting-after-switch must be set together"
+        )
+    if args.feature_reweighting_switch_step is not None:
+        cmd.extend(
+            [
+                "--pipeline.feature-reweighting-switch-step",
+                str(args.feature_reweighting_switch_step),
+                "--pipeline.feature-reweighting-after-switch",
+                str(args.feature_reweighting_after_switch),
+            ]
+        )
+    if args.tcnn_network_jit and args.tcnn_network_jit_switch_step is not None:
+        raise ValueError("--tcnn-network-jit and --tcnn-network-jit-switch-step are mutually exclusive")
+    second_jit_switch = (
+        args.tcnn_network_jit_second_switch_step,
+        args.tcnn_network_jit_second_switch_scope,
+    )
+    if (second_jit_switch[0] is None) != (second_jit_switch[1] is None):
+        raise ValueError(
+            "--tcnn-network-jit-second-switch-step and --tcnn-network-jit-second-switch-scope "
+            "must be set together"
+        )
+    if second_jit_switch[0] is not None:
+        if args.tcnn_network_jit_switch_step is None:
+            raise ValueError("A second TCNN network JIT switch requires --tcnn-network-jit-switch-step")
+        if second_jit_switch[0] <= args.tcnn_network_jit_switch_step:
+            raise ValueError("--tcnn-network-jit-second-switch-step must be strictly greater than the first switch")
+    if args.tcnn_network_jit_switch_step is not None:
+        cmd.extend(
+            ["--pipeline.tcnn-network-jit-switch-step", str(args.tcnn_network_jit_switch_step)]
+        )
+    if second_jit_switch[0] is not None:
+        cmd.extend(
+            [
+                "--pipeline.tcnn-network-jit-second-switch-step",
+                str(second_jit_switch[0]),
+                "--pipeline.tcnn-network-jit-second-switch-scope",
+                str(second_jit_switch[1]),
+            ]
+        )
+    if (args.target_num_samples_switch_step is None) != (args.target_num_samples_after_switch is None):
+        raise ValueError(
+            "--target-num-samples-switch-step and --target-num-samples-after-switch must be set together"
+        )
+    if args.target_num_samples_switch_step is not None:
+        cmd.extend(
+            [
+                "--pipeline.target-num-samples-switch-step",
+                str(args.target_num_samples_switch_step),
+                "--pipeline.target-num-samples-after-switch",
+                str(args.target_num_samples_after_switch),
+            ]
+        )
 
     cmd.extend(
         [
@@ -247,6 +448,12 @@ def train_command(args: argparse.Namespace) -> List[str]:
             "none",
             "--pipeline.datamanager.cache-images-type",
             "uint8",
+            "--pipeline.datamanager.cache-train-rays",
+            bool_text(args.cache_train_rays),
+            "--pipeline.datamanager.cache-train-rays-chunk-size",
+            str(args.cache_train_rays_chunk_size),
+            "--pipeline.datamanager.cpu-fas-prefetch",
+            bool_text(args.cpu_fas_prefetch),
             "--pipeline.datamanager.train-num-rays-per-batch",
             str(args.train_num_rays_per_batch),
             "--pipeline.datamanager.eval-num-rays-per-batch",
@@ -281,6 +488,8 @@ def train_command(args: argparse.Namespace) -> List[str]:
             str(args.fas_patch_group_size),
             "--pipeline.datamanager.pixel-sampler.fas-max-sampling-level",
             str(args.fas_max_sampling_level),
+            "--pipeline.datamanager.pixel-sampler.fas-consolidate-h2d",
+            bool_text(args.fas_consolidate_h2d),
             "--pipeline.datamanager.pixel-sampler.patch-size",
             str(args.frequency_patch_size),
             "--pipeline.datamanager.pixel-sampler.stride",
@@ -297,6 +506,18 @@ def train_command(args: argparse.Namespace) -> List[str]:
             str(args.frequency_patch_size),
             "--pipeline.frequency-stride",
             str(args.frequency_stride),
+            "--pipeline.target-num-samples-per-batch",
+            str(args.target_num_samples_per_batch),
+            "--pipeline.dynamic-rays-ema",
+            str(args.dynamic_rays_ema),
+            "--pipeline.dynamic-rays-start-step",
+            str(args.dynamic_rays_start_step),
+            "--pipeline.dynamic-rays-min",
+            str(args.dynamic_rays_min),
+            "--pipeline.dynamic-rays-max",
+            str(args.dynamic_rays_max),
+            "--pipeline.dynamic-rays-change-limit",
+            str(args.dynamic_rays_change_limit),
             "--pipeline.model.eval-num-rays-per-chunk",
             str(args.eval_num_rays_per_chunk),
             "--pipeline.model.background-color",
@@ -337,6 +558,10 @@ def train_command(args: argparse.Namespace) -> List[str]:
             str(args.appearance_embedding_dim),
             "--pipeline.model.sh-degree",
             str(args.sh_degree),
+            "--pipeline.model.tcnn-network-jit",
+            bool_text(args.tcnn_network_jit),
+            "--pipeline.model.tcnn-network-jit-scope",
+            args.tcnn_network_jit_scope,
             "--pipeline.model.enable-adaptive-ray-marching",
             bool_text(not args.disable_adaptive_ray_marching),
             "--pipeline.model.ray-sampling-mode",
@@ -353,6 +578,8 @@ def train_command(args: argparse.Namespace) -> List[str]:
             str(args.adaptive_min_frequency_level),
             "--pipeline.model.adaptive-interval-level-mode",
             args.adaptive_interval_level_mode,
+            "--pipeline.model.corrected-arm-allocator",
+            bool_text(args.corrected_arm_allocator),
             "--pipeline.model.adaptive-warmup-steps",
             str(args.adaptive_warmup_steps),
             "--pipeline.model.adaptive-fixed-fallback-samples-per-ray",
@@ -385,6 +612,8 @@ def train_command(args: argparse.Namespace) -> List[str]:
             str(args.occupancy_binary_warmup_steps),
             "--pipeline.model.occupancy-fixed-fallback-samples-per-ray",
             str(args.occupancy_fixed_fallback_samples_per_ray),
+            "--pipeline.model.stable-occupancy-reduction",
+            bool_text(args.stable_occupancy_reduction),
             "--pipeline.model.use-gradient-scaling",
             bool_text(args.use_gradient_scaling),
             "--pipeline.model.distortion-loss-mult",
@@ -395,6 +624,21 @@ def train_command(args: argparse.Namespace) -> List[str]:
             str(args.depth_loss_steps),
         ]
     )
+    if args.independent_rng_streams:
+        cmd.extend(
+            [
+                "--pipeline.training-seed",
+                str(args.seed),
+                "--pipeline.independent-rng-streams",
+                "True",
+                "--pipeline.model.training-seed",
+                str(args.seed),
+                "--pipeline.model.independent-rng-streams",
+                "True",
+            ]
+        )
+    if args.occupancy_diagnostics is False:
+        cmd.extend(["--pipeline.model.occupancy-diagnostics", "False"])
     if args.max_res is not None:
         cmd.extend(["--pipeline.model.max-res", str(args.max_res)])
     if args.render_step_size is not None:
@@ -541,23 +785,33 @@ def stop_process(proc: subprocess.Popen) -> None:
             proc.wait()
 
 
-def eval_config_for_step(config: Path, checkpoint: Path, eval_num_rays_per_chunk: Optional[int]) -> Path:
+def eval_config_for_step(
+    config: Path,
+    checkpoint: Path,
+    eval_num_rays_per_chunk: Optional[int],
+    *,
+    cache_train_rays: Optional[bool] = None,
+    filename_tag: Optional[str] = None,
+) -> Path:
     step = checkpoint_step(checkpoint)
-    eval_config = config.with_name(f"eval_config_step_{step}.yml")
-    text = config.read_text(encoding="utf-8")
-    if re.search(r"^load_step:", text, flags=re.MULTILINE):
-        text = re.sub(r"^load_step:.*$", f"load_step: {step}", text, count=1, flags=re.MULTILINE)
-    else:
-        text = text.replace("load_scheduler:", f"load_step: {step}\nload_scheduler:", 1)
+    if filename_tag is not None and re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{0,63}", filename_tag) is None:
+        raise ValueError(f"Unsafe eval config filename tag: {filename_tag!r}")
+    tag = f"_{filename_tag}" if filename_tag is not None else ""
+    eval_config = config.with_name(f"eval_config{tag}_step_{step}.yml")
+    loaded = yaml.load(config.read_text(encoding="utf-8"), Loader=yaml.Loader)
+    loaded.load_dir = None
+    # Historical eval_utils reconstructs load_dir from the run config and
+    # selects by load_step; it does not honor TrainerConfig.load_checkpoint.
+    # Record both so old and patched evaluators bind the same exact file.
+    loaded.load_step = step
+    loaded.load_checkpoint = checkpoint
     if eval_num_rays_per_chunk is not None:
-        text = re.sub(
-            r"^(\s*eval_num_rays_per_chunk:\s*).*$",
-            rf"\g<1>{eval_num_rays_per_chunk}",
-            text,
-            count=1,
-            flags=re.MULTILINE,
-        )
-    eval_config.write_text(text, encoding="utf-8")
+        loaded.pipeline.model.eval_num_rays_per_chunk = int(eval_num_rays_per_chunk)
+    if cache_train_rays is not None:
+        loaded.pipeline.datamanager.cache_train_rays = bool(cache_train_rays)
+        if not cache_train_rays and hasattr(loaded.pipeline.datamanager, "cpu_fas_prefetch"):
+            loaded.pipeline.datamanager.cpu_fas_prefetch = False
+    eval_config.write_text(yaml.dump(loaded), encoding="utf-8")
     return eval_config
 
 
@@ -572,8 +826,11 @@ def run_final_eval(
     output_json = run_path / f"eval_{eval_label}_{checkpoint.stem}.json"
     render_dir = run_path / f"renders_{eval_label}_{checkpoint.stem}"
     log_path = run_path / "eval_stdout.log"
+    ns_eval = Path(sys.executable).with_name("ns-eval")
+    if not ns_eval.is_file():
+        raise FileNotFoundError(f"ns-eval was not found beside the active Python interpreter: {ns_eval}")
     cmd = [
-        "ns-eval",
+        str(ns_eval),
         "--load-config",
         str(eval_config),
         "--output-path",
@@ -739,6 +996,73 @@ def artifact_roi_all_rois(args: argparse.Namespace) -> bool:
     return str(args.artifact_roi_crop_names or "").strip().lower() == "all"
 
 
+def _run_artifact_view(
+    render_dir: Path,
+    artifact_dir: Path,
+    render_name: str,
+    args: argparse.Namespace,
+) -> Dict[str, object]:
+    """Score one rendered view; callers may safely execute independent views concurrently."""
+
+    view_start = time.monotonic()
+    render_file = render_dir / render_name
+    log_path = artifact_dir / f"{render_file.stem}_artifact_stdout.log"
+    if not render_file.exists():
+        return {
+            "status": "missing_render",
+            "render_name": render_name,
+            "render_file": str(render_file),
+            "artifact_seconds": time.monotonic() - view_start,
+        }
+    out_prefix = artifact_dir / render_file.stem
+    cmd = [
+        sys.executable,
+        str(ARTIFACT_DETECTOR),
+        str(render_file),
+        "--panels",
+        "2",
+        "--gt",
+        "0",
+        "--cand",
+        "1",
+        "--crop-top",
+        str(args.artifact_crop_top),
+        "--crop-bottom",
+        str(args.artifact_crop_bottom),
+        "--crop-left",
+        str(args.artifact_crop_left),
+        "--crop-right",
+        str(args.artifact_crop_right),
+        "--preset",
+        args.artifact_detector_preset,
+        "--out",
+        str(out_prefix),
+    ]
+    try:
+        proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, check=False)
+        log_path.write_text(proc.stdout, encoding="utf-8")
+        view = parse_artifact_stdout(proc.stdout)
+        view.update(
+            {
+                "status": "complete" if proc.returncode == 0 and "artifact_score" in view else "failed",
+                "returncode": proc.returncode,
+                "render_name": render_name,
+                "render_file": str(render_file),
+                "artifact_log": str(log_path),
+                "artifact_seconds": time.monotonic() - view_start,
+            }
+        )
+        return view
+    except Exception as exc:  # noqa: BLE001
+        return {
+            "status": "error",
+            "error": str(exc),
+            "render_name": render_name,
+            "render_file": str(render_file),
+            "artifact_seconds": time.monotonic() - view_start,
+        }
+
+
 def run_artifact_detector(run_path: Path, eval_data: Dict[str, object], args: argparse.Namespace) -> Dict[str, object]:
     artifact_start = time.monotonic()
     render_dir = Path(str(eval_data["render_dir"]))
@@ -746,72 +1070,32 @@ def run_artifact_detector(run_path: Path, eval_data: Dict[str, object], args: ar
         return {"status": "disabled", "artifact_seconds": 0.0}
     artifact_dir = run_path / f"artifact_{render_dir.name}"
     artifact_dir.mkdir(parents=True, exist_ok=True)
-    per_view: List[Dict[str, object]] = []
-    for render_name in artifact_render_names(args):
-        view_start = time.monotonic()
-        render_file = render_dir / render_name
-        log_path = artifact_dir / f"{render_file.stem}_artifact_stdout.log"
-        if not render_file.exists():
-            per_view.append(
-                {
-                    "status": "missing_render",
-                    "render_name": render_name,
-                    "render_file": str(render_file),
-                    "artifact_seconds": time.monotonic() - view_start,
-                }
+    render_names = artifact_render_names(args)
+    artifact_gate_only = bool(getattr(args, "artifact_gate_only", False))
+    if artifact_gate_only:
+        if len(render_names) != 3 or len(set(render_names)) != 3:
+            raise ValueError("artifact_gate_only requires exactly three unique render names")
+        # executor.map preserves input order even when subprocesses finish out of order.
+        with ThreadPoolExecutor(max_workers=3, thread_name_prefix="artifact-view") as executor:
+            per_view = list(
+                executor.map(
+                    lambda name: _run_artifact_view(render_dir, artifact_dir, name, args),
+                    render_names,
+                )
             )
-            continue
-        out_prefix = artifact_dir / render_file.stem
-        cmd = [
-            sys.executable,
-            str(ARTIFACT_DETECTOR),
-            str(render_file),
-            "--panels",
-            "2",
-            "--gt",
-            "0",
-            "--cand",
-            "1",
-            "--crop-top",
-            str(args.artifact_crop_top),
-            "--crop-bottom",
-            str(args.artifact_crop_bottom),
-            "--crop-left",
-            str(args.artifact_crop_left),
-            "--crop-right",
-            str(args.artifact_crop_right),
-            "--preset",
-            args.artifact_detector_preset,
-            "--out",
-            str(out_prefix),
+    else:
+        per_view = [
+            _run_artifact_view(render_dir, artifact_dir, render_name, args)
+            for render_name in render_names
         ]
-        try:
-            proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, check=False)
-            log_path.write_text(proc.stdout, encoding="utf-8")
-            view = parse_artifact_stdout(proc.stdout)
-            view.update(
-                {
-                    "status": "complete" if proc.returncode == 0 and "artifact_score" in view else "failed",
-                    "returncode": proc.returncode,
-                    "render_name": render_name,
-                    "render_file": str(render_file),
-                    "artifact_log": str(log_path),
-                    "artifact_seconds": time.monotonic() - view_start,
-                }
-            )
-        except Exception as exc:  # noqa: BLE001
-            view = {
-                "status": "error",
-                "error": str(exc),
-                "render_name": render_name,
-                "render_file": str(render_file),
-                "artifact_seconds": time.monotonic() - view_start,
-            }
-        per_view.append(view)
     completed = [view for view in per_view if view.get("status") == "complete" and view.get("artifact_score") is not None]
     missing = [view for view in per_view if view.get("status") == "missing_render"]
+    if artifact_gate_only:
+        aggregate_status = "complete" if len(completed) == len(per_view) else ("missing_render" if missing else "failed")
+    else:
+        aggregate_status = "complete" if completed else ("missing_render" if missing else "failed")
     result = {
-        "status": "complete" if completed else ("missing_render" if missing else "failed"),
+        "status": aggregate_status,
         "artifact_score": max(float(view["artifact_score"]) for view in completed) if completed else None,
         "artifact_score_mean": sum(float(view["artifact_score"]) for view in completed) / len(completed) if completed else None,
         "serious_artifact_score": (
@@ -871,8 +1155,9 @@ def run_roi_artifact_scorer(
         str(args.artifact_roi_drop_border_components),
         "--preset",
         args.artifact_detector_preset,
-        "--write-images",
     ]
+    if not bool(getattr(args, "artifact_gate_only", False)):
+        cmd.append("--write-images")
     if artifact_roi_all_rois(args):
         cmd.append("--all-rois")
     else:
@@ -972,6 +1257,15 @@ def summarize_params(args: argparse.Namespace) -> str:
         "center_method": args.center_method,
         "orientation_method": args.orientation_method,
         "train_num_rays_per_batch": args.train_num_rays_per_batch,
+        "cache_train_rays": args.cache_train_rays,
+        "cache_train_rays_chunk_size": args.cache_train_rays_chunk_size,
+        "train_rays_switch_step": args.train_rays_switch_step,
+        "train_rays_after_switch": args.train_rays_after_switch,
+        "feature_reweighting_switch_step": args.feature_reweighting_switch_step,
+        "feature_reweighting_after_switch": args.feature_reweighting_after_switch,
+        "target_num_samples_per_batch": args.target_num_samples_per_batch,
+        "target_num_samples_switch_step": args.target_num_samples_switch_step,
+        "target_num_samples_after_switch": args.target_num_samples_after_switch,
         "eval_num_rays_per_batch": args.eval_num_rays_per_batch,
         "eval_num_rays_per_chunk": args.eval_num_rays_per_chunk,
         "step_interval": args.step_interval,
@@ -1002,9 +1296,20 @@ def summarize_params(args: argparse.Namespace) -> str:
         "load_optimizers": args.load_optimizers,
         "fields_lr": args.fields_lr,
         "fields_lr_final": args.fields_lr_final,
+        "fields_scheduler_max_steps": args.fields_scheduler_max_steps,
+        "grad_scaler_init_scale": args.grad_scaler_init_scale,
+        "grad_scaler_growth_interval": args.grad_scaler_growth_interval,
+        "fused_adam": args.fused_adam,
+        "fused_adam_switch_step": args.fused_adam_switch_step,
+        "replay_eval_trajectory": args.replay_eval_trajectory,
         "geo_num_layers": args.geo_num_layers,
         "color_num_layers": args.color_num_layers,
         "appearance_embedding_dim": args.appearance_embedding_dim,
+        "tcnn_network_jit": args.tcnn_network_jit,
+        "tcnn_network_jit_scope": args.tcnn_network_jit_scope,
+        "tcnn_network_jit_switch_step": args.tcnn_network_jit_switch_step,
+        "tcnn_network_jit_second_switch_step": args.tcnn_network_jit_second_switch_step,
+        "tcnn_network_jit_second_switch_scope": args.tcnn_network_jit_second_switch_scope,
         "enable_frequency_grid": not args.disable_frequency_grid,
         "enable_feature_reweighting": not args.disable_feature_reweighting,
         "feature_reweighting_strength": args.feature_reweighting_strength,
@@ -1021,6 +1326,7 @@ def summarize_params(args: argparse.Namespace) -> str:
         "fas_level_count_alpha": args.fas_level_count_alpha,
         "fas_patch_group_size": args.fas_patch_group_size,
         "fas_max_sampling_level": args.fas_max_sampling_level,
+        "fas_consolidate_h2d": args.fas_consolidate_h2d,
         "near_plane": args.near_plane,
         "far_plane": args.far_plane,
         "alpha_thre": args.alpha_thre,
@@ -1036,6 +1342,7 @@ def summarize_params(args: argparse.Namespace) -> str:
         "occupancy_dilation_radius": args.occupancy_dilation_radius,
         "occupancy_binary_warmup_steps": args.occupancy_binary_warmup_steps,
         "occupancy_fixed_fallback_samples_per_ray": args.occupancy_fixed_fallback_samples_per_ray,
+        "stable_occupancy_reduction": args.stable_occupancy_reduction,
         "adaptive_coarse_step_size": args.adaptive_coarse_step_size,
         "adaptive_min_step_size": args.adaptive_min_step_size,
         "adaptive_max_step_size": args.adaptive_max_step_size,
@@ -1049,6 +1356,10 @@ def summarize_params(args: argparse.Namespace) -> str:
         "transmittance_threshold": args.transmittance_threshold,
         "use_gradient_scaling": args.use_gradient_scaling,
     }
+    if args.independent_rng_streams:
+        params["independent_rng_streams"] = True
+    if args.occupancy_diagnostics is not None:
+        params["occupancy_diagnostics"] = args.occupancy_diagnostics
     return json.dumps(params, sort_keys=True)
 
 

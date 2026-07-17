@@ -60,6 +60,8 @@ class AdamOptimizerConfig(OptimizerConfig):
     _target: Type = torch.optim.Adam
     weight_decay: float = 0
     """The weight decay to use."""
+    fused: Optional[bool] = None
+    """Use PyTorch's fused CUDA Adam implementation when explicitly enabled."""
 
 
 @dataclass
@@ -192,6 +194,65 @@ class Optimizers:
             lr = scheduler.get_last_lr()[0]
             writer.put_scalar(name=f"learning_rate/{param_group_name}", scalar=lr, step=step)
 
+    def set_adam_fused(self, fused: bool, param_group_names: Optional[List[str]] = None) -> None:
+        """Change the Adam implementation without rebuilding the optimizer.
+
+        Parameters, moment tensors, step counts, and scheduler references remain
+        attached to the same optimizer object. Enabling fused Adam requires CUDA
+        parameters and moves only the scalar ``step`` tensors to their parameter
+        device, as required by PyTorch's fused implementation.
+        """
+
+        names = list(self.optimizers) if param_group_names is None else list(param_group_names)
+        missing = [name for name in names if name not in self.optimizers]
+        if missing:
+            raise KeyError(f"Unknown optimizer parameter groups: {missing}")
+
+        # Validate every requested group before mutating any optimizer.
+        for name in names:
+            optimizer = self.optimizers[name]
+            if not isinstance(optimizer, torch.optim.Adam):
+                raise TypeError(f"Optimizer group '{name}' is not torch.optim.Adam")
+            if fused:
+                for group in optimizer.param_groups:
+                    if group.get("differentiable") is True:
+                        raise RuntimeError("fused Adam does not support differentiable=True")
+                    if group.get("foreach") is True:
+                        raise ValueError("fused Adam cannot be combined with foreach=True")
+                    non_cuda = [parameter.device for parameter in group["params"] if parameter.device.type != "cuda"]
+                    if non_cuda:
+                        raise RuntimeError(
+                            f"fused Adam requires CUDA parameters; group '{name}' contains {non_cuda[0]}"
+                        )
+
+        for name in names:
+            optimizer = self.optimizers[name]
+            optimizer.defaults["fused"] = fused
+            for group in optimizer.param_groups:
+                group["fused"] = fused
+            self._sync_adam_fused_runtime(optimizer)
+
+    @staticmethod
+    def _sync_adam_fused_runtime(optimizer: torch.optim.Adam) -> None:
+        """Synchronize non-state-dict runtime attributes required by fused Adam."""
+
+        fused_groups = [group.get("fused") is True for group in optimizer.param_groups]
+        if any(fused_groups) and not all(fused_groups):
+            raise ValueError("An Adam optimizer cannot mix fused and non-fused parameter groups")
+        if not any(fused_groups):
+            if hasattr(optimizer, "_step_supports_amp_scaling"):
+                delattr(optimizer, "_step_supports_amp_scaling")
+            return
+
+        # Adam.__init__(fused=True) sets this non-serialized attribute. GradScaler
+        # uses it to pass grad_scale/found_inf directly to the fused CUDA kernel.
+        optimizer._step_supports_amp_scaling = True  # type: ignore[attr-defined]
+        for group in optimizer.param_groups:
+            for parameter in group["params"]:
+                step = optimizer.state.get(parameter, {}).get("step")
+                if isinstance(step, torch.Tensor) and step.device != parameter.device:
+                    optimizer.state[parameter]["step"] = step.to(parameter.device)
+
     def load_optimizers(self, loaded_state: Dict[str, Any]) -> None:
         """Helper to load the optimizer state from previous checkpoint
 
@@ -199,7 +260,19 @@ class Optimizers:
             loaded_state: the state from the previous checkpoint
         """
         for k, v in loaded_state.items():
-            self.optimizers[k].load_state_dict(v)
+            optimizer = self.optimizers[k]
+            runtime_fused = [group.get("fused") for group in optimizer.param_groups]
+            optimizer.load_state_dict(v)
+            # Optimizer state_dicts include param-group implementation flags.
+            # When explicitly fused Adam consumes a historical foreach
+            # checkpoint, preserve fused=True and migrate its scalar step state
+            # to the parameter device. Moment tensors are cast during load.
+            for group, fused in zip(optimizer.param_groups, runtime_fused):
+                if fused is not True:
+                    continue
+                group["fused"] = True
+            if isinstance(optimizer, torch.optim.Adam):
+                self._sync_adam_fused_runtime(optimizer)
 
     def load_schedulers(self, loaded_state: Dict[str, Any]) -> None:
         """Helper to load the scheduler state from previous checkpoint
