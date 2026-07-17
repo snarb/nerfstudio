@@ -192,3 +192,6 @@ camera_paths/
 .pixi
 /third_party
 **/.idea/
+
+# Local CUDA build toolchain used for Blackwell experiments
+/.cuda128-toolchain/

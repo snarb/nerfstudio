@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "status": "complete_rejected_as_late_quality_recipe",
+  "source_campaign": "/home/brans/lookcloser_leader_speed_runs/campaigns/speed_b8192_seed42_v1/campaign.json",
+  "source_checkpoint": "/home/brans/lookcloser_leader_speed_runs/speed_b8192_seed42_v1_A_fw03/lookcloser/20260715_084607/nerfstudio_models/step-000045564.ckpt",
+  "seed": 42,
+  "additional_updates": 1000,
+  "target_step": 46564,
+  "gates": {
+    "psnr_min": 29.617964,
+    "ssim_min": 0.66845,
+    "lpips_max": 0.231135
+  },
+  "variants": [
+    {
+      "name": "lr1_load",
+      "lr_multiplier": 1.0,
+      "reset_adam": false,
+      "psnr": 29.7390,
+      "ssim": 0.669868,
+      "lpips": 0.231192,
+      "numeric_pass": false,
+      "run_dir": "/home/brans/lookcloser_leader_speed_runs/speed_b8192_diag_lr1_load/lookcloser/20260715_101000"
+    },
+    {
+      "name": "lr1_reset",
+      "lr_multiplier": 1.0,
+      "reset_adam": true,
+      "psnr": 29.744841,
+      "ssim": 0.669573,
+      "lpips": 0.230989,
+      "numeric_pass": true,
+      "automatic_pass": true,
+      "significant_artifacts": 0,
+      "artifact_views_scored": 3,
+      "serious_roi_artifacts": 0,
+      "roi_count": 10,
+      "strict_detail_pass": false,
+      "strict_detail_rois_passed": ["tangled_cable_holes_eval2"],
+      "run_dir": "/home/brans/lookcloser_leader_speed_runs/speed_b8192_diag_lr1_reset/lookcloser/20260715_101001"
+    },
+    {
+      "name": "lr2_load",
+      "lr_multiplier": 2.0,
+      "reset_adam": false,
+      "psnr": 29.7270,
+      "ssim": 0.668306,
+      "lpips": 0.230935,
+      "numeric_pass": false,
+      "run_dir": "/home/brans/lookcloser_leader_speed_runs/speed_b8192_diag_lr2_load/lookcloser/20260715_102000"
+    },
+    {
+      "name": "lr2_reset",
+      "lr_multiplier": 2.0,
+      "reset_adam": true,
+      "psnr": 29.729460,
+      "ssim": 0.669264,
+      "lpips": 0.230732,
+      "numeric_pass": true,
+      "automatic_pass": true,
+      "significant_artifacts": 0,
+      "artifact_views_scored": 3,
+      "serious_roi_artifacts": 0,
+      "roi_count": 10,
+      "strict_detail_pass": false,
+      "strict_detail_rois_passed": ["tangled_cable_holes_eval2"],
+      "run_dir": "/home/brans/lookcloser_leader_speed_runs/speed_b8192_diag_lr2_reset/lookcloser/20260715_102001"
+    },
+    {
+      "name": "lr4_load",
+      "lr_multiplier": 4.0,
+      "reset_adam": false,
+      "psnr": 29.6425,
+      "ssim": 0.668945,
+      "lpips": 0.234514,
+      "numeric_pass": false,
+      "run_dir": "/home/brans/lookcloser_leader_speed_runs/speed_b8192_diag_lr4_load/lookcloser/20260715_101002"
+    },
+    {
+      "name": "lr4_reset",
+      "lr_multiplier": 4.0,
+      "reset_adam": true,
+      "psnr": 29.6578,
+      "ssim": 0.666544,
+      "lpips": 0.233723,
+      "numeric_pass": false,
+      "run_dir": "/home/brans/lookcloser_leader_speed_runs/speed_b8192_diag_lr4_reset/lookcloser/20260715_101003"
+    }
+  ],
+  "conclusion": "Large late LR kicks are harmful. Adam reset has a small benefit, and LR2/reset passes aggregate numeric and automatic gates, but late forks fail the frozen micro-detail comparator. Screen moderate LR scaling from scratch."
+}

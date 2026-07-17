@@ -1,0 +1,675 @@
+{
+  "campaigns": [
+    {
+      "accepted_candidate": null,
+      "adaptive_points_legacy": 259835319470,
+      "campaign": "leader_stableocc_S0_seed42",
+      "evaluations": {
+        "106316": {
+          "adaptive_points_legacy": 259835319470,
+          "lpips": 0.212544,
+          "psnr": 29.8666,
+          "ssim": 0.66714,
+          "total_points_estimated": 264130286766
+        },
+        "15188": {
+          "adaptive_points_legacy": 18211315570,
+          "lpips": 0.357641,
+          "psnr": 28.7819,
+          "ssim": 0.647596,
+          "total_points_estimated": 22506282866
+        },
+        "30376": {
+          "adaptive_points_legacy": 52633465070,
+          "lpips": 0.291537,
+          "psnr": 29.4196,
+          "ssim": 0.660633,
+          "total_points_estimated": 56928432366
+        },
+        "45564": {
+          "adaptive_points_legacy": 91055519670,
+          "lpips": 0.260964,
+          "psnr": 29.7248,
+          "ssim": 0.668729,
+          "total_points_estimated": 95350486966
+        },
+        "60752": {
+          "adaptive_points_legacy": 131589365670,
+          "lpips": 0.243945,
+          "psnr": 29.8183,
+          "ssim": 0.669892,
+          "total_points_estimated": 135884332966
+        },
+        "75940": {
+          "adaptive_points_legacy": 173478990170,
+          "lpips": 0.23383,
+          "psnr": 29.8855,
+          "ssim": 0.673041,
+          "total_points_estimated": 177773957466
+        },
+        "91128": {
+          "adaptive_points_legacy": 216286701570,
+          "lpips": 0.220189,
+          "psnr": 29.8551,
+          "ssim": 0.672587,
+          "total_points_estimated": 220581668866
+        }
+      },
+      "fixed_warmup_points": 4294967296,
+      "latest_step": 106316,
+      "manifest": "/home/brans/lookcloser_leader_repro_runs/campaigns/leader_stableocc_S0_seed42/campaign.json",
+      "seed": 42,
+      "seed_policy": "explicit",
+      "status": "complete",
+      "total_point_samples_estimated": 264130286766
+    },
+    {
+      "accepted_candidate": {
+        "artifacts": {
+          "artifact_dir": "/home/brans/lookcloser_leader_repro_runs/leader_stableocc_S1_seed42_A_fw03/lookcloser/20260715_005006/artifact_renders_candidate_step-000091128",
+          "roi_count": 10,
+          "roi_json": "/home/brans/lookcloser_leader_repro_runs/leader_stableocc_S1_seed42_A_fw03/lookcloser/20260715_005006/artifact_renders_candidate_step-000091128/roi_scores/roi_artifact_scores.json",
+          "roi_serious_count": 0,
+          "serious_view_count": 0,
+          "significant_artifact_count": 0,
+          "views": [
+            {
+              "artifact_count": 0,
+              "artifact_score": 0.0,
+              "largest_area": 0,
+              "log": "/home/brans/lookcloser_leader_repro_runs/leader_stableocc_S1_seed42_A_fw03/lookcloser/20260715_005006/artifact_renders_candidate_step-000091128/eval_img_0000_artifact_stdout.log",
+              "serious": false,
+              "status": "complete"
+            },
+            {
+              "artifact_count": 0,
+              "artifact_score": 0.0,
+              "largest_area": 0,
+              "log": "/home/brans/lookcloser_leader_repro_runs/leader_stableocc_S1_seed42_A_fw03/lookcloser/20260715_005006/artifact_renders_candidate_step-000091128/eval_img_0001_artifact_stdout.log",
+              "serious": false,
+              "status": "complete"
+            },
+            {
+              "artifact_count": 0,
+              "artifact_score": 0.0,
+              "largest_area": 0,
+              "log": "/home/brans/lookcloser_leader_repro_runs/leader_stableocc_S1_seed42_A_fw03/lookcloser/20260715_005006/artifact_renders_candidate_step-000091128/eval_img_0002_artifact_stdout.log",
+              "serious": false,
+              "status": "complete"
+            }
+          ],
+          "views_scored": 3
+        },
+        "automatic_pass": true,
+        "checkpoint": "/home/brans/lookcloser_leader_repro_runs/leader_stableocc_S1_seed42_A_fw03/lookcloser/20260715_005006/nerfstudio_models/step-000091128.ckpt",
+        "checkpoint_sha256": "3ba4472630d6332f60c58bd03a09a27894bca915139f9eee81b004ebf144a930",
+        "detail": {
+          "reference_comparison": {
+            "pass": false,
+            "rois": [
+              {
+                "crop": "stand_eval0",
+                "delta_lpips": -0.005838304758071899,
+                "delta_psnr": -0.03881072998046875,
+                "delta_ssim": -0.0010833740234375,
+                "pass": false
+              },
+              {
+                "crop": "thin_pipe_eval1",
+                "delta_lpips": -0.0068227797746658325,
+                "delta_psnr": 0.22258567810058594,
+                "delta_ssim": 0.0022734403610229492,
+                "pass": true
+              },
+              {
+                "crop": "stand_label_eval2",
+                "delta_lpips": 0.002525418996810913,
+                "delta_psnr": 0.20632553100585938,
+                "delta_ssim": 0.004420757293701172,
+                "pass": false
+              },
+              {
+                "crop": "tangled_cable_holes_eval2",
+                "delta_lpips": -0.0019464939832687378,
+                "delta_psnr": 0.04870414733886719,
+                "delta_ssim": 0.002008378505706787,
+                "pass": true
+              },
+              {
+                "crop": "fingers_eval2",
+                "delta_lpips": -0.005851417779922485,
+                "delta_psnr": 0.3427734375,
+                "delta_ssim": 0.005808711051940918,
+                "pass": true
+              }
+            ]
+          },
+          "render_dir": "/home/brans/lookcloser_leader_repro_runs/leader_stableocc_S1_seed42_A_fw03/lookcloser/20260715_005006/renders_candidate_step-000091128",
+          "rois": [
+            {
+              "bbox_xyxy": [
+                300,
+                0,
+                650,
+                650
+              ],
+              "crop": "stand_eval0",
+              "eval_idx": 0,
+              "lpips": 0.13617759943008423,
+              "psnr": 29.4356689453125,
+              "ssim": 0.7176336646080017
+            },
+            {
+              "bbox_xyxy": [
+                250,
+                95,
+                1010,
+                310
+              ],
+              "crop": "thin_pipe_eval1",
+              "eval_idx": 1,
+              "lpips": 0.0972226932644844,
+              "psnr": 30.663841247558594,
+              "ssim": 0.7845504283905029
+            },
+            {
+              "bbox_xyxy": [
+                60,
+                450,
+                290,
+                900
+              ],
+              "crop": "stand_label_eval2",
+              "eval_idx": 2,
+              "lpips": 0.09462036937475204,
+              "psnr": 30.812292098999023,
+              "ssim": 0.8456052541732788
+            },
+            {
+              "bbox_xyxy": [
+                0,
+                130,
+                300,
+                500
+              ],
+              "crop": "tangled_cable_holes_eval2",
+              "eval_idx": 2,
+              "lpips": 0.10376855731010437,
+              "psnr": 30.60504913330078,
+              "ssim": 0.79869145154953
+            },
+            {
+              "bbox_xyxy": [
+                980,
+                300,
+                1250,
+                550
+              ],
+              "crop": "fingers_eval2",
+              "eval_idx": 2,
+              "lpips": 0.07221563160419464,
+              "psnr": 31.30883026123047,
+              "ssim": 0.8107559084892273
+            }
+          ]
+        },
+        "eval_json": "/home/brans/lookcloser_leader_repro_runs/leader_stableocc_S1_seed42_A_fw03/lookcloser/20260715_005006/eval_candidate_step-000091128.json",
+        "metrics": {
+          "lpips": 0.21945539116859436,
+          "psnr": 29.84014320373535,
+          "ssim": 0.6692031025886536
+        },
+        "numeric_pass": true,
+        "render_dir": "/home/brans/lookcloser_leader_repro_runs/leader_stableocc_S1_seed42_A_fw03/lookcloser/20260715_005006/renders_candidate_step-000091128"
+      },
+      "adaptive_points_legacy": 257053358820,
+      "campaign": "leader_stableocc_S1_seed42",
+      "evaluations": {
+        "106316": {
+          "adaptive_points_legacy": 257053358820,
+          "lpips": 0.213476,
+          "psnr": 29.8175,
+          "ssim": 0.667386,
+          "total_points_estimated": 261348326116
+        },
+        "15188": {
+          "adaptive_points_legacy": 18035199020,
+          "lpips": 0.361598,
+          "psnr": 28.748,
+          "ssim": 0.6459,
+          "total_points_estimated": 22330166316
+        },
+        "30376": {
+          "adaptive_points_legacy": 52210990620,
+          "lpips": 0.295134,
+          "psnr": 29.4546,
+          "ssim": 0.660666,
+          "total_points_estimated": 56505957916
+        },
+        "45564": {
+          "adaptive_points_legacy": 90218005820,
+          "lpips": 0.263583,
+          "psnr": 29.6927,
+          "ssim": 0.667343,
+          "total_points_estimated": 94512973116
+        },
+        "60752": {
+          "adaptive_points_legacy": 130339886520,
+          "lpips": 0.245372,
+          "psnr": 29.7795,
+          "ssim": 0.66939,
+          "total_points_estimated": 134634853816
+        },
+        "75940": {
+          "adaptive_points_legacy": 171770167920,
+          "lpips": 0.232661,
+          "psnr": 29.8455,
+          "ssim": 0.671617,
+          "total_points_estimated": 176065135216
+        },
+        "91128": {
+          "adaptive_points_legacy": 214088415720,
+          "lpips": 0.219479,
+          "psnr": 29.8401,
+          "ssim": 0.669203,
+          "total_points_estimated": 218383383016
+        }
+      },
+      "fixed_warmup_points": 4294967296,
+      "latest_step": 106316,
+      "manifest": "/home/brans/lookcloser_leader_repro_runs/campaigns/leader_stableocc_S1_seed42/campaign.json",
+      "seed": 42,
+      "seed_policy": "explicit",
+      "status": "complete",
+      "total_point_samples_estimated": 261348326116
+    }
+  ],
+  "common_checkpoint_comparisons": [
+    {
+      "adaptive_points_legacy_max": 18211315570,
+      "adaptive_points_legacy_min": 18035199020,
+      "archive": {
+        "adaptive_points_legacy": 17565390330,
+        "lpips": 0.371653,
+        "psnr": 28.596,
+        "ssim": 0.651726
+      },
+      "range": {
+        "lpips": 0.003956999999999988,
+        "psnr": 0.03389999999999915,
+        "ssim": 0.0016959999999999198
+      },
+      "same_seed_groups": [
+        {
+          "count": 2,
+          "range": {
+            "lpips": 0.003956999999999988,
+            "psnr": 0.03389999999999915,
+            "ssim": 0.0016959999999999198
+          },
+          "seed": 42,
+          "std": {
+            "lpips": 0.001978499999999994,
+            "psnr": 0.016949999999999577,
+            "ssim": 0.0008479999999999599
+          },
+          "tolerance_pass": false
+        }
+      ],
+      "same_seed_tolerance_pass": false,
+      "std": {
+        "lpips": 0.001978499999999994,
+        "psnr": 0.016949999999999577,
+        "ssim": 0.0008479999999999599
+      },
+      "step": 15188,
+      "values": [
+        {
+          "adaptive_points_legacy": 18211315570,
+          "lpips": 0.357641,
+          "psnr": 28.7819,
+          "ssim": 0.647596,
+          "total_points_estimated": 22506282866
+        },
+        {
+          "adaptive_points_legacy": 18035199020,
+          "lpips": 0.361598,
+          "psnr": 28.748,
+          "ssim": 0.6459,
+          "total_points_estimated": 22330166316
+        }
+      ]
+    },
+    {
+      "adaptive_points_legacy_max": 52633465070,
+      "adaptive_points_legacy_min": 52210990620,
+      "archive": {
+        "adaptive_points_legacy": 50671038830,
+        "lpips": 0.305969,
+        "psnr": 29.2098,
+        "ssim": 0.67616
+      },
+      "range": {
+        "lpips": 0.003597000000000017,
+        "psnr": 0.03500000000000014,
+        "ssim": 3.2999999999949736e-05
+      },
+      "same_seed_groups": [
+        {
+          "count": 2,
+          "range": {
+            "lpips": 0.003597000000000017,
+            "psnr": 0.03500000000000014,
+            "ssim": 3.2999999999949736e-05
+          },
+          "seed": 42,
+          "std": {
+            "lpips": 0.0017985000000000084,
+            "psnr": 0.01750000000000007,
+            "ssim": 1.6499999999974868e-05
+          },
+          "tolerance_pass": false
+        }
+      ],
+      "same_seed_tolerance_pass": false,
+      "std": {
+        "lpips": 0.0017985000000000084,
+        "psnr": 0.01750000000000007,
+        "ssim": 1.6499999999974868e-05
+      },
+      "step": 30376,
+      "values": [
+        {
+          "adaptive_points_legacy": 52633465070,
+          "lpips": 0.291537,
+          "psnr": 29.4196,
+          "ssim": 0.660633,
+          "total_points_estimated": 56928432366
+        },
+        {
+          "adaptive_points_legacy": 52210990620,
+          "lpips": 0.295134,
+          "psnr": 29.4546,
+          "ssim": 0.660666,
+          "total_points_estimated": 56505957916
+        }
+      ]
+    },
+    {
+      "adaptive_points_legacy_max": 91055519670,
+      "adaptive_points_legacy_min": 90218005820,
+      "archive": {
+        "adaptive_points_legacy": 87565979530,
+        "lpips": 0.279821,
+        "psnr": 29.3952,
+        "ssim": 0.673553
+      },
+      "range": {
+        "lpips": 0.002619000000000038,
+        "psnr": 0.032099999999999795,
+        "ssim": 0.0013859999999999983
+      },
+      "same_seed_groups": [
+        {
+          "count": 2,
+          "range": {
+            "lpips": 0.002619000000000038,
+            "psnr": 0.032099999999999795,
+            "ssim": 0.0013859999999999983
+          },
+          "seed": 42,
+          "std": {
+            "lpips": 0.001309500000000019,
+            "psnr": 0.016049999999999898,
+            "ssim": 0.0006929999999999992
+          },
+          "tolerance_pass": false
+        }
+      ],
+      "same_seed_tolerance_pass": false,
+      "std": {
+        "lpips": 0.001309500000000019,
+        "psnr": 0.016049999999999898,
+        "ssim": 0.0006929999999999992
+      },
+      "step": 45564,
+      "values": [
+        {
+          "adaptive_points_legacy": 91055519670,
+          "lpips": 0.260964,
+          "psnr": 29.7248,
+          "ssim": 0.668729,
+          "total_points_estimated": 95350486966
+        },
+        {
+          "adaptive_points_legacy": 90218005820,
+          "lpips": 0.263583,
+          "psnr": 29.6927,
+          "ssim": 0.667343,
+          "total_points_estimated": 94512973116
+        }
+      ]
+    },
+    {
+      "adaptive_points_legacy_max": 131589365670,
+      "adaptive_points_legacy_min": 130339886520,
+      "archive": {
+        "adaptive_points_legacy": 126587891630,
+        "lpips": 0.262007,
+        "psnr": 29.5279,
+        "ssim": 0.67703
+      },
+      "range": {
+        "lpips": 0.0014270000000000116,
+        "psnr": 0.038800000000001944,
+        "ssim": 0.0005020000000000024
+      },
+      "same_seed_groups": [
+        {
+          "count": 2,
+          "range": {
+            "lpips": 0.0014270000000000116,
+            "psnr": 0.038800000000001944,
+            "ssim": 0.0005020000000000024
+          },
+          "seed": 42,
+          "std": {
+            "lpips": 0.0007135000000000058,
+            "psnr": 0.019400000000000972,
+            "ssim": 0.0002510000000000012
+          },
+          "tolerance_pass": false
+        }
+      ],
+      "same_seed_tolerance_pass": false,
+      "std": {
+        "lpips": 0.0007135000000000058,
+        "psnr": 0.019400000000000972,
+        "ssim": 0.0002510000000000012
+      },
+      "step": 60752,
+      "values": [
+        {
+          "adaptive_points_legacy": 131589365670,
+          "lpips": 0.243945,
+          "psnr": 29.8183,
+          "ssim": 0.669892,
+          "total_points_estimated": 135884332966
+        },
+        {
+          "adaptive_points_legacy": 130339886520,
+          "lpips": 0.245372,
+          "psnr": 29.7795,
+          "ssim": 0.66939,
+          "total_points_estimated": 134634853816
+        }
+      ]
+    },
+    {
+      "adaptive_points_legacy_max": 173478990170,
+      "adaptive_points_legacy_min": 171770167920,
+      "archive": {
+        "adaptive_points_legacy": 166919022830,
+        "lpips": 0.252857,
+        "psnr": 29.6217,
+        "ssim": 0.675272
+      },
+      "range": {
+        "lpips": 0.0011690000000000034,
+        "psnr": 0.03999999999999915,
+        "ssim": 0.0014239999999999808
+      },
+      "same_seed_groups": [
+        {
+          "count": 2,
+          "range": {
+            "lpips": 0.0011690000000000034,
+            "psnr": 0.03999999999999915,
+            "ssim": 0.0014239999999999808
+          },
+          "seed": 42,
+          "std": {
+            "lpips": 0.0005845000000000017,
+            "psnr": 0.019999999999999574,
+            "ssim": 0.0007119999999999904
+          },
+          "tolerance_pass": false
+        }
+      ],
+      "same_seed_tolerance_pass": false,
+      "std": {
+        "lpips": 0.0005845000000000017,
+        "psnr": 0.019999999999999574,
+        "ssim": 0.0007119999999999904
+      },
+      "step": 75940,
+      "values": [
+        {
+          "adaptive_points_legacy": 173478990170,
+          "lpips": 0.23383,
+          "psnr": 29.8855,
+          "ssim": 0.673041,
+          "total_points_estimated": 177773957466
+        },
+        {
+          "adaptive_points_legacy": 171770167920,
+          "lpips": 0.232661,
+          "psnr": 29.8455,
+          "ssim": 0.671617,
+          "total_points_estimated": 176065135216
+        }
+      ]
+    },
+    {
+      "adaptive_points_legacy_max": 216286701570,
+      "adaptive_points_legacy_min": 214088415720,
+      "archive": {
+        "adaptive_points_legacy": 208139736330,
+        "lpips": 0.240396,
+        "psnr": 29.692,
+        "ssim": 0.672744
+      },
+      "range": {
+        "lpips": 0.0007099999999999884,
+        "psnr": 0.015000000000000568,
+        "ssim": 0.0033840000000000536
+      },
+      "same_seed_groups": [
+        {
+          "count": 2,
+          "range": {
+            "lpips": 0.0007099999999999884,
+            "psnr": 0.015000000000000568,
+            "ssim": 0.0033840000000000536
+          },
+          "seed": 42,
+          "std": {
+            "lpips": 0.0003549999999999942,
+            "psnr": 0.007500000000000284,
+            "ssim": 0.0016920000000000268
+          },
+          "tolerance_pass": false
+        }
+      ],
+      "same_seed_tolerance_pass": false,
+      "std": {
+        "lpips": 0.0003549999999999942,
+        "psnr": 0.007500000000000284,
+        "ssim": 0.0016920000000000268
+      },
+      "step": 91128,
+      "values": [
+        {
+          "adaptive_points_legacy": 216286701570,
+          "lpips": 0.220189,
+          "psnr": 29.8551,
+          "ssim": 0.672587,
+          "total_points_estimated": 220581668866
+        },
+        {
+          "adaptive_points_legacy": 214088415720,
+          "lpips": 0.219479,
+          "psnr": 29.8401,
+          "ssim": 0.669203,
+          "total_points_estimated": 218383383016
+        }
+      ]
+    },
+    {
+      "adaptive_points_legacy_max": 259835319470,
+      "adaptive_points_legacy_min": 257053358820,
+      "archive": {
+        "adaptive_points_legacy": 250035332330,
+        "lpips": 0.23112,
+        "psnr": 29.617966,
+        "ssim": 0.668451
+      },
+      "range": {
+        "lpips": 0.0009319999999999884,
+        "psnr": 0.049099999999999255,
+        "ssim": 0.0002460000000000795
+      },
+      "same_seed_groups": [
+        {
+          "count": 2,
+          "range": {
+            "lpips": 0.0009319999999999884,
+            "psnr": 0.049099999999999255,
+            "ssim": 0.0002460000000000795
+          },
+          "seed": 42,
+          "std": {
+            "lpips": 0.0004659999999999942,
+            "psnr": 0.024549999999999628,
+            "ssim": 0.00012300000000003974
+          },
+          "tolerance_pass": false
+        }
+      ],
+      "same_seed_tolerance_pass": false,
+      "std": {
+        "lpips": 0.0004659999999999942,
+        "psnr": 0.024549999999999628,
+        "ssim": 0.00012300000000003974
+      },
+      "step": 106316,
+      "values": [
+        {
+          "adaptive_points_legacy": 259835319470,
+          "lpips": 0.212544,
+          "psnr": 29.8666,
+          "ssim": 0.66714,
+          "total_points_estimated": 264130286766
+        },
+        {
+          "adaptive_points_legacy": 257053358820,
+          "lpips": 0.213476,
+          "psnr": 29.8175,
+          "ssim": 0.667386,
+          "total_points_estimated": 261348326116
+        }
+      ]
+    }
+  ],
+  "random_seed_comparisons": []
+}
