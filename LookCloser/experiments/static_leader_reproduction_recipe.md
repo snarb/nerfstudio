@@ -10,11 +10,11 @@ remain in `experiments/static_leader_e2e_reproduction.md`.
 
 ## One-command run
 
-From `/home/brans/repos/nerfstudio/LookCloser`:
+From the clean main worktree `/home/brans/repos/nerfstudio_main_promotion/LookCloser`:
 
 ```bash
 /home/brans/repos/nerfstudio/.venv/bin/python \
-  /home/brans/repos/nerfstudio/LookCloser/scripts/run_static_leader_e2e.py \
+  /home/brans/repos/nerfstudio_main_promotion/LookCloser/scripts/run_static_leader_e2e.py \
   --campaign-name <unique-name>
 ```
 
@@ -47,7 +47,7 @@ must keep this policy and must not use best-of-N selection.
 | Training worktree | `/home/brans/repos/nerfstudio_leader_stable_occ` |
 | Historical Nerfstudio commit | `85818149` |
 | Accepted source fingerprint | `69d4f36cc1e06256a8dcd5a1e9dd6c4a465bb81e8cee09a3d8b188358857b252` |
-| Controller/gate protocol fingerprint | `1027adfb9086d508109efb5563347527099947568c41354da42df5f3121a9eaf` |
+| Controller/gate protocol fingerprint | `156a73bf475771e357af73afe298f88421502387f8fcda6b24d689c8d50550ad` |
 | TCNN source | `/home/brans/deps/tiny-cuda-nn-2e757`, commit `2e757bbe…c09669` |
 | TCNN FP16 overlay | `/home/brans/deps/tcnn_2e757_py310` |
 | TCNN source diff SHA-256 | `441f8877df4bbcc665dd1072c23d4cec8063f18ed14c909b598fde3a95a41673` |
@@ -101,6 +101,13 @@ The accepted training-source fingerprint remains `69d4f36c…8857b252`. The prot
 changes when controller or gate code changes even if the weight recipe does not; the value above
 includes the reviewed opt-in speed plumbing, the canonical speed wrapper, and fail-closed retry
 finalization with the same mandatory priority-detail gate as normal candidate recording.
+
+The experimental speed source is no longer represented by a detached historical HEAD plus a dirty
+patch set. It is committed on branch `nerfstudio_leader_speed` in
+`/home/brans/repos/nerfstudio_leader_speed`. Speed campaigns require that exact named branch,
+committed HEAD, clean status and reviewed file hashes; changing any of them blocks the run until a
+new speed generation is explicitly reviewed and frozen. This does not change the accepted
+no-argument reproduction recipe above.
 
 ## Promoted main defaults
 

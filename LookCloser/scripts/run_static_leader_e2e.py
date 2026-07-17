@@ -28,13 +28,15 @@ from typing import Any, Dict, Iterable, List
 
 
 HISTORICAL_COMMIT = "85818149"
+EXPECTED_SPEED_COMMIT = "540ff894e263cf0b96e659b53f2765677ef64dc0"
+EXPECTED_SPEED_BRANCH = "nerfstudio_leader_speed"
 HISTORICAL_TCNN_COMMIT = "2e757bbe781db59c4980d389d7dccbf5edc09669"
 ALLOWED_TCNN_COMPATIBILITY_PATCHES = {"CMakeLists.txt", "bindings/torch/setup.py"}
 TCNN_GRID_GRAD_FP32_PATCH = "include/tiny-cuda-nn/encodings/grid.h"
 EXPECTED_TCNN_GRID_GRAD_FP32_SHA256 = "f74500ff76838b012f3fbb77324c9e282b1cc2e1c4250f9b28ea5cd812c2f362"
 EXPECTED_ACCEPTED_SOURCE_FINGERPRINT = "69d4f36cc1e06256a8dcd5a1e9dd6c4a465bb81e8cee09a3d8b188358857b252"
-EXPECTED_SPEED_SOURCE_FINGERPRINT = "c31ab574ac7b9b51796b65ceb6e517eefd2611f17d3bed97b33e4b3646561b55"
-EXPECTED_CONTROLLER_PROTOCOL_FINGERPRINT = "1027adfb9086d508109efb5563347527099947568c41354da42df5f3121a9eaf"
+EXPECTED_SPEED_SOURCE_FINGERPRINT = "6cf7eb9560403ed05da27b2eb7ce732585e930b2d13a0ccfbfb9dd1766e4c258"
+EXPECTED_CONTROLLER_PROTOCOL_FINGERPRINT = "156a73bf475771e357af73afe298f88421502387f8fcda6b24d689c8d50550ad"
 EXPECTED_ACCEPTED_TCNN_SOURCE_DIFF = "441f8877df4bbcc665dd1072c23d4cec8063f18ed14c909b598fde3a95a41673"
 EXPECTED_ACCEPTED_TCNN_BUILD_PROVENANCE = "566e6dd9caba605ab053408794c9bbc854dedd0d171c1b1f99e77abe95180b5f"
 EXPECTED_ACCEPTED_TCNN_BINDING = "f2163346afd103c27e78b9f56f8d82b6eeb3317c1ce11caf57d45f0216aece36"
@@ -88,6 +90,17 @@ SPEED_TELEMETRY_PATCHES = {
     "tests/scripts/test_run_lookcloser_quiet_eval_config.py",
     "tests/test_trainer_rng_state.py",
 }
+SPEED_COMMITTED_PATHS = (
+    ALLOWED_COMPATIBILITY_PATCHES
+    | STABLE_OCCUPANCY_PATCHES
+    | INDEPENDENT_RNG_PATCHES
+    | SPEED_TELEMETRY_PATCHES
+    | {
+        "tests/models/test_lookcloser_occupancy_diagnostics.py",
+        "tests/models/test_lookcloser_rng_streams.py",
+        "tests/pipelines/test_lookcloser_pipeline_rng_streams.py",
+    }
+)
 EXPECTED_TRANSFORMS_SHA256 = "022f8748a1a039861a754e68ab3ef830beeb3e5dd94ccb00457a630d28f64aa1"
 PARENT_STEP = 75_940
 FINAL_STEP = 106_316
@@ -541,6 +554,20 @@ def sha256_file(path: Path) -> str:
         for chunk in iter(lambda: handle.read(8 << 20), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def committed_speed_source_fingerprint(
+    commit: str, branch: str, source_sha256: Dict[str, str]
+) -> str:
+    """Bind speed provenance to a named clean branch, exact commit, and reviewed source files."""
+    payload = {
+        "mode": "committed_speed_branch",
+        "branch": branch,
+        "commit": commit,
+        "source_sha256": source_sha256,
+    }
+    normalized = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return hashlib.sha256(normalized).hexdigest()
 
 
 def checkpoint_file_identity(path: Path) -> Dict[str, int]:
@@ -1182,11 +1209,6 @@ def main() -> int:
     commit = command_output(
         ["git", "rev-parse", "HEAD"], cwd=args.historical_worktree, env=env
     )
-    expected_commit = command_output(
-        ["git", "rev-parse", HISTORICAL_COMMIT], cwd=args.historical_worktree, env=env
-    )
-    if commit != expected_commit:
-        raise RuntimeError(f"Historical worktree is {commit}, expected {expected_commit}")
     # Do not strip porcelain output: the leading column is part of Git's XY
     # status and stripping it corrupts the first path (" M file" -> "M file").
     dirty_lines = subprocess.check_output(
@@ -1196,44 +1218,79 @@ def main() -> int:
         text=True,
     ).splitlines()
     dirty_paths = {line[3:] for line in dirty_lines if line}
-    allowed_patches = set(ALLOWED_COMPATIBILITY_PATCHES)
-    if args.stable_occupancy_reduction:
-        allowed_patches.update(STABLE_OCCUPANCY_PATCHES)
-    if args.independent_rng_streams:
-        allowed_patches.update(INDEPENDENT_RNG_PATCHES)
+
     if recipe.speed_mode:
-        allowed_patches.update(SPEED_TELEMETRY_PATCHES)
-    if dirty_paths != allowed_patches:
-        raise RuntimeError(
-            f"Unexpected historical worktree changes: {sorted(dirty_paths)}; "
-            f"allowed={sorted(allowed_patches)}"
+        branch = command_output(
+            ["git", "branch", "--show-current"], cwd=args.historical_worktree, env=env
         )
-    compatibility_diff = subprocess.check_output(
-        ["git", "diff", "--binary", "--", *sorted(allowed_patches)],
-        cwd=args.historical_worktree,
-        env=env,
-    )
-    source_sha256 = {
-        path: sha256_file(args.historical_worktree / path) for path in sorted(allowed_patches)
-    }
-    compatibility_fingerprint = compatibility_diff
-    if args.stable_occupancy_reduction or args.independent_rng_streams:
-        # git diff omits untracked helper/test files. Include every allowed file
-        # hash without changing the exact-control fingerprint used by default.
-        compatibility_fingerprint += json.dumps(source_sha256, sort_keys=True).encode("utf-8")
-    compatibility_patch_sha256 = hashlib.sha256(compatibility_fingerprint).hexdigest()
-    if accepted_stable_fp16_mode(args):
-        require_frozen_values(
-            "Accepted stable-FP16 source",
-            {"compatibility_patch_sha256": compatibility_patch_sha256},
-            {"compatibility_patch_sha256": EXPECTED_ACCEPTED_SOURCE_FINGERPRINT},
+        if branch != EXPECTED_SPEED_BRANCH:
+            raise RuntimeError(
+                f"Speed worktree branch is {branch!r}, expected {EXPECTED_SPEED_BRANCH!r}"
+            )
+        if commit != EXPECTED_SPEED_COMMIT:
+            raise RuntimeError(f"Speed worktree is {commit}, expected {EXPECTED_SPEED_COMMIT}")
+        if dirty_lines:
+            raise RuntimeError(
+                "Speed worktree must be clean; commit experimental changes to "
+                f"branch {EXPECTED_SPEED_BRANCH!r}: {dirty_lines}"
+            )
+        allowed_patches = set(SPEED_COMMITTED_PATHS)
+        missing_paths = [
+            path for path in sorted(allowed_patches) if not (args.historical_worktree / path).is_file()
+        ]
+        if missing_paths:
+            raise RuntimeError(f"Committed speed source is incomplete: {missing_paths}")
+        source_sha256 = {
+            path: sha256_file(args.historical_worktree / path) for path in sorted(allowed_patches)
+        }
+        compatibility_patch_sha256 = committed_speed_source_fingerprint(
+            commit, branch, source_sha256
         )
-    if recipe.speed_mode:
         require_frozen_values(
-            "Speed worktree source",
+            "Committed speed worktree source",
             {"compatibility_patch_sha256": compatibility_patch_sha256},
             {"compatibility_patch_sha256": EXPECTED_SPEED_SOURCE_FINGERPRINT},
         )
+        source_provenance_mode = "committed_speed_branch"
+        source_branch: str | None = branch
+    else:
+        expected_commit = command_output(
+            ["git", "rev-parse", HISTORICAL_COMMIT], cwd=args.historical_worktree, env=env
+        )
+        if commit != expected_commit:
+            raise RuntimeError(f"Historical worktree is {commit}, expected {expected_commit}")
+        allowed_patches = set(ALLOWED_COMPATIBILITY_PATCHES)
+        if args.stable_occupancy_reduction:
+            allowed_patches.update(STABLE_OCCUPANCY_PATCHES)
+        if args.independent_rng_streams:
+            allowed_patches.update(INDEPENDENT_RNG_PATCHES)
+        if dirty_paths != allowed_patches:
+            raise RuntimeError(
+                f"Unexpected historical worktree changes: {sorted(dirty_paths)}; "
+                f"allowed={sorted(allowed_patches)}"
+            )
+        compatibility_diff = subprocess.check_output(
+            ["git", "diff", "--binary", "--", *sorted(allowed_patches)],
+            cwd=args.historical_worktree,
+            env=env,
+        )
+        source_sha256 = {
+            path: sha256_file(args.historical_worktree / path) for path in sorted(allowed_patches)
+        }
+        compatibility_fingerprint = compatibility_diff
+        if args.stable_occupancy_reduction or args.independent_rng_streams:
+            # git diff omits untracked helper/test files. Include every allowed file
+            # hash without changing the exact-control fingerprint used by default.
+            compatibility_fingerprint += json.dumps(source_sha256, sort_keys=True).encode("utf-8")
+        compatibility_patch_sha256 = hashlib.sha256(compatibility_fingerprint).hexdigest()
+        if accepted_stable_fp16_mode(args):
+            require_frozen_values(
+                "Accepted stable-FP16 source",
+                {"compatibility_patch_sha256": compatibility_patch_sha256},
+                {"compatibility_patch_sha256": EXPECTED_ACCEPTED_SOURCE_FINGERPRINT},
+            )
+        source_provenance_mode = "historical_commit_with_reviewed_patch"
+        source_branch = None
     transforms = args.data / "transforms.json"
     transforms_sha = sha256_file(transforms)
     if transforms_sha != EXPECTED_TRANSFORMS_SHA256:
@@ -1269,6 +1326,8 @@ def main() -> int:
         "seed": seed,
         "seed_policy": "random_recorded" if args.random_seed else "explicit",
         "historical_commit": commit,
+        "source_branch": source_branch,
+        "source_provenance_mode": source_provenance_mode,
         "historical_worktree": str(args.historical_worktree),
         "compatibility_patch_paths": sorted(allowed_patches),
         "compatibility_patch_sha256": compatibility_patch_sha256,

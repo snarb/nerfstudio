@@ -66,6 +66,27 @@ def test_controller_protocol_bundle_matches_frozen_fingerprint() -> None:
     }
 
 
+def test_speed_source_fingerprint_binds_named_branch_commit_and_files() -> None:
+    sources = {"a.py": "a" * 64, "b.py": "b" * 64}
+    fingerprint = controller.committed_speed_source_fingerprint(
+        controller.EXPECTED_SPEED_COMMIT,
+        controller.EXPECTED_SPEED_BRANCH,
+        sources,
+    )
+    assert len(fingerprint) == 64
+    assert fingerprint != controller.committed_speed_source_fingerprint(
+        controller.EXPECTED_SPEED_COMMIT, "another_branch", sources
+    )
+    assert fingerprint != controller.committed_speed_source_fingerprint(
+        "0" * 40, controller.EXPECTED_SPEED_BRANCH, sources
+    )
+    assert fingerprint != controller.committed_speed_source_fingerprint(
+        controller.EXPECTED_SPEED_COMMIT,
+        controller.EXPECTED_SPEED_BRANCH,
+        {**sources, "b.py": "c" * 64},
+    )
+
+
 def test_candidate_recorder_reuses_hash_only_for_unchanged_exact_checkpoint(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:

@@ -22,11 +22,13 @@ step zero, FR `1.0→0.3`, hash23, losses, Adam endpoints, stable occupancy and 
 TCNN binding remain frozen. Batch compression is still algorithmic: it reduces Adam update count
 and changes gradient statistics even at matched point exposure.
 
-The speed worktree is `/home/brans/repos/nerfstudio_leader_speed`, detached at `85818149`. Its first
+The speed worktree is `/home/brans/repos/nerfstudio_leader_speed` on the named branch
+`nerfstudio_leader_speed`, with historical base `85818149`. Its complete current patch set is
+committed, and the controller requires the exact branch, committed HEAD and clean status. Its first
 telemetry-only generation added an explicit scheduler-horizon runner field and a checkpointed
 cumulative-point counter/CSV column and had fingerprint `0913233e…9e6da87`. Later fingerprinted
 generations add the named default-off schedule hooks and hot-path patches documented below; the
-current fingerprint is `d09ff7cb…d81bbf1`. A dry-run proves that optional hooks do not appear in the
+current committed-source fingerprint is `6cf7eb95…6e4c258`. A dry-run proves that optional hooks do not appear in the
 fixed-batch default command. `scripts/run_static_leader_speed_e2e.py` exposes one safe
 `--batch-scale {1,2,4}` instead of independent low-level knobs and asserts all derived values.
 
@@ -1841,10 +1843,10 @@ The canonical runner and E2E controller expose `--cpu-fas-prefetch`, both defaul
 controller accepts it only as an extension of the complete reviewed staged recipe. The frozen
 no-argument reproduction path is unchanged. The relevant speed suite passes `134/134`, the
 controller suite passes `41/41`, and both worktrees pass `git diff --check`. The frozen speed
-source fingerprint is
-`c31ab574ac7b9b51796b65ceb6e517eefd2611f17d3bed97b33e4b3646561b55`; the controller protocol
+committed-source fingerprint is
+`6cf7eb9560403ed05da27b2eb7ce732585e930b2d13a0ccfbfb9dd1766e4c258`; the controller protocol
 fingerprint is
-`1027adfb9086d508109efb5563347527099947568c41354da42df5f3121a9eaf`.
+`156a73bf475771e357af73afe298f88421502387f8fcda6b24d689c8d50550ad`.
 
 Dataset provenance was rechecked immediately before profiling and matched dev3: 202 files, 69
 images, 66 maps plus 66 metadata files, no local/remote differences, and transforms SHA-256

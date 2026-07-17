@@ -11,6 +11,19 @@
 - `nerfstudio/pipelines/lookcloser_pipeline.py` — training pipeline and grid updates.
 - `nerfstudio/configs/method_configs.py` — `lookcloser` method config.
 
+## Git and worktree layout
+
+- `/home/brans/repos/nerfstudio_main_promotion` is the clean `main` worktree. Its no-argument
+  defaults and `scripts/run_static_leader_e2e.py` reproduce the accepted quality recipe.
+- `/home/brans/repos/nerfstudio_leader_speed` is the clean named branch
+  `nerfstudio_leader_speed`. Every current speed/variance change is committed there; unpromoted
+  controls stay default-off and are not treated as accepted results.
+- Speed provenance is fail-closed on branch name, exact committed HEAD, an empty worktree and hashes
+  of all 35 reviewed source/test files. The previous detached-HEAD plus dirty-patch convention is
+  retired.
+- `/home/brans/repos/nerfstudio` remains the older `freqmap-speed` worktree with unrelated retained
+  user work; it is neither the canonical main worktree nor a benchmark source.
+
 ## Training monitoring additions
 
 Baseline runs can enable `--logging.csv-writer.enable True` to write compact `metrics_compact.csv` rows for train/eval trends, `best_eval_*`, plateau and overfit status, which is useful because recent 3k baselines plateau early and best checkpoint metrics are more informative than final-step metrics.
@@ -46,7 +59,7 @@ the measured same-parent opt-out branch passes its predeclared wall and quality 
 
 The accepted source fingerprint is `69d4f36cc1e06256a8dcd5a1e9dd6c4a465bb81e8cee09a3d8b188358857b252`;
 the current controller/gate protocol fingerprint is
-`1027adfb9086d508109efb5563347527099947568c41354da42df5f3121a9eaf`.
+`156a73bf475771e357af73afe298f88421502387f8fcda6b24d689c8d50550ad`.
 
 All scheduled checkpoints are retained. The controller fresh-evaluates numeric candidates in
 chronological order, renders/scores the first automatic clean pass, records it in `campaign.json`,
@@ -177,8 +190,8 @@ target is logged in compact CSV, and checkpoints reconstruct the schedule from c
 step while restoring EMA/current rays. That schedule generation used fingerprint
 `021ff4df89a77a12e716d27ffd4e1b7e4095f1cea9499b7ee42b0d313478a6f6`; the current reviewed speed
 worktree, including the later semantics-preserving hot-path patch set, opt-in fused Adam and
-default-off TCNN network JIT hook, is
-`d09ff7cb3f161ca16d262ed6c161337681b5c570243485c059f1cb11fd81bbf1`.
+default-off TCNN network JIT hook, is committed with source fingerprint
+`6cf7eb9560403ed05da27b2eb7ce732585e930b2d13a0ccfbfb9dd1766e4c258`.
 
 Intermediate evaluation writes both the exact `load_step` and exact checkpoint path. This is
 required because the historical Nerfstudio evaluator reconstructs the run checkpoint directory and
@@ -549,10 +562,10 @@ contention.
 
 The feature is exposed as `--cpu-fas-prefetch` but remains default-off in both the quiet runner and
 the E2E controller. It may only extend the exact reviewed staged cache/fused/JIT/replay recipe. The
-reviewed source fingerprint is
-`c31ab574ac7b9b51796b65ceb6e517eefd2611f17d3bed97b33e4b3646561b55` and controller protocol
+reviewed committed-source fingerprint is
+`6cf7eb9560403ed05da27b2eb7ce732585e930b2d13a0ccfbfb9dd1766e4c258` and controller protocol
 fingerprint is
-`1027adfb9086d508109efb5563347527099947568c41354da42df5f3121a9eaf`.
+`156a73bf475771e357af73afe298f88421502387f8fcda6b24d689c8d50550ad`.
 
 The first full solo E2E measurement with this path completed in `3501.901 s` (`58:21.9`), proving
 that the implementation can move the reviewed staged recipe under the first wall milestone. It is
