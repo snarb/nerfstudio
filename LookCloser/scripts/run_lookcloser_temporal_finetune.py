@@ -1145,6 +1145,7 @@ def train_frame_recipe(
     seed: int,
     prefix: str,
     initial_run_id: Optional[str] = None,
+    traversal_warmup_steps: int = 4096,
 ) -> Tuple[Metrics, List[str]]:
     run_ids: List[str] = []
     if initial_run_id is None:
@@ -1160,6 +1161,7 @@ def train_frame_recipe(
             parent_checkpoint=parent_checkpoint,
             target_local_step=SCREEN_FINAL_STEP,
             inherited_global_step=parent_effective_step,
+            traversal_warmup_steps=traversal_warmup_steps,
         )
         run_training(args, store, spec)
         run_ids.append(spec.run_id)
@@ -1196,6 +1198,7 @@ def train_frame_recipe(
             parent_checkpoint=parent.checkpoint,
             target_local_step=target,
             inherited_global_step=parent_effective_step,
+            traversal_warmup_steps=traversal_warmup_steps,
         )
         run_training(args, store, spec)
         run_ids.append(spec.run_id)
@@ -1216,6 +1219,7 @@ def train_frame_recipe(
         target_local_step=tail_target,
         inherited_global_step=parent_effective_step,
         lr_override=tail_lr,
+        traversal_warmup_steps=traversal_warmup_steps,
     )
     run_training(args, store, tail_spec)
     run_ids.append(tail_spec.run_id)
@@ -1244,6 +1248,7 @@ def train_frame_recipe(
             parent_checkpoint=parent.checkpoint,
             target_local_step=target,
             inherited_global_step=parent_effective_step,
+            traversal_warmup_steps=traversal_warmup_steps,
         )
         run_training(args, store, spec)
         run_ids.append(spec.run_id)
