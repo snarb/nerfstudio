@@ -130,6 +130,32 @@ def test_dry_run_has_three_deterministic_model_only_commands(tmp_path: Path) -> 
     assert len({tuple(row["command"]) for row in first["lr_screen"]}) == 3
 
 
+def test_run_local_traversal_warmup_override(tmp_path: Path) -> None:
+    args = temporal.parse_args(
+        ["--output-dir", str(tmp_path / "runs"), "--campaign", str(tmp_path / "campaign.json")]
+    )
+    spec = temporal.RunSpec(
+        run_id="warmup8192",
+        frame="007747",
+        seed=42,
+        lr=0.002,
+        phase="diagnostic_warmup8192",
+        feature_reweighting=1.0,
+        fas_strength=1.0,
+        load_mode="model_parameters_only",
+        parent_checkpoint=args.leader_checkpoint,
+        target_local_step=60_752,
+        inherited_global_step=91_128,
+        traversal_warmup_steps=8_192,
+    )
+
+    config, _, _ = temporal.configured_run(args, spec)
+    model = config.pipeline.model
+    assert model.adaptive_warmup_steps == 8_192
+    assert model.occupancy_warmup_steps == 8_192
+    assert model.occupancy_binary_warmup_steps == 8_192
+
+
 def test_manifest_resume_is_atomic_and_idempotent(tmp_path: Path) -> None:
     path = tmp_path / "campaign.json"
     store = temporal.CampaignStore(path, resume=False)

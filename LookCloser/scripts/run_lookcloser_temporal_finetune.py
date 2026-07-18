@@ -145,6 +145,7 @@ class RunSpec:
     contended: bool = False
     from_scratch: bool = False
     scheduler_policy: Literal["constant", "leader"] = "constant"
+    traversal_warmup_steps: int = 4096
 
     @property
     def local_updates_completed(self) -> int:
@@ -646,9 +647,11 @@ def _freeze_recipe(config: Any, spec: RunSpec) -> None:
     model.ray_sampling_mode = "adaptive"
     model.max_steps_per_ray = 1024
     model.adaptive_coarse_step_size = 0.00625
-    model.adaptive_warmup_steps = 4096
-    model.occupancy_warmup_steps = 4096
-    model.occupancy_binary_warmup_steps = 4096
+    if spec.traversal_warmup_steps < 0:
+        raise ValueError("traversal_warmup_steps must be non-negative")
+    model.adaptive_warmup_steps = spec.traversal_warmup_steps
+    model.occupancy_warmup_steps = spec.traversal_warmup_steps
+    model.occupancy_binary_warmup_steps = spec.traversal_warmup_steps
     model.stable_occupancy_reduction = True
     model.feature_reweighting_strength = spec.feature_reweighting
     model.corrected_arm_allocator = False
@@ -866,7 +869,9 @@ def run_training(args: argparse.Namespace, store: CampaignStore, spec: RunSpec) 
             "frequency_grid_zero": spec.load_mode == "model_parameters_only",
             "fas_sample_count_zero": spec.load_mode == "model_parameters_only",
             "frame_cumulative_points_zero": spec.load_mode == "model_parameters_only",
-            "fixed_traversal_updates": 4096 if spec.load_mode == "model_parameters_only" else None,
+            "fixed_traversal_updates": (
+                spec.traversal_warmup_steps if spec.load_mode == "model_parameters_only" else None
+            ),
         },
     }
     store.data["runs"][spec.run_id] = record
