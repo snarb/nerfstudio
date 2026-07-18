@@ -580,30 +580,49 @@ Generic preprocessing prefers `train_steps_per_level` over the legacy `steps_per
 
 ## Temporal per-frame transfer
 
-Use `scripts/run_lookcloser_temporal_transfer.py` for sequential static LookCloser transfer over
-`/home/brans/temporal_perframe_stride7_45f`. The runner loads the archived 007740 leader config,
-changes only run-control/data/checkpoint/LR fields, keeps `save_only_latest_checkpoint=False`, and
-chains each selected checkpoint into the next frame.
+`scripts/run_lookcloser_temporal_finetune.py` is the only promotion-capable temporal controller. The older
+`run_lookcloser_temporal_transfer.py` lineage is forensic evidence only. The new controller requires a clean
+`main`, the SHA-bound canonical S1 step91128 checkpoint/config and TCNN runtime, all 45 identical `66+3`
+datasets, 66 frequency maps per frame, at least 100 GiB free disk before every run, and sufficient VRAM for
+the three-way 007747 LR screen. Its atomic manifest is
+`/home/brans/lookcloser_temporal_finetune_runs/campaigns/temporal_stride7_seed42/campaign.json`.
 
-The selected default for frame-to-frame video transfer is constant LR `5e-4` with no scheduler,
-based on the 007747 sweep documented in `experiments/temporal_lookcloser_lr_sweep_007747.md`.
+`TrainerConfig.checkpoint_load_mode` makes the two temporal boundaries explicit. Cross-frame
+`model_parameters_only` accepts only an exact `load_checkpoint`, validates the complete `fields` parameter
+name/shape/dtype set, and copies no pipeline buffers. Thus LPIPS, AABB, occupancy/frequency grids, FAS count,
+point telemetry, optimizer, scheduler, scaler and RNG remain in fresh constructor state, and the new frame
+starts at local step0. Stable occupancy updates at step0; adaptive marching uses fixed traversal for local
+updates 0--4095. Optional smoke-only hashing proves the copied field tensors equal the source before the
+first update. Within a frame, `resume` retains the full pipeline/Adam/scheduler/scaler/RNG state. The tail's
+`resume_fields_lr_override` changes the fields optimizer and scheduler base LR without rebuilding Adam or
+rewinding scheduler progress.
 
-`scripts/update_training_on_video_report.py` regenerates the per-frame metric report from run artifacts and
-detects a completed chain when every dataset frame has a selected row and the temporal driver PID is no
-longer alive. `scripts/build_temporal_eval_view_video.py` builds temporal eval-view MP4s from selected
-`eval_img_*.png` renders by cropping the render half of Nerfstudio's GT|render output. `scripts/render_central_camera_path_videos.py`
-loads the full train/eval datamanager cameras from `eval_setup`, interpolates central camera paths without
-creating subset datasets, and renders short camera-path preview videos from the selected final checkpoint.
-For the temporal checkpoints generated in `/home/brans/repos/nerfstudio_time_run`, run this renderer with
-`PYTHONPATH=/home/brans/repos/nerfstudio_time_run` and the same venv/PATH used by the temporal runner; using
-the sibling `/home/brans/repos/nerfstudio` code tree can produce dark invalid camera-path renders.
-`scripts/render_temporal_camera_path_videos.py` uses the same central camera paths, but loads the temporal
-checkpoint chain (`007740` leader, selected `007747` LR-sweep checkpoint, then the transfer-chain checkpoints)
-and renders one output frame per trained dataset frame with no temporal interpolation.
+Checkpoint filenames and cadence use the zero-based local Nerfstudio step. A checkpoint at local step60752
+contains 60753 completed updates. The manifest separately records raw parent step, local step, completed
+updates, inherited global step, and `effective_global_step = inherited_global_step + local_step`. The exact
+checkpointed `cumulative_point_samples` is frame-local after model-only reset and continuous through same-frame
+resumes; temporal exposure sums accepted frame counters. The leader exposure remains explicitly labeled a
+legacy estimate because the canonical checkpoint has no exact counter.
 
-The local Nerfstudio image loader `nerfstudio.data.utils.data_utils.pil_to_numpy` uses `np.asarray(im)`
-after `im.load()` for Pillow compatibility; the previous private encoder path fails with the installed
-Pillow version during `ns-render` image caching.
+Frame007747 screens constant adaptation LRs `5e-4/1e-3/2e-3` concurrently and compares only matched local
+step60752. Phase A (FR1/FAS1) and the full-resume tail (FR0.3/FAS1/LR÷4) extend by 15188 updates until two
+consecutive complete boundaries meet the metric, critical-ROI and artifact plateau rules. Selection is max
+`eval_all_psnr`; every checkpoint within an inclusive 0.07 dB is tied and lowest LPIPS wins. SSIM is reported
+but never selects. Scratch controls on 007747 and the maximum-motion-jump frame007838 use the faithful
+FR1@75940 -> full-resume FR0.3@106316 ancestry. A seed43 repeat is mandatory when the LR margin falls inside
+the declared repeat envelope.
+
+`scripts/temporal_roi_protocol.py` keeps permanent pipe/cable crops, propagates 007747 hand/chain/finger seed
+boxes with forward/backward pyramidal LK confidence, discovers broad-motion and possible-hole crops from an
+exposure-compensated adjacent-GT difference, and writes low-resolution `GT | render | residual` contact
+sheets. Promotion requires a fresh exact-checkpoint three-view eval, all ROI categories, zero serious full/ROI
+artifacts, confident tracking, critical-ROI LPIPS regression at most0.01, and an explicit visual decision.
+Regression 0.01--0.02 or low confidence is ambiguous; regression above0.02 fails. A failed/ambiguous frame is
+never substituted or forwarded. Every promoted frame must also remain within the declared canonical-leader
+envelope: PSNR no more than0.20 dB lower, SSIM no more than0.010 lower, and LPIPS no more than0.015 higher.
+The controller writes the isolated LR×0.5/LR×2/warmup8192/extra-FR1/
+conditional-extra-tail diagnostic matrix and exits2; infrastructure/OOM/eval failures exit3 and are not
+reinterpreted as quality experiments. Complete chain success exits0.
 
 ## Static-leader CPU FAS prefetch
 

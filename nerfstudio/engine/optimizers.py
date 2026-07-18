@@ -18,6 +18,7 @@ Optimizers class.
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, Type
 
@@ -282,3 +283,37 @@ class Optimizers:
         """
         for k, v in loaded_state.items():
             self.schedulers[k].load_state_dict(v)
+
+    def override_learning_rate(self, param_group_name: str, learning_rate: float) -> None:
+        """Change one resumed optimizer's LR without rebuilding its training state.
+
+        This is intentionally narrower than replacing an optimizer or scheduler.  It
+        preserves Adam moments/step counts and the scheduler's progress while changing
+        the scheduler base LR so the next ``scheduler.step()`` cannot silently restore
+        the pre-resume value.
+        """
+
+        if param_group_name not in self.optimizers:
+            raise KeyError(f"Unknown optimizer parameter group: {param_group_name}")
+        if not math.isfinite(learning_rate) or learning_rate <= 0:
+            raise ValueError("learning_rate must be finite and positive")
+
+        optimizer = self.optimizers[param_group_name]
+        for group in optimizer.param_groups:
+            group["lr"] = float(learning_rate)
+            # LRScheduler records this field when it is created.  Keep the
+            # optimizer and scheduler views of the new base policy consistent.
+            group["initial_lr"] = float(learning_rate)
+        optimizer.defaults["lr"] = float(learning_rate)
+
+        scheduler = self.schedulers.get(param_group_name)
+        if scheduler is None:
+            return
+        if len(scheduler.base_lrs) != len(optimizer.param_groups):
+            raise RuntimeError(
+                f"Scheduler/optimizer param-group mismatch for {param_group_name}: "
+                f"{len(scheduler.base_lrs)} != {len(optimizer.param_groups)}"
+            )
+        scheduler.base_lrs = [float(learning_rate)] * len(optimizer.param_groups)
+        if hasattr(scheduler, "_last_lr"):
+            scheduler._last_lr = [float(learning_rate)] * len(optimizer.param_groups)
