@@ -217,6 +217,18 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--load-dir", type=Path, default=None)
     parser.add_argument("--load-step", type=int, default=None)
     parser.add_argument("--load-checkpoint", type=Path, default=None)
+    parser.add_argument(
+        "--checkpoint-load-mode",
+        choices=("resume", "model_parameters_only"),
+        default="resume",
+        help="Full-state resume or fresh local training initialized only from fields parameters.",
+    )
+    parser.add_argument(
+        "--resume-fields-lr-override",
+        type=float,
+        default=None,
+        help="Full-resume fields LR override that preserves Adam/scaler/RNG and scheduler progress.",
+    )
     parser.add_argument("--no-load-scheduler", dest="load_scheduler", action="store_false")
     parser.add_argument("--no-load-optimizers", dest="load_optimizers", action="store_false")
     parser.add_argument("--fields-lr", type=float, default=None)
@@ -356,6 +368,12 @@ def train_command(args: argparse.Namespace) -> List[str]:
         cmd.extend(["--load-step", str(args.load_step)])
     if args.load_checkpoint is not None:
         cmd.extend(["--load-checkpoint", str(args.load_checkpoint)])
+    if args.checkpoint_load_mode != "resume":
+        cmd.extend(["--checkpoint-load-mode", args.checkpoint_load_mode])
+    if args.resume_fields_lr_override is not None:
+        if not math.isfinite(args.resume_fields_lr_override) or args.resume_fields_lr_override <= 0:
+            raise ValueError("--resume-fields-lr-override must be finite and positive")
+        cmd.extend(["--resume-fields-lr-override", str(args.resume_fields_lr_override)])
     if not args.load_scheduler:
         cmd.extend(["--load-scheduler", "False"])
     if not args.load_optimizers:
@@ -1309,6 +1327,8 @@ def summarize_params(args: argparse.Namespace) -> str:
         "grid_update_batch_size": args.grid_update_batch_size,
         "load_scheduler": args.load_scheduler,
         "load_optimizers": args.load_optimizers,
+        "checkpoint_load_mode": args.checkpoint_load_mode,
+        "resume_fields_lr_override": args.resume_fields_lr_override,
         "fields_lr": args.fields_lr,
         "fields_lr_final": args.fields_lr_final,
         "fields_scheduler_max_steps": args.fields_scheduler_max_steps,

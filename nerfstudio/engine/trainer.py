@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import dataclasses
 import functools
+import hashlib
 import math
 import os
 import random
@@ -37,6 +38,7 @@ from rich import box, style
 from rich.panel import Panel
 from rich.table import Table
 from torch.cuda.amp.grad_scaler import GradScaler
+from torch.nn import Parameter
 
 from nerfstudio.configs.experiment_config import ExperimentConfig
 from nerfstudio.engine.callbacks import TrainingCallback, TrainingCallbackAttributes, TrainingCallbackLocation
@@ -90,6 +92,140 @@ def _validate_grad_scaler_checkpoint_config(
         )
 
 
+def _normalize_pipeline_parameter_name(name: str) -> str:
+    """Normalize the two wrappers used by Nerfstudio DDP checkpoints."""
+
+    if name.startswith("module."):
+        name = name[len("module.") :]
+    if name.startswith("_model.module."):
+        name = "_model." + name[len("_model.module.") :]
+    return name
+
+
+def _model_parameter_only_state(
+    pipeline: VanillaPipeline,
+    field_parameters: List[Parameter],
+    loaded_pipeline_state: Dict[str, Any],
+) -> Dict[str, Parameter]:
+    """Validate and return the exact checkpoint tensors for optimizer group ``fields``.
+
+    State-dict buffers are deliberately not returned.  In particular this excludes
+    LPIPS, AABBs, occupancy/frequency grids, sampler counters, and pipeline telemetry.
+    """
+
+    field_parameter_ids = {id(parameter) for parameter in field_parameters}
+    if len(field_parameter_ids) != len(field_parameters):
+        raise RuntimeError("Optimizer group 'fields' contains duplicate parameters")
+
+    current: Dict[str, Parameter] = {}
+    seen_parameter_ids = set()
+    for raw_name, parameter in pipeline.named_parameters():
+        if id(parameter) not in field_parameter_ids:
+            continue
+        name = _normalize_pipeline_parameter_name(raw_name)
+        if name in current:
+            raise RuntimeError(f"Duplicate normalized field parameter name: {name}")
+        current[name] = parameter
+        seen_parameter_ids.add(id(parameter))
+    if seen_parameter_ids != field_parameter_ids:
+        raise RuntimeError("Not every optimizer group 'fields' parameter has a pipeline name")
+    if not current:
+        raise RuntimeError("Optimizer group 'fields' has no named trainable parameters")
+
+    source: Dict[str, Any] = {}
+    for raw_name, value in loaded_pipeline_state.items():
+        name = _normalize_pipeline_parameter_name(raw_name)
+        if name in source:
+            raise RuntimeError(f"Duplicate normalized checkpoint state name: {name}")
+        source[name] = value
+
+    missing = sorted(set(current) - set(source))
+    if missing:
+        raise RuntimeError(f"Checkpoint is missing field parameters: {missing}")
+    common_prefix = os.path.commonprefix(sorted(current))
+    field_namespace = common_prefix[: common_prefix.rfind(".") + 1]
+    current_state_names = {
+        _normalize_pipeline_parameter_name(name) for name in pipeline.state_dict().keys()
+    }
+    current_buffer_names = current_state_names - set(current)
+    unexpected = sorted(
+        name
+        for name in source
+        if name.startswith(field_namespace) and name not in current and name not in current_buffer_names
+    )
+    if unexpected:
+        raise RuntimeError(f"Checkpoint has unexpected field parameters/state: {unexpected}")
+
+    errors = []
+    for name, parameter in current.items():
+        value = source[name]
+        if not isinstance(value, torch.Tensor):
+            errors.append(f"{name}: checkpoint value is {type(value).__name__}, not Tensor")
+            continue
+        if value.shape != parameter.shape:
+            errors.append(f"{name}: shape {tuple(value.shape)} != {tuple(parameter.shape)}")
+        if value.dtype != parameter.dtype:
+            errors.append(f"{name}: dtype {value.dtype} != {parameter.dtype}")
+    if errors:
+        raise RuntimeError("Field parameter checkpoint mismatch: " + "; ".join(errors))
+    return current
+
+
+@torch.no_grad()
+def _load_model_parameters_only(
+    pipeline: VanillaPipeline,
+    field_parameters: List[Parameter],
+    loaded_pipeline_state: Dict[str, Any],
+) -> List[str]:
+    """Copy only validated trainable field parameters into a fresh pipeline."""
+
+    current = _model_parameter_only_state(pipeline, field_parameters, loaded_pipeline_state)
+    source = {
+        _normalize_pipeline_parameter_name(name): value for name, value in loaded_pipeline_state.items()
+    }
+    for name, parameter in current.items():
+        parameter.copy_(source[name].to(device=parameter.device))
+    return sorted(current)
+
+
+def _tensor_sha256(tensor: torch.Tensor, chunk_elements: int = 8 << 20) -> str:
+    """Hash a tensor in bounded host chunks without changing its dtype or values."""
+
+    digest = hashlib.sha256()
+    flat = tensor.detach().reshape(-1)
+    for start in range(0, flat.numel(), chunk_elements):
+        chunk = flat[start : start + chunk_elements].cpu().contiguous().numpy()
+        digest.update(memoryview(chunk))
+    return digest.hexdigest()
+
+
+def _fresh_model_only_state_assertions(pipeline: VanillaPipeline) -> Dict[str, Any]:
+    """Inspect LookCloser fresh-state invariants without imposing them on other models."""
+
+    assertions: Dict[str, Any] = {}
+    model = getattr(pipeline, "model", None)
+    occupancy = getattr(model, "occupancy_grid", None)
+    if occupancy is not None and hasattr(occupancy, "occs"):
+        assertions["occupancy_occs_zero"] = int(torch.count_nonzero(occupancy.occs).item()) == 0
+        assertions["occupancy_binary_constructor_true_count"] = int(occupancy.binaries.sum().item())
+    frequency = getattr(model, "freq_grid", None)
+    if frequency is not None and hasattr(frequency, "grid"):
+        assertions["frequency_grid_zero"] = int(torch.count_nonzero(frequency.grid).item()) == 0
+    cumulative = getattr(pipeline, "cumulative_point_samples", None)
+    if isinstance(cumulative, torch.Tensor):
+        assertions["frame_cumulative_points_zero"] = int(cumulative.item()) == 0
+    fas_state = getattr(pipeline, "fas_sample_count_state", None)
+    if isinstance(fas_state, torch.Tensor):
+        assertions["fas_sample_count_zero"] = int(fas_state.item()) == 0
+    sampler = getattr(getattr(pipeline, "datamanager", None), "train_pixel_sampler", None)
+    if sampler is not None and hasattr(sampler, "sample_count"):
+        assertions["pixel_sampler_count_zero"] = int(sampler.sample_count) == 0
+    failed = [name for name, value in assertions.items() if name.endswith("_zero") and value is not True]
+    if failed:
+        raise RuntimeError(f"Fresh model-only state assertions failed: {failed}")
+    return assertions
+
+
 @dataclass
 class TrainerConfig(ExperimentConfig):
     """Configuration for training regimen"""
@@ -125,8 +261,14 @@ class TrainerConfig(ExperimentConfig):
     """Path to config YAML file."""
     load_checkpoint: Optional[Path] = None
     """Path to checkpoint file."""
+    checkpoint_load_mode: Literal["resume", "model_parameters_only"] = "resume"
+    """Full resume, or a fresh local run initialized only from ``fields`` parameters."""
     load_optimizers: bool = True
     """Whether to load optimizer and scaler state from checkpoint."""
+    resume_fields_lr_override: Optional[float] = None
+    """New fields LR after a full resume, preserving Adam/scaler/RNG and scheduler progress."""
+    checkpoint_load_parameter_hash_audit: bool = False
+    """Hash source/copied field parameters during model-only smoke validation."""
     log_gradients: bool = False
     """Optionally log gradients during training"""
     gradient_accumulation_steps: Dict[str, int] = field(default_factory=lambda: {})
@@ -199,6 +341,7 @@ class Trainer:
         if self.config.grad_scaler_growth_interval <= 0:
             raise ValueError("grad_scaler_growth_interval must be positive")
         self._fused_adam_switch_applied = False
+        self.checkpoint_load_audit: Dict[str, Any] = {"mode": "scratch"}
         # optimizers
         self.grad_scaler = GradScaler(
             enabled=self.use_grad_scaler,
@@ -528,6 +671,70 @@ class Trainer:
         """Helper function to load pipeline and optimizer from prespecified checkpoint"""
         load_dir = self.config.load_dir
         load_checkpoint = self.config.load_checkpoint
+        load_mode = self.config.checkpoint_load_mode
+        if load_mode == "model_parameters_only":
+            if load_checkpoint is None or load_dir is not None or self.config.load_step is not None:
+                raise ValueError(
+                    "checkpoint_load_mode='model_parameters_only' requires one explicit "
+                    "load_checkpoint and forbids load_dir/load_step"
+                )
+            if self.config.resume_fields_lr_override is not None:
+                raise ValueError("resume_fields_lr_override is valid only for checkpoint_load_mode='resume'")
+            if not load_checkpoint.is_file():
+                raise FileNotFoundError(load_checkpoint)
+            loaded_state = torch.load(load_checkpoint, map_location="cpu", weights_only=False)
+            source_step = int(loaded_state["step"])
+            pipeline_state = loaded_state.get("pipeline")
+            if not isinstance(pipeline_state, dict):
+                raise RuntimeError("Checkpoint pipeline state must be a dict")
+            field_parameters = self.optimizers.parameters.get("fields")
+            if field_parameters is None:
+                raise RuntimeError("Model-only checkpoint loading requires optimizer group 'fields'")
+            loaded_names = _load_model_parameters_only(self.pipeline, field_parameters, pipeline_state)
+            reset_assertions = _fresh_model_only_state_assertions(self.pipeline)
+            self._start_step = 0
+            self._loaded_rng_state = None
+            self.checkpoint_load_audit = {
+                "mode": load_mode,
+                "source": str(load_checkpoint),
+                "source_step": source_step,
+                "local_start_step": 0,
+                "loaded_parameter_names": loaded_names,
+                "optimizer_loaded": False,
+                "scheduler_loaded": False,
+                "scaler_loaded": False,
+                "rng_loaded": False,
+                "pipeline_buffers_loaded": False,
+                "fresh_state_assertions": reset_assertions,
+            }
+            if getattr(self.config, "checkpoint_load_parameter_hash_audit", False):
+                normalized_source = {
+                    _normalize_pipeline_parameter_name(name): value for name, value in pipeline_state.items()
+                }
+                current = _model_parameter_only_state(self.pipeline, field_parameters, pipeline_state)
+                source_hashes = {name: _tensor_sha256(normalized_source[name]) for name in loaded_names}
+                copied_hashes = {name: _tensor_sha256(current[name]) for name in loaded_names}
+                if source_hashes != copied_hashes:
+                    raise RuntimeError("Copied field parameter hashes do not match the source checkpoint")
+                self.checkpoint_load_audit["source_parameter_sha256"] = source_hashes
+                self.checkpoint_load_audit["copied_parameter_sha256"] = copied_hashes
+            CONSOLE.print(
+                f"Loaded {len(loaded_names)} fields parameters only from {load_checkpoint}; "
+                "local training starts at step 0 with fresh optimizer and buffers."
+            )
+            return
+
+        if load_mode != "resume":
+            raise ValueError(f"Unknown checkpoint_load_mode: {load_mode}")
+        if self.config.resume_fields_lr_override is not None and load_dir is None and load_checkpoint is None:
+            raise ValueError("resume_fields_lr_override requires a resumed checkpoint")
+        if self.config.resume_fields_lr_override is not None and (
+            not self.config.load_optimizers or not self.config.load_scheduler
+        ):
+            raise ValueError("resume_fields_lr_override requires optimizer and scheduler resume")
+
+        loaded_path: Optional[Path] = None
+        loaded_state: Optional[Dict[str, Any]] = None
         if load_dir is not None:
             load_step = self.config.load_step
             if load_step is None:
@@ -538,24 +745,13 @@ class Trainer:
             assert load_path.exists(), f"Checkpoint {load_path} does not exist"
             # PyTorch 2.6 changed the default to weights_only=True. Historical
             # Nerfstudio checkpoints contain trusted Adam/scaler NumPy values.
+            loaded_path = load_path
             loaded_state = torch.load(load_path, map_location="cpu", weights_only=False)
-            self._start_step = loaded_state["step"] + 1
-            # load the checkpoints for pipeline, optimizers, and gradient scalar
-            self.pipeline.load_pipeline(loaded_state["pipeline"], loaded_state["step"])
-            if self.config.load_optimizers:
-                self.optimizers.load_optimizers(loaded_state["optimizers"])
-            if "schedulers" in loaded_state and self.config.load_scheduler:
-                self.optimizers.load_schedulers(loaded_state["schedulers"])
-            if self.config.load_optimizers:
-                _validate_grad_scaler_checkpoint_config(
-                    loaded_state["scalers"], self.config.grad_scaler_growth_interval
-                )
-                self.grad_scaler.load_state_dict(loaded_state["scalers"])
-            self._loaded_rng_state = loaded_state.get("rng_state")
-            CONSOLE.print(f"Done loading Nerfstudio checkpoint from {load_path}")
         elif load_checkpoint is not None:
             assert load_checkpoint.exists(), f"Checkpoint {load_checkpoint} does not exist"
+            loaded_path = load_checkpoint
             loaded_state = torch.load(load_checkpoint, map_location="cpu", weights_only=False)
+        if loaded_state is not None:
             self._start_step = loaded_state["step"] + 1
             # load the checkpoints for pipeline, optimizers, and gradient scalar
             self.pipeline.load_pipeline(loaded_state["pipeline"], loaded_state["step"])
@@ -569,7 +765,21 @@ class Trainer:
                 )
                 self.grad_scaler.load_state_dict(loaded_state["scalers"])
             self._loaded_rng_state = loaded_state.get("rng_state")
-            CONSOLE.print(f"Done loading Nerfstudio checkpoint from {load_checkpoint}")
+            if self.config.resume_fields_lr_override is not None:
+                self.optimizers.override_learning_rate("fields", self.config.resume_fields_lr_override)
+            self.checkpoint_load_audit = {
+                "mode": load_mode,
+                "source": str(loaded_path),
+                "source_step": int(loaded_state["step"]),
+                "local_start_step": self._start_step,
+                "optimizer_loaded": bool(self.config.load_optimizers),
+                "scheduler_loaded": bool("schedulers" in loaded_state and self.config.load_scheduler),
+                "scaler_loaded": bool(self.config.load_optimizers),
+                "rng_loaded": self._loaded_rng_state is not None,
+                "pipeline_buffers_loaded": True,
+                "fields_lr_override": self.config.resume_fields_lr_override,
+            }
+            CONSOLE.print(f"Done loading Nerfstudio checkpoint from {loaded_path}")
         else:
             CONSOLE.print("No Nerfstudio checkpoint to load, so training from scratch.")
 
@@ -596,6 +806,7 @@ class Trainer:
                 "schedulers": {k: v.state_dict() for (k, v) in self.optimizers.schedulers.items()},
                 "scalers": self.grad_scaler.state_dict(),
                 "rng_state": _capture_rng_state(),
+                "checkpoint_load_audit": self.checkpoint_load_audit,
             },
             ckpt_path,
         )
