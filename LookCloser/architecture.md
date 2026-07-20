@@ -491,6 +491,53 @@ exposure stays exactly 4,294,967,296 points. Full speed campaigns stop at the no
 step-91128 acceptance boundary, then use the same first-numeric-clean selector. Mature batch
 profiles and decisions are recorded in `experiments/static_leader_speed_optimization.md`.
 
+## Static 007747 from-scratch campaign
+
+`scripts/run_static_target_from_scratch.py` is isolated from the frozen 007740 reproduction
+controller. It trains frame `007747` from random initialization on canonical `main`, uses the same
+75940-update FR1.0 ancestry and a configurable continuation (default FR0.3), and rejects any Stage-A config containing a
+load checkpoint or load directory. Stage B and optional one-interval tails may load only a
+checkpoint produced earlier by the same campaign.
+
+`--stage-b-feature-reweighting` is an explicit, resume-validated recipe coordinate. The 007747
+corrected-map sweep selects `0.2`; `0.1`, `0.2`, and `0.3` were compared from the same
+random-initialized Stage-A parent. Seed is likewise explicit and uint32-validated so controlled
+seed sweeps remain possible without weakening checkpoint ancestry checks. Default values preserve
+the historical seed42/FR0.3 behavior.
+
+The controller retains and fresh-evaluates every 15188-update checkpoint, then applies the normal
+PSNR-first/LPIPS-within-0.07-dB selector. `scripts/static_target_roi_protocol.py` additionally
+scores and saves the fixed eval0 crop `(700, 100, 1120, 480)` containing the contacting hands,
+individual fingers and chain. Its contact sheet compares leader GT/render with target GT/render at
+native crop resolution; automatic ROI metrics and artifact checks remain subordinate to an
+explicit visual verdict. Campaign manifests, evaluation JSON, three-view renders and crops live
+under `/home/brans/lookcloser_007747_from_scratch_runs/campaigns/<name>`.
+
+Tail resumptions advance from the highest completed campaign-local checkpoint, so repeated
+one-interval requests cannot replay an older boundary. Numeric plateau state and explicit
+`improved`/`no_improvement` moving-detail reviews are stored per consecutive interval; plateau is
+confirmed only when the last two intervals satisfy both gates.
+
+The campaign preflight binds 66 train images, 3 filename eval images, 66 frequency maps, transforms,
+JPEG profile, source hashes and the canonical leader reference. The leader checkpoint is hashed and
+used only as a read-only reference; it is never passed to training.
+
+### Frequency-map preparation contract
+
+Frequency maps are comparable only when their estimator-input contract is identical: decoded color
+representation and chroma bandwidth, resolution, patch/SSIM settings, seed, and preprocessing
+source must be frozen and recorded with image/map hashes. Generate one finite tensor plus a
+filename-bound sidecar per train image into a new directory, and audit level histograms and scalar
+resolution before training. If maps shift strongly while luminance detail is stable, first inspect
+decoder/JPEG/chroma differences rather than tuning the model.
+
+Keep train/eval images immutable. When a dataset family mixes export profiles, normalize only the
+temporary estimator tensor to one declared profile and validate it with a representative same-seed
+A/B; this normalization is not a universal default. For 007747 specifically,
+`scripts/build_chroma_normalized_frequency_maps.py` applies horizontal 2× Cb/Cr low-pass to match
+the 007740 4:2:2-like reference while preserving full-resolution luminance. The promoted directory
+is `lookcloser_frequencies_chroma422`; partial normalization was tested and rejected.
+
 ## Scene bounds / AABB
 
 LookCloser now replaces the default `NearFarCollider(near=2, far=6)` with `AABBBoxCollider(scene_box)` when `pipeline.model.enable_collider=True`. This is important for fixed-step ablations because the fixed marcher should sample only the nerfstudio scene box instead of a hand-picked near/far slab.
@@ -514,12 +561,12 @@ The same comparison path also exposes `rgb_output_activation`, `loss_type`, and 
 The paper-level modules can be ablated independently through config flags.
 
 - Frequency Grid: `pipeline.model.enable_frequency_grid` controls grid queries in the model; `pipeline.enable_frequency_grid` controls loading 2D maps and periodic grid updates. When disabled, the grid returns `fallback_frequency_level` and update steps are skipped.
-- Current processed 3k data does not include `lookcloser_frequencies`, so Frequency Grid update experiments log a missing-map warning until the preprocessing path is restored.
+- The legacy processed 3k dataset used by older ablations does not include `lookcloser_frequencies`, so those runs log a missing-map warning. This does not apply to the fingerprinted 007740/007747 datasets above.
 - Feature Re-weighting: `pipeline.model.enable_feature_reweighting` controls Eq. 6 weighting in `LookCloserField`. When disabled, raw hash-grid features are passed to the MLP.
 - FAS: `pipeline.datamanager.pixel_sampler.enable_fas` controls frequency-averaged pixel sampling. When disabled, `LookCloserPixelSampler` falls back to uniform `PixelSampler` behavior.
 - Adaptive RM: `pipeline.model.enable_adaptive_ray_marching` controls adaptive ray marching. When disabled, `LookCloserModel` uses a fixed-step renderer with `fixed_num_samples_per_ray`.
 
-Preprocessing now prefers `train_steps_per_level` over the legacy `steps_per_image`, so every frequency level receives enough optimization before SSIM assignment. The CLI entrypoint is `ns-process-lookcloser-freqs`.
+Generic preprocessing prefers `train_steps_per_level` over the legacy `steps_per_image`, so every frequency level receives enough optimization before SSIM assignment. Its CLI entrypoint is `ns-process-lookcloser-freqs`; do not mix its outputs with a normalized-map campaign unless the estimator-input contract and provenance match.
 
 ## Temporal per-frame transfer
 
