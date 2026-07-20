@@ -130,9 +130,10 @@ outside the ROI at this checkpoint, so it is not visually accepted.
 - None of the 66 target frequency tensors is identical to its 007740 counterpart; about 67.8% of
   patch cells change. Target level15 occupancy is 18.63% versus 12.32%, and mean scalar resolution
   is 3855.9 versus 3379.6.
-- The target JPEGs are q95 4:4:4, whereas canonical 007740 uses a different quantization and
-  subsampling profile. This is a real dataset-difficulty confounder, not by itself proof of an
-  incorrect frequency map. Training and eval images remain immutable.
+- At the time of E1--E9, the target JPEGs were q95 4:4:4, whereas canonical 007740 used a different
+  quantization and subsampling profile. This was a real dataset-difficulty confounder, not by itself
+  proof of an incorrect frequency map. Those image hashes stayed immutable throughout the campaign;
+  the later EXR-to-JPEG canonicalization is a separate dataset revision.
 - Luminance mean-absolute gradient is effectively unchanged (`0.027424` on 007740 versus
   `0.027452` on 007747), but decoded Cb/Cr gradients increase from `0.003744/0.006331` to
   `0.004966/0.010001`. The high-level map increase therefore tracks the JPEG chroma representation
@@ -162,11 +163,12 @@ outside the ROI at this checkpoint, so it is not visually accepted.
 ## Root cause and prevention
 
 The failure was not a camera-pose or split mismatch: the 007740/007747 transforms are byte-identical
-and both datasets contain 66 train and 3 eval views. The confounder was the estimator input. The
-target JPEGs use q95 4:4:4 chroma while the leader images have a 4:2:2-like component ratio. Useful
-luminance gradients stayed nearly constant, but target chroma gradients and high-frequency map
-occupancy increased sharply. The estimator therefore interpreted a compression/export difference
-as extra scene detail and changed FAS, frequency-grid updates, and feature reweighting together.
+and both datasets contain 66 train and 3 eval views. During E1--E9 the confounder was the estimator
+input: target JPEGs used q95 4:4:4 chroma while leader images had a 4:2:2-like component ratio.
+Useful luminance gradients stayed nearly constant, but target chroma gradients and high-frequency
+map occupancy increased sharply. The estimator therefore interpreted a compression/export
+difference as extra scene detail and changed FAS, frequency-grid updates, and feature reweighting
+together.
 
 For future datasets:
 

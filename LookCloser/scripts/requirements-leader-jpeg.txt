@@ -1,0 +1,5 @@
+# Exact EXR-to-display math used to create the accepted 007740 images.
+# Install with Python 3.12; FFmpeg is checked separately by the converter.
+numpy==2.4.6
+OpenEXR==3.4.11
+Pillow==12.2.0

@@ -522,6 +522,14 @@ The campaign preflight binds 66 train images, 3 filename eval images, 66 frequen
 JPEG profile, source hashes and the canonical leader reference. The leader checkpoint is hashed and
 used only as a read-only reference; it is never passed to training.
 
+### Temporal EXR-to-JPEG canonicalization
+
+`scripts/convert_temporal_exr_to_leader_jpeg.py` is the frozen dev3 conversion path for temporal
+frames. It stages below its script-local `temp` directory, pins decoder/encoder versions and JPEG
+profile, proves the recipe 69/69 byte-exact on protected 007740, and permits a backed-up atomic
+apply only to frames newer than 007740. Canonicalizing JPEGs creates a new dataset revision: do it
+before frequency preprocessing, then regenerate maps from the new image bytes.
+
 ### Frequency-map preparation contract
 
 Frequency maps are comparable only when their estimator-input contract is identical: decoded color
@@ -531,12 +539,14 @@ filename-bound sidecar per train image into a new directory, and audit level his
 resolution before training. If maps shift strongly while luminance detail is stable, first inspect
 decoder/JPEG/chroma differences rather than tuning the model.
 
-Keep train/eval images immutable. When a dataset family mixes export profiles, normalize only the
-temporary estimator tensor to one declared profile and validate it with a representative same-seed
-A/B; this normalization is not a universal default. For 007747 specifically,
-`scripts/build_chroma_normalized_frequency_maps.py` applies horizontal 2× Cb/Cr low-pass to match
-the 007740 4:2:2-like reference while preserving full-resolution luminance. The promoted directory
-is `lookcloser_frequencies_chroma422`; partial normalization was tested and rejected.
+Keep train/eval images immutable within a map/training campaign. When a dataset family mixes export
+profiles, either canonicalize the dataset as an explicit new revision before map generation or
+normalize only the temporary estimator tensor to one declared profile and validate it with a
+representative same-seed A/B; estimator-only normalization is not a universal default. For the
+historical pre-conversion 007747 dataset, `scripts/build_chroma_normalized_frequency_maps.py`
+applied horizontal 2× Cb/Cr low-pass to match the 007740 4:2:2-like reference while preserving
+full-resolution luminance. Its `lookcloser_frequencies_chroma422` output belongs only to those old
+4:4:4 JPEG hashes; after EXR-to-JPEG canonicalization, regenerate maps instead of reusing it.
 
 ## Scene bounds / AABB
 
