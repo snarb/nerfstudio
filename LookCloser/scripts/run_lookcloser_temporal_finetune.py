@@ -1224,7 +1224,10 @@ def train_frame_recipe(
             args, store, frame, phase_a[-3:], previous_dataset, previous_protocol
         )
         if phase_a[-1].local_step >= SCREEN_FINAL_STEP and plateau_confirmed(evidence):
-            phase_a_parent = phase_a[-1]
+            # Plateau decides when Phase A stops; it does not decide which checkpoint
+            # is allowed to seed the tail.  Use the canonical PSNR/LPIPS selector
+            # across Phase A so a late plateau drift cannot poison the FR0.3 tail.
+            phase_a_parent = select_metrics(phase_a)
             break
         phase_a_intervals += 1
         if phase_a_intervals > args.max_phase_a_intervals:

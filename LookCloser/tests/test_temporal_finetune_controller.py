@@ -45,6 +45,73 @@ def test_selector_includes_exact_007_boundary_and_ignores_ssim() -> None:
     assert temporal.select_metrics([maximum, exact_tie, outside]) == exact_tie
 
 
+def test_tail_resumes_selected_phase_a_checkpoint_not_last_plateau(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    interval = temporal.INTERVAL
+    phase_a = [
+        temporal.Metrics(
+            4 * interval,
+            30.00,
+            0.70,
+            0.30,
+            checkpoint=tmp_path / "maximum.ckpt",
+            run_id="screen",
+        ),
+        temporal.Metrics(
+            5 * interval,
+            29.95,
+            0.69,
+            0.20,
+            checkpoint=tmp_path / "selected.ckpt",
+            run_id="screen",
+        ),
+        temporal.Metrics(
+            6 * interval,
+            29.80,
+            0.71,
+            0.19,
+            checkpoint=tmp_path / "last.ckpt",
+            run_id="screen",
+        ),
+    ]
+    plateau = [
+        evidence(4 * interval, 30.00, 0.7000, 0.2000),
+        evidence(5 * interval, 30.01, 0.7005, 0.1980),
+        evidence(6 * interval, 30.02, 0.7007, 0.1970),
+    ]
+    monkeypatch.setattr(temporal, "_metrics_with_checkpoints", lambda *_: phase_a)
+    monkeypatch.setattr(temporal, "_boundary_evidence", lambda *_: plateau)
+    captured = []
+
+    def capture_tail(_args, _store, spec):
+        captured.append(spec)
+        raise RuntimeError("captured tail")
+
+    monkeypatch.setattr(temporal, "run_training", capture_tail)
+    args = temporal.parse_args([])
+    store = object()
+
+    with pytest.raises(RuntimeError, match="captured tail"):
+        temporal.train_frame_recipe(
+            args,
+            store,
+            frame="007747",
+            parent_checkpoint=tmp_path / "leader.ckpt",
+            parent_effective_step=91_128,
+            lr=0.002,
+            seed=42,
+            prefix="transfer",
+            initial_run_id="screen",
+            traversal_warmup_steps=8_192,
+        )
+
+    assert len(captured) == 1
+    assert captured[0].phase == "tail"
+    assert captured[0].parent_checkpoint == tmp_path / "selected.ckpt"
+    assert captured[0].target_local_step == 5 * interval + 2 * interval
+
+
 def test_plateau_requires_two_complete_consecutive_intervals() -> None:
     rows = [
         evidence(30_376, 30.000, 0.7000, 0.2000),
