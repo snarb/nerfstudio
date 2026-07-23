@@ -589,12 +589,39 @@ def disk_guard(output_dir: Path, forecast_bytes: int = 0) -> Dict[str, int]:
     }
 
 
-def frame_storage_forecast(args: argparse.Namespace, *, include_control: bool) -> int:
+def frame_storage_forecast(
+    args: argparse.Namespace,
+    *,
+    include_control: bool,
+    completed_phase_checkpoints: int = 0,
+) -> int:
+    if completed_phase_checkpoints < 0:
+        raise ValueError("completed_phase_checkpoints must be non-negative")
     checkpoint_bytes = args.leader_checkpoint.stat().st_size
-    phase_checkpoints = args.max_phase_a_intervals + args.max_tail_intervals + 2
+    phase_checkpoints = max(
+        args.max_phase_a_intervals + args.max_tail_intervals + 2 - completed_phase_checkpoints,
+        0,
+    )
     control_checkpoints = 9 if include_control else 0
     render_and_protocol_reserve = 8 * 1024**3
     return checkpoint_bytes * (phase_checkpoints + control_checkpoints) + render_and_protocol_reserve
+
+
+def completed_boundaries(runs: Mapping[str, Any], run_ids: Iterable[str]) -> int:
+    """Count already materialized eval/save boundaries without hashing large checkpoints."""
+
+    completed = 0
+    for run_id in run_ids:
+        run = runs.get(run_id)
+        if not isinstance(run, Mapping) or run.get("status") != "complete":
+            continue
+        steps = {
+            int(row["local_step"])
+            for row in run.get("scheduled_metrics", [])
+            if isinstance(row, Mapping) and row.get("local_step") is not None
+        }
+        completed += len(steps)
+    return completed
 
 
 def vram_guard(jobs: int, env: Mapping[str, str]) -> Dict[str, Any]:
@@ -1882,7 +1909,29 @@ def campaign(args: argparse.Namespace, store: CampaignStore) -> None:
 
     selected_frames = [frame for frame in CHAIN_FRAMES if args.start_frame <= frame <= args.end_frame]
     for frame in selected_frames:
-        disk_guard(args.output_dir, frame_storage_forecast(args, include_control=frame in {"007747", "007838"}))
+        reusable_phase_run_ids = [
+            run_id
+            for run_id, run in store.data["runs"].items()
+            if (
+                run_id == winner_spec.run_id
+                or (
+                    isinstance(run, Mapping)
+                    and run.get("frame") == frame
+                    and str(run.get("phase", "")).startswith("phase_a")
+                    and run_id.startswith(f"transfer_{frame}_")
+                )
+            )
+        ]
+        disk_guard(
+            args.output_dir,
+            frame_storage_forecast(
+                args,
+                include_control=frame in {"007747", "007838"},
+                completed_phase_checkpoints=completed_boundaries(
+                    store.data["runs"], reusable_phase_run_ids
+                ),
+            ),
+        )
         prior = store.data["frames"].get(frame)
         if (
             isinstance(prior, Mapping)

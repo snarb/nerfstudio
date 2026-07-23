@@ -286,6 +286,32 @@ def test_disk_and_vram_guards_fail_closed(monkeypatch: pytest.MonkeyPatch, tmp_p
         temporal.vram_guard(3, {})
 
 
+def test_resume_storage_forecast_credits_completed_phase_boundaries(tmp_path: Path) -> None:
+    args = temporal.parse_args([])
+    fresh = temporal.frame_storage_forecast(args, include_control=True)
+    resumed = temporal.frame_storage_forecast(
+        args, include_control=True, completed_phase_checkpoints=3
+    )
+    assert fresh - resumed == 3 * args.leader_checkpoint.stat().st_size
+    assert temporal.completed_boundaries(
+        {
+            "complete": {
+                "status": "complete",
+                "scheduled_metrics": [
+                    {"local_step": temporal.INTERVAL},
+                    {"local_step": 2 * temporal.INTERVAL},
+                    {"local_step": 2 * temporal.INTERVAL},
+                ],
+            },
+            "running": {
+                "status": "running",
+                "scheduled_metrics": [{"local_step": 3 * temporal.INTERVAL}],
+            },
+        },
+        ["complete", "running"],
+    ) == 2
+
+
 def test_rejected_parent_cannot_be_forwarded(tmp_path: Path) -> None:
     with pytest.raises(temporal.QualityStop, match="cannot be forwarded"):
         temporal.require_accepted_parent(
