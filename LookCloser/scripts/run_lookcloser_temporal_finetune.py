@@ -58,6 +58,7 @@ EXPECTED_GPU = "NVIDIA RTX PRO 6000 Blackwell Workstation Edition"
 FRAME_NAMES = tuple(f"{frame:06d}" for frame in range(7_740, 8_049, 7))
 CHAIN_FRAMES = FRAME_NAMES[1:]
 LR_CANDIDATES = (5e-4, 1e-3, 2e-3)
+TRAVERSAL_WARMUP_CANDIDATES = (4_096, 8_192)
 INTERVAL = 15_188
 SCREEN_FINAL_STEP = 60_752
 SCREEN_MAX_ITERATIONS = SCREEN_FINAL_STEP + 1
@@ -167,6 +168,21 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     parser.add_argument("--leader-checkpoint", type=Path, default=DEFAULT_LEADER_CHECKPOINT)
     parser.add_argument("--leader-config", type=Path, default=DEFAULT_LEADER_CONFIG)
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument(
+        "--lr-candidates",
+        type=lambda value: _parse_candidate_tuple(value, float, "LR"),
+        default=LR_CANDIDATES,
+        help="Comma-separated constant fields LRs for the matched 007747 screen.",
+    )
+    parser.add_argument(
+        "--traversal-warmup-candidates",
+        type=lambda value: _parse_candidate_tuple(value, int, "traversal warmup"),
+        default=TRAVERSAL_WARMUP_CANDIDATES,
+        help=(
+            "Comma-separated local update counts during which adaptive traversal stays fixed "
+            "while fresh occupancy is rebuilt."
+        ),
+    )
     parser.add_argument("--max-parallel", type=int, choices=(1, 2, 3), default=3)
     parser.add_argument("--start-frame", choices=CHAIN_FRAMES, default=CHAIN_FRAMES[0])
     parser.add_argument("--end-frame", choices=CHAIN_FRAMES, default=CHAIN_FRAMES[-1])
@@ -183,6 +199,22 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
         help="Run a one-update 007747 model-only checkpoint/reset smoke instead of the campaign.",
     )
     return parser.parse_args(argv)
+
+
+def _parse_candidate_tuple(
+    value: str,
+    converter: Any,
+    label: str,
+) -> Tuple[Any, ...]:
+    try:
+        parsed = tuple(converter(item.strip()) for item in value.split(",") if item.strip())
+    except (TypeError, ValueError) as error:
+        raise argparse.ArgumentTypeError(f"Invalid {label} candidates: {value!r}") from error
+    if not parsed or any(item <= 0 for item in parsed):
+        raise argparse.ArgumentTypeError(f"{label} candidates must be positive and non-empty")
+    if len(set(parsed)) != len(parsed):
+        raise argparse.ArgumentTypeError(f"{label} candidates must be unique")
+    return parsed
 
 
 def utc_now() -> str:
@@ -705,7 +737,10 @@ def lr_screen_specs(args: argparse.Namespace) -> List[RunSpec]:
     parent_step = checkpoint_step(args.leader_checkpoint)
     return [
         RunSpec(
-            run_id=f"007747_lr{lr:.0e}_seed{args.seed}_phase_a_s{SCREEN_FINAL_STEP}",
+            run_id=(
+                f"007747_lr{lr:.0e}_warm{warmup}_seed{args.seed}_"
+                f"phase_a_s{SCREEN_FINAL_STEP}"
+            ),
             frame="007747",
             seed=args.seed,
             lr=lr,
@@ -717,8 +752,10 @@ def lr_screen_specs(args: argparse.Namespace) -> List[RunSpec]:
             target_local_step=SCREEN_FINAL_STEP,
             inherited_global_step=parent_step,
             contended=args.max_parallel > 1,
+            traversal_warmup_steps=warmup,
         )
-        for lr in LR_CANDIDATES
+        for warmup in args.traversal_warmup_candidates
+        for lr in args.lr_candidates
     ]
 
 
@@ -932,9 +969,18 @@ def run_lr_screen(args: argparse.Namespace, store: CampaignStore) -> Tuple[RunSp
     winner = next(spec for spec in specs if spec.run_id == selected.run_id)
     store.data["lr_screen"] = {
         "matched_local_step": SCREEN_FINAL_STEP,
-        "candidates": [asdict(row) | {"checkpoint": str(row.checkpoint)} for row in matched],
+        "candidates": [
+            asdict(row)
+            | {
+                "checkpoint": str(row.checkpoint),
+                "lr": spec.lr,
+                "traversal_warmup_steps": spec.traversal_warmup_steps,
+            }
+            for row, spec in zip(matched, specs)
+        ],
         "winner_run_id": winner.run_id,
         "winner_lr": winner.lr,
+        "winner_traversal_warmup_steps": winner.traversal_warmup_steps,
         "repeat_required": seed_repeat_required(
             selected,
             select_metrics([row for row in matched if row.run_id != selected.run_id]),
@@ -1279,6 +1325,7 @@ def finalize_frame(
     parent_checkpoint: Path,
     parent_effective_step: int,
     lr: float,
+    traversal_warmup_steps: int,
     decision_key: str,
 ) -> GateDecision:
     assert selected.run_id is not None and selected.checkpoint is not None
@@ -1346,6 +1393,7 @@ def finalize_frame(
         "local_updates_completed": selected.local_step + 1,
         "effective_global_step": parent_effective_step + selected.local_step,
         "lr": lr,
+        "traversal_warmup_steps": traversal_warmup_steps,
         "fas": 1.0,
         "phase_a_fr": 1.0,
         "tail_fr": 0.3,
@@ -1516,6 +1564,7 @@ def run_seed43_repeat(
     parent_checkpoint: Path,
     parent_effective_step: int,
     lr: float,
+    traversal_warmup_steps: int,
     transfer: Metrics,
 ) -> GateDecision:
     selected, run_ids = train_frame_recipe(
@@ -1527,6 +1576,7 @@ def run_seed43_repeat(
         lr=lr,
         seed=43,
         prefix="repeat",
+        traversal_warmup_steps=traversal_warmup_steps,
     )
     evaluated, quality = evaluate_control_candidate(
         args,
@@ -1571,6 +1621,7 @@ def create_diagnostic_package(
     frame: str,
     parent_checkpoint: Path,
     winner_lr: float,
+    winner_traversal_warmup_steps: int,
     reason: GateDecision,
 ) -> Path:
     """Freeze the required isolated recovery matrix from the last good parent."""
@@ -1581,10 +1632,17 @@ def create_diagnostic_package(
         "last_good_parent": str(parent_checkpoint),
         "last_good_parent_sha256": sha256_file(parent_checkpoint),
         "failed_gate": asdict(reason),
+        "winner_traversal_warmup_steps": winner_traversal_warmup_steps,
         "treatments": [
             {"name": "lr_x0.5", "lr": winner_lr * 0.5, "isolated": True},
             {"name": "lr_x2", "lr": winner_lr * 2.0, "isolated": True},
-            {"name": "full_traversal_warmup8192", "adaptive_warmup_steps": 8192, "isolated": True},
+            {
+                "name": "alternate_traversal_warmup",
+                "adaptive_warmup_steps": (
+                    8_192 if winner_traversal_warmup_steps == 4_096 else 4_096
+                ),
+                "isolated": True,
+            },
             {"name": "extra_fr1_interval", "updates": INTERVAL, "feature_reweighting": 1.0, "isolated": True},
             {
                 "name": "extra_tail_if_trajectory_rising",
@@ -1782,14 +1840,26 @@ def campaign(args: argparse.Namespace, store: CampaignStore) -> None:
     store.flush()
     ensure_leader_baseline(args, store)
     if "lr_screen" not in store.data:
+        screen_specs = lr_screen_specs(args)
+        checkpoints_per_candidate = SCREEN_FINAL_STEP // INTERVAL
         disk_guard(
             args.output_dir,
-            forecast_bytes=args.leader_checkpoint.stat().st_size * 12 + 4 * 1024**3,
+            forecast_bytes=(
+                args.leader_checkpoint.stat().st_size
+                * len(screen_specs)
+                * checkpoints_per_candidate
+                + 4 * 1024**3
+            ),
         )
         winner_spec, matched = run_lr_screen(args, store)
     else:
         winner_lr = float(store.data["lr_screen"]["winner_lr"])
-        winner_spec = next(spec for spec in lr_screen_specs(args) if spec.lr == winner_lr)
+        winner_warmup = int(store.data["lr_screen"]["winner_traversal_warmup_steps"])
+        winner_spec = next(
+            spec
+            for spec in lr_screen_specs(args)
+            if spec.lr == winner_lr and spec.traversal_warmup_steps == winner_warmup
+        )
         matched = [
             Metrics(
                 local_step=int(row["local_step"]),
@@ -1803,6 +1873,7 @@ def campaign(args: argparse.Namespace, store: CampaignStore) -> None:
             for row in store.data["lr_screen"]["candidates"]
         ]
     winner_lr = winner_spec.lr
+    winner_warmup = winner_spec.traversal_warmup_steps
     parent = args.leader_checkpoint
     inherited = checkpoint_step(parent)
 
@@ -1835,6 +1906,7 @@ def campaign(args: argparse.Namespace, store: CampaignStore) -> None:
             seed=args.seed,
             prefix="transfer",
             initial_run_id=initial,
+            traversal_warmup_steps=winner_warmup,
         )
         gate = finalize_frame(
             args,
@@ -1845,6 +1917,7 @@ def campaign(args: argparse.Namespace, store: CampaignStore) -> None:
             parent_checkpoint=parent,
             parent_effective_step=inherited,
             lr=winner_lr,
+            traversal_warmup_steps=winner_warmup,
             decision_key=frame,
         )
         write_report(args.report, store)
@@ -1855,6 +1928,7 @@ def campaign(args: argparse.Namespace, store: CampaignStore) -> None:
                 frame=frame,
                 parent_checkpoint=parent,
                 winner_lr=winner_lr,
+                winner_traversal_warmup_steps=winner_warmup,
                 reason=gate,
             )
             store.data["status"] = f"stopped_{gate.outcome}"
@@ -1871,6 +1945,7 @@ def campaign(args: argparse.Namespace, store: CampaignStore) -> None:
                 parent_checkpoint=parent,
                 parent_effective_step=inherited,
                 lr=winner_lr,
+                traversal_warmup_steps=winner_warmup,
                 transfer=selected,
             )
             if not repeat_gate.passed:
@@ -1881,6 +1956,7 @@ def campaign(args: argparse.Namespace, store: CampaignStore) -> None:
                     frame=frame,
                     parent_checkpoint=parent,
                     winner_lr=winner_lr,
+                    winner_traversal_warmup_steps=winner_warmup,
                     reason=repeat_gate,
                 )
                 raise QualityStop(f"Frame {frame} seed sensitivity: {repeat_gate.reasons}")
@@ -1895,6 +1971,7 @@ def campaign(args: argparse.Namespace, store: CampaignStore) -> None:
                     frame=frame,
                     parent_checkpoint=parent,
                     winner_lr=winner_lr,
+                    winner_traversal_warmup_steps=winner_warmup,
                     reason=scratch_gate,
                 )
                 raise QualityStop(f"Frame {frame} scratch parity failed: {scratch_gate.reasons}")

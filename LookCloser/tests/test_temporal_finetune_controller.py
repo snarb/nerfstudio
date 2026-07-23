@@ -116,7 +116,7 @@ def test_combined_gate_preserves_ambiguity_and_failure_precedence() -> None:
     assert temporal.combine_gates(ambiguous, failing).outcome == "fail"
 
 
-def test_dry_run_has_three_deterministic_model_only_commands(tmp_path: Path) -> None:
+def test_dry_run_has_factorial_deterministic_model_only_commands(tmp_path: Path) -> None:
     args = temporal.parse_args(
         ["--dry-run", "--output-dir", str(tmp_path / "runs"), "--campaign", str(tmp_path / "campaign.json")]
     )
@@ -124,10 +124,46 @@ def test_dry_run_has_three_deterministic_model_only_commands(tmp_path: Path) -> 
     second = temporal.deterministic_dry_run(args)
 
     assert first == second
-    assert [row["run"]["lr"] for row in first["lr_screen"]] == list(temporal.LR_CANDIDATES)
+    assert [
+        (row["run"]["traversal_warmup_steps"], row["run"]["lr"])
+        for row in first["lr_screen"]
+    ] == [
+        (warmup, lr)
+        for warmup in temporal.TRAVERSAL_WARMUP_CANDIDATES
+        for lr in temporal.LR_CANDIDATES
+    ]
     assert all(row["run"]["load_mode"] == "model_parameters_only" for row in first["lr_screen"])
     assert all(row["run"]["target_local_step"] == 60_752 for row in first["lr_screen"])
-    assert len({tuple(row["command"]) for row in first["lr_screen"]}) == 3
+    assert len({row["run"]["run_id"] for row in first["lr_screen"]}) == 6
+    assert len({row["input_config"] for row in first["lr_screen"]}) == 6
+
+
+def test_screen_candidate_overrides_are_validated_and_crossed(tmp_path: Path) -> None:
+    args = temporal.parse_args(
+        [
+            "--output-dir",
+            str(tmp_path / "runs"),
+            "--campaign",
+            str(tmp_path / "campaign.json"),
+            "--lr-candidates",
+            "0.00075,0.0015",
+            "--traversal-warmup-candidates",
+            "2048,6144",
+        ]
+    )
+    assert [
+        (spec.traversal_warmup_steps, spec.lr) for spec in temporal.lr_screen_specs(args)
+    ] == [
+        (2_048, 0.00075),
+        (2_048, 0.0015),
+        (6_144, 0.00075),
+        (6_144, 0.0015),
+    ]
+
+    with pytest.raises(SystemExit):
+        temporal.parse_args(["--lr-candidates", "0.001,0.001"])
+    with pytest.raises(SystemExit):
+        temporal.parse_args(["--traversal-warmup-candidates", "0"])
 
 
 def test_run_local_traversal_warmup_override(tmp_path: Path) -> None:

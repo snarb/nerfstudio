@@ -584,7 +584,7 @@ Generic preprocessing prefers `train_steps_per_level` over the legacy `steps_per
 `run_lookcloser_temporal_transfer.py` lineage is forensic evidence only. The new controller requires a clean
 `main`, the SHA-bound canonical S1 step91128 checkpoint/config and TCNN runtime, all 45 identical `66+3`
 datasets, 66 frequency maps per frame, at least 100 GiB free disk before every run, and sufficient VRAM for
-the three-way 007747 LR screen. Its atomic manifest is
+the six-way 007747 LR×occupancy-warmup screen. Its atomic manifest is
 `/home/brans/lookcloser_temporal_finetune_runs/campaigns/temporal_stride7_seed42/campaign.json`.
 
 `TrainerConfig.checkpoint_load_mode` makes the two temporal boundaries explicit. Cross-frame
@@ -604,9 +604,12 @@ checkpointed `cumulative_point_samples` is frame-local after model-only reset an
 resumes; temporal exposure sums accepted frame counters. The leader exposure remains explicitly labeled a
 legacy estimate because the canonical checkpoint has no exact counter.
 
-Frame007747 screens constant adaptation LRs `5e-4/1e-3/2e-3` concurrently and compares only matched local
-step60752. Phase A (FR1/FAS1) and the full-resume tail (FR0.3/FAS1/LR÷4) extend by 15188 updates until two
-consecutive complete boundaries meet the metric, critical-ROI and artifact plateau rules. Selection is max
+Frame007747 screens the Cartesian product of constant adaptation LRs `5e-4/1e-3/2e-3` and fresh
+occupancy/traversal warmups `4096/8192` concurrently, comparing only matched local step60752. These LRs bracket
+the checkpoint's actual saved fields LR `0.0012278067`; the longer warmup tests whether moving geometry needs
+more time before adaptive traversal trusts the rebuilt occupancy grid. Phase A (FR1/FAS1) and the full-resume
+tail (FR0.3/FAS1/LR÷4) extend by 15188 updates until two consecutive complete boundaries meet the metric,
+critical-ROI and artifact plateau rules. Selection is max
 `eval_all_psnr`; every checkpoint within an inclusive 0.07 dB is tied and lowest LPIPS wins. SSIM is reported
 but never selects. Scratch controls on 007747 and the maximum-motion-jump frame007838 use the faithful
 FR1@75940 -> full-resume FR0.3@106316 ancestry. A seed43 repeat is mandatory when the LR margin falls inside
@@ -620,7 +623,7 @@ artifacts, confident tracking, critical-ROI LPIPS regression at most0.01, and an
 Regression 0.01--0.02 or low confidence is ambiguous; regression above0.02 fails. A failed/ambiguous frame is
 never substituted or forwarded. Every promoted frame must also remain within the declared canonical-leader
 envelope: PSNR no more than0.20 dB lower, SSIM no more than0.010 lower, and LPIPS no more than0.015 higher.
-The controller writes the isolated LR×0.5/LR×2/warmup8192/extra-FR1/
+The controller writes the isolated LR×0.5/LR×2/alternate-warmup/extra-FR1/
 conditional-extra-tail diagnostic matrix and exits2; infrastructure/OOM/eval failures exit3 and are not
 reinterpreted as quality experiments. Complete chain success exits0.
 

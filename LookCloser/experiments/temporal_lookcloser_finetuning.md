@@ -10,9 +10,10 @@ Implemented the safe temporal fine-tuning infrastructure before starting the 45-
 - optical-flow tracked and temporal-difference ROI tooling;
 - a real two-stage GPU smoke on frame `007747`.
 
-The long `5e-4 / 1e-3 / 2e-3` screen and sequential chain were deliberately not started from the modified,
-uncommitted worktree. Campaign preflight requires a clean `main` so the recorded commit/source fingerprint is
-meaningful.
+The production screen is the Cartesian product of constant fields LRs `5e-4 / 1e-3 / 2e-3` and fresh
+occupancy/traversal warmups `4096 / 8192`. The saved fields LR in the source checkpoint is
+`0.0012278067`, so the LR range deliberately spans below, near, and above it. Campaign preflight requires a
+clean `main` so the recorded commit/source fingerprint is meaningful.
 
 ## Results
 
@@ -25,7 +26,7 @@ Preflight inputs validated locally:
 | Datasets | 45/45; each `66 train + 3 eval`, transforms SHA matched, 66 frequency maps |
 | Runtime | Python `3.10.20`, Torch `2.7.1+cu128`, CUDA `12.8`, canonical TCNN binding matched |
 | Capacity guards | about `689.5 GiB` disk free; `97,239 MiB` VRAM free, three-job requirement `81,920 MiB` |
-| Deterministic dry-run | exactly three model-only commands at local step `60752` for the declared LRs |
+| Deterministic dry-run | six model-only commands at local step `60752` for the declared LR×warmup grid |
 | Targeted and related regression tests | 62 passed |
 
 GPU smoke assertions:
@@ -61,5 +62,6 @@ Per-frame campaign results (PSNR, SSIM, and LPIPS only) will be written here by 
 
 - Commit the reviewed implementation on `main`, rerun `--preflight-only`, then run `--smoke-test` through the
   production controller so its provenance is stored in the campaign manifest.
-- Start/resume the LR screen with the visual-decision file prepared for transfer, seed43 repeat, and scratch
+- Run the clean preflight and production smoke, then start/resume the LR×warmup screen with the
+  visual-decision file prepared for transfer, seed43 repeat, and scratch
   controls. Continue the chain only from fully accepted parents.
