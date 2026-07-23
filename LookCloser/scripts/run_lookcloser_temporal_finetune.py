@@ -22,7 +22,7 @@ import sys
 import threading
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 from datetime import datetime, timezone
 from pathlib import Path
 from types import SimpleNamespace
@@ -888,10 +888,36 @@ def finalize_run_record(
     return record
 
 
+def existing_run_spec_mismatches(
+    existing: Mapping[str, Any], spec: RunSpec
+) -> Dict[str, Dict[str, Any]]:
+    expected = asdict(spec)
+    expected["parent_checkpoint"] = (
+        str(spec.parent_checkpoint) if spec.parent_checkpoint is not None else None
+    )
+    return {
+        key: {"existing": existing.get(key), "requested": value}
+        for key, value in expected.items()
+        if existing.get(key) != value
+    }
+
+
+def validate_existing_run_spec(existing: Mapping[str, Any], spec: RunSpec) -> None:
+    """Fail closed when a reused run ID describes a different experiment."""
+
+    mismatches = existing_run_spec_mismatches(existing, spec)
+    if mismatches:
+        raise InfrastructureError(
+            f"Run ID collision for {spec.run_id}; stored RunSpec differs: {mismatches}"
+        )
+
+
 def run_training(args: argparse.Namespace, store: CampaignStore, spec: RunSpec) -> Dict[str, Any]:
     existing = store.data["runs"].get(spec.run_id)
     _, input_config, run_dir = configured_run(args, spec)
     target_checkpoint = checkpoint_path(run_dir, spec.target_local_step)
+    if isinstance(existing, Mapping):
+        validate_existing_run_spec(existing, spec)
     if isinstance(existing, Mapping) and existing.get("status") == "complete":
         if not target_checkpoint.is_file() or sha256_file(target_checkpoint) != existing.get("checkpoint_sha256"):
             raise InfrastructureError(f"Completed manifest run changed or lost its checkpoint: {spec.run_id}")
@@ -1313,7 +1339,10 @@ def train_frame_recipe(
         assert parent.checkpoint is not None
         target = parent.local_step + INTERVAL
         spec = RunSpec(
-            run_id=f"{prefix}_{frame}_seed{seed}_tail_s{target}",
+            run_id=(
+                f"{prefix}_{frame}_seed{seed}_"
+                f"tail_from{phase_a_parent.local_step}_s{target}"
+            ),
             frame=frame,
             seed=seed,
             lr=tail_lr,
@@ -1326,6 +1355,16 @@ def train_frame_recipe(
             inherited_global_step=parent_effective_step,
             traversal_warmup_steps=traversal_warmup_steps,
         )
+        # Campaigns created before origin-qualified IDs may already contain the
+        # exact deterministic extension. Reuse it only when every RunSpec field
+        # matches; a same-target run from another parent gets the qualified ID.
+        legacy_spec = replace(
+            spec,
+            run_id=f"{prefix}_{frame}_seed{seed}_tail_s{target}",
+        )
+        legacy = store.data["runs"].get(legacy_spec.run_id)
+        if isinstance(legacy, Mapping) and not existing_run_spec_mismatches(legacy, legacy_spec):
+            spec = legacy_spec
         run_training(args, store, spec)
         run_ids.append(spec.run_id)
 

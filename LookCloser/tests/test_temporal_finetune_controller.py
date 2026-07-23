@@ -270,6 +270,31 @@ def test_manifest_resume_is_atomic_and_idempotent(tmp_path: Path) -> None:
     assert resumed.data["status"] == "running"
 
 
+def test_resume_rejects_run_id_collision_with_different_parent(tmp_path: Path) -> None:
+    spec = temporal.RunSpec(
+        run_id="same-id",
+        frame="007747",
+        seed=42,
+        lr=0.0005,
+        phase="tail_extension",
+        feature_reweighting=0.3,
+        fas_strength=1.0,
+        load_mode="resume",
+        parent_checkpoint=tmp_path / "selected.ckpt",
+        target_local_step=303_760,
+        inherited_global_step=91_128,
+        lr_override=0.0005,
+        traversal_warmup_steps=8_192,
+    )
+    stored = {
+        **temporal.asdict(spec),
+        "parent_checkpoint": str(tmp_path / "wrong-parent.ckpt"),
+    }
+
+    with pytest.raises(temporal.InfrastructureError, match="Run ID collision"):
+        temporal.validate_existing_run_spec(stored, spec)
+
+
 def test_disk_and_vram_guards_fail_closed(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
     Usage = namedtuple("Usage", "total used free")
     monkeypatch.setattr(temporal.shutil, "disk_usage", lambda _: Usage(200, 150, 50))
