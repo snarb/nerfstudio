@@ -552,6 +552,32 @@ only the ordinary `lookcloser_frequencies` directory. Its pre-conversion 4:4:4 J
 and estimator-normalized maps are forensic inputs archived outside the dataset root at
 `/home/brans/007747_4_4_4`; they must not be discovered by new training jobs.
 
+### Canonical 007747 hash23 fine-tuning v2
+
+`scripts/run_lookcloser_007747_finetune_v2.py` is the dedicated controller for the active
+canonicalized dataset. It loads the original step91128 hash23 leader directly with
+`model_parameters_only`, verifies the revision manifest plus every JPEG/map hash, and compares the
+effective target config against an exhaustive leader whitelist. Cross-frame startup must prove
+copied field hashes and fresh Adam/scheduler/scaler/RNG, occupancy, frequency grid, FAS counter and
+point telemetry. Same-frame continuation uses full resume with no grid or LR reset.
+
+The pre-update baseline is evaluated in a separate process after trainer setup but before any
+optimizer update; no fake step0 checkpoint is created. During training, the controller wraps the
+existing scheduled all-image evaluation so the same three-view forward pass also saves renders and
+wall timings. Checkpoint labels remain the repository's zero-based Nerfstudio labels
+15188/30376/45564/60752. Each boundary gets a native 3×2 hands/fingers/chain sheet containing
+leader, accepted scratch and candidate GT/render crops. New candidate GT is required to match the
+active revision byte-for-byte. The accepted scratch GT is retained as historical visual context
+and its revision mismatch is recorded rather than confused with target provenance.
+
+Only initial LR and exponential-decay horizon vary: wave A tests 0.0075/0.01/0.015 with the leader
+200k horizon; wave B tests 100k/150k horizons at the selected LR. Final LR stays0.0001, warmup stays
+zero, and FR0.3/FAS1/hash23/warmup4096 remain frozen. Discovery timing may be contended, but the
+official `time_to_leader` comes from a new solo replay. Numeric success requires all three leader
+thresholds plus an explicit visual pass; plateau additionally requires two reviewed consecutive
+no-improvement intervals. The controller stops before production when source/data/config,
+free-space, or visual evidence is incomplete.
+
 ## Scene bounds / AABB
 
 LookCloser now replaces the default `NearFarCollider(near=2, far=6)` with `AABBBoxCollider(scene_box)` when `pipeline.model.enable_collider=True`. This is important for fixed-step ablations because the fixed marcher should sample only the nerfstudio scene box instead of a hand-picked near/far slab.

@@ -35,12 +35,24 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--out-dir", type=Path, required=True)
     parser.add_argument("--leader-render-dir", type=Path, required=True)
     parser.add_argument(
+        "--scratch-render-dir",
+        type=Path,
+        default=None,
+        help="Optional accepted 007747 scratch renders for the native comparison sheet.",
+    )
+    parser.add_argument(
         "--visual-verdict",
         choices=("pending", "pass", "fail"),
         default="pending",
         help="Human/agent review of finger separation, chain continuity, and blur.",
     )
     parser.add_argument("--visual-note", default="")
+    parser.add_argument(
+        "--visual-change",
+        choices=("not_applicable", "improved", "no_improvement", "regressed"),
+        default="not_applicable",
+        help="Manual comparison with the preceding checkpoint for plateau decisions.",
+    )
     return parser.parse_args()
 
 
@@ -134,15 +146,27 @@ def save_contact_sheet(
     target_gt: np.ndarray,
     target_render: np.ndarray,
     path: Path,
+    scratch_gt: np.ndarray | None = None,
+    scratch_render: np.ndarray | None = None,
 ) -> None:
-    panels = [leader_gt, leader_render, target_gt, target_render]
-    labels = ["leader 007740 GT", "leader 007740 render", "target 007747 GT", "target 007747 render"]
+    if (scratch_gt is None) != (scratch_render is None):
+        raise ValueError("scratch_gt and scratch_render must be provided together")
+    panels = [leader_gt, leader_render]
+    labels = ["leader 007740 GT", "leader 007740 render"]
+    if scratch_gt is not None and scratch_render is not None:
+        panels.extend([scratch_gt, scratch_render])
+        labels.extend(["scratch 007747 GT", "scratch 007747 render"])
+    panels.extend([target_gt, target_render])
+    labels.extend(["target 007747 GT", "target 007747 render"])
     panel_height, panel_width = panels[0].shape[:2]
+    if any(panel.shape[:2] != (panel_height, panel_width) for panel in panels):
+        raise ValueError("Every contact-sheet panel must have identical native dimensions")
     label_height = 24
     gap = 8
+    rows = len(panels) // 2
     canvas = Image.new(
         "RGB",
-        (panel_width * 2 + gap * 3, (panel_height + label_height) * 2 + gap * 3),
+        (panel_width * 2 + gap * 3, (panel_height + label_height) * rows + gap * (rows + 1)),
         "black",
     )
     draw = ImageDraw.Draw(canvas)
@@ -173,6 +197,15 @@ def build_protocol(args: argparse.Namespace) -> Dict[str, Any]:
         full_views.append({"eval_idx": eval_idx, "render": str(render_path), **artifact_result(gt, render)})
 
     leader_gt_full, leader_render_full = split_render_pair(args.leader_render_dir / "eval_img_0000.png")
+    scratch_gt_full = None
+    scratch_gt = None
+    scratch_render = None
+    if getattr(args, "scratch_render_dir", None) is not None:
+        scratch_gt_full, scratch_render_full = split_render_pair(
+            args.scratch_render_dir / "eval_img_0000.png"
+        )
+        scratch_gt = crop(scratch_gt_full)
+        scratch_render = crop(scratch_render_full)
     target_gt = crop(pairs[0][0])
     target_render = crop(pairs[0][1])
     leader_gt = crop(leader_gt_full)
@@ -181,6 +214,11 @@ def build_protocol(args: argparse.Namespace) -> Dict[str, Any]:
     lpips = LearnedPerceptualImagePatchSimilarity(net_type="alex", normalize=True)
     target_metrics = roi_metrics(target_gt, target_render, lpips)
     leader_metrics = roi_metrics(leader_gt, leader_render, lpips)
+    scratch_metrics = (
+        roi_metrics(scratch_gt, scratch_render, lpips)
+        if scratch_gt is not None and scratch_render is not None
+        else None
+    )
     deltas = {
         "psnr": target_metrics["psnr"] - leader_metrics["psnr"],
         "ssim": target_metrics["ssim"] - leader_metrics["ssim"],
@@ -191,12 +229,23 @@ def build_protocol(args: argparse.Namespace) -> Dict[str, Any]:
     for name, image in (
         ("leader_gt.png", leader_gt),
         ("leader_render.png", leader_render),
+        *((("scratch_gt.png", scratch_gt), ("scratch_render.png", scratch_render)) if scratch_gt is not None else ()),
         ("target_gt.png", target_gt),
         ("target_render.png", target_render),
     ):
+        assert image is not None
         Image.fromarray(image).save(crop_dir / name)
-    contact_sheet = args.out_dir / "contact_hands_chain_2x2.png"
-    save_contact_sheet(leader_gt, leader_render, target_gt, target_render, contact_sheet)
+    sheet_suffix = "3x2" if scratch_gt is not None else "2x2"
+    contact_sheet = args.out_dir / f"contact_hands_chain_{sheet_suffix}.png"
+    save_contact_sheet(
+        leader_gt,
+        leader_render,
+        target_gt,
+        target_render,
+        contact_sheet,
+        scratch_gt=scratch_gt,
+        scratch_render=scratch_render,
+    )
 
     protocol = {
         "schema_version": 1,
@@ -205,6 +254,9 @@ def build_protocol(args: argparse.Namespace) -> Dict[str, Any]:
         "dataset": str(args.dataset),
         "render_dir": str(args.render_dir),
         "leader_render_dir": str(args.leader_render_dir),
+        "scratch_render_dir": (
+            str(args.scratch_render_dir) if getattr(args, "scratch_render_dir", None) is not None else None
+        ),
         "full_views": full_views,
         "full_view_serious_count": sum(bool(row["serious"]) for row in full_views),
         "roi": {
@@ -215,11 +267,18 @@ def build_protocol(args: argparse.Namespace) -> Dict[str, Any]:
             "artifact": artifact_result(target_gt, target_render),
             "leader_metrics": leader_metrics,
             "leader_frozen_metrics": LEADER_ROI_METRICS,
+            "scratch_metrics": scratch_metrics,
+            "scratch_gt_matches_target_revision": (
+                bool(np.array_equal(scratch_gt_full, dataset_gt))
+                if scratch_gt_full is not None
+                else None
+            ),
             "delta_to_leader": deltas,
         },
         "visual_gate": {
             "verdict": args.visual_verdict,
             "note": args.visual_note,
+            "change_from_previous": getattr(args, "visual_change", "not_applicable"),
             "requirements": [
                 "individual fingers remain visibly separated",
                 "chain links remain sharp and continuous without gaps",
