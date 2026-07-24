@@ -547,6 +547,10 @@ historical pre-conversion 007747 dataset, `scripts/build_chroma_normalized_frequ
 applied horizontal 2× Cb/Cr low-pass to match the 007740 4:2:2-like reference while preserving
 full-resolution luminance. Its `lookcloser_frequencies_chroma422` output belongs only to those old
 4:4:4 JPEG hashes; after EXR-to-JPEG canonicalization, regenerate maps instead of reusing it.
+The active 007747 temporal revision is therefore generated from canonical 4:2:2-like JPEGs and uses
+only the ordinary `lookcloser_frequencies` directory. Its pre-conversion 4:4:4 JPEGs, direct maps
+and estimator-normalized maps are forensic inputs archived outside the dataset root at
+`/home/brans/007747_4_4_4`; they must not be discovered by new training jobs.
 
 ## Scene bounds / AABB
 
@@ -608,6 +612,9 @@ source frequency/FAS/dynamic-sampling state and optimizer trajectory. The
 optional `resume_reset_frequency_grid` and `resume_reset_occupancy_grid`
 controls exist for isolated same-checkpoint diagnostics; normal cross-frame
 transfer obtains both resets structurally through model-only loading.
+This is the accepted historical pre-conversion treatment, not the map path for
+the active canonicalized dataset revision; new 007747 runs use freshly
+generated standard maps and require fresh validation.
 
 Checkpoint filenames use the zero-based local Nerfstudio step, so step60752
 contains 60753 completed updates. Full eval remains every15188 local updates.
