@@ -10,7 +10,11 @@ from torch import nn
 
 from nerfstudio.engine.optimizers import AdamOptimizerConfig, Optimizers
 from nerfstudio.engine.schedulers import ExponentialDecaySchedulerConfig
-from nerfstudio.engine.trainer import Trainer, _load_model_parameters_only
+from nerfstudio.engine.trainer import (
+    Trainer,
+    _load_model_parameters_only,
+    _reset_lookcloser_occupancy_for_resume,
+)
 
 
 class _Field(nn.Module):
@@ -25,6 +29,10 @@ class _Model(nn.Module):
         super().__init__()
         self.field = _Field()
         self.register_buffer("occupancy", torch.zeros(2))
+        self.occupancy_grid = SimpleNamespace(
+            occs=torch.ones(4),
+            binaries=torch.zeros(2, 2, dtype=torch.bool),
+        )
         self.lpips = nn.Linear(1, 1, bias=False)
 
 
@@ -134,6 +142,27 @@ def test_model_only_parent_step_91128_starts_local_step_zero_with_fresh_state(tm
     assert trainer.checkpoint_load_audit["source_step"] == 91_128
     assert trainer.checkpoint_load_audit["optimizer_loaded"] is False
     assert trainer.checkpoint_load_audit["pipeline_buffers_loaded"] is False
+
+
+def test_resume_occupancy_reset_preserves_model_and_sets_local_warmup_origin() -> None:
+    pipeline = _Pipeline()
+    pipeline._model.field.weight.data.copy_(torch.tensor([2.0, 3.0]))
+    before = pipeline._model.field.weight.detach().clone()
+
+    audit = _reset_lookcloser_occupancy_for_resume(
+        pipeline, warmup_start_step=91_129
+    )
+
+    assert torch.equal(pipeline._model.field.weight, before)
+    assert torch.count_nonzero(pipeline._model.occupancy_grid.occs).item() == 0
+    assert pipeline._model.occupancy_grid.binaries.all()
+    assert pipeline._model._occupancy_warmup_start_step == 91_129
+    assert audit == {
+        "occs_zero": True,
+        "binaries_true_count": 4,
+        "binaries_numel": 4,
+        "warmup_start_step": 91_129,
+    }
 
 
 def test_lr_override_preserves_adam_moments_and_scheduler_progress() -> None:

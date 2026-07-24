@@ -147,6 +147,7 @@ class RunSpec:
     from_scratch: bool = False
     scheduler_policy: Literal["constant", "leader"] = "constant"
     traversal_warmup_steps: int = 4096
+    resume_reset_occupancy_grid: bool = False
 
     @property
     def local_updates_completed(self) -> int:
@@ -738,6 +739,7 @@ def configured_run(args: argparse.Namespace, spec: RunSpec) -> Tuple[Any, Path, 
     config.load_optimizers = True
     config.load_scheduler = True
     config.resume_fields_lr_override = spec.lr_override
+    config.resume_reset_occupancy_grid = spec.resume_reset_occupancy_grid
     config.checkpoint_load_parameter_hash_audit = spec.phase == "gpu_smoke"
     config.optimizers["fields"]["optimizer"].lr = spec.lr
     scheduler = config.optimizers["fields"]["scheduler"]
@@ -952,6 +954,7 @@ def run_training(args: argparse.Namespace, store: CampaignStore, spec: RunSpec) 
             "cross_frame": "fresh Adam/scheduler/scaler/RNG",
             "same_frame": "full resume",
             "lr_override": spec.lr_override,
+            "resume_reset_occupancy_grid": spec.resume_reset_occupancy_grid,
         },
         "reset_assertions": {
             "local_step_zero": spec.load_mode == "model_parameters_only",

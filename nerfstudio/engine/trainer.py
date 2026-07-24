@@ -226,6 +226,31 @@ def _fresh_model_only_state_assertions(pipeline: VanillaPipeline) -> Dict[str, A
     return assertions
 
 
+@torch.no_grad()
+def _reset_lookcloser_occupancy_for_resume(
+    pipeline: VanillaPipeline, *, warmup_start_step: int
+) -> Dict[str, Any]:
+    """Reset only LookCloser occupancy state while preserving all other resumed state."""
+
+    if warmup_start_step < 0:
+        raise ValueError("warmup_start_step must be non-negative")
+    model = getattr(pipeline, "model", None)
+    if model is None:
+        model = getattr(pipeline, "_model", None)
+    occupancy = getattr(model, "occupancy_grid", None)
+    if occupancy is None or not hasattr(occupancy, "occs") or not hasattr(occupancy, "binaries"):
+        raise RuntimeError("resume_reset_occupancy_grid requires a LookCloser occupancy grid")
+    occupancy.occs.zero_()
+    occupancy.binaries.fill_(True)
+    model._occupancy_warmup_start_step = int(warmup_start_step)
+    return {
+        "occs_zero": int(torch.count_nonzero(occupancy.occs).item()) == 0,
+        "binaries_true_count": int(occupancy.binaries.sum().item()),
+        "binaries_numel": occupancy.binaries.numel(),
+        "warmup_start_step": int(warmup_start_step),
+    }
+
+
 @dataclass
 class TrainerConfig(ExperimentConfig):
     """Configuration for training regimen"""
@@ -267,6 +292,8 @@ class TrainerConfig(ExperimentConfig):
     """Whether to load optimizer and scaler state from checkpoint."""
     resume_fields_lr_override: Optional[float] = None
     """New fields LR after a full resume, preserving Adam/scaler/RNG and scheduler progress."""
+    resume_reset_occupancy_grid: bool = False
+    """On full resume, clear only LookCloser occupancy and restart its dense warmup locally."""
     checkpoint_load_parameter_hash_audit: bool = False
     """Hash source/copied field parameters during model-only smoke validation."""
     log_gradients: bool = False
@@ -673,6 +700,10 @@ class Trainer:
         load_checkpoint = self.config.load_checkpoint
         load_mode = self.config.checkpoint_load_mode
         if load_mode == "model_parameters_only":
+            if getattr(self.config, "resume_reset_occupancy_grid", False):
+                raise ValueError(
+                    "resume_reset_occupancy_grid is valid only for checkpoint_load_mode='resume'"
+                )
             if load_checkpoint is None or load_dir is not None or self.config.load_step is not None:
                 raise ValueError(
                     "checkpoint_load_mode='model_parameters_only' requires one explicit "
@@ -726,6 +757,12 @@ class Trainer:
 
         if load_mode != "resume":
             raise ValueError(f"Unknown checkpoint_load_mode: {load_mode}")
+        if (
+            getattr(self.config, "resume_reset_occupancy_grid", False)
+            and load_dir is None
+            and load_checkpoint is None
+        ):
+            raise ValueError("resume_reset_occupancy_grid requires a resumed checkpoint")
         if self.config.resume_fields_lr_override is not None and load_dir is None and load_checkpoint is None:
             raise ValueError("resume_fields_lr_override requires a resumed checkpoint")
         if self.config.resume_fields_lr_override is not None and (
@@ -755,6 +792,11 @@ class Trainer:
             self._start_step = loaded_state["step"] + 1
             # load the checkpoints for pipeline, optimizers, and gradient scalar
             self.pipeline.load_pipeline(loaded_state["pipeline"], loaded_state["step"])
+            occupancy_reset_audit = None
+            if getattr(self.config, "resume_reset_occupancy_grid", False):
+                occupancy_reset_audit = _reset_lookcloser_occupancy_for_resume(
+                    self.pipeline, warmup_start_step=self._start_step
+                )
             if self.config.load_optimizers:
                 self.optimizers.load_optimizers(loaded_state["optimizers"])
             if "schedulers" in loaded_state and self.config.load_scheduler:
@@ -778,6 +820,7 @@ class Trainer:
                 "rng_loaded": self._loaded_rng_state is not None,
                 "pipeline_buffers_loaded": True,
                 "fields_lr_override": self.config.resume_fields_lr_override,
+                "occupancy_reset": occupancy_reset_audit,
             }
             CONSOLE.print(f"Done loading Nerfstudio checkpoint from {loaded_path}")
         else:

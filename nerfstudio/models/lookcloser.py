@@ -371,6 +371,10 @@ class LookCloserModel(Model):
             resolution=self.config.grid_resolution,
             levels=self.config.occupancy_grid_levels,
         )
+        # A cross-frame full resume may preserve optimizer/frequency state while
+        # restarting occupancy. This runtime offset makes warmup local to that
+        # resume without changing ordinary absolute-step behavior.
+        self._occupancy_warmup_start_step = 0
         self.adaptive_sampler = FrequencyAwareVolumetricSampler(
             occupancy_grid=self.occupancy_grid,
             freq_grid=self.freq_grid,
@@ -403,24 +407,25 @@ class LookCloserModel(Model):
 
         def update_occupancy_grid(step: int):
             assert self.config.render_step_size is not None
+            occupancy_step = max(step - int(self._occupancy_warmup_start_step), 0)
             update_step_size = (
                 float(self.config.occupancy_update_step_size)
                 if self.config.occupancy_update_step_size is not None
                 else float(self.config.render_step_size)
             )
             update_interval = int(self.config.occupancy_update_interval)
-            if self.config.stable_occupancy_reduction and step % update_interval != 0:
+            if self.config.stable_occupancy_reduction and occupancy_step % update_interval != 0:
                 return
 
             def apply_update() -> None:
                 if self.config.stable_occupancy_reduction:
                     self._stable_update_occupancy_grid(
-                        step=step,
+                        step=occupancy_step,
                         occ_eval_fn=lambda x: self.field.density_fn(x) * update_step_size,
                     )
                 else:
                     self.occupancy_grid.update_every_n_steps(
-                        step=step,
+                        step=occupancy_step,
                         occ_eval_fn=lambda x: self.field.density_fn(x) * update_step_size,
                         occ_thre=float(self.config.occupancy_occ_thre),
                         ema_decay=float(self.config.occupancy_ema_decay),
@@ -433,9 +438,9 @@ class LookCloserModel(Model):
                     apply_update()
             else:
                 apply_update()
-            if step % update_interval != 0:
+            if occupancy_step % update_interval != 0:
                 return
-            self._postprocess_occupancy_grid(step)
+            self._postprocess_occupancy_grid(occupancy_step)
 
         callbacks.append(
             TrainingCallback(
