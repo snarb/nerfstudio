@@ -153,6 +153,10 @@ class LookCloserPipeline(VanillaPipeline):
         if fr_switch_values[1] is not None and fr_switch_values[1] < 0:
             raise ValueError("feature_reweighting_after_switch must be non-negative")
         self._feature_reweighting_switch_applied = False
+        # A checkpoint resume may clear the target-dependent frequency grid
+        # while preserving model and optimizer state.  Keep its update cadence
+        # local to that resume, just like the occupancy warmup.
+        self._frequency_grid_warmup_start_step = 0
         self._validate_tcnn_network_jit_switch_config()
         jit_scope = self.config.model.tcnn_network_jit_scope
         self._tcnn_network_jit_switch_applied = self.model.field.get_tcnn_network_jit(scope=jit_scope)
@@ -646,17 +650,22 @@ class LookCloserPipeline(VanillaPipeline):
 
         # 2. Side-Channel Grid Update
         # "Every 1024 training steps... render depth... update voxel"
+        frequency_step = max(
+            step - int(getattr(self, "_frequency_grid_warmup_start_step", 0)), 0
+        )
         if (
                 self.config.grid_update_interval > 0
                 and self.config.enable_frequency_grid
-                and step % self.config.grid_update_interval == 0
+                and frequency_step % self.config.grid_update_interval == 0
                 and step > 0
         ):
             if self.config.independent_rng_streams:
-                with fork_seeded_rng(self.config.training_seed, "frequency_grid", step, self.device):
-                    self._update_frequency_grid(step)
+                with fork_seeded_rng(
+                    self.config.training_seed, "frequency_grid", frequency_step, self.device
+                ):
+                    self._update_frequency_grid(frequency_step)
             else:
-                self._update_frequency_grid(step)
+                self._update_frequency_grid(frequency_step)
 
         return model_outputs, loss_dict, metrics_dict
 

@@ -13,6 +13,7 @@ from nerfstudio.engine.schedulers import ExponentialDecaySchedulerConfig
 from nerfstudio.engine.trainer import (
     Trainer,
     _load_model_parameters_only,
+    _reset_lookcloser_frequency_state_for_resume,
     _reset_lookcloser_occupancy_for_resume,
 )
 
@@ -33,6 +34,7 @@ class _Model(nn.Module):
             occs=torch.ones(4),
             binaries=torch.zeros(2, 2, dtype=torch.bool),
         )
+        self.freq_grid = SimpleNamespace(grid=torch.ones(2, 2, 2))
         self.lpips = nn.Linear(1, 1, bias=False)
 
 
@@ -41,6 +43,11 @@ class _Pipeline(nn.Module):
         super().__init__()
         self._model = _Model()
         self.register_buffer("cumulative_point_samples", torch.zeros((), dtype=torch.int64))
+        self.register_buffer("dynamic_samples_per_ray_ema", torch.zeros((), dtype=torch.float64))
+        self.register_buffer("dynamic_rays_per_batch_state", torch.tensor(4096, dtype=torch.int64))
+        self.register_buffer("fas_sample_count_state", torch.zeros((), dtype=torch.int64))
+        self.dynamic_num_rays_per_batch = 4096
+        self.datamanager = SimpleNamespace(get_train_rays_per_batch=lambda: 4096)
         self.loaded = False
 
     def load_pipeline(self, state, step) -> None:
@@ -162,6 +169,39 @@ def test_resume_occupancy_reset_preserves_model_and_sets_local_warmup_origin() -
         "binaries_true_count": 4,
         "binaries_numel": 4,
         "warmup_start_step": 91_129,
+    }
+
+
+def test_resume_frequency_reset_clears_target_state_and_preserves_model() -> None:
+    pipeline = _Pipeline()
+    pipeline._model.field.weight.data.copy_(torch.tensor([2.0, 3.0]))
+    pipeline.cumulative_point_samples.fill_(123)
+    pipeline.dynamic_samples_per_ray_ema.fill_(700.0)
+    pipeline.dynamic_rays_per_batch_state.fill_(2048)
+    pipeline.fas_sample_count_state.fill_(456)
+    pipeline.dynamic_num_rays_per_batch = 2048
+    before = pipeline._model.field.weight.detach().clone()
+
+    audit = _reset_lookcloser_frequency_state_for_resume(
+        pipeline, warmup_start_step=91_129
+    )
+
+    assert torch.equal(pipeline._model.field.weight, before)
+    assert torch.count_nonzero(pipeline._model.freq_grid.grid).item() == 0
+    assert pipeline.cumulative_point_samples.item() == 0
+    assert pipeline.dynamic_samples_per_ray_ema.item() == 0
+    assert pipeline.fas_sample_count_state.item() == 0
+    assert pipeline.dynamic_rays_per_batch_state.item() == 4096
+    assert pipeline.dynamic_num_rays_per_batch == 4096
+    assert pipeline._frequency_grid_warmup_start_step == 91_129
+    assert audit["grid_zero"] is True
+    assert audit["grid_numel"] == 8
+    assert audit["dynamic_rays_per_batch"] == 4096
+    assert audit["warmup_start_step"] == 91_129
+    assert audit["reset_buffer_nonzero_counts"] == {
+        "cumulative_point_samples": 0,
+        "dynamic_samples_per_ray_ema": 0,
+        "fas_sample_count_state": 0,
     }
 
 

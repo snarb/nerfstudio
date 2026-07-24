@@ -251,6 +251,53 @@ def _reset_lookcloser_occupancy_for_resume(
     }
 
 
+@torch.no_grad()
+def _reset_lookcloser_frequency_state_for_resume(
+    pipeline: VanillaPipeline, *, warmup_start_step: int
+) -> Dict[str, Any]:
+    """Reset target-frame frequency/sampling state while preserving model and Adam state."""
+
+    if warmup_start_step < 0:
+        raise ValueError("warmup_start_step must be non-negative")
+    model = getattr(pipeline, "model", None)
+    if model is None:
+        model = getattr(pipeline, "_model", None)
+    frequency_grid = getattr(model, "freq_grid", None)
+    if frequency_grid is None or not hasattr(frequency_grid, "grid"):
+        raise RuntimeError("resume_reset_frequency_grid requires a LookCloser frequency grid")
+    frequency_grid.grid.zero_()
+
+    reset_buffers: Dict[str, int] = {}
+    for name in (
+        "cumulative_point_samples",
+        "dynamic_samples_per_ray_ema",
+        "fas_sample_count_state",
+    ):
+        value = getattr(pipeline, name, None)
+        if value is None or not torch.is_tensor(value):
+            raise RuntimeError(f"resume_reset_frequency_grid requires pipeline buffer {name!r}")
+        value.zero_()
+        reset_buffers[name] = int(torch.count_nonzero(value).item())
+
+    dynamic_rays_state = getattr(pipeline, "dynamic_rays_per_batch_state", None)
+    if dynamic_rays_state is None or not torch.is_tensor(dynamic_rays_state):
+        raise RuntimeError(
+            "resume_reset_frequency_grid requires pipeline buffer 'dynamic_rays_per_batch_state'"
+        )
+    configured_rays = int(pipeline.datamanager.get_train_rays_per_batch())
+    dynamic_rays_state.fill_(configured_rays)
+    if hasattr(pipeline, "dynamic_num_rays_per_batch"):
+        pipeline.dynamic_num_rays_per_batch = configured_rays
+    pipeline._frequency_grid_warmup_start_step = int(warmup_start_step)
+    return {
+        "grid_zero": int(torch.count_nonzero(frequency_grid.grid).item()) == 0,
+        "grid_numel": frequency_grid.grid.numel(),
+        "reset_buffer_nonzero_counts": reset_buffers,
+        "dynamic_rays_per_batch": configured_rays,
+        "warmup_start_step": int(warmup_start_step),
+    }
+
+
 @dataclass
 class TrainerConfig(ExperimentConfig):
     """Configuration for training regimen"""
@@ -294,6 +341,8 @@ class TrainerConfig(ExperimentConfig):
     """New fields LR after a full resume, preserving Adam/scaler/RNG and scheduler progress."""
     resume_reset_occupancy_grid: bool = False
     """On full resume, clear only LookCloser occupancy and restart its dense warmup locally."""
+    resume_reset_frequency_grid: bool = False
+    """On full resume, clear target-frame frequency/FAS sampling state and restart grid updates locally."""
     checkpoint_load_parameter_hash_audit: bool = False
     """Hash source/copied field parameters during model-only smoke validation."""
     log_gradients: bool = False
@@ -700,9 +749,11 @@ class Trainer:
         load_checkpoint = self.config.load_checkpoint
         load_mode = self.config.checkpoint_load_mode
         if load_mode == "model_parameters_only":
-            if getattr(self.config, "resume_reset_occupancy_grid", False):
+            if getattr(self.config, "resume_reset_occupancy_grid", False) or getattr(
+                self.config, "resume_reset_frequency_grid", False
+            ):
                 raise ValueError(
-                    "resume_reset_occupancy_grid is valid only for checkpoint_load_mode='resume'"
+                    "resume reset flags are valid only for checkpoint_load_mode='resume'"
                 )
             if load_checkpoint is None or load_dir is not None or self.config.load_step is not None:
                 raise ValueError(
@@ -763,6 +814,12 @@ class Trainer:
             and load_checkpoint is None
         ):
             raise ValueError("resume_reset_occupancy_grid requires a resumed checkpoint")
+        if (
+            getattr(self.config, "resume_reset_frequency_grid", False)
+            and load_dir is None
+            and load_checkpoint is None
+        ):
+            raise ValueError("resume_reset_frequency_grid requires a resumed checkpoint")
         if self.config.resume_fields_lr_override is not None and load_dir is None and load_checkpoint is None:
             raise ValueError("resume_fields_lr_override requires a resumed checkpoint")
         if self.config.resume_fields_lr_override is not None and (
@@ -797,6 +854,11 @@ class Trainer:
                 occupancy_reset_audit = _reset_lookcloser_occupancy_for_resume(
                     self.pipeline, warmup_start_step=self._start_step
                 )
+            frequency_reset_audit = None
+            if getattr(self.config, "resume_reset_frequency_grid", False):
+                frequency_reset_audit = _reset_lookcloser_frequency_state_for_resume(
+                    self.pipeline, warmup_start_step=self._start_step
+                )
             if self.config.load_optimizers:
                 self.optimizers.load_optimizers(loaded_state["optimizers"])
             if "schedulers" in loaded_state and self.config.load_scheduler:
@@ -821,6 +883,7 @@ class Trainer:
                 "pipeline_buffers_loaded": True,
                 "fields_lr_override": self.config.resume_fields_lr_override,
                 "occupancy_reset": occupancy_reset_audit,
+                "frequency_reset": frequency_reset_audit,
             }
             CONSOLE.print(f"Done loading Nerfstudio checkpoint from {loaded_path}")
         else:

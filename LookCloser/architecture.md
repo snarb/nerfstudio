@@ -580,40 +580,52 @@ Generic preprocessing prefers `train_steps_per_level` over the legacy `steps_per
 
 ## Temporal per-frame transfer
 
-`scripts/run_lookcloser_temporal_finetune.py` is the only promotion-capable temporal controller. The older
-`run_lookcloser_temporal_transfer.py` lineage is forensic evidence only. The new controller requires a clean
-`main`, the SHA-bound canonical S1 step91128 checkpoint/config and TCNN runtime, all 45 identical `66+3`
-datasets, 66 frequency maps per frame, at least 100 GiB free disk before every run, and sufficient VRAM for
-the six-way 007747 LR×occupancy-warmup screen. Its atomic manifest is
-`/home/brans/lookcloser_temporal_finetune_runs/campaigns/temporal_stride7_seed42/campaign.json`.
+`scripts/run_lookcloser_temporal_finetune.py` owns the fail-closed transfer
+primitives and campaign manifest. The older
+`run_lookcloser_temporal_transfer.py` lineage is forensic evidence only.
+`TrainerConfig.checkpoint_load_mode` defines the important boundary:
+cross-frame `model_parameters_only` copies the exact `fields` parameter set but
+not LPIPS, AABB, occupancy/frequency grids, FAS/point state, Adam, scheduler,
+scaler or RNG. The target therefore begins at local step0 with a fresh pipeline
+and fixed traversal for updates `0--4095`. Full `resume` is used only within
+one frame and retains the complete target state.
 
-`TrainerConfig.checkpoint_load_mode` makes the two temporal boundaries explicit. Cross-frame
-`model_parameters_only` accepts only an exact `load_checkpoint`, validates the complete `fields` parameter
-name/shape/dtype set, and copies no pipeline buffers. Thus LPIPS, AABB, occupancy/frequency grids, FAS count,
-point telemetry, optimizer, scheduler, scaler and RNG remain in fresh constructor state, and the new frame
-starts at local step0. Stable occupancy updates at step0; adaptive marching uses fixed traversal for local
-updates 0--4095. Optional smoke-only hashing proves the copied field tensors equal the source before the
-first update. Within a frame, `resume` retains the full pipeline/Adam/scheduler/scaler/RNG state. The tail's
-`resume_fields_lr_override` changes the fields optimizer and scheduler base LR without rebuilding Adam or
-rewinding scheduler progress.
+If hash capacity changes across the boundary, parameter names and shapes no
+longer match. `scripts/expand_lookcloser_hash_checkpoint.py` provides the one
+supported hash23→hash24 conversion: it repeats each saturated TCNN level into
+all new modulus partitions and applies the identical mapping to Adam moments.
+A prefix copy is invalid because increasing the table modulus changes queried
+rows. Every converted checkpoint must reproduce the source eval before it is
+used; the canonical conversion reproduced `29.840143 / 0.669203 / 0.219455`
+with render maximum pixel difference `1/255`.
 
-Checkpoint filenames and cadence use the zero-based local Nerfstudio step. A checkpoint at local step60752
-contains 60753 completed updates. The manifest separately records raw parent step, local step, completed
-updates, inherited global step, and `effective_global_step = inherited_global_step + local_step`. The exact
-checkpointed `cumulative_point_samples` is frame-local after model-only reset and continuous through same-frame
-resumes; temporal exposure sums accepted frame counters. The leader exposure remains explicitly labeled a
-legacy estimate because the canonical checkpoint has no exact counter.
+The validated `007740→007747` treatment is hash24, max-res8192,
+`lookcloser_frequencies_chroma422`, FAS0.75, fresh target Adam at LR0.01 with
+exponential decay to0.0001 over200000 local steps, FR0.3 through step60752,
+then same-frame full resume at FR0.2. Reusing the late source LR or only
+resetting occupancy is rejected: moving-frame transfer must also discard the
+source frequency/FAS/dynamic-sampling state and optimizer trajectory. The
+optional `resume_reset_frequency_grid` and `resume_reset_occupancy_grid`
+controls exist for isolated same-checkpoint diagnostics; normal cross-frame
+transfer obtains both resets structurally through model-only loading.
 
-Frame007747 screens the Cartesian product of constant adaptation LRs `5e-4/1e-3/2e-3` and fresh
-occupancy/traversal warmups `4096/8192` concurrently, comparing only matched local step60752. These LRs bracket
-the checkpoint's actual saved fields LR `0.0012278067`; the longer warmup tests whether moving geometry needs
-more time before adaptive traversal trusts the rebuilt occupancy grid. Phase A (FR1/FAS1) and the full-resume
-tail (FR0.3/FAS1/LR÷4) extend by 15188 updates until two consecutive complete boundaries meet the metric,
-critical-ROI and artifact plateau rules. Selection is max
-`eval_all_psnr`; every checkpoint within an inclusive 0.07 dB is tied and lowest LPIPS wins. SSIM is reported
-but never selects. Scratch controls on 007747 and the maximum-motion-jump frame007838 use the faithful
-FR1@75940 -> full-resume FR0.3@106316 ancestry. A seed43 repeat is mandatory when the LR margin falls inside
-the declared repeat envelope.
+Checkpoint filenames use the zero-based local Nerfstudio step, so step60752
+contains 60753 completed updates. Full eval remains every15188 local updates.
+Crash-recovery saves may be more frequent with `save_only_latest_checkpoint`
+but do not create extra evaluation boundaries. Plateau requires two consecutive
+complete intervals satisfying every numeric threshold and no visible
+moving-detail improvement. Selection is maximum PSNR, then minimum LPIPS in
+the inclusive0.07-dB window; SSIM is reported only. The fixed eval0
+hands/fingers/chain crop remains a separate visual gate, and a formal global
+tie-break is recorded separately when its crop is worse.
+
+For the validated run, step91128 has maximum PSNR `29.819077`; step182256 is
+the formal selector result at `29.766191 / 0.696109 / 0.225243`. Step167068 is
+the visual selection at `29.783972 / 0.696873 / 0.225269`, with fixed-ROI
+`29.701001 / 0.782640 / 0.115542` and no serious artifacts. The final two
+intervals satisfy the declared plateau rule. Exact recipe, rejected controls
+and paths are recorded in
+`experiments/temporal_lookcloser_finetuning.md`.
 
 `scripts/temporal_roi_protocol.py` keeps permanent pipe/cable crops, propagates 007747 hand/chain/finger seed
 boxes with forward/backward pyramidal LK confidence, discovers broad-motion and possible-hole crops from an

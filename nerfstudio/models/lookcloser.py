@@ -407,7 +407,9 @@ class LookCloserModel(Model):
 
         def update_occupancy_grid(step: int):
             assert self.config.render_step_size is not None
-            occupancy_step = max(step - int(self._occupancy_warmup_start_step), 0)
+            occupancy_step = max(
+                step - int(getattr(self, "_occupancy_warmup_start_step", 0)), 0
+            )
             update_step_size = (
                 float(self.config.occupancy_update_step_size)
                 if self.config.occupancy_update_step_size is not None

@@ -124,6 +124,19 @@ def test_independent_frequency_stream_runs_only_on_update_boundary() -> None:
     assert torch.equal(torch.random.get_rng_state(), outer_before)
 
 
+def test_frequency_grid_update_cadence_is_local_after_resume_reset() -> None:
+    grid_draws = []
+    pipeline, _datamanager = _pipeline(independent=True, extra_draws=13, grid_draws=grid_draws)
+    pipeline._frequency_grid_warmup_start_step = 91_129
+
+    pipeline.get_train_loss_dict(91_132)
+    assert grid_draws == []
+
+    pipeline.get_train_loss_dict(91_133)
+    assert len(grid_draws) == 1
+    assert grid_draws[0][0] == 4
+
+
 def test_default_path_uses_vanilla_pipeline_and_never_forks(monkeypatch) -> None:
     def forbidden_stream_helper(*_args, **_kwargs):
         raise AssertionError("default-off pipeline must not use independent RNG helpers")

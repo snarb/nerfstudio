@@ -148,6 +148,11 @@ class RunSpec:
     scheduler_policy: Literal["constant", "leader"] = "constant"
     traversal_warmup_steps: int = 4096
     resume_reset_occupancy_grid: bool = False
+    resume_reset_frequency_grid: bool = False
+    log2_hashmap_size: int = 23
+    frequency_map_dir: str = "lookcloser_frequencies"
+    save_interval_steps: int = INTERVAL
+    save_only_latest_checkpoint: bool = False
 
     @property
     def local_updates_completed(self) -> int:
@@ -671,13 +676,20 @@ def _set_dataset(config: Any, dataset: Path) -> None:
 def _freeze_recipe(config: Any, spec: RunSpec) -> None:
     """Apply the reviewed B4096 leader recipe and explicitly disable speed variants."""
 
+    frequency_map_dir = Path(spec.frequency_map_dir)
+    if frequency_map_dir.is_absolute() or ".." in frequency_map_dir.parts:
+        raise ValueError("frequency_map_dir must be a dataset-relative directory")
+    if spec.log2_hashmap_size <= 0:
+        raise ValueError("log2_hashmap_size must be positive")
+    if spec.save_interval_steps <= 0:
+        raise ValueError("save_interval_steps must be positive")
     config.machine.seed = spec.seed
     config.mixed_precision = True
-    config.save_only_latest_checkpoint = False
+    config.save_only_latest_checkpoint = spec.save_only_latest_checkpoint
     config.steps_per_eval_batch = INTERVAL
     config.steps_per_eval_image = INTERVAL
     config.steps_per_eval_all_images = INTERVAL
-    config.steps_per_save = INTERVAL
+    config.steps_per_save = spec.save_interval_steps
     config.max_num_iterations = spec.target_local_step + 1
     config.logging.csv_writer.enable = True
     config.logging.csv_writer.write_interval = INTERVAL
@@ -696,8 +708,9 @@ def _freeze_recipe(config: Any, spec: RunSpec) -> None:
     sampler.sampling_ramp_end = 3.0
     sampler.fas_warmup_steps = 0
     sampler.fas_ramp_steps = 0
+    sampler.frequency_map_dir = spec.frequency_map_dir
     model = config.pipeline.model
-    model.log2_hashmap_size = 23
+    model.log2_hashmap_size = spec.log2_hashmap_size
     model.max_res = 8192.0
     model.reconstruction_loss_type = "charbonnier"
     model.distortion_loss_mult = 0.01
@@ -716,6 +729,7 @@ def _freeze_recipe(config: Any, spec: RunSpec) -> None:
     model.feature_reweighting_strength = spec.feature_reweighting
     model.corrected_arm_allocator = False
     model.tcnn_network_jit = False
+    config.pipeline.frequency_map_dir = spec.frequency_map_dir
     config.pipeline.independent_rng_streams = False
     config.pipeline.target_num_samples_per_batch = 0
     config.fused_adam_switch_step = None
@@ -740,6 +754,7 @@ def configured_run(args: argparse.Namespace, spec: RunSpec) -> Tuple[Any, Path, 
     config.load_scheduler = True
     config.resume_fields_lr_override = spec.lr_override
     config.resume_reset_occupancy_grid = spec.resume_reset_occupancy_grid
+    config.resume_reset_frequency_grid = spec.resume_reset_frequency_grid
     config.checkpoint_load_parameter_hash_audit = spec.phase == "gpu_smoke"
     config.optimizers["fields"]["optimizer"].lr = spec.lr
     scheduler = config.optimizers["fields"]["scheduler"]
@@ -955,15 +970,26 @@ def run_training(args: argparse.Namespace, store: CampaignStore, spec: RunSpec) 
             "same_frame": "full resume",
             "lr_override": spec.lr_override,
             "resume_reset_occupancy_grid": spec.resume_reset_occupancy_grid,
+            "resume_reset_frequency_grid": spec.resume_reset_frequency_grid,
         },
         "reset_assertions": {
             "local_step_zero": spec.load_mode == "model_parameters_only",
-            "occupancy_occs_zero": spec.load_mode == "model_parameters_only",
-            "frequency_grid_zero": spec.load_mode == "model_parameters_only",
-            "fas_sample_count_zero": spec.load_mode == "model_parameters_only",
-            "frame_cumulative_points_zero": spec.load_mode == "model_parameters_only",
+            "occupancy_occs_zero": (
+                spec.load_mode == "model_parameters_only" or spec.resume_reset_occupancy_grid
+            ),
+            "frequency_grid_zero": (
+                spec.load_mode == "model_parameters_only" or spec.resume_reset_frequency_grid
+            ),
+            "fas_sample_count_zero": (
+                spec.load_mode == "model_parameters_only" or spec.resume_reset_frequency_grid
+            ),
+            "frame_cumulative_points_zero": (
+                spec.load_mode == "model_parameters_only" or spec.resume_reset_frequency_grid
+            ),
             "fixed_traversal_updates": (
-                spec.traversal_warmup_steps if spec.load_mode == "model_parameters_only" else None
+                spec.traversal_warmup_steps
+                if spec.load_mode == "model_parameters_only" or spec.resume_reset_occupancy_grid
+                else None
             ),
         },
     }

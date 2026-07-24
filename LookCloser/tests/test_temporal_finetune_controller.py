@@ -259,6 +259,42 @@ def test_run_local_traversal_warmup_override(tmp_path: Path) -> None:
     assert model.occupancy_binary_warmup_steps == 8_192
 
 
+def test_run_spec_freezes_target_hash_maps_and_checkpoint_policy(tmp_path: Path) -> None:
+    args = temporal.parse_args(
+        ["--output-dir", str(tmp_path / "runs"), "--campaign", str(tmp_path / "campaign.json")]
+    )
+    spec = temporal.RunSpec(
+        run_id="hash24_target_recipe",
+        frame="007747",
+        seed=42,
+        lr=0.01,
+        phase="target_recipe",
+        feature_reweighting=0.3,
+        fas_strength=0.75,
+        load_mode="model_parameters_only",
+        parent_checkpoint=args.leader_checkpoint,
+        target_local_step=60_752,
+        inherited_global_step=91_128,
+        log2_hashmap_size=24,
+        frequency_map_dir="lookcloser_frequencies_chroma422",
+        save_interval_steps=1_000,
+        save_only_latest_checkpoint=True,
+    )
+
+    config, _, _ = temporal.configured_run(args, spec)
+
+    assert config.pipeline.model.log2_hashmap_size == 24
+    assert config.pipeline.frequency_map_dir == "lookcloser_frequencies_chroma422"
+    assert (
+        config.pipeline.datamanager.pixel_sampler.frequency_map_dir
+        == "lookcloser_frequencies_chroma422"
+    )
+    assert config.pipeline.datamanager.pixel_sampler.fas_strength == 0.75
+    assert config.steps_per_save == 1_000
+    assert config.steps_per_eval_all_images == temporal.INTERVAL
+    assert config.save_only_latest_checkpoint is True
+
+
 def test_manifest_resume_is_atomic_and_idempotent(tmp_path: Path) -> None:
     path = tmp_path / "campaign.json"
     store = temporal.CampaignStore(path, resume=False)
