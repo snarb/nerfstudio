@@ -159,6 +159,7 @@ def test_model_only_startup_audit_requires_fresh_scaler_and_scheduler() -> None:
             "copied_parameter_sha256": {"field": "abc"},
             "fresh_state_assertions": {
                 "occupancy_occs_zero": True,
+                "occupancy_binary_constructor_true_count": 4,
                 "frequency_grid_zero": True,
             },
         },

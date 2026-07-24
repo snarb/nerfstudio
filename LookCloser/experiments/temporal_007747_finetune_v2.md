@@ -36,7 +36,9 @@ Implementation validation:
 | Runner tests | 117 passed |
 | Native crop smoke | Complete 3×2 leader/scratch/target sheet; zero serious artifacts |
 | Production preflight | Frozen provenance/runtime/reference/data checks passed; storage guard stopped at 112.1 GiB free versus 180 GiB required |
-| Production campaign | Not started; no baseline, trainer or v2 run directory was created |
+| Alternate storage preflight | Passed with 1659.0 GiB free on `/mnt/data` |
+| First baseline attempt | Infrastructure stop before eval/update/checkpoint: controller incorrectly assumed the fresh occupancy binary mask was all-true |
+| Production campaign | Corrected rerun uses a new `_r2` directory; the failed directory is preserved unchanged |
 
 The recorded regression command was:
 
@@ -54,6 +56,13 @@ The clean-main production preflight command was:
 
 It exited with infrastructure code 3 at the final storage check, as intended. No data was deleted
 and the floor was not weakened.
+
+The first alternate-storage baseline proved every other startup invariant, including direct field
+hash equality, fresh Adam/LR/scheduler/scaler/RNG, and zero occupancy values, frequency grid, FAS
+counter and point telemetry. Nerfacc's fresh binary occupancy mask is not all-true. The corrected
+audit compares its true-count with the constructor count captured by the trainer, retaining a
+fail-closed freshness check without imposing the reset-only all-true representation. No evaluation,
+optimizer update or checkpoint occurred in the failed attempt.
 
 The crop smoke used a canonical target-GT-bound composite and the accepted scratch render. The
 accepted scratch artifact has a historical GT panel that is not byte-identical to the active

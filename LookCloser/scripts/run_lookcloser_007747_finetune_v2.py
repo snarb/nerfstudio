@@ -684,7 +684,9 @@ def _startup_audit(trainer: Any, *, expected_mode: str) -> Dict[str, Any]:
             "buffers_not_loaded": load_audit.get("pipeline_buffers_loaded") is False,
             "occupancy_zero": audit["occupancy_nonzero"] == 0,
             "occupancy_binary_fresh": audit["occupancy_binary_true"]
-            == audit["occupancy_binary_numel"],
+            == load_audit.get("fresh_state_assertions", {}).get(
+                "occupancy_binary_constructor_true_count"
+            ),
             "frequency_zero": audit["frequency_grid_nonzero"] == 0,
             "fas_zero": audit["fas_sample_count"] == 0 and audit["pixel_sampler_count"] == 0,
             "points_zero": audit["cumulative_point_samples"] == 0,
