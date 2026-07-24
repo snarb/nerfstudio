@@ -35,7 +35,8 @@ Implementation validation:
 | Dataset split | 66 train + 3 eval |
 | Runner tests | 117 passed |
 | Native crop smoke | Complete 3×2 leader/scratch/target sheet; zero serious artifacts |
-| Production campaign | Not started: the 180 GiB initial free-space guard is not currently met |
+| Production preflight | Frozen provenance/runtime/reference/data checks passed; storage guard stopped at 112.1 GiB free versus 180 GiB required |
+| Production campaign | Not started; no baseline, trainer or v2 run directory was created |
 
 The recorded regression command was:
 
@@ -43,6 +44,16 @@ The recorded regression command was:
 /home/brans/repos/nerfstudio/.venv/bin/python -m pytest -q -o addopts='' \
   LookCloser/tests tests/engine/test_trainer_checkpoint_load_modes.py
 ```
+
+The clean-main production preflight command was:
+
+```bash
+/home/brans/repos/nerfstudio/.venv/bin/python \
+  LookCloser/scripts/run_lookcloser_007747_finetune_v2.py --preflight-only
+```
+
+It exited with infrastructure code 3 at the final storage check, as intended. No data was deleted
+and the floor was not weakened.
 
 The crop smoke used a canonical target-GT-bound composite and the accepted scratch render. The
 accepted scratch artifact has a historical GT panel that is not byte-identical to the active
