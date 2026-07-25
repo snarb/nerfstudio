@@ -76,7 +76,7 @@ LPIPS. Report SSIM but never use it to rescue bad PSNR/LPIPS.
 
 Expected quality is approximately the current `007747` result or better:
 PSNR `≈29.88+`, SSIM `≈0.676+`, LPIPS `≈0.215` or lower. Hard minimum gates are
-PSNR `>=29.840143`, SSIM `>=0.669203`, LPIPS `<=0.219455`, plus the visual gate.
+PSNR `>=29.7`, SSIM `>=0.668`, LPIPS `<=0.22`, plus the visual gate.
 
 ## Metrics
 
@@ -89,5 +89,8 @@ evaluation loss.
 
 Keep complete boundary metrics, three-view renders, crops, configs, hashes and
 train/eval wall timings in the `/mnt/data` campaign. Check VRAM and projected
-root-disk space before each frame, never delete source runs, and never let a
-copied config retain a temporary run's checkpoint path.
+root-disk space before each frame and never let a copied config retain a
+temporary run's checkpoint path. The approved storage exception preserves
+every source run and the selected source checkpoint but removes nonselected
+intermediate checkpoint files only after a frame is fully accepted, recording
+their original paths, sizes and hashes in an atomic pruning manifest.

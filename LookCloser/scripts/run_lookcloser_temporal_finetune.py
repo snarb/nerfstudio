@@ -1,169 +1,168 @@
 #!/usr/bin/env python3
-"""Reproduce the selected 007740 -> 007747 hash23 fine-tuning recipe.
+"""Run one fixed-recipe temporal LookCloser trajectory for one frame and seed.
 
-This is deliberately a single-frame production runner, not a sweep.  One
-ordinary invocation:
-
-* verifies the canonical leader, target revision, JPEGs, standard frequency
-  maps, runtime, source tree, reference renders, and available storage;
-* full-evaluates the direct model-only transplant before any target update;
-* replays the selected LR=0.015 / 300k decay schedule from the original
-  step-91128 hash23 leader with entirely fresh target training state;
-* mirrors the accepted process boundaries: direct training through step60752,
-  then one full-resume interval at a time;
-* saves and full-evaluates every 15188 local steps through step 151880; and
-* writes all checkpoints, three-view renders, native hands/chain comparisons,
-  exact configs, hashes, startup audit, wall timings, and a compact summary.
-
-The fixed step-151880 horizon reproduces the plateau-selected checkpoint from
-the completed v2 campaign.  Manual visual review remains evidence, never a
-hard-coded pass: supplying ``--visual-decisions`` can certify the reproduced
-target, while an ordinary invocation still completes training and emits the
-native review artifact.
+Cross-frame startup copies only field/model parameters from the accepted parent
+snapshot.  Same-frame continuation loads full state.  The ordinary invocation
+records the no-update transplant and reproduces every process boundary through
+local step 151880.  ``--extend-one-interval`` resumes exactly one further
+15188-step interval for plateau confirmation.
 """
 
 from __future__ import annotations
 
 import argparse
 import json
+import subprocess
 import sys
+import time
 from dataclasses import asdict
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Mapping, Optional, Sequence
 
+import yaml
+
 try:
     from scripts import run_lookcloser_007747_finetune_v2 as v2
+    from scripts import temporal_finetune_common as common
 except ImportError:
     import run_lookcloser_007747_finetune_v2 as v2
+    import temporal_finetune_common as common
 
 
 SCRIPT_PATH = Path(__file__).resolve()
-
-RECIPE_ID = "007747_hash23_lr015_h300_step151880"
-ARM_ID = "authoritative-R-L150-H300"
-INITIAL_LR = 0.015
-FINAL_LR = 0.0001
-SCHEDULER_MAX_STEPS = 300_000
-TARGET_STEP = 151_880
-MAX_NUM_ITERATIONS = TARGET_STEP + 1
-SEED = 42
-
-DEFAULT_OUTPUT_ROOT = Path("/mnt/data/lookcloser_007747_finetune_v2_runs")
-DEFAULT_VENV = v2.DEFAULT_VENV
-DEFAULT_TCNN_OVERLAY = v2.DEFAULT_TCNN_OVERLAY
-
-REFERENCE_CAMPAIGN = Path(
-    "/mnt/data/lookcloser_007747_finetune_v2_runs/"
-    "hash23_extended_scheduler_seed42_v3"
-)
-REFERENCE_SUMMARY = REFERENCE_CAMPAIGN / "summary.json"
-REFERENCE_CHECKPOINT_SHA256 = (
-    "000fbc9144505fe4041d61ba71f0f9f804c78de19517b70cd0584d519ae6a358"
-)
-REFERENCE_METRICS = {
-    "psnr": 29.880142211914062,
-    "ssim": 0.6756599545478821,
-    "lpips": 0.2145330160856247,
-}
-
-
-def default_output_dir() -> Path:
-    timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
-    return DEFAULT_OUTPUT_ROOT / f"{RECIPE_ID}_{timestamp}"
+REPO_ROOT = SCRIPT_PATH.parents[2]
+ARM_ID = "fixed-L150-H300"
+QUALITY_EXIT = 2
+INFRASTRUCTURE_EXIT = 3
 
 
 def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument(
-        "--output-dir",
-        type=Path,
-        default=None,
-        help=(
-            "New artifact directory. By default a timestamped directory is "
-            "created under /mnt/data/lookcloser_007747_finetune_v2_runs."
-        ),
-    )
-    parser.add_argument("--venv", type=Path, default=DEFAULT_VENV)
-    parser.add_argument("--tcnn-overlay", type=Path, default=DEFAULT_TCNN_OVERLAY)
-    parser.add_argument(
-        "--visual-decisions",
-        type=Path,
-        help=(
-            "Optional v2 visual-decision JSON. The key for the selected target "
-            f"is {ARM_ID}:{TARGET_STEP}."
-        ),
-    )
-    parser.add_argument(
-        "--resume",
-        action="store_true",
-        help="Validate and reuse an explicitly supplied output directory.",
-    )
+    parser.add_argument("--target-frame", required=True, choices=common.TARGET_FRAMES)
+    parser.add_argument("--parent-snapshot", required=True, type=Path)
+    parser.add_argument("--seed", required=True, type=int, choices=common.SEEDS)
+    parser.add_argument("--output-dir", type=Path)
+    parser.add_argument("--venv", type=Path, default=v2.DEFAULT_VENV)
+    parser.add_argument("--tcnn-overlay", type=Path, default=v2.DEFAULT_TCNN_OVERLAY)
+    parser.add_argument("--resume", action="store_true")
+    parser.add_argument("--extend-one-interval", action="store_true")
     parser.add_argument("--preflight-only", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args(argv)
     if args.output_dir is None:
-        if args.resume:
-            parser.error("--resume requires an explicit --output-dir")
-        args.output_dir = default_output_dir()
+        args.output_dir = (
+            common.CAMPAIGN_ROOT
+            / args.target_frame
+            / "seeds"
+            / f"seed-{args.seed}"
+        )
+    if args.extend_one_interval and not args.resume:
+        parser.error("--extend-one-interval requires --resume")
     return args
+
+
+def _load_parent_config(args: argparse.Namespace, parent: Mapping[str, Any]) -> Any:
+    config_path = Path(str(parent["config"]))
+    config = yaml.load(config_path.read_text(encoding="utf-8"), Loader=yaml.Loader)
+    checkpoint = Path(str(parent["checkpoint"])).resolve()
+    configured_checkpoint = Path(config.load_checkpoint).resolve()
+    if configured_checkpoint != checkpoint:
+        raise common.InfrastructureError(
+            f"Parent config does not resolve its snapshot checkpoint: "
+            f"{configured_checkpoint} != {checkpoint}"
+        )
+    configured_dataset = Path(config.pipeline.datamanager.dataparser.data).resolve()
+    expected_dataset = (common.DATA_ROOT / str(parent["frame"])).resolve()
+    if configured_dataset != expected_dataset:
+        raise common.InfrastructureError(
+            f"Parent config dataparser mismatch: {configured_dataset} != {expected_dataset}"
+        )
+    return config
+
+
+def configure_v2(args: argparse.Namespace) -> Dict[str, Any]:
+    expected_parent = common.previous_frame(args.target_frame)
+    canonical_parent = common.DATA_ROOT / expected_parent / "snapshot"
+    if args.parent_snapshot.resolve() != canonical_parent.resolve():
+        raise common.InfrastructureError(
+            f"{args.target_frame} must load only {canonical_parent}, "
+            f"not {args.parent_snapshot}"
+        )
+    parent = common.validate_snapshot_files(
+        args.parent_snapshot, expected_frame=expected_parent
+    )
+    _load_parent_config(args, parent)
+    v2.LEADER_CONFIG = Path(str(parent["config"]))
+    v2.LEADER_CHECKPOINT = Path(str(parent["checkpoint"]))
+    v2.TARGET_DATASET = common.DATA_ROOT / args.target_frame
+    v2.TARGET_MAPS = v2.TARGET_DATASET / "lookcloser_frequencies"
+    v2.ACTIVE_SEED = args.seed
+    return parent
 
 
 def fixed_arm() -> v2.Arm:
     return v2.Arm(
         arm_id=ARM_ID,
-        lr_init=INITIAL_LR,
-        scheduler_max_steps=SCHEDULER_MAX_STEPS,
+        lr_init=common.INITIAL_LR,
+        scheduler_max_steps=common.SCHEDULER_MAX_STEPS,
         phase="authoritative",
     )
 
 
-def initial_segment(args: argparse.Namespace) -> v2.Segment:
+def run_dir(args: argparse.Namespace) -> Path:
+    return v2.arm_run_dir(args.output_dir, "authoritative", ARM_ID)
+
+
+def initial_segments(args: argparse.Namespace) -> list[v2.Segment]:
     arm = fixed_arm()
-    return v2.authoritative_segment(
-        args,
-        arm,
-        target_step=v2.INITIAL_FINAL_STEP,
-        parent=None,
-    )
-
-
-def fixed_segments(args: argparse.Namespace) -> list[v2.Segment]:
-    """Return the exact process/continuation boundaries of the selected run."""
-
-    arm = fixed_arm()
-    result = [initial_segment(args)]
-    run_dir = result[0].run_dir
-    for target_step in range(
-        v2.INITIAL_FINAL_STEP + v2.INTERVAL,
-        TARGET_STEP + 1,
-        v2.INTERVAL,
-    ):
-        result.append(
+    directory = run_dir(args)
+    segments: list[v2.Segment] = []
+    parent: Optional[Path] = None
+    for target_step in common.INITIAL_PROCESS_TARGETS:
+        segments.append(
             v2.authoritative_segment(
                 args,
                 arm,
                 target_step=target_step,
-                parent=v2.checkpoint_path(run_dir, target_step - v2.INTERVAL),
+                parent=parent,
             )
         )
-    if result[-1].target_step != TARGET_STEP:
-        raise v2.InfrastructureError(
-            "Frozen target step is not aligned with the resume interval"
+        parent = v2.checkpoint_path(directory, target_step)
+    return segments
+
+
+def extension_segment(args: argparse.Namespace) -> v2.Segment:
+    directory = run_dir(args)
+    checkpoints = sorted(directory.glob("nerfstudio_models/step-*.ckpt"))
+    if not checkpoints:
+        raise common.InfrastructureError(
+            f"Cannot extend a trajectory without checkpoints: {directory}"
         )
-    return result
+    latest = max(checkpoints, key=common.checkpoint_step)
+    latest_step = common.checkpoint_step(latest)
+    if latest_step < common.INITIAL_TARGET_STEP:
+        raise common.InfrastructureError(
+            f"Cannot tail-extend before step {common.INITIAL_TARGET_STEP}: {latest}"
+        )
+    return v2.authoritative_segment(
+        args,
+        fixed_arm(),
+        target_step=latest_step + common.INTERVAL,
+        parent=latest,
+    )
 
 
-def recipe_manifest() -> Dict[str, Any]:
+def recipe_manifest(args: argparse.Namespace, parent: Mapping[str, Any]) -> Dict[str, Any]:
     return {
-        "schema_version": 1,
-        "recipe_id": RECIPE_ID,
-        "frame": "007747",
-        "seed": SEED,
-        "parent_frame": "007740",
-        "parent_checkpoint": str(v2.LEADER_CHECKPOINT),
-        "parent_checkpoint_sha256": v2.EXPECTED_LEADER_SHA256,
+        "schema_version": 2,
+        "frame": args.target_frame,
+        "seed": args.seed,
+        "parent_frame": parent["frame"],
+        "parent_snapshot": str(args.parent_snapshot.resolve()),
+        "parent_checkpoint": parent["checkpoint"],
+        "parent_checkpoint_sha256": parent["checkpoint_sha256"],
         "checkpoint_load_mode": "model_parameters_only",
+        "continuation_load_mode": "resume",
         "fresh_target_state": [
             "Adam",
             "scheduler",
@@ -174,27 +173,15 @@ def recipe_manifest() -> Dict[str, Any]:
             "FAS_counter_and_buckets",
             "point_telemetry",
         ],
-        "lr_initial": INITIAL_LR,
-        "lr_final": FINAL_LR,
-        "scheduler": "log-linear exponential decay",
-        "scheduler_max_steps": SCHEDULER_MAX_STEPS,
-        "scheduler_warmup_steps": 0,
-        "target_local_step": TARGET_STEP,
-        "max_num_iterations": MAX_NUM_ITERATIONS,
-        "eval_and_save_interval": v2.INTERVAL,
-        "process_boundaries": [segment.target_step for segment in fixed_segments(
-            argparse.Namespace(output_dir=Path("<OUTPUT_DIR>"))
-        )],
-        "continuation_load_mode": "resume",
+        "process_targets_through_151880": list(common.INITIAL_PROCESS_TARGETS),
+        "eval_and_save_interval": common.INTERVAL,
+        "lr_initial": common.INITIAL_LR,
+        "lr_final": common.FINAL_LR,
+        "scheduler_max_steps": common.SCHEDULER_MAX_STEPS,
         "batch_rays": 4096,
         "mixed_precision": True,
         "log2_hashmap_size": 23,
-        "hash_levels": 16,
-        "hash_features_per_level": 2,
-        "min_res": 16,
-        "max_res": 8192,
-        "max_res_base": 2048,
-        "frequency_maps": str(v2.TARGET_MAPS),
+        "frequency_maps": "lookcloser_frequencies",
         "fas_strength": 1.0,
         "feature_reweighting_strength": 0.3,
         "fixed_traversal_and_fresh_occupancy_warmup_updates": 4096,
@@ -203,243 +190,273 @@ def recipe_manifest() -> Dict[str, Any]:
         "cached_train_rays": False,
         "cpu_fas_prefetch": False,
         "independent_rng_streams": False,
-        "reference_campaign": str(REFERENCE_CAMPAIGN),
-        "reference_checkpoint_sha256": REFERENCE_CHECKPOINT_SHA256,
-        "reference_metrics": dict(REFERENCE_METRICS),
     }
 
 
-def deterministic_dry_run(args: argparse.Namespace) -> Dict[str, Any]:
-    segments = fixed_segments(args)
-    described_segments = []
+def git_preflight() -> Dict[str, Any]:
+    branch = subprocess.check_output(
+        ["git", "branch", "--show-current"], cwd=REPO_ROOT, text=True
+    ).strip()
+    commit = subprocess.check_output(
+        ["git", "rev-parse", "HEAD"], cwd=REPO_ROOT, text=True
+    ).strip()
+    status = subprocess.check_output(
+        ["git", "status", "--porcelain"], cwd=REPO_ROOT, text=True
+    )
+    if branch != "main":
+        raise common.InfrastructureError(f"Temporal campaign requires main, got {branch}")
+    if status.strip():
+        raise common.InfrastructureError("Temporal campaign requires a clean committed main")
+    tracked = (
+        SCRIPT_PATH,
+        SCRIPT_PATH.with_name("temporal_finetune_common.py"),
+        Path(v2.SCRIPT_PATH),
+        REPO_ROOT / "nerfstudio" / "engine" / "trainer.py",
+        REPO_ROOT / "nerfstudio" / "engine" / "optimizers.py",
+        REPO_ROOT / "nerfstudio" / "engine" / "schedulers.py",
+        REPO_ROOT / "nerfstudio" / "configs" / "method_configs.py",
+        REPO_ROOT / "nerfstudio" / "data" / "datamanagers" / "base_datamanager.py",
+        REPO_ROOT / "nerfstudio" / "data" / "dataparsers" / "nerfstudio_dataparser.py",
+        REPO_ROOT / "nerfstudio" / "fields" / "lookcloser_field.py",
+        REPO_ROOT / "nerfstudio" / "model_components" / "lookcloser_grid.py",
+        REPO_ROOT / "nerfstudio" / "models" / "lookcloser.py",
+        REPO_ROOT / "nerfstudio" / "pipelines" / "lookcloser_pipeline.py",
+        REPO_ROOT / "nerfstudio" / "scripts" / "eval.py",
+        REPO_ROOT / "nerfstudio" / "scripts" / "train.py",
+        REPO_ROOT / "nerfstudio" / "lookcloser_pixel_sampler.py",
+    )
+    hashes = {
+        str(path.relative_to(REPO_ROOT)): common.sha256_file(path) for path in tracked
+    }
+    import hashlib
+
+    fingerprint = hashlib.sha256(
+        json.dumps({"commit": commit, "source": hashes}, sort_keys=True).encode()
+    ).hexdigest()
+    return {
+        "branch": branch,
+        "commit": commit,
+        "source_sha256": hashes,
+        "source_fingerprint": fingerprint,
+    }
+
+
+def preflight(
+    args: argparse.Namespace,
+    parent: Mapping[str, Any],
+    *,
+    freeze: bool,
+) -> Dict[str, Any]:
+    dataset = common.DATA_ROOT / args.target_frame
+    manifest_path = args.output_dir / "input_manifest.json"
+    dataset_manifest = (
+        common.freeze_dataset_manifest(args.target_frame, dataset, manifest_path)
+        if freeze
+        else common.compute_dataset_manifest(args.target_frame, dataset)
+    )
+    return {
+        "schema_version": 2,
+        "git": git_preflight(),
+        "runtime": v2.runtime_preflight(args),
+        "storage": v2.disk_guard(args.output_dir, initial=not args.output_dir.exists()),
+        "dataset": dataset_manifest,
+        "dataset_manifest": str(manifest_path),
+        "parent": dict(parent),
+        "recipe": recipe_manifest(args, parent),
+    }
+
+
+def _same_preflight(previous: Mapping[str, Any], current: Mapping[str, Any]) -> bool:
+    ignored = {"storage"}
+    return (
+        {key: value for key, value in previous.items() if key not in ignored}
+        == {key: value for key, value in current.items() if key not in ignored}
+    )
+
+
+def run_preupdate_baseline(
+    args: argparse.Namespace,
+    store: v2.CampaignStore,
+) -> None:
+    existing = store.data.get("baseline")
+    if isinstance(existing, Mapping) and existing.get("status") == "complete":
+        return
+    arm = fixed_arm()
+    segment = v2.Segment(
+        segment_id="baseline-preupdate",
+        arm=arm,
+        run_dir=v2.arm_run_dir(args.output_dir, "baseline", "preupdate"),
+        target_step=0,
+        load_mode="model_parameters_only",
+        parent_checkpoint=v2.LEADER_CHECKPOINT,
+    )
+    common.freeze_dataset_manifest(
+        args.target_frame,
+        common.DATA_ROOT / args.target_frame,
+        args.output_dir / "input_manifest.json",
+    )
+    config_path, differences = v2.write_segment_config(args, segment)
+    result_path = args.output_dir / "worker_results" / "baseline-preupdate.json"
+    result_path.parent.mkdir(parents=True, exist_ok=True)
+    command = [
+        str(args.venv / "bin" / "python"),
+        str(v2.SCRIPT_PATH),
+        "--worker-mode",
+        "baseline",
+        "--worker-config",
+        str(config_path),
+        "--worker-result",
+        str(result_path),
+    ]
+    record: Dict[str, Any] = {
+        "status": "running",
+        "started_at": common.utc_now(),
+        "command": command,
+        "config": str(config_path),
+        "config_diff": differences,
+    }
+    store.data["baseline"] = record
+    store.flush()
+    log_path = segment.run_dir / "baseline_stdout.log"
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    started = time.monotonic()
+    with log_path.open("w", encoding="utf-8") as log:
+        completed = subprocess.run(
+            command,
+            cwd=REPO_ROOT,
+            env=v2.run_environment(args),
+            stdout=log,
+            stderr=subprocess.STDOUT,
+            check=False,
+        )
+    if completed.returncode != 0 or not result_path.is_file():
+        record["status"] = "infrastructure_error"
+        record["returncode"] = completed.returncode
+        store.flush()
+        raise common.InfrastructureError(f"Pre-update evaluation failed; see {log_path}")
+    result = json.loads(result_path.read_text(encoding="utf-8"))
+    record.update(
+        {
+            "status": "complete",
+            "completed_at": common.utc_now(),
+            "wall_seconds": time.monotonic() - started,
+            "result": result,
+        }
+    )
+    store.data["baseline"] = record
+    store.flush()
+
+
+def deterministic_dry_run(
+    args: argparse.Namespace, parent: Mapping[str, Any]
+) -> Dict[str, Any]:
+    segments = (
+        [extension_segment(args)]
+        if args.extend_one_interval
+        else initial_segments(args)
+    )
+    described = []
     for segment in segments:
         config, differences = v2.configured_segment(args, segment)
-        described_segments.append(
+        described.append(
             {
                 **asdict(segment),
                 "arm": asdict(segment.arm),
                 "run_dir": str(segment.run_dir),
                 "parent_checkpoint": str(segment.parent_checkpoint),
-                "effective": {
-                    "max_num_iterations": int(config.max_num_iterations),
-                    "checkpoint_load_mode": config.checkpoint_load_mode,
-                    "load_optimizers": bool(config.load_optimizers),
-                    "load_scheduler": bool(config.load_scheduler),
-                    "optimizer_lr": float(
-                        config.optimizers["fields"]["optimizer"].lr
-                    ),
-                    "scheduler_lr_final": float(
-                        config.optimizers["fields"]["scheduler"].lr_final
-                    ),
-                    "scheduler_max_steps": int(
-                        config.optimizers["fields"]["scheduler"].max_steps
-                    ),
-                },
+                "max_num_iterations": int(config.max_num_iterations),
+                "seed": int(config.machine.seed),
+                "checkpoint_load_mode": config.checkpoint_load_mode,
+                "load_optimizers": bool(config.load_optimizers),
+                "load_scheduler": bool(config.load_scheduler),
                 "config_diff": differences,
             }
         )
     return {
-        "schema_version": 1,
+        "schema_version": 2,
         "output_dir": str(args.output_dir),
-        "recipe": recipe_manifest(),
-        "segments": described_segments,
+        "recipe": recipe_manifest(args, parent),
+        "segments": described,
     }
 
 
-def reproduction_preflight(args: argparse.Namespace) -> Dict[str, Any]:
-    payload = v2.full_preflight(
-        args,
-        initial_storage=not (
-            args.resume and (args.output_dir / "campaign.json").is_file()
-        ),
-    )
-    payload["reproduction"] = {
-        "script": str(SCRIPT_PATH),
-        "script_sha256": v2.sha256_file(SCRIPT_PATH),
-        "recipe": recipe_manifest(),
-        "reference_summary": str(REFERENCE_SUMMARY),
-        "reference_summary_sha256": (
-            v2.sha256_file(REFERENCE_SUMMARY)
-            if REFERENCE_SUMMARY.is_file()
-            else None
-        ),
-    }
-    return payload
-
-
-def _same_static_preflight(
-    previous: Mapping[str, Any],
-    current: Mapping[str, Any],
-) -> bool:
-    return (
-        {key: value for key, value in previous.items() if key != "storage"}
-        == {key: value for key, value in current.items() if key != "storage"}
-    )
-
-
-def _target_protocol_state(boundary: v2.Boundary) -> Dict[str, Any]:
-    protocol = v2.protocol_payload(boundary)
-    manual_verdict = str(protocol["visual_gate"]["verdict"])
-    automatic_clean = (
-        int(protocol["full_view_serious_count"]) == 0
-        and protocol["roi"]["artifact"]["serious"] is False
-    )
-    return {
-        "manual_verdict": manual_verdict,
-        "automatic_clean": automatic_clean,
-        "certified_pass": manual_verdict == "pass" and automatic_clean,
-        "protocol": str(boundary.protocol_json),
-        "contact_sheet": str(protocol["contact_sheet"]),
-        "full_view_serious_count": int(protocol["full_view_serious_count"]),
-        "roi_serious": bool(protocol["roi"]["artifact"]["serious"]),
-    }
-
-
-def _write_report(output_dir: Path, summary: Mapping[str, Any]) -> None:
-    target = summary["target"]
-    visual = summary["visual"]
-    report = (
-        "# 007740 → 007747 selected fine-tuning recipe reproduction\n\n"
-        "## Recipe\n\n"
-        f"- Initial/final LR: `{INITIAL_LR}` → `{FINAL_LR}`\n"
-        f"- Exponential scheduler horizon: `{SCHEDULER_MAX_STEPS}`\n"
-        f"- Target local step: `{TARGET_STEP}` "
-        f"(`max_num_iterations={MAX_NUM_ITERATIONS}`)\n"
-        "- Transfer: direct hash23 `model_parameters_only`; all target "
-        "optimizer/grid/RNG/FAS state fresh\n\n"
-        "## Result\n\n"
-        "| Step | PSNR | SSIM | LPIPS | Numeric gate | Visual certification |\n"
-        "|---:|---:|---:|---:|---|---|\n"
-        f"| {target['local_step']} | {target['psnr']:.6f} | "
-        f"{target['ssim']:.6f} | {target['lpips']:.6f} | "
-        f"{'pass' if target['numeric_pass'] else 'fail'} | "
-        f"{'pass' if visual['certified_pass'] else visual['manual_verdict']} |\n\n"
-        "Evaluation loss is intentionally excluded.\n"
-    )
-    (output_dir / "report.md").write_text(report, encoding="utf-8")
-
-
-def run_reproduction(args: argparse.Namespace) -> int:
+def run(args: argparse.Namespace) -> int:
+    parent = configure_v2(args)
     if args.dry_run:
         print(
             json.dumps(
-                deterministic_dry_run(args),
+                deterministic_dry_run(args, parent),
                 indent=2,
                 sort_keys=True,
                 default=str,
             )
         )
         return 0
-
-    preflight = reproduction_preflight(args)
+    current_preflight = preflight(args, parent, freeze=not args.preflight_only)
     if args.preflight_only:
-        print(json.dumps(preflight, indent=2, sort_keys=True))
+        print(json.dumps(current_preflight, indent=2, sort_keys=True))
         return 0
 
     args.output_dir.mkdir(parents=True, exist_ok=True)
     store = v2.CampaignStore(args.output_dir / "campaign.json", resume=args.resume)
-    manifest = recipe_manifest()
-    previous_recipe = store.data.get("recipe")
-    if previous_recipe is not None and previous_recipe != manifest:
-        raise v2.InfrastructureError("Frozen reproduction recipe changed on resume")
-    previous_preflight = store.data.get("preflight")
-    if previous_preflight is not None and not _same_static_preflight(
-        previous_preflight, preflight
-    ):
-        raise v2.InfrastructureError(
-            "Reproduction provenance changed since campaign creation"
-        )
+    previous = store.data.get("preflight")
+    if isinstance(previous, Mapping) and not _same_preflight(previous, current_preflight):
+        raise common.InfrastructureError("Trajectory provenance changed since creation")
     store.data.update(
         {
             "runner": str(SCRIPT_PATH),
-            "recipe": manifest,
-            "preflight": preflight,
+            "frame": args.target_frame,
+            "seed": args.seed,
+            "parent": dict(parent),
+            "recipe": recipe_manifest(args, parent),
+            "preflight": current_preflight,
             "status": "running",
         }
     )
-    store.flush()
-
-    decisions = v2.visual_decisions(args.visual_decisions)
-    store.data.setdefault("visual_review_snapshots", []).append(
-        {
-            "at": v2.utc_now(),
-            "source": (
-                str(args.visual_decisions) if args.visual_decisions else None
-            ),
-            "source_sha256": (
-                v2.sha256_file(args.visual_decisions)
-                if args.visual_decisions
-                else None
-            ),
-            "decisions": decisions,
-        }
+    store.data.setdefault("storage_checks", []).append(
+        {"at": common.utc_now(), **current_preflight["storage"]}
     )
     store.flush()
 
-    v2.run_baseline(args, store, decisions)
-    segments = fixed_segments(args)
-    records = [v2.run_segment(args, store, segment) for segment in segments]
-    first_record = records[0]
-    final_segment = segments[-1]
-    boundaries = v2.discover_boundaries(
-        ARM_ID,
-        final_segment.run_dir,
-        decisions,
-    )
-    target = next(
-        (boundary for boundary in boundaries if boundary.local_step == TARGET_STEP),
-        None,
-    )
-    if target is None:
-        raise v2.InfrastructureError(
-            f"Reproduction did not evaluate target step {TARGET_STEP}"
+    if not args.extend_one_interval:
+        run_preupdate_baseline(args, store)
+        segments = initial_segments(args)
+    else:
+        segments = [extension_segment(args)]
+    records = []
+    for segment in segments:
+        common.freeze_dataset_manifest(
+            args.target_frame,
+            common.DATA_ROOT / args.target_frame,
+            args.output_dir / "input_manifest.json",
         )
+        records.append(v2.run_segment(args, store, segment))
 
-    visual = _target_protocol_state(target)
-    reference_drift = {
-        name: float(getattr(target, name)) - value
-        for name, value in REFERENCE_METRICS.items()
-    }
-    elapsed_to_target = (
-        target.eval_completed_wall_time_ns
-        - int(first_record["started_wall_time_ns"])
-    ) / 1e9
+    boundaries = common.discover_boundaries(args.seed, run_dir(args))
+    if not boundaries:
+        raise common.InfrastructureError("Trajectory completed without evaluation boundaries")
     summary = {
-        "schema_version": 1,
-        "recipe": manifest,
-        "target": v2.boundary_dict(target),
-        "target_checkpoint_sha256": v2.sha256_file(target.checkpoint),
-        "reference_metric_drift": reference_drift,
-        "trainer_start_to_target_eval_seconds": elapsed_to_target,
-        "visual": visual,
-        "boundaries": [v2.boundary_dict(row) for row in boundaries],
-        "startup_audit": first_record["worker_result"]["startup_audit"],
+        "schema_version": 2,
+        "frame": args.target_frame,
+        "seed": args.seed,
+        "parent": dict(parent),
+        "boundaries": [common.boundary_payload(row) for row in boundaries],
+        "latest_step": max(row.local_step for row in boundaries),
+        "latest_checkpoint": str(max(boundaries, key=lambda row: row.local_step).checkpoint),
         "segments": [
             {
                 "segment_id": record["segment_id"],
                 "load_mode": record["load_mode"],
                 "target_step": record["target_step"],
-                "started_wall_time_ns": record["started_wall_time_ns"],
                 "trainer_wall_seconds": record["trainer_wall_seconds"],
-                "scheduled_eval_seconds_total": record[
-                    "scheduled_eval_seconds_total"
-                ],
+                "scheduled_eval_seconds_total": record["scheduled_eval_seconds_total"],
             }
             for record in records
         ],
     }
-    v2.atomic_json(args.output_dir / "summary.json", summary)
-    _write_report(args.output_dir, summary)
+    common.atomic_json(args.output_dir / "summary.json", summary)
     store.data["summary"] = summary
-    if not target.numeric_pass:
-        store.data["status"] = "quality_failure"
-        store.flush()
-        raise v2.FinalQualityFailure(
-            "Reproduced target checkpoint missed one or more leader thresholds"
-        )
-    store.data["status"] = (
-        "complete" if visual["certified_pass"] else "complete_visual_review_pending"
-    )
+    store.data["status"] = "complete"
     store.flush()
     return 0
 
@@ -447,11 +464,12 @@ def run_reproduction(args: argparse.Namespace) -> int:
 def main(argv: Optional[Sequence[str]] = None) -> int:
     args = parse_args(argv)
     try:
-        return run_reproduction(args)
-    except v2.FinalQualityFailure as error:
+        return run(args)
+    except common.QualityFailure as error:
         print(f"QUALITY_FAILURE: {error}", file=sys.stderr)
-        return v2.QUALITY_EXIT
+        return QUALITY_EXIT
     except (
+        common.InfrastructureError,
         v2.InfrastructureError,
         FileNotFoundError,
         KeyError,
@@ -459,7 +477,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         ValueError,
     ) as error:
         print(f"INFRASTRUCTURE_ERROR: {error}", file=sys.stderr)
-        return v2.INFRASTRUCTURE_EXIT
+        return INFRASTRUCTURE_EXIT
 
 
 if __name__ == "__main__":

@@ -102,12 +102,18 @@ ALLOWED_CONFIG_DIFFS = {
     "load_optimizers",
     "load_scheduler",
     "max_num_iterations",
+    "machine.seed",
     "optimizers.fields.optimizer.lr",
     "optimizers.fields.scheduler.max_steps",
     "output_dir",
     "pipeline.datamanager.dataparser.data",
     "timestamp",
 }
+
+# The generalized temporal production runner configures this in its own process
+# before calling the audited v2 segment primitives.  The canonical 007747
+# runner retains seed 42 by default.
+ACTIVE_SEED = 42
 
 
 class InfrastructureError(RuntimeError):
@@ -525,7 +531,7 @@ def assert_frozen_recipe(config: Any, arm: Arm) -> None:
     optimizer = config.optimizers["fields"]["optimizer"]
     scheduler = config.optimizers["fields"]["scheduler"]
     checks = {
-        "seed": config.machine.seed == 42,
+        "seed": config.machine.seed == ACTIVE_SEED,
         "mixed_precision": config.mixed_precision is True,
         "use_grad_scaler": config.use_grad_scaler is False,
         "grad_scaler_init": config.grad_scaler_init_scale == 65_536.0,
@@ -583,6 +589,7 @@ def configured_segment(
     leader = yaml.load(LEADER_CONFIG.read_text(encoding="utf-8"), Loader=yaml.Loader)
     _materialize_effective_runtime(leader)
     config = copy.deepcopy(leader)
+    config.machine.seed = ACTIVE_SEED
     config.output_dir = segment.run_dir.parents[2]
     config.experiment_name = segment.run_dir.parents[1].name
     config.timestamp = segment.run_dir.name

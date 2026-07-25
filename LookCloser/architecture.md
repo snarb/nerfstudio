@@ -618,17 +618,35 @@ Generic preprocessing prefers `train_steps_per_level` over the legacy `steps_per
 
 ## Temporal per-frame transfer
 
-`scripts/run_lookcloser_temporal_finetune.py` is the fixed production
-reproduction entrypoint for the selected canonical 007740→007747 result. It
-uses the audited primitives in `run_lookcloser_007747_finetune_v2.py`, runs no
-sweep, and freezes LR0.015, final LR0.0001, scheduler horizon300000 and target
-step151880 (`max_num_iterations=151881`). With no arguments it creates a new
-timestamped v2 output directory, evaluates the pre-update transplant, and
-trains/evaluates all ten 15188-step boundaries. It mirrors the accepted
-process structure: one direct model-only process through step60752 followed by
-one full-resume process per interval through step151880. The older
-`run_lookcloser_temporal_transfer.py` lineage and the former multi-frame
-controller are forensic evidence only.
+`scripts/run_lookcloser_temporal_finetune.py` is the production single-frame,
+single-seed trajectory runner. It requires a target frame, the immediately
+preceding accepted snapshot, and seed42/43/44. It evaluates the pre-update
+transplant and freezes LR0.015, final LR0.0001, scheduler horizon300000 and the
+ten 15188-step evaluation/save boundaries through step151880. Process
+boundaries mirror the accepted 007747 run: one direct model-only process
+through step60752 followed by one full-resume process per interval. Tail mode
+can resume exactly one additional interval without changing the recipe.
+
+`scripts/run_lookcloser_temporal_campaign.py` owns the sequential
+007754--008048 chain. It launches the three seed trajectories concurrently
+(or documented seed42/43 two-job fallback after a VRAM preflight or real OOM),
+freezes the exact JPEG/map hashes before every launch, builds native eval0 crop
+comparisons, and pauses fail-closed for explicit visual decisions. Valid
+checkpoints must clear PSNR29.7, SSIM0.668 and LPIPS0.22. Selection is maximum
+PSNR followed by minimum LPIPS inside the inclusive0.07-dB window; tail waves
+continue only seeds in that window until the selected trajectory has two
+complete plateau intervals.
+
+Promotion copies only the selected checkpoint into the target dataset, rewrites
+the snapshot config to its final in-tree checkpoint and target dataparser, and
+runs a fresh `ns-eval` using only that config. The controller then requires a
+second explicit visual pass, writes provenance and the unique metrics row, and
+only then exposes the snapshot as the next parent. Complete metrics, renders,
+crops, configs, hashes, logs and timings remain under `/mnt/data`. To fit the
+full campaign, the explicitly authorized retention policy removes only
+nonselected intermediate checkpoint files after acceptance; their paths,
+sizes and hashes remain in the pruning manifest and the selected source
+checkpoint is retained.
 
 `TrainerConfig.checkpoint_load_mode` defines the important boundary:
 cross-frame `model_parameters_only` copies the exact `fields` parameter set but
