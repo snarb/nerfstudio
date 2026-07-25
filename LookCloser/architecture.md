@@ -635,7 +635,10 @@ comparisons, and pauses fail-closed for explicit visual decisions. Valid
 checkpoints must clear PSNR29.7, SSIM0.668 and LPIPS0.22. Selection is maximum
 PSNR followed by minimum LPIPS inside the inclusive0.07-dB window; tail waves
 continue only seeds in that window until the selected trajectory has two
-complete plateau intervals.
+complete plateau intervals. PSNR29.88, SSIM0.676 and LPIPS0.215 are the
+preferred target tier. A hard-minimum result is promotable only after the
+two-interval plateau proves that the preferred tier was not reached, and that
+fallback is explicit in selection and campaign provenance.
 
 Promotion copies only the selected checkpoint into the target dataset, rewrites
 the snapshot config to its final in-tree checkpoint and target dataparser, and

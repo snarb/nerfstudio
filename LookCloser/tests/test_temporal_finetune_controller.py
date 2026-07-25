@@ -59,6 +59,9 @@ def test_fixed_recipe_and_chain_are_frozen() -> None:
     assert common.PSNR_MIN == 29.7
     assert common.SSIM_MIN == 0.668
     assert common.LPIPS_MAX == 0.22
+    assert common.PREFERRED_PSNR == 29.88
+    assert common.PREFERRED_SSIM == 0.676
+    assert common.PREFERRED_LPIPS == 0.215
 
 
 def test_runner_requires_target_parent_and_seed() -> None:
@@ -210,6 +213,18 @@ def test_visual_and_hard_gates_filter_before_selection() -> None:
     assert not common.boundary_is_valid("007754", bad_psnr, decisions)
     decisions[common.visual_key("007754", 42, 15_188)]["verdict"] = "fail"
     assert not common.boundary_is_valid("007754", passing, decisions)
+
+
+def test_preferred_quality_is_stricter_than_hard_minimum() -> None:
+    fallback = boundary(
+        step=151_880, psnr=29.87, ssim=0.6759, lpips=0.2151
+    )
+    preferred = boundary(
+        step=167_068, psnr=29.88, ssim=0.676, lpips=0.215
+    )
+    assert fallback.numeric_pass
+    assert not fallback.preferred_pass
+    assert preferred.preferred_pass
 
 
 def test_plateau_requires_two_complete_valid_visual_intervals() -> None:

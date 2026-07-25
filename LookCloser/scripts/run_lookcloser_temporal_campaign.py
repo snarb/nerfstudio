@@ -540,6 +540,20 @@ def _write_snapshot_metadata(
         "selected_step": selected.local_step,
         "selection": "maximum_psnr_then_minimum_lpips_within_inclusive_0.07_db_after_visual_and_hard_gates",
         "metrics": dict(fresh_eval["results"]),
+        "quality_tier": (
+            "preferred"
+            if (
+                float(fresh_eval["results"]["psnr"]) >= common.PREFERRED_PSNR
+                and float(fresh_eval["results"]["ssim"]) >= common.PREFERRED_SSIM
+                and float(fresh_eval["results"]["lpips"]) <= common.PREFERRED_LPIPS
+            )
+            else "hard_minimum_after_confirmed_plateau"
+        ),
+        "preferred_target": {
+            "psnr_min": common.PREFERRED_PSNR,
+            "ssim_min": common.PREFERRED_SSIM,
+            "lpips_max": common.PREFERRED_LPIPS,
+        },
         "visual_gate": {
             "verdict": final_decision["verdict"],
             "crop": list(common.CROP_BOX),
@@ -1098,6 +1112,17 @@ def process_frame(
         return False
 
     record["selection"] = common.boundary_payload(selected)
+    record["quality_tier"] = (
+        "preferred"
+        if selected.preferred_pass
+        else "hard_minimum_after_confirmed_plateau"
+    )
+    if not selected.preferred_pass:
+        record["quality_fallback_reason"] = (
+            "The checkpoint clears every hard and visual gate, and the selected "
+            "trajectory confirmed two consecutive plateau intervals without "
+            "reaching all preferred 007747-or-better targets."
+        )
     record["status"] = "promoting"
     store.flush()
     if not promote_snapshot(

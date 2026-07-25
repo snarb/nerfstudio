@@ -43,6 +43,9 @@ PSNR_TIE_DB = 0.07
 PSNR_MIN = 29.7
 SSIM_MIN = 0.668
 LPIPS_MAX = 0.22
+PREFERRED_PSNR = 29.88
+PREFERRED_SSIM = 0.676
+PREFERRED_LPIPS = 0.215
 PLATEAU_PSNR_GAIN = 0.03
 PLATEAU_SSIM_GAIN = 0.001
 PLATEAU_LPIPS_IMPROVEMENT = 0.003
@@ -92,6 +95,15 @@ class Boundary:
             and self.psnr >= PSNR_MIN
             and self.ssim >= SSIM_MIN
             and self.lpips <= LPIPS_MAX
+        )
+
+    @property
+    def preferred_pass(self) -> bool:
+        return (
+            self.numeric_pass
+            and self.psnr >= PREFERRED_PSNR
+            and self.ssim >= PREFERRED_SSIM
+            and self.lpips <= PREFERRED_LPIPS
         )
 
 
@@ -524,6 +536,7 @@ def boundary_payload(boundary: Boundary) -> Dict[str, Any]:
     for key in ("checkpoint", "eval_json", "render_dir"):
         payload[key] = str(payload[key])
     payload["numeric_pass"] = boundary.numeric_pass
+    payload["preferred_pass"] = boundary.preferred_pass
     return payload
 
 
