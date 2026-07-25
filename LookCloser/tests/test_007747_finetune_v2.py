@@ -84,6 +84,72 @@ def test_dry_run_is_deterministic_and_uses_original_hash23_leader(tmp_path: Path
     assert all(row["segment"]["load_mode"] == "model_parameters_only" for row in first["wave_a"])
 
 
+def test_extended_scheduler_profile_is_direct_hash23_and_long_horizon(tmp_path: Path) -> None:
+    parsed = v2.parse_args(
+        [
+            "--output-dir",
+            str(tmp_path / "campaign"),
+            "--campaign-profile",
+            "extended_scheduler",
+        ]
+    )
+    result = v2.deterministic_dry_run(parsed)
+
+    assert result["campaign_profile"] == "extended_scheduler"
+    assert result["wave_b_horizons"] == []
+    assert [
+        (row["arm"]["lr_init"], row["arm"]["scheduler_max_steps"])
+        for row in result["wave_a"]
+    ] == [
+        (0.0125, 400_000),
+        (0.015, 300_000),
+        (0.015, 400_000),
+    ]
+    assert all(
+        row["segment"]["parent_checkpoint"] == str(v2.LEADER_CHECKPOINT)
+        and row["segment"]["load_mode"] == "model_parameters_only"
+        for row in result["wave_a"]
+    )
+
+
+def test_extended_selector_minimizes_lpips_without_weakening_psnr_ssim(
+    tmp_path: Path,
+) -> None:
+    arms = v2.wave_a_arms("extended_scheduler")
+    rows = [
+        boundary(
+            tmp_path,
+            v2.INITIAL_FINAL_STEP,
+            30.10,
+            0.68,
+            0.25,
+            arm=arms[0].arm_id,
+        ),
+        boundary(
+            tmp_path,
+            v2.INITIAL_FINAL_STEP,
+            v2.PSNR_THRESHOLD,
+            v2.SSIM_THRESHOLD,
+            0.24,
+            arm=arms[1].arm_id,
+        ),
+        boundary(
+            tmp_path,
+            v2.INITIAL_FINAL_STEP,
+            v2.PSNR_THRESHOLD - 1e-6,
+            0.70,
+            0.10,
+            arm=arms[2].arm_id,
+        ),
+    ]
+
+    selected, first_pass = v2.select_extended_authoritative_arm(arms, rows)
+    assert first_pass is None
+    assert selected.arm_id == f"authoritative-{arms[1].arm_id}"
+    assert selected.lr_init == arms[1].lr_init
+    assert selected.scheduler_max_steps == arms[1].scheduler_max_steps
+
+
 def test_initial_config_changes_only_whitelisted_fields(tmp_path: Path) -> None:
     parsed = args(tmp_path)
     arm = v2.wave_a_arms()[0]

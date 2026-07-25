@@ -86,6 +86,14 @@ WAVE_A = (
     ("L150-H200", 0.0150, 200_000),
 )
 
+EXTENDED_SCHEDULER_WAVE = (
+    ("R-L125-H400", 0.0125, 400_000),
+    ("R-L150-H300", 0.0150, 300_000),
+    ("R-L150-H400", 0.0150, 400_000),
+)
+
+CAMPAIGN_PROFILES = ("leader_base", "extended_scheduler")
+
 ALLOWED_CONFIG_DIFFS = {
     "checkpoint_load_mode",
     "checkpoint_load_parameter_hash_audit",
@@ -160,6 +168,15 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     parser.add_argument("--tcnn-overlay", type=Path, default=DEFAULT_TCNN_OVERLAY)
     parser.add_argument("--visual-decisions", type=Path)
     parser.add_argument("--max-parallel", type=int, choices=(1, 2, 3), default=3)
+    parser.add_argument(
+        "--campaign-profile",
+        choices=CAMPAIGN_PROFILES,
+        default="leader_base",
+        help=(
+            "leader_base runs the original v2 LR/horizon screen; "
+            "extended_scheduler runs the evidence-driven long-horizon rescue screen"
+        ),
+    )
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--preflight-only", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
@@ -1291,6 +1308,52 @@ def select_authoritative_arm(
     ), first_pass
 
 
+def select_extended_authoritative_arm(
+    arms: Sequence[Arm],
+    boundaries: Sequence[Boundary],
+) -> Tuple[Arm, Optional[Boundary]]:
+    """Select the long-horizon rescue arm for fastest credible LPIPS convergence.
+
+    A complete leader pass still wins at the earliest evaluated boundary.  When
+    no arm has passed yet, use the final discovery boundary and minimize LPIPS
+    only among visually accepted arms that already clear PSNR and SSIM.  This
+    keeps every gate intact while avoiding the PSNR-first fallback that selected
+    the now-confirmed H200 LPIPS plateau.
+    """
+
+    passing = [row for row in boundaries if row.numeric_pass and visual_pass(row)]
+    first_pass = None
+    if passing:
+        earliest_step = min(row.local_step for row in passing)
+        first_pass = select_boundary([row for row in passing if row.local_step == earliest_step])
+        selected = first_pass
+    else:
+        final_rows = [
+            row
+            for row in boundaries
+            if row.local_step == INITIAL_FINAL_STEP
+            and visual_pass(row)
+            and row.psnr >= PSNR_THRESHOLD
+            and row.ssim >= SSIM_THRESHOLD
+        ]
+        if not final_rows:
+            raise FinalQualityFailure(
+                "Extended scheduler screen produced no visually accepted final boundary "
+                "that clears the PSNR and SSIM leader gates"
+            )
+        selected = min(
+            final_rows,
+            key=lambda row: (row.lpips, -row.psnr, -row.ssim, row.arm_id),
+        )
+    arm = next(row for row in arms if row.arm_id == selected.arm_id)
+    return Arm(
+        arm_id=f"authoritative-{arm.arm_id}",
+        lr_init=arm.lr_init,
+        scheduler_max_steps=arm.scheduler_max_steps,
+        phase="authoritative",
+    ), first_pass
+
+
 def _interval_is_plateau(previous: Boundary, current: Boundary) -> bool:
     return (
         current.local_step - previous.local_step == INTERVAL
@@ -1386,8 +1449,14 @@ def run_baseline(
     store.flush()
 
 
-def wave_a_arms() -> List[Arm]:
-    return [Arm(arm_id, lr, horizon, "wave_a") for arm_id, lr, horizon in WAVE_A]
+def wave_a_arms(profile: str = "leader_base") -> List[Arm]:
+    if profile == "leader_base":
+        recipes = WAVE_A
+    elif profile == "extended_scheduler":
+        recipes = EXTENDED_SCHEDULER_WAVE
+    else:
+        raise ValueError(f"Unknown campaign profile: {profile}")
+    return [Arm(arm_id, lr, horizon, "wave_a") for arm_id, lr, horizon in recipes]
 
 
 def initial_segment(args: argparse.Namespace, arm: Arm) -> Segment:
@@ -1619,7 +1688,7 @@ def finalize_campaign(
 
 def deterministic_dry_run(args: argparse.Namespace) -> Dict[str, Any]:
     rows = []
-    for arm in wave_a_arms():
+    for arm in wave_a_arms(args.campaign_profile):
         segment = initial_segment(args, arm)
         _, differences = configured_segment(args, segment)
         rows.append(
@@ -1637,8 +1706,17 @@ def deterministic_dry_run(args: argparse.Namespace) -> Dict[str, Any]:
     return {
         "schema_version": 1,
         "output_dir": str(args.output_dir),
+        "campaign_profile": args.campaign_profile,
         "wave_a": rows,
-        "wave_b_horizons": [100_000, 150_000],
+        "wave_b_horizons": (
+            [100_000, 150_000] if args.campaign_profile == "leader_base" else []
+        ),
+        "discovery_selection_policy": (
+            "leader pass first, otherwise final-boundary minimum LPIPS among "
+            "visual PSNR/SSIM passes"
+            if args.campaign_profile == "extended_scheduler"
+            else "leader pass first, otherwise exact PSNR-0.07dB/LPIPS selector"
+        ),
         "authoritative_policy": "solo replay from original hash23 leader",
     }
 
@@ -1657,6 +1735,13 @@ def run_campaign(args: argparse.Namespace) -> int:
         return 0
     args.output_dir.mkdir(parents=True, exist_ok=True)
     store = CampaignStore(campaign_path, resume=args.resume)
+    previous_profile = store.data.get("campaign_profile")
+    if previous_profile is not None and previous_profile != args.campaign_profile:
+        raise InfrastructureError(
+            f"Campaign profile changed on resume: {previous_profile} -> "
+            f"{args.campaign_profile}"
+        )
+    store.data["campaign_profile"] = args.campaign_profile
     if "preflight" in store.data:
         previous_static = {
             key: value for key, value in store.data["preflight"].items() if key != "storage"
@@ -1683,28 +1768,40 @@ def run_campaign(args: argparse.Namespace) -> int:
     store.flush()
     run_baseline(args, store, decisions)
 
-    arms_a = wave_a_arms()
+    arms_a = wave_a_arms(args.campaign_profile)
     run_segments(args, store, [initial_segment(args, arm) for arm in arms_a])
     boundaries_a = reviewed_boundaries_for_arms(arms_a, args, decisions)
-    selected_lr = select_wave_a_lr(boundaries_a)
-    store.data["wave_a_selected_lr"] = selected_lr
-    store.flush()
-
-    arms_b = [
-        Arm(f"L{selected_lr:g}-H100", selected_lr, 100_000, "wave_b"),
-        Arm(f"L{selected_lr:g}-H150", selected_lr, 150_000, "wave_b"),
-    ]
-    run_segments(args, store, [initial_segment(args, arm) for arm in arms_b])
-    boundaries_b = reviewed_boundaries_for_arms(arms_b, args, decisions)
-    all_discovery_arms = [*arms_a, *arms_b]
-    authoritative_arm, discovery_pass = select_authoritative_arm(
-        all_discovery_arms, [*boundaries_a, *boundaries_b]
-    )
+    if args.campaign_profile == "leader_base":
+        selected_lr = select_wave_a_lr(boundaries_a)
+        store.data["wave_a_selected_lr"] = selected_lr
+        store.flush()
+        arms_b = [
+            Arm(f"L{selected_lr:g}-H100", selected_lr, 100_000, "wave_b"),
+            Arm(f"L{selected_lr:g}-H150", selected_lr, 150_000, "wave_b"),
+        ]
+        run_segments(args, store, [initial_segment(args, arm) for arm in arms_b])
+        boundaries_b = reviewed_boundaries_for_arms(arms_b, args, decisions)
+        all_discovery_arms = [*arms_a, *arms_b]
+        all_discovery_boundaries = [*boundaries_a, *boundaries_b]
+        authoritative_arm, discovery_pass = select_authoritative_arm(
+            all_discovery_arms, all_discovery_boundaries
+        )
+        selection_policy = "leader_base_psnr_window_lpips"
+    else:
+        arms_b = []
+        boundaries_b = []
+        all_discovery_arms = arms_a
+        all_discovery_boundaries = boundaries_a
+        authoritative_arm, discovery_pass = select_extended_authoritative_arm(
+            all_discovery_arms, all_discovery_boundaries
+        )
+        selection_policy = "extended_final_psnr_ssim_pass_min_lpips"
     store.data["discovery"] = {
         "selected_authoritative_arm": asdict(authoritative_arm),
         "earliest_passing_discovery_boundary": (
             boundary_dict(discovery_pass) if discovery_pass else None
         ),
+        "selection_policy": selection_policy,
     }
     store.flush()
 
