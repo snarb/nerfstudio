@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from collections import namedtuple
 from pathlib import Path
 import sys
 
@@ -11,371 +10,160 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from scripts import run_lookcloser_temporal_finetune as temporal
 
 
-def metric(step: int, psnr: float, ssim: float, lpips: float) -> temporal.Metrics:
-    return temporal.Metrics(step, psnr, ssim, lpips)
+def test_selected_recipe_is_frozen() -> None:
+    recipe = temporal.recipe_manifest()
+
+    assert temporal.INITIAL_LR == 0.015
+    assert temporal.FINAL_LR == 0.0001
+    assert temporal.SCHEDULER_MAX_STEPS == 300_000
+    assert temporal.TARGET_STEP == 151_880
+    assert temporal.MAX_NUM_ITERATIONS == 151_881
+    assert temporal.TARGET_STEP == 10 * temporal.v2.INTERVAL
+    assert recipe["checkpoint_load_mode"] == "model_parameters_only"
+    assert recipe["log2_hashmap_size"] == 23
+    assert recipe["frequency_maps"] == str(temporal.v2.TARGET_MAPS)
+    assert recipe["fas_strength"] == 1.0
+    assert recipe["feature_reweighting_strength"] == 0.3
+    assert recipe["fixed_traversal_and_fresh_occupancy_warmup_updates"] == 4096
+    assert recipe["fused_adam"] is False
+    assert recipe["tcnn_network_jit"] is False
+    assert recipe["cached_train_rays"] is False
+    assert recipe["cpu_fas_prefetch"] is False
+    assert recipe["independent_rng_streams"] is False
 
 
-def evidence(step: int, psnr: float, ssim: float, lpips: float, artifact: float = 1.0):
-    return temporal.BoundaryEvidence(
-        metric(step, psnr, ssim, lpips),
-        {name: 0.2 - step / 100_000_000 for name in temporal.CRITICAL_ROIS},
-        artifact,
-    )
-
-
-def complete_protocol() -> dict:
-    return {
-        "status": "complete",
-        "full_views": [{"eval_idx": index} for index in range(3)],
-        "full_view_serious_count": 0,
-        "roi_serious_count": 0,
-        "tracking": {"ambiguous": False},
-        "rois": [
-            {"name": name, "metrics": {"lpips": 0.1}, "artifact": {"artifact_score": 0.0}}
-            for name in temporal.CRITICAL_ROIS
-        ],
-    }
-
-
-def test_selector_includes_exact_007_boundary_and_ignores_ssim() -> None:
-    maximum = metric(60_752, 30.0, 0.99, 0.30)
-    exact_tie = metric(45_564, 29.93, 0.01, 0.20)
-    outside = metric(30_376, 29.929999, 1.0, 0.01)
-
-    assert temporal.select_metrics([maximum, exact_tie, outside]) == exact_tie
-
-
-def test_tail_resumes_selected_phase_a_checkpoint_not_last_plateau(
-    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
-) -> None:
-    interval = temporal.INTERVAL
-    phase_a = [
-        temporal.Metrics(
-            4 * interval,
-            30.00,
-            0.70,
-            0.30,
-            checkpoint=tmp_path / "maximum.ckpt",
-            run_id="screen",
-        ),
-        temporal.Metrics(
-            5 * interval,
-            29.95,
-            0.69,
-            0.20,
-            checkpoint=tmp_path / "selected.ckpt",
-            run_id="screen",
-        ),
-        temporal.Metrics(
-            6 * interval,
-            29.80,
-            0.71,
-            0.19,
-            checkpoint=tmp_path / "last.ckpt",
-            run_id="screen",
-        ),
-    ]
-    plateau = [
-        evidence(4 * interval, 30.00, 0.7000, 0.2000),
-        evidence(5 * interval, 30.01, 0.7005, 0.1980),
-        evidence(6 * interval, 30.02, 0.7007, 0.1970),
-    ]
-    monkeypatch.setattr(temporal, "_metrics_with_checkpoints", lambda *_: phase_a)
-    monkeypatch.setattr(temporal, "_boundary_evidence", lambda *_: plateau)
-    captured = []
-
-    def capture_tail(_args, _store, spec):
-        captured.append(spec)
-        raise RuntimeError("captured tail")
-
-    monkeypatch.setattr(temporal, "run_training", capture_tail)
+def test_default_output_is_new_timestamped_v2_directory() -> None:
     args = temporal.parse_args([])
-    store = object()
 
-    with pytest.raises(RuntimeError, match="captured tail"):
-        temporal.train_frame_recipe(
-            args,
-            store,
-            frame="007747",
-            parent_checkpoint=tmp_path / "leader.ckpt",
-            parent_effective_step=91_128,
-            lr=0.002,
-            seed=42,
-            prefix="transfer",
-            initial_run_id="screen",
-            traversal_warmup_steps=8_192,
+    assert args.output_dir.parent == temporal.DEFAULT_OUTPUT_ROOT
+    assert args.output_dir.name.startswith(temporal.RECIPE_ID + "_")
+    assert not args.resume
+
+
+def test_resume_requires_explicit_output_directory() -> None:
+    with pytest.raises(SystemExit):
+        temporal.parse_args(["--resume"])
+
+
+def test_removed_sweep_arguments_fail_closed() -> None:
+    with pytest.raises(SystemExit):
+        temporal.parse_args(["--lr-candidates", "0.01,0.015"])
+    with pytest.raises(SystemExit):
+        temporal.parse_args(["--start-frame", "007754"])
+
+
+def test_fixed_segments_reproduce_authoritative_process_boundaries(
+    tmp_path: Path,
+) -> None:
+    args = temporal.parse_args(["--output-dir", str(tmp_path / "run")])
+    segments = temporal.fixed_segments(args)
+
+    assert [segment.target_step for segment in segments] == [
+        60_752,
+        75_940,
+        91_128,
+        106_316,
+        121_504,
+        136_692,
+        151_880,
+    ]
+    assert segments[0].segment_id == f"{temporal.ARM_ID}-to-60752"
+    assert segments[0].load_mode == "model_parameters_only"
+    assert segments[0].parent_checkpoint == temporal.v2.LEADER_CHECKPOINT
+    assert all(
+        segment.load_mode == "resume" for segment in segments[1:]
+    )
+    assert all(segment.arm == temporal.fixed_arm() for segment in segments)
+    for previous, current in zip(segments, segments[1:]):
+        assert current.parent_checkpoint == temporal.v2.checkpoint_path(
+            previous.run_dir, previous.target_step
         )
 
-    assert len(captured) == 1
-    assert captured[0].phase == "tail"
-    assert captured[0].parent_checkpoint == tmp_path / "selected.ckpt"
-    assert captured[0].target_local_step == 5 * interval + 2 * interval
 
-
-def test_plateau_requires_two_complete_consecutive_intervals() -> None:
-    rows = [
-        evidence(30_376, 30.000, 0.7000, 0.2000),
-        evidence(45_564, 30.020, 0.7005, 0.1980),
-        evidence(60_752, 30.025, 0.7007, 0.1970),
-    ]
-    assert temporal.plateau_confirmed(rows)
-    assert not temporal.plateau_confirmed(rows[-2:])
-    assert not temporal.plateau_confirmed([rows[0], rows[1], evidence(60_753, 30.025, 0.7007, 0.1970)])
-    assert not temporal.plateau_confirmed(
-        [rows[0], evidence(45_564, 30.040, 0.7005, 0.1980), rows[2]]
+def test_effective_config_matches_selected_recipe(tmp_path: Path) -> None:
+    args = temporal.parse_args(["--output-dir", str(tmp_path / "run")])
+    config, differences = temporal.v2.configured_segment(
+        args, temporal.initial_segment(args)
     )
+    sampler = config.pipeline.datamanager.pixel_sampler
+    model = config.pipeline.model
+    optimizer = config.optimizers["fields"]["optimizer"]
+    scheduler = config.optimizers["fields"]["scheduler"]
+
+    assert config.max_num_iterations == temporal.v2.INITIAL_FINAL_STEP + 1
+    assert config.checkpoint_load_mode == "model_parameters_only"
+    assert config.load_checkpoint == temporal.v2.LEADER_CHECKPOINT
+    assert config.load_optimizers is False
+    assert config.load_scheduler is False
+    assert config.checkpoint_load_parameter_hash_audit is True
+    assert optimizer.lr == pytest.approx(temporal.INITIAL_LR)
+    assert optimizer.eps == pytest.approx(1e-15)
+    assert optimizer.weight_decay == 0
+    assert optimizer.fused is False
+    assert scheduler.lr_final == pytest.approx(temporal.FINAL_LR)
+    assert scheduler.max_steps == temporal.SCHEDULER_MAX_STEPS
+    assert scheduler.warmup_steps == 0
+    assert config.steps_per_save == temporal.v2.INTERVAL
+    assert config.steps_per_eval_all_images == temporal.v2.INTERVAL
+    assert config.pipeline.datamanager.train_num_rays_per_batch == 4096
+    assert sampler.enable_fas is True
+    assert sampler.fas_strength == pytest.approx(1.0)
+    assert sampler.frequency_map_dir == "lookcloser_frequencies"
+    assert model.log2_hashmap_size == 23
+    assert model.num_frequency_levels == 16
+    assert model.hash_features_per_level == 2
+    assert model.feature_reweighting_strength == pytest.approx(0.3)
+    assert model.adaptive_warmup_steps == 4096
+    assert model.occupancy_warmup_steps == 4096
+    assert model.occupancy_binary_warmup_steps == 4096
+    assert model.tcnn_network_jit is False
+    assert config.pipeline.datamanager.cache_train_rays is False
+    assert config.pipeline.datamanager.cpu_fas_prefetch is False
+    assert config.pipeline.independent_rng_streams is False
+    assert set(differences) <= temporal.v2.ALLOWED_CONFIG_DIFFS
 
 
-@pytest.mark.parametrize("mutation", ["missing_view", "missing_roi", "artifact"])
-def test_missing_eval_roi_and_artifact_close_gate(mutation: str) -> None:
-    protocol = complete_protocol()
-    if mutation == "missing_view":
-        protocol["full_views"].pop()
-    elif mutation == "missing_roi":
-        protocol["rois"].pop()
-    else:
-        protocol["full_view_serious_count"] = 1
-
-    decision = temporal.quality_gate(protocol, previous_protocol=None, visual_pass=True)
-
-    assert decision.outcome == "fail"
-
-
-def test_tracking_and_midrange_roi_regression_are_ambiguous() -> None:
-    previous = complete_protocol()
-    current = complete_protocol()
-    current["tracking"]["ambiguous"] = True
-    for row in current["rois"]:
-        row["metrics"]["lpips"] = 0.115
-
-    decision = temporal.quality_gate(current, previous_protocol=previous, visual_pass=True)
-
-    assert decision.outcome == "ambiguous"
-    assert all(value == pytest.approx(0.015) for value in decision.critical_roi_regressions.values())
-
-
-def test_large_roi_regression_fails_gate() -> None:
-    previous = complete_protocol()
-    current = complete_protocol()
-    for row in current["rois"]:
-        row["metrics"]["lpips"] = 0.121
-    assert temporal.quality_gate(current, previous_protocol=previous, visual_pass=True).outcome == "fail"
-
-
-def test_leader_metric_gate_uses_declared_inclusive_tolerances() -> None:
-    leader = metric(91_128, 29.8, 0.68, 0.23)
-    boundary = metric(60_752, 29.6, 0.67, 0.245)
-
-    assert temporal.leader_metric_gate(boundary, leader).outcome == "pass"
-    assert temporal.leader_metric_gate(metric(60_752, 29.599999, 0.67, 0.245), leader).outcome == "fail"
-    assert temporal.leader_metric_gate(metric(60_752, 29.6, 0.669999, 0.245), leader).outcome == "fail"
-    assert temporal.leader_metric_gate(metric(60_752, 29.6, 0.67, 0.245001), leader).outcome == "fail"
-
-
-def test_combined_gate_preserves_ambiguity_and_failure_precedence() -> None:
-    passing = temporal.GateDecision("pass", (), {})
-    ambiguous = temporal.GateDecision("ambiguous", ("tracking",), {"hand_eval0": 0.012})
-    failing = temporal.GateDecision("fail", ("metric",), {})
-
-    combined = temporal.combine_gates(passing, ambiguous)
-    assert combined.outcome == "ambiguous"
-    assert combined.critical_roi_regressions == {"hand_eval0": 0.012}
-    assert temporal.combine_gates(ambiguous, failing).outcome == "fail"
-
-
-def test_dry_run_has_factorial_deterministic_model_only_commands(tmp_path: Path) -> None:
+def test_dry_run_is_deterministic_and_has_no_screen(tmp_path: Path) -> None:
     args = temporal.parse_args(
-        ["--dry-run", "--output-dir", str(tmp_path / "runs"), "--campaign", str(tmp_path / "campaign.json")]
+        ["--dry-run", "--output-dir", str(tmp_path / "run")]
     )
+
     first = temporal.deterministic_dry_run(args)
     second = temporal.deterministic_dry_run(args)
 
     assert first == second
-    assert [
-        (row["run"]["traversal_warmup_steps"], row["run"]["lr"])
-        for row in first["lr_screen"]
-    ] == [
-        (warmup, lr)
-        for warmup in temporal.TRAVERSAL_WARMUP_CANDIDATES
-        for lr in temporal.LR_CANDIDATES
-    ]
-    assert all(row["run"]["load_mode"] == "model_parameters_only" for row in first["lr_screen"])
-    assert all(row["run"]["target_local_step"] == 60_752 for row in first["lr_screen"])
-    assert len({row["run"]["run_id"] for row in first["lr_screen"]}) == 6
-    assert len({row["input_config"] for row in first["lr_screen"]}) == 6
-
-
-def test_screen_candidate_overrides_are_validated_and_crossed(tmp_path: Path) -> None:
-    args = temporal.parse_args(
-        [
-            "--output-dir",
-            str(tmp_path / "runs"),
-            "--campaign",
-            str(tmp_path / "campaign.json"),
-            "--lr-candidates",
-            "0.00075,0.0015",
-            "--traversal-warmup-candidates",
-            "2048,6144",
-        ]
+    assert first["segments"][-1]["target_step"] == temporal.TARGET_STEP
+    assert first["segments"][0]["load_mode"] == "model_parameters_only"
+    assert all(
+        segment["load_mode"] == "resume"
+        for segment in first["segments"][1:]
     )
-    assert [
-        (spec.traversal_warmup_steps, spec.lr) for spec in temporal.lr_screen_specs(args)
-    ] == [
-        (2_048, 0.00075),
-        (2_048, 0.0015),
-        (6_144, 0.00075),
-        (6_144, 0.0015),
-    ]
-
-    with pytest.raises(SystemExit):
-        temporal.parse_args(["--lr-candidates", "0.001,0.001"])
-    with pytest.raises(SystemExit):
-        temporal.parse_args(["--traversal-warmup-candidates", "0"])
-
-
-def test_run_local_traversal_warmup_override(tmp_path: Path) -> None:
-    args = temporal.parse_args(
-        ["--output-dir", str(tmp_path / "runs"), "--campaign", str(tmp_path / "campaign.json")]
-    )
-    spec = temporal.RunSpec(
-        run_id="warmup8192",
-        frame="007747",
-        seed=42,
-        lr=0.002,
-        phase="diagnostic_warmup8192",
-        feature_reweighting=1.0,
-        fas_strength=1.0,
-        load_mode="model_parameters_only",
-        parent_checkpoint=args.leader_checkpoint,
-        target_local_step=60_752,
-        inherited_global_step=91_128,
-        traversal_warmup_steps=8_192,
-    )
-
-    config, _, _ = temporal.configured_run(args, spec)
-    model = config.pipeline.model
-    assert model.adaptive_warmup_steps == 8_192
-    assert model.occupancy_warmup_steps == 8_192
-    assert model.occupancy_binary_warmup_steps == 8_192
-
-
-def test_run_spec_freezes_target_hash_maps_and_checkpoint_policy(tmp_path: Path) -> None:
-    args = temporal.parse_args(
-        ["--output-dir", str(tmp_path / "runs"), "--campaign", str(tmp_path / "campaign.json")]
-    )
-    spec = temporal.RunSpec(
-        run_id="hash24_target_recipe",
-        frame="007747",
-        seed=42,
-        lr=0.01,
-        phase="target_recipe",
-        feature_reweighting=0.3,
-        fas_strength=0.75,
-        load_mode="model_parameters_only",
-        parent_checkpoint=args.leader_checkpoint,
-        target_local_step=60_752,
-        inherited_global_step=91_128,
-        log2_hashmap_size=24,
-        frequency_map_dir="lookcloser_frequencies_chroma422",
-        save_interval_steps=1_000,
-        save_only_latest_checkpoint=True,
-    )
-
-    config, _, _ = temporal.configured_run(args, spec)
-
-    assert config.pipeline.model.log2_hashmap_size == 24
-    assert config.pipeline.frequency_map_dir == "lookcloser_frequencies_chroma422"
     assert (
-        config.pipeline.datamanager.pixel_sampler.frequency_map_dir
-        == "lookcloser_frequencies_chroma422"
+        first["segments"][-1]["effective"]["max_num_iterations"]
+        == temporal.MAX_NUM_ITERATIONS
     )
-    assert config.pipeline.datamanager.pixel_sampler.fas_strength == 0.75
-    assert config.steps_per_save == 1_000
-    assert config.steps_per_eval_all_images == temporal.INTERVAL
-    assert config.save_only_latest_checkpoint is True
-
-
-def test_manifest_resume_is_atomic_and_idempotent(tmp_path: Path) -> None:
-    path = tmp_path / "campaign.json"
-    store = temporal.CampaignStore(path, resume=False)
-    store.data["status"] = "running"
-    store.flush()
-    with pytest.raises(temporal.InfrastructureError, match="already exists"):
-        temporal.CampaignStore(path, resume=False)
-    resumed = temporal.CampaignStore(path, resume=True)
-    assert resumed.data["status"] == "running"
-
-
-def test_resume_rejects_run_id_collision_with_different_parent(tmp_path: Path) -> None:
-    spec = temporal.RunSpec(
-        run_id="same-id",
-        frame="007747",
-        seed=42,
-        lr=0.0005,
-        phase="tail_extension",
-        feature_reweighting=0.3,
-        fas_strength=1.0,
-        load_mode="resume",
-        parent_checkpoint=tmp_path / "selected.ckpt",
-        target_local_step=303_760,
-        inherited_global_step=91_128,
-        lr_override=0.0005,
-        traversal_warmup_steps=8_192,
+    assert first["segments"][0]["effective"]["optimizer_lr"] == pytest.approx(
+        0.015
     )
-    stored = {
-        **temporal.asdict(spec),
-        "parent_checkpoint": str(tmp_path / "wrong-parent.ckpt"),
-    }
-
-    with pytest.raises(temporal.InfrastructureError, match="Run ID collision"):
-        temporal.validate_existing_run_spec(stored, spec)
-
-
-def test_disk_and_vram_guards_fail_closed(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
-    Usage = namedtuple("Usage", "total used free")
-    monkeypatch.setattr(temporal.shutil, "disk_usage", lambda _: Usage(200, 150, 50))
-    monkeypatch.setattr(temporal, "MIN_DISK_FREE_BYTES", 100)
-    with pytest.raises(temporal.InfrastructureError, match="less than 100 GiB"):
-        temporal.disk_guard(tmp_path)
-
-    monkeypatch.setattr(
-        temporal,
-        "command_output",
-        lambda *args, **kwargs: "0, NVIDIA RTX PRO 6000 Blackwell Workstation Edition, 70000",
+    assert (
+        first["segments"][0]["effective"]["scheduler_max_steps"] == 300_000
     )
-    with pytest.raises(temporal.InfrastructureError, match="needs 81920 MiB"):
-        temporal.vram_guard(3, {})
+    assert "wave_a" not in first
+    assert "wave_b" not in first
 
 
-def test_resume_storage_forecast_credits_completed_phase_boundaries(tmp_path: Path) -> None:
-    args = temporal.parse_args([])
-    fresh = temporal.frame_storage_forecast(args, include_control=True)
-    resumed = temporal.frame_storage_forecast(
-        args, include_control=True, completed_phase_checkpoints=3
-    )
-    assert fresh - resumed == 3 * args.leader_checkpoint.stat().st_size
-    assert temporal.completed_boundaries(
-        {
-            "complete": {
-                "status": "complete",
-                "scheduled_metrics": [
-                    {"local_step": temporal.INTERVAL},
-                    {"local_step": 2 * temporal.INTERVAL},
-                    {"local_step": 2 * temporal.INTERVAL},
-                ],
-            },
-            "running": {
-                "status": "running",
-                "scheduled_metrics": [{"local_step": 3 * temporal.INTERVAL}],
-            },
-        },
-        ["complete", "running"],
-    ) == 2
+def test_reference_selected_result_passes_leader_thresholds() -> None:
+    metrics = temporal.REFERENCE_METRICS
+
+    assert metrics["psnr"] >= temporal.v2.PSNR_THRESHOLD
+    assert metrics["ssim"] >= temporal.v2.SSIM_THRESHOLD
+    assert metrics["lpips"] <= temporal.v2.LPIPS_THRESHOLD
 
 
-def test_rejected_parent_cannot_be_forwarded(tmp_path: Path) -> None:
-    with pytest.raises(temporal.QualityStop, match="cannot be forwarded"):
-        temporal.require_accepted_parent(
-            {"007747": {"status": "rejected", "selected_checkpoint": str(tmp_path / "x.ckpt")}},
-            "007747",
-        )
+def test_static_preflight_comparison_ignores_only_storage() -> None:
+    previous = {"git": {"commit": "x"}, "storage": {"free": 10}}
+    current = {"git": {"commit": "x"}, "storage": {"free": 20}}
+    changed = {"git": {"commit": "y"}, "storage": {"free": 20}}
+
+    assert temporal._same_static_preflight(previous, current)
+    assert not temporal._same_static_preflight(previous, changed)

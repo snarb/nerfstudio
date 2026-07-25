@@ -570,13 +570,21 @@ leader, accepted scratch and candidate GT/render crops. New candidate GT is requ
 active revision byte-for-byte. The accepted scratch GT is retained as historical visual context
 and its revision mismatch is recorded rather than confused with target provenance.
 
-Only initial LR and exponential-decay horizon vary: wave A tests 0.0075/0.01/0.015 with the leader
-200k horizon; wave B tests 100k/150k horizons at the selected LR. Final LR stays0.0001, warmup stays
-zero, and FR0.3/FAS1/hash23/warmup4096 remain frozen. Discovery timing may be contended, but the
-official `time_to_leader` comes from a new solo replay. Numeric success requires all three leader
+Only initial LR and exponential-decay horizon vary. The first LR0.01/H200 campaign plateaued
+without passing LPIPS, so an extended screen compared LR0.0125/H400, LR0.015/H300 and
+LR0.015/H400. Final LR stays0.0001, warmup stays zero, and
+FR0.3/FAS1/hash23/warmup4096 remain frozen. Discovery timing may be contended, but the official
+`time_to_leader` comes from a new solo replay. Numeric success requires all three leader
 thresholds plus an explicit visual pass; plateau additionally requires two reviewed consecutive
 no-improvement intervals. The controller stops before production when source/data/config,
 free-space, or visual evidence is incomplete.
+
+The solo LR0.015/H300 replay first passed all gates at step136692
+(`29.895269 / 0.677203 / 0.217243`) in `9003.521066166 s`. Two terminal
+no-improvement intervals confirmed the plateau through step167068. The PSNR-first,
+LPIPS-within-0.07-dB selector and the visual selector both choose step151880
+(`29.880142 / 0.675660 / 0.214533`), checkpoint SHA-256
+`000fbc9144505fe4041d61ba71f0f9f804c78de19517b70cd0584d519ae6a358`.
 
 ## Scene bounds / AABB
 
@@ -610,9 +618,18 @@ Generic preprocessing prefers `train_steps_per_level` over the legacy `steps_per
 
 ## Temporal per-frame transfer
 
-`scripts/run_lookcloser_temporal_finetune.py` owns the fail-closed transfer
-primitives and campaign manifest. The older
-`run_lookcloser_temporal_transfer.py` lineage is forensic evidence only.
+`scripts/run_lookcloser_temporal_finetune.py` is the fixed production
+reproduction entrypoint for the selected canonical 007740→007747 result. It
+uses the audited primitives in `run_lookcloser_007747_finetune_v2.py`, runs no
+sweep, and freezes LR0.015, final LR0.0001, scheduler horizon300000 and target
+step151880 (`max_num_iterations=151881`). With no arguments it creates a new
+timestamped v2 output directory, evaluates the pre-update transplant, and
+trains/evaluates all ten 15188-step boundaries. It mirrors the accepted
+process structure: one direct model-only process through step60752 followed by
+one full-resume process per interval through step151880. The older
+`run_lookcloser_temporal_transfer.py` lineage and the former multi-frame
+controller are forensic evidence only.
+
 `TrainerConfig.checkpoint_load_mode` defines the important boundary:
 cross-frame `model_parameters_only` copies the exact `fields` parameter set but
 not LPIPS, AABB, occupancy/frequency grids, FAS/point state, Adam, scheduler,
@@ -629,18 +646,20 @@ rows. Every converted checkpoint must reproduce the source eval before it is
 used; the canonical conversion reproduced `29.840143 / 0.669203 / 0.219455`
 with render maximum pixel difference `1/255`.
 
-The validated `007740→007747` treatment is hash24, max-res8192,
-`lookcloser_frequencies_chroma422`, FAS0.75, fresh target Adam at LR0.01 with
-exponential decay to0.0001 over200000 local steps, FR0.3 through step60752,
-then same-frame full resume at FR0.2. Reusing the late source LR or only
-resetting occupancy is rejected: moving-frame transfer must also discard the
-source frequency/FAS/dynamic-sampling state and optimizer trajectory. The
+The active validated `007740→007747` treatment loads the original hash23
+step91128 leader without conversion, uses max-res8192, standard
+`lookcloser_frequencies`, FAS1.0 and FR0.3 throughout. The fresh target Adam
+starts at LR0.015 and decays exponentially to0.0001 over300000 local steps.
+Reusing the late source LR or only resetting occupancy is rejected:
+moving-frame transfer must also discard the source
+frequency/FAS/dynamic-sampling state and optimizer trajectory. The
 optional `resume_reset_frequency_grid` and `resume_reset_occupancy_grid`
 controls exist for isolated same-checkpoint diagnostics; normal cross-frame
 transfer obtains both resets structurally through model-only loading.
-This is the accepted historical pre-conversion treatment, not the map path for
-the active canonicalized dataset revision; new 007747 runs use freshly
-generated standard maps and require fresh validation.
+
+The hash24, chroma422-map, FAS0.75 and FR0.3→0.2 recipe was an accepted
+historical pre-conversion treatment only. It is not the default, fallback or
+map path for the active canonicalized revision.
 
 Checkpoint filenames use the zero-based local Nerfstudio step, so step60752
 contains 60753 completed updates. Full eval remains every15188 local updates.
@@ -652,13 +671,12 @@ the inclusive0.07-dB window; SSIM is reported only. The fixed eval0
 hands/fingers/chain crop remains a separate visual gate, and a formal global
 tie-break is recorded separately when its crop is worse.
 
-For the validated run, step91128 has maximum PSNR `29.819077`; step182256 is
-the formal selector result at `29.766191 / 0.696109 / 0.225243`. Step167068 is
-the visual selection at `29.783972 / 0.696873 / 0.225269`, with fixed-ROI
-`29.701001 / 0.782640 / 0.115542` and no serious artifacts. The final two
-intervals satisfy the declared plateau rule. Exact recipe, rejected controls
-and paths are recorded in
-`experiments/temporal_lookcloser_finetuning.md`.
+For the active canonical run, the first all-gate pass is step136692 and the
+formal plus visual selection is step151880. The final two intervals through
+step167068 satisfy the declared plateau rule. Exact recipe, rejected scheduler
+controls and paths are recorded in
+`experiments/temporal_007747_finetune_v2.md`. Historical pre-conversion
+results remain in `experiments/temporal_lookcloser_finetuning.md`.
 
 `scripts/temporal_roi_protocol.py` keeps permanent pipe/cable crops, propagates 007747 hand/chain/finger seed
 boxes with forward/backward pyramidal LK confidence, discovers broad-motion and possible-hole crops from an
