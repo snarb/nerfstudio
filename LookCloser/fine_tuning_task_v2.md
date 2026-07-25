@@ -1,115 +1,72 @@
-# Fine-tuning task v2: 007740 → 007747
+# Fine-tuning task v2: build snapshots for the complete temporal sequence
 
-## Goal
+Process all 45 frame datasets `007740..008048` (stride 7) under
+`/home/brans/temporal_perframe_stride7_45f`, in order. Create the real snapshot
+tree at `/mnt/data/lookcloser_temporal_snapshots_v2/<frame>` and expose it as
+`/home/brans/temporal_perframe_stride7_45f/snapshots` via a symlink. Never put
+the full checkpoint set on the nearly-full root filesystem. Work from clean
+`main` in `/home/brans/repos/nerfstudio` and keep a source fingerprint.
 
-Fine-tune frame `007747` directly from the canonical `007740` leader and reach
-all leader thresholds:
+Each accepted snapshot must be self-contained for later per-frame video
+rendering:
 
-- PSNR `>= 29.840143`;
-- SSIM `>= 0.669203`;
-- LPIPS `<= 0.219455`;
-- the eval0 hands/fingers/chain crop is visually no worse than the leader.
+```text
+snapshots/<frame>/
+  config.yml
+  nerfstudio_models/step-XXXXXXXXX.ckpt
+  selection.json
+  renders/eval_img_000{0,1,2}.png
+  provenance.json
+```
 
-Measure `time_to_leader`: wall time from immediately before target trainer
-startup through the first complete full evaluation that passes all three
-numeric thresholds and the visual crop gate. Minimize this time without
-weakening any gate. After the first pass, continue to the confirmed plateau and
-select the best checkpoint.
+`config.yml` must reference that frame's dataset and its snapshot-local
+checkpoint, not the temporary training run. `selection.json` records metrics,
+selected step, parent frame/checkpoint, visual verdict and timings;
+`provenance.json` records checkpoint/config/source/JPEG/map hashes. Prove every
+promoted snapshot with a fresh render loaded from the snapshot config.
 
-## Frozen inputs
+Bootstrap by copying, never moving or modifying, these already accepted
+results:
 
-- Work from clean `main` in `/home/brans/repos/nerfstudio`.
-- Leader checkpoint:
+- `007740`: checkpoint
   `/home/brans/lookcloser_leader_repro_runs/leader_stableocc_S1_seed42_A_fw03/lookcloser/20260715_005006/nerfstudio_models/step-000091128.ckpt`
-  (SHA-256 `3ba4472630d6332f60c58bd03a09a27894bca915139f9eee81b004ebf144a930`).
-- Leader config:
-  `/home/brans/lookcloser_leader_repro_runs/leader_stableocc_S1_seed42_A_fw03/lookcloser/20260715_005006/config.yml`.
-- Target dataset:
-  `/home/brans/temporal_perframe_stride7_45f/007747`.
-- Use exactly these standard maps:
-  `/home/brans/temporal_perframe_stride7_45f/007747/lookcloser_frequencies`.
-- Require `/home/brans/temporal_perframe_stride7_45f/007747/dataset_revision_422.json`
-  and verify its JPEG/map hashes before training. If it is absent or fails,
-  stop; never fall back to another map directory.
-- Never use `lookcloser_frequencies_chroma422`, any `*_probe` directory, or
-  anything under `/home/brans/007747_4_4_4`.
+  (SHA-256 `3ba4472630d6332f60c58bd03a09a27894bca915139f9eee81b004ebf144a930`)
+  with
+  `/home/brans/lookcloser_leader_repro_runs/leader_stableocc_S1_seed42_A_fw03/lookcloser/20260715_005006/config.yml`
+  and `renders_candidate_step-000091128`;
+- `007747`: checkpoint
+  `/mnt/data/lookcloser_007747_finetune_v2_runs/hash23_extended_scheduler_seed42_v3/authoritative/authoritative-R-L150-H300/lookcloser/run/nerfstudio_models/step-000151880.ckpt`
+  (SHA-256 `000fbc9144505fe4041d61ba71f0f9f804c78de19517b70cd0584d519ae6a358`),
+  config
+  `/mnt/data/lookcloser_007747_finetune_v2_runs/hash23_extended_scheduler_seed42_v3/authoritative/authoritative-R-L150-H300/lookcloser/run/config.yml`,
+  and fresh-confirmation renders from
+  `/mnt/data/lookcloser_007747_finetune_v2_runs/hash23_extended_scheduler_seed42_v3/final_confirmation/step-000151880/renders`.
 
-## Exact initial treatment
+For every later frame, load only field/model parameters from the immediately
+previous accepted snapshot with
+`checkpoint_load_mode=model_parameters_only`; start local step 0 with fresh
+Adam, scheduler, scaler, RNG, occupancy/frequency grids, FAS state and
+telemetry. Before training, freeze and verify the exact JPEG and standard
+`lookcloser_frequencies` file set/hashes for that frame. Use the fixed recipe in
+`LookCloser/scripts/run_lookcloser_temporal_finetune.py`: hash23, batch4096,
+mixed precision, standard `lookcloser_frequencies`, FAS1.0, FR0.3,
+warmup4096, Adam `0.015` (`eps=1e-15`) with exponential decay to `0.0001`
+over300000 updates, and full eval/save every15188 steps. Generalize that runner
+to a frame/parent pair without changing the recipe; train through step151880,
+then resume one interval at a time only if needed to confirm the same
+two-interval metric-and-visual plateau. Select maximum PSNR, then minimum
+LPIPS within inclusive0.07 dB; require PSNR≥29.840143, SSIM≥0.669203,
+LPIPS≤0.219455 and a clean propagated temporal ROI review before promoting or
+forwarding a frame.
 
-Load the original hash23 leader checkpoint directly. Do **not** create or load
-a hash24 checkpoint.
+Run training artifacts on `/mnt/data`, preserve every evaluated boundary and
+an auditable campaign manifest, and stop on the first failed frame—never skip
+it or forward an unaccepted checkpoint.
 
-Use `checkpoint_load_mode=model_parameters_only`: inherit only field/model
-parameters. Start target local step 0 with fresh Adam, scheduler, scaler, RNG,
-occupancy grid, frequency grid, FAS counter and point telemetry. Full resume is
-allowed only later within the same 007747 run.
+## Easy mistakes to avoid
 
-Freeze the initial recipe to the leader config:
-
-- seed 42, batch 4096, mixed precision, stable occupancy reduction;
-- hash log2 size **23**, 16 levels × 2 features, min/max resolution
-  `16/8192`, `max_res_base=2048`;
-- standard maps above, FAS enabled with strength `1.0`;
-- feature reweighting `0.3` from the first target update; never switch to
-  FR1.0;
-- Adam `lr=0.01`, `eps=1e-15`, no weight decay;
-- exponential LR `0.01 → 0.0001` over 200000 local updates;
-- fixed traversal and fresh occupancy warmup for local updates `0..4095`;
-- every other architecture, loss, marcher, grid, cadence and runtime field
-  must equal the leader config. Explicitly keep fused Adam, TCNN JIT, cached
-  rays, CPU FAS prefetch and independent RNG streams disabled.
-
-The only recipe changes relative to the leader are the target dataset/maps,
-model-only cross-frame load with fresh target state, and target-local
-training/evaluation horizon. Model weights then train normally; no layer is
-frozen.
-
-The only permitted later hyperparameter change is one controlled same-frame
-continuation from the common step60752 checkpoint with feature reweighting
-`0.3 → 0.2`. Keep every other field and all target state unchanged. Do not
-sweep hash size, FAS, map variants, batch, warmup, losses or low learning
-rates. Compare FR0.2 against the continued FR0.3 control at identical local
-updates before selecting it.
-
-## Evaluation and stopping
-
-- Before training, full-evaluate the model-only transplant on 007747 as the
-  local-step-0 baseline.
-- Save and full-evaluate every 15188 local updates. Initial horizon: 60752;
-  then continue one interval at a time while metrics or the crop improve.
-- Record full-eval wall time separately from training time; `time_to_leader`
-  includes both and is the first passing boundary, not an interpolated guess.
-- Plateau requires two consecutive intervals where all hold simultaneously:
-  PSNR growth `<0.03 dB`, SSIM growth `<0.001`, LPIPS improvement `<0.003`,
-  and no visible crop improvement.
-- Select maximum full-eval PSNR; among checkpoints within inclusive `0.07 dB`
-  of that maximum select minimum LPIPS. SSIM is reported but cannot rescue bad
-  PSNR/LPIPS.
-- Do not report eval loss.
-
-For every boundary, crop `eval_img_0000.png` at
-`(left=700, top=100, right=1120, bottom=480)` and save a native-resolution
-comparison against:
-
-- leader renders:
-  `/home/brans/lookcloser_leader_repro_runs/leader_stableocc_S1_seed42_A_fw03/lookcloser/20260715_005006/renders_candidate_step-000091128`;
-- accepted 007747 scratch reference:
-  `/home/brans/lookcloser_007747_from_scratch_runs/evaluations/007747_fromscratch_E8_fw02/step-000197444`.
-
-The fingers must remain separated and sharp, and the chain continuous,
-gap-free and not blurred. Numeric success without this visual gate is not a
-success.
-
-## Implementation guardrails and deliverables
-
-Do not run `scripts/run_lookcloser_temporal_finetune.py` unmodified: its
-current default low-LR/FR1.0 screen is not this recipe. Add a dedicated
-single-frame v2 mode or runner with fail-closed assertions for every frozen
-coordinate and a config diff against the leader whitelist before launching.
-
-Write outputs to a new v2 directory; never overwrite leader, scratch,
-historical transfer, dataset archive or previous run artifacts. Preserve every
-15188 checkpoint, metrics, three-view renders, crop comparisons, exact config,
-source/data hashes and wall timings. Report the first leader-pass checkpoint
-and `time_to_leader`, the plateau-selected checkpoint, and any separate visual
-selection.
+Never full-resume across frames, reuse the late checkpoint LR, switch to
+hash24/FR1.0/alternate maps, or fall back when images/maps are missing or their
+hashes change. Copied Nerfstudio configs often retain old `load_dir` paths, so
+rewrite and test them; do not delete source runs or start parallel jobs unless
+VRAM and disk guards explicitly pass.
