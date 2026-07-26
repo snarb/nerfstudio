@@ -529,6 +529,42 @@ def hard_gate_bootstrap_seeds(
     )
 
 
+def budget_tail_seed(
+    frame: str,
+    boundaries_by_seed: Mapping[int, Sequence[Boundary]],
+    decisions: Mapping[str, Mapping[str, str]],
+    *,
+    maximum_eval_step: int,
+) -> tuple[int, ...]:
+    """Keep the best reviewed trajectory moving until the frame budget expires.
+
+    This is used only when no trajectory has yet reached the PSNR/SSIM
+    bootstrap gate.  A visual failure still stops that trajectory, and the
+    returned tuple contains at most one seed so a budget rescue cannot
+    reintroduce parallel training.
+    """
+
+    latest_reviewed = []
+    for rows in boundaries_by_seed.values():
+        if not rows:
+            continue
+        boundary = max(rows, key=lambda row: row.local_step)
+        if (
+            boundary.local_step + INTERVAL <= maximum_eval_step
+            and decision_for(decisions, frame, boundary)["verdict"] == "pass"
+        ):
+            latest_reviewed.append(boundary)
+    if not latest_reviewed:
+        return ()
+    selected = select_budget_fallback(
+        frame,
+        latest_reviewed,
+        decisions,
+        maximum_eval_step=maximum_eval_step,
+    )
+    return (selected.seed,)
+
+
 def plateau_confirmed(
     frame: str,
     boundaries: Sequence[Boundary],

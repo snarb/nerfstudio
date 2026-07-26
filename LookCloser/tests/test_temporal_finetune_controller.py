@@ -224,6 +224,48 @@ def test_hard_gate_bootstrap_uses_latest_psnr_ssim_visual_pass() -> None:
     assert common.hard_gate_bootstrap_seeds("007761", rows, decisions) == (44,)
 
 
+def test_budget_tail_keeps_one_visual_pass_seed_before_psnr_gate() -> None:
+    rows = {
+        42: [
+            boundary(seed=42, step=151_880, psnr=29.31, ssim=0.680, lpips=0.234)
+        ],
+        43: [
+            boundary(seed=43, step=151_880, psnr=29.37, ssim=0.685, lpips=0.232)
+        ],
+    }
+    decisions = {
+        common.visual_key("007768", seed, 151_880): {
+            "verdict": "pass",
+            "change_from_previous": "no_improvement",
+            "note": "reviewed",
+        }
+        for seed in rows
+    }
+    assert common.hard_gate_bootstrap_seeds("007768", rows, decisions) == ()
+    assert common.budget_tail_seed(
+        "007768", rows, decisions, maximum_eval_step=273_384
+    ) == (43,)
+
+
+def test_budget_tail_stops_at_cap_or_visual_failure() -> None:
+    row = boundary(seed=43, step=273_384, psnr=29.5, ssim=0.685, lpips=0.225)
+    rows = {43: [row]}
+    decisions = {
+        common.visual_key("007768", 43, 273_384): {
+            "verdict": "pass",
+            "change_from_previous": "no_improvement",
+            "note": "reviewed",
+        }
+    }
+    assert common.budget_tail_seed(
+        "007768", rows, decisions, maximum_eval_step=273_384
+    ) == ()
+    decisions[common.visual_key("007768", 43, 273_384)]["verdict"] = "fail"
+    assert common.budget_tail_seed(
+        "007768", rows, decisions, maximum_eval_step=288_572
+    ) == ()
+
+
 def test_hard_gate_bootstrap_tolerates_psnr_oscillation_while_lpips_converges() -> None:
     rows = {
         43: [

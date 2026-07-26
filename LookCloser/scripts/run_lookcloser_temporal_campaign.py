@@ -1274,9 +1274,19 @@ def process_frame(
                 frame, authorized_boundaries, decisions
             )
             if not contenders:
+                contenders = authorized_tail_seeds(
+                    args,
+                    common.budget_tail_seed(
+                        frame,
+                        authorized_boundaries,
+                        decisions,
+                        maximum_eval_step=int(budget["maximum_eval_step"]),
+                    ),
+                )
+            if not contenders:
                 raise common.QualityFailure(
                     f"{frame} produced no hard-gate checkpoint and has no "
-                    "PSNR/SSIM/visual-pass trajectory eligible for another interval"
+                    "visual-pass trajectory eligible before the training budget"
                 )
             record["status"] = "tail_training"
             record.setdefault("tail_waves", []).append(
@@ -1284,7 +1294,10 @@ def process_frame(
                     "at": common.utc_now(),
                     "selected_before_wave": None,
                     "contender_seeds": list(contenders),
-                    "reason": "bootstrap LPIPS toward hard gate; no checkpoint is accepted",
+                    "reason": (
+                        "bootstrap toward hard gate inside the frame training "
+                        "budget; no checkpoint is accepted"
+                    ),
                 }
             )
             store.flush()
