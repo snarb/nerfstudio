@@ -412,10 +412,21 @@ def hard_gate_bootstrap_seeds(
     for rows in boundaries_by_seed.values():
         if not rows:
             continue
-        boundary = max(rows, key=lambda row: row.local_step)
+        ordered = sorted(rows, key=lambda row: row.local_step)
+        boundary = ordered[-1]
         decision = decision_for(decisions, frame, boundary)
+        prior_psnr_pass = any(
+            row.psnr >= PSNR_MIN
+            and row.ssim >= SSIM_MIN
+            and decision_for(decisions, frame, row)["verdict"] == "pass"
+            for row in ordered
+        )
+        lpips_still_converging = (
+            len(ordered) >= 2 and boundary.lpips < ordered[-2].lpips
+        )
         if (
-            boundary.psnr >= PSNR_MIN
+            prior_psnr_pass
+            and (boundary.psnr >= PSNR_MIN or lpips_still_converging)
             and boundary.ssim >= SSIM_MIN
             and decision["verdict"] == "pass"
             and boundary.local_step + INTERVAL <= SCHEDULER_MAX_STEPS
