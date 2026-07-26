@@ -59,6 +59,8 @@ def test_fixed_recipe_and_chain_are_frozen() -> None:
     assert common.PSNR_MIN == 29.7
     assert common.SSIM_MIN == 0.668
     assert common.LPIPS_MAX == 0.217
+    assert common.BUDGET_NUMERATOR == 13
+    assert common.BUDGET_DENOMINATOR == 10
     assert common.SCHEDULER_MAX_STEPS == 300_000
     assert common.TAIL_MAX_STEPS == 600_000
     assert common.PREFERRED_PSNR == 29.88
@@ -316,6 +318,33 @@ def test_visual_and_hard_gates_filter_before_selection() -> None:
     assert not common.boundary_is_valid("007754", bad_psnr, decisions)
     decisions[common.visual_key("007754", 42, 15_188)]["verdict"] = "fail"
     assert not common.boundary_is_valid("007754", passing, decisions)
+
+
+def test_budget_uses_previous_selected_step_and_selects_best_visual_fallback() -> None:
+    budget = common.training_budget(212_632)
+    assert budget["maximum_step"] == 276_421
+    assert budget["maximum_eval_step"] == 273_384
+    rows = [
+        boundary(seed=42, step=167_068, psnr=29.751, ssim=0.683, lpips=0.2253),
+        boundary(seed=43, step=212_632, psnr=29.730, ssim=0.682, lpips=0.2222),
+        boundary(seed=43, step=273_384, psnr=29.589, ssim=0.681, lpips=0.2205),
+        boundary(seed=43, step=288_572, psnr=29.702, ssim=0.681, lpips=0.2202),
+    ]
+    decisions = {
+        common.visual_key("007761", row.seed, row.local_step): {
+            "verdict": "pass",
+            "change_from_previous": "no_improvement",
+            "note": "reviewed",
+        }
+        for row in rows
+    }
+    selected = common.select_budget_fallback(
+        "007761",
+        rows,
+        decisions,
+        maximum_eval_step=budget["maximum_eval_step"],
+    )
+    assert (selected.seed, selected.local_step) == (43, 212_632)
 
 
 def test_existing_comparison_uses_incremental_source_fingerprint(

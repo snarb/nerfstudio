@@ -41,6 +41,8 @@ FINAL_LR = 0.0001
 SCHEDULER_MAX_STEPS = 300_000
 TAIL_MAX_STEPS = 600_000
 PSNR_TIE_DB = 0.07
+BUDGET_NUMERATOR = 13
+BUDGET_DENOMINATOR = 10
 PSNR_MIN = 29.7
 SSIM_MIN = 0.668
 LPIPS_MAX = 0.217
@@ -385,6 +387,73 @@ def select_boundary(boundaries: Sequence[Boundary]) -> Boundary:
     maximum = max(row.psnr for row in boundaries)
     tied = [row for row in boundaries if maximum - row.psnr <= PSNR_TIE_DB + 1e-12]
     return min(tied, key=lambda row: (row.lpips, -row.psnr, row.local_step, row.seed))
+
+
+def training_budget(parent_step: int) -> Dict[str, int]:
+    if parent_step <= 0:
+        raise InfrastructureError(f"Invalid parent step for training budget: {parent_step}")
+    maximum_step = parent_step * BUDGET_NUMERATOR // BUDGET_DENOMINATOR
+    maximum_eval_step = maximum_step // INTERVAL * INTERVAL
+    return {
+        "parent_selected_step": parent_step,
+        "numerator": BUDGET_NUMERATOR,
+        "denominator": BUDGET_DENOMINATOR,
+        "maximum_step": maximum_step,
+        "maximum_eval_step": maximum_eval_step,
+    }
+
+
+def select_budget_fallback(
+    frame: str,
+    boundaries: Sequence[Boundary],
+    decisions: Mapping[str, Mapping[str, str]],
+    *,
+    maximum_eval_step: int,
+) -> Boundary:
+    reviewed = [
+        row
+        for row in boundaries
+        if row.local_step <= maximum_eval_step
+        and decision_for(decisions, frame, row)["verdict"] == "pass"
+    ]
+    if not reviewed:
+        raise QualityFailure(
+            f"No visual-pass checkpoint exists within budget for {frame}"
+        )
+    psnr_ssim = [
+        row
+        for row in reviewed
+        if row.psnr >= PSNR_MIN and row.ssim >= SSIM_MIN
+    ]
+    if psnr_ssim:
+        return min(
+            psnr_ssim,
+            key=lambda row: (row.lpips, -row.psnr, row.local_step, row.seed),
+        )
+
+    def violation(row: Boundary) -> tuple[int, float, float, float, int, int]:
+        failed = sum(
+            (
+                row.psnr < PSNR_MIN,
+                row.ssim < SSIM_MIN,
+                row.lpips > LPIPS_MAX,
+            )
+        )
+        normalized = (
+            max(0.0, PSNR_MIN - row.psnr) / PSNR_TIE_DB
+            + max(0.0, SSIM_MIN - row.ssim) / 0.005
+            + max(0.0, row.lpips - LPIPS_MAX) / 0.005
+        )
+        return (
+            failed,
+            normalized,
+            row.lpips,
+            -row.psnr,
+            row.local_step,
+            row.seed,
+        )
+
+    return min(reviewed, key=violation)
 
 
 def contender_seeds(boundaries: Sequence[Boundary]) -> tuple[int, ...]:

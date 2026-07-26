@@ -659,6 +659,7 @@ def _write_snapshot_metadata(
     final_decision: Mapping[str, str],
     campaign_frame_root: Path,
     source_git: Mapping[str, Any],
+    budget_override: Optional[Mapping[str, Any]],
 ) -> None:
     selection = {
         "schema_version": 2,
@@ -667,17 +668,36 @@ def _write_snapshot_metadata(
         "parent_frame": parent_info["frame"],
         "parent_checkpoint": parent_info["checkpoint"],
         "selected_step": selected.local_step,
-        "selection": "maximum_psnr_then_minimum_lpips_within_inclusive_0.07_db_after_visual_and_hard_gates",
+        "selection": (
+            "budget_limited_visual_pass_psnr_ssim_then_minimum_lpips"
+            if budget_override is not None
+            else "maximum_psnr_then_minimum_lpips_within_inclusive_0.07_db_after_visual_and_hard_gates"
+        ),
         "metrics": dict(fresh_eval["results"]),
         "quality_tier": (
-            "preferred"
-            if (
-                float(fresh_eval["results"]["psnr"]) >= common.PREFERRED_PSNR
-                and float(fresh_eval["results"]["ssim"]) >= common.PREFERRED_SSIM
-                and float(fresh_eval["results"]["lpips"]) <= common.PREFERRED_LPIPS
+            "budget_limited"
+            if budget_override is not None
+            else (
+                "preferred"
+                if (
+                    float(fresh_eval["results"]["psnr"]) >= common.PREFERRED_PSNR
+                    and float(fresh_eval["results"]["ssim"]) >= common.PREFERRED_SSIM
+                    and float(fresh_eval["results"]["lpips"]) <= common.PREFERRED_LPIPS
+                )
+                else "hard_minimum_after_confirmed_plateau"
             )
-            else "hard_minimum_after_confirmed_plateau"
         ),
+        "numeric_gate": {
+            "passed": (
+                float(fresh_eval["results"]["psnr"]) >= common.PSNR_MIN
+                and float(fresh_eval["results"]["ssim"]) >= common.SSIM_MIN
+                and float(fresh_eval["results"]["lpips"]) <= common.LPIPS_MAX
+            ),
+            "psnr_min": common.PSNR_MIN,
+            "ssim_min": common.SSIM_MIN,
+            "lpips_max": common.LPIPS_MAX,
+            "budget_override": dict(budget_override) if budget_override is not None else None,
+        },
         "preferred_target": {
             "psnr_min": common.PREFERRED_PSNR,
             "ssim_min": common.PREFERRED_SSIM,
@@ -717,6 +737,7 @@ def _write_snapshot_metadata(
         "training_source_commit": source_git["commit"],
         "training_source_fingerprint": source_git["source_fingerprint"],
         "fresh_eval": dict(fresh_eval),
+        "budget_override": dict(budget_override) if budget_override is not None else None,
     }
     common.atomic_json(snapshot / "provenance.json", provenance)
 
@@ -764,6 +785,7 @@ def promote_snapshot(
     parent_info: Mapping[str, Any],
     selected: common.Boundary,
     decisions: Mapping[str, Mapping[str, str]],
+    budget_override: Optional[Mapping[str, Any]] = None,
 ) -> bool:
     target_dataset = common.DATA_ROOT / frame
     snapshot = target_dataset / "snapshot"
@@ -872,11 +894,12 @@ def promote_snapshot(
     if any(abs(drift[name]) > tolerance[name] for name in drift):
         raise common.InfrastructureError(f"Fresh snapshot metrics drifted: {drift}")
     metrics = fresh_eval["results"]
-    if not (
+    numeric_pass = (
         metrics["psnr"] >= common.PSNR_MIN
         and metrics["ssim"] >= common.SSIM_MIN
         and metrics["lpips"] <= common.LPIPS_MAX
-    ):
+    )
+    if not numeric_pass and budget_override is None:
         raise common.QualityFailure(f"Fresh snapshot missed hard gates: {metrics}")
 
     final_comparison = validation_dir / "comparison"
@@ -942,6 +965,7 @@ def promote_snapshot(
         final_decision=final_decision,
         campaign_frame_root=frame_root(args, frame),
         source_git=source_git,
+        budget_override=budget_override,
     )
     _update_metrics(
         frame,
@@ -1202,94 +1226,126 @@ def process_frame(
         )
         return False
 
-    authorized = set(args.initial_seeds)
-    valid = [
-        row
-        for row in all_boundaries
-        if row.seed in authorized
-        and common.boundary_is_valid(frame, row, decisions)
-    ]
-    if not valid:
-        authorized_boundaries = {
-            seed: rows
-            for seed, rows in boundaries_by_seed.items()
-            if seed in authorized
+    budget = common.training_budget(int(parent_info["checkpoint_step"]))
+    previous_budget = record.setdefault("training_budget", budget)
+    if previous_budget != budget:
+        raise common.InfrastructureError(f"Training budget changed on resume for {frame}")
+    budget_exhausted = (
+        max(row.local_step for row in all_boundaries)
+        >= int(budget["maximum_eval_step"])
+    )
+    budget_override: Optional[Dict[str, Any]] = None
+    if budget_exhausted:
+        selected = common.select_budget_fallback(
+            frame,
+            all_boundaries,
+            decisions,
+            maximum_eval_step=int(budget["maximum_eval_step"]),
+        )
+        budget_override = {
+            **budget,
+            "reason": (
+                "Per-frame training reached the user-authorized 130% iteration "
+                "budget before clearing every numeric gate."
+            ),
+            "selected_within_budget": common.boundary_payload(selected),
+            "numeric_gate_passed": selected.numeric_pass,
+            "observed_latest_step": max(row.local_step for row in all_boundaries),
+            "selection_policy": (
+                "visual pass; prefer PSNR+SSIM pass; then minimum LPIPS, "
+                "maximum PSNR, earliest step, seed"
+            ),
         }
-        contenders = common.hard_gate_bootstrap_seeds(
-            frame, authorized_boundaries, decisions
-        )
-        if not contenders:
-            raise common.QualityFailure(
-                f"{frame} produced no hard-gate checkpoint and has no "
-                "PSNR/SSIM/visual-pass trajectory eligible for another interval"
+    else:
+        authorized = set(args.initial_seeds)
+        valid = [
+            row
+            for row in all_boundaries
+            if row.seed in authorized
+            and common.boundary_is_valid(frame, row, decisions)
+        ]
+        if not valid:
+            authorized_boundaries = {
+                seed: rows
+                for seed, rows in boundaries_by_seed.items()
+                if seed in authorized
+            }
+            contenders = common.hard_gate_bootstrap_seeds(
+                frame, authorized_boundaries, decisions
             )
-        record["status"] = "tail_training"
-        record.setdefault("tail_waves", []).append(
-            {
-                "at": common.utc_now(),
-                "selected_before_wave": None,
-                "contender_seeds": list(contenders),
-                "reason": "bootstrap LPIPS toward hard gate; no checkpoint is accepted",
-            }
-        )
-        store.flush()
-        run_wave(
-            args,
-            store,
-            frame=frame,
-            parent_snapshot=Path(str(parent_info["snapshot"])),
-            seeds=contenders,
-            active_runs=record["active_runs"],
-            extend=True,
-        )
-        boundaries_by_seed = _active_boundaries(record)
-        build_frame_comparisons(args, frame, boundaries_by_seed)
-        all_boundaries = [row for rows in boundaries_by_seed.values() for row in rows]
-        ensure_visual_decision_template(args.visual_decisions, frame, all_boundaries)
-        record["status"] = "awaiting_boundary_visual"
-        store.flush()
-        return False
-    selected = common.select_boundary(valid)
-    selected_seed_rows = boundaries_by_seed[selected.seed]
-    if not common.plateau_confirmed(frame, selected_seed_rows, decisions):
-        contenders = authorized_tail_seeds(args, common.contender_seeds(valid))
-        if not contenders:
-            raise common.QualityFailure(f"{frame} has no valid tail contender")
-        record["status"] = "tail_training"
-        record.setdefault("tail_waves", []).append(
-            {
-                "at": common.utc_now(),
-                "selected_before_wave": common.boundary_payload(selected),
-                "contender_seeds": list(contenders),
-            }
-        )
-        store.flush()
-        run_wave(
-            args,
-            store,
-            frame=frame,
-            parent_snapshot=Path(str(parent_info["snapshot"])),
-            seeds=contenders,
-            active_runs=record["active_runs"],
-            extend=True,
-        )
-        # New comparisons require new explicit decisions, so return through the
-        # same review gate rather than starting another interval blindly.
-        boundaries_by_seed = _active_boundaries(record)
-        build_frame_comparisons(args, frame, boundaries_by_seed)
-        all_boundaries = [row for rows in boundaries_by_seed.values() for row in rows]
-        ensure_visual_decision_template(args.visual_decisions, frame, all_boundaries)
-        record["status"] = "awaiting_boundary_visual"
-        store.flush()
-        return False
+            if not contenders:
+                raise common.QualityFailure(
+                    f"{frame} produced no hard-gate checkpoint and has no "
+                    "PSNR/SSIM/visual-pass trajectory eligible for another interval"
+                )
+            record["status"] = "tail_training"
+            record.setdefault("tail_waves", []).append(
+                {
+                    "at": common.utc_now(),
+                    "selected_before_wave": None,
+                    "contender_seeds": list(contenders),
+                    "reason": "bootstrap LPIPS toward hard gate; no checkpoint is accepted",
+                }
+            )
+            store.flush()
+            run_wave(
+                args,
+                store,
+                frame=frame,
+                parent_snapshot=Path(str(parent_info["snapshot"])),
+                seeds=contenders,
+                active_runs=record["active_runs"],
+                extend=True,
+            )
+            boundaries_by_seed = _active_boundaries(record)
+            build_frame_comparisons(args, frame, boundaries_by_seed)
+            all_boundaries = [row for rows in boundaries_by_seed.values() for row in rows]
+            ensure_visual_decision_template(args.visual_decisions, frame, all_boundaries)
+            record["status"] = "awaiting_boundary_visual"
+            store.flush()
+            return False
+        selected = common.select_boundary(valid)
+        selected_seed_rows = boundaries_by_seed[selected.seed]
+        if not common.plateau_confirmed(frame, selected_seed_rows, decisions):
+            contenders = authorized_tail_seeds(args, common.contender_seeds(valid))
+            if not contenders:
+                raise common.QualityFailure(f"{frame} has no valid tail contender")
+            record["status"] = "tail_training"
+            record.setdefault("tail_waves", []).append(
+                {
+                    "at": common.utc_now(),
+                    "selected_before_wave": common.boundary_payload(selected),
+                    "contender_seeds": list(contenders),
+                }
+            )
+            store.flush()
+            run_wave(
+                args,
+                store,
+                frame=frame,
+                parent_snapshot=Path(str(parent_info["snapshot"])),
+                seeds=contenders,
+                active_runs=record["active_runs"],
+                extend=True,
+            )
+            # New comparisons require new explicit decisions, so return through the
+            # same review gate rather than starting another interval blindly.
+            boundaries_by_seed = _active_boundaries(record)
+            build_frame_comparisons(args, frame, boundaries_by_seed)
+            all_boundaries = [row for rows in boundaries_by_seed.values() for row in rows]
+            ensure_visual_decision_template(args.visual_decisions, frame, all_boundaries)
+            record["status"] = "awaiting_boundary_visual"
+            store.flush()
+            return False
 
     record["selection"] = common.boundary_payload(selected)
+    record["budget_override"] = budget_override
     record["quality_tier"] = (
-        "preferred"
-        if selected.preferred_pass
-        else "hard_minimum_after_confirmed_plateau"
+        "budget_limited"
+        if budget_override is not None
+        else ("preferred" if selected.preferred_pass else "hard_minimum_after_confirmed_plateau")
     )
-    if not selected.preferred_pass:
+    if budget_override is None and not selected.preferred_pass:
         record["quality_fallback_reason"] = (
             "The checkpoint clears every hard and visual gate, and the selected "
             "trajectory confirmed two consecutive plateau intervals without "
@@ -1304,6 +1360,7 @@ def process_frame(
         parent_info=parent_info,
         selected=selected,
         decisions=common.load_visual_decisions(args.visual_decisions),
+        budget_override=budget_override,
     ):
         return False
     record["status"] = "pruning"
