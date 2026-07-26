@@ -34,6 +34,7 @@ Fresh snapshot-only validation results so far are:
 |---|---|---:|---:|---:|---:|---:|---|---|
 | 007754 | 007747 | 43 | 212632 | 29.913879 | 0.676014 | 0.212282 | pass | all numeric gates |
 | 007761 | 007754 | 43 | 212632 | 29.729786 | 0.681559 | 0.222157 | pass | 130% budget fallback |
+| 007768 | 007761 | 43 | 151880 | 29.369335 | 0.685093 | 0.232447 | pass | 130% budget fallback |
 
 For `007761`, the parent step produced a raw cap of276421 and a last complete
 boundary at273384. Continuing seed43 through318948 did not clear LPIPS0.217;
@@ -48,6 +49,14 @@ audited before promotion. The ground-truth half of each render matched
 `frame_eval_00003.jpg` pixel-exactly in order, and the corresponding camera
 transforms were identical across frames007740, 007747, 007754 and007761. The
 visible change is therefore temporal scene motion, not an eval-view swap.
+
+For `007768`, all boundaries through the budget boundary273384 passed the
+native crop visual review, but no checkpoint reached PSNR29.7 or LPIPS0.217.
+The best observed LPIPS was0.227240 at step258196, while the formal
+maximum-PSNR/0.07-dB-window policy selected step151880. A fresh eval loaded
+only from the promoted snapshot reproduced `29.369335 / 0.685093 / 0.232447`;
+the promoted checkpoint SHA-256 is
+`3d8e834eaa7d637921d1a7833284115f706ae4e11943a0f8090ea32a25550381`.
 
 ## Insights
 
