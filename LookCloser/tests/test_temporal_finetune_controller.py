@@ -194,6 +194,32 @@ def test_selector_uses_inclusive_psnr_window_then_lpips() -> None:
     assert common.contender_seeds(rows) == (42, 43)
 
 
+def test_hard_gate_bootstrap_uses_latest_psnr_ssim_visual_pass() -> None:
+    rows = {
+        42: [
+            boundary(seed=42, step=151_880, psnr=29.69, ssim=0.680, lpips=0.224)
+        ],
+        43: [
+            boundary(seed=43, step=151_880, psnr=29.74, ssim=0.684, lpips=0.227)
+        ],
+        44: [
+            boundary(seed=44, step=151_880, psnr=29.71, ssim=0.682, lpips=0.229)
+        ],
+    }
+    decisions = {
+        common.visual_key("007761", seed, 151_880): {
+            "verdict": "pass",
+            "change_from_previous": "no_improvement",
+            "note": "reviewed",
+        }
+        for seed in rows
+    }
+    assert common.hard_gate_bootstrap_seeds("007761", rows, decisions) == (43, 44)
+
+    decisions[common.visual_key("007761", 43, 151_880)]["verdict"] = "fail"
+    assert common.hard_gate_bootstrap_seeds("007761", rows, decisions) == (44,)
+
+
 def test_visual_and_hard_gates_filter_before_selection() -> None:
     passing = boundary(step=15_188, psnr=29.7, ssim=0.668, lpips=0.22)
     bad_psnr = boundary(seed=43, step=15_188, psnr=29.699999)
@@ -297,12 +323,13 @@ def test_metrics_csv_requires_exact_header_and_unique_frames(tmp_path: Path) -> 
     assert common.read_metrics_rows(path)[0]["frame"] == "007740"
 
 
-def test_campaign_dry_run_launches_all_three_seeds() -> None:
+def test_campaign_dry_run_uses_user_authorized_fast_seed_default() -> None:
     args = campaign.parse_args(["--dry-run"])
     payload = campaign.deterministic_dry_run(args)
     first = payload["commands"]["007754"]
-    assert set(first) == {"42", "43", "44"}
+    assert set(first) == {"43"}
     assert all("--parent-snapshot" in command for command in first.values())
+    assert payload["initial_seed_policy"]["reason"] == "user-authorized wall-clock optimization"
     assert payload["tail_policy"].startswith("PSNR-window")
 
 

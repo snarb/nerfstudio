@@ -106,6 +106,21 @@ ns-train ... > "$RUN_DIR/train_stdout.log" 2>&1
 ns-eval ... > "$RUN_DIR/eval_stdout.log" 2>&1
 ```
 
+### Mandatory hourly training checks
+
+After launching any training job, keep the supervising workflow active and
+check it at least once every hour until it finishes, fails, or reaches a
+required visual-review gate. Each check must verify that the controller and
+expected worker processes are alive, inspect the latest compact progress or
+checkpoint state, and check GPU memory/OOM evidence. Record the check in the
+campaign logs. Do not end the active task merely because training was detached;
+estimate the next useful wake-up time, but never schedule it more than one hour
+away while training is running.
+
+When training finishes between checks, immediately continue with the required
+evaluation or visual gate. A detached process is a durability mechanism, not a
+replacement for hourly supervision.
+
 ## Architecture
 
 The architecture documentation is stored in ./architecture.md. Update it after each major change, but keep cosine.

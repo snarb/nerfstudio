@@ -68,11 +68,23 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--preflight-only", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument(
+        "--initial-seeds",
+        type=int,
+        nargs="+",
+        choices=common.SEEDS,
+        default=(43,),
+        help=(
+            "Independent initial trajectories. The user-authorized fast default "
+            "starts seed 43 alone; add 42 and/or 44 for more candidate diversity."
+        ),
+    )
     args = parser.parse_args(argv)
     if common.frame_index(args.start_frame) > common.frame_index(args.end_frame):
         parser.error("--start-frame must not follow --end-frame")
     if args.visual_decisions is None:
         args.visual_decisions = args.campaign_root / "visual_decisions.json"
+    args.initial_seeds = tuple(dict.fromkeys(args.initial_seeds))
     return args
 
 
@@ -172,12 +184,12 @@ def gpu_preflight(args: argparse.Namespace, requested: int = 3) -> Dict[str, Any
     ):
         selected = 2
         reason = "three-job VRAM/utilization preflight failed"
-    if selected >= 2 and (
+    if selected >= 1 and (
         best["free_mib"] < selected * VRAM_PER_JOB_MIB + VRAM_RESERVE_MIB
         or best["utilization_percent"] >= 98
     ):
         raise common.InfrastructureError(
-            "GPU preflight cannot support the required minimum of two concurrent initial runs"
+            f"GPU preflight cannot support {selected} requested initial run(s)"
         )
     return {
         "at": common.utc_now(),
@@ -248,21 +260,46 @@ def _run_one_trajectory(
     log_path = log_dir / f"seed-{seed}_{suffix}_{common.utc_now().replace(':', '-')}.log"
     started_ns = time.time_ns()
     started = time.monotonic()
+    heartbeat_path = log_dir / f"seed-{seed}_{suffix}_hourly_checks.jsonl"
     with log_path.open("w", encoding="utf-8") as log:
-        completed = subprocess.run(
+        process = subprocess.Popen(
             command,
             cwd=REPO_ROOT,
             env=v2.run_environment(args),
             stdout=log,
             stderr=subprocess.STDOUT,
-            check=False,
         )
+        while True:
+            try:
+                returncode = process.wait(timeout=3600)
+                break
+            except subprocess.TimeoutExpired:
+                heartbeat = {
+                    "at": common.utc_now(),
+                    "frame": frame,
+                    "seed": seed,
+                    "phase": suffix,
+                    "pid": process.pid,
+                    "alive": process.poll() is None,
+                    "elapsed_seconds": time.monotonic() - started,
+                    "controller_log": str(log_path),
+                    "controller_log_bytes": log_path.stat().st_size,
+                }
+                with heartbeat_path.open("a", encoding="utf-8") as heartbeat_log:
+                    heartbeat_log.write(json.dumps(heartbeat, sort_keys=True) + "\n")
+                print(
+                    f"frame={frame} phase={suffix} seed={seed} "
+                    f"hourly_check={heartbeat['elapsed_seconds'] / 3600:.1f}h "
+                    f"alive={heartbeat['alive']}",
+                    flush=True,
+                )
     return {
         "seed": seed,
         "output_dir": str(output_dir),
         "command": command,
         "log": str(log_path),
-        "returncode": completed.returncode,
+        "returncode": returncode,
+        "hourly_checks": str(heartbeat_path),
         "started_wall_time_ns": started_ns,
         "wall_seconds": time.monotonic() - started,
     }
@@ -977,12 +1014,17 @@ def process_frame(
             raise common.InfrastructureError(
                 f"Untracked final artifact collision before training {frame}"
             )
-        gpu = gpu_preflight(args, 3)
-        seeds = (42, 43, 44) if gpu["selected"] == 3 else (42, 43)
+        gpu = gpu_preflight(args, len(args.initial_seeds))
+        seeds = args.initial_seeds[: int(gpu["selected"])]
         storage = storage_preflight(
             args, frame, Path(str(parent_info["checkpoint"])), len(seeds)
         )
         record["parallelism"] = gpu
+        record["initial_seed_policy"] = {
+            "seeds": list(seeds),
+            "reason": "user-authorized wall-clock optimization",
+            "fallback_seed": 42 if seeds == (43,) else None,
+        }
         record["storage_preflight"] = storage
         record["active_runs"] = {
             str(seed): str(attempt_dir(args, frame, seed, 1)) for seed in seeds
@@ -1036,10 +1078,8 @@ def process_frame(
                 if int(summary.get("latest_step", -1)) < common.INITIAL_TARGET_STEP:
                     incomplete.append(int(seed_text))
         if incomplete:
-            if len(record["active_runs"]) < 2:
-                raise common.InfrastructureError(
-                    f"Refusing one-seed initial fallback for {frame}"
-                )
+            if not record["active_runs"]:
+                raise common.InfrastructureError(f"No initial trajectory exists for {frame}")
             run_wave(
                 args,
                 store,
@@ -1076,7 +1116,40 @@ def process_frame(
         if common.boundary_is_valid(frame, row, decisions)
     ]
     if not valid:
-        raise common.QualityFailure(f"{frame} produced no hard-gate and visual-pass checkpoint")
+        contenders = common.hard_gate_bootstrap_seeds(
+            frame, boundaries_by_seed, decisions
+        )
+        if not contenders:
+            raise common.QualityFailure(
+                f"{frame} produced no hard-gate checkpoint and has no "
+                "PSNR/SSIM/visual-pass trajectory eligible for another interval"
+            )
+        record["status"] = "tail_training"
+        record.setdefault("tail_waves", []).append(
+            {
+                "at": common.utc_now(),
+                "selected_before_wave": None,
+                "contender_seeds": list(contenders),
+                "reason": "bootstrap LPIPS toward hard gate; no checkpoint is accepted",
+            }
+        )
+        store.flush()
+        run_wave(
+            args,
+            store,
+            frame=frame,
+            parent_snapshot=Path(str(parent_info["snapshot"])),
+            seeds=contenders,
+            active_runs=record["active_runs"],
+            extend=True,
+        )
+        boundaries_by_seed = _active_boundaries(record)
+        build_frame_comparisons(args, frame, boundaries_by_seed)
+        all_boundaries = [row for rows in boundaries_by_seed.values() for row in rows]
+        ensure_visual_decision_template(args.visual_decisions, frame, all_boundaries)
+        record["status"] = "awaiting_boundary_visual"
+        store.flush()
+        return False
     selected = common.select_boundary(valid)
     selected_seed_rows = boundaries_by_seed[selected.seed]
     if not common.plateau_confirmed(frame, selected_seed_rows, decisions):
@@ -1164,13 +1237,17 @@ def deterministic_dry_run(args: argparse.Namespace) -> Dict[str, Any]:
                 output_dir=attempt_dir(args, frame, seed, 1),
                 resume=False,
             )
-            for seed in common.SEEDS
+            for seed in args.initial_seeds
         }
     return {
         "schema_version": 2,
         "campaign_root": str(args.campaign_root),
         "frames": list(selected_frames(args)),
         "commands": commands,
+        "initial_seed_policy": {
+            "seeds": list(args.initial_seeds),
+            "reason": "user-authorized wall-clock optimization",
+        },
         "selection": "visual and hard gates, max PSNR, inclusive 0.07 dB, min LPIPS",
         "tail_policy": "PSNR-window contender seeds, one interval per review wave",
     }
@@ -1191,7 +1268,7 @@ def run(args: argparse.Namespace) -> int:
                 expected_frame=parent_name,
             )
         )
-        gpu = gpu_preflight(args, 3)
+        gpu = gpu_preflight(args, len(args.initial_seeds))
         dataset = common.compute_dataset_manifest(
             args.start_frame, common.DATA_ROOT / args.start_frame
         )

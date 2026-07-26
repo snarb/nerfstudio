@@ -401,6 +401,38 @@ def contender_seeds(boundaries: Sequence[Boundary]) -> tuple[int, ...]:
     )
 
 
+def hard_gate_bootstrap_seeds(
+    frame: str,
+    boundaries_by_seed: Mapping[int, Sequence[Boundary]],
+    decisions: Mapping[str, Mapping[str, str]],
+) -> tuple[int, ...]:
+    """Choose promising trajectories for one more pre-acceptance interval."""
+
+    latest = []
+    for rows in boundaries_by_seed.values():
+        if not rows:
+            continue
+        boundary = max(rows, key=lambda row: row.local_step)
+        decision = decision_for(decisions, frame, boundary)
+        if (
+            boundary.psnr >= PSNR_MIN
+            and boundary.ssim >= SSIM_MIN
+            and decision["verdict"] == "pass"
+            and boundary.local_step + INTERVAL <= SCHEDULER_MAX_STEPS
+        ):
+            latest.append(boundary)
+    if not latest:
+        return ()
+    maximum = max(row.psnr for row in latest)
+    return tuple(
+        sorted(
+            row.seed
+            for row in latest
+            if maximum - row.psnr <= PSNR_TIE_DB + 1e-12
+        )
+    )
+
+
 def plateau_confirmed(
     frame: str,
     boundaries: Sequence[Boundary],
