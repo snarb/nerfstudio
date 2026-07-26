@@ -425,9 +425,17 @@ def hard_gate_bootstrap_seeds(
             (len(ordered) >= 2 and boundary.lpips < ordered[-2].lpips)
             or (len(ordered) >= 3 and boundary.lpips < ordered[-3].lpips)
         )
+        final_scheduled_chance = (
+            boundary.local_step + INTERVAL <= SCHEDULER_MAX_STEPS
+            and boundary.local_step + 2 * INTERVAL > SCHEDULER_MAX_STEPS
+        )
         if (
             prior_psnr_pass
-            and (boundary.psnr >= PSNR_MIN or lpips_still_converging)
+            and (
+                boundary.psnr >= PSNR_MIN
+                or lpips_still_converging
+                or final_scheduled_chance
+            )
             and boundary.ssim >= SSIM_MIN
             and decision["verdict"] == "pass"
             and boundary.local_step + INTERVAL <= SCHEDULER_MAX_STEPS

@@ -258,6 +258,24 @@ def test_hard_gate_bootstrap_tolerates_one_lpips_regression_with_net_progress() 
     assert common.hard_gate_bootstrap_seeds("007761", rows, decisions) == (42,)
 
 
+def test_hard_gate_bootstrap_finishes_last_scheduled_boundary() -> None:
+    rows = {
+        44: [
+            boundary(seed=44, step=258_196, psnr=29.71, ssim=0.682, lpips=0.2238),
+            boundary(seed=44, step=273_384, psnr=29.49, ssim=0.684, lpips=0.2242),
+        ]
+    }
+    decisions = {
+        common.visual_key("007761", 44, row.local_step): {
+            "verdict": "pass",
+            "change_from_previous": "no_improvement",
+            "note": "reviewed",
+        }
+        for row in rows[44]
+    }
+    assert common.hard_gate_bootstrap_seeds("007761", rows, decisions) == (44,)
+
+
 def test_visual_and_hard_gates_filter_before_selection() -> None:
     passing = boundary(step=15_188, psnr=29.7, ssim=0.668, lpips=0.217)
     bad_psnr = boundary(seed=43, step=15_188, psnr=29.699999)
