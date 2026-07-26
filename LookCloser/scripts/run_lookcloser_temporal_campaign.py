@@ -65,6 +65,15 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     parser.add_argument("--visual-decisions", type=Path)
     parser.add_argument("--venv", type=Path, default=v2.DEFAULT_VENV)
     parser.add_argument("--tcnn-overlay", type=Path, default=v2.DEFAULT_TCNN_OVERLAY)
+    parser.add_argument(
+        "--trajectory-script",
+        type=Path,
+        default=trajectory.SCRIPT_PATH,
+        help=(
+            "Frozen temporal trajectory runner. Existing trajectories must keep "
+            "using the exact source revision recorded by their preflight."
+        ),
+    )
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--preflight-only", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
@@ -214,7 +223,7 @@ def _trajectory_command(
 ) -> list[str]:
     command = [
         str(args.venv / "bin" / "python"),
-        str(trajectory.SCRIPT_PATH),
+        str(args.trajectory_script),
         "--target-frame",
         frame,
         "--parent-snapshot",

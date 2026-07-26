@@ -333,6 +333,16 @@ def test_campaign_dry_run_uses_user_authorized_fast_seed_default() -> None:
     assert payload["tail_policy"].startswith("PSNR-window")
 
 
+def test_campaign_can_pin_frozen_trajectory_source(tmp_path: Path) -> None:
+    frozen = tmp_path / "run_lookcloser_temporal_finetune.py"
+    args = campaign.parse_args(
+        ["--dry-run", "--trajectory-script", str(frozen)]
+    )
+    payload = campaign.deterministic_dry_run(args)
+    command = payload["commands"]["007754"]["43"]
+    assert command[1] == str(frozen)
+
+
 def test_pruning_removes_only_nonselected_checkpoints_and_is_resumable(
     tmp_path: Path,
 ) -> None:
