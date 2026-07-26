@@ -1126,15 +1126,21 @@ def process_frame(
         )
         return False
 
+    authorized = set(args.initial_seeds)
     valid = [
         row
         for row in all_boundaries
-        if common.boundary_is_valid(frame, row, decisions)
+        if row.seed in authorized
+        and common.boundary_is_valid(frame, row, decisions)
     ]
     if not valid:
-        contenders = authorized_tail_seeds(
-            args,
-            common.hard_gate_bootstrap_seeds(frame, boundaries_by_seed, decisions),
+        authorized_boundaries = {
+            seed: rows
+            for seed, rows in boundaries_by_seed.items()
+            if seed in authorized
+        }
+        contenders = common.hard_gate_bootstrap_seeds(
+            frame, authorized_boundaries, decisions
         )
         if not contenders:
             raise common.QualityFailure(
