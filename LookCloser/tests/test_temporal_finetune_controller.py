@@ -318,6 +318,43 @@ def test_visual_and_hard_gates_filter_before_selection() -> None:
     assert not common.boundary_is_valid("007754", passing, decisions)
 
 
+def test_existing_comparison_uses_incremental_source_fingerprint(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    render = tmp_path / "eval_img_0000.png"
+    render.write_bytes(b"render-v1")
+    comparison_json = tmp_path / "comparison.json"
+    common.atomic_json(
+        comparison_json,
+        {
+            "sources": {
+                "target 007761 seed 43 step 303760": {
+                    "source": str(render),
+                    "source_sha256": common.sha256_file(render),
+                }
+            }
+        },
+    )
+    original = common.sha256_file
+    calls = 0
+
+    def counted(path: Path) -> str:
+        nonlocal calls
+        calls += 1
+        return original(path)
+
+    monkeypatch.setattr(campaign.common, "sha256_file", counted)
+    campaign._load_or_validate_comparison(comparison_json, render)
+    assert calls == 1
+    campaign._load_or_validate_comparison(comparison_json, render)
+    assert calls == 1
+
+    render.write_bytes(b"render-v2-changed")
+    with pytest.raises(common.InfrastructureError):
+        campaign._load_or_validate_comparison(comparison_json, render)
+    assert calls == 2
+
+
 def test_preferred_quality_is_stricter_than_hard_minimum() -> None:
     fallback = boundary(
         step=151_880, psnr=29.87, ssim=0.6759, lpips=0.2151

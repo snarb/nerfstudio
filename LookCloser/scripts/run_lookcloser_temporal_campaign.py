@@ -408,6 +408,91 @@ def _active_boundaries(
     return result
 
 
+def _load_or_validate_comparison(
+    comparison_json: Path,
+    expected_render: Path,
+) -> Dict[str, Any]:
+    payload = json.loads(comparison_json.read_text(encoding="utf-8"))
+    sources = payload.get("sources", {})
+    target_rows = [
+        value
+        for label, value in sources.items()
+        if str(label).startswith("target ")
+    ]
+    if len(target_rows) != 1:
+        raise common.InfrastructureError(
+            f"Existing visual comparison has no unique target: {comparison_json}"
+        )
+    target = target_rows[0]
+    expected_source = str(expected_render)
+    if target.get("source") != expected_source or not expected_render.is_file():
+        raise common.InfrastructureError(
+            f"Existing visual comparison source changed: {comparison_json}"
+        )
+
+    stat = expected_render.stat()
+    cache_path = comparison_json.with_name("source_fingerprint.json")
+    cached: Mapping[str, Any] = {}
+    if cache_path.is_file():
+        try:
+            value = json.loads(cache_path.read_text(encoding="utf-8"))
+            if isinstance(value, Mapping):
+                cached = value
+        except (json.JSONDecodeError, OSError):
+            cached = {}
+    expected_sha256 = target.get("source_sha256")
+    cache_matches = (
+        cached.get("source") == expected_source
+        and cached.get("source_size") == stat.st_size
+        and cached.get("source_mtime_ns") == stat.st_mtime_ns
+        and cached.get("source_sha256") == expected_sha256
+    )
+    if not cache_matches:
+        if expected_sha256 != common.sha256_file(expected_render):
+            raise common.InfrastructureError(
+                f"Existing visual comparison changed: {comparison_json}"
+            )
+        common.atomic_json(
+            cache_path,
+            {
+                "schema_version": 1,
+                "source": expected_source,
+                "source_size": stat.st_size,
+                "source_mtime_ns": stat.st_mtime_ns,
+                "source_sha256": expected_sha256,
+            },
+        )
+    return payload
+
+
+def _write_comparison_source_cache(
+    comparison_json: Path,
+    expected_render: Path,
+    payload: Mapping[str, Any],
+) -> None:
+    sources = payload.get("sources", {})
+    target_rows = [
+        value
+        for label, value in sources.items()
+        if str(label).startswith("target ")
+    ]
+    if len(target_rows) != 1:
+        raise common.InfrastructureError(
+            f"New visual comparison has no unique target: {comparison_json}"
+        )
+    stat = expected_render.stat()
+    common.atomic_json(
+        comparison_json.with_name("source_fingerprint.json"),
+        {
+            "schema_version": 1,
+            "source": str(expected_render),
+            "source_size": stat.st_size,
+            "source_mtime_ns": stat.st_mtime_ns,
+            "source_sha256": target_rows[0]["source_sha256"],
+        },
+    )
+
+
 def build_frame_comparisons(
     args: argparse.Namespace,
     frame: str,
@@ -434,21 +519,9 @@ def build_frame_comparisons(
             comparison_json = output_dir / "comparison.json"
             expected_render = boundary.render_dir / "eval_img_0000.png"
             if comparison_json.is_file():
-                payload = json.loads(comparison_json.read_text(encoding="utf-8"))
-                sources = payload.get("sources", {})
-                target_rows = [
-                    value
-                    for label, value in sources.items()
-                    if str(label).startswith("target ")
-                ]
-                if (
-                    len(target_rows) != 1
-                    or target_rows[0].get("source_sha256")
-                    != common.sha256_file(expected_render)
-                ):
-                    raise common.InfrastructureError(
-                        f"Existing visual comparison changed: {comparison_json}"
-                    )
+                payload = _load_or_validate_comparison(
+                    comparison_json, expected_render
+                )
             else:
                 payload = common.build_native_comparison(
                     frame=frame,
@@ -461,6 +534,9 @@ def build_frame_comparisons(
                     previous_boundary_render=(
                         prior.render_dir / "eval_img_0000.png" if prior is not None else None
                     ),
+                )
+                _write_comparison_source_cache(
+                    comparison_json, expected_render, payload
                 )
             comparisons.append(payload)
             prior = boundary
