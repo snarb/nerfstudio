@@ -39,6 +39,7 @@ INITIAL_PROCESS_TARGETS = (
 INITIAL_LR = 0.015
 FINAL_LR = 0.0001
 SCHEDULER_MAX_STEPS = 300_000
+TAIL_MAX_STEPS = 600_000
 PSNR_TIE_DB = 0.07
 PSNR_MIN = 29.7
 SSIM_MIN = 0.668
@@ -429,16 +430,22 @@ def hard_gate_bootstrap_seeds(
             boundary.local_step + INTERVAL <= SCHEDULER_MAX_STEPS
             and boundary.local_step + 2 * INTERVAL > SCHEDULER_MAX_STEPS
         )
+        recent = ordered[-6:]
+        post_horizon_near_best = (
+            boundary.local_step + INTERVAL > SCHEDULER_MAX_STEPS
+            and boundary.lpips <= min(row.lpips for row in recent) + 0.001
+        )
         if (
             prior_psnr_pass
             and (
                 boundary.psnr >= PSNR_MIN
                 or lpips_still_converging
                 or final_scheduled_chance
+                or post_horizon_near_best
             )
             and boundary.ssim >= SSIM_MIN
             and decision["verdict"] == "pass"
-            and boundary.local_step + INTERVAL <= SCHEDULER_MAX_STEPS
+            and boundary.local_step + INTERVAL <= TAIL_MAX_STEPS
         ):
             latest.append(boundary)
     if not latest:

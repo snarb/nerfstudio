@@ -59,6 +59,8 @@ def test_fixed_recipe_and_chain_are_frozen() -> None:
     assert common.PSNR_MIN == 29.7
     assert common.SSIM_MIN == 0.668
     assert common.LPIPS_MAX == 0.217
+    assert common.SCHEDULER_MAX_STEPS == 300_000
+    assert common.TAIL_MAX_STEPS == 600_000
     assert common.PREFERRED_PSNR == 29.88
     assert common.PREFERRED_SSIM == 0.676
     assert common.PREFERRED_LPIPS == 0.215
@@ -274,6 +276,25 @@ def test_hard_gate_bootstrap_finishes_last_scheduled_boundary() -> None:
         for row in rows[44]
     }
     assert common.hard_gate_bootstrap_seeds("007761", rows, decisions) == (44,)
+
+
+def test_hard_gate_bootstrap_can_tail_at_minimum_lr_after_scheduler_horizon() -> None:
+    rows = {
+        43: [
+            boundary(seed=43, step=258_196, psnr=29.72, ssim=0.681, lpips=0.2212),
+            boundary(seed=43, step=273_384, psnr=29.59, ssim=0.681, lpips=0.2205),
+            boundary(seed=43, step=288_572, psnr=29.48, ssim=0.684, lpips=0.2213),
+        ]
+    }
+    decisions = {
+        common.visual_key("007761", 43, row.local_step): {
+            "verdict": "pass",
+            "change_from_previous": "no_improvement",
+            "note": "reviewed",
+        }
+        for row in rows[43]
+    }
+    assert common.hard_gate_bootstrap_seeds("007761", rows, decisions) == (43,)
 
 
 def test_visual_and_hard_gates_filter_before_selection() -> None:
