@@ -58,7 +58,7 @@ def test_fixed_recipe_and_chain_are_frozen() -> None:
     )
     assert common.PSNR_MIN == 29.7
     assert common.SSIM_MIN == 0.668
-    assert common.LPIPS_MAX == 0.22
+    assert common.LPIPS_MAX == 0.217
     assert common.PREFERRED_PSNR == 29.88
     assert common.PREFERRED_SSIM == 0.676
     assert common.PREFERRED_LPIPS == 0.215
@@ -239,7 +239,7 @@ def test_hard_gate_bootstrap_tolerates_psnr_oscillation_while_lpips_converges() 
 
 
 def test_visual_and_hard_gates_filter_before_selection() -> None:
-    passing = boundary(step=15_188, psnr=29.7, ssim=0.668, lpips=0.22)
+    passing = boundary(step=15_188, psnr=29.7, ssim=0.668, lpips=0.217)
     bad_psnr = boundary(seed=43, step=15_188, psnr=29.699999)
     decisions = {
         common.visual_key("007754", 42, 15_188): {
