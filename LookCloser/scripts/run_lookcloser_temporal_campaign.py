@@ -111,6 +111,13 @@ def attempt_dir(args: argparse.Namespace, frame: str, seed: int, attempt: int) -
     return frame_root(args, frame) / "runs" / f"seed-{seed}-attempt-{attempt:02d}"
 
 
+def authorized_tail_seeds(
+    args: argparse.Namespace, candidates: Sequence[int]
+) -> tuple[int, ...]:
+    allowed = set(args.initial_seeds)
+    return tuple(seed for seed in candidates if seed in allowed)
+
+
 def _disk_usage_anchor(path: Path) -> shutil._ntuple_diskusage:
     anchor = path
     while not anchor.exists():
@@ -1125,8 +1132,9 @@ def process_frame(
         if common.boundary_is_valid(frame, row, decisions)
     ]
     if not valid:
-        contenders = common.hard_gate_bootstrap_seeds(
-            frame, boundaries_by_seed, decisions
+        contenders = authorized_tail_seeds(
+            args,
+            common.hard_gate_bootstrap_seeds(frame, boundaries_by_seed, decisions),
         )
         if not contenders:
             raise common.QualityFailure(
@@ -1162,7 +1170,7 @@ def process_frame(
     selected = common.select_boundary(valid)
     selected_seed_rows = boundaries_by_seed[selected.seed]
     if not common.plateau_confirmed(frame, selected_seed_rows, decisions):
-        contenders = common.contender_seeds(valid)
+        contenders = authorized_tail_seeds(args, common.contender_seeds(valid))
         if not contenders:
             raise common.QualityFailure(f"{frame} has no valid tail contender")
         record["status"] = "tail_training"

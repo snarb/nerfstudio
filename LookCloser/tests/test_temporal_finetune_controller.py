@@ -361,6 +361,11 @@ def test_campaign_can_pin_frozen_trajectory_source(tmp_path: Path) -> None:
     assert command[1] == str(frozen)
 
 
+def test_tail_candidates_are_limited_to_authorized_fast_seeds() -> None:
+    args = campaign.parse_args(["--initial-seeds", "43"])
+    assert campaign.authorized_tail_seeds(args, (42, 43, 44)) == (43,)
+
+
 def test_pruning_removes_only_nonselected_checkpoints_and_is_resumable(
     tmp_path: Path,
 ) -> None:
