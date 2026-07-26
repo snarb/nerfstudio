@@ -422,7 +422,8 @@ def hard_gate_bootstrap_seeds(
             for row in ordered
         )
         lpips_still_converging = (
-            len(ordered) >= 2 and boundary.lpips < ordered[-2].lpips
+            (len(ordered) >= 2 and boundary.lpips < ordered[-2].lpips)
+            or (len(ordered) >= 3 and boundary.lpips < ordered[-3].lpips)
         )
         if (
             prior_psnr_pass
