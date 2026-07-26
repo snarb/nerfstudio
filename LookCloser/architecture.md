@@ -628,17 +628,31 @@ through step60752 followed by one full-resume process per interval. Tail mode
 can resume exactly one additional interval without changing the recipe.
 
 `scripts/run_lookcloser_temporal_campaign.py` owns the sequential
-007754--008048 chain. It launches the three seed trajectories concurrently
-(or documented seed42/43 two-job fallback after a VRAM preflight or real OOM),
-freezes the exact JPEG/map hashes before every launch, builds native eval0 crop
-comparisons, and pauses fail-closed for explicit visual decisions. Valid
-checkpoints must clear PSNR29.7, SSIM0.668 and LPIPS0.22. Selection is maximum
-PSNR followed by minimum LPIPS inside the inclusive0.07-dB window; tail waves
-continue only seeds in that window until the selected trajectory has two
-complete plateau intervals. PSNR29.88, SSIM0.676 and LPIPS0.215 are the
-preferred target tier. A hard-minimum result is promotable only after the
-two-interval plateau proves that the preferred tier was not reached, and that
-fallback is explicit in selection and campaign provenance.
+007754--008048 chain. The active campaign runs one seed43 trajectory at a time
+from the immediately preceding accepted snapshot; GPU-parallel seeds were
+retired after measured contention made three concurrent trajectories take
+6.44 hours instead of roughly 2.1 hours for one. Before every launch the
+controller freezes the exact JPEG/map hashes, checks disk and VRAM, builds
+native eval0 crop comparisons, and pauses fail-closed for explicit visual
+decisions.
+
+The preferred gates remain PSNR29.7, SSIM0.668 and LPIPS0.217, with
+PSNR29.88, SSIM0.676 and LPIPS0.215 as the target tier. To prevent a difficult
+frame from blocking the chain indefinitely, each frame has a user-authorized
+training cap of 130% of its parent's selected local step, rounded down to the
+last complete 15188-step evaluation boundary. If no checkpoint clears every
+numeric gate by that boundary, the budget fallback considers only explicit
+visual passes inside the cap, prefers PSNR+SSIM passes, and then orders by
+minimum LPIPS, maximum PSNR, earliest step and seed. A numeric miss can be
+promoted only through this explicit fallback; the cap, missed gates and
+selection policy are recorded in `selection.json` and `provenance.json`.
+
+The detached controller remains responsible for hourly supervision: every
+check verifies the controller and worker processes, compact progress,
+checkpoint state, GPU memory and OOM evidence and appends the result to the
+frame's campaign logs. Existing comparison sources carry size, mtime and
+SHA-256 fingerprints so resume can reuse a proven render without repeatedly
+hashing large images.
 
 Promotion copies only the selected checkpoint into the target dataset, rewrites
 the snapshot config to its final in-tree checkpoint and target dataparser, and
