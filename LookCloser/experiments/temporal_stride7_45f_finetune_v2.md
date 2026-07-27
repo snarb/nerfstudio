@@ -38,6 +38,7 @@ Fresh snapshot-only validation results so far are:
 | 007775 | 007768 | 43 | 136692 | 28.974316 | 0.686357 | 0.245003 | pass | 130% budget fallback |
 | 007782 | 007775 | 43 | 167068 | 29.254963 | 0.685664 | 0.250975 | pass | 130% budget fallback |
 | 007789 | 007782 | 43 | 197444 | 29.213392 | 0.684686 | 0.250949 | pass | 130% budget fallback |
+| 007796 | 007789 | 43 | 136692 | 29.071283 | 0.688657 | 0.254799 | pass | user-authorized early selection |
 
 For `007761`, the parent step produced a raw cap of276421 and a last complete
 boundary at273384. Continuing seed43 through318948 did not clear LPIPS0.217;
@@ -79,6 +80,16 @@ of the maximum-PSNR step182256 and had the better LPIPS, so it was selected.
 Fresh snapshot-only validation reproduced
 `29.213392 / 0.684686 / 0.250949`; checkpoint SHA-256 is
 `87c3ad61b490b141c592b8a781ffa70540c055efcf9aaa8d7158185e8826e8cd`.
+
+For `007796`, the inherited cap was243008, but the user explicitly authorized
+one additional boundary after the initial process horizon and then selection
+of the best observed checkpoint. Step167068 did not materially improve the
+native crop or PSNR, so the formal maximum-PSNR then inclusive0.07-dB LPIPS
+rule selected step136692 from the observed boundaries. Fresh snapshot-only
+validation reproduced `29.071283 / 0.688657 / 0.254799`; the numeric miss and
+early-stop override are explicit in snapshot provenance. The checkpoint
+SHA-256 is
+`2122d1c9a39aaa2ca57f06816723e5295a25cf35041d9bfbc2c3848b5f7ba9c4`.
 
 An API foreground process group was terminated with signal143 after two
 hours while this frame was training. The last complete boundary121504 was
