@@ -2,10 +2,12 @@
 """Run one fixed-recipe temporal LookCloser trajectory for one frame and seed.
 
 Cross-frame startup copies only field/model parameters from the accepted parent
-snapshot.  Same-frame continuation loads full state.  The ordinary invocation
+snapshot. Same-frame continuation loads full state. The ordinary invocation
 records the no-update transplant and reproduces every process boundary through
-local step 151880.  ``--extend-one-interval`` resumes exactly one further
-15188-step interval for plateau confirmation.
+local step151880 by default. A controller may lower that initial horizon to a
+complete evaluation boundary when the inherited per-frame iteration budget is
+shorter. ``--extend-one-interval`` resumes exactly one further15188-step
+interval for plateau confirmation.
 """
 
 from __future__ import annotations
@@ -46,6 +48,16 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     parser.add_argument("--tcnn-overlay", type=Path, default=v2.DEFAULT_TCNN_OVERLAY)
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--extend-one-interval", action="store_true")
+    parser.add_argument(
+        "--initial-target-step",
+        type=int,
+        default=common.INITIAL_TARGET_STEP,
+        help=(
+            "Last complete evaluation boundary for the initial trajectory. "
+            "Defaults to 151880 and may only be lowered to enforce the "
+            "inherited per-frame iteration budget."
+        ),
+    )
     parser.add_argument("--preflight-only", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args(argv)
@@ -58,6 +70,10 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
         )
     if args.extend_one_interval and not args.resume:
         parser.error("--extend-one-interval requires --resume")
+    if args.initial_target_step not in common.PROCESS_BOUNDARIES:
+        parser.error("--initial-target-step must be a complete evaluation boundary")
+    if args.initial_target_step > common.INITIAL_TARGET_STEP:
+        parser.error("--initial-target-step cannot exceed 151880")
     return args
 
 
@@ -118,7 +134,14 @@ def initial_segments(args: argparse.Namespace) -> list[v2.Segment]:
     directory = run_dir(args)
     segments: list[v2.Segment] = []
     parent: Optional[Path] = None
-    for target_step in common.INITIAL_PROCESS_TARGETS:
+    process_targets = [
+        target_step
+        for target_step in common.INITIAL_PROCESS_TARGETS
+        if target_step <= args.initial_target_step
+    ]
+    if not process_targets or process_targets[-1] != args.initial_target_step:
+        process_targets.append(args.initial_target_step)
+    for target_step in process_targets:
         segments.append(
             v2.authoritative_segment(
                 args,
@@ -174,6 +197,8 @@ def recipe_manifest(args: argparse.Namespace, parent: Mapping[str, Any]) -> Dict
             "point_telemetry",
         ],
         "process_targets_through_151880": list(common.INITIAL_PROCESS_TARGETS),
+        "initial_target_step": args.initial_target_step,
+        "process_targets": [row.target_step for row in initial_segments(args)],
         "eval_and_save_interval": common.INTERVAL,
         "lr_initial": common.INITIAL_LR,
         "lr_final": common.FINAL_LR,

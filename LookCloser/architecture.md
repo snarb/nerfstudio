@@ -622,10 +622,14 @@ Generic preprocessing prefers `train_steps_per_level` over the legacy `steps_per
 single-seed trajectory runner. It requires a target frame, the immediately
 preceding accepted snapshot, and seed42/43/44. It evaluates the pre-update
 transplant and freezes LR0.015, final LR0.0001, scheduler horizon300000 and the
-ten 15188-step evaluation/save boundaries through step151880. Process
-boundaries mirror the accepted 007747 run: one direct model-only process
-through step60752 followed by one full-resume process per interval. Tail mode
-can resume exactly one additional interval without changing the recipe.
+15188-step evaluation/save cadence. The default horizon remains ten boundaries
+through step151880. Process boundaries mirror the accepted 007747 run: one
+direct model-only process through step60752 followed by one full-resume process
+per interval. When the inherited 130% cap is below151880, the controller passes
+that complete eval boundary as the initial horizon so the runner does not train
+past the authorized budget; the same model-only start, optimizer recipe and
+cadence are retained. Tail mode can resume exactly one additional interval
+without changing the recipe.
 
 `scripts/run_lookcloser_temporal_campaign.py` owns the sequential
 007754--008048 chain. The active campaign runs one seed43 trajectory at a time

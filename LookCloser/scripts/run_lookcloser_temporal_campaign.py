@@ -236,6 +236,7 @@ def _trajectory_command(
     output_dir: Path,
     resume: bool,
     extend: bool = False,
+    initial_target_step: Optional[int] = None,
 ) -> list[str]:
     command = [
         str(args.venv / "bin" / "python"),
@@ -257,6 +258,8 @@ def _trajectory_command(
         command.append("--resume")
     if extend:
         command.append("--extend-one-interval")
+    elif initial_target_step is not None:
+        command.extend(["--initial-target-step", str(initial_target_step)])
     return command
 
 
@@ -268,6 +271,7 @@ def _run_one_trajectory(
     seed: int,
     output_dir: Path,
     extend: bool,
+    initial_target_step: int,
 ) -> Dict[str, Any]:
     resume = (output_dir / "campaign.json").is_file()
     command = _trajectory_command(
@@ -278,6 +282,7 @@ def _run_one_trajectory(
         output_dir=output_dir,
         resume=resume,
         extend=extend,
+        initial_target_step=initial_target_step,
     )
     log_dir = frame_root(args, frame) / "controller_logs"
     log_dir.mkdir(parents=True, exist_ok=True)
@@ -352,6 +357,7 @@ def run_wave(
     seeds: Sequence[int],
     active_runs: Mapping[str, str],
     extend: bool,
+    initial_target_step: int,
 ) -> list[Dict[str, Any]]:
     if not seeds:
         raise common.InfrastructureError("Cannot launch an empty trajectory wave")
@@ -370,6 +376,7 @@ def run_wave(
                 seed=seed,
                 output_dir=Path(active_runs[str(seed)]),
                 extend=extend,
+                initial_target_step=initial_target_step,
             ): seed
             for seed in seeds
         }
@@ -1131,6 +1138,21 @@ def process_frame(
         store.flush()
         return True
 
+    budget = common.training_budget(int(parent_info["checkpoint_step"]))
+    previous_budget = record.setdefault("training_budget", budget)
+    if previous_budget != budget:
+        raise common.InfrastructureError(f"Training budget changed on resume for {frame}")
+    initial_target_step = min(
+        common.INITIAL_TARGET_STEP, int(budget["maximum_eval_step"])
+    )
+    previous_initial_target = record.setdefault(
+        "initial_target_step", initial_target_step
+    )
+    if int(previous_initial_target) != initial_target_step:
+        raise common.InfrastructureError(
+            f"Initial training horizon changed on resume for {frame}"
+        )
+
     common.freeze_dataset_manifest(
         frame, target_dataset, frame_root(args, frame) / "input_manifest.json"
     )
@@ -1166,6 +1188,7 @@ def process_frame(
                 seeds=seeds,
                 active_runs=record["active_runs"],
                 extend=False,
+                initial_target_step=initial_target_step,
             )
         except RuntimeError as error:
             if str(error) != "THREE_JOB_OOM":
@@ -1191,6 +1214,7 @@ def process_frame(
                 seeds=(42, 43),
                 active_runs=record["active_runs"],
                 extend=False,
+                initial_target_step=initial_target_step,
             )
     else:
         incomplete = []
@@ -1200,7 +1224,7 @@ def process_frame(
                 incomplete.append(int(seed_text))
             else:
                 summary = json.loads(summary_path.read_text(encoding="utf-8"))
-                if int(summary.get("latest_step", -1)) < common.INITIAL_TARGET_STEP:
+                if int(summary.get("latest_step", -1)) < initial_target_step:
                     incomplete.append(int(seed_text))
         if incomplete:
             if not record["active_runs"]:
@@ -1213,6 +1237,7 @@ def process_frame(
                 seeds=tuple(incomplete),
                 active_runs=record["active_runs"],
                 extend=False,
+                initial_target_step=initial_target_step,
             )
 
     boundaries_by_seed = _active_boundaries(record)
@@ -1235,10 +1260,6 @@ def process_frame(
         )
         return False
 
-    budget = common.training_budget(int(parent_info["checkpoint_step"]))
-    previous_budget = record.setdefault("training_budget", budget)
-    if previous_budget != budget:
-        raise common.InfrastructureError(f"Training budget changed on resume for {frame}")
     budget_exhausted = (
         max(row.local_step for row in all_boundaries)
         >= int(budget["maximum_eval_step"])
@@ -1338,6 +1359,7 @@ def process_frame(
                 seeds=contenders,
                 active_runs=record["active_runs"],
                 extend=True,
+                initial_target_step=initial_target_step,
             )
             boundaries_by_seed = _active_boundaries(record)
             build_frame_comparisons(args, frame, boundaries_by_seed)
@@ -1369,6 +1391,7 @@ def process_frame(
                 seeds=contenders,
                 active_runs=record["active_runs"],
                 extend=True,
+                initial_target_step=initial_target_step,
             )
             # New comparisons require new explicit decisions, so return through the
             # same review gate rather than starting another interval blindly.

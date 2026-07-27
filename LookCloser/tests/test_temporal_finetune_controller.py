@@ -176,6 +176,45 @@ def test_process_boundaries_and_same_frame_resume(tmp_path: Path) -> None:
         )
 
 
+def test_short_budget_stops_initial_trajectory_at_complete_boundary(
+    tmp_path: Path,
+) -> None:
+    args = temporal.parse_args(
+        [
+            "--target-frame",
+            "007754",
+            "--parent-snapshot",
+            str(common.DATA_ROOT / "007747" / "snapshot"),
+            "--seed",
+            "42",
+            "--output-dir",
+            str(tmp_path / "run"),
+            "--initial-target-step",
+            "45564",
+        ]
+    )
+    temporal.configure_v2(args)
+    segments = temporal.initial_segments(args)
+    assert [row.target_step for row in segments] == [45_564]
+    assert segments[0].load_mode == "model_parameters_only"
+
+
+def test_initial_target_must_be_complete_boundary() -> None:
+    with pytest.raises(SystemExit):
+        temporal.parse_args(
+            [
+                "--target-frame",
+                "007754",
+                "--parent-snapshot",
+                str(common.DATA_ROOT / "007747" / "snapshot"),
+                "--seed",
+                "42",
+                "--initial-target-step",
+                "45565",
+            ]
+        )
+
+
 def test_dataset_manifest_freezes_exact_standard_sets(tmp_path: Path) -> None:
     manifest = common.compute_dataset_manifest(
         "007754", common.DATA_ROOT / "007754"

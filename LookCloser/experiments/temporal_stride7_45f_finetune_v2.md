@@ -40,6 +40,7 @@ Fresh snapshot-only validation results so far are:
 | 007789 | 007782 | 43 | 197444 | 29.213392 | 0.684686 | 0.250949 | pass | 130% budget fallback |
 | 007796 | 007789 | 43 | 136692 | 29.071283 | 0.688657 | 0.254799 | pass | user-authorized early selection |
 | 007803 | 007796 | 43 | 167068 | 28.537096 | 0.693037 | 0.258206 | pass | 130% budget fallback |
+| 007810 | 007803 | 43 | 45564 | 28.066616 | 0.696145 | 0.296743 | pass | 130% budget fallback |
 
 For `007761`, the parent step produced a raw cap of276421 and a last complete
 boundary at273384. Continuing seed43 through318948 did not clear LPIPS0.217;
@@ -97,6 +98,17 @@ inside0.07 dB of the maximum-PSNR step151880 and had the lowest LPIPS in that
 window, so it was selected. Fresh snapshot-only validation reproduced
 `28.537096 / 0.693037 / 0.258206`; checkpoint SHA-256 is
 `9dd16a461f823c25f61ed0135066c6d83812aac799e8532593254ee765aee496`.
+
+For `007810`, the inherited cap was212632. Step45564 was the only visual
+pass inside0.07 dB of the maximum PSNR and was therefore selected even though
+later checkpoints had materially better LPIPS. Fresh snapshot-only validation
+reproduced `28.066616 / 0.696145 / 0.296743`; checkpoint SHA-256 is
+`3b2ed796685579d4772ae71b5201fd7037f3a433c96b2dd38f253a051493884a`.
+This exposed a short-budget edge case for the next frame: an unconditional
+initial horizon151880 would overrun the inherited45564 cap. The runner now
+accepts a provenance-recorded shorter initial horizon only at a complete15188
+boundary, retaining the fixed optimizer/model recipe while preventing wasted
+updates beyond the authorized budget.
 
 An API foreground process group was terminated with signal143 after two
 hours while this frame was training. The last complete boundary121504 was
