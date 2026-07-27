@@ -78,6 +78,15 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     parser.add_argument("--preflight-only", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument(
+        "--accept-current-best",
+        action="store_true",
+        help=(
+            "Stop extending the current frame and promote the best visually "
+            "accepted checkpoint observed so far. This is an explicit, "
+            "provenance-recorded user override of the normal training budget."
+        ),
+    )
+    parser.add_argument(
         "--initial-seeds",
         type=int,
         nargs="+",
@@ -1235,22 +1244,41 @@ def process_frame(
         >= int(budget["maximum_eval_step"])
     )
     budget_override: Optional[Dict[str, Any]] = None
-    if budget_exhausted:
+    if budget_exhausted or args.accept_current_best:
+        observed_latest_step = max(row.local_step for row in all_boundaries)
+        effective_maximum_eval_step = min(
+            observed_latest_step, int(budget["maximum_eval_step"])
+        )
         selected = common.select_budget_fallback(
             frame,
             all_boundaries,
             decisions,
-            maximum_eval_step=int(budget["maximum_eval_step"]),
+            maximum_eval_step=effective_maximum_eval_step,
         )
+        early_stop = args.accept_current_best and not budget_exhausted
         budget_override = {
             **budget,
+            "override_type": (
+                "user_authorized_early_selection"
+                if early_stop
+                else "iteration_budget_exhausted"
+            ),
+            "effective_maximum_eval_step": effective_maximum_eval_step,
             "reason": (
-                "Per-frame training reached the user-authorized 130% iteration "
-                "budget before clearing every numeric gate."
+                (
+                    "The user explicitly authorized selecting the best current "
+                    "checkpoint after the next evaluation boundary rather than "
+                    "spending the remaining per-frame iteration budget."
+                )
+                if early_stop
+                else (
+                    "Per-frame training reached the user-authorized 130% "
+                    "iteration budget before clearing every numeric gate."
+                )
             ),
             "selected_within_budget": common.boundary_payload(selected),
             "numeric_gate_passed": selected.numeric_pass,
-            "observed_latest_step": max(row.local_step for row in all_boundaries),
+            "observed_latest_step": observed_latest_step,
             "selection_policy": (
                 "visual pass; prefer PSNR+SSIM pass; within the selected pool "
                 "maximum PSNR, then minimum LPIPS inside the inclusive 0.07-dB "
