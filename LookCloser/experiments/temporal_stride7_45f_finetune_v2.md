@@ -119,6 +119,15 @@ promoted, `007824` was not launched, and the durable campaign state is
 `quality_failed` with reason `No visual-pass checkpoint exists within budget
 for 007817`.
 
+The failure is not an eval-order defect: all three render GT halves equal the
+frame JPEGs pixel-exactly, filenames remain eval1/eval2/eval3, and camera poses
+match `007810`. The step45564 ROI improves monotonically from the first
+boundary, while the full-view target still shows a smeared hand/face and
+ghosted shirt/leg. A frame-specific recovery path is therefore prepared but
+not activated: it requires an explicit CLI override and starts immutable
+`attempt-02` from the same accepted parent with fresh local-step0 state rather
+than mixing a new runner revision into `attempt-01`.
+
 An API foreground process group was terminated with signal143 after two
 hours while this frame was training. The last complete boundary121504 was
 intact, and resume continued the same trajectory from it. Subsequent

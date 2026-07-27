@@ -215,6 +215,120 @@ def test_initial_target_must_be_complete_boundary() -> None:
         )
 
 
+def test_visual_recovery_requires_frame_and_complete_boundary() -> None:
+    with pytest.raises(SystemExit):
+        campaign.parse_args(
+            [
+                "--visual-recovery-frame",
+                "007817",
+            ]
+        )
+    with pytest.raises(SystemExit):
+        campaign.parse_args(
+            [
+                "--visual-recovery-frame",
+                "007817",
+                "--visual-recovery-through-step",
+                "45565",
+            ]
+        )
+    args = campaign.parse_args(
+        [
+            "--start-frame",
+            "007817",
+            "--end-frame",
+            "007817",
+            "--visual-recovery-frame",
+            "007817",
+            "--visual-recovery-through-step",
+            "151880",
+        ]
+    )
+    assert args.visual_recovery_frame == "007817"
+    assert args.visual_recovery_through_step == 151_880
+
+
+def test_visual_recovery_creates_fresh_attempt_without_mutating_failed_run(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    args = campaign.parse_args(
+        [
+            "--campaign-root",
+            str(tmp_path / "campaign"),
+            "--start-frame",
+            "007817",
+            "--end-frame",
+            "007817",
+            "--visual-recovery-frame",
+            "007817",
+            "--visual-recovery-through-step",
+            "151880",
+            "--resume",
+        ]
+    )
+    store = campaign.CampaignStore(args.campaign_root / "campaign.json", resume=True)
+    old_run = tmp_path / "immutable-attempt-01"
+    store.data["frames"]["007817"] = {
+        "status": "quality_failed",
+        "parent_frame": "007810",
+        "parent_snapshot": str(common.DATA_ROOT / "007810" / "snapshot"),
+        "parent_checkpoint_sha256": "parent-sha",
+        "quality_failure": {"at": "then", "reason": "visual failure"},
+        "attempt": 1,
+        "active_runs": {"43": str(old_run)},
+        "training_budget": common.training_budget(45_564),
+        "initial_target_step": 45_564,
+    }
+    store.flush()
+    monkeypatch.setattr(
+        campaign.common,
+        "freeze_dataset_manifest",
+        lambda *args, **kwargs: {"frozen": True},
+    )
+    monkeypatch.setattr(
+        campaign,
+        "gpu_preflight",
+        lambda *args, **kwargs: {"selected": 1},
+    )
+    monkeypatch.setattr(
+        campaign,
+        "storage_preflight",
+        lambda *args, **kwargs: {"projected": True},
+    )
+
+    captured = {}
+
+    class RecoveryStarted(RuntimeError):
+        pass
+
+    def stop_before_training(*args, **kwargs):
+        captured.update(kwargs)
+        raise RecoveryStarted
+
+    monkeypatch.setattr(campaign, "run_wave", stop_before_training)
+    parent = {
+        "frame": "007810",
+        "snapshot": str(common.DATA_ROOT / "007810" / "snapshot"),
+        "checkpoint": str(common.snapshot_checkpoint(common.DATA_ROOT / "007810" / "snapshot")),
+        "checkpoint_sha256": "parent-sha",
+        "checkpoint_step": 45_564,
+    }
+    with pytest.raises(RecoveryStarted):
+        campaign.process_frame(
+            args, store, frame="007817", parent_info=parent
+        )
+
+    record = store.data["frames"]["007817"]
+    assert record["attempt"] == 2
+    assert record["active_runs"]["43"].endswith("seed-43-attempt-02")
+    assert record["superseded_active_runs"][0]["active_runs"] == {
+        "43": str(old_run)
+    }
+    assert record["visual_recovery_override"]["initial_target_step"] == 151_880
+    assert captured["extend"] is False
+    assert captured["initial_target_step"] == 151_880
+
+
 def test_dataset_manifest_freezes_exact_standard_sets(tmp_path: Path) -> None:
     manifest = common.compute_dataset_manifest(
         "007754", common.DATA_ROOT / "007754"

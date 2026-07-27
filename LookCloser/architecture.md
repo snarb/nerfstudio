@@ -654,6 +654,16 @@ a bad PSNR/LPIPS candidate. A numeric miss can be promoted only through this
 explicit fallback; the cap, missed gates and selection policy are recorded in
 `selection.json` and `provenance.json`.
 
+If every in-budget boundary fails the visual gate, the default remains
+fail-closed and no child frame can start. Recovery requires both an explicit
+frame and a complete final eval boundary on the controller CLI. It never
+changes or resumes the failed trajectory with a different source revision:
+the controller preserves that run, performs fresh GPU/storage preflight, and
+creates a new attempt from the same accepted parent with model-only transfer
+and fresh local-step0 state. The recovery cap and attempt lineage are recorded
+in campaign state and, if promotion eventually succeeds, in the snapshot
+budget override.
+
 The detached controller remains responsible for hourly supervision: every
 check verifies the controller and worker processes, compact progress,
 checkpoint state, GPU memory and OOM evidence and appends the result to the

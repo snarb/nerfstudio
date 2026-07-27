@@ -87,6 +87,22 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
         ),
     )
     parser.add_argument(
+        "--visual-recovery-frame",
+        choices=common.TARGET_FRAMES,
+        help=(
+            "Single failed frame explicitly authorized to continue beyond its "
+            "normal iteration budget in an attempt to recover the visual gate."
+        ),
+    )
+    parser.add_argument(
+        "--visual-recovery-through-step",
+        type=int,
+        help=(
+            "Hard final evaluation boundary for the frame-specific visual "
+            "recovery override."
+        ),
+    )
+    parser.add_argument(
         "--initial-seeds",
         type=int,
         nargs="+",
@@ -100,6 +116,22 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     args = parser.parse_args(argv)
     if common.frame_index(args.start_frame) > common.frame_index(args.end_frame):
         parser.error("--start-frame must not follow --end-frame")
+    if (args.visual_recovery_frame is None) != (
+        args.visual_recovery_through_step is None
+    ):
+        parser.error(
+            "--visual-recovery-frame and --visual-recovery-through-step "
+            "must be provided together"
+        )
+    if args.visual_recovery_through_step is not None:
+        if args.visual_recovery_through_step not in common.PROCESS_BOUNDARIES:
+            parser.error(
+                "--visual-recovery-through-step must be a complete "
+                "evaluation boundary through step151880"
+            )
+        selected = selected_frames(args)
+        if args.visual_recovery_frame not in selected:
+            parser.error("--visual-recovery-frame must be inside the requested range")
     if args.visual_decisions is None:
         args.visual_decisions = args.campaign_root / "visual_decisions.json"
     args.initial_seeds = tuple(dict.fromkeys(args.initial_seeds))
@@ -1152,6 +1184,96 @@ def process_frame(
         raise common.InfrastructureError(
             f"Initial training horizon changed on resume for {frame}"
         )
+    active_initial_target_step = initial_target_step
+    visual_recovery_through_step: Optional[int] = None
+    if args.visual_recovery_frame == frame:
+        visual_recovery_through_step = int(args.visual_recovery_through_step)
+        if visual_recovery_through_step <= int(budget["maximum_eval_step"]):
+            raise common.InfrastructureError(
+                f"Visual recovery for {frame} must extend beyond the normal "
+                f"budget boundary {budget['maximum_eval_step']}"
+            )
+        requested_recovery = {
+            "frame": frame,
+            "normal_maximum_eval_step": int(budget["maximum_eval_step"]),
+            "recovery_maximum_eval_step": visual_recovery_through_step,
+            "reason": (
+                "Explicit frame-specific recovery after every checkpoint "
+                "inside the normal iteration budget failed the visual gate."
+            ),
+        }
+        previous_recovery = record.get("visual_recovery_override")
+        if previous_recovery is None:
+            if record.get("status") != "quality_failed":
+                raise common.InfrastructureError(
+                    f"Visual recovery for {frame} requires a recorded "
+                    "quality_failed state"
+                )
+            recovery_seeds = tuple(
+                sorted(int(seed) for seed in record.get("active_runs", {}))
+            )
+            if not recovery_seeds:
+                raise common.InfrastructureError(
+                    f"Visual recovery for {frame} has no source trajectory"
+                )
+            recovery_gpu = gpu_preflight(args, len(recovery_seeds))
+            recovery_seeds = recovery_seeds[: int(recovery_gpu["selected"])]
+            recovery_storage = storage_preflight(
+                args,
+                frame,
+                Path(str(parent_info["checkpoint"])),
+                len(recovery_seeds),
+            )
+            recovery_attempt = int(record.get("attempt", 1)) + 1
+            active_initial_target_step = min(
+                common.INITIAL_TARGET_STEP, visual_recovery_through_step
+            )
+            recovery_override = {
+                **requested_recovery,
+                "attempt": recovery_attempt,
+                "initial_target_step": active_initial_target_step,
+                "trajectory_policy": (
+                    "new independent fresh-state attempt from the same "
+                    "accepted parent; failed source runs remain immutable"
+                ),
+            }
+            record.setdefault("quality_failure_history", []).append(
+                dict(record["quality_failure"])
+            )
+            record.setdefault("superseded_active_runs", []).append(
+                {
+                    "attempt": int(record.get("attempt", 1)),
+                    "active_runs": dict(record["active_runs"]),
+                    "reason": "normal-budget visual failure",
+                }
+            )
+            record["attempt"] = recovery_attempt
+            record["active_runs"] = {
+                str(seed): str(
+                    attempt_dir(args, frame, seed, recovery_attempt)
+                )
+                for seed in recovery_seeds
+            }
+            record["visual_recovery_override"] = recovery_override
+            record["visual_recovery_gpu_preflight"] = recovery_gpu
+            record["visual_recovery_storage_preflight"] = recovery_storage
+            record["status"] = "visual_recovery_training"
+            store.flush()
+        else:
+            for key, value in requested_recovery.items():
+                if previous_recovery.get(key) != value:
+                    raise common.InfrastructureError(
+                        f"Visual recovery authorization changed on resume for "
+                        f"{frame}: {key}"
+                    )
+            active_initial_target_step = int(
+                previous_recovery["initial_target_step"]
+            )
+    effective_maximum_eval_step = (
+        visual_recovery_through_step
+        if visual_recovery_through_step is not None
+        else int(budget["maximum_eval_step"])
+    )
 
     common.freeze_dataset_manifest(
         frame, target_dataset, frame_root(args, frame) / "input_manifest.json"
@@ -1188,7 +1310,7 @@ def process_frame(
                 seeds=seeds,
                 active_runs=record["active_runs"],
                 extend=False,
-                initial_target_step=initial_target_step,
+                initial_target_step=active_initial_target_step,
             )
         except RuntimeError as error:
             if str(error) != "THREE_JOB_OOM":
@@ -1214,7 +1336,7 @@ def process_frame(
                 seeds=(42, 43),
                 active_runs=record["active_runs"],
                 extend=False,
-                initial_target_step=initial_target_step,
+                initial_target_step=active_initial_target_step,
             )
     else:
         incomplete = []
@@ -1224,7 +1346,7 @@ def process_frame(
                 incomplete.append(int(seed_text))
             else:
                 summary = json.loads(summary_path.read_text(encoding="utf-8"))
-                if int(summary.get("latest_step", -1)) < initial_target_step:
+                if int(summary.get("latest_step", -1)) < active_initial_target_step:
                     incomplete.append(int(seed_text))
         if incomplete:
             if not record["active_runs"]:
@@ -1237,7 +1359,7 @@ def process_frame(
                 seeds=tuple(incomplete),
                 active_runs=record["active_runs"],
                 extend=False,
-                initial_target_step=initial_target_step,
+                initial_target_step=active_initial_target_step,
             )
 
     boundaries_by_seed = _active_boundaries(record)
@@ -1260,31 +1382,40 @@ def process_frame(
         )
         return False
 
-    budget_exhausted = (
-        max(row.local_step for row in all_boundaries)
-        >= int(budget["maximum_eval_step"])
+    observed_latest_step = max(row.local_step for row in all_boundaries)
+    training_cap_exhausted = (
+        observed_latest_step >= effective_maximum_eval_step
     )
     budget_override: Optional[Dict[str, Any]] = None
-    if budget_exhausted or args.accept_current_best:
-        observed_latest_step = max(row.local_step for row in all_boundaries)
-        effective_maximum_eval_step = min(
-            observed_latest_step, int(budget["maximum_eval_step"])
+    if training_cap_exhausted or args.accept_current_best:
+        selection_maximum_eval_step = min(
+            observed_latest_step, effective_maximum_eval_step
         )
         selected = common.select_budget_fallback(
             frame,
             all_boundaries,
             decisions,
-            maximum_eval_step=effective_maximum_eval_step,
+            maximum_eval_step=selection_maximum_eval_step,
         )
-        early_stop = args.accept_current_best and not budget_exhausted
+        early_stop = args.accept_current_best and not training_cap_exhausted
+        recovered_visual = visual_recovery_through_step is not None
         budget_override = {
             **budget,
             "override_type": (
                 "user_authorized_early_selection"
                 if early_stop
-                else "iteration_budget_exhausted"
+                else (
+                    "visual_recovery_cap_exhausted"
+                    if recovered_visual
+                    else "iteration_budget_exhausted"
+                )
             ),
-            "effective_maximum_eval_step": effective_maximum_eval_step,
+            "effective_maximum_eval_step": selection_maximum_eval_step,
+            "visual_recovery_override": (
+                dict(record["visual_recovery_override"])
+                if recovered_visual
+                else None
+            ),
             "reason": (
                 (
                     "The user explicitly authorized selecting the best current "
@@ -1293,8 +1424,15 @@ def process_frame(
                 )
                 if early_stop
                 else (
-                    "Per-frame training reached the user-authorized 130% "
-                    "iteration budget before clearing every numeric gate."
+                    (
+                        "Frame-specific visual recovery reached its explicitly "
+                        "authorized final evaluation boundary."
+                    )
+                    if recovered_visual
+                    else (
+                        "Per-frame training reached the user-authorized 130% "
+                        "iteration budget before clearing every numeric gate."
+                    )
                 )
             ),
             "selected_within_budget": common.boundary_payload(selected),
@@ -1330,7 +1468,7 @@ def process_frame(
                         frame,
                         authorized_boundaries,
                         decisions,
-                        maximum_eval_step=int(budget["maximum_eval_step"]),
+                        maximum_eval_step=effective_maximum_eval_step,
                     ),
                 )
             if not contenders:
@@ -1359,7 +1497,7 @@ def process_frame(
                 seeds=contenders,
                 active_runs=record["active_runs"],
                 extend=True,
-                initial_target_step=initial_target_step,
+                initial_target_step=active_initial_target_step,
             )
             boundaries_by_seed = _active_boundaries(record)
             build_frame_comparisons(args, frame, boundaries_by_seed)
@@ -1391,7 +1529,7 @@ def process_frame(
                 seeds=contenders,
                 active_runs=record["active_runs"],
                 extend=True,
-                initial_target_step=initial_target_step,
+                initial_target_step=active_initial_target_step,
             )
             # New comparisons require new explicit decisions, so return through the
             # same review gate rather than starting another interval blindly.
