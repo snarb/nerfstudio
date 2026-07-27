@@ -37,6 +37,7 @@ Fresh snapshot-only validation results so far are:
 | 007768 | 007761 | 43 | 151880 | 29.369335 | 0.685093 | 0.232447 | pass | 130% budget fallback |
 | 007775 | 007768 | 43 | 136692 | 28.974316 | 0.686357 | 0.245003 | pass | 130% budget fallback |
 | 007782 | 007775 | 43 | 167068 | 29.254963 | 0.685664 | 0.250975 | pass | 130% budget fallback |
+| 007789 | 007782 | 43 | 197444 | 29.213392 | 0.684686 | 0.250949 | pass | 130% budget fallback |
 
 For `007761`, the parent step produced a raw cap of276421 and a last complete
 boundary at273384. Continuing seed43 through318948 did not clear LPIPS0.217;
@@ -72,6 +73,12 @@ For `007782`, the inherited cap was167068. The final boundary was within
 so it was selected. Fresh snapshot-only validation reproduced
 `29.254963 / 0.685664 / 0.250975`; checkpoint SHA-256 is
 `e1ba488c1b367580057f64a80326aaa36085652434debb0d12cb970e854c4c14`.
+
+For `007789`, the inherited cap was212632. Step197444 was inside0.07 dB
+of the maximum-PSNR step182256 and had the better LPIPS, so it was selected.
+Fresh snapshot-only validation reproduced
+`29.213392 / 0.684686 / 0.250949`; checkpoint SHA-256 is
+`87c3ad61b490b141c592b8a781ffa70540c055efcf9aaa8d7158185e8826e8cd`.
 
 An API foreground process group was terminated with signal143 after two
 hours while this frame was training. The last complete boundary121504 was
