@@ -36,6 +36,7 @@ Fresh snapshot-only validation results so far are:
 | 007761 | 007754 | 43 | 212632 | 29.729786 | 0.681559 | 0.222157 | pass | 130% budget fallback |
 | 007768 | 007761 | 43 | 151880 | 29.369335 | 0.685093 | 0.232447 | pass | 130% budget fallback |
 | 007775 | 007768 | 43 | 136692 | 28.974316 | 0.686357 | 0.245003 | pass | 130% budget fallback |
+| 007782 | 007775 | 43 | 167068 | 29.254963 | 0.685664 | 0.250975 | pass | 130% budget fallback |
 
 For `007761`, the parent step produced a raw cap of276421 and a last complete
 boundary at273384. Continuing seed43 through318948 did not clear LPIPS0.217;
@@ -65,6 +66,12 @@ inclusive0.07-dB LPIPS rule to visual passes selected step136692; fresh
 snapshot-only validation reproduced `28.974316 / 0.686357 / 0.245003`.
 The checkpoint SHA-256 is
 `6b75cf75f5290c63e79ac209c1827b1ed47a128790b322353d07157737bee575`.
+
+For `007782`, the inherited cap was167068. The final boundary was within
+0.07 dB of the maximum-PSNR boundary and had the lowest LPIPS in that window,
+so it was selected. Fresh snapshot-only validation reproduced
+`29.254963 / 0.685664 / 0.250975`; checkpoint SHA-256 is
+`e1ba488c1b367580057f64a80326aaa36085652434debb0d12cb970e854c4c14`.
 
 An API foreground process group was terminated with signal143 after two
 hours while this frame was training. The last complete boundary121504 was
