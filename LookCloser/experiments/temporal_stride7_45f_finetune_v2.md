@@ -110,6 +110,15 @@ accepts a provenance-recorded shorter initial horizon only at a complete15188
 boundary, retaining the fixed optimizer/model recipe while preventing wasted
 updates beyond the authorized budget.
 
+`007817` exercised that short horizon and completed boundaries15188, 30376 and
+45564 in0.67 hours. Metrics improved through the cap to
+`26.372377 / 0.695074 / 0.305087`, but every native crop failed: the target
+hand was smeared into the face, individual fingers were not sharp or reliably
+separated, and shirt/leg detail remained visibly ghosted. No checkpoint was
+promoted, `007824` was not launched, and the durable campaign state is
+`quality_failed` with reason `No visual-pass checkpoint exists within budget
+for 007817`.
+
 An API foreground process group was terminated with signal143 after two
 hours while this frame was training. The last complete boundary121504 was
 intact, and resume continued the same trajectory from it. Subsequent
