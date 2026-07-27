@@ -35,6 +35,7 @@ Fresh snapshot-only validation results so far are:
 | 007754 | 007747 | 43 | 212632 | 29.913879 | 0.676014 | 0.212282 | pass | all numeric gates |
 | 007761 | 007754 | 43 | 212632 | 29.729786 | 0.681559 | 0.222157 | pass | 130% budget fallback |
 | 007768 | 007761 | 43 | 151880 | 29.369335 | 0.685093 | 0.232447 | pass | 130% budget fallback |
+| 007775 | 007768 | 43 | 136692 | 28.974316 | 0.686357 | 0.245003 | pass | 130% budget fallback |
 
 For `007761`, the parent step produced a raw cap of276421 and a last complete
 boundary at273384. Continuing seed43 through318948 did not clear LPIPS0.217;
@@ -57,6 +58,20 @@ maximum-PSNR/0.07-dB-window policy selected step151880. A fresh eval loaded
 only from the promoted snapshot reproduced `29.369335 / 0.685093 / 0.232447`;
 the promoted checkpoint SHA-256 is
 `3d8e834eaa7d637921d1a7833284115f706ae4e11943a0f8090ea32a25550381`.
+
+For `007775`, the shorter inherited cap was197444. No boundary reached
+PSNR29.7 or LPIPS0.217. Applying the unchanged maximum-PSNR then
+inclusive0.07-dB LPIPS rule to visual passes selected step136692; fresh
+snapshot-only validation reproduced `28.974316 / 0.686357 / 0.245003`.
+The checkpoint SHA-256 is
+`6b75cf75f5290c63e79ac209c1827b1ed47a128790b322353d07157737bee575`.
+
+An API foreground process group was terminated with signal143 after two
+hours while this frame was training. The last complete boundary121504 was
+intact, and resume continued the same trajectory from it. Subsequent
+controllers run in named detached `tmux` sessions, while the existing hourly
+JSONL supervision remains authoritative, so API-call lifetime cannot terminate
+the training process group.
 
 ## Insights
 
