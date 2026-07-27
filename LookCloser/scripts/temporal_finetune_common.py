@@ -426,34 +426,8 @@ def select_budget_fallback(
         if row.psnr >= PSNR_MIN and row.ssim >= SSIM_MIN
     ]
     if psnr_ssim:
-        return min(
-            psnr_ssim,
-            key=lambda row: (row.lpips, -row.psnr, row.local_step, row.seed),
-        )
-
-    def violation(row: Boundary) -> tuple[int, float, float, float, int, int]:
-        failed = sum(
-            (
-                row.psnr < PSNR_MIN,
-                row.ssim < SSIM_MIN,
-                row.lpips > LPIPS_MAX,
-            )
-        )
-        normalized = (
-            max(0.0, PSNR_MIN - row.psnr) / PSNR_TIE_DB
-            + max(0.0, SSIM_MIN - row.ssim) / 0.005
-            + max(0.0, row.lpips - LPIPS_MAX) / 0.005
-        )
-        return (
-            failed,
-            normalized,
-            row.lpips,
-            -row.psnr,
-            row.local_step,
-            row.seed,
-        )
-
-    return min(reviewed, key=violation)
+        return select_boundary(psnr_ssim)
+    return select_boundary(reviewed)
 
 
 def contender_seeds(boundaries: Sequence[Boundary]) -> tuple[int, ...]:

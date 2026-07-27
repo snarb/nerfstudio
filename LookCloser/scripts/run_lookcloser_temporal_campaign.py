@@ -1252,8 +1252,9 @@ def process_frame(
             "numeric_gate_passed": selected.numeric_pass,
             "observed_latest_step": max(row.local_step for row in all_boundaries),
             "selection_policy": (
-                "visual pass; prefer PSNR+SSIM pass; then minimum LPIPS, "
-                "maximum PSNR, earliest step, seed"
+                "visual pass; prefer PSNR+SSIM pass; within the selected pool "
+                "maximum PSNR, then minimum LPIPS inside the inclusive 0.07-dB "
+                "window, earliest step, seed"
             ),
         }
     else:

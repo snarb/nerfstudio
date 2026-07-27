@@ -389,6 +389,26 @@ def test_budget_uses_previous_selected_step_and_selects_best_visual_fallback() -
     assert (selected.seed, selected.local_step) == (43, 212_632)
 
 
+def test_budget_fallback_preserves_psnr_window_lpips_rule_without_numeric_pass() -> None:
+    rows = [
+        boundary(step=30_376, psnr=29.002, ssim=0.692, lpips=0.302),
+        boundary(step=136_692, psnr=28.974, ssim=0.686, lpips=0.245),
+        boundary(step=197_444, psnr=28.916, ssim=0.686, lpips=0.241),
+    ]
+    decisions = {
+        common.visual_key("007775", row.seed, row.local_step): {
+            "verdict": "pass",
+            "change_from_previous": "no_improvement",
+            "note": "reviewed",
+        }
+        for row in rows
+    }
+    selected = common.select_budget_fallback(
+        "007775", rows, decisions, maximum_eval_step=197_444
+    )
+    assert selected.local_step == 136_692
+
+
 def test_existing_comparison_uses_incremental_source_fingerprint(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:

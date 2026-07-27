@@ -643,9 +643,12 @@ training cap of 130% of its parent's selected local step, rounded down to the
 last complete 15188-step evaluation boundary. If no checkpoint clears every
 numeric gate by that boundary, the budget fallback considers only explicit
 visual passes inside the cap, prefers PSNR+SSIM passes, and then orders by
-minimum LPIPS, maximum PSNR, earliest step and seed. A numeric miss can be
-promoted only through this explicit fallback; the cap, missed gates and
-selection policy are recorded in `selection.json` and `provenance.json`.
+maximum PSNR followed by minimum LPIPS inside the inclusive0.07-dB window,
+earliest step and seed. If no boundary passes PSNR+SSIM, the same
+PSNR-window/LPIPS selector is applied to all visual passes; SSIM never rescues
+a bad PSNR/LPIPS candidate. A numeric miss can be promoted only through this
+explicit fallback; the cap, missed gates and selection policy are recorded in
+`selection.json` and `provenance.json`.
 
 The detached controller remains responsible for hourly supervision: every
 check verifies the controller and worker processes, compact progress,
