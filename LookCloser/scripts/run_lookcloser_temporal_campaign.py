@@ -1539,9 +1539,22 @@ def run(args: argparse.Namespace) -> int:
                 common.DATA_ROOT / expected_parent / "snapshot",
                 expected_frame=expected_parent,
             )
-        if not process_frame(
-            args, store, frame=frame, parent_info=parent_info
-        ):
+        try:
+            frame_complete = process_frame(
+                args, store, frame=frame, parent_info=parent_info
+            )
+        except common.QualityFailure as error:
+            frame_record = store.data["frames"].setdefault(frame, {})
+            frame_record["status"] = "quality_failed"
+            frame_record["quality_failure"] = {
+                "at": common.utc_now(),
+                "reason": str(error),
+            }
+            store.data["status"] = "quality_failed"
+            store.data["current_frame"] = frame
+            store.flush()
+            raise
+        if not frame_complete:
             store.data["status"] = "awaiting_visual_review"
             store.data["current_frame"] = frame
             store.flush()
