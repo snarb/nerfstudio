@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run and evaluate a fail-closed from-scratch LookCloser campaign on frame 007747."""
+"""Run and evaluate a fail-closed from-scratch LookCloser campaign on one frame."""
 
 from __future__ import annotations
 
@@ -60,6 +60,16 @@ ALLOWED_DIRTY_PREFIXES = (
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--campaign-name", required=True)
+    parser.add_argument(
+        "--frame",
+        default=None,
+        help="Frame identifier; defaults to the dataset directory name.",
+    )
+    parser.add_argument(
+        "--expected-branch",
+        default="main",
+        help="Fail unless the controller is running from this git branch.",
+    )
     parser.add_argument("--variant", choices=("canonical", "fas075", "hash24", "custom"), default="canonical")
     parser.add_argument("--data", type=Path, default=DEFAULT_DATA)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT)
@@ -94,6 +104,9 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--leader-render-dir", type=Path, default=DEFAULT_LEADER_RENDER_DIR)
     parser.add_argument("--tcnn-overlay", type=Path, default=DEFAULT_TCNN_OVERLAY)
     args = parser.parse_args(argv)
+    args.frame = args.data.resolve().name if args.frame is None else args.frame
+    if args.frame != args.data.resolve().name:
+        parser.error("--frame must match the dataset directory name")
     if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.-]{0,127}", args.campaign_name):
         parser.error("--campaign-name must be filesystem-safe")
     if args.tail_intervals < 0:
@@ -179,10 +192,12 @@ def git_output(*arguments: str) -> str:
     return subprocess.check_output(["git", *arguments], cwd=REPO, text=True).strip()
 
 
-def validate_worktree() -> Dict[str, Any]:
+def validate_worktree(expected_branch: str) -> Dict[str, Any]:
     branch = git_output("branch", "--show-current")
-    if branch != "main":
-        raise RuntimeError(f"Training must start from main, found {branch!r}")
+    if branch != expected_branch:
+        raise RuntimeError(
+            f"Training must start from branch {expected_branch!r}, found {branch!r}"
+        )
     # Preserve porcelain's leading status column (for example `` M path``).
     status_text = subprocess.check_output(["git", "status", "--short"], cwd=REPO, text=True)
     status = [line for line in status_text.splitlines() if line]
@@ -286,7 +301,7 @@ def dataset_preflight(args: argparse.Namespace) -> Dict[str, Any]:
     if len(leader_renders) != 3:
         raise RuntimeError(f"Expected three canonical leader renders in {args.leader_render_dir}")
     return {
-        "worktree": validate_worktree(),
+        "worktree": validate_worktree(args.expected_branch),
         "data": str(data),
         "train_images": len(train),
         "eval_images": len(evaluation),
@@ -543,7 +558,7 @@ def fresh_eval(
     roi_command = [
         str(args.venv / "bin" / "python"),
         str(ROI_PROTOCOL),
-        "--frame", "007747",
+        "--frame", args.frame,
         "--dataset", str(args.data),
         "--render-dir", str(render_dir),
         "--out-dir", str(roi_dir),
@@ -740,6 +755,8 @@ def initialize_manifest(args: argparse.Namespace, preflight: Dict[str, Any]) -> 
         manifest = json.loads(path.read_text(encoding="utf-8"))
         expected = {
             "variant": args.variant,
+            "frame": args.frame,
+            "expected_branch": args.expected_branch,
             "data": str(args.data),
             "seed": args.seed,
             "fas_strength": args.fas_strength,
@@ -770,6 +787,8 @@ def initialize_manifest(args: argparse.Namespace, preflight: Dict[str, Any]) -> 
         "status": "initialized",
         "recipe": {
             "variant": args.variant,
+            "frame": args.frame,
+            "expected_branch": args.expected_branch,
             "data": str(args.data),
             "seed": args.seed,
             "fas_strength": args.fas_strength,
