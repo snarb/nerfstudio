@@ -709,6 +709,16 @@ optional `resume_reset_frequency_grid` and `resume_reset_occupancy_grid`
 controls exist for isolated same-checkpoint diagnostics; normal cross-frame
 transfer obtains both resets structurally through model-only loading.
 
+The isolated 007810 scratch validation lives on branch
+`scratch-007810-seed-sweep` in worktree
+`/home/brans/repos/nerfstudio_007810_scratch3`. Its generalized static-target
+controller accepts an explicit frame and expected worktree branch while preserving
+the frozen Stage-A/Stage-B weight recipe. The campaign supervisor runs seeds
+42/43/44 concurrently on GPU0, records process/GPU/OOM supervision every minute,
+and extends each same-seed trajectory by one15188-update interval until two
+numeric plateau intervals are present. This is an experiment harness, not a
+change to main defaults or to the canonical transfer chain.
+
 The hash24, chroma422-map, FAS0.75 and FR0.3→0.2 recipe was an accepted
 historical pre-conversion treatment only. It is not the default, fallback or
 map path for the active canonicalized revision.
