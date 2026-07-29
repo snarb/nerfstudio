@@ -719,6 +719,17 @@ and extends each same-seed trajectory by one15188-update interval until two
 numeric plateau intervals are present. This is an experiment harness, not a
 change to main defaults or to the canonical transfer chain.
 
+The completed sweep selected seed43 step182256 by the maximum-PSNR then
+minimum-LPIPS-within0.07-dB rule: `29.697031 / 0.671247 / 0.209829`.
+Seed42 stopped at151880 and seed44 at167068; seed43 continued through212632
+before two numeric and visually reviewed plateau intervals were confirmed.
+The selected checkpoint has zero serious full-view artifacts, a clean fixed
+ROI and SHA-256
+`d7772a5cb9901a08fd4138e384f32bffa0b47aaa502ab741de41061717e9b7e2`.
+The complete evidence is recorded in
+`experiments/static_007810_from_scratch_seed_sweep.md`; none of these
+experiment-only changes are promoted to main.
+
 The hash24, chroma422-map, FAS0.75 and FR0.3→0.2 recipe was an accepted
 historical pre-conversion treatment only. It is not the default, fallback or
 map path for the active canonicalized revision.
