@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Score and archive the fixed 007747 contact-hands/chain visual protocol."""
+"""Score and archive the fixed temporal contact-hands/chain visual protocol."""
 
 from __future__ import annotations
 
@@ -146,6 +146,7 @@ def save_contact_sheet(
     target_gt: np.ndarray,
     target_render: np.ndarray,
     path: Path,
+    frame: str = "007747",
     scratch_gt: np.ndarray | None = None,
     scratch_render: np.ndarray | None = None,
 ) -> None:
@@ -155,9 +156,9 @@ def save_contact_sheet(
     labels = ["leader 007740 GT", "leader 007740 render"]
     if scratch_gt is not None and scratch_render is not None:
         panels.extend([scratch_gt, scratch_render])
-        labels.extend(["scratch 007747 GT", "scratch 007747 render"])
+        labels.extend([f"scratch {frame} GT", f"scratch {frame} render"])
     panels.extend([target_gt, target_render])
-    labels.extend(["target 007747 GT", "target 007747 render"])
+    labels.extend([f"target {frame} GT", f"target {frame} render"])
     panel_height, panel_width = panels[0].shape[:2]
     if any(panel.shape[:2] != (panel_height, panel_width) for panel in panels):
         raise ValueError("Every contact-sheet panel must have identical native dimensions")
@@ -181,8 +182,6 @@ def save_contact_sheet(
 
 
 def build_protocol(args: argparse.Namespace) -> Dict[str, Any]:
-    if args.frame != "007747":
-        raise ValueError("The fixed contact-hands/chain protocol is defined for frame 007747")
     eval_path = args.dataset / "images" / "frame_eval_00001.jpg"
     dataset_gt = load_rgb(eval_path)
     full_views = []
@@ -243,6 +242,7 @@ def build_protocol(args: argparse.Namespace) -> Dict[str, Any]:
         target_gt,
         target_render,
         contact_sheet,
+        frame=args.frame,
         scratch_gt=scratch_gt,
         scratch_render=scratch_render,
     )

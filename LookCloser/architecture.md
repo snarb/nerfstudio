@@ -491,13 +491,15 @@ exposure stays exactly 4,294,967,296 points. Full speed campaigns stop at the no
 step-91128 acceptance boundary, then use the same first-numeric-clean selector. Mature batch
 profiles and decisions are recorded in `experiments/static_leader_speed_optimization.md`.
 
-## Static 007747 from-scratch campaign
+## Static temporal from-scratch campaign
 
 `scripts/run_static_target_from_scratch.py` is isolated from the frozen 007740 reproduction
-controller. It trains frame `007747` from random initialization on canonical `main`, uses the same
-75940-update FR1.0 ancestry and a configurable continuation (default FR0.3), and rejects any Stage-A config containing a
-load checkpoint or load directory. Stage B and optional one-interval tails may load only a
-checkpoint produced earlier by the same campaign.
+controller. It trains one requested temporal frame from random initialization on the expected
+branch (canonical production default: `main`), uses the same 75940-update FR1.0 ancestry and a
+configurable continuation (default FR0.3), and rejects any Stage-A config containing a load
+checkpoint or load directory. `--frame` defaults to the dataset directory name and must match it.
+Stage B and optional one-interval tails may load only a checkpoint produced earlier by the same
+campaign. The default data path remains the historical `007747` dataset.
 
 `--stage-b-feature-reweighting` is an explicit, resume-validated recipe coordinate. The 007747
 corrected-map sweep selects `0.2`; `0.1`, `0.2`, and `0.3` were compared from the same
@@ -517,6 +519,35 @@ Tail resumptions advance from the highest completed campaign-local checkpoint, s
 one-interval requests cannot replay an older boundary. Numeric plateau state and explicit
 `improved`/`no_improvement` moving-detail reviews are stored per consecutive interval; plateau is
 confirmed only when the last two intervals satisfy both gates.
+
+### Default from-scratch quality budget: step 121504
+
+The production default is now one complete 15188-update tail after Stage B:
+Stage A `0→75940` at FR1.0, Stage B `75940→106316` at FR0.3, then the
+campaign-local continuation `106316→121504` at FR0.3. Accordingly,
+omitting `--tail-intervals` activates the absolute step121504 budget (one
+interval from Stage B), and dry-run output includes the `tail_121504` command.
+The absolute cap is resume-safe: resuming a campaign already at step121504 does
+not silently extend it. `--tail-intervals 0` is a shorter diagnostic override;
+an explicit positive interval count is plateau/research work rather than the
+normal quality budget.
+
+This boundary is backed by the three-seed, from-scratch `007810` sweep. Seed43
+step121504 was the first and only checkpoint to pass that target's declared
+aggregate PSNR/SSIM/LPIPS hard gates together with full-view, fixed-ROI and
+manual visual gates (`29.715626 / 0.672032 / 0.215131`). Direct user inspection
+confirms a visible quality improvement from step75940 to step121504. Continuing
+seed43 to step182256 and finally step212632 produced no visible quality
+improvement; it only reduced LPIPS slightly while PSNR and SSIM weakened.
+Step121504 is therefore the reasonable default **quality** budget, not merely a
+speed-versus-quality compromise. The budget change does not relax the
+controller's existing acceptance gates; a checkpoint that misses its configured
+quality threshold still fails closed at the default boundary.
+
+The adaptive research controller may still extend one interval at a time until
+two reviewed plateau intervals are confirmed. This default does not shorten
+the separate cross-frame temporal fine-tuning controller: that pipeline keeps
+its own measured budgets because earlier frames have required later boundaries.
 
 The campaign preflight binds 66 train images, 3 filename eval images, 66 frequency maps, transforms,
 JPEG profile, source hashes and the canonical leader reference. The leader checkpoint is hashed and

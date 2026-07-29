@@ -54,6 +54,56 @@ def test_canonical_stage_a_is_from_scratch_and_stage_b_uses_only_own_parent(tmp_
     assert stage_b[stage_b.index("--feature-reweighting-strength") + 1] == "0.3"
     assert str(controller.DEFAULT_LEADER_CHECKPOINT) not in stage_a
     assert str(controller.DEFAULT_LEADER_CHECKPOINT) not in stage_b
+    assert parsed.tail_intervals == controller.DEFAULT_TAIL_INTERVALS == 1
+    assert parsed.default_budget is True
+    assert controller.DEFAULT_BUDGET_STEP == 121_504
+
+
+def test_default_dry_run_reaches_reviewed_step_121504(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    parsed = args(tmp_path)
+
+    assert controller.dry_run(parsed, {"status": "test"}) == 0
+    payload = json.loads(capsys.readouterr().out)
+
+    assert list(payload["commands"]) == ["stage_a", "stage_b", "tail_121504"]
+    tail = payload["commands"]["tail_121504"]
+    assert tail[tail.index("--max-num-iterations") + 1] == "121505"
+    assert tail[tail.index("--load-checkpoint") + 1].endswith(
+        "step-000106316.ckpt"
+    )
+
+
+def test_tail_budget_can_be_explicitly_disabled(tmp_path: Path) -> None:
+    parsed = args(tmp_path, "--tail-intervals", "0")
+    assert parsed.tail_intervals == 0
+    assert parsed.default_budget is False
+
+
+def test_default_budget_does_not_extend_step_121504_again_on_resume(
+    tmp_path: Path,
+) -> None:
+    checkpoint = tmp_path / "step-000121504.ckpt"
+    checkpoint.touch()
+
+    assert controller.tail_intervals_to_run(args(tmp_path), checkpoint) == 0
+    assert (
+        controller.tail_intervals_to_run(
+            args(tmp_path, "--tail-intervals", "1"), checkpoint
+        )
+        == 1
+    )
+
+
+def test_frame_defaults_to_dataset_name_and_must_match(tmp_path: Path) -> None:
+    data = tmp_path / "007810"
+    parsed = args(tmp_path, "--data", str(data))
+    assert parsed.frame == "007810"
+    assert parsed.expected_branch == "main"
+
+    with pytest.raises(SystemExit):
+        args(tmp_path, "--data", str(data), "--frame", "007811")
 
 
 def test_variants_change_only_declared_capacity_or_fas_defaults(tmp_path: Path) -> None:
