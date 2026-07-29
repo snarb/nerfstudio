@@ -21,8 +21,10 @@ Each campaign uses the frozen static-leader weight recipe:
 
 After the fixed leader stages, each seed is extended one interval at a time until its last two
 full-eval intervals both satisfy the numeric plateau thresholds: PSNR gain below0.03 dB, SSIM gain
-below0.001 and LPIPS improvement below0.003. The final cross-seed selector maximizes full-eval
-PSNR, then minimizes LPIPS within the inclusive0.07-dB window. Loss is not used in reporting.
+below0.001 and LPIPS improvement below0.003. The historical window selector maximizes full-eval
+PSNR, then minimizes LPIPS within the inclusive0.07-dB window. The promotion selector first
+requires PSNR>=29.7, SSIM>=0.668, LPIPS<=0.22 and the automatic plus manual visual gates, then
+applies the same PSNR-window/LPIPS ordering. Loss is not used in reporting.
 
 Controller worktree:
 `/home/brans/repos/nerfstudio_007810_scratch3`, branch
@@ -38,7 +40,7 @@ All three campaigns completed without OOM or CUDA errors. The supervisor ran fro
 trailing numeric plateau intervals; the selected seed's final two intervals were also reviewed
 side by side and recorded as no visible improvement.
 
-| Seed | Latest step | Selected step | PSNR | SSIM | LPIPS | Full serious artifacts | Plateau |
+| Seed | Latest step | Window-selected step | PSNR | SSIM | LPIPS | Full serious artifacts | Plateau |
 |---:|---:|---:|---:|---:|---:|---:|:---:|
 | 42 | 151880 | 151880 | 29.631721 | 0.676035 | 0.218873 | 1 | yes |
 | 43 | 212632 | **182256** | **29.697031** | 0.671247 | **0.209829** | **0** | yes |
@@ -46,37 +48,50 @@ side by side and recorded as no visible improvement.
 
 The cross-seed trajectory maximum is seed43 step121504 at PSNR29.715626. The inclusive0.07-dB
 window contains seed43 step182256, whose PSNR is only0.018595 dB lower and whose LPIPS improves by
-0.005302. The frozen selector therefore chooses seed43 step182256. No loss value participates in
-the report or selection.
+0.005302. The historical window selector therefore chooses seed43 step182256, but it is
+0.002969 dB below the explicit hard PSNR minimum and is not promoted.
 
-Selected artifacts:
+Exactly one checkpoint passes every hard and visual gate:
+
+| Seed | Step | PSNR | SSIM | LPIPS | Full serious | ROI serious | Manual visual |
+|---:|---:|---:|---:|---:|---:|:---:|:---:|
+| **43** | **121504** | **29.715626** | **0.672032** | **0.215131** | **0** | **no** | **pass** |
+
+The authoritative hard-gate selection is therefore seed43 step121504. Training did not stop at
+this first pass: the same trajectory continued through step212632. Its final two intervals
+`182256→197444→212632` satisfy all numeric plateau thresholds and were both reviewed as having no
+visible detail improvement.
+
+Promoted artifacts:
 
 - checkpoint:
-  `/mnt/data/lookcloser_007810_from_scratch_seed_sweep/007810_leader_recipe_seed43_tail_s182256/lookcloser/20260728_161435/nerfstudio_models/step-000182256.ckpt`;
+  `/mnt/data/lookcloser_007810_from_scratch_seed_sweep/007810_leader_recipe_seed43_tail_s121504/lookcloser/20260728_161435/nerfstudio_models/step-000121504.ckpt`;
 - checkpoint SHA-256:
-  `d7772a5cb9901a08fd4138e384f32bffa0b47aaa502ab741de41061717e9b7e2`;
+  `9a3416011a86e78ee55edd410d093eeef7bd17df7659ee430dd2b559828d65f8`;
 - fresh eval:
-  `/mnt/data/lookcloser_007810_from_scratch_seed_sweep/campaigns/007810_leader_recipe_seed43/evaluations/step-000182256/eval.json`;
+  `/mnt/data/lookcloser_007810_from_scratch_seed_sweep/campaigns/007810_leader_recipe_seed43/evaluations/step-000121504/eval.json`;
 - fresh renders:
-  `/mnt/data/lookcloser_007810_from_scratch_seed_sweep/campaigns/007810_leader_recipe_seed43/evaluations/step-000182256/renders`;
-- numeric selection:
+  `/mnt/data/lookcloser_007810_from_scratch_seed_sweep/campaigns/007810_leader_recipe_seed43/evaluations/step-000121504/renders`;
+- hard-gate selection:
+  `/mnt/data/lookcloser_007810_from_scratch_seed_sweep/selection_hard_gates.json`;
+- historical window selection:
   `/mnt/data/lookcloser_007810_from_scratch_seed_sweep/selection_numeric.json`;
 - supervision log:
   `/mnt/data/lookcloser_007810_from_scratch_seed_sweep/supervision.jsonl`.
 
-Selected contact crop:
+Promoted contact crop:
 
-![seed43 step182256 contact crop](/mnt/data/lookcloser_007810_from_scratch_seed_sweep/campaigns/007810_leader_recipe_seed43/evaluations/step-000182256/roi/contact_hands_chain_2x2.png)
+![seed43 step121504 contact crop](/mnt/data/lookcloser_007810_from_scratch_seed_sweep/campaigns/007810_leader_recipe_seed43/evaluations/step-000121504/roi/contact_hands_chain_2x2.png)
 
-Selected full views:
+Promoted full views:
 
-![eval0 GT and render](/mnt/data/lookcloser_007810_from_scratch_seed_sweep/campaigns/007810_leader_recipe_seed43/evaluations/step-000182256/renders/eval_img_0000.png)
+![eval0 GT and render](/mnt/data/lookcloser_007810_from_scratch_seed_sweep/campaigns/007810_leader_recipe_seed43/evaluations/step-000121504/renders/eval_img_0000.png)
 
-![eval1 GT and render](/mnt/data/lookcloser_007810_from_scratch_seed_sweep/campaigns/007810_leader_recipe_seed43/evaluations/step-000182256/renders/eval_img_0001.png)
+![eval1 GT and render](/mnt/data/lookcloser_007810_from_scratch_seed_sweep/campaigns/007810_leader_recipe_seed43/evaluations/step-000121504/renders/eval_img_0001.png)
 
-![eval2 GT and render](/mnt/data/lookcloser_007810_from_scratch_seed_sweep/campaigns/007810_leader_recipe_seed43/evaluations/step-000182256/renders/eval_img_0002.png)
+![eval2 GT and render](/mnt/data/lookcloser_007810_from_scratch_seed_sweep/campaigns/007810_leader_recipe_seed43/evaluations/step-000121504/renders/eval_img_0002.png)
 
-The selected candidate has zero serious full-view artifacts and a non-serious fixed ROI. Manual
+The promoted candidate has zero serious full-view artifacts and a non-serious fixed ROI. Manual
 review passes all three views: raised-hand fingers remain distinct to the extent present in the
 motion-blurred GT, cables and thin structures remain continuous, and there is no new structural
 hole or obvious local blur. Steps197444 and212632 do not add visible detail and form the final
@@ -92,9 +107,8 @@ confirmed visual plateau.
 - Seed43 was non-monotonic: it reached PSNR29.715626 at121504, fell sharply, recovered to
   29.697031/0.209829 at182256, then plateaued. Extending by measured intervals rather than stopping
   at the first regression materially improved the final LPIPS.
-- The selected target result is0.143112 dB below the static 007740 leader PSNR gate
-  (29.840143), but improves its LPIPS by0.009626 and SSIM by0.002044. The strict static-leader
-  all-metric gate therefore remains a visible miss rather than being relabeled as acceptance on a
-  different frame.
+- The hard-gate selection is0.124517 dB below the static 007740 leader PSNR
+  (29.840143), but improves its LPIPS by0.004324 and SSIM by0.002829. The stricter static-leader
+  all-metric comparison therefore remains visible while the explicit target hard gates pass.
 - The main worktree was not modified. All controller changes and documentation are committed only
   on `scratch-007810-seed-sweep`.

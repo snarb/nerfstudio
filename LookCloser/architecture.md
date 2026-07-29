@@ -719,13 +719,17 @@ and extends each same-seed trajectory by one15188-update interval until two
 numeric plateau intervals are present. This is an experiment harness, not a
 change to main defaults or to the canonical transfer chain.
 
-The completed sweep selected seed43 step182256 by the maximum-PSNR then
-minimum-LPIPS-within0.07-dB rule: `29.697031 / 0.671247 / 0.209829`.
+The historical maximum-PSNR then minimum-LPIPS-within0.07-dB rule chooses
+seed43 step182256 (`29.697031 / 0.671247 / 0.209829`), but that candidate is
+0.002969 dB below the explicit target hard minimum. The hard-gate selector
+therefore promotes the only all-gate candidate, seed43 step121504:
+`29.715626 / 0.672032 / 0.215131`. It has zero serious full-view artifacts,
+a clean fixed ROI, a manual visual pass and checkpoint SHA-256
+`9a3416011a86e78ee55edd410d093eeef7bd17df7659ee430dd2b559828d65f8`.
 Seed42 stopped at151880 and seed44 at167068; seed43 continued through212632
-before two numeric and visually reviewed plateau intervals were confirmed.
-The selected checkpoint has zero serious full-view artifacts, a clean fixed
-ROI and SHA-256
-`d7772a5cb9901a08fd4138e384f32bffa0b47aaa502ab741de41061717e9b7e2`.
+before two numeric and visually reviewed plateau intervals were confirmed, so
+promotion of the earlier hard-gate checkpoint does not truncate a still
+materially improving trajectory.
 The complete evidence is recorded in
 `experiments/static_007810_from_scratch_seed_sweep.md`; none of these
 experiment-only changes are promoted to main.
