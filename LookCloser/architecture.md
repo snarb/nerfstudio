@@ -10,6 +10,7 @@
 - `nerfstudio/models/lookcloser.py` — LookCloser model and adaptive ray marching.
 - `nerfstudio/pipelines/lookcloser_pipeline.py` — training pipeline and grid updates.
 - `nerfstudio/configs/method_configs.py` — `lookcloser` method config.
+- `scripts/render_temporal_*.py` — read-only temporal snapshot, camera-path, metric dolly, lossless-video, and validation utilities.
 
 ## Git and worktree layout
 
