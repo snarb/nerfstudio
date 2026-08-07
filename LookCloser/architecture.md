@@ -562,6 +562,28 @@ profile, proves the recipe 69/69 byte-exact on protected 007740, and permits a b
 apply only to frames newer than 007740. Canonicalizing JPEGs creates a new dataset revision: do it
 before frequency preprocessing, then regenerate maps from the new image bytes.
 
+### Full-resolution temporal raw-EXR revision
+
+`scripts/convert_temporal_raw_exr_dataset.py` rebuilds the same 45-frame, 69-camera temporal
+selection as full `6144×3072` linear-sRGB EXR. Image payloads are copied byte-for-byte from the
+corresponding `/mnt/data/6A_4_EXR/<frame>/<physical-camera>.exr` files: exposure, ACES, grading,
+transfer functions and resampling are not applied to dataset pixels. The historical display grade
+is used only to produce temporary JPEG previews for visual camera/frame correspondence checks.
+
+The train/eval filename mapping, COLMAP image IDs, distortion coefficients and camera-to-world
+matrices remain invariant. Because the old `1920×1080` images were a centered 16:9 crop of the
+native 2:1 frame, the full-frame intrinsics invert that crop using `crop_left=341`,
+`crop_width=5461`, `sx=5461/1920` and `sy=3072/1080`. Frequency maps from the JPEG revision are not
+valid for this resolution. The current PIL-based Nerfstudio image loader also does not load these
+float EXRs; loader support and new frequency preprocessing are separate follow-up work.
+
+`scripts/create_temporal_exr_1920x1080.py` creates a second, non-destructive EXR revision at the
+original training resolution. It applies the frozen JPEG geometry to linear pixels: crop
+`[341:5802, 0:3072]`, Pillow Lanczos to `2560×1440`, then Pillow Lanczos to `1920×1080`. It does not
+apply the JPEG exposure, ACES/grade, transfer function or a value clamp. This revision reuses the
+JPEG camera records exactly (apart from `.jpg` becoming `.exr`), so its intrinsics and extrinsics
+need no coordinate conversion. The full `6144×3072` EXR revision remains a separate read-only input.
+
 ### Frequency-map preparation contract
 
 Frequency maps are comparable only when their estimator-input contract is identical: decoded color
