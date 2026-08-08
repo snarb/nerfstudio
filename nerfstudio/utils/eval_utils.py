@@ -42,6 +42,17 @@ def eval_load_checkpoint(config: TrainerConfig, pipeline: Pipeline) -> Tuple[Pat
     Returns:
         A tuple of the path to the loaded checkpoint and the step at which it was saved.
     """
+    eval_checkpoint = getattr(config, "eval_checkpoint", None)
+    if eval_checkpoint is not None:
+        load_path = Path(eval_checkpoint)
+        if not load_path.is_file():
+            raise FileNotFoundError(load_path)
+        loaded_state = torch.load(load_path, map_location="cpu", weights_only=False)
+        load_step = int(loaded_state["step"])
+        pipeline.load_pipeline(loaded_state["pipeline"], load_step)
+        CONSOLE.print(f":white_check_mark: Done loading exact eval checkpoint from {load_path}")
+        return load_path, load_step
+
     assert config.load_dir is not None
     if config.load_step is None:
         CONSOLE.print("Loading latest checkpoint from load_dir")
@@ -101,8 +112,8 @@ def eval_setup(
         config = update_config_callback(config)
 
     # load checkpoints from wherever they were saved
-    # TODO: expose the ability to choose an arbitrary checkpoint
-    config.load_dir = config.get_checkpoint_dir()
+    if getattr(config, "eval_checkpoint", None) is None:
+        config.load_dir = config.get_checkpoint_dir()
 
     # setup pipeline (which includes the DataManager)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

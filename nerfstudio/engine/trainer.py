@@ -333,6 +333,8 @@ class TrainerConfig(ExperimentConfig):
     """Path to config YAML file."""
     load_checkpoint: Optional[Path] = None
     """Path to checkpoint file."""
+    eval_checkpoint: Optional[Path] = None
+    """Exact checkpoint override used only by evaluation; unset preserves latest-run selection."""
     checkpoint_load_mode: Literal["resume", "model_parameters_only"] = "resume"
     """Full resume, or a fresh local run initialized only from ``fields`` parameters."""
     load_optimizers: bool = True

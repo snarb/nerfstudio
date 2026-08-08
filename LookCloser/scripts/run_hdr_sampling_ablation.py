@@ -191,9 +191,7 @@ def evaluate_variant(args: argparse.Namespace, name: str, overrides: dict[str, A
     if args.checkpoint is not None:
         if not args.checkpoint.is_file():
             raise FileNotFoundError(args.checkpoint)
-        config.load_checkpoint = args.checkpoint.resolve()
-        config.load_dir = None
-        config.load_step = None
+        config.eval_checkpoint = args.checkpoint.resolve()
     model = config.pipeline.model
     model.eval_num_rays_per_chunk = int(args.eval_num_rays_per_chunk)
     for key, value in overrides.items():
