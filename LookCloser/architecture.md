@@ -854,6 +854,11 @@ The HDR loss screen also exposes PQ-MSE and opt-in PQ-L1+LPIPS. LPIPS training u
 row-major spatial patches sampled by FAS; the historical EAG-PQ-DSSIM path keeps independent-ray
 sampling for checkpoint/recipe compatibility. Both losses still predict and composite linear RGB.
 
+The promoted EXR quality path stages 64×64 PQ-L1+LPIPS training into a short PQ-MSE recovery and
+uses dense 4× corrected adaptive rendering. Step107008 measures `34.369545 / 0.899050 / 0.199267`
+PQ PSNR/SSIM/LPIPS with zero detected cable gaps; exact provenance is in
+`experiments/exr_lpips_pareto.md`.
+
 `scripts/build_adaptive_exr_frequency_maps.py` replaces the scene-specific SSIM constant. A single
 progressive 2D HashGrid fit per training image produces the complete per-level PQ-SSIM recovery
 cube. Three automatic map families reuse it: a scene-empirical calibrated crossing, a three-level

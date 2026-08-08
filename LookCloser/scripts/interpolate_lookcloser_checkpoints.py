@@ -39,7 +39,7 @@ def checkpoint_step(path: Path) -> int:
     match = re.search(r"step-(\d+)\.ckpt$", path.name)
     if match:
         return int(match.group(1))
-    checkpoint = torch.load(path, map_location="cpu")
+    checkpoint = torch.load(path, map_location="cpu", weights_only=False)
     return int(checkpoint["step"])
 
 
@@ -62,8 +62,10 @@ def interpolate(args: argparse.Namespace) -> Path:
     if not 0.0 <= alpha <= 1.0:
         raise ValueError("--alpha must be in [0, 1]")
 
-    base = torch.load(args.base_checkpoint, map_location="cpu")
-    target = torch.load(args.target_checkpoint, map_location="cpu")
+    # Local experiment checkpoints are trusted and contain NumPy/Python metadata
+    # that PyTorch 2.6's weights-only loader intentionally rejects.
+    base = torch.load(args.base_checkpoint, map_location="cpu", weights_only=False)
+    target = torch.load(args.target_checkpoint, map_location="cpu", weights_only=False)
     base_pipeline = base["pipeline"]
     target_pipeline = target["pipeline"]
 
