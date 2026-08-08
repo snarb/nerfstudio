@@ -34,6 +34,11 @@ VARIANTS: dict[str, dict[str, Any]] = {
         "max_steps_per_ray": 2048,
         "corrected_arm_allocator": True,
     },
+    "adaptive_dense4x_corrected": {
+        "adaptive_coarse_step_size": 0.0015625,
+        "max_steps_per_ray": 4096,
+        "corrected_arm_allocator": True,
+    },
     "adaptive_fallback64": {"adaptive_fixed_fallback_samples_per_ray": 64},
     "adaptive_eval_dilate1": {"occupancy_eval_dilation_radius": 1},
     "adaptive_eval_dilate2": {"occupancy_eval_dilation_radius": 2},
