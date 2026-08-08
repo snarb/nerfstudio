@@ -243,10 +243,6 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--occupancy-update-step-size", type=float, default=None)
     parser.add_argument("--occupancy-thre-clamp-mult", type=float, default=1.0)
     parser.add_argument("--occupancy-dilation-radius", type=int, default=0)
-    parser.add_argument("--occupancy-train-dilation-radius", type=int, default=0)
-    parser.add_argument("--occupancy-train-dilation-min-frequency-level", type=float, default=0.0)
-    parser.add_argument("--occupancy-train-dilation-frequency-quantile", type=float, default=None)
-    parser.add_argument("--occupancy-train-dilation-frequency-halo", type=int, default=0)
     parser.add_argument("--occupancy-eval-dilation-radius", type=int, default=0)
     parser.add_argument("--occupancy-eval-dilation-min-frequency-level", type=float, default=0.0)
     parser.add_argument("--occupancy-eval-dilation-frequency-quantile", type=float, default=None)
@@ -800,12 +796,6 @@ def train_command(args: argparse.Namespace) -> List[str]:
             str(args.occupancy_thre_clamp_mult),
             "--pipeline.model.occupancy-dilation-radius",
             str(args.occupancy_dilation_radius),
-            "--pipeline.model.occupancy-train-dilation-radius",
-            str(args.occupancy_train_dilation_radius),
-            "--pipeline.model.occupancy-train-dilation-min-frequency-level",
-            str(args.occupancy_train_dilation_min_frequency_level),
-            "--pipeline.model.occupancy-train-dilation-frequency-halo",
-            str(args.occupancy_train_dilation_frequency_halo),
             "--pipeline.model.occupancy-eval-dilation-radius",
             str(args.occupancy_eval_dilation_radius),
             "--pipeline.model.occupancy-eval-dilation-min-frequency-level",
@@ -841,13 +831,6 @@ def train_command(args: argparse.Namespace) -> List[str]:
             [
                 "--pipeline.model.occupancy-eval-dilation-frequency-quantile",
                 str(args.occupancy_eval_dilation_frequency_quantile),
-            ]
-        )
-    if args.occupancy_train_dilation_frequency_quantile is not None:
-        cmd.extend(
-            [
-                "--pipeline.model.occupancy-train-dilation-frequency-quantile",
-                str(args.occupancy_train_dilation_frequency_quantile),
             ]
         )
     if args.geometry_support_map_dir is not None:
@@ -1782,10 +1765,6 @@ def summarize_params(args: argparse.Namespace) -> str:
         "occupancy_update_step_size": args.occupancy_update_step_size,
         "occupancy_thre_clamp_mult": args.occupancy_thre_clamp_mult,
         "occupancy_dilation_radius": args.occupancy_dilation_radius,
-        "occupancy_train_dilation_radius": args.occupancy_train_dilation_radius,
-        "occupancy_train_dilation_min_frequency_level": args.occupancy_train_dilation_min_frequency_level,
-        "occupancy_train_dilation_frequency_quantile": args.occupancy_train_dilation_frequency_quantile,
-        "occupancy_train_dilation_frequency_halo": args.occupancy_train_dilation_frequency_halo,
         "occupancy_eval_dilation_radius": args.occupancy_eval_dilation_radius,
         "occupancy_eval_dilation_min_frequency_level": args.occupancy_eval_dilation_min_frequency_level,
         "occupancy_eval_dilation_frequency_quantile": args.occupancy_eval_dilation_frequency_quantile,

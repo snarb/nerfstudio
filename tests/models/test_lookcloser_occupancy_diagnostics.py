@@ -230,8 +230,6 @@ def test_model_config_keeps_occupancy_diagnostics_enabled_by_default() -> None:
     assert config.occupancy_eval_dilation_min_frequency_level == 0.0
     assert config.occupancy_eval_dilation_frequency_quantile is None
     assert config.occupancy_eval_dilation_frequency_halo == 0
-    assert config.occupancy_train_dilation_radius == 0
-    assert config.occupancy_train_dilation_frequency_quantile is None
     assert config.geometry_support_enabled is False
     assert config.geometry_support_dilation_shape == "cube"
 
@@ -285,39 +283,6 @@ def test_eval_dilation_can_use_scene_adaptive_frequency_quantile() -> None:
     assert torch.equal(model.occupancy_grid.binaries, expected)
 
 
-def test_selective_training_dilation_is_non_cumulative_and_frequency_constrained() -> None:
-    model = LookCloserModel.__new__(LookCloserModel)
-    nn.Module.__init__(model)
-    source = torch.zeros((1, 3, 3, 3), dtype=torch.bool)
-    source[0, 1, 1, 1] = True
-    frequency = torch.zeros((3, 3, 3))
-    frequency[0, 0, 0] = 1.0
-    frequency[0, 0, 1] = 5.0
-    frequency[0, 1, 0] = 10.0
-    frequency[2, 2, 2] = 15.0
-    model.freq_grid = SimpleNamespace(grid=frequency)
-
-    first = model._selective_dilated_binaries(
-        source,
-        radius=1,
-        min_frequency_level=0.0,
-        frequency_quantile=0.75,
-        frequency_halo=0,
-    )
-    second = model._selective_dilated_binaries(
-        source,
-        radius=1,
-        min_frequency_level=0.0,
-        frequency_quantile=0.75,
-        frequency_halo=0,
-    )
-
-    expected = source.clone()
-    expected[0, 2, 2, 2] = True
-    assert torch.equal(first, expected)
-    assert torch.equal(second, expected)
-
-
 def test_geometry_support_is_a_sampling_union_not_an_occupancy_value_edit() -> None:
     model = LookCloserModel.__new__(LookCloserModel)
     nn.Module.__init__(model)
@@ -332,7 +297,6 @@ def test_geometry_support_is_a_sampling_union_not_an_occupancy_value_edit() -> N
         occupancy_thre_clamp_mult=1.0,
         occupancy_occ_thre=0.01,
         occupancy_dilation_radius=0,
-        occupancy_train_dilation_radius=0,
         geometry_support_enabled=True,
         geometry_support_threshold=0.2,
         geometry_support_dilation_radius=0,

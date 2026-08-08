@@ -57,7 +57,7 @@ short-stage selection: it is within 0.07 dB of the maximum q80+cube PSNR and win
 
 Visual cable reviews for the current conservative winner are in:
 
-`/mnt/data/lookcloser_geometry_campaign/geometry_guard_v1/lookcloser/geom_v2_q80_cross_s42/target_cable_gaps/`
+`/mnt/data/lookcloser_geometry_campaign/geometry_guard_v1/lookcloser/geom_v2_q80_cross_cont1_s42/target_cable_gaps/`
 
 ## Insights
 

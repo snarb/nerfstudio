@@ -185,18 +185,6 @@ class LookCloserModelConfig(ModelConfig):
     occupancy_dilation_radius: int = 0
     """Voxel dilation radius applied to binary occupancy after every grid update."""
 
-    occupancy_train_dilation_radius: int = 0
-    """Non-cumulative frequency-selective occupancy dilation used while training."""
-
-    occupancy_train_dilation_min_frequency_level: float = 0.0
-    """Optional fixed frequency floor for selective train-time occupancy dilation."""
-
-    occupancy_train_dilation_frequency_quantile: Optional[float] = None
-    """Scene-adaptive quantile of nonzero frequency levels used for train-time dilation."""
-
-    occupancy_train_dilation_frequency_halo: int = 0
-    """Voxel halo around the train-time high-frequency eligibility mask."""
-
     occupancy_eval_dilation_radius: int = 0
     """Temporary binary-occupancy dilation used only while evaluating frozen weights."""
 
@@ -447,16 +435,6 @@ class LookCloserModel(Model):
             raise ValueError("occupancy_thre_clamp_mult must be > 0.")
         if self.config.occupancy_dilation_radius < 0:
             raise ValueError("occupancy_dilation_radius must be >= 0.")
-        if self.config.occupancy_train_dilation_radius < 0:
-            raise ValueError("occupancy_train_dilation_radius must be >= 0.")
-        if self.config.occupancy_train_dilation_min_frequency_level < 0:
-            raise ValueError("occupancy_train_dilation_min_frequency_level must be >= 0.")
-        if self.config.occupancy_train_dilation_frequency_quantile is not None and not (
-            0.0 <= self.config.occupancy_train_dilation_frequency_quantile <= 1.0
-        ):
-            raise ValueError("occupancy_train_dilation_frequency_quantile must be in [0, 1].")
-        if self.config.occupancy_train_dilation_frequency_halo < 0:
-            raise ValueError("occupancy_train_dilation_frequency_halo must be >= 0.")
         if self.config.occupancy_eval_dilation_radius < 0:
             raise ValueError("occupancy_eval_dilation_radius must be >= 0.")
         if self.config.occupancy_eval_dilation_min_frequency_level < 0:
@@ -681,21 +659,6 @@ class LookCloserModel(Model):
             grid.binaries = (grid.occs > effective_thre).view(grid.binaries.shape)
         if self.config.occupancy_dilation_radius > 0:
             self._dilate_occ_binaries(int(self.config.occupancy_dilation_radius))
-        train_dilation_radius = int(getattr(self.config, "occupancy_train_dilation_radius", 0))
-        if train_dilation_radius > 0:
-            self.occupancy_grid.binaries = self._selective_dilated_binaries(
-                self.occupancy_grid.binaries,
-                radius=train_dilation_radius,
-                min_frequency_level=float(
-                    getattr(self.config, "occupancy_train_dilation_min_frequency_level", 0.0)
-                ),
-                frequency_quantile=getattr(
-                    self.config, "occupancy_train_dilation_frequency_quantile", None
-                ),
-                frequency_halo=int(
-                    getattr(self.config, "occupancy_train_dilation_frequency_halo", 0)
-                ),
-            )
         if bool(getattr(self.config, "geometry_support_enabled", False)):
             support = self._geometry_support_binary_mask()
             self.occupancy_grid.binaries = self.occupancy_grid.binaries | support[None]
