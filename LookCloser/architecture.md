@@ -858,6 +858,8 @@ The promoted EXR quality path stages 64×64 PQ-L1+LPIPS training into a short PQ
 uses dense 4× corrected adaptive rendering. Step107008 measures `34.369545 / 0.899050 / 0.199267`
 PQ PSNR/SSIM/LPIPS with zero detected cable gaps; exact provenance is in
 `experiments/exr_lpips_pareto.md`.
+`run_hdr_sampling_ablation.py --checkpoint ... --variant adaptive_dense4x_corrected` reproduces
+the selected renderer from an exact checkpoint instead of relying on a run directory's latest step.
 
 `scripts/build_adaptive_exr_frequency_maps.py` replaces the scene-specific SSIM constant. A single
 progressive 2D HashGrid fit per training image produces the complete per-level PQ-SSIM recovery

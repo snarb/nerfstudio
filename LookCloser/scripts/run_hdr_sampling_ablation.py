@@ -97,6 +97,7 @@ VARIANTS: dict[str, dict[str, Any]] = {
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--base-config", type=Path, required=True)
+    parser.add_argument("--checkpoint", type=Path, default=None, help="Optional exact checkpoint override.")
     parser.add_argument("--baseline-render-dir", type=Path, required=True)
     parser.add_argument("--baseline-eval-json", type=Path, required=True)
     parser.add_argument("--data", type=Path, required=True)
@@ -187,6 +188,12 @@ def evaluate_variant(args: argparse.Namespace, name: str, overrides: dict[str, A
         return metric_row(name, eval_json, edge_json, cable_json, render_dir, 0.0)
 
     config = yaml.load(args.base_config.read_text(encoding="utf-8"), Loader=yaml.Loader)
+    if args.checkpoint is not None:
+        if not args.checkpoint.is_file():
+            raise FileNotFoundError(args.checkpoint)
+        config.load_checkpoint = args.checkpoint.resolve()
+        config.load_dir = None
+        config.load_step = None
     model = config.pipeline.model
     model.eval_num_rays_per_chunk = int(args.eval_num_rays_per_chunk)
     for key, value in overrides.items():
