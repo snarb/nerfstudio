@@ -1,14 +1,21 @@
 # Three-day EXR HDR quality and cable-continuity campaign
 
-Status: complete. Selected checkpoint: corrected ARM, step98722.
+Status: quality selection invalidated by the target thin-cable gate. Step98722 remains the
+aggregate-metric leader, but is not an accepted cable-continuity result.
+
+Correction (2026-08-08): the original broad-ROI edge score and downscaled review sheets missed a
+large break in the long black cable at the left of every eval view. A cable-specific ordered-path
+detector and native-scale crops now expose the failure. No renderer or training fix is claimed in
+this report until that new gate passes.
 
 ## What was tested
 
 The frozen reference is the native-EXR knee/EAG checkpoint at step75940. Selection remains maximum
 PQ `eval_all_psnr`, with LPIPS as tie-breaker inside0.07dB; SSIM is reported. A new secondary gate
 measures tolerant edge recall and long missing skeleton runs in five fixed cable/thin-structure
-ROIs. It is diagnostic only and cannot override a large regression in the three authoritative
-metrics. Every selected candidate must also pass fixed-exposure visual inspection.
+ROIs. That broad score is diagnostic; the target thin-cable ordered-gap score is a veto gate because
+averaging over pipes, people, stands and unrelated edges can hide a severe local break. Every
+selected candidate must also pass native-scale crop inspection.
 
 The first experiment changes only the inference ray sampler on identical weights. It tests whether
 visible cable gaps are integration artifacts or already present in the learned radiance field.
@@ -121,12 +128,20 @@ deficit is outside the frozen tie window and cable long-gap fraction regressed t
 midpoint check at step102519 likewise failed (`33.9664 / 0.89915 / 0.21199`, long-gap `0.07568`).
 Step98722 is therefore the measured stopping optimum.
 
-All three paired native-EXR renders were independently measured and their `-2/0/+2 EV` sheets were
-visually inspected. Cables, cable loops, stand poles, chair legs, floor tape and people remain
-connected; no new floaters, clipping, desaturation or over-peak/non-finite output was observed.
-The five cable sheets were also inspected at native crop scale. The legacy component detector still
-responds to denoising of dark GT grain in one under-chair patch; paired inspection confirms this is
-not a structural break.
+The original `-2/0/+2 EV` sheet review was insufficient: full 3840×1080 pairs were displayed too
+small, and the five broad ROIs did not isolate the long black cable at the left. Native-scale target
+crops show that prediction loses two cable sections in every eval view. The ordered-path detector
+traces the dark GT ridge in PQ luminance inside a declared coarse corridor and tests prediction
+support with ±3px tolerance. It reports:
+
+| View | Path pixels | Gap pixels | Gap fraction | Longest gap |
+|---:|---:|---:|---:|---:|
+| eval0 | 332 | 89 | 0.2681 | 60px |
+| eval1 | 289 | 105 | 0.3633 | 67px |
+| eval2 | 562 | 52 | 0.0925 | 39px |
+
+The red detected intervals coincide visually with the missing black cable. Therefore step98722
+fails the target structural gate even though its aggregate PQ metrics remain the best measured.
 
 Final aggregate and per-view PQ metrics:
 
@@ -144,6 +159,7 @@ Final artifacts:
 - Paired native EXR renders: `/mnt/data/lookcloser_exr_quality_campaign/runs/hdr_quality_3day_v1/lookcloser/cont_corrected_part2_s42/renders_best_step-000098722/`.
 - Fixed-exposure review: `/mnt/data/lookcloser_exr_quality_campaign/runs/hdr_quality_3day_v1/lookcloser/cont_corrected_part2_s42/hdr_review_renders_best_step-000098722/`.
 - Cable review and metrics: `/mnt/data/lookcloser_exr_quality_campaign/runs/hdr_quality_3day_v1/lookcloser/cont_corrected_part2_s42/edge_continuity_best_step-000098722/`.
+- Corrected target-cable crops, masks and JSON: `/mnt/data/lookcloser_cable_hole_detection_v1/final_detected_crops/`.
 
 ## Insights
 
@@ -166,8 +182,8 @@ cable sheets are also indistinguishable at review scale. It is therefore not a m
 repair and is retained only as a perceptual tie candidate. Reducing feature re-weighting strength
 to `0.3` was rejected at the first boundary (`33.8296 / 0.89894 / 0.21991`).
 
-The final conclusion is that cable continuity is governed mainly by the learned trajectory under
-adaptive ray allocation. Merely changing the frozen renderer, doubling sampling density, adding a
-local edge loss, or raising structural frequency-map cells does not fix it. Correct budget-aware
-allocation plus the measured stopping point improves both authoritative metrics and cable
-continuity while preserving the scene-adaptive threshold-free knee policy for new EXR scenes.
+The earlier conclusion that corrected allocation repaired cable continuity is withdrawn. It
+improved aggregate metrics and the broad edge average, but the target cable still has severe visible
+holes. Renderer, loss, map and training changes must now be compared with the ordered target-cable
+gate first; only candidates with no qualifying long gap proceed to aggregate selection and visual
+review. The current work establishes detection, not a repair.

@@ -885,13 +885,23 @@ checkpoint, allowing rendering artifacts to be separated from learned geometry e
 retraining. The optional EAG `eag_edge_weight` adds PQ horizontal/vertical finite-difference
 consistency on the same contiguous training patches; zero preserves the completed leader exactly.
 
+Broad edge averages are not a sufficient gate for the priority long black cable. Use
+`score_thin_cable_gaps.py` after rendering native EXRs: coarse per-view waypoints define only a
+corridor, anchors snap to the GT dark-ridge response, and a minimum-cost ordered centerline is traced
+in PQ luminance. Prediction support is searched within ±3px; contiguous unsupported, brighter runs
+of at least10px are veto failures. The script saves separate GT/prediction crops, a GT route mask,
+red gap overlays and JSON lengths/fractions. This target gate invalidated the prior visual acceptance
+of step98722 (longest gaps 60/67/39px across eval0/1/2); aggregate metrics cannot override it.
+
 `build_edge_aware_frequency_variants.py` cheaply derives conservative candidates from the cached
 EXR recovery results: knee+1, a scene-quantile structural floor, and knee/calibrated unions limited
 either globally or to dilated high-structure cells. These candidates retain16-level scalar-
 resolution maps and record hashes, changed fractions and bin statistics; they are experimental
 until downstream training and visual gates accept one.
 
-The cable campaign validated the budget-aware corrected ARM allocator as the production EXR path.
+The cable campaign established that the budget-aware corrected ARM allocator improves aggregate EXR
+metrics, but it did not validate cable repair: the target-cable veto still fails. Therefore the
+allocator remains an experimental leader setting rather than a completed production-quality path.
 Unlike the historical cap, which can truncate late occupied intervals after ceiling/scale rounding,
 the corrected path merges excess intervals and allocates at least one sample before distributing
 the remaining per-ray budget by largest remainder. An equal-state continuation showed that this is
