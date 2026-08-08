@@ -2,6 +2,7 @@
 
 import csv
 import importlib.util
+from argparse import Namespace
 from pathlib import Path
 
 
@@ -67,3 +68,27 @@ def test_alias_candidate_reuses_exact_measured_summary(tmp_path: Path) -> None:
     )
     assert manifest["runs"]["alias"]["alias_of"] == "source"
     assert manifest["runs"]["alias"]["summary_path"] == source["summary_path"]
+
+
+def test_native_exr_campaign_uses_validated_corrected_arm_recipe(tmp_path: Path) -> None:
+    campaign = _load_campaign()
+    args = Namespace(
+        data=tmp_path / "data",
+        output_dir=tmp_path / "runs",
+        campaign_name=campaign.DEFAULT_CAMPAIGN_NAME,
+        seed=42,
+    )
+
+    command = campaign.base_train_command(
+        args,
+        tag="candidate",
+        loss="eag_pq_dssim",
+        output="linear_softplus",
+        frequency_method="knee",
+        iterations=75941,
+    )
+
+    assert campaign.DEFAULT_CAMPAIGN_NAME.endswith("corrected_arm")
+    assert "--corrected-arm-allocator" in command
+    assert command[command.index("--adaptive-coarse-step-size") + 1] == "0.00625"
+    assert command[command.index("--max-steps-per-ray") + 1] == "1024"

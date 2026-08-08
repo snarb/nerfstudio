@@ -16,6 +16,7 @@ from typing import Any
 SCRIPT_DIR = Path(__file__).resolve().parent
 DEFAULT_DATA = Path("/mnt/data/temporal_perframe_stride7_45f_exr_1920x1080/007740")
 DEFAULT_OUTPUT = Path("/mnt/data/lookcloser_exr_hdr_runs")
+DEFAULT_CAMPAIGN_NAME = "exr_hdr_auto_frequency_v2_corrected_arm"
 LOSS_CANDIDATES = (
     ("linear_l1", "linear_softplus"),
     ("rawnerf_weighted_l2", "linear_softplus"),
@@ -30,7 +31,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--data", type=Path, default=DEFAULT_DATA)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT)
-    parser.add_argument("--campaign-name", default="exr_hdr_auto_frequency_v1")
+    parser.add_argument("--campaign-name", default=DEFAULT_CAMPAIGN_NAME)
     parser.add_argument(
         "--phase",
         choices=("maps", "loss-screen", "map-screen", "tune", "final", "all"),
@@ -140,6 +141,7 @@ def base_train_command(
         "1024",
         "--adaptive-coarse-step-size",
         "0.00625",
+        "--corrected-arm-allocator",
         "--no-stop-on-no-improve",
         "--eval-checkpoint",
         "best",

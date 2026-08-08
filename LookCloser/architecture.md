@@ -876,3 +876,30 @@ patch DSSIM, and DSSIM weight0.3. The full75941-update run selected step75940 by
 PSNR-first/LPIPS-inside0.07dB rule and measured `33.8176 / 0.8984 / 0.2218` in the dataset-calibrated
 PQ domain. Native prediction/GT EXRs and fixed-exposure sheets are retained beside the checkpoint;
 the independent evaluator found no non-finite or over-peak prediction channels.
+
+The three-day HDR quality campaign adds two diagnostics/ablation layers without changing the
+authoritative metrics. `score_hdr_edge_continuity.py` measures tolerant PQ-luminance edge recall
+and long unsupported skeleton runs in declared cable ROIs, and writes GT/prediction/missed-edge
+review sheets. `run_hdr_sampling_ablation.py` changes only ray-integration parameters on one frozen
+checkpoint, allowing rendering artifacts to be separated from learned geometry errors before any
+retraining. The optional EAG `eag_edge_weight` adds PQ horizontal/vertical finite-difference
+consistency on the same contiguous training patches; zero preserves the completed leader exactly.
+
+`build_edge_aware_frequency_variants.py` cheaply derives conservative candidates from the cached
+EXR recovery results: knee+1, a scene-quantile structural floor, and knee/calibrated unions limited
+either globally or to dilated high-structure cells. These candidates retain16-level scalar-
+resolution maps and record hashes, changed fractions and bin statistics; they are experimental
+until downstream training and visual gates accept one.
+
+The cable campaign validated the budget-aware corrected ARM allocator as the production EXR path.
+Unlike the historical cap, which can truncate late occupied intervals after ceiling/scale rounding,
+the corrected path merges excess intervals and allocates at least one sample before distributing
+the remaining per-ray budget by largest remainder. An equal-state continuation showed that this is
+causal rather than an update-count effect. Historical reproduction keeps the model/runner default
+off; the recommended EXR recipe explicitly passes `--corrected-arm-allocator`, retains coarse step
+`0.00625`, cap `1024`, knee maps, batch `3993`, EAG PQ-DSSIM weight `0.3`, and the cosine scheduler.
+The EXR controller's default campaign namespace is consequently
+`exr_hdr_auto_frequency_v2_corrected_arm`; the historical v1 artifacts remain immutable.
+Dense `0.003125`/`2048`, edge-loss `0.1`, FR `0.3`, and structural map-floor candidates were rejected.
+The selected step98722 measures `34.0497 / 0.8993 / 0.2134`; all native outputs are finite and the
+five-ROI cable long-gap fraction is `0.07238` versus `0.07790` at the prior selected checkpoint.

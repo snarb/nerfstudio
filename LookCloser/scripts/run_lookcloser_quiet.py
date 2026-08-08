@@ -106,6 +106,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--pq-linear-anchor-weight", type=float, default=0.0)
     parser.add_argument("--eag-dssim-weight", type=float, default=0.2)
     parser.add_argument("--eag-patch-size", type=int, default=11)
+    parser.add_argument("--eag-edge-weight", type=float, default=0.0)
     parser.add_argument("--training-patch-size", type=int, default=1)
     parser.add_argument("--optimizer-max-norm", type=float, default=None)
     parser.add_argument("--optimizer-max-value", type=float, default=None)
@@ -361,6 +362,8 @@ def parse_args() -> argparse.Namespace:
     ):
         parser.error("linear_pq/eag_pq_dssim require --rgb-output-parameterization linear_softplus")
     if args.reconstruction_loss_type == "eag_pq_dssim":
+        if args.eag_edge_weight < 0:
+            parser.error("--eag-edge-weight must be non-negative")
         args.training_patch_size = args.eag_patch_size
         rays_per_patch = args.eag_patch_size**2
         args.train_num_rays_per_batch = max(
@@ -671,6 +674,8 @@ def train_command(args: argparse.Namespace) -> List[str]:
             str(args.eag_dssim_weight),
             "--pipeline.model.eag-patch-size",
             str(args.eag_patch_size),
+            "--pipeline.model.eag-edge-weight",
+            str(args.eag_edge_weight),
             "--pipeline.model.enable-frequency-grid",
             bool_text(enable_frequency_grid),
             "--pipeline.model.grid-resolution",
@@ -1610,6 +1615,7 @@ def summarize_params(args: argparse.Namespace) -> str:
         "pq_linear_anchor_weight": args.pq_linear_anchor_weight,
         "eag_dssim_weight": args.eag_dssim_weight,
         "eag_patch_size": args.eag_patch_size,
+        "eag_edge_weight": args.eag_edge_weight,
         "training_patch_size": args.training_patch_size,
         "optimizer_max_norm": args.optimizer_max_norm,
         "optimizer_max_value": args.optimizer_max_value,
@@ -1696,6 +1702,7 @@ def summarize_params(args: argparse.Namespace) -> str:
         "adaptive_min_frequency_level": args.adaptive_min_frequency_level,
         "adaptive_max_frequency_level": args.adaptive_max_frequency_level,
         "adaptive_interval_level_mode": args.adaptive_interval_level_mode,
+        "corrected_arm_allocator": args.corrected_arm_allocator,
         "adaptive_warmup_steps": args.adaptive_warmup_steps,
         "adaptive_fixed_fallback_samples_per_ray": args.adaptive_fixed_fallback_samples_per_ray,
         "transmittance_threshold": args.transmittance_threshold,

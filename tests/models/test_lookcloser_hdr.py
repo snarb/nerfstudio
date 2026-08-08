@@ -20,6 +20,7 @@ def _loss_config(loss_type: str) -> SimpleNamespace:
         pq_linear_anchor_weight=0.0,
         eag_patch_size=3,
         eag_dssim_weight=0.2,
+        eag_edge_weight=0.0,
         distortion_loss_mult=0.0,
         depth_loss_mult=0.0,
     )
@@ -66,6 +67,24 @@ def test_eag_eval_loss_falls_back_to_pq_l1_for_unstructured_rays():
     loss.backward()
     assert torch.isfinite(loss)
     assert torch.isfinite(prediction.grad).all()
+
+
+def test_eag_edge_term_penalizes_a_broken_patch_edge():
+    harness = _LossHarness()
+    harness.config = _loss_config("eag_pq_dssim")
+    harness.ssim = lambda prediction, target, data_range: prediction.new_tensor(1.0)
+    target_patch = torch.zeros((3, 3, 3))
+    target_patch[:, 1:, :] = 1.0
+    target = target_patch.reshape(-1, 3)
+    prediction = target.clone()
+    prediction[4] = 0.0
+
+    harness.config.eag_edge_weight = 0.0
+    base = LookCloserModel.get_loss_dict(harness, {"rgb": prediction}, {"image": target})["rgb_loss"]
+    harness.config.eag_edge_weight = 0.2
+    edge = LookCloserModel.get_loss_dict(harness, {"rgb": prediction}, {"image": target})["rgb_loss"]
+
+    assert edge > base
 
 
 def test_hdr_output_parameterizations_are_positive_and_unbounded():

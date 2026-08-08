@@ -272,6 +272,9 @@ class LookCloserModelConfig(ModelConfig):
     eag_patch_size: int = 11
     """Contiguous patch width required by EAG-PT-inspired DSSIM."""
 
+    eag_edge_weight: float = 0.0
+    """PQ finite-difference edge consistency added to the EAG patch loss."""
+
 
 class LookCloserModel(Model):
     """
@@ -338,6 +341,8 @@ class LookCloserModel(Model):
             raise ValueError("RawNeRF epsilon and grad clip must be positive.")
         if not 0 <= self.config.eag_dssim_weight < 1:
             raise ValueError("eag_dssim_weight must be in [0, 1).")
+        if self.config.eag_edge_weight < 0:
+            raise ValueError("eag_edge_weight must be non-negative.")
         if self.config.eag_patch_size <= 1:
             raise ValueError("eag_patch_size must be > 1.")
 
@@ -1513,6 +1518,15 @@ class LookCloserModel(Model):
                         dssim = 1.0 - self.ssim(predicted_patches, target_patches, data_range=1.0)
                         weight = float(self.config.eag_dssim_weight)
                         reconstruction = (1.0 - weight) * pq_l1 + weight * dssim
+                        if self.config.eag_edge_weight > 0:
+                            pred_dx = predicted_patches[..., 1:] - predicted_patches[..., :-1]
+                            target_dx = target_patches[..., 1:] - target_patches[..., :-1]
+                            pred_dy = predicted_patches[..., 1:, :] - predicted_patches[..., :-1, :]
+                            target_dy = target_patches[..., 1:, :] - target_patches[..., :-1, :]
+                            edge_loss = 0.5 * (
+                                (pred_dx - target_dx).abs().mean() + (pred_dy - target_dy).abs().mean()
+                            )
+                            reconstruction = reconstruction + float(self.config.eag_edge_weight) * edge_loss
                         reconstruction = reconstruction + float(self.config.pq_linear_anchor_weight) * linear_l1
             loss_dict["rgb_loss"] = reconstruction
         else:
