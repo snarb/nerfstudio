@@ -54,6 +54,39 @@ class LookCloserPipelineConfig(VanillaPipelineConfig):
     frequency_stride: int = 8
     """Fallback frequency-map stride for legacy maps without sidecar metadata."""
 
+    geometry_support_map_dir: Optional[str] = None
+    """Optional dataset-relative directory of structural maps used for occupancy geometry probes."""
+
+    geometry_support_map_suffix: str = ".pt"
+    """Filename suffix appended to each training image stem in the structural-map directory."""
+
+    geometry_support_quantile: float = 0.8
+    """Per-view structural-score quantile eligible for geometry probing."""
+
+    geometry_support_update_interval: int = 1024
+    """Training-step interval for occupancy-independent structural surface probes."""
+
+    geometry_support_batch_size: int = 8192
+    """Number of structural rays in each geometry-support update."""
+
+    geometry_support_probe_samples: int = 1024
+    """Fixed uniform samples per structural ray; this path never consults occupancy."""
+
+    geometry_support_min_accumulation: float = 0.1
+    """Reject fixed probes with less accumulated opacity than this value."""
+
+    geometry_support_min_peak_weight: float = 0.002
+    """Reject fixed probes without a sufficiently strong surface-density peak."""
+
+    geometry_support_decay: float = 0.95
+    """Multiplicative confidence decay applied at every geometry update."""
+
+    geometry_support_patch_size: int = 8
+    """Pixel footprint represented by one structural-map cell."""
+
+    geometry_support_stride: int = 8
+    """Pixel stride between structural-map cells."""
+
     train_rays_switch_step: Optional[int] = None
     """Optional trainer step at which to change the live pixel-sampler ray batch."""
 
@@ -124,6 +157,26 @@ class LookCloserPipeline(VanillaPipeline):
     ):
         self._validate_independent_rng_config(config)
         super().__init__(config, device, test_mode, world_size, local_rank, grad_scaler)
+        if not 0.0 <= self.config.geometry_support_quantile < 1.0:
+            raise ValueError("geometry_support_quantile must be in [0, 1).")
+        if self.config.geometry_support_update_interval <= 0:
+            raise ValueError("geometry_support_update_interval must be > 0.")
+        if self.config.geometry_support_batch_size <= 0:
+            raise ValueError("geometry_support_batch_size must be > 0.")
+        if self.config.geometry_support_probe_samples <= 0:
+            raise ValueError("geometry_support_probe_samples must be > 0.")
+        if not 0.0 <= self.config.geometry_support_min_accumulation <= 1.0:
+            raise ValueError("geometry_support_min_accumulation must be in [0, 1].")
+        if not 0.0 <= self.config.geometry_support_min_peak_weight <= 1.0:
+            raise ValueError("geometry_support_min_peak_weight must be in [0, 1].")
+        if not 0.0 <= self.config.geometry_support_decay <= 1.0:
+            raise ValueError("geometry_support_decay must be in [0, 1].")
+        if self.config.geometry_support_patch_size <= 0 or self.config.geometry_support_stride <= 0:
+            raise ValueError("geometry-support patch size and stride must be > 0.")
+        if bool(self.config.model.geometry_support_enabled) != bool(self.config.geometry_support_map_dir):
+            raise ValueError(
+                "model.geometry_support_enabled and pipeline.geometry_support_map_dir must be enabled together"
+            )
         switch_values = (self.config.train_rays_switch_step, self.config.train_rays_after_switch)
         if self.config.datamanager.cpu_fas_prefetch and (
             switch_values[0] is not None
@@ -205,6 +258,10 @@ class LookCloserPipeline(VanillaPipeline):
         self.cached_freq_image_shapes: Dict[int, Tuple[int, int]] = {}
         if self.config.enable_frequency_grid:
             self._load_frequency_maps()
+        self.cached_geometry_support_maps: Dict[int, Tensor] = {}
+        self.cached_geometry_support_candidates: Dict[int, Tensor] = {}
+        if self.config.geometry_support_map_dir is not None:
+            self._load_geometry_support_maps()
 
     @staticmethod
     def _validate_independent_rng_config(config: LookCloserPipelineConfig) -> None:
@@ -560,6 +617,101 @@ class LookCloserPipeline(VanillaPipeline):
 
         CONSOLE.print(f"LookCloserPipeline: Loaded {count} frequency maps.")
 
+    def _load_geometry_support_maps(self) -> None:
+        """Load structural maps and cache per-view high-confidence candidate cells."""
+        data_path = self.datamanager.get_datapath() if hasattr(self.datamanager, "get_datapath") else None
+        if data_path is None:
+            data_path = getattr(self.datamanager.config, "data", None)
+        if data_path is None or self.config.geometry_support_map_dir is None:
+            raise RuntimeError("Could not resolve geometry-support map directory")
+        map_dir = Path(data_path) / self.config.geometry_support_map_dir
+        if not map_dir.is_dir():
+            raise FileNotFoundError(map_dir)
+        dataset = self.datamanager.train_dataset
+        for index, image_path in enumerate(dataset.image_filenames):
+            map_path = map_dir / f"{image_path.stem}{self.config.geometry_support_map_suffix}"
+            if not map_path.is_file():
+                raise FileNotFoundError(map_path)
+            structural = torch.load(map_path, map_location="cpu", weights_only=True).float()
+            if structural.ndim != 2 or not bool(torch.isfinite(structural).all()):
+                raise ValueError(f"Invalid structural map: {map_path}")
+            threshold = torch.quantile(structural, float(self.config.geometry_support_quantile))
+            candidates = torch.nonzero(structural >= threshold, as_tuple=False)
+            if candidates.numel() == 0:
+                raise ValueError(f"Structural quantile produced no candidates: {map_path}")
+            self.cached_geometry_support_maps[index] = structural
+            self.cached_geometry_support_candidates[index] = candidates
+        CONSOLE.print(
+            "LookCloserPipeline: Loaded "
+            f"{len(self.cached_geometry_support_maps)} geometry-support maps from {map_dir}."
+        )
+
+    @torch.no_grad()
+    def _update_geometry_support_grid(self, step: int) -> Dict[str, Tensor]:
+        """Project strong 2D structure to fixed-probed surfaces and update the 3D safety grid."""
+        del step
+        available = sorted(self.cached_geometry_support_maps)
+        if not available:
+            return {}
+        count = int(self.config.geometry_support_batch_size)
+        selected_images = torch.tensor(available, dtype=torch.long)[
+            torch.randint(0, len(available), (count,))
+        ]
+        ys = torch.empty((count,), dtype=torch.long)
+        xs = torch.empty((count,), dtype=torch.long)
+        scores = torch.empty((count,), dtype=torch.float32)
+        dataset = self.datamanager.train_dataset
+        cameras = dataset.cameras
+        patch_size = int(self.config.geometry_support_patch_size)
+        stride = int(self.config.geometry_support_stride)
+        for image_index_tensor in torch.unique(selected_images):
+            image_index = int(image_index_tensor.item())
+            mask = selected_images == image_index
+            n = int(mask.sum().item())
+            candidates = self.cached_geometry_support_candidates[image_index]
+            chosen = candidates[torch.randint(0, candidates.shape[0], (n,))]
+            jitter_y = torch.randint(0, patch_size, (n,))
+            jitter_x = torch.randint(0, patch_size, (n,))
+            height = int(cameras.height[image_index].item())
+            width = int(cameras.width[image_index].item())
+            ys[mask] = (chosen[:, 0] * stride + jitter_y).clamp_max(height - 1)
+            xs[mask] = (chosen[:, 1] * stride + jitter_x).clamp_max(width - 1)
+            scores[mask] = self.cached_geometry_support_maps[image_index][chosen[:, 0], chosen[:, 1]]
+
+        coords = torch.stack((ys, xs), dim=-1).to(self.device)
+        camera_indices = selected_images.to(self.device).unsqueeze(-1)
+        ray_bundle = cameras.generate_rays(
+            camera_indices=camera_indices,
+            coords=coords,
+            keep_shape=False,
+        ).to(self.device)
+        probe = self.model.probe_surface_fixed(
+            ray_bundle,
+            num_samples=int(self.config.geometry_support_probe_samples),
+        )
+        accumulation = probe["accumulation"]
+        peak_weight = probe["peak_weight"]
+        confidence = scores.to(self.device) * accumulation.clamp(0.0, 1.0)
+        valid = (
+            torch.isfinite(probe["positions"]).all(dim=-1)
+            & torch.isfinite(confidence)
+            & (accumulation >= float(self.config.geometry_support_min_accumulation))
+            & (peak_weight >= float(self.config.geometry_support_min_peak_weight))
+        )
+        self.model.update_geometry_support(
+            probe["positions"][valid],
+            confidence[valid],
+            decay=float(self.config.geometry_support_decay),
+        )
+        support = self.model.geometry_support_grid >= float(self.model.config.geometry_support_threshold)
+        return {
+            "geometry_probe_rays": torch.tensor(float(count), device=self.device),
+            "geometry_probe_valid": valid.float().sum(),
+            "geometry_probe_valid_fraction": valid.float().mean(),
+            "geometry_support_voxels": support.float().sum(),
+            "geometry_support_ratio": support.float().mean(),
+        }
+
     @profiler.time_function
     def get_train_loss_dict(self, step: int):
         """
@@ -666,6 +818,16 @@ class LookCloserPipeline(VanillaPipeline):
                     self._update_frequency_grid(frequency_step)
             else:
                 self._update_frequency_grid(frequency_step)
+
+        if (
+            getattr(self.config, "geometry_support_map_dir", None) is not None
+            and step > 0
+            and step % int(self.config.geometry_support_update_interval) == 0
+        ):
+            # Keep geometry probing off the historical global RNG trajectory even
+            # for recipes that predate the optional independent-stream policy.
+            with fork_seeded_rng(self.config.training_seed, "geometry_support", step, self.device):
+                metrics_dict.update(self._update_geometry_support_grid(step))
 
         return model_outputs, loss_dict, metrics_dict
 

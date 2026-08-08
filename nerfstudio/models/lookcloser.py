@@ -185,6 +185,18 @@ class LookCloserModelConfig(ModelConfig):
     occupancy_dilation_radius: int = 0
     """Voxel dilation radius applied to binary occupancy after every grid update."""
 
+    occupancy_train_dilation_radius: int = 0
+    """Non-cumulative frequency-selective occupancy dilation used while training."""
+
+    occupancy_train_dilation_min_frequency_level: float = 0.0
+    """Optional fixed frequency floor for selective train-time occupancy dilation."""
+
+    occupancy_train_dilation_frequency_quantile: Optional[float] = None
+    """Scene-adaptive quantile of nonzero frequency levels used for train-time dilation."""
+
+    occupancy_train_dilation_frequency_halo: int = 0
+    """Voxel halo around the train-time high-frequency eligibility mask."""
+
     occupancy_eval_dilation_radius: int = 0
     """Temporary binary-occupancy dilation used only while evaluating frozen weights."""
 
@@ -196,6 +208,18 @@ class LookCloserModelConfig(ModelConfig):
 
     occupancy_eval_dilation_frequency_halo: int = 0
     """Voxel halo around the high-frequency eligibility mask used by selective eval dilation."""
+
+    geometry_support_enabled: bool = False
+    """Keep independently probed structural surface voxels available to occupancy traversal."""
+
+    geometry_support_threshold: float = 0.2
+    """Minimum decayed geometry confidence admitted to the traversal mask."""
+
+    geometry_support_dilation_radius: int = 1
+    """Safety radius around geometry-supported surface voxels."""
+
+    geometry_support_dilation_shape: Literal["cube", "cross"] = "cube"
+    """Neighborhood shape: full Chebyshev cube or a conservative axis-aligned cross."""
 
     occupancy_binary_warmup_steps: int = 4096
     """Keep occupancy binaries fully occupied for this many initial steps to avoid cold-start empty grids."""
@@ -423,6 +447,16 @@ class LookCloserModel(Model):
             raise ValueError("occupancy_thre_clamp_mult must be > 0.")
         if self.config.occupancy_dilation_radius < 0:
             raise ValueError("occupancy_dilation_radius must be >= 0.")
+        if self.config.occupancy_train_dilation_radius < 0:
+            raise ValueError("occupancy_train_dilation_radius must be >= 0.")
+        if self.config.occupancy_train_dilation_min_frequency_level < 0:
+            raise ValueError("occupancy_train_dilation_min_frequency_level must be >= 0.")
+        if self.config.occupancy_train_dilation_frequency_quantile is not None and not (
+            0.0 <= self.config.occupancy_train_dilation_frequency_quantile <= 1.0
+        ):
+            raise ValueError("occupancy_train_dilation_frequency_quantile must be in [0, 1].")
+        if self.config.occupancy_train_dilation_frequency_halo < 0:
+            raise ValueError("occupancy_train_dilation_frequency_halo must be >= 0.")
         if self.config.occupancy_eval_dilation_radius < 0:
             raise ValueError("occupancy_eval_dilation_radius must be >= 0.")
         if self.config.occupancy_eval_dilation_min_frequency_level < 0:
@@ -433,6 +467,12 @@ class LookCloserModel(Model):
             raise ValueError("occupancy_eval_dilation_frequency_quantile must be in [0, 1].")
         if self.config.occupancy_eval_dilation_frequency_halo < 0:
             raise ValueError("occupancy_eval_dilation_frequency_halo must be >= 0.")
+        if not 0.0 <= self.config.geometry_support_threshold <= 1.0:
+            raise ValueError("geometry_support_threshold must be in [0, 1].")
+        if self.config.geometry_support_dilation_radius < 0:
+            raise ValueError("geometry_support_dilation_radius must be >= 0.")
+        if self.config.geometry_support_dilation_shape not in {"cube", "cross"}:
+            raise ValueError("geometry_support_dilation_shape must be 'cube' or 'cross'.")
         if self.config.near_plane < 0 or self.config.far_plane <= self.config.near_plane:
             raise ValueError("Expected 0 <= near_plane < far_plane.")
 
@@ -446,6 +486,15 @@ class LookCloserModel(Model):
             enabled=self.config.enable_frequency_grid,
             fallback_level=self.config.fallback_frequency_level,
         )
+        self.register_buffer(
+            "geometry_support_grid",
+            torch.zeros_like(self.freq_grid.grid, dtype=torch.float32),
+            # Keep historical/default checkpoints byte-compatible.  The guard
+            # must survive resume/eval only when the feature is enabled.
+            persistent=bool(self.config.geometry_support_enabled),
+        )
+        self._geometry_support_binary_cache: Optional[torch.Tensor] = None
+        self._geometry_support_binary_cache_key: Optional[Tuple[int, float, int, str]] = None
 
         # 2. LookCloser Field (Frequency-Aware)
         self.field = LookCloserField(
@@ -632,6 +681,24 @@ class LookCloserModel(Model):
             grid.binaries = (grid.occs > effective_thre).view(grid.binaries.shape)
         if self.config.occupancy_dilation_radius > 0:
             self._dilate_occ_binaries(int(self.config.occupancy_dilation_radius))
+        train_dilation_radius = int(getattr(self.config, "occupancy_train_dilation_radius", 0))
+        if train_dilation_radius > 0:
+            self.occupancy_grid.binaries = self._selective_dilated_binaries(
+                self.occupancy_grid.binaries,
+                radius=train_dilation_radius,
+                min_frequency_level=float(
+                    getattr(self.config, "occupancy_train_dilation_min_frequency_level", 0.0)
+                ),
+                frequency_quantile=getattr(
+                    self.config, "occupancy_train_dilation_frequency_quantile", None
+                ),
+                frequency_halo=int(
+                    getattr(self.config, "occupancy_train_dilation_frequency_halo", 0)
+                ),
+            )
+        if bool(getattr(self.config, "geometry_support_enabled", False)):
+            support = self._geometry_support_binary_mask()
+            self.occupancy_grid.binaries = self.occupancy_grid.binaries | support[None]
         if step is not None and step < int(self.config.occupancy_binary_warmup_steps):
             grid.binaries.fill_(True)
 
@@ -668,6 +735,12 @@ class LookCloserModel(Model):
             "occupancy_flipped_on": flipped_on,
             "occupancy_flipped_off": flipped_off,
         }
+        if bool(getattr(self.config, "geometry_support_enabled", False)):
+            support = self.geometry_support_grid >= float(
+                getattr(self.config, "geometry_support_threshold", 0.2)
+            )
+            self._last_occupancy_stats["geometry_support_voxels"] = float(support.sum().item())
+            self._last_occupancy_stats["geometry_support_ratio"] = float(support.float().mean().item())
 
     def _dilate_occ_binaries(self, radius: int) -> None:
         if radius <= 0:
@@ -678,15 +751,63 @@ class LookCloserModel(Model):
             F.max_pool3d(binaries, kernel_size=kernel_size, stride=1, padding=radius)[:, 0] > 0
         )
 
-    def _ensure_eval_occupancy_dilation(self) -> None:
-        """Dilate a loaded frozen grid once, without contaminating resumed training."""
-        radius = int(self.config.occupancy_eval_dilation_radius)
-        if self.training or radius <= 0 or self._eval_occupancy_backup is not None:
-            return
-        self._eval_occupancy_backup = self.occupancy_grid.binaries.clone()
-        self._dilate_occ_binaries(radius)
-        min_level = float(getattr(self.config, "occupancy_eval_dilation_min_frequency_level", 0.0))
-        frequency_quantile = getattr(self.config, "occupancy_eval_dilation_frequency_quantile", None)
+    def _geometry_support_binary_mask(self) -> torch.Tensor:
+        """Threshold and dilate the support grid, caching work between sparse map updates."""
+        threshold = float(getattr(self.config, "geometry_support_threshold", 0.2))
+        radius = int(getattr(self.config, "geometry_support_dilation_radius", 0))
+        shape = str(getattr(self.config, "geometry_support_dilation_shape", "cube"))
+        cache_key = (int(self.geometry_support_grid._version), threshold, radius, shape)
+        if (
+            getattr(self, "_geometry_support_binary_cache_key", None) == cache_key
+            and getattr(self, "_geometry_support_binary_cache", None) is not None
+        ):
+            return self._geometry_support_binary_cache
+
+        support = self.geometry_support_grid >= threshold
+        if radius > 0:
+            source = support.float()[None, None]
+            if shape == "cube":
+                support = F.max_pool3d(
+                    source,
+                    kernel_size=2 * radius + 1,
+                    stride=1,
+                    padding=radius,
+                )[0, 0] > 0
+            elif shape == "cross":
+                along_x = F.max_pool3d(
+                    source, kernel_size=(2 * radius + 1, 1, 1), stride=1, padding=(radius, 0, 0)
+                )
+                along_y = F.max_pool3d(
+                    source, kernel_size=(1, 2 * radius + 1, 1), stride=1, padding=(0, radius, 0)
+                )
+                along_z = F.max_pool3d(
+                    source, kernel_size=(1, 1, 2 * radius + 1), stride=1, padding=(0, 0, radius)
+                )
+                support = torch.maximum(torch.maximum(along_x, along_y), along_z)[0, 0] > 0
+            else:
+                raise ValueError(f"Unknown geometry-support dilation shape: {shape}")
+        self._geometry_support_binary_cache = support
+        self._geometry_support_binary_cache_key = cache_key
+        return support
+
+    def _selective_dilated_binaries(
+        self,
+        source: torch.Tensor,
+        *,
+        radius: int,
+        min_frequency_level: float,
+        frequency_quantile: Optional[float],
+        frequency_halo: int,
+    ) -> torch.Tensor:
+        """Return one non-cumulative dilation constrained by the live scene frequency grid."""
+        if radius <= 0:
+            return source
+        dilated = F.max_pool3d(
+            source.float()[:, None],
+            kernel_size=2 * radius + 1,
+            stride=1,
+            padding=radius,
+        )[:, 0] > 0
         eligible: Optional[torch.Tensor] = None
         if frequency_quantile is not None:
             active_levels = self.freq_grid.grid[self.freq_grid.grid > 0]
@@ -694,21 +815,105 @@ class LookCloserModel(Model):
                 eligible = torch.zeros_like(self.freq_grid.grid, dtype=torch.bool)
             else:
                 adaptive_level = torch.quantile(active_levels.float(), float(frequency_quantile))
-                min_level = max(min_level, float(adaptive_level.item()))
-        if min_level > 0 or eligible is not None:
+                min_frequency_level = max(min_frequency_level, float(adaptive_level.item()))
+        if min_frequency_level > 0 or eligible is not None:
             if eligible is None:
-                eligible = self.freq_grid.grid >= min_level
-            halo = int(getattr(self.config, "occupancy_eval_dilation_frequency_halo", 0))
-            if halo > 0:
+                eligible = self.freq_grid.grid >= min_frequency_level
+            if frequency_halo > 0:
                 eligible = F.max_pool3d(
                     eligible.float()[None, None],
-                    kernel_size=2 * halo + 1,
+                    kernel_size=2 * frequency_halo + 1,
                     stride=1,
-                    padding=halo,
+                    padding=frequency_halo,
                 )[0, 0] > 0
-            self.occupancy_grid.binaries = self._eval_occupancy_backup | (
-                self.occupancy_grid.binaries & eligible[None]
-            )
+            dilated = dilated & eligible[None]
+        return source | dilated
+
+    def _ensure_eval_occupancy_dilation(self) -> None:
+        """Dilate a loaded frozen grid once, without contaminating resumed training."""
+        radius = int(self.config.occupancy_eval_dilation_radius)
+        if self.training or radius <= 0 or self._eval_occupancy_backup is not None:
+            return
+        self._eval_occupancy_backup = self.occupancy_grid.binaries.clone()
+        min_level = float(getattr(self.config, "occupancy_eval_dilation_min_frequency_level", 0.0))
+        frequency_quantile = getattr(self.config, "occupancy_eval_dilation_frequency_quantile", None)
+        self.occupancy_grid.binaries = self._selective_dilated_binaries(
+            self._eval_occupancy_backup,
+            radius=radius,
+            min_frequency_level=min_level,
+            frequency_quantile=frequency_quantile,
+            frequency_halo=int(getattr(self.config, "occupancy_eval_dilation_frequency_halo", 0)),
+        )
+
+    @torch.no_grad()
+    def update_geometry_support(
+        self,
+        positions: torch.Tensor,
+        confidence: torch.Tensor,
+        *,
+        decay: float,
+    ) -> None:
+        """Decay and max-fuse independently probed surface evidence into the 3D guard grid."""
+        self.geometry_support_grid.mul_(float(decay))
+        if positions.numel() == 0:
+            return
+        indices = self.freq_grid.grid_to_indices(positions)
+        flat_indices = (
+            indices[:, 0] * self.freq_grid.resolution**2
+            + indices[:, 1] * self.freq_grid.resolution
+            + indices[:, 2]
+        )
+        self.geometry_support_grid.view(-1).scatter_reduce_(
+            0,
+            flat_indices,
+            confidence.reshape(-1).to(self.geometry_support_grid.dtype).clamp(0.0, 1.0),
+            reduce="amax",
+            include_self=True,
+        )
+
+    @torch.no_grad()
+    def probe_surface_fixed(
+        self,
+        ray_bundle: RayBundle,
+        *,
+        num_samples: int,
+    ) -> Dict[str, torch.Tensor]:
+        """Find the strongest density surface without consulting binary occupancy."""
+        if num_samples <= 0:
+            raise ValueError("num_samples must be > 0")
+        if self.collider is not None:
+            ray_bundle = self.collider(ray_bundle)
+        if ray_bundle.nears is None or ray_bundle.fars is None:
+            raise ValueError("Geometry probing requires finite ray near/far bounds")
+        rays_o = ray_bundle.origins
+        rays_d = ray_bundle.directions
+        n_rays = rays_o.shape[0]
+        nears = ray_bundle.nears[:, None, :]
+        fars = ray_bundle.fars[:, None, :]
+        span = (fars - nears).clamp_min(1e-6)
+        edges = torch.linspace(0.0, 1.0, num_samples + 1, device=rays_o.device, dtype=rays_o.dtype)
+        starts = nears + span * edges[:-1].view(1, num_samples, 1)
+        ends = nears + span * edges[1:].view(1, num_samples, 1)
+        mids = 0.5 * (starts + ends)
+        positions = rays_o[:, None, :] + rays_d[:, None, :] * mids
+        density = F.relu(self.field.density_fn(positions.reshape(-1, 3))).reshape(n_rays, num_samples)
+        deltas = (ends - starts)[..., 0]
+        alpha = 1.0 - torch.exp(-density * deltas)
+        trans = torch.cumprod(
+            torch.cat(
+                (torch.ones((n_rays, 1), device=rays_o.device, dtype=alpha.dtype), 1.0 - alpha + 1e-10),
+                dim=1,
+            ),
+            dim=1,
+        )[:, :-1]
+        weights = alpha * trans
+        peak_weight, peak_index = torch.max(weights, dim=1)
+        peak_t = mids[..., 0].gather(1, peak_index[:, None])[:, 0]
+        return {
+            "positions": rays_o + rays_d * peak_t[:, None],
+            "accumulation": weights.sum(dim=1),
+            "peak_weight": peak_weight,
+        }
 
     def train(self, mode: bool = True) -> "LookCloserModel":
         """Restore the exact training occupancy state after temporary eval dilation."""

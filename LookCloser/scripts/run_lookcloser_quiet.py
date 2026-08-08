@@ -114,6 +114,17 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--frequency-map-dir", default="lookcloser_frequencies")
     parser.add_argument("--frequency-patch-size", type=int, default=8)
     parser.add_argument("--frequency-stride", type=int, default=8)
+    parser.add_argument("--geometry-support-map-dir", default=None)
+    parser.add_argument("--geometry-support-map-suffix", default=".pt")
+    parser.add_argument("--geometry-support-quantile", type=float, default=0.8)
+    parser.add_argument("--geometry-support-update-interval", type=int, default=1024)
+    parser.add_argument("--geometry-support-batch-size", type=int, default=8192)
+    parser.add_argument("--geometry-support-probe-samples", type=int, default=1024)
+    parser.add_argument("--geometry-support-min-accumulation", type=float, default=0.1)
+    parser.add_argument("--geometry-support-min-peak-weight", type=float, default=0.002)
+    parser.add_argument("--geometry-support-decay", type=float, default=0.95)
+    parser.add_argument("--geometry-support-patch-size", type=int, default=8)
+    parser.add_argument("--geometry-support-stride", type=int, default=8)
     parser.add_argument("--allow-missing-frequency-maps", action="store_true")
     parser.add_argument(
         "--independent-rng-streams",
@@ -232,10 +243,17 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--occupancy-update-step-size", type=float, default=None)
     parser.add_argument("--occupancy-thre-clamp-mult", type=float, default=1.0)
     parser.add_argument("--occupancy-dilation-radius", type=int, default=0)
+    parser.add_argument("--occupancy-train-dilation-radius", type=int, default=0)
+    parser.add_argument("--occupancy-train-dilation-min-frequency-level", type=float, default=0.0)
+    parser.add_argument("--occupancy-train-dilation-frequency-quantile", type=float, default=None)
+    parser.add_argument("--occupancy-train-dilation-frequency-halo", type=int, default=0)
     parser.add_argument("--occupancy-eval-dilation-radius", type=int, default=0)
     parser.add_argument("--occupancy-eval-dilation-min-frequency-level", type=float, default=0.0)
     parser.add_argument("--occupancy-eval-dilation-frequency-quantile", type=float, default=None)
     parser.add_argument("--occupancy-eval-dilation-frequency-halo", type=int, default=0)
+    parser.add_argument("--geometry-support-threshold", type=float, default=0.2)
+    parser.add_argument("--geometry-support-dilation-radius", type=int, default=1)
+    parser.add_argument("--geometry-support-dilation-shape", choices=("cube", "cross"), default="cube")
     parser.add_argument("--occupancy-binary-warmup-steps", type=int, default=4096)
     parser.add_argument("--occupancy-fixed-fallback-samples-per-ray", type=int, default=0)
     parser.add_argument(
@@ -638,6 +656,26 @@ def train_command(args: argparse.Namespace) -> List[str]:
             str(args.frequency_patch_size),
             "--pipeline.frequency-stride",
             str(args.frequency_stride),
+            "--pipeline.geometry-support-map-suffix",
+            args.geometry_support_map_suffix,
+            "--pipeline.geometry-support-quantile",
+            str(args.geometry_support_quantile),
+            "--pipeline.geometry-support-update-interval",
+            str(args.geometry_support_update_interval),
+            "--pipeline.geometry-support-batch-size",
+            str(args.geometry_support_batch_size),
+            "--pipeline.geometry-support-probe-samples",
+            str(args.geometry_support_probe_samples),
+            "--pipeline.geometry-support-min-accumulation",
+            str(args.geometry_support_min_accumulation),
+            "--pipeline.geometry-support-min-peak-weight",
+            str(args.geometry_support_min_peak_weight),
+            "--pipeline.geometry-support-decay",
+            str(args.geometry_support_decay),
+            "--pipeline.geometry-support-patch-size",
+            str(args.geometry_support_patch_size),
+            "--pipeline.geometry-support-stride",
+            str(args.geometry_support_stride),
             "--pipeline.target-num-samples-per-batch",
             str(args.target_num_samples_per_batch),
             "--pipeline.dynamic-rays-ema",
@@ -762,12 +800,26 @@ def train_command(args: argparse.Namespace) -> List[str]:
             str(args.occupancy_thre_clamp_mult),
             "--pipeline.model.occupancy-dilation-radius",
             str(args.occupancy_dilation_radius),
+            "--pipeline.model.occupancy-train-dilation-radius",
+            str(args.occupancy_train_dilation_radius),
+            "--pipeline.model.occupancy-train-dilation-min-frequency-level",
+            str(args.occupancy_train_dilation_min_frequency_level),
+            "--pipeline.model.occupancy-train-dilation-frequency-halo",
+            str(args.occupancy_train_dilation_frequency_halo),
             "--pipeline.model.occupancy-eval-dilation-radius",
             str(args.occupancy_eval_dilation_radius),
             "--pipeline.model.occupancy-eval-dilation-min-frequency-level",
             str(args.occupancy_eval_dilation_min_frequency_level),
             "--pipeline.model.occupancy-eval-dilation-frequency-halo",
             str(args.occupancy_eval_dilation_frequency_halo),
+            "--pipeline.model.geometry-support-enabled",
+            bool_text(args.geometry_support_map_dir is not None),
+            "--pipeline.model.geometry-support-threshold",
+            str(args.geometry_support_threshold),
+            "--pipeline.model.geometry-support-dilation-radius",
+            str(args.geometry_support_dilation_radius),
+            "--pipeline.model.geometry-support-dilation-shape",
+            args.geometry_support_dilation_shape,
             "--pipeline.model.occupancy-binary-warmup-steps",
             str(args.occupancy_binary_warmup_steps),
             "--pipeline.model.occupancy-fixed-fallback-samples-per-ray",
@@ -791,6 +843,15 @@ def train_command(args: argparse.Namespace) -> List[str]:
                 str(args.occupancy_eval_dilation_frequency_quantile),
             ]
         )
+    if args.occupancy_train_dilation_frequency_quantile is not None:
+        cmd.extend(
+            [
+                "--pipeline.model.occupancy-train-dilation-frequency-quantile",
+                str(args.occupancy_train_dilation_frequency_quantile),
+            ]
+        )
+    if args.geometry_support_map_dir is not None:
+        cmd.extend(["--pipeline.geometry-support-map-dir", args.geometry_support_map_dir])
     if args.hdr_linear_scale is not None:
         cmd.extend(["--pipeline.model.hdr-linear-scale", str(args.hdr_linear_scale)])
     if args.hdr_initial_radiance is not None:
@@ -1579,12 +1640,16 @@ def path_fingerprint(path: Path) -> Dict[str, object]:
 
 
 def provenance(args: argparse.Namespace, run_path: Path) -> Dict[str, object]:
+    geometry_map_path = args.data / args.geometry_support_map_dir if args.geometry_support_map_dir else None
     return {
         "git_branch": git_value(["branch", "--show-current"]),
         "git_sha": git_value(["rev-parse", "HEAD"]),
         "git_dirty": bool(git_value(["status", "--short"])),
         "data_fingerprint": path_fingerprint(args.data),
         "frequency_map_fingerprint": path_fingerprint(args.data / args.frequency_map_dir),
+        "geometry_support_map_fingerprint": (
+            path_fingerprint(geometry_map_path) if geometry_map_path is not None else None
+        ),
         "run_path": str(run_path),
     }
 
@@ -1640,6 +1705,15 @@ def summarize_params(args: argparse.Namespace) -> str:
         "early_reject_ssim_below": args.early_reject_ssim_below,
         "early_reject_lpips_above": args.early_reject_lpips_above,
         "frequency_map_dir": args.frequency_map_dir,
+        "geometry_support_map_dir": args.geometry_support_map_dir,
+        "geometry_support_map_suffix": args.geometry_support_map_suffix,
+        "geometry_support_quantile": args.geometry_support_quantile,
+        "geometry_support_update_interval": args.geometry_support_update_interval,
+        "geometry_support_batch_size": args.geometry_support_batch_size,
+        "geometry_support_probe_samples": args.geometry_support_probe_samples,
+        "geometry_support_min_accumulation": args.geometry_support_min_accumulation,
+        "geometry_support_min_peak_weight": args.geometry_support_min_peak_weight,
+        "geometry_support_decay": args.geometry_support_decay,
         "artifact_render_names": artifact_render_names(args),
         "artifact_crop_top": args.artifact_crop_top,
         "artifact_crop_bottom": args.artifact_crop_bottom,
@@ -1708,10 +1782,17 @@ def summarize_params(args: argparse.Namespace) -> str:
         "occupancy_update_step_size": args.occupancy_update_step_size,
         "occupancy_thre_clamp_mult": args.occupancy_thre_clamp_mult,
         "occupancy_dilation_radius": args.occupancy_dilation_radius,
+        "occupancy_train_dilation_radius": args.occupancy_train_dilation_radius,
+        "occupancy_train_dilation_min_frequency_level": args.occupancy_train_dilation_min_frequency_level,
+        "occupancy_train_dilation_frequency_quantile": args.occupancy_train_dilation_frequency_quantile,
+        "occupancy_train_dilation_frequency_halo": args.occupancy_train_dilation_frequency_halo,
         "occupancy_eval_dilation_radius": args.occupancy_eval_dilation_radius,
         "occupancy_eval_dilation_min_frequency_level": args.occupancy_eval_dilation_min_frequency_level,
         "occupancy_eval_dilation_frequency_quantile": args.occupancy_eval_dilation_frequency_quantile,
         "occupancy_eval_dilation_frequency_halo": args.occupancy_eval_dilation_frequency_halo,
+        "geometry_support_threshold": args.geometry_support_threshold,
+        "geometry_support_dilation_radius": args.geometry_support_dilation_radius,
+        "geometry_support_dilation_shape": args.geometry_support_dilation_shape,
         "occupancy_binary_warmup_steps": args.occupancy_binary_warmup_steps,
         "occupancy_fixed_fallback_samples_per_ray": args.occupancy_fixed_fallback_samples_per_ray,
         "stable_occupancy_reduction": args.stable_occupancy_reduction,

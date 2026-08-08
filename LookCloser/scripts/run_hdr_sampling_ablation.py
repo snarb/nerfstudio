@@ -19,6 +19,12 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 
 
 VARIANTS: dict[str, dict[str, Any]] = {
+    "adaptive_no_eval_dilation": {
+        "occupancy_eval_dilation_radius": 0,
+        "occupancy_eval_dilation_min_frequency_level": 0.0,
+        "occupancy_eval_dilation_frequency_quantile": None,
+        "occupancy_eval_dilation_frequency_halo": 0,
+    },
     "adaptive_max3": {"adaptive_interval_level_mode": "max3"},
     "adaptive_corrected": {"corrected_arm_allocator": True},
     "adaptive_minfreq4": {"adaptive_min_frequency_level": 4.0, "max_steps_per_ray": 2048},

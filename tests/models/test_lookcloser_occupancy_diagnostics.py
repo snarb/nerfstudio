@@ -230,6 +230,10 @@ def test_model_config_keeps_occupancy_diagnostics_enabled_by_default() -> None:
     assert config.occupancy_eval_dilation_min_frequency_level == 0.0
     assert config.occupancy_eval_dilation_frequency_quantile is None
     assert config.occupancy_eval_dilation_frequency_halo == 0
+    assert config.occupancy_train_dilation_radius == 0
+    assert config.occupancy_train_dilation_frequency_quantile is None
+    assert config.geometry_support_enabled is False
+    assert config.geometry_support_dilation_shape == "cube"
 
 
 def test_eval_only_dilation_is_restored_before_training() -> None:
@@ -279,3 +283,115 @@ def test_eval_dilation_can_use_scene_adaptive_frequency_quantile() -> None:
     expected = original.clone()
     expected[0, 2, 2, 2] = True
     assert torch.equal(model.occupancy_grid.binaries, expected)
+
+
+def test_selective_training_dilation_is_non_cumulative_and_frequency_constrained() -> None:
+    model = LookCloserModel.__new__(LookCloserModel)
+    nn.Module.__init__(model)
+    source = torch.zeros((1, 3, 3, 3), dtype=torch.bool)
+    source[0, 1, 1, 1] = True
+    frequency = torch.zeros((3, 3, 3))
+    frequency[0, 0, 0] = 1.0
+    frequency[0, 0, 1] = 5.0
+    frequency[0, 1, 0] = 10.0
+    frequency[2, 2, 2] = 15.0
+    model.freq_grid = SimpleNamespace(grid=frequency)
+
+    first = model._selective_dilated_binaries(
+        source,
+        radius=1,
+        min_frequency_level=0.0,
+        frequency_quantile=0.75,
+        frequency_halo=0,
+    )
+    second = model._selective_dilated_binaries(
+        source,
+        radius=1,
+        min_frequency_level=0.0,
+        frequency_quantile=0.75,
+        frequency_halo=0,
+    )
+
+    expected = source.clone()
+    expected[0, 2, 2, 2] = True
+    assert torch.equal(first, expected)
+    assert torch.equal(second, expected)
+
+
+def test_geometry_support_is_a_sampling_union_not_an_occupancy_value_edit() -> None:
+    model = LookCloserModel.__new__(LookCloserModel)
+    nn.Module.__init__(model)
+    occs = torch.linspace(0.0, 1.0, 27)
+    binaries = torch.zeros((1, 3, 3, 3), dtype=torch.bool)
+    binaries[0, 1, 1, 1] = True
+    model.occupancy_grid = SimpleNamespace(occs=occs, binaries=binaries)
+    model.geometry_support_grid = torch.zeros((3, 3, 3))
+    model.geometry_support_grid[0, 0, 0] = 0.9
+    model.config = SimpleNamespace(
+        occupancy_diagnostics=False,
+        occupancy_thre_clamp_mult=1.0,
+        occupancy_occ_thre=0.01,
+        occupancy_dilation_radius=0,
+        occupancy_train_dilation_radius=0,
+        geometry_support_enabled=True,
+        geometry_support_threshold=0.2,
+        geometry_support_dilation_radius=0,
+        occupancy_binary_warmup_steps=0,
+        alpha_thre=0.0,
+    )
+    model._last_occupancy_binaries = None
+    model._last_occupancy_stats = {}
+    before = occs.clone()
+
+    model._postprocess_occupancy_grid(step=10)
+
+    assert torch.equal(model.occupancy_grid.occs, before)
+    assert model.occupancy_grid.binaries[0, 0, 0, 0]
+    assert model.occupancy_grid.binaries[0, 1, 1, 1]
+
+
+def test_geometry_support_update_decays_and_max_fuses_confidence() -> None:
+    model = LookCloserModel.__new__(LookCloserModel)
+    nn.Module.__init__(model)
+    model.geometry_support_grid = torch.ones((3, 3, 3))
+    model.freq_grid = SimpleNamespace(
+        resolution=3,
+        grid_to_indices=lambda positions: positions.long(),
+    )
+
+    model.update_geometry_support(
+        torch.tensor([[2.0, 1.0, 0.0]]),
+        torch.tensor([0.8]),
+        decay=0.5,
+    )
+
+    assert model.geometry_support_grid[0, 0, 0].item() == pytest.approx(0.5)
+    assert model.geometry_support_grid[2, 1, 0].item() == pytest.approx(0.8)
+
+
+def test_geometry_support_cross_dilation_is_cached_and_excludes_diagonals() -> None:
+    model = LookCloserModel.__new__(LookCloserModel)
+    nn.Module.__init__(model)
+    model.geometry_support_grid = torch.zeros((3, 3, 3))
+    model.geometry_support_grid[1, 1, 1] = 1.0
+    model.config = SimpleNamespace(
+        geometry_support_threshold=0.2,
+        geometry_support_dilation_radius=1,
+        geometry_support_dilation_shape="cross",
+    )
+    model._geometry_support_binary_cache = None
+    model._geometry_support_binary_cache_key = None
+
+    first = model._geometry_support_binary_mask()
+    second = model._geometry_support_binary_mask()
+
+    assert first.data_ptr() == second.data_ptr()
+    assert int(first.sum()) == 7
+    assert first[1, 1, 1]
+    assert first[0, 1, 1]
+    assert not first[0, 0, 0]
+
+    model.geometry_support_grid[0, 0, 0] = 1.0
+    refreshed = model._geometry_support_binary_mask()
+    assert refreshed.data_ptr() != first.data_ptr()
+    assert refreshed[0, 0, 0]

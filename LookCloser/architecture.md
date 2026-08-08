@@ -903,6 +903,33 @@ longest gap from67px to0; PQ metrics are `34.0342 / 0.899406 / 0.212446`. Full-f
 artifact scores are zero on all eval views. The quantile is scene-adaptive and replaces the
 diagnostic fixed-level15 control.
 
+### Geometry-aware occupancy guard
+
+The accepted training repair supersedes eval-only dilation for new EXR runs. Offline
+`build_geometry_support_maps.py` forms per-view structural evidence from Scharr edges and
+multi-scale dark-ridge responses in calibrated PQ BT.709 luminance. Tie-aware percentile ranks make
+the q80 selection relative to every image, so the training path contains no scene-specific numeric
+edge threshold or cable mask. The map manifest records calibration, parameters and output hashes.
+
+Every1024 steps the pipeline samples those structural cells on an isolated deterministic RNG stream
+and uses a 1024-bin uniform density probe along each ray. This probe deliberately bypasses binary
+occupancy; opacity/peak gates reject rays without a credible learned surface. Accepted surface
+positions max-fuse into a decayed persistent 128-cubed `geometry_support_grid`. Thresholded support
+is ORed only into `occupancy_grid.binaries`; it never changes field density or occupancy `occs`.
+Thus the guarded surface remains visible to both later training and adaptive rendering without
+manually occupying voxels.
+
+The selected radius1 `cross` adds only the center plus six axis neighbors, versus27 cells for cube
+dilation, and the derived mask is cached until the confidence grid changes. Zero radius restores
+161 missing cable pixels (38px longest), proving that a quantization/viewpoint halo is necessary.
+Cross q80 keeps all three cable gaps at zero while using 52.11% binary occupancy versus52.59% for
+the cube. The cosine scheduler, corrected ARM, knee frequency maps, linear-softplus output and EAG
+PQ-DSSIM0.3 recipe remain unchanged. `eag_edge_weight=0.1`, q95 and DSSIM0.4 controls were rejected.
+The selected step106316 measures `34.136342 / 0.899861 / 0.211813`; every target cable gap and all
+three significant full-frame artifact scores are zero. A further interval is rejected because its
+34.045750 PSNR falls outside the 0.07-dB selection window.
+Exact experiments and artifacts are in `experiments/exr_geometry_occupancy_guard.md`.
+
 `build_edge_aware_frequency_variants.py` cheaply derives conservative candidates from the cached
 EXR recovery results: knee+1, a scene-quantile structural floor, and knee/calibrated unions limited
 either globally or to dilated high-structure cells. These candidates retain16-level scalar-
@@ -911,8 +938,8 @@ until downstream training and visual gates accept one.
 
 The cable campaign established that the budget-aware corrected ARM allocator improves aggregate EXR
 metrics but does not by itself repair cable continuity. Corrected ARM plus selective q75 eval
-dilation is the accepted rendering path; either setting alone is insufficient for the completed
-quality gate.
+dilation remains the historical frozen-checkpoint repair. New training uses corrected ARM plus the
+geometry-aware q80 cross guard and requires no eval dilation.
 Unlike the historical cap, which can truncate late occupied intervals after ceiling/scale rounding,
 the corrected path merges excess intervals and allocates at least one sample before distributing
 the remaining per-ray budget by largest remainder. An equal-state continuation showed that this is

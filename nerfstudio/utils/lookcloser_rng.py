@@ -8,7 +8,7 @@ from typing import Iterator, Union
 import torch
 
 
-_STREAM_IDS = {"pixel": 1, "occupancy": 2, "frequency_grid": 3}
+_STREAM_IDS = {"pixel": 1, "occupancy": 2, "frequency_grid": 3, "geometry_support": 4}
 
 
 def stream_seed(base_seed: int, stream: str, step: int) -> int:
