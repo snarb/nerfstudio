@@ -32,6 +32,7 @@ def _model(
     model = LookCloserModel.__new__(LookCloserModel)
     nn.Module.__init__(model)
     model.config = SimpleNamespace(
+        rgb_output_parameterization="sigmoid",
         occupancy_diagnostics=diagnostics,
         occupancy_occ_thre=0.45,
         occupancy_thre_clamp_mult=clamp_mult,
@@ -225,3 +226,56 @@ def test_model_config_keeps_occupancy_diagnostics_enabled_by_default() -> None:
     assert config.occupancy_diagnostics is True
     assert config.stable_occupancy_reduction is True
     assert config.adaptive_warmup_steps == 4096
+    assert config.occupancy_eval_dilation_radius == 0
+    assert config.occupancy_eval_dilation_min_frequency_level == 0.0
+    assert config.occupancy_eval_dilation_frequency_quantile is None
+    assert config.occupancy_eval_dilation_frequency_halo == 0
+
+
+def test_eval_only_dilation_is_restored_before_training() -> None:
+    model = LookCloserModel.__new__(LookCloserModel)
+    nn.Module.__init__(model)
+    model.config = SimpleNamespace(occupancy_eval_dilation_radius=1)
+    original = torch.zeros((1, 3, 3, 3), dtype=torch.bool)
+    original[0, 1, 1, 1] = True
+    model.occupancy_grid = SimpleNamespace(binaries=original.clone())
+    model._eval_occupancy_backup = None
+
+    model.eval()
+    model._ensure_eval_occupancy_dilation()
+
+    assert model.occupancy_grid.binaries.all()
+    assert torch.equal(model._eval_occupancy_backup, original)
+
+    model.train()
+
+    assert model._eval_occupancy_backup is None
+    assert torch.equal(model.occupancy_grid.binaries, original)
+
+
+def test_eval_dilation_can_use_scene_adaptive_frequency_quantile() -> None:
+    model = LookCloserModel.__new__(LookCloserModel)
+    nn.Module.__init__(model)
+    model.config = SimpleNamespace(
+        occupancy_eval_dilation_radius=1,
+        occupancy_eval_dilation_min_frequency_level=0.0,
+        occupancy_eval_dilation_frequency_quantile=0.75,
+        occupancy_eval_dilation_frequency_halo=0,
+    )
+    original = torch.zeros((1, 3, 3, 3), dtype=torch.bool)
+    original[0, 1, 1, 1] = True
+    frequency = torch.zeros((3, 3, 3))
+    frequency[0, 0, 0] = 1.0
+    frequency[0, 0, 1] = 5.0
+    frequency[0, 1, 0] = 10.0
+    frequency[2, 2, 2] = 15.0
+    model.occupancy_grid = SimpleNamespace(binaries=original.clone())
+    model.freq_grid = SimpleNamespace(grid=frequency)
+    model._eval_occupancy_backup = None
+
+    model.eval()
+    model._ensure_eval_occupancy_dilation()
+
+    expected = original.clone()
+    expected[0, 2, 2, 2] = True
+    assert torch.equal(model.occupancy_grid.binaries, expected)

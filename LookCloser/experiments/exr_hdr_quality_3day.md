@@ -1,12 +1,18 @@
 # Three-day EXR HDR quality and cable-continuity campaign
 
-Status: quality selection invalidated by the target thin-cable gate. Step98722 remains the
-aggregate-metric leader, but is not an accepted cable-continuity result.
+Status: complete after renderer repair. Selected checkpoint: corrected ARM step98722, rendered
+with scene-adaptive high-frequency occupancy dilation (`radius=1`, active-level q75).
 
 Correction (2026-08-08): the original broad-ROI edge score and downscaled review sheets missed a
 large break in the long black cable at the left of every eval view. A cable-specific ordered-path
 detector and native-scale crops now expose the failure. No renderer or training fix is claimed in
 this report until that new gate passes.
+
+Resolution (2026-08-08): the field contains the cable—fixed traversal renders it continuously—but
+the frozen binary occupancy grid omitted its thin high-frequency cells. A temporary one-voxel
+dilation restricted to the top quartile of nonzero frequency-grid levels restores those cells at
+evaluation/render time. It produces zero target gaps in every eval view and does not mutate the
+occupancy state used when training resumes.
 
 ## What was tested
 
@@ -143,14 +149,36 @@ support with ±3px tolerance. It reports:
 The red detected intervals coincide visually with the missing black cable. Therefore step98722
 fails the target structural gate even though its aggregate PQ metrics remain the best measured.
 
+### Target-cable renderer repair
+
+Frozen-weight controls prove that the defect is produced by occupancy-guided adaptive traversal,
+not missing learned geometry. Fixed1024/fixed2048 remove every target gap, while increasing adaptive
+subdivision density does not. Uniform fallback is unsuitable because overlapping fallback and ARM
+intervals double-count density. The accepted repair expands occupancy only where the scene's own
+frequency grid is high; q75 is computed over nonzero levels and is not a fixed scene-specific level.
+
+| Frozen step98722 renderer | PQ PSNR | PQ SSIM | PQ LPIPS | Target gap px | Longest gap |
+|---|---:|---:|---:|---:|---:|
+| Original adaptive | **34.0497** | 0.899265 | 0.213361 | 246 | 67px |
+| Full occupancy dilation r1 | 33.7737 | 0.899149 | 0.213272 | **0** | **0px** |
+| Selective r1, active-frequency q75 | 34.0342 | **0.899406** | **0.212446** | **0** | **0px** |
+| Selective r1, q75 halo1 | 33.9799 | 0.899334 | 0.212499 | **0** | **0px** |
+| Selective r1, q75 halo2 | 33.9218 | 0.899309 | 0.212626 | **0** | **0px** |
+
+The no-halo q75 candidate is selected. Its PSNR is only `0.0155 dB` below the maximum, inside the
+frozen `0.07 dB` window, and it wins the LPIPS tie-break while also improving SSIM. Native-scale
+inspection confirms a continuous cable in all three views. The significant full-frame artifact
+score is `0.0` with `serious=false` on all views; native EXRs contain no non-finite, negative or
+over-peak prediction channels.
+
 Final aggregate and per-view PQ metrics:
 
 | View | PQ PSNR | PQ SSIM | PQ LPIPS |
 |---:|---:|---:|---:|
-| eval0 | 33.8643 | 0.89958 | 0.25137 |
-| eval1 | 34.6727 | 0.90599 | 0.22025 |
-| eval2 | 33.6120 | 0.89222 | 0.16846 |
-| **Mean** | **34.0497** | **0.89926** | **0.21336** |
+| eval0 | 33.8122 | 0.89970 | 0.25068 |
+| eval1 | 34.6154 | 0.90605 | 0.21880 |
+| eval2 | 33.6749 | 0.89247 | 0.16785 |
+| **Mean** | **34.0342** | **0.89941** | **0.21245** |
 
 Final artifacts:
 
@@ -160,6 +188,8 @@ Final artifacts:
 - Fixed-exposure review: `/mnt/data/lookcloser_exr_quality_campaign/runs/hdr_quality_3day_v1/lookcloser/cont_corrected_part2_s42/hdr_review_renders_best_step-000098722/`.
 - Cable review and metrics: `/mnt/data/lookcloser_exr_quality_campaign/runs/hdr_quality_3day_v1/lookcloser/cont_corrected_part2_s42/edge_continuity_best_step-000098722/`.
 - Corrected target-cable crops, masks and JSON: `/mnt/data/lookcloser_cable_hole_detection_v1/final_detected_crops/`.
+- Accepted selective-dilation evaluation, native renders, HDR review, artifact JSON and cable crops:
+  `/mnt/data/lookcloser_exr_quality_campaign/sampling_ablation_target_cable_v2/adaptive_eval_dilate1_freq_q75/`.
 
 ## Insights
 
@@ -182,8 +212,9 @@ cable sheets are also indistinguishable at review scale. It is therefore not a m
 repair and is retained only as a perceptual tie candidate. Reducing feature re-weighting strength
 to `0.3` was rejected at the first boundary (`33.8296 / 0.89894 / 0.21991`).
 
-The earlier conclusion that corrected allocation repaired cable continuity is withdrawn. It
-improved aggregate metrics and the broad edge average, but the target cable still has severe visible
-holes. Renderer, loss, map and training changes must now be compared with the ordered target-cable
-gate first; only candidates with no qualifying long gap proceed to aggregate selection and visual
-review. The current work establishes detection, not a repair.
+The earlier conclusion that corrected allocation alone repaired cable continuity remains withdrawn.
+The actual cause is a false-negative region in the frozen occupancy grid: the field still represents
+the cable, but adaptive traversal never queries it. Scene-adaptive q75 selective dilation repairs the
+render without retraining and without the quality loss of full fixed traversal. Future candidates
+must first pass the ordered target-cable zero-gap veto, then the full artifact/HDR gates and finally
+the PSNR-window/LPIPS selection rule.

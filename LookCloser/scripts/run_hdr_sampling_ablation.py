@@ -29,6 +29,47 @@ VARIANTS: dict[str, dict[str, Any]] = {
         "corrected_arm_allocator": True,
     },
     "adaptive_fallback64": {"adaptive_fixed_fallback_samples_per_ray": 64},
+    "adaptive_eval_dilate1": {"occupancy_eval_dilation_radius": 1},
+    "adaptive_eval_dilate2": {"occupancy_eval_dilation_radius": 2},
+    "adaptive_eval_dilate3": {"occupancy_eval_dilation_radius": 3},
+    "adaptive_eval_dilate1_freq15": {
+        "occupancy_eval_dilation_radius": 1,
+        "occupancy_eval_dilation_min_frequency_level": 15.0,
+    },
+    "adaptive_eval_dilate1_freq15_halo1": {
+        "occupancy_eval_dilation_radius": 1,
+        "occupancy_eval_dilation_min_frequency_level": 15.0,
+        "occupancy_eval_dilation_frequency_halo": 1,
+    },
+    "adaptive_eval_dilate1_freq15_halo2": {
+        "occupancy_eval_dilation_radius": 1,
+        "occupancy_eval_dilation_min_frequency_level": 15.0,
+        "occupancy_eval_dilation_frequency_halo": 2,
+    },
+    "adaptive_eval_dilate1_freq_q75": {
+        "occupancy_eval_dilation_radius": 1,
+        "occupancy_eval_dilation_frequency_quantile": 0.75,
+    },
+    "fixed128": {
+        "ray_sampling_mode": "fixed",
+        "enable_adaptive_ray_marching": False,
+        "fixed_num_samples_per_ray": 128,
+    },
+    "fixed256": {
+        "ray_sampling_mode": "fixed",
+        "enable_adaptive_ray_marching": False,
+        "fixed_num_samples_per_ray": 256,
+    },
+    "fixed512": {
+        "ray_sampling_mode": "fixed",
+        "enable_adaptive_ray_marching": False,
+        "fixed_num_samples_per_ray": 512,
+    },
+    "fixed768": {
+        "ray_sampling_mode": "fixed",
+        "enable_adaptive_ray_marching": False,
+        "fixed_num_samples_per_ray": 768,
+    },
     "fixed1024": {
         "ray_sampling_mode": "fixed",
         "enable_adaptive_ray_marching": False,
@@ -61,9 +102,17 @@ def atomic_json(path: Path, value: dict[str, Any]) -> None:
     temporary.replace(path)
 
 
-def metric_row(name: str, eval_json: Path, edge_json: Path, render_dir: Path, seconds: float) -> dict[str, Any]:
+def metric_row(
+    name: str,
+    eval_json: Path,
+    edge_json: Path,
+    cable_json: Path,
+    render_dir: Path,
+    seconds: float,
+) -> dict[str, Any]:
     evaluation = json.loads(eval_json.read_text(encoding="utf-8"))["results"]
     edge = json.loads(edge_json.read_text(encoding="utf-8"))["aggregate"]
+    cable = json.loads(cable_json.read_text(encoding="utf-8"))["aggregate"]
     return {
         "variant": name,
         "psnr": float(evaluation["psnr"]),
@@ -73,9 +122,13 @@ def metric_row(name: str, eval_json: Path, edge_json: Path, render_dir: Path, se
         "edge_f1": float(edge["edge_f1"]),
         "long_gap_fraction": float(edge["long_gap_fraction"]),
         "long_gap_count": int(edge["long_gap_count"]),
+        "target_cable_longest_gap": int(cable["max_longest_gap_pixels"]),
+        "target_cable_gap_pixels": int(cable["total_gap_pixels"]),
+        "target_cable_mean_gap_fraction": float(cable["mean_gap_fraction"]),
         "seconds": float(seconds),
         "eval_json": str(eval_json),
         "edge_json": str(edge_json),
+        "target_cable_json": str(cable_json),
         "render_dir": str(render_dir),
     }
 
@@ -96,14 +149,31 @@ def score_edges(render_dir: Path, output_dir: Path, data: Path) -> Path:
     return edge_dir / "edge_continuity.json"
 
 
+def score_target_cable(render_dir: Path, output_dir: Path, data: Path) -> Path:
+    cable_dir = output_dir / "target_cable_gaps"
+    command = [
+        sys.executable,
+        str(SCRIPT_DIR / "score_thin_cable_gaps.py"),
+        "--render-dir",
+        str(render_dir),
+        "--output-dir",
+        str(cable_dir),
+        "--data",
+        str(data),
+    ]
+    subprocess.run(command, check=True)
+    return cable_dir / "thin_cable_gaps.json"
+
+
 def evaluate_variant(args: argparse.Namespace, name: str, overrides: dict[str, Any]) -> dict[str, Any]:
     variant_dir = args.output_dir / name
     variant_dir.mkdir(parents=True, exist_ok=True)
     eval_json = variant_dir / "eval.json"
     render_dir = variant_dir / "renders"
     edge_json = variant_dir / "edge_continuity" / "edge_continuity.json"
-    if eval_json.is_file() and edge_json.is_file() and not args.force:
-        return metric_row(name, eval_json, edge_json, render_dir, 0.0)
+    cable_json = variant_dir / "target_cable_gaps" / "thin_cable_gaps.json"
+    if eval_json.is_file() and edge_json.is_file() and cable_json.is_file() and not args.force:
+        return metric_row(name, eval_json, edge_json, cable_json, render_dir, 0.0)
 
     config = yaml.load(args.base_config.read_text(encoding="utf-8"), Loader=yaml.Loader)
     model = config.pipeline.model
@@ -130,7 +200,8 @@ def evaluate_variant(args: argparse.Namespace, name: str, overrides: dict[str, A
     with log_path.open("w", encoding="utf-8") as log:
         subprocess.run(command, stdout=log, stderr=subprocess.STDOUT, check=True)
     edge_json = score_edges(render_dir, variant_dir, args.data)
-    return metric_row(name, eval_json, edge_json, render_dir, time.monotonic() - started)
+    cable_json = score_target_cable(render_dir, variant_dir, args.data)
+    return metric_row(name, eval_json, edge_json, cable_json, render_dir, time.monotonic() - started)
 
 
 def main() -> int:
@@ -151,11 +222,15 @@ def main() -> int:
     baseline_edge = baseline_dir / "edge_continuity" / "edge_continuity.json"
     if not baseline_edge.is_file() or args.force:
         baseline_edge = score_edges(args.baseline_render_dir, baseline_dir, args.data)
+    baseline_cable = baseline_dir / "target_cable_gaps" / "thin_cable_gaps.json"
+    if not baseline_cable.is_file() or args.force:
+        baseline_cable = score_target_cable(args.baseline_render_dir, baseline_dir, args.data)
     rows = [
         metric_row(
             "baseline_adaptive",
             args.baseline_eval_json,
             baseline_edge,
+            baseline_cable,
             args.baseline_render_dir,
             0.0,
         )
@@ -166,7 +241,9 @@ def main() -> int:
         print(
             f"result variant={name} psnr={row['psnr']:.5f} ssim={row['ssim']:.6f} "
             f"lpips={row['lpips']:.6f} edge_recall={row['edge_recall']:.5f} "
-            f"long_gap={row['long_gap_fraction']:.5f}",
+            f"long_gap={row['long_gap_fraction']:.5f} "
+            f"target_cable_longest={row['target_cable_longest_gap']} "
+            f"target_cable_pixels={row['target_cable_gap_pixels']}",
             flush=True,
         )
     baseline = rows[0]
@@ -184,7 +261,16 @@ def main() -> int:
             [
                 {
                     key: row[key]
-                    for key in ("variant", "psnr", "ssim", "lpips", "edge_recall", "long_gap_fraction")
+                    for key in (
+                        "variant",
+                        "psnr",
+                        "ssim",
+                        "lpips",
+                        "edge_recall",
+                        "long_gap_fraction",
+                        "target_cable_longest_gap",
+                        "target_cable_gap_pixels",
+                    )
                 }
                 for row in rows
             ],

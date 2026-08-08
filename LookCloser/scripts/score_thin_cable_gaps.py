@@ -242,13 +242,25 @@ def display_pair(render_dir: Path, eval_idx: int) -> tuple[np.ndarray, np.ndarra
     return pair[:, :width].copy(), pair[:, width:].copy()
 
 
-def crop_box(gaps: list[dict], shape: tuple[int, int], margin: int) -> tuple[int, int, int, int]:
-    if not gaps:
-        raise ValueError("No long cable gap detected; cannot produce a claimed hole crop")
-    x0 = min(gap["bbox_xyxy"][0] for gap in gaps)
-    y0 = min(gap["bbox_xyxy"][1] for gap in gaps)
-    x1 = max(gap["bbox_xyxy"][2] for gap in gaps)
-    y1 = max(gap["bbox_xyxy"][3] for gap in gaps)
+def crop_box(
+    gaps: list[dict],
+    route: list[tuple[int, int]],
+    shape: tuple[int, int],
+    margin: int,
+) -> tuple[int, int, int, int]:
+    """Crop around detected gaps, or the complete declared cable when it passes."""
+    if gaps:
+        x0 = min(gap["bbox_xyxy"][0] for gap in gaps)
+        y0 = min(gap["bbox_xyxy"][1] for gap in gaps)
+        x1 = max(gap["bbox_xyxy"][2] for gap in gaps)
+        y1 = max(gap["bbox_xyxy"][3] for gap in gaps)
+    else:
+        if not route:
+            raise ValueError("Cannot crop an empty cable route")
+        route_x = [point[0] for point in route]
+        route_y = [point[1] for point in route]
+        x0, y0 = min(route_x), min(route_y)
+        x1, y1 = max(route_x) + 1, max(route_y) + 1
     height, width = shape
     return max(0, x0 - margin), max(0, y0 - margin), min(width, x1 + margin), min(height, y1 + margin)
 
@@ -323,7 +335,7 @@ def main() -> int:
         route = trace_centerline(ridge, anchors, config.corridor_radius)
         missing, gaps, summary = detect_gaps(gt, prediction, route, config)
         path_mask, gap_mask = masks_from_route(gt.shape, route, missing)
-        box = crop_box(gaps, gt.shape, config.crop_margin)
+        box = crop_box(gaps, route, gt.shape, config.crop_margin)
         gt_display, pred_display = display_pair(args.render_dir, eval_idx)
         paths = save_outputs(
             args.output_dir, name, gt_display, pred_display, path_mask, gap_mask, box, summary

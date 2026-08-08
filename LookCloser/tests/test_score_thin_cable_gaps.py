@@ -41,3 +41,8 @@ def test_detects_a_long_missing_run_on_an_ordered_dark_cable() -> None:
 def test_parse_cables_requires_an_ordered_corridor() -> None:
     parsed = MODULE.parse_cables(["cable:2:10,20;30,40;50,60"])
     assert parsed == [("cable", 2, ((10, 20), (30, 40), (50, 60)))]
+
+
+def test_crop_falls_back_to_full_route_when_there_is_no_gap() -> None:
+    box = MODULE.crop_box([], [(20, 30), (25, 40), (30, 50)], (100, 100), margin=5)
+    assert box == (15, 25, 36, 56)

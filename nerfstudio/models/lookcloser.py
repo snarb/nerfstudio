@@ -185,6 +185,18 @@ class LookCloserModelConfig(ModelConfig):
     occupancy_dilation_radius: int = 0
     """Voxel dilation radius applied to binary occupancy after every grid update."""
 
+    occupancy_eval_dilation_radius: int = 0
+    """Temporary binary-occupancy dilation used only while evaluating frozen weights."""
+
+    occupancy_eval_dilation_min_frequency_level: float = 0.0
+    """If positive, admit eval-dilated cells only in frequency-grid regions at or above this level."""
+
+    occupancy_eval_dilation_frequency_quantile: Optional[float] = None
+    """Scene-adaptive quantile of nonzero frequency levels used instead of a fixed level threshold."""
+
+    occupancy_eval_dilation_frequency_halo: int = 0
+    """Voxel halo around the high-frequency eligibility mask used by selective eval dilation."""
+
     occupancy_binary_warmup_steps: int = 4096
     """Keep occupancy binaries fully occupied for this many initial steps to avoid cold-start empty grids."""
 
@@ -411,6 +423,16 @@ class LookCloserModel(Model):
             raise ValueError("occupancy_thre_clamp_mult must be > 0.")
         if self.config.occupancy_dilation_radius < 0:
             raise ValueError("occupancy_dilation_radius must be >= 0.")
+        if self.config.occupancy_eval_dilation_radius < 0:
+            raise ValueError("occupancy_eval_dilation_radius must be >= 0.")
+        if self.config.occupancy_eval_dilation_min_frequency_level < 0:
+            raise ValueError("occupancy_eval_dilation_min_frequency_level must be >= 0.")
+        if self.config.occupancy_eval_dilation_frequency_quantile is not None and not (
+            0.0 <= self.config.occupancy_eval_dilation_frequency_quantile <= 1.0
+        ):
+            raise ValueError("occupancy_eval_dilation_frequency_quantile must be in [0, 1].")
+        if self.config.occupancy_eval_dilation_frequency_halo < 0:
+            raise ValueError("occupancy_eval_dilation_frequency_halo must be >= 0.")
         if self.config.near_plane < 0 or self.config.far_plane <= self.config.near_plane:
             raise ValueError("Expected 0 <= near_plane < far_plane.")
 
@@ -495,6 +517,7 @@ class LookCloserModel(Model):
         self.current_train_step = 0
         self._last_occupancy_binaries: Optional[torch.Tensor] = None
         self._last_occupancy_stats: Dict[str, float] = {}
+        self._eval_occupancy_backup: Optional[torch.Tensor] = None
 
     def _resolved_ray_sampling_mode(self) -> str:
         if self.config.ray_sampling_mode != "auto":
@@ -654,6 +677,46 @@ class LookCloserModel(Model):
         self.occupancy_grid.binaries = (
             F.max_pool3d(binaries, kernel_size=kernel_size, stride=1, padding=radius)[:, 0] > 0
         )
+
+    def _ensure_eval_occupancy_dilation(self) -> None:
+        """Dilate a loaded frozen grid once, without contaminating resumed training."""
+        radius = int(self.config.occupancy_eval_dilation_radius)
+        if self.training or radius <= 0 or self._eval_occupancy_backup is not None:
+            return
+        self._eval_occupancy_backup = self.occupancy_grid.binaries.clone()
+        self._dilate_occ_binaries(radius)
+        min_level = float(getattr(self.config, "occupancy_eval_dilation_min_frequency_level", 0.0))
+        frequency_quantile = getattr(self.config, "occupancy_eval_dilation_frequency_quantile", None)
+        eligible: Optional[torch.Tensor] = None
+        if frequency_quantile is not None:
+            active_levels = self.freq_grid.grid[self.freq_grid.grid > 0]
+            if active_levels.numel() == 0:
+                eligible = torch.zeros_like(self.freq_grid.grid, dtype=torch.bool)
+            else:
+                adaptive_level = torch.quantile(active_levels.float(), float(frequency_quantile))
+                min_level = max(min_level, float(adaptive_level.item()))
+        if min_level > 0 or eligible is not None:
+            if eligible is None:
+                eligible = self.freq_grid.grid >= min_level
+            halo = int(getattr(self.config, "occupancy_eval_dilation_frequency_halo", 0))
+            if halo > 0:
+                eligible = F.max_pool3d(
+                    eligible.float()[None, None],
+                    kernel_size=2 * halo + 1,
+                    stride=1,
+                    padding=halo,
+                )[0, 0] > 0
+            self.occupancy_grid.binaries = self._eval_occupancy_backup | (
+                self.occupancy_grid.binaries & eligible[None]
+            )
+
+    def train(self, mode: bool = True) -> "LookCloserModel":
+        """Restore the exact training occupancy state after temporary eval dilation."""
+        if mode and getattr(self, "_eval_occupancy_backup", None) is not None:
+            self.occupancy_grid.binaries = self._eval_occupancy_backup
+            self._eval_occupancy_backup = None
+        super().train(mode)
+        return self
 
     def _fallback_ray_samples(self, ray_bundle: RayBundle, samples_per_ray: int) -> Tuple[RaySamples, torch.Tensor]:
         device = ray_bundle.origins.device
@@ -866,6 +929,7 @@ class LookCloserModel(Model):
     def adaptive_ray_marching(self, ray_bundle: RayBundle) -> Dict[str, torch.Tensor]:
         """Packed frequency-aware ray marching using nerfacc occupancy traversal."""
         assert self.config.render_step_size is not None
+        self._ensure_eval_occupancy_dilation()
         coarse_step_size = (
             float(self.config.adaptive_coarse_step_size)
             if self.config.adaptive_coarse_step_size is not None

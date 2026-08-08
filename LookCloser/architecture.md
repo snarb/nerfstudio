@@ -893,6 +893,16 @@ of at least10px are veto failures. The script saves separate GT/prediction crops
 red gap overlays and JSON lengths/fractions. This target gate invalidated the prior visual acceptance
 of step98722 (longest gaps 60/67/39px across eval0/1/2); aggregate metrics cannot override it.
 
+The corresponding renderer repair is eval-only selective occupancy dilation. With
+`occupancy_eval_dilation_radius=1` and
+`occupancy_eval_dilation_frequency_quantile=0.75`, the model temporarily expands the loaded binary
+occupancy grid only inside the top quartile of that scene's nonzero frequency levels. The original
+grid is cloned before dilation and restored on `train(True)`, so checkpoint state and resumed
+optimization are unchanged. On step98722 this changes target cable gap pixels from246 to0 and the
+longest gap from67px to0; PQ metrics are `34.0342 / 0.899406 / 0.212446`. Full-frame significant
+artifact scores are zero on all eval views. The quantile is scene-adaptive and replaces the
+diagnostic fixed-level15 control.
+
 `build_edge_aware_frequency_variants.py` cheaply derives conservative candidates from the cached
 EXR recovery results: knee+1, a scene-quantile structural floor, and knee/calibrated unions limited
 either globally or to dilated high-structure cells. These candidates retain16-level scalar-
@@ -900,8 +910,9 @@ resolution maps and record hashes, changed fractions and bin statistics; they ar
 until downstream training and visual gates accept one.
 
 The cable campaign established that the budget-aware corrected ARM allocator improves aggregate EXR
-metrics, but it did not validate cable repair: the target-cable veto still fails. Therefore the
-allocator remains an experimental leader setting rather than a completed production-quality path.
+metrics but does not by itself repair cable continuity. Corrected ARM plus selective q75 eval
+dilation is the accepted rendering path; either setting alone is insufficient for the completed
+quality gate.
 Unlike the historical cap, which can truncate late occupied intervals after ceiling/scale rounding,
 the corrected path merges excess intervals and allocates at least one sample before distributing
 the remaining per-ray budget by largest remainder. An equal-state continuation showed that this is
