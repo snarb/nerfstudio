@@ -21,6 +21,7 @@ def _loss_config(loss_type: str) -> SimpleNamespace:
         eag_patch_size=3,
         eag_dssim_weight=0.2,
         eag_edge_weight=0.0,
+        eag_lpips_weight=0.0,
         distortion_loss_mult=0.0,
         depth_loss_mult=0.0,
     )
@@ -34,7 +35,13 @@ class _LossHarness:
     ssim = staticmethod(structural_similarity_index_measure)
 
 
-@pytest.mark.parametrize("loss_type", ["linear_l1", "rawnerf_weighted_l2", "linear_pq", "pq_l1"])
+class _SquaredPerceptual(torch.nn.Module):
+    def forward(self, prediction, target, normalize=True):
+        del normalize
+        return (prediction - target).square().mean(dim=(1, 2, 3), keepdim=True)
+
+
+@pytest.mark.parametrize("loss_type", ["linear_l1", "rawnerf_weighted_l2", "linear_pq", "pq_mse", "pq_l1"])
 def test_hdr_losses_are_finite_and_differentiable(loss_type):
     harness = _LossHarness()
     harness.config = _loss_config(loss_type)
@@ -85,6 +92,19 @@ def test_eag_edge_term_penalizes_a_broken_patch_edge():
     edge = LookCloserModel.get_loss_dict(harness, {"rgb": prediction}, {"image": target})["rgb_loss"]
 
     assert edge > base
+
+
+def test_eag_lpips_is_differentiable_on_contiguous_patches():
+    harness = _LossHarness()
+    harness.config = _loss_config("eag_pq_lpips")
+    harness.config.eag_lpips_weight = 0.1
+    harness.lpips = SimpleNamespace(net=_SquaredPerceptual())
+    prediction = torch.full((9, 3), 0.5, requires_grad=True)
+    target = torch.full_like(prediction, 0.75)
+    loss = LookCloserModel.get_loss_dict(harness, {"rgb": prediction}, {"image": target})["rgb_loss"]
+    loss.backward()
+    assert torch.isfinite(loss)
+    assert torch.isfinite(prediction.grad).all()
 
 
 def test_hdr_output_parameterizations_are_positive_and_unbounded():

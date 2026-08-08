@@ -78,3 +78,50 @@ def test_full_fas_sample_indices_and_rng_match_dictionary_lookup(device: str) ->
             torch.equal(left, right)
             for left, right in zip(torch.cuda.get_rng_state_all(), reference_cuda_state)
         )
+
+
+def test_fas_training_patches_are_spatially_contiguous_and_row_major() -> None:
+    config = LookCloserPixelSamplerConfig(
+        num_rays_per_batch=18,
+        num_levels=2,
+        patch_size=4,
+        stride=4,
+        training_patch_size=3,
+    )
+    sampler = LookCloserPixelSampler(config)
+    sampler.is_initialized = True
+    sampler.current_fas_strength = 1.0
+    sampler.probs = np.array([0.5, 0.5])
+    sampler.buckets = {
+        0: torch.tensor([[0, 1, 1]], dtype=torch.int32),
+        1: torch.tensor([[1, 2, 2]], dtype=torch.int32),
+    }
+    sampler.image_shapes = {0: (16, 17), 1: (15, 18)}
+
+    indices = sampler.sample_method(18, 2, 16, 18)
+    patches = indices.reshape(2, 3, 3, 3)
+    expected_y = torch.arange(3).view(3, 1).expand(3, 3)
+    expected_x = torch.arange(3).view(1, 3).expand(3, 3)
+    for patch in patches:
+        assert bool((patch[..., 0] == patch[0, 0, 0]).all())
+        assert torch.equal(patch[..., 1] - patch[0, 0, 1], expected_y)
+        assert torch.equal(patch[..., 2] - patch[0, 0, 2], expected_x)
+        image_index = int(patch[0, 0, 0])
+        height, width = sampler.image_shapes[image_index]
+        assert int(patch[..., 1].max()) < height
+        assert int(patch[..., 2].max()) < width
+
+
+def test_nondivisible_eval_batch_preserves_unstructured_sampling() -> None:
+    config = LookCloserPixelSamplerConfig(
+        num_rays_per_batch=10,
+        num_levels=1,
+        training_patch_size=3,
+    )
+    sampler = LookCloserPixelSampler(config)
+    sampler.is_initialized = True
+    sampler.current_fas_strength = 1.0
+    sampler.probs = np.array([1.0])
+    sampler.buckets = {0: torch.tensor([[0, 0, 0]], dtype=torch.int32)}
+    indices = sampler.sample_method(10, 1, 16, 16)
+    assert indices.shape == (10, 3)

@@ -83,8 +83,10 @@ def parse_args() -> argparse.Namespace:
             "linear_l1",
             "rawnerf_weighted_l2",
             "linear_pq",
+            "pq_mse",
             "pq_l1",
             "eag_pq_dssim",
+            "eag_pq_lpips",
         ),
         default="charbonnier",
     )
@@ -107,6 +109,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--eag-dssim-weight", type=float, default=0.2)
     parser.add_argument("--eag-patch-size", type=int, default=11)
     parser.add_argument("--eag-edge-weight", type=float, default=0.0)
+    parser.add_argument("--eag-lpips-weight", type=float, default=0.0)
     parser.add_argument("--training-patch-size", type=int, default=1)
     parser.add_argument("--optimizer-max-norm", type=float, default=None)
     parser.add_argument("--optimizer-max-value", type=float, default=None)
@@ -367,7 +370,15 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
     has_exr = any(args.data.glob("images/*.exr"))
-    hdr_losses = {"linear_l1", "rawnerf_weighted_l2", "linear_pq", "pq_l1", "eag_pq_dssim"}
+    hdr_losses = {
+        "linear_l1",
+        "rawnerf_weighted_l2",
+        "linear_pq",
+        "pq_mse",
+        "pq_l1",
+        "eag_pq_dssim",
+        "eag_pq_lpips",
+    }
     if has_exr and args.rgb_output_parameterization == "sigmoid":
         parser.error("EXR training requires --rgb-output-parameterization linear_softplus or pq_code")
     if args.reconstruction_loss_type in hdr_losses and args.rgb_output_parameterization == "sigmoid":
@@ -375,18 +386,22 @@ def parse_args() -> argparse.Namespace:
     if args.reconstruction_loss_type == "pq_l1" and args.rgb_output_parameterization != "pq_code":
         parser.error("pq_l1 requires --rgb-output-parameterization pq_code")
     if (
-        args.reconstruction_loss_type in {"linear_pq", "eag_pq_dssim"}
+        args.reconstruction_loss_type in {"linear_pq", "pq_mse", "eag_pq_dssim", "eag_pq_lpips"}
         and args.rgb_output_parameterization != "linear_softplus"
     ):
-        parser.error("linear_pq/eag_pq_dssim require --rgb-output-parameterization linear_softplus")
-    if args.reconstruction_loss_type == "eag_pq_dssim":
+        parser.error("linear_pq/EAG PQ losses require --rgb-output-parameterization linear_softplus")
+    if args.reconstruction_loss_type in {"eag_pq_dssim", "eag_pq_lpips"}:
         if args.eag_edge_weight < 0:
             parser.error("--eag-edge-weight must be non-negative")
+        if args.eag_lpips_weight < 0:
+            parser.error("--eag-lpips-weight must be non-negative")
         args.training_patch_size = args.eag_patch_size
         rays_per_patch = args.eag_patch_size**2
         args.train_num_rays_per_batch = max(
             rays_per_patch, args.train_num_rays_per_batch // rays_per_patch * rays_per_patch
         )
+        if args.reconstruction_loss_type == "eag_pq_lpips" and args.cpu_fas_prefetch:
+            parser.error("contiguous EAG patches are incompatible with --cpu-fas-prefetch")
     if args.reconstruction_loss_type == "rawnerf_weighted_l2":
         args.optimizer_max_norm = args.rawnerf_grad_clip if args.optimizer_max_norm is None else args.optimizer_max_norm
         args.optimizer_max_value = (
@@ -640,6 +655,8 @@ def train_command(args: argparse.Namespace) -> List[str]:
             str(args.frequency_patch_size),
             "--pipeline.datamanager.pixel-sampler.stride",
             str(args.frequency_stride),
+            "--pipeline.datamanager.pixel-sampler.training-patch-size",
+            str(args.eag_patch_size if args.reconstruction_loss_type == "eag_pq_lpips" else 1),
             "--pipeline.frequency-map-dir",
             args.frequency_map_dir,
             "--pipeline.enable-frequency-grid",
@@ -714,6 +731,8 @@ def train_command(args: argparse.Namespace) -> List[str]:
             str(args.eag_patch_size),
             "--pipeline.model.eag-edge-weight",
             str(args.eag_edge_weight),
+            "--pipeline.model.eag-lpips-weight",
+            str(args.eag_lpips_weight),
             "--pipeline.model.enable-frequency-grid",
             bool_text(enable_frequency_grid),
             "--pipeline.model.grid-resolution",
@@ -1681,6 +1700,7 @@ def summarize_params(args: argparse.Namespace) -> str:
         "eag_dssim_weight": args.eag_dssim_weight,
         "eag_patch_size": args.eag_patch_size,
         "eag_edge_weight": args.eag_edge_weight,
+        "eag_lpips_weight": args.eag_lpips_weight,
         "training_patch_size": args.training_patch_size,
         "optimizer_max_norm": args.optimizer_max_norm,
         "optimizer_max_value": args.optimizer_max_value,

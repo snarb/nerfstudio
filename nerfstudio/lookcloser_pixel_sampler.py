@@ -224,6 +224,9 @@ class LookCloserPixelSamplerConfig(PixelSamplerConfig):
     stride: int = 32
     """Fallback frequency-map stride for legacy maps without sidecar metadata."""
 
+    training_patch_size: int = 1
+    """Contiguous training patch width; one preserves historical independent-ray FAS."""
+
 
 class LookCloserPixelSampler(PixelSampler):
     """
@@ -670,6 +673,110 @@ class LookCloserPixelSampler(PixelSampler):
 
         return sampled_levels
 
+    @staticmethod
+    def _expand_patch_anchors(anchors: Tensor, patch_size: int) -> Tensor:
+        """Expand top-left anchors into row-major contiguous square patches."""
+
+        device = anchors.device
+        local_y, local_x = torch.meshgrid(
+            torch.arange(patch_size, device=device),
+            torch.arange(patch_size, device=device),
+            indexing="ij",
+        )
+        patches = anchors[:, None, None, :].expand(-1, patch_size, patch_size, -1).clone()
+        patches[..., 1] += local_y
+        patches[..., 2] += local_x
+        return patches.reshape(-1, 3)
+
+    def _sample_spatial_patches(
+        self,
+        batch_size: int,
+        num_images: int,
+        image_height: int,
+        image_width: int,
+        mask: Optional[Tensor],
+        device: Union[torch.device, str],
+    ) -> Tensor:
+        """Sample FAS-weighted patch anchors while preserving spatial ray order.
+
+        Patch losses reshape consecutive rays into images. The historical FAS path
+        shuffled independent rays, so a divisible batch was not sufficient to make
+        those images spatially meaningful. This path samples frequency-map cells as
+        patch centers and only shuffles whole patches.
+        """
+
+        patch_size = int(self.config.training_patch_size)
+        patch_area = patch_size * patch_size
+        if patch_size <= 1 or batch_size % patch_area != 0:
+            raise ValueError(
+                "training_patch_size requires num_rays_per_batch divisible by its square, got "
+                f"batch_size={batch_size}, training_patch_size={patch_size}."
+            )
+        if patch_size > image_height or patch_size > image_width:
+            raise ValueError(
+                f"training_patch_size={patch_size} exceeds image shape {(image_height, image_width)}."
+            )
+        if isinstance(mask, Tensor) and not self.config.ignore_mask:
+            raise ValueError("FAS contiguous training patches do not yet support image masks.")
+
+        target_device = torch.device(device)
+        num_patches = batch_size // patch_area
+        fas_patch_count = int(round(num_patches * self.current_fas_strength))
+        fas_patch_count = min(max(fas_patch_count, 0), num_patches)
+        uniform_patch_count = num_patches - fas_patch_count
+        anchors: List[Tensor] = []
+
+        if uniform_patch_count > 0:
+            uniform_images = torch.randint(0, num_images, (uniform_patch_count,), device=target_device)
+            uniform_y = torch.randint(0, image_height - patch_size + 1, (uniform_patch_count,), device=target_device)
+            uniform_x = torch.randint(0, image_width - patch_size + 1, (uniform_patch_count,), device=target_device)
+            anchors.append(torch.stack([uniform_images, uniform_y, uniform_x], dim=1))
+
+        if fas_patch_count > 0:
+            # A perceptual batch may contain only a handful of large patches.
+            # Largest-remainder rounding would then always choose the same top
+            # levels and permanently exclude most of the scene. Categorical
+            # draws preserve the configured distribution across training steps.
+            sampled_levels = torch.multinomial(
+                torch.as_tensor(self.probs, dtype=torch.float64),
+                fas_patch_count,
+                replacement=True,
+            )
+            counts = torch.bincount(sampled_levels, minlength=self.config.num_levels).numpy()
+
+            half_patch = patch_size // 2
+            for level in range(self.config.num_levels):
+                count = int(counts[level])
+                if count <= 0:
+                    continue
+                bucket = self.buckets[level]
+                if bucket.shape[0] == 0:
+                    fallback_images = torch.randint(0, num_images, (count,), device=target_device)
+                    fallback_y = torch.randint(0, image_height - patch_size + 1, (count,), device=target_device)
+                    fallback_x = torch.randint(0, image_width - patch_size + 1, (count,), device=target_device)
+                    anchors.append(torch.stack([fallback_images, fallback_y, fallback_x], dim=1))
+                    continue
+
+                selected = bucket[torch.randint(0, bucket.shape[0], (count,))].to(target_device).long()
+                center_y = selected[:, 1] * self.patch_stride + torch.randint(
+                    0, self.patch_size, (count,), device=target_device
+                )
+                center_x = selected[:, 2] * self.patch_stride + torch.randint(
+                    0, self.patch_size, (count,), device=target_device
+                )
+                heights, widths = self._image_shapes_for_indices(
+                    selected[:, 0], num_images, image_height, image_width
+                )
+                max_y = torch.clamp_min(heights - patch_size, 0)
+                max_x = torch.clamp_min(widths - patch_size, 0)
+                top_y = torch.minimum(torch.clamp_min(center_y - half_patch, 0), max_y)
+                top_x = torch.minimum(torch.clamp_min(center_x - half_patch, 0), max_x)
+                anchors.append(torch.stack([selected[:, 0], top_y, top_x], dim=1))
+
+        patch_anchors = torch.cat(anchors, dim=0)
+        patch_order = torch.randperm(patch_anchors.shape[0], device=target_device)
+        return self._expand_patch_anchors(patch_anchors[patch_order], patch_size)
+
     def sample_method(
             self,
             batch_size: int,
@@ -701,6 +808,17 @@ class LookCloserPixelSampler(PixelSampler):
             # We can't initialize here effectively without the dataset object.
             # We'll return random fallback if not initialized (sanity check).
             return super().sample_method(batch_size, num_images, image_height, image_width, mask, device)
+
+        training_patch_size = int(self.config.training_patch_size)
+        if training_patch_size > 1 and batch_size % (training_patch_size * training_patch_size) == 0:
+            return self._sample_spatial_patches(
+                batch_size,
+                num_images,
+                image_height,
+                image_width,
+                mask,
+                device,
+            )
 
         fas_batch_size = int(round(batch_size * self.current_fas_strength))
         uniform_batch_size = batch_size - fas_batch_size

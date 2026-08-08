@@ -850,6 +850,10 @@ EAG-PT-inspired PQ-L1 plus patch DSSIM variant. ST2084 operations run in float32
 reports PQ-domain PSNR/SSIM/LPIPS and exports paired prediction/GT EXRs; the separate evaluator
 adds clipping/finite diagnostics and fixed `-2/0/+2 EV` review sheets.
 
+The HDR loss screen also exposes PQ-MSE and opt-in PQ-L1+LPIPS. LPIPS training uses genuine
+row-major spatial patches sampled by FAS; the historical EAG-PQ-DSSIM path keeps independent-ray
+sampling for checkpoint/recipe compatibility. Both losses still predict and composite linear RGB.
+
 `scripts/build_adaptive_exr_frequency_maps.py` replaces the scene-specific SSIM constant. A single
 progressive 2D HashGrid fit per training image produces the complete per-level PQ-SSIM recovery
 cube. Three automatic map families reuse it: a scene-empirical calibrated crossing, a three-level

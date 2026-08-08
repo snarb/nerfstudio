@@ -249,8 +249,10 @@ class LookCloserModelConfig(ModelConfig):
         "linear_l1",
         "rawnerf_weighted_l2",
         "linear_pq",
+        "pq_mse",
         "pq_l1",
         "eag_pq_dssim",
+        "eag_pq_lpips",
     ] = "charbonnier"
     """RGB reconstruction loss for LookCloser training."""
 
@@ -298,6 +300,9 @@ class LookCloserModelConfig(ModelConfig):
 
     eag_edge_weight: float = 0.0
     """PQ finite-difference edge consistency added to the EAG patch loss."""
+
+    eag_lpips_weight: float = 0.0
+    """Additive PQ-domain LPIPS weight for contiguous perceptual training patches."""
 
 
 class LookCloserModel(Model):
@@ -367,6 +372,8 @@ class LookCloserModel(Model):
             raise ValueError("eag_dssim_weight must be in [0, 1).")
         if self.config.eag_edge_weight < 0:
             raise ValueError("eag_edge_weight must be non-negative.")
+        if self.config.eag_lpips_weight < 0:
+            raise ValueError("eag_lpips_weight must be non-negative.")
         if self.config.eag_patch_size <= 1:
             raise ValueError("eag_patch_size must be > 1.")
 
@@ -396,8 +403,11 @@ class LookCloserModel(Model):
         )
         if self.config.reconstruction_loss_type == "pq_l1" and self.config.rgb_output_parameterization != "pq_code":
             raise ValueError("pq_l1 requires rgb_output_parameterization='pq_code'.")
-        if self.config.reconstruction_loss_type in {"linear_pq", "eag_pq_dssim"} and self.config.rgb_output_parameterization == "pq_code":
-            raise ValueError("linear_pq/eag_pq_dssim require a linear RGB output parameterization.")
+        if (
+            self.config.reconstruction_loss_type in {"linear_pq", "pq_mse", "eag_pq_dssim", "eag_pq_lpips"}
+            and self.config.rgb_output_parameterization != "linear_softplus"
+        ):
+            raise ValueError("linear_pq/EAG PQ losses require a linear RGB output parameterization.")
         if self.config.fixed_num_samples_per_ray <= 0:
             raise ValueError("fixed_num_samples_per_ray must be > 0.")
         if self.config.adaptive_min_step_size <= 0 or self.config.adaptive_max_step_size <= 0:
@@ -1700,8 +1710,10 @@ class LookCloserModel(Model):
             "linear_l1",
             "rawnerf_weighted_l2",
             "linear_pq",
+            "pq_mse",
             "pq_l1",
             "eag_pq_dssim",
+            "eag_pq_lpips",
         }:
             prediction = outputs["rgb"]
             if not bool(torch.isfinite(prediction).all()):
@@ -1732,7 +1744,10 @@ class LookCloserModel(Model):
                     black_nits=self.config.pq_black_nits,
                 )
                 pq_l1 = (pq_prediction - pq_target).abs()[valid].mean()
-                reconstruction = pq_l1 + float(self.config.pq_linear_anchor_weight) * linear_l1
+                if self.config.reconstruction_loss_type == "pq_mse":
+                    reconstruction = (pq_prediction - pq_target).square()[valid].mean()
+                else:
+                    reconstruction = pq_l1 + float(self.config.pq_linear_anchor_weight) * linear_l1
                 if self.config.reconstruction_loss_type == "eag_pq_dssim":
                     patch_size = int(self.config.eag_patch_size)
                     rays_per_patch = patch_size * patch_size
@@ -1760,6 +1775,25 @@ class LookCloserModel(Model):
                             )
                             reconstruction = reconstruction + float(self.config.eag_edge_weight) * edge_loss
                         reconstruction = reconstruction + float(self.config.pq_linear_anchor_weight) * linear_l1
+                elif self.config.reconstruction_loss_type == "eag_pq_lpips":
+                    patch_size = int(self.config.eag_patch_size)
+                    rays_per_patch = patch_size * patch_size
+                    if prediction.ndim != 2 or prediction.shape[0] % rays_per_patch != 0:
+                        if getattr(self, "training", True):
+                            raise ValueError(
+                                "eag_pq_lpips requires contiguous patch batches with ray count divisible by "
+                                f"eag_patch_size**2 ({rays_per_patch})."
+                            )
+                    else:
+                        predicted_patches = pq_prediction.reshape(-1, patch_size, patch_size, 3).permute(0, 3, 1, 2)
+                        target_patches = pq_target.reshape(-1, patch_size, patch_size, 3).permute(0, 3, 1, 2)
+                        with torch.autocast(device_type=prediction.device.type, enabled=False):
+                            perceptual = self.lpips.net(
+                                predicted_patches.float(),
+                                target_patches.float(),
+                                normalize=True,
+                            ).mean()
+                        reconstruction = reconstruction + float(self.config.eag_lpips_weight) * perceptual
             loss_dict["rgb_loss"] = reconstruction
         else:
             raise ValueError(f"Unknown reconstruction_loss_type={self.config.reconstruction_loss_type!r}.")
