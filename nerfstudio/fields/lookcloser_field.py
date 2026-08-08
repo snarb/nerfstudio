@@ -17,6 +17,7 @@ from nerfstudio.field_components.field_heads import FieldHeadNames
 from nerfstudio.fields.base_field import Field
 from nerfstudio.model_components.lookcloser_grid import FrequencyGridManager
 from nerfstudio.utils.external import TCNN_EXISTS, tcnn, tcnn_import_exception
+from nerfstudio.utils.hdr import activate_hdr_rgb
 
 TCNNNetworkJITScope = Literal["both", "geometry", "color"]
 
@@ -55,6 +56,14 @@ class LookCloserField(Field):
             num_images: int = 0,
             tcnn_network_jit: bool = False,
             tcnn_network_jit_scope: TCNNNetworkJITScope = "both",
+            rgb_output_parameterization: Literal["sigmoid", "linear_softplus", "pq_code"] = "sigmoid",
+            hdr_linear_scale: float = 1.0,
+            hdr_initial_radiance: float = 0.5,
+            pq_nits_per_scene_unit: float = 100.0,
+            pq_black_nits: float = 0.005,
+            pq_peak_nits: float = 10_000.0,
+            hdr_softplus_beta: float = 1.0,
+            pq_code_temperature: float = 1.0,
             spatial_distortion=None,
     ) -> None:
         super().__init__()
@@ -73,6 +82,14 @@ class LookCloserField(Field):
         self.spatial_distortion = spatial_distortion
         self.appearance_embedding_dim = int(appearance_embedding_dim)
         self.num_images = int(num_images)
+        self.rgb_output_parameterization = rgb_output_parameterization
+        self.hdr_linear_scale = float(hdr_linear_scale)
+        self.hdr_initial_radiance = float(hdr_initial_radiance)
+        self.pq_nits_per_scene_unit = float(pq_nits_per_scene_unit)
+        self.pq_black_nits = float(pq_black_nits)
+        self.pq_peak_nits = float(pq_peak_nits)
+        self.hdr_softplus_beta = float(hdr_softplus_beta)
+        self.pq_code_temperature = float(pq_code_temperature)
         if self.appearance_embedding_dim > 0:
             if self.num_images <= 0:
                 raise ValueError("num_images must be > 0 when appearance embeddings are enabled.")
@@ -138,12 +155,29 @@ class LookCloserField(Field):
             network_config={
                 "otype": "FullyFusedMLP",
                 "activation": "ReLU",
-                "output_activation": "Sigmoid",
+                "output_activation": "Sigmoid" if rgb_output_parameterization == "sigmoid" else "None",
                 "n_neurons": hidden_dim,
                 "n_hidden_layers": color_num_layers,
             },
         )
         self.set_tcnn_network_jit(tcnn_network_jit, scope=tcnn_network_jit_scope)
+
+    def _activate_rgb(self, raw_rgb: Tensor) -> Tensor:
+        if self.rgb_output_parameterization == "sigmoid":
+            # The default tiny-cuda-nn head already applied sigmoid.  Keeping
+            # this branch as identity preserves historical checkpoints exactly.
+            return raw_rgb
+        return activate_hdr_rgb(
+            raw_rgb,
+            parameterization=self.rgb_output_parameterization,
+            linear_scale=self.hdr_linear_scale,
+            initial_radiance=self.hdr_initial_radiance,
+            nits_per_scene_unit=self.pq_nits_per_scene_unit,
+            black_nits=self.pq_black_nits,
+            peak_nits=self.pq_peak_nits,
+            softplus_beta=self.hdr_softplus_beta,
+            pq_code_temperature=self.pq_code_temperature,
+        )
 
     def _tcnn_networks_for_scope(self, scope: TCNNNetworkJITScope) -> Tuple[nn.Module, ...]:
         """Return the TCNN networks selected by a validated JIT scope."""
@@ -260,7 +294,7 @@ class LookCloserField(Field):
                     dtype=geo_feat.dtype,
                 )
             color_inputs.append(embedded_appearance)
-        rgb = self.mlp_color(torch.cat(color_inputs, dim=-1))
+        rgb = self._activate_rgb(self.mlp_color(torch.cat(color_inputs, dim=-1)))
         return density, rgb
 
     def get_weights(self, l_grid: Tensor, batch_size: int) -> Tensor:
@@ -378,7 +412,7 @@ class LookCloserField(Field):
 
         # Concatenate and Decode
         color_input = torch.cat(color_inputs, dim=-1)
-        rgb = self.mlp_color(color_input)
+        rgb = self._activate_rgb(self.mlp_color(color_input))
 
         # Reshape
         rgb = rgb.view(*prefix_shape, 3)

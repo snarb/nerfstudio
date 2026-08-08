@@ -43,6 +43,8 @@ class OptimizerConfig(base_config.PrintableConfig):
     """The epsilon value to use."""
     max_norm: Optional[float] = None
     """The max norm to use for gradient clipping."""
+    max_value: Optional[float] = None
+    """Optional element-wise gradient clipping bound."""
 
     # TODO: somehow make this more generic. i dont like the idea of overriding the setup function
     # but also not sure how to go about passing things into predefined torch objects.
@@ -51,6 +53,7 @@ class OptimizerConfig(base_config.PrintableConfig):
         kwargs = vars(self).copy()
         kwargs.pop("_target")
         kwargs.pop("max_norm")
+        kwargs.pop("max_value")
         return self._target(params, **kwargs)
 
 
@@ -153,8 +156,12 @@ class Optimizers:
         """
         for param_group, optimizer in self.optimizers.items():
             max_norm = self.config[param_group]["optimizer"].max_norm
-            if max_norm is not None:
+            max_value = self.config[param_group]["optimizer"].max_value
+            if max_norm is not None or max_value is not None:
                 grad_scaler.unscale_(optimizer)
+            if max_value is not None:
+                torch.nn.utils.clip_grad_value_(self.parameters[param_group], max_value)
+            if max_norm is not None:
                 torch.nn.utils.clip_grad_norm_(self.parameters[param_group], max_norm)
             if any(any(p.grad is not None for p in g["params"]) for g in optimizer.param_groups):
                 grad_scaler.step(optimizer)
@@ -168,8 +175,12 @@ class Optimizers:
         for param_group in param_groups:
             optimizer = self.optimizers[param_group]
             max_norm = self.config[param_group]["optimizer"].max_norm
-            if max_norm is not None:
+            max_value = self.config[param_group]["optimizer"].max_value
+            if max_norm is not None or max_value is not None:
                 grad_scaler.unscale_(optimizer)
+            if max_value is not None:
+                torch.nn.utils.clip_grad_value_(self.parameters[param_group], max_value)
+            if max_norm is not None:
                 torch.nn.utils.clip_grad_norm_(self.parameters[param_group], max_norm)
             if any(any(p.grad is not None for p in g["params"]) for g in optimizer.param_groups):
                 grad_scaler.step(optimizer)
@@ -179,6 +190,9 @@ class Optimizers:
         for param_group, optimizer in self.optimizers.items():
             # note that they key is the parameter name
             max_norm = self.config[param_group]["optimizer"].max_norm
+            max_value = self.config[param_group]["optimizer"].max_value
+            if max_value is not None:
+                torch.nn.utils.clip_grad_value_(self.parameters[param_group], max_value)
             if max_norm is not None:
                 torch.nn.utils.clip_grad_norm_(self.parameters[param_group], max_norm)
             optimizer.step()

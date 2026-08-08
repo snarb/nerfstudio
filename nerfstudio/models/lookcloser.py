@@ -5,6 +5,7 @@ Integrates Frequency-Aware Neural Radiance Fields with Adaptive Ray Marching.
 
 from __future__ import annotations
 
+import math
 from collections import defaultdict
 from dataclasses import dataclass, field
 from typing import Callable, Dict, List, Literal, Optional, Tuple, Type
@@ -30,6 +31,7 @@ from nerfstudio.models.base_model import Model, ModelConfig
 from nerfstudio.utils import colormaps
 from nerfstudio.utils.colors import get_color
 from nerfstudio.utils.lookcloser_rng import fork_seeded_rng
+from nerfstudio.utils.hdr import hdr_display_preview, scene_linear_to_pq
 
 
 @dataclass
@@ -216,11 +218,59 @@ class LookCloserModelConfig(ModelConfig):
     background_color: Literal["random", "last_sample", "black", "white"] = "black"
     """Background color strategy."""
 
-    reconstruction_loss_type: Literal["charbonnier", "mse", "huber"] = "charbonnier"
+    reconstruction_loss_type: Literal[
+        "charbonnier",
+        "mse",
+        "huber",
+        "linear_l1",
+        "rawnerf_weighted_l2",
+        "linear_pq",
+        "pq_l1",
+        "eag_pq_dssim",
+    ] = "charbonnier"
     """RGB reconstruction loss for LookCloser training."""
 
     huber_delta: float = 0.1
     """Delta used by Huber RGB reconstruction loss."""
+
+    rgb_output_parameterization: Literal["sigmoid", "linear_softplus", "pq_code"] = "sigmoid"
+    """Color-head representation; HDR campaigns use an explicitly selected non-sigmoid mode."""
+
+    hdr_linear_scale: Optional[float] = None
+    """Scene-linear normalization scale; unset reads deterministic train-split calibration metadata."""
+
+    hdr_initial_radiance: Optional[float] = None
+    """Initial scene-linear radiance represented by zero color logits."""
+
+    hdr_softplus_beta: float = 1.0
+    """Softplus beta for unbounded non-negative scene-linear radiance."""
+
+    pq_nits_per_scene_unit: Optional[float] = None
+    """Dataset-wide scene-linear to display-nits scale; unset uses train-split calibration."""
+
+    pq_black_nits: float = 0.005
+    """Black floor used inside PQ transforms."""
+
+    pq_peak_nits: float = 10_000.0
+    """Peak represented by the PQ-code head."""
+
+    pq_code_temperature: float = 1.0
+    """Sigmoid temperature for the PQ-code output ablation."""
+
+    rawnerf_epsilon: float = 1e-3
+    """Stop-gradient denominator floor in normalized scene-linear units."""
+
+    rawnerf_grad_clip: float = 0.1
+    """Recorded gradient clipping value for RawNeRF campaign runners."""
+
+    pq_linear_anchor_weight: float = 0.0
+    """Optional normalized linear-L1 anchor added to PQ reconstruction losses."""
+
+    eag_dssim_weight: float = 0.2
+    """DSSIM weight for the EAG-PT-inspired patch loss."""
+
+    eag_patch_size: int = 11
+    """Contiguous patch width required by EAG-PT-inspired DSSIM."""
 
 
 class LookCloserModel(Model):
@@ -282,6 +332,43 @@ class LookCloserModel(Model):
             raise ValueError("feature_reweighting_strength must be >= 0.")
         if self.config.huber_delta <= 0:
             raise ValueError("huber_delta must be > 0.")
+        if self.config.hdr_softplus_beta <= 0 or self.config.pq_code_temperature <= 0:
+            raise ValueError("HDR activation beta/temperature must be positive.")
+        if self.config.rawnerf_epsilon <= 0 or self.config.rawnerf_grad_clip <= 0:
+            raise ValueError("RawNeRF epsilon and grad clip must be positive.")
+        if not 0 <= self.config.eag_dssim_weight < 1:
+            raise ValueError("eag_dssim_weight must be in [0, 1).")
+        if self.config.eag_patch_size <= 1:
+            raise ValueError("eag_patch_size must be > 1.")
+
+        calibration = dict(self.kwargs.get("metadata", {}).get("hdr_calibration", {}))
+        hdr_enabled = self.config.rgb_output_parameterization != "sigmoid"
+        if hdr_enabled and not calibration and (
+            self.config.hdr_linear_scale is None
+            or self.config.hdr_initial_radiance is None
+            or self.config.pq_nits_per_scene_unit is None
+        ):
+            raise ValueError(
+                "HDR output requires train-split calibration metadata or explicit hdr_linear_scale, "
+                "hdr_initial_radiance, and pq_nits_per_scene_unit."
+            )
+        self.hdr_linear_scale = float(
+            self.config.hdr_linear_scale if self.config.hdr_linear_scale is not None else calibration.get("linear_scale", 1.0)
+        )
+        self.hdr_initial_radiance = float(
+            self.config.hdr_initial_radiance
+            if self.config.hdr_initial_radiance is not None
+            else calibration.get("initial_radiance", 0.5)
+        )
+        self.pq_nits_per_scene_unit = float(
+            self.config.pq_nits_per_scene_unit
+            if self.config.pq_nits_per_scene_unit is not None
+            else calibration.get("nits_per_scene_unit", 100.0)
+        )
+        if self.config.reconstruction_loss_type == "pq_l1" and self.config.rgb_output_parameterization != "pq_code":
+            raise ValueError("pq_l1 requires rgb_output_parameterization='pq_code'.")
+        if self.config.reconstruction_loss_type in {"linear_pq", "eag_pq_dssim"} and self.config.rgb_output_parameterization == "pq_code":
+            raise ValueError("linear_pq/eag_pq_dssim require a linear RGB output parameterization.")
         if self.config.fixed_num_samples_per_ray <= 0:
             raise ValueError("fixed_num_samples_per_ray must be > 0.")
         if self.config.adaptive_min_step_size <= 0 or self.config.adaptive_max_step_size <= 0:
@@ -353,10 +440,21 @@ class LookCloserModel(Model):
             tcnn_network_jit_scope=self.config.tcnn_network_jit_scope,
             enable_feature_reweighting=self.config.enable_feature_reweighting,
             feature_reweighting_strength=self.config.feature_reweighting_strength,
+            rgb_output_parameterization=self.config.rgb_output_parameterization,
+            hdr_linear_scale=self.hdr_linear_scale,
+            hdr_initial_radiance=self.hdr_initial_radiance,
+            pq_nits_per_scene_unit=self.pq_nits_per_scene_unit,
+            pq_black_nits=self.config.pq_black_nits,
+            pq_peak_nits=self.config.pq_peak_nits,
+            hdr_softplus_beta=self.config.hdr_softplus_beta,
+            pq_code_temperature=self.config.pq_code_temperature,
         )
 
         # 3. Renderers
-        self.renderer_rgb = RGBRenderer(background_color=self.config.background_color)
+        self.renderer_rgb = RGBRenderer(
+            background_color=self.config.background_color,
+            clamp_output=self.config.rgb_output_parameterization == "sigmoid",
+        )
         self.renderer_accumulation = AccumulationRenderer()
         self.renderer_depth = DepthRenderer(method="expected")
         if self.config.enable_collider:
@@ -1295,7 +1393,38 @@ class LookCloserModel(Model):
     def get_metrics_dict(self, outputs, batch):
         metrics_dict = {}
         image = batch["image"].to(self.device)
-        metrics_dict["psnr"] = self.psnr(outputs["rgb"], image)
+        rgb = outputs["rgb"]
+        if self.config.rgb_output_parameterization == "sigmoid":
+            metrics_dict["psnr"] = self.psnr(rgb, image)
+        else:
+            if not bool(torch.isfinite(rgb).all()):
+                raise FloatingPointError("Non-finite HDR RGB prediction")
+            valid = torch.isfinite(image)
+            target = torch.where(valid, image, torch.zeros_like(image))
+            prediction = torch.where(valid, rgb, torch.zeros_like(rgb))
+            normalized_prediction = prediction / self.hdr_linear_scale
+            normalized_target = target / self.hdr_linear_scale
+            linear_mse = ((normalized_prediction - normalized_target).square()[valid]).mean()
+            linear_psnr = -10.0 * torch.log10(linear_mse.clamp_min(1e-12))
+            pq_prediction = scene_linear_to_pq(
+                prediction,
+                nits_per_scene_unit=self.pq_nits_per_scene_unit,
+                black_nits=self.config.pq_black_nits,
+            )
+            pq_target = scene_linear_to_pq(
+                target,
+                nits_per_scene_unit=self.pq_nits_per_scene_unit,
+                black_nits=self.config.pq_black_nits,
+            )
+            pq_mse = ((pq_prediction - pq_target).square()[valid]).mean()
+            pq_psnr = -10.0 * torch.log10(pq_mse.clamp_min(1e-12))
+            metrics_dict["psnr"] = pq_psnr
+            metrics_dict["linear_psnr"] = linear_psnr
+            metrics_dict["pq_psnr"] = pq_psnr
+            metrics_dict["pq_upper_clip_rate"] = (
+                self.config.pq_black_nits + self.pq_nits_per_scene_unit * prediction.clamp_min(0.0)
+                > self.config.pq_peak_nits
+            ).float().mean()
         if "num_samples_per_ray" in outputs:
             metrics_dict["num_samples_per_batch"] = outputs["num_samples_per_ray"].sum()
             metrics_dict["samples_per_ray_mean"] = outputs["num_samples_per_ray"].float().mean()
@@ -1330,6 +1459,62 @@ class LookCloserModel(Model):
             loss_dict["rgb_loss"] = (
                 F.huber_loss(outputs["rgb"], image, delta=float(self.config.huber_delta), reduction="mean") / 5.0
             )
+        elif self.config.reconstruction_loss_type in {
+            "linear_l1",
+            "rawnerf_weighted_l2",
+            "linear_pq",
+            "pq_l1",
+            "eag_pq_dssim",
+        }:
+            prediction = outputs["rgb"]
+            if not bool(torch.isfinite(prediction).all()):
+                raise FloatingPointError("Non-finite HDR RGB prediction")
+            valid = torch.isfinite(image)
+            if not bool(valid.any()):
+                raise ValueError("HDR batch contains no finite target channels")
+            target = torch.where(valid, image, torch.zeros_like(image))
+            prediction = torch.where(valid, prediction, torch.zeros_like(prediction))
+            normalized_prediction = prediction / self.hdr_linear_scale
+            normalized_target = target / self.hdr_linear_scale
+            linear_l1 = (normalized_prediction - normalized_target).abs()[valid].mean()
+
+            if self.config.reconstruction_loss_type == "linear_l1":
+                reconstruction = linear_l1
+            elif self.config.reconstruction_loss_type == "rawnerf_weighted_l2":
+                denominator = normalized_prediction.detach().clamp_min(0.0) + float(self.config.rawnerf_epsilon)
+                reconstruction = (((normalized_prediction - normalized_target) / denominator).square())[valid].mean()
+            else:
+                pq_prediction = scene_linear_to_pq(
+                    prediction,
+                    nits_per_scene_unit=self.pq_nits_per_scene_unit,
+                    black_nits=self.config.pq_black_nits,
+                )
+                pq_target = scene_linear_to_pq(
+                    target,
+                    nits_per_scene_unit=self.pq_nits_per_scene_unit,
+                    black_nits=self.config.pq_black_nits,
+                )
+                pq_l1 = (pq_prediction - pq_target).abs()[valid].mean()
+                reconstruction = pq_l1 + float(self.config.pq_linear_anchor_weight) * linear_l1
+                if self.config.reconstruction_loss_type == "eag_pq_dssim":
+                    patch_size = int(self.config.eag_patch_size)
+                    rays_per_patch = patch_size * patch_size
+                    if prediction.ndim != 2 or prediction.shape[0] % rays_per_patch != 0:
+                        if getattr(self, "training", True):
+                            raise ValueError(
+                                "eag_pq_dssim requires contiguous patch batches with ray count divisible by "
+                                f"eag_patch_size**2 ({rays_per_patch})."
+                            )
+                        # Nerfstudio's lightweight eval-loss batch is an unstructured ray batch.
+                        # Full-image PQ SSIM is still measured by get_image_metrics_and_images.
+                    else:
+                        predicted_patches = pq_prediction.reshape(-1, patch_size, patch_size, 3).permute(0, 3, 1, 2)
+                        target_patches = pq_target.reshape(-1, patch_size, patch_size, 3).permute(0, 3, 1, 2)
+                        dssim = 1.0 - self.ssim(predicted_patches, target_patches, data_range=1.0)
+                        weight = float(self.config.eag_dssim_weight)
+                        reconstruction = (1.0 - weight) * pq_l1 + weight * dssim
+                        reconstruction = reconstruction + float(self.config.pq_linear_anchor_weight) * linear_l1
+            loss_dict["rgb_loss"] = reconstruction
         else:
             raise ValueError(f"Unknown reconstruction_loss_type={self.config.reconstruction_loss_type!r}.")
 
@@ -1377,23 +1562,59 @@ class LookCloserModel(Model):
             accumulation=outputs["accumulation"],
         )
 
-        combined_rgb = torch.cat([image, rgb], dim=1)
+        hdr_enabled = self.config.rgb_output_parameterization != "sigmoid"
+        if hdr_enabled:
+            preview_ev = math.log2(0.18 / max(self.hdr_initial_radiance, 1e-8))
+            image_for_display = hdr_display_preview(image, exposure_ev=preview_ev)
+            rgb_for_display = hdr_display_preview(rgb, exposure_ev=preview_ev)
+        else:
+            image_for_display = image
+            rgb_for_display = rgb
+        combined_rgb = torch.cat([image_for_display, rgb_for_display], dim=1)
         combined_acc = torch.cat([acc], dim=1)
         combined_depth = torch.cat([depth], dim=1)
 
         # Switch images from [H, W, C] to [1, C, H, W] for metrics.
-        image = torch.moveaxis(image, -1, 0)[None, ...]
-        rgb = torch.moveaxis(rgb, -1, 0)[None, ...]
+        image_chw = torch.moveaxis(image, -1, 0)[None, ...]
+        rgb_chw = torch.moveaxis(rgb, -1, 0)[None, ...]
 
-        psnr = self.psnr(image, rgb)
-        ssim = self.ssim(image, rgb)
-        lpips = self.lpips(image, rgb)
-
-        metrics_dict = {
-            "psnr": float(psnr.item()),
-            "ssim": float(ssim),
-            "lpips": float(lpips),
-        }
+        if hdr_enabled:
+            if not bool(torch.isfinite(rgb_chw).all()):
+                raise FloatingPointError("Non-finite HDR RGB prediction")
+            image_chw = torch.nan_to_num(image_chw)
+            normalized_error = (rgb_chw - image_chw) / self.hdr_linear_scale
+            linear_psnr = -10.0 * torch.log10(normalized_error.square().mean().clamp_min(1e-12))
+            pq_image = scene_linear_to_pq(
+                image_chw,
+                nits_per_scene_unit=self.pq_nits_per_scene_unit,
+                black_nits=self.config.pq_black_nits,
+            )
+            pq_rgb = scene_linear_to_pq(
+                rgb_chw,
+                nits_per_scene_unit=self.pq_nits_per_scene_unit,
+                black_nits=self.config.pq_black_nits,
+            )
+            pq_psnr = self.psnr(pq_image, pq_rgb)
+            pq_ssim = self.ssim(pq_image, pq_rgb, data_range=1.0)
+            pq_lpips = self.lpips(pq_image, pq_rgb)
+            metrics_dict = {
+                "psnr": float(pq_psnr.item()),
+                "ssim": float(pq_ssim),
+                "lpips": float(pq_lpips),
+                "linear_psnr": float(linear_psnr),
+                "pq_psnr": float(pq_psnr),
+                "pq_ssim": float(pq_ssim),
+                "pq_lpips": float(pq_lpips),
+            }
+        else:
+            psnr = self.psnr(image_chw, rgb_chw)
+            ssim = self.ssim(image_chw, rgb_chw)
+            lpips = self.lpips(image_chw, rgb_chw)
+            metrics_dict = {
+                "psnr": float(psnr.item()),
+                "ssim": float(ssim),
+                "lpips": float(lpips),
+            }
         images_dict = {
             "img": combined_rgb,
             "accumulation": combined_acc,

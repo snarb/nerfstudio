@@ -12,10 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Utility functions to allow easy re-use of common operations across dataloaders"""
+"""Utility functions to allow easy re-use of common operations across dataloaders."""
 
+import io
+import os
 from pathlib import Path
 from typing import IO, List, Tuple, Union
+
+# OpenCV ships its OpenEXR codec behind this explicit opt-in.  It must be set
+# before importing cv2; callers should not need to mutate their shell environment.
+os.environ.setdefault("OPENCV_IO_ENABLE_OPENEXR", "1")
 
 import cv2
 import numpy as np
@@ -40,6 +46,82 @@ def pil_to_numpy(im: PILImage) -> np.ndarray:
     # array interface preserves the decoded uint8 pixels without touching
     # model, sampler, optimizer, or RNG semantics.
     return np.asarray(im)
+
+
+def is_exr_path(filepath: Union[Path, IO[bytes]]) -> bool:
+    """Return whether ``filepath`` names an OpenEXR image.
+
+    Compressed-image caches pass a ``BytesIO`` without a useful name, so callers
+    that already know the source path should use that path for format dispatch.
+    """
+
+    name = getattr(filepath, "name", filepath)
+    return isinstance(name, (str, Path)) and Path(name).suffix.lower() == ".exr"
+
+
+def load_exr_image(
+    filepath: Union[Path, IO[bytes]], scale_factor: float = 1.0
+) -> np.ndarray:
+    """Decode an OpenEXR image as contiguous scene-linear RGB(A) float32.
+
+    OpenCV decodes color channels as BGR(A); this function is the single channel
+    order conversion used by dataset loading and preprocessing.  No transfer
+    function, exposure, clipping, or normalization is applied.
+    """
+
+    if isinstance(filepath, (str, Path)):
+        image = cv2.imread(str(Path(filepath).absolute()), cv2.IMREAD_UNCHANGED)
+    else:
+        if isinstance(filepath, io.BytesIO):
+            payload = filepath.getbuffer()
+        else:
+            position = filepath.tell() if hasattr(filepath, "tell") else None
+            if hasattr(filepath, "seek"):
+                filepath.seek(0)
+            payload = filepath.read()
+            if position is not None and hasattr(filepath, "seek"):
+                filepath.seek(position)
+        image = cv2.imdecode(np.frombuffer(payload, dtype=np.uint8), cv2.IMREAD_UNCHANGED)
+
+    if image is None:
+        raise ValueError(f"Failed to decode OpenEXR image: {getattr(filepath, 'name', filepath)!s}")
+    if image.ndim == 2:
+        image = np.repeat(image[..., None], 3, axis=-1)
+    if image.ndim != 3 or image.shape[-1] not in (3, 4):
+        raise ValueError(f"OpenEXR image must have RGB or RGBA channels, got shape {image.shape}")
+
+    if image.shape[-1] == 3:
+        image = image[..., (2, 1, 0)]
+    else:
+        image = image[..., (2, 1, 0, 3)]
+    image = np.asarray(image, dtype=np.float32)
+
+    if scale_factor != 1.0:
+        if scale_factor <= 0:
+            raise ValueError(f"scale_factor must be positive, got {scale_factor}")
+        height, width = image.shape[:2]
+        new_size = (max(1, int(width * scale_factor)), max(1, int(height * scale_factor)))
+        interpolation = cv2.INTER_AREA if scale_factor < 1.0 else cv2.INTER_LINEAR
+        image = cv2.resize(image, new_size, interpolation=interpolation)
+        if image.ndim == 2:
+            image = image[..., None]
+
+    return np.ascontiguousarray(image, dtype=np.float32)
+
+
+def write_exr_image(filepath: Path, image: Union[np.ndarray, torch.Tensor]) -> None:
+    """Write scene-linear RGB(A) data to OpenEXR without clipping or transfer functions."""
+
+    if isinstance(image, torch.Tensor):
+        image = image.detach().cpu().numpy()
+    array = np.asarray(image, dtype=np.float32)
+    if array.ndim != 3 or array.shape[-1] not in (3, 4):
+        raise ValueError(f"OpenEXR output must have RGB or RGBA channels, got shape {array.shape}")
+    filepath = Path(filepath)
+    filepath.parent.mkdir(parents=True, exist_ok=True)
+    encoded = array[..., (2, 1, 0)] if array.shape[-1] == 3 else array[..., (2, 1, 0, 3)]
+    if not cv2.imwrite(str(filepath), np.ascontiguousarray(encoded)):
+        raise OSError(f"Failed to write OpenEXR image: {filepath}")
 
 
 def get_image_mask_tensor_from_path(filepath: Union[Path, IO[bytes]], scale_factor: float = 1.0) -> torch.Tensor:

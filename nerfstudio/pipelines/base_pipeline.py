@@ -36,6 +36,7 @@ from torch.nn.parallel import DistributedDataParallel as DDP
 
 from nerfstudio.configs.base_config import InstantiateConfig
 from nerfstudio.data.datamanagers.base_datamanager import DataManager, DataManagerConfig
+from nerfstudio.data.utils.data_utils import write_exr_image
 from nerfstudio.engine.callbacks import TrainingCallback, TrainingCallbackAttributes
 from nerfstudio.models.base_model import Model, ModelConfig
 from nerfstudio.utils import profiler
@@ -390,6 +391,10 @@ class VanillaPipeline(Pipeline):
                         vutils.save_image(
                             image.permute(2, 0, 1).cpu(), output_path / f"{image_prefix}_{key}_{idx:04d}.png"
                         )
+                    model_config = getattr(self.model, "config", None)
+                    if getattr(model_config, "rgb_output_parameterization", "sigmoid") != "sigmoid":
+                        write_exr_image(output_path / f"{image_prefix}_pred_{idx:04d}.exr", outputs["rgb"])
+                        write_exr_image(output_path / f"{image_prefix}_gt_{idx:04d}.exr", batch["image"])
 
                 assert "num_rays_per_sec" not in metrics_dict
                 metrics_dict["num_rays_per_sec"] = (num_rays / (time() - inner_start)).item()

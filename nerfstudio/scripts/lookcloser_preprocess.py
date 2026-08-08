@@ -36,6 +36,7 @@ except Exception as e:
 
 from nerfstudio.configs.dataparser_configs import AnnotatedDataParserUnion
 from nerfstudio.data.dataparsers.nerfstudio_dataparser import NerfstudioDataParserConfig
+from nerfstudio.data.utils.data_utils import load_exr_image
 from nerfstudio.utils.rich_utils import CONSOLE
 
 
@@ -113,6 +114,7 @@ class InstantNGP2D(nn.Module):
         min_res: int = 16,
         max_res: int = 2048,
         log2_hashmap_size: int = 19,
+        output_activation: Literal["Sigmoid", "None"] = "Sigmoid",
     ):
         super().__init__()
 
@@ -146,7 +148,7 @@ class InstantNGP2D(nn.Module):
             network_config={
                 "otype": "FullyFusedMLP",
                 "activation": "ReLU",
-                "output_activation": "Sigmoid",
+                "output_activation": output_activation,
                 "n_neurons": 64,
                 "n_hidden_layers": 2,
             },
@@ -185,9 +187,18 @@ class InstantNGP2D(nn.Module):
 
 def load_image_as_tensor(path: Path, device: torch.device) -> torch.Tensor:
     """
-    Returns image as (H, W, 3), float32, [0, 1].
-    RGBA is composited on white.
+    Returns image as (H, W, 3), float32.
+
+    EXR remains scene-linear and unbounded. Integer formats are normalized to
+    [0, 1]; RGBA integer images are composited on white for compatibility.
     """
+    if path.suffix.lower() == ".exr":
+        image = load_exr_image(path)
+        if image.shape[-1] == 4:
+            alpha = image[..., 3:4]
+            image = image[..., :3] * alpha + (1.0 - alpha)
+        return torch.from_numpy(image[..., :3]).to(device=device, dtype=torch.float32)
+
     pil = Image.open(path)
     if pil.mode in ("RGBA", "LA") or (pil.mode == "P" and "transparency" in pil.info):
         rgba = pil.convert("RGBA")

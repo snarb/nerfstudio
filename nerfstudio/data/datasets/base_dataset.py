@@ -21,7 +21,7 @@ from __future__ import annotations
 import io
 from copy import deepcopy
 from pathlib import Path
-from typing import Dict, List, Literal
+from typing import Dict, List, Literal, Union
 
 import numpy as np
 import numpy.typing as npt
@@ -33,7 +33,8 @@ from torch.utils.data import Dataset
 
 from nerfstudio.cameras.cameras import Cameras
 from nerfstudio.data.dataparsers.base_dataparser import DataparserOutputs
-from nerfstudio.data.utils.data_utils import get_image_mask_tensor_from_path, pil_to_numpy
+from nerfstudio.data.utils.data_utils import get_image_mask_tensor_from_path, load_exr_image, pil_to_numpy
+from nerfstudio.utils.hdr import calibrate_exr_paths
 
 
 class InputDataset(Dataset):
@@ -74,13 +75,30 @@ class InputDataset(Dataset):
     def __len__(self):
         return len(self._dataparser_outputs.image_filenames)
 
-    def get_numpy_image(self, image_idx: int) -> npt.NDArray[np.uint8]:
+    def populate_hdr_metadata(self) -> None:
+        """Populate deterministic train-split calibration for all-EXR datasets."""
+
+        filenames = self._dataparser_outputs.image_filenames
+        if not filenames or not all(path.suffix.lower() == ".exr" for path in filenames):
+            return
+        metadata = dict(self.metadata)
+        if "hdr_calibration" not in metadata:
+            metadata["hdr_calibration"] = calibrate_exr_paths(filenames).as_metadata()
+        metadata["image_color_space"] = "linear-srgb"
+        metadata["image_format"] = "exr"
+        self.metadata = metadata
+
+    def get_numpy_image(self, image_idx: int) -> Union[npt.NDArray[np.uint8], npt.NDArray[np.float32]]:
         """Returns the image of shape (H, W, 3 or 4).
 
         Args:
             image_idx: The image index in the dataset.
         """
         image_filename = self._dataparser_outputs.image_filenames[image_idx]
+        if image_filename.suffix.lower() == ".exr":
+            source = self.binary_images[image_idx] if self.cache_compressed_images else image_filename
+            return load_exr_image(source, scale_factor=self.scale_factor)
+
         if self.cache_compressed_images:
             pil_image = Image.open(self.binary_images[image_idx])
         else:
@@ -104,13 +122,19 @@ class InputDataset(Dataset):
             image_idx: The image index in the dataset.
         """
         image = self.get_numpy_image(image_idx)
-        image = image / np.float32(255)
+        if image.dtype == np.uint8:
+            image = image / np.float32(255)
+        elif image.dtype != np.float32:
+            image = image.astype(np.float32)
         image = torch.from_numpy(image)
         if self._dataparser_outputs.alpha_color is not None and image.shape[-1] == 4:
             assert (self._dataparser_outputs.alpha_color >= 0).all() and (
                 self._dataparser_outputs.alpha_color <= 1
             ).all(), "alpha color given is out of range between [0, 1]."
-            image = image[:, :, :3] * image[:, :, -1:] + self._dataparser_outputs.alpha_color * (1.0 - image[:, :, -1:])
+            alpha = image[:, :, -1:]
+            if not bool(torch.isfinite(alpha).all()) or not bool(((alpha >= 0) & (alpha <= 1)).all()):
+                raise ValueError("Floating-point image alpha must be finite and in [0, 1].")
+            image = image[:, :, :3] * alpha + self._dataparser_outputs.alpha_color * (1.0 - alpha)
         return image
 
     def get_image_uint8(self, image_idx: int) -> UInt8[Tensor, "image_height image_width num_channels"]:
@@ -119,9 +143,13 @@ class InputDataset(Dataset):
         Args:
             image_idx: The image index in the dataset.
         """
-        image = torch.from_numpy(
-            self.get_numpy_image(image_idx)
-        )  # removed astype(np.uint8) because get_numpy_image returns uint8
+        numpy_image = self.get_numpy_image(image_idx)
+        if numpy_image.dtype != np.uint8:
+            raise ValueError(
+                "Floating-point images such as OpenEXR cannot be cached as uint8 without destroying HDR values. "
+                "Use cache_images_type='float32'."
+            )
+        image = torch.from_numpy(numpy_image)
         if self._dataparser_outputs.alpha_color is not None and image.shape[-1] == 4:
             assert (self._dataparser_outputs.alpha_color >= 0).all() and (
                 self._dataparser_outputs.alpha_color <= 1

@@ -8,6 +8,7 @@ import csv
 import hashlib
 import json
 import math
+import os
 import re
 import signal
 import subprocess
@@ -27,6 +28,7 @@ DEFAULT_EXPERIMENT = "007740_static_leader_stage_a"
 DEFAULT_SUMMARY = Path(__file__).resolve().parents[1] / "experiments" / "lookcloser_frequency_grid_optimization.md"
 ARTIFACT_DETECTOR = Path(__file__).resolve().parent / "detect_structural_artifacts.py"
 ROI_ARTIFACT_SCORER = Path(__file__).resolve().parent / "score_artifact_rois.py"
+HDR_EVALUATOR = Path(__file__).resolve().parent / "evaluate_exr_hdr_renders.py"
 DEFAULT_ARTIFACT_ROI_CROPS = (
     "left_stand_connector_eval0,left_stand_eval0,left_hand_background_eval0,"
     "left_hand_outlet_stand_eval0,floor_crack_eval0,fingers_right_tight_eval1,"
@@ -72,8 +74,41 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--eval-num-rays-per-batch", type=int, default=4096)
     parser.add_argument("--eval-num-rays-per-chunk", type=int, default=2048)
     parser.add_argument("--background-color", choices=("random", "last_sample", "black", "white"), default="black")
-    parser.add_argument("--reconstruction-loss-type", choices=("charbonnier", "mse", "huber"), default="charbonnier")
+    parser.add_argument(
+        "--reconstruction-loss-type",
+        choices=(
+            "charbonnier",
+            "mse",
+            "huber",
+            "linear_l1",
+            "rawnerf_weighted_l2",
+            "linear_pq",
+            "pq_l1",
+            "eag_pq_dssim",
+        ),
+        default="charbonnier",
+    )
     parser.add_argument("--huber-delta", type=float, default=0.1)
+    parser.add_argument(
+        "--rgb-output-parameterization",
+        choices=("sigmoid", "linear_softplus", "pq_code"),
+        default="sigmoid",
+    )
+    parser.add_argument("--hdr-linear-scale", type=float, default=None)
+    parser.add_argument("--hdr-initial-radiance", type=float, default=None)
+    parser.add_argument("--hdr-softplus-beta", type=float, default=1.0)
+    parser.add_argument("--pq-nits-per-scene-unit", type=float, default=None)
+    parser.add_argument("--pq-black-nits", type=float, default=0.005)
+    parser.add_argument("--pq-peak-nits", type=float, default=10000.0)
+    parser.add_argument("--pq-code-temperature", type=float, default=1.0)
+    parser.add_argument("--rawnerf-epsilon", type=float, default=1e-3)
+    parser.add_argument("--rawnerf-grad-clip", type=float, default=0.1)
+    parser.add_argument("--pq-linear-anchor-weight", type=float, default=0.0)
+    parser.add_argument("--eag-dssim-weight", type=float, default=0.2)
+    parser.add_argument("--eag-patch-size", type=int, default=11)
+    parser.add_argument("--training-patch-size", type=int, default=1)
+    parser.add_argument("--optimizer-max-norm", type=float, default=None)
+    parser.add_argument("--optimizer-max-value", type=float, default=None)
 
     parser.add_argument("--frequency-map-dir", default="lookcloser_frequencies")
     parser.add_argument("--frequency-patch-size", type=int, default=8)
@@ -284,6 +319,12 @@ def parse_args() -> argparse.Namespace:
         help="Comma-separated ROI crop names for ROI artifact scoring; use 'all' to score every ROI in score_artifact_rois.py.",
     )
     parser.add_argument("--poll-seconds", type=float, default=30.0)
+    parser.add_argument(
+        "--supervision-interval-seconds",
+        type=float,
+        default=3600.0,
+        help="GPU/process/OOM audit interval; capped at one hour by the runner.",
+    )
     parser.set_defaults(render_final=True, update_summary=True, artifact_score=True, artifact_roi_score=True)
     parser.add_argument(
         "--stop-on-no-improve",
@@ -291,6 +332,9 @@ def parse_args() -> argparse.Namespace:
         default=False,
         help="Optional diagnostic early stop; the accepted leader trajectory never enables it.",
     )
+    parser.add_argument("--early-reject-psnr-below", type=float, default=None)
+    parser.add_argument("--early-reject-ssim-below", type=float, default=None)
+    parser.add_argument("--early-reject-lpips-above", type=float, default=None)
     parser.add_argument("--no-render-final", dest="render_final", action="store_false")
     parser.add_argument("--no-artifact-score", dest="artifact_score", action="store_false")
     parser.add_argument("--no-artifact-roi-score", dest="artifact_roi_score", action="store_false")
@@ -302,7 +346,48 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--keep-all-checkpoints", dest="prune_checkpoints", action="store_false")
     parser.add_argument("--dry-run", action="store_true")
-    return parser.parse_args()
+    args = parser.parse_args()
+    has_exr = any(args.data.glob("images/*.exr"))
+    hdr_losses = {"linear_l1", "rawnerf_weighted_l2", "linear_pq", "pq_l1", "eag_pq_dssim"}
+    if has_exr and args.rgb_output_parameterization == "sigmoid":
+        parser.error("EXR training requires --rgb-output-parameterization linear_softplus or pq_code")
+    if args.reconstruction_loss_type in hdr_losses and args.rgb_output_parameterization == "sigmoid":
+        parser.error("HDR reconstruction losses cannot use sigmoid RGB output")
+    if args.reconstruction_loss_type == "pq_l1" and args.rgb_output_parameterization != "pq_code":
+        parser.error("pq_l1 requires --rgb-output-parameterization pq_code")
+    if (
+        args.reconstruction_loss_type in {"linear_pq", "eag_pq_dssim"}
+        and args.rgb_output_parameterization != "linear_softplus"
+    ):
+        parser.error("linear_pq/eag_pq_dssim require --rgb-output-parameterization linear_softplus")
+    if args.reconstruction_loss_type == "eag_pq_dssim":
+        args.training_patch_size = args.eag_patch_size
+        rays_per_patch = args.eag_patch_size**2
+        args.train_num_rays_per_batch = max(
+            rays_per_patch, args.train_num_rays_per_batch // rays_per_patch * rays_per_patch
+        )
+    if args.reconstruction_loss_type == "rawnerf_weighted_l2":
+        args.optimizer_max_norm = args.rawnerf_grad_clip if args.optimizer_max_norm is None else args.optimizer_max_norm
+        args.optimizer_max_value = (
+            args.rawnerf_grad_clip if args.optimizer_max_value is None else args.optimizer_max_value
+        )
+    positive_values = {
+        "hdr_softplus_beta": args.hdr_softplus_beta,
+        "pq_nits_per_scene_unit": args.pq_nits_per_scene_unit,
+        "pq_black_nits": args.pq_black_nits,
+        "pq_peak_nits": args.pq_peak_nits,
+        "pq_code_temperature": args.pq_code_temperature,
+        "rawnerf_epsilon": args.rawnerf_epsilon,
+    }
+    for name, value in positive_values.items():
+        if value is not None and value <= 0:
+            parser.error(f"--{name.replace('_', '-')} must be positive")
+    if args.poll_seconds <= 0:
+        parser.error("--poll-seconds must be positive")
+    if args.supervision_interval_seconds <= 0:
+        parser.error("--supervision-interval-seconds must be positive")
+    args.supervision_interval_seconds = min(args.supervision_interval_seconds, 3600.0)
+    return args
 
 
 def run_dir(args: argparse.Namespace) -> Path:
@@ -334,8 +419,9 @@ def train_command(args: argparse.Namespace) -> List[str]:
             or args.target_num_samples_switch_step is not None
         ):
             raise ValueError("--cpu-fas-prefetch v1 does not support ray-batch or dynamic point-target schedules")
+    ns_train = Path(sys.executable).with_name("ns-train")
     cmd = [
-        "ns-train",
+        str(ns_train) if ns_train.is_file() else "ns-train",
         "lookcloser",
         "--output-dir",
         str(args.output_dir),
@@ -380,6 +466,10 @@ def train_command(args: argparse.Namespace) -> List[str]:
         cmd.extend(["--load-optimizers", "False"])
     if args.fields_lr is not None:
         cmd.extend(["--optimizers.fields.optimizer.lr", str(args.fields_lr)])
+    if args.optimizer_max_norm is not None:
+        cmd.extend(["--optimizers.fields.optimizer.max-norm", str(args.optimizer_max_norm)])
+    if args.optimizer_max_value is not None:
+        cmd.extend(["--optimizers.fields.optimizer.max-value", str(args.optimizer_max_value)])
     if args.fields_lr_final is not None:
         cmd.extend(["--optimizers.fields.scheduler.lr-final", str(args.fields_lr_final)])
     if args.fields_scheduler_max_steps is not None:
@@ -480,7 +570,9 @@ def train_command(args: argparse.Namespace) -> List[str]:
             "--logging.profiler",
             "none",
             "--pipeline.datamanager.cache-images-type",
-            "uint8",
+            "float32" if any(args.data.glob("images/*.exr")) else "uint8",
+            "--pipeline.datamanager.patch-size",
+            str(args.training_patch_size),
             "--pipeline.datamanager.cache-train-rays",
             bool_text(args.cache_train_rays),
             "--pipeline.datamanager.cache-train-rays-chunk-size",
@@ -559,6 +651,26 @@ def train_command(args: argparse.Namespace) -> List[str]:
             args.reconstruction_loss_type,
             "--pipeline.model.huber-delta",
             str(args.huber_delta),
+            "--pipeline.model.rgb-output-parameterization",
+            args.rgb_output_parameterization,
+            "--pipeline.model.hdr-softplus-beta",
+            str(args.hdr_softplus_beta),
+            "--pipeline.model.pq-black-nits",
+            str(args.pq_black_nits),
+            "--pipeline.model.pq-peak-nits",
+            str(args.pq_peak_nits),
+            "--pipeline.model.pq-code-temperature",
+            str(args.pq_code_temperature),
+            "--pipeline.model.rawnerf-epsilon",
+            str(args.rawnerf_epsilon),
+            "--pipeline.model.rawnerf-grad-clip",
+            str(args.rawnerf_grad_clip),
+            "--pipeline.model.pq-linear-anchor-weight",
+            str(args.pq_linear_anchor_weight),
+            "--pipeline.model.eag-dssim-weight",
+            str(args.eag_dssim_weight),
+            "--pipeline.model.eag-patch-size",
+            str(args.eag_patch_size),
             "--pipeline.model.enable-frequency-grid",
             bool_text(enable_frequency_grid),
             "--pipeline.model.grid-resolution",
@@ -657,6 +769,12 @@ def train_command(args: argparse.Namespace) -> List[str]:
             str(args.depth_loss_steps),
         ]
     )
+    if args.hdr_linear_scale is not None:
+        cmd.extend(["--pipeline.model.hdr-linear-scale", str(args.hdr_linear_scale)])
+    if args.hdr_initial_radiance is not None:
+        cmd.extend(["--pipeline.model.hdr-initial-radiance", str(args.hdr_initial_radiance)])
+    if args.pq_nits_per_scene_unit is not None:
+        cmd.extend(["--pipeline.model.pq-nits-per-scene-unit", str(args.pq_nits_per_scene_unit)])
     if args.independent_rng_streams:
         cmd.extend(
             [
@@ -818,6 +936,128 @@ def stop_process(proc: subprocess.Popen) -> None:
             proc.wait()
 
 
+def _process_snapshot(controller_pid: int) -> Dict[str, object]:
+    """Return the controller and recursive worker process state without shell parsing."""
+    try:
+        result = subprocess.run(
+            ["ps", "-eo", "pid=,ppid=,stat=,comm=,args="],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+    except (OSError, subprocess.CalledProcessError) as exc:
+        return {"error": str(exc), "controller_pid": controller_pid, "processes": []}
+    rows: List[Dict[str, object]] = []
+    by_parent: Dict[int, List[int]] = {}
+    parsed: Dict[int, Dict[str, object]] = {}
+    for line in result.stdout.splitlines():
+        fields = line.strip().split(None, 4)
+        if len(fields) < 4:
+            continue
+        pid, ppid = int(fields[0]), int(fields[1])
+        parsed[pid] = {
+            "pid": pid,
+            "ppid": ppid,
+            "state": fields[2],
+            "command": fields[3],
+            "args": fields[4] if len(fields) == 5 else fields[3],
+        }
+        by_parent.setdefault(ppid, []).append(pid)
+    pending = [controller_pid]
+    selected = set()
+    while pending:
+        pid = pending.pop()
+        if pid in selected:
+            continue
+        selected.add(pid)
+        pending.extend(by_parent.get(pid, []))
+    for pid in sorted(selected):
+        if pid in parsed:
+            rows.append(parsed[pid])
+    return {
+        "controller_pid": controller_pid,
+        "controller_alive": controller_pid in parsed,
+        "worker_count": max(0, len(rows) - 1),
+        "processes": rows,
+    }
+
+
+def _gpu_snapshot() -> Dict[str, object]:
+    query = (
+        "index,name,memory.total,memory.used,memory.free,utilization.gpu,"
+        "temperature.gpu,power.draw"
+    )
+    try:
+        gpu = subprocess.run(
+            ["nvidia-smi", f"--query-gpu={query}", "--format=csv,noheader,nounits"],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        apps = subprocess.run(
+            [
+                "nvidia-smi",
+                "--query-compute-apps=pid,process_name,used_memory",
+                "--format=csv,noheader,nounits",
+            ],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        return {
+            "gpus": [line.strip() for line in gpu.stdout.splitlines() if line.strip()],
+            "compute_apps": [line.strip() for line in apps.stdout.splitlines() if line.strip()],
+        }
+    except (OSError, subprocess.CalledProcessError) as exc:
+        return {"error": str(exc), "gpus": [], "compute_apps": []}
+
+
+def _oom_evidence(train_log: Path, tail_bytes: int = 2 << 20) -> Dict[str, object]:
+    if not train_log.exists():
+        return {"detected": False, "matches": []}
+    with train_log.open("rb") as stream:
+        stream.seek(0, 2)
+        stream.seek(max(0, stream.tell() - tail_bytes))
+        tail = stream.read().decode("utf-8", errors="replace")
+    pattern = re.compile(r"out of memory|cuda error|cublas.*alloc|illegal memory access", re.IGNORECASE)
+    matches = [line[-500:] for line in tail.splitlines() if pattern.search(line)]
+    return {"detected": bool(matches), "matches": matches[-10:]}
+
+
+def record_supervision(
+    run_path: Path,
+    proc: subprocess.Popen,
+    metrics_path: Path,
+    train_log: Path,
+    event: str,
+) -> Dict[str, object]:
+    """Persist the mandatory process/GPU/OOM training check as one JSONL record."""
+    record: Dict[str, object] = {
+        "timestamp_utc": datetime.now(timezone.utc).isoformat(),
+        "event": event,
+        "controller_returncode": proc.poll(),
+        "latest_step": latest_train_step(metrics_path),
+        "process": _process_snapshot(proc.pid),
+        "gpu": _gpu_snapshot(),
+        "oom": _oom_evidence(train_log),
+    }
+    path = run_path / "training_supervision.jsonl"
+    with path.open("a", encoding="utf-8") as stream:
+        stream.write(json.dumps(record, sort_keys=True) + "\n")
+    process = record["process"]
+    gpu = record["gpu"]
+    oom = record["oom"]
+    assert isinstance(process, dict) and isinstance(gpu, dict) and isinstance(oom, dict)
+    print(
+        "supervision "
+        f"event={event} pid={proc.pid} alive={process.get('controller_alive')} "
+        f"workers={process.get('worker_count')} step={record['latest_step']} "
+        f"gpu={' | '.join(gpu.get('gpus', [])) or 'unavailable'} oom={oom.get('detected')}",
+        flush=True,
+    )
+    return record
+
+
 def eval_config_for_step(
     config: Path,
     checkpoint: Path,
@@ -899,6 +1139,57 @@ def run_final_eval(
         "eval_config": str(eval_config),
         "eval_seconds": eval_seconds,
     }
+
+
+def run_hdr_evaluator(eval_data: Dict[str, object], args: argparse.Namespace) -> Dict[str, object]:
+    """Run the EXR-native metric and visual-review pass for an HDR experiment."""
+    render_dir = Path(str(eval_data["render_dir"]))
+    output_dir = render_dir.parent / f"hdr_review_{render_dir.name}"
+    log_path = output_dir.parent / f"hdr_review_{render_dir.name}.log"
+    output_dir.mkdir(parents=True, exist_ok=True)
+    cmd = [
+        sys.executable,
+        str(HDR_EVALUATOR),
+        "--render-dir",
+        str(render_dir),
+        "--output-dir",
+        str(output_dir),
+        "--data",
+        str(args.data),
+        "--black-nits",
+        str(args.pq_black_nits),
+        "--peak-nits",
+        str(args.pq_peak_nits),
+    ]
+    if args.pq_nits_per_scene_unit is not None:
+        cmd.extend(["--nits-per-scene-unit", str(args.pq_nits_per_scene_unit)])
+    started = time.monotonic()
+    with log_path.open("w", encoding="utf-8") as log:
+        proc = subprocess.run(cmd, stdout=log, stderr=subprocess.STDOUT)
+    result: Dict[str, object] = {
+        "status": "complete" if proc.returncode == 0 else "failed",
+        "returncode": proc.returncode,
+        "seconds": time.monotonic() - started,
+        "output_dir": str(output_dir),
+        "log": str(log_path),
+    }
+    metrics_path = output_dir / "hdr_metrics.json"
+    if metrics_path.is_file():
+        metrics = json.loads(metrics_path.read_text(encoding="utf-8"))
+        result["metrics_json"] = str(metrics_path)
+        result["aggregate"] = metrics.get("aggregate")
+        aggregate = metrics.get("aggregate", {})
+        print(
+            "hdr_eval "
+            f"psnr={format_metric(aggregate.get('psnr'))} "
+            f"ssim={format_metric(aggregate.get('ssim'))} "
+            f"lpips={format_metric(aggregate.get('lpips'))} "
+            f"review={output_dir}",
+            flush=True,
+        )
+    else:
+        print(f"hdr_eval_failed returncode={proc.returncode} log={log_path}", flush=True)
+    return result
 
 
 def candidate_checkpoints(model_dir: Path) -> List[Path]:
@@ -1306,6 +1597,25 @@ def summarize_params(args: argparse.Namespace) -> str:
         "background_color": args.background_color,
         "reconstruction_loss_type": args.reconstruction_loss_type,
         "huber_delta": args.huber_delta,
+        "rgb_output_parameterization": args.rgb_output_parameterization,
+        "hdr_linear_scale": args.hdr_linear_scale or "auto",
+        "hdr_initial_radiance": args.hdr_initial_radiance or "auto",
+        "hdr_softplus_beta": args.hdr_softplus_beta,
+        "pq_nits_per_scene_unit": args.pq_nits_per_scene_unit or "auto",
+        "pq_black_nits": args.pq_black_nits,
+        "pq_peak_nits": args.pq_peak_nits,
+        "pq_code_temperature": args.pq_code_temperature,
+        "rawnerf_epsilon": args.rawnerf_epsilon,
+        "rawnerf_grad_clip": args.rawnerf_grad_clip,
+        "pq_linear_anchor_weight": args.pq_linear_anchor_weight,
+        "eag_dssim_weight": args.eag_dssim_weight,
+        "eag_patch_size": args.eag_patch_size,
+        "training_patch_size": args.training_patch_size,
+        "optimizer_max_norm": args.optimizer_max_norm,
+        "optimizer_max_value": args.optimizer_max_value,
+        "early_reject_psnr_below": args.early_reject_psnr_below,
+        "early_reject_ssim_below": args.early_reject_ssim_below,
+        "early_reject_lpips_above": args.early_reject_lpips_above,
         "frequency_map_dir": args.frequency_map_dir,
         "artifact_render_names": artifact_render_names(args),
         "artifact_crop_top": args.artifact_crop_top,
@@ -1510,6 +1820,19 @@ def update_summary(
 
 def main() -> int:
     total_start = time.monotonic()
+    # Calling this script via ``.venv/bin/python`` does not activate the shell.
+    # Keep sibling console tools (notably ninja and ns-train) visible to CUDA JITs.
+    executable_dir = str(Path(sys.executable).parent)
+    os.environ["PATH"] = executable_dir + os.pathsep + os.environ.get("PATH", "")
+    cuda_home = Path("/usr/local/cuda-12.6")
+    if cuda_home.is_dir():
+        os.environ.setdefault("CUDA_HOME", str(cuda_home))
+        os.environ["PATH"] = str(cuda_home / "bin") + os.pathsep + os.environ["PATH"]
+        # CUDA12.6 cannot emit sm_120 cubins; validated compute_90 PTX is JITed by the driver.
+        os.environ.setdefault("TORCH_CUDA_ARCH_LIST", "9.0+PTX")
+    extension_cache = Path("/home/brans/.cache/torch_extensions_lookcloser")
+    if extension_cache.is_dir():
+        os.environ.setdefault("TORCH_EXTENSIONS_DIR", str(extension_cache))
     args = parse_args()
     run_path = run_dir(args)
     metrics_path = run_path / "metrics_compact.csv"
@@ -1527,22 +1850,47 @@ def main() -> int:
     check_frequency_maps(args)
     run_path.mkdir(parents=True, exist_ok=True)
     stopped_for_plateau = False
+    stopped_for_early_rejection = False
     train_start = time.monotonic()
     proc: Optional[subprocess.Popen] = None
     with train_log.open("w", encoding="utf-8") as log:
         proc = subprocess.Popen(cmd, stdout=log, stderr=subprocess.STDOUT)
         seen_eval_count = 0
+        last_supervision = time.monotonic()
+        record_supervision(run_path, proc, metrics_path, train_log, "launch")
         try:
             while proc.poll() is None:
-                time.sleep(args.poll_seconds)
+                time.sleep(min(args.poll_seconds, 60.0))
                 step = latest_train_step(metrics_path)
                 if step is not None:
                     print(f"step={step}", flush=True)
+                if time.monotonic() - last_supervision >= args.supervision_interval_seconds:
+                    record_supervision(run_path, proc, metrics_path, train_log, "hourly")
+                    last_supervision = time.monotonic()
                 current_evals = eval_rows(metrics_path)
                 for row in current_evals[seen_eval_count:]:
                     print_eval_row(row)
                 if len(current_evals) > seen_eval_count:
                     seen_eval_count = len(current_evals)
+                    latest_row = current_evals[-1]
+                    rejection_reasons = []
+                    if args.early_reject_psnr_below is not None and latest_row.get("eval_all_psnr"):
+                        value = float(latest_row["eval_all_psnr"])
+                        if value < args.early_reject_psnr_below:
+                            rejection_reasons.append(f"psnr {value:.6g} < {args.early_reject_psnr_below:.6g}")
+                    if args.early_reject_ssim_below is not None and latest_row.get("eval_all_ssim"):
+                        value = float(latest_row["eval_all_ssim"])
+                        if value < args.early_reject_ssim_below:
+                            rejection_reasons.append(f"ssim {value:.6g} < {args.early_reject_ssim_below:.6g}")
+                    if args.early_reject_lpips_above is not None and latest_row.get("eval_all_lpips"):
+                        value = float(latest_row["eval_all_lpips"])
+                        if value > args.early_reject_lpips_above:
+                            rejection_reasons.append(f"lpips {value:.6g} > {args.early_reject_lpips_above:.6g}")
+                    if rejection_reasons:
+                        print("stopping: early rejection (" + "; ".join(rejection_reasons) + ")", flush=True)
+                        stopped_for_early_rejection = True
+                        stop_process(proc)
+                        break
                     if args.stop_on_no_improve and len(current_evals) >= 2:
                         prev_row = current_evals[-2]
                         last_row = current_evals[-1]
@@ -1566,6 +1914,8 @@ def main() -> int:
             print("interrupted: stopping train process", flush=True)
             stop_process(proc)
             raise
+        finally:
+            record_supervision(run_path, proc, metrics_path, train_log, "finished")
     train_seconds = time.monotonic() - train_start
 
     ckpt = latest_checkpoint(model_dir)
@@ -1593,6 +1943,8 @@ def main() -> int:
 
     if args.render_final and selected_ckpt is not None and eval_data is None:
         eval_data = run_final_eval(run_path, selected_ckpt, args.eval_checkpoint, args.eval_num_rays_per_chunk)
+        if args.rgb_output_parameterization != "sigmoid":
+            eval_data["hdr"] = run_hdr_evaluator(eval_data, args)
         eval_data["artifact"] = run_artifact_detector(run_path, eval_data, args)
         total_seconds = time.monotonic() - total_start
     else:
@@ -1613,7 +1965,7 @@ def main() -> int:
     )
     if args.prune_checkpoints:
         prune_nonselected_checkpoints(model_dir, selected_ckpt)
-    if stopped_for_plateau:
+    if stopped_for_plateau or stopped_for_early_rejection:
         return 0
     return 0 if proc is not None and proc.returncode in (0, -signal.SIGINT) else int(proc.returncode or 1)
 

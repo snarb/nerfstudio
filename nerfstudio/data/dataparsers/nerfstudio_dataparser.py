@@ -35,6 +35,7 @@ from nerfstudio.data.utils.dataparsers_utils import (
 )
 from nerfstudio.utils.io import load_from_json
 from nerfstudio.utils.rich_utils import CONSOLE
+from nerfstudio.data.utils.data_utils import load_exr_image
 
 MAX_AUTO_RESOLUTION = 1600
 
@@ -480,8 +481,12 @@ class Nerfstudio(DataParser):
 
         if self.downscale_factor is None:
             if self.config.downscale_factor is None:
-                test_img = Image.open(data_dir / filepath)
-                h, w = test_img.size
+                source_path = data_dir / filepath
+                if source_path.suffix.lower() == ".exr":
+                    h, w = load_exr_image(source_path).shape[:2]
+                else:
+                    test_img = Image.open(source_path)
+                    w, h = test_img.size
                 max_res = max(h, w)
                 df = 0
                 while True:

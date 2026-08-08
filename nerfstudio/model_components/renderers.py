@@ -64,9 +64,10 @@ class RGBRenderer(nn.Module):
         background_color: Background color as RGB. Uses random colors if None.
     """
 
-    def __init__(self, background_color: BackgroundColor = "random") -> None:
+    def __init__(self, background_color: BackgroundColor = "random", clamp_output: bool = True) -> None:
         super().__init__()
         self.background_color: BackgroundColor = background_color
+        self.clamp_output = bool(clamp_output)
 
     @classmethod
     def combine_rgb(
@@ -233,7 +234,7 @@ class RGBRenderer(nn.Module):
         rgb = self.combine_rgb(
             rgb, weights, background_color=background_color, ray_indices=ray_indices, num_rays=num_rays
         )
-        if not self.training:
+        if not self.training and self.clamp_output:
             torch.clamp_(rgb, min=0.0, max=1.0)
         return rgb
 

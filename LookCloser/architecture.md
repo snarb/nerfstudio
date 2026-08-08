@@ -831,3 +831,48 @@ therefore neither removed TCNN/occupancy divergence nor preserved the default ba
 `scripts/compare_static_checkpoint_drift.py` performs the reusable read-only checkpoint audit. It
 uses mmap where supported, chunked FP64 norm accumulation, exact key/shape/dtype/finite checks and
 reports per-key plus aggregate symmetric relative L2 for field and duplicate occupancy state.
+
+## Native linear-EXR and adaptive frequency maps
+
+The EXR path keeps scene-linear float RGB from decode through ray targets, field output, linear
+volume compositing and EXR evaluation export. OpenCV's EXR decoder is enabled before import;
+floating values are never divided by255, clipped to `[0,1]`, tone-mapped or passed through the
+legacy sigmoid. Dataset calibration is deterministic and train-split-only: robust luminance
+statistics provide the softplus output scale/initial value and one scene-to-nits constant shared
+by training, PQ metrics and preprocessing. PNGs are neutral fixed-exposure review proxies; the
+linear EXRs remain the masters.
+
+`LookCloserModelConfig.rgb_output_parameterization` supports `linear_softplus` and `pq_code` in
+addition to the legacy default. All HDR heads are decoded to linear radiance before compositing.
+The implemented comparison set is linear L1, stop-gradient RawNeRF weighted L2, Linear-PQ
+(linear head with PQ-domain L1), PQ-L1 (PQ-parameterized head decoded before compositing), and an
+EAG-PT-inspired PQ-L1 plus patch DSSIM variant. ST2084 operations run in float32. Native eval
+reports PQ-domain PSNR/SSIM/LPIPS and exports paired prediction/GT EXRs; the separate evaluator
+adds clipping/finite diagnostics and fixed `-2/0/+2 EV` review sheets.
+
+`scripts/build_adaptive_exr_frequency_maps.py` replaces the scene-specific SSIM constant. A single
+progressive 2D HashGrid fit per training image produces the complete per-level PQ-SSIM recovery
+cube. Three automatic map families reuse it: a scene-empirical calibrated crossing, a three-level
+relative recovery ensemble, and a threshold-free knee. Structural Sobel/high-pass agreement,
+rank agreement, high-detail recall, entropy/effective-bin coverage, top-bin collapse and unresolved
+rate form the selection criteria; robust scaling, balanced TOPSIS and scene bootstrap stability
+choose the winner. The proxy is measured in PQ so bright linear highlights do not suppress shadow
+detail. Raw and guided-3×3-median candidates compete; the guided candidate preserves the strongest
+20% structural patches. A family must also pass positive rank/detail gates before entropy can win
+the global automatic selection. Every family and the global winner are saved with map/recovery hashes,
+calibration, exact candidate parameters, quality values and preview images.
+
+`scripts/run_exr_hdr_campaign.py` runs the map build, five-way HDR screen, three map-family screen,
+loss-specific three-point tuning and one capped Stage-A-length final run. Candidate selection is
+maximum PQ PSNR with LPIPS as tie-breaker inside0.07dB. `run_lookcloser_quiet.py` writes process,
+GPU-memory/utilization and OOM checks at launch, at least hourly and at termination, so detached
+execution does not bypass supervision. Exact map/tuning duplicates alias the already measured
+same-seed run. After the first15188-step boundary, a candidate more than0.5dB PSNR,0.02 SSIM or
+0.04 LPIPS outside the current leader envelope is stopped and retained as an explicit rejected
+one-boundary result; candidates inside the envelope must reach a second boundary before selection.
+
+The completed EXR campaign selected the threshold-free knee maps, EAG-inspired PQ-L1 plus11×11
+patch DSSIM, and DSSIM weight0.3. The full75941-update run selected step75940 by the frozen
+PSNR-first/LPIPS-inside0.07dB rule and measured `33.8176 / 0.8984 / 0.2218` in the dataset-calibrated
+PQ domain. Native prediction/GT EXRs and fixed-exposure sheets are retained beside the checkpoint;
+the independent evaluator found no non-finite or over-peak prediction channels.
