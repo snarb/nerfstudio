@@ -854,11 +854,10 @@ The HDR loss screen also exposes PQ-MSE and opt-in PQ-L1+LPIPS. LPIPS training u
 row-major spatial patches sampled by FAS; the historical EAG-PQ-DSSIM path keeps independent-ray
 sampling for checkpoint/recipe compatibility. Both losses still predict and composite linear RGB.
 
-The field-only EXR path stages 64×64 PQ-L1+LPIPS training into a short PQ-MSE recovery and uses
-dense 4× corrected adaptive rendering. The current quality path adds a bounded 48-channel PQ
-residual renderer trained only on held-out-split train views, then applies it at strength `0.88` to
-the exact hash24 structural render. It measures `34.213291 / 0.899972 / 0.199505` with zero cable
-gaps and zero significant artifacts; provenance is in `experiments/exr_residual_pareto_leader.md`.
+The promoted EXR quality path stages 64×64 PQ-L1+LPIPS training into a short PQ-MSE recovery and
+uses dense 4× corrected adaptive rendering. Step107008 measures `34.369545 / 0.899050 / 0.199267`
+PQ PSNR/SSIM/LPIPS with zero detected cable gaps; exact provenance is in
+`experiments/exr_lpips_pareto.md`.
 `run_hdr_sampling_ablation.py --checkpoint ... --variant adaptive_dense4x_corrected` reproduces
 the selected renderer from an exact checkpoint instead of relying on a run directory's latest step.
 
