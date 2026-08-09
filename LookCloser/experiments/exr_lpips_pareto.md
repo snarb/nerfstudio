@@ -21,8 +21,9 @@ All values are the mean over the three held-out EXR views in the calibrated PQ e
 | PQ-MSE directly from leader, step 108186 | 34.414862 | 0.899213 | 0.211416 | not promoted |
 | PQ-L1+LPIPS then EAG-DSSIM 0.3, step 111982 | 34.107605 | 0.899472 | 0.204612 | not promoted |
 
-The current promoted EXR leader is the 64×64 PQ-L1+LPIPS → PQ-MSE checkpoint rendered with the
-dense 4× corrected adaptive configuration:
+This is the promoted field-only EXR leader and the perceptual source used by the later residual
+renderer. The current end-to-end quality leader is documented in
+`experiments/exr_residual_pareto_leader.md`. The field-only checkpoint is:
 
 `/mnt/data/lookcloser_lpips_campaign/p64_staged_recovery_v1/lookcloser/p64_step106496_recover_pqmse_2048_s42/nerfstudio_models/step-000107008.ckpt`
 
