@@ -861,6 +861,17 @@ PQ PSNR/SSIM/LPIPS with zero detected cable gaps; exact provenance is in
 `run_hdr_sampling_ablation.py --checkpoint ... --variant adaptive_dense4x_corrected` reproduces
 the selected renderer from an exact checkpoint instead of relying on a run directory's latest step.
 
+A matched-point-exposure validation on the two new seeds43/44 now recommends EAG PQ-DSSIM followed
+by a short64×64 PQ-L1+LPIPS phase and a PQ-L1 recovery tail for future EXR runs. Its dense4 corrected
+mean is `34.737003 / 0.900355 / 0.205244`, with zero cable-gap pixels on all six eval renders. It is
+only0.0567dB below the highest-PSNR branch while improving LPIPS by0.00835, and is the only branch
+inside the frozen paired-seed equivalence bands. Scratch PQ-MSE and LPIPS were rejected after stable
+large degradation; a pure PQ-L1 prefix was also rejected once its relative regression persisted for
+three eval boundaries. The existing seed42 step107008 checkpoint above remains the historical
+retained artifact rather than being relabelled from cross-seed evidence. The reusable controller,
+selector and exact compact-checkpoint retention are in `scripts/run_exr_loss_schedule_validation.py`;
+results and visual-review provenance are in `experiments/exr_loss_schedule_two_seed_validation.md`.
+
 `scripts/build_adaptive_exr_frequency_maps.py` replaces the scene-specific SSIM constant. A single
 progressive 2D HashGrid fit per training image produces the complete per-level PQ-SSIM recovery
 cube. Three automatic map families reuse it: a scene-empirical calibrated crossing, a three-level

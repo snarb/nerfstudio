@@ -314,6 +314,8 @@ class TrainerConfig(ExperimentConfig):
     """Number of steps between eval all images."""
     max_num_iterations: int = 1000000
     """Maximum number of iterations to run."""
+    stop_at_cumulative_point_samples: Optional[int] = None
+    """Optional LookCloser rendered-point exposure target at which training ends cleanly."""
     mixed_precision: bool = False
     """Whether or not to use mixed precision for training."""
     use_grad_scaler: bool = False
@@ -607,6 +609,26 @@ class Trainer:
                     self.save_checkpoint(step)
 
                 writer.write_out_storage()
+
+                target_point_samples = self.config.stop_at_cumulative_point_samples
+                # The counter is a CUDA scalar for LookCloser. Check every ten
+                # updates to avoid introducing a device synchronization into
+                # every training iteration; the maximum exposure overshoot is
+                # below 0.02% for the validated batch sizes.
+                if target_point_samples is not None and step % 10 == 0:
+                    pipeline = self.pipeline.module if hasattr(self.pipeline, "module") else self.pipeline
+                    cumulative_point_samples = getattr(pipeline, "cumulative_point_samples", None)
+                    if cumulative_point_samples is None or not torch.is_tensor(cumulative_point_samples):
+                        raise RuntimeError(
+                            "stop_at_cumulative_point_samples requires a pipeline cumulative_point_samples tensor"
+                        )
+                    current_point_samples = int(cumulative_point_samples.item())
+                    if current_point_samples >= target_point_samples:
+                        CONSOLE.print(
+                            "Trainer: rendered-point exposure target reached "
+                            f"({current_point_samples} >= {target_point_samples}); stopping cleanly."
+                        )
+                        break
 
         # save checkpoint at the end of training, and write out any remaining events
         self._after_train()

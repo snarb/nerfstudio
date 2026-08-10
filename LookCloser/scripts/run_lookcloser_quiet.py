@@ -29,6 +29,7 @@ DEFAULT_SUMMARY = Path(__file__).resolve().parents[1] / "experiments" / "lookclo
 ARTIFACT_DETECTOR = Path(__file__).resolve().parent / "detect_structural_artifacts.py"
 ROI_ARTIFACT_SCORER = Path(__file__).resolve().parent / "score_artifact_rois.py"
 HDR_EVALUATOR = Path(__file__).resolve().parent / "evaluate_exr_hdr_renders.py"
+MODEL_CHECKPOINT_EXTRACTOR = Path(__file__).resolve().parent / "extract_model_checkpoint.py"
 DEFAULT_ARTIFACT_ROI_CROPS = (
     "left_stand_connector_eval0,left_stand_eval0,left_hand_background_eval0,"
     "left_hand_outlet_stand_eval0,floor_crack_eval0,fingers_right_tight_eval1,"
@@ -357,6 +358,18 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--early-reject-psnr-below", type=float, default=None)
     parser.add_argument("--early-reject-ssim-below", type=float, default=None)
     parser.add_argument("--early-reject-lpips-above", type=float, default=None)
+    parser.add_argument(
+        "--early-reject-after-evals",
+        type=int,
+        default=1,
+        help="Require this many eval boundaries before applying early-rejection thresholds.",
+    )
+    parser.add_argument(
+        "--stop-at-cumulative-point-samples",
+        type=float,
+        default=None,
+        help="Gracefully stop once the compact CSV reaches this rendered-point exposure.",
+    )
     parser.add_argument("--no-render-final", dest="render_final", action="store_false")
     parser.add_argument("--no-artifact-score", dest="artifact_score", action="store_false")
     parser.add_argument("--no-artifact-roi-score", dest="artifact_roi_score", action="store_false")
@@ -365,6 +378,17 @@ def parse_args() -> argparse.Namespace:
         action=argparse.BooleanOptionalAction,
         default=False,
         help="Delete non-selected checkpoints after final evaluation; off for leader provenance.",
+    )
+    parser.add_argument(
+        "--save-only-latest-checkpoint",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help="Control trainer checkpoint retention independently from post-run pruning.",
+    )
+    parser.add_argument(
+        "--preserve-best-eval-model-checkpoint",
+        action="store_true",
+        help="Keep a compact model-only snapshot whenever the PSNR/LPIPS selector changes.",
     )
     parser.add_argument("--keep-all-checkpoints", dest="prune_checkpoints", action="store_false")
     parser.add_argument("--dry-run", action="store_true")
@@ -422,6 +446,8 @@ def parse_args() -> argparse.Namespace:
         parser.error("--poll-seconds must be positive")
     if args.supervision_interval_seconds <= 0:
         parser.error("--supervision-interval-seconds must be positive")
+    if args.stop_at_cumulative_point_samples is not None and args.stop_at_cumulative_point_samples <= 0:
+        parser.error("--stop-at-cumulative-point-samples must be positive")
     args.supervision_interval_seconds = min(args.supervision_interval_seconds, 3600.0)
     return args
 
@@ -482,8 +508,19 @@ def train_command(args: argparse.Namespace) -> List[str]:
         "--max-num-iterations",
         str(args.max_num_iterations),
         "--save-only-latest-checkpoint",
-        bool_text(args.prune_checkpoints),
+        bool_text(
+            args.prune_checkpoints
+            if args.save_only_latest_checkpoint is None
+            else args.save_only_latest_checkpoint
+        ),
     ]
+    if args.stop_at_cumulative_point_samples is not None:
+        cmd.extend(
+            [
+                "--stop-at-cumulative-point-samples",
+                str(int(args.stop_at_cumulative_point_samples)),
+            ]
+        )
     if args.load_dir is not None:
         cmd.extend(["--load-dir", str(args.load_dir)])
     if args.load_step is not None:
@@ -1004,6 +1041,57 @@ def best_eval_checkpoint(metrics_path: Path, model_dir: Path) -> Tuple[Optional[
         step = max(earlier_or_equal)
         return by_step[step], f"nearest_saved_for_{reason}_step_{target_step}"
     return checkpoints[-1], f"latest_no_checkpoint_for_{reason}_step_{target_step}"
+
+
+def preserve_best_eval_model_checkpoint(
+    metrics_path: Path,
+    model_dir: Path,
+    run_path: Path,
+) -> Optional[str]:
+    source, selection = best_eval_checkpoint(metrics_path, model_dir)
+    if source is None:
+        return None
+    rows = eval_rows(metrics_path)
+    metric_step = selection_metric_step(selection)
+    metric_step = metric_step if metric_step is not None else (
+        int(rows[-1]["step"]) if rows else checkpoint_step(source)
+    )
+    output = run_path / "best_eval_model.ckpt"
+    sidecar = output.with_suffix(output.suffix + ".json")
+    if sidecar.is_file():
+        previous = json.loads(sidecar.read_text(encoding="utf-8"))
+        previous_selection = str(previous.get("selection", ""))
+        previous_metric_step = selection_metric_step(previous_selection)
+        if previous_metric_step is None:
+            previous_metric_step = previous.get("metric_step")
+        # With save-only-latest, a later save removes the old full optimizer
+        # checkpoint.  Keep the exact compact model already captured for an
+        # unchanged metric winner instead of replacing it with the fallback
+        # latest full checkpoint.
+        if output.is_file() and (
+            previous_selection == selection or previous_metric_step == metric_step
+        ):
+            return selection
+    command = [
+        sys.executable,
+        str(MODEL_CHECKPOINT_EXTRACTOR),
+        str(source),
+        str(output),
+        "--metric-step",
+        str(metric_step),
+        "--selection",
+        selection,
+    ]
+    subprocess.run(command, check=True)
+    print(f"preserved_best_eval_model={output} source={source} selection={selection}", flush=True)
+    return selection
+
+
+def selection_metric_step(selection: str) -> Optional[int]:
+    """Return the metric winner step embedded in a checkpoint-selection reason."""
+
+    selected_steps = re.findall(r"_step_(\d+)", selection)
+    return int(selected_steps[-1]) if selected_steps else None
 
 
 def stop_process(proc: subprocess.Popen) -> None:
@@ -1683,6 +1771,9 @@ def summarize_params(args: argparse.Namespace) -> str:
         "eval_num_rays_per_chunk": args.eval_num_rays_per_chunk,
         "step_interval": args.step_interval,
         "max_num_iterations": args.max_num_iterations,
+        "stop_at_cumulative_point_samples": args.stop_at_cumulative_point_samples,
+        "save_only_latest_checkpoint": args.save_only_latest_checkpoint,
+        "preserve_best_eval_model_checkpoint": args.preserve_best_eval_model_checkpoint,
         "background_color": args.background_color,
         "reconstruction_loss_type": args.reconstruction_loss_type,
         "huber_delta": args.huber_delta,
@@ -1826,6 +1917,8 @@ def write_run_summary(
     eval_data: Optional[Dict[str, object]],
     total_seconds: float,
     artifact_candidate_evals: Optional[List[Dict[str, object]]] = None,
+    stop_reason: Optional[str] = None,
+    early_rejection_reasons: Optional[List[str]] = None,
 ) -> None:
     artifact_data = eval_data.get("artifact") if eval_data else None
     eval_seconds = eval_data.get("eval_seconds") if eval_data else None
@@ -1844,8 +1937,27 @@ def write_run_summary(
         "selected_checkpoint_reason": selection,
         "artifact_candidate_evals": artifact_candidate_evals,
         "eval": eval_data,
+        "stop_reason": stop_reason,
+        "early_rejection_reasons": early_rejection_reasons,
     }
     (run_path / "run_summary.json").write_text(json.dumps(summary, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def early_rejection_reasons(row: Dict[str, str], args: argparse.Namespace) -> List[str]:
+    reasons: List[str] = []
+    if args.early_reject_psnr_below is not None and row.get("eval_all_psnr"):
+        value = float(row["eval_all_psnr"])
+        if value < args.early_reject_psnr_below:
+            reasons.append(f"psnr {value:.6g} < {args.early_reject_psnr_below:.6g}")
+    if args.early_reject_ssim_below is not None and row.get("eval_all_ssim"):
+        value = float(row["eval_all_ssim"])
+        if value < args.early_reject_ssim_below:
+            reasons.append(f"ssim {value:.6g} < {args.early_reject_ssim_below:.6g}")
+    if args.early_reject_lpips_above is not None and row.get("eval_all_lpips"):
+        value = float(row["eval_all_lpips"])
+        if value > args.early_reject_lpips_above:
+            reasons.append(f"lpips {value:.6g} > {args.early_reject_lpips_above:.6g}")
+    return reasons
 
 
 def prune_nonselected_checkpoints(model_dir: Path, selected_ckpt: Optional[Path]) -> None:
@@ -1942,6 +2054,8 @@ def main() -> int:
     if extension_cache.is_dir():
         os.environ.setdefault("TORCH_EXTENSIONS_DIR", str(extension_cache))
     args = parse_args()
+    if args.early_reject_after_evals <= 0:
+        raise ValueError("--early-reject-after-evals must be positive")
     run_path = run_dir(args)
     metrics_path = run_path / "metrics_compact.csv"
     train_log = run_path / "train_stdout.log"
@@ -1959,6 +2073,7 @@ def main() -> int:
     run_path.mkdir(parents=True, exist_ok=True)
     stopped_for_plateau = False
     stopped_for_early_rejection = False
+    early_rejection_stop_reasons: List[str] = []
     train_start = time.monotonic()
     proc: Optional[subprocess.Popen] = None
     with train_log.open("w", encoding="utf-8") as log:
@@ -1980,23 +2095,19 @@ def main() -> int:
                     print_eval_row(row)
                 if len(current_evals) > seen_eval_count:
                     seen_eval_count = len(current_evals)
+                    if args.preserve_best_eval_model_checkpoint:
+                        preserve_best_eval_model_checkpoint(metrics_path, model_dir, run_path)
                     latest_row = current_evals[-1]
-                    rejection_reasons = []
-                    if args.early_reject_psnr_below is not None and latest_row.get("eval_all_psnr"):
-                        value = float(latest_row["eval_all_psnr"])
-                        if value < args.early_reject_psnr_below:
-                            rejection_reasons.append(f"psnr {value:.6g} < {args.early_reject_psnr_below:.6g}")
-                    if args.early_reject_ssim_below is not None and latest_row.get("eval_all_ssim"):
-                        value = float(latest_row["eval_all_ssim"])
-                        if value < args.early_reject_ssim_below:
-                            rejection_reasons.append(f"ssim {value:.6g} < {args.early_reject_ssim_below:.6g}")
-                    if args.early_reject_lpips_above is not None and latest_row.get("eval_all_lpips"):
-                        value = float(latest_row["eval_all_lpips"])
-                        if value > args.early_reject_lpips_above:
-                            rejection_reasons.append(f"lpips {value:.6g} > {args.early_reject_lpips_above:.6g}")
-                    if rejection_reasons:
+                    rejection_window = current_evals[-args.early_reject_after_evals :]
+                    window_reasons = [early_rejection_reasons(row, args) for row in rejection_window]
+                    rejection_reasons = window_reasons[-1]
+                    if (
+                        len(rejection_window) == args.early_reject_after_evals
+                        and all(window_reasons)
+                    ):
                         print("stopping: early rejection (" + "; ".join(rejection_reasons) + ")", flush=True)
                         stopped_for_early_rejection = True
+                        early_rejection_stop_reasons = rejection_reasons
                         stop_process(proc)
                         break
                     if args.stop_on_no_improve and len(current_evals) >= 2:
@@ -2023,6 +2134,8 @@ def main() -> int:
             stop_process(proc)
             raise
         finally:
+            if proc is not None and proc.poll() is None:
+                stop_process(proc)
             record_supervision(run_path, proc, metrics_path, train_log, "finished")
     train_seconds = time.monotonic() - train_start
 
@@ -2070,6 +2183,14 @@ def main() -> int:
         eval_data=eval_data,
         total_seconds=total_seconds,
         artifact_candidate_evals=artifact_candidate_evals,
+        stop_reason=(
+            "early_rejection"
+            if stopped_for_early_rejection
+            else "plateau"
+            if stopped_for_plateau
+            else None
+        ),
+        early_rejection_reasons=early_rejection_stop_reasons or None,
     )
     if args.prune_checkpoints:
         prune_nonselected_checkpoints(model_dir, selected_ckpt)
