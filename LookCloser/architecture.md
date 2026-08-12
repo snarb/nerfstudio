@@ -866,9 +866,17 @@ by a short64×64 PQ-L1+LPIPS phase and a PQ-L1 recovery tail for future EXR runs
 mean is `34.737003 / 0.900355 / 0.205244`, with zero cable-gap pixels on all six eval renders. It is
 only0.0567dB below the highest-PSNR branch while improving LPIPS by0.00835, and is the only branch
 inside the frozen paired-seed equivalence bands. Scratch PQ-MSE and LPIPS were rejected after stable
-large degradation; a pure PQ-L1 prefix was also rejected once its relative regression persisted for
-three eval boundaries. The existing seed42 step107008 checkpoint above remains the historical
-retained artifact rather than being relabelled from cross-seed evidence. The reusable controller,
+large degradation. A later scratch-primary-loss audit invalidated the early relative rejection of
+pure PQ-L1: small early metric gaps are not a safe stopping rule for an otherwise healthy loss. The
+full two-seed audit at equal point exposure measured pure PQ-L1 at
+`34.555962 / 0.899941 / 0.222590`, versus `34.763405 / 0.901025 / 0.212974` for EAG PQ-L1+DSSIM;
+training time was equal within0.1%. Pure PQ-L1 also produced one visually confirmed12px cable gap,
+while EAG produced none. Scratch PQ-MSE remained catastrophically bad on both seeds after two eval
+boundaries (`~21.08` mean PSNR) and was correctly stopped. DSSIM0.3 is therefore now validated as
+part of the primary recipe, rather than merely inherited from the earlier leader. Details are in
+`experiments/exr_primary_loss_scratch_validation.md`. The existing seed42 step107008 checkpoint
+above remains the historical retained artifact rather than being relabelled from cross-seed
+evidence. The reusable controller,
 selector and exact compact-checkpoint retention are in `scripts/run_exr_loss_schedule_validation.py`;
 results and visual-review provenance are in `experiments/exr_loss_schedule_two_seed_validation.md`.
 

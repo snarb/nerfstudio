@@ -4,6 +4,8 @@
 
 New seeds 43 and 44; native linear EXR, frozen knee maps/geometry guard, matched cumulative point exposure, and dense4 corrected evaluation. Seed 42 is historical context only.
 
+Correction after the primary-loss follow-up: `direct_*` rows below are short tails from a common EAG parent, not scratch primary-loss comparisons. The old seed-44 pure-PQ-L1 early rejection was not valid evidence; full scratch PQ-L1 results are reported separately in `exr_primary_loss_scratch_validation.md`.
+
 ## Results
 
 | Strategy | Mean PSNR | Mean SSIM | Mean LPIPS | Cable gaps | Mean lineage train s |

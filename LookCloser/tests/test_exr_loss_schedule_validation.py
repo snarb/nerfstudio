@@ -63,28 +63,12 @@ def test_rejected_eval_rows_requires_two_consecutive_material_failures(tmp_path:
     assert [row["step"] for row in evidence] == [100.0, 200.0, 300.0, 400.0]
 
 
-def test_relative_rejection_requires_three_matched_exposure_regressions(tmp_path: Path) -> None:
-    header = "step,cumulative_point_samples,eval_all_psnr,eval_all_ssim,eval_all_lpips\n"
-    reference = tmp_path / "reference.csv"
-    candidate = tmp_path / "candidate.csv"
-    reference.write_text(
-        header
-        + "100,1e9,,,\n100,,33,0.88,0.30\n"
-        + "200,2e9,,,\n200,,34,0.89,0.25\n"
-        + "300,3e9,,,\n300,,35,0.90,0.20\n",
-        encoding="utf-8",
-    )
-    candidate.write_text(
-        header
-        + "10,1e9,,,\n10,,32.5,0.87,0.31\n"
-        + "20,2e9,,,\n20,,33.5,0.88,0.26\n"
-        + "30,3e9,,,\n30,,34.5,0.89,0.21\n",
-        encoding="utf-8",
-    )
-    evidence = campaign.comparatively_rejected_eval_rows(candidate, reference)
-    assert len(evidence) == 3
-    assert evidence[-1]["psnr_delta"] == pytest.approx(-0.5)
-    assert evidence[-1]["reference_step"] == 300.0
+def test_scratch_pql1_is_never_relatively_early_rejected(tmp_path: Path) -> None:
+    parsed = args(tmp_path)
+    spec = next(item for item in campaign.prefix_specs(44) if item.recipe == "pql1")
+    command = campaign.train_command(parsed, spec)
+    assert "--early-reject-after-evals" not in command
+    assert "--early-reject-psnr-below" not in command
 
 
 def test_forks_resume_only_their_declared_same_seed_parent(tmp_path: Path) -> None:

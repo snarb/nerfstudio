@@ -57,8 +57,6 @@ LPIPS_TAIL_EVAL_INTERVAL = 128
 
 EARLY_REJECT_MIN_EVALS = 2
 EARLY_REJECT_THRESHOLDS = {"psnr": 30.0, "ssim": 0.8, "lpips": 0.5}
-RELATIVE_REJECT_MIN_EVALS = 3
-RELATIVE_REJECT_DELTAS = {"max_psnr_gain": 0.1, "ssim": -0.0015, "lpips": 0.004}
 
 
 def tail_eval_interval(recipe: str) -> int:
@@ -495,60 +493,6 @@ def rejected_eval_rows(metrics_path: Path) -> list[dict[str, float]]:
     return rows if stable_bad else []
 
 
-def eval_rows_with_exposure(metrics_path: Path) -> list[dict[str, float]]:
-    progress = read_progress(metrics_path)
-    if not progress or not metrics_path.is_file():
-        return []
-    rows: list[dict[str, float]] = []
-    with metrics_path.open(newline="", encoding="utf-8") as stream:
-        for raw in csv.DictReader(stream):
-            values = (raw.get("eval_all_psnr"), raw.get("eval_all_ssim"), raw.get("eval_all_lpips"))
-            if not all(values):
-                continue
-            step = int(raw["step"])
-            exposure = min(progress, key=lambda item: abs(item[0] - step))[1]
-            rows.append(
-                {
-                    "step": float(step),
-                    "exposure": exposure,
-                    "psnr": float(values[0]),
-                    "ssim": float(values[1]),
-                    "lpips": float(values[2]),
-                }
-            )
-    return rows
-
-
-def comparatively_rejected_eval_rows(
-    candidate_metrics: Path, reference_metrics: Path
-) -> list[dict[str, float]]:
-    candidate = eval_rows_with_exposure(candidate_metrics)
-    reference = eval_rows_with_exposure(reference_metrics)
-    if len(candidate) < RELATIVE_REJECT_MIN_EVALS or not reference:
-        return []
-    evidence: list[dict[str, float]] = []
-    for row in candidate:
-        matched = min(reference, key=lambda item: abs(item["exposure"] - row["exposure"]))
-        evidence.append(
-            {
-                **row,
-                "reference_step": matched["step"],
-                "reference_exposure": matched["exposure"],
-                "psnr_delta": row["psnr"] - matched["psnr"],
-                "ssim_delta": row["ssim"] - matched["ssim"],
-                "lpips_delta": row["lpips"] - matched["lpips"],
-            }
-        )
-    recent = evidence[-RELATIVE_REJECT_MIN_EVALS:]
-    stable_bad = all(
-        row["psnr_delta"] <= RELATIVE_REJECT_DELTAS["max_psnr_gain"]
-        and row["ssim_delta"] <= RELATIVE_REJECT_DELTAS["ssim"]
-        and row["lpips_delta"] >= RELATIVE_REJECT_DELTAS["lpips"]
-        for row in recent
-    )
-    return evidence if stable_bad else []
-
-
 def record_rejected_run(
     args: argparse.Namespace,
     spec: RunSpec,
@@ -559,7 +503,6 @@ def record_rejected_run(
     evidence: list[dict[str, float]],
 ) -> None:
     path = run_dir(args, spec)
-    relative = bool(evidence and "psnr_delta" in evidence[-1])
     removed = 0
     for checkpoint in (path / "nerfstudio_models").glob("step-*.ckpt"):
         checkpoint.unlink()
@@ -570,15 +513,9 @@ def record_rejected_run(
             removed += 1
     manifest.setdefault("runs", {})[spec.name] = {
         "status": "rejected",
-        "reason": (
-            f"stable_relative_degradation_after_{len(evidence)}_eval_boundaries"
-            if relative
-            else f"stable_material_degradation_after_{len(evidence)}_eval_boundaries"
-        ),
-        "thresholds": dict(RELATIVE_REJECT_DELTAS if relative else EARLY_REJECT_THRESHOLDS),
-        "minimum_eval_boundaries": (
-            RELATIVE_REJECT_MIN_EVALS if relative else EARLY_REJECT_MIN_EVALS
-        ),
+        "reason": f"stable_material_degradation_after_{len(evidence)}_eval_boundaries",
+        "thresholds": dict(EARLY_REJECT_THRESHOLDS),
+        "minimum_eval_boundaries": EARLY_REJECT_MIN_EVALS,
         "spec": asdict(spec),
         "command": list(command),
         "parent_checkpoint": str(parent_checkpoint) if parent_checkpoint else None,
@@ -649,12 +586,6 @@ def run_one(
             json.loads((path / "run_summary.json").read_text(encoding="utf-8")).get("train_seconds", 0.0)
         )
     evidence = rejected_eval_rows(path / "metrics_compact.csv") if spec.scratch else []
-    if spec.scratch and spec.recipe == "pql1" and not evidence:
-        reference = manifest.get("runs", {}).get(f"s{spec.seed}_prefix_eag", {})
-        if reference.get("status") == "complete":
-            evidence = comparatively_rejected_eval_rows(
-                path / "metrics_compact.csv", Path(reference["run_dir"]) / "metrics_compact.csv"
-            )
     if evidence:
         record_rejected_run(
             args, spec, manifest, command, parent_checkpoint, train_seconds, evidence
@@ -1065,6 +996,8 @@ def write_markdown_report(report: dict[str, Any]) -> None:
         "## What was tested",
         "",
         "New seeds 43 and 44; native linear EXR, frozen knee maps/geometry guard, matched cumulative point exposure, and dense4 corrected evaluation. Seed 42 is historical context only.",
+        "",
+        "Correction after the primary-loss follow-up: `direct_*` rows below are short tails from a common EAG parent, not scratch primary-loss comparisons. The old seed-44 pure-PQ-L1 early rejection was not valid evidence; full scratch PQ-L1 results are reported separately in `exr_primary_loss_scratch_validation.md`.",
         "",
         "## Results",
         "",
