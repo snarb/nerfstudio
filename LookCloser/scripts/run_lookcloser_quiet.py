@@ -29,6 +29,7 @@ DEFAULT_SUMMARY = Path(__file__).resolve().parents[1] / "experiments" / "lookclo
 ARTIFACT_DETECTOR = Path(__file__).resolve().parent / "detect_structural_artifacts.py"
 ROI_ARTIFACT_SCORER = Path(__file__).resolve().parent / "score_artifact_rois.py"
 HDR_EVALUATOR = Path(__file__).resolve().parent / "evaluate_exr_hdr_renders.py"
+SURFACE_LIGHT_FIELD_RENDERER = Path(__file__).resolve().parent / "render_mesh_image_blend.py"
 MODEL_CHECKPOINT_EXTRACTOR = Path(__file__).resolve().parent / "extract_model_checkpoint.py"
 DEFAULT_ARTIFACT_ROI_CROPS = (
     "left_stand_connector_eval0,left_stand_eval0,left_hand_background_eval0,"
@@ -371,6 +372,22 @@ def parse_args() -> argparse.Namespace:
         help="Gracefully stop once the compact CSV reaches this rendered-point exposure.",
     )
     parser.add_argument("--no-render-final", dest="render_final", action="store_false")
+    parser.add_argument(
+        "--surface-light-field-depth-manifest",
+        type=Path,
+        default=None,
+        help=(
+            "Optional continuous-surface depth manifest for calibrated train-image reprojection after final eval. "
+            "The default None leaves historical training and rendering unchanged."
+        ),
+    )
+    parser.add_argument("--surface-light-field-neighbors", type=int, default=2)
+    parser.add_argument("--surface-light-field-blend-alpha", type=float, default=1.0)
+    parser.add_argument("--surface-light-field-camera-distance-power", type=float, default=4.0)
+    parser.add_argument("--surface-light-field-depth-log-tolerance", type=float, default=0.01)
+    parser.add_argument("--surface-light-field-detail-transfer-sigma", type=float, default=None)
+    parser.add_argument("--surface-light-field-detail-transfer-strength", type=float, default=1.0)
+    parser.add_argument("--surface-light-field-roi-boxes-json", type=Path, default=None)
     parser.add_argument("--no-artifact-score", dest="artifact_score", action="store_false")
     parser.add_argument("--no-artifact-roi-score", dest="artifact_roi_score", action="store_false")
     parser.add_argument(
@@ -448,6 +465,31 @@ def parse_args() -> argparse.Namespace:
         parser.error("--supervision-interval-seconds must be positive")
     if args.stop_at_cumulative_point_samples is not None and args.stop_at_cumulative_point_samples <= 0:
         parser.error("--stop-at-cumulative-point-samples must be positive")
+    if args.surface_light_field_depth_manifest is not None:
+        args.surface_light_field_depth_manifest = args.surface_light_field_depth_manifest.expanduser().resolve()
+        if not args.surface_light_field_depth_manifest.is_file():
+            parser.error("--surface-light-field-depth-manifest must exist")
+        if not args.render_final:
+            parser.error("--surface-light-field-depth-manifest requires final rendering")
+    if args.surface_light_field_neighbors <= 0:
+        parser.error("--surface-light-field-neighbors must be positive")
+    if not 0.0 <= args.surface_light_field_blend_alpha <= 1.0:
+        parser.error("--surface-light-field-blend-alpha must be in [0, 1]")
+    if args.surface_light_field_camera_distance_power < 0.0:
+        parser.error("--surface-light-field-camera-distance-power must be non-negative")
+    if args.surface_light_field_depth_log_tolerance <= 0.0:
+        parser.error("--surface-light-field-depth-log-tolerance must be positive")
+    if (
+        args.surface_light_field_detail_transfer_sigma is not None
+        and args.surface_light_field_detail_transfer_sigma <= 0.0
+    ):
+        parser.error("--surface-light-field-detail-transfer-sigma must be positive")
+    if args.surface_light_field_detail_transfer_strength < 0.0:
+        parser.error("--surface-light-field-detail-transfer-strength must be non-negative")
+    if args.surface_light_field_roi_boxes_json is not None:
+        args.surface_light_field_roi_boxes_json = args.surface_light_field_roi_boxes_json.expanduser().resolve()
+        if not args.surface_light_field_roi_boxes_json.is_file():
+            parser.error("--surface-light-field-roi-boxes-json must exist")
     args.supervision_interval_seconds = min(args.supervision_interval_seconds, 3600.0)
     return args
 
@@ -1365,6 +1407,119 @@ def run_hdr_evaluator(eval_data: Dict[str, object], args: argparse.Namespace) ->
     return result
 
 
+def surface_light_field_variant_name(
+    neighbors: int,
+    alpha: float,
+    detail_sigma: Optional[float] = None,
+    detail_strength: float = 1.0,
+) -> str:
+    """Return the renderer directory name for one selected opt-in variant."""
+
+    if detail_sigma is not None:
+        sigma_token = f"{detail_sigma:.3f}".rstrip("0").rstrip(".").replace(".", "p")
+        strength_token = f"{detail_strength:.3f}".rstrip("0").rstrip(".").replace(".", "p")
+        return f"blend{neighbors}_detail_s{sigma_token}_w{strength_token}"
+    if alpha == 1.0:
+        return f"blend{neighbors}"
+    alpha_token = f"{alpha:.3f}".rstrip("0").rstrip(".").replace(".", "p")
+    return f"blend{neighbors}_a{alpha_token}"
+
+
+def run_surface_light_field(eval_data: Dict[str, object], args: argparse.Namespace) -> Dict[str, object]:
+    """Run the optional geometry-locked appearance stage after ordinary final eval."""
+
+    manifest = args.surface_light_field_depth_manifest
+    if manifest is None:
+        return {"status": "disabled"}
+    render_dir = Path(str(eval_data["render_dir"]))
+    base_prediction = render_dir / "eval_img_0000.png"
+    if not base_prediction.is_file():
+        raise FileNotFoundError(f"Surface-light-field base render is missing: {base_prediction}")
+    output_dir = render_dir.parent / f"surface_light_field_{render_dir.name}"
+    log_path = output_dir.parent / f"surface_light_field_{render_dir.name}.log"
+    cmd = [
+        sys.executable,
+        str(SURFACE_LIGHT_FIELD_RENDERER),
+        "--data",
+        str(args.data),
+        "--mesh-depth-manifest",
+        str(manifest),
+        "--output-dir",
+        str(output_dir),
+        "--base-prediction-exr",
+        str(base_prediction),
+        "--neighbors",
+        str(args.surface_light_field_neighbors),
+        "--blend-alphas",
+        str(args.surface_light_field_blend_alpha),
+        "--camera-distance-power",
+        str(args.surface_light_field_camera_distance_power),
+        "--depth-log-tolerance",
+        str(args.surface_light_field_depth_log_tolerance),
+        "--eval-mode",
+        args.eval_mode,
+        "--eval-interval",
+        str(args.eval_interval),
+        "--orientation-method",
+        args.orientation_method,
+        "--center-method",
+        args.center_method,
+        "--auto-scale-poses",
+        "--scale-factor",
+        str(args.scale_factor),
+        "--scene-scale",
+        str(args.scene_scale),
+        "--downscale-factor",
+        "1",
+        "--score-metrics",
+    ]
+    if args.surface_light_field_detail_transfer_sigma is not None:
+        cmd.extend(
+            [
+                "--detail-transfer-sigmas",
+                str(args.surface_light_field_detail_transfer_sigma),
+                "--detail-transfer-strengths",
+                str(args.surface_light_field_detail_transfer_strength),
+            ]
+        )
+    if args.surface_light_field_roi_boxes_json is not None:
+        cmd.extend(["--roi-boxes-json", str(args.surface_light_field_roi_boxes_json)])
+    started = time.monotonic()
+    with log_path.open("w", encoding="utf-8") as log:
+        subprocess.run(cmd, stdout=log, stderr=subprocess.STDOUT, check=True)
+    variant_name = surface_light_field_variant_name(
+        args.surface_light_field_neighbors,
+        args.surface_light_field_blend_alpha,
+        args.surface_light_field_detail_transfer_sigma,
+        args.surface_light_field_detail_transfer_strength,
+    )
+    variant_dir = output_dir / variant_name
+    metrics_path = variant_dir / "metrics.json"
+    metrics = json.loads(metrics_path.read_text(encoding="utf-8"))
+    aggregate = metrics.get("aggregate", {})
+    print(
+        "surface_light_field "
+        f"variant={variant_name} "
+        f"psnr={format_metric(aggregate.get('psnr'))} "
+        f"ssim={format_metric(aggregate.get('ssim'))} "
+        f"lpips={format_metric(aggregate.get('lpips'))} "
+        f"roi_psnr={format_metric(aggregate.get('roi_psnr'))} "
+        f"roi_ssim={format_metric(aggregate.get('roi_ssim'))} "
+        f"roi_lpips={format_metric(aggregate.get('roi_lpips'))}",
+        flush=True,
+    )
+    return {
+        "status": "complete",
+        "seconds": time.monotonic() - started,
+        "variant": variant_name,
+        "render_dir": str(variant_dir),
+        "output_dir": str(output_dir),
+        "renderer_log": str(log_path),
+        "metrics_json": str(metrics_path),
+        "aggregate": aggregate,
+    }
+
+
 def candidate_checkpoints(model_dir: Path) -> List[Path]:
     return sorted(model_dir.glob("step-*.ckpt"))
 
@@ -1817,6 +1972,22 @@ def summarize_params(args: argparse.Namespace) -> str:
         "artifact_detector_preset": args.artifact_detector_preset,
         "artifact_roi_drop_border_components": args.artifact_roi_drop_border_components,
         "artifact_roi_crop_names": artifact_roi_crop_names(args) or "all",
+        "surface_light_field_depth_manifest": (
+            str(args.surface_light_field_depth_manifest)
+            if args.surface_light_field_depth_manifest is not None
+            else None
+        ),
+        "surface_light_field_neighbors": args.surface_light_field_neighbors,
+        "surface_light_field_blend_alpha": args.surface_light_field_blend_alpha,
+        "surface_light_field_camera_distance_power": args.surface_light_field_camera_distance_power,
+        "surface_light_field_depth_log_tolerance": args.surface_light_field_depth_log_tolerance,
+        "surface_light_field_detail_transfer_sigma": args.surface_light_field_detail_transfer_sigma,
+        "surface_light_field_detail_transfer_strength": args.surface_light_field_detail_transfer_strength,
+        "surface_light_field_roi_boxes_json": (
+            str(args.surface_light_field_roi_boxes_json)
+            if args.surface_light_field_roi_boxes_json is not None
+            else None
+        ),
         "grid_resolution": args.grid_resolution,
         "occupancy_grid_levels": args.occupancy_grid_levels,
         "num_frequency_levels": args.num_frequency_levels,
@@ -2169,6 +2340,9 @@ def main() -> int:
         eval_data["artifact"] = run_artifact_detector(run_path, eval_data, args)
         total_seconds = time.monotonic() - total_start
     else:
+        total_seconds = time.monotonic() - total_start
+    if eval_data is not None and args.surface_light_field_depth_manifest is not None:
+        eval_data["surface_light_field"] = run_surface_light_field(eval_data, args)
         total_seconds = time.monotonic() - total_start
     if args.update_summary and eval_data is not None:
         update_summary(args, run_path, selection, eval_data, train_seconds, total_seconds)

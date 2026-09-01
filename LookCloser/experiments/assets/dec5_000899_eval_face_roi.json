@@ -1,0 +1,14 @@
+{
+  "boxes_xyxy": [
+    [687, 392, 1187, 892]
+  ],
+  "provenance": {
+    "dataset": "/home/brans/lookcloser_temp/dec5_000899_eval1_angular16_glomap_pose_intrinsics_jpeg",
+    "image": "nearest_eval_00000.jpg",
+    "detector": "opencv_haar_alt2_rotation1",
+    "detector_box_xyxy": [745, 450, 1129, 834],
+    "expand_fraction": 0.15,
+    "diagnostic_only": true,
+    "used_for_training": false
+  }
+}

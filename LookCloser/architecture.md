@@ -962,3 +962,42 @@ The EXR controller's default campaign namespace is consequently
 Dense `0.003125`/`2048`, edge-loss `0.1`, FR `0.3`, and structural map-floor candidates were rejected.
 The selected step98722 measures `34.0497 / 0.8993 / 0.2134`; all native outputs are finite and the
 five-ROI cable long-gap fraction is `0.07238` versus `0.07790` at the prior selected checkpoint.
+
+### DEC5 blur diagnosis and opt-in surface light field (2026-09-01)
+
+The first DEC5 transfer exposed two separate failure layers.  An oversized scene AABB initially
+spread hash-grid resolution and positive density through mostly empty space; a robust scalar box
+near `[-0.15, 0.15]^3` collapsed the broad fog into a coherent actor but did not remove the soft
+face.  Fixed-pose 4/16/32-camera and longer 62-camera controls then showed that more ray exposure
+can sharpen a train view and more angular coverage can improve held-out metrics, but neither forces
+one thin, view-consistent surface.
+
+`render_tsdf_mesh_depth.py` rasterizes first-hit camera-z depth from one externally supplied
+continuous triangle mesh for the normalized Nerfstudio train/eval cameras.  It rejects declared
+image/person masks and writes a portable manifest by default: images are relative to the dataset,
+while mesh/depth files are relative to the manifest.  The mesh used for the DEC5 causal gate was
+fused from Splatfacto alpha-median depth, but Splatfacto is not loaded during the final render.
+
+`render_mesh_image_blend.py` intersects the target view with that surface, projects each hit into
+calibrated train cameras, checks source visibility against the same mesh depth, and samples only
+train RGB.  Held-out RGB is loaded after prediction construction and is metrics-only.  The script
+rejects masks, hashes its base prediction and depth manifest, and can score display-domain
+PSNR/SSIM/LPIPS plus one diagnostic ROI.  Inverse camera-centre-distance weights keep appearance
+local to the target; optional frequency-separated transfer replaces only the supported high-pass
+band while retaining LookCloser low-frequency colour and all unsupported pixels.
+
+A matched 1/2/4/8/16-source ladder holds geometry, fallback and camera ordering fixed.  Equal
+weights degrade face LPIPS monotonically from `0.177596` to `0.407148`; inverse-fourth camera-local
+weights remain in `0.177596`--`0.184129`.  Thus the final blur mechanism is shared averaging of
+mutually inconsistent multiview colours, not absence of a renderable actor surface.  Small residual
+pose/geometry error, view-dependent colour and tiny local motion can all contribute to the input
+inconsistency; the controlled test identifies their common rendering consequence without claiming
+that one physical source explains all of it.
+
+`run_lookcloser_quiet.py --surface-light-field-depth-manifest ...` exposes the renderer only as an
+explicit post-eval stage.  Its default is `None`; with no manifest the ordinary training command,
+model, checkpoint selection and final render path are unchanged.  The selected DEC5 two-source,
+inverse-fourth, sigma-4 detail transfer changes full-frame PSNR/SSIM/LPIPS from
+`24.5692/0.785184/0.405100` to `24.4548/0.782512/0.320598` and face LPIPS from `0.306217` to
+`0.164685`.  The actor surface covers about 41% of the full frame, so the room remains the original
+LookCloser fallback and local surface-boundary seams remain a known limitation.

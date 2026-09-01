@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "date_utc": "2026-09-01",
+  "question": "Does multiview colour averaging, rather than missing surface geometry, cause the residual face blur?",
+  "controlled_inputs": {
+    "data": "/home/brans/lookcloser_temp/dec5_000899_eval1_angular16_glomap_pose_intrinsics_jpeg",
+    "base_prediction": "/dev/shm/standard_nerf_runs/dec5_000899_bounded_ingp_dualscale_actor_surface_fas/instant-ngp-bounded/camera16_tsdfactor_autoboxp01_hybrid_dualfield_scene8192_surface8192_fasCal13_s42_28kto32k/raw_eval_step-00032000/eval_pred_0000.exr",
+    "base_prediction_sha256": "42bab69966f9ea45e4878f32f0a4920eefafe5857f4bb6b4d1de4cbf9e467446",
+    "mesh_depth_manifest": "/mnt/data/lookcloser_dec5_5a3_final/000899_lookcloser_surface_light_field_p4/reproduction/mesh_depth/mesh_depth_manifest.json",
+    "mesh_depth_manifest_sha256": "a2e952cd4eb72222ca71f359d5c4f18f967b57c17fa7817c4ebc1a862634742b",
+    "depth_log_tolerance": 0.01,
+    "uses_masks": false,
+    "uses_eval_rgb_for_prediction": false,
+    "metric_domain": "display-referred RGB clamped to [0, 1]",
+    "roi": "experiments/assets/dec5_000899_eval_face_roi.json"
+  },
+  "metrics": {
+    "equal_source_weights_power_0": {
+      "1": {"psnr": 21.840456, "ssim": 0.779742, "lpips": 0.374807, "face_psnr": 22.912529, "face_ssim": 0.712040, "face_lpips": 0.177596},
+      "2": {"psnr": 22.461226, "ssim": 0.797654, "lpips": 0.392311, "face_psnr": 25.579163, "face_ssim": 0.747625, "face_lpips": 0.224895},
+      "4": {"psnr": 22.534149, "ssim": 0.789700, "lpips": 0.427052, "face_psnr": 25.903585, "face_ssim": 0.727899, "face_lpips": 0.291376},
+      "8": {"psnr": 22.089483, "ssim": 0.780982, "lpips": 0.450072, "face_psnr": 24.361828, "face_ssim": 0.709975, "face_lpips": 0.336115},
+      "16": {"psnr": 21.492512, "ssim": 0.768709, "lpips": 0.482081, "face_psnr": 22.296236, "face_ssim": 0.681766, "face_lpips": 0.407148}
+    },
+    "camera_local_weights_power_4": {
+      "1": {"psnr": 21.840456, "ssim": 0.779742, "lpips": 0.374807, "face_psnr": 22.912529, "face_ssim": 0.712040, "face_lpips": 0.177596},
+      "2": {"psnr": 21.990664, "ssim": 0.784966, "lpips": 0.369372, "face_psnr": 23.483627, "face_ssim": 0.723676, "face_lpips": 0.183663},
+      "4": {"psnr": 22.034008, "ssim": 0.785832, "lpips": 0.370982, "face_psnr": 23.650566, "face_ssim": 0.724813, "face_lpips": 0.184022},
+      "8": {"psnr": 22.026922, "ssim": 0.785980, "lpips": 0.371128, "face_psnr": 23.643837, "face_ssim": 0.725183, "face_lpips": 0.184129},
+      "16": {"psnr": 22.023592, "ssim": 0.785900, "lpips": 0.371532, "face_psnr": 23.641253, "face_ssim": 0.725371, "face_lpips": 0.184118}
+    }
+  },
+  "conclusion": "With identical geometry and inputs, equal weighting progressively blurs the face while target-camera-local weighting remains stable. The failure mechanism is shared averaging of mutually inconsistent multiview colour observations, not absence of a renderable actor surface."
+}
