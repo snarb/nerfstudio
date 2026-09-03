@@ -18,6 +18,22 @@ from PIL import Image
 from nerfstudio.data.dataparsers.nerfstudio_dataparser import NerfstudioDataParserConfig
 
 
+def add_boolean_argument(
+    parser: argparse.ArgumentParser,
+    name: str,
+    *,
+    default: bool,
+    help: str | None = None,
+) -> None:
+    """Backport ``BooleanOptionalAction`` for the project's Python 3.8 environment."""
+
+    destination = name.lstrip("-").replace("-", "_")
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument(name, dest=destination, action="store_true", help=help)
+    group.add_argument(f"--no-{name.lstrip('-')}", dest=destination, action="store_false")
+    parser.set_defaults(**{destination: default})
+
+
 def nerfstudio_c2w_to_opencv_extrinsic(camera_to_world: np.ndarray) -> np.ndarray:
     """Convert Nerfstudio/OpenGL c2w into OpenCV world-to-camera coordinates."""
 
@@ -43,6 +59,15 @@ def sha256(path: Path) -> str:
         for block in iter(lambda: stream.read(8 << 20), b""):
             digest.update(block)
     return digest.hexdigest()
+
+
+def relative_to_or_none(path: Path, root: Path) -> Path | None:
+    """Python-3.8-compatible equivalent of ``Path.is_relative_to`` plus conversion."""
+
+    try:
+        return path.resolve().relative_to(root.resolve())
+    except ValueError:
+        return None
 
 
 def barycentric_vertex_colors(
@@ -104,13 +129,13 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--eval-interval", type=int, default=8)
     parser.add_argument("--orientation-method", default="up")
     parser.add_argument("--center-method", default="focus")
-    parser.add_argument("--auto-scale-poses", action=argparse.BooleanOptionalAction, default=True)
+    add_boolean_argument(parser, "--auto-scale-poses", default=True)
     parser.add_argument("--scale-factor", type=float, default=1.0)
     parser.add_argument("--scene-scale", type=float, default=2.0)
     parser.add_argument("--downscale-factor", type=int, default=1)
-    parser.add_argument(
+    add_boolean_argument(
+        parser,
         "--portable-manifest-paths",
-        action=argparse.BooleanOptionalAction,
         default=True,
         help=(
             "Store dataset-relative image paths and manifest-relative depth/mesh paths. "
@@ -123,7 +148,7 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         default=1.0,
         help="Multiply mesh vertices before raycasting; normally one when fusion/render parser settings match.",
     )
-    parser.add_argument("--write-color-png", action=argparse.BooleanOptionalAction, default=True)
+    add_boolean_argument(parser, "--write-color-png", default=True)
     plane = parser.add_mutually_exclusive_group()
     plane.add_argument("--fallback-plane", type=float, nargs=4, metavar=("A", "B", "C", "D"))
     plane.add_argument(
@@ -201,6 +226,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     args.output_dir.mkdir(parents=True)
     rows: list[dict[str, object]] = []
     seen_stems: set[str] = set()
+    resolved_dataparser_scale: float | None = None
+    resolved_dataparser_transform: np.ndarray | None = None
     for split in args.split:
         parser_config = NerfstudioDataParserConfig(
             data=args.data,
@@ -215,6 +242,19 @@ def main(argv: Sequence[str] | None = None) -> int:
             load_3D_points=False,
         )
         outputs = parser_config.setup().get_dataparser_outputs(split=split)
+        if resolved_dataparser_scale is None:
+            resolved_dataparser_scale = float(outputs.dataparser_scale)
+            resolved_dataparser_transform = outputs.dataparser_transform.detach().cpu().numpy()
+        elif (
+            not math.isclose(float(outputs.dataparser_scale), resolved_dataparser_scale, rel_tol=1e-7, abs_tol=1e-9)
+            or not np.allclose(
+                outputs.dataparser_transform.detach().cpu().numpy(),
+                resolved_dataparser_transform,
+                rtol=1e-7,
+                atol=1e-8,
+            )
+        ):
+            raise ValueError("Requested splits resolve different dataparser normalization transforms")
         if outputs.mask_filenames is not None:
             raise ValueError("TSDF diagnostic forbids image/person masks")
         cameras = outputs.cameras.to("cpu")
@@ -276,13 +316,14 @@ def main(argv: Sequence[str] | None = None) -> int:
                     args.output_dir / f"{stem}.mesh_color.png"
                 )
             positive = saved_depth > 0
+            dataset_relative_image = relative_to_or_none(image_path, args.data)
             rows.append(
                 {
                     "split": split,
                     "image_index": image_index,
                     "image": (
-                        str(image_path.resolve().relative_to(args.data))
-                        if args.portable_manifest_paths and image_path.resolve().is_relative_to(args.data)
+                        str(dataset_relative_image)
+                        if args.portable_manifest_paths and dataset_relative_image is not None
                         else manifest_reference(
                             image_path,
                             anchor=args.output_dir,
@@ -314,6 +355,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         "mesh_sha256": sha256(args.mesh),
         "splits": args.split,
         "masks": False,
+        "dataparser_scale": resolved_dataparser_scale,
+        "dataparser_transform": (
+            None if resolved_dataparser_transform is None else resolved_dataparser_transform.tolist()
+        ),
         "parameters": {
             "eval_mode": args.eval_mode,
             "eval_interval": args.eval_interval,

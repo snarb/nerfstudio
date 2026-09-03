@@ -13,7 +13,8 @@ cameras through hard `nearest-fill` selection; RGB values are never averaged.
 The tested geometry sources are:
 
 1. the existing Splatfacto-depth TSDF reference;
-2. COLMAP 4.1.1 calibrated PatchMatch geometric depth from 62 train cameras;
+2. calibrated PatchMatch geometric depth from 62 train cameras, produced by the verified CUDA
+   COLMAP 3.13.0.dev0 build at commit `5509fffe`;
 3. pose-conditioned Depth Anything 3 Large 1.1 from 16 and 62 cameras;
 4. pose-conditioned MapAnything from 16 cameras;
 5. MonoMVSNet's released BlendedMVS checkpoint from 16 cameras, with both 5
@@ -85,6 +86,52 @@ Large keeps local face texture sharp where its mesh is correct, but its actor
 boundary is incomplete. MapAnything and MonoMVSNet show large displaced or
 missing regions.
 
+### PatchMatch ear-artifact ablation
+
+The initial COLMAP result above used half-resolution (`960`) PatchMatch. A planar hole fill and
+different RGB source selectors did not move the detached patch under the woman's left ear, which
+localized the defect to geometry rather than texture aggregation. Full-resolution (`1920`)
+two-pass PatchMatch repaired the ear/hair surface. A scale-aware connected-component filter then
+removed the remaining isolated island: in the clean end-to-end run it had 165 triangles, versus
+157,773 triangles in the actor component. The selected generic threshold is the larger of 100
+triangles and `0.2%` of the largest component (316 triangles here); it contains no image-space
+coordinate or ear-specific rule.
+
+All rows below use the same held-out image, the same independent Splatfacto-derived metric surface,
+and the same actor/face/left-ear/lipstick rectangles. They are display-domain metrics and exclude
+the room. The original and selected rows were recomputed together rather than copied from runs
+with slightly different face boxes.
+
+| PatchMatch / texture configuration | Actor/object PSNR / SSIM / LPIPS | Face PSNR / SSIM / LPIPS | Left-ear PSNR / SSIM / LPIPS | Lipstick/hand PSNR / SSIM / LPIPS |
+|---|---|---|---|---|
+| Original: `960`, strict TSDF, previous 16-source pool | `22.3292 / 0.785907 / 0.128026` | `22.8196 / 0.748816 / 0.116513` | `21.9858 / 0.731215 / 0.144765` | `22.2919 / 0.851327 / 0.083395` |
+| `1920`, strict TSDF, nearest 16 of all 62 | `22.1360 / 0.790894 / 0.129190` | `23.0198 / 0.754475 / 0.113190` | `22.5522 / 0.747698 / 0.125935` | `22.7534 / 0.861605 / 0.078411` |
+| **Selected: `1920`, strict TSDF + relative island filter, angular 16** | **`23.8313 / 0.775921 / 0.128127`** | **`26.0281 / 0.734430 / 0.111190`** | **`24.8845 / 0.699793 / 0.100040`** | **`26.0380 / 0.837956 / 0.096828`** |
+
+The selected result improves left-ear PSNR by `+2.90 dB` and LPIPS by `-0.0447` (`31%`) and
+removes the visible detached island. Actor/object PSNR improves by `+1.50 dB`, face PSNR by
+`+3.21 dB`, and face LPIPS by `-0.0053`. SSIM and lipstick LPIPS do not improve with the angular
+pool; this is a real source-view colour/texture trade-off rather than a hidden full-frame gain.
+The all-62 texture control is the more balanced SSIM/lipstick variant, while angular-16 is selected
+because the stated gate prioritizes the ear and face and is chosen from calibration only.
+
+The angular texture-camera count is not monotonic because the independently selected subsets are
+not nested and hard nearest-fill lets the closest retained camera own almost every actor pixel:
+
+| Angular texture pool | Actor/object PSNR / SSIM / LPIPS | Left-ear LPIPS | Observation |
+|---:|---|---:|---|
+| 8 | `19.3677 / 0.763941 / 0.222363` | `0.322102` | Too sparse; reject |
+| 12 | `23.8302 / 0.775234 / 0.129621` | **`0.098479`** | Essentially tied with 16 |
+| 16 | `23.8316 / 0.775245 / 0.129635` | **`0.098479`** | Selected coverage/speed compromise |
+| 24 (nearest 16 rendered) | `24.3791 / 0.798528 / 0.190812` | `0.227573` | Source-switch structure hurts LPIPS; reject |
+| 32 (nearest 16 rendered) | `22.0736 / 0.790560 / 0.130363` | `0.124062` | No advantage over 16 |
+
+The validated CUDA COLMAP build produced all 62 full-resolution geometric maps with mean valid
+coverage `38.52%` (minimum `26.72%`). The final TSDF has one connected component after generic
+filtering. Relaxed PatchMatch gates, a narrower TSDF band, half+full multiscale fusion and
+per-pixel `best-view` source switching were also tested and rejected because they increased holes,
+fragmentation, or LPIPS.
+
 ## Insights
 
 1. **The practical no-training replacement is calibrated COLMAP PatchMatch,
@@ -116,6 +163,16 @@ missing regions.
    geometry/domain performance rather than an installation failure. It
    reconstructs only `22.17%` of the target image and is worse than
    MonoMVSNet on all three fixed regions.
+7. **The ear defect was a geometry-resolution problem, followed by a tiny disconnected-island
+   problem.** Changing the colour compositor could not repair it. Full-resolution two-pass
+   PatchMatch repaired the supported surface; a relative topology gate removed the residual island
+   without inspecting the held-out image or encoding an ear location.
+8. **The selected recipe is frame-reusable, but cross-frame visual validation is still pending.**
+   `run_colmap_patchmatch_tsdf.py` exports fixed train-only calibration, forbids masks, builds its
+   texture subset from camera geometry, and records every command and input hash. A second-frame
+   `000901` canary successfully resolved 62 train cameras and generated the complete dry-run/export
+   recipe. Dense MVS on that second frame has not yet been run, so no cross-frame quality claim is
+   made here.
 
 The next product-oriented gate is therefore a short camera-path render using
 COLMAP PatchMatch -> strict TSDF -> hard view-dependent texture selection. It

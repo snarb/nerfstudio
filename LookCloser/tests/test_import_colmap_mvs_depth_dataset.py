@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 from pathlib import Path
+import struct
 
 import numpy as np
 
@@ -33,3 +34,29 @@ def test_read_colmap_dense_array_preserves_pixel_layout(tmp_path: Path) -> None:
 
 def test_normalized_name_removes_dot_prefix() -> None:
     assert MODULE.normalized_name("./images/a.jpg") == "images/a.jpg"
+
+
+def test_binary_pinhole_calibration_reader_has_no_pycolmap_dependency(tmp_path: Path) -> None:
+    model = tmp_path / "model"
+    model.mkdir()
+    with (model / "cameras.bin").open("wb") as stream:
+        stream.write(struct.pack("<QiiQQ4d", 1, 7, 1, 1918, 1079, 1000.0, 1001.0, 958.5, 539.0))
+    with (model / "images.bin").open("wb") as stream:
+        stream.write(struct.pack("<Qi7di", 1, 11, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 7))
+        stream.write(b"images/camera.jpg\0")
+        stream.write(struct.pack("<Q", 0))
+
+    calibration = MODULE.load_binary_pinhole_calibration(model)
+
+    assert calibration["images/camera.jpg"] == {
+        "fl_x": 1000.0,
+        "fl_y": 1001.0,
+        "cx": 958.5,
+        "cy": 539.0,
+        "w": 1918,
+        "h": 1079,
+        "k1": 0.0,
+        "k2": 0.0,
+        "p1": 0.0,
+        "p2": 0.0,
+    }

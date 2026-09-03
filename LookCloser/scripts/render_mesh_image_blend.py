@@ -16,15 +16,52 @@ import gzip
 import hashlib
 import json
 import math
+import os
 from pathlib import Path
 
+os.environ.setdefault("OPENCV_IO_ENABLE_OPENEXR", "1")
+import cv2
 import numpy as np
 import torch
 import torch.nn.functional as F
 from PIL import Image
 
 from nerfstudio.data.dataparsers.nerfstudio_dataparser import NerfstudioDataParserConfig
-from nerfstudio.data.utils.data_utils import load_exr_image, write_exr_image
+
+
+def add_boolean_argument(
+    parser: argparse.ArgumentParser,
+    name: str,
+    *,
+    default: bool,
+    help: str | None = None,
+) -> None:
+    """Backport ``BooleanOptionalAction`` for the project's Python 3.8 environment."""
+
+    destination = name.lstrip("-").replace("-", "_")
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument(name, dest=destination, action="store_true", help=help)
+    group.add_argument(f"--no-{name.lstrip('-')}", dest=destination, action="store_false")
+    parser.set_defaults(**{destination: default})
+
+
+def load_exr_image(path: Path) -> np.ndarray:
+    encoded = cv2.imread(str(path), cv2.IMREAD_UNCHANGED)
+    if encoded is None or encoded.ndim != 3 or encoded.shape[-1] not in (3, 4):
+        raise ValueError(f"Failed to decode RGB(A) OpenEXR: {path}")
+    order = (2, 1, 0) if encoded.shape[-1] == 3 else (2, 1, 0, 3)
+    return np.ascontiguousarray(encoded[..., order], dtype=np.float32)
+
+
+def write_exr_image(path: Path, image: np.ndarray | torch.Tensor) -> None:
+    array = image.detach().cpu().numpy() if isinstance(image, torch.Tensor) else np.asarray(image)
+    array = np.asarray(array, dtype=np.float32)
+    if array.ndim != 3 or array.shape[-1] not in (3, 4):
+        raise ValueError(f"OpenEXR output must have RGB(A) channels, got {array.shape}")
+    order = (2, 1, 0) if array.shape[-1] == 3 else (2, 1, 0, 3)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if not cv2.imwrite(str(path), np.ascontiguousarray(array[..., order])):
+        raise OSError(f"Failed to write OpenEXR: {path}")
 
 
 def parse_args() -> argparse.Namespace:
@@ -101,9 +138,9 @@ def parse_args() -> argparse.Namespace:
         nargs="+",
         default=(1.0,),
     )
-    parser.add_argument(
+    add_boolean_argument(
+        parser,
         "--score-metrics",
-        action=argparse.BooleanOptionalAction,
         default=False,
         help="Score display-domain PSNR/SSIM/LPIPS after every prediction has been constructed.",
     )
@@ -128,7 +165,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--eval-interval", type=int, default=8)
     parser.add_argument("--orientation-method", default="up")
     parser.add_argument("--center-method", default="focus")
-    parser.add_argument("--auto-scale-poses", action=argparse.BooleanOptionalAction, default=True)
+    add_boolean_argument(parser, "--auto-scale-poses", default=True)
     parser.add_argument("--scale-factor", type=float, default=1.0)
     parser.add_argument("--scene-scale", type=float, default=2.0)
     parser.add_argument("--downscale-factor", type=int, default=1)

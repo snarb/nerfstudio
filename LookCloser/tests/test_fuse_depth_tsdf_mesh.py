@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import gzip
 import sys
 from pathlib import Path
 
@@ -43,3 +44,25 @@ def test_non_manifold_cleanup_is_default_on_and_can_be_disabled(tmp_path: Path) 
 
     assert default.remove_non_manifold_edges is True
     assert disabled.remove_non_manifold_edges is False
+
+
+def test_load_compressed_numpy_depth_applies_scene_scale(tmp_path: Path) -> None:
+    source = tmp_path / "depth.npy.gz"
+    with gzip.open(source, "wb") as stream:
+        np.save(stream, np.asarray([[2.0, 0.0]], dtype=np.float32), allow_pickle=False)
+
+    np.testing.assert_allclose(MODULE.load_depth(source, scale_factor=0.25), [[0.5, 0.0]])
+
+
+def test_component_threshold_combines_absolute_and_relative_gates() -> None:
+    counts = np.asarray([158_081, 228], dtype=np.int64)
+
+    assert MODULE.component_triangle_threshold(
+        counts, minimum_triangles=100, minimum_fraction=0.0
+    ) == 100
+    assert MODULE.component_triangle_threshold(
+        counts, minimum_triangles=100, minimum_fraction=0.002
+    ) == 317
+    assert MODULE.component_triangle_threshold(
+        counts, minimum_triangles=500, minimum_fraction=0.002
+    ) == 500

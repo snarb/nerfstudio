@@ -11,6 +11,7 @@ surface and extracts one zero crossing shared by the training cameras.
 from __future__ import annotations
 
 import argparse
+import gzip
 import hashlib
 import json
 import math
@@ -20,7 +21,22 @@ from typing import Sequence
 import numpy as np
 
 from nerfstudio.data.dataparsers.nerfstudio_dataparser import NerfstudioDataParserConfig
-from nerfstudio.data.datasets.depth_dataset import DepthDataset
+
+
+def add_boolean_argument(
+    parser: argparse.ArgumentParser,
+    name: str,
+    *,
+    default: bool,
+    help: str | None = None,
+) -> None:
+    """Backport ``BooleanOptionalAction`` for the project's Python 3.8 environment."""
+
+    destination = name.lstrip("-").replace("-", "_")
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument(name, dest=destination, action="store_true", help=help)
+    group.add_argument(f"--no-{name.lstrip('-')}", dest=destination, action="store_false")
+    parser.set_defaults(**{destination: default})
 
 
 def nerfstudio_c2w_to_opencv_extrinsic(camera_to_world: np.ndarray) -> np.ndarray:
@@ -48,15 +64,47 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+def load_depth(path: Path, *, scale_factor: float) -> np.ndarray:
+    """Load depth without decoding RGB or depending on Nerfstudio dataset internals."""
+
+    suffixes = path.suffixes
+    if suffixes[-2:] == [".npy", ".gz"]:
+        with gzip.open(path, "rb") as stream:
+            depth = np.load(stream, allow_pickle=False)
+    elif path.suffix == ".npy":
+        depth = np.load(path, allow_pickle=False)
+    else:
+        from PIL import Image
+
+        with Image.open(path) as image:
+            depth = np.asarray(image)
+    depth = np.asarray(depth, dtype=np.float32)
+    if depth.ndim == 3 and depth.shape[-1] == 1:
+        depth = depth[..., 0]
+    if depth.ndim != 2:
+        raise ValueError(f"Expected one HW depth plane, got {depth.shape}: {path}")
+    return depth * float(scale_factor)
+
+
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--data", type=Path, required=True)
+    parser.add_argument(
+        "--additional-data",
+        type=Path,
+        action="append",
+        default=[],
+        help=(
+            "Optional additional calibrated depth dataset to integrate into the same TSDF. "
+            "Normalization must match --data; this supports general multiscale PatchMatch fusion."
+        ),
+    )
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--eval-mode", default="filename")
     parser.add_argument("--eval-interval", type=int, default=8)
     parser.add_argument("--orientation-method", default="up")
     parser.add_argument("--center-method", default="focus")
-    parser.add_argument("--auto-scale-poses", action=argparse.BooleanOptionalAction, default=True)
+    add_boolean_argument(parser, "--auto-scale-poses", default=True)
     parser.add_argument("--scale-factor", type=float, default=1.0)
     parser.add_argument("--scene-scale", type=float, default=2.0)
     parser.add_argument("--downscale-factor", type=int, default=1)
@@ -64,6 +112,29 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--voxel-length", type=float, default=0.002)
     parser.add_argument("--sdf-trunc", type=float, default=0.008)
     parser.add_argument("--depth-trunc", type=float, default=4.0)
+    parser.add_argument(
+        "--backend",
+        choices=("legacy", "tensor"),
+        default="legacy",
+        help="Open3D integration backend. Legacy preserves historical output; tensor enables opt-in CUDA fusion.",
+    )
+    parser.add_argument(
+        "--device",
+        default="CUDA:0",
+        help="Open3D tensor device used only with --backend tensor (for example CUDA:0 or CPU:0).",
+    )
+    parser.add_argument(
+        "--tensor-block-count",
+        type=int,
+        default=200000,
+        help="Maximum allocated sparse blocks for the opt-in tensor backend.",
+    )
+    parser.add_argument(
+        "--tensor-weight-threshold",
+        type=float,
+        default=1.0,
+        help="Minimum integrated weight for tensor-backend marching cubes.",
+    )
     parser.add_argument(
         "--crop-aabb",
         type=float,
@@ -78,8 +149,17 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         help="Remove disconnected surface islands smaller than this many triangles; zero keeps all islands.",
     )
     parser.add_argument(
+        "--min-component-fraction",
+        type=float,
+        default=0.0,
+        help=(
+            "Also remove islands smaller than this fraction of the largest connected component. "
+            "Zero preserves the historical absolute-threshold behavior."
+        ),
+    )
+    add_boolean_argument(
+        parser,
         "--remove-non-manifold-edges",
-        action=argparse.BooleanOptionalAction,
         default=True,
         help=(
             "Apply Open3D's legacy non-manifold-edge cleanup before cropping. "
@@ -88,9 +168,11 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     )
     args = parser.parse_args(argv)
     args.data = args.data.expanduser().resolve()
+    args.additional_data = [path.expanduser().resolve() for path in args.additional_data]
     args.output = args.output.expanduser().resolve()
-    if not args.data.is_dir():
-        parser.error(f"Dataset does not exist: {args.data}")
+    for data in [args.data, *args.additional_data]:
+        if not data.is_dir():
+            parser.error(f"Dataset does not exist: {data}")
     if args.output.suffix.lower() != ".ply":
         parser.error("--output must end in .ply")
     if args.output.exists():
@@ -104,6 +186,8 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         args.voxel_length,
         args.sdf_trunc,
         args.depth_trunc,
+        args.tensor_block_count,
+        args.tensor_weight_threshold,
     )
     if not all(math.isfinite(float(value)) and float(value) > 0 for value in positive):
         parser.error("scale, interval, voxel, truncation, and depth values must be finite and positive")
@@ -111,11 +195,28 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         parser.error("--sdf-trunc must be at least one voxel")
     if args.min_component_triangles < 0:
         parser.error("--min-component-triangles must be non-negative")
+    if not math.isfinite(args.min_component_fraction) or not 0.0 <= args.min_component_fraction <= 1.0:
+        parser.error("--min-component-fraction must be finite and between zero and one")
     if args.crop_aabb is not None:
         bounds = np.asarray(args.crop_aabb, dtype=np.float64).reshape(2, 3)
         if not np.isfinite(bounds).all() or not np.all(bounds[1] > bounds[0]):
             parser.error("--crop-aabb must contain finite increasing bounds")
     return args
+
+
+def component_triangle_threshold(
+    counts: np.ndarray,
+    *,
+    minimum_triangles: int,
+    minimum_fraction: float,
+) -> int:
+    """Return a scale-aware island threshold without weakening the absolute gate."""
+
+    counts = np.asarray(counts, dtype=np.int64)
+    if counts.ndim != 1 or counts.size == 0 or np.any(counts <= 0):
+        raise ValueError("component triangle counts must be a non-empty positive vector")
+    relative = int(math.ceil(float(counts.max()) * float(minimum_fraction)))
+    return max(int(minimum_triangles), relative)
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -125,74 +226,165 @@ def main(argv: Sequence[str] | None = None) -> int:
     except ImportError as error:
         raise RuntimeError("Open3D is required for TSDF mesh fusion") from error
 
-    parser_config = NerfstudioDataParserConfig(
-        data=args.data,
-        eval_mode=args.eval_mode,
-        eval_interval=args.eval_interval,
-        orientation_method=args.orientation_method,
-        center_method=args.center_method,
-        auto_scale_poses=args.auto_scale_poses,
-        scale_factor=args.scale_factor,
-        scene_scale=args.scene_scale,
-        downscale_factor=args.downscale_factor,
-        depth_unit_scale_factor=args.depth_unit_scale_factor,
-        load_3D_points=False,
-    )
-    outputs = parser_config.setup().get_dataparser_outputs(split="train")
-    if outputs.mask_filenames is not None:
-        raise ValueError("TSDF diagnostic forbids image/person masks")
-    if outputs.metadata.get("depth_filenames") is None:
-        raise ValueError("Train split does not provide depth_file_path values")
-    dataset = DepthDataset(outputs)
+    groups = []
+    primary_outputs = None
+    for data in [args.data, *args.additional_data]:
+        parser_config = NerfstudioDataParserConfig(
+            data=data,
+            eval_mode=args.eval_mode,
+            eval_interval=args.eval_interval,
+            orientation_method=args.orientation_method,
+            center_method=args.center_method,
+            auto_scale_poses=args.auto_scale_poses,
+            scale_factor=args.scale_factor,
+            scene_scale=args.scene_scale,
+            downscale_factor=args.downscale_factor,
+            depth_unit_scale_factor=args.depth_unit_scale_factor,
+            load_3D_points=False,
+        )
+        outputs = parser_config.setup().get_dataparser_outputs(split="train")
+        if outputs.mask_filenames is not None:
+            raise ValueError("TSDF diagnostic forbids image/person masks")
+        if outputs.metadata.get("depth_filenames") is None:
+            raise ValueError(f"Train split does not provide depth_file_path values: {data}")
+        depth_filenames = outputs.metadata["depth_filenames"]
+        if len(depth_filenames) != len(outputs.image_filenames):
+            raise ValueError(f"Train depth and image counts differ: {data}")
+        if primary_outputs is None:
+            primary_outputs = outputs
+        elif (
+            not math.isclose(
+                float(outputs.dataparser_scale),
+                float(primary_outputs.dataparser_scale),
+                rel_tol=1e-7,
+                abs_tol=1e-9,
+            )
+            or not np.allclose(
+                outputs.dataparser_transform.detach().cpu().numpy(),
+                primary_outputs.dataparser_transform.detach().cpu().numpy(),
+                rtol=1e-7,
+                atol=1e-8,
+            )
+        ):
+            raise ValueError("All TSDF depth datasets must resolve the same dataparser normalization")
+        depth_scale = float(outputs.metadata.get("depth_unit_scale_factor", 1.0)) * float(
+            outputs.dataparser_scale
+        )
+        groups.append((data, outputs, depth_filenames, depth_scale))
+    assert primary_outputs is not None
 
-    volume = o3d.pipelines.integration.ScalableTSDFVolume(
-        voxel_length=float(args.voxel_length),
-        sdf_trunc=float(args.sdf_trunc),
-        color_type=o3d.pipelines.integration.TSDFVolumeColorType.RGB8,
-    )
-    cameras = outputs.cameras.to("cpu")
+    volume = None
+    tensor_volume = None
+    tensor_device = None
+    trunc_voxel_multiplier = float(args.sdf_trunc / args.voxel_length)
+    if args.backend == "legacy":
+        volume = o3d.pipelines.integration.ScalableTSDFVolume(
+            voxel_length=float(args.voxel_length),
+            sdf_trunc=float(args.sdf_trunc),
+            color_type=o3d.pipelines.integration.TSDFVolumeColorType.RGB8,
+        )
+    else:
+        tensor_device = o3d.core.Device(args.device)
+        if tensor_device.get_type() == o3d.core.Device.DeviceType.CUDA and not o3d.core.cuda.is_available():
+            raise RuntimeError("Open3D tensor CUDA backend was requested but CUDA is unavailable")
+        tensor_volume = o3d.t.geometry.VoxelBlockGrid(
+            attr_names=("tsdf", "weight"),
+            attr_dtypes=(o3d.core.float32, o3d.core.float32),
+            attr_channels=((1,), (1,)),
+            voxel_size=float(args.voxel_length),
+            block_resolution=16,
+            block_count=int(args.tensor_block_count),
+            device=tensor_device,
+        )
     rows: list[dict[str, object]] = []
-    for image_index in range(len(dataset)):
-        sample = dataset[image_index]
-        image = sample["image"].detach().cpu().numpy()
-        depth = sample.get("depth_image")
-        if depth is None:
-            raise RuntimeError(f"Missing depth for train image {image_index}")
-        depth_array = depth.detach().cpu().numpy().squeeze(-1).astype(np.float32, copy=False)
-        valid = np.isfinite(depth_array) & (depth_array > 0) & (depth_array < args.depth_trunc)
-        if not valid.any():
-            raise ValueError(f"Train depth {image_index} has no finite positive values below depth_trunc")
-        depth_array = np.where(valid, depth_array, 0.0).astype(np.float32, copy=False)
-        color_array = np.clip(np.rint(image[..., :3] * 255.0), 0, 255).astype(np.uint8)
-        height, width = depth_array.shape
-        intrinsic = o3d.camera.PinholeCameraIntrinsic(
-            width,
-            height,
-            float(cameras.fx[image_index].item()),
-            float(cameras.fy[image_index].item()),
-            float(cameras.cx[image_index].item()),
-            float(cameras.cy[image_index].item()),
-        )
-        extrinsic = nerfstudio_c2w_to_opencv_extrinsic(cameras.camera_to_worlds[image_index].numpy())
-        rgbd = o3d.geometry.RGBDImage.create_from_color_and_depth(
-            o3d.geometry.Image(np.ascontiguousarray(color_array)),
-            o3d.geometry.Image(np.ascontiguousarray(depth_array)),
-            depth_scale=1.0,
-            depth_trunc=float(args.depth_trunc),
-            convert_rgb_to_intensity=False,
-        )
-        volume.integrate(rgbd, intrinsic, extrinsic)
-        rows.append(
-            {
-                "image_index": image_index,
-                "image": str(outputs.image_filenames[image_index]),
-                "valid_depth_fraction": float(valid.mean()),
-                "valid_depth_median": float(np.median(depth_array[valid])),
-            }
-        )
-        print(f"integrated={image_index + 1}/{len(dataset)}", flush=True)
+    total_images = sum(len(depth_filenames) for _, _, depth_filenames, _ in groups)
+    integrated = 0
+    for data_index, (data, outputs, depth_filenames, depth_scale) in enumerate(groups):
+        cameras = outputs.cameras.to("cpu")
+        for image_index, depth_path in enumerate(depth_filenames):
+            depth_array = load_depth(Path(depth_path), scale_factor=depth_scale)
+            valid = np.isfinite(depth_array) & (depth_array > 0) & (depth_array < args.depth_trunc)
+            if not valid.any():
+                raise ValueError(f"Train depth {image_index} has no finite positive values below depth_trunc")
+            depth_array = np.where(valid, depth_array, 0.0).astype(np.float32, copy=False)
+            height, width = depth_array.shape
+            extrinsic = nerfstudio_c2w_to_opencv_extrinsic(cameras.camera_to_worlds[image_index].numpy())
+            intrinsic_array = np.asarray(
+                [
+                    [float(cameras.fx[image_index].item()), 0.0, float(cameras.cx[image_index].item())],
+                    [0.0, float(cameras.fy[image_index].item()), float(cameras.cy[image_index].item())],
+                    [0.0, 0.0, 1.0],
+                ],
+                dtype=np.float64,
+            )
+            if args.backend == "legacy":
+                assert volume is not None
+                # The downstream renderer samples calibrated source images rather
+                # than vertex colours; a neutral image avoids needless RGB I/O.
+                color_array = np.zeros((height, width, 3), dtype=np.uint8)
+                intrinsic = o3d.camera.PinholeCameraIntrinsic(
+                    width,
+                    height,
+                    intrinsic_array[0, 0],
+                    intrinsic_array[1, 1],
+                    intrinsic_array[0, 2],
+                    intrinsic_array[1, 2],
+                )
+                rgbd = o3d.geometry.RGBDImage.create_from_color_and_depth(
+                    o3d.geometry.Image(np.ascontiguousarray(color_array)),
+                    o3d.geometry.Image(np.ascontiguousarray(depth_array)),
+                    depth_scale=1.0,
+                    depth_trunc=float(args.depth_trunc),
+                    convert_rgb_to_intensity=False,
+                )
+                volume.integrate(rgbd, intrinsic, extrinsic)
+            else:
+                assert tensor_volume is not None and tensor_device is not None
+                depth_image = o3d.t.geometry.Image(
+                    o3d.core.Tensor(np.ascontiguousarray(depth_array), device=tensor_device)
+                )
+                # Open3D's CUDA VBG API keeps camera matrices on CPU while the
+                # depth image and sparse volume live on the selected device.
+                intrinsic_tensor = o3d.core.Tensor(intrinsic_array)
+                extrinsic_tensor = o3d.core.Tensor(extrinsic)
+                block_coords = tensor_volume.compute_unique_block_coordinates(
+                    depth_image,
+                    intrinsic_tensor,
+                    extrinsic_tensor,
+                    depth_scale=1.0,
+                    depth_max=float(args.depth_trunc),
+                    trunc_voxel_multiplier=trunc_voxel_multiplier,
+                )
+                tensor_volume.integrate(
+                    block_coords,
+                    depth_image,
+                    intrinsic_tensor,
+                    extrinsic_tensor,
+                    depth_scale=1.0,
+                    depth_max=float(args.depth_trunc),
+                    trunc_voxel_multiplier=trunc_voxel_multiplier,
+                )
+            integrated += 1
+            rows.append(
+                {
+                    "data_index": data_index,
+                    "data": str(data),
+                    "image_index": image_index,
+                    "image": str(outputs.image_filenames[image_index]),
+                    "valid_depth_fraction": float(valid.mean()),
+                    "valid_depth_median": float(np.median(depth_array[valid])),
+                }
+            )
+            print(f"integrated={integrated}/{total_images}", flush=True)
 
-    mesh = volume.extract_triangle_mesh()
+    if args.backend == "legacy":
+        assert volume is not None
+        mesh = volume.extract_triangle_mesh()
+    else:
+        assert tensor_volume is not None
+        mesh = tensor_volume.extract_triangle_mesh(
+            weight_threshold=float(args.tensor_weight_threshold)
+        ).cpu().to_legacy()
     if len(mesh.triangles) == 0:
         raise RuntimeError("TSDF fusion produced an empty mesh")
     mesh.remove_duplicated_vertices()
@@ -207,12 +399,18 @@ def main(argv: Sequence[str] | None = None) -> int:
         mesh = mesh.crop(o3d.geometry.AxisAlignedBoundingBox(bounds[0], bounds[1]))
     triangles_before_components = len(mesh.triangles)
     removed_components = 0
-    if args.min_component_triangles > 0 and triangles_before_components > 0:
+    effective_component_threshold = 0
+    if (args.min_component_triangles > 0 or args.min_component_fraction > 0.0) and triangles_before_components > 0:
         labels, counts, _ = mesh.cluster_connected_triangles()
         labels_array = np.asarray(labels, dtype=np.int64)
         counts_array = np.asarray(counts, dtype=np.int64)
-        remove = counts_array[labels_array] < args.min_component_triangles
-        removed_components = int(np.sum(counts_array < args.min_component_triangles))
+        effective_component_threshold = component_triangle_threshold(
+            counts_array,
+            minimum_triangles=args.min_component_triangles,
+            minimum_fraction=args.min_component_fraction,
+        )
+        remove = counts_array[labels_array] < effective_component_threshold
+        removed_components = int(np.sum(counts_array < effective_component_threshold))
         mesh.remove_triangles_by_mask(remove)
         mesh.remove_unreferenced_vertices()
     if len(mesh.triangles) == 0:
@@ -228,12 +426,16 @@ def main(argv: Sequence[str] | None = None) -> int:
         "method": "open3d_scalable_tsdf_train_only",
         "data": str(args.data),
         "source_transforms_sha256": sha256(transforms),
+        "additional_data": [str(path) for path in args.additional_data],
+        "additional_source_transforms_sha256": [
+            sha256(path / "transforms.json") for path in args.additional_data
+        ],
         "output": str(args.output),
         "output_sha256": sha256(args.output),
         "masks": False,
-        "train_image_count": len(dataset),
-        "dataparser_scale": float(outputs.dataparser_scale),
-        "dataparser_transform": outputs.dataparser_transform.tolist(),
+        "train_image_count": total_images,
+        "dataparser_scale": float(primary_outputs.dataparser_scale),
+        "dataparser_transform": primary_outputs.dataparser_transform.tolist(),
         "parameters": {
             "eval_mode": args.eval_mode,
             "eval_interval": args.eval_interval,
@@ -247,8 +449,14 @@ def main(argv: Sequence[str] | None = None) -> int:
             "voxel_length": args.voxel_length,
             "sdf_trunc": args.sdf_trunc,
             "depth_trunc": args.depth_trunc,
+            "backend": args.backend,
+            "device": args.device if args.backend == "tensor" else "CPU",
+            "tensor_block_count": args.tensor_block_count if args.backend == "tensor" else None,
+            "tensor_weight_threshold": args.tensor_weight_threshold if args.backend == "tensor" else None,
             "crop_aabb": args.crop_aabb,
             "min_component_triangles": args.min_component_triangles,
+            "min_component_fraction": args.min_component_fraction,
+            "effective_component_triangle_threshold": effective_component_threshold,
             "remove_non_manifold_edges": args.remove_non_manifold_edges,
         },
         "vertices": len(mesh.vertices),
