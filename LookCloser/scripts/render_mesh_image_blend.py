@@ -31,10 +31,30 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--data", type=Path, required=True)
     parser.add_argument("--mesh-depth-manifest", type=Path, required=True)
+    parser.add_argument(
+        "--metric-surface-depth-manifest",
+        type=Path,
+        default=None,
+        help=(
+            "Optional independent mesh-depth manifest whose eval first-hit support defines surface metrics. "
+            "Rendering and visibility still use --mesh-depth-manifest. The default preserves legacy behavior."
+        ),
+    )
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--base-prediction-exr", type=Path, default=None)
     parser.add_argument("--ground-truth-exr", type=Path, default=None)
     parser.add_argument("--neighbors", type=int, nargs="+", default=(1, 2, 4))
+    parser.add_argument(
+        "--aggregation-modes",
+        nargs="+",
+        choices=("weighted", "nearest-fill", "best-view"),
+        default=("weighted",),
+        help=(
+            "weighted preserves the legacy colour average; nearest-fill takes the globally nearest valid source "
+            "and uses later sources only for holes; best-view makes a hard per-pixel choice from geometric "
+            "confidence, target-view angular similarity, projected resolution, and image-border margin."
+        ),
+    )
     parser.add_argument(
         "--blend-alphas",
         type=float,
@@ -43,6 +63,19 @@ def parse_args() -> argparse.Namespace:
         help="Geometric source-colour blend strengths; one fully replaces supported base pixels.",
     )
     parser.add_argument("--depth-log-tolerance", type=float, default=0.01)
+    parser.add_argument(
+        "--depth-hole-fill-max-area",
+        type=int,
+        default=0,
+        help=(
+            "Fill enclosed mesh-depth holes up to this many pixels by a locally fitted camera-z plane. "
+            "Zero preserves the historical renderer exactly."
+        ),
+    )
+    parser.add_argument("--depth-hole-fill-boundary-radius", type=int, default=4)
+    parser.add_argument("--depth-hole-fill-max-relative-plane-rmse", type=float, default=0.015)
+    parser.add_argument("--best-view-angle-power", type=float, default=4.0)
+    parser.add_argument("--best-view-border-margin", type=float, default=64.0)
     parser.add_argument(
         "--camera-distance-power",
         type=float,
@@ -75,6 +108,17 @@ def parse_args() -> argparse.Namespace:
         help="Score display-domain PSNR/SSIM/LPIPS after every prediction has been constructed.",
     )
     parser.add_argument(
+        "--metric-regions",
+        nargs="+",
+        choices=("full", "roi", "surface", "surface-roi", "reprojected", "reprojected-roi"),
+        default=None,
+        help=(
+            "Regions to score. The legacy default is full plus roi when --roi-boxes-json is set. "
+            "surface uses the target mesh first-hit support; surface-roi intersects it with the ROI. "
+            "reprojected variants use only target-surface pixels visible in at least one selected source."
+        ),
+    )
+    parser.add_argument(
         "--roi-boxes-json",
         type=Path,
         default=None,
@@ -92,6 +136,8 @@ def parse_args() -> argparse.Namespace:
     args = parser.parse_args()
     args.data = args.data.expanduser().resolve()
     args.mesh_depth_manifest = args.mesh_depth_manifest.expanduser().resolve()
+    if args.metric_surface_depth_manifest is not None:
+        args.metric_surface_depth_manifest = args.metric_surface_depth_manifest.expanduser().resolve()
     args.output_dir = args.output_dir.expanduser().resolve()
     if args.base_prediction_exr is not None:
         args.base_prediction_exr = args.base_prediction_exr.expanduser().resolve()
@@ -101,6 +147,8 @@ def parse_args() -> argparse.Namespace:
         args.roi_boxes_json = args.roi_boxes_json.expanduser().resolve()
     if not args.data.is_dir() or not args.mesh_depth_manifest.is_file():
         parser.error("--data and --mesh-depth-manifest must exist")
+    if args.metric_surface_depth_manifest is not None and not args.metric_surface_depth_manifest.is_file():
+        parser.error("--metric-surface-depth-manifest must exist")
     if args.output_dir.exists():
         parser.error(f"Output directory already exists: {args.output_dir}")
     if not args.neighbors or min(args.neighbors) <= 0:
@@ -109,6 +157,16 @@ def parse_args() -> argparse.Namespace:
         parser.error("--blend-alphas must contain values in [0, 1]")
     if args.depth_log_tolerance <= 0.0:
         parser.error("--depth-log-tolerance must be positive")
+    if args.depth_hole_fill_max_area < 0:
+        parser.error("--depth-hole-fill-max-area must be non-negative")
+    if args.depth_hole_fill_boundary_radius <= 0:
+        parser.error("--depth-hole-fill-boundary-radius must be positive")
+    if args.depth_hole_fill_max_relative_plane_rmse <= 0.0:
+        parser.error("--depth-hole-fill-max-relative-plane-rmse must be positive")
+    if args.best_view_angle_power < 0.0:
+        parser.error("--best-view-angle-power must be non-negative")
+    if args.best_view_border_margin <= 0.0:
+        parser.error("--best-view-border-margin must be positive")
     if args.camera_distance_power < 0.0:
         parser.error("--camera-distance-power must be non-negative")
     if any(value <= 0.0 for value in args.detail_transfer_sigmas):
@@ -119,6 +177,12 @@ def parse_args() -> argparse.Namespace:
         parser.error("--roi-boxes-json must exist")
     if args.roi_boxes_json is not None and not args.score_metrics:
         parser.error("--roi-boxes-json requires --score-metrics")
+    if args.metric_regions is not None and "roi" in args.metric_regions and args.roi_boxes_json is None:
+        parser.error("--metric-regions roi requires --roi-boxes-json")
+    if args.metric_regions is not None and "surface-roi" in args.metric_regions and args.roi_boxes_json is None:
+        parser.error("--metric-regions surface-roi requires --roi-boxes-json")
+    if args.metric_regions is not None and "reprojected-roi" in args.metric_regions and args.roi_boxes_json is None:
+        parser.error("--metric-regions reprojected-roi requires --roi-boxes-json")
     return args
 
 
@@ -129,6 +193,105 @@ def load_depth(path: Path) -> np.ndarray:
     if depth.ndim != 2 or not np.isfinite(depth).all() or np.any(depth < 0.0):
         raise ValueError(f"Invalid non-negative depth: {path}")
     return depth.astype(np.float32, copy=False)
+
+
+def fill_small_consistent_depth_holes(
+    depth: np.ndarray,
+    *,
+    max_area: int,
+    boundary_radius: int,
+    max_relative_plane_rmse: float,
+) -> tuple[np.ndarray, dict[str, object]]:
+    """Fill small enclosed camera-z holes only when their boundary supports one local plane."""
+
+    source = np.asarray(depth, dtype=np.float32)
+    if source.ndim != 2 or not np.isfinite(source).all() or np.any(source < 0.0):
+        raise ValueError("depth must be a finite non-negative 2D array")
+    stats: dict[str, object] = {
+        "enabled": max_area > 0,
+        "max_area": max_area,
+        "boundary_radius": boundary_radius,
+        "max_relative_plane_rmse": max_relative_plane_rmse,
+        "candidate_holes": 0,
+        "filled_holes": 0,
+        "filled_pixels": 0,
+    }
+    if max_area <= 0:
+        return source, stats
+
+    from scipy import ndimage
+
+    valid = source > 0.0
+    enclosed = ndimage.binary_fill_holes(valid) & ~valid
+    labels, count = ndimage.label(enclosed)
+    stats["candidate_holes"] = int(count)
+    filled = source.copy()
+    accepted: list[dict[str, object]] = []
+    for label_id, component_slice in enumerate(ndimage.find_objects(labels), start=1):
+        if component_slice is None:
+            continue
+        component = labels[component_slice] == label_id
+        area = int(component.sum())
+        if area == 0 or area > max_area:
+            continue
+        y0 = max(component_slice[0].start - boundary_radius, 0)
+        y1 = min(component_slice[0].stop + boundary_radius, source.shape[0])
+        x0 = max(component_slice[1].start - boundary_radius, 0)
+        x1 = min(component_slice[1].stop + boundary_radius, source.shape[1])
+        local_component = labels[y0:y1, x0:x1] == label_id
+        local_valid = valid[y0:y1, x0:x1]
+        boundary = ndimage.binary_dilation(local_component, iterations=boundary_radius) & local_valid
+        boundary_y, boundary_x = np.nonzero(boundary)
+        if boundary_y.size < 12:
+            continue
+        boundary_z = source[y0:y1, x0:x1][boundary].astype(np.float64, copy=False)
+        centre_x = float(boundary_x.mean())
+        centre_y = float(boundary_y.mean())
+        coordinate_scale = float(max(np.ptp(boundary_x), np.ptp(boundary_y), 1))
+        design = np.stack(
+            (
+                (boundary_x - centre_x) / coordinate_scale,
+                (boundary_y - centre_y) / coordinate_scale,
+                np.ones_like(boundary_x),
+            ),
+            axis=-1,
+        )
+        coefficients, *_ = np.linalg.lstsq(design, boundary_z, rcond=None)
+        residual = boundary_z - design @ coefficients
+        median_depth = float(np.median(boundary_z))
+        relative_rmse = float(np.sqrt(np.mean(np.square(residual))) / max(median_depth, 1e-8))
+        if not np.isfinite(relative_rmse) or relative_rmse > max_relative_plane_rmse:
+            continue
+        hole_y, hole_x = np.nonzero(local_component)
+        hole_design = np.stack(
+            (
+                (hole_x - centre_x) / coordinate_scale,
+                (hole_y - centre_y) / coordinate_scale,
+                np.ones_like(hole_x),
+            ),
+            axis=-1,
+        )
+        predicted = hole_design @ coefficients
+        if not np.isfinite(predicted).all() or np.any(predicted <= 0.0):
+            continue
+        local_filled = filled[y0:y1, x0:x1]
+        local_filled[local_component] = predicted.astype(np.float32, copy=False)
+        stats["filled_holes"] = int(stats["filled_holes"]) + 1
+        stats["filled_pixels"] = int(stats["filled_pixels"]) + area
+        accepted.append(
+            {
+                "area": area,
+                "bbox_xyxy": [
+                    int(component_slice[1].start),
+                    int(component_slice[0].start),
+                    int(component_slice[1].stop),
+                    int(component_slice[0].stop),
+                ],
+                "relative_plane_rmse": relative_rmse,
+            }
+        )
+    stats["largest_filled_holes"] = sorted(accepted, key=lambda row: int(row["area"]), reverse=True)[:16]
+    return filled, stats
 
 
 def load_rgb(path: Path, device: torch.device) -> torch.Tensor:
@@ -184,6 +347,22 @@ def project_target_to_source(
 ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
     """Project positive OpenCV camera-z depth between Nerfstudio cameras."""
 
+    world = target_depth_to_world(target_depth, target_c2w, target_intrinsics)
+    source_gl = (world - source_c2w[:, 3]) @ source_c2w[:, :3]
+    source_z = -source_gl[..., 2]
+    safe_z = source_z.clamp_min(1e-8)
+    source_u = source_intrinsics["fx"] * source_gl[..., 0] / safe_z + source_intrinsics["cx"]
+    source_v = source_intrinsics["fy"] * (-source_gl[..., 1]) / safe_z + source_intrinsics["cy"]
+    return source_u, source_v, source_z
+
+
+def target_depth_to_world(
+    target_depth: torch.Tensor,
+    target_c2w: torch.Tensor,
+    target_intrinsics: dict[str, float],
+) -> torch.Tensor:
+    """Unproject positive OpenCV camera-z depth into Nerfstudio world space."""
+
     height, width = target_depth.shape
     yy, xx = torch.meshgrid(
         torch.arange(height, dtype=torch.float32, device=target_depth.device),
@@ -194,13 +373,90 @@ def project_target_to_source(
     x = (xx - target_intrinsics["cx"]) * z / target_intrinsics["fx"]
     y = (yy - target_intrinsics["cy"]) * z / target_intrinsics["fy"]
     target_gl = torch.stack((x, -y, -z), dim=-1)
-    world = target_gl @ target_c2w[:, :3].T + target_c2w[:, 3]
-    source_gl = (world - source_c2w[:, 3]) @ source_c2w[:, :3]
-    source_z = -source_gl[..., 2]
-    safe_z = source_z.clamp_min(1e-8)
-    source_u = source_intrinsics["fx"] * source_gl[..., 0] / safe_z + source_intrinsics["cx"]
-    source_v = source_intrinsics["fy"] * (-source_gl[..., 1]) / safe_z + source_intrinsics["cy"]
-    return source_u, source_v, source_z
+    return target_gl @ target_c2w[:, :3].T + target_c2w[:, 3]
+
+
+def best_view_score(
+    *,
+    valid: torch.Tensor,
+    depth_confidence: torch.Tensor,
+    target_world: torch.Tensor,
+    target_camera_center: torch.Tensor,
+    source_camera_center: torch.Tensor,
+    target_depth: torch.Tensor,
+    projected_depth: torch.Tensor,
+    source_u: torch.Tensor,
+    source_v: torch.Tensor,
+    target_intrinsics: dict[str, float],
+    source_intrinsics: dict[str, float],
+    angle_power: float,
+    border_margin: float,
+) -> torch.Tensor:
+    """Score source quality per target pixel without averaging source colours."""
+
+    target_direction = F.normalize(target_camera_center - target_world, dim=-1, eps=1e-8)
+    source_direction = F.normalize(source_camera_center - target_world, dim=-1, eps=1e-8)
+    angular_similarity = (target_direction * source_direction).sum(dim=-1).clamp(0.0, 1.0)
+    angular_score = angular_similarity.pow(angle_power)
+    target_pixels_per_world = (
+        math.sqrt(target_intrinsics["fx"] * target_intrinsics["fy"]) / target_depth.clamp_min(1e-8)
+    )
+    source_pixels_per_world = (
+        math.sqrt(source_intrinsics["fx"] * source_intrinsics["fy"]) / projected_depth.clamp_min(1e-8)
+    )
+    resolution_score = (source_pixels_per_world / target_pixels_per_world).clamp(0.0, 1.0)
+    border_distance = torch.minimum(
+        torch.minimum(source_u, source_intrinsics["width"] - 1.0 - source_u),
+        torch.minimum(source_v, source_intrinsics["height"] - 1.0 - source_v),
+    )
+    border_score = border_distance.div(border_margin).clamp(0.0, 1.0)
+    score = depth_confidence * angular_score * resolution_score * (0.25 + 0.75 * border_score)
+    return torch.where(valid, score, torch.full_like(score, -torch.inf))
+
+
+def aggregate_warped_sources(
+    warped: list[torch.Tensor],
+    valid_masks: list[torch.Tensor],
+    weighted_scores: list[torch.Tensor],
+    best_scores: list[torch.Tensor],
+    *,
+    mode: str,
+) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+    """Combine source warps and return RGB, valid mask, and selected source rank."""
+
+    if not warped or not (len(warped) == len(valid_masks) == len(weighted_scores) == len(best_scores)):
+        raise ValueError("source lists must be non-empty and have matching lengths")
+    rgb_stack = torch.stack(warped)
+    valid_stack = torch.stack(valid_masks)
+    valid = valid_stack.any(dim=0)
+    if mode == "weighted":
+        score_stack = torch.stack(weighted_scores)
+        weight_sum = score_stack.sum(dim=0)
+        rgb = (rgb_stack * score_stack.unsqueeze(1)).sum(dim=0) / weight_sum.unsqueeze(0).clamp_min(1e-8)
+        selected = torch.argmax(score_stack, dim=0)
+    elif mode == "nearest-fill":
+        selected = torch.argmax(valid_stack.to(dtype=torch.int64), dim=0)
+        gather_index = selected.unsqueeze(0).unsqueeze(0).expand(1, rgb_stack.shape[1], *selected.shape)
+        rgb = torch.gather(rgb_stack, dim=0, index=gather_index)[0]
+    elif mode == "best-view":
+        score_stack = torch.stack(best_scores)
+        selected = torch.argmax(score_stack, dim=0)
+        gather_index = selected.unsqueeze(0).unsqueeze(0).expand(1, rgb_stack.shape[1], *selected.shape)
+        rgb = torch.gather(rgb_stack, dim=0, index=gather_index)[0]
+    else:
+        raise ValueError(f"Unknown aggregation mode: {mode}")
+    selected = torch.where(valid, selected, torch.full_like(selected, -1))
+    return rgb, valid.unsqueeze(0), selected
+
+
+def source_selection_fractions(selection: torch.Tensor, count: int) -> list[float]:
+    """Summarize hard/maximum-contribution source ranks over covered pixels."""
+
+    valid = selection >= 0
+    denominator = int(valid.sum().item())
+    if denominator == 0:
+        return [0.0] * count
+    return [float(((selection == rank).sum() / denominator).item()) for rank in range(count)]
 
 
 def grid_sample(image: torch.Tensor, u: torch.Tensor, v: torch.Tensor) -> torch.Tensor:
@@ -317,6 +573,52 @@ def display_metrics(
     return result
 
 
+def masked_display_metrics(
+    prediction: torch.Tensor,
+    ground_truth: torch.Tensor,
+    *,
+    mask: torch.Tensor,
+    lpips_model,
+) -> dict[str, float | list[int]]:
+    """Measure one geometry-defined region without scoring pixels outside it.
+
+    PSNR is computed from exactly the selected RGB samples. SSIM and LPIPS need
+    rectangular images, so both inputs are cropped to the tight mask bounds and
+    receive the same black value outside the mask. This keeps held-out RGB out
+    of prediction construction while preventing the room from affecting the
+    actor-only comparison.
+    """
+
+    from torchmetrics.functional.image import structural_similarity_index_measure
+
+    if prediction.shape != ground_truth.shape or prediction.ndim != 3:
+        raise ValueError("prediction and ground_truth must be matching CHW tensors")
+    if mask.shape != prediction.shape[-2:]:
+        raise ValueError("mask must match prediction height and width")
+    mask = mask.to(device=prediction.device, dtype=torch.bool)
+    if not bool(mask.any()):
+        raise ValueError("metric mask must select at least one pixel")
+    yy, xx = torch.where(mask)
+    x0, x1 = int(xx.min().item()), int(xx.max().item()) + 1
+    y0, y1 = int(yy.min().item()), int(yy.max().item()) + 1
+    pred = prediction.float().clamp(0.0, 1.0)
+    gt = ground_truth.float().clamp(0.0, 1.0)
+    selected_error = (pred[:, mask] - gt[:, mask]).square().mean()
+    psnr = -10.0 * torch.log10(selected_error.clamp_min(1e-12))
+    crop_mask = mask[y0:y1, x0:x1].unsqueeze(0)
+    pred_crop = torch.where(crop_mask, pred[:, y0:y1, x0:x1], 0.0).unsqueeze(0)
+    gt_crop = torch.where(crop_mask, gt[:, y0:y1, x0:x1], 0.0).unsqueeze(0)
+    ssim = structural_similarity_index_measure(pred_crop, gt_crop, data_range=1.0)
+    lpips = lpips_model(pred_crop, gt_crop)
+    return {
+        "psnr": float(psnr.item()),
+        "ssim": float(ssim.item()),
+        "lpips": float(lpips.item()),
+        "pixel_fraction": float(mask.float().mean().item()),
+        "bbox_xyxy": [x0, y0, x1, y1],
+    }
+
+
 def score_written_variants(
     output_dir: Path,
     variants: list[dict[str, object]],
@@ -324,6 +626,9 @@ def score_written_variants(
     *,
     device: torch.device,
     roi_boxes_json: Path | None,
+    surface_mask: torch.Tensor | None = None,
+    metric_regions: list[str] | None = None,
+    variant_masks: dict[str, torch.Tensor] | None = None,
 ) -> dict[str, object]:
     """Score renderer outputs lazily so the optional path cannot affect legacy runs."""
 
@@ -333,6 +638,13 @@ def score_written_variants(
     roi_name = None
     if roi_boxes_json is not None:
         roi, roi_name = load_single_roi(roi_boxes_json)
+    regions = metric_regions
+    if regions is None:
+        regions = ["full"] + (["roi"] if roi is not None else [])
+    if any(region.startswith("surface") for region in regions) and surface_mask is None:
+        raise ValueError("surface metric regions require a target surface mask")
+    if any(region.startswith("reprojected") for region in regions) and variant_masks is None:
+        raise ValueError("reprojected metric regions require per-variant visibility masks")
     gt = load_rgb(ground_truth, device)
     lpips_model = LearnedPerceptualImagePatchSimilarity(net_type="alex", normalize=True).to(device).eval()
     by_variant: dict[str, object] = {}
@@ -340,10 +652,48 @@ def score_written_variants(
         for row in variants:
             name = str(row["name"])
             pred = load_rgb(output_dir / name / "eval_pred_0000.exr", device)
-            aggregate = display_metrics(pred, gt, lpips_model=lpips_model, roi=roi)
+            aggregate: dict[str, object] = {}
+            if "full" in regions or "roi" in regions:
+                legacy = display_metrics(
+                    pred,
+                    gt,
+                    lpips_model=lpips_model,
+                    roi=roi if "roi" in regions else None,
+                )
+                if "full" in regions:
+                    aggregate.update({key: legacy[key] for key in ("psnr", "ssim", "lpips")})
+                if "roi" in regions:
+                    aggregate.update({key: value for key, value in legacy.items() if key.startswith("roi_")})
+            if "surface" in regions:
+                assert surface_mask is not None
+                aggregate["surface"] = masked_display_metrics(
+                    pred, gt, mask=surface_mask, lpips_model=lpips_model
+                )
+            if "surface-roi" in regions:
+                assert surface_mask is not None and roi is not None
+                x0, y0, x1, y1 = roi
+                roi_mask = torch.zeros_like(surface_mask, dtype=torch.bool)
+                roi_mask[y0:y1, x0:x1] = True
+                aggregate["surface_roi"] = masked_display_metrics(
+                    pred, gt, mask=surface_mask & roi_mask, lpips_model=lpips_model
+                )
+            if "reprojected" in regions:
+                assert variant_masks is not None
+                aggregate["reprojected"] = masked_display_metrics(
+                    pred, gt, mask=variant_masks[name], lpips_model=lpips_model
+                )
+            if "reprojected-roi" in regions:
+                assert variant_masks is not None and roi is not None
+                x0, y0, x1, y1 = roi
+                roi_mask = torch.zeros_like(variant_masks[name], dtype=torch.bool)
+                roi_mask[y0:y1, x0:x1] = True
+                aggregate["reprojected_roi"] = masked_display_metrics(
+                    pred, gt, mask=variant_masks[name] & roi_mask, lpips_model=lpips_model
+                )
             receipt = {
                 "schema_version": 1,
                 "metric_domain": "display-referred RGB clamped to [0, 1]",
+                "metric_regions": regions,
                 "roi_name": roi_name,
                 "roi_bbox_xyxy": None if roi is None else list(roi),
                 "aggregate": aggregate,
@@ -370,6 +720,42 @@ def write_prediction(directory: Path, name: str, rgb: torch.Tensor, ground_truth
     )
     if ground_truth is not None:
         (variant / "eval_gt_0000.exr").symlink_to(ground_truth)
+
+
+def write_source_selection(directory: Path, name: str, selection: torch.Tensor, count: int) -> None:
+    """Write a categorical map of the hard or maximum-contribution source rank."""
+
+    palette = torch.tensor(
+        [
+            [230, 25, 75],
+            [60, 180, 75],
+            [255, 225, 25],
+            [0, 130, 200],
+            [245, 130, 48],
+            [145, 30, 180],
+            [70, 240, 240],
+            [240, 50, 230],
+            [210, 245, 60],
+            [250, 190, 190],
+            [0, 128, 128],
+            [230, 190, 255],
+            [170, 110, 40],
+            [255, 250, 200],
+            [128, 0, 0],
+            [170, 255, 195],
+        ],
+        dtype=torch.uint8,
+        device=selection.device,
+    )
+    if count > len(palette):
+        raise ValueError("source-selection palette supports at most 16 sources")
+    valid = selection >= 0
+    safe = selection.clamp(0, count - 1)
+    rgb = palette[safe]
+    rgb = torch.where(valid.unsqueeze(-1), rgb, torch.zeros_like(rgb))
+    Image.fromarray(rgb.cpu().numpy(), "RGB").save(
+        directory / name / "source_selection.png", compress_level=3
+    )
 
 
 def main() -> int:
@@ -407,8 +793,35 @@ def main() -> int:
         raise ValueError("Requested more neighbors than train cameras")
 
     target_image = Path(target.image_filenames[0]).resolve()
-    target_depth = torch.from_numpy(load_depth(depth_by_image[target_image])).to(device)
+    target_depth_array, target_depth_hole_fill = fill_small_consistent_depth_holes(
+        load_depth(depth_by_image[target_image]),
+        max_area=args.depth_hole_fill_max_area,
+        boundary_radius=args.depth_hole_fill_boundary_radius,
+        max_relative_plane_rmse=args.depth_hole_fill_max_relative_plane_rmse,
+    )
+    target_depth = torch.from_numpy(target_depth_array).to(device)
     target_depth = target_depth * float(target.dataparser_scale)
+    target_surface_mask = target_depth > 0.0
+    metric_surface_mask = target_surface_mask
+    if args.metric_surface_depth_manifest is not None:
+        metric_manifest = json.loads(args.metric_surface_depth_manifest.read_text(encoding="utf-8"))
+        metric_depth_by_image = {
+            resolve_manifest_path(row["image"], args.data, args.metric_surface_depth_manifest): resolve_manifest_path(
+                row["depth"], args.data, args.metric_surface_depth_manifest
+            )
+            for row in metric_manifest["images"]
+        }
+        if target_image not in metric_depth_by_image:
+            raise ValueError(
+                f"Independent metric surface manifest has no eval depth for {target_image}"
+            )
+        metric_surface_depth = torch.from_numpy(load_depth(metric_depth_by_image[target_image])).to(device)
+        if metric_surface_depth.shape != target_depth.shape:
+            raise ValueError(
+                "Independent metric surface depth shape does not match rendered target: "
+                f"{tuple(metric_surface_depth.shape)} vs {tuple(target_depth.shape)}"
+            )
+        metric_surface_mask = metric_surface_depth > 0.0
     target_c2w, target_intrinsics = camera_parameters(target.cameras, 0, device)
     train_cameras = [camera_parameters(train.cameras, index, device) for index in range(len(train.image_filenames))]
     centers = torch.stack([camera[0][:, 3] for camera in train_cameras])
@@ -418,16 +831,25 @@ def main() -> int:
     selected = order[:max_neighbors]
 
     warped: list[torch.Tensor] = []
-    weights: list[torch.Tensor] = []
+    valid_masks: list[torch.Tensor] = []
+    weighted_scores: list[torch.Tensor] = []
+    best_scores: list[torch.Tensor] = []
     nearest_source_rgb: torch.Tensor | None = None
     source_rows: list[dict[str, object]] = []
+    target_world = target_depth_to_world(target_depth, target_c2w, target_intrinsics)
     with torch.inference_mode():
         for rank, source_index in enumerate(selected):
             source_image = Path(train.image_filenames[source_index]).resolve()
             source_rgb = load_rgb(source_image, device)
             if rank == 0:
                 nearest_source_rgb = source_rgb
-            source_depth = torch.from_numpy(load_depth(depth_by_image[source_image])).to(device)
+            source_depth_array, source_depth_hole_fill = fill_small_consistent_depth_holes(
+                load_depth(depth_by_image[source_image]),
+                max_area=args.depth_hole_fill_max_area,
+                boundary_radius=args.depth_hole_fill_boundary_radius,
+                max_relative_plane_rmse=args.depth_hole_fill_max_relative_plane_rmse,
+            )
+            source_depth = torch.from_numpy(source_depth_array).to(device)
             source_depth = source_depth * float(train.dataparser_scale)
             source_c2w, source_intrinsics = train_cameras[source_index]
             u, v, projected_z = project_target_to_source(
@@ -453,9 +875,26 @@ def main() -> int:
                 float(distances[source_index].item()) ** args.camera_distance_power,
                 1e-6,
             )
-            weight = valid.float().unsqueeze(0) * depth_weight.unsqueeze(0) * pose_weight
+            weighted_score = valid.float() * depth_weight * pose_weight
+            per_pixel_best_score = best_view_score(
+                valid=valid,
+                depth_confidence=depth_weight,
+                target_world=target_world,
+                target_camera_center=target_c2w[:, 3],
+                source_camera_center=source_c2w[:, 3],
+                target_depth=target_depth,
+                projected_depth=projected_z,
+                source_u=u,
+                source_v=v,
+                target_intrinsics=target_intrinsics,
+                source_intrinsics=source_intrinsics,
+                angle_power=args.best_view_angle_power,
+                border_margin=args.best_view_border_margin,
+            )
             warped.append(sampled_rgb)
-            weights.append(weight)
+            valid_masks.append(valid)
+            weighted_scores.append(weighted_score)
+            best_scores.append(per_pixel_best_score)
             source_rows.append(
                 {
                     "rank": rank,
@@ -467,6 +906,10 @@ def main() -> int:
                     "median_log_depth_error_in_bounds": (
                         float(torch.median(log_error[in_bounds]).item()) if bool(in_bounds.any()) else None
                     ),
+                    "median_best_view_score_valid": (
+                        float(torch.median(per_pixel_best_score[valid]).item()) if bool(valid.any()) else None
+                    ),
+                    "depth_hole_fill": source_depth_hole_fill,
                 }
             )
 
@@ -485,6 +928,12 @@ def main() -> int:
                         f"Base prediction shape {tuple(base.shape)} does not match target {tuple(warped[0].shape)}"
                     )
         args.output_dir.mkdir(parents=True)
+        if args.score_metrics and args.metric_regions is not None and any(
+            region.startswith("surface") for region in args.metric_regions
+        ):
+            Image.fromarray(metric_surface_mask.byte().mul(255).cpu().numpy(), "L").save(
+                args.output_dir / "target_surface_metric_mask.png", compress_level=3
+            )
         ground_truth = args.ground_truth_exr
         if ground_truth is None:
             # Held-out RGB is loaded only after every prediction input has
@@ -493,6 +942,7 @@ def main() -> int:
             target_rgb = load_rgb(target_image, device)
             write_exr_image(ground_truth, target_rgb.permute(1, 2, 0).detach().float().cpu())
         variants: list[dict[str, object]] = []
+        variant_metric_masks: dict[str, torch.Tensor] = {}
         assert nearest_source_rgb is not None
         write_prediction(args.output_dir, "unwarped_nearest_control", nearest_source_rgb, ground_truth)
         variants.append(
@@ -503,49 +953,67 @@ def main() -> int:
                 "valid_fraction": 1.0,
             }
         )
+        variant_metric_masks["unwarped_nearest_control"] = target_surface_mask
         for count in sorted(set(args.neighbors)):
-            stack_rgb = torch.stack(warped[:count])
-            stack_weight = torch.stack(weights[:count])
-            weight_sum = stack_weight.sum(dim=0)
-            blend = (stack_rgb * stack_weight).sum(dim=0) / weight_sum.clamp_min(1e-8)
-            valid = weight_sum > 0.0
-            for alpha in sorted(set(args.blend_alphas)):
-                prediction = torch.where(valid, base * (1.0 - alpha) + blend * alpha, base)
-                alpha_token = f"{alpha:.3f}".rstrip("0").rstrip(".").replace(".", "p")
-                name = f"blend{count}" if alpha == 1.0 else f"blend{count}_a{alpha_token}"
-                write_prediction(args.output_dir, name, prediction, ground_truth)
-                variants.append(
-                    {
-                        "name": name,
-                        "neighbors": count,
-                        "blend_alpha": alpha,
-                        "valid_fraction": float(valid[0].float().mean().item()),
-                        "valid_mesh_fraction": float(valid[0][target_depth > 0.0].float().mean().item()),
-                    }
+            for aggregation_mode in dict.fromkeys(args.aggregation_modes):
+                blend, valid, selection = aggregate_warped_sources(
+                    warped[:count],
+                    valid_masks[:count],
+                    weighted_scores[:count],
+                    best_scores[:count],
+                    mode=aggregation_mode,
                 )
-            for sigma in sorted(set(args.detail_transfer_sigmas)):
-                for strength in sorted(set(args.detail_transfer_strengths)):
-                    prediction = surface_detail_transfer(
-                        base=base,
-                        source=blend,
-                        valid=valid,
-                        sigma=sigma,
-                        strength=strength,
-                    )
-                    sigma_token = f"{sigma:.3f}".rstrip("0").rstrip(".").replace(".", "p")
-                    strength_token = f"{strength:.3f}".rstrip("0").rstrip(".").replace(".", "p")
-                    name = f"blend{count}_detail_s{sigma_token}_w{strength_token}"
+                variant_stem = (
+                    f"blend{count}"
+                    if aggregation_mode == "weighted"
+                    else f"{aggregation_mode.replace('-', '_')}{count}"
+                )
+                selection_fractions = source_selection_fractions(selection, count)
+                for alpha in sorted(set(args.blend_alphas)):
+                    prediction = torch.where(valid, base * (1.0 - alpha) + blend * alpha, base)
+                    alpha_token = f"{alpha:.3f}".rstrip("0").rstrip(".").replace(".", "p")
+                    name = variant_stem if alpha == 1.0 else f"{variant_stem}_a{alpha_token}"
                     write_prediction(args.output_dir, name, prediction, ground_truth)
+                    write_source_selection(args.output_dir, name, selection, count)
                     variants.append(
                         {
                             "name": name,
                             "neighbors": count,
-                            "detail_transfer_sigma": sigma,
-                            "detail_transfer_strength": strength,
+                            "aggregation_mode": aggregation_mode,
+                            "blend_alpha": alpha,
                             "valid_fraction": float(valid[0].float().mean().item()),
                             "valid_mesh_fraction": float(valid[0][target_depth > 0.0].float().mean().item()),
+                            "source_rank_fraction_on_valid": selection_fractions,
                         }
                     )
+                    variant_metric_masks[name] = valid[0]
+                for sigma in sorted(set(args.detail_transfer_sigmas)):
+                    for strength in sorted(set(args.detail_transfer_strengths)):
+                        prediction = surface_detail_transfer(
+                            base=base,
+                            source=blend,
+                            valid=valid,
+                            sigma=sigma,
+                            strength=strength,
+                        )
+                        sigma_token = f"{sigma:.3f}".rstrip("0").rstrip(".").replace(".", "p")
+                        strength_token = f"{strength:.3f}".rstrip("0").rstrip(".").replace(".", "p")
+                        name = f"{variant_stem}_detail_s{sigma_token}_w{strength_token}"
+                        write_prediction(args.output_dir, name, prediction, ground_truth)
+                        write_source_selection(args.output_dir, name, selection, count)
+                        variants.append(
+                            {
+                                "name": name,
+                                "neighbors": count,
+                                "aggregation_mode": aggregation_mode,
+                                "detail_transfer_sigma": sigma,
+                                "detail_transfer_strength": strength,
+                                "valid_fraction": float(valid[0].float().mean().item()),
+                                "valid_mesh_fraction": float(valid[0][target_depth > 0.0].float().mean().item()),
+                                "source_rank_fraction_on_valid": selection_fractions,
+                            }
+                        )
+                        variant_metric_masks[name] = valid[0]
 
     metrics = (
         score_written_variants(
@@ -554,6 +1022,9 @@ def main() -> int:
             ground_truth,
             device=device,
             roi_boxes_json=args.roi_boxes_json,
+            surface_mask=metric_surface_mask,
+            metric_regions=args.metric_regions,
+            variant_masks=variant_metric_masks,
         )
         if args.score_metrics
         else None
@@ -581,11 +1052,31 @@ def main() -> int:
         "data": str(args.data),
         "mesh_depth_manifest": str(args.mesh_depth_manifest),
         "mesh_depth_manifest_sha256": sha256(args.mesh_depth_manifest),
+        "metric_surface_depth_manifest": (
+            None if args.metric_surface_depth_manifest is None else str(args.metric_surface_depth_manifest)
+        ),
+        "metric_surface_depth_manifest_sha256": (
+            None
+            if args.metric_surface_depth_manifest is None
+            else sha256(args.metric_surface_depth_manifest)
+        ),
         "target_image": str(target_image),
         "depth_log_tolerance": args.depth_log_tolerance,
+        "depth_hole_fill": {
+            "max_area": args.depth_hole_fill_max_area,
+            "boundary_radius": args.depth_hole_fill_boundary_radius,
+            "max_relative_plane_rmse": args.depth_hole_fill_max_relative_plane_rmse,
+            "target": target_depth_hole_fill,
+        },
         "camera_distance_power": args.camera_distance_power,
+        "aggregation_modes": list(args.aggregation_modes),
+        "best_view_angle_power": args.best_view_angle_power,
+        "best_view_border_margin": args.best_view_border_margin,
         "detail_transfer_sigmas": list(args.detail_transfer_sigmas),
         "detail_transfer_strengths": list(args.detail_transfer_strengths),
+        "metric_regions": args.metric_regions,
+        "target_surface_fraction": float(target_surface_mask.float().mean().item()),
+        "metric_surface_fraction": float(metric_surface_mask.float().mean().item()),
         "dataparser_scale": float(target.dataparser_scale),
         "sources": source_rows,
         "variants": variants,

@@ -27,3 +27,19 @@ def test_camera_conversion_preserves_world_camera_roundtrip() -> None:
     world_to_cv = MODULE.nerfstudio_c2w_to_opencv_extrinsic(c2w)
     camera_origin_world = np.linalg.inv(world_to_cv) @ np.asarray([0.0, 0.0, 0.0, 1.0])
     np.testing.assert_allclose(camera_origin_world[:3], [1.0, 2.0, 3.0])
+
+
+def test_non_manifold_cleanup_is_default_on_and_can_be_disabled(tmp_path: Path) -> None:
+    default = MODULE.parse_args(["--data", str(tmp_path), "--output", str(tmp_path / "default.ply")])
+    disabled = MODULE.parse_args(
+        [
+            "--data",
+            str(tmp_path),
+            "--output",
+            str(tmp_path / "disabled.ply"),
+            "--no-remove-non-manifold-edges",
+        ]
+    )
+
+    assert default.remove_non_manifold_edges is True
+    assert disabled.remove_non_manifold_edges is False

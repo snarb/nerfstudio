@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "frame": "000899",
+  "eval_camera": "nearest_eval_00000",
+  "prediction_masks": false,
+  "metric_surface": "fixed_splatfacto_tsdf_first_hit_support",
+  "metric_domain": "display-referred RGB clamped to [0, 1]",
+  "texture_sources": 16,
+  "aggregation": "nearest-fill",
+  "regions": {
+    "actor_and_held_object": [0, 150, 1400, 1030],
+    "face": [687, 392, 1187, 892],
+    "lipstick_and_hand": [687, 540, 987, 800]
+  },
+  "methods": {
+    "splatfacto_depth_tsdf_reference": {
+      "geometry_cameras": 62,
+      "target_surface_fraction": 0.42245563864707947,
+      "actor_and_held_object": {"psnr": 22.994096755981445, "ssim": 0.7547128200531006, "lpips": 0.11956484615802765},
+      "face": {"psnr": 22.872163772583008, "ssim": 0.7753174304962158, "lpips": 0.11418315768241882},
+      "lipstick_and_hand": {"psnr": 22.4794921875, "ssim": 0.852430522441864, "lpips": 0.08352738618850708}
+    },
+    "colmap_patchmatch_tsdf": {
+      "geometry_cameras": 62,
+      "target_surface_fraction": 0.4127526879310608,
+      "actor_and_held_object": {"psnr": 22.33026123046875, "ssim": 0.7862361073493958, "lpips": 0.12817975878715515},
+      "face": {"psnr": 22.855106353759766, "ssim": 0.781551718711853, "lpips": 0.11286012083292007},
+      "lipstick_and_hand": {"psnr": 22.293073654174805, "ssim": 0.8520125150680542, "lpips": 0.08378566056489944}
+    },
+    "depth_anything_3_large_1_1": {
+      "geometry_cameras": 16,
+      "target_surface_fraction": 0.3960980772972107,
+      "actor_and_held_object": {"psnr": 20.047433853149414, "ssim": 0.6459859013557434, "lpips": 0.20938843488693237},
+      "face": {"psnr": 20.969202041625977, "ssim": 0.6552186012268066, "lpips": 0.18935677409172058},
+      "lipstick_and_hand": {"psnr": 20.63192367553711, "ssim": 0.7254886031150818, "lpips": 0.13887575268745422}
+    },
+    "mapanything": {
+      "geometry_cameras": 16,
+      "target_surface_fraction": 0.5487090349197388,
+      "actor_and_held_object": {"psnr": 19.006608963012695, "ssim": 0.6270468831062317, "lpips": 0.2627562880516052},
+      "face": {"psnr": 19.72972297668457, "ssim": 0.6144886612892151, "lpips": 0.2584095001220703},
+      "lipstick_and_hand": {"psnr": 19.369365692138672, "ssim": 0.6436169743537903, "lpips": 0.2368980050086975}
+    },
+    "monomvsnet_16_views": {
+      "geometry_cameras": 16,
+      "target_surface_fraction": 0.32901331782341003,
+      "actor_and_held_object": {"psnr": 15.175496101379395, "ssim": 0.5694879293441772, "lpips": 0.40921252965927124},
+      "face": {"psnr": 17.22079849243164, "ssim": 0.6266679167747498, "lpips": 0.2709401249885559},
+      "lipstick_and_hand": {"psnr": 15.720004081726074, "ssim": 0.6641979813575745, "lpips": 0.2525283694267273}
+    },
+    "mvsmamba_16_views": {
+      "geometry_cameras": 16,
+      "target_surface_fraction": 0.22170282900333405,
+      "actor_and_held_object": {"psnr": 12.600618362426758, "ssim": 0.4986989498138428, "lpips": 0.5174081325531006},
+      "face": {"psnr": 16.3466854095459, "ssim": 0.5676773190498352, "lpips": 0.39281684160232544},
+      "lipstick_and_hand": {"psnr": 15.391797065734863, "ssim": 0.6174641847610474, "lpips": 0.3529012203216553}
+    }
+  },
+  "camera_count_controls": {
+    "da3_large_62_actor_and_held_object": {"psnr": 15.651121139526367, "ssim": 0.5382733345031738, "lpips": 0.43067288398742676},
+    "monomvsnet_5_views_actor_and_held_object": {"psnr": 13.063770294189453, "ssim": 0.525619626045227, "lpips": 0.47820281982421875}
+  }
+}

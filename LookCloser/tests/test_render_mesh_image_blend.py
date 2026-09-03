@@ -4,6 +4,7 @@ import importlib.util
 import sys
 from pathlib import Path
 
+import numpy as np
 import pytest
 import torch
 
@@ -34,6 +35,82 @@ def test_grid_sample_identity() -> None:
     torch.testing.assert_close(sampled, image)
 
 
+def test_nearest_fill_uses_later_source_only_for_holes() -> None:
+    first = torch.full((3, 2, 3), 0.25)
+    second = torch.full((3, 2, 3), 0.75)
+    first_valid = torch.tensor([[True, False, True], [False, False, True]])
+    second_valid = torch.tensor([[True, True, True], [True, False, False]])
+    ones = [first_valid.float(), second_valid.float()]
+
+    rgb, valid, selected = MODULE.aggregate_warped_sources(
+        [first, second],
+        [first_valid, second_valid],
+        ones,
+        ones,
+        mode="nearest-fill",
+    )
+
+    assert selected.tolist() == [[0, 1, 0], [1, -1, 0]]
+    assert valid[0].tolist() == [[True, True, True], [True, False, True]]
+    torch.testing.assert_close(rgb[:, 0, 0], first[:, 0, 0])
+    torch.testing.assert_close(rgb[:, 0, 1], second[:, 0, 1])
+
+
+def test_best_view_hard_selects_highest_score_without_averaging() -> None:
+    first = torch.full((3, 2, 2), 0.2)
+    second = torch.full((3, 2, 2), 0.8)
+    valid = torch.ones(2, 2, dtype=torch.bool)
+    best_scores = [
+        torch.tensor([[0.9, 0.1], [0.8, 0.2]]),
+        torch.tensor([[0.1, 0.9], [0.2, 0.8]]),
+    ]
+
+    rgb, _, selected = MODULE.aggregate_warped_sources(
+        [first, second],
+        [valid, valid],
+        [valid.float(), valid.float()],
+        best_scores,
+        mode="best-view",
+    )
+
+    assert selected.tolist() == [[0, 1], [0, 1]]
+    torch.testing.assert_close(rgb[:, 0, 0], first[:, 0, 0])
+    torch.testing.assert_close(rgb[:, 0, 1], second[:, 0, 1])
+
+
+def test_depth_hole_fill_recovers_small_locally_planar_hole() -> None:
+    yy, xx = np.mgrid[:32, :40]
+    depth = (3.0 + 0.01 * xx + 0.02 * yy).astype(np.float32)
+    expected = depth.copy()
+    depth[12:18, 15:23] = 0.0
+
+    result, stats = MODULE.fill_small_consistent_depth_holes(
+        depth,
+        max_area=100,
+        boundary_radius=3,
+        max_relative_plane_rmse=0.001,
+    )
+
+    np.testing.assert_allclose(result, expected, atol=1e-5)
+    assert stats["filled_holes"] == 1
+    assert stats["filled_pixels"] == 48
+
+
+def test_depth_hole_fill_leaves_large_hole_untouched() -> None:
+    depth = np.ones((32, 40), dtype=np.float32)
+    depth[8:24, 10:30] = 0.0
+
+    result, stats = MODULE.fill_small_consistent_depth_holes(
+        depth,
+        max_area=100,
+        boundary_radius=3,
+        max_relative_plane_rmse=0.001,
+    )
+
+    np.testing.assert_array_equal(result, depth)
+    assert stats["filled_holes"] == 0
+
+
 def test_camera_distance_power_must_be_non_negative(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
     data = tmp_path / "data"
     data.mkdir()
@@ -56,6 +133,36 @@ def test_camera_distance_power_must_be_non_negative(monkeypatch: pytest.MonkeyPa
     )
     with pytest.raises(SystemExit):
         MODULE.parse_args()
+
+
+def test_metric_surface_manifest_is_optional_and_validated(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    data = tmp_path / "data"
+    data.mkdir()
+    render_manifest = tmp_path / "render_depth.json"
+    render_manifest.write_text("{}", encoding="utf-8")
+    metric_manifest = tmp_path / "metric_depth.json"
+    metric_manifest.write_text("{}", encoding="utf-8")
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            str(SCRIPT),
+            "--data",
+            str(data),
+            "--mesh-depth-manifest",
+            str(render_manifest),
+            "--metric-surface-depth-manifest",
+            str(metric_manifest),
+            "--output-dir",
+            str(tmp_path / "out"),
+        ],
+    )
+
+    args = MODULE.parse_args()
+
+    assert args.metric_surface_depth_manifest == metric_manifest.resolve()
 
 
 def test_resolve_manifest_path_prefers_dataset_relative_file(tmp_path: Path) -> None:
@@ -102,6 +209,26 @@ def test_display_metrics_and_single_roi_are_diagnostic_only(tmp_path: Path) -> N
     assert metrics["ssim"] == pytest.approx(1.0)
     assert metrics["lpips"] == 0.0
     assert metrics["roi_lpips"] == 0.0
+
+
+def test_masked_display_metrics_ignore_pixels_outside_surface() -> None:
+    ground_truth = torch.rand(3, 16, 16)
+    prediction = ground_truth.clone()
+    mask = torch.zeros(16, 16, dtype=torch.bool)
+    mask[3:13, 4:12] = True
+    prediction[:, ~mask] = 1.0 - prediction[:, ~mask]
+
+    metrics = MODULE.masked_display_metrics(
+        prediction,
+        ground_truth,
+        mask=mask,
+        lpips_model=lambda left, right: torch.mean(torch.abs(left - right)),
+    )
+
+    assert metrics["psnr"] == pytest.approx(120.0)
+    assert metrics["ssim"] == pytest.approx(1.0)
+    assert metrics["lpips"] == 0.0
+    assert metrics["bbox_xyxy"] == [4, 3, 12, 13]
 
 
 def test_normalized_blur_does_not_darkens_constant_at_support_boundary() -> None:

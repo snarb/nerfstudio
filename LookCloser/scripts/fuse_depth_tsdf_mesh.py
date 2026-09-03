@@ -77,6 +77,15 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         default=100,
         help="Remove disconnected surface islands smaller than this many triangles; zero keeps all islands.",
     )
+    parser.add_argument(
+        "--remove-non-manifold-edges",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help=(
+            "Apply Open3D's legacy non-manifold-edge cleanup before cropping. "
+            "The default preserves historical fusion behavior; disable it for causal hole diagnostics."
+        ),
+    )
     args = parser.parse_args(argv)
     args.data = args.data.expanduser().resolve()
     args.output = args.output.expanduser().resolve()
@@ -189,7 +198,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     mesh.remove_duplicated_vertices()
     mesh.remove_duplicated_triangles()
     mesh.remove_degenerate_triangles()
-    mesh.remove_non_manifold_edges()
+    triangles_before_non_manifold_cleanup = len(mesh.triangles)
+    if args.remove_non_manifold_edges:
+        mesh.remove_non_manifold_edges()
+    triangles_after_non_manifold_cleanup = len(mesh.triangles)
     if args.crop_aabb is not None:
         bounds = np.asarray(args.crop_aabb, dtype=np.float64).reshape(2, 3)
         mesh = mesh.crop(o3d.geometry.AxisAlignedBoundingBox(bounds[0], bounds[1]))
@@ -237,9 +249,12 @@ def main(argv: Sequence[str] | None = None) -> int:
             "depth_trunc": args.depth_trunc,
             "crop_aabb": args.crop_aabb,
             "min_component_triangles": args.min_component_triangles,
+            "remove_non_manifold_edges": args.remove_non_manifold_edges,
         },
         "vertices": len(mesh.vertices),
         "triangles": len(mesh.triangles),
+        "triangles_before_non_manifold_cleanup": triangles_before_non_manifold_cleanup,
+        "triangles_after_non_manifold_cleanup": triangles_after_non_manifold_cleanup,
         "triangles_before_component_filter": triangles_before_components,
         "removed_small_components": removed_components,
         "images": rows,
