@@ -54,6 +54,7 @@ CAMPAIGN_SCRIPTS = (
     "score_colmap_patchmatch_tsdf_face.py",
     "audit_colmap_patchmatch_tsdf_campaign.py",
     "export_nerfstudio_colmap_model.py",
+    "seed_colmap_from_nerfstudio.py",
     "build_colmap_patch_match_config.py",
     "import_colmap_mvs_depth_dataset.py",
     "fuse_depth_tsdf_mesh.py",

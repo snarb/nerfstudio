@@ -26,6 +26,7 @@ def load_script(name: str):
 COMMON = load_script("colmap_patchmatch_tsdf_campaign_common.py")
 SCORER = load_script("score_colmap_patchmatch_tsdf_face.py")
 AUDIT = load_script("audit_colmap_patchmatch_tsdf_campaign.py")
+CONTROLLER = load_script("run_colmap_patchmatch_tsdf_campaign.py")
 
 
 def test_numeric_discovery_is_exact_ordered_prefix(tmp_path: Path) -> None:
@@ -107,3 +108,8 @@ def test_audit_rejects_non_face_metric_keys() -> None:
         assert "Forbidden non-face metric" in str(error)
     else:
         raise AssertionError("full-frame metric key must be rejected")
+
+
+def test_remote_code_bundle_includes_exporter_dependency() -> None:
+    assert "export_nerfstudio_colmap_model.py" in CONTROLLER.CAMPAIGN_SCRIPTS
+    assert "seed_colmap_from_nerfstudio.py" in CONTROLLER.CAMPAIGN_SCRIPTS
