@@ -128,3 +128,14 @@ def test_rsync_uses_shared_mount_safe_content_mode(monkeypatch) -> None:
     assert "--no-perms" in command
     assert "--delete" in command
     assert "-a" not in command
+
+
+def test_copy_tree_content_does_not_require_metadata_copy(tmp_path: Path) -> None:
+    source = tmp_path / "source"
+    (source / "nested").mkdir(parents=True)
+    (source / "nested" / "payload.bin").write_bytes(b"campaign")
+    destination = tmp_path / "destination"
+
+    CONTROLLER.copy_tree_content(source, destination)
+
+    assert (destination / "nested" / "payload.bin").read_bytes() == b"campaign"

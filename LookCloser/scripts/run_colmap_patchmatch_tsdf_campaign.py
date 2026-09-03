@@ -272,6 +272,22 @@ def rsync(source: str, destination: str, *, delete: bool = False) -> None:
     run(command)
 
 
+def copy_tree_content(source: Path, destination: Path) -> None:
+    """Copy bytes and directory shape without unsupported shared-mount metadata."""
+
+    destination.mkdir(parents=True, exist_ok=False)
+    for path in sorted(source.rglob("*")):
+        relative = path.relative_to(source)
+        target = destination / relative
+        if path.is_dir():
+            target.mkdir(exist_ok=True)
+        elif path.is_file():
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(path, target)
+        else:
+            raise ValueError(f"Adoption source contains unsupported non-file entry: {path}")
+
+
 @contextlib.contextmanager
 def controller_lock(output_root: Path):
     path = output_root / ".campaign_controller.lock"
@@ -696,7 +712,7 @@ def adopt_verified_frame(args: argparse.Namespace, request: dict, frame_id: str)
     if destination.exists():
         raise FileExistsError(destination)
     destination.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copytree(source, destination, copy_function=shutil.copyfile)
+    copy_tree_content(source, destination)
     validate_hash_manifest(destination, load_json(destination / "retained_manifest.json"))
     receipt = {
         "schema_version": 1,
