@@ -57,6 +57,8 @@ def test_dry_run_uses_full_resolution_strict_recipe(tmp_path: Path, capsys) -> N
     assert "dense/sparse" in printed
     assert "dense/images" in printed
     assert "aggregation-modes nearest-fill" in printed
+    assert "target-depth-component-min-area 0" in printed
+    assert " --nearest-fill-color-continuity " not in printed
     assert "stage=hard-texture-render status=dry-run" in printed
     assert not output.exists()
 

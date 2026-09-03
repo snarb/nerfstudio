@@ -56,6 +56,50 @@ def test_nearest_fill_uses_later_source_only_for_holes() -> None:
     torch.testing.assert_close(rgb[:, 0, 1], second[:, 0, 1])
 
 
+def test_nearest_fill_color_continuity_hard_selects_matching_fallback() -> None:
+    first = torch.tensor([[[0.2, 0.0, 0.2]], [[0.2, 0.0, 0.2]], [[0.2, 0.0, 0.2]]])
+    mismatched = torch.full((3, 1, 3), 0.9)
+    matching = torch.full((3, 1, 3), 0.25)
+    first_valid = torch.tensor([[True, False, True]])
+    fallback_valid = torch.tensor([[False, True, True]])
+    scores = [first_valid.float(), fallback_valid.float(), fallback_valid.float()]
+
+    rgb, valid, selected = MODULE.aggregate_warped_sources(
+        [first, mismatched, matching],
+        [first_valid, fallback_valid, fallback_valid],
+        scores,
+        scores,
+        mode="nearest-fill",
+        nearest_fill_color_continuity=True,
+    )
+
+    assert valid[0].tolist() == [[True, True, True]]
+    assert selected.tolist() == [[0, 2, 0]]
+    torch.testing.assert_close(rgb[:, 0, 1], matching[:, 0, 1])
+
+
+def test_nearest_fill_global_color_order_uses_one_photometrically_matching_fallback() -> None:
+    first = torch.tensor([[[0.2, 0.0, 0.2]], [[0.2, 0.0, 0.2]], [[0.2, 0.0, 0.2]]])
+    mismatched = torch.full((3, 1, 3), 0.9)
+    matching = torch.full((3, 1, 3), 0.25)
+    first_valid = torch.tensor([[True, False, True]])
+    fallback_valid = torch.tensor([[False, True, True]])
+    scores = [first_valid.float(), fallback_valid.float(), fallback_valid.float()]
+
+    rgb, _, selected = MODULE.aggregate_warped_sources(
+        [first, mismatched, matching],
+        [first_valid, fallback_valid, fallback_valid],
+        scores,
+        scores,
+        mode="nearest-fill",
+        nearest_fill_color_continuity=True,
+        nearest_fill_color_continuity_mode="global",
+    )
+
+    assert selected.tolist() == [[0, 2, 0]]
+    torch.testing.assert_close(rgb[:, 0, 1], matching[:, 0, 1])
+
+
 def test_best_view_hard_selects_highest_score_without_averaging() -> None:
     first = torch.full((3, 2, 2), 0.2)
     second = torch.full((3, 2, 2), 0.8)
@@ -109,6 +153,25 @@ def test_depth_hole_fill_leaves_large_hole_untouched() -> None:
 
     np.testing.assert_array_equal(result, depth)
     assert stats["filled_holes"] == 0
+
+
+def test_target_depth_filter_cuts_small_depth_discontinuous_lobe() -> None:
+    depth = np.zeros((16, 24), dtype=np.float32)
+    depth[2:14, 2:16] = 2.0
+    depth[7, 16] = 2.05
+    depth[6:9, 17:20] = 2.10
+
+    result, stats = MODULE.filter_small_target_depth_components(
+        depth,
+        min_area=20,
+        max_log_jump=0.012,
+    )
+
+    assert np.all(result[2:14, 2:16] == 2.0)
+    assert np.all(result[6:9, 17:20] == 0.0)
+    assert stats["components_before"] == 3
+    assert stats["components_removed"] == 2
+    assert stats["pixels_removed"] == 10
 
 
 def test_camera_distance_power_must_be_non_negative(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:

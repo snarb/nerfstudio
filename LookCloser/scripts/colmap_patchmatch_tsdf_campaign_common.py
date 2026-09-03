@@ -48,8 +48,13 @@ RECIPE = {
     "depth_trunc": 4.0,
     "normalized_crop_aabb": [-0.15, -0.15, -0.15, 0.15, 0.15, 0.15],
     "component_threshold": "max(100, 0.002 * largest_component_triangles)",
-    "rgb": "hard_nearest_fill_no_average",
+    "rgb": "hard_nearest_fill_global_color_order_no_average",
+    "nearest_fill_color_continuity": True,
+    "nearest_fill_color_continuity_mode": "global",
+    "nearest_fill_rank_penalty": 0.0,
     "depth_hole_fill_max_area": 1000,
+    "target_depth_component_min_area": 1000,
+    "target_depth_component_max_log_jump": 0.0075,
     "masks_in_geometry_texture_prediction": False,
 }
 

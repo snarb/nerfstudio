@@ -109,6 +109,13 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     )
     parser.add_argument("--depth-log-tolerance", type=float, default=0.01)
     parser.add_argument("--depth-hole-fill-max-area", type=int, default=1000)
+    parser.add_argument("--target-depth-component-min-area", type=int, default=0)
+    parser.add_argument("--target-depth-component-max-log-jump", type=float, default=0.0075)
+    add_boolean_argument(parser, "--nearest-fill-color-continuity", default=False)
+    parser.add_argument(
+        "--nearest-fill-color-continuity-mode", choices=("pixel", "global"), default="pixel"
+    )
+    parser.add_argument("--nearest-fill-rank-penalty", type=float, default=0.0)
     parser.add_argument("--metric-surface-depth-manifest", type=Path, default=None)
     parser.add_argument("--roi-boxes-json", type=Path, default=None)
     add_boolean_argument(parser, "--score-metrics", default=False)
@@ -161,8 +168,19 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         parser.error("Resolution/count/geometry parameters must be positive and depth_max > depth_min")
     if args.sdf_trunc < args.voxel_length:
         parser.error("--sdf-trunc must be at least one voxel")
-    if args.min_component_triangles < 0 or args.depth_hole_fill_max_area < 0:
+    if (
+        args.min_component_triangles < 0
+        or args.depth_hole_fill_max_area < 0
+        or args.target_depth_component_min_area < 0
+    ):
         parser.error("component and hole-fill thresholds must be non-negative")
+    if (
+        not np.isfinite(args.target_depth_component_max_log_jump)
+        or args.target_depth_component_max_log_jump <= 0.0
+        or not np.isfinite(args.nearest_fill_rank_penalty)
+        or args.nearest_fill_rank_penalty < 0.0
+    ):
+        parser.error("target depth jump must be positive and nearest-fill rank penalty non-negative")
     if not np.isfinite(args.min_component_fraction) or not 0.0 <= args.min_component_fraction <= 1.0:
         parser.error("--min-component-fraction must be finite and between zero and one")
     if args.score_metrics:
@@ -381,6 +399,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         "--depth-hole-fill-max-area", str(args.depth_hole_fill_max_area),
         "--depth-hole-fill-boundary-radius", "4",
         "--depth-hole-fill-max-relative-plane-rmse", "0.015",
+        "--target-depth-component-min-area", str(args.target_depth_component_min_area),
+        "--target-depth-component-max-log-jump", str(args.target_depth_component_max_log_jump),
+        "--nearest-fill-color-continuity-mode", args.nearest_fill_color_continuity_mode,
+        "--nearest-fill-rank-penalty", str(args.nearest_fill_rank_penalty),
         "--eval-mode", "filename",
         "--orientation-method", "up",
         "--center-method", "focus",
@@ -390,6 +412,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         "--downscale-factor", "1",
         "--device", "cuda",
     ]
+    if args.nearest_fill_color_continuity:
+        render_command.append("--nearest-fill-color-continuity")
     if args.score_metrics:
         render_command += [
             "--metric-surface-depth-manifest", str(args.metric_surface_depth_manifest),
@@ -457,7 +481,19 @@ def main(argv: Sequence[str] | None = None) -> int:
         "source_transforms_sha256": sha256(args.data / "transforms.json"),
         "uses_eval_images_for_geometry": False,
         "uses_masks": False,
-        "rgb_aggregation": "hard_nearest_fill_no_average",
+        "rgb_aggregation": (
+            "hard_nearest_fill_global_color_order_no_average"
+            if args.nearest_fill_color_continuity
+            and args.nearest_fill_color_continuity_mode == "global"
+            else "hard_nearest_fill_no_average"
+        ),
+        "target_depth_component_filter": {
+            "min_area": args.target_depth_component_min_area,
+            "max_log_jump": args.target_depth_component_max_log_jump,
+        },
+        "nearest_fill_color_continuity": args.nearest_fill_color_continuity,
+        "nearest_fill_color_continuity_mode": args.nearest_fill_color_continuity_mode,
+        "nearest_fill_rank_penalty": args.nearest_fill_rank_penalty,
         "colmap": {
             "binary": colmap,
             "build": colmap_build,

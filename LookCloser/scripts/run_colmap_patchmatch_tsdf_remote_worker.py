@@ -119,6 +119,15 @@ def validate_pipeline(frame_id: str, data: Path, output: Path) -> dict:
     reprojection = load_json(render_root / "reprojection_audit.json")
     if reprojection.get("metrics") not in ({}, None):
         raise ValueError("Remote renderer must not compute legacy/full-frame metrics")
+    target_filter = reprojection.get("target_depth_component_filter", {})
+    if (
+        target_filter.get("min_area") != 1000
+        or not math.isclose(float(target_filter.get("max_log_jump", -1.0)), 0.0075, abs_tol=1e-12)
+        or reprojection.get("nearest_fill_color_continuity") is not True
+        or reprojection.get("nearest_fill_color_continuity_mode") != "global"
+        or not math.isclose(float(reprojection.get("nearest_fill_rank_penalty", -1.0)), 0.0, abs_tol=1e-12)
+    ):
+        raise ValueError("Campaign target-depth/source-continuity render fix is not active")
     return {
         "schema_version": 1,
         "frame_id": frame_id,
@@ -135,6 +144,8 @@ def validate_pipeline(frame_id: str, data: Path, output: Path) -> dict:
         "render_exr_sha256": sha256(prediction_exr),
         "ground_truth_sha256": sha256(ground_truth),
         "texture_camera_count": int(angular["selected_train_count"]),
+        "target_depth_components_removed": int(target_filter.get("components_removed", 0)),
+        "target_depth_pixels_removed": int(target_filter.get("pixels_removed", 0)),
         "validation_status": "pass",
     }
 
@@ -209,6 +220,11 @@ def main(argv: Sequence[str] | None = None) -> int:
         sys.executable, str(Path(__file__).resolve().parent / "run_colmap_patchmatch_tsdf.py"),
         "--data", str(args.data), "--output-dir", str(output),
         "--colmap-bin", str(args.colmap_bin), "--gpu-index", args.gpu_index,
+        "--target-depth-component-min-area", "1000",
+        "--target-depth-component-max-log-jump", "0.0075",
+        "--nearest-fill-color-continuity",
+        "--nearest-fill-color-continuity-mode", "global",
+        "--nearest-fill-rank-penalty", "0",
     ]
     if output.exists():
         command.append("--resume")

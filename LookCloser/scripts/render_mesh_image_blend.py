@@ -111,6 +111,45 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--depth-hole-fill-boundary-radius", type=int, default=4)
     parser.add_argument("--depth-hole-fill-max-relative-plane-rmse", type=float, default=0.015)
+    parser.add_argument(
+        "--target-depth-component-min-area",
+        type=int,
+        default=0,
+        help=(
+            "Remove target-view mesh-depth components smaller than this many pixels after cutting "
+            "connections across large relative depth jumps. Zero preserves historical behavior."
+        ),
+    )
+    parser.add_argument(
+        "--target-depth-component-max-log-jump",
+        type=float,
+        default=0.0075,
+        help="Maximum adjacent |delta log(depth)| used by the optional target-view component filter.",
+    )
+    add_boolean_argument(
+        parser,
+        "--nearest-fill-color-continuity",
+        default=False,
+        help=(
+            "For nearest-fill fallback pixels, hard-select the valid train reprojection closest in RGB "
+            "to the nearest valid first-source pixel; no source colours are averaged."
+        ),
+    )
+    parser.add_argument(
+        "--nearest-fill-color-continuity-mode",
+        choices=("pixel", "global"),
+        default="pixel",
+        help=(
+            "pixel hard-selects a fallback at every disoccluded pixel; global reorders whole fallback "
+            "cameras by their median overlap colour error to the first source."
+        ),
+    )
+    parser.add_argument(
+        "--nearest-fill-rank-penalty",
+        type=float,
+        default=0.0,
+        help="Non-negative per-rank penalty added to fallback RGB distance.",
+    )
     parser.add_argument("--best-view-angle-power", type=float, default=4.0)
     parser.add_argument("--best-view-border-margin", type=float, default=64.0)
     parser.add_argument(
@@ -200,6 +239,12 @@ def parse_args() -> argparse.Namespace:
         parser.error("--depth-hole-fill-boundary-radius must be positive")
     if args.depth_hole_fill_max_relative_plane_rmse <= 0.0:
         parser.error("--depth-hole-fill-max-relative-plane-rmse must be positive")
+    if args.target_depth_component_min_area < 0:
+        parser.error("--target-depth-component-min-area must be non-negative")
+    if not math.isfinite(args.target_depth_component_max_log_jump) or args.target_depth_component_max_log_jump <= 0.0:
+        parser.error("--target-depth-component-max-log-jump must be positive")
+    if not math.isfinite(args.nearest_fill_rank_penalty) or args.nearest_fill_rank_penalty < 0.0:
+        parser.error("--nearest-fill-rank-penalty must be non-negative")
     if args.best_view_angle_power < 0.0:
         parser.error("--best-view-angle-power must be non-negative")
     if args.best_view_border_margin <= 0.0:
@@ -230,6 +275,106 @@ def load_depth(path: Path) -> np.ndarray:
     if depth.ndim != 2 or not np.isfinite(depth).all() or np.any(depth < 0.0):
         raise ValueError(f"Invalid non-negative depth: {path}")
     return depth.astype(np.float32, copy=False)
+
+
+def filter_small_target_depth_components(
+    depth: np.ndarray,
+    *,
+    min_area: int,
+    max_log_jump: float,
+) -> tuple[np.ndarray, dict[str, object]]:
+    """Remove small depth-coherent target-view lobes without an image/person mask.
+
+    Ordinary 2D connected components cannot separate a thin background lobe
+    attached to the subject by one depth-discontinuous bridge.  This graph
+    connects eight-neighbour pixels only when their camera-z values agree in
+    log space, then removes only components below ``min_area``.
+    """
+
+    source = np.asarray(depth, dtype=np.float32)
+    if source.ndim != 2 or not np.isfinite(source).all() or np.any(source < 0.0):
+        raise ValueError("depth must be a finite non-negative 2D array")
+    stats: dict[str, object] = {
+        "enabled": min_area > 0,
+        "min_area": min_area,
+        "max_log_jump": max_log_jump,
+        "components_before": 0,
+        "components_removed": 0,
+        "pixels_removed": 0,
+        "largest_removed_components": [],
+    }
+    if min_area <= 0:
+        return source, stats
+
+    from scipy.sparse import coo_matrix
+    from scipy.sparse.csgraph import connected_components
+
+    valid = source > 0.0
+    valid_count = int(valid.sum())
+    if valid_count == 0:
+        return source, stats
+    height, width = source.shape
+    identifiers = np.full(source.shape, -1, dtype=np.int32)
+    identifiers[valid] = np.arange(valid_count, dtype=np.int32)
+    log_depth = np.zeros_like(source)
+    log_depth[valid] = np.log(source[valid])
+    rows: list[np.ndarray] = []
+    columns: list[np.ndarray] = []
+    for delta_y, delta_x in ((0, 1), (1, 0), (1, 1), (1, -1)):
+        x0 = max(0, -delta_x)
+        x1 = min(width, width - delta_x)
+        y1 = height - delta_y
+        adjacent = valid[:y1, x0:x1] & valid[delta_y:, x0 + delta_x:x1 + delta_x]
+        adjacent &= (
+            np.abs(
+                log_depth[:y1, x0:x1]
+                - log_depth[delta_y:, x0 + delta_x:x1 + delta_x]
+            )
+            <= max_log_jump
+        )
+        first = identifiers[:y1, x0:x1][adjacent]
+        second = identifiers[delta_y:, x0 + delta_x:x1 + delta_x][adjacent]
+        rows.extend((first, second))
+        columns.extend((second, first))
+    graph = coo_matrix(
+        (
+            np.ones(sum(len(item) for item in rows), dtype=np.uint8),
+            (np.concatenate(rows), np.concatenate(columns)),
+        ),
+        shape=(valid_count, valid_count),
+    ).tocsr()
+    component_count, labels = connected_components(graph, directed=False)
+    sizes = np.bincount(labels, minlength=component_count)
+    remove_nodes = sizes[labels] < min_area
+    yy, xx = np.nonzero(valid)
+    filtered = source.copy()
+    filtered[yy[remove_nodes], xx[remove_nodes]] = 0.0
+    removed_rows = []
+    for component in np.flatnonzero(sizes < min_area):
+        selected = labels == component
+        removed_rows.append(
+            {
+                "area": int(sizes[component]),
+                "bbox_xyxy": [
+                    int(xx[selected].min()),
+                    int(yy[selected].min()),
+                    int(xx[selected].max() + 1),
+                    int(yy[selected].max() + 1),
+                ],
+                "median_depth": float(np.median(source[valid][selected])),
+            }
+        )
+    stats.update(
+        {
+            "components_before": int(component_count),
+            "components_removed": len(removed_rows),
+            "pixels_removed": int(remove_nodes.sum()),
+            "largest_removed_components": sorted(
+                removed_rows, key=lambda row: int(row["area"]), reverse=True
+            )[:16],
+        }
+    )
+    return filtered, stats
 
 
 def fill_small_consistent_depth_holes(
@@ -458,6 +603,9 @@ def aggregate_warped_sources(
     best_scores: list[torch.Tensor],
     *,
     mode: str,
+    nearest_fill_color_continuity: bool = False,
+    nearest_fill_color_continuity_mode: str = "pixel",
+    nearest_fill_rank_penalty: float = 0.0,
 ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
     """Combine source warps and return RGB, valid mask, and selected source rank."""
 
@@ -473,6 +621,46 @@ def aggregate_warped_sources(
         selected = torch.argmax(score_stack, dim=0)
     elif mode == "nearest-fill":
         selected = torch.argmax(valid_stack.to(dtype=torch.int64), dim=0)
+        first_valid = valid_stack[0]
+        if nearest_fill_color_continuity and len(warped) > 1 and bool(first_valid.any()):
+            if nearest_fill_color_continuity_mode not in {"pixel", "global"}:
+                raise ValueError("nearest-fill continuity mode must be pixel or global")
+            from scipy import ndimage
+
+            _, nearest_indices = ndimage.distance_transform_edt(
+                ~first_valid.detach().cpu().numpy(), return_indices=True
+            )
+            nearest_y = torch.from_numpy(nearest_indices[0]).to(device=rgb_stack.device)
+            nearest_x = torch.from_numpy(nearest_indices[1]).to(device=rgb_stack.device)
+            reference = rgb_stack[0][:, nearest_y, nearest_x]
+            color_distance = (rgb_stack - reference.unsqueeze(0)).abs().mean(dim=1)
+            rank_penalty = (
+                torch.arange(len(warped), device=rgb_stack.device, dtype=color_distance.dtype)
+                .view(-1, 1, 1)
+                .mul(nearest_fill_rank_penalty)
+            )
+            if nearest_fill_color_continuity_mode == "pixel":
+                fallback_cost = torch.where(
+                    valid_stack,
+                    color_distance + rank_penalty,
+                    torch.full_like(color_distance, torch.inf),
+                )
+                continuity_selected = torch.argmin(fallback_cost, dim=0)
+            else:
+                global_costs = [torch.zeros((), device=rgb_stack.device, dtype=rgb_stack.dtype)]
+                for rank in range(1, len(warped)):
+                    overlap = first_valid & valid_stack[rank]
+                    overlap_error = (
+                        torch.median(color_distance[rank][overlap])
+                        if bool(overlap.any())
+                        else torch.full((), torch.inf, device=rgb_stack.device, dtype=rgb_stack.dtype)
+                    )
+                    global_costs.append(overlap_error + nearest_fill_rank_penalty * rank)
+                source_order = torch.argsort(torch.stack(global_costs))
+                ordered_valid = valid_stack[source_order]
+                selected_order = torch.argmax(ordered_valid.to(dtype=torch.int64), dim=0)
+                continuity_selected = source_order[selected_order]
+            selected = torch.where(first_valid, torch.zeros_like(selected), continuity_selected)
         gather_index = selected.unsqueeze(0).unsqueeze(0).expand(1, rgb_stack.shape[1], *selected.shape)
         rgb = torch.gather(rgb_stack, dim=0, index=gather_index)[0]
     elif mode == "best-view":
@@ -830,8 +1018,13 @@ def main() -> int:
         raise ValueError("Requested more neighbors than train cameras")
 
     target_image = Path(target.image_filenames[0]).resolve()
-    target_depth_array, target_depth_hole_fill = fill_small_consistent_depth_holes(
+    target_depth_array, target_depth_component_filter = filter_small_target_depth_components(
         load_depth(depth_by_image[target_image]),
+        min_area=args.target_depth_component_min_area,
+        max_log_jump=args.target_depth_component_max_log_jump,
+    )
+    target_depth_array, target_depth_hole_fill = fill_small_consistent_depth_holes(
+        target_depth_array,
         max_area=args.depth_hole_fill_max_area,
         boundary_radius=args.depth_hole_fill_boundary_radius,
         max_relative_plane_rmse=args.depth_hole_fill_max_relative_plane_rmse,
@@ -999,6 +1192,9 @@ def main() -> int:
                     weighted_scores[:count],
                     best_scores[:count],
                     mode=aggregation_mode,
+                    nearest_fill_color_continuity=args.nearest_fill_color_continuity,
+                    nearest_fill_color_continuity_mode=args.nearest_fill_color_continuity_mode,
+                    nearest_fill_rank_penalty=args.nearest_fill_rank_penalty,
                 )
                 variant_stem = (
                     f"blend{count}"
@@ -1105,6 +1301,10 @@ def main() -> int:
             "max_relative_plane_rmse": args.depth_hole_fill_max_relative_plane_rmse,
             "target": target_depth_hole_fill,
         },
+        "target_depth_component_filter": target_depth_component_filter,
+        "nearest_fill_color_continuity": args.nearest_fill_color_continuity,
+        "nearest_fill_color_continuity_mode": args.nearest_fill_color_continuity_mode,
+        "nearest_fill_rank_penalty": args.nearest_fill_rank_penalty,
         "camera_distance_power": args.camera_distance_power,
         "aggregation_modes": list(args.aggregation_modes),
         "best_view_angle_power": args.best_view_angle_power,

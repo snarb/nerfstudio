@@ -116,6 +116,13 @@ def test_remote_code_bundle_includes_exporter_dependency() -> None:
     assert "seed_colmap_from_nerfstudio.py" in CONTROLLER.CAMPAIGN_SCRIPTS
 
 
+def test_campaign_recipe_enables_geometry_only_screen_component_fix() -> None:
+    assert COMMON.RECIPE["target_depth_component_min_area"] == 1000
+    assert COMMON.RECIPE["target_depth_component_max_log_jump"] == 0.0075
+    assert COMMON.RECIPE["nearest_fill_color_continuity"] is True
+    assert COMMON.RECIPE["nearest_fill_color_continuity_mode"] == "global"
+
+
 def test_rsync_uses_shared_mount_safe_content_mode(monkeypatch) -> None:
     commands = []
     monkeypatch.setattr(CONTROLLER, "run", lambda command: commands.append(command))
