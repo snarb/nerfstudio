@@ -52,6 +52,10 @@ def test_dry_run_uses_full_resolution_strict_recipe(tmp_path: Path, capsys) -> N
     assert "PatchMatchStereo.filter_min_triangulation_angle 1.0" in printed
     assert "tensor-weight-threshold 2.0" in printed
     assert "min-component-fraction 0.002" in printed
+    assert "--colmap-model" in printed
+    assert "--undistorted-images" in printed
+    assert "dense/sparse" in printed
+    assert "dense/images" in printed
     assert "aggregation-modes nearest-fill" in printed
     assert "stage=hard-texture-render status=dry-run" in printed
     assert not output.exists()

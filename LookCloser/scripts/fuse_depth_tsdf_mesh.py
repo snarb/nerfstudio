@@ -415,6 +415,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         mesh.remove_unreferenced_vertices()
     if len(mesh.triangles) == 0:
         raise RuntimeError("Cropping/component filtering removed the complete TSDF mesh")
+    _, final_component_counts, _ = mesh.cluster_connected_triangles()
+    final_component_triangles = sorted(
+        (int(value) for value in np.asarray(final_component_counts)), reverse=True
+    )
     mesh.compute_vertex_normals()
     args.output.parent.mkdir(parents=True, exist_ok=True)
     if not o3d.io.write_triangle_mesh(str(args.output), mesh, write_ascii=False, compressed=False):
@@ -465,6 +469,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         "triangles_after_non_manifold_cleanup": triangles_after_non_manifold_cleanup,
         "triangles_before_component_filter": triangles_before_components,
         "removed_small_components": removed_components,
+        "connected_components": len(final_component_triangles),
+        "component_triangles": final_component_triangles,
         "images": rows,
     }
     args.output.with_suffix(".json").write_text(

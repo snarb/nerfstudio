@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import gzip
+import hashlib
 import json
 from pathlib import Path, PurePosixPath
 import shutil
@@ -16,6 +17,14 @@ import struct
 
 import numpy as np
 from PIL import Image
+
+
+def sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for block in iter(lambda: stream.read(8 << 20), b""):
+            digest.update(block)
+    return digest.hexdigest()
 
 
 def normalized_name(value: str) -> str:
@@ -219,6 +228,7 @@ def main() -> int:
     depth_shape: tuple[int, int] | None = None
     depth_shapes: set[tuple[int, int]] = set()
     imported = 0
+    depth_rows: list[dict[str, object]] = []
     for frame in frames:
         if not isinstance(frame, dict) or not isinstance(frame.get("file_path"), str):
             raise ValueError("Every frame must contain a string file_path")
@@ -236,6 +246,8 @@ def main() -> int:
             raise ValueError(f"Expected scalar depth map, got {dense.shape}: {source}")
         depth = dense[..., 0]
         valid = np.isfinite(depth) & (depth > 0)
+        if not valid.any():
+            raise ValueError(f"Depth map has no finite positive values: {source}")
         depth = np.where(valid, depth, 0.0).astype(np.float32)
         if colmap_model is None:
             if depth_shape is None:
@@ -252,10 +264,26 @@ def main() -> int:
             frame.update(calibration)
         depth_shapes.add(depth.shape)
         target_name = f"mvs_{imported:05d}.npy.gz"
-        save_depth(depth_dir / target_name, depth)
+        target_path = depth_dir / target_name
+        save_depth(target_path, depth)
         frame["depth_file_path"] = f"depth/{target_name}"
-        coverages.append(float(valid.mean()))
-        medians.append(float(np.median(depth[valid])))
+        coverage = float(valid.mean())
+        median = float(np.median(depth[valid]))
+        coverages.append(coverage)
+        medians.append(median)
+        depth_rows.append(
+            {
+                "image": name,
+                "physical_camera": frame.get("physical_camera"),
+                "source": str(source),
+                "source_sha256": sha256(source),
+                "output": str(target_path),
+                "output_sha256": sha256(target_path),
+                "shape": list(depth.shape),
+                "coverage": coverage,
+                "median_camera_z": median,
+            }
+        )
         if imported in {0, len(train_names) // 2, len(train_names) - 1}:
             save_preview(preview_dir / f"mvs_{imported:05d}.png", depth)
         imported += 1
@@ -305,6 +333,7 @@ def main() -> int:
         "coverage_min": float(np.min(coverages)),
         "median_camera_z_mean": float(np.mean(medians)),
         "masks": "forbidden",
+        "depth_maps": depth_rows,
     }
     (output / "transforms.json").write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
     shutil.copy2(data / "transforms.json", output / "transforms.source.json")

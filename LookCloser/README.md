@@ -65,3 +65,27 @@ python LookCloser/scripts/run_colmap_patchmatch_tsdf.py \
 
 See `experiments/dec5_000899_offtheshelf_geometry.md` for the measured comparison and ear-artifact
 ablation.
+
+## Fifty-frame PatchMatch-TSDF campaign
+
+`scripts/run_colmap_patchmatch_tsdf_campaign.py` is the opt-in, resumable controller for the
+first 50 numeric DEC5 5A-3 frames. It stages one temporary JPEG dataset at a time, transfers the
+fixed calibration by unique `physical_camera`, runs the pinned single-frame recipe on `dev3`,
+verifies 62 full-resolution geometric maps and retained hashes, and publishes a frame only after
+manual-GT-only face metrics and a visual verdict exist. It never creates a permanent 50-by-65
+JPEG copy and never sends a face ROI to the geometry or rendering host.
+
+Initialize and verify the pinned remote environment before reconstruction:
+
+```bash
+python LookCloser/scripts/run_colmap_patchmatch_tsdf_campaign.py init --preflight
+python LookCloser/scripts/run_colmap_patchmatch_tsdf_campaign.py reconstruct \
+  --frames 000899 000901 000903
+```
+
+Face polygons live in the output root under `config/face_polygons/FRAME.json`. Each file is
+bound to the held-out display GT hash and must declare that it was drawn manually on GT without
+using the prediction. `score`, `review`, and `finalize` are explicit states; thus reconstructed
+or scored scratch cannot appear as a completed CSV row. The independent final checker is
+`scripts/audit_colmap_patchmatch_tsdf_campaign.py`. The durable 3D output is the extracted TSDF
+mesh plus its manifests—not a serialized raw Open3D TSDF volume.

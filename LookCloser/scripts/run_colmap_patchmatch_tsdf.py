@@ -351,7 +351,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         ),
         (
             "import-depth",
-            [python, str(SCRIPT_DIR / "import_colmap_mvs_depth_dataset.py"), "--data", str(args.data), "--depth-maps", str(dense / "stereo" / "depth_maps"), "--output", str(depth_data), "--input-type", "geometric"],
+            [python, str(SCRIPT_DIR / "import_colmap_mvs_depth_dataset.py"), "--data", str(args.data), "--depth-maps", str(dense / "stereo" / "depth_maps"), "--output", str(depth_data), "--input-type", "geometric", "--colmap-model", str(dense / "sparse"), "--undistorted-images", str(dense / "images")],
             logs / "import_depth.log",
             (depth_data / "transforms.json").is_file(),
         ),
@@ -486,6 +486,12 @@ def main(argv: Sequence[str] | None = None) -> int:
         "texture_neighbors": texture_neighbors,
         "stages": stages,
         "mesh": str(mesh),
+        "mesh_sha256": sha256(mesh),
+        "mesh_metadata": str(mesh.with_suffix(".json")),
+        "mesh_metadata_sha256": sha256(mesh.with_suffix(".json")),
+        "depth_metadata": json.loads((depth_data / "transforms.json").read_text(encoding="utf-8"))[
+            "colmap_mvs_depth"
+        ],
         "final_render": str(final_render),
         "final_render_sha256": sha256(final_render),
     }

@@ -1001,3 +1001,26 @@ inverse-fourth, sigma-4 detail transfer changes full-frame PSNR/SSIM/LPIPS from
 `24.5692/0.785184/0.405100` to `24.4548/0.782512/0.320598` and face LPIPS from `0.306217` to
 `0.164685`.  The actor surface covers about 41% of the full frame, so the room remains the original
 LookCloser fallback and local surface-boundary seams remain a known limitation.
+
+### Fixed-pose temporal PatchMatch-TSDF campaign (2026-09-03)
+
+`run_colmap_patchmatch_tsdf_campaign.py` wraps the reusable single-frame runner without changing
+its defaults. Its immutable request binds the numeric 50-frame inventory, every source
+`transforms.json`, the fixed calibration, recipe, remote executable paths, and campaign script
+hashes. Per-frame state advances atomically through local resumable JPEG conversion, a validated
+62-train/one-eval calibration stage, hash-verified remote reconstruction, post-hoc face scoring,
+manual visual review, and final directory publication. Only a final publication can enter the
+ordered atomic CSV.
+
+The GPU worker retains the extracted TSDF mesh, one held-out hard-texture prediction, display GT
+with its immutable EXR source hash, texture-source selection, reprojection audit, full depth QC,
+and compact stage-log tails. Dense PatchMatch workspaces, train-camera raycasts, temporary JPEGs,
+and the unwarped renderer control are deleted only after the retained manifest is re-hashed on
+the local host. Failed remote workspaces remain available for diagnosis.
+
+`score_colmap_patchmatch_tsdf_face.py` is causally downstream of prediction. Its ROI is a manual
+polygon bound to the held-out GT hash; segmentation and candidate-defined support are rejected.
+PSNR uses exactly the selected RGB samples, while SSIM and Alex-LPIPS use the tight polygon box
+with identical black values outside the mask. `audit_colmap_patchmatch_tsdf_campaign.py` then
+reconciles source inventory, CSV/result rows, hashes, finite metrics, visual verdicts, depth-map
+shape/count, mesh statistics, contact sheets, and the absence of full-frame metrics.
