@@ -257,7 +257,14 @@ def remote_preflight(args: argparse.Namespace) -> dict:
 
 
 def rsync(source: str, destination: str, *, delete: bool = False) -> None:
-    command = ["rsync", "-a", "--partial", "--human-readable"]
+    # The shared /mnt/data mount allows payload writes but rejects rsync's
+    # metadata-setting and dot-file rename path.  In-place content transfer is
+    # safe here because every received file is subsequently checked against
+    # the remote retained manifest before atomic publication.
+    command = [
+        "rsync", "-r", "--inplace", "--no-times", "--no-perms",
+        "--omit-dir-times", "--partial", "--human-readable",
+    ]
     if delete:
         command.append("--delete")
     command += [source, destination]
@@ -528,7 +535,7 @@ def score_frame(args: argparse.Namespace, request: dict, frame_id: str) -> None:
         for key, value in metrics["review_crops"].items()
     }
     atomic_json(temporary / "metrics.json", metrics)
-    shutil.copy2(polygon, temporary / "face_polygons.json")
+    shutil.copyfile(polygon, temporary / "face_polygons.json")
     for path in temporary.iterdir():
         if path.name == "metrics.json":
             os.replace(path, retained / "metrics.json")
@@ -652,6 +659,59 @@ def selected_frame_ids(request: dict, values: list[str] | None, limit: int | Non
     return selected if limit is None else selected[:limit]
 
 
+def adopt_verified_frame(args: argparse.Namespace, request: dict, frame_id: str) -> None:
+    """Adopt a verified retained result when only local transport code changed.
+
+    This is intentionally stricter than ordinary resume: every request field
+    that can affect pixels or geometry must match, and the sole permitted
+    script difference is this campaign controller itself.
+    """
+
+    previous_root = args.from_output_root.expanduser().resolve()
+    previous_request = load_json(previous_root / "campaign_request.json")
+    old_core = {
+        key: value for key, value in previous_request.items()
+        if key not in {"created_at", "created_on_host", "controller_git_head", "request_sha256", "scripts"}
+    }
+    new_core = {
+        key: value for key, value in request.items()
+        if key not in {"created_at", "created_on_host", "controller_git_head", "request_sha256", "scripts"}
+    }
+    if old_core != new_core:
+        raise ValueError("Cannot adopt: a reconstruction-affecting campaign request field changed")
+    old_scripts = {row["name"]: row["sha256"] for row in previous_request["scripts"]}
+    new_scripts = {row["name"]: row["sha256"] for row in request["scripts"]}
+    differences = sorted(name for name in set(old_scripts) | set(new_scripts) if old_scripts.get(name) != new_scripts.get(name))
+    if differences != ["run_colmap_patchmatch_tsdf_campaign.py"]:
+        raise ValueError(f"Cannot adopt: non-controller script hashes changed: {differences}")
+    source = previous_root / ".work" / "frames" / frame_id / "retained"
+    if not source.is_dir():
+        source = previous_root / "frames" / frame_id
+    validate_hash_manifest(source, load_json(source / "retained_manifest.json"))
+    remote = load_json(source / "remote_result.json")
+    if remote.get("frame_id") != frame_id or remote.get("validation_status") != "pass":
+        raise ValueError("Cannot adopt an unvalidated or mismatched remote frame")
+    destination = args.output_root / ".work" / "frames" / frame_id / "retained"
+    if destination.exists():
+        raise FileExistsError(destination)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copytree(source, destination, copy_function=shutil.copyfile)
+    validate_hash_manifest(destination, load_json(destination / "retained_manifest.json"))
+    receipt = {
+        "schema_version": 1,
+        "frame_id": frame_id,
+        "adopted_at": now(),
+        "previous_request_sha256": previous_request["request_sha256"],
+        "current_request_sha256": request["request_sha256"],
+        "identical_reconstruction_request": True,
+        "differing_script_hashes": differences,
+        "reason": "local rsync metadata mode only; all reconstruction/scoring/audit code hashes identical",
+    }
+    atomic_json(destination / "adoption.json", receipt)
+    update_frame_state(args.output_root, frame_id, "reconstructed", adopted=receipt, remote_result=remote)
+    print(f"frame={frame_id} status=adopted previous_request={previous_request['request_sha256']}")
+
+
 def add_common(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--source-root", type=Path, default=Path("/mnt/data/dec5_5a3_nerfstudio_exr_1920x1080"))
     parser.add_argument("--output-root", type=Path, default=Path("/mnt/data/lookcloser_dec5_5a3_patchmatch_tsdf_50"))
@@ -690,6 +750,11 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     add_common(finalize)
     finalize.add_argument("--frames", nargs="*")
     finalize.add_argument("--limit", type=int)
+    adopt = subparsers.add_parser("adopt")
+    add_common(adopt)
+    adopt.add_argument("--from-output-root", type=Path, required=True)
+    adopt.add_argument("--frames", nargs="+", required=True)
+    adopt.add_argument("--limit", type=int)
     args = parser.parse_args(argv)
     for name in ("source_root", "output_root", "calibration_template"):
         setattr(args, name, getattr(args, name).expanduser().resolve())
@@ -718,6 +783,8 @@ def main(argv: Sequence[str] | None = None) -> int:
                 score_frame(args, request, frame_id)
             elif args.action == "finalize":
                 finalize_frame(args, request, frame_id)
+            elif args.action == "adopt":
+                adopt_verified_frame(args, request, frame_id)
     return 0
 
 

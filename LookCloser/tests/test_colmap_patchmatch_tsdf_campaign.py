@@ -113,3 +113,17 @@ def test_audit_rejects_non_face_metric_keys() -> None:
 def test_remote_code_bundle_includes_exporter_dependency() -> None:
     assert "export_nerfstudio_colmap_model.py" in CONTROLLER.CAMPAIGN_SCRIPTS
     assert "seed_colmap_from_nerfstudio.py" in CONTROLLER.CAMPAIGN_SCRIPTS
+
+
+def test_rsync_uses_shared_mount_safe_content_mode(monkeypatch) -> None:
+    commands = []
+    monkeypatch.setattr(CONTROLLER, "run", lambda command: commands.append(command))
+
+    CONTROLLER.rsync("source/", "host:destination/", delete=True)
+
+    command = commands[0]
+    assert "--inplace" in command
+    assert "--no-times" in command
+    assert "--no-perms" in command
+    assert "--delete" in command
+    assert "-a" not in command
