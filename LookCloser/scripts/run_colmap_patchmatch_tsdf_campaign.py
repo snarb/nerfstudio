@@ -49,6 +49,7 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 CAMPAIGN_SCRIPTS = (
     "colmap_patchmatch_tsdf_campaign_common.py",
     "convert_exr_nerfstudio_to_jpeg.py",
+    "run_colmap_patchmatch_tsdf_campaign.py",
     "run_colmap_patchmatch_tsdf.py",
     "run_colmap_patchmatch_tsdf_remote_worker.py",
     "score_colmap_patchmatch_tsdf_face.py",

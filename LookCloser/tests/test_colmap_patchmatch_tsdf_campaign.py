@@ -111,6 +111,7 @@ def test_audit_rejects_non_face_metric_keys() -> None:
 
 
 def test_remote_code_bundle_includes_exporter_dependency() -> None:
+    assert "run_colmap_patchmatch_tsdf_campaign.py" in CONTROLLER.CAMPAIGN_SCRIPTS
     assert "export_nerfstudio_colmap_model.py" in CONTROLLER.CAMPAIGN_SCRIPTS
     assert "seed_colmap_from_nerfstudio.py" in CONTROLLER.CAMPAIGN_SCRIPTS
 
