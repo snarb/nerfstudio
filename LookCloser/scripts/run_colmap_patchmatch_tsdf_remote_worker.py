@@ -225,6 +225,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         "--nearest-fill-color-continuity",
         "--nearest-fill-color-continuity-mode", "global",
         "--nearest-fill-rank-penalty", "0",
+        "--nearest-fill-primary-color-continuation",
+        "--nearest-fill-primary-color-continuation-min-area", "20",
+        "--nearest-fill-primary-color-continuation-max-area", "1000",
+        "--nearest-fill-primary-color-continuation-min-median-l1", "0.1",
     ]
     if output.exists():
         command.append("--resume")

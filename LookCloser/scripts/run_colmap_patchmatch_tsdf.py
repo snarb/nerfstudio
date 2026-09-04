@@ -116,6 +116,12 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         "--nearest-fill-color-continuity-mode", choices=("pixel", "global"), default="pixel"
     )
     parser.add_argument("--nearest-fill-rank-penalty", type=float, default=0.0)
+    add_boolean_argument(parser, "--nearest-fill-primary-color-continuation", default=False)
+    parser.add_argument("--nearest-fill-primary-color-continuation-min-area", type=int, default=20)
+    parser.add_argument("--nearest-fill-primary-color-continuation-max-area", type=int, default=1000)
+    parser.add_argument(
+        "--nearest-fill-primary-color-continuation-min-median-l1", type=float, default=0.1
+    )
     parser.add_argument("--metric-surface-depth-manifest", type=Path, default=None)
     parser.add_argument("--roi-boxes-json", type=Path, default=None)
     add_boolean_argument(parser, "--score-metrics", default=False)
@@ -403,6 +409,12 @@ def main(argv: Sequence[str] | None = None) -> int:
         "--target-depth-component-max-log-jump", str(args.target_depth_component_max_log_jump),
         "--nearest-fill-color-continuity-mode", args.nearest_fill_color_continuity_mode,
         "--nearest-fill-rank-penalty", str(args.nearest_fill_rank_penalty),
+        "--nearest-fill-primary-color-continuation-min-area",
+        str(args.nearest_fill_primary_color_continuation_min_area),
+        "--nearest-fill-primary-color-continuation-max-area",
+        str(args.nearest_fill_primary_color_continuation_max_area),
+        "--nearest-fill-primary-color-continuation-min-median-l1",
+        str(args.nearest_fill_primary_color_continuation_min_median_l1),
         "--eval-mode", "filename",
         "--orientation-method", "up",
         "--center-method", "focus",
@@ -414,6 +426,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     ]
     if args.nearest_fill_color_continuity:
         render_command.append("--nearest-fill-color-continuity")
+    if args.nearest_fill_primary_color_continuation:
+        render_command.append("--nearest-fill-primary-color-continuation")
     if args.score_metrics:
         render_command += [
             "--metric-surface-depth-manifest", str(args.metric_surface_depth_manifest),
@@ -494,6 +508,12 @@ def main(argv: Sequence[str] | None = None) -> int:
         "nearest_fill_color_continuity": args.nearest_fill_color_continuity,
         "nearest_fill_color_continuity_mode": args.nearest_fill_color_continuity_mode,
         "nearest_fill_rank_penalty": args.nearest_fill_rank_penalty,
+        "nearest_fill_primary_color_continuation": {
+            "enabled": args.nearest_fill_primary_color_continuation,
+            "min_area": args.nearest_fill_primary_color_continuation_min_area,
+            "max_area": args.nearest_fill_primary_color_continuation_max_area,
+            "min_median_l1": args.nearest_fill_primary_color_continuation_min_median_l1,
+        },
         "colmap": {
             "binary": colmap,
             "build": colmap_build,

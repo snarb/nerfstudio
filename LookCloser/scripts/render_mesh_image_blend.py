@@ -2,11 +2,11 @@
 """Render an eval camera by calibrated train-image reprojection through one mesh.
 
 This is a geometry/appearance causal gate, not a learned image refiner.  It
-never reads eval RGB while constructing predictions, uses no image/person
-mask, and admits pixels only when the same continuous mesh is visible in both
-the target and source cameras.  A sharp result proves that mesh geometry can
-support sharp image-based rendering; a displaced result localizes the failure
-to geometry/calibration rather than a NeRF RGB head.
+never reads eval RGB while constructing predictions and uses no image/person
+mask.  The default admits pixels only when the same continuous mesh is visible
+in both the target and source cameras.  An explicit hard-colour continuation
+mode can reuse the nearest train camera's 3D reprojection across small,
+photometrically discontinuous visibility gaps; it never averages sources.
 """
 
 from __future__ import annotations
@@ -150,6 +150,23 @@ def parse_args() -> argparse.Namespace:
         default=0.0,
         help="Non-negative per-rank penalty added to fallback RGB distance.",
     )
+    add_boolean_argument(
+        parser,
+        "--nearest-fill-primary-color-continuation",
+        default=False,
+        help=(
+            "For small connected nearest-fill visibility gaps with a sharp colour discontinuity, "
+            "hard-select the nearest train camera's RGB at the same 3D reprojection. This is disabled "
+            "by default and never averages sources or reads eval RGB."
+        ),
+    )
+    parser.add_argument("--nearest-fill-primary-color-continuation-min-area", type=int, default=20)
+    parser.add_argument("--nearest-fill-primary-color-continuation-max-area", type=int, default=1000)
+    parser.add_argument(
+        "--nearest-fill-primary-color-continuation-min-median-l1",
+        type=float,
+        default=0.1,
+    )
     parser.add_argument("--best-view-angle-power", type=float, default=4.0)
     parser.add_argument("--best-view-border-margin", type=float, default=64.0)
     parser.add_argument(
@@ -245,6 +262,20 @@ def parse_args() -> argparse.Namespace:
         parser.error("--target-depth-component-max-log-jump must be positive")
     if not math.isfinite(args.nearest_fill_rank_penalty) or args.nearest_fill_rank_penalty < 0.0:
         parser.error("--nearest-fill-rank-penalty must be non-negative")
+    if args.nearest_fill_primary_color_continuation_min_area <= 0:
+        parser.error("--nearest-fill-primary-color-continuation-min-area must be positive")
+    if (
+        args.nearest_fill_primary_color_continuation_max_area
+        < args.nearest_fill_primary_color_continuation_min_area
+    ):
+        parser.error(
+            "--nearest-fill-primary-color-continuation-max-area must be at least the minimum area"
+        )
+    if (
+        not math.isfinite(args.nearest_fill_primary_color_continuation_min_median_l1)
+        or args.nearest_fill_primary_color_continuation_min_median_l1 < 0.0
+    ):
+        parser.error("--nearest-fill-primary-color-continuation-min-median-l1 must be non-negative")
     if args.best_view_angle_power < 0.0:
         parser.error("--best-view-angle-power must be non-negative")
     if args.best_view_border_margin <= 0.0:
@@ -674,6 +705,106 @@ def aggregate_warped_sources(
     return rgb, valid.unsqueeze(0), selected
 
 
+def continue_primary_color_across_small_fallback_components(
+    rgb: torch.Tensor,
+    selection: torch.Tensor,
+    primary_warped: torch.Tensor,
+    primary_valid: torch.Tensor,
+    primary_projectable: torch.Tensor,
+    *,
+    min_area: int,
+    max_area: int,
+    min_median_l1: float,
+) -> tuple[torch.Tensor, torch.Tensor, dict[str, object]]:
+    """Replace only sharp, small fallback islands with hard primary-camera RGB.
+
+    The component decision uses train reprojections and geometry-validity maps
+    only.  ``primary_projectable`` deliberately excludes the source-depth
+    consistency test: selected pixels retain their target-depth 3D projection,
+    but take colour from the closest train camera to prevent a small visibility
+    gap from becoming a multi-camera texture shard.
+    """
+
+    if rgb.ndim != 3 or rgb.shape[0] != 3:
+        raise ValueError("rgb must be CHW with three channels")
+    if primary_warped.shape != rgb.shape:
+        raise ValueError("primary_warped must match rgb")
+    if any(mask.shape != selection.shape for mask in (primary_valid, primary_projectable)):
+        raise ValueError("selection and primary masks must have matching shapes")
+    if min_area <= 0 or max_area < min_area:
+        raise ValueError("component area bounds are invalid")
+    if not math.isfinite(min_median_l1) or min_median_l1 < 0.0:
+        raise ValueError("min_median_l1 must be finite and non-negative")
+
+    from scipy import ndimage
+
+    fallback = (selection >= 0) & ~primary_valid
+    stats: dict[str, object] = {
+        "enabled": True,
+        "min_area": min_area,
+        "max_area": max_area,
+        "min_median_l1": min_median_l1,
+        "candidate_components": 0,
+        "selected_components": 0,
+        "selected_component_pixels": 0,
+        "replaced_pixels": 0,
+        "components": [],
+    }
+    if not bool(fallback.any()) or not bool(primary_valid.any()):
+        return rgb, selection, stats
+
+    primary_valid_cpu = primary_valid.detach().cpu().numpy()
+    _, nearest_indices = ndimage.distance_transform_edt(
+        ~primary_valid_cpu, return_indices=True
+    )
+    nearest_y = torch.from_numpy(nearest_indices[0]).to(device=rgb.device)
+    nearest_x = torch.from_numpy(nearest_indices[1]).to(device=rgb.device)
+    reference = primary_warped[:, nearest_y, nearest_x]
+    discontinuity = (rgb - reference).abs().mean(dim=0)
+    labels, component_count = ndimage.label(
+        fallback.detach().cpu().numpy(), np.ones((3, 3), dtype=np.uint8)
+    )
+    stats["candidate_components"] = int(component_count)
+    replacement = torch.zeros_like(primary_valid)
+    rows: list[dict[str, object]] = []
+    for component_id in range(1, component_count + 1):
+        yy, xx = np.where(labels == component_id)
+        area = int(len(xx))
+        if not min_area <= area <= max_area:
+            continue
+        component = torch.from_numpy(labels == component_id).to(device=rgb.device)
+        median_l1 = float(torch.median(discontinuity[component]).item())
+        if median_l1 <= min_median_l1:
+            continue
+        replaceable = component & primary_projectable
+        replaced = int(replaceable.sum().item())
+        if replaced == 0:
+            continue
+        replacement |= replaceable
+        rows.append(
+            {
+                "area": area,
+                "bbox_xyxy": [
+                    int(xx.min()),
+                    int(yy.min()),
+                    int(xx.max()) + 1,
+                    int(yy.max()) + 1,
+                ],
+                "median_nearest_primary_l1": median_l1,
+                "replaced_pixels": replaced,
+            }
+        )
+
+    if bool(replacement.any()):
+        rgb = torch.where(replacement.unsqueeze(0), primary_warped, rgb)
+        selection = torch.where(replacement, torch.zeros_like(selection), selection)
+    stats["selected_components"] = len(rows)
+    stats["selected_component_pixels"] = sum(int(row["area"]) for row in rows)
+    stats["replaced_pixels"] = int(replacement.sum().item())
+    stats["components"] = sorted(rows, key=lambda row: int(row["area"]), reverse=True)
+    return rgb, selection, stats
+
+
 def source_selection_fractions(selection: torch.Tensor, count: int) -> list[float]:
     """Summarize hard/maximum-contribution source ranks over covered pixels."""
 
@@ -1062,6 +1193,7 @@ def main() -> int:
 
     warped: list[torch.Tensor] = []
     valid_masks: list[torch.Tensor] = []
+    projectable_masks: list[torch.Tensor] = []
     weighted_scores: list[torch.Tensor] = []
     best_scores: list[torch.Tensor] = []
     nearest_source_rgb: torch.Tensor | None = None
@@ -1094,8 +1226,9 @@ def main() -> int:
                 & (u <= source_intrinsics["width"] - 1.0)
                 & (v >= 0.0)
                 & (v <= source_intrinsics["height"] - 1.0)
-                & (sampled_depth > 0.0)
             )
+            projectable = in_bounds
+            in_bounds = in_bounds & (sampled_depth > 0.0)
             log_error = torch.abs(
                 torch.log(projected_z.clamp_min(1e-6)) - torch.log(sampled_depth.clamp_min(1e-6))
             )
@@ -1123,6 +1256,7 @@ def main() -> int:
             )
             warped.append(sampled_rgb)
             valid_masks.append(valid)
+            projectable_masks.append(projectable)
             weighted_scores.append(weighted_score)
             best_scores.append(per_pixel_best_score)
             source_rows.append(
@@ -1196,6 +1330,21 @@ def main() -> int:
                     nearest_fill_color_continuity_mode=args.nearest_fill_color_continuity_mode,
                     nearest_fill_rank_penalty=args.nearest_fill_rank_penalty,
                 )
+                continuation: dict[str, object] = {"enabled": False}
+                if (
+                    aggregation_mode == "nearest-fill"
+                    and args.nearest_fill_primary_color_continuation
+                ):
+                    blend, selection, continuation = continue_primary_color_across_small_fallback_components(
+                        blend,
+                        selection,
+                        warped[0],
+                        valid_masks[0],
+                        projectable_masks[0],
+                        min_area=args.nearest_fill_primary_color_continuation_min_area,
+                        max_area=args.nearest_fill_primary_color_continuation_max_area,
+                        min_median_l1=args.nearest_fill_primary_color_continuation_min_median_l1,
+                    )
                 variant_stem = (
                     f"blend{count}"
                     if aggregation_mode == "weighted"
@@ -1217,6 +1366,7 @@ def main() -> int:
                             "valid_fraction": float(valid[0].float().mean().item()),
                             "valid_mesh_fraction": float(valid[0][target_depth > 0.0].float().mean().item()),
                             "source_rank_fraction_on_valid": selection_fractions,
+                            "primary_color_continuation": continuation,
                         }
                     )
                     variant_metric_masks[name] = valid[0]
@@ -1305,6 +1455,12 @@ def main() -> int:
         "nearest_fill_color_continuity": args.nearest_fill_color_continuity,
         "nearest_fill_color_continuity_mode": args.nearest_fill_color_continuity_mode,
         "nearest_fill_rank_penalty": args.nearest_fill_rank_penalty,
+        "nearest_fill_primary_color_continuation": {
+            "enabled": args.nearest_fill_primary_color_continuation,
+            "min_area": args.nearest_fill_primary_color_continuation_min_area,
+            "max_area": args.nearest_fill_primary_color_continuation_max_area,
+            "min_median_l1": args.nearest_fill_primary_color_continuation_min_median_l1,
+        },
         "camera_distance_power": args.camera_distance_power,
         "aggregation_modes": list(args.aggregation_modes),
         "best_view_angle_power": args.best_view_angle_power,

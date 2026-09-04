@@ -46,6 +46,45 @@ def read_csv(path: Path) -> list[dict[str, str]]:
         return list(reader)
 
 
+def verify_render_revision(root: Path, result: dict) -> None:
+    revision = result.get("render_revision")
+    if not isinstance(revision, dict):
+        raise ValueError(f"Published result has no render revision: {result.get('frame_id')}")
+    correction_id = revision.get("correction_id")
+    if not isinstance(correction_id, str):
+        raise ValueError("Render revision has no correction ID")
+    base = root / ".diagnostics" / f"render_revision_{correction_id}"
+    correction = load_json(base / "correction_manifest.json")
+    if correction.get("status") != "complete" or correction.get("correction_id") != correction_id:
+        raise ValueError(f"Invalid base render correction: {correction_id}")
+    arguments = revision.get("render_arguments", {})
+    if (
+        arguments.get("uses_eval_rgb_for_prediction") is not False
+        or arguments.get("uses_masks") is not False
+        or arguments.get("averages_sources") is not False
+        or arguments.get("primary_color_continuation") is not True
+    ):
+        raise ValueError(f"Invalid render correction policy for {result['frame_id']}")
+    before = Path(revision["remote_render_preserved_in"]) / "eval_pred_0000.png"
+    current = root / "frames" / result["frame_id"] / "render/eval_pred_0000.png"
+    if not before.is_file() or sha256(before) != revision["before_render_sha256"]:
+        raise ValueError(f"Superseded remote render/hash is missing for {result['frame_id']}")
+    if sha256(current) != revision["after_render_sha256"]:
+        raise ValueError(f"Revised render/hash mismatch for {result['frame_id']}")
+    if revision.get("extension") is True:
+        extension = root / ".diagnostics" / f"render_revision_{correction_id}_extensions" / result["frame_id"]
+        state = load_json(extension / "state.json")
+        receipt = load_json(extension / "extension_receipt.json")
+        if state.get("status") != "complete" or receipt.get("frame_id") != result["frame_id"]:
+            raise ValueError(f"Incomplete render correction extension for {result['frame_id']}")
+        if receipt.get("after_render_sha256") != result["render_sha256"] or receipt.get("mesh_unchanged") is not True:
+            raise ValueError(f"Invalid render correction extension receipt for {result['frame_id']}")
+    else:
+        receipt = load_json(base / "frame_receipts" / f"{result['frame_id']}.json")
+        if receipt.get("after_render_sha256") != result["render_sha256"] or receipt.get("mesh_unchanged") is not True:
+            raise ValueError(f"Invalid base render correction receipt for {result['frame_id']}")
+
+
 def verify_frame(root: Path, frame_id: str, row: dict[str, str]) -> dict:
     frame = root / "frames" / frame_id
     result = load_json(frame / "result.json")
@@ -79,6 +118,7 @@ def verify_frame(root: Path, frame_id: str, row: dict[str, str]) -> dict:
     render = frame / "render" / "eval_pred_0000.png"
     if sha256(mesh) != result["mesh_sha256"] or sha256(render) != result["render_sha256"]:
         raise ValueError(f"Published mesh/render hash mismatch for {frame_id}")
+    verify_render_revision(root, result)
     if int(remote["depth_map_count"]) != 62 or remote["depth_shape"] != [1080, 1920]:
         raise ValueError(f"Depth inventory/shape mismatch for {frame_id}")
     if not math.isfinite(float(remote["depth_coverage_mean"])) or float(remote["depth_coverage_min"]) <= 0:
@@ -157,6 +197,15 @@ def audit(root: Path, *, allow_incomplete: bool) -> dict:
         configured = root / "config" / "code" / script["name"]
         if sha256(configured) != script["sha256"]:
             raise ValueError(f"Configured campaign code hash mismatch: {configured}")
+    campaign_manifest = load_json(root / "campaign_manifest.json")
+    for row in campaign_manifest.get("render_corrections", []):
+        path = Path(row["manifest"])
+        if not path.is_file() or sha256(path) != row["manifest_sha256"]:
+            raise ValueError(f"Render correction manifest hash mismatch: {path}")
+    for row in campaign_manifest.get("render_correction_extensions", []):
+        path = Path(row["receipt"])
+        if not path.is_file() or sha256(path) != row["receipt_sha256"]:
+            raise ValueError(f"Render correction extension receipt hash mismatch: {path}")
     rows = read_csv(root / "metrics.csv")
     ids = [row["frame_id"] for row in rows]
     if len(ids) != len(set(ids)) or ids != ordered[:len(ids)]:

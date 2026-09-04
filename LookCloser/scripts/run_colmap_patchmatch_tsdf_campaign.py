@@ -54,6 +54,7 @@ CAMPAIGN_SCRIPTS = (
     "run_colmap_patchmatch_tsdf_remote_worker.py",
     "score_colmap_patchmatch_tsdf_face.py",
     "audit_colmap_patchmatch_tsdf_campaign.py",
+    "revise_colmap_patchmatch_tsdf_renders.py",
     "export_nerfstudio_colmap_model.py",
     "seed_colmap_from_nerfstudio.py",
     "build_colmap_patch_match_config.py",

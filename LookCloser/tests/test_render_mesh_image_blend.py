@@ -100,6 +100,63 @@ def test_nearest_fill_global_color_order_uses_one_photometrically_matching_fallb
     torch.testing.assert_close(rgb[:, 0, 1], matching[:, 0, 1])
 
 
+def test_primary_color_continuation_replaces_only_small_discontinuous_fallback() -> None:
+    rgb = torch.full((3, 5, 7), 0.2)
+    primary = rgb.clone()
+    primary[:, 1:3, 2:4] = 0.3
+    rgb[:, 1:3, 2:4] = 0.9
+    selection = torch.zeros((5, 7), dtype=torch.long)
+    selection[1:3, 2:4] = 2
+    primary_valid = torch.ones((5, 7), dtype=torch.bool)
+    primary_valid[1:3, 2:4] = False
+    primary_projectable = torch.ones((5, 7), dtype=torch.bool)
+
+    result, selected, stats = MODULE.continue_primary_color_across_small_fallback_components(
+        rgb,
+        selection,
+        primary,
+        primary_valid,
+        primary_projectable,
+        min_area=2,
+        max_area=6,
+        min_median_l1=0.1,
+    )
+
+    torch.testing.assert_close(result[:, 1:3, 2:4], primary[:, 1:3, 2:4])
+    assert torch.all(selected[1:3, 2:4] == 0)
+    assert stats["selected_components"] == 1
+    assert stats["replaced_pixels"] == 4
+
+
+def test_primary_color_continuation_preserves_continuous_or_unprojectable_fallback() -> None:
+    primary = torch.full((3, 4, 8), 0.2)
+    rgb = primary.clone()
+    rgb[:, 1:3, 1:3] = 0.22
+    rgb[:, 1:3, 5:7] = 0.9
+    selection = torch.zeros((4, 8), dtype=torch.long)
+    selection[1:3, 1:3] = 1
+    selection[1:3, 5:7] = 2
+    primary_valid = selection == 0
+    primary_projectable = torch.ones((4, 8), dtype=torch.bool)
+    primary_projectable[1:3, 5:7] = False
+
+    result, selected, stats = MODULE.continue_primary_color_across_small_fallback_components(
+        rgb,
+        selection,
+        primary,
+        primary_valid,
+        primary_projectable,
+        min_area=2,
+        max_area=6,
+        min_median_l1=0.1,
+    )
+
+    torch.testing.assert_close(result, rgb)
+    torch.testing.assert_close(selected, selection)
+    assert stats["selected_components"] == 0
+    assert stats["replaced_pixels"] == 0
+
+
 def test_best_view_hard_selects_highest_score_without_averaging() -> None:
     first = torch.full((3, 2, 2), 0.2)
     second = torch.full((3, 2, 2), 0.8)
