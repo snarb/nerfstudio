@@ -87,6 +87,8 @@ def main() -> None:
     parser.add_argument("--overlap-exposure-grid",type=int,nargs=2,default=None)
     parser.add_argument("--pixel-center-offset",type=float,choices=(0.,.5),default=0.)
     parser.add_argument("--exact-mesh-visibility",action="store_true")
+    parser.add_argument("--source-rgb-footprint-visibility",action="store_true")
+    parser.add_argument("--source-rgb-depth-aware-sampling",action="store_true")
     parser.add_argument("--disocclusion-color-match",action="store_true")
     parser.add_argument("--seam-cut-visibility-radius",type=float,default=0.)
     parser.add_argument("--surface-color-field-smoothness",type=float,default=0.)
@@ -126,6 +128,8 @@ def main() -> None:
                "overlap_exposure_grid":args.overlap_exposure_grid,
                "pixel_center_offset":args.pixel_center_offset,
                "exact_mesh_visibility":args.exact_mesh_visibility,
+               "source_rgb_footprint_visibility":args.source_rgb_footprint_visibility,
+               "source_rgb_depth_aware_sampling":args.source_rgb_depth_aware_sampling,
                "disocclusion_color_match":args.disocclusion_color_match,
                "seam_cut_visibility_radius":args.seam_cut_visibility_radius,
                "surface_color_field_smoothness":args.surface_color_field_smoothness,
@@ -187,6 +191,8 @@ def main() -> None:
                  "--primary-angular-camera-count",args.primary_angular_camera_count,
                  "--pixel-center-offset",args.pixel_center_offset,
                  *(["--exact-mesh-visibility"] if args.exact_mesh_visibility else []),
+                 *(["--source-rgb-footprint-visibility"] if args.source_rgb_footprint_visibility else []),
+                 *(["--source-rgb-depth-aware-sampling"] if args.source_rgb_depth_aware_sampling else []),
                  *(["--disocclusion-color-match"] if args.disocclusion_color_match else []),
                  "--seam-cut-visibility-radius",args.seam_cut_visibility_radius,
                  "--surface-color-field-smoothness",args.surface_color_field_smoothness,

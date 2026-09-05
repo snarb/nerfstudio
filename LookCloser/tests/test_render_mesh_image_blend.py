@@ -17,6 +17,21 @@ sys.modules[SPEC.name] = MODULE
 SPEC.loader.exec_module(MODULE)
 
 
+def test_rgb_footprint_controls_are_opt_in(tmp_path,monkeypatch):
+    data=tmp_path/'data';data.mkdir();manifest=tmp_path/'depth.json';manifest.write_text('{}')
+    common=['render','--data',str(data),'--mesh-depth-manifest',str(manifest),'--output-dir',str(tmp_path/'out')]
+    monkeypatch.setattr(sys,'argv',common)
+    args=MODULE.parse_args()
+    assert not args.source_rgb_footprint_visibility and not args.source_rgb_depth_aware_sampling
+    assert not args.surface_texture_registration and args.pixel_center_offset==0
+    monkeypatch.setattr(sys,'argv',common+['--source-rgb-depth-aware-sampling'])
+    with pytest.raises(SystemExit):MODULE.parse_args()
+    monkeypatch.setattr(sys,'argv',common+['--source-rgb-depth-aware-sampling','--exact-mesh-visibility','--pixel-center-offset','.5'])
+    assert MODULE.parse_args().source_rgb_depth_aware_sampling
+    monkeypatch.setattr(sys,'argv',sys.argv+['--source-rgb-footprint-visibility'])
+    with pytest.raises(SystemExit):MODULE.parse_args()
+
+
 def test_identity_camera_projection_preserves_pixels_and_depth() -> None:
     depth = torch.full((3, 4), 2.0)
     c2w = torch.eye(4)[:3]

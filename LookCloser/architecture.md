@@ -1075,3 +1075,9 @@ train-overlap UV micro-registration control with spatially held-out checks.
 It keeps cameras/mesh and categorical source choice semantics fixed, but explicitly
 changes texture coordinates and is not pure calibrated projection. Native RGB is
 sampled once, visibility is never expanded, and legacy defaults are unchanged.
+
+Native interpolation-footprint diagnostics distinguish centre-ray visibility from
+the four RGB taps. Opt-in `--source-rgb-footprint-visibility` rejects cross-layer
+footprints; `--source-rgb-depth-aware-sampling` instead interpolates only same-layer
+taps within one camera. Both use unfilled mesh depth and leave mesh/camera/UVs
+unchanged. They are rejected diagnostic controls, not accepted renderer defaults.

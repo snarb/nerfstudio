@@ -586,6 +586,47 @@ alignment is not equivalent to a seam-free render; no temporal promotion follows
 [GT / refined mesh / UV registration, native hand crop](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/surface_texture_registration/review/hand.png),
 [failed verdict and retained hashes](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/surface_texture_registration/visual_review.json).
 
+### Native RGB interpolation footprint at the lipstick/hand boundary
+
+The exact first-hit visibility test concerns the sample centre, not all four
+native pixels used by bilinear RGB interpolation. The unchanged refined-mesh
+trace at target (650,535) gives E004_C005_1210YM projected depth .755406, but one
+native tap has depth .781321 and contributes 9.50% of the sampled RGB. At target
+(700,550), 18.17% of E004_B005_1210I7 and 47.16% of G004_B005_1210FG interpolation
+weight lies on a different mesh depth layer (absolute log-depth tolerance .005).
+At (680,540), both fallback sources have fully same-layer footprints, although the
+primary is occluded. Thus mixed-layer RGB sampling is a concrete boundary issue,
+but cannot explain the entire wider neck patch. This is interpolation **within one
+camera**, not averaging two cameras.
+
+Two opt-in controls keep mesh, cameras, UV coordinates and train-only color
+calibration fixed. The strict footprint guard rejects a source if any contributing
+tap crosses depth layers. The depth-aware sampler instead renormalizes the weights
+of same-layer native pixels from that one source camera. Both use unfilled mesh
+depth and retain the centre-ray visibility test; neither introduces segmentation
+or fills missing color from held-out RGB.
+
+| Same 000973 study face polygon | PSNR | SSIM | LPIPS | Mesh-supported pixels with RGB | Native verdict |
+|---|---:|---:|---:|---:|---|
+| Refined mesh, ordinary bilinear RGB | 29.111637 | .890642 | .047190 | 99.99694% | Fail |
+| Reject mixed-depth RGB footprints | 29.076572 | .889319 | .047726 | 99.81440% | Fail: neck patch plus black edge slits |
+| Renormalize same-depth native taps | 29.097021 | .890146 | .047661 | 99.96711% | Fail: patch persists; fewer but still visible holes |
+
+The primary camera has 7,106 centre-visible samples with an unsafe full footprint;
+renormalization recovers same-layer RGB for 6,534 of them, leaving 572 without any
+matching native tap. The strict guard changes part of the bright hand-adjacent
+edge, but creates black slits. Renormalization reduces that damage without removing
+the conspicuous patch. Neither is an accepted repair, and neither is promoted to
+temporal/fly-through confirmation. The original campaign and defaults remain
+untouched. Native source crops also visibly show the lower bandwidth of G004_B005
+relative to several other sources; attributing this uniquely to optical defocus
+still requires separate evidence.
+
+[Native tap trace and RGB identity check](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/rgb_footprint_trace/trace.json),
+[native train sources at the neck point](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/rgb_footprint_trace/point_01_train_patches.png),
+[strict guard hand comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/rgb_footprint_visibility/review/hand.png),
+[depth-aware sampling hand comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/depth_aware_rgb/review/hand.png).
+
 ## Insights
 
 The published render correction can use the primary train camera despite its failed

@@ -45,6 +45,22 @@ def sample(array,u,v):
     return float(map_coordinates(array,[[v],[u]],order=1,mode='constant',cval=0)[0])
 
 
+def bilinear_footprint(depth,u,v,projected_z,rgb):
+    """Audit native taps without smoothing depth across an object boundary."""
+    x,y=int(np.floor(u)),int(np.floor(v));fx,fy=u-x,v-y;h,w=depth.shape
+    rows=[]
+    for dy in (0,1):
+        for dx in (0,1):
+            xx,yy=x+dx,y+dy;inside=0<=xx<w and 0<=yy<h
+            z=float(depth[yy,xx]) if inside else None
+            finite=z is not None and np.isfinite(z) and z>0
+            rows.append({'xy':[xx,yy],'weight':float((fx if dx else 1-fx)*(fy if dy else 1-fy)),
+                         'mesh_depth':z if finite else None,
+                         'same_depth_layer':bool(finite and projected_z>0 and abs(np.log(z/projected_z))<=.005),
+                         'native_rgb8':list(rgb.getpixel((xx,yy))) if inside else None})
+    return rows
+
+
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     for name in ('normalized-data','render','mesh-depth-manifest','raw-depth-data','mesh-metadata','output'):
@@ -62,6 +78,8 @@ def main():
     raw_by_stem={Path(f['file_path']).stem:f for f in raw['frames'] if f.get('depth_file_path')}
     meta=json.loads(a.mesh_metadata.read_text())
     audit=json.loads((a.render/'reprojection_audit.json').read_text())
+    if audit.get('surface_texture_registration'):
+        raise ValueError('This calibrated-projection trace cannot follow adjusted texture UVs')
     offset=float(audit.get('pixel_center_offset',0))
     from mesh_texture_visibility import MeshVisibility
     mesh_path=Path(dm['mesh'])
@@ -74,7 +92,7 @@ def main():
     source_arrays=[]
     for source in audit['sources']:
         image=Path(source['source_image']);f=frames[image]
-        source_arrays.append((source,f,fill(depths[image]),
+        source_arrays.append((source,f,fill(depths[image]),load_depth(depths[image]),
             load_depth(a.raw_depth_data/raw_by_stem[image.stem]['depth_file_path'])*meta['dataparser_scale']))
     rows=[]
     for index,(x,y) in enumerate(a.pixel):
@@ -83,18 +101,20 @@ def main():
         point_distance=visibility.scene.compute_distance(visibility.o3d.core.Tensor(world[None].astype(np.float32))).numpy()[0]
         row={'pixel':[x,y],'target_depth':z,'world':world.tolist(),'distance_to_mesh_normalized':float(point_distance),'sources':[]}
         crops=[]
-        for source,f,depth,raw_depth in source_arrays:
+        for source,f,depth,native_depth,raw_depth in source_arrays:
             pose=np.asarray(f['transform_matrix']);q=(world-pose[:3,3])@pose[:3,:3];projected=-q[2]
             u=f['fl_x']*q[0]/projected+f['cx']-offset;v=-f['fl_y']*q[1]/projected+f['cy']-offset
             observed=sample(depth,u,v);stereo=sample(raw_depth,u,v)
             rank=source['rank'];image=Path(source['source_image'])
             valid=bool(np.asarray(Image.open(a.render/'source_warps'/f'valid_{rank:02d}.png'))[y,x])
             exact,exact_stats=visibility.visible(world[None,None],pose[:3,3],np.ones((1,1),bool))
+            im=Image.open(image).convert('RGB')
             row['sources'].append({'rank':rank,'physical_camera':f['physical_camera'],'uv':[float(u),float(v)],
                   'projected_z':float(projected),'mesh_z':observed,'raw_stereo_z':stereo,'renderer_valid':valid,
                   'exact_mesh_visible':bool(exact[0,0]),'exact_visibility_stats':exact_stats,
+                  'native_bilinear_footprint':bilinear_footprint(native_depth,u,v,projected,im),
                   'mesh_log_error':float(abs(np.log(projected/observed))) if observed>0 else None})
-            im=Image.open(image).convert('RGB');cx,cy=round(u),round(v)
+            cx,cy=round(u),round(v)
             crop=im.crop((cx-100,cy-100,cx+100,cy+100)).rotate(90,expand=True)
             draw=ImageDraw.Draw(crop);draw.ellipse((96,96,104,104),outline='red',width=1)
             pane=Image.new('RGB',(200,226));pane.paste(crop,(0,26))

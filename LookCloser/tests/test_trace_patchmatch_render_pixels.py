@@ -7,6 +7,17 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from trace_patchmatch_render_pixels import source_identity,seam_depth_statistics
 
 
+def test_native_footprint_reports_wrong_layer_contribution():
+    from PIL import Image
+    from trace_patchmatch_render_pixels import bilinear_footprint
+    depth=np.ones((2,2));depth[1,1]=2
+    rgb=Image.new('RGB',(2,2),(10,20,30))
+    rows=bilinear_footprint(depth,.25,.5,1.,rgb)
+    assert sum(r['weight'] for r in rows)==pytest.approx(1.)
+    assert sum(r['weight'] for r in rows if not r['same_depth_layer'])==pytest.approx(.125)
+    assert rows[-1]['native_rgb8']==[10,20,30] and rows[-1]['mesh_depth']==2.
+
+
 def test_source_identity_distinguishes_single_source_and_average():
     colors=np.array([[230,25,75],[60,180,75]],np.uint8)
     labels=np.array([[0,1],[0,1]])

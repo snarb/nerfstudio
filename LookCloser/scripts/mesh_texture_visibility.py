@@ -3,6 +3,33 @@ from __future__ import annotations
 import numpy as np
 
 
+def bilinear_depth_footprint_support(depth,u,v,projected_z,*,log_tolerance=.005):
+    """Require every contributing native RGB tap to lie on the target depth layer.
+
+    A visible sample centre does not guarantee an unoccluded bilinear footprint.
+    Use unfilled source-camera raycast depths, never interpolated/averaged depths.
+    This conservative test may reject a source; it cannot invent surface support.
+    """
+    import torch
+    if (depth.ndim!=2 or u.shape!=v.shape or u.shape!=projected_z.shape
+            or not np.isfinite(log_tolerance) or log_tolerance<=0):
+        raise ValueError('Invalid RGB footprint inputs')
+    h,w=depth.shape
+    finite=torch.isfinite(u)&torch.isfinite(v)&torch.isfinite(projected_z)
+    valid=finite&(projected_z>0)&(u>=0)&(u<=w-1)&(v>=0)&(v<=h-1)
+    su=torch.where(finite,u,0);sv=torch.where(finite,v,0)
+    x=su.floor().long();y=sv.floor().long();fx=su-x;fy=sv-y
+    for dy in (0,1):
+        for dx in (0,1):
+            weight=(fx if dx else 1-fx)*(fy if dy else 1-fy)
+            xx=x+dx;yy=y+dy
+            z=depth[yy.clamp(0,h-1),xx.clamp(0,w-1)]
+            agrees=(xx>=0)&(xx<w)&(yy>=0)&(yy<h)&torch.isfinite(z)&(z>0)
+            agrees&=((z.clamp_min(1e-7)/projected_z.clamp_min(1e-7)).log().abs()<=log_tolerance)
+            valid&=(weight<=1e-6)|agrees
+    return valid
+
+
 def observed_depth_support(depth,u,v,projected_z,*,log_tolerance=.005,radius=2):
     """Count nearby measured depths without bilinearly mixing zeros/depth layers."""
     import torch
@@ -20,6 +47,39 @@ def observed_depth_support(depth,u,v,projected_z,*,log_tolerance=.005,radius=2):
             count+=good.to(torch.int16);matches+=agrees.to(torch.int16)
     fraction=matches.float()/count.clamp_min(1)
     return (count>=3)&(fraction>=.5),fraction,count
+
+
+def sample_rgb_depth_aware(rgb,depth,u,v,projected_z,*,log_tolerance=.005):
+    """Renormalized bilinear interpolation of ONE camera's same-layer RGB taps.
+
+    This does not blend cameras or expand centre-point mesh visibility. It only
+    removes wrong-layer taps from the ordinary subpixel interpolation footprint.
+    A sample with no matching native taps has no valid color support.
+    """
+    import torch
+    if (rgb.ndim!=3 or rgb.shape[0]!=3 or tuple(rgb.shape[1:])!=tuple(depth.shape)
+            or depth.ndim!=2 or u.shape!=v.shape or u.shape!=projected_z.shape
+            or not np.isfinite(log_tolerance) or log_tolerance<=0):
+        raise ValueError('Invalid depth-aware RGB sample inputs')
+    h,w=depth.shape
+    finite=torch.isfinite(u)&torch.isfinite(v)&torch.isfinite(projected_z)
+    bounds=finite&(projected_z>0)&(u>=0)&(u<=w-1)&(v>=0)&(v<=h-1)
+    su=torch.where(finite,u,0);sv=torch.where(finite,v,0)
+    x=su.floor().long();y=sv.floor().long();fx=su-x;fy=sv-y
+    color=torch.zeros((3,*u.shape),dtype=rgb.dtype,device=rgb.device)
+    mass=torch.zeros_like(u)
+    for dy in (0,1):
+        for dx in (0,1):
+            xx=(x+dx).clamp(0,w-1);yy=(y+dy).clamp(0,h-1)
+            z=depth[yy,xx]
+            agrees=bounds&torch.isfinite(z)&(z>0)
+            agrees&=((z.clamp_min(1e-7)/projected_z.clamp_min(1e-7)).log().abs()<=log_tolerance)
+            weight=(fx if dx else 1-fx)*(fy if dy else 1-fy)
+            weight=torch.where(agrees,weight,0)
+            mass+=weight
+            color+=rgb[:,yy,xx]*weight[None]
+    valid=mass>1e-6
+    return torch.where(valid[None],color/mass.clamp_min(1e-6)[None],0),valid,mass
 
 
 class MeshVisibility:

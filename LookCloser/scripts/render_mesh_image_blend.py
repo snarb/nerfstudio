@@ -98,6 +98,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--pixel-center-offset", type=float, choices=(0., .5), default=0.,
                         help="Opt-in .5 matches Open3D raycast pixel centers; zero preserves legacy projection.")
     parser.add_argument("--exact-mesh-visibility", action="store_true")
+    parser.add_argument("--source-rgb-footprint-visibility",action="store_true",
+                        help="Opt-in: reject RGB samples whose bilinear taps cross source mesh depth layers.")
+    parser.add_argument("--source-rgb-depth-aware-sampling",action="store_true",
+                        help="Opt-in: interpolate only same-depth native pixels within the selected source camera.")
     parser.add_argument("--disocclusion-color-match", action="store_true")
     parser.add_argument("--seam-cut-visibility-radius", type=float, default=0.)
     parser.add_argument("--surface-color-field-smoothness", type=float, default=0.,
@@ -287,6 +291,11 @@ def parse_args() -> argparse.Namespace:
         parser.error("Overlap exposure correction requires an audited camera calibration and ingest curve")
     if args.exact_mesh_visibility and args.pixel_center_offset!=.5:
         parser.error("Exact mesh visibility requires matching .5 pixel centers")
+    if args.source_rgb_footprint_visibility and (not args.exact_mesh_visibility or args.surface_texture_registration):
+        parser.error('RGB footprint visibility requires exact visibility and unchanged texture coordinates')
+    if args.source_rgb_depth_aware_sampling and (not args.exact_mesh_visibility or args.surface_texture_registration
+            or args.source_rgb_footprint_visibility or args.angular_surface_color):
+        parser.error('Depth-aware RGB sampling requires exact visibility and no UV/footprint/angular control')
     if args.disocclusion_color_match and args.camera_color_calibration is None:
         parser.error("Disocclusion color matching requires an audited camera calibration and ingest curve")
     if not math.isfinite(args.seam_cut_visibility_radius) or args.seam_cut_visibility_radius<0:
@@ -1369,8 +1378,9 @@ def main() -> int:
                     calibration_row["spatial_log_gain_grid"] if args.camera_color_model == "spatial" else None)
             if rank == 0:
                 nearest_source_rgb = source_rgb
+            source_depth_unfilled = load_depth(depth_by_image[source_image])
             source_depth_array, source_depth_hole_fill = fill_small_consistent_depth_holes(
-                load_depth(depth_by_image[source_image]),
+                source_depth_unfilled,
                 max_area=args.depth_hole_fill_max_area,
                 boundary_radius=args.depth_hole_fill_boundary_radius,
                 max_relative_plane_rmse=args.depth_hole_fill_max_relative_plane_rmse,
@@ -1414,6 +1424,27 @@ def main() -> int:
                 valid=torch.from_numpy(exact).to(device)
                 exact_visibility_stats['newly_visible']=int((valid&~previous).sum().item())
                 exact_visibility_stats['newly_occluded']=int((previous&~valid).sum().item())
+            footprint_visibility_stats = None
+            if args.source_rgb_footprint_visibility:
+                from mesh_texture_visibility import bilinear_depth_footprint_support
+
+                footprint=bilinear_depth_footprint_support(
+                    torch.as_tensor(source_depth_unfilled,device=device)*float(train.dataparser_scale),u,v,projected_z)
+                footprint_visibility_stats={'rejected_visible_pixels':int((valid&~footprint).sum()),
+                    'log_depth_tolerance':.005,'uses_unfilled_mesh_depth':True,
+                    'helper_sha256':sha256(Path(__file__).with_name('mesh_texture_visibility.py'))}
+                valid=valid&footprint
+            depth_aware_rgb_stats = None
+            if args.source_rgb_depth_aware_sampling:
+                from mesh_texture_visibility import sample_rgb_depth_aware
+
+                sampled_rgb,has_taps,tap_mass=sample_rgb_depth_aware(source_rgb,
+                    torch.as_tensor(source_depth_unfilled,device=device)*float(train.dataparser_scale),u,v,projected_z)
+                depth_aware_rgb_stats={'corrected_visible_pixels':int((valid&has_taps&(tap_mass<.999999)).sum()),
+                    'no_matching_tap_visible_pixels':int((valid&~has_taps).sum()),'log_depth_tolerance':.005,
+                    'uses_unfilled_mesh_depth':True,'source_camera_averaging':False,'texture_coordinates_changed':False,
+                    'helper_sha256':sha256(Path(__file__).with_name('mesh_texture_visibility.py'))}
+                valid=valid&has_taps
             observed_veto_pixels = 0
             if args.source_observed_depth_data is not None:
                 observed_frame = observed_depth_by_stem[source_image.stem]
@@ -1478,6 +1509,8 @@ def main() -> int:
                     "stereo_supported_visible_pixels":int((valid&supported).sum()) if args.source_observed_fallback_support else None,
                     "stereo_depth_sha256":sha256(args.source_observed_depth_data/observed_frame['depth_file_path']) if args.source_observed_fallback_support else None,
                     "exact_visibility": exact_visibility_stats,
+                    "rgb_footprint_visibility":footprint_visibility_stats,
+                    "depth_aware_rgb_sampling":depth_aware_rgb_stats,
                     "camera_distance": float(distances[source_index].item()),
                     "valid_target_fraction": float(valid.float().mean().item()),
                     "valid_mesh_fraction": float(valid[target_depth > 0].float().mean().item()),
@@ -1752,6 +1785,8 @@ def main() -> int:
         "camera_distance_power": args.camera_distance_power,
         "pixel_center_offset": args.pixel_center_offset,
         "exact_mesh_visibility": args.exact_mesh_visibility,
+        "source_rgb_footprint_visibility":args.source_rgb_footprint_visibility,
+        "source_rgb_depth_aware_sampling":args.source_rgb_depth_aware_sampling,
         "seam_cut_visibility_radius": args.seam_cut_visibility_radius,
         "seam_cut_consensus_penalty":args.seam_cut_consensus_penalty,
         "surface_color_field": surface_color_field,
