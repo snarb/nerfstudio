@@ -90,6 +90,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--camera-color-calibration", type=Path, default=None)
     parser.add_argument("--camera-color-model", choices=("ingest", "exposure", "rgb", "spatial"), default="rgb")
     parser.add_argument("--overlap-exposure-grid", type=int, nargs=2, default=None)
+    parser.add_argument("--write-source-warp-audit", action="store_true")
     parser.add_argument(
         "--aggregation-modes",
         nargs="+",
@@ -1400,6 +1401,13 @@ def main() -> int:
                         f"Base prediction shape {tuple(base.shape)} does not match target {tuple(warped[0].shape)}"
                     )
         args.output_dir.mkdir(parents=True)
+        if args.write_source_warp_audit:
+            audit_directory=args.output_dir/"source_warps"
+            audit_directory.mkdir()
+            for rank,(rgb,valid) in enumerate(zip(warped,valid_masks)):
+                pixels=rgb.detach().permute(1,2,0).clamp(0,1).mul(255).round().byte().cpu().numpy()
+                Image.fromarray(pixels).save(audit_directory/f"source_{rank:02d}.png")
+                Image.fromarray(valid.byte().mul(255).cpu().numpy()).save(audit_directory/f"valid_{rank:02d}.png")
         if args.score_metrics and args.metric_regions is not None and any(
             region.startswith("surface") for region in args.metric_regions
         ):

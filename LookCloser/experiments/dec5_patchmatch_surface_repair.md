@@ -279,6 +279,39 @@ re-hashed six train-only fits, 12 three-anchor renders, four failed-candidate
 verdicts, fixed-atlas outputs and face-only metric inputs. The artifact audit
 passes; the repair gate explicitly does not. [Audit receipt](/mnt/data/lookcloser_dec5_5a3_surface_repair/color_canary_audit.json).
 
+### Trace of the remaining lipstick-adjacent seam
+
+The source-warp audit reproduces the downloaded spatial16 image byte-for-byte:
+SHA-256 `3dafc697f09b0e3639230a5d5ef6dc7163c6e6a5f98c4b9d10e5e6b4199de69d`.
+The jagged patch boundaries coincide with hard source labels: E004_C005_1210YM
+is the main source, E004_B005_1210I7 supplies the left neck disocclusion strip,
+and G004_B005_1210FG supplies the right strip. Native source patches show neck
+skin in the sampled strip, not synthesized room/background RGB. Individual
+unmasked source-warp previews deliberately include invalid projections; their
+duplicate hands/tubes must not be mistaken for the final hard-selected output.
+
+At output pixel (700,550), the primary source projects depth .782475, but its
+mesh first hit is .754037 (foreground hand), a log mismatch .03702. Its rejection
+is correct. The selected alternative E004_B005_1210I7 projects .670608 versus
+raycast .674093, log mismatch .005183; it passes the current .01 tolerance.
+Thus remaining boundary appearance involves source switching and geometric
+uncertainty as well as radiometry. Sharpness/blur differences versus geometric
+misregistration still require separation; the audit does not prove that sensor
+defocus alone causes the perceived soft patch. Raw-stereo bilinear samples in
+`trace.json` can mix invalid zero or discontinuous depths and are not independent
+visibility evidence at a contour.
+
+[Prediction/source labels](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/seam_source_audit/review_labels/hand.png),
+[three train-source warps](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/seam_source_audit/review_sources/hand.png),
+[native train patches at the neck point](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/seam_source_audit/trace/point_02_train_patches.png),
+[pixel trace](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/seam_source_audit/trace/trace.json).
+
+The earlier `per-image` exposure setting was already part of JPEG ingest, not
+new manual camera color profiles: one scalar RGB multiplier is derived from each
+image's 70th-percentile luminance before the shared Reinhard/sRGB curve. Different
+framing and moving contents can therefore change gain with a physically fixed
+camera. The newly authorized train-overlap calibration is a separate correction.
+
 ## Insights
 
 The published render correction can use the primary train camera despite its failed
