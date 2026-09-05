@@ -117,7 +117,9 @@ The frozen recipe was therefore retained for every frame and all recurrences wer
 failures instead of receiving per-frame exceptions.
 
 The final audit independently revalidates the 50-frame ordered inventory, CSV/result equality,
-immutable source-transform and calibration hashes, retained-file hashes, render-revision
+immutable source-transform/calibration hashes, all 3,150 selected source-EXR hashes, the 63-camera
+JPEG gain receipts and exact 62/1 fixed-calibration split, retained-file hashes, render-revision
 provenance, 62-map depth inventory and shape, finite face-only metrics, held-out GT EXR hashes,
-all 20 final contact-sheet hashes, and the absence of full-frame metric keys. The persistent 3D
-artifact is the extracted TSDF mesh plus manifests; it is not a serialized raw TSDF volume.
+absence of eval RGB from the 16 texture sources, all 20 final contact-sheet hashes, and the absence
+of full-frame metric keys. The persistent 3D artifact is the extracted TSDF mesh plus manifests;
+it is not a serialized raw TSDF volume.

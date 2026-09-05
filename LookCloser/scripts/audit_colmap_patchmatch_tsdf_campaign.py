@@ -27,6 +27,24 @@ from colmap_patchmatch_tsdf_campaign_common import (
 )
 
 
+CALIBRATION_FIELDS = (
+    "transform_matrix",
+    "fl_x",
+    "fl_y",
+    "cx",
+    "cy",
+    "w",
+    "h",
+    "k1",
+    "k2",
+    "p1",
+    "p2",
+    "camera_model",
+)
+SELECTED_EVAL_PHYSICAL_CAMERA = "F004_B005_1210O9"
+EXCLUDED_EVAL_PHYSICAL_CAMERAS = {"J004_D005_1210TA", "L004_B005_12106A"}
+
+
 def assert_no_full_frame_metric_keys(payload: object, location: str = "root") -> None:
     if isinstance(payload, dict):
         for key, value in payload.items():
@@ -62,6 +80,77 @@ def verify_final_campaign_manifest(campaign_manifest: dict, ordered: list[str], 
         ):
             if state.get(key) != expected:
                 raise ValueError(f"Final campaign manifest/result mismatch {frame_id}:{key}")
+
+
+def verify_staging_provenance(root: Path, result: dict, calibration_template: dict) -> None:
+    frame_id = result["frame_id"]
+    frame = root / "frames" / frame_id
+    source_dataset = Path(result["source_dataset"])
+    staging = load_json(frame / "staging_manifest.json")
+    transforms = load_json(frame / "staged_transforms.json")
+    template_by_camera = {row["physical_camera"]: row for row in calibration_template["frames"]}
+    if len(template_by_camera) != len(calibration_template["frames"]):
+        raise ValueError("Calibration template has duplicate physical_camera values")
+    expected_cameras = set(template_by_camera) - EXCLUDED_EVAL_PHYSICAL_CAMERAS
+    conversion_rows = staging.get("conversion_rows", [])
+    conversion_cameras = {row.get("physical_camera") for row in conversion_rows}
+    if len(conversion_rows) != 63 or conversion_cameras != expected_cameras:
+        raise ValueError(f"JPEG conversion camera inventory mismatch for {frame_id}")
+    for row in conversion_rows:
+        source = Path(row["input"])
+        expected_source = source_dataset / row["frame_file_path"]
+        if source != expected_source or not source.is_file() or sha256(source) != row.get("source_sha256"):
+            raise ValueError(f"Source EXR/hash mismatch for {frame_id}:{source.name}")
+        gain = float(row["exposure_gain"])
+        if not math.isfinite(gain) or gain <= 0:
+            raise ValueError(f"Invalid JPEG exposure gain for {frame_id}:{source.name}")
+    tone_map = transforms.get("jpeg_tone_map", {})
+    expected_tone_map = {
+        "curve": "global_exposure_then_reinhard_then_srgb",
+        "exposure_mode": "per-image",
+        "jpeg_quality": 98,
+        "jpeg_subsampling": "4:4:4",
+        "middle_gray": 0.18,
+    }
+    if any(tone_map.get(key) != value for key, value in expected_tone_map.items()):
+        raise ValueError(f"JPEG tone-map recipe mismatch for {frame_id}")
+    staged_frames = transforms.get("frames", [])
+    staged_by_path = {row["file_path"]: row for row in staged_frames}
+    staged_cameras = {row.get("physical_camera") for row in staged_frames}
+    train = transforms.get("train_filenames", [])
+    val = transforms.get("val_filenames", [])
+    test = transforms.get("test_filenames", [])
+    if len(staged_frames) != 63 or len(staged_by_path) != 63 or staged_cameras != expected_cameras:
+        raise ValueError(f"Staged camera inventory mismatch for {frame_id}")
+    if len(train) != 62 or len(set(train)) != 62 or len(val) != 1 or val != test or set(train) & set(val):
+        raise ValueError(f"Explicit 62/1 filename split mismatch for {frame_id}")
+    eval_frame = staged_by_path.get(val[0])
+    if eval_frame is None or eval_frame.get("physical_camera") != SELECTED_EVAL_PHYSICAL_CAMERA:
+        raise ValueError(f"Held-out eval identity mismatch for {frame_id}")
+    if set(train) != set(staged_by_path) - set(val):
+        raise ValueError(f"Train filenames do not cover exactly the non-eval frames for {frame_id}")
+    for row in staged_frames:
+        reference = template_by_camera[row["physical_camera"]]
+        if any(row.get(key) != reference.get(key) for key in CALIBRATION_FIELDS):
+            raise ValueError(f"Fixed calibration mismatch for {frame_id}:{row['physical_camera']}")
+        if any("mask" in key.lower() for key in row):
+            raise ValueError(f"Mask field detected in staged camera for {frame_id}")
+    subset = load_json(frame / "texture" / "angular_subset_manifest.json")
+    selected_sources = subset.get("selected_train_frames", [])
+    if (
+        subset.get("selection_uses_image_pixels") is not False
+        or len(selected_sources) != 16
+        or any(row.get("file_path") not in train for row in selected_sources)
+    ):
+        raise ValueError(f"Texture-camera selection policy mismatch for {frame_id}")
+    reprojection = load_json(frame / "render" / "reprojection_audit.json")
+    source_images = [Path(row["source_image"]).name for row in reprojection.get("sources", [])]
+    if (
+        reprojection.get("eval_rgb_use") != "metrics_only"
+        or len(source_images) != 16
+        or any(name == "frame_eval_00001.jpg" or not name.startswith("frame_train_") for name in source_images)
+    ):
+        raise ValueError(f"Eval leakage or texture source inventory mismatch for {frame_id}")
 
 
 def verify_render_revision(root: Path, result: dict) -> None:
@@ -216,6 +305,7 @@ def audit(root: Path, *, allow_incomplete: bool) -> dict:
         if sha256(configured) != script["sha256"]:
             raise ValueError(f"Configured campaign code hash mismatch: {configured}")
     campaign_manifest = load_json(root / "campaign_manifest.json")
+    calibration_template = load_json(root / "config" / "calibration" / "transforms.json")
     for row in campaign_manifest.get("render_corrections", []):
         path = Path(row["manifest"])
         if not path.is_file() or sha256(path) != row["manifest_sha256"]:
@@ -236,6 +326,8 @@ def audit(root: Path, *, allow_incomplete: bool) -> dict:
         raise ValueError(f"Final audit requires {FRAME_COUNT} rows, got {len(results)}")
     if not allow_incomplete:
         verify_final_campaign_manifest(campaign_manifest, ordered, results)
+        for result in results:
+            verify_staging_provenance(root, result, calibration_template)
         contacts = load_json(root / "contact_sheets" / "manifest.json")
         if len(contacts.get("sheets", [])) != 20:
             raise ValueError("Final campaign requires four contact sheets for each of five ten-frame batches")

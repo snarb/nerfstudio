@@ -136,6 +136,101 @@ def test_final_audit_requires_synchronized_campaign_manifest() -> None:
         raise AssertionError("stale top-level campaign status must fail the final audit")
 
 
+def test_final_audit_validates_staging_calibration_and_rejects_eval_texture_source(tmp_path: Path) -> None:
+    frame_id = "000899"
+    source_dataset = tmp_path / "source" / frame_id
+    frame = tmp_path / "frames" / frame_id
+    (source_dataset / "images").mkdir(parents=True)
+    (frame / "texture").mkdir(parents=True)
+    (frame / "render").mkdir()
+    calibration_values = {
+        "transform_matrix": np.eye(4).tolist(),
+        "fl_x": 1000.0,
+        "fl_y": 1001.0,
+        "cx": 960.0,
+        "cy": 540.0,
+        "w": 1920,
+        "h": 1080,
+        "k1": 0.0,
+        "k2": 0.0,
+        "p1": 0.0,
+        "p2": 0.0,
+        "camera_model": "OPENCV",
+    }
+    train = [(f"TRAIN_{index:02d}", f"images/frame_train_{index:05d}") for index in range(1, 63)]
+    eval_camera = AUDIT.SELECTED_EVAL_PHYSICAL_CAMERA
+    selected = train + [(eval_camera, "images/frame_eval_00001")]
+    template = {
+        "frames": [
+            {"physical_camera": camera, **calibration_values}
+            for camera, _ in selected
+        ]
+        + [
+            {"physical_camera": camera, **calibration_values}
+            for camera in sorted(AUDIT.EXCLUDED_EVAL_PHYSICAL_CAMERAS)
+        ]
+    }
+    staged_frames = []
+    conversion_rows = []
+    for camera, stem in selected:
+        source = source_dataset / f"{stem}.exr"
+        source.write_bytes(camera.encode())
+        staged_frames.append({"physical_camera": camera, "file_path": f"{stem}.jpg", **calibration_values})
+        conversion_rows.append(
+            {
+                "physical_camera": camera,
+                "frame_file_path": f"{stem}.exr",
+                "input": str(source),
+                "source_sha256": COMMON.sha256(source),
+                "exposure_gain": 1.0,
+            }
+        )
+    train_filenames = [f"{stem}.jpg" for _, stem in train]
+    eval_filenames = ["images/frame_eval_00001.jpg"]
+    COMMON.atomic_json(frame / "staging_manifest.json", {"conversion_rows": conversion_rows})
+    COMMON.atomic_json(
+        frame / "staged_transforms.json",
+        {
+            "frames": staged_frames,
+            "train_filenames": train_filenames,
+            "val_filenames": eval_filenames,
+            "test_filenames": eval_filenames,
+            "jpeg_tone_map": {
+                "curve": "global_exposure_then_reinhard_then_srgb",
+                "exposure_mode": "per-image",
+                "jpeg_quality": 98,
+                "jpeg_subsampling": "4:4:4",
+                "middle_gray": 0.18,
+            },
+        },
+    )
+    COMMON.atomic_json(
+        frame / "texture" / "angular_subset_manifest.json",
+        {
+            "selection_uses_image_pixels": False,
+            "selected_train_frames": [
+                {"physical_camera": camera, "file_path": f"{stem}.jpg"} for camera, stem in train[:16]
+            ],
+        },
+    )
+    reprojection = {
+        "eval_rgb_use": "metrics_only",
+        "sources": [{"source_image": f"/scratch/{stem}.jpg"} for _, stem in train[:16]],
+    }
+    COMMON.atomic_json(frame / "render" / "reprojection_audit.json", reprojection)
+    result = {"frame_id": frame_id, "source_dataset": str(source_dataset)}
+
+    AUDIT.verify_staging_provenance(tmp_path, result, template)
+    reprojection["sources"][0]["source_image"] = "/scratch/frame_eval_00001.jpg"
+    COMMON.atomic_json(frame / "render" / "reprojection_audit.json", reprojection)
+    try:
+        AUDIT.verify_staging_provenance(tmp_path, result, template)
+    except ValueError as error:
+        assert "Eval leakage" in str(error)
+    else:
+        raise AssertionError("held-out eval RGB must not be accepted as a texture source")
+
+
 def test_audit_validates_base_render_revision_provenance(tmp_path: Path) -> None:
     frame_id = "000899"
     correction_id = "hard_source_continuity_v1"
