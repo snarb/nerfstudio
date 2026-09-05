@@ -2,9 +2,10 @@ from pathlib import Path
 import sys
 import numpy as np
 import torch
+import pytest
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
-from angular_surface_color import fit_angular_coefficients,angular_log_gain
+from angular_surface_color import fit_angular_coefficients,angular_log_gain,calibrated_camera_rgb,validate_camera_response
 
 
 def test_mesh_field_recovers_known_direction_gain_and_ignores_held_rgb():
@@ -30,3 +31,23 @@ def test_angular_gain_is_identity_for_same_camera_and_clamped():
     center=torch.tensor([0.,0.,1.])
     assert (angular_log_gain(field,world,center,center)==0).all()
     assert angular_log_gain(field,world,center,-center).max()<=np.log(2)+1e-7
+
+
+def test_spatial_camera_response_matches_renderer_and_is_opt_in():
+    from patchmatch_color_calibration import apply_camera_gain
+    rgb=torch.full((3,12,18),.4)
+    row={'rgb_gain':[1.,1.,1.],'exposure_gain':[1.1,1.1,1.1],
+         'spatial_log_gain_grid':[[0.,.2],[-.1,.3]]}
+    torch.testing.assert_close(calibrated_camera_rgb(rgb,row),rgb)
+    expected=apply_camera_gain(rgb,row['exposure_gain'],row['spatial_log_gain_grid'])
+    actual=calibrated_camera_rgb(rgb,row,'spatial')
+    torch.testing.assert_close(actual,expected)
+    assert (actual-rgb).abs().max()>.01
+    with pytest.raises(ValueError):calibrated_camera_rgb(rgb,row,'unknown')
+
+
+def test_angular_fit_response_must_match_renderer_mode():
+    validate_camera_response({},'rgb')
+    validate_camera_response({'camera_color_model':'spatial'},'spatial')
+    with pytest.raises(ValueError):validate_camera_response({'camera_color_model':'rgb'},'spatial')
+    with pytest.raises(ValueError):validate_camera_response({'camera_color_model':'spatial'},'rgb')

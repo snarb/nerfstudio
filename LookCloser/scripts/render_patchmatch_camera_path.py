@@ -80,6 +80,7 @@ def main() -> None:
     parser.add_argument("--seam-cut-rank-penalty",type=float,default=.0001)
     parser.add_argument("--seam-cut-bandwidth-penalty",type=float,default=0.)
     parser.add_argument("--seam-cut-bandwidth-allow-primary",action='store_true')
+    parser.add_argument("--seam-cut-local-bandwidth-penalty",type=float,default=0.)
     parser.add_argument("--primary-angular-camera-count",type=int,default=0)
     parser.add_argument("--camera-color-calibration",type=Path,default=None)
     parser.add_argument("--angular-surface-color",type=Path,default=None)
@@ -103,6 +104,10 @@ def main() -> None:
     args = parser.parse_args()
     if args.seam_cut_bandwidth_allow_primary and not args.seam_cut_bandwidth_penalty:
         parser.error('Primary bandwidth penalty requires a positive bandwidth prior')
+    if not np.isfinite(args.seam_cut_local_bandwidth_penalty) or args.seam_cut_local_bandwidth_penalty<0:
+        parser.error('Local bandwidth penalty must be finite and nonnegative')
+    if args.seam_cut_local_bandwidth_penalty and (args.aggregation_mode!='seam-cut' or args.seam_cut_bandwidth_penalty):
+        parser.error('Local bandwidth is a separate hard seam-cut prior')
     if args.source_observed_free_space_veto and (args.source_observed_depth_data is None or args.source_observed_mesh_metadata is None):
         parser.error('Free-space veto requires raw depth data and matching mesh metadata')
     if len(args.anchors)<2 or args.samples_per_segment<1:
@@ -133,7 +138,9 @@ def main() -> None:
                "seam_cut_rank_penalty":args.seam_cut_rank_penalty,
                "seam_cut_bandwidth_penalty":args.seam_cut_bandwidth_penalty,
                "seam_cut_bandwidth_allow_primary":args.seam_cut_bandwidth_allow_primary,
-               "bandwidth_helper_sha256":sha256(SCRIPTS/'source_bandwidth_prior.py') if args.seam_cut_bandwidth_penalty else None,
+               "seam_cut_local_bandwidth_penalty":args.seam_cut_local_bandwidth_penalty,
+               "local_bandwidth_helper_sha256":sha256(SCRIPTS/'source_bandwidth_field.py') if args.seam_cut_local_bandwidth_penalty else None,
+               "bandwidth_helper_sha256":sha256(SCRIPTS/'source_bandwidth_prior.py') if args.seam_cut_bandwidth_penalty or args.seam_cut_local_bandwidth_penalty else None,
                "primary_angular_camera_count":args.primary_angular_camera_count,
                "camera_color_calibration_sha256":None if args.camera_color_calibration is None else sha256(args.camera_color_calibration),
                "angular_surface_color_sha256":None if args.angular_surface_color is None else sha256(args.angular_surface_color),
@@ -156,7 +163,7 @@ def main() -> None:
                "disocclusion_color_match":args.disocclusion_color_match,
                "seam_cut_visibility_radius":args.seam_cut_visibility_radius,
                "surface_color_field_smoothness":args.surface_color_field_smoothness,
-               "surface_color_helper_sha256":sha256(SCRIPTS/'surface_color_field.py') if args.surface_color_field_smoothness else None,
+               "surface_color_helper_sha256":sha256(SCRIPTS/'surface_color_field.py') if args.surface_color_field_smoothness or args.seam_cut_local_bandwidth_penalty else None,
                "mesh_visibility_helper_sha256":sha256(SCRIPTS/"mesh_texture_visibility.py") if args.exact_mesh_visibility else None,
                "color_helper_sha256":sha256(SCRIPTS/"patchmatch_color_calibration.py"),
                "depth_hole_fill_max_area":args.depth_hole_fill_max_area,"eval_rgb_read":False,
@@ -214,6 +221,7 @@ def main() -> None:
                  "--primary-angular-camera-count",args.primary_angular_camera_count,
                  "--pixel-center-offset",args.pixel_center_offset,
                  "--seam-cut-bandwidth-penalty",args.seam_cut_bandwidth_penalty,
+                 "--seam-cut-local-bandwidth-penalty",args.seam_cut_local_bandwidth_penalty,
                  *(['--seam-cut-bandwidth-allow-primary'] if args.seam_cut_bandwidth_allow_primary else []),
                  *(["--exact-mesh-visibility"] if args.exact_mesh_visibility else []),
                  *(["--source-rgb-footprint-visibility"] if args.source_rgb_footprint_visibility else []),

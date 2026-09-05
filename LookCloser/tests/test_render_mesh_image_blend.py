@@ -25,6 +25,7 @@ def test_rgb_footprint_controls_are_opt_in(tmp_path,monkeypatch):
     assert not args.source_rgb_footprint_visibility and not args.source_rgb_depth_aware_sampling
     assert not args.source_observed_free_space_veto and args.seam_cut_bandwidth_penalty==0
     assert not args.seam_cut_bandwidth_allow_primary
+    assert args.seam_cut_local_bandwidth_penalty==0
     assert not args.surface_texture_registration and args.pixel_center_offset==0
     monkeypatch.setattr(sys,'argv',common+['--source-rgb-depth-aware-sampling'])
     with pytest.raises(SystemExit):MODULE.parse_args()
@@ -54,6 +55,31 @@ def test_primary_bandwidth_penalty_requires_positive_hard_source_prior(tmp_path,
     with pytest.raises(SystemExit):MODULE.parse_args()
     monkeypatch.setattr(sys,'argv',common+['--aggregation-modes','seam-cut','--seam-cut-bandwidth-penalty','.003'])
     assert MODULE.parse_args().seam_cut_bandwidth_allow_primary
+
+
+@pytest.mark.parametrize('extra',[
+    ['--seam-cut-local-bandwidth-penalty','-.1'],
+    ['--seam-cut-local-bandwidth-penalty','nan'],
+    ['--seam-cut-local-bandwidth-penalty','.01','--aggregation-modes','nearest-fill'],
+    ['--seam-cut-local-bandwidth-penalty','.01','--aggregation-modes','seam-cut','--seam-cut-bandwidth-penalty','.01'],
+])
+def test_invalid_local_bandwidth_configuration_fails(tmp_path,monkeypatch,extra):
+    (tmp_path/'data').mkdir()
+    (tmp_path/'depth.json').write_text('{}')
+    common=['render','--data',str(tmp_path/'data'),'--mesh-depth-manifest',str(tmp_path/'depth.json'),
+            '--output-dir',str(tmp_path/'out')]
+    monkeypatch.setattr(sys,'argv',common+extra)
+    with pytest.raises(SystemExit):MODULE.parse_args()
+
+
+def test_local_bandwidth_is_explicit_and_does_not_enable_rgb_blending(tmp_path,monkeypatch):
+    (tmp_path/'data').mkdir()
+    (tmp_path/'depth.json').write_text('{}')
+    monkeypatch.setattr(sys,'argv',['render','--data',str(tmp_path/'data'),
+        '--mesh-depth-manifest',str(tmp_path/'depth.json'),'--output-dir',str(tmp_path/'out'),
+        '--aggregation-modes','seam-cut','--seam-cut-local-bandwidth-penalty','.01'])
+    args=MODULE.parse_args()
+    assert args.seam_cut_local_bandwidth_penalty==.01 and args.seam_cut_bandwidth_penalty==0
 
 
 def test_identity_camera_projection_preserves_pixels_and_depth() -> None:

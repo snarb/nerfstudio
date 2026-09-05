@@ -15,6 +15,19 @@ import torch
 from colmap_patchmatch_tsdf_campaign_common import atomic_json,sha256
 
 
+def calibrated_camera_rgb(rgb, row, model='rgb'):
+    """Use the same camera response convention during fitting and rendering."""
+    from patchmatch_color_calibration import apply_camera_gain
+    if model=='rgb':return apply_camera_gain(rgb,row['rgb_gain'])
+    if model=='spatial':return apply_camera_gain(rgb,row['exposure_gain'],row['spatial_log_gain_grid'])
+    raise ValueError('Angular calibration supports rgb or spatial camera response')
+
+
+def validate_camera_response(manifest, model):
+    if model not in ('rgb','spatial') or manifest.get('camera_color_model','rgb')!=model:
+        raise ValueError('Angular field camera response differs from renderer calibration mode')
+
+
 def fit_angular_coefficients(log_rgb,directions,valid,vertices,triangles,held,*,smoothness=20.,ridge=.01,iterations=512):
     """Eliminate per-vertex albedo intercepts; solve a mesh-coupled linear system."""
     if log_rgb.shape!=directions.shape or valid.shape!=log_rgb.shape[:2] or log_rgb.shape[-1]!=3:
@@ -94,12 +107,13 @@ def main():
     import open3d as o3d
     from render_patchmatch_camera_path import normalize_frame
     from render_mesh_image_blend import load_rgb,grid_sample
-    from patchmatch_color_calibration import apply_camera_gain,decode_exposed_linear,encode_exposed_linear
+    from patchmatch_color_calibration import decode_exposed_linear,encode_exposed_linear
     from mesh_texture_visibility import MeshVisibility
     p=argparse.ArgumentParser(description=__doc__)
     for name in ('data','mesh','mesh-metadata','camera-color-calibration','output'):
         p.add_argument('--'+name,type=Path,required=True)
     p.add_argument('--smoothness',type=float,default=20.);p.add_argument('--ridge',type=float,default=.01)
+    p.add_argument('--camera-color-model',choices=('rgb','spatial'),default='rgb')
     args=p.parse_args();args.output.mkdir(parents=True,exist_ok=False)
     payload=json.loads((args.data/'transforms.json').read_text());meta=json.loads(args.mesh_metadata.read_text())
     calibration=json.loads(args.camera_color_calibration.read_text());train=set(payload['train_filenames'])
@@ -123,7 +137,7 @@ def main():
             pose=torch.tensor(f['transform_matrix'],device='cuda',dtype=torch.float32)
             q=(points-pose[:3,3])@pose[:3,:3];z=-q[:,2]
             u=f['fl_x']*q[:,0]/z+f['cx']-.5;v=-f['fl_y']*q[:,1]/z+f['cy']-.5
-            rgb=apply_camera_gain(load_rgb(path,torch.device('cuda')),row['rgb_gain'])
+            rgb=calibrated_camera_rgb(load_rgb(path,torch.device('cuda')),row,args.camera_color_model)
             sampled=grid_sample(rgb,u[None],v[None])[:,0].T
             projectable=(z>0)&(u>=3)&(u<f['w']-4)&(v>=3)&(v<f['h']-4)
             seen,_=visibility.visible(vertices,pose[:3,3].cpu().numpy(),projectable.cpu().numpy())
@@ -151,7 +165,7 @@ def main():
                          'l1_before':float(np.median(before)),'l1_after':float(np.median(after))})
         file=args.output/'coefficients.npz';np.savez_compressed(file,coefficients=coefficients.cpu().numpy())
         result={'schema_version':1,'method':'mesh_attached_first_order_angular_log_gain','uses_eval_rgb':False,
-                'uses_semantic_masks':False,'source_averaging':False,'camera_color_model':'rgb','vertices':len(vertices),
+                'uses_semantic_masks':False,'source_averaging':False,'camera_color_model':args.camera_color_model,'vertices':len(vertices),
                 'mesh_sha256':sha256(args.mesh),'mesh_metadata_sha256':sha256(args.mesh_metadata),
                 'camera_color_calibration_sha256':sha256(args.camera_color_calibration),'data_sha256':sha256(args.data/'transforms.json'),
                 'source_hashes':source_hashes,'coefficients':file.name,'coefficients_sha256':sha256(file),

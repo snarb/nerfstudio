@@ -1105,3 +1105,10 @@ using signed relative blur estimates qualified on held spatial blocks. Unknown
 sources retain primary-equivalent cost. This changes hard source labels only,
 not RGB filtering or averaging, and has not passed the complete surface-repair
 gate. Existing defaults and the published campaign remain unchanged.
+
+`source_bandwidth_field.py` is a disabled-by-default local source-cost diagnostic:
+camera-pair cycle checks qualify relative quality estimates, and depth-separated
+float64 smoothing affects costs, never RGB or visibility. Cycle checks are not
+independent scene validation. The angular color fitter also supports the existing
+spatial camera response with an explicit matching-mode/hash guard at render time.
+Both controls remain rejected by the three-anchor surface-repair visual gate.

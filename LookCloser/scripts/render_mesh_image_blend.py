@@ -90,6 +90,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--seam-cut-consensus-penalty", type=float, default=0.)
     parser.add_argument("--seam-cut-bandwidth-penalty",type=float,default=0.)
     parser.add_argument("--seam-cut-bandwidth-allow-primary",action='store_true')
+    parser.add_argument("--seam-cut-local-bandwidth-penalty",type=float,default=0.)
     parser.add_argument("--camera-color-calibration", type=Path, default=None)
     parser.add_argument("--angular-surface-color",type=Path,default=None)
     parser.add_argument("--hard-source-seam-leveling",action="store_true")
@@ -312,8 +313,8 @@ def parse_args() -> argparse.Namespace:
         parser.error('Stereo fallback support requires raw depth data and its mesh normalization receipt')
     if args.source_observed_free_space_veto and (args.source_observed_depth_data is None or args.source_observed_mesh_metadata is None):
         parser.error('Raw free-space veto requires depth data and its matching mesh normalization receipt')
-    if args.angular_surface_color and (args.camera_color_calibration is None or args.camera_color_model!='rgb' or not args.exact_mesh_visibility):
-        parser.error('Angular color correction requires matching RGB calibration and exact mesh visibility')
+    if args.angular_surface_color and (args.camera_color_calibration is None or args.camera_color_model not in ('rgb','spatial') or not args.exact_mesh_visibility):
+        parser.error('Angular color correction requires matching RGB/spatial calibration and exact mesh visibility')
     if args.hard_source_seam_leveling and (args.camera_color_calibration is None or any(m not in ('nearest-fill','seam-cut') for m in args.aggregation_modes)):
         parser.error('Seam gain leveling requires calibrated ingest and hard source selection')
     if args.hard_source_seam_leveling and (args.nearest_fill_primary_color_continuation or any(a!=1 for a in args.blend_alphas) or args.detail_transfer_sigmas):
@@ -332,6 +333,10 @@ def parse_args() -> argparse.Namespace:
         parser.error('Bandwidth prior is an opt-in hard seam-cut source selection control')
     if args.seam_cut_bandwidth_allow_primary and not args.seam_cut_bandwidth_penalty:
         parser.error('Primary bandwidth penalty requires a positive bandwidth prior')
+    if not math.isfinite(args.seam_cut_local_bandwidth_penalty) or args.seam_cut_local_bandwidth_penalty<0:
+        parser.error('Local bandwidth penalty must be finite and nonnegative')
+    if args.seam_cut_local_bandwidth_penalty and (args.aggregation_modes!=['seam-cut'] or args.seam_cut_bandwidth_penalty):
+        parser.error('Local bandwidth is a separate hard seam-cut prior; do not combine global/local priors')
     if args.skip_ground_truth_copy and (args.score_metrics or args.ground_truth_exr is not None):
         parser.error("--skip-ground-truth-copy forbids ground truth and metric scoring")
     if args.depth_hole_fill_max_area < 0:
@@ -1372,9 +1377,10 @@ def main() -> int:
     angular_field = None
     angular_model = None
     if args.angular_surface_color:
-        from angular_surface_color import AngularSurfaceColor
+        from angular_surface_color import AngularSurfaceColor,validate_camera_response
 
         angular_model=AngularSurfaceColor(args.angular_surface_color,mesh_path)
+        validate_camera_response(angular_model.manifest,args.camera_color_model)
         if angular_model.manifest['camera_color_calibration_sha256']!=sha256(args.camera_color_calibration):
             raise ValueError('Angular field uses a different camera RGB calibration')
         angular_field=torch.as_tensor(angular_model.sample(visibility_world,(target_depth>0).cpu().numpy()),device=device)
@@ -1609,6 +1615,16 @@ def main() -> int:
                 args.seam_cut_bandwidth_penalty,allow_primary_penalty=args.seam_cut_bandwidth_allow_primary)
             bandwidth_prior['helper_sha256']=sha256(Path(__file__).with_name('source_bandwidth_prior.py'))
             print('source_bandwidth_prior='+json.dumps([{k:v for k,v in r.items() if k!='observations'} for r in bandwidth_prior['sources']]),flush=True)
+        if args.seam_cut_local_bandwidth_penalty:
+            from source_bandwidth_field import local_bandwidth_source_costs
+
+            bandwidth_costs,bandwidth_prior=local_bandwidth_source_costs(
+                torch.stack(warped).permute(0,2,3,1).cpu().numpy(),torch.stack(valid_masks).cpu().numpy(),
+                target_depth.cpu().numpy(),args.seam_cut_local_bandwidth_penalty,device=device)
+            bandwidth_prior['helper_sha256']=sha256(Path(__file__).with_name('source_bandwidth_field.py'))
+            bandwidth_prior['global_helper_sha256']=sha256(Path(__file__).with_name('source_bandwidth_prior.py'))
+            bandwidth_prior['smoothing_helper_sha256']=sha256(Path(__file__).with_name('surface_color_field.py'))
+            print('local_source_bandwidth='+json.dumps({k:bandwidth_prior[k] for k in ['qualified_cells','solver']}),flush=True)
         if args.base_prediction_exr is None:
             base = torch.zeros_like(warped[0])
         else:

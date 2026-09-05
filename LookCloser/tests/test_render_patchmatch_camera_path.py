@@ -51,3 +51,17 @@ def test_primary_bandwidth_flag_is_rejected_before_reading_data_without_prior(tm
     for option in ['data','mesh','mesh-metadata','calibration','output']:args+=['--'+option,str(tmp_path/option)]
     monkeypatch.setattr(sys,'argv',args)
     with pytest.raises(SystemExit):main()
+
+
+@pytest.mark.parametrize('extra',[
+    ['--seam-cut-local-bandwidth-penalty','nan'],
+    ['--seam-cut-local-bandwidth-penalty','-.1'],
+    ['--seam-cut-local-bandwidth-penalty','.01'],
+    ['--seam-cut-local-bandwidth-penalty','.01','--aggregation-mode','seam-cut','--seam-cut-bandwidth-penalty','.01'],
+])
+def test_local_bandwidth_path_invalid_configuration_fails_early(tmp_path,monkeypatch,extra):
+    from render_patchmatch_camera_path import main
+    args=['path',*extra]
+    for option in ['data','mesh','mesh-metadata','calibration','output']:args+=['--'+option,str(tmp_path/option)]
+    monkeypatch.setattr(sys,'argv',args)
+    with pytest.raises(SystemExit):main()

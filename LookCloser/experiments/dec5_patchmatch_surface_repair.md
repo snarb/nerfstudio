@@ -946,6 +946,64 @@ The [final audit](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/00097
 verifies 241 retained hashes, nine new renders, face metric inputs, audit runtime
 snapshots and all 62 raw depth hashes. Audit pass is not a visual pass.
 
+### Local camera-pair graphs and spatial-plus-angular color controls
+
+Two opt-in controls test the remaining source-appearance discontinuity without
+changing mesh, camera poses, visibility or RGB source averaging. The local bandwidth
+control fits relative camera quality in depth-separated 128-pixel cells, using
+24-pixel train patches. Each camera-pair edge is predicted while withholding that
+whole edge. This is **internal cycle consistency, not independent spatial/scene
+validation**. Reliable cells contribute scalar source costs; only those costs are
+smoothed, in float64 with a true-residual gate. Unknown cameras keep the global
+prior. F qualifies 50 of 85 cells, assigning 438,456 pixels; the solve takes 576
+iterations with relative residual 8.90e-8.
+
+The matched rank .001 versus .0001 requests differ only in rank penalty and
+request hash. Neither removes the neck seam. Weaker rank softens F facial detail
+and introduces a J chest/clothing texture boundary. Native J tube contours remain
+inaccurate. The new helper is an explicitly rejected diagnostic, not a default.
+
+The second control composes the existing mesh-attached angular gain with the
+spatial camera calibration. Fitting and rendering now explicitly agree on the
+camera-response mode; old RGB-mode manifests remain compatible. The calibration
+is the train-only full-block-mesh refit. With smoothness 20, held train-pair median
+display L1 changes .0171341 -> .0169209. Reducing only smoothness to .2 improves
+that diagnostic to .0164175 (4.18% below no angular correction), with converged
+true residual 6.96e-5. Held-out F/J/L RGB is never used for fitting or rendering.
+
+| 000973, unchanged study face polygon | PSNR | SSIM | LPIPS | Visual gate |
+|---|---:|---:|---:|---|
+| Spatial refit, no angular field (matched control) | 28.965292 | .889463 | .047677 | Fail |
+| Local bandwidth .01, rank .001 | 29.036213 | .889520 | .047626 | Fail |
+| Local bandwidth .01, rank .0001 | 28.851383 | .886384 | .050197 | Fail |
+| Spatial + angular field, smoothness 20 | 28.449343 | .888701 | .047824 | Fail |
+| Spatial + angular field, smoothness .2 | 28.675110 | .889403 | .045877 | Fail |
+
+The two angular requests differ only in fitted-field hash and derived request
+hash. The .2 field improves face LPIPS but leaves the F neck discontinuity and
+J soft/incorrect lipstick contour. Native ear, face, hand/neck and lipstick crops
+were reviewed on all three anchors. These are three views of one temporal frame,
+not temporal validation. Neither control is promoted to every-40th-frame runs.
+
+[Local bandwidth F comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/local_bandwidth_graph_three_views/review_F/hand.png),
+[weak-rank J regression](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/local_bandwidth_graph_weak_rank_three_views/review_J/hand_neck.png),
+[spatial/angular F comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/angular_spatial_s02_full_block_three_views/review_F/hand.png),
+[native J lipstick](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/angular_spatial_s02_full_block_three_views/review_J/lipstick.png).
+
+A current-code F rerender with the new options disabled is **byte-identical** to
+the previous spatial-refit control (PNG SHA-256
+`f5e605bfe9153bdfbfb0d2d4a4321c42aa883a94c2dc62257f102bc92582f387`).
+Original campaign metrics and outputs are unchanged. The study ROI protocol is
+not numerically interchangeable with the old campaign's face polygon.
+
+The isolated index snapshot passes **144 distinct tests**. The
+[artifact audit](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/local_field_controls_findings.json)
+checks 12 full-resolution renders, four explicit failed visual verdicts, matching
+GT/ROI hashes, runtime source snapshots, both angular fits and all 62 raw depth
+hashes (309 retained hashes). The audit passing does not make these visual controls
+successful. Further response-model work must separate color mismatch from projected
+texture bandwidth; a lower face LPIPS alone is not a reason to promote a recipe.
+
 ## Insights
 
 The published render correction can use the primary train camera despite its failed
