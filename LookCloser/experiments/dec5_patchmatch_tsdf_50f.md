@@ -36,23 +36,56 @@ not average sources. The frozen PatchMatch/TSDF geometry remains unchanged.
 
 ## Results
 
-Campaign execution is in progress. At the 29-frame checkpoint (`000899..000955`), all 29 native
-ear/lipstick reviews pass and the independent partial audit reports no full-frame metrics. The
-initial three-frame gate passed and fixed regression thresholds at `1 dB` PSNR, `0.03` SSIM, and
-`0.05` LPIPS relative to the median of the last five accepted frames.
+All 50 requested frames (`000899..000997`, numeric order) were reconstructed, scored, reviewed,
+and published. The strict audit reports `complete_with_failures`: 36 visual passes and 14 visual
+fails. There are no pending or uncertain verdicts, duplicated CSV rows, non-finite metrics, or
+full-frame metric fields. Every frame has 62 full-resolution `1080x1920` geometric depth maps, a
+finite eval render, and one connected mesh component after filtering.
 
-| Face-only metric | Minimum | Median | Maximum |
+Lower LPIPS is better. The final face-only distributions are:
+
+| Metric | Minimum | Q1 | Median | Q3 | Maximum |
+|---|---:|---:|---:|---:|---:|
+| PSNR (dB) | 21.3884 | 22.4075 | 26.4721 | 28.7704 | 29.7733 |
+| SSIM | 0.813163 | 0.821997 | 0.844242 | 0.889823 | 0.898313 |
+| Alex-LPIPS | 0.050266 | 0.056852 | 0.072667 | 0.102346 | 0.114956 |
+
+| Structural quantity | Minimum | Median | Maximum |
 |---|---:|---:|---:|
-| PSNR (dB) | 24.6147 | 28.4015 | 29.7733 |
-| SSIM | 0.827472 | 0.888099 | 0.898313 |
-| LPIPS | 0.050266 | 0.057630 | 0.090413 |
+| Mean depth coverage | 0.377931 | 0.384390 | 0.395595 |
+| Minimum per-camera depth coverage | 0.244989 | 0.251372 | 0.272461 |
+| Mesh vertices | 78,785 | 80,537.5 | 83,627 |
+| Mesh triangles | 152,344 | 155,611 | 161,781 |
+| Mesh connected components | 1 | 1 | 1 |
 
-The hard-source correction was first prepared for every published frame before any replacement,
-then reviewed and atomically published. Across those 29 frames, PSNR changed by
-`[-0.0531, +0.0968] dB`, SSIM by `[-0.000142, +0.000488]`, and LPIPS by
-`[-0.000759, +0.000018]`; mesh hashes remained identical. Final distributions, worst frames,
-visual pass/fail counts, and contact-sheet links will replace this checkpoint after the 50-frame
-audit passes.
+The worst metric frames were `000979` for PSNR/SSIM (`21.3884 dB`, `0.813163`) and `000981`
+for LPIPS (`0.114956`). The next-highest LPIPS frames were `000983` (`0.110781`), `000979`
+(`0.108936`), `000985` (`0.108011`), and `000973` (`0.107042`). Metric regression flags begin
+at `000951`; 24 frames are flagged, but a flag is diagnostic and does not replace visual review.
+
+The 14 visual failures are the contiguous range `000971, 000973, 000975, 000977, 000979,
+000981, 000983, 000985, 000987, 000989, 000991, 000993, 000995, 000997`. No frame was marked
+with an ear artifact. All 14 failures were marked with a lipstick/hand artifact: the actual-ear
+crops remain sharp and single-valued, but the moving hand/lipstick-tube region has a polygonal
+hard-source seam and a black cut through the actor/neck silhouette. Background missing outside
+the actor was ignored as specified. Because these are real visual failures, this campaign is not
+fully successful despite the complete inventory.
+
+The final checksum-bound contact sheets are:
+
+| Frames | Face/ear/hair | Ear crop | Lips/hand | Actor overview |
+|---|---|---|---|---|
+| `000899..000917` | [face](/mnt/data/lookcloser_dec5_5a3_patchmatch_tsdf_50/contact_sheets/000899_000917_face_ear_hair_gt_pred.png) | [ear](/mnt/data/lookcloser_dec5_5a3_patchmatch_tsdf_50/contact_sheets/000899_000917_ear_native_gt_pred.png) | [lips](/mnt/data/lookcloser_dec5_5a3_patchmatch_tsdf_50/contact_sheets/000899_000917_lipstick_lips_hand_gt_pred.png) | [overview](/mnt/data/lookcloser_dec5_5a3_patchmatch_tsdf_50/contact_sheets/000899_000917_actor_overview_gt_pred.png) |
+| `000919..000937` | [face](/mnt/data/lookcloser_dec5_5a3_patchmatch_tsdf_50/contact_sheets/000919_000937_face_ear_hair_gt_pred.png) | [ear](/mnt/data/lookcloser_dec5_5a3_patchmatch_tsdf_50/contact_sheets/000919_000937_ear_native_gt_pred.png) | [lips](/mnt/data/lookcloser_dec5_5a3_patchmatch_tsdf_50/contact_sheets/000919_000937_lipstick_lips_hand_gt_pred.png) | [overview](/mnt/data/lookcloser_dec5_5a3_patchmatch_tsdf_50/contact_sheets/000919_000937_actor_overview_gt_pred.png) |
+| `000939..000957` | [face](/mnt/data/lookcloser_dec5_5a3_patchmatch_tsdf_50/contact_sheets/000939_000957_face_ear_hair_gt_pred.png) | [ear](/mnt/data/lookcloser_dec5_5a3_patchmatch_tsdf_50/contact_sheets/000939_000957_ear_native_gt_pred.png) | [lips](/mnt/data/lookcloser_dec5_5a3_patchmatch_tsdf_50/contact_sheets/000939_000957_lipstick_lips_hand_gt_pred.png) | [overview](/mnt/data/lookcloser_dec5_5a3_patchmatch_tsdf_50/contact_sheets/000939_000957_actor_overview_gt_pred.png) |
+| `000959..000977` | [face](/mnt/data/lookcloser_dec5_5a3_patchmatch_tsdf_50/contact_sheets/000959_000977_face_ear_hair_gt_pred.png) | [ear](/mnt/data/lookcloser_dec5_5a3_patchmatch_tsdf_50/contact_sheets/000959_000977_ear_native_gt_pred.png) | [lips](/mnt/data/lookcloser_dec5_5a3_patchmatch_tsdf_50/contact_sheets/000959_000977_lipstick_lips_hand_gt_pred.png) | [overview](/mnt/data/lookcloser_dec5_5a3_patchmatch_tsdf_50/contact_sheets/000959_000977_actor_overview_gt_pred.png) |
+| `000979..000997` | [face](/mnt/data/lookcloser_dec5_5a3_patchmatch_tsdf_50/contact_sheets/000979_000997_face_ear_hair_gt_pred.png) | [ear](/mnt/data/lookcloser_dec5_5a3_patchmatch_tsdf_50/contact_sheets/000979_000997_ear_native_gt_pred.png) | [lips](/mnt/data/lookcloser_dec5_5a3_patchmatch_tsdf_50/contact_sheets/000979_000997_lipstick_lips_hand_gt_pred.png) | [overview](/mnt/data/lookcloser_dec5_5a3_patchmatch_tsdf_50/contact_sheets/000979_000997_actor_overview_gt_pred.png) |
+
+Because the source images are stored rotated relative to the anatomical labels implied by the
+fixed crop coordinates, the late-frame review also used full-resolution actual-ear
+`[760,300,1040,540]` and actual-hand/tube `[400,390,800,780]` GT/prediction crops under
+`.diagnostics/visual_spot_checks`. These supplements did not alter the mandated crops, metrics,
+or verdict rules.
 
 ## Insights
 
@@ -63,10 +96,28 @@ from the historical surface-mask score. They were derived from the three newly s
 visually accepted initial frames using the larger of the requested signal floor and three robust
 MAD scales, then compared with the last five accepted frames.
 
-The apparent early LPIPS rise was not a numerical LPIPS failure or a face-render collapse. A
+The apparent early LPIPS rise in the original ROI-v1 scores was not a numerical LPIPS failure or
+a face-render collapse. A
 same-prediction control on `000941` changed only the ROI and moved PSNR/SSIM/LPIPS from
 `19.8437 / 0.807832 / 0.141004` to `27.4698 / 0.868682 / 0.061396`. The removed wedge accounted
 for 84.56% of the old ROI squared error, whereas the corrected face ROI contained only 0.0154%
-invalid prediction pixels. The real black support gap remains visible in the actor overview and
-is reviewed as an actor/silhouette geometry issue; it is outside the declared face-only metric
-population and must not be relabeled as face degradation.
+invalid prediction pixels. This establishes the ROI-v1 semantic bug, but it does not erase the
+real later ROI-v2 regression: the final series still reaches LPIPS `0.114956`, and those 24
+metric flags remain recorded. The full causal report is [`../lpips_temp.md`](../lpips_temp.md).
+
+The repeated hand/tube failure is a geometry-support problem rather than stale state or a texture
+averaging problem. A clean retry of `000971` was byte-identical. Diagnostic canaries on `000973`
+showed that the thin moving hand/tube surface does not survive the required two-view geometric
+consistency into the TSDF mesh. Global trials with extraction weight 1, disabled component
+filtering, photometric-only depth, one-view consistency, and smaller SDF truncation either failed
+to recover the surface or introduced worse fragments/components; no safe uniform fix was found.
+The evidence is retained under
+`/mnt/data/lookcloser_dec5_5a3_patchmatch_tsdf_50/.diagnostics/lipstick_missing_geometry_systemic_20260904`.
+The frozen recipe was therefore retained for every frame and all recurrences were reported as
+failures instead of receiving per-frame exceptions.
+
+The final audit independently revalidates the 50-frame ordered inventory, CSV/result equality,
+immutable source-transform and calibration hashes, retained-file hashes, render-revision
+provenance, 62-map depth inventory and shape, finite face-only metrics, held-out GT EXR hashes,
+all 20 final contact-sheet hashes, and the absence of full-frame metric keys. The persistent 3D
+artifact is the extracted TSDF mesh plus manifests; it is not a serialized raw TSDF volume.

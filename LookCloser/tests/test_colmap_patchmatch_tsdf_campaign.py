@@ -112,6 +112,30 @@ def test_audit_rejects_non_face_metric_keys() -> None:
         raise AssertionError("full-frame metric key must be rejected")
 
 
+def test_final_audit_requires_synchronized_campaign_manifest() -> None:
+    ordered = ["000899", "000901"]
+    results = [
+        {"frame_id": "000899", "status": "pass", "metric_status": "pass", "visual_status": "pass"},
+        {"frame_id": "000901", "status": "fail", "metric_status": "regression_flag", "visual_status": "fail"},
+    ]
+    manifest = {
+        "status": "complete",
+        "frame_states": {
+            "000899": {"state": "pass", "metric_status": "pass", "visual_status": "pass"},
+            "000901": {"state": "fail", "metric_status": "regression_flag", "visual_status": "fail"},
+        },
+    }
+
+    AUDIT.verify_final_campaign_manifest(manifest, ordered, results)
+    manifest["status"] = "running"
+    try:
+        AUDIT.verify_final_campaign_manifest(manifest, ordered, results)
+    except ValueError as error:
+        assert "status is not complete" in str(error)
+    else:
+        raise AssertionError("stale top-level campaign status must fail the final audit")
+
+
 def test_audit_validates_base_render_revision_provenance(tmp_path: Path) -> None:
     frame_id = "000899"
     correction_id = "hard_source_continuity_v1"
@@ -215,6 +239,20 @@ def test_render_revision_extension_requires_exact_next_frame(tmp_path: Path) -> 
         assert "must target next frame 000901" in str(error)
     else:
         raise AssertionError("render correction extension must not skip an unpublished frame")
+
+
+def test_render_revision_refreshes_top_level_campaign_status() -> None:
+    manifest = {
+        "status": "running",
+        "frame_states": {"000899": {"state": "pass"}, "000901": {"state": "fail"}},
+    }
+
+    RENDER_REVISION.refresh_campaign_status(manifest)
+
+    assert manifest["status"] == "complete"
+    manifest["frame_states"]["000901"]["state"] = "reconstructed"
+    RENDER_REVISION.refresh_campaign_status(manifest)
+    assert manifest["status"] == "running"
 
 
 def test_frozen_finalize_command_pins_immutable_request_values(tmp_path: Path) -> None:

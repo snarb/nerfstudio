@@ -87,6 +87,14 @@ def now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
+def refresh_campaign_status(manifest: dict) -> None:
+    """Keep the top-level status in sync after an extension publication."""
+    states = [row.get("state") for row in manifest.get("frame_states", {}).values()]
+    manifest["status"] = (
+        "complete" if states and all(value in {"pass", "fail"} for value in states) else "running"
+    )
+
+
 def atomic_copy(source: Path, destination: Path) -> None:
     destination.parent.mkdir(parents=True, exist_ok=True)
     temporary = destination.with_name(f".{destination.name}.tmp-{os.getpid()}")
@@ -1096,6 +1104,7 @@ def publish_extension(args: argparse.Namespace) -> None:
         }
     )
     campaign_manifest["frame_states"][args.frame_id] = state
+    refresh_campaign_status(campaign_manifest)
     campaign_manifest["updated_at"] = now()
     atomic_json(manifest_path, campaign_manifest)
     rebuild_campaign_csv(args.output_root, list(request["ordered_frame_ids"]))

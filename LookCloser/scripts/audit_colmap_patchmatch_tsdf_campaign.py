@@ -46,6 +46,24 @@ def read_csv(path: Path) -> list[dict[str, str]]:
         return list(reader)
 
 
+def verify_final_campaign_manifest(campaign_manifest: dict, ordered: list[str], results: list[dict]) -> None:
+    if campaign_manifest.get("status") != "complete":
+        raise ValueError("Final campaign manifest status is not complete")
+    frame_states = campaign_manifest.get("frame_states", {})
+    if list(frame_states) != ordered:
+        raise ValueError("Final campaign manifest frame inventory/order differs from the request")
+    for result in results:
+        frame_id = result["frame_id"]
+        state = frame_states[frame_id]
+        for key, expected in (
+            ("state", result["status"]),
+            ("metric_status", result["metric_status"]),
+            ("visual_status", result["visual_status"]),
+        ):
+            if state.get(key) != expected:
+                raise ValueError(f"Final campaign manifest/result mismatch {frame_id}:{key}")
+
+
 def verify_render_revision(root: Path, result: dict) -> None:
     revision = result.get("render_revision")
     if not isinstance(revision, dict):
@@ -217,6 +235,7 @@ def audit(root: Path, *, allow_incomplete: bool) -> dict:
     if not allow_incomplete and len(results) != FRAME_COUNT:
         raise ValueError(f"Final audit requires {FRAME_COUNT} rows, got {len(results)}")
     if not allow_incomplete:
+        verify_final_campaign_manifest(campaign_manifest, ordered, results)
         contacts = load_json(root / "contact_sheets" / "manifest.json")
         if len(contacts.get("sheets", [])) != 20:
             raise ValueError("Final campaign requires four contact sheets for each of five ten-frame batches")
