@@ -78,6 +78,7 @@ def main() -> None:
     parser.add_argument("--neighbors",type=int,default=16)
     parser.add_argument("--aggregation-mode",choices=("nearest-fill","seam-cut"),default="nearest-fill")
     parser.add_argument("--seam-cut-rank-penalty",type=float,default=.0001)
+    parser.add_argument("--seam-cut-bandwidth-penalty",type=float,default=0.)
     parser.add_argument("--primary-angular-camera-count",type=int,default=0)
     parser.add_argument("--camera-color-calibration",type=Path,default=None)
     parser.add_argument("--angular-surface-color",type=Path,default=None)
@@ -89,6 +90,9 @@ def main() -> None:
     parser.add_argument("--exact-mesh-visibility",action="store_true")
     parser.add_argument("--source-rgb-footprint-visibility",action="store_true")
     parser.add_argument("--source-rgb-depth-aware-sampling",action="store_true")
+    parser.add_argument('--source-observed-free-space-veto',action='store_true')
+    parser.add_argument('--source-observed-depth-data',type=Path,default=None)
+    parser.add_argument('--source-observed-mesh-metadata',type=Path,default=None)
     parser.add_argument("--disocclusion-color-match",action="store_true")
     parser.add_argument("--seam-cut-visibility-radius",type=float,default=0.)
     parser.add_argument("--surface-color-field-smoothness",type=float,default=0.)
@@ -96,6 +100,8 @@ def main() -> None:
     parser.add_argument("--depth-hole-fill-max-area",type=int,default=0)
     parser.add_argument("--resume",action="store_true")
     args = parser.parse_args()
+    if args.source_observed_free_space_veto and (args.source_observed_depth_data is None or args.source_observed_mesh_metadata is None):
+        parser.error('Free-space veto requires raw depth data and matching mesh metadata')
     if len(args.anchors)<2 or args.samples_per_segment<1:
         parser.error("At least two anchors and one sample per segment required")
     payload = json.loads((args.data/"transforms.json").read_text())
@@ -111,11 +117,19 @@ def main() -> None:
         f["file_path"] = str((args.data/f["file_path"]).resolve(strict=True))
     targets = [normalize_frame(f,calibration,metadata) for f in calibration_path(calibration,args.anchors,args.samples_per_segment)]
     args.output.mkdir(parents=True,exist_ok=args.resume)
+    raw_depth_hashes=None
+    if args.source_observed_free_space_veto:
+        from carve_patchmatch_mesh_free_space import train_frames
+
+        raw_payload=json.loads((args.source_observed_depth_data/'transforms.json').read_text())
+        raw_depth_hashes={f['physical_camera']:sha256(args.source_observed_depth_data/f['depth_file_path']) for f in train_frames(raw_payload)}
     request = {"schema_version":1,"mesh_sha256":sha256(args.mesh),"mesh_metadata_sha256":sha256(args.mesh_metadata),
                "data_sha256":sha256(args.data/"transforms.json"),"calibration_sha256":sha256(args.calibration),
                "source_hashes":{f["physical_camera"]:sha256(Path(f["file_path"])) for f in source_frames},
                "targets":targets,"neighbors":args.neighbors,"aggregation_mode":args.aggregation_mode,"depth_log_tolerance":args.depth_log_tolerance,
                "seam_cut_rank_penalty":args.seam_cut_rank_penalty,
+               "seam_cut_bandwidth_penalty":args.seam_cut_bandwidth_penalty,
+               "bandwidth_helper_sha256":sha256(SCRIPTS/'source_bandwidth_prior.py') if args.seam_cut_bandwidth_penalty else None,
                "primary_angular_camera_count":args.primary_angular_camera_count,
                "camera_color_calibration_sha256":None if args.camera_color_calibration is None else sha256(args.camera_color_calibration),
                "angular_surface_color_sha256":None if args.angular_surface_color is None else sha256(args.angular_surface_color),
@@ -130,6 +144,11 @@ def main() -> None:
                "exact_mesh_visibility":args.exact_mesh_visibility,
                "source_rgb_footprint_visibility":args.source_rgb_footprint_visibility,
                "source_rgb_depth_aware_sampling":args.source_rgb_depth_aware_sampling,
+               'source_observed_free_space_veto':args.source_observed_free_space_veto,
+               'source_observed_raw_depth_hashes':raw_depth_hashes,
+               'source_observed_data_sha256':sha256(args.source_observed_depth_data/'transforms.json') if args.source_observed_free_space_veto else None,
+               'source_observed_metadata_sha256':sha256(args.source_observed_mesh_metadata) if args.source_observed_free_space_veto else None,
+               'free_space_helper_sha256':sha256(SCRIPTS/'carve_patchmatch_mesh_free_space.py') if args.source_observed_free_space_veto else None,
                "disocclusion_color_match":args.disocclusion_color_match,
                "seam_cut_visibility_radius":args.seam_cut_visibility_radius,
                "surface_color_field_smoothness":args.surface_color_field_smoothness,
@@ -190,9 +209,12 @@ def main() -> None:
                  "--seam-cut-rank-penalty",args.seam_cut_rank_penalty,
                  "--primary-angular-camera-count",args.primary_angular_camera_count,
                  "--pixel-center-offset",args.pixel_center_offset,
+                 "--seam-cut-bandwidth-penalty",args.seam_cut_bandwidth_penalty,
                  *(["--exact-mesh-visibility"] if args.exact_mesh_visibility else []),
                  *(["--source-rgb-footprint-visibility"] if args.source_rgb_footprint_visibility else []),
                  *(["--source-rgb-depth-aware-sampling"] if args.source_rgb_depth_aware_sampling else []),
+                 *(['--source-observed-free-space-veto','--source-observed-depth-data',args.source_observed_depth_data,
+                    '--source-observed-mesh-metadata',args.source_observed_mesh_metadata] if args.source_observed_free_space_veto else []),
                  *(["--disocclusion-color-match"] if args.disocclusion_color_match else []),
                  "--seam-cut-visibility-radius",args.seam_cut_visibility_radius,
                  "--surface-color-field-smoothness",args.surface_color_field_smoothness,

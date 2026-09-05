@@ -22,6 +22,11 @@ The opt-in runner argument leaves its existing default command unchanged.
 ## Results
 
 Work is in progress. No repaired recipe has passed the temporal or fly-through gate.
+**Localization correction:** the conspicuous lower bright strip at the left side
+of the hand is not a source-camera seam. Both sides use the primary camera, while
+the mesh switches between hand and neck depth. The earlier source-switch evidence
+is valid for neighboring chin/upper-neck pixels, not for this entire defect.
+See the localized free-space controls below; none is an accepted repair yet.
 The original failure attribution is being rechecked against raw train depth, mesh
 depth and visibility. The previous min-consistency=1 experiment partially restored
 the hand but did not isolate why the second correspondence was absent.
@@ -626,6 +631,85 @@ still requires separate evidence.
 [native train sources at the neck point](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/rgb_footprint_trace/point_01_train_patches.png),
 [strict guard hand comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/rgb_footprint_visibility/review/hand.png),
 [depth-aware sampling hand comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/depth_aware_rgb/review/hand.png).
+
+### Localized bright-strip diagnosis and free-space controls
+
+The native crop `[490,425,610,545]` shows the visible bright strip inside a region
+labelled entirely with E004_C005_1210YM. At target (530,472), the refined mesh
+gives depth .671826, whereas neighboring neck is near .705. The projected point
+has camera depths .759481 / .648617 in E004_C005 / E004_B005, but their raw stereo
+depth medians are .79430 / .68465: those cameras measure a farther surface.
+For original triangle 12238, six train cameras supply locally consistent farther
+depth, while eight supply near-depth evidence. Triangle 78593 has 15 farther-view
+votes versus one near-depth vote. These are contradictions in measured geometry,
+not a unique proof that camera calibration, capture timing or stereo is at fault.
+The exact shared-mesh visibility test alone cannot detect them.
+
+[GT / prediction / source label, localized strip](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/bright_neck_strip_trace/target_review/bright_strip.png),
+[native train-camera patches](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/bright_neck_strip_trace/point_00_train_patches.png),
+[ray and raw-depth trace](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/bright_neck_strip_trace/trace.json).
+
+Before this localization, a train-only bandwidth prior independently demoted the
+blurrier G004_B005 source: its selected fraction fell from 4.85% to .25%, primarily
+replaced by E004_A005. The strip remained because it belongs to the unchanged
+primary camera. No eval RGB or anatomical region was used to fit this prior;
+spatially separated train patches checked relative bandwidth after symmetric
+subpixel registration. Filtering measures bandwidth only and never filters output.
+
+A separate numerical bug was fixed in the opt-in harmonic seam-leveling solver.
+On a 512x512 constant-color test with a 256x256 differently exposed central patch,
+the old float32/1e-4 stopping criterion reported convergence while leaving .04436
+maximum RGB error. Float64/1e-9 with a strict true-residual gate reduces this to
+.000206. The real strip changes little, which is consistent with its primary-source
+label and depth discontinuity. Existing model and renderer defaults remain unchanged.
+
+`carve_patchmatch_mesh_free_space.py` tests geometric deletion rather than RGB
+selection. A triangle centroid needs three train cameras with at least 80% of a
+5x5 native-depth footprint supporting a compact farther layer. The gap must exceed
+both .005 normalized units and 1% of projected depth. Missing depth is not evidence.
+On original 000973 it carves 5,995 triangles and removes 938 small-component
+triangles, retaining 77,300 vertices / 147,871 triangles. Target (530,472) changes
+from .671624 to .705561, exposing the reconstructed neck behind it. However new
+black slits and ragged hand/lipstick boundaries reject this as a final repair.
+
+The opt-in `--tensor-full-block-integration` instead discovers the bounded union
+of surface blocks before fusing all 62 depths. Each view updates that whole union,
+including positive free-space TSDF observations. A two-plane Open3D regression
+test demonstrates the distinction: an early foreground voxel receives weight 2
+under per-view block activation, but weight 6 and positive TSDF under union updates.
+The upstream kernel accepts positive signed distances beyond truncation, clamped
+to one; the block inventory determines which voxels are updated.
+[Open3D 0.19 integration kernel](https://github.com/isl-org/Open3D/blob/v0.19.0/cpp/open3d/t/geometry/kernel/VoxelBlockGridImpl.h).
+The real frame activates 2,222 bounded blocks and extracts 80,221 vertices /
+155,052 triangles / one component, but the strip remains. Thus omitted block updates
+are possible, yet are not established as the dominant cause here. Only the extracted
+mesh and metadata are retained, not a serialized raw TSDF volume.
+
+Finally `--source-observed-free-space-veto` rejects source RGB, including primary
+RGB, when raw train depth supplies the same robust farther-surface contradiction.
+Invalid raw depth remains unknown. This avoids relying only on visibility against
+the candidate mesh, but the first control replaces parts of the bright strip with
+wrong blue texture and small holes. Geometry inconsistencies cannot safely be
+resolved just by selecting another source camera. This control also fails.
+
+| 000973, unchanged study face polygon | PSNR | SSIM | LPIPS | Decision |
+|---|---:|---:|---:|---|
+| Train bandwidth prior, refined mesh | 29.111843 | .890666 | .047378 | Fail |
+| Accurate seam gain solver, refined mesh | 29.096813 | .890745 | .047002 | Fail |
+| Original mesh + free-space triangle carving | 29.080326 | .889463 | .047544 | Fail |
+| Full-block TSDF integration | 29.052221 | .889452 | .047512 | Fail |
+| Original mesh + measured free-space RGB veto | 28.973825 | .888947 | .048794 | Fail |
+
+[Triangle-carving F comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/free_space_original_three_views/review_F/hand.png),
+[triangle-carving J comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/free_space_original_three_views/review_J/hand_neck.png),
+[full-block F comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/full_block_three_views/review_F/hand.png),
+[measured-visibility RGB comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/observed_free_space_rgb_verified/review/hand.png).
+F/J/L were rendered for both geometric controls and native hand/neck comparisons
+inspected. F defects and J hand/lipstick softness prevent acceptance; an apparently
+clean L neck crop is not a full-view or fly-through pass. No temporal promotion.
+The next bounded geometric hypothesis is enforcing robust free-space contradictions
+in the volumetric scalar field before surface extraction, instead of deleting
+finished triangles or merely averaging their contradictory observations.
 
 ## Insights
 

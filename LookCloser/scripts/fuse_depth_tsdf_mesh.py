@@ -112,6 +112,8 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--voxel-length", type=float, default=0.002)
     parser.add_argument("--sdf-trunc", type=float, default=0.008)
     parser.add_argument("--depth-trunc", type=float, default=4.0)
+    parser.add_argument('--tensor-full-block-integration',action='store_true',
+                        help='Opt-in two-pass fusion: integrate every view into the bounded union of surface blocks, including observed free space.')
     parser.add_argument(
         "--backend",
         choices=("legacy", "tensor"),
@@ -201,7 +203,19 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         bounds = np.asarray(args.crop_aabb, dtype=np.float64).reshape(2, 3)
         if not np.isfinite(bounds).all() or not np.all(bounds[1] > bounds[0]):
             parser.error("--crop-aabb must contain finite increasing bounds")
+    if args.tensor_full_block_integration and (args.backend!='tensor' or args.crop_aabb is None):
+        parser.error('Full-block integration requires tensor backend and explicit bounded crop')
     return args
+
+
+def bounded_union_block_coordinates(blocks,crop_aabb,voxel_length,*,block_resolution=16,padding=0.):
+    """Deterministic block inventory; crop affects allocation, not depth evidence."""
+    bounds=np.asarray(crop_aabb,dtype=float).reshape(2,3)
+    coords=np.unique(np.concatenate(blocks,axis=0),axis=0).astype(np.int32)
+    size=float(voxel_length)*block_resolution
+    lo=coords*size;hi=lo+size
+    keep=(hi>=bounds[0]-padding).all(-1)&(lo<=bounds[1]+padding).all(-1)
+    return np.ascontiguousarray(coords[keep])
 
 
 def component_triangle_threshold(
@@ -298,6 +312,34 @@ def main(argv: Sequence[str] | None = None) -> int:
         )
     rows: list[dict[str, object]] = []
     total_images = sum(len(depth_filenames) for _, _, depth_filenames, _ in groups)
+    full_block_coords=None
+    full_block_stats=None
+    if args.tensor_full_block_integration:
+        assert tensor_volume is not None and tensor_device is not None
+        candidates=[];discovered=0
+        for data,outputs,depth_filenames,depth_scale in groups:
+            cameras=outputs.cameras.to('cpu')
+            for image_index,depth_path in enumerate(depth_filenames):
+                depth=load_depth(Path(depth_path),scale_factor=depth_scale)
+                valid=np.isfinite(depth)&(depth>0)&(depth<args.depth_trunc)
+                if not valid.any():raise ValueError('No valid depth in full-block discovery')
+                depth=np.where(valid,depth,0).astype(np.float32)
+                intrinsic=np.array([[float(cameras.fx[image_index]),0,float(cameras.cx[image_index])],
+                                    [0,float(cameras.fy[image_index]),float(cameras.cy[image_index])],[0,0,1]],np.float64)
+                extrinsic=nerfstudio_c2w_to_opencv_extrinsic(cameras.camera_to_worlds[image_index].numpy())
+                coords=tensor_volume.compute_unique_block_coordinates(
+                    o3d.t.geometry.Image(o3d.core.Tensor(np.ascontiguousarray(depth),device=tensor_device)),
+                    o3d.core.Tensor(intrinsic),o3d.core.Tensor(extrinsic),depth_scale=1.,
+                    depth_max=float(args.depth_trunc),trunc_voxel_multiplier=trunc_voxel_multiplier)
+                candidates.append(coords.cpu().numpy().copy())
+                discovered+=1;print(f'discovered_blocks={discovered}/{total_images}',flush=True)
+        union=bounded_union_block_coordinates(candidates,args.crop_aabb,args.voxel_length,padding=args.sdf_trunc)
+        if not len(union):raise RuntimeError('Bounded full-block inventory is empty')
+        full_block_coords=o3d.core.Tensor(union,device=tensor_device)
+        full_block_stats={'allocated_block_count':len(union),'block_coordinate_sha256':hashlib.sha256(union.tobytes()).hexdigest(),
+                          'allocation_crop_padding':args.sdf_trunc,'each_view_updates_entire_union':True,
+                          'raw_volume_serialized':False}
+        print('full_block_inventory='+json.dumps(full_block_stats),flush=True)
     integrated = 0
     for data_index, (data, outputs, depth_filenames, depth_scale) in enumerate(groups):
         cameras = outputs.cameras.to("cpu")
@@ -347,14 +389,16 @@ def main(argv: Sequence[str] | None = None) -> int:
                 # depth image and sparse volume live on the selected device.
                 intrinsic_tensor = o3d.core.Tensor(intrinsic_array)
                 extrinsic_tensor = o3d.core.Tensor(extrinsic)
-                block_coords = tensor_volume.compute_unique_block_coordinates(
-                    depth_image,
-                    intrinsic_tensor,
-                    extrinsic_tensor,
-                    depth_scale=1.0,
-                    depth_max=float(args.depth_trunc),
-                    trunc_voxel_multiplier=trunc_voxel_multiplier,
-                )
+                block_coords = full_block_coords
+                if block_coords is None:
+                    block_coords = tensor_volume.compute_unique_block_coordinates(
+                        depth_image,
+                        intrinsic_tensor,
+                        extrinsic_tensor,
+                        depth_scale=1.0,
+                        depth_max=float(args.depth_trunc),
+                        trunc_voxel_multiplier=trunc_voxel_multiplier,
+                    )
                 tensor_volume.integrate(
                     block_coords,
                     depth_image,
@@ -457,6 +501,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             "device": args.device if args.backend == "tensor" else "CPU",
             "tensor_block_count": args.tensor_block_count if args.backend == "tensor" else None,
             "tensor_weight_threshold": args.tensor_weight_threshold if args.backend == "tensor" else None,
+            "tensor_full_block_integration":args.tensor_full_block_integration,
+            "full_block_inventory":full_block_stats,
             "crop_aabb": args.crop_aabb,
             "min_component_triangles": args.min_component_triangles,
             "min_component_fraction": args.min_component_fraction,

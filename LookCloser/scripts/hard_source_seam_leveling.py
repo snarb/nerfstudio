@@ -45,11 +45,16 @@ def level_hard_source_seams(prediction,selection,warped,valid_masks,depth):
         y0,y1=int(yy.min()),int(yy.max())+1;x0,x1=int(xx.min()),int(xx.max())+1
         local_region=region[y0:y1,x0:x1]
         local_depth=torch.where(local_region,depth[y0:y1,x0:x1],0)
-        field,solver=solve_surface_field(data[None,:,y0:y1,x0:x1],
-                  seeds[None,None,y0:y1,x0:x1].float()*128,local_depth,
-                  smoothness=1.,ridge=1e-6,max_iterations=1536,tolerance=1e-4)
+        # Boundary seeds dominate ||b||. A 1e-4 relative residual can leave a
+        # broad interior almost uncorrected while declaring convergence. Solve
+        # this opt-in leveling system in float64 with a strict true residual.
+        field,solver=solve_surface_field(data[None,:,y0:y1,x0:x1].double(),
+                  seeds[None,None,y0:y1,x0:x1].double()*128,local_depth.double(),
+                  smoothness=1.,ridge=1e-6,max_iterations=4096,tolerance=1e-9)
+        solver.update(dtype='float64',required_true_relative_residual=5e-9,
+                      converged=solver['max_relative_residual']<5e-9)
         if not solver['converged']:raise RuntimeError(f'Seam gain solve failed for source {rank}: {solver}')
-        field=field[0].clamp(-math.log(2),math.log(2))
+        field=field[0].to(prediction.dtype).clamp(-math.log(2),math.log(2))
         corrected=apply_camera_gain(warped[rank][:,y0:y1,x0:x1],[1,1,1],field)
         output[:,y0:y1,x0:x1]=torch.where(local_region[None],corrected,output[:,y0:y1,x0:x1])
         gain_map[:,y0:y1,x0:x1]=torch.where(local_region[None],field,gain_map[:,y0:y1,x0:x1])

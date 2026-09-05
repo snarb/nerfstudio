@@ -1081,3 +1081,11 @@ the four RGB taps. Opt-in `--source-rgb-footprint-visibility` rejects cross-laye
 footprints; `--source-rgb-depth-aware-sampling` instead interpolates only same-layer
 taps within one camera. Both use unfilled mesh depth and leave mesh/camera/UVs
 unchanged. They are rejected diagnostic controls, not accepted renderer defaults.
+
+Train-only bandwidth priors can optionally influence hard source selection without
+filtering RGB. The opt-in seam-leveling solve now uses a strict float64 residual
+gate, tested on large interior patches. Geometric free-space diagnostics include
+triangle-centroid carving, measured-depth RGB visibility vetoes (also for primary
+RGB), and bounded two-pass `--tensor-full-block-integration`. All remain isolated
+from model defaults. Full-block fusion still publishes an extracted mesh, not a
+raw volume; free-space contradictions and native temporal/view gates are separate.

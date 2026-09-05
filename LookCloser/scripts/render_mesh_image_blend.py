@@ -88,6 +88,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--primary-angular-camera-count", type=int, default=0)
     parser.add_argument("--seam-cut-rank-penalty", type=float, default=0.0001)
     parser.add_argument("--seam-cut-consensus-penalty", type=float, default=0.)
+    parser.add_argument("--seam-cut-bandwidth-penalty",type=float,default=0.)
     parser.add_argument("--camera-color-calibration", type=Path, default=None)
     parser.add_argument("--angular-surface-color",type=Path,default=None)
     parser.add_argument("--hard-source-seam-leveling",action="store_true")
@@ -102,6 +103,8 @@ def parse_args() -> argparse.Namespace:
                         help="Opt-in: reject RGB samples whose bilinear taps cross source mesh depth layers.")
     parser.add_argument("--source-rgb-depth-aware-sampling",action="store_true",
                         help="Opt-in: interpolate only same-depth native pixels within the selected source camera.")
+    parser.add_argument('--source-observed-free-space-veto',action='store_true',
+                        help='Opt-in: raw train depth can contradict mesh visibility for every source, including the primary.')
     parser.add_argument("--disocclusion-color-match", action="store_true")
     parser.add_argument("--seam-cut-visibility-radius", type=float, default=0.)
     parser.add_argument("--surface-color-field-smoothness", type=float, default=0.,
@@ -306,6 +309,8 @@ def parse_args() -> argparse.Namespace:
         parser.error('Surface color correction requires an audited ingest/color calibration')
     if args.source_observed_fallback_support and (args.source_observed_depth_data is None or args.source_observed_mesh_metadata is None):
         parser.error('Stereo fallback support requires raw depth data and its mesh normalization receipt')
+    if args.source_observed_free_space_veto and (args.source_observed_depth_data is None or args.source_observed_mesh_metadata is None):
+        parser.error('Raw free-space veto requires depth data and its matching mesh normalization receipt')
     if args.angular_surface_color and (args.camera_color_calibration is None or args.camera_color_model!='rgb' or not args.exact_mesh_visibility):
         parser.error('Angular color correction requires matching RGB calibration and exact mesh visibility')
     if args.hard_source_seam_leveling and (args.camera_color_calibration is None or any(m not in ('nearest-fill','seam-cut') for m in args.aggregation_modes)):
@@ -320,6 +325,10 @@ def parse_args() -> argparse.Namespace:
         parser.error("--seam-cut-rank-penalty must be finite and non-negative")
     if not math.isfinite(args.seam_cut_consensus_penalty) or args.seam_cut_consensus_penalty<0:
         parser.error('Consensus penalty must be finite and nonnegative')
+    if not math.isfinite(args.seam_cut_bandwidth_penalty) or args.seam_cut_bandwidth_penalty<0:
+        parser.error('Bandwidth penalty must be finite and nonnegative')
+    if args.seam_cut_bandwidth_penalty and args.aggregation_modes!=['seam-cut']:
+        parser.error('Bandwidth prior is an opt-in hard seam-cut source selection control')
     if args.skip_ground_truth_copy and (args.score_metrics or args.ground_truth_exr is not None):
         parser.error("--skip-ground-truth-copy forbids ground truth and metric scoring")
     if args.depth_hole_fill_max_area < 0:
@@ -714,6 +723,7 @@ def aggregate_warped_sources(
     seam_cut_rank_penalty: float = 0.0001,
     seam_cut_rank_confidence: np.ndarray | None = None,
     seam_cut_consensus_penalty: float = 0.,
+    seam_cut_source_costs: np.ndarray | None = None,
 ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
     """Combine source warps and return RGB, valid mask, and selected source rank."""
 
@@ -777,6 +787,8 @@ def aggregate_warped_sources(
         numpy_rgb=rgb_stack.permute(0,2,3,1).detach().cpu().numpy()
         numpy_valid=valid_stack.detach().cpu().numpy()
         source_costs=consensus_source_costs(numpy_rgb,numpy_valid,seam_cut_consensus_penalty) if seam_cut_consensus_penalty else None
+        if seam_cut_source_costs is not None:
+            source_costs=seam_cut_source_costs if source_costs is None else source_costs+seam_cut_source_costs
 
         labels, seam_stats = optimize_source_labels(
             numpy_rgb,
@@ -1246,13 +1258,17 @@ def main() -> int:
     observed_metadata = None
     if args.source_observed_depth_data is not None:
         observed = json.loads((args.source_observed_depth_data / "transforms.json").read_text())
+        if args.source_observed_free_space_veto:
+            from carve_patchmatch_mesh_free_space import train_frames
+
+            train_frames(observed)  # Fail closed on incomplete/held-out depth inventories.
         observed_train = set(observed["train_filenames"])
         for frame in observed["frames"]:
             if frame["file_path"] in observed_train:
                 if frame.get("mask_path"):
                     raise ValueError("Observed source depths must not use image/person masks")
                 observed_depth_by_stem[Path(frame["file_path"]).stem] = frame
-        if args.source_observed_fallback_support:
+        if args.source_observed_fallback_support or args.source_observed_free_space_veto:
             observed_metadata=json.loads(args.source_observed_mesh_metadata.read_text())
             if observed_metadata['output_sha256']!=manifest['mesh_sha256']:
                 raise ValueError('Observed depth normalization belongs to another mesh')
@@ -1446,6 +1462,7 @@ def main() -> int:
                     'helper_sha256':sha256(Path(__file__).with_name('mesh_texture_visibility.py'))}
                 valid=valid&has_taps
             observed_veto_pixels = 0
+            observed_free_space_pixels = 0
             if args.source_observed_depth_data is not None:
                 observed_frame = observed_depth_by_stem[source_image.stem]
                 for saved_key, camera_key in (("fl_x", "fx"), ("fl_y", "fy"), ("cx", "cx"), ("cy", "cy")):
@@ -1454,7 +1471,7 @@ def main() -> int:
                 observed_array = load_depth(args.source_observed_depth_data / observed_frame["depth_file_path"])
                 if observed_array.shape != source_depth_array.shape:
                     raise ValueError("Observed depth shape does not match source RGB raster")
-                if args.source_observed_fallback_support:
+                if args.source_observed_fallback_support or args.source_observed_free_space_veto:
                     from mesh_texture_visibility import observed_depth_support
                     from render_patchmatch_camera_path import normalize_frame
 
@@ -1465,6 +1482,13 @@ def main() -> int:
                     supported,support_fraction,sample_count=observed_depth_support(observed_depth,u,v,projected_z,
                                                         log_tolerance=args.source_observed_depth_log_tolerance)
                     stereo_support_masks.append(supported)
+                    if args.source_observed_free_space_veto:
+                        from carve_patchmatch_mesh_free_space import free_space_evidence
+
+                        free,_=free_space_evidence(observed_depth.cpu().numpy(),u.cpu().numpy(),v.cpu().numpy(),projected_z.cpu().numpy())
+                        free=torch.from_numpy(free).to(device)
+                        observed_free_space_pixels=int((valid&free).sum())
+                        valid=valid&~free
                 else:
                     observed_depth = torch.from_numpy(observed_array).to(device) * float(train.dataparser_scale)
                     sampled_observed = grid_sample(observed_depth.unsqueeze(0), u, v)[0]
@@ -1506,8 +1530,9 @@ def main() -> int:
                     "source_image": str(source_image),
                     "source_color_gain": source_color_gain,
                     "observed_depth_veto_pixels": observed_veto_pixels,
+                    "observed_free_space_veto_pixels":observed_free_space_pixels,
                     "stereo_supported_visible_pixels":int((valid&supported).sum()) if args.source_observed_fallback_support else None,
-                    "stereo_depth_sha256":sha256(args.source_observed_depth_data/observed_frame['depth_file_path']) if args.source_observed_fallback_support else None,
+                    "stereo_depth_sha256":sha256(args.source_observed_depth_data/observed_frame['depth_file_path']) if (args.source_observed_fallback_support or args.source_observed_free_space_veto) else None,
                     "exact_visibility": exact_visibility_stats,
                     "rgb_footprint_visibility":footprint_visibility_stats,
                     "depth_aware_rgb_sampling":depth_aware_rgb_stats,
@@ -1572,6 +1597,15 @@ def main() -> int:
             print('surface_color_field='+json.dumps(surface_color_field),flush=True)
             if not surface_color_field.get('converged',False):
                 raise RuntimeError('Surface color field did not converge; do not publish this render')
+        bandwidth_costs=None;bandwidth_prior=None
+        if args.seam_cut_bandwidth_penalty:
+            from source_bandwidth_prior import bandwidth_source_costs
+
+            bandwidth_costs,bandwidth_prior=bandwidth_source_costs(
+                torch.stack(warped).permute(0,2,3,1).cpu().numpy(),torch.stack(valid_masks).cpu().numpy(),
+                args.seam_cut_bandwidth_penalty)
+            bandwidth_prior['helper_sha256']=sha256(Path(__file__).with_name('source_bandwidth_prior.py'))
+            print('source_bandwidth_prior='+json.dumps([{k:v for k,v in r.items() if k!='observations'} for r in bandwidth_prior['sources']]),flush=True)
         if args.base_prediction_exr is None:
             base = torch.zeros_like(warped[0])
         else:
@@ -1641,6 +1675,7 @@ def main() -> int:
                     seam_cut_rank_penalty=args.seam_cut_rank_penalty,
                     seam_cut_rank_confidence=rank_confidence,
                     seam_cut_consensus_penalty=args.seam_cut_consensus_penalty,
+                    seam_cut_source_costs=None if bandwidth_costs is None else bandwidth_costs[:count],
                 )
                 continuation: dict[str, object] = {"enabled": False}
                 seam_leveling = None
@@ -1787,8 +1822,14 @@ def main() -> int:
         "exact_mesh_visibility": args.exact_mesh_visibility,
         "source_rgb_footprint_visibility":args.source_rgb_footprint_visibility,
         "source_rgb_depth_aware_sampling":args.source_rgb_depth_aware_sampling,
+        "source_observed_free_space_veto":None if not args.source_observed_free_space_veto else {
+            'enabled':True,'includes_primary':True,'invalid_raw_depth_is_not_a_veto':True,
+            'uses_eval_rgb':False,'uses_semantic_masks':False,'source_transforms_sha256':sha256(args.source_observed_depth_data/'transforms.json'),
+            'raw_depth_hashes':{f['physical_camera']:sha256(args.source_observed_depth_data/f['depth_file_path']) for f in train_frames(observed)},
+            'helper_sha256':sha256(Path(__file__).with_name('carve_patchmatch_mesh_free_space.py'))},
         "seam_cut_visibility_radius": args.seam_cut_visibility_radius,
         "seam_cut_consensus_penalty":args.seam_cut_consensus_penalty,
+        "source_bandwidth_prior":bandwidth_prior,
         "surface_color_field": surface_color_field,
         "surface_texture_registration":texture_registration,
         "stereo_support_filter": stereo_support_filter,
