@@ -11,23 +11,26 @@ from audit_source_epipolar_residuals import peak_offset
 from audit_warped_source_registration import relative_blur_profile
 
 
-def bandwidth_observations(primary,source,primary_valid,source_valid,*,stride=48):
+def bandwidth_observations(primary,source,primary_valid,source_valid,*,stride=48,patch_size=48):
     if primary.shape!=source.shape or primary.ndim!=2:
         raise ValueError('Expected equal grayscale rasters')
+    if patch_size<24 or patch_size%2 or stride<1:
+        raise ValueError('Need even patch size >=24 and positive stride')
+    half=patch_size//2;footprint=half+8
     rows=[];h,w=primary.shape
-    for y in range(32,h-32,stride):
-        for x in range(32,w-32,stride):
-            if not primary_valid[y-32:y+32,x-32:x+32].all():continue
-            if not source_valid[y-32:y+32,x-32:x+32].all():continue
-            ref=primary[y-24:y+24,x-24:x+24]
+    for y in range(footprint,h-footprint,stride):
+        for x in range(footprint,w-footprint,stride):
+            if not primary_valid[y-footprint:y+footprint,x-footprint:x+footprint].all():continue
+            if not source_valid[y-footprint:y+footprint,x-footprint:x+footprint].all():continue
+            ref=primary[y-half:y+half,x-half:x+half]
             if ref.std()<.008:continue
-            search=source[y-32:y+32,x-32:x+32]
+            search=source[y-footprint:y+footprint,x-footprint:x+footprint]
             scores=cv2.matchTemplate(search,ref,cv2.TM_CCOEFF_NORMED)
             v,u=np.unravel_index(scores.argmax(),scores.shape)
             if scores[v,u]<.8 or not (0<u<16 and 0<v<16):continue
             dx,dy=peak_offset(scores,u,v)+[u-8,v-8]
-            a=cv2.getRectSubPix(primary,(48,48),(x-.5-float(dx)/2,y-.5-float(dy)/2))
-            b=cv2.getRectSubPix(source,(48,48),(x-.5+float(dx)/2,y-.5+float(dy)/2))
+            a=cv2.getRectSubPix(primary,(patch_size,patch_size),(x-.5-float(dx)/2,y-.5-float(dy)/2))
+            b=cv2.getRectSubPix(source,(patch_size,patch_size),(x-.5+float(dx)/2,y-.5+float(dy)/2))
             profile=relative_blur_profile(a,b)
             signed=profile['sigma_pixels']**2*(1 if profile['blurred_side']=='primary' else -1)
             if profile['ncc_gain']<.005:signed=0.

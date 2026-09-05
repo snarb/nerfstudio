@@ -881,6 +881,71 @@ their face-only metrics and review records, 62 raw depth maps, calibration and
 runtime-script provenance (289 retained hashes). This is an audit pass, not a
 visual repair pass; temporal promotion remains disabled.
 
+### Dense local bandwidth audit and remaining right-neck seam
+
+The next audit uses disjoint spatial blocks: a full patch/search footprint must
+fit inside one 128-pixel block, and held blocks do not overlap fit footprints.
+Counts of overlapping patches are reported separately from independent blocks.
+Depth-bin boundaries use fit observations only; a patch crossing a depth jump
+is excluded. These are train-camera diagnostics, not reconstruction metrics.
+
+At J, the primary-versus-I004_D005 blur estimate remains negative on 30 fit /
+5 held blocks (block medians -1 / -1.28125 pixel-squared). At F, G004_B005 remains
+softer on 22 fit / 5 held blocks (.36 / .64). This corroborates the earlier
+global-quality result with stricter support accounting. It does **not** validate
+a local skin/hand-specific model.
+
+The 48-pixel patch plus search margin misses narrow disocclusions even when all
+28 camera pairs are compared: all 7,392 retained observations have a visible
+angular primary. A 24-pixel diagnostic patch with the unchanged 8-pixel search
+margin, stride 8 and the same single-depth-layer check yields 66,638 observations,
+including 292 where the primary is occluded. Those 292 occupy only two spatial
+blocks, neither in the predeclared held split. More patches are therefore not
+independent validation; no local prior is fitted or promoted from these data.
+The smaller patch is an audit opt-in; the renderer's 48-pixel default is unchanged.
+[All-pairs narrow-patch evidence](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/full_block_F_dense_bandwidth_audit/local_bandwidth_all_pairs24.json).
+
+A direct trace of the remaining **right** neck patch at F (580,660) finds that
+E004_C005 projects .801943 but all 25 native stereo taps lie near .754480: it sees
+foreground hand. E004_B005 likewise sees hand near .642079 versus projected
+.692188. G004_B005 sees neck: projected .716629, raycast .716629 and native median
+.716865, with all 25 taps within .001 normalized units. Two neighboring points
+reproduce this pattern. Thus this localized patch has supported neck geometry;
+it is not the already repaired false foreground leaf at (530,472), and its RGB
+is not room filling or source averaging.
+[Native depth footprints](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/F_remaining_neck_trace/native_raw_footprints.json),
+[fixed-camera source crops](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/F_remaining_neck_trace/point_00_train_patches.png).
+
+Three further three-anchor controls use the full-block mesh and signed bandwidth
+prior. Raising its penalty from .003 to the helper's existing .01 scale changes
+the sampled neck pixels from G004_B005 (rank 2) to E004_A005 (rank 3), but leaves a
+visible seam. Adding the already tested accurate harmonic gain leveling does not
+remove it. Removing the rank preference with the bandwidth prior still enabled
+softens F facial detail and introduces a conspicuous J chest/clothing boundary.
+Unlike the old zero-rank test, this one includes color calibration, exact
+visibility, repaired full-block geometry and the signed bandwidth prior.
+
+| 000973, unchanged study face polygon | PSNR | SSIM | LPIPS | Visual gate |
+|---|---:|---:|---:|---|
+| Signed bandwidth .01, rank .001 | 29.041328 | .889583 | .047575 | Fail |
+| Same + harmonic gain leveling | 29.046722 | .889692 | .047160 | Fail |
+| Signed bandwidth .01, rank 0 | 28.297064 | .908267 | .059281 | Fail |
+
+[Matched F gain control](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/all_source_bandwidth01_gain_three_views/review_F/hand.png),
+[remaining J lipstick contour](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/all_source_bandwidth01_gain_three_views/review_J/lipstick.png),
+[zero-rank J regression](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/all_source_bandwidth01_zero_rank_three_views/review_J/hand_neck.png).
+All three controls have native F/J/L reviews, finite face-only metrics and hashes.
+No temporal or fly-through confirmation is claimed. The next useful question is
+whether locally overlapping alternative cameras provide a consistent relative
+bandwidth graph under withheld-camera-pair checks, not another unconditional
+increase of the global source penalty.
+
+An isolated index snapshot passes **125 tests**. The old runtime helper and the
+current default produce exactly identical observations for 139 real F/G patches.
+The [final audit](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/local_bandwidth_findings.json)
+verifies 241 retained hashes, nine new renders, face metric inputs, audit runtime
+snapshots and all 62 raw depth hashes. Audit pass is not a visual pass.
+
 ## Insights
 
 The published render correction can use the primary train camera despite its failed

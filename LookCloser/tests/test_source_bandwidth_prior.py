@@ -2,6 +2,7 @@ from pathlib import Path
 import sys
 import cv2
 import numpy as np
+import pytest
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from source_bandwidth_prior import bandwidth_observations,bandwidth_source_costs
 
@@ -58,3 +59,17 @@ def test_unqualified_source_is_not_rewarded_as_sharper_than_primary(monkeypatch)
     costs,_=module.bandwidth_source_costs(np.ones((3,4,5,3)),np.ones((3,4,5),bool),allow_primary_penalty=True)
     np.testing.assert_array_equal(costs[0],costs[2])
     assert costs[0].min()>0 and not costs[1].any()
+
+
+def test_small_patch_bandwidth_audit_recovers_known_blur():
+    a=texture();b=cv2.GaussianBlur(a,(0,0),1.)
+    rows=bandwidth_observations(a,b,np.ones_like(a,bool),np.ones_like(a,bool),patch_size=24)
+    assert len(rows)>40
+    assert np.median([r['relative_blur_variance'] for r in rows])==pytest.approx(1.)
+
+
+def test_explicit_legacy_patch_size_preserves_observations():
+    a=texture();b=cv2.GaussianBlur(a,(0,0),1.)
+    valid=np.ones_like(a,bool)
+    assert bandwidth_observations(a,b,valid,valid)==bandwidth_observations(a,b,valid,valid,patch_size=48)
+    with pytest.raises(ValueError):bandwidth_observations(a,b,valid,valid,patch_size=23)
