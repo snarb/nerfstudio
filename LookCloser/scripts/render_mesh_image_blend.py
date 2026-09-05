@@ -80,11 +80,20 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--base-prediction-exr", type=Path, default=None)
     parser.add_argument("--ground-truth-exr", type=Path, default=None)
+    parser.add_argument(
+        "--skip-ground-truth-copy", action="store_true",
+        help="Render synthetic cameras without opening target RGB; incompatible with metric scoring.",
+    )
     parser.add_argument("--neighbors", type=int, nargs="+", default=(1, 2, 4))
+    parser.add_argument("--primary-angular-camera-count", type=int, default=0)
+    parser.add_argument("--seam-cut-rank-penalty", type=float, default=0.0001)
+    parser.add_argument("--camera-color-calibration", type=Path, default=None)
+    parser.add_argument("--camera-color-model", choices=("ingest", "exposure", "rgb", "spatial"), default="rgb")
+    parser.add_argument("--overlap-exposure-grid", type=int, nargs=2, default=None)
     parser.add_argument(
         "--aggregation-modes",
         nargs="+",
-        choices=("weighted", "nearest-fill", "best-view"),
+        choices=("weighted", "nearest-fill", "best-view", "seam-cut"),
         default=("weighted",),
         help=(
             "weighted preserves the legacy colour average; nearest-fill takes the globally nearest valid source "
@@ -100,6 +109,11 @@ def parse_args() -> argparse.Namespace:
         help="Geometric source-colour blend strengths; one fully replaces supported base pixels.",
     )
     parser.add_argument("--depth-log-tolerance", type=float, default=0.01)
+    parser.add_argument(
+        "--source-observed-depth-data", type=Path, default=None,
+        help="Optional calibrated train depth dataset used to veto foreground occluders absent from the mesh.",
+    )
+    parser.add_argument("--source-observed-depth-log-tolerance", type=float, default=0.001)
     parser.add_argument(
         "--depth-hole-fill-max-area",
         type=int,
@@ -250,6 +264,16 @@ def parse_args() -> argparse.Namespace:
         parser.error("--blend-alphas must contain values in [0, 1]")
     if args.depth_log_tolerance <= 0.0:
         parser.error("--depth-log-tolerance must be positive")
+    if args.primary_angular_camera_count < 0:
+        parser.error("--primary-angular-camera-count must be non-negative")
+    if args.overlap_exposure_grid is not None and min(args.overlap_exposure_grid)<2:
+        parser.error("Overlap exposure grid must have at least two nodes per axis")
+    if args.overlap_exposure_grid is not None and args.camera_color_calibration is None:
+        parser.error("Overlap exposure correction requires an audited camera calibration and ingest curve")
+    if not math.isfinite(args.seam_cut_rank_penalty) or args.seam_cut_rank_penalty < 0:
+        parser.error("--seam-cut-rank-penalty must be finite and non-negative")
+    if args.skip_ground_truth_copy and (args.score_metrics or args.ground_truth_exr is not None):
+        parser.error("--skip-ground-truth-copy forbids ground truth and metric scoring")
     if args.depth_hole_fill_max_area < 0:
         parser.error("--depth-hole-fill-max-area must be non-negative")
     if args.depth_hole_fill_boundary_radius <= 0:
@@ -637,6 +661,7 @@ def aggregate_warped_sources(
     nearest_fill_color_continuity: bool = False,
     nearest_fill_color_continuity_mode: str = "pixel",
     nearest_fill_rank_penalty: float = 0.0,
+    seam_cut_rank_penalty: float = 0.0001,
 ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
     """Combine source warps and return RGB, valid mask, and selected source rank."""
 
@@ -692,6 +717,18 @@ def aggregate_warped_sources(
                 selected_order = torch.argmax(ordered_valid.to(dtype=torch.int64), dim=0)
                 continuity_selected = source_order[selected_order]
             selected = torch.where(first_valid, torch.zeros_like(selected), continuity_selected)
+        gather_index = selected.unsqueeze(0).unsqueeze(0).expand(1, rgb_stack.shape[1], *selected.shape)
+        rgb = torch.gather(rgb_stack, dim=0, index=gather_index)[0]
+    elif mode == "seam-cut":
+        from hard_texture_seam_cut import optimize_source_labels
+
+        labels, seam_stats = optimize_source_labels(
+            rgb_stack.permute(0, 2, 3, 1).detach().cpu().numpy(),
+            valid_stack.detach().cpu().numpy(),
+            rank_penalty=seam_cut_rank_penalty,
+        )
+        print("seam_cut=" + json.dumps(seam_stats), flush=True)
+        selected = torch.from_numpy(labels).to(device=rgb_stack.device, dtype=torch.long).clamp_min(0)
         gather_index = selected.unsqueeze(0).unsqueeze(0).expand(1, rgb_stack.shape[1], *selected.shape)
         rgb = torch.gather(rgb_stack, dim=0, index=gather_index)[0]
     elif mode == "best-view":
@@ -1104,7 +1141,13 @@ def write_source_selection(directory: Path, name: str, selection: torch.Tensor, 
         device=selection.device,
     )
     if count > len(palette):
-        raise ValueError("source-selection palette supports at most 16 sources")
+        import colorsys
+
+        extra = [
+            [round(channel * 255) for channel in colorsys.hsv_to_rgb((rank * 0.61803398875) % 1, 0.65, 0.95)]
+            for rank in range(len(palette), count)
+        ]
+        palette = torch.cat((palette, torch.tensor(extra, dtype=torch.uint8, device=selection.device)))
     valid = selection >= 0
     safe = selection.clamp(0, count - 1)
     rgb = palette[safe]
@@ -1141,6 +1184,15 @@ def main() -> int:
     )
     train = parser_config.setup().get_dataparser_outputs(split="train")
     target = parser_config.setup().get_dataparser_outputs(split="val")
+    observed_depth_by_stem = {}
+    if args.source_observed_depth_data is not None:
+        observed = json.loads((args.source_observed_depth_data / "transforms.json").read_text())
+        observed_train = set(observed["train_filenames"])
+        for frame in observed["frames"]:
+            if frame["file_path"] in observed_train:
+                if frame.get("mask_path"):
+                    raise ValueError("Observed source depths must not use image/person masks")
+                observed_depth_by_stem[Path(frame["file_path"]).stem] = frame
     if train.mask_filenames is not None or target.mask_filenames is not None:
         raise ValueError("Mesh reprojection diagnostic forbids image/person masks")
     if len(target.image_filenames) != 1:
@@ -1185,9 +1237,29 @@ def main() -> int:
         metric_surface_mask = metric_surface_depth > 0.0
     target_c2w, target_intrinsics = camera_parameters(target.cameras, 0, device)
     train_cameras = [camera_parameters(train.cameras, index, device) for index in range(len(train.image_filenames))]
+    color_calibration = None
+    color_source_frames = {}
+    if args.camera_color_calibration is not None:
+        color_calibration = json.loads(args.camera_color_calibration.read_text())
+        if (color_calibration.get("uses_eval_rgb") is not False
+                or color_calibration.get("domain") != "inverse_srgb_inverse_reinhard_exposed_linear"):
+            raise ValueError("Color calibration must be train-only and use the exact ingest display curve")
+        source_payload = json.loads((args.data / "transforms.json").read_text())
+        color_source_frames = {(args.data / f["file_path"]).resolve(): f for f in source_payload["frames"]}
     centers = torch.stack([camera[0][:, 3] for camera in train_cameras])
     distances = torch.linalg.vector_norm(centers - target_c2w[:, 3], dim=-1)
     order = torch.argsort(distances).tolist()
+    if args.primary_angular_camera_count:
+        from build_angular_camera_subset import select_angular_frames
+
+        source_payload = json.loads((args.data / "transforms.json").read_text())
+        source_by_path = {
+            (args.data / frame["file_path"]).resolve(): frame for frame in source_payload["frames"]
+        }
+        source_frames = [source_by_path[Path(path).resolve()] for path in train.image_filenames]
+        angular_indices, _ = select_angular_frames(source_frames, args.primary_angular_camera_count, None)
+        primary = next(index for index in order if index in angular_indices)
+        order = [primary] + [index for index in order if index != primary]
     max_neighbors = max(args.neighbors)
     selected = order[:max_neighbors]
 
@@ -1203,6 +1275,19 @@ def main() -> int:
         for rank, source_index in enumerate(selected):
             source_image = Path(train.image_filenames[source_index]).resolve()
             source_rgb = load_rgb(source_image, device)
+            source_color_gain = None
+            if color_calibration is not None:
+                from patchmatch_color_calibration import apply_camera_gain
+
+                physical = color_source_frames[source_image]["physical_camera"]
+                calibration_row = color_calibration["cameras"][physical]
+                if sha256(source_image) != calibration_row["image_sha256"]:
+                    raise ValueError(f"Source RGB changed since color calibration: {physical}")
+                key = {"ingest": "ingest_gain_correction", "spatial": "exposure_gain"}.get(
+                    args.camera_color_model, args.camera_color_model + "_gain")
+                source_color_gain = calibration_row[key]
+                source_rgb = apply_camera_gain(source_rgb, source_color_gain,
+                    calibration_row["spatial_log_gain_grid"] if args.camera_color_model == "spatial" else None)
             if rank == 0:
                 nearest_source_rgb = source_rgb
             source_depth_array, source_depth_hole_fill = fill_small_consistent_depth_holes(
@@ -1233,6 +1318,22 @@ def main() -> int:
                 torch.log(projected_z.clamp_min(1e-6)) - torch.log(sampled_depth.clamp_min(1e-6))
             )
             valid = in_bounds & (log_error <= args.depth_log_tolerance)
+            observed_veto_pixels = 0
+            if args.source_observed_depth_data is not None:
+                observed_frame = observed_depth_by_stem[source_image.stem]
+                for saved_key, camera_key in (("fl_x", "fx"), ("fl_y", "fy"), ("cx", "cx"), ("cy", "cy")):
+                    if not math.isclose(float(observed_frame[saved_key]), source_intrinsics[camera_key], rel_tol=1e-6):
+                        raise ValueError("Observed depth intrinsics do not match source RGB raster")
+                observed_array = load_depth(args.source_observed_depth_data / observed_frame["depth_file_path"])
+                if observed_array.shape != source_depth_array.shape:
+                    raise ValueError("Observed depth shape does not match source RGB raster")
+                observed_depth = torch.from_numpy(observed_array).to(device) * float(train.dataparser_scale)
+                sampled_observed = grid_sample(observed_depth.unsqueeze(0), u, v)[0]
+                occluded = (sampled_observed > 0) & (
+                    projected_z > sampled_observed * math.exp(args.source_observed_depth_log_tolerance)
+                )
+                observed_veto_pixels = int((valid & occluded).sum().item())
+                valid = valid & ~occluded
             depth_weight = torch.exp(-0.5 * (log_error / args.depth_log_tolerance).square())
             pose_weight = 1.0 / max(
                 float(distances[source_index].item()) ** args.camera_distance_power,
@@ -1264,6 +1365,8 @@ def main() -> int:
                     "rank": rank,
                     "train_index": source_index,
                     "source_image": str(source_image),
+                    "source_color_gain": source_color_gain,
+                    "observed_depth_veto_pixels": observed_veto_pixels,
                     "camera_distance": float(distances[source_index].item()),
                     "valid_target_fraction": float(valid.float().mean().item()),
                     "valid_mesh_fraction": float(valid[target_depth > 0].float().mean().item()),
@@ -1277,6 +1380,11 @@ def main() -> int:
                 }
             )
 
+        overlap_exposure = None
+        if args.overlap_exposure_grid is not None:
+            from patchmatch_color_calibration import correct_projected_exposure
+
+            warped, overlap_exposure = correct_projected_exposure(warped, valid_masks, *args.overlap_exposure_grid)
         if args.base_prediction_exr is None:
             base = torch.zeros_like(warped[0])
         else:
@@ -1299,7 +1407,7 @@ def main() -> int:
                 args.output_dir / "target_surface_metric_mask.png", compress_level=3
             )
         ground_truth = args.ground_truth_exr
-        if ground_truth is None:
+        if ground_truth is None and not args.skip_ground_truth_copy:
             # Held-out RGB is loaded only after every prediction input has
             # already been constructed.  It is written solely for metrics.
             ground_truth = args.output_dir / "eval_gt_0000.exr"
@@ -1329,6 +1437,7 @@ def main() -> int:
                     nearest_fill_color_continuity=args.nearest_fill_color_continuity,
                     nearest_fill_color_continuity_mode=args.nearest_fill_color_continuity_mode,
                     nearest_fill_rank_penalty=args.nearest_fill_rank_penalty,
+                    seam_cut_rank_penalty=args.seam_cut_rank_penalty,
                 )
                 continuation: dict[str, object] = {"enabled": False}
                 if (
@@ -1417,7 +1526,7 @@ def main() -> int:
         "schema_version": 1,
         "method": "continuous_mesh_calibrated_train_image_reprojection",
         "uses_eval_rgb_for_prediction": False,
-        "eval_rgb_use": "metrics_only",
+        "eval_rgb_use": "not_read" if args.skip_ground_truth_copy else "metrics_only",
         "uses_masks": False,
         "base_prediction": (
             None
@@ -1428,7 +1537,7 @@ def main() -> int:
                 "input_policy": "prediction_only_or_right_half_of_nerfstudio_gt_prediction_review",
             }
         ),
-        "ground_truth": {
+        "ground_truth": None if args.skip_ground_truth_copy else {
             "path": str(target_image if args.ground_truth_exr is None else args.ground_truth_exr),
             "use": "metrics_only",
         },
@@ -1462,6 +1571,25 @@ def main() -> int:
             "min_median_l1": args.nearest_fill_primary_color_continuation_min_median_l1,
         },
         "camera_distance_power": args.camera_distance_power,
+        "overlap_exposure_calibration": overlap_exposure,
+        "camera_color_calibration": None if color_calibration is None else {
+            "path": str(args.camera_color_calibration.resolve()),
+            "sha256": sha256(args.camera_color_calibration),
+            "helper_sha256": sha256(Path(__file__).with_name("patchmatch_color_calibration.py")),
+            "model": args.camera_color_model,
+            "domain": color_calibration["domain"],
+            "gauge": color_calibration["gauge"],
+            "uses_eval_rgb": False,
+            "source_averaging": False,
+        },
+        "primary_angular_camera_count": args.primary_angular_camera_count,
+        "seam_cut": {
+            "enabled": "seam-cut" in args.aggregation_modes,
+            "rank_penalty": args.seam_cut_rank_penalty,
+            "helper_sha256": sha256(Path(__file__).with_name("hard_texture_seam_cut.py"))
+            if "seam-cut" in args.aggregation_modes else None,
+            "color_averaging": False,
+        },
         "aggregation_modes": list(args.aggregation_modes),
         "best_view_angle_power": args.best_view_angle_power,
         "best_view_border_margin": args.best_view_border_margin,

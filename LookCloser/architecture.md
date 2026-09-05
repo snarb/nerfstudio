@@ -1024,3 +1024,26 @@ PSNR uses exactly the selected RGB samples, while SSIM and Alex-LPIPS use the ti
 with identical black values outside the mask. `audit_colmap_patchmatch_tsdf_campaign.py` then
 reconciles source inventory, CSV/result rows, hashes, finite metrics, visual verdicts, depth-map
 shape/count, mesh statistics, contact sheets, and the absence of full-frame metrics.
+
+### Opt-in surface repair color diagnostics
+
+`calibrate_patchmatch_camera_colors.py` fits train-only exposure/diagonal RGB gains
+from mutually visible fixed-mesh observations. Spatially held-out 3D blocks audit
+the fit; ingest receipts distinguish per-image preprocessing gain from pre-ingest
+response. The latter does not uniquely identify hardware sensitivity. The optional
+smooth image-coordinate exposure field is a multiplicative color correction, not
+RGB averaging or detail synthesis. `render_mesh_image_blend.py` applies these gains
+only with `--camera-color-calibration`; existing default outputs are unchanged.
+The separate `--overlap-exposure-grid` diagnostic fits an additional smooth gain
+from warped train overlaps. It reads no eval RGB, but is view-dependent and remains
+unaccepted after the native crop gate.
+
+`render_patchmatch_camera_path.py` normalizes fixed calibration using the TSDF
+receipt, interpolates camera poses without reading target RGB, and preserves source
+and renderer hashes. The optional hard graph cut changes source labels only.
+`texture_patchmatch_mesh_mvs.py` is a separate, currently rejected mesh-space
+texturing canary using pinned mvs-texturing. It disables Poisson seam blending and
+texture hole filling. `render_textured_mesh_path.py` verifies the oriented triangle
+inventory and raycasts the resulting fixed atlas at held-out/novel poses. These
+diagnostics are not a promoted recipe or a change to any model defaults; measured
+failures and remaining temporal gates are in `experiments/dec5_patchmatch_surface_repair.md`.
