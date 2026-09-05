@@ -1067,3 +1067,11 @@ source selection and are rejected visual canaries, not model defaults.
 train-only photometric deformation of a copied TSDF mesh. It audits binary camera
 round trips and unchanged topology; output is a TSDF-initialized refined mesh,
 not a serialized TSDF volume. Native visual and temporal acceptance remain separate.
+
+`audit_fixed_camera_feature_geometry.py` independently checks train-image
+epipolar residuals and same-camera temporal stability; diagnostic fitted matrices
+never replace calibration. `--surface-texture-registration` is an opt-in
+train-overlap UV micro-registration control with spatially held-out checks.
+It keeps cameras/mesh and categorical source choice semantics fixed, but explicitly
+changes texture coordinates and is not pure calibrated projection. Native RGB is
+sampled once, visibility is never expanded, and legacy defaults are unchanged.

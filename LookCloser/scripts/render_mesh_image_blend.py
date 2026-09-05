@@ -91,6 +91,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--camera-color-calibration", type=Path, default=None)
     parser.add_argument("--angular-surface-color",type=Path,default=None)
     parser.add_argument("--hard-source-seam-leveling",action="store_true")
+    parser.add_argument("--surface-texture-registration",action="store_true")
     parser.add_argument("--camera-color-model", choices=("ingest", "exposure", "rgb", "spatial"), default="rgb")
     parser.add_argument("--overlap-exposure-grid", type=int, nargs=2, default=None)
     parser.add_argument("--write-source-warp-audit", action="store_true")
@@ -302,6 +303,10 @@ def parse_args() -> argparse.Namespace:
         parser.error('Seam gain leveling requires calibrated ingest and hard source selection')
     if args.hard_source_seam_leveling and (args.nearest_fill_primary_color_continuation or any(a!=1 for a in args.blend_alphas) or args.detail_transfer_sigmas):
         parser.error('Seam gain leveling cannot be combined with source continuation, base blending or detail transfer')
+    if args.surface_texture_registration and (not args.exact_mesh_visibility or args.angular_surface_color
+            or any(m not in ('nearest-fill','seam-cut') for m in args.aggregation_modes)
+            or any(a!=1 for a in args.blend_alphas) or args.nearest_fill_primary_color_continuation or args.detail_transfer_sigmas):
+        parser.error('Texture registration requires exact visibility and hard single-source output without angular fields or continuation')
     if not math.isfinite(args.seam_cut_rank_penalty) or args.seam_cut_rank_penalty < 0:
         parser.error("--seam-cut-rank-penalty must be finite and non-negative")
     if not math.isfinite(args.seam_cut_consensus_penalty) or args.seam_cut_consensus_penalty<0:
@@ -1323,6 +1328,7 @@ def main() -> int:
     nearest_source_rgb: torch.Tensor | None = None
     source_rows: list[dict[str, object]] = []
     stereo_support_masks=[]
+    native_texture_sources=[];native_texture_uv=[]
     target_world = target_depth_to_world(target_depth, target_c2w, target_intrinsics)
     mesh_visibility = None
     if args.exact_mesh_visibility:
@@ -1376,6 +1382,8 @@ def main() -> int:
                 target_depth, target_c2w, target_intrinsics, source_c2w, source_intrinsics
             )
             sampled_rgb = grid_sample(source_rgb, u, v)
+            if args.surface_texture_registration:
+                native_texture_sources.append(source_rgb);native_texture_uv.append((u,v))
             if angular_field is not None:
                 from angular_surface_color import angular_log_gain
 
@@ -1484,6 +1492,15 @@ def main() -> int:
             )
 
         rank_confidence = None
+        texture_registration = None
+        texture_uv_offsets = None
+        if args.surface_texture_registration:
+            from surface_texture_registration import register_surface_textures
+
+            warped,valid_masks,texture_uv_offsets,texture_registration=register_surface_textures(
+                warped,valid_masks,target_depth,native_texture_sources,native_texture_uv,grid_sample)
+            texture_registration['helper_sha256']=sha256(Path(__file__).with_name('surface_texture_registration.py'))
+            print('texture_registration='+json.dumps({k:v for k,v in texture_registration.items() if k!='sources'}),flush=True)
         stereo_support_filter = None
         if args.source_observed_fallback_support:
             support_stack=torch.stack(stereo_support_masks)&torch.stack(valid_masks)
@@ -1537,6 +1554,13 @@ def main() -> int:
                         f"Base prediction shape {tuple(base.shape)} does not match target {tuple(warped[0].shape)}"
                     )
         args.output_dir.mkdir(parents=True)
+        if texture_uv_offsets is not None:
+            directory=args.output_dir/'texture_registration';directory.mkdir()
+            for rank,offset in enumerate(texture_uv_offsets,1):
+                if offset is not None:
+                    path=directory/f'source_uv_offset_{rank:02d}.npz';np.savez_compressed(path,offset=offset)
+                    texture_registration['sources'][rank-1]['uv_offset_path']=str(path)
+                    texture_registration['sources'][rank-1]['uv_offset_sha256']=sha256(path)
         if args.write_source_warp_audit:
             audit_directory=args.output_dir/"source_warps"
             audit_directory.mkdir()
@@ -1731,6 +1755,7 @@ def main() -> int:
         "seam_cut_visibility_radius": args.seam_cut_visibility_radius,
         "seam_cut_consensus_penalty":args.seam_cut_consensus_penalty,
         "surface_color_field": surface_color_field,
+        "surface_texture_registration":texture_registration,
         "stereo_support_filter": stereo_support_filter,
         "angular_surface_color": None if args.angular_surface_color is None else {
             "path":str(args.angular_surface_color.resolve()),"sha256":sha256(args.angular_surface_color),

@@ -533,6 +533,59 @@ Original versus refined path requests differ only in mesh and mesh-metadata hash
 and the derived request hash. No accepted repair or completed temporal/fly-through
 validation is claimed; the original campaign and frozen calibration are unchanged.
 
+### Independent source-image geometry and temporal camera stability
+
+`audit_fixed_camera_feature_geometry.py` tests direct train-JPEG SIFT matches,
+without a mesh, pose optimization or held-out-camera RGB. Mutual ratio-test
+matches are split by 128-pixel spatial blocks; a diagnostic fundamental matrix
+is fitted on the training subset and evaluated on held matches. The diagnostic
+matrix never becomes a new calibration or a prediction input. Independent-model
+inlier filtering is not independent ground truth; repetitive texture and a
+dominant foreground can still produce misleading correspondences.
+
+| Primary E004_C005_1210YM paired with | 000899 frozen / fitted median pixels | 000973 | 001059 |
+|---|---:|---:|---:|
+| E004_B005_1210I7 | .312 / .156 | .447 / .181 | .395 / .160 |
+| G004_B005_1210FG | .266 / .224 | .397 / .143 | .404 / .195 |
+| F004_A005_12103K | .245 / .231 | .448 / .198 | .453 / .166 |
+| F004_C005_121059 | .650 / .198 | .740 / .267 | .842 / .277 |
+
+Native inspection confirms some large residuals on recognizably corresponding
+eyebrow/eyelid details (up to 2.43 pixels for E004_B005_1210I7 at 000973). A separate
+same-camera temporal match audit compares 000899 with 000973/001059. Its near-
+identity feature cluster has typical displacements .13–.24 pixels at 000973 and
+.14–.33 at 001059 across eight sources. Spatially spread native crops for the
+primary and E004_B005_1210I7 show genuinely static room fixtures. There is no
+evidence here of multi-pixel rig drift. Too few cross-camera static-room matches
+survive to attribute the foreground residual uniquely to calibration or capture
+timing. The frozen calibration is therefore still unchanged.
+
+[Direct 000973 feature audit](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/independent_feature_geometry/audit.json),
+[native eyebrow correspondences](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/independent_feature_geometry/E004_C005_1210YM__E004_B005_1210I7_held_crops.png),
+[000973 temporal stability](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/temporal_camera_stability/audit.json),
+[001059 temporal stability](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/001059/temporal_camera_stability/audit.json).
+
+An opt-in texture-coordinate micro-registration control now addresses residual
+train-image misregistration without altering mesh or camera matrices. Shared
+train patches constrain a depth-layer-separated displacement field; separate
+spatial blocks check its prediction of train correspondences. The output still
+samples one native train RGB source once, but **texture UV coordinates deliberately
+change**. This is an appearance-alignment extension, not pure unchanged calibrated
+projection and not a claim of improved physical geometry. The primary is unchanged,
+visibility is never expanded, and unsafe adjustments revert to original sampling.
+Displacements, helper hashes and train-only fit checks are retained. Visual and
+novel-view acceptance remain required before any temporal promotion.
+
+The first micro-registration canary **fails the native F visual gate**. For the
+two main fallback cameras, median held-train shift residual decreases from
+1.073 to .363 pixels and .688 to .242 pixels. All seven secondary cameras pass
+that train check, yet the visible neck patch, thin bright hand-adjacent seam and
+ragged skin/hair silhouette remain. Face PSNR/SSIM/LPIPS are
+29.110649 / .890400 / .047048 using the unchanged study polygon. Better train
+alignment is not equivalent to a seam-free render; no temporal promotion follows.
+[GT / refined mesh / UV registration, native hand crop](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/surface_texture_registration/review/hand.png),
+[failed verdict and retained hashes](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/surface_texture_registration/visual_review.json).
+
 ## Insights
 
 The published render correction can use the primary train camera despite its failed

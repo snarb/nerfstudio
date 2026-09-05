@@ -82,6 +82,7 @@ def main() -> None:
     parser.add_argument("--camera-color-calibration",type=Path,default=None)
     parser.add_argument("--angular-surface-color",type=Path,default=None)
     parser.add_argument("--hard-source-seam-leveling",action="store_true")
+    parser.add_argument("--surface-texture-registration",action="store_true")
     parser.add_argument("--camera-color-model",choices=("ingest","exposure","rgb","spatial"),default="rgb")
     parser.add_argument("--overlap-exposure-grid",type=int,nargs=2,default=None)
     parser.add_argument("--pixel-center-offset",type=float,choices=(0.,.5),default=0.)
@@ -118,6 +119,8 @@ def main() -> None:
                "angular_surface_color_sha256":None if args.angular_surface_color is None else sha256(args.angular_surface_color),
                "angular_surface_color_helper_sha256":sha256(SCRIPTS/'angular_surface_color.py') if args.angular_surface_color else None,
                "hard_source_seam_leveling":args.hard_source_seam_leveling,
+               "surface_texture_registration":args.surface_texture_registration,
+               "texture_registration_helper_sha256":sha256(SCRIPTS/'surface_texture_registration.py') if args.surface_texture_registration else None,
                "seam_leveling_helper_sha256":sha256(SCRIPTS/'hard_source_seam_leveling.py') if args.hard_source_seam_leveling else None,
                "camera_color_model":args.camera_color_model,
                "overlap_exposure_grid":args.overlap_exposure_grid,
@@ -189,6 +192,7 @@ def main() -> None:
                  "--surface-color-field-smoothness",args.surface_color_field_smoothness,
                  *([] if args.angular_surface_color is None else ['--angular-surface-color',args.angular_surface_color]),
                  *(['--hard-source-seam-leveling'] if args.hard_source_seam_leveling else []),
+                 *(['--surface-texture-registration'] if args.surface_texture_registration else []),
                  *([] if args.overlap_exposure_grid is None else ["--overlap-exposure-grid",*args.overlap_exposure_grid]),
                  *([] if args.camera_color_calibration is None else ["--camera-color-calibration",args.camera_color_calibration,
                      "--camera-color-model",args.camera_color_model]),
