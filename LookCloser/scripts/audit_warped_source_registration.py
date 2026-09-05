@@ -10,9 +10,35 @@ from PIL import Image,ImageDraw
 from colmap_patchmatch_tsdf_campaign_common import atomic_json,sha256
 
 
+def relative_blur_profile(primary,source):
+    """Diagnostic low-pass comparison after registration, never a render filter.
+
+    A better Gaussian fit describes a relative bandwidth mismatch; it does not
+    identify sensor defocus separately from sampling, noise or geometric errors.
+    """
+    if primary.shape!=source.shape or primary.ndim!=2 or min(primary.shape)<24:
+        raise ValueError('Expected equal grayscale patches at least 24 pixels wide')
+    if not np.isfinite(primary).all() or not np.isfinite(source).all():
+        raise ValueError('Nonfinite blur audit patches')
+    def ncc(a,b):
+        a=a[6:-6,6:-6].astype(float);b=b[6:-6,6:-6].astype(float)
+        a-=a.mean();b-=b.mean()
+        return float((a*b).sum()/max(float(np.linalg.norm(a)*np.linalg.norm(b)),1e-12))
+    best={'blurred_side':'none','sigma_pixels':0.,'ncc':ncc(primary,source)}
+    zero=best['ncc']
+    for side in ('primary','source'):
+        for sigma in (.4,.6,.8,1.,1.25,1.5,2.,2.5):
+            a=cv2.GaussianBlur(primary,(0,0),sigma) if side=='primary' else primary
+            b=cv2.GaussianBlur(source,(0,0),sigma) if side=='source' else source
+            score=ncc(a,b)
+            if score>best['ncc']+1e-8:best={'blurred_side':side,'sigma_pixels':sigma,'ncc':score}
+    return {**best,'ncc_unfiltered':zero,'ncc_gain':best['ncc']-zero}
+
+
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--warps',type=Path,required=True);p.add_argument('--output',type=Path,required=True)
+    p.add_argument('--blur-profile',action='store_true')
     a=p.parse_args();a.output.mkdir(parents=True,exist_ok=False)
     images=[np.asarray(Image.open(f).convert('RGB')).astype(np.float32)/255 for f in sorted(a.warps.glob('source_*.png'))]
     valid=[np.asarray(Image.open(f))>0 for f in sorted(a.warps.glob('valid_*.png'))]
@@ -31,6 +57,8 @@ def main():
                     v,u=np.unravel_index(scores.argmax(),scores.shape)
                     row={'region':region,'source_rank':source,'x':x,'y':y,'dx':int(u)-8,'dy':int(v)-8,
                          'ncc_at_zero':float(scores[8,8]),'ncc_best':float(scores[v,u]),'primary_std':float(ref.std())}
+                    if a.blur_profile:
+                        row['relative_blur']=relative_blur_profile(ref,search[v:v+48,u:u+48])
                     rows.append(row)
     summary=[]
     for region in ['hand_neck','face']:
@@ -54,7 +82,8 @@ def main():
             im=Image.fromarray(np.rint(crop*255).astype(np.uint8)).rotate(90).resize((128,128),Image.Resampling.NEAREST)
             canvas.paste(im,(128*j,32));ImageDraw.Draw(canvas).text((128*j+2,5),label,fill='white')
         canvas.save(a.output/f'patch_{i:02d}.png')
-    atomic_json(a.output/'audit.json',{'uses_eval_rgb':False,'applies_image_warp':False,'summary':summary,'patches':rows,
+    atomic_json(a.output/'audit.json',{'uses_eval_rgb':False,'applies_image_warp':False,'applies_render_blur':False,
+                 'blur_profile_enabled':a.blur_profile,'script_sha256':sha256(Path(__file__)),'summary':summary,'patches':rows,
                  'visual_patch_rows':selected,'input_hashes':{f.name:sha256(f) for f in sorted(a.warps.glob('*.png'))}})
     print(json.dumps(summary))
 

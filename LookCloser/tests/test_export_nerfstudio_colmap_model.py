@@ -6,6 +6,7 @@ from pathlib import Path
 
 import numpy as np
 from PIL import Image
+import pytest
 
 
 MODULE_PATH = Path(__file__).resolve().parents[1] / "scripts" / "export_nerfstudio_colmap_model.py"
@@ -56,3 +57,18 @@ def test_export_model_is_train_only_and_preserves_calibration(tmp_path: Path) ->
     images_text = (output / "images.txt").read_text()
     assert "images/train.jpg" in images_text
     assert "images/eval.jpg" not in images_text
+
+
+def test_opt_in_pinhole_rejects_distortion_and_preserves_four_parameters(tmp_path):
+    data=tmp_path/'data';data.mkdir();Image.new('RGB',(8,6)).save(data/'train.jpg')
+    payload={'fl_x':10.,'fl_y':11.,'cx':4.,'cy':3.,'w':8,'h':6,'k1':.01,
+             'frames':[{'file_path':'train.jpg','transform_matrix':np.eye(4).tolist()}],
+             'train_filenames':['train.jpg']}
+    (data/'transforms.json').write_text(json.dumps(payload))
+    with pytest.raises(ValueError,match='zero distortion'):
+        MODULE.export_model(data,tmp_path/'bad',split='train',camera_model='PINHOLE')
+    payload['k1']=0.;(data/'transforms.json').write_text(json.dumps(payload))
+    MODULE.export_model(data,tmp_path/'good',split='train',camera_model='PINHOLE')
+    row=[r for r in (tmp_path/'good/cameras.txt').read_text().splitlines() if not r.startswith('#')][0]
+    assert row.split()[1]=='PINHOLE'
+    assert list(map(float,row.split()[4:]))==[10,11,4,3]

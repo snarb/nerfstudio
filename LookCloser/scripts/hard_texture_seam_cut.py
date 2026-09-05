@@ -7,6 +7,26 @@ from __future__ import annotations
 import numpy as np
 
 
+def consensus_source_costs(rgb,valid,penalty=1.):
+    """Robust disagreement is a selection cost only; never an RGB prediction."""
+    from scipy.ndimage import uniform_filter
+    support=valid.any(0)
+    masked=np.where(valid[...,None],rgb,np.nan)
+    masked[:,~support]=0
+    reference=np.nanmedian(masked,axis=0)
+    error=np.abs(rgb-reference).mean(-1)
+    local=uniform_filter(error*valid,size=(1,5,5),mode='constant')
+    weight=uniform_filter(valid.astype(np.float32),size=(1,5,5),mode='constant')
+    error=local/np.maximum(weight,1e-6)
+    costs=np.zeros_like(error)
+    if len(rgb)>1:
+        best=np.where(valid[1:],error[1:],np.inf).min(0)
+        best=np.where(np.isfinite(best),best,0)
+        costs[1:]=np.maximum(error[1:]-best,0)*penalty
+        costs[:,valid.sum(0)<3]=0
+    return costs
+
+
 def visibility_rank_confidence(valid,depth,radius):
     """Reduce the primary-rank prior near large occlusions on the same depth layer."""
     from scipy import ndimage
@@ -23,7 +43,8 @@ def visibility_rank_confidence(valid,depth,radius):
 
 def optimize_source_labels(rgb: np.ndarray, valid: np.ndarray, *, rank_penalty: float = .0001,
                            smoothness: float = 1., iterations: int = 2,
-                           rank_confidence: np.ndarray | None = None) -> tuple[np.ndarray, dict]:
+                           rank_confidence: np.ndarray | None = None,
+                           source_costs: np.ndarray | None = None) -> tuple[np.ndarray, dict]:
     """Input SHWC display RGB and SHW visibility; output HW indices (-1 for misses)."""
     import maxflow
     if rgb.ndim != 4 or rgb.shape[-1] != 3 or valid.shape != rgb.shape[:-1]:
@@ -31,6 +52,9 @@ def optimize_source_labels(rgb: np.ndarray, valid: np.ndarray, *, rank_penalty: 
     if not np.isfinite(rgb).all() or rank_penalty < 0 or smoothness < 0 or iterations < 1:
         raise ValueError("Invalid finite RGB or optimization parameters")
     count,height,width,_ = rgb.shape
+    if source_costs is None:source_costs=np.zeros(valid.shape,np.float32)
+    if source_costs.shape!=valid.shape or not np.isfinite(source_costs).all() or (source_costs<0).any():
+        raise ValueError('Invalid source-specific unary costs')
     if rank_confidence is None:rank_confidence=np.ones((height,width),np.float32)
     if rank_confidence.shape!=(height,width) or not np.isfinite(rank_confidence).all() or (rank_confidence<0).any():
         raise ValueError('Invalid spatial source-rank confidence')
@@ -43,6 +67,7 @@ def optimize_source_labels(rgb: np.ndarray, valid: np.ndarray, *, rank_penalty: 
     colors=np.ascontiguousarray(rgb[:,y0:y1,x0:x1],dtype=np.float32)
     visible=np.ascontiguousarray(valid[:,y0:y1,x0:x1],dtype=bool)
     confidence=rank_confidence[y0:y1,x0:x1]
+    extra_costs=source_costs[:,y0:y1,x0:x1]
     active=visible.any(0)
     h,w=active.shape
     labels=np.argmax(visible,axis=0).astype(np.int32)
@@ -59,7 +84,7 @@ def optimize_source_labels(rgb: np.ndarray, valid: np.ndarray, *, rank_penalty: 
                    +np.abs(flat_colors[la,b]-flat_colors[lb,b]).mean(-1))
         return smoothness*(value+.01*(la!=lb))
     def energy(state):
-        value=float((state[active]*rank_penalty*confidence[active]).sum())
+        value=float((state[active]*rank_penalty*confidence[active]+extra_costs[state,iy,ix][active]).sum())
         sf=state.ravel()
         for a,b in edges:value+=float(cost(a,b,sf[a],sf[b]).sum())
         return value
@@ -68,8 +93,8 @@ def optimize_source_labels(rgb: np.ndarray, valid: np.ndarray, *, rank_penalty: 
         changed=0
         for alpha in range(count):
             if not visible[alpha].any():continue
-            d0=np.where(active,labels*rank_penalty*confidence,0.).astype(np.float64).ravel()
-            d1=np.where(visible[alpha],alpha*rank_penalty*confidence,1e6).astype(np.float64).ravel()
+            d0=np.where(active,labels*rank_penalty*confidence+extra_costs[labels,iy,ix],0.).astype(np.float64).ravel()
+            d1=np.where(visible[alpha],alpha*rank_penalty*confidence+extra_costs[alpha],1e6).astype(np.float64).ravel()
             state=labels.ravel()
             graph=maxflow.Graph[float](h*w,2*h*w)
             nodes=graph.add_grid_nodes((h,w))

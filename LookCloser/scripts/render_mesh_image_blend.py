@@ -87,7 +87,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--neighbors", type=int, nargs="+", default=(1, 2, 4))
     parser.add_argument("--primary-angular-camera-count", type=int, default=0)
     parser.add_argument("--seam-cut-rank-penalty", type=float, default=0.0001)
+    parser.add_argument("--seam-cut-consensus-penalty", type=float, default=0.)
     parser.add_argument("--camera-color-calibration", type=Path, default=None)
+    parser.add_argument("--angular-surface-color",type=Path,default=None)
+    parser.add_argument("--hard-source-seam-leveling",action="store_true")
     parser.add_argument("--camera-color-model", choices=("ingest", "exposure", "rgb", "spatial"), default="rgb")
     parser.add_argument("--overlap-exposure-grid", type=int, nargs=2, default=None)
     parser.add_argument("--write-source-warp-audit", action="store_true")
@@ -96,6 +99,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--exact-mesh-visibility", action="store_true")
     parser.add_argument("--disocclusion-color-match", action="store_true")
     parser.add_argument("--seam-cut-visibility-radius", type=float, default=0.)
+    parser.add_argument("--surface-color-field-smoothness", type=float, default=0.,
+                        help="Opt-in depth-separated smooth train-overlap gain field; zero disables.")
     parser.add_argument(
         "--aggregation-modes",
         nargs="+",
@@ -120,6 +125,9 @@ def parse_args() -> argparse.Namespace:
         help="Optional calibrated train depth dataset used to veto foreground occluders absent from the mesh.",
     )
     parser.add_argument("--source-observed-depth-log-tolerance", type=float, default=0.001)
+    parser.add_argument("--source-observed-fallback-support",action="store_true",
+                        help="Prefer stereo-supported fallback cameras, retaining primary and unsupported last resorts.")
+    parser.add_argument("--source-observed-mesh-metadata",type=Path,default=None)
     parser.add_argument(
         "--depth-hole-fill-max-area",
         type=int,
@@ -282,8 +290,22 @@ def parse_args() -> argparse.Namespace:
         parser.error("Disocclusion color matching requires an audited camera calibration and ingest curve")
     if not math.isfinite(args.seam_cut_visibility_radius) or args.seam_cut_visibility_radius<0:
         parser.error('Seam-cut visibility radius must be finite and nonnegative')
+    if not math.isfinite(args.surface_color_field_smoothness) or args.surface_color_field_smoothness<0:
+        parser.error('Surface color smoothness must be finite and nonnegative')
+    if args.surface_color_field_smoothness and args.camera_color_calibration is None:
+        parser.error('Surface color correction requires an audited ingest/color calibration')
+    if args.source_observed_fallback_support and (args.source_observed_depth_data is None or args.source_observed_mesh_metadata is None):
+        parser.error('Stereo fallback support requires raw depth data and its mesh normalization receipt')
+    if args.angular_surface_color and (args.camera_color_calibration is None or args.camera_color_model!='rgb' or not args.exact_mesh_visibility):
+        parser.error('Angular color correction requires matching RGB calibration and exact mesh visibility')
+    if args.hard_source_seam_leveling and (args.camera_color_calibration is None or any(m not in ('nearest-fill','seam-cut') for m in args.aggregation_modes)):
+        parser.error('Seam gain leveling requires calibrated ingest and hard source selection')
+    if args.hard_source_seam_leveling and (args.nearest_fill_primary_color_continuation or any(a!=1 for a in args.blend_alphas) or args.detail_transfer_sigmas):
+        parser.error('Seam gain leveling cannot be combined with source continuation, base blending or detail transfer')
     if not math.isfinite(args.seam_cut_rank_penalty) or args.seam_cut_rank_penalty < 0:
         parser.error("--seam-cut-rank-penalty must be finite and non-negative")
+    if not math.isfinite(args.seam_cut_consensus_penalty) or args.seam_cut_consensus_penalty<0:
+        parser.error('Consensus penalty must be finite and nonnegative')
     if args.skip_ground_truth_copy and (args.score_metrics or args.ground_truth_exr is not None):
         parser.error("--skip-ground-truth-copy forbids ground truth and metric scoring")
     if args.depth_hole_fill_max_area < 0:
@@ -677,6 +699,7 @@ def aggregate_warped_sources(
     nearest_fill_rank_penalty: float = 0.0,
     seam_cut_rank_penalty: float = 0.0001,
     seam_cut_rank_confidence: np.ndarray | None = None,
+    seam_cut_consensus_penalty: float = 0.,
 ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
     """Combine source warps and return RGB, valid mask, and selected source rank."""
 
@@ -735,13 +758,18 @@ def aggregate_warped_sources(
         gather_index = selected.unsqueeze(0).unsqueeze(0).expand(1, rgb_stack.shape[1], *selected.shape)
         rgb = torch.gather(rgb_stack, dim=0, index=gather_index)[0]
     elif mode == "seam-cut":
-        from hard_texture_seam_cut import optimize_source_labels
+        from hard_texture_seam_cut import optimize_source_labels,consensus_source_costs
+
+        numpy_rgb=rgb_stack.permute(0,2,3,1).detach().cpu().numpy()
+        numpy_valid=valid_stack.detach().cpu().numpy()
+        source_costs=consensus_source_costs(numpy_rgb,numpy_valid,seam_cut_consensus_penalty) if seam_cut_consensus_penalty else None
 
         labels, seam_stats = optimize_source_labels(
-            rgb_stack.permute(0, 2, 3, 1).detach().cpu().numpy(),
-            valid_stack.detach().cpu().numpy(),
+            numpy_rgb,
+            numpy_valid,
             rank_penalty=seam_cut_rank_penalty,
             rank_confidence=seam_cut_rank_confidence,
+            source_costs=source_costs,
         )
         print("seam_cut=" + json.dumps(seam_stats), flush=True)
         selected = torch.from_numpy(labels).to(device=rgb_stack.device, dtype=torch.long).clamp_min(0)
@@ -1201,6 +1229,7 @@ def main() -> int:
     train = parser_config.setup().get_dataparser_outputs(split="train")
     target = parser_config.setup().get_dataparser_outputs(split="val")
     observed_depth_by_stem = {}
+    observed_metadata = None
     if args.source_observed_depth_data is not None:
         observed = json.loads((args.source_observed_depth_data / "transforms.json").read_text())
         observed_train = set(observed["train_filenames"])
@@ -1209,6 +1238,10 @@ def main() -> int:
                 if frame.get("mask_path"):
                     raise ValueError("Observed source depths must not use image/person masks")
                 observed_depth_by_stem[Path(frame["file_path"]).stem] = frame
+        if args.source_observed_fallback_support:
+            observed_metadata=json.loads(args.source_observed_mesh_metadata.read_text())
+            if observed_metadata['output_sha256']!=manifest['mesh_sha256']:
+                raise ValueError('Observed depth normalization belongs to another mesh')
     if train.mask_filenames is not None or target.mask_filenames is not None:
         raise ValueError("Mesh reprojection diagnostic forbids image/person masks")
     if len(target.image_filenames) != 1:
@@ -1289,6 +1322,7 @@ def main() -> int:
     best_scores: list[torch.Tensor] = []
     nearest_source_rgb: torch.Tensor | None = None
     source_rows: list[dict[str, object]] = []
+    stereo_support_masks=[]
     target_world = target_depth_to_world(target_depth, target_c2w, target_intrinsics)
     mesh_visibility = None
     if args.exact_mesh_visibility:
@@ -1301,6 +1335,15 @@ def main() -> int:
             raise ValueError('Exact visibility requires unscaled mesh coordinates')
         mesh_visibility=MeshVisibility(mesh_path)
         visibility_world=target_world.detach().cpu().numpy()
+    angular_field = None
+    angular_model = None
+    if args.angular_surface_color:
+        from angular_surface_color import AngularSurfaceColor
+
+        angular_model=AngularSurfaceColor(args.angular_surface_color,mesh_path)
+        if angular_model.manifest['camera_color_calibration_sha256']!=sha256(args.camera_color_calibration):
+            raise ValueError('Angular field uses a different camera RGB calibration')
+        angular_field=torch.as_tensor(angular_model.sample(visibility_world,(target_depth>0).cpu().numpy()),device=device)
     with torch.inference_mode():
         for rank, source_index in enumerate(selected):
             source_image = Path(train.image_filenames[source_index]).resolve()
@@ -1333,6 +1376,13 @@ def main() -> int:
                 target_depth, target_c2w, target_intrinsics, source_c2w, source_intrinsics
             )
             sampled_rgb = grid_sample(source_rgb, u, v)
+            if angular_field is not None:
+                from angular_surface_color import angular_log_gain
+
+                if angular_model.manifest['source_hashes'][physical]!=sha256(source_image):
+                    raise ValueError('RGB changed since angular field calibration')
+                log_gain=angular_log_gain(angular_field,target_world,target_c2w[:,3],source_c2w[:,3]).permute(2,0,1)
+                sampled_rgb=apply_camera_gain(sampled_rgb,[1,1,1],log_gain)
             sampled_depth = grid_sample(source_depth.unsqueeze(0), u, v)[0]
             in_bounds = (
                 (target_depth > 0.0)
@@ -1365,13 +1415,25 @@ def main() -> int:
                 observed_array = load_depth(args.source_observed_depth_data / observed_frame["depth_file_path"])
                 if observed_array.shape != source_depth_array.shape:
                     raise ValueError("Observed depth shape does not match source RGB raster")
-                observed_depth = torch.from_numpy(observed_array).to(device) * float(train.dataparser_scale)
-                sampled_observed = grid_sample(observed_depth.unsqueeze(0), u, v)[0]
-                occluded = (sampled_observed > 0) & (
-                    projected_z > sampled_observed * math.exp(args.source_observed_depth_log_tolerance)
-                )
-                observed_veto_pixels = int((valid & occluded).sum().item())
-                valid = valid & ~occluded
+                if args.source_observed_fallback_support:
+                    from mesh_texture_visibility import observed_depth_support
+                    from render_patchmatch_camera_path import normalize_frame
+
+                    normalized=normalize_frame(observed_frame,observed,observed_metadata)
+                    if not np.allclose(np.asarray(normalized['transform_matrix'])[:3],source_c2w.cpu().numpy(),atol=1e-5):
+                        raise ValueError('Observed stereo camera pose does not match normalized RGB camera')
+                    observed_depth=torch.from_numpy(observed_array).to(device)*float(observed_metadata['dataparser_scale'])
+                    supported,support_fraction,sample_count=observed_depth_support(observed_depth,u,v,projected_z,
+                                                        log_tolerance=args.source_observed_depth_log_tolerance)
+                    stereo_support_masks.append(supported)
+                else:
+                    observed_depth = torch.from_numpy(observed_array).to(device) * float(train.dataparser_scale)
+                    sampled_observed = grid_sample(observed_depth.unsqueeze(0), u, v)[0]
+                    occluded = (sampled_observed > 0) & (
+                        projected_z > sampled_observed * math.exp(args.source_observed_depth_log_tolerance)
+                    )
+                    observed_veto_pixels = int((valid & occluded).sum().item())
+                    valid = valid & ~occluded
             depth_weight = torch.exp(-0.5 * (log_error / args.depth_log_tolerance).square())
             pose_weight = 1.0 / max(
                 float(distances[source_index].item()) ** args.camera_distance_power,
@@ -1405,6 +1467,8 @@ def main() -> int:
                     "source_image": str(source_image),
                     "source_color_gain": source_color_gain,
                     "observed_depth_veto_pixels": observed_veto_pixels,
+                    "stereo_supported_visible_pixels":int((valid&supported).sum()) if args.source_observed_fallback_support else None,
+                    "stereo_depth_sha256":sha256(args.source_observed_depth_data/observed_frame['depth_file_path']) if args.source_observed_fallback_support else None,
                     "exact_visibility": exact_visibility_stats,
                     "camera_distance": float(distances[source_index].item()),
                     "valid_target_fraction": float(valid.float().mean().item()),
@@ -1420,6 +1484,19 @@ def main() -> int:
             )
 
         rank_confidence = None
+        stereo_support_filter = None
+        if args.source_observed_fallback_support:
+            support_stack=torch.stack(stereo_support_masks)&torch.stack(valid_masks)
+            supported_alternative=support_stack[1:].any(0)
+            before=torch.stack(valid_masks)
+            valid_masks=[valid_masks[0]]+[valid&(support|~supported_alternative) for valid,support in zip(valid_masks[1:],stereo_support_masks[1:])]
+            stereo_support_filter={'enabled':True,'primary_unchanged':True,'allow_unsupported_last_resort':True,
+                 'radius':2,'minimum_positive_samples':3,'minimum_consistent_fraction':.5,
+                 'log_tolerance':args.source_observed_depth_log_tolerance,
+                 'removed_candidates_by_rank':(before&~torch.stack(valid_masks)).sum((1,2)).tolist(),
+                 'source_transforms_sha256':sha256(args.source_observed_depth_data/'transforms.json'),
+                 'mesh_metadata_sha256':sha256(args.source_observed_mesh_metadata),
+                 'helper_sha256':sha256(Path(__file__).with_name('mesh_texture_visibility.py'))}
         if args.seam_cut_visibility_radius:
             from hard_texture_seam_cut import visibility_rank_confidence
 
@@ -1435,6 +1512,16 @@ def main() -> int:
             from patchmatch_color_calibration import correct_projected_exposure
 
             warped, overlap_exposure = correct_projected_exposure(warped, valid_masks, *args.overlap_exposure_grid)
+        surface_color_field = None
+        if args.surface_color_field_smoothness:
+            from surface_color_field import correct_surface_colors
+
+            warped,surface_color_field=correct_surface_colors(warped,valid_masks,target_depth,
+                                            smoothness=args.surface_color_field_smoothness)
+            surface_color_field['helper_sha256']=sha256(Path(__file__).with_name('surface_color_field.py'))
+            print('surface_color_field='+json.dumps(surface_color_field),flush=True)
+            if not surface_color_field.get('converged',False):
+                raise RuntimeError('Surface color field did not converge; do not publish this render')
         if args.base_prediction_exr is None:
             base = torch.zeros_like(warped[0])
         else:
@@ -1496,8 +1583,15 @@ def main() -> int:
                     nearest_fill_rank_penalty=args.nearest_fill_rank_penalty,
                     seam_cut_rank_penalty=args.seam_cut_rank_penalty,
                     seam_cut_rank_confidence=rank_confidence,
+                    seam_cut_consensus_penalty=args.seam_cut_consensus_penalty,
                 )
                 continuation: dict[str, object] = {"enabled": False}
+                seam_leveling = None
+                if args.hard_source_seam_leveling:
+                    from hard_source_seam_leveling import level_hard_source_seams
+
+                    blend,seam_gain,seam_leveling=level_hard_source_seams(blend,selection,warped[:count],valid_masks[:count],target_depth)
+                    seam_leveling['helper_sha256']=sha256(Path(__file__).with_name('hard_source_seam_leveling.py'))
                 if (
                     aggregation_mode == "nearest-fill"
                     and args.nearest_fill_primary_color_continuation
@@ -1524,6 +1618,8 @@ def main() -> int:
                     name = variant_stem if alpha == 1.0 else f"{variant_stem}_a{alpha_token}"
                     write_prediction(args.output_dir, name, prediction, ground_truth)
                     write_source_selection(args.output_dir, name, selection, count)
+                    if args.hard_source_seam_leveling:
+                        write_exr_image(args.output_dir/name/'source_log_gain.exr',seam_gain.permute(1,2,0))
                     variants.append(
                         {
                             "name": name,
@@ -1534,6 +1630,7 @@ def main() -> int:
                             "valid_mesh_fraction": float(valid[0][target_depth > 0.0].float().mean().item()),
                             "source_rank_fraction_on_valid": selection_fractions,
                             "primary_color_continuation": continuation,
+                            "hard_source_seam_leveling":seam_leveling,
                         }
                     )
                     variant_metric_masks[name] = valid[0]
@@ -1632,6 +1729,12 @@ def main() -> int:
         "pixel_center_offset": args.pixel_center_offset,
         "exact_mesh_visibility": args.exact_mesh_visibility,
         "seam_cut_visibility_radius": args.seam_cut_visibility_radius,
+        "seam_cut_consensus_penalty":args.seam_cut_consensus_penalty,
+        "surface_color_field": surface_color_field,
+        "stereo_support_filter": stereo_support_filter,
+        "angular_surface_color": None if args.angular_surface_color is None else {
+            "path":str(args.angular_surface_color.resolve()),"sha256":sha256(args.angular_surface_color),
+            "helper_sha256":sha256(Path(__file__).with_name('angular_surface_color.py')),"uses_eval_rgb":False,"source_averaging":False},
         "overlap_exposure_calibration": overlap_exposure,
         "disocclusion_color_matching": disocclusion_colors,
         "camera_color_calibration": None if color_calibration is None else {

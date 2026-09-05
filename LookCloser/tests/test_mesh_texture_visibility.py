@@ -6,6 +6,20 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from mesh_texture_visibility import MeshVisibility
 
 
+def test_stereo_support_does_not_average_zero_or_far_depth():
+    import torch
+    from mesh_texture_visibility import observed_depth_support
+    depth=torch.ones((7,7));depth[2:5,2:5]=0
+    u=v=torch.tensor([[3.]])
+    supported,fraction,count=observed_depth_support(depth,u,v,torch.ones_like(u))
+    assert supported.item() and count.item()==16 and fraction.item()==1
+    depth[:]=2;depth[3,3]=1
+    supported,fraction,count=observed_depth_support(depth,u,v,torch.ones_like(u))
+    assert not supported.item() and count.item()==25
+    depth[:]=0;depth[3,3]=1
+    assert not observed_depth_support(depth,u,v,torch.ones_like(u))[0].item()
+
+
 def test_exact_visibility_rejects_occluder_not_same_surface(tmp_path):
     o3d=pytest.importorskip('open3d')
     mesh=o3d.geometry.TriangleMesh(o3d.utility.Vector3dVector([[-1,-1,1],[1,-1,1],[-1,1,1],[1,1,1]]),

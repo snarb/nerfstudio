@@ -3,6 +3,25 @@ from __future__ import annotations
 import numpy as np
 
 
+def observed_depth_support(depth,u,v,projected_z,*,log_tolerance=.005,radius=2):
+    """Count nearby measured depths without bilinearly mixing zeros/depth layers."""
+    import torch
+    if depth.ndim!=2 or u.shape!=v.shape or u.shape!=projected_z.shape or radius<0 or log_tolerance<=0:
+        raise ValueError('Invalid observed-depth support inputs')
+    h,w=depth.shape
+    x=u.round().long();y=v.round().long()
+    count=torch.zeros_like(u,dtype=torch.int16);matches=torch.zeros_like(count)
+    for dy in range(-radius,radius+1):
+        for dx in range(-radius,radius+1):
+            xx=x+dx;yy=y+dy
+            sample=depth[yy.clamp(0,h-1),xx.clamp(0,w-1)]
+            good=(xx>=0)&(xx<w)&(yy>=0)&(yy<h)&torch.isfinite(sample)&(sample>0)&(projected_z>0)
+            agrees=good&((sample.clamp_min(1e-7)/projected_z.clamp_min(1e-7)).log().abs()<=log_tolerance)
+            count+=good.to(torch.int16);matches+=agrees.to(torch.int16)
+    fraction=matches.float()/count.clamp_min(1)
+    return (count>=3)&(fraction>=.5),fraction,count
+
+
 class MeshVisibility:
     def __init__(self,mesh_path):
         import open3d as o3d

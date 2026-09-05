@@ -80,12 +80,15 @@ def main() -> None:
     parser.add_argument("--seam-cut-rank-penalty",type=float,default=.0001)
     parser.add_argument("--primary-angular-camera-count",type=int,default=0)
     parser.add_argument("--camera-color-calibration",type=Path,default=None)
+    parser.add_argument("--angular-surface-color",type=Path,default=None)
+    parser.add_argument("--hard-source-seam-leveling",action="store_true")
     parser.add_argument("--camera-color-model",choices=("ingest","exposure","rgb","spatial"),default="rgb")
     parser.add_argument("--overlap-exposure-grid",type=int,nargs=2,default=None)
     parser.add_argument("--pixel-center-offset",type=float,choices=(0.,.5),default=0.)
     parser.add_argument("--exact-mesh-visibility",action="store_true")
     parser.add_argument("--disocclusion-color-match",action="store_true")
     parser.add_argument("--seam-cut-visibility-radius",type=float,default=0.)
+    parser.add_argument("--surface-color-field-smoothness",type=float,default=0.)
     parser.add_argument("--depth-log-tolerance",type=float,default=.01)
     parser.add_argument("--depth-hole-fill-max-area",type=int,default=0)
     parser.add_argument("--resume",action="store_true")
@@ -112,12 +115,18 @@ def main() -> None:
                "seam_cut_rank_penalty":args.seam_cut_rank_penalty,
                "primary_angular_camera_count":args.primary_angular_camera_count,
                "camera_color_calibration_sha256":None if args.camera_color_calibration is None else sha256(args.camera_color_calibration),
+               "angular_surface_color_sha256":None if args.angular_surface_color is None else sha256(args.angular_surface_color),
+               "angular_surface_color_helper_sha256":sha256(SCRIPTS/'angular_surface_color.py') if args.angular_surface_color else None,
+               "hard_source_seam_leveling":args.hard_source_seam_leveling,
+               "seam_leveling_helper_sha256":sha256(SCRIPTS/'hard_source_seam_leveling.py') if args.hard_source_seam_leveling else None,
                "camera_color_model":args.camera_color_model,
                "overlap_exposure_grid":args.overlap_exposure_grid,
                "pixel_center_offset":args.pixel_center_offset,
                "exact_mesh_visibility":args.exact_mesh_visibility,
                "disocclusion_color_match":args.disocclusion_color_match,
                "seam_cut_visibility_radius":args.seam_cut_visibility_radius,
+               "surface_color_field_smoothness":args.surface_color_field_smoothness,
+               "surface_color_helper_sha256":sha256(SCRIPTS/'surface_color_field.py') if args.surface_color_field_smoothness else None,
                "mesh_visibility_helper_sha256":sha256(SCRIPTS/"mesh_texture_visibility.py") if args.exact_mesh_visibility else None,
                "color_helper_sha256":sha256(SCRIPTS/"patchmatch_color_calibration.py"),
                "depth_hole_fill_max_area":args.depth_hole_fill_max_area,"eval_rgb_read":False,
@@ -177,6 +186,9 @@ def main() -> None:
                  *(["--exact-mesh-visibility"] if args.exact_mesh_visibility else []),
                  *(["--disocclusion-color-match"] if args.disocclusion_color_match else []),
                  "--seam-cut-visibility-radius",args.seam_cut_visibility_radius,
+                 "--surface-color-field-smoothness",args.surface_color_field_smoothness,
+                 *([] if args.angular_surface_color is None else ['--angular-surface-color',args.angular_surface_color]),
+                 *(['--hard-source-seam-leveling'] if args.hard_source_seam_leveling else []),
                  *([] if args.overlap_exposure_grid is None else ["--overlap-exposure-grid",*args.overlap_exposure_grid]),
                  *([] if args.camera_color_calibration is None else ["--camera-color-calibration",args.camera_color_calibration,
                      "--camera-color-model",args.camera_color_model]),

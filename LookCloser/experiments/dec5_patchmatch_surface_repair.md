@@ -387,6 +387,152 @@ in the working tree and in an isolated checkout-index snapshot excluding unrelat
 dirty changes. The new trace input hashes, four prediction/GT/ROI hash sets and
 four review/audit hash sets were independently rechecked successfully.
 
+### Further hard-source controls: no accepted repair
+
+All controls below use the same 000973 mesh, fixed cameras, matching half-pixel
+centres and direct mesh visibility. Correction/selection uses train RGB only.
+Output RGB remains one reprojected source per pixel; consensus RGB is a selection
+cost, not an averaged output. Native hand/neck, face and ear comparisons reject
+every candidate despite small face-metric improvements. No temporal recipe or
+existing renderer default has changed.
+
+| Control, same study GT-only face polygon | PSNR | SSIM | LPIPS | Verdict |
+|---|---:|---:|---:|---|
+| Smooth depth-separated screen-space log-gain field | 29.045528 | .889479 | .047877 | Fail |
+| Prefer secondary sources supported by raw stereo depth | 29.028446 | .889260 | .048181 | Fail |
+| Matched global camera RGB control | 28.345644 | .889197 | .047981 | Fail |
+| Mesh-attached angular RGB correction | 27.512985 | .888258 | .047963 | Fail |
+| Hard-source boundary gain leveling | 29.071888 | .889788 | .047046 | Fail |
+| Train RGB consensus selection, 8 sources | 29.036377 | .889352 | .048101 | Fail |
+| Consensus selection, 16 sources | 29.052736 | .889415 | .047976 | Fail |
+| Consensus selection, 32 sources | 29.088245 | .889435 | .047708 | Fail |
+| Consensus selection, 62 sources | 29.073856 | .889404 | .047782 | Fail |
+
+The mesh-attached angular model estimates per-vertex first-order view-direction
+log-RGB gains using 62 train cameras, mesh-Laplacian regularization and spatially
+held-out vertices. Held-out train pair L1 improves only .018839 to .018259 (3.08%);
+the neck patch remains. One-sided boundary gain leveling lowers the median RGB
+jump over 967 same-depth primary/secondary seam adjacencies from .014379 to
+.010458, but the visible patch and some large local discontinuities persist.
+These outcomes reject a simple exposure-only explanation or camera-pool shortage;
+they do not establish whether local mesh error, residual calibration, capture
+differences or view-dependent appearance dominates.
+
+A nearest-neighbor raw-depth check at target (700,550) finds a useful distinction:
+E004_B005_1210I7 has projected normalized depth .670613 but nearest raw depth
+1.30216; only 1 of 25 neighboring pixels is within 1% of the mesh. G004_B005_1210FG
+has a zero nearest sample, but 23 of 25 neighbors are valid and consistent near
+.6966 versus projected .696943. Interpolated depth alone is therefore misleading
+near occlusions. Preferring raw-stereo-supported fallback still fails visually.
+
+The first smooth-field attempt failed its numerical convergence gate and emitted
+no accepted prediction. Increasing only the solver iteration budget achieved
+convergence, but the resulting image above still fails the visual gate.
+
+[16/32/62-camera native hand comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/consensus_all62/review/hand.png),
+[boundary-leveling comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/hard_source_seam_leveling/review/hand.png),
+[angular-correction comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/angular_surface_render20/review/hand.png).
+Each rendered candidate has a failed visual-review JSON with prediction/GT/ROI
+hashes and its own face-only metric receipt.
+
+### Fixed-camera photometric mesh refinement control
+
+An opt-in OpenMVS 2.4.0 control now tests deformation of the existing mesh vertices,
+not new SfM, camera optimization, segmentation or RGB synthesis. It receives only
+the 62 training JPEGs and a private copy of the normalized TSDF mesh. Decimation,
+subdivision, hole closing and planar vertex removal are disabled; topology and
+all calibrated cameras are checked before accepting the output. The artifact is
+a **TSDF-initialized photometrically refined mesh**, not a raw TSDF volume or an
+unchanged TSDF extraction.
+
+The official Ubuntu release archive SHA-256 is
+`7104ae1ddd6ca38fbca9e0e4a70b20af59e21e0b497eb7181c864fbf38ca8d00`;
+the wrapper pins both executable hashes. Source tag v2.4.0 resolves to
+`58117204c86bbb11a0b25b26a8987676cf11274d`.
+The first attempt stopped before refinement: OpenMVS text export rounds camera
+parameters to six significant digits, producing up to .049995-pixel apparent
+change. Binary export preserves the cameras to 1.92e-15. The audit handles the
+release's `--no-points` binary image-count-header omission explicitly, with
+truncation/inventory checks; the fixed-camera tolerance was not relaxed.
+
+The 66-test expanded suite passes in both the working tree and an isolated
+checkout-index snapshot excluding unrelated edits, including default renderer regressions,
+single-source behavior, graph-cut energy, gain-field/depth-layer tests, binary
+camera precision, nonfinite rejection and truncated-export rejection.
+Native Scene archives must also be converted to interchange before InterfaceCOLMAP
+can read them. The wrapper now pins `TransformScene`, supplies an explicit identity
+transform, and audits the resulting cameras. The complete clean 45/22-iteration
+wrapper run succeeds with all 62 cameras unchanged to 1.82e-12, one component,
+80,068 vertices and exactly the original 154,804 oriented triangles. Median vertex
+movement is .00014588 normalized units (p99 .00031265, maximum .00061942).
+
+| 000973 matched geometry control | Face PSNR | Face SSIM | Face LPIPS | Verdict |
+|---|---:|---:|---:|---|
+| Original mesh + exact visibility | 29.059521 | .889487 | .047385 | Fail |
+| Photometrically refined mesh, same colors/selection | 29.111637 | .890642 | .047190 | Fail, partial improvement |
+| Refined mesh + one-sided gain leveling | 29.096230 | .890749 | .046996 | Fail |
+
+The F-camera neck patch visibly shrinks when **only mesh geometry changes**.
+A fresh original-mesh control reproduces the previous F PNG byte-for-byte; all
+three camera anchors are rerendered with identical settings for comparison.
+The narrow hand-adjacent bright/ragged edge remains, and the J-camera lipstick
+and hand are softer than GT. Color leveling on the refined mesh does not remove
+the remaining edge. This is evidence for a geometry contribution, not proof that
+all residual softness or all seams are geometric. No candidate is promoted yet.
+
+[Matched F native hand comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/openmvs_refine_three_views/review_F004/hand.png),
+[matched J hand/neck comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/openmvs_refine_three_views/matched_J004/hand_neck.png),
+[matched L neck comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/openmvs_refine_three_views/matched_L004/neck.png),
+[complete clean wrapper receipt](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/openmvs_refine_fixed_verified/refinement_result.json).
+The reviewed mesh came from the preceding identical computation, whose native
+archive audit was recovered with identity conversion. Its producer request is
+retained unchanged and the recovery is explicit in its receipt. A clean repeat
+has only floating-point-scale vertex differences and its own separate hashes;
+render receipts always reference the actual mesh used. The measured maximum
+vertex-position difference between these repeats is 8.44e-7 normalized units.
+
+The refined-mesh train overlap audit raises E004_B005_1210I7's median zero-shift
+hand/neck NCC from .9312 to .9565, although reliable best translations still have
+median length 1.41 pixels. Patch counts differ slightly with visibility (37 versus
+36), so this is descriptive, not an identical-sample paired estimate.
+The opt-in registered relative-bandwidth diagnostic uses no held-out RGB and
+applies no filter to prediction. Among 42 reliable G004_B005_1210FG hand/neck
+patches, 32 gain more than .005 NCC when the primary is low-pass filtered (median
+Gaussian sigma .6 pixels); only two favor filtering the secondary. On the face,
+135 of 147 patches favor filtering the primary with gain above .005 (median sigma
+1 pixel), none favor filtering the secondary. This supports a relative bandwidth
+difference but does not isolate optical defocus from resampling/noise/residual
+geometry. A simple exposure explanation is inadequate for both the displacement
+and bandwidth evidence.
+[Train-only registration and bandwidth audit](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/openmvs_refine_relative_blur/audit.json).
+
+Doubling refinement to 90/45 iterations preserves cameras/topology and gives
+29.118050 / .890884 / .047197 face PSNR/SSIM/LPIPS. Native F/J/L comparisons show
+little further change; the remaining F seam and J softness persist. Median vertex
+movement reaches .00015471, p99 .00034882. This is not an accepted repair and does
+not justify another iteration-count increase without a new hypothesis.
+[45 versus 90 iterations, F hand](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/openmvs_refine90_three_views/review_F004/hand.png).
+
+The train-only subpixel epipolar audit retains NCC > .9 patch matches on locally
+smooth surface. Relative to primary E004_C005_1210YM, E004_B005_1210I7 hand/neck
+matches have .059-pixel median absolute epipolar distance (25 patches), whereas
+G004_B005_1210FG has .647 pixels (25 patches). E004_B005_1210I7 face matches have
+.951 pixels (136 patches). An exact correspondence cannot be moved across an
+epipolar line by changing depth alone. However these are patch-centre estimates,
+not independent feature ground truth: local appearance, residual registration,
+motion or calibration may account for the residual. **Bad fixed calibration is
+not yet established.** The next diagnostic should separate these possibilities
+before touching the frozen camera template. No pose or intrinsics change was made.
+[Epipolar audit and caveats](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/openmvs_refine_epipolar_audit_v2.json).
+
+The final isolated release suite passes 72/72 tests, including known relative
+blur recovery, equal-image/no-blur behavior, epipolar invariance under depth-only
+motion and subpixel peak recovery. All three original/refine45/refine90 path
+inventories contain three verified hashes; face prediction/GT/ROI hashes match.
+Original versus refined path requests differ only in mesh and mesh-metadata hashes
+and the derived request hash. No accepted repair or completed temporal/fly-through
+validation is claimed; the original campaign and frozen calibration are unchanged.
+
 ## Insights
 
 The published render correction can use the primary train camera despite its failed

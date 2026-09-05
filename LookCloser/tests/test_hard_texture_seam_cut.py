@@ -12,16 +12,18 @@ spec.loader.exec_module(module)
 
 
 @pytest.mark.parametrize('confidence', [np.ones((2,2),np.float32), np.array([[0,.1],[1,.5]],np.float32)])
-def test_binary_cut_matches_exhaustive_visible_minimum(confidence):
+@pytest.mark.parametrize('extra', [np.zeros((2,2,2),np.float32), np.array([[[.1,.3],[.2,.4]],[[.7,0],[.5,.2]]],np.float32)])
+def test_binary_cut_matches_exhaustive_visible_minimum(confidence,extra):
     rng=np.random.default_rng(12)
     rgb=rng.random((2,2,2,3)).astype(np.float32)
     valid=np.ones((2,2,2),bool)
     valid[0,0,0]=False
     valid[1,1,1]=False
     penalty=.003
-    result,stats=module.optimize_source_labels(rgb,valid,rank_penalty=penalty,rank_confidence=confidence)
+    result,stats=module.optimize_source_labels(rgb,valid,rank_penalty=penalty,rank_confidence=confidence,source_costs=extra)
     def energy(label):
-        total=float((label*penalty*confidence).sum())
+        yy,xx=np.indices((2,2))
+        total=float((label*penalty*confidence+extra[label,yy,xx]).sum())
         for y,x,dy,dx in [(0,0,0,1),(1,0,0,1),(0,0,1,0),(0,1,1,0)]:
             a,b=label[y,x],label[y+dy,x+dx]
             total+=.5*(np.abs(rgb[a,y,x]-rgb[b,y,x]).mean()+np.abs(rgb[a,y+dy,x+dx]-rgb[b,y+dy,x+dx]).mean())+.01*(a!=b)
@@ -80,3 +82,13 @@ def test_rank_confidence_ones_preserves_legacy_labels():
 def test_invalid_rank_confidence_rejected(confidence):
     with pytest.raises(ValueError,match='confidence'):
         module.optimize_source_labels(np.zeros((2,4,5,3)),np.ones((2,4,5),bool),rank_confidence=confidence)
+
+
+def test_consensus_penalizes_outlier_without_changing_primary_or_rgb():
+    rgb=np.full((4,8,8,3),.4,np.float32);rgb[1]=.8;rgb[3]=.41
+    valid=np.ones((4,8,8),bool);original=rgb.copy()
+    costs=module.consensus_source_costs(rgb,valid)
+    assert (costs[0]==0).all() and costs[1].min()>.3 and costs[2].max()==0
+    np.testing.assert_array_equal(rgb,original)
+    valid[2:]=False
+    assert (module.consensus_source_costs(rgb,valid)==0).all()

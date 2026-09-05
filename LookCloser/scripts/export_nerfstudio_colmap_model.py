@@ -50,6 +50,8 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--data", type=Path, required=True)
     parser.add_argument("--output-model", type=Path, required=True)
+    parser.add_argument("--camera-model",choices=("OPENCV","PINHOLE"),default="OPENCV",
+                        help="PINHOLE is opt-in and requires exactly undistorted intrinsics.")
     parser.add_argument(
         "--split",
         choices=("all", "train"),
@@ -87,7 +89,8 @@ def selected_frames(payload: dict[str, Any], *, split: str) -> list[dict[str, An
     return selected
 
 
-def export_model(data: Path, output: Path, *, split: str) -> dict[str, Any]:
+def export_model(data: Path, output: Path, *, split: str, camera_model: str = "OPENCV") -> dict[str, Any]:
+    if camera_model not in ('OPENCV','PINHOLE'):raise ValueError('Unsupported export camera model')
     transforms = data / "transforms.json"
     payload = json.loads(transforms.read_text(encoding="utf-8"))
     frames = selected_frames(payload, split=split)
@@ -116,11 +119,15 @@ def export_model(data: Path, output: Path, *, split: str) -> dict[str, Any]:
     manifest_rows: list[dict[str, Any]] = []
     for frame, name, image_id in zip(frames, names, image_ids):
         width, height, parameters = camera_matrix(frame, payload)
+        if camera_model=='PINHOLE':
+            if any(abs(float(value))>1e-12 for value in parameters[4:]):
+                raise ValueError('PINHOLE export requires zero distortion; source RGB is never resampled here')
+            parameters=parameters[:4]
         w2c = world_to_camera(frame)
         quaternion = rotation_matrix_to_qvec(w2c[:3, :3])
         translation = w2c[:3, 3]
         camera_id = image_id
-        camera_lines.append(f"{camera_id} OPENCV {width} {height} {format_values(parameters)}")
+        camera_lines.append(f"{camera_id} {camera_model} {width} {height} {format_values(parameters)}")
         image_lines.extend(
             (
                 f"{image_id} {format_values(quaternion)} {format_values(translation)} {camera_id} {name}",
@@ -148,7 +155,7 @@ def export_model(data: Path, output: Path, *, split: str) -> dict[str, Any]:
         "data": str(data),
         "split": split,
         "image_count": len(frames),
-        "camera_model": "OPENCV",
+        "camera_model": camera_model,
         "uses_sparse_points": False,
         "uses_eval_images": split == "all",
         "uses_masks": False,
@@ -165,7 +172,7 @@ def export_model(data: Path, output: Path, *, split: str) -> dict[str, Any]:
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(argv)
-    manifest = export_model(args.data, args.output_model, split=args.split)
+    manifest = export_model(args.data, args.output_model, split=args.split,camera_model=args.camera_model)
     print(
         f"exported images={manifest['image_count']} split={manifest['split']} "
         f"output={args.output_model}",

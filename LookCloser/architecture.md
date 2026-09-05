@@ -1058,3 +1058,12 @@ helper verifies visibility against the unchanged mesh, not independent true dept
 occlusions, mesh-depth continuity across label seams, and native source crops;
 `audit_warped_source_registration.py` checks shared train patches for residual
 translation using NCC. Neither diagnostic uses held-out RGB to construct prediction.
+
+Further opt-in hard-source controls include train-consensus selection costs,
+raw-stereo fallback support, depth-separated smooth gain fields, one-sided gain
+leveling and a mesh-attached angular color field. They preserve categorical RGB
+source selection and are rejected visual canaries, not model defaults.
+`refine_patchmatch_mesh_openmvs.py` pins OpenMVS 2.4.0 and tests fixed-camera,
+train-only photometric deformation of a copied TSDF mesh. It audits binary camera
+round trips and unchanged topology; output is a TSDF-initialized refined mesh,
+not a serialized TSDF volume. Native visual and temporal acceptance remain separate.
