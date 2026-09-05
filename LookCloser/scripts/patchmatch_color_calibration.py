@@ -24,9 +24,11 @@ def apply_camera_gain(rgb,gain,log_gain_grid=None):
         raise ValueError('Camera gains must be positive finite RGB values')
     if log_gain_grid is not None:
         grid=torch.as_tensor(log_gain_grid,device=rgb.device,dtype=rgb.dtype)
-        if grid.ndim!=2 or not bool(torch.isfinite(grid).all()):
-            raise ValueError('Spatial exposure grid must be finite and 2D')
-        field=torch.nn.functional.interpolate(grid[None,None],size=rgb.shape[-2:],mode='bilinear',align_corners=True)[0]
+        if (grid.ndim not in (2,3) or (grid.ndim==3 and grid.shape[0]!=3)
+                or not bool(torch.isfinite(grid).all())):
+            raise ValueError('Spatial gain grid must be finite and either HW or RGBHW')
+        batch=grid[None,None] if grid.ndim==2 else grid[None]
+        field=torch.nn.functional.interpolate(batch,size=rgb.shape[-2:],mode='bilinear',align_corners=True)[0]
         gain=gain*torch.exp(field)
     linear=torch.where(rgb<=.04045,rgb/12.92,((rgb+.055)/1.055).pow(2.4))
     exposed=linear/(1-linear).clamp_min(1e-6)*gain
@@ -148,3 +150,51 @@ def correct_projected_exposure(warped,valid_masks,grid_width=16,grid_height=9):
                  validation_pair_l1_before=float(np.median(before)) if before else None,
                  validation_pair_l1_after=float(np.median(after)) if after else None)
     return [apply_camera_gain(rgb,[1,1,1],field) for rgb,field in zip(warped,grid)],stats
+
+
+def match_disocclusion_colors(warped,valid_masks,target_depth):
+    """Correct secondary RGB using only shared visible skin/object-independent bands.
+
+    Regions are primary-camera visibility holes, never semantic masks. Each
+    secondary camera is fitted against the primary only where both see the same
+    projected surface. Gains are extrapolated into the hole; RGB is not averaged.
+    """
+    from scipy import ndimage
+    rgb=np.stack([r.detach().permute(1,2,0).cpu().numpy() for r in warped])
+    valid=np.stack([v.detach().cpu().numpy() for v in valid_masks])
+    depth=target_depth.detach().cpu().numpy()
+    count,height,width,_=rgb.shape
+    holes=valid.any(0)&~valid[0]
+    labels,n=ndimage.label(holes);sizes=np.bincount(labels.ravel())
+    fields=np.zeros((count,3,height,width),np.float32);weights=np.zeros((count,height,width),np.float32)
+    rows=[]
+    for label,box in enumerate(ndimage.find_objects(labels),1):
+        if box is None or sizes[label]<25 or sizes[label]>100000:continue
+        y0=max(0,box[0].start-32);y1=min(height,box[0].stop+32)
+        x0=max(0,box[1].start-32);x1=min(width,box[1].stop+32)
+        region=labels[y0:y1,x0:x1]==label
+        distance=ndimage.distance_transform_edt(~region)
+        band=(distance>=2)&(distance<=24)&valid[0,y0:y1,x0:x1]
+        local_depth=depth[y0:y1,x0:x1]
+        # Do not borrow a fit from a distant foreground/background depth layer.
+        dz=np.log(local_depth.clip(1e-7));z=np.median(dz[region])
+        band&=abs(dz-z)<.02
+        primary=rgb[0,y0:y1,x0:x1]
+        alpha=.5+.5*np.cos(np.minimum(distance/32,1)*np.pi)
+        for source in range(1,count):
+            if (valid[source,y0:y1,x0:x1]&region).sum()<25:continue
+            secondary=rgb[source,y0:y1,x0:x1]
+            overlap=band&valid[source,y0:y1,x0:x1]
+            overlap&=(primary>.1).all(-1)&(primary<.9).all(-1)&(secondary>.1).all(-1)&(secondary<.9).all(-1)
+            if overlap.sum()<50:continue
+            reference=decode_exposed_linear(primary[overlap]);observed=decode_exposed_linear(secondary[overlap])
+            delta=np.clip(np.median(np.log(reference/observed),axis=0),-np.log(2),np.log(2))
+            fields[source,:,y0:y1,x0:x1]+=delta[:,None,None]*alpha
+            weights[source,y0:y1,x0:x1]+=alpha
+            rows.append({'label':label,'source_rank':source,'hole_area':int(sizes[label]),'overlap_samples':int(overlap.sum()),
+                         'rgb_gain':np.exp(delta).tolist(),'overlap_l1_before':float(np.abs(primary[overlap]-secondary[overlap]).mean()),
+                         'overlap_l1_after':float(np.abs(primary[overlap]-encode_exposed_linear(observed*np.exp(delta))).mean())})
+    fields/=np.maximum(weights[:,None],1)
+    outputs=[warped[0]]+[apply_camera_gain(warped[i],[1]*3,fields[i]) for i in range(1,count)]
+    return outputs,{'enabled':True,'uses_eval_rgb':False,'uses_semantic_masks':False,'source_averaging':False,
+                    'view_dependent':True,'primary_unchanged':True,'region_fits':rows}

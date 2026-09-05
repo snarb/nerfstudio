@@ -11,16 +11,17 @@ module=importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 
 
-def test_binary_cut_matches_exhaustive_visible_minimum():
+@pytest.mark.parametrize('confidence', [np.ones((2,2),np.float32), np.array([[0,.1],[1,.5]],np.float32)])
+def test_binary_cut_matches_exhaustive_visible_minimum(confidence):
     rng=np.random.default_rng(12)
     rgb=rng.random((2,2,2,3)).astype(np.float32)
     valid=np.ones((2,2,2),bool)
     valid[0,0,0]=False
     valid[1,1,1]=False
     penalty=.003
-    result,stats=module.optimize_source_labels(rgb,valid,rank_penalty=penalty)
+    result,stats=module.optimize_source_labels(rgb,valid,rank_penalty=penalty,rank_confidence=confidence)
     def energy(label):
-        total=float((label*penalty).sum())
+        total=float((label*penalty*confidence).sum())
         for y,x,dy,dx in [(0,0,0,1),(1,0,0,1),(0,0,1,0),(0,1,1,0)]:
             a,b=label[y,x],label[y+dy,x+dx]
             total+=.5*(np.abs(rgb[a,y,x]-rgb[b,y,x]).mean()+np.abs(rgb[a,y+dy,x+dx]-rgb[b,y+dy,x+dx]).mean())+.01*(a!=b)
@@ -50,3 +51,32 @@ def test_one_complete_source_replaces_artificial_seam():
     valid=np.ones((2,8,8),bool);valid[0,:,5:]=False
     result,_=module.optimize_source_labels(rgb,valid)
     assert (result==1).all()
+
+
+def test_visibility_rank_confidence_preserves_other_depth_layers_and_defaults():
+    valid=np.ones((2,60,60),bool)
+    valid[0,20:30,20:30]=False
+    depth=np.ones((60,60),np.float32)
+    depth[20:30,30:35]=.8
+    confidence=module.visibility_rank_confidence(valid,depth,10)
+    assert confidence[25,25]==0
+    assert confidence[25,19]==pytest.approx(.01)
+    assert confidence[25,32]==1  # nearby foreground is not the disoccluded layer
+    assert confidence[0,0]==1
+    assert (module.visibility_rank_confidence(valid,depth,0)==1).all()
+    assert (module.visibility_rank_confidence(np.ones_like(valid),depth,10)==1).all()
+
+
+def test_rank_confidence_ones_preserves_legacy_labels():
+    rng=np.random.default_rng(13)
+    rgb=rng.random((3,4,5,3)).astype(np.float32)
+    valid=rng.random((3,4,5))>.3
+    legacy,_=module.optimize_source_labels(rgb,valid)
+    explicit,_=module.optimize_source_labels(rgb,valid,rank_confidence=np.ones((4,5),np.float32))
+    np.testing.assert_array_equal(legacy,explicit)
+
+
+@pytest.mark.parametrize('confidence', [np.ones((3,3)), np.full((4,5),np.nan), -np.ones((4,5))])
+def test_invalid_rank_confidence_rejected(confidence):
+    with pytest.raises(ValueError,match='confidence'):
+        module.optimize_source_labels(np.zeros((2,4,5,3)),np.ones((2,4,5),bool),rank_confidence=confidence)

@@ -35,6 +35,31 @@ def test_grid_sample_identity() -> None:
     torch.testing.assert_close(sampled, image)
 
 
+def test_half_pixel_identity_projection_preserves_array_indices() -> None:
+    intrinsics={"fx":10.,"fy":12.,"cx":1.5,"cy":1.,"width":4,"height":3,"pixel_center_offset":.5}
+    depth=torch.full((3,4),2.);pose=torch.eye(4)[:3]
+    u,v,z=MODULE.project_target_to_source(depth,pose,intrinsics,pose,intrinsics)
+    yy,xx=torch.meshgrid(torch.arange(3),torch.arange(4),indexing='ij')
+    torch.testing.assert_close(u,xx.float());torch.testing.assert_close(v,yy.float());torch.testing.assert_close(z,depth)
+
+
+def test_raycast_depth_unprojects_to_mesh_only_with_matching_pixel_center() -> None:
+    o3d=pytest.importorskip('open3d')
+    vertices=np.array([[-1,-1,-2.6],[1,-1,-1.4],[-1,1,-2.6],[1,1,-1.4]],np.float32)
+    mesh=o3d.t.geometry.TriangleMesh(o3d.core.Tensor(vertices),o3d.core.Tensor(np.array([[0,1,2],[1,3,2]],np.int32)))
+    scene=o3d.t.geometry.RaycastingScene();scene.add_triangles(mesh)
+    K=np.array([[10,0,2],[0,10,2],[0,0,1]],np.float32)
+    ext=np.diag([1,-1,-1,1]).astype(np.float32)
+    rays=scene.create_rays_pinhole(o3d.core.Tensor(K),o3d.core.Tensor(ext),4,4)
+    t=scene.cast_rays(rays)['t_hit'].numpy();positions=rays.numpy()[...,:3]+rays.numpy()[...,3:]*t[...,None]
+    depth=torch.tensor(-positions[...,2]);intrinsics={"fx":10.,"fy":10.,"cx":2.,"cy":2.,"width":4,"height":4}
+    for offset in [0.,.5]:
+        points=MODULE.target_depth_to_world(depth,torch.eye(4)[:3],dict(intrinsics,pixel_center_offset=offset))
+        error=scene.compute_distance(o3d.core.Tensor(points.numpy().reshape(-1,3))).numpy()
+        if offset==.5:assert error.max()<1e-6
+        else:assert error.min()>.01
+
+
 def test_nearest_fill_uses_later_source_only_for_holes() -> None:
     first = torch.full((3, 2, 3), 0.25)
     second = torch.full((3, 2, 3), 0.75)

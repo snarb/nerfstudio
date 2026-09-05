@@ -312,6 +312,81 @@ image's 70th-percentile luminance before the shared Reinhard/sRGB curve. Differe
 framing and moving contents can therefore change gain with a physically fixed
 camera. The newly authorized train-overlap calibration is a separate correction.
 
+### Causal controls for the lipstick-adjacent skin patch
+
+The downloaded best-current image is a hard-source mosaic, **not RGB averaging**.
+All 18,061 pixels labelled E004_B005_1210I7 equal that single camera's corrected,
+reprojected PNG exactly; the 25,945 G004_B005_1210FG pixels do too. Only 11 primary
+pixels differ by one 8-bit level from their saved source warp, from rounding.
+The native source-label comparison visibly aligns the jagged skin boundary with
+the change of camera. In the hand/neck diagnostic rectangle, 95.95% of 889
+primary/first-alternative seam adjacencies have absolute log mesh-depth jump below
+.001. This describes the mesh's continuity, **not independent proof of true depth**.
+
+Two actual visibility issues were isolated without changing the mesh or cameras:
+
+- Open3D pinhole raycasts use half-pixel centres, whereas legacy depth unprojection
+  and source-array lookup use integer centres. At target (700,550), the old point
+  is about 4.70e-5 normalized units off the mesh; matching half-pixel centres reduces
+  this to 1.25e-8. A slanted-plane unit test independently reproduces the bug.
+- Bilinear depth-map samples near a silhouette can interpolate separate depth
+  layers. The opt-in direct first-hit visibility control tests each source camera
+  against the same mesh, with 2.5e-5 normalized tolerance, avoiding that comparison.
+  Allowed plane-filled target holes may have no own triangle; a no-hit ray is only
+  treated as unoccluded, never as independent depth evidence.
+
+Neither control removes the patch. With matching half-pixel centres, direct rays
+at (700,550) confirm that the primary E004_C005_1210YM is occluded by foreground
+hand, while E004_B005_1210I7 and G004_B005_1210FG hit the target neck surface.
+Native source patches show skin there, not synthesized or sampled room background.
+The artificial boundary is a **source-camera disocclusion boundary on one continuous
+skin surface**, not a semantic boundary in the target view. A person/skin mask alone
+cannot provide the RGB hidden from the primary camera; none was introduced.
+
+Train-only, fully overlapping 48x48 patch comparisons find residual small relative
+shifts: E004_B005_1210I7 has median 1.41 pixels (37 hand/neck patches, NCC .9312 before
+translation, .9646 after); G004_B005_1210FG has median 1 pixel (39 patches, .9226 to
+.9476). This does not measure the primary-occluded pixels themselves, and does not
+separate residual mesh/calibration error from capture/sharpness or view-dependent
+appearance. Sensor defocus alone is **not established** as the cause of softness.
+
+Two further train-only controls retain hard source RGB and the same mesh. Fitting
+local RGB gains on mutually visible bands around primary disocclusions barely
+changes the patch. Weakening the camera-rank preference only near large same-depth
+visibility holes moves/softens part of the seam, but the remaining hand-adjacent strip
+is still conspicuous. Neither is accepted; no new default or temporal recipe is set.
+
+| Same 000973 study GT-only face polygon | PSNR | SSIM | LPIPS | Native neck/hand verdict |
+|---|---:|---:|---:|---|
+| Spatial16 downloaded control | 28.967068 | .889862 | .047471 | Fail |
+| Matching half-pixel centres | 28.973961 | .888892 | .047530 | Fail |
+| Plus direct mesh visibility | 29.059521 | .889487 | .047385 | Fail |
+| Plus local disocclusion RGB gain matching | 29.034229 | .889548 | .047410 | Fail |
+| Direct visibility + depth-aware rank prior, radius 64 | 29.063141 | .889683 | .047981 | Fail |
+
+These face metrics do not replace inspection of the neck/hand and must not be
+mixed with the old campaign's different face polygon. The four new canaries have
+native GT comparison verdicts and retained hashes; they fail on the first anchor
+and are not promoted to the every-40th-frame or fly-through confirmation stage.
+
+[Exact per-source identity and legacy depth statistics](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/seam_source_audit/causal_trace_v2/trace.json),
+[direct visibility trace](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/exact_visibility/causal_trace_v2/trace.json),
+[visible portions of three train warps](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/exact_visibility/causal_trace_v2/visible_train_sources.png),
+[GT / exact visibility / relaxed source preference](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/visibility_rank64/review/hand.png),
+[registration audit](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/source_registration_audit/audit.json),
+[findings and failed-control receipts](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/seam_cause_findings.json).
+Black regions in the individual visible-source previews mean that that camera
+cannot see the surface; they are not holes in the final mesh or final prediction.
+
+The focused causal-control suite passes 44 tests, including weighted graph-cut
+energy against exhaustive binary labels, preservation of default labels, depth-layer
+separation of the spatial prior, single-source identity, half-pixel geometry and
+first-hit visibility. These checks validate diagnostic code, not visual acceptance.
+The expanded release suite, including path/atlas regressions, passes 51 tests both
+in the working tree and in an isolated checkout-index snapshot excluding unrelated
+dirty changes. The new trace input hashes, four prediction/GT/ROI hash sets and
+four review/audit hash sets were independently rechecked successfully.
+
 ## Insights
 
 The published render correction can use the primary train camera despite its failed

@@ -1047,3 +1047,14 @@ texture hole filling. `render_textured_mesh_path.py` verifies the oriented trian
 inventory and raycasts the resulting fixed atlas at held-out/novel poses. These
 diagnostics are not a promoted recipe or a change to any model defaults; measured
 failures and remaining temporal gates are in `experiments/dec5_patchmatch_surface_repair.md`.
+
+Additional opt-in causal controls are `--pixel-center-offset .5` (matching Open3D
+raycast centres), `--exact-mesh-visibility` (direct source-to-surface first-hit rays),
+`--disocclusion-color-match` (train-only local gain fits), and
+`--seam-cut-visibility-radius` (same-depth relaxation of the hard source-rank prior).
+All preserve legacy defaults and are unaccepted visual canaries. The direct-ray
+helper verifies visibility against the unchanged mesh, not independent true depth.
+`trace_patchmatch_render_pixels.py` records selected-source RGB identity, source
+occlusions, mesh-depth continuity across label seams, and native source crops;
+`audit_warped_source_registration.py` checks shared train patches for residual
+translation using NCC. Neither diagnostic uses held-out RGB to construct prediction.

@@ -91,6 +91,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--camera-color-model", choices=("ingest", "exposure", "rgb", "spatial"), default="rgb")
     parser.add_argument("--overlap-exposure-grid", type=int, nargs=2, default=None)
     parser.add_argument("--write-source-warp-audit", action="store_true")
+    parser.add_argument("--pixel-center-offset", type=float, choices=(0., .5), default=0.,
+                        help="Opt-in .5 matches Open3D raycast pixel centers; zero preserves legacy projection.")
+    parser.add_argument("--exact-mesh-visibility", action="store_true")
+    parser.add_argument("--disocclusion-color-match", action="store_true")
+    parser.add_argument("--seam-cut-visibility-radius", type=float, default=0.)
     parser.add_argument(
         "--aggregation-modes",
         nargs="+",
@@ -271,6 +276,12 @@ def parse_args() -> argparse.Namespace:
         parser.error("Overlap exposure grid must have at least two nodes per axis")
     if args.overlap_exposure_grid is not None and args.camera_color_calibration is None:
         parser.error("Overlap exposure correction requires an audited camera calibration and ingest curve")
+    if args.exact_mesh_visibility and args.pixel_center_offset!=.5:
+        parser.error("Exact mesh visibility requires matching .5 pixel centers")
+    if args.disocclusion_color_match and args.camera_color_calibration is None:
+        parser.error("Disocclusion color matching requires an audited camera calibration and ingest curve")
+    if not math.isfinite(args.seam_cut_visibility_radius) or args.seam_cut_visibility_radius<0:
+        parser.error('Seam-cut visibility radius must be finite and nonnegative')
     if not math.isfinite(args.seam_cut_rank_penalty) or args.seam_cut_rank_penalty < 0:
         parser.error("--seam-cut-rank-penalty must be finite and non-negative")
     if args.skip_ground_truth_copy and (args.score_metrics or args.ground_truth_exr is not None):
@@ -589,8 +600,9 @@ def project_target_to_source(
     source_gl = (world - source_c2w[:, 3]) @ source_c2w[:, :3]
     source_z = -source_gl[..., 2]
     safe_z = source_z.clamp_min(1e-8)
-    source_u = source_intrinsics["fx"] * source_gl[..., 0] / safe_z + source_intrinsics["cx"]
-    source_v = source_intrinsics["fy"] * (-source_gl[..., 1]) / safe_z + source_intrinsics["cy"]
+    offset = source_intrinsics.get("pixel_center_offset", 0.)
+    source_u = source_intrinsics["fx"] * source_gl[..., 0] / safe_z + source_intrinsics["cx"] - offset
+    source_v = source_intrinsics["fy"] * (-source_gl[..., 1]) / safe_z + source_intrinsics["cy"] - offset
     return source_u, source_v, source_z
 
 
@@ -608,8 +620,9 @@ def target_depth_to_world(
         indexing="ij",
     )
     z = target_depth
-    x = (xx - target_intrinsics["cx"]) * z / target_intrinsics["fx"]
-    y = (yy - target_intrinsics["cy"]) * z / target_intrinsics["fy"]
+    offset = target_intrinsics.get("pixel_center_offset", 0.)
+    x = (xx + offset - target_intrinsics["cx"]) * z / target_intrinsics["fx"]
+    y = (yy + offset - target_intrinsics["cy"]) * z / target_intrinsics["fy"]
     target_gl = torch.stack((x, -y, -z), dim=-1)
     return target_gl @ target_c2w[:, :3].T + target_c2w[:, 3]
 
@@ -663,6 +676,7 @@ def aggregate_warped_sources(
     nearest_fill_color_continuity_mode: str = "pixel",
     nearest_fill_rank_penalty: float = 0.0,
     seam_cut_rank_penalty: float = 0.0001,
+    seam_cut_rank_confidence: np.ndarray | None = None,
 ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
     """Combine source warps and return RGB, valid mask, and selected source rank."""
 
@@ -727,6 +741,7 @@ def aggregate_warped_sources(
             rgb_stack.permute(0, 2, 3, 1).detach().cpu().numpy(),
             valid_stack.detach().cpu().numpy(),
             rank_penalty=seam_cut_rank_penalty,
+            rank_confidence=seam_cut_rank_confidence,
         )
         print("seam_cut=" + json.dumps(seam_stats), flush=True)
         selected = torch.from_numpy(labels).to(device=rgb_stack.device, dtype=torch.long).clamp_min(0)
@@ -1238,6 +1253,9 @@ def main() -> int:
         metric_surface_mask = metric_surface_depth > 0.0
     target_c2w, target_intrinsics = camera_parameters(target.cameras, 0, device)
     train_cameras = [camera_parameters(train.cameras, index, device) for index in range(len(train.image_filenames))]
+    target_intrinsics["pixel_center_offset"] = args.pixel_center_offset
+    for _,intrinsics in train_cameras:
+        intrinsics["pixel_center_offset"] = args.pixel_center_offset
     color_calibration = None
     color_source_frames = {}
     if args.camera_color_calibration is not None:
@@ -1272,6 +1290,17 @@ def main() -> int:
     nearest_source_rgb: torch.Tensor | None = None
     source_rows: list[dict[str, object]] = []
     target_world = target_depth_to_world(target_depth, target_c2w, target_intrinsics)
+    mesh_visibility = None
+    if args.exact_mesh_visibility:
+        from mesh_texture_visibility import MeshVisibility
+
+        mesh_path=resolve_manifest_path(manifest['mesh'],args.data,args.mesh_depth_manifest)
+        if sha256(mesh_path)!=manifest['mesh_sha256']:
+            raise ValueError('Mesh differs from its raycast manifest')
+        if manifest.get('parameters',{}).get('mesh_coordinate_scale',1.)!=1.:
+            raise ValueError('Exact visibility requires unscaled mesh coordinates')
+        mesh_visibility=MeshVisibility(mesh_path)
+        visibility_world=target_world.detach().cpu().numpy()
     with torch.inference_mode():
         for rank, source_index in enumerate(selected):
             source_image = Path(train.image_filenames[source_index]).resolve()
@@ -1319,6 +1348,14 @@ def main() -> int:
                 torch.log(projected_z.clamp_min(1e-6)) - torch.log(sampled_depth.clamp_min(1e-6))
             )
             valid = in_bounds & (log_error <= args.depth_log_tolerance)
+            exact_visibility_stats = None
+            if mesh_visibility is not None:
+                previous=valid
+                exact,exact_visibility_stats=mesh_visibility.visible(visibility_world,source_c2w[:,3].cpu().numpy(),
+                                                                     projectable.cpu().numpy())
+                valid=torch.from_numpy(exact).to(device)
+                exact_visibility_stats['newly_visible']=int((valid&~previous).sum().item())
+                exact_visibility_stats['newly_occluded']=int((previous&~valid).sum().item())
             observed_veto_pixels = 0
             if args.source_observed_depth_data is not None:
                 observed_frame = observed_depth_by_stem[source_image.stem]
@@ -1368,6 +1405,7 @@ def main() -> int:
                     "source_image": str(source_image),
                     "source_color_gain": source_color_gain,
                     "observed_depth_veto_pixels": observed_veto_pixels,
+                    "exact_visibility": exact_visibility_stats,
                     "camera_distance": float(distances[source_index].item()),
                     "valid_target_fraction": float(valid.float().mean().item()),
                     "valid_mesh_fraction": float(valid[target_depth > 0].float().mean().item()),
@@ -1381,6 +1419,17 @@ def main() -> int:
                 }
             )
 
+        rank_confidence = None
+        if args.seam_cut_visibility_radius:
+            from hard_texture_seam_cut import visibility_rank_confidence
+
+            rank_confidence=visibility_rank_confidence(torch.stack(valid_masks).cpu().numpy(),
+                              target_depth.cpu().numpy(),args.seam_cut_visibility_radius)
+        disocclusion_colors = None
+        if args.disocclusion_color_match:
+            from patchmatch_color_calibration import match_disocclusion_colors
+
+            warped, disocclusion_colors = match_disocclusion_colors(warped, valid_masks, target_depth)
         overlap_exposure = None
         if args.overlap_exposure_grid is not None:
             from patchmatch_color_calibration import correct_projected_exposure
@@ -1446,6 +1495,7 @@ def main() -> int:
                     nearest_fill_color_continuity_mode=args.nearest_fill_color_continuity_mode,
                     nearest_fill_rank_penalty=args.nearest_fill_rank_penalty,
                     seam_cut_rank_penalty=args.seam_cut_rank_penalty,
+                    seam_cut_rank_confidence=rank_confidence,
                 )
                 continuation: dict[str, object] = {"enabled": False}
                 if (
@@ -1579,7 +1629,11 @@ def main() -> int:
             "min_median_l1": args.nearest_fill_primary_color_continuation_min_median_l1,
         },
         "camera_distance_power": args.camera_distance_power,
+        "pixel_center_offset": args.pixel_center_offset,
+        "exact_mesh_visibility": args.exact_mesh_visibility,
+        "seam_cut_visibility_radius": args.seam_cut_visibility_radius,
         "overlap_exposure_calibration": overlap_exposure,
+        "disocclusion_color_matching": disocclusion_colors,
         "camera_color_calibration": None if color_calibration is None else {
             "path": str(args.camera_color_calibration.resolve()),
             "sha256": sha256(args.camera_color_calibration),

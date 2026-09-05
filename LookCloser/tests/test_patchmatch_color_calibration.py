@@ -100,3 +100,18 @@ def test_projected_correction_skips_disjoint_sources():
     out,stats=correct_projected_exposure(images,valid,4,3)
     assert not stats['enabled']
     for actual,expected in zip(out,images):assert actual is expected
+
+
+def test_disocclusion_match_uses_visible_band_keeps_primary_and_detail():
+    from patchmatch_color_calibration import match_disocclusion_colors
+    rgb=torch.full((3,128,128),.45);rgb[:,1::2]=.5
+    secondary=apply_camera_gain(rgb,[1.2,.95,1.1])
+    primary_valid=torch.ones((128,128),dtype=torch.bool);primary_valid[45:75,45:75]=False
+    out,stats=match_disocclusion_colors([rgb,secondary],[primary_valid,torch.ones_like(primary_valid)],torch.ones((128,128)))
+    assert out[0] is rgb
+    torch.testing.assert_close(out[1][:,45:75,45:75],rgb[:,45:75,45:75],atol=1e-6,rtol=1e-5)
+    assert len(stats['region_fits'])==1 and stats['uses_eval_rgb'] is False
+    # Hidden primary RGB is never a calibration target.
+    poisoned=rgb.clone();poisoned[:,45:75,45:75]=0
+    other,_=match_disocclusion_colors([poisoned,secondary],[primary_valid,torch.ones_like(primary_valid)],torch.ones((128,128)))
+    torch.testing.assert_close(other[1],out[1])
