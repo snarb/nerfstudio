@@ -1097,3 +1097,11 @@ the verified 62-camera train inventory, and uses no RGB or masks. CPU/CUDA evide
 and synthetic contradictory-slab behavior are tested. This veto remains a rejected
 diagnostic; full-block fusion alone repairs the specifically audited false fragment,
 but residual hand/neck defects still prevent accepting a general rendering recipe.
+
+Radiometric calibration has opt-in native pixel-center and exact mesh-visibility
+controls; common-sample audits compare fits on identical held train overlaps.
+The bandwidth selection prior can optionally penalize the primary source too,
+using signed relative blur estimates qualified on held spatial blocks. Unknown
+sources retain primary-equivalent cost. This changes hard source labels only,
+not RGB filtering or averaging, and has not passed the complete surface-repair
+gate. Existing defaults and the published campaign remain unchanged.

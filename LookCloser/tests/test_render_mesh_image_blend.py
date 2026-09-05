@@ -24,6 +24,7 @@ def test_rgb_footprint_controls_are_opt_in(tmp_path,monkeypatch):
     args=MODULE.parse_args()
     assert not args.source_rgb_footprint_visibility and not args.source_rgb_depth_aware_sampling
     assert not args.source_observed_free_space_veto and args.seam_cut_bandwidth_penalty==0
+    assert not args.seam_cut_bandwidth_allow_primary
     assert not args.surface_texture_registration and args.pixel_center_offset==0
     monkeypatch.setattr(sys,'argv',common+['--source-rgb-depth-aware-sampling'])
     with pytest.raises(SystemExit):MODULE.parse_args()
@@ -43,6 +44,16 @@ def test_free_space_rgb_veto_requires_observed_depth_and_normalization(tmp_path,
     with pytest.raises(SystemExit):MODULE.parse_args()
     monkeypatch.setattr(sys,'argv',sys.argv+['--source-observed-mesh-metadata',str(manifest)])
     assert MODULE.parse_args().source_observed_free_space_veto
+
+
+def test_primary_bandwidth_penalty_requires_positive_hard_source_prior(tmp_path,monkeypatch):
+    manifest=tmp_path/'depth.json';manifest.write_text('{}')
+    common=['render','--data',str(tmp_path),'--mesh-depth-manifest',str(manifest),
+            '--output-dir',str(tmp_path/'out'),'--seam-cut-bandwidth-allow-primary']
+    monkeypatch.setattr(sys,'argv',common)
+    with pytest.raises(SystemExit):MODULE.parse_args()
+    monkeypatch.setattr(sys,'argv',common+['--aggregation-modes','seam-cut','--seam-cut-bandwidth-penalty','.003'])
+    assert MODULE.parse_args().seam_cut_bandwidth_allow_primary
 
 
 def test_identity_camera_projection_preserves_pixels_and_depth() -> None:

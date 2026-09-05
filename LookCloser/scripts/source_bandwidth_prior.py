@@ -37,25 +37,34 @@ def bandwidth_observations(primary,source,primary_valid,source_valid,*,stride=48
     return rows
 
 
-def bandwidth_source_costs(rgb,valid,penalty=.01):
+def bandwidth_source_costs(rgb,valid,penalty=.01,*,allow_primary_penalty=False):
     """A constant per-source unary penalty, qualified on separate spatial blocks."""
     if (rgb.ndim!=4 or rgb.shape[-1]!=3 or valid.shape!=rgb.shape[:-1]
             or not np.isfinite(rgb).all() or not np.isfinite(penalty) or penalty<0):
         raise ValueError('Invalid train-source RGB/visibility/bandwidth penalty')
     gray=np.ascontiguousarray(rgb@np.array([.2126,.7152,.0722],np.float32),dtype=np.float32)
-    costs=np.zeros(valid.shape,np.float32);stats=[]
+    costs=np.zeros(valid.shape,np.float32);stats=[];relative=np.zeros(len(rgb),np.float64)
     for rank in range(1,len(rgb)):
         rows=bandwidth_observations(gray[0],gray[rank],valid[0],valid[rank])
         fit=[r['relative_blur_variance'] for r in rows if not r['held']]
         held=[r['relative_blur_variance'] for r in rows if r['held']]
         robust=float(np.median(fit)) if fit else 0.
-        qualified=(len(fit)>=20 and len(held)>=5 and robust>0
-                   and np.mean(np.array(fit)>0)>=.6 and np.mean(np.array(held)>0)>=.6)
+        sign=-1 if allow_primary_penalty and robust<0 else 1
+        qualified=(len(fit)>=20 and len(held)>=5 and sign*robust>0
+                   and np.mean(sign*np.array(fit)>0)>=.6 and np.mean(sign*np.array(held)>0)>=.6)
         cost=penalty*robust if qualified else 0.
+        relative[rank]=robust if qualified else 0.
         costs[rank]=cost
         stats.append({'rank':rank,'fit':len(fit),'held':len(held),'qualified':bool(qualified),
                       'fit_median_relative_variance':robust,'held_median_relative_variance':float(np.median(held)) if held else None,
                       'unary_cost':float(cost),'observations':rows})
+    if allow_primary_penalty:
+        # The signed estimate also detects a blurrier primary. A common gauge
+        # makes costs nonnegative without changing comparisons. Unqualified
+        # sources keep primary-equivalent cost; they are not rewarded as sharp.
+        costs[:]=((relative-relative.min())*penalty)[:,None,None]
+        for row in stats:row['unary_cost']=float(costs[row['rank'],0,0])
     return costs,{'enabled':True,'uses_eval_rgb':False,'uses_semantic_masks':False,
                   'modifies_rgb':False,'source_averaging':False,'penalty_per_pixel_variance':penalty,
-                  'primary_penalty_zero':True,'sources':stats}
+                  'primary_penalty_zero':not bool(costs[0].any()),'primary_exempt':not allow_primary_penalty,
+                  'primary_unary_cost':float(costs[0,0,0]),'sources':stats}

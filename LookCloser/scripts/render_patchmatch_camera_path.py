@@ -79,6 +79,7 @@ def main() -> None:
     parser.add_argument("--aggregation-mode",choices=("nearest-fill","seam-cut"),default="nearest-fill")
     parser.add_argument("--seam-cut-rank-penalty",type=float,default=.0001)
     parser.add_argument("--seam-cut-bandwidth-penalty",type=float,default=0.)
+    parser.add_argument("--seam-cut-bandwidth-allow-primary",action='store_true')
     parser.add_argument("--primary-angular-camera-count",type=int,default=0)
     parser.add_argument("--camera-color-calibration",type=Path,default=None)
     parser.add_argument("--angular-surface-color",type=Path,default=None)
@@ -100,6 +101,8 @@ def main() -> None:
     parser.add_argument("--depth-hole-fill-max-area",type=int,default=0)
     parser.add_argument("--resume",action="store_true")
     args = parser.parse_args()
+    if args.seam_cut_bandwidth_allow_primary and not args.seam_cut_bandwidth_penalty:
+        parser.error('Primary bandwidth penalty requires a positive bandwidth prior')
     if args.source_observed_free_space_veto and (args.source_observed_depth_data is None or args.source_observed_mesh_metadata is None):
         parser.error('Free-space veto requires raw depth data and matching mesh metadata')
     if len(args.anchors)<2 or args.samples_per_segment<1:
@@ -129,6 +132,7 @@ def main() -> None:
                "targets":targets,"neighbors":args.neighbors,"aggregation_mode":args.aggregation_mode,"depth_log_tolerance":args.depth_log_tolerance,
                "seam_cut_rank_penalty":args.seam_cut_rank_penalty,
                "seam_cut_bandwidth_penalty":args.seam_cut_bandwidth_penalty,
+               "seam_cut_bandwidth_allow_primary":args.seam_cut_bandwidth_allow_primary,
                "bandwidth_helper_sha256":sha256(SCRIPTS/'source_bandwidth_prior.py') if args.seam_cut_bandwidth_penalty else None,
                "primary_angular_camera_count":args.primary_angular_camera_count,
                "camera_color_calibration_sha256":None if args.camera_color_calibration is None else sha256(args.camera_color_calibration),
@@ -210,6 +214,7 @@ def main() -> None:
                  "--primary-angular-camera-count",args.primary_angular_camera_count,
                  "--pixel-center-offset",args.pixel_center_offset,
                  "--seam-cut-bandwidth-penalty",args.seam_cut_bandwidth_penalty,
+                 *(['--seam-cut-bandwidth-allow-primary'] if args.seam_cut_bandwidth_allow_primary else []),
                  *(["--exact-mesh-visibility"] if args.exact_mesh_visibility else []),
                  *(["--source-rgb-footprint-visibility"] if args.source_rgb_footprint_visibility else []),
                  *(["--source-rgb-depth-aware-sampling"] if args.source_rgb_depth_aware_sampling else []),

@@ -36,3 +36,25 @@ def test_insufficient_overlap_keeps_zero_prior():
     valid=np.ones(rgb.shape[:-1],bool);valid[0]=False
     costs,stats=bandwidth_source_costs(rgb,valid)
     assert not costs.any() and not stats['sources'][0]['qualified']
+
+
+def test_primary_can_be_penalized_only_in_opt_in_signed_mode():
+    sharp=texture();soft=cv2.GaussianBlur(sharp,(0,0),1.)
+    rgb=np.repeat(np.stack([soft,sharp])[...,None],3,-1);original=rgb.copy()
+    valid=np.ones(rgb.shape[:-1],bool)
+    legacy,_=bandwidth_source_costs(rgb,valid)
+    assert not legacy.any()
+    costs,stats=bandwidth_source_costs(rgb,valid,allow_primary_penalty=True)
+    assert np.all(costs[0]>0) and not costs[1].any()
+    assert not stats['primary_exempt'] and stats['sources'][0]['qualified']
+    np.testing.assert_array_equal(rgb,original)
+
+
+def test_unqualified_source_is_not_rewarded_as_sharper_than_primary(monkeypatch):
+    import source_bandwidth_prior as module
+    observations=[{'relative_blur_variance':-1.,'held':i%5==0} for i in range(50)]
+    rows=iter([observations,[]])
+    monkeypatch.setattr(module,'bandwidth_observations',lambda *args,**kwargs:next(rows))
+    costs,_=module.bandwidth_source_costs(np.ones((3,4,5,3)),np.ones((3,4,5),bool),allow_primary_penalty=True)
+    np.testing.assert_array_equal(costs[0],costs[2])
+    assert costs[0].min()>0 and not costs[1].any()

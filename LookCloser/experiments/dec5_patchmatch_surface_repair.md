@@ -776,6 +776,111 @@ The focused suite passes **96 tests** both in the working tree and in an isolate
 index snapshot that excludes unrelated uncommitted changes. The new controls'
 retained render/metric/review hashes and all 62 raw depth hashes are verified.
 
+Further controls below separate stale color fitting, TSDF discretization and the
+implicit assumption that the angular primary is the sharpest camera. None yet
+passes the complete requested skin/hand/fly-through gate.
+
+### Refit color after the localized geometry repair
+
+Two fresh 16x9 train-only spatial color fits use the full-block mesh and its own
+62 raycasts. The first preserves the old fitting convention; the second opts into
+the same .5-pixel sampling and exact mesh visibility used by the newer renderer.
+No camera pose or intrinsics is changed. `audit_camera_color_fits_common_samples.py`
+compares all three fits on **identical** held train-surface samples. Comparing
+their original per-fit summaries directly would mix different visibility sets.
+
+| Same 1,698,892 held train-pair observations | Display L1 median | p90 |
+|---|---:|---:|
+| Existing fit on original mesh | .017347845 | .061298664 |
+| Refit on full-block mesh, legacy sampling | .017345031 | .061293081 |
+| Refit on full-block mesh, native/exact sampling | .017415279 | .061318270 |
+
+These are radiometric consistency diagnostics, not face-quality or full-frame
+reconstruction metrics. The matched comparison provides no practical evidence
+that stale fitting was the dominant residual seam cause. Native F/J/L renders
+retain F neck patches and J hand/lipstick softness. Both refits are rejected as
+repairs. Defaults remain unchanged; new sampling modes are explicit opt-ins.
+[Common-sample audit, replayed from the isolated index](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/color_refit_full_block/common_sample_audit_verified.json),
+[native/exact refit F hand](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/color_refit_exact_three_views/review_F/hand.png).
+
+### Minimal renderer control and finer full-block TSDF
+
+A matched pair returns to the original geometry-selected **same 16 cameras**,
+hard nearest-fill, no additional color correction, no source continuation and no
+graph cut. Only the original/full-block mesh changes. Full-block integration
+removes the localized false fragment but leaves large chin/neck source-color
+patches. Thus that geometry change alone is insufficient, independently of the
+more elaborate renderer controls.
+
+A separate geometry control halves the full-block voxel to .00025 while keeping
+truncation .004, extraction weight 2 and all other fusion parameters fixed. This
+differs from the earlier rejected fine-TSDF experiment, which lacked full-block
+updates and changed truncation to .0015. The new run allocates 6,261 blocks and
+extracts 348,809 vertices / 681,257 triangles / one component. At the original
+focal/depth scale .0005 is roughly seven image pixels per voxel, motivating this
+discretization check. However F retains its neck seam and gains a hand notch;
+J remains soft/distorted. Reject finer resolution as a sufficient repair.
+
+| 000973, unchanged study face polygon | PSNR | SSIM | LPIPS | Visual gate |
+|---|---:|---:|---:|---|
+| Full-block mesh, legacy color refit | 28.965292 | .889463 | .047677 | Fail |
+| Full-block mesh, native/exact color refit | 28.724285 | .889098 | .047989 | Fail |
+| Original mesh, minimal angular16 nearest-fill | 31.052477 | .889791 | .053517 | Fail |
+| Full-block mesh, same minimal renderer | 31.065138 | .889785 | .053547 | Fail |
+| Fine full-block mesh, matched calibrated graph cut | 29.078770 | .890198 | .047623 | Fail |
+
+[Minimal matched F comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/original_minimal_three_views/review_F/hand.png),
+[fine full-block F comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/full_block_fine_three_views/review_F/hand.png).
+All five controls have finite face metrics, native visual verdicts and hashes;
+none is promoted to temporal reconstruction.
+
+### A blurrier primary camera must not be exempt from source-quality checks
+
+The train-only bandwidth audit at anchor J identifies the angular primary
+K004_D005_121016 as softer than several neighboring sources. Against I004_D005_1210Q7,
+the signed relative blur variance has fit/held medians -1 / -1.5625 pixel-squared
+over 102/23 patches. This is relative projected bandwidth, not a unique optical
+defocus estimate. The old prior penalizes only *positive* variance in alternatives:
+it cannot demote a primary that is itself blurrier. Native train-image patches
+corroborate the hand-detail difference.
+
+`--seam-cut-bandwidth-allow-primary` admits reliable signed estimates, then adds a
+common offset to keep source costs nonnegative. Unqualified alternatives retain
+primary-equivalent cost; neither source detail nor visibility is modified. No
+physical-camera exception, anatomical mask or held-out RGB enters this decision.
+The common three-view canary uses bandwidth penalty .003 and rank penalty .001.
+
+The paired three-view requests differ **only** in this new boolean (and the
+derived request hash). F predictions are byte-identical. At J, the primary's
+selected fraction falls from 87.86% to 2.70%, and I004_D005 rises from 10.46% to
+89.99%. At L, source rank one rises from 14.47% to 83.75%. Native J hand/lipstick
+and L face details improve. Nevertheless F's neck seam is unchanged, and a native
+J lipstick crop still shows an inaccurate stepped tip/contour. Overall fail, not
+a passed general recipe. Both F outputs score **29.047241 / .889427 / .047545**
+face PSNR / SSIM / LPIPS under the unchanged study protocol.
+
+[Matched J comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/all_source_bandwidth_three_views/review_J/hand_neck.png),
+[native J lipstick](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/all_source_bandwidth_three_views/review_J_native/lipstick.png),
+[native train-camera hand patches](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/J_primary_bandwidth_trace/point_00_train_patches.png).
+
+Post-hoc region summaries suggest a limitation of a single quality score per
+camera: F source F004_A005 is sharper in two accepted hand patches but blurrier
+over 39 face patches. Two local samples are insufficient to fit a new local/depth
+model. Denser train-only verification is needed before introducing that model;
+these diagnostic boxes are never passed to prediction.
+[Regional bandwidth evidence and caveat](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/all_source_bandwidth_three_views/regional_bandwidth_audit.json).
+
+The focused suite passes **116 tests in an isolated index snapshot**, excluding
+unrelated working-tree edits. The common-sample audit replay is numerically
+identical, including sample and visibility hashes. Existing rendering and model
+defaults remain unchanged.
+
+The final [artifact audit](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/color_refit_bandwidth_findings.json)
+verifies 21 full-resolution renders from seven failed control configurations,
+their face-only metrics and review records, 62 raw depth maps, calibration and
+runtime-script provenance (289 retained hashes). This is an audit pass, not a
+visual repair pass; temporal promotion remains disabled.
+
 ## Insights
 
 The published render correction can use the primary train camera despite its failed

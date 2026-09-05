@@ -89,6 +89,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--seam-cut-rank-penalty", type=float, default=0.0001)
     parser.add_argument("--seam-cut-consensus-penalty", type=float, default=0.)
     parser.add_argument("--seam-cut-bandwidth-penalty",type=float,default=0.)
+    parser.add_argument("--seam-cut-bandwidth-allow-primary",action='store_true')
     parser.add_argument("--camera-color-calibration", type=Path, default=None)
     parser.add_argument("--angular-surface-color",type=Path,default=None)
     parser.add_argument("--hard-source-seam-leveling",action="store_true")
@@ -329,6 +330,8 @@ def parse_args() -> argparse.Namespace:
         parser.error('Bandwidth penalty must be finite and nonnegative')
     if args.seam_cut_bandwidth_penalty and args.aggregation_modes!=['seam-cut']:
         parser.error('Bandwidth prior is an opt-in hard seam-cut source selection control')
+    if args.seam_cut_bandwidth_allow_primary and not args.seam_cut_bandwidth_penalty:
+        parser.error('Primary bandwidth penalty requires a positive bandwidth prior')
     if args.skip_ground_truth_copy and (args.score_metrics or args.ground_truth_exr is not None):
         parser.error("--skip-ground-truth-copy forbids ground truth and metric scoring")
     if args.depth_hole_fill_max_area < 0:
@@ -1603,7 +1606,7 @@ def main() -> int:
 
             bandwidth_costs,bandwidth_prior=bandwidth_source_costs(
                 torch.stack(warped).permute(0,2,3,1).cpu().numpy(),torch.stack(valid_masks).cpu().numpy(),
-                args.seam_cut_bandwidth_penalty)
+                args.seam_cut_bandwidth_penalty,allow_primary_penalty=args.seam_cut_bandwidth_allow_primary)
             bandwidth_prior['helper_sha256']=sha256(Path(__file__).with_name('source_bandwidth_prior.py'))
             print('source_bandwidth_prior='+json.dumps([{k:v for k,v in r.items() if k!='observations'} for r in bandwidth_prior['sources']]),flush=True)
         if args.base_prediction_exr is None:

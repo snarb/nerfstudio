@@ -20,7 +20,17 @@ from patchmatch_color_calibration import decode_exposed_linear,encode_exposed_li
 HELD_OUT={'F004_B005_1210O9','J004_D005_1210TA','L004_B005_12106A'}
 
 
-def sample_correspondences(data,mesh,metadata,depth_root,samples):
+def project_points(points,frame,pixel_center_offset=0.):
+    """Project world points onto native RGB sample indices, not pixel corners."""
+    if pixel_center_offset not in (0.,.5):raise ValueError('Invalid pixel-center offset')
+    pose=torch.as_tensor(frame['transform_matrix'],device=points.device,dtype=points.dtype)
+    q=(points-pose[:3,3])@pose[:3,:3]
+    z=-q[:,2];safe_z=torch.where(z!=0,z,1.)
+    return (frame['fl_x']*q[:,0]/safe_z+frame['cx']-pixel_center_offset,
+            -frame['fl_y']*q[:,1]/safe_z+frame['cy']-pixel_center_offset,z)
+
+
+def sample_correspondences(data,mesh,metadata,depth_root,samples,*,pixel_center_offset=0.,exact_visibility=False):
     payload=json.loads((data/'transforms.json').read_text())
     train=set(payload['train_filenames'])
     frames=[normalize_frame(f,payload,metadata) for f in payload['frames'] if f['file_path'] in train]
@@ -31,22 +41,31 @@ def sample_correspondences(data,mesh,metadata,depth_root,samples):
     vertices=np.asarray(o3d.io.read_triangle_mesh(str(mesh)).vertices)
     rng=np.random.default_rng(0);vertices=vertices[rng.choice(len(vertices),min(samples,len(vertices)),replace=False)]
     points=torch.tensor(vertices,device='cuda',dtype=torch.float32)
-    colors=[];vis=[];centers=[];uvs=[]
+    colors=[];vis=[];centers=[];uvs=[];visibility_rows=[]
+    visibility=None
+    if exact_visibility:
+        from mesh_texture_visibility import MeshVisibility
+        visibility=MeshVisibility(mesh)
     with torch.inference_mode():
         for f in frames:
             pose=torch.tensor(f['transform_matrix'],device='cuda',dtype=torch.float32)
-            q=(points-pose[:3,3])@pose[:3,:3]
-            z=-q[:,2];u=f['fl_x']*q[:,0]/z+f['cx'];v=-f['fl_y']*q[:,1]/z+f['cy']
+            u,v,z=project_points(points,f,pixel_center_offset)
             rgb=load_rgb(data/f['file_path'],torch.device('cuda'))
             depth=torch.tensor(load_depth(depth_root/(Path(f['file_path']).stem+'.npy.gz')),device='cuda')*metadata['dataparser_scale']
             sampled=grid_sample(rgb,u[None],v[None])[:,0].T
             observed=grid_sample(depth[None],u[None],v[None])[0,0]
             valid=(z>0)&(u>=2)&(u<f['w']-3)&(v>=2)&(v<f['h']-3)&(observed>0)
-            valid&=torch.abs(torch.log(z.clamp_min(1e-6)/observed.clamp_min(1e-6)))<.001
+            if visibility is None:
+                valid&=torch.abs(torch.log(z.clamp_min(1e-6)/observed.clamp_min(1e-6)))<.001
+            else:
+                visible,stats=visibility.visible(vertices[None],pose[:3,3].cpu().numpy(),
+                                                np.ones((1,len(vertices)),bool))
+                valid&=torch.as_tensor(visible[0],device=points.device)
+                visibility_rows.append(dict(physical_camera=f['physical_camera'],**stats))
             valid&=(sampled>.1).all(-1)&(sampled<.9).all(-1)
             colors.append(sampled.cpu().numpy());vis.append(valid.cpu().numpy());centers.append(pose[:3,3].cpu().numpy())
             uvs.append(torch.stack((u,v),-1).cpu().numpy())
-    return frames,np.asarray(colors),np.asarray(vis),np.asarray(centers),vertices,np.asarray(uvs)
+    return frames,np.asarray(colors),np.asarray(vis),np.asarray(centers),vertices,np.asarray(uvs),visibility_rows
 
 
 def main():
@@ -58,6 +77,8 @@ def main():
     p.add_argument('--spatial-grid',type=int,nargs=2,default=None)
     p.add_argument('--spatial-smoothness',type=float,default=10.)
     p.add_argument('--spatial-max-multiplier',type=float,default=1.25)
+    p.add_argument('--pixel-center-offset',type=float,choices=(0.,.5),default=0.)
+    p.add_argument('--exact-mesh-visibility',action='store_true')
     a=p.parse_args()
     if a.output.exists():p.error('Output already exists; preserve earlier fits')
     metadata=json.loads(a.mesh_metadata.read_text())
@@ -72,7 +93,9 @@ def main():
     conversion=json.loads(a.conversion_manifest.read_text())
     if conversion['tone_map']['curve']!='global_exposure_then_reinhard_then_srgb':
         raise ValueError('Unknown ingest curve; cannot calibrate linear response')
-    frames,rgb,valid,centers,vertices,uv=sample_correspondences(a.data,a.mesh,metadata,a.mesh_depth,a.samples)
+    frames,rgb,valid,centers,vertices,uv,visibility_rows=sample_correspondences(
+        a.data,a.mesh,metadata,a.mesh_depth,a.samples,
+        pixel_center_offset=a.pixel_center_offset,exact_visibility=a.exact_mesh_visibility)
     # Spatial blocks, not random individual pixels, are excluded from fitting.
     blocks=np.floor(vertices/.008).astype(np.int64)
     held=((blocks[:,0]*73856093)^(blocks[:,1]*19349663)^(blocks[:,2]*83492791))%5==0
@@ -132,6 +155,9 @@ def main():
             'conversion_manifest_sha256':sha256(a.conversion_manifest),'script_sha256':sha256(Path(__file__)),
             'mesh_depth_manifest_sha256':sha256(depth_manifest_path),
             'helper_sha256':sha256(Path(__file__).with_name('patchmatch_color_calibration.py')),
+            'pixel_center_offset':a.pixel_center_offset,'exact_mesh_visibility':a.exact_mesh_visibility,
+            'mesh_visibility_helper_sha256':sha256(Path(__file__).with_name('mesh_texture_visibility.py')) if a.exact_mesh_visibility else None,
+            'visibility_audit':visibility_rows,
             'spatial_holdout':{'block_size_normalized':.008,'modulus':5,'held_samples':int(held.sum()),'total_samples':len(held)},
             'validation_display_pair_l1':residuals,'cameras':camera_rows,'pairs':rows}
     output['spatial_fit']=spatial_stats

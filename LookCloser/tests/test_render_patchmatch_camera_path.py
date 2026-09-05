@@ -43,3 +43,11 @@ def test_distorted_source_is_rejected():
     f=camera('a',0);f['k1']=.1
     with pytest.raises(ValueError,match='undistorted'):
         normalize_frame(f,{}, {'dataparser_transform':np.eye(4)[:3].tolist(),'dataparser_scale':1})
+
+
+def test_primary_bandwidth_flag_is_rejected_before_reading_data_without_prior(tmp_path,monkeypatch):
+    from render_patchmatch_camera_path import main
+    args=['path','--seam-cut-bandwidth-allow-primary']
+    for option in ['data','mesh','mesh-metadata','calibration','output']:args+=['--'+option,str(tmp_path/option)]
+    monkeypatch.setattr(sys,'argv',args)
+    with pytest.raises(SystemExit):main()
