@@ -1004,6 +1004,78 @@ hashes (309 retained hashes). The audit passing does not make these visual contr
 successful. Further response-model work must separate color mismatch from projected
 texture bandwidth; a lower face LPIPS alone is not a reason to promote a recipe.
 
+### Independent spatial RGB fields and native-depth bandwidth regression
+
+The old `spatial` response is achromatic: it combines scalar exposure with one
+16x9 scalar field, not the separately fitted diagonal RGB gains. An opt-in
+`--spatial-rgb` calibration now fits three independent gain fields, with the same
+fit-only sample selection and regularization. Rendering selects them explicitly
+with `--camera-color-model spatial-rgb`; no source/channel mixing, RGB filtering,
+pose change or semantic mask is introduced. All existing 62-camera scalar/RGB
+parameters exactly reproduce the previous native/exact fit.
+
+On the same 1,698,892 held train-pair samples, median display L1 improves only
+.01741528 -> .01714472 (1.55%); p90 changes .06131827 -> .06113207. The native
+F/J/L review retains the neck seam and soft/incorrect J lipstick contour. A
+current-code scalar control is PNG-byte-identical to the old native/exact scalar
+render (`298620da074396441212d9aa57acd6d2390ffd840684cf2abad56603f6eee3a1`).
+This rejects the missing chromatic fields as a sufficient explanation or repair.
+[RGB-field F comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/spatial_rgb_response_three_views/review_F/hand.png).
+
+A second audit tests whether camera bandwidth varies with **native source-camera
+inverse depth**, accounting for the local source-to-target projection Jacobian.
+This avoids a target-depth lookup tied to F. The fitted values are relative
+projected blur-variance regressions, not identifiable physical lens PSFs. Patch
+observations are collapsed into camera-pair/spatial-block medians; full fit and
+held footprints remain disjoint. Normalization, fitting and evaluated-depth bounds
+use fit observations only. The audit changes no prediction.
+
+| Train-only bandwidth audit | Fit / held spatial blocks | Constant median / p90 error | Linear inverse-depth median / p90 | Quadratic median / p90 |
+|---|---:|---:|---:|---:|
+| F camera neighborhood | 44 / 6 | .271024 / .723475 | .210602 / .583191 | .217004 / .639762 |
+| J camera neighborhood | 49 / 9 | .312146 / .947971 | .288571 / .701379 | .288329 / .715513 |
+
+F uses 946 fit / 134 held camera-pair blocks, J 1,092 / 171. Linear depth improves
+F median held error by 22.3% and J by 7.55%; the quadratic is not clearly better.
+These are separately fitted camera neighborhoods in one temporal frame, not a
+transferred rig model or a passed temporal gate.
+[F bounded audit](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/depth_conditioned_bandwidth_F_bounded.json),
+[J bounded audit](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/depth_conditioned_bandwidth_J_bounded.json).
+
+The paired F selection control uses the same immutable **RGB8 source warps** and
+visibility for both models (not a fresh native-reprojection claim), bandwidth
+weight .01 and rank .001. Inverse-depth evaluation is clamped to observed fit
+support. Linear depth changes the traced right-neck pixels to F004_C005 (rank 5),
+but introduces a more conspicuous hand-adjacent texture patch. Adding the existing
+one-sided harmonic gain solver keeps source labels byte-identical and softens the
+patch but does not remove it. All three controls fail native face/ear/hand review.
+
+| 000973, unchanged study face polygon | PSNR | SSIM | LPIPS | Visual gate |
+|---|---:|---:|---:|---|
+| Spatial RGB camera response, native F/J/L canary | 28.589523 | .888543 | .048607 | Fail |
+| Constant native-bandwidth F control | 29.045212 | .889527 | .047618 | Fail |
+| Linear native-depth bandwidth F control | 29.008965 | .889442 | .047485 | Fail |
+| Same labels + harmonic gain | 29.042618 | .889678 | .047234 | Fail |
+
+[Matched depth-model comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/native_depth_bandwidth_linear_F/review_F/hand.png),
+[matched gain comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/native_depth_bandwidth_linear_gain_F/review_F/hand.png).
+The first diagnostic writer attempt saved the prediction but failed to save its
+source map. Incomplete directories/logs were retained as `*_failed_writer`; one
+clean retry after fixing the path produced byte-identical RGB and complete
+manifests. No incomplete attempt is treated as complete.
+
+The lesson is narrower than a focus diagnosis: native depth predicts part of the
+inter-camera detail mismatch, but selecting a sharper source still leaves a
+visible appearance boundary. Neither RGB-field correction nor this source-cost
+control is promoted to temporal/fly-through reconstruction.
+
+An isolated index snapshot passes **154 tests**, including rigid-rig coordinate
+invariance, length-unit invariance and fit/held isolation. The
+[final artifact audit](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/rgb_depth_bandwidth_findings.json)
+checks six candidate renders, four failed visual verdicts, exact source identity
+for unlevelled RGB8 controls, identical labels for the gain control, 62 raw depth
+hashes and 299 retained hashes. Artifact-audit pass is not a visual-repair pass.
+
 ## Insights
 
 The published render correction can use the primary train camera despite its failed

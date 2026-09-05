@@ -1112,3 +1112,10 @@ float64 smoothing affects costs, never RGB or visibility. Cycle checks are not
 independent scene validation. The angular color fitter also supports the existing
 spatial camera response with an explicit matching-mode/hash guard at render time.
 Both controls remain rejected by the three-anchor surface-repair visual gate.
+
+Spatial camera calibration can explicitly fit/use separate RGB gain grids while
+preserving scalar-mode defaults. Native-depth bandwidth audits regress train-pair
+detail differences on source-camera inverse depth and projection Jacobians, with
+disjoint spatial validation. An isolated RGB8-warp control changes hard labels
+without changing geometry/visibility; optional existing gain leveling is explicit.
+These remain rejected diagnostics, not an accepted temporal rendering recipe.

@@ -120,6 +120,28 @@ def fit_spatial_exposure(frames,uv,valid,held,log_lum,base_gain,pairs,grid_width
               'smoothness_weight':smoothness_weight,'zero_field_weight':.5,'max_multiplier':max_multiplier,'uses_eval_rgb':False}
 
 
+def fit_spatial_rgb(frames,uv,valid,held,log_rgb,base_gain,pairs,grid_width=8,grid_height=5,
+                    smoothness_weight=10.,max_multiplier=1.25):
+    """Opt-in diagonal RGB fields, not channel mixing or source averaging.
+
+Each channel uses exactly the scalar field's fit-only sample selection and
+regularization. Global diagonal gains supply its gauge. Held RGB cannot affect
+the fields; it is used only by the caller's independent consistency diagnostic.
+"""
+    if (log_rgb.shape != (*valid.shape,3) or base_gain.shape != (len(frames),3)
+            or not np.isfinite(log_rgb).all() or not np.isfinite(base_gain).all()
+            or (base_gain<=0).any()):
+        raise ValueError('Invalid spatial RGB calibration observations or gains')
+    grids=[];values=[];stats=[]
+    for channel in range(3):
+        grid,value,stat=fit_spatial_exposure(frames,uv,valid,held,log_rgb[...,channel],
+            base_gain[:,channel:channel+1],pairs,grid_width,grid_height,smoothness_weight,max_multiplier)
+        grids.append(grid);values.append(value);stats.append(stat)
+    return np.stack(grids,axis=1),np.stack(values,axis=-1),{
+        'method':'independent_exposed_linear_log_rgb_grids','channels':stats,
+        'uses_eval_rgb':False,'source_averaging':False,'channel_mixing':False}
+
+
 def correct_projected_exposure(warped,valid_masks,grid_width=16,grid_height=9):
     """Train-source overlap fit in target coordinates; no target image is read.
 

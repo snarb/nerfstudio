@@ -115,3 +115,31 @@ def test_disocclusion_match_uses_visible_band_keeps_primary_and_detail():
     poisoned=rgb.clone();poisoned[:,45:75,45:75]=0
     other,_=match_disocclusion_colors([poisoned,secondary],[primary_valid,torch.ones_like(primary_valid)],torch.ones((128,128)))
     torch.testing.assert_close(other[1],out[1])
+
+
+def test_spatial_rgb_recovers_chromatic_fields_without_held_rgb_fit():
+    from patchmatch_color_calibration import fit_spatial_rgb
+    rng=np.random.default_rng(71);n=2500
+    frames=[dict(w=200,h=100)]*2
+    uv=rng.random((2,n,2))*[199,99]
+    field=np.stack((.25*uv[0,:,0]/199,-.25*uv[1,:,0]/199))
+    chroma=np.array([1.,-.8,.6]);log_rgb=field[...,None]*chroma
+    held=np.arange(n)%5==0;valid=np.ones((2,n),bool)
+    gains=np.ones((2,3));pairs=[(0,1)]
+    grid,values,stats=fit_spatial_rgb(frames,uv,valid,held,log_rgb,gains,pairs,4,3,1.,2.)
+    assert grid.shape==(2,3,3,4) and values.shape==(2,n,3)
+    corrected=log_rgb+values
+    assert np.median(abs(corrected[0,held]-corrected[1,held]))<.02
+    contaminated=log_rgb.copy();contaminated[:,held]+=rng.normal(0,30,(2,held.sum(),3))
+    other,_,_=fit_spatial_rgb(frames,uv,valid,held,contaminated,gains,pairs,4,3,1.,2.)
+    np.testing.assert_array_equal(grid,other)
+    assert not stats['source_averaging'] and not stats['channel_mixing']
+
+
+def test_rgb_spatial_field_applies_each_channel_without_spatial_rgb_filtering():
+    rgb=torch.full((3,12,18),.5);rgb[:,::2,::2]=.6
+    grid=np.zeros((3,3,4));grid[0]=.1;grid[1]=-.1
+    out=apply_camera_gain(rgb,[1,1,1],grid)
+    expected=apply_camera_gain(rgb,[np.exp(.1),np.exp(-.1),1])
+    torch.testing.assert_close(out,expected)
+    assert torch.equal(out[:,::2,::2]>out[:,1::2,1::2],torch.ones((3,6,9),dtype=torch.bool))

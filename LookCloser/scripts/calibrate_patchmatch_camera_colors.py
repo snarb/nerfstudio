@@ -15,7 +15,7 @@ import torch
 from colmap_patchmatch_tsdf_campaign_common import atomic_json,sha256
 from render_patchmatch_camera_path import normalize_frame
 from render_mesh_image_blend import load_depth,load_rgb,grid_sample
-from patchmatch_color_calibration import decode_exposed_linear,encode_exposed_linear,solve_relative_gains,fit_spatial_exposure
+from patchmatch_color_calibration import decode_exposed_linear,encode_exposed_linear,solve_relative_gains,fit_spatial_exposure,fit_spatial_rgb
 
 HELD_OUT={'F004_B005_1210O9','J004_D005_1210TA','L004_B005_12106A'}
 
@@ -75,11 +75,13 @@ def main():
     p.add_argument('--conversion-manifest',type=Path,required=True);p.add_argument('--output',type=Path,required=True)
     p.add_argument('--samples',type=int,default=60000)
     p.add_argument('--spatial-grid',type=int,nargs=2,default=None)
+    p.add_argument('--spatial-rgb',action='store_true',help='Also fit independent RGB gain grids; existing scalar model stays unchanged')
     p.add_argument('--spatial-smoothness',type=float,default=10.)
     p.add_argument('--spatial-max-multiplier',type=float,default=1.25)
     p.add_argument('--pixel-center-offset',type=float,choices=(0.,.5),default=0.)
     p.add_argument('--exact-mesh-visibility',action='store_true')
     a=p.parse_args()
+    if a.spatial_rgb and a.spatial_grid is None:p.error('--spatial-rgb requires --spatial-grid')
     if a.output.exists():p.error('Output already exists; preserve earlier fits')
     metadata=json.loads(a.mesh_metadata.read_text())
     depth_manifest_path=a.mesh_depth/'mesh_depth_manifest.json'
@@ -122,10 +124,16 @@ def main():
     ingest_gains=(np.exp(np.log(ingest).mean())/ingest)[:,None].repeat(3,axis=1)
     models={'none':np.ones_like(rgb_gains),'ingest':ingest_gains,'exposure':scalar_gains,'rgb':rgb_gains}
     spatial_grid=spatial_values=spatial_stats=None
+    spatial_rgb_grid=spatial_rgb_stats=None
     if a.spatial_grid is not None:
         spatial_grid,spatial_values,spatial_stats=fit_spatial_exposure(frames,uv,valid,held,log_lum,scalar_gains,kept,*a.spatial_grid,
                 smoothness_weight=a.spatial_smoothness,max_multiplier=a.spatial_max_multiplier)
         models['spatial']=scalar_gains[:,None,:]*np.exp(spatial_values[:,:,None])
+    if a.spatial_rgb:
+        spatial_rgb_grid,spatial_rgb_values,spatial_rgb_stats=fit_spatial_rgb(
+            frames,uv,valid,held,log_rgb,rgb_gains,kept,*a.spatial_grid,
+            smoothness_weight=a.spatial_smoothness,max_multiplier=a.spatial_max_multiplier)
+        models['spatial-rgb']=rgb_gains[:,None,:]*np.exp(spatial_rgb_values)
     residuals={}
     for name,gains in models.items():
         corrected=encode_exposed_linear(exposed*(gains[:,None,:] if gains.ndim==2 else gains))
@@ -147,6 +155,7 @@ def main():
                   'exposure_gain':scalar_gains[i].tolist(),'rgb_gain':rgb_gains[i].tolist(),'chromatic_gain':chroma.tolist(),
                   'pre_ingest_relative_correction':raw_gain[i].tolist()}
         if spatial_grid is not None:camera_rows[f['physical_camera']]['spatial_log_gain_grid']=spatial_grid[i].tolist()
+        if spatial_rgb_grid is not None:camera_rows[f['physical_camera']]['spatial_rgb_log_gain_grid']=spatial_rgb_grid[i].tolist()
     output={'schema_version':1,'method':'train_only_geometric_overlap_radiometric_calibration',
             'domain':'inverse_srgb_inverse_reinhard_exposed_linear','gauge':'geometric_mean_train_gain_one',
             'uses_eval_rgb':False,'uses_semantic_masks':False,'source_averaging':False,
@@ -161,6 +170,7 @@ def main():
             'spatial_holdout':{'block_size_normalized':.008,'modulus':5,'held_samples':int(held.sum()),'total_samples':len(held)},
             'validation_display_pair_l1':residuals,'cameras':camera_rows,'pairs':rows}
     output['spatial_fit']=spatial_stats
+    if a.spatial_rgb:output['spatial_rgb_fit']=spatial_rgb_stats
     a.output.parent.mkdir(parents=True,exist_ok=True);atomic_json(a.output,output)
     print(json.dumps({'validation_display_pair_l1':residuals,'rgb_gain_min':rgb_gains.min(0).tolist(),'rgb_gain_max':rgb_gains.max(0).tolist()}))
 

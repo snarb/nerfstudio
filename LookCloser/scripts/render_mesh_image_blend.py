@@ -95,7 +95,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--angular-surface-color",type=Path,default=None)
     parser.add_argument("--hard-source-seam-leveling",action="store_true")
     parser.add_argument("--surface-texture-registration",action="store_true")
-    parser.add_argument("--camera-color-model", choices=("ingest", "exposure", "rgb", "spatial"), default="rgb")
+    parser.add_argument("--camera-color-model", choices=("ingest", "exposure", "rgb", "spatial", "spatial-rgb"), default="rgb")
     parser.add_argument("--overlap-exposure-grid", type=int, nargs=2, default=None)
     parser.add_argument("--write-source-warp-audit", action="store_true")
     parser.add_argument("--pixel-center-offset", type=float, choices=(0., .5), default=0.,
@@ -1396,11 +1396,12 @@ def main() -> int:
                 calibration_row = color_calibration["cameras"][physical]
                 if sha256(source_image) != calibration_row["image_sha256"]:
                     raise ValueError(f"Source RGB changed since color calibration: {physical}")
-                key = {"ingest": "ingest_gain_correction", "spatial": "exposure_gain"}.get(
+                key = {"ingest": "ingest_gain_correction", "spatial": "exposure_gain", "spatial-rgb": "rgb_gain"}.get(
                     args.camera_color_model, args.camera_color_model + "_gain")
                 source_color_gain = calibration_row[key]
                 source_rgb = apply_camera_gain(source_rgb, source_color_gain,
-                    calibration_row["spatial_log_gain_grid"] if args.camera_color_model == "spatial" else None)
+                    calibration_row["spatial_log_gain_grid"] if args.camera_color_model == "spatial" else
+                    calibration_row["spatial_rgb_log_gain_grid"] if args.camera_color_model == "spatial-rgb" else None)
             if rank == 0:
                 nearest_source_rgb = source_rgb
             source_depth_unfilled = load_depth(depth_by_image[source_image])

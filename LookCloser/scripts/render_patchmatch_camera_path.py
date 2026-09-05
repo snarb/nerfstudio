@@ -86,7 +86,7 @@ def main() -> None:
     parser.add_argument("--angular-surface-color",type=Path,default=None)
     parser.add_argument("--hard-source-seam-leveling",action="store_true")
     parser.add_argument("--surface-texture-registration",action="store_true")
-    parser.add_argument("--camera-color-model",choices=("ingest","exposure","rgb","spatial"),default="rgb")
+    parser.add_argument("--camera-color-model",choices=("ingest","exposure","rgb","spatial","spatial-rgb"),default="rgb")
     parser.add_argument("--overlap-exposure-grid",type=int,nargs=2,default=None)
     parser.add_argument("--pixel-center-offset",type=float,choices=(0.,.5),default=0.)
     parser.add_argument("--exact-mesh-visibility",action="store_true")
