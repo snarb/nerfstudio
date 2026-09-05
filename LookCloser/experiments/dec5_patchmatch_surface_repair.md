@@ -27,6 +27,10 @@ of the hand is not a source-camera seam. Both sides use the primary camera, whil
 the mesh switches between hand and neck depth. The earlier source-switch evidence
 is valid for neighboring chin/upper-neck pixels, not for this entire defect.
 See the localized free-space controls below; none is an accepted repair yet.
+**Measured partial repair:** rechecking the identical native pixels establishes
+that full-block TSDF integration already removes this particular false fragment.
+The earlier statement that it leaves the whole strip unchanged was too broad;
+neighboring seams and hand defects still prevent overall acceptance.
 The original failure attribution is being rechecked against raw train depth, mesh
 depth and visibility. The previous min-consistency=1 experiment partially restored
 the hand but did not isolate why the second correspondence was absent.
@@ -681,8 +685,9 @@ The upstream kernel accepts positive signed distances beyond truncation, clamped
 to one; the block inventory determines which voxels are updated.
 [Open3D 0.19 integration kernel](https://github.com/isl-org/Open3D/blob/v0.19.0/cpp/open3d/t/geometry/kernel/VoxelBlockGridImpl.h).
 The real frame activates 2,222 bounded blocks and extracts 80,221 vertices /
-155,052 triangles / one component, but the strip remains. Thus omitted block updates
-are possible, yet are not established as the dominant cause here. Only the extracted
+155,052 triangles / one component. The initial review conflated the localized
+false fragment with adjacent residual seams: the point-by-point recheck below
+shows that full-block updates remove the tested false fragment. Only the extracted
 mesh and metadata are retained, not a serialized raw TSDF volume.
 
 Finally `--source-observed-free-space-veto` rejects source RGB, including primary
@@ -707,9 +712,69 @@ resolved just by selecting another source camera. This control also fails.
 F/J/L were rendered for both geometric controls and native hand/neck comparisons
 inspected. F defects and J hand/lipstick softness prevent acceptance; an apparently
 clean L neck crop is not a full-view or fly-through pass. No temporal promotion.
-The next bounded geometric hypothesis is enforcing robust free-space contradictions
-in the volumetric scalar field before surface extraction, instead of deleting
-finished triangles or merely averaging their contradictory observations.
+The bounded geometric hypothesis of enforcing robust free-space contradictions
+in the scalar field before surface extraction was tested next, as documented below.
+
+### Pre-extraction veto and localized full-block recheck
+
+`--tensor-free-space-min-views 3` is a new opt-in diagnostic, disabled by default.
+It requires the bounded full-block mode and exactly 62 unique explicit train
+cameras. Every active voxel is projected into native train depths. Three cameras
+must support the same robust farther-layer criterion used by triangle carving.
+Contradicted observed voxels become positive TSDF before marching cubes; unknown
+voxels stay unknown and no integration weight is manufactured. No RGB, semantic
+mask, eval image or target-image coordinate participates in this operation.
+
+The 000973 CUDA run checks 9,101,312 active voxels in 2,222 blocks. It constrains
+1,915,405 already observed voxels, of which only 978 had negative TSDF. The
+extracted mesh has 80,063 vertices / 154,759 triangles / one component.
+The native F crop shows an additional notch on the hand and no decisive repair
+of adjacent neck seams; the J hand/lipstick remains soft/distorted. Reject this
+as a final repair. In particular, extra hard vetoing must not be credited with
+the false-fragment removal already achieved by full-block integration alone.
+
+| Native F pixel | Original mesh depth | Full-block TSDF | Full-block + voxel veto |
+|---|---:|---:|---:|
+| (530,472) | .671624 | .705561 | .705561 |
+| (540,464) | .672702 | .705842 | .705842 |
+| (520,480) | .671367 | .671367 | .671367 |
+| (550,475) | .706396 | .706396 | .706396 |
+
+These are unfilled first-hit depths from the same held-out camera calibration.
+At the first two points the false hand-depth fragment gives way to neck depth.
+The matched original/full-block render crop confirms that the conspicuous bright
+leaf disappears without changing source RGB or adding a segmentation mask.
+This is evidence for missed free-space block updates contributing to this
+localized artifact, not proof that every hand/neck defect has the same cause.
+The older full-block visual verdict remains a historical overall fail; its phrase
+"strip persists" is superseded by this localized depth/image comparison.
+
+[GT / original / full-block / voxel-veto native comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/volumetric_free_space_three_views/review_localized_full_control/bright_strip.png),
+[exact depth and mesh-hash audit](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/volumetric_free_space_three_views/localized_depth_audit.json).
+
+A second control combines the full-block mesh with the already fixed accurate
+harmonic gain solver. This tests remaining RGB seams after the localized geometry
+repair, without the extra voxel veto. F/J/L are all rendered again from calibration
+only. Adjacent F neck patches and J hand/lipstick softness remain, so this combined
+control also fails the overall visual gate.
+
+| Same 000973 study face polygon | PSNR | SSIM | LPIPS | Overall visual gate |
+|---|---:|---:|---:|---|
+| Full-block TSDF reference | 29.052221 | .889452 | .047512 | Fail; localized fragment repaired |
+| Full-block + pre-extraction veto | 29.057016 | .889385 | .047595 | Fail; extra hand notch |
+| Full-block + accurate gain solve | 29.066286 | .889747 | .047069 | Fail; residual seams/softness |
+
+[Voxel-veto F hand](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/volumetric_free_space_three_views/review_F/hand.png),
+[gain-solver F hand](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/full_block_accurate_leveling_three_views/review_F/hand.png),
+[gain-solver J hand/neck](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/full_block_accurate_leveling_three_views/review_J/hand_neck.png).
+Native F face/ear/hand and J hand/neck plus L neck context were inspected for both
+controls. No temporal or fly-through promotion. Tests compare CPU/CUDA native
+depth evidence, preserve unqualified/unknown voxels and all integration weights,
+and remove a synthetic contradictory foreground slab while keeping its supported
+farther plane. Defaults of existing runners and models are unchanged.
+The focused suite passes **96 tests** both in the working tree and in an isolated
+index snapshot that excludes unrelated uncommitted changes. The new controls'
+retained render/metric/review hashes and all 62 raw depth hashes are verified.
 
 ## Insights
 

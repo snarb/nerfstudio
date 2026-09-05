@@ -114,6 +114,8 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--depth-trunc", type=float, default=4.0)
     parser.add_argument('--tensor-full-block-integration',action='store_true',
                         help='Opt-in two-pass fusion: integrate every view into the bounded union of surface blocks, including observed free space.')
+    parser.add_argument('--tensor-free-space-min-views', type=int, default=0,
+                        help='Opt-in pre-extraction free-space veto; zero disables it. Requires full-block integration and exactly 62 explicit DEC5 train cameras.')
     parser.add_argument(
         "--backend",
         choices=("legacy", "tensor"),
@@ -205,6 +207,9 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
             parser.error("--crop-aabb must contain finite increasing bounds")
     if args.tensor_full_block_integration and (args.backend!='tensor' or args.crop_aabb is None):
         parser.error('Full-block integration requires tensor backend and explicit bounded crop')
+    if args.tensor_free_space_min_views and (args.tensor_free_space_min_views < 2 or
+            not args.tensor_full_block_integration or args.additional_data):
+        parser.error('Free-space veto requires >=2 views, full-block integration and one train dataset')
     return args
 
 
@@ -242,6 +247,9 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     groups = []
     primary_outputs = None
+    if args.tensor_free_space_min_views:
+        from carve_patchmatch_mesh_free_space import train_frames
+        verified_train = train_frames(json.loads((args.data / 'transforms.json').read_text()))
     for data in [args.data, *args.additional_data]:
         parser_config = NerfstudioDataParserConfig(
             data=data,
@@ -262,6 +270,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         if outputs.metadata.get("depth_filenames") is None:
             raise ValueError(f"Train split does not provide depth_file_path values: {data}")
         depth_filenames = outputs.metadata["depth_filenames"]
+        if args.tensor_free_space_min_views:
+            expected = {(data / f['depth_file_path']).resolve() for f in verified_train}
+            if {Path(p).resolve() for p in depth_filenames} != expected or len(depth_filenames) != 62:
+                raise ValueError('Dataparser depths differ from verified 62-camera train inventory')
         if len(depth_filenames) != len(outputs.image_filenames):
             raise ValueError(f"Train depth and image counts differ: {data}")
         if primary_outputs is None:
@@ -421,6 +433,26 @@ def main(argv: Sequence[str] | None = None) -> int:
             )
             print(f"integrated={integrated}/{total_images}", flush=True)
 
+    free_space_stats = None
+    if args.tensor_free_space_min_views:
+        from tsdf_free_space_veto import constrain_volume
+        def observations():
+            for data, outputs, depth_filenames, depth_scale in groups:
+                cameras = outputs.cameras.to('cpu')
+                for i, path in enumerate(depth_filenames):
+                    depth = load_depth(Path(path), scale_factor=depth_scale)
+                    if depth.shape != (1080, 1920) or not np.isfinite(depth).all() or (depth < 0).any():
+                        raise ValueError('Free-space veto requires finite nonnegative full-resolution depths')
+                    depth = np.where(depth < args.depth_trunc, depth, 0).astype(np.float32)
+                    intrinsic = np.array([[float(cameras.fx[i]), 0, float(cameras.cx[i])],
+                                          [0, float(cameras.fy[i]), float(cameras.cy[i])], [0, 0, 1]])
+                    extrinsic = nerfstudio_c2w_to_opencv_extrinsic(cameras.camera_to_worlds[i].numpy())
+                    yield depth, intrinsic, extrinsic, {'image': str(outputs.image_filenames[i]),
+                        'depth': str(path), 'depth_sha256': sha256(Path(path))}
+        free_space_stats = constrain_volume(tensor_volume, observations(),
+                                           minimum_views=args.tensor_free_space_min_views)
+        free_space_stats['helper_sha256'] = sha256(Path(__file__).with_name('tsdf_free_space_veto.py'))
+
     if args.backend == "legacy":
         assert volume is not None
         mesh = volume.extract_triangle_mesh()
@@ -471,6 +503,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     transforms = args.data / "transforms.json"
     metadata = {
         "schema_version": 1,
+        "script_sha256": sha256(Path(__file__)),
+        "free_space_veto": free_space_stats,
         "method": "open3d_scalable_tsdf_train_only",
         "data": str(args.data),
         "source_transforms_sha256": sha256(transforms),

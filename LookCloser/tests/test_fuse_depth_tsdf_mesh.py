@@ -45,6 +45,18 @@ def test_non_manifold_cleanup_is_default_on_and_can_be_disabled(tmp_path: Path) 
     assert default.remove_non_manifold_edges is True
     assert disabled.remove_non_manifold_edges is False
     assert not default.tensor_full_block_integration
+    assert default.tensor_free_space_min_views == 0
+
+
+def test_free_space_veto_requires_qualified_full_block_mode(tmp_path):
+    import pytest
+    base = ['--data', str(tmp_path), '--output', str(tmp_path/'test.ply')]
+    with pytest.raises(SystemExit):
+        MODULE.parse_args(base+['--tensor-free-space-min-views', '3'])
+    full = ['--backend', 'tensor', '--tensor-full-block-integration', '--crop-aabb', '-1', '-1', '-1', '1', '1', '1']
+    assert MODULE.parse_args(base+full+['--tensor-free-space-min-views', '3']).tensor_free_space_min_views == 3
+    with pytest.raises(SystemExit):
+        MODULE.parse_args(base+full+['--tensor-free-space-min-views', '1'])
 
 
 def test_full_block_inventory_is_bounded_and_order_independent():

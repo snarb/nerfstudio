@@ -1089,3 +1089,11 @@ triangle-centroid carving, measured-depth RGB visibility vetoes (also for primar
 RGB), and bounded two-pass `--tensor-full-block-integration`. All remain isolated
 from model defaults. Full-block fusion still publishes an extracted mesh, not a
 raw volume; free-space contradictions and native temporal/view gates are separate.
+
+`tsdf_free_space_veto.py` optionally constrains observed VBG voxels using robust
+farther-depth votes before extraction (`--tensor-free-space-min-views`, default
+zero). It preserves unknown voxels and existing integration weights, accepts only
+the verified 62-camera train inventory, and uses no RGB or masks. CPU/CUDA evidence
+and synthetic contradictory-slab behavior are tested. This veto remains a rejected
+diagnostic; full-block fusion alone repairs the specifically audited false fragment,
+but residual hand/neck defects still prevent accepting a general rendering recipe.
