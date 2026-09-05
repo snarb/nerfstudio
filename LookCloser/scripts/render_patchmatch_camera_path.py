@@ -84,6 +84,7 @@ def main() -> None:
     parser.add_argument("--primary-angular-camera-count",type=int,default=0)
     parser.add_argument("--camera-color-calibration",type=Path,default=None)
     parser.add_argument("--angular-surface-color",type=Path,default=None)
+    parser.add_argument("--mesh-camera-color",type=Path,default=None)
     parser.add_argument("--hard-source-seam-leveling",action="store_true")
     parser.add_argument("--surface-texture-registration",action="store_true")
     parser.add_argument("--camera-color-model",choices=("ingest","exposure","rgb","spatial","spatial-rgb"),default="rgb")
@@ -102,6 +103,11 @@ def main() -> None:
     parser.add_argument("--depth-hole-fill-max-area",type=int,default=0)
     parser.add_argument("--resume",action="store_true")
     args = parser.parse_args()
+    if args.mesh_camera_color and (args.camera_color_calibration is None or not args.exact_mesh_visibility
+            or args.pixel_center_offset!=.5 or args.angular_surface_color
+            or args.camera_color_model not in ('rgb','spatial','spatial-rgb')
+            or args.surface_texture_registration or args.source_rgb_depth_aware_sampling):
+        parser.error('Mesh camera color requires matching calibration and native/exact visibility without angular correction')
     if args.seam_cut_bandwidth_allow_primary and not args.seam_cut_bandwidth_penalty:
         parser.error('Primary bandwidth penalty requires a positive bandwidth prior')
     if not np.isfinite(args.seam_cut_local_bandwidth_penalty) or args.seam_cut_local_bandwidth_penalty<0:
@@ -143,6 +149,8 @@ def main() -> None:
                "bandwidth_helper_sha256":sha256(SCRIPTS/'source_bandwidth_prior.py') if args.seam_cut_bandwidth_penalty or args.seam_cut_local_bandwidth_penalty else None,
                "primary_angular_camera_count":args.primary_angular_camera_count,
                "camera_color_calibration_sha256":None if args.camera_color_calibration is None else sha256(args.camera_color_calibration),
+               "mesh_camera_color_sha256":None if args.mesh_camera_color is None else sha256(args.mesh_camera_color),
+               "mesh_camera_color_helper_sha256":None if args.mesh_camera_color is None else sha256(SCRIPTS/'mesh_camera_color.py'),
                "angular_surface_color_sha256":None if args.angular_surface_color is None else sha256(args.angular_surface_color),
                "angular_surface_color_helper_sha256":sha256(SCRIPTS/'angular_surface_color.py') if args.angular_surface_color else None,
                "hard_source_seam_leveling":args.hard_source_seam_leveling,
@@ -223,6 +231,7 @@ def main() -> None:
                  "--seam-cut-bandwidth-penalty",args.seam_cut_bandwidth_penalty,
                  "--seam-cut-local-bandwidth-penalty",args.seam_cut_local_bandwidth_penalty,
                  *(['--seam-cut-bandwidth-allow-primary'] if args.seam_cut_bandwidth_allow_primary else []),
+                 *(['--mesh-camera-color',args.mesh_camera_color] if args.mesh_camera_color else []),
                  *(["--exact-mesh-visibility"] if args.exact_mesh_visibility else []),
                  *(["--source-rgb-footprint-visibility"] if args.source_rgb_footprint_visibility else []),
                  *(["--source-rgb-depth-aware-sampling"] if args.source_rgb_depth_aware_sampling else []),

@@ -1119,3 +1119,10 @@ detail differences on source-camera inverse depth and projection Jacobians, with
 disjoint spatial validation. An isolated RGB8-warp control changes hard labels
 without changing geometry/visibility; optional existing gain leveling is explicit.
 These remain rejected diagnostics, not an accepted temporal rendering recipe.
+
+`mesh_camera_color.py` adds an opt-in train-only mesh-attached camera gain field.
+Its zero-camera-mean projected solver fits RGB differences on mesh edges, with a
+true residual publication gate. Rendering binds gains barycentrically to the
+same mesh and still selects one train RGB; mesh/calibration/source provenance is
+checked. The disabled mode reproduces the prior renderer. This field remains a
+rejected diagnostic after F/J/L review, not the temporal campaign recipe.

@@ -65,3 +65,22 @@ def test_local_bandwidth_path_invalid_configuration_fails_early(tmp_path,monkeyp
     for option in ['data','mesh','mesh-metadata','calibration','output']:args+=['--'+option,str(tmp_path/option)]
     monkeypatch.setattr(sys,'argv',args)
     with pytest.raises(SystemExit):main()
+
+
+def test_mesh_camera_color_requires_exact_native_calibration_before_data_read(tmp_path,monkeypatch):
+    from render_patchmatch_camera_path import main
+    args=['path','--mesh-camera-color',str(tmp_path/'field.json')]
+    for option in ['data','mesh','mesh-metadata','calibration','output']:args+=['--'+option,str(tmp_path/option)]
+    monkeypatch.setattr(sys,'argv',args)
+    with pytest.raises(SystemExit):main()
+
+
+@pytest.mark.parametrize('option',['--surface-texture-registration','--source-rgb-depth-aware-sampling'])
+def test_mesh_camera_path_rejects_rgb_sampling_overrides(tmp_path,monkeypatch,option):
+    from render_patchmatch_camera_path import main
+    args=['path','--mesh-camera-color',str(tmp_path/'field.json'),
+          '--camera-color-calibration',str(tmp_path/'color.json'),'--camera-color-model','spatial',
+          '--exact-mesh-visibility','--pixel-center-offset','.5',option]
+    for key in ['data','mesh','mesh-metadata','calibration','output']:args+=['--'+key,str(tmp_path/key)]
+    monkeypatch.setattr(sys,'argv',args)
+    with pytest.raises(SystemExit):main()

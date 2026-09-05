@@ -1076,6 +1076,66 @@ checks six candidate renders, four failed visual verdicts, exact source identity
 for unlevelled RGB8 controls, identical labels for the gain control, 62 raw depth
 hashes and 299 retained hashes. Artifact-audit pass is not a visual-repair pass.
 
+### Mesh-attached per-camera RGB gain fields: rejected three-view control
+
+The next control fits smooth **per-camera, per-mesh-vertex** log RGB gains from
+all 62 train cameras, after the native/exact scalar spatial calibration. Unlike
+the earlier primary-relative screen-space correction or first-order angular
+field, it solves all camera differences together on the mesh graph. Shared
+albedo cancels from the objective. The renderer still projects one train camera
+per pixel and applies its interpolated gain; it does not render a consensus RGB,
+average source images, change geometry/visibility, use a semantic mask, or read
+F/J/L RGB for prediction. Corrected colors can change graph-cut labels.
+
+The full-block mesh, scalar camera calibration, hard seam-cut recipe and F/J/L
+cameras are unchanged. An off-control with the new renderer exactly reproduces
+the native/exact scalar baseline PNG SHA `298620da074396441212d9aa57acd6d2390ffd840684cf2abad56603f6eee3a1`.
+
+The initial solver correctly refused publication: its true relative residual
+was 1.80e-6, above the required 5e-7. Projecting the preconditioner into the
+zero-camera-mean invariant subspace removes numerical gauge drift without
+changing the fit objective. The same data, smoothness 64 and ridge .01 then
+converge in 1,904 iterations, with true residual 9.08e-8 and mean-gauge error
+4.76e-16. The failed log is retained. Gain clipping affects 0.376% of coefficients.
+
+This is **not** a successful color fit: over 2,279,308 held train-pair samples,
+median display L1 worsens .01719648 -> .01757403 (2.20%). Validation withholds
+spatially grouped mesh vertices; it is not claimed to enforce disjoint native
+RGB interpolation footprints.
+
+| 000973, unchanged study face polygon | PSNR | SSIM | LPIPS | Visual gate |
+|---|---:|---:|---:|---|
+| Matched scalar camera-field baseline | 28.724285 | .889098 | .047989 | Fail |
+| Additional mesh-attached camera fields | 28.537418 | .888003 | .048547 | Fail |
+
+All seven native-resolution F/J/L face/ear/hand/neck/lipstick comparisons were
+viewed. The F ochre strip beside the lipstick remains; the J tube remains soft
+with an incorrect contour; the L neck/chest transition is still visible. Missing
+room is ignored, but incomplete hair silhouette is not excused. No temporal or
+fly-through repair is accepted.
+[F hand/neck comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/mesh_camera_color_s64_three_views/review_F/hand.png),
+[J lipstick comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/mesh_camera_color_s64_three_views/review_J/lipstick.png),
+[L neck comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/mesh_camera_color_s64_three_views/review_L/neck.png).
+
+The result rejects a smooth per-camera surface gain as a **sufficient repair**,
+not every possible camera-response model. Earlier native-depth traces establish
+that selected points in the right-neck patch have supported neck geometry and
+single-camera skin RGB, not averaged room pixels. That local result does not
+prove the hand/tube contour or entire mesh correct. Further trials must separate
+detail mismatch from contour errors rather than assume another gain field will
+fix both.
+
+The isolated index suite passes **177 tests**, including held/hidden RGB
+isolation, shared high-frequency albedo cancellation, rigid-motion invariance,
+true-residual/gauge checks, barycentric binding and fail-closed provenance.
+[Artifact audit](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/mesh_camera_color_findings.json)
+checks three candidate views, the byte-identical off-control, 62 source RGB and
+raw depth hashes, finite face-only metrics and the inspected-crop inventory.
+The exact fit/render runtime is archived; subsequent guard-only changes make
+checksum failure an explicit exception and reject RGB sampling overrides that
+would bypass the fitted fields. Existing defaults and the original campaign
+remain unchanged.
+
 ## Insights
 
 The published render correction can use the primary train camera despite its failed

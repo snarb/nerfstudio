@@ -82,6 +82,26 @@ def test_local_bandwidth_is_explicit_and_does_not_enable_rgb_blending(tmp_path,m
     assert args.seam_cut_local_bandwidth_penalty==.01 and args.seam_cut_bandwidth_penalty==0
 
 
+def test_mesh_camera_color_is_opt_in_and_requires_exact_native_hard_sources(tmp_path,monkeypatch):
+    (tmp_path/'data').mkdir();(tmp_path/'depth.json').write_text('{}')
+    args=['render','--data',str(tmp_path/'data'),'--mesh-depth-manifest',str(tmp_path/'depth.json'),
+          '--output-dir',str(tmp_path/'out')]
+    monkeypatch.setattr(sys,'argv',args);assert MODULE.parse_args().mesh_camera_color is None
+    monkeypatch.setattr(sys,'argv',args+['--mesh-camera-color',str(tmp_path/'field.json')])
+    with pytest.raises(SystemExit):MODULE.parse_args()
+
+
+@pytest.mark.parametrize('option',['--surface-texture-registration','--source-rgb-depth-aware-sampling'])
+def test_mesh_camera_color_rejects_rgb_sampling_overrides(tmp_path,monkeypatch,option):
+    (tmp_path/'data').mkdir();(tmp_path/'depth.json').write_text('{}')
+    args=['render','--data',str(tmp_path/'data'),'--mesh-depth-manifest',str(tmp_path/'depth.json'),
+          '--output-dir',str(tmp_path/'out'),'--mesh-camera-color',str(tmp_path/'field.json'),
+          '--camera-color-calibration',str(tmp_path/'color.json'),'--camera-color-model','spatial',
+          '--exact-mesh-visibility','--pixel-center-offset','.5','--aggregation-modes','seam-cut',option]
+    monkeypatch.setattr(sys,'argv',args)
+    with pytest.raises(SystemExit):MODULE.parse_args()
+
+
 def test_identity_camera_projection_preserves_pixels_and_depth() -> None:
     depth = torch.full((3, 4), 2.0)
     c2w = torch.eye(4)[:3]

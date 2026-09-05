@@ -93,6 +93,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--seam-cut-local-bandwidth-penalty",type=float,default=0.)
     parser.add_argument("--camera-color-calibration", type=Path, default=None)
     parser.add_argument("--angular-surface-color",type=Path,default=None)
+    parser.add_argument("--mesh-camera-color",type=Path,default=None)
     parser.add_argument("--hard-source-seam-leveling",action="store_true")
     parser.add_argument("--surface-texture-registration",action="store_true")
     parser.add_argument("--camera-color-model", choices=("ingest", "exposure", "rgb", "spatial", "spatial-rgb"), default="rgb")
@@ -315,6 +316,12 @@ def parse_args() -> argparse.Namespace:
         parser.error('Raw free-space veto requires depth data and its matching mesh normalization receipt')
     if args.angular_surface_color and (args.camera_color_calibration is None or args.camera_color_model not in ('rgb','spatial') or not args.exact_mesh_visibility):
         parser.error('Angular color correction requires matching RGB/spatial calibration and exact mesh visibility')
+    if args.mesh_camera_color and (args.camera_color_calibration is None or args.camera_color_model not in ('rgb','spatial','spatial-rgb')
+            or not args.exact_mesh_visibility or args.pixel_center_offset!=.5 or args.angular_surface_color
+            or any(m not in ('nearest-fill','seam-cut') for m in args.aggregation_modes)
+            or any(alpha!=1 for alpha in args.blend_alphas) or args.detail_transfer_sigmas
+            or args.surface_texture_registration or args.source_rgb_depth_aware_sampling):
+        parser.error('Mesh camera color requires matching calibration, native/exact visibility and isolated hard RGB source selection')
     if args.hard_source_seam_leveling and (args.camera_color_calibration is None or any(m not in ('nearest-fill','seam-cut') for m in args.aggregation_modes)):
         parser.error('Seam gain leveling requires calibrated ingest and hard source selection')
     if args.hard_source_seam_leveling and (args.nearest_fill_primary_color_continuation or any(a!=1 for a in args.blend_alphas) or args.detail_transfer_sigmas):
@@ -1376,6 +1383,12 @@ def main() -> int:
         visibility_world=target_world.detach().cpu().numpy()
     angular_field = None
     angular_model = None
+    mesh_camera_color = None
+    if args.mesh_camera_color:
+        from mesh_camera_color import MeshCameraColor
+
+        mesh_camera_color=MeshCameraColor(args.mesh_camera_color,mesh_path,args.camera_color_calibration,args.camera_color_model)
+        mesh_camera_color.bind(visibility_world,(target_depth>0).cpu().numpy())
     if args.angular_surface_color:
         from angular_surface_color import AngularSurfaceColor,validate_camera_response
 
@@ -1418,6 +1431,11 @@ def main() -> int:
                 target_depth, target_c2w, target_intrinsics, source_c2w, source_intrinsics
             )
             sampled_rgb = grid_sample(source_rgb, u, v)
+            if mesh_camera_color is not None:
+                if mesh_camera_color.manifest['source_hashes'][physical]!=sha256(source_image):
+                    raise ValueError('Source RGB changed since mesh camera-color fitting')
+                log_gain=torch.as_tensor(mesh_camera_color.sample(physical),device=device).permute(2,0,1)
+                sampled_rgb=apply_camera_gain(sampled_rgb,[1,1,1],log_gain)
             if args.surface_texture_registration:
                 native_texture_sources.append(source_rgb);native_texture_uv.append((u,v))
             if angular_field is not None:
@@ -1853,6 +1871,10 @@ def main() -> int:
         "surface_color_field": surface_color_field,
         "surface_texture_registration":texture_registration,
         "stereo_support_filter": stereo_support_filter,
+        "mesh_camera_color": None if args.mesh_camera_color is None else {
+            "path":str(args.mesh_camera_color.resolve()),"sha256":sha256(args.mesh_camera_color),
+            "helper_sha256":sha256(Path(__file__).with_name('mesh_camera_color.py')),
+            "uses_eval_rgb":False,"output_source_averaging":False,"geometry_changed":False},
         "angular_surface_color": None if args.angular_surface_color is None else {
             "path":str(args.angular_surface_color.resolve()),"sha256":sha256(args.angular_surface_color),
             "helper_sha256":sha256(Path(__file__).with_name('angular_surface_color.py')),"uses_eval_rgb":False,"source_averaging":False},
