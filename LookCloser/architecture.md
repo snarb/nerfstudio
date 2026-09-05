@@ -1126,3 +1126,9 @@ true residual publication gate. Rendering binds gains barycentrically to the
 same mesh and still selects one train RGB; mesh/calibration/source provenance is
 checked. The disabled mode reproduces the prior renderer. This field remains a
 rejected diagnostic after F/J/L review, not the temporal campaign recipe.
+
+Standalone source-detail diagnostics can freeze RGB8 source labels and test a
+bounded within-source filter; they do not change the renderer. This control was
+rejected. A three-camera instrumental bandwidth audit separates an independent
+noise confound in synthetic tests, with explicit small-blur/correspondence
+assumptions and numerical guards. Neither diagnostic is a promoted recipe.

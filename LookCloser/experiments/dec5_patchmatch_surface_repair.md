@@ -1136,6 +1136,90 @@ checksum failure an explicit exception and reject RGB sampling overrides that
 would bypass the fitted fields. Existing defaults and the original campaign
 remain unchanged.
 
+### Fixed-source detail restoration and the noise/blur ambiguity
+
+A separate diagnostic freezes the categorical source map and the same immutable
+RGB8 train warps. It applies a bounded, within-one-source inverse-heat detail step
+in exposed-linear RGB; it is explicitly **not** unchanged pointwise reprojection
+or an identified optical deconvolution. The four-neighbor coefficient is capped
+at .125 (2x maximum constant-coefficient spectral gain). A full 3x3 valid,
+unclipped, single-depth-layer footprint is required. No camera RGB is averaged,
+no geometry/visibility changes, and no eval RGB or anatomy-specific exception
+determines the filter. The amplitude uses the prior linear native-depth
+bandwidth regression minus twice its **fit-only** median error, never held RGB.
+
+Both before/after images use exactly the same source labels. The available F
+warps have `nearest_fill8` labels; J has `seam_cut8`. These are paired filter
+controls within each view, not a comparison of those selection algorithms.
+The fixed-label RGB8 baseline differs from its native float renderer by at most
+one RGB8 level. The initial F invocation assumed a nonexistent `seam_cut8` path
+and failed before creating output; the log is retained, and one retry explicitly
+selected the actual existing variant. J's original runtime script is archived.
+
+| Held train-patch control | Pair blocks / spatial blocks | Median NCC before | Median NCC after | Median paired block change | Blocks improved |
+|---|---:|---:|---:|---:|---:|
+| F neighborhood | 134 / 6 | .904201 | .894196 | -.003342 | 4.48% |
+| J neighborhood | 171 / 8 | .887257 | .875847 | -.007402 | 4.68% |
+
+NCC is an internal correspondence diagnostic, not a reported reconstruction
+quality metric. Original correspondences remain fixed; dense patches are
+aggregated into pair/block summaries rather than treated as independent votes.
+The filter changes 34,701 F pixels and 497,648 J pixels after RGB8 rounding.
+
+| 000973 F, unchanged study face polygon | PSNR | SSIM | LPIPS | Visual gate |
+|---|---:|---:|---:|---|
+| Exact RGB8 fixed-label control | 28.978622 | .888390 | .051534 | Fail |
+| Same labels + bounded source detail | 28.977867 | .888360 | .051521 | Fail |
+
+Native F face/ear/hand and J hand/neck/lipstick comparisons were viewed. F retains
+the conspicuous source patch and thin wrong contour beside the lipstick; J
+retains its soft, oversized tube contour. The minute F LPIPS improvement does
+not override either failed visual gate. No L/path/temporal promotion is attempted
+after the paired train and F/J gates fail.
+[F paired detail control](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/bounded_source_detail_F/review_F/hand.png),
+[J paired detail control](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/bounded_source_detail_J/review_J/lipstick.png).
+
+This prompted a concrete check of the measurement, not further sharpening
+strength tuning. With equal true blur and independent noise standard deviations
+.015/.003, the old two-image Gaussian/NCC profile reports nonzero blur in **all
+30 synthetic checks** (median sigma .8 pixels). Filtering one noisier image can
+improve correlation even though neither camera has a different true PSF.
+
+`audit_triplet_source_bandwidth.py` tests a third-camera instrumental moment
+estimate. Its small-blur model is `B ~= gain * (A + variance/2 * Laplacian(A))`;
+moments against a third camera remove the independent-noise cross term under
+that model. The same noise-only canary estimates variance .00604 instead of
+interpreting sigma .8 as optical blur. Known additional variances .36 and 1.0
+are estimated .32023 and .68014: the larger-blur bias explicitly limits the
+first-order approximation. Shared scene correspondence and independent sensor
+noise remain assumptions, not established capture facts.
+
+On real data, the third camera is ordered by rig geometry and must have an
+existing registration cycle closing within .5 pixel. A/B use symmetric half
+shifts. Moments are pooled per camera-pair/spatial block, with both directions
+reported; ill-conditioned moments and implausible gains are rejected.
+
+| Same admitted held pair blocks | Blocks | Median absolute old variance | Median absolute instrumental variance | Median estimator difference | Forward/reverse disagreement |
+|---|---:|---:|---:|---:|---:|
+| F neighborhood | 129 | .500000 | .262025 | .292250 | .078279 |
+| J neighborhood | 110 | .640000 | .529883 | .235190 | .299508 |
+
+The audit uses 63,407 F and 79,273 J triplet observations. These differences do
+not prove that all real-camera bandwidth differences are noise, or that the
+entire patch has correct geometry. They demonstrate why the old relative
+Gaussian fit is unsafe as a physical deblurring parameter. J's substantially
+larger directional disagreement also cautions against promoting this new
+small-blur diagnostic directly to a rendering model.
+[F triplet audit](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/triplet_bandwidth_F.json),
+[J triplet audit](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/triplet_bandwidth_J.json).
+
+An isolated index snapshot passes **192 tests**. The
+[artifact audit](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/source_detail_triplet_findings.json)
+rechecks source/selection identity, the single-source filtered lookup, finite
+face-only metrics, inspected crops, both triplet audits, runtime hashes and
+62 original raw depth hashes. No renderer or campaign default changes in this
+step; both detail controls remain rejected.
+
 ## Insights
 
 The published render correction can use the primary train camera despite its failed
