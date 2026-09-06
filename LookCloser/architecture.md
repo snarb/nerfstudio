@@ -1174,3 +1174,8 @@ Local seam and primary-occlusion controls restrict train-camera mixtures to
 depth-connected visibility domains, preserving exact hard RGB elsewhere. Saved
 weights and paired native reviews expose interior appearance errors that seam
 smoothing does not fix. They remain isolated, unpromoted rendering experiments.
+
+Native train-image noise controls cache deterministic single-camera filtering
+before frozen response correction, then verify exact unfiltered reprojection
+and unchanged hard labels. They are diagnostic-only: their noise-floor statistic
+does not identify sensor noise or a PSF, and filtering is not a promoted repair.

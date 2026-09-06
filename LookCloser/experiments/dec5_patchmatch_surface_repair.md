@@ -1871,6 +1871,120 @@ including depth-separated seam bands, exact inactive RGB, all-visible fallback
 mixing, missing support and invalid input guards. The companion notebook executes
 successfully and rechecks paired hashes, metrics, weights and native verdicts.
 
+## Native train-image noise-floor control (2026-09-06)
+
+### What was tested
+
+The earlier pairwise bandwidth fit was confounded by high-frequency noise/texture.
+The opt-in `run_native_noise_source_control.py` tests whether conservative native
+train-image filtering reduces that appearance mismatch. It holds the mesh,
+calibration, spatial camera response, exact visibility, UVs and eight-source hard
+labels fixed. A fresh unfiltered reprojection reproduces all three frozen F/J/L
+RGB8 controls byte-for-byte; all 24 source-warp replays have zero valid-pixel error.
+
+`native_source_noise_filter.py` estimates an HH-MAD high-frequency floor in the
+lowest-base-variation quartile of unclipped 32x32 native tiles. This statistic is
+**not identified sensor noise or a lens PSF**: fine texture, JPEG coding and prior
+processing can contribute. Native RGB8 channelwise non-local means uses
+`h = clip(floor, .5, 3) * strength`, with strengths 1 and 2, template/search windows
+7/21. It runs before the frozen camera-response correction, without additional
+color-space conversion, random detail, semantic masks or another camera's RGB.
+The same cached native image is used across target views. There are 23 unique
+train images across the three eight-source pools; held F/J/L RGB is excluded.
+
+### Results
+
+| Same 000973 study face polygon, F | PSNR | SSIM | LPIPS |
+|---|---:|---:|---:|
+| Exact unfiltered native replay | 28.724285 | .889098 | .047989 |
+| Native NLM, strength 1 | 28.726891 | .889567 | .049411 |
+| Native NLM, strength 2 | 28.786858 | .898417 | .130522 |
+
+All **6 variant/anchor outputs at one time fail**; all 14 native crops were
+inspected. Mild filtering leaves the neck patch and hand/tube seam with slight
+detail softening. Stronger filtering produces plasticky skin and loses face/ear
+detail; LPIPS is 2.72x worse despite higher PSNR/SSIM. J's broad soft tube/rim and
+L's ragged hair/shoulder contours remain. No new all-black pixels were introduced.
+
+The native high-frequency floor is 1.114 RGB8-luma units for F's primary E004_C005
+and .741 for fallback G004_B005. This documents differing fine-scale appearance,
+but does not prove a sensor-noise cause or explain the entire patch.
+
+[F mild hand/neck](/mnt/data/lookcloser_dec5_5a3_surface_repair/native_noise_control/F/review_nlm1/hand.png),
+[F stronger face](/mnt/data/lookcloser_dec5_5a3_surface_repair/native_noise_control/F/review_nlm2/face.png),
+[J mild tube](/mnt/data/lookcloser_dec5_5a3_surface_repair/native_noise_control/J/review_nlm1/lipstick.png),
+[audit and six verdicts](/mnt/data/lookcloser_dec5_5a3_surface_repair/native_noise_control/findings.json).
+
+### Insights
+
+Native denoising is not an accepted patch repair. In particular, noise-floor
+differences must not be reinterpreted as a validated deblurring kernel. The audit
+checks all source/cache hashes, exact disabled replays and hard-source gathers,
+unchanged selection labels, finite 1920x1080 PNG/EXR pairs and identical study
+GT/ROI/protocol. The actual parser implementation is hashed as a runtime input;
+unrelated worktree changes are not included in this experiment's code commit.
+Most neck/hand pixels lie outside the face ROI, so that metric is not their gate.
+
+## Subpixel-spacing full-block TSDF control (2026-09-06)
+
+### What was tested
+
+One further geometry control tests `voxel=.0000625`, `truncation=.0005` against
+the previous finest `.000125/.0015` full-block control. At F's focal length and
+the sampled neck depth .714, the new voxel projects to about .83 pixels rather
+than 1.66. The new truncation projects to about 6.64 pixels; **truncation span is
+not itself an estimate of actual geometric error**.
+
+Both controls use the same 62 raw full-resolution geometric depths, normalized
+scale .10075768902732685, full-block integration, extraction weight 2, depth
+truncation 4, crop +/- .15 and component threshold `max(100,.002*largest)`.
+The three-camera render path, calibration, spatial color response, eight-source
+hard seam selection and native/exact reprojection remain fixed. This control
+does not use the native denoising above or multi-source RGB averaging.
+
+### Results
+
+| Same 000973 study face polygon, F | PSNR | SSIM | LPIPS |
+|---|---:|---:|---:|
+| Prior finest `.000125/.0015` | 28.766863 | .891860 | .048132 |
+| Subpixel `.0000625/.0005` | 28.761492 | .891466 | .047728 |
+
+The extracted mesh has **5,450,524 vertices, 10,657,121 triangles and 7 connected
+components**, from 40,314 integrated blocks. Component triangle counts are
+10,410,840 / 87,186 / 39,872 / 39,026 / 31,499 / 24,555 / 24,143. Mesh SHA-256:
+`ea237fd05ad9c32dc01ff341805a6ed14cc420b4be7c947c3be22cc1ce72cb40`.
+Only the mesh and manifests are serialized, not the raw TSDF volume.
+
+All **3 held camera anchors fail** after inspecting all 7 native crops. F's
+neck patch and tube seam remain, with extra holes/notches through the hand and
+skin silhouette. J retains a broad tube, wrong rim, small chin holes and irregular
+hair boundaries. L retains ragged hair/shoulder contours. More triangles and
+slightly lower face LPIPS do not constitute a successful surface gate.
+
+[F hand/neck](/mnt/data/lookcloser_dec5_5a3_surface_repair/subpixel_tsdf_control/review_subpixel_F/hand.png),
+[J tube](/mnt/data/lookcloser_dec5_5a3_surface_repair/subpixel_tsdf_control/review_subpixel_J/lipstick.png),
+[L face/ear](/mnt/data/lookcloser_dec5_5a3_surface_repair/subpixel_tsdf_control/review_subpixel_L/face_ear.png),
+[audit and verdicts](/mnt/data/lookcloser_dec5_5a3_surface_repair/subpixel_tsdf_control/findings.json),
+[companion checks for both controls](assets/dec5_native_noise_subpixel_checks.ipynb).
+
+### Insights
+
+Further voxel-size sweeps lack supporting evidence. The audit independently
+loads the mesh and recomputes connected components; all 62 original depth arrays
+are finite 1080x1920, with unchanged mean/min coverage .382730089/.247882427.
+Input hashes, normalization, paired GT/ROI, three finite PNG/EXR pairs, source
+selection images and reprojection audits are checked. No held RGB or semantic
+masks enter reconstruction/prediction. All workers are terminal and no OOM/CUDA
+error was found. Failed workspaces are retained; production defaults and the
+original 50-frame campaign remain unchanged. Neither experiment is promoted to
+the every-40th-available-frame or continuous fly-through validation.
+The isolated staged-index snapshot passes **310 tests** across 43 files, including
+native noise-floor scaling, exact disabled/constant-image behavior, edge-preserving
+filtering on a synthetic noisy step and invalid-strength rejection. The companion
+notebook executes top-to-bottom, verifies 309 native-control and 111 subpixel
+retained hashes, paired metric definitions and the native dimensions/input hashes
+of all 21 inspected crops. These are comparison-integrity checks, not visual passes.
+
 ## Insights
 
 The published render correction can use the primary train camera despite its failed
