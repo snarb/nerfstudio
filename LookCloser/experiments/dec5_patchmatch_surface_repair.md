@@ -2194,6 +2194,75 @@ the native verdict inventory. The companion notebook executes top-to-bottom and
 independently recomputes the held-pair summaries. All reconstruction workers are terminal, with no
 active CUDA/OOM error. Scratch and source data were not deleted.
 
+## Exposure correction before stereo: paired input proxy (2026-09-06)
+
+### What was tested
+
+Previous response corrections changed texture inputs after depth reconstruction.
+`audit_stereo_input_exposure.py` instead tests whether correcting the images
+fed to stereo has a strong photometric signal. The original 000973 mesh and
+calibration remain fixed. All 62 train EXRs are encoded as JPEG98 4:4:4 using
+original per-image gains, one geometric-mean train gain (cancel ingest), or
+original gain times the existing train-only scalar correction. Every original
+JPEG replay is byte-identical. F/J/L RGB and semantic masks are excluded.
+
+The proxy uses the identical 165,404 fully visible 11x11 mesh-warped patch pairs
+over 248 **directed** camera pairs (four nearest neighbors per train camera).
+Eligibility is fixed by geometry, not candidate colors; low-variance patches
+remain in the inventory with NCC -1. This is ordinary grayscale NCC, **not** an
+exact reproduction of the [pinned COLMAP bilateral photometric cost](https://github.com/colmap/colmap/blob/5509fffe/src/colmap/mvs/patch_match_cuda.cu).
+Before measurement, the request records a minimum .005 median paired NCC gain
+and 60% improved camera-pair medians for dense-canary eligibility.
+
+### Results
+
+| Response before stereo | Pair-block median NCC | Median paired NCC change | Improved directed pairs |
+|---|---:|---:|---:|
+| Original | .683486 | — | — |
+| Cancel known ingest gain | .685846 | +.000369 | 54.03% |
+| Train-fitted scalar correction | .686020 | +.000637 | 57.26% |
+
+The median paired change is not the difference between the two aggregate
+medians. Neither variant reaches the recorded gate. Across individual patches,
+the share with proxy NCC >=.1 changes only `93.7801% → 93.7970% / 93.8097%`;
+these are photometric proxy counts, **not** newly reconstructed valid depths.
+
+An original-reference-contrast stratification avoids concealing a large
+low-texture effect under clothing/hair observations. In the lowest contrast
+bin (gray standard deviation <.01; 7,452 patch pairs), median per-patch changes
+are +.001376 / +.002784. In the .01–.03 bin (89,923 pairs), they are
++.000194 / +.000247. These descriptive strata use fixed original-image contrast,
+not semantic skin masks or candidate-dependent exclusions.
+
+The independent audit verifies 260 input/output hashes and recomputes 24 evenly
+spaced observations directly from the source images and mesh rays: maximum NCC
+discrepancy is zero. Three native train-image comparisons were actually viewed;
+the corrections change brightness but retain the captured shading and contours.
+They are input reviews, not reconstructed-view visual passes.
+[E004_C005 input comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/stereo_input_exposure_control/input_review_00018/hand_neck.png),
+[E004_B005 comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/stereo_input_exposure_control/input_review_00043/hand_neck.png),
+[G004_B005 comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/stereo_input_exposure_control/input_review_00027/hand_neck.png),
+[integrity audit and contrast strata](/mnt/data/lookcloser_dec5_5a3_surface_repair/stereo_input_exposure_control/integrity_audit.json),
+[inspectable companion](assets/dec5_stereo_input_exposure_checks.ipynb).
+
+### Insights
+
+Known exposure mismatch changes source brightness but is not a strong NCC driver
+on this measured interior pool. No new dense job is justified by this proxy.
+This does **not** rule out effects at silhouettes or occlusion boundaries: those
+are excluded by the common full-patch visibility rule. The current mesh can also
+bias the sampled correspondence geometry. The scalar fit uses train data, and
+this one-time paired diagnostic is not an untouched final generalization test.
+No new render, face-quality measurement, temporal or fly-through pass is claimed.
+The skin seam remains unresolved; the original campaign and defaults are unchanged.
+
+The isolated staged-index snapshot passes **333 tests across 47 files**. The
+companion notebook executes top-to-bottom, rechecks retained hashes and
+recomputes the camera-pair summaries. No scratch was deleted and all workers
+are terminal. A next appearance control must be distinguished from the already
+rejected per-camera/first-order angular gain fields and eight-source mixtures;
+simply repeating them is not a justified next experiment.
+
 ## Insights
 
 The published render correction can use the primary train camera despite its failed

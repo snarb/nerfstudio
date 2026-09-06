@@ -1189,3 +1189,7 @@ The opt-in pose-only rig control preserves every intrinsic and completes the
 common query gauge. A fixed independent train-time pair inventory and recorded
 thresholds gate dense-canary eligibility; this is separate from native visual
 acceptance and does not alter the production calibration or model defaults.
+
+A train-only stereo-input exposure audit retains one geometric patch inventory
+across response variants and verifies exact original JPEG replay. Its ordinary
+NCC proxy gates experiments, not surface acceptance or production defaults.
