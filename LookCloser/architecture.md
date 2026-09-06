@@ -1158,3 +1158,8 @@ The hard source-graph diagnostic can optionally disconnect image-grid edges at
 target log-depth discontinuities. Its zero threshold preserves the old graph;
 RGB remains a single visible source lookup. Paired depth-graph and full-block
 narrow/finer TSDF controls retain explicit failed visual gates, not new defaults.
+
+Native all-train point audits distinguish absent target depth, strict observed
+surface support and measured free space. An opt-in mesh-carving support guard
+preserves faces corroborated by two train cameras; it does not change the
+default fusion/renderer and is not yet an accepted temporal rendering recipe.

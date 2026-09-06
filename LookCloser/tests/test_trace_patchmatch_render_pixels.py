@@ -7,6 +7,19 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from trace_patchmatch_render_pixels import source_identity,seam_depth_statistics
 
 
+@pytest.mark.parametrize('z',[0.,-1.,np.nan,np.inf])
+def test_missing_depth_is_not_a_camera_center_point(z):
+    from trace_patchmatch_render_pixels import unproject_valid_pixel
+    assert unproject_valid_pixel(np.full((2,2),z),{},0,0,.5) is None
+
+
+def test_native_pixel_unprojection_and_bounds():
+    from trace_patchmatch_render_pixels import unproject_valid_pixel
+    frame=dict(cx=.5,cy=.5,fl_x=2.,fl_y=2.,transform_matrix=np.eye(4).tolist())
+    np.testing.assert_allclose(unproject_valid_pixel(np.full((2,2),2.),frame,1,0,.5),[1,0,-2])
+    with pytest.raises(ValueError):unproject_valid_pixel(np.ones((2,2)),frame,-1,0,.5)
+
+
 def test_native_footprint_reports_wrong_layer_contribution():
     from PIL import Image
     from trace_patchmatch_render_pixels import bilinear_footprint

@@ -6,6 +6,28 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from carve_patchmatch_mesh_free_space import free_space_evidence,train_frames
 
 
+def test_independent_near_tolerance_does_not_change_free_space_votes():
+    depth=np.ones((9,9),np.float32);u=v=np.array([4.,4.,4.]);z=np.array([1.003,1.,.95])
+    free,loose=free_space_evidence(depth,u,v,z)
+    free2,strict=free_space_evidence(depth,u,v,z,near_gap=.001)
+    np.testing.assert_array_equal(free,free2)
+    np.testing.assert_array_equal(loose,[True,True,False])
+    np.testing.assert_array_equal(strict,[False,True,False])
+
+
+def test_support_guard_preserves_supported_surface_and_requires_positive_contradiction():
+    from carve_patchmatch_mesh_free_space import carving_mask
+    free=np.array([19,3,2,0,19]);near=np.array([0,2,0,0,1])
+    np.testing.assert_array_equal(carving_mask(free,near,3),[True,True,False,False,True])
+    np.testing.assert_array_equal(carving_mask(free,near,3,1),[True,False,False,False,True])
+
+
+@pytest.mark.parametrize('gap',[0.,-1.,np.nan,np.inf])
+def test_invalid_near_tolerance_rejected(gap):
+    with pytest.raises(ValueError):
+        free_space_evidence(np.ones((9,9)),np.array([4.]),np.array([4.]),np.array([1.]),near_gap=gap)
+
+
 def test_far_surface_vetoes_foreground_but_occluder_does_not():
     depth=np.ones((9,9),np.float32);u=v=np.array([4.,4.,4.]);z=np.array([.9,1.,1.1])
     free,near=free_space_evidence(depth,u,v,z)

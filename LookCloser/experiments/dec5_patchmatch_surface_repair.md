@@ -1594,6 +1594,90 @@ be compared with original train RGB and stereo depths to distinguish upstream
 depth error from source appearance before adding another fusion setting.
 No continuous fly-through or every-40th-available-time recipe is accepted.
 
+### Native tube-boundary trace and support-guarded shell control
+
+**What was tested.** The original full-block mesh, fixed rig, native/exact
+spatial camera correction and hard seam-cut8 rank .001 were replayed for held J.
+The replay PNG is byte-identical to the matched previous control. Six diagnostic
+pixels were traced; these coordinates never enter geometry or source selection.
+Three have no target surface. The trace helper previously unprojected zero depth
+to the camera centre; it now reports `no_target_surface` with no invented world
+point or source correspondence. Tests cover zero, negative, non-finite depth and
+image bounds. Historical trace artifacts remain intact.
+
+`audit_patchmatch_trace_depth_support.py` independently checks all 62 original
+train-depth maps using native 5x5 taps, not bilinear depth across layers. At least
+20 of 25 taps must agree within .001 normalized units for strict near support.
+Free space requires the existing compact farther-layer criterion: at least 80%
+of taps beyond both .005 normalized units and 1% of projected depth. Zero maps
+and missing taps never vote. No RGB or semantic masks enter this audit.
+
+**Results.** These are three surface points at one time, not a temporal sample:
+
+| J pixel | Original triangle | Strict near views | Farther-layer views | Interpretation |
+|---|---:|---:|---:|---|
+| (875,310) | 13702 | 60 | 0 | Supported tube surface |
+| (860,310) | 13700 | 61 | 0 | Supported tube surface |
+| (835,335) | 11602 | 0 | 19 | Unsupported tube-adjacent shell |
+
+The last point has 19 nominally "near" cameras at the older .005 tolerance, but
+their observed surfaces are roughly .0032–.0037 closer, not at the extracted
+surface. The chosen K004_D005 source sees room at this projected point. This is
+distinct from the earlier supported right-neck patch: one-camera RGB lookup can
+still paint room onto a wrong triangle. Exact visibility against the same mesh
+does not independently validate that triangle.
+
+[Numbered GT/control diagnostic crop](/mnt/data/lookcloser_dec5_5a3_surface_repair/J_tube_boundary_trace/target_points.png),
+[native train patches at the shell point](/mnt/data/lookcloser_dec5_5a3_surface_repair/J_tube_boundary_trace/trace_v2/point_04_train_patches.png),
+[all-62 native evidence](/mnt/data/lookcloser_dec5_5a3_surface_repair/J_tube_boundary_trace/native_all62_v2.json).
+
+The new opt-in `--near-gap .001 --maximum-near-views-to-carve 1` adds a support
+guard to the existing free-space carver. Three contradicting cameras are still
+required, but two agreeing native footprints preserve a triangle. Default
+behavior is unchanged. The same whole-mesh rule is applied without pixel,
+anatomical or held-image conditions. Fixed camera color correction is not refit.
+
+It removes 4,730 triangles and 810 subsequent small-component triangles, retaining
+77,946 vertices / 149,512 triangles / one component. Another 1,188 triangles have
+at least three contradictions but are protected by two or more near observations.
+The two tested tube depths remain exactly .770851 and .770777. The shell triangle
+is removed: the ray at (835,335) now reaches a farther surface at .824254 instead
+of .773073. Screen-space hole filling does not change any of these three values.
+
+| Same 000973 study face polygon | PSNR | SSIM | LPIPS | Native F/J/L gate |
+|---|---:|---:|---:|---|
+| Matched original full-block control | 28.724285 | .889098 | .047989 | Fail |
+| Support-guarded shell removal | 28.753834 | .889354 | .047553 | 0 pass / 3 fail |
+
+Seven native F/J/L face, ear, hand/neck and lipstick comparisons were inspected.
+The J brown tube-adjacent rim is reduced, but the tube remains broad/soft and
+small slits remain. F retains its conspicuous neck source patch and has a small
+black hand/tube slit. L retains irregular hair/shoulder boundaries. Missing room
+alone is not counted as failure. The small face-metric improvement does not
+override these failures.
+
+[F hand/neck comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/supported_shell_control/review_F/hand.png),
+[J lipstick comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/supported_shell_control/review_J/lipstick.png),
+[L face/ear comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/supported_shell_control/review_L/face_ear.png),
+[integrity audit and verdict](/mnt/data/lookcloser_dec5_5a3_surface_repair/supported_shell_control/findings.json),
+[reproducible checks](assets/dec5_supported_shell_checks.ipynb).
+
+**Insights.** A supported neck/source-color patch and an unsupported tube-adjacent
+shell coexist; neither "all blur is source averaging" nor "all nearby brown is
+skin" is justified. Native strict support is materially different from extraction
+weight or a loose near-depth count. The support guard fixes the sampled false
+surface while retaining sampled true tube points, but is not a sufficient skin
+or fly-through repair. Do not strengthen carving blindly or promote this recipe
+to every-40th-time validation. All 62 original maps remain unchanged and valid
+1080x1920 (mean/min coverage .3827300892 / .2478824267). The audit also verifies
+unchanged texture settings, GT/ROI protocol, finite renders and retained hashes.
+Source data, original calibration, published campaign and model defaults remain
+unchanged. No raw TSDF volume is serialized.
+An isolated staged-index snapshot passes **261 tests** across 38 files, including
+native missing/invalid-depth cases, independent support/free-space tolerances,
+support-guard behavior and existing fusion/visibility/color/source-graph controls.
+The companion notebook executes successfully and rechecks the retained hashes.
+
 ## Insights
 
 The published render correction can use the primary train camera despite its failed

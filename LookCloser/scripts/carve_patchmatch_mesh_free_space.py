@@ -18,9 +18,11 @@ from render_patchmatch_camera_path import normalize_frame
 FORBIDDEN={'F004_B005_1210O9','J004_D005_1210TA','L004_B005_12106A'}
 
 
-def free_space_evidence(depth,u,v,z,*,minimum_gap=.005,radius=2):
+def free_space_evidence(depth,u,v,z,*,minimum_gap=.005,radius=2,near_gap=None):
     """At least 80% native taps support a compact farther depth layer; no averaging."""
-    if depth.ndim!=2 or u.shape!=v.shape or u.shape!=z.shape or minimum_gap<=0:
+    if near_gap is None:near_gap=minimum_gap
+    if (depth.ndim!=2 or u.shape!=v.shape or u.shape!=z.shape or not np.isfinite([minimum_gap,near_gap]).all()
+            or minimum_gap<=0 or near_gap<=0 or radius<0):
         raise ValueError('Invalid free-space sampling inputs')
     h,w=depth.shape
     finite=np.isfinite(u)&np.isfinite(v)&np.isfinite(z)&(z>0)
@@ -42,8 +44,18 @@ def free_space_evidence(depth,u,v,z,*,minimum_gap=.005,radius=2):
     np.subtract(hi,lo,out=spread,where=np.isfinite(hi)&np.isfinite(lo))
     stable=np.isfinite(hi)&(lo>0)&(spread<=.005*lo)
     free.flat[selected]=(farther.sum(0)>=required)&stable
-    near.flat[selected]=(positive&(np.abs(values-zz)<=minimum_gap)).sum(0)>=required
+    near.flat[selected]=(positive&(np.abs(values-zz)<=near_gap)).sum(0)>=required
     return free,near
+
+
+def carving_mask(free_counts,near_counts,minimum_free_views,maximum_near_views=None):
+    """Opt-in support guard: contradicting cameras alone cannot delete supported faces."""
+    if minimum_free_views<2 or (maximum_near_views is not None and maximum_near_views<0):
+        raise ValueError('Invalid carving vote thresholds')
+    if free_counts.shape!=near_counts.shape:raise ValueError('Vote count shape mismatch')
+    remove=free_counts>=minimum_free_views
+    if maximum_near_views is not None:remove&=near_counts<=maximum_near_views
+    return remove
 
 
 def train_frames(payload):
@@ -61,8 +73,14 @@ def main():
     for name in ('depth-data','mesh','mesh-metadata','output'):p.add_argument('--'+name,type=Path,required=True)
     p.add_argument('--minimum-free-views',type=int,default=3)
     p.add_argument('--minimum-gap',type=float,default=.005)
+    p.add_argument('--near-gap',type=float,default=None,
+                   help='Opt-in independent normalized tolerance for native surface support; defaults to minimum-gap.')
+    p.add_argument('--maximum-near-views-to-carve',type=int,default=None,
+                   help='Opt-in guard: retain faces with more than this many agreeing train-depth footprints.')
     a=p.parse_args()
     if a.minimum_free_views<2 or not np.isfinite(a.minimum_gap) or a.minimum_gap<=0:p.error('Invalid carving evidence thresholds')
+    if a.near_gap is not None and (not np.isfinite(a.near_gap) or a.near_gap<=0):p.error('Near gap must be finite and positive')
+    if a.maximum_near_views_to_carve is not None and a.maximum_near_views_to_carve<0:p.error('Near-view ceiling must be nonnegative')
     a.output.mkdir(parents=True,exist_ok=False)
     payload=json.loads((a.depth_data/'transforms.json').read_text());meta=json.loads(a.mesh_metadata.read_text())
     if sha256(a.mesh)!=meta['output_sha256']:raise ValueError('Input mesh receipt hash mismatch')
@@ -80,6 +98,9 @@ def main():
              'uses_rgb':False,'uses_semantic_masks':False,'script_sha256':sha256(Path(__file__)),
              'normalization_helper_sha256':sha256(Path(__file__).with_name('render_patchmatch_camera_path.py')),
              'source_depth_hashes':{f['physical_camera']:sha256(a.depth_data/f['depth_file_path']) for f in frames}}
+    if a.near_gap is not None or a.maximum_near_views_to_carve is not None:
+        request['surface_support_guard']={'near_gap_normalized':a.near_gap if a.near_gap is not None else a.minimum_gap,
+                                         'maximum_near_views_to_carve':a.maximum_near_views_to_carve}
     request['sha256']=canonical_sha256(request);atomic_json(a.output/'carving_request.json',request)
     for frame in frames:
         f=normalize_frame(frame,payload,meta);pose=np.asarray(f['transform_matrix'])
@@ -88,11 +109,11 @@ def main():
         u=f['fl_x']*q[:,0]/safe_z+f['cx']-.5;v=-f['fl_y']*q[:,1]/safe_z+f['cy']-.5
         with gzip.open(a.depth_data/frame['depth_file_path'],'rb') as stream:depth=np.load(stream,allow_pickle=False)
         if depth.shape!=(1080,1920) or not np.isfinite(depth).all() or (depth<0).any():raise ValueError('Invalid full-resolution raw depth')
-        free,near=free_space_evidence(depth*float(meta['dataparser_scale']),u,v,z,minimum_gap=a.minimum_gap)
+        free,near=free_space_evidence(depth*float(meta['dataparser_scale']),u,v,z,minimum_gap=a.minimum_gap,near_gap=a.near_gap)
         free_counts+=free;near_counts+=near
         rows.append({'physical_camera':f['physical_camera'],'free_space_votes':int(free.sum()),'surface_votes':int(near.sum())})
         print(json.dumps(rows[-1]),flush=True)
-    remove=free_counts>=a.minimum_free_views
+    remove=carving_mask(free_counts,near_counts,a.minimum_free_views,a.maximum_near_views_to_carve)
     np.savez_compressed(a.output/'triangle_evidence.npz',centers=centers,free_counts=free_counts,near_counts=near_counts,removed=remove)
     mesh.remove_triangles_by_mask(remove);mesh.remove_unreferenced_vertices()
     if not len(mesh.triangles):raise RuntimeError('Carving removed the complete mesh')
@@ -111,6 +132,8 @@ def main():
                   free_space_carving={'request_sha256':request['sha256'],'input_mesh':str(a.mesh),'input_mesh_sha256':request['mesh_sha256'],
                       'triangles_before':len(triangles),'triangles_carved':int(remove.sum()),'small_component_triangles_removed':small_removed,
                       'effective_component_threshold':threshold,'per_camera':rows,'free_view_histogram':np.bincount(free_counts).tolist(),
+                      'near_view_histogram':np.bincount(near_counts).tolist(),
+                      'surface_support_guard':request.get('surface_support_guard'),
                       'evidence_path':str(a.output/'triangle_evidence.npz'),'evidence_sha256':sha256(a.output/'triangle_evidence.npz')})
     atomic_json(a.output/'carved.json',result)
     print(json.dumps({'complete':True,'mesh':str(output),'vertices':len(mesh.vertices),'triangles':len(mesh.triangles),'carved':int(remove.sum())}),flush=True)

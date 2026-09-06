@@ -45,6 +45,19 @@ def sample(array,u,v):
     return float(map_coordinates(array,[[v],[u]],order=1,mode='constant',cval=0)[0])
 
 
+def unproject_valid_pixel(depth,frame,x,y,offset):
+    """A missing depth is not a 3D point at the camera centre."""
+    if depth.ndim!=2 or not (0<=x<depth.shape[1] and 0<=y<depth.shape[0]):
+        raise ValueError('Trace pixel is outside the target depth image')
+    z=float(depth[y,x])
+    if not np.isfinite(z) or z<=0:
+        return None
+    q=np.array([(x+offset-frame['cx'])/frame['fl_x']*z,
+                -(y+offset-frame['cy'])/frame['fl_y']*z,-z])
+    pose=np.asarray(frame['transform_matrix'])
+    return pose[:3,:3]@q+pose[:3,3]
+
+
 def bilinear_footprint(depth,u,v,projected_z,rgb):
     """Audit native taps without smoothing depth across an object boundary."""
     x,y=int(np.floor(u)),int(np.floor(v));fx,fy=u-x,v-y;h,w=depth.shape
@@ -72,7 +85,6 @@ def main():
     payload=json.loads((a.normalized_data/'transforms.json').read_text())
     frames={Path(f['file_path']).resolve():f for f in payload['frames']}
     target=next(f for f in payload['frames'] if f['file_path'] in payload['val_filenames'])
-    target_pose=np.asarray(target['transform_matrix'])
     dm=json.loads(a.mesh_depth_manifest.read_text());depths={Path(r['image']).resolve():Path(r['depth']) for r in dm['images']}
     raw=json.loads((a.raw_depth_data/'transforms.json').read_text())
     raw_by_stem={Path(f['file_path']).stem:f for f in raw['frames'] if f.get('depth_file_path')}
@@ -96,10 +108,15 @@ def main():
             load_depth(a.raw_depth_data/raw_by_stem[image.stem]['depth_file_path'])*meta['dataparser_scale']))
     rows=[]
     for index,(x,y) in enumerate(a.pixel):
-        z=float(target_depth[y,x]);q=np.array([(x+offset-target['cx'])/target['fl_x']*z,-(y+offset-target['cy'])/target['fl_y']*z,-z])
-        world=target_pose[:3,:3]@q+target_pose[:3,3]
+        world=unproject_valid_pixel(target_depth,target,x,y,offset)
+        z=float(target_depth[y,x])
+        if world is None:
+            rows.append({'pixel':[x,y],'target_depth':z if np.isfinite(z) else None,
+                         'status':'no_target_surface','world':None,
+                         'distance_to_mesh_normalized':None,'sources':[]})
+            continue
         point_distance=visibility.scene.compute_distance(visibility.o3d.core.Tensor(world[None].astype(np.float32))).numpy()[0]
-        row={'pixel':[x,y],'target_depth':z,'world':world.tolist(),'distance_to_mesh_normalized':float(point_distance),'sources':[]}
+        row={'pixel':[x,y],'status':'surface','target_depth':z,'world':world.tolist(),'distance_to_mesh_normalized':float(point_distance),'sources':[]}
         crops=[]
         for source,f,depth,native_depth,raw_depth in source_arrays:
             pose=np.asarray(f['transform_matrix']);q=(world-pose[:3,3])@pose[:3,:3];projected=-q[2]
@@ -141,7 +158,9 @@ def main():
     xpos=0
     for pane in panes:canvas.paste(pane,(xpos,0));xpos+=pane.width
     canvas.save(a.output/'visible_train_sources.png')
-    hashed=[a.render/'reprojection_audit.json',pred_path,selection_path,a.normalized_data/'transforms.json',a.mesh_depth_manifest,mesh_path]
+    hashed=[a.render/'reprojection_audit.json',pred_path,selection_path,a.normalized_data/'transforms.json',a.mesh_depth_manifest,mesh_path,
+            a.mesh_metadata,a.raw_depth_data/'transforms.json']
+    hashed.extend(a.raw_depth_data/raw_by_stem[Path(source['source_image']).stem]['depth_file_path'] for source in audit['sources'])
     hashed.extend(sorted((a.render/'source_warps').glob('*.png')))
     atomic_json(a.output/'trace.json',{'uses_eval_rgb':False,'render_audit_sha256':sha256(a.render/'reprojection_audit.json'),
                'script_sha256':sha256(Path(__file__)),'pixel_center_offset':offset,'pixels':rows,
