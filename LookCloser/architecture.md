@@ -1179,3 +1179,8 @@ Native train-image noise controls cache deterministic single-camera filtering
 before frozen response correction, then verify exact unfiltered reprojection
 and unchanged hard labels. They are diagnostic-only: their noise-floor statistic
 does not identify sensor noise or a PSF, and filtering is not a promoted repair.
+
+Coordinate controls isolate COLMAP integer-depth lookup from VBG block discovery,
+and propagate a recorded train-rig similarity to untouched query camera poses.
+They preserve source data and production defaults, with synthetic invariance
+tests and matched native render audits; neither is an accepted surface repair.

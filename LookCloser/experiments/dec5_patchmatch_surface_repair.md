@@ -1484,6 +1484,13 @@ matching command-line settings would not have established equivalence.
 | Original rig, matched full-block/native-exact renderer | 28.724285 | .889098 | .047989 | Unresolved defects |
 | Shared poses+focal, regularized | 16.915396 | .655352 | .417596 | **0 pass / 3 fail** |
 
+**Later coordinate audit:** the historical BA control above did not propagate its
+post-BA similarity transform to the untouched query cameras. The
+[common-query-gauge control below](#completing-the-train-rig-gauge-on-query-cameras-2026-09-06)
+isolates that inconsistency and recovers much of the large regression without
+changing the mesh or fitting held RGB. The historical number must not be used as
+unconfounded evidence that train-only rig refinement intrinsically fails.
+
 Both rows use exactly the same held F GT hash and GT-only face polygon/protocol.
 No full-frame or room metrics are added. The strong regression is not a changed
 face ROI. Eight actual native crops were inspected: F face/hand/ear/overview,
@@ -1984,6 +1991,127 @@ filtering on a synthetic noisy step and invalid-strength rejection. The companio
 notebook executes top-to-bottom, verifies 309 native-control and 111 subpixel
 retained hashes, paired metric definitions and the native dimensions/input hashes
 of all 21 inspected crops. These are comparison-integrity checks, not visual passes.
+
+## Integer-depth lookup convention (2026-09-06)
+
+### What was tested
+
+The pinned COLMAP MVS code copies the camera K unchanged and unprojects depth
+at integer `(column,row)` coordinates. Open3D 0.19 tensor integration projects
+voxels with K, then truncates positive UV coordinates to select a depth sample.
+This creates a half-pixel-centered lookup relative to those integer rays.
+See the pinned [COLMAP MVS model](https://github.com/colmap/colmap/blob/5509fffe/src/colmap/mvs/model.cc),
+[depth computation](https://github.com/colmap/colmap/blob/5509fffe/src/colmap/mvs/patch_match_cuda.cu)
+and [Open3D integration kernel](https://github.com/isl-org/Open3D/blob/v0.19.0/cpp/open3d/t/geometry/kernel/VoxelBlockGridImpl.h).
+The importer preserves the raw depth values and K; this is camera-z depth, not
+Euclidean ray range. This audit does **not** establish that the pinned MVS
+integer convention itself is physically correct for the original RGB centers.
+
+`colmap_integer_depth_fusion.py` adapts only the integration lookup: K's principal
+point gets +.5 so the kernel chooses the nearest integer sample. Block discovery
+retains the original K. The isolated `run_colmap_integer_depth_fusion.py` entry
+point restores the Open3D factory even on failure and writes an explicit adapter
+request/manifest. Existing fusion, renderer and model defaults are unchanged.
+
+### Results
+
+An analytical tilted plane, integer-centered 64x64 depth, voxel .002 and truncation
+.02 tests the actually installed Open3D CPU and CUDA implementations. Both give
+identical interior residual statistics (synthetic world units, not measured mm):
+
+| Depth lookup | Mean signed plane residual | Plane residual RMSE |
+|---|---:|---:|
+| Existing floor lookup | .001439298 | .001562367 |
+| Nearest integer lookup | -.000033946 | .000600948 |
+
+The real 000973 canary uses unchanged 62 raw depths, calibration and spatial RGB
+response, the original full-block voxel/truncation .0005/.004, weight 2, crop and
+component rule. The bounded block inventory is identical: 2,222 blocks with the
+same coordinate hash. The new mesh has **80,193 vertices / 154,966 triangles /
+one component**, SHA-256
+`3cb841303aadd9a3dfef2fca00a1bd2fe4e7bc6ef3bde01f9127e27f588b47de`.
+It is a serialized mesh, not a saved raw volume.
+
+| Same study face ROI, F | PSNR | SSIM | LPIPS |
+|---|---:|---:|---:|
+| Existing floor control | 28.724285 | .889098 | .047989 |
+| Nearest integer depth | 28.694189 | .887771 | .048337 |
+
+All seven native crops were inspected: **0 pass / 3 fail** at one time. The F
+neck patch and tube seam, J broad tube/wrong rim and adjacent false surface, and
+L ragged hair/shoulder remain. The synthetic bias is real but its correction is
+not a skin-seam repair. All 62 finite 1080x1920 raw arrays retain coverage
+.382730089 mean / .247882427 minimum. Paired GT/ROI, finite render pairs,
+source-selection/reprojection audits, actual mesh components and hashes pass.
+
+[F hand/neck](/mnt/data/lookcloser_dec5_5a3_surface_repair/integer_depth_convention/real_000973/review_F/hand.png),
+[J tube](/mnt/data/lookcloser_dec5_5a3_surface_repair/integer_depth_convention/real_000973/review_J/lipstick.png),
+[synthetic results](/mnt/data/lookcloser_dec5_5a3_surface_repair/integer_depth_convention/synthetic/findings.json),
+[real-frame audit](/mnt/data/lookcloser_dec5_5a3_surface_repair/integer_depth_convention/real_000973/findings.json).
+
+### Insights
+
+Keep depth-array indexing explicit and test it against the producer, not only
+the downstream renderer. Do not infer a large physical geometry improvement from
+a correct small synthetic test. This opt-in control is not promoted temporally.
+
+## Completing the train-rig gauge on query cameras (2026-09-06)
+
+### What was tested
+
+The earlier regularized shared-rig BA already had absolute pose priors, then
+applied a common post-BA similarity to the reconstructed scene and all train
+cameras. Its three untouched held camera rows did not receive that similarity.
+`complete_rig_similarity_gauge.py` applies the **recorded** scale/rotation/translation
+to those query c2w poses, without changing their intrinsics, image identity, train
+camera rows, source RGB/response or mesh. The scale is .998096972; the rotation is
+about .249 degrees. No transform is fitted to held RGB. This is coordinate-gauge
+completion, not a new physically verified held-camera calibration.
+
+An exact current-runtime replay of the old BA renders precedes the new variant:
+**all three old PNG hashes match**. A new calibration file is kept inside the
+experiment; the original fixed template and published campaign are untouched.
+
+### Results
+
+| Same 000973 study face ROI, F | PSNR | SSIM | LPIPS |
+|---|---:|---:|---:|
+| Original fixed rig | 28.724285 | .889098 | .047989 |
+| BA with old, untransformed query poses | 16.915396 | .655352 | .417596 |
+| Same BA mesh, common query gauge | 25.986305 | .816415 | .071790 |
+
+This recovers **9.07 dB** and reduces LPIPS by .345806 relative to the old BA
+evaluation. The large facial displacement mostly disappears. However it is
+still worse than the original rig, and all seven four-panel native comparisons
+fail the complete gate: **0 pass / 3 fail**. The F skin patch/tube seam, J wrong
+broad tube/rim and L irregular hair/shoulder boundaries remain. There is no
+accepted temporal or continuous fly-through result.
+
+[F hand/neck](/mnt/data/lookcloser_dec5_5a3_surface_repair/complete_gauge_control/review_F/hand.png),
+[F face](/mnt/data/lookcloser_dec5_5a3_surface_repair/complete_gauge_control/review_F/face.png),
+[J tube](/mnt/data/lookcloser_dec5_5a3_surface_repair/complete_gauge_control/review_J/lipstick.png),
+[comparison audit](/mnt/data/lookcloser_dec5_5a3_surface_repair/complete_gauge_control/findings.json),
+[inspectable checks for both coordinate controls](assets/dec5_coordinate_control_checks.ipynb).
+
+### Insights
+
+The old BA render failure was substantially confounded by an inconsistent query
+coordinate gauge; it did not isolate the value of rig refinement. The same
+recorded transform applies to arbitrary query cameras, not only one eval view.
+Synthetic reprojection invariance and exact old-render replays test that claim.
+They do not validate the remaining focal/pose changes or eliminate the surface
+artifact. Future rig experiments must preserve a coherent query coordinate
+system before interpreting held renders. The corrected bounded focal model is
+still not accepted. Further geometry/calibration controls require a common
+train-only rule and the full native gate, not selection by one face metric.
+The isolated staged-index snapshot passes **322 tests** across 45 files. Added
+tests cover actual CPU VBG plane bias, nearest lookup, unchanged input K,
+camera-z depth, invalid inputs, factory restoration after a failed fusion,
+similarity reprojection invariance, unchanged train rows and rejection of an
+already-transformed query. The companion notebook executes successfully and
+rechecks 195 depth-control / 144 gauge-control retained hashes, paired metric
+definitions, exact old BA replays and all 14 native crop/input inventories.
+All workers are terminal; no OOM/CUDA errors were found and no scratch was deleted.
 
 ## Insights
 
