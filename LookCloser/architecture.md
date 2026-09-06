@@ -1146,3 +1146,10 @@ unseen temporal windows without held inlier rejection. The earlier secondary-xy
 residual design is explicitly superseded for response leakage. These tools do
 not export/apply rig calibration, retime sources, or change predictions; lower
 held correspondence error is not a completed surface-repair or fly-through gate.
+
+Opt-in common-rig calibration controls build same-time, conflict-free train
+tracks and combine separate temporal 3D points under exactly one pose/intrinsic
+block per physical camera. Optional pose priors and intrinsic bounds regularize
+the shared sparse BA; original eval-camera rows remain unchanged. A fixed held
+train-pair scorer checks unseen times without candidate-dependent rejection.
+These isolated tools do not replace the pinned template or dense/model defaults.

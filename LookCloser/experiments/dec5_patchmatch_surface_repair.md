@@ -1398,6 +1398,124 @@ constraint. Explicit authority has been requested for an isolated train-only,
 multi-time common-rig experiment; it has not been received. Original source
 times, template, published campaign, and rendering/model defaults remain intact.
 
+### Authorized common-rig control on clever-shadow (2026-09-06)
+
+#### What was tested
+
+The user subsequently authorized autonomous experiments, including common-rig
+calibration refinement, and preferred the more powerful clever-shadow GPU.
+This supersedes the authorization wait above; it does not change source EXRs,
+the original template, the published campaign, or the held-out RGB exclusion.
+
+`build_multitime_rig_tracks.py` extracts duplicate-xy-free SIFT features from
+62 train cameras at 000973 / 001059 / 001139. Same-time mutual descriptor matches
+are checked by a free fundamental model; track unions reject conflicting
+observations from the same camera. There is no cross-time matching or semantic
+mask. The 25,312 triangulated tracks supply 150,382 observations. Cameras are
+shared exactly across times; 3D points from different times remain independent.
+Virtual observation images concatenate those point sets into exactly 62 camera
+parameter blocks, so scene motion cannot create per-time camera poses.
+
+`refine_multitime_camera_rig.py` compares poses-only, focal and full-pinhole
+adjustment. All three original eval-camera calibration rows remain unchanged.
+Sparse BA uses PyCOLMAP 4.1.1; this is not the dense PatchMatch binary. A separate
+regularized control uses a common absolute-pose prior (rotation std .2 degrees,
+translation std .03 original world units) and bounds focal changes to +/-5%
+and principal-point changes to +/-32 pixels. The
+[COLMAP pose-prior implementation](https://github.com/colmap/colmap/blob/4.1.1/src/colmap/estimators/cost_functions/pose_prior.h)
+defines rotation followed by translation in the sensor frame. PyCeres 2.6 is
+installed privately, without changing the Nerfstudio environment or defaults.
+
+#### Results
+
+Unregularized intrinsics are rejected: some camera centers shift by 3.47–4.06
+world units, and full pinhole changes a principal point by more than 1,500 pixels.
+Lower fitting error is insufficient evidence of a plausible physical rig.
+
+Two independent held times, **000979 and 001219**, provide another 124 train
+EXRs and 15,822 tracks. A fixed inventory of 153,643 pair correspondences across
+716 camera/time pairs is evaluated without candidate-dependent inlier removal.
+Errors below are symmetric epipolar distances: medians within 128-pixel blocks,
+then within camera/time pairs. They are not face reconstruction metrics.
+
+| Shared-rig variant | Held pair/block median, px | Held p90, px | Pairs improved | Optimization |
+|---|---:|---:|---:|---|
+| Original fixed template | .545406 | 1.009393 | — | Fixed |
+| Poses only | .476349 | .807722 | 68.58% | Iteration limit 200 |
+| Poses + focal, regularized | .462737 | .806897 | 72.49% | Converged, 90 iterations |
+| Full pinhole, regularized | .458867 | .793589 | 73.60% | Iteration limit 1000 |
+
+The converged poses+focal candidate is selected **before rendering** for the
+000973 reconstruction control. Full pinhole adds little held improvement and
+has not converged. Some focal parameters reach the common bounds; the selected
+candidate's maximum aligned center shift is .203 world units and maximum
+rotation change .509 degrees. It is not yet an accepted calibration or recipe.
+[Selection receipt](/mnt/data/lookcloser_dec5_5a3_surface_repair/calibration_control/selection_before_render.json),
+[fixed held comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/calibration_control/held_rig_scores.json).
+
+The exact dev3 CUDA COLMAP binary was copied into a private clever-shadow bundle
+with its required libraries; both executables have SHA-256
+`27bfbe22c358062444495c2b105991d5847e1eab92dfaa8c9cae4b46f5c9c66e`.
+It reports 3.13.0.dev0 / commit 5509fffe / CUDA. A 13-train-camera canary runs
+both three-iteration passes at 1920, with source count 12 and the frozen 6/2
+geometric gates. It produces **13/13 finite 1080x1920 geometric maps**, mean
+coverage **.373476**, minimum **.329585**. This confirms execution on the RTX PRO
+6000, not full-rig reconstruction quality. The system COLMAP and libraries were
+not replaced. [Canary receipt](/mnt/data/lookcloser_dec5_5a3_surface_repair/calibration_control/local_colmap_canary/result.json).
+
+The full 62-camera 000973 pipeline completed locally with **62/62 finite
+1080x1920 geometric maps**, coverage mean **.386363**, minimum **.251123**.
+Matched full-block TSDF has **86,340 vertices / 167,030 triangles / one component**.
+It is an extracted mesh, not a serialized raw TSDF volume. The importer hit a
+metadata-only `shutil.copy2` timestamp error after copying all provenance bytes;
+all imported arrays were checked for equality with the raw geometric maps and
+all hashes rechecked before resuming the unchanged pipeline. No depth/source
+bytes were changed. [Recovery receipt](/mnt/data/lookcloser_dec5_5a3_surface_repair/calibration_control/reconstruct_000973/import_recovery_receipt.json).
+
+Fresh train-only native/exact spatial color calibration and hard F/J/L renders
+use the baseline settings. Because optional renderer helpers had changed since
+the historical baseline, all three original-rig images were also rerendered
+with the current runtime: **all three PNG hashes exactly match the historical
+control**. This permits reuse of its metrics and comparison crops; merely
+matching command-line settings would not have established equivalence.
+
+| 000973 reconstruction | Face PSNR | Face SSIM | Face LPIPS | Native F/J/L gate |
+|---|---:|---:|---:|---|
+| Original rig, matched full-block/native-exact renderer | 28.724285 | .889098 | .047989 | Unresolved defects |
+| Shared poses+focal, regularized | 16.915396 | .655352 | .417596 | **0 pass / 3 fail** |
+
+Both rows use exactly the same held F GT hash and GT-only face polygon/protocol.
+No full-frame or room metrics are added. The strong regression is not a changed
+face ROI. Eight actual native crops were inspected: F face/hand/ear/overview,
+J hand-neck/tube, and L neck/face-ear. The candidate retains the neck source seam,
+distorted tube/hand junctions, and jagged or missing hair silhouettes. It also
+displaces facial features substantially relative to the unchanged held cameras.
+The L crop does not show the tube; its tube verdict is explicitly not applicable,
+not a pass. Missing room alone is ignored.
+[F hand comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/calibration_control/reconstruct_000973/review_F/hand.png),
+[J tube comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/calibration_control/reconstruct_000973/review_J/lipstick.png),
+[L face/ear comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/calibration_control/reconstruct_000973/review_L/face_ear.png),
+[visual verdict](/mnt/data/lookcloser_dec5_5a3_surface_repair/calibration_control/reconstruct_000973/visual_review.json).
+
+The closing audit verifies 310 train EXRs across disjoint fit/held times,
+retained depth/mesh/render hashes, explicit train/eval separation, unchanged
+held camera rows, exact original-runtime replay, and matched face metric
+definitions. The isolated staged-index suite passes **223 tests**, including
+11 new track/BA/held-score checks.
+[Evidence audit](/mnt/data/lookcloser_dec5_5a3_surface_repair/calibration_control/shared_rig_findings.json),
+[inspectable comparison notebook](assets/dec5_shared_rig_control_checks.ipynb).
+
+#### Insights
+
+The selected candidate is **rejected**, not promoted to the temporal recipe.
+Even bounded, converged shared-rig optimization can reduce held train-pair
+epipolar errors without preserving reconstruction in the coordinate system of
+unchanged held cameras. This is an observed projection failure, not proof of
+which physical calibration parameter is wrong. Before another intrinsics-based
+reconstruction, an absolute train-camera-held-out projection/gauge test is needed;
+adjusting F/J/L using their evaluation RGB would conceal the failure and is not
+allowed. No every-40th-time or continuous fly-through repair has passed.
+
 ## Insights
 
 The published render correction can use the primary train camera despite its failed
