@@ -1516,6 +1516,84 @@ reconstruction, an absolute train-camera-held-out projection/gauge test is neede
 adjusting F/J/L using their evaluation RGB would conceal the failure and is not
 allowed. No every-40th-time or continuous fly-through repair has passed.
 
+### Depth-separated source graphs and narrower full-block TSDF (2026-09-06)
+
+#### What was tested
+
+The image-grid source graph coupled neighboring pixels even across a real depth
+discontinuity, and evaluated cross-source colors at both endpoints. This can
+discourage putting a source boundary at a natural object boundary. The opt-in
+`--seam-cut-depth-log-jump .0075` removes such graph edges without changing RGB,
+visibility, geometry or source averaging. Zero remains the existing default.
+The threshold reuses the earlier same-surface depth gate; it is not fitted to GT.
+Paired F/J/L runs test rank penalty .001 and zero, both with and without the new
+graph. Only the graph threshold differs within each pair.
+
+A separate geometry control fixes the original 62 raw depths, calibration and
+native/exact spatial camera response. Full-block TSDF first narrows truncation
+from .004 to .0015 at voxel .00025, then halves voxel to .000125 while retaining
+the narrow band. This isolates the combination missing from earlier controls:
+the original narrow/fine test lacked full-block integration, and the later
+full-block fine test retained truncation .004. No new PatchMatch run, semantic
+mask, source-camera fit or evaluation-RGB prediction input is introduced.
+
+#### Results
+
+| 000973 control | Face PSNR | Face SSIM | Face LPIPS | Native gate |
+|---|---:|---:|---:|---|
+| Image-grid graph, rank .001 | 28.724285 | .889098 | .047989 | Fail |
+| Depth-separated graph, rank .001 | 28.721514 | .889168 | .047968 | Fail |
+| Image-grid graph, rank 0 | 28.821976 | .913522 | .062508 | Fail |
+| Depth-separated graph, rank 0 | 28.806019 | .913621 | .062285 | Fail |
+| Full-block voxel .00025 / trunc .004, frozen native color response | 28.748835 | .889802 | .047824 | Fail |
+| Full-block voxel .00025 / trunc .0015, same response | 28.755987 | .891535 | .048329 | Fail |
+| Full-block voxel .000125 / trunc .0015, same response | 28.766863 | .891860 | .048132 | Fail |
+
+All rows use the same F GT hash and GT-only face polygon. These seven rows are
+diagnostic variants of one temporal frame, not seven frames. The off graph
+control reproduces all three historical baseline PNG hashes. On the paired graph
+changes, every pixel retaining its source label also retains exactly the same
+RGB. F/J/L lose 2,856 / 2,546 / 2,255 cross-depth graph edges. This changes
+12,289 / 5,931 / 5,223 labels at rank .001, and 142,635 / 212,363 / 88,096 at
+zero rank; it still does not yield a correct skin/tube boundary.
+
+The narrow .00025 mesh has 311,429 vertices, 603,889 triangles and two connected
+components. The .000125 mesh has **1,353,172 vertices, 2,649,029 triangles and six
+components** after the unchanged relative component filter. These are extracted
+meshes, not saved raw TSDF volumes. Original raw-depth coverage is unchanged.
+
+Twenty-eight native comparison crops were actually viewed across the two
+controls: face/ear/hand for F, hand-neck/tube for J, and neck/face-ear for L.
+All four new candidate variants fail their three-anchor gate (0 pass / 12 fail).
+At zero rank the neck patch weakens, but a wrong skin-colored rim around the
+tube is conspicuous and F facial detail softens. Narrow/finer full-block fusion
+alters contours and notches without repairing the neck patch or broad/sheared
+J tube; hair/shoulder silhouette defects remain. Missing room alone is ignored.
+[Graph F comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/depth_separated_source_control/review_rank0_F/hand.png),
+[graph J tube](/mnt/data/lookcloser_dec5_5a3_surface_repair/depth_separated_source_control/review_rank001_J/lipstick.png),
+[narrow/finer F comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/full_block_narrow_control/review_finer_narrow_F/hand.png),
+[narrow/finer J tube](/mnt/data/lookcloser_dec5_5a3_surface_repair/full_block_narrow_control/review_finer_narrow_J/lipstick.png).
+
+The paired audits check request differences, RGB identity, all 62 original
+1080x1920 depth arrays and hashes, mesh statistics, identical camera normalization,
+source-camera response, GT/ROI protocol, finite face-only metrics and native
+verdict inventories. [Graph audit](/mnt/data/lookcloser_dec5_5a3_surface_repair/depth_separated_source_control/findings.json),
+[TSDF audit](/mnt/data/lookcloser_dec5_5a3_surface_repair/full_block_narrow_control/findings.json),
+[executed comparison notebook](assets/dec5_surface_graph_tsdf_controls.ipynb).
+The isolated staged-index suite passes **242 tests**. Nineteen added cases cover
+exhaustive binary graph minima with depth cuts, scale invariance, unchanged
+planar/default graphs, exact single-source RGB gathering and fail-closed CLI
+depth/aggregation validation. These are implementation checks, not visual passes.
+
+#### Insights
+
+Neither a depth-separated label graph nor more triangles is a sufficient repair.
+The code remains an opt-in diagnostic; no existing model, single-frame runner or
+campaign default changes. Next, the specific incorrect tube/skin boundary must
+be compared with original train RGB and stereo depths to distinguish upstream
+depth error from source appearance before adding another fusion setting.
+No continuous fly-through or every-40th-available-time recipe is accepted.
+
 ## Insights
 
 The published render correction can use the primary train camera despite its failed

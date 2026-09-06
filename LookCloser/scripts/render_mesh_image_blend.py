@@ -87,6 +87,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--neighbors", type=int, nargs="+", default=(1, 2, 4))
     parser.add_argument("--primary-angular-camera-count", type=int, default=0)
     parser.add_argument("--seam-cut-rank-penalty", type=float, default=0.0001)
+    parser.add_argument("--seam-cut-depth-log-jump", type=float, default=0.,
+                        help="Opt-in: disconnect source-label edges across this log-depth jump; zero preserves the image-grid graph.")
     parser.add_argument("--seam-cut-consensus-penalty", type=float, default=0.)
     parser.add_argument("--seam-cut-bandwidth-penalty",type=float,default=0.)
     parser.add_argument("--seam-cut-bandwidth-allow-primary",action='store_true')
@@ -332,6 +334,9 @@ def parse_args() -> argparse.Namespace:
         parser.error('Texture registration requires exact visibility and hard single-source output without angular fields or continuation')
     if not math.isfinite(args.seam_cut_rank_penalty) or args.seam_cut_rank_penalty < 0:
         parser.error("--seam-cut-rank-penalty must be finite and non-negative")
+    if (not math.isfinite(args.seam_cut_depth_log_jump) or args.seam_cut_depth_log_jump < 0
+            or (args.seam_cut_depth_log_jump and args.aggregation_modes != ['seam-cut'])):
+        parser.error('Depth-separated source graph requires a finite nonnegative threshold and seam-cut only')
     if not math.isfinite(args.seam_cut_consensus_penalty) or args.seam_cut_consensus_penalty<0:
         parser.error('Consensus penalty must be finite and nonnegative')
     if not math.isfinite(args.seam_cut_bandwidth_penalty) or args.seam_cut_bandwidth_penalty<0:
@@ -739,6 +744,8 @@ def aggregate_warped_sources(
     seam_cut_rank_confidence: np.ndarray | None = None,
     seam_cut_consensus_penalty: float = 0.,
     seam_cut_source_costs: np.ndarray | None = None,
+    seam_cut_depth: np.ndarray | None = None,
+    seam_cut_depth_log_jump: float = 0.,
 ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
     """Combine source warps and return RGB, valid mask, and selected source rank."""
 
@@ -811,6 +818,8 @@ def aggregate_warped_sources(
             rank_penalty=seam_cut_rank_penalty,
             rank_confidence=seam_cut_rank_confidence,
             source_costs=source_costs,
+            depth=seam_cut_depth,
+            depth_log_jump=seam_cut_depth_log_jump,
         )
         print("seam_cut=" + json.dumps(seam_stats), flush=True)
         selected = torch.from_numpy(labels).to(device=rgb_stack.device, dtype=torch.long).clamp_min(0)
@@ -1714,6 +1723,8 @@ def main() -> int:
                     seam_cut_rank_confidence=rank_confidence,
                     seam_cut_consensus_penalty=args.seam_cut_consensus_penalty,
                     seam_cut_source_costs=None if bandwidth_costs is None else bandwidth_costs[:count],
+                    seam_cut_depth=target_depth.cpu().numpy() if args.seam_cut_depth_log_jump else None,
+                    seam_cut_depth_log_jump=args.seam_cut_depth_log_jump,
                 )
                 continuation: dict[str, object] = {"enabled": False}
                 seam_leveling = None
@@ -1894,6 +1905,7 @@ def main() -> int:
         "seam_cut": {
             "enabled": "seam-cut" in args.aggregation_modes,
             "rank_penalty": args.seam_cut_rank_penalty,
+            "depth_log_jump": args.seam_cut_depth_log_jump,
             "helper_sha256": sha256(Path(__file__).with_name("hard_texture_seam_cut.py"))
             if "seam-cut" in args.aggregation_modes else None,
             "color_averaging": False,

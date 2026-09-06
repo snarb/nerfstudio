@@ -13,18 +13,21 @@ spec.loader.exec_module(module)
 
 @pytest.mark.parametrize('confidence', [np.ones((2,2),np.float32), np.array([[0,.1],[1,.5]],np.float32)])
 @pytest.mark.parametrize('extra', [np.zeros((2,2,2),np.float32), np.array([[[.1,.3],[.2,.4]],[[.7,0],[.5,.2]]],np.float32)])
-def test_binary_cut_matches_exhaustive_visible_minimum(confidence,extra):
+@pytest.mark.parametrize('depth', [None, np.array([[1.,1.],[2.,2.]])])
+def test_binary_cut_matches_exhaustive_visible_minimum(confidence,extra,depth):
     rng=np.random.default_rng(12)
     rgb=rng.random((2,2,2,3)).astype(np.float32)
     valid=np.ones((2,2,2),bool)
     valid[0,0,0]=False
     valid[1,1,1]=False
     penalty=.003
-    result,stats=module.optimize_source_labels(rgb,valid,rank_penalty=penalty,rank_confidence=confidence,source_costs=extra)
+    result,stats=module.optimize_source_labels(rgb,valid,rank_penalty=penalty,rank_confidence=confidence,
+        source_costs=extra,depth=depth,depth_log_jump=.0075 if depth is not None else 0.)
     def energy(label):
         yy,xx=np.indices((2,2))
         total=float((label*penalty*confidence+extra[label,yy,xx]).sum())
         for y,x,dy,dx in [(0,0,0,1),(1,0,0,1),(0,0,1,0),(0,1,1,0)]:
+            if depth is not None and abs(np.log(depth[y,x]/depth[y+dy,x+dx]))>=.0075:continue
             a,b=label[y,x],label[y+dy,x+dx]
             total+=.5*(np.abs(rgb[a,y,x]-rgb[b,y,x]).mean()+np.abs(rgb[a,y+dy,x+dx]-rgb[b,y+dy,x+dx]).mean())+.01*(a!=b)
         return total
@@ -92,3 +95,37 @@ def test_consensus_penalizes_outlier_without_changing_primary_or_rgb():
     np.testing.assert_array_equal(rgb,original)
     valid[2:]=False
     assert (module.consensus_source_costs(rgb,valid)==0).all()
+
+
+def test_depth_separation_allows_natural_surface_boundary():
+    rgb=np.zeros((2,1,4,3),np.float32);rgb[1]=.5
+    valid=np.ones((2,1,4),bool);valid[0,0,3]=False
+    depth=np.array([[1.,1.,2.,2.]])
+    old,_=module.optimize_source_labels(rgb,valid,rank_penalty=.01)
+    new,stats=module.optimize_source_labels(rgb,valid,rank_penalty=.01,depth=depth,depth_log_jump=.0075)
+    np.testing.assert_array_equal(old,[[1,1,1,1]])
+    np.testing.assert_array_equal(new,[[0,0,1,1]])
+    assert stats['depth_discontinuity_edges_removed']==1
+    assert stats['averages_sources'] is False
+    assert all(a>=b for a,b in zip(stats['energy'],stats['energy'][1:]))
+
+
+def test_planar_depth_graph_is_identical_to_default_and_scale_invariant():
+    rng=np.random.default_rng(41)
+    rgb=rng.random((3,4,5,3)).astype(np.float32);valid=rng.random((3,4,5))>.2
+    old,_=module.optimize_source_labels(rgb,valid)
+    plane,stats=module.optimize_source_labels(rgb,valid,depth=np.ones((4,5)),depth_log_jump=.0075)
+    np.testing.assert_array_equal(old,plane)
+    assert stats['depth_discontinuity_edges_removed']==0
+    depth=np.ones((4,5));depth[:,2:]=2
+    a,_=module.optimize_source_labels(rgb,valid,depth=depth,depth_log_jump=.0075)
+    b,_=module.optimize_source_labels(rgb,valid,depth=depth*.13,depth_log_jump=.0075)
+    np.testing.assert_array_equal(a,b)
+
+
+@pytest.mark.parametrize('depth,threshold', [(None,.01),(np.ones((2,2)),.01),
+    (np.full((4,5),np.nan),.01),(np.zeros((4,5)),.01),(np.ones((4,5)),-1),
+    (np.ones((4,5)),np.inf)])
+def test_invalid_depth_graph_is_rejected(depth,threshold):
+    with pytest.raises(ValueError,match='[Dd]epth'):
+        module.optimize_source_labels(np.zeros((2,4,5,3)),np.ones((2,4,5),bool),depth=depth,depth_log_jump=threshold)

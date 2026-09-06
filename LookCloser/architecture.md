@@ -1153,3 +1153,8 @@ block per physical camera. Optional pose priors and intrinsic bounds regularize
 the shared sparse BA; original eval-camera rows remain unchanged. A fixed held
 train-pair scorer checks unseen times without candidate-dependent rejection.
 These isolated tools do not replace the pinned template or dense/model defaults.
+
+The hard source-graph diagnostic can optionally disconnect image-grid edges at
+target log-depth discontinuities. Its zero threshold preserves the old graph;
+RGB remains a single visible source lookup. Paired depth-graph and full-block
+narrow/finer TSDF controls retain explicit failed visual gates, not new defaults.

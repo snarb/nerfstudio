@@ -78,6 +78,7 @@ def main() -> None:
     parser.add_argument("--neighbors",type=int,default=16)
     parser.add_argument("--aggregation-mode",choices=("nearest-fill","seam-cut"),default="nearest-fill")
     parser.add_argument("--seam-cut-rank-penalty",type=float,default=.0001)
+    parser.add_argument("--seam-cut-depth-log-jump",type=float,default=0.)
     parser.add_argument("--seam-cut-bandwidth-penalty",type=float,default=0.)
     parser.add_argument("--seam-cut-bandwidth-allow-primary",action='store_true')
     parser.add_argument("--seam-cut-local-bandwidth-penalty",type=float,default=0.)
@@ -103,6 +104,9 @@ def main() -> None:
     parser.add_argument("--depth-hole-fill-max-area",type=int,default=0)
     parser.add_argument("--resume",action="store_true")
     args = parser.parse_args()
+    if (not np.isfinite(args.seam_cut_depth_log_jump) or args.seam_cut_depth_log_jump < 0
+            or (args.seam_cut_depth_log_jump and args.aggregation_mode != 'seam-cut')):
+        parser.error('Depth-separated source graph requires a finite nonnegative threshold and seam-cut')
     if args.mesh_camera_color and (args.camera_color_calibration is None or not args.exact_mesh_visibility
             or args.pixel_center_offset!=.5 or args.angular_surface_color
             or args.camera_color_model not in ('rgb','spatial','spatial-rgb')
@@ -142,6 +146,7 @@ def main() -> None:
                "source_hashes":{f["physical_camera"]:sha256(Path(f["file_path"])) for f in source_frames},
                "targets":targets,"neighbors":args.neighbors,"aggregation_mode":args.aggregation_mode,"depth_log_tolerance":args.depth_log_tolerance,
                "seam_cut_rank_penalty":args.seam_cut_rank_penalty,
+               "seam_cut_depth_log_jump":args.seam_cut_depth_log_jump,
                "seam_cut_bandwidth_penalty":args.seam_cut_bandwidth_penalty,
                "seam_cut_bandwidth_allow_primary":args.seam_cut_bandwidth_allow_primary,
                "seam_cut_local_bandwidth_penalty":args.seam_cut_local_bandwidth_penalty,
@@ -226,6 +231,7 @@ def main() -> None:
                  "--output-dir",render,"--neighbors",args.neighbors,"--aggregation-modes",args.aggregation_mode,"--blend-alphas","1",
                  "--depth-log-tolerance",args.depth_log_tolerance,"--depth-hole-fill-max-area",args.depth_hole_fill_max_area,
                  "--seam-cut-rank-penalty",args.seam_cut_rank_penalty,
+                 "--seam-cut-depth-log-jump",args.seam_cut_depth_log_jump,
                  "--primary-angular-camera-count",args.primary_angular_camera_count,
                  "--pixel-center-offset",args.pixel_center_offset,
                  "--seam-cut-bandwidth-penalty",args.seam_cut_bandwidth_penalty,

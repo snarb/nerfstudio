@@ -44,13 +44,20 @@ def visibility_rank_confidence(valid,depth,radius):
 def optimize_source_labels(rgb: np.ndarray, valid: np.ndarray, *, rank_penalty: float = .0001,
                            smoothness: float = 1., iterations: int = 2,
                            rank_confidence: np.ndarray | None = None,
-                           source_costs: np.ndarray | None = None) -> tuple[np.ndarray, dict]:
+                           source_costs: np.ndarray | None = None,
+                           depth: np.ndarray | None = None,
+                           depth_log_jump: float = 0.) -> tuple[np.ndarray, dict]:
     """Input SHWC display RGB and SHW visibility; output HW indices (-1 for misses)."""
     import maxflow
     if rgb.ndim != 4 or rgb.shape[-1] != 3 or valid.shape != rgb.shape[:-1]:
         raise ValueError("Expected SHWC RGB and SHW visibility")
     if not np.isfinite(rgb).all() or rank_penalty < 0 or smoothness < 0 or iterations < 1:
         raise ValueError("Invalid finite RGB or optimization parameters")
+    if not np.isfinite(depth_log_jump) or depth_log_jump < 0:
+        raise ValueError('Depth separation threshold must be finite and nonnegative')
+    if depth_log_jump and (depth is None or depth.shape != valid.shape[1:]
+                          or not np.isfinite(depth).all() or (depth[valid.any(0)] <= 0).any()):
+        raise ValueError('Depth-aware labels require finite positive supported target depth')
     count,height,width,_ = rgb.shape
     if source_costs is None:source_costs=np.zeros(valid.shape,np.float32)
     if source_costs.shape!=valid.shape or not np.isfinite(source_costs).all() or (source_costs<0).any():
@@ -78,6 +85,18 @@ def optimize_source_labels(rgb: np.ndarray, valid: np.ndarray, *, rank_penalty: 
     flat_colors=colors.reshape(count,-1,3)
     active_flat=active.ravel()
     edges=[(a[active_flat[a]&active_flat[b]],b[active_flat[a]&active_flat[b]]) for a,b in edges]
+    edge_count_before = sum(len(a) for a, _ in edges)
+    if depth_log_jump:
+        # A silhouette joins different surfaces in image space, not on the mesh.
+        # Remove that image-grid coupling without changing either visibility or
+        # source RGB. The remaining label costs are still a nonnegative metric.
+        log_depth = np.log(depth[y0:y1,x0:x1].clip(1e-12)).ravel()
+        separated = []
+        for a, b in edges:
+            keep = np.abs(log_depth[a] - log_depth[b]) < depth_log_jump
+            separated.append((a[keep], b[keep]))
+        edges = separated
+    removed_edges = edge_count_before - sum(len(a) for a, _ in edges)
     def cost(a,b,la,lb):
         # Sum of L1 distances at both edge endpoints is a metric over labels.
         value=.5*(np.abs(flat_colors[la,a]-flat_colors[lb,a]).mean(-1)
@@ -122,4 +141,5 @@ def optimize_source_labels(rgb: np.ndarray, valid: np.ndarray, *, rank_penalty: 
     result[y0:y1,x0:x1]=np.where(active,labels,-1)
     return result,{"energy":history,"changed_pixels":int(np.count_nonzero((labels!=original)&active)),
                    "rank_penalty":rank_penalty,"smoothness":smoothness,"iterations":iterations,
+                   "depth_log_jump":depth_log_jump,"depth_discontinuity_edges_removed":removed_edges,
                    "uses_eval_rgb":False,"averages_sources":False}

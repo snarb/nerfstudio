@@ -53,6 +53,16 @@ def test_primary_bandwidth_flag_is_rejected_before_reading_data_without_prior(tm
     with pytest.raises(SystemExit):main()
 
 
+@pytest.mark.parametrize('extra', [['--seam-cut-depth-log-jump','nan'],
+    ['--seam-cut-depth-log-jump','-.1'],['--seam-cut-depth-log-jump','.0075']])
+def test_depth_graph_path_requires_valid_threshold_and_hard_cut(tmp_path,monkeypatch,extra):
+    from render_patchmatch_camera_path import main
+    args=['path',*extra]
+    for option in ['data','mesh','mesh-metadata','calibration','output']:args+=['--'+option,str(tmp_path/option)]
+    monkeypatch.setattr(sys,'argv',args)
+    with pytest.raises(SystemExit):main()
+
+
 @pytest.mark.parametrize('extra',[
     ['--seam-cut-local-bandwidth-penalty','nan'],
     ['--seam-cut-local-bandwidth-penalty','-.1'],

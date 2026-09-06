@@ -26,6 +26,7 @@ def test_rgb_footprint_controls_are_opt_in(tmp_path,monkeypatch):
     assert not args.source_observed_free_space_veto and args.seam_cut_bandwidth_penalty==0
     assert not args.seam_cut_bandwidth_allow_primary
     assert args.seam_cut_local_bandwidth_penalty==0
+    assert args.seam_cut_depth_log_jump==0
     assert not args.surface_texture_registration and args.pixel_center_offset==0
     monkeypatch.setattr(sys,'argv',common+['--source-rgb-depth-aware-sampling'])
     with pytest.raises(SystemExit):MODULE.parse_args()
@@ -45,6 +46,27 @@ def test_free_space_rgb_veto_requires_observed_depth_and_normalization(tmp_path,
     with pytest.raises(SystemExit):MODULE.parse_args()
     monkeypatch.setattr(sys,'argv',sys.argv+['--source-observed-mesh-metadata',str(manifest)])
     assert MODULE.parse_args().source_observed_free_space_veto
+
+
+@pytest.mark.parametrize('extra', [['--seam-cut-depth-log-jump','nan'],
+    ['--seam-cut-depth-log-jump','-.1'],['--seam-cut-depth-log-jump','.0075']])
+def test_depth_source_graph_rejects_bad_threshold_or_aggregation(tmp_path,monkeypatch,extra):
+    manifest=tmp_path/'depth.json';manifest.write_text('{}')
+    monkeypatch.setattr(sys,'argv',['render','--data',str(tmp_path),'--mesh-depth-manifest',str(manifest),
+        '--output-dir',str(tmp_path/'out'),*extra])
+    with pytest.raises(SystemExit):MODULE.parse_args()
+
+
+def test_depth_source_graph_gathers_one_exact_source_per_pixel():
+    pytest.importorskip('maxflow')
+    rgb=[torch.zeros((3,1,4)),torch.full((3,1,4),.5)]
+    valid=[torch.tensor([[True,True,True,False]]),torch.ones((1,4),dtype=torch.bool)]
+    scores=[v.float() for v in valid]
+    output,support,labels=MODULE.aggregate_warped_sources(rgb,valid,scores,scores,mode='seam-cut',
+        seam_cut_rank_penalty=.01,seam_cut_depth=np.array([[1.,1.,2.,2.]]),seam_cut_depth_log_jump=.0075)
+    assert support.all()
+    torch.testing.assert_close(labels,torch.tensor([[0,0,1,1]]))
+    torch.testing.assert_close(output,torch.tensor([[[0.,0.,.5,.5]]]*3),rtol=0,atol=0)
 
 
 def test_primary_bandwidth_penalty_requires_positive_hard_source_prior(tmp_path,monkeypatch):
