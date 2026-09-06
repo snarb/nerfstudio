@@ -1198,3 +1198,8 @@ The opt-in canonical surface base fits a shared mesh RGB low band from visible
 train cameras and subtracts a separate source base to retain hard-source detail.
 Its fixed-label renderer requires byte-identical off controls and native-coordinate
 provenance; three-view visual failure prevents promotion to production defaults.
+
+A separate direction-conditioned surface-base control withholds train cameras
+before fitting all-camera coefficients. Its relative-transfer variant guarantees
+zero correction at the source camera. Held-color eligibility and exact off replays
+are not visual acceptance; both variants remain unpromoted after native review.

@@ -2336,6 +2336,87 @@ float64 face PSNR, exact PNG replay and barycentric color-offset spot checks.
 The companion notebook executes top-to-bottom without errors. All fit/render
 workers are terminal; no scratch was removed.
 
+## Direction-conditioned RGB base and source-view identity (2026-09-06)
+
+### What was tested
+
+The previous common base ignored viewing direction. `view_conditioned_surface_base.py`
+fits the **source low-frequency display RGB itself**, using constant, linear or
+quadratic unit-direction features with a shared mesh Laplacian. This is not the
+earlier first-order log-gain-difference fit. Its inputs are the independently
+smoothed source bases from the preceding control, unchanged fixed geometry and
+62 train cameras. The constant/shared base is not a fitting target.
+
+Before rendering, every fifth physical-camera name in sorted order is withheld:
+49 cameras fit the directional model and 13 evaluate it on the identical visible
+vertex inventory with at least two fitting-camera observations. The pre-recorded
+gate requires >=10% reduction in median camera mean absolute low-band RGB error
+and >=60% improved cameras. Quadratic is chosen over linear only for another
+>=5% error reduction. Earlier camera-response calibration remains fixed and used
+all train cameras; this is a holdout of the **directional fit**, not of the entire
+photometric pipeline. F/J/L RGB never enters fitting or parameter selection.
+
+The selected model is refitted to all 62 train cameras. Two render controls keep
+the mesh, visibility, labels and original float RGB fixed:
+`RGB_source - independently_smoothed_source_base + fitted_query_base`, then
+`RGB_source + fitted_query_base - fitted_source_base`. The latter has exact
+source-view identity: when query and source camera coincide, its correction is
+zero. Both are opt-in diagnostics; no production defaults change.
+
+### Results
+
+| Direction model | Median held-camera mean absolute base RGB error | Improved cameras |
+|---|---:|---:|
+| Constant | .0206383 | — |
+| Linear | .0119866 | 13/13 |
+| Quadratic | .0102058 | 13/13 |
+
+Quadratic reduces this low-band proxy by **50.55%** and passes the recorded
+eligibility gate. All solves converge; the final all-train model uses 416
+iterations with true normalized residual `6.40e-8` (<`5e-7`). Independent NumPy
+recomputation from retained source bases and held-model coefficients differs by
+at most `2.38e-9` in per-camera mean error. This is not a reconstructed-image
+quality improvement.
+
+| Same F study face ROI | PSNR | SSIM | LPIPS | Native F/J/L verdict |
+|---|---:|---:|---:|---|
+| Original | 28.724285 | .889098 | .047989 | Fail |
+| Direct directional base | 28.110579 | .887674 | .048963 | 0 pass / 3 fail |
+| Source-anchored directional transfer | 28.229683 | .888448 | .048384 | 0 pass / 3 fail |
+
+All seven native detail comparisons plus overview were actually viewed, with
+both candidates alongside GT and the original. Direct replacement retains sharp
+face detail but leaves a more conspicuous dark neck strip. Source anchoring
+removes much of that additional darkening, yet leaves the original neck/hand
+patch and tube mismatch. J retains a wrong broad jagged tube rim; L retains the
+attached hair/shoulder fringe. Missing room alone is ignored. Face ROI excludes
+neck, hand, tube and ear, and is not comparable to the old campaign ROI.
+
+[F paired neck/hand](/mnt/data/lookcloser_dec5_5a3_surface_repair/view_conditioned_surface_base_control/paired_review_F/hand.png),
+[J paired tube](/mnt/data/lookcloser_dec5_5a3_surface_repair/view_conditioned_surface_base_control/paired_review_J/lipstick.png),
+[L paired face/ear](/mnt/data/lookcloser_dec5_5a3_surface_repair/view_conditioned_surface_base_control/paired_review_L/face_ear.png),
+[six visual verdicts](/mnt/data/lookcloser_dec5_5a3_surface_repair/view_conditioned_surface_base_control/visual_review.json),
+[findings](/mnt/data/lookcloser_dec5_5a3_surface_repair/view_conditioned_surface_base_control/findings.json),
+[validation companion](assets/dec5_directional_surface_base_checks.ipynb).
+
+### Insights
+
+Better camera-held low-frequency prediction does not suffice to remove the
+visible seam. Source-view identity avoids baking model residual error into a
+captured source view, but does not correct correspondence or silhouette errors.
+Both variants are rejected. These results do not justify further increasing
+angular polynomial degree merely to lower this proxy; the next repair evidence
+must address the remaining surface/correspondence defect itself. Temporal frames
+`000899, 000979, 001059, 001139, 001219` and continuous fly-through remain required
+for any future accepted repair; this one-time failed control does not satisfy
+either requirement. Original source data and campaign outputs remain unchanged.
+
+The isolated staged-index snapshot passes **388 tests across 52 files**. The
+artifact audit verifies 230 hashes, all six byte-identical off replays, unchanged
+source maps, independently recomputed held-camera scores and exact face PSNR.
+The validation notebook executes top-to-bottom. All workers are terminal, no
+CUDA/OOM failure is active and no scratch was removed.
+
 ## Insights
 
 The published render correction can use the primary train camera despite its failed
