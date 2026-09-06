@@ -7,6 +7,22 @@ from surface_color_field import solve_surface_field,correct_surface_colors
 from patchmatch_color_calibration import apply_camera_gain
 
 
+def test_optional_color_boundary_prevents_field_transport_on_same_depth():
+    target=torch.full((1,3,20,40),.3);observed=torch.ones((1,1,20,40),dtype=torch.bool)
+    observed[:,:,:,20:]=False
+    depth=torch.ones((20,40));guide=torch.full((3,20,40),.2);guide[:,:,20:]=.8
+    field,stats=solve_surface_field(target,observed,depth,edge_guide=guide,max_color_jump=.04)
+    torch.testing.assert_close(field[:,:,:,20:],torch.zeros_like(field[:,:,:,20:]),atol=1e-7,rtol=0)
+    assert stats['color_edges_removed']==20
+
+
+def test_no_color_guide_explicit_none_is_exact_default():
+    target=torch.rand((1,3,10,12));observed=torch.ones((1,1,10,12));depth=torch.ones((10,12))
+    a,sa=solve_surface_field(target,observed,depth)
+    b,sb=solve_surface_field(target,observed,depth,edge_guide=None,max_color_jump=None)
+    assert torch.equal(a,b) and sa==sb
+
+
 def test_harmonic_gain_extends_through_missing_observations():
     target=torch.full((1,3,30,40),.2);observed=torch.ones((1,1,30,40),dtype=torch.bool)
     observed[:,:,8:22,12:28]=False

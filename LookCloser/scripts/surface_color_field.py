@@ -11,18 +11,29 @@ import torch.nn.functional as F
 from patchmatch_color_calibration import apply_camera_gain
 
 
-def solve_surface_field(target,observed,depth,*,smoothness=64.,ridge=1e-4,max_iterations=1536,tolerance=1e-4):
+def solve_surface_field(target,observed,depth,*,smoothness=64.,ridge=1e-4,max_iterations=1536,tolerance=1e-4,
+                        edge_guide=None,max_color_jump=None):
     """Batched preconditioned CG for (observations + lambda L + ridge) gain=data."""
     if target.ndim!=4 or observed.shape!=(target.shape[0],1,*target.shape[-2:]) or depth.shape!=target.shape[-2:]:
         raise ValueError('Expected NCHW data, N1HW observations and HW depth')
     if (not math.isfinite(smoothness) or smoothness<=0 or ridge<=0 or tolerance<=0 or max_iterations<1
             or not bool(torch.isfinite(target).all()) or not bool(torch.isfinite(depth).all())):
         raise ValueError('Invalid surface-field inputs or solver parameters')
+    if ((edge_guide is None)!=(max_color_jump is None) or (edge_guide is not None and (
+            edge_guide.shape!=(3,*depth.shape) or not bool(torch.isfinite(edge_guide).all())
+            or not math.isfinite(max_color_jump) or max_color_jump<=0))):
+        raise ValueError('Color-edge gate requires finite CHW guide and positive threshold')
     support=depth>0
     logz=depth.clamp_min(1e-7).log()
     dx=(logz[:,:-1]-logz[:,1:]).abs();dy=(logz[:-1]-logz[1:]).abs()
     wx=((dx<.0075)&support[:,:-1]&support[:,1:]).to(target.dtype)/(1+(dx/.002).square())
     wy=((dy<.0075)&support[:-1]&support[1:]).to(target.dtype)/(1+(dy/.002).square())
+    color_edges_removed=0
+    if edge_guide is not None:
+        gx=(edge_guide[:,:,:-1]-edge_guide[:,:,1:]).square().mean(0)<max_color_jump**2
+        gy=(edge_guide[:,:-1]-edge_guide[:,1:]).square().mean(0)<max_color_jump**2
+        color_edges_removed=int(((wx>0)&~gx).sum()+((wy>0)&~gy).sum())
+        wx=wx*gx;wy=wy*gy
     degree=F.pad(wx,(0,1))+F.pad(wx,(1,0))+F.pad(wy,(0,0,0,1))+F.pad(wy,(0,0,1,0))
     weight=observed.to(target.dtype)*support
     diagonal=weight+smoothness*degree+ridge
@@ -50,9 +61,11 @@ def solve_surface_field(target,observed,depth,*,smoothness=64.,ridge=1e-4,max_it
             if bool((relative<tolerance).all()):break
     # Measure the true residual, not just the recursively updated CG residual.
     relative=dot(matvec(x)-b,matvec(x)-b).sqrt()/bnorm
-    return x,{'iterations':iteration,'max_relative_residual':float(relative.max()),
+    stats={'iterations':iteration,'max_relative_residual':float(relative.max()),
               'converged':bool((relative<max(tolerance*5,1e-3)).all()),'smoothness':smoothness,
               'ridge':ridge,'max_depth_log_jump':.0075,'depth_edge_scale':.002}
+    if edge_guide is not None:stats.update(max_color_jump=max_color_jump,color_edges_removed=color_edges_removed)
+    return x,stats
 
 
 def correct_surface_colors(warped,valid_masks,depth,*,smoothness=64.,holdout=True):

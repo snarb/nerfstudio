@@ -1678,6 +1678,117 @@ native missing/invalid-depth cases, independent support/free-space tolerances,
 support-guard behavior and existing fusion/visibility/color/source-graph controls.
 The companion notebook executes successfully and rechecks the retained hashes.
 
+## Harmonic source-base transport controls (2026-09-06)
+
+### What was tested
+
+On the same frozen 000973 full-block mesh, replace secondary sources' smooth
+color bases by a depth-connected harmonic continuation from a lower-rank source;
+retain their own detail residuals and the exact original hard labels. This is
+color transport, not pointwise averaging of cameras. Unanchored components remain
+unchanged. Low-pass and transport systems use float64 with true residual gates.
+The primary source remains unchanged. No target RGB or semantic masks enter it.
+
+Seven matched variants test base scales 16/64, an optional source-color edge
+threshold .04, a same-point exposed-chromaticity seed threshold .04, scalar
+exposed-linear luminance transport, and RGB transport bounded to gains .5–2 and
+chromaticity RMS change .025. The chromaticity-only variant failed the F visual
+gate and was not run on J/L. All others use the identical rule on F/J/L.
+
+### Results
+
+| Same study face polygon | PSNR | SSIM | LPIPS |
+|---|---:|---:|---:|
+| Matched hard RGB8 control | 28.724285 | .889098 | .047989 |
+| RGB base16 | 28.734015 | .889217 | .047707 |
+| RGB base64 | 28.754614 | .889353 | .047549 |
+| Color-edge base16 | 28.762484 | .889495 | .047406 |
+| Color-edge base64 | 28.765400 | .889468 | .047402 |
+| Chromaticity-seeded base64 | 28.763680 | .889453 | .047398 |
+| Scalar luminance base64 | 28.781874 | .889424 | .047485 |
+| Bounded RGB base64 | 28.765402 | .889437 | .047424 |
+
+All **19 variant/anchor outputs at one time** fail the complete native gate;
+45 face, ear, hand/neck and tube crops were inspected. Unrestricted transport
+weakens a broad neck patch but creates a conspicuous gray tube-adjacent patch.
+Color-edge/seed gates do not prevent it. Scalar/bounded transport controls that
+strong recoloring, but leaves the neck patch, hand/tube seam, broad soft J tube,
+and irregular hair/shoulder outlines. No new all-black output pixels were found.
+
+[F bounded hand/neck](/mnt/data/lookcloser_dec5_5a3_surface_repair/base_transport_control/F/review_bounded_rgb/hand.png),
+[J scalar tube](/mnt/data/lookcloser_dec5_5a3_surface_repair/base_transport_control/J/review_luminance/lipstick.png),
+[audit and all verdicts](/mnt/data/lookcloser_dec5_5a3_surface_repair/base_transport_control/findings.json).
+
+### Insights
+
+Correctly bounded color changes do not establish correct material appearance or
+surface correspondence. The face ROI excludes most neck/hand pixels: tiny face
+metric gains cannot certify repair there. Historical code snapshots reproduce
+the earlier controls; disabled-option replays are byte-identical. All actual RGB,
+camera, depth and label inputs match by path and SHA-256 across each anchor's
+variants. The 62 raw maps remain valid and unchanged. This family is not promoted.
+
+## Explicit multi-camera RGB and low-band blending (2026-09-06)
+
+### What was tested
+
+Following explicit user authorization to take the skin patch from multiple
+cameras, the standalone `run_visible_source_blend_control.py` consumes verified
+frozen eight-source warps. It does not alter the original hard-render recipe.
+The 62 train cameras, mesh, calibration, camera-response correction, exact
+visibility and native pixel centers remain fixed. F/J/L held RGB is read only
+after prediction, for evaluation and native comparison.
+
+Both controls use the same normalized camera-distance prior and a 32-pixel
+feather toward geometric visibility boundaries. Only train sources visible at
+the target surface receive weight; there is no semantic skin/face segmentation.
+One control averages complete RGB in sRGB-linearized display space (Reinhard
+remains applied). The other averages source low-pass bases at smoothness 64 and
+adds detail from the original hard-selected source. Geometry-only weights and
+the same parameters apply to all three held camera anchors.
+
+### Results
+
+| Same study face polygon, F | PSNR | SSIM | LPIPS | Native F/J/L gate |
+|---|---:|---:|---:|---|
+| Matched hard RGB8 control | 28.724285 | .889098 | .047989 | Fail |
+| Full RGB mixture | 29.767834 | .932165 | .115152 | 0 pass / 3 fail |
+| Low-band mixture + hard detail | 29.149364 | .890657 | .046164 | 0 pass / 3 fail |
+
+All 14 native face/ear/hand/neck/tube comparisons were inspected. Full RGB
+mixing weakens the neck patch but visibly blurs skin detail, hair, the ear and
+the hand; LPIPS worsens by about 2.40x despite better PSNR/SSIM. Low-band mixing
+largely retains detail and slightly improves face LPIPS, but the conspicuous
+neck patch and hand/tube seam persist. A dark neckline fringe is also visible.
+The wrong broad tube/rim in J and irregular hair/shoulder contours in L are not
+repaired by either appearance-only control. Missing room alone is not a fail.
+
+[F full-RGB face](/mnt/data/lookcloser_dec5_5a3_surface_repair/visible_source_blend_control/F/review_full_rgb/face.png),
+[F low-band hand/neck](/mnt/data/lookcloser_dec5_5a3_surface_repair/visible_source_blend_control/F/review_low_band/hand.png),
+[J low-band tube](/mnt/data/lookcloser_dec5_5a3_surface_repair/visible_source_blend_control/J/review_low_band/lipstick.png),
+[L low-band face/ear](/mnt/data/lookcloser_dec5_5a3_surface_repair/visible_source_blend_control/L/review_low_band/face_ear.png),
+[audit and six verdicts](/mnt/data/lookcloser_dec5_5a3_surface_repair/visible_source_blend_control/findings.json),
+[inspectable companion checks](assets/dec5_source_base_blend_checks.ipynb).
+
+### Insights
+
+Multi-camera mixing is not intrinsically forbidden now, but averaging all detail
+does introduce the blur that the hard recipe avoided. This is direct paired
+evidence, not a claim that the original patch was caused by averaging: original
+RGB came from exactly one selected source per pixel. Mixing only smooth tone is
+the more promising of these two controls, but it has not passed the skin/tube
+gate. Do not promote either result or confuse three held anchors at one time
+with temporal/fly-through validation. The study ROI is identical across these
+controls, and differs from the old campaign ROI; old campaign LPIPS is not a
+paired baseline. Output hashes, normalized visible-only weights, finite EXRs and
+their PNGs are verified; full-RGB compositing is independently reconstructed from
+the saved weights. Model and single-frame defaults remain unchanged.
+An isolated staged-index snapshot passes **290 tests** across 40 files, including
+visible-only weight normalization, invalid-source exclusion, feathered handoffs,
+retained high-frequency detail, bounded response changes and default-off field
+behavior. The companion notebook executes successfully and rechecks retained
+hashes and paired metric definitions.
+
 ## Insights
 
 The published render correction can use the primary train camera despite its failed

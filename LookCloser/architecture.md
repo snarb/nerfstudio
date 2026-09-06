@@ -1163,3 +1163,9 @@ Native all-train point audits distinguish absent target depth, strict observed
 surface support and measured free space. An opt-in mesh-carving support guard
 preserves faces corroborated by two train cameras; it does not change the
 default fusion/renderer and is not yet an accepted temporal rendering recipe.
+
+Standalone source-base transport and visible-source blend controls consume
+verified frozen train warps. Transport retains hard source detail; explicit
+RGB/low-band blending uses geometric visibility weights. Optional color-edge
+field gates default off. These rejected controls retain paired inputs and native
+review verdicts and do not change any production model or renderer defaults.
