@@ -1184,3 +1184,8 @@ Coordinate controls isolate COLMAP integer-depth lookup from VBG block discovery
 and propagate a recorded train-rig similarity to untouched query camera poses.
 They preserve source data and production defaults, with synthetic invariance
 tests and matched native render audits; neither is an accepted surface repair.
+
+The opt-in pose-only rig control preserves every intrinsic and completes the
+common query gauge. A fixed independent train-time pair inventory and recorded
+thresholds gate dense-canary eligibility; this is separate from native visual
+acceptance and does not alter the production calibration or model defaults.

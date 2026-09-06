@@ -2113,6 +2113,87 @@ rechecks 195 depth-control / 144 gauge-control retained hashes, paired metric
 definitions, exact old BA replays and all 14 native crop/input inventories.
 All workers are terminal; no OOM/CUDA errors were found and no scratch was deleted.
 
+## Shared pose-only rig with fixed intrinsics (2026-09-06)
+
+### What was tested
+
+The opt-in `run_pose_only_rig_control.py` isolates shared pose corrections from
+the previous focal-plus-pose candidate. One regularized 62-camera rig fits
+25,312 points / 150,382 observations across 000973, 001059 and 001139. All original
+intrinsics remain exactly unchanged. The recorded post-BA similarity is also
+applied to F/J/L query poses; held-camera RGB never enters fitting or prediction.
+
+The request records thresholds before this fit/render: median held-pair
+improvement at least .02 px, at least 60% improved pairs, improved overall p90
+and median/p90 on each held time, solver convergence, maximum rotation .6 degrees
+and camera-center shift .25 original world units. The same 716 pairs / 153,643
+correspondences on 000979 and 001219 are retained across candidates. These times
+are disjoint from fitting but have appeared in earlier diagnostics; they are
+not an untouched final generalization test.
+
+After eligibility, pinned CUDA COLMAP `5509fffe` recomputes all 62 full-resolution
+depths for 000973. Matched full-block TSDF `.0005/.004`, weight 2, crop ±.15,
+train-only spatial 16x9 response fitting, native/exact visibility and hard
+seam-cut8 rendering remain unchanged. No RGB averaging or semantic masks are
+introduced by this control. A fresh original-rig replay uses the same renderer.
+
+### Results
+
+| Fixed held-train pair inventory | Median error (px) | Pair-block p90 (px) | Improved pairs |
+|---|---:|---:|---:|
+| Original rig | .545406 | 1.009393 | — |
+| Pose only, regularized | .475516 | .811580 | 68.72% |
+
+BA converges in 78 iterations. Maximum rotation is .306276 degrees and maximum
+camera-center change .040595 original world units. Each held time improves:
+000979 median `.555579 → .485016`, 001219 `.537349 → .462576`.
+The sparse eligibility gate passes; the actual surface gate does not.
+
+| Same study face polygon, F | PSNR | SSIM | LPIPS | Native F/J/L gate |
+|---|---:|---:|---:|---|
+| Original rig, byte-identical replay | 28.724285 | .889098 | .047989 | Fail |
+| Earlier focal+pose, common query gauge | 25.986305 | .816415 | .071790 | 0 pass / 3 fail |
+| Pose only, common query gauge | 27.008524 | .822349 | .059505 | **0 pass / 3 fail** |
+
+All seven native crops and the context overview were actually inspected. The F
+neck patch and jagged hand/tube seam remain; J retains an incorrect broad tube
+side/rim and adjacent background-colored slab. L retains irregular hair and
+neck/shoulder silhouettes with attached background-colored fringes. Missing
+room alone is ignored. The face ROI excludes most neck/hand pixels and cannot
+override those visible failures.
+
+All 62 geometric maps are finite 1080x1920 arrays, exactly equal to their
+imported depths. Coverage mean/min is `.385430932 / .249664834`; the extracted
+mesh has 81,452 vertices, 157,427 triangles and one component. It is not a saved
+raw TSDF volume. Import initially failed only when the filesystem rejected
+`shutil.copy2`'s provenance timestamp operation. All 62 arrays, intrinsics and
+provenance bytes were verified before resuming the unchanged pipeline request;
+the failure logs and recovery receipt are retained. No PatchMatch rerun or
+source-byte change was needed.
+
+[F hand/neck comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/pose_only_control/reconstruct_000973/review_F/hand.png),
+[J lipstick comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/pose_only_control/reconstruct_000973/review_J/lipstick.png),
+[L face/ear comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/pose_only_control/reconstruct_000973/review_L/face_ear.png),
+[audit and retained hashes](/mnt/data/lookcloser_dec5_5a3_surface_repair/pose_only_control/reconstruct_000973/findings.json),
+[companion checks](assets/dec5_pose_only_rig_checks.ipynb).
+
+### Insights
+
+The completed query gauge removes a confound, but neither regularized BA variant
+repairs this surface. Better sparse epipolar agreement and slightly higher depth
+coverage are insufficient for acceptance. Retain the original calibration;
+do not expand either candidate to the every-40th-frame validation. This result
+does not prove that calibration is exact or identify a unique cause of the
+remaining appearance/geometry defects. Multi-camera mixtures above also remain
+unpromoted: smoothing source transitions did not correct the patch interior.
+
+An isolated staged-index snapshot passes **326 tests across 46 files**. The final
+artifact audit verifies 365 retained hashes, identical original intrinsics,
+three byte-identical original-rig replays, paired face-metric definitions and
+the native verdict inventory. The companion notebook executes top-to-bottom and
+independently recomputes the held-pair summaries. All reconstruction workers are terminal, with no
+active CUDA/OOM error. Scratch and source data were not deleted.
+
 ## Insights
 
 The published render correction can use the primary train camera despite its failed
