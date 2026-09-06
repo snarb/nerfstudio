@@ -1132,3 +1132,10 @@ bounded within-source filter; they do not change the renderer. This control was
 rejected. A three-camera instrumental bandwidth audit separates an independent
 noise confound in synthetic tests, with explicit small-blur/correspondence
 assumptions and numerical guards. Neither diagnostic is a promoted recipe.
+
+An isolated additive gradient-color control keeps hard labels, takes each seam
+gradient from one commonly visible train camera, and solves a depth-separated
+offset with a true residual gate; F/J visual review still rejects it. A separate
+EXR/feature audit compares adjacent source times without mesh or camera edits.
+It validates motion correspondences with native crops and does not resynchronize
+the rig or change the production rendering defaults.

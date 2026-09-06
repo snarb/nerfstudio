@@ -1220,6 +1220,86 @@ face-only metrics, inspected crops, both triplet audits, runtime hashes and
 62 original raw depth hashes. No renderer or campaign default changes in this
 step; both detail controls remain rejected.
 
+### Direct seam-gradient correction and adjacent-time correspondence audit
+
+A fixed-label additive **gradient-domain color correction** tests whether the
+remaining patch is just a color discontinuity at source boundaries. Each seam
+edge uses a difference from one train camera visible at both endpoints. Within
+a source region its original gradient remains the objective. True depth edges
+and seams without a common visible camera are disconnected. A float64 screened
+Poisson solve (ridge 1e-6, true residual <5e-9) determines the additive RGB offset.
+Unlike the earlier one-sided gain field, the primary can also change. This is
+explicit color correction, not unchanged pointwise reprojection; there is no
+source RGB average, new source selection, geometry edit or eval RGB input.
+
+The controlled F `nearest_fill8` and J `seam_cut8` labels are their existing
+immutable RGB8 labels, as in the preceding detail test. F converges in 7,328
+iterations, J in 7,456, with true residuals 8.85e-10 / 9.01e-10. Both conserve
+their pre-clipping mean color to numerical precision. F clips 1,114 channels,
+J 186; the large maximum F offset (.485) is retained in the audit, not hidden.
+
+On 956 same-depth guided edges in the F diagnostic neck box
+`[500,550,680,740]`, mean disagreement with the chosen train-camera gradient
+drops **.033786 -> .005653**. On 2,192 hand/neck edges it drops
+.041914 -> .006732. These are internal color-continuity checks, not GT-based
+reconstruction metrics. Despite this large reduction, native F/J review still
+shows the neck patch, the thin wrong F contour and the soft oversized J tube.
+Simply increasing a seam correction is not justified by this result.
+
+| 000973 F, unchanged study face polygon | PSNR | SSIM | LPIPS | Visual gate |
+|---|---:|---:|---:|---|
+| Exact fixed-label RGB8 control | 28.978622 | .888390 | .051534 | Fail |
+| Additive seam-gradient correction | 28.462755 | .888527 | .050800 | Fail |
+
+[F gradient comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/gradient_leveling_F/review_F/hand.png),
+[J gradient comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/gradient_leveling_J/review_J/lipstick.png).
+All five F face/ear/hand and J hand/neck/lipstick panels were viewed. No temporal
+rendering recipe is promoted.
+
+A separate read-only audit then tests **adjacent source-frame identity**, rather
+than assuming that static rig stability proves synchronization of moving hands.
+It uses no mesh or held-out RGB. E004_C005 reference SIFT features are tracked
+forward/backward within that camera; moving features must pass an LK round trip
+<.5 pixel and move at least .5 pixel per available frame. Mutual SIFT matches in
+E004_B005 and G004_B005 are checked against the frozen epipolar geometry over
+offsets -2..+2 available frames. Each available step is two numeric source-frame
+IDs; no FPS or millisecond timing is inferred.
+
+| Source time | Secondary train camera | Same features present at all five offsets | Median absolute epipolar error at offsets -2 / -1 / 0 / +1 / +2, pixels |
+|---|---|---:|---|
+| 000973 | E004_B005 | 48 | 3.210 / 2.561 / **.762** / 3.681 / 5.299 |
+| 000973 | G004_B005 | 30 | .775 / .463 / **.363** / .573 / .654 |
+| 001059 | E004_B005 | 79 | 1.868 / 1.213 / **.482** / 2.213 / 5.738 |
+| 001059 | G004_B005 | 80 | 1.176 / .653 / **.591** / 2.470 / 4.645 |
+| 001139 | E004_B005 | 78 | 5.763 / 3.402 / **.636** / 3.402 / 6.957 |
+| 001139 | G004_B005 | 58 | 5.555 / 2.813 / **.516** / 4.379 / 8.428 |
+
+Zero offset is best in all six paired sets. This does **not** establish perfect
+synchronization: per-feature linear zero crossings are broad, and G004_B005
+medians vary -.478 / -.336 / -.193 available frames across these times. Fixed
+calibration/localization bias divided by changing motion can mimic such an
+offset. Almost no near-static cross-camera tracks survive this audit, so it
+cannot independently separate calibration, subframe timing, shutter effects or
+view-dependent feature localization. No source time, pose or intrinsics is changed.
+
+Six sheets with 36 spatially spread correspondences were visually inspected;
+recognizable hand, clothing, hair, eye and neck features are present. Repetitive
+hair/clothing and view-dependent highlights remain correspondence caveats.
+[Temporal audit](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/temporal_source_correspondence/audit.json),
+[000973 E004_B005 identities](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/temporal_source_correspondence/review/000973_E004_B005_1210I7.png),
+[001139 G004_B005 identities](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/temporal_source_correspondence/review/001139_G004_B005_1210FG.png).
+The 39 EXR reads use the same display curve, per-image exposure and JPEG98 4:4:4.
+The audit initially omits JPEG entropy optimization; enabling it reproduces the
+three original 000973 JPEG hashes exactly, confirming unchanged image content.
+The two inspected EXR headers contain no capture timecode/timestamp attributes.
+
+The isolated index suite passes **200 tests**. The
+[closing audit](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/000973/gradient_temporal_findings.json)
+rechecks both color controls, finite face-only metrics, source hashes, all six
+temporal review sheets, the 39 EXRs and the 62 original raw depth hashes. This
+is diagnostic progress, not a successful skin/contour repair or the requested
+every-40-frame fly-through validation.
+
 ## Insights
 
 The published render correction can use the primary train camera despite its failed
