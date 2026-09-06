@@ -1300,6 +1300,104 @@ temporal review sheets, the 39 EXRs and the 62 original raw depth hashes. This
 is diagnostic progress, not a successful skin/contour repair or the requested
 every-40-frame fly-through validation.
 
+### Held-time epipolar controls and an independent 001219 window
+
+#### What was tested
+
+Read-only train-camera correspondence models separate a spatial residual field,
+a motion-dependent residual term, and valid pairwise epipolar matrices. Nothing
+exports/applies a new rig calibration, changes source times, uses held-out RGB,
+or produces a new prediction. Three earlier anchor times (000973, 001059, 001139)
+provide leave-one-time-out fits. A fourth, **001219**, and its entire five-frame
+source window are disjoint from the fitting windows.
+
+**Diagnostic correction:** the first unconstrained spatial design used both
+reference and zero-offset secondary xy. The latter also defines the response;
+this can explain localization error algebraically and is high-severity response
+leakage. Its apparent improvement is withdrawn, not evidence for calibration or
+timing. The original JSON/runtime is preserved and explicitly superseded by a
+reference-xy-only model, with a regression test rejecting four-coordinate input.
+This correction changes no renderer, source image or campaign metric.
+[Supersession record](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/temporal_source_correspondence/spatial_model_supersession.json).
+
+The corrected field uses fit-only normalization, one total weight per
+time/128-pixel block, Huber .5-pixel weighting, fixed slope ridge .01, and motion
+predictor `(e(+1)-e(-1))/2`, excluding the zero-time response. It is deliberately
+not a physical calibration model. Pairwise essential fits preserve the supplied
+intrinsics; fundamental fits are less constrained. Both use MAGSAC .75-pixel
+thresholds and at most eight spatially spread fitting points per time/block.
+**No held correspondence is rejected using a fitted model's inlier mask.**
+The closing audit also caught repeated fitting indices when SIFT emitted
+identical reference xy with different orientations. The new diagnostic sampler
+now deduplicates xy within each block before spatial selection; both model
+audits were rerun. The first model tables are superseded, with runtime and JSON
+preserved. This does not modify the legacy shared sampler or production code.
+[Sampling correction](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/temporal_source_correspondence/epipolar_sampling_supersession.json).
+
+#### Results
+
+Median of spatial-block median absolute epipolar errors, pixels; these are
+correspondence diagnostics, **not face/image reconstruction metrics**:
+
+| Secondary train camera | Held time | Frozen rig | Essential, fixed intrinsics | Fundamental |
+|---|---|---:|---:|---:|
+| E004_B005 | 000973 | .486967 | .523761 | .245505 |
+| E004_B005 | 001059 | .562672 | .384027 | .207821 |
+| E004_B005 | 001139 | .616447 | .469205 | .214534 |
+| G004_B005 | 000973 | .509046 | .523200 | .334034 |
+| G004_B005 | 001059 | .528510 | .501672 | .212938 |
+| G004_B005 | 001139 | .477533 | .494729 | .288848 |
+| E004_B005 | **001219, new window** | **.627138** | **.409409** | **.174180** |
+| G004_B005 | **001219, new window** | **.405746** | **.417887** | **.322371** |
+
+The fourth-time comparison retains all 240 E004_B005 / 214 G004_B005 matches
+from the preexisting feature-selection protocol. This is a different cohort
+from the all-five-offset moving-track table above and must not be numerically
+merged with it. There are 62/64 such all-five-offset tracks at 001219; zero whole
+available-frame shift is again best for each pair. The inspected calibration
+declares zero lens-distortion coefficients for these three train cameras.
+
+Reference-only spatial/timing fits remain inconclusive: joint motion
+coefficients across held folds are .0116 / .1682 / -.0251 for E004_B005 and
+-.0225 / .0167 / .1570 for G004_B005, in available-frame units. Joint fits worsen
+some held errors. Neither a stable timing correction nor a unique causal
+separation follows. The model coefficient explains the residual; a hypothetical
+zeroing source shift has the opposite sign. No such shift was applied.
+
+[Held-time matrices](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/temporal_source_correspondence/multitime_epipolar_models_unique_xy.json),
+[reference-only residual models](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/temporal_source_correspondence/spatial_vs_timing_reference_only.json),
+[independent 001219 results](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/temporal_source_correspondence_001219/independent_holdout_unique_xy.json).
+Both native 001219 correspondence sheets were viewed: twelve spatially spread
+fabric, hair, neck/finger and ear/earring patches. Repetition and highlights
+remain subpixel-localization caveats, not independently verified correspondences.
+[E004_B005 sheet](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/temporal_source_correspondence_001219/review/001219_E004_B005_1210I7.png),
+[G004_B005 sheet](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/temporal_source_correspondence_001219/review/001219_G004_B005_1210FG.png).
+
+The isolated staged-index suite passes **212 tests**. The
+[closing evidence audit](/mnt/data/lookcloser_dec5_5a3_surface_repair/diagnostics/temporal_source_correspondence/held_time_findings.json)
+checks unique observation keys, finite coordinates, all 52 source EXRs across
+four windows, fit/held separation, matrix ranks and held-distance calculations,
+the corrected spatial fits, the original 62 raw depth hashes and unchanged mesh.
+It resolves the old helper hash to its archived runtime and verifies that the
+only helper used by the matrix audit (`held_block_summary`) is AST-identical.
+[Inspectable check notebook](assets/dec5_held_time_epipolar_checks.ipynb).
+
+#### Insights
+
+Free fundamental models improve all eight held pair/time comparisons, whereas
+fixed-intrinsics essential fits are less consistent. This justifies a separate
+**common-rig calibration control**, but does not prove that intrinsics are the
+cause: stable feature-localization bias, restricted scene geometry and other
+model mismatch remain alternatives. Only two camera pairs were tested, not a
+joint 62-camera rig, and an epipolar improvement is not a repaired hand/neck mesh.
+There is no new PSNR/SSIM/LPIPS result, accepted skin-seam repair, or every-40th
+frame/fly-through reconstruction validation in this diagnostic stage.
+
+Applying a replacement calibration would depart from the pinned-template
+constraint. Explicit authority has been requested for an isolated train-only,
+multi-time common-rig experiment; it has not been received. Original source
+times, template, published campaign, and rendering/model defaults remain intact.
+
 ## Insights
 
 The published render correction can use the primary train camera despite its failed

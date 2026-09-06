@@ -1139,3 +1139,10 @@ offset with a true residual gate; F/J visual review still rejects it. A separate
 EXR/feature audit compares adjacent source times without mesh or camera edits.
 It validates motion correspondences with native crops and does not resynchronize
 the rig or change the production rendering defaults.
+
+Held-time epipolar diagnostics fit reference-only spatial/motion residuals and
+pairwise essential/fundamental matrices on train observations, then test complete
+unseen temporal windows without held inlier rejection. The earlier secondary-xy
+residual design is explicitly superseded for response leakage. These tools do
+not export/apply rig calibration, retime sources, or change predictions; lower
+held correspondence error is not a completed surface-repair or fly-through gate.
