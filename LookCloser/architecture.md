@@ -1193,3 +1193,8 @@ acceptance and does not alter the production calibration or model defaults.
 A train-only stereo-input exposure audit retains one geometric patch inventory
 across response variants and verifies exact original JPEG replay. Its ordinary
 NCC proxy gates experiments, not surface acceptance or production defaults.
+
+The opt-in canonical surface base fits a shared mesh RGB low band from visible
+train cameras and subtracts a separate source base to retain hard-source detail.
+Its fixed-label renderer requires byte-identical off controls and native-coordinate
+provenance; three-view visual failure prevents promotion to production defaults.

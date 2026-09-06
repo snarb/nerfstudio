@@ -2263,6 +2263,79 @@ are terminal. A next appearance control must be distinguished from the already
 rejected per-camera/first-order angular gain fields and eight-source mixtures;
 simply repeating them is not a justified next experiment.
 
+## Common mesh RGB base from 62 cameras, hard source detail (2026-09-06)
+
+### What was tested
+
+The user permits multi-camera color aggregation. This opt-in control fits a
+mesh-attached low-frequency display-RGB base to the visible mean of all 62
+train cameras, and a separate base to each source's observations. The output is
+`source RGB - source base + common base`. Thus source detail remains hard-selected,
+while the common base is independent of the target camera. This differs from the
+previous log-gain fields and eight-source target-space mixtures, but shares their
+fundamental assumption that a smooth correction can reconcile camera appearance.
+
+The 000973 full-block mesh, original rig, spatial camera response, exact visibility,
+native half-pixel projection, hole-fill rule and hard labels are unchanged. Both
+bases use the same mesh Laplacian (smoothness 64, ridge .0001); all visible train
+vertices participate. F/J/L RGB is used only afterward for review, never fitting
+or prediction. No semantic masks or anatomy-specific rules are used. The
+production runners and model defaults are unchanged.
+
+### Results
+
+The fit converges in 1,760 iterations (true normalized residual `8.65e-8`;
+required `<5e-7`, absolute RHS normalization floor `1e-6`). Of 80,221 vertices,
+77,921 have at least one observed source and 77,066 have at least two.
+All three off controls replay their original PNGs **byte-identically**, and all
+three categorical source maps are unchanged.
+
+| F held-out face, same study ROI | PSNR | SSIM | LPIPS |
+|---|---:|---:|---:|
+| Original hard source | 28.724285 | .889098 | .047989 |
+| Common RGB base + hard detail | 29.360821 | .888843 | .048490 |
+
+The PSNR increase is not surface acceptance. The face polygon excludes neck,
+hand, tube and ear; it is also not numerically comparable to the original
+50-frame campaign ROI. All seven native region crops and one contextual overview
+were actually inspected: **0 visual pass / 3 fail** across F/J/L.
+F retains sharp face detail but gains a darker, more conspicuous polygonal neck
+strip. J retains the wrong broad jagged tube rim. L retains jagged shoulder/hair
+fringe. Missing room alone is ignored.
+
+Independent barycentric checks localize the new darkening to the added base
+correction, not a changed mesh or stale render. At F pixel `(580,648)`, the
+source/common bases differ by `[-14.78,-10.25,-7.56]` RGB8 levels: prediction
+`[152,116,78] -> [137,106,71]`, while post-hoc GT is `[151,115,83]`. At the
+previous patch-interior probe `(580,660)`, prediction barely changes
+`[168,125,87] -> [169,125,88]`, versus GT `[160,117,83]`. These are illustrative
+previously identified points, not new image-region quality metrics or fit targets.
+
+[F neck/hand comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/canonical_surface_base_control/review_F/hand.png),
+[J tube comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/canonical_surface_base_control/review_J/lipstick.png),
+[L face/ear comparison](/mnt/data/lookcloser_dec5_5a3_surface_repair/canonical_surface_base_control/review_L/face_ear.png),
+[findings and point checks](/mnt/data/lookcloser_dec5_5a3_surface_repair/canonical_surface_base_control/findings.json),
+[native verdicts](/mnt/data/lookcloser_dec5_5a3_surface_repair/canonical_surface_base_control/visual_review.json),
+[reproducible validation companion](assets/dec5_canonical_surface_base_checks.ipynb).
+
+### Insights
+
+This particular multi-camera base is rejected. A common smooth base plus
+independently smoothed source residuals does not guarantee continuous color at
+source transitions, and can introduce a new broad bias. The measured darkening
+is caused by the computed color offset; why the underlying camera observations
+disagree remains a separate question, not proof of exposure alone. Keeping mesh
+and labels fixed also means this control cannot repair an incorrect silhouette.
+No temporal or continuous fly-through pass is claimed, and no new dense job is
+justified by this failed appearance gate. Source data and original campaign
+outputs are preserved.
+
+The isolated staged-index snapshot passes **363 tests across 49 files**. The
+audit verifies 157 input/output hashes, paired ROI definitions, independent
+float64 face PSNR, exact PNG replay and barycentric color-offset spot checks.
+The companion notebook executes top-to-bottom without errors. All fit/render
+workers are terminal; no scratch was removed.
+
 ## Insights
 
 The published render correction can use the primary train camera despite its failed
