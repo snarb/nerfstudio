@@ -1203,3 +1203,8 @@ A separate direction-conditioned surface-base control withholds train cameras
 before fitting all-camera coefficients. Its relative-transfer variant guarantees
 zero correction at the source camera. Held-color eligibility and exact off replays
 are not visual acceptance; both variants remain unpromoted after native review.
+
+A separate native-depth plane canary moves TSDF mesh vertices along their normals
+using train-only consensus, fixed unsupported vertices and local inversion guards.
+It preserves topology, not guaranteed physical correctness; three-view failure
+leaves it diagnostic-only. The study stopped at the user's explicit request.

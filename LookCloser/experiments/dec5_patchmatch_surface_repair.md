@@ -2417,6 +2417,87 @@ source maps, independently recomputed held-camera scores and exact face PSNR.
 The validation notebook executes top-to-bottom. All workers are terminal, no
 CUDA/OOM failure is active and no scratch was removed.
 
+## Bounded native-plane mesh refinement and lipstick-tip trace (2026-09-06)
+
+### What was tested
+
+The final explicitly bounded control tests geometric movement rather than another
+color model. A read-only native-plane audit first fits inverse depth to 5x5 raw
+train footprints, requiring 20 positive planar taps within .0005 normalized depth.
+At the previously traced J shell point, five qualified planes agree on a normal
+displacement of -.002602; two supported tube points have displacements -.000038
+and +.000078. These are diagnostic queries, never reconstruction coordinates.
+
+`refine_mesh_native_planes.py` applies the same rule to every original full-block
+mesh vertex: plane/mesh normal cosine >=.5, maximum displacement .004, at least
+three votes and 60% of qualified votes in one .001 interval. A .2 mesh-Laplacian
+regularizer smooths the displacement, with unsupported vertices fixed exactly.
+One pass preserves connectivity and locally damps steps that would invert a face
+or reduce its area below 10% of its original area. Self-intersections are **not**
+certified absent. The output remains a TSDF-derived mesh, not a raw TSDF volume.
+No RGB, masks, query cameras or eval coordinates enter refinement. All 62 raw
+depth maps, fixed poses/intrinsics, camera response and hard seam-cut8 rank .001
+recipe stay unchanged. F/J/L are rendered from calibration only.
+
+### Results
+
+66,143 of 80,221 vertices qualify. The solve's true relative residual is
+`7.44e-10`. Applied displacement median/p99/max is
+`.0000213 / .0007334 / .0036533`; 5,547 vertices require local step damping.
+The output retains all 155,052 triangles and its single connected component.
+
+| Same F study face ROI | PSNR | SSIM | LPIPS | Native F/J/L verdict |
+|---|---:|---:|---:|---|
+| Original full-block control | 28.724285 | .889098 | .047989 | Fail |
+| Native-plane refinement | 28.773033 | .891038 | .047291 | 0 pass / 3 fail |
+
+All seven native F/J/L detail comparisons and the enlarged tip/source patches
+were actually viewed. The F upper tip is somewhat smaller, but the neck patch,
+hand boundary defects, broad J tube-adjacent rim and attached hair/shoulder fringe
+remain. This is **not** an accepted recipe. The face-only ROI excludes the neck,
+hand, tube and ear; no full-frame/actor aggregate was introduced.
+
+[F neck/hand](/mnt/data/lookcloser_dec5_5a3_surface_repair/native_plane_refinement_control/review_F/hand.png),
+[J tube](/mnt/data/lookcloser_dec5_5a3_surface_repair/native_plane_refinement_control/review_J/lipstick.png),
+[L face/ear](/mnt/data/lookcloser_dec5_5a3_surface_repair/native_plane_refinement_control/review_L/face_ear.png),
+[visual verdict](/mnt/data/lookcloser_dec5_5a3_surface_repair/native_plane_refinement_control/visual_review.json).
+
+The user's observation that the lipstick looks extended is real. At native F
+pixel (704,568), the original first mesh hit is .664788 in the foreground layer,
+while (708,568) is .689897 at the farther neck. The extra tip pixel selects
+**E004_B005_1210I7**, projecting just above the metal rim in that train image.
+Its projected camera depth is .642448; the footprint has **zero** taps within
+.001 and a mixed positive-depth median .668415. The actual metal point
+(692,568), using E004_C005_1210YM, has all 25 near taps. Thus a false/misaligned
+foreground boundary receives rim/background color and appears as extra lipstick.
+This is not evidence of RGB averaging. The refinement moves the sampled extra
+point only to .665122 and does not remove the artifact completely.
+
+[GT/original/refined tip, nearest-neighbor 4x](/mnt/data/lookcloser_dec5_5a3_surface_repair/native_plane_refinement_control/lipstick_tip/tip_nearest4x.png),
+[selected native train patches](/mnt/data/lookcloser_dec5_5a3_surface_repair/native_plane_refinement_control/lipstick_tip/selected_train_patches.png),
+[geometry, hashes and tip trace](/mnt/data/lookcloser_dec5_5a3_surface_repair/native_plane_refinement_control/integrity_tip_audit.json).
+
+The audit verifies all 65 source EXRs and conversion JPEG hashes under **000973**,
+all 62 staged train JPEGs, unchanged raw-depth inputs and mesh connectivity, and
+323 retained/input hashes. The held F display EXR matches that frame's eval JPEG
+exactly after 8-bit conversion (maximum difference 0). No file-level temporal
+mixing was found. This does **not** prove hardware/subframe synchronization, nor
+uniquely identify the upstream cause of the stereo boundary error. An inherited
+trace helper could not run because its old source-warp cache was absent; the
+failure is retained, and the independent final trace reads the retained depths,
+hard labels and native source JPEGs directly without reconstructing a cache.
+
+### Insights
+
+Local depth-plane agreement is a useful correction signal, but a one-step,
+topology-preserving deformation does not repair the full boundary or radiometry.
+The user requested finishing this test and stopping. No more reconstruction,
+color sweeps or every-40th-frame/fly-through jobs are scheduled. The original
+campaign and the previously supplied reference render remain unchanged.
+The broader seam-free/fly-through objective is **not achieved**.
+The isolated staged-index regression snapshot passes **404 tests across 54 files**;
+only this control's scripts/tests/docs and its architecture appendix are committed.
+
 ## Insights
 
 The published render correction can use the primary train camera despite its failed
