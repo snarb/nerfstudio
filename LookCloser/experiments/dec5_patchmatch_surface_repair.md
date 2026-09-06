@@ -1789,6 +1789,88 @@ retained high-frequency detail, bounded response changes and default-off field
 behavior. The companion notebook executes successfully and rechecks retained
 hashes and paired metric definitions.
 
+## Local seam and primary-occlusion mixtures (2026-09-06)
+
+### What was tested
+
+Two further matched controls address the global mixture's sharpness regression.
+`run_seam_local_source_control.py` blends only source labels found within a
+32-pixel four-connected path on the same target depth layer. It does not cross
+log-depth jumps of .0075. An eight-pixel geometric visibility feather fades each
+source before its own occlusion. Pixels outside actual mixtures keep their exact
+hard-source RGB, rather than undergoing a global color transform.
+
+The recorded F neck point (580,660) exposed a limitation of that rule: five train
+sources are visible, but only the old rank-2 source was selected nearby. The local
+rule therefore leaves its interior unchanged. A separate
+`run_primary_fallback_source_control.py` mixes **all** visible fallback sources
+where the primary is occluded, and smooths that transition over a 32-pixel
+same-depth band. Outside the band, the original hard RGB remains exact.
+Each control tests full linear-display RGB versus low-pass bases plus the
+original hard detail. There are no semantic masks or eval-RGB predictor inputs.
+The full-block mesh, camera calibration/response, visibility and frozen eight
+warps remain identical to the paired baseline. Each rule is shared across F/J/L.
+
+### Results
+
+| Same 000973 study face polygon, F | PSNR | SSIM | LPIPS |
+|---|---:|---:|---:|
+| Matched hard RGB8 control | 28.724285 | .889098 | .047989 |
+| Local seam, full RGB | 28.784077 | .890537 | .048324 |
+| Local seam, low-band | 28.749506 | .889178 | .047669 |
+| Primary fallback, full RGB | 28.817654 | .891388 | .050104 |
+| Primary fallback, low-band | 28.786356 | .889264 | .047435 |
+
+All **12 variant/anchor outputs at one temporal frame** fail the complete native
+gate; 28 native crops were inspected. The global face blur is avoided, but the
+neck patch, hand/tube seam, broad soft J tube and irregular hair/shoulder outlines
+remain. The all-fallback mixture makes angular tube-adjacent patches in F more
+conspicuous. Low-band variants retain fine detail but are not complete repairs.
+Missing room alone is not counted as failure.
+
+At F x=580, the source switch across y=648/649 has a smooth mesh-depth ratio
+(absolute log jump .000322). Local mixing reduces its RGB8 boundary from
+`[152,116,78] / [156,119,86]` to `[156,119,86] / [156,119,85]`. Yet the patch
+interior at (580,660) remains `[168,125,87]`: local seam smoothing is not the same
+as changing that source's texture across the patch.
+
+The all-fallback control gives the five visible ranks 2/3/4/5/7 weights
+.298/.249/.176/.168/.108 at that interior point. Their cached RGB8 channel ranges
+are `[165..171,119..127,80..91]`. The mixed result is `[169,124,87]`, barely
+different from the old source. A strictly post-hoc GT check is `[160,117,83]`;
+its R/G values lie below all five sources, so no convex mixture of those cached
+colors can reproduce them. This is evidence for this sampled pool/point, **not**
+a claim about all 62 cameras or proof of a unique exposure/BRDF/geometry cause.
+
+[Local F hand/neck](/mnt/data/lookcloser_dec5_5a3_surface_repair/seam_local_source_control/F/review_full_rgb/hand.png),
+[all-fallback F hand/neck](/mnt/data/lookcloser_dec5_5a3_surface_repair/primary_fallback_source_control/F/review_full_rgb/hand.png),
+[local scanline evidence](/mnt/data/lookcloser_dec5_5a3_surface_repair/seam_local_source_control/F/seam_profiles.json),
+[post-hoc five-source point audit](/mnt/data/lookcloser_dec5_5a3_surface_repair/primary_fallback_source_control/F/neck_point_audit.json),
+[local integrity/verdict audit](/mnt/data/lookcloser_dec5_5a3_surface_repair/seam_local_source_control/findings.json),
+[fallback integrity/verdict audit](/mnt/data/lookcloser_dec5_5a3_surface_repair/primary_fallback_source_control/findings.json),
+[inspectable checks](assets/dec5_local_fallback_blend_checks.ipynb).
+
+### Insights
+
+The sampled patch is not explained by one radically different fallback color.
+Changing mixture weights can reduce a boundary's color step while preserving a
+visible interior texture/appearance mismatch. Do not continue broad weighting
+sweeps or promote a tiny face-metric gain. The next investigation must separate
+native texture/focus/noise differences from incorrect surface projection, using
+train evidence and post-hoc held comparisons with explicit scope limits.
+
+Both audits verify identical input hashes, normalized visible-only weights,
+finite 1920x1080 PNG/EXR outputs and exact preserved RGB outside the respective
+mixture domain. Exact float identity is checked against the runner's CUDA RGB8
+normalization; NumPy CPU division can differ by one float32 ULP. PNG identity is
+also checked directly. The study face ROI is unchanged, excludes most neck/hand,
+and is not the old campaign ROI. No candidate has passed temporal or continuous
+fly-through validation. Production model/renderer defaults remain unchanged.
+The isolated staged-index snapshot passes **303 tests** across 42 files,
+including depth-separated seam bands, exact inactive RGB, all-visible fallback
+mixing, missing support and invalid input guards. The companion notebook executes
+successfully and rechecks paired hashes, metrics, weights and native verdicts.
+
 ## Insights
 
 The published render correction can use the primary train camera despite its failed

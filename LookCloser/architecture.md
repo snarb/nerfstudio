@@ -1169,3 +1169,8 @@ verified frozen train warps. Transport retains hard source detail; explicit
 RGB/low-band blending uses geometric visibility weights. Optional color-edge
 field gates default off. These rejected controls retain paired inputs and native
 review verdicts and do not change any production model or renderer defaults.
+
+Local seam and primary-occlusion controls restrict train-camera mixtures to
+depth-connected visibility domains, preserving exact hard RGB elsewhere. Saved
+weights and paired native reviews expose interior appearance errors that seam
+smoothing does not fix. They remain isolated, unpromoted rendering experiments.
