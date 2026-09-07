@@ -1208,3 +1208,21 @@ A separate native-depth plane canary moves TSDF mesh vertices along their normal
 using train-only consensus, fixed unsupported vertices and local inversion guards.
 It preserves topology, not guaranteed physical correctness; three-view failure
 leaves it diagnostic-only. The study stopped at the user's explicit request.
+
+The opt-in temporal PatchMatch-TSDF fly-through controller assigns one chronological
+DEC5 source instant and one fixed-recipe TSDF mesh to each pose of a closed outer-rig
+camera path. The 150 poses use calibrated boundary anchors and remain at least two
+camera-grid rows from the rig center. Atomic frame claims and one GPU-stage lock per
+host allow clever-shadow and dev3 to share work without overlapping PatchMatch jobs.
+Its geometry-only worker stops after the unchanged TSDF extraction, avoiding a
+discarded physical-eval render; the final hard seam-cut render reads only train RGB.
+Every retained mesh, EXR, PNG and audit is hash-validated before scratch cleanup.
+This controller is separate from model and single-frame defaults.
+An opt-in campaign wrapper can retain bounded disconnected TSDF components as
+`pending` visual-review candidates instead of repeating byte-identical geometry;
+it changes only terminal validation, keeps the frozen PatchMatch/TSDF commands,
+and never promotes a candidate without a full-resolution verdict.
+The completed 150-frame campaign stores both a lossless FFV1 RGB-round-trip
+video and an H.264 delivery video. Its terminal audit requires 150 ordered
+hash-valid frame results, matching camera-path records, explicit pass/fail review
+receipts with no implicit pass, valid video hashes, and no target-view RGB read.

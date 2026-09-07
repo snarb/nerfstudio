@@ -43,11 +43,15 @@ def normalize_frame(frame: dict, payload: dict, mesh_metadata: dict) -> dict:
     return result
 
 
-def calibration_path(calibration: dict, anchors: list[str], samples_per_segment: int) -> list[dict]:
+def calibration_path_intervals(calibration: dict, anchors: list[str], intervals: list[int]) -> list[dict]:
+    """Interpolate one calibrated path with an explicit interval count per segment."""
+
+    if len(intervals) != len(anchors) - 1 or any(value < 1 for value in intervals):
+        raise ValueError("Path intervals must contain one positive value per anchor segment")
     by_physical = {f["physical_camera"]:f for f in calibration["frames"]}
     keyframes = [by_physical[name] for name in anchors]
     frames = []
-    for segment in range(len(keyframes)-1):
+    for segment, samples_per_segment in enumerate(intervals):
         left,right = keyframes[segment:segment+2]
         a,b = np.asarray(left["transform_matrix"]),np.asarray(right["transform_matrix"])
         rotations = Slerp([0,1],Rotation.from_matrix(np.stack([a[:3,:3],b[:3,:3]])))
@@ -66,6 +70,16 @@ def calibration_path(calibration: dict, anchors: list[str], samples_per_segment:
     return frames
 
 
+def calibration_path(calibration: dict, anchors: list[str], samples_per_segment: int) -> list[dict]:
+    """Preserve the historical uniform-segment path API."""
+
+    return calibration_path_intervals(
+        calibration,
+        anchors,
+        [samples_per_segment] * (len(anchors) - 1),
+    )
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--data",type=Path,required=True)
@@ -75,6 +89,18 @@ def main() -> None:
     parser.add_argument("--output",type=Path,required=True)
     parser.add_argument("--anchors",nargs="+",default=list(ANCHORS))
     parser.add_argument("--samples-per-segment",type=int,default=4)
+    parser.add_argument(
+        "--segment-intervals", type=int, nargs="+", default=None,
+        help="Optional interval count for every anchor pair; overrides --samples-per-segment.",
+    )
+    parser.add_argument(
+        "--target-indices", type=int, nargs="+", default=None,
+        help="Render only these indices of the complete calibrated path.",
+    )
+    parser.add_argument(
+        "--allow-source-anchors", action="store_true",
+        help="Allow train cameras as pose-only anchors; synthetic target RGB remains unread.",
+    )
     parser.add_argument("--neighbors",type=int,default=16)
     parser.add_argument("--aggregation-mode",choices=("nearest-fill","seam-cut"),default="nearest-fill")
     parser.add_argument("--seam-cut-rank-penalty",type=float,default=.0001)
@@ -102,6 +128,8 @@ def main() -> None:
     parser.add_argument("--surface-color-field-smoothness",type=float,default=0.)
     parser.add_argument("--depth-log-tolerance",type=float,default=.01)
     parser.add_argument("--depth-hole-fill-max-area",type=int,default=0)
+    parser.add_argument("--target-depth-component-min-area",type=int,default=0)
+    parser.add_argument("--target-depth-component-max-log-jump",type=float,default=.0075)
     parser.add_argument("--resume",action="store_true")
     args = parser.parse_args()
     if (not np.isfinite(args.seam_cut_depth_log_jump) or args.seam_cut_depth_log_jump < 0
@@ -122,6 +150,18 @@ def main() -> None:
         parser.error('Free-space veto requires raw depth data and matching mesh metadata')
     if len(args.anchors)<2 or args.samples_per_segment<1:
         parser.error("At least two anchors and one sample per segment required")
+    intervals = ([args.samples_per_segment] * (len(args.anchors) - 1)
+                 if args.segment_intervals is None else args.segment_intervals)
+    if len(intervals) != len(args.anchors) - 1 or any(value < 1 for value in intervals):
+        parser.error("--segment-intervals must provide one positive value per anchor pair")
+    if args.target_indices is not None and (
+        not args.target_indices
+        or len(args.target_indices) != len(set(args.target_indices))
+        or min(args.target_indices) < 0
+    ):
+        parser.error("--target-indices must be unique non-negative integers")
+    if args.target_depth_component_min_area < 0 or args.target_depth_component_max_log_jump <= 0:
+        parser.error("Target component thresholds must be non-negative/positive")
     payload = json.loads((args.data/"transforms.json").read_text())
     calibration = json.loads(args.calibration.read_text())
     metadata = json.loads(args.mesh_metadata.read_text())
@@ -129,11 +169,16 @@ def main() -> None:
     source_frames = [normalize_frame(f,payload,metadata) for f in payload["frames"] if f["file_path"] in train_names]
     if any(f.get("mask_path") for f in payload["frames"]):
         raise ValueError("Image/person masks forbidden")
-    if set(args.anchors) & {f["physical_camera"] for f in source_frames}:
+    if not args.allow_source_anchors and set(args.anchors) & {f["physical_camera"] for f in source_frames}:
         raise ValueError("Review anchors must remain held out of source RGB")
     for f in source_frames:
         f["file_path"] = str((args.data/f["file_path"]).resolve(strict=True))
-    targets = [normalize_frame(f,calibration,metadata) for f in calibration_path(calibration,args.anchors,args.samples_per_segment)]
+    complete_targets = [normalize_frame(f,calibration,metadata)
+                        for f in calibration_path_intervals(calibration,args.anchors,intervals)]
+    target_indices = list(range(len(complete_targets))) if args.target_indices is None else args.target_indices
+    if max(target_indices) >= len(complete_targets):
+        parser.error(f"--target-indices exceed complete path size {len(complete_targets)}")
+    indexed_targets = [(index,complete_targets[index]) for index in target_indices]
     args.output.mkdir(parents=True,exist_ok=args.resume)
     raw_depth_hashes=None
     if args.source_observed_free_space_veto:
@@ -144,7 +189,11 @@ def main() -> None:
     request = {"schema_version":1,"mesh_sha256":sha256(args.mesh),"mesh_metadata_sha256":sha256(args.mesh_metadata),
                "data_sha256":sha256(args.data/"transforms.json"),"calibration_sha256":sha256(args.calibration),
                "source_hashes":{f["physical_camera"]:sha256(Path(f["file_path"])) for f in source_frames},
-               "targets":targets,"neighbors":args.neighbors,"aggregation_mode":args.aggregation_mode,"depth_log_tolerance":args.depth_log_tolerance,
+               "anchors":args.anchors,"segment_intervals":intervals,
+               "complete_path_size":len(complete_targets),"complete_path_sha256":canonical_sha256(complete_targets),
+               "target_indices":target_indices,"targets":[target for _,target in indexed_targets],
+               "allow_source_anchors":args.allow_source_anchors,
+               "neighbors":args.neighbors,"aggregation_mode":args.aggregation_mode,"depth_log_tolerance":args.depth_log_tolerance,
                "seam_cut_rank_penalty":args.seam_cut_rank_penalty,
                "seam_cut_depth_log_jump":args.seam_cut_depth_log_jump,
                "seam_cut_bandwidth_penalty":args.seam_cut_bandwidth_penalty,
@@ -179,7 +228,10 @@ def main() -> None:
                "surface_color_helper_sha256":sha256(SCRIPTS/'surface_color_field.py') if args.surface_color_field_smoothness or args.seam_cut_local_bandwidth_penalty else None,
                "mesh_visibility_helper_sha256":sha256(SCRIPTS/"mesh_texture_visibility.py") if args.exact_mesh_visibility else None,
                "color_helper_sha256":sha256(SCRIPTS/"patchmatch_color_calibration.py"),
-               "depth_hole_fill_max_area":args.depth_hole_fill_max_area,"eval_rgb_read":False,
+               "depth_hole_fill_max_area":args.depth_hole_fill_max_area,
+               "target_depth_component_min_area":args.target_depth_component_min_area,
+               "target_depth_component_max_log_jump":args.target_depth_component_max_log_jump,
+               "eval_rgb_read":False,
                "renderer_sha256":sha256(SCRIPTS/"render_mesh_image_blend.py"),
                "path_script_sha256":sha256(Path(__file__)),
                "seam_helper_sha256":sha256(SCRIPTS/"hard_texture_seam_cut.py"),
@@ -193,7 +245,7 @@ def main() -> None:
     work.mkdir(exist_ok=True)
     placeholder = work/"synthetic_target.png"
     if not placeholder.exists():
-        Image.new("RGB",(int(targets[0]["w"]),int(targets[0]["h"]))).save(placeholder)
+        Image.new("RGB",(int(indexed_targets[0][1]["w"]),int(indexed_targets[0][1]["h"]))).save(placeholder)
     normal_args = ["--orientation-method","none","--center-method","none","--no-auto-scale-poses",
                    "--scale-factor","1","--downscale-factor","1"]
     env = dict(os.environ,OMP_NUM_THREADS="8",OPENBLAS_NUM_THREADS="8")
@@ -201,8 +253,9 @@ def main() -> None:
         with log.open("w") as f:
             subprocess.run([sys.executable,*map(str,command)],check=True,env=env,stdout=f,stderr=subprocess.STDOUT)
     rows=[]
-    for index,target in enumerate(targets):
-        current=work/f"{index:04d}"
+    first_path_index = indexed_targets[0][0]
+    for position,(path_index,target) in enumerate(indexed_targets):
+        current=work/f"{path_index:04d}"
         current.mkdir(exist_ok=True)
         target=deepcopy(target)
         target["file_path"]=str(placeholder.resolve())
@@ -213,15 +266,16 @@ def main() -> None:
         if not (depth/"mesh_depth_manifest.json").exists():
             run([SCRIPTS/"render_tsdf_mesh_depth.py","--data",current,"--mesh",args.mesh,
                  "--output-dir",depth,"--no-write-color-png","--no-portable-manifest-paths",
-                 *(["--split","val"] if index else []),*normal_args],current/"raycast.log")
-            if index:
+                 *(["--split","val"] if position else []),*normal_args],current/"raycast.log")
+            if position:
                 # Source cameras and mesh are fixed over this path; reuse their
                 # first raycasts exactly, and raycast only the new target camera.
-                first=json.loads((work/"0000/mesh_depth/mesh_depth_manifest.json").read_text())
+                first_manifest=work/f"{first_path_index:04d}/mesh_depth/mesh_depth_manifest.json"
+                first=json.loads(first_manifest.read_text())
                 manifest=json.loads((depth/"mesh_depth_manifest.json").read_text())
                 manifest["images"]=[row for row in first["images"] if row["split"]=="train"]+manifest["images"]
                 manifest["splits"]=["train","val"]
-                manifest["source_cache_manifest_sha256"]=sha256(work/"0000/mesh_depth/mesh_depth_manifest.json")
+                manifest["source_cache_manifest_sha256"]=sha256(first_manifest)
                 atomic_json(depth/"mesh_depth_manifest.json",manifest)
         render=current/"render"
         if not (render/"reprojection_audit.json").exists():
@@ -230,6 +284,8 @@ def main() -> None:
             run([SCRIPTS/"render_mesh_image_blend.py","--data",current,"--mesh-depth-manifest",depth/"mesh_depth_manifest.json",
                  "--output-dir",render,"--neighbors",args.neighbors,"--aggregation-modes",args.aggregation_mode,"--blend-alphas","1",
                  "--depth-log-tolerance",args.depth_log_tolerance,"--depth-hole-fill-max-area",args.depth_hole_fill_max_area,
+                 "--target-depth-component-min-area",args.target_depth_component_min_area,
+                 "--target-depth-component-max-log-jump",args.target_depth_component_max_log_jump,
                  "--seam-cut-rank-penalty",args.seam_cut_rank_penalty,
                  "--seam-cut-depth-log-jump",args.seam_cut_depth_log_jump,
                  "--primary-angular-camera-count",args.primary_angular_camera_count,
@@ -254,11 +310,15 @@ def main() -> None:
                      "--camera-color-model",args.camera_color_model]),
                  "--skip-ground-truth-copy","--device","cuda",*normal_args],current/"render.log")
         source=render/f"{args.aggregation_mode.replace('-','_')}{args.neighbors}"/"eval_pred_0000.png"
-        retained=args.output/f"view_{index:04d}.png"
+        retained=args.output/f"view_{path_index:04d}.png"
         shutil.copyfile(source,retained)
-        rows.append({"index":index,"physical_camera":target["physical_camera"],"render":str(retained),"sha256":sha256(retained)})
-        atomic_json(args.output/"path_manifest.json",{"request_sha256":request["sha256"],"state":"complete" if index==len(targets)-1 else "running","views":rows})
-        print(f"view={index+1}/{len(targets)} camera={target['physical_camera']} complete",flush=True)
+        rows.append({"index":path_index,"physical_camera":target["physical_camera"],"render":str(retained),"sha256":sha256(retained)})
+        atomic_json(args.output/"path_manifest.json",{
+            "request_sha256":request["sha256"],
+            "state":"complete" if position==len(indexed_targets)-1 else "running",
+            "views":rows,
+        })
+        print(f"view={position+1}/{len(indexed_targets)} path_index={path_index} camera={target['physical_camera']} complete",flush=True)
 
 
 if __name__ == "__main__":

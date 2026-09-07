@@ -6,7 +6,7 @@ import numpy as np
 import pytest
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
-from render_patchmatch_camera_path import calibration_path,normalize_frame
+from render_patchmatch_camera_path import calibration_path,calibration_path_intervals,normalize_frame
 
 
 def camera(name,x):
@@ -37,6 +37,23 @@ def test_path_anchors_and_intrinsics_are_calibration_only():
     assert path[2]['transform_matrix'][0][3]==1
     assert path[2]['fl_x']==110
     np.testing.assert_allclose(np.asarray(path[2]['transform_matrix'])[:3,:3],np.eye(3))
+
+
+def test_path_supports_explicit_unequal_segment_intervals():
+    a,b,c=camera('a',0),camera('b',2),camera('c',5)
+    path=calibration_path_intervals({'frames':[a,b,c]},['a','b','c'],[2,3])
+    assert len(path)==6
+    assert [path[index]['physical_camera'] for index in (0,2,5)]==['a','b','c']
+    assert [path[index]['transform_matrix'][0][3] for index in range(6)]==[0,1,2,3,4,5]
+
+
+@pytest.mark.parametrize('intervals', [[],[1],[1,0],[1,-1],[1,2,3]])
+def test_explicit_path_intervals_fail_closed(intervals):
+    with pytest.raises(ValueError,match='interval'):
+        calibration_path_intervals(
+            {'frames':[camera('a',0),camera('b',1),camera('c',2)]},
+            ['a','b','c'],intervals,
+        )
 
 
 def test_distorted_source_is_rejected():
