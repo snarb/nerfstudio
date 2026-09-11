@@ -44,6 +44,20 @@ Output: `/mnt/data/lookcloser_dec5_5a3_joint_texture`.
 
 Entry points:
 
+The convenience method `joint_temporal_texture.calibrate(...)` and its CLI action
+`calibrate` now combine `prepare` and `fit`; `--dry-run` prints the ordered stages
+without writing files or loading images. The method checks unique/disjoint times,
+requires multiple fit poses and a held-out time, and rejects changed pinned runs
+before preparation. It does not automatically bake or approve a reconstruction:
+
+```bash
+../.venv/bin/python scripts/joint_temporal_texture.py calibrate \
+  --output /mnt/data/NEW_JOINT_RUN \
+  --fit-frames 000899 000973 001139 001197 --held-frames 001059
+```
+
+The equivalent separate stages remain available:
+
 ```bash
 cd /home/brans/repos/nerfstudio/LookCloser
 ../.venv/bin/python scripts/joint_temporal_texture.py prepare --output /mnt/data/NEW_JOINT_RUN
@@ -155,6 +169,12 @@ Contracts include fixed-exposure replay/resume, invalid gains, half-pixel
 projection, gain gauge/recovery across changing content, per-axis UV bounds,
 frozen-profile checksums, incomplete cache rejection, zero-weight fusion, tiny
 mesh parameterization, and textured GLB round-trip.
+
+The subsequent convenience-helper addition passes 42 tests in the same combined
+suite, including prepare→fit ordering, a side-effect-free CLI dry run, invalid
+time inventories, immutable source/output separation and early rejection of a
+changed calibration request. No calibration, geometry or texture was regenerated
+for this API-only addition.
 
 ## Insights
 

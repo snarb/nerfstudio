@@ -89,3 +89,34 @@ using the prediction. `score`, `review`, and `finalize` are explicit states; thu
 or scored scratch cannot appear as a completed CSV row. The independent final checker is
 `scripts/audit_colmap_patchmatch_tsdf_campaign.py`. The durable 3D output is the extracted TSDF
 mesh plus its manifests—not a serialized raw Open3D TSDF volume.
+
+## Opt-in shared temporal color/texture calibration
+
+The DEC5 helper `scripts/joint_temporal_texture.py calibrate` combines patch preparation
+and joint fitting in one command. Several head poses fit one fixed RGB profile per
+physical train camera and one fixed display exposure. A separate time tests transfer;
+its local texture registration may adapt, but not the shared camera profiles.
+
+From the repository root, preview the operation without creating files or loading images:
+
+```bash
+python LookCloser/scripts/joint_temporal_texture.py calibrate \
+  --output /mnt/data/lookcloser_dec5_5a3_joint_texture_v2 \
+  --fit-frames 000899 000973 001139 001197 \
+  --held-frames 001059 --dry-run
+```
+
+Remove `--dry-run` to run. Use a new output root for different code/configuration;
+the helper refuses to overwrite a mismatched hash-pinned calibration. Calibration
+alone does not bake or visually approve a mesh. Use the existing `bake_joint_temporal_mesh.py`
+entry point afterward. New times can use `prepare --frames ...` followed by `adapt`
+without refitting camera color or exposure. This helper currently targets the fixed
+62-train-camera DEC5 dataset and existing meshes, not arbitrary rigs.
+
+Unlike the original hard-source renderer above, this experimental GLB path bakes
+robust mixtures of registered train RGB into a static UV texture. Both paths render
+the actual mesh; neither uses target RGB for prediction. The GLB no longer needs the
+train images at viewing time. The calibration has modest perceptual benefits but
+does not repair geometry and is not promoted to production defaults.
+
+Measured results and native comparisons: [joint temporal texture report](experiments/dec5_joint_temporal_texture.md).

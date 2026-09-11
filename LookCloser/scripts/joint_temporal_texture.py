@@ -375,16 +375,78 @@ def fit(root,fit_frames,held_frames,iterations=160):
     print(json.dumps(validation),flush=True)
 
 
-def main():
+def calibrate(root, fit_frames, held_frames, *, patches=6000, iterations=160, dry_run=False):
+    """Prepare multiple head poses and fit one temporally frozen camera profile.
+
+    Report: LookCloser/experiments/dec5_joint_temporal_texture.md
+    The held times do not fit camera response/shared UVs; only their own local
+    UV residuals may adapt. This helper does not bake, score or approve a mesh.
+    Existing hash-pinned runs are never silently upgraded to different code.
+    """
+    root = Path(root).expanduser().resolve()
+    fit_frames, held_frames = list(fit_frames), list(held_frames)
+    frames = fit_frames + held_frames
+    if len(fit_frames) < 2 or not held_frames:
+        raise ValueError('Calibration needs at least two fit times and one held-out time')
+    if any(not isinstance(f, str) or len(f) != 6 or not f.isascii() or not f.isdigit() for f in frames):
+        raise ValueError('Frame IDs must be six-digit ASCII strings')
+    if len(frames) != len(set(frames)):
+        raise ValueError('Calibration times must be unique with no train/holdout overlap')
+    if patches < 1 or iterations < 1:
+        raise ValueError('Patches and iterations must be positive')
+    if root.is_relative_to(SOURCE.resolve()):
+        raise ValueError('Calibration output must not be inside the immutable source dataset')
+    plan = {
+        'status': 'planned', 'output': str(root), 'source': str(SOURCE),
+        'calibration_template': str(CALIBRATION), 'fit_frames': fit_frames,
+        'held_frames': held_frames, 'patches': patches, 'iterations': iterations,
+        'stages': [{'stage': 'prepare', 'frame': f} for f in frames] + [{'stage': 'fit'}],
+        'report': str(Path(__file__).resolve().parents[1] / 'experiments/dec5_joint_temporal_texture.md'),
+        'exposure_fixed_across_time': True, 'camera_profiles_fixed_across_time': True,
+        'uses_eval_rgb': False, 'changes_geometry': False,
+        'artifacts': ['exposure.json', 'camera_profiles.json', 'parameters.npz', 'fit_result.json'],
+    }
+    # Preflight cheap request checks before touching any cache or loading images.
+    request_path = root / 'fit_request.json'
+    if request_path.exists():
+        previous = read(request_path)
+        expected = {'fit_frames': fit_frames, 'held_frames': held_frames,
+                    'iterations': iterations, 'script_sha256': sha(__file__)}
+        if any(previous.get(k) != value for k, value in expected.items()):
+            raise ValueError('Existing calibration request differs; use a new output root or its recorded source snapshot')
+    for frame in frames:
+        cached = root / 'cache' / frame / 'request.json'
+        if cached.exists():
+            previous = read(cached)
+            if previous.get('patches') != patches or previous.get('script_sha256') != sha(__file__):
+                raise ValueError(f'Prepared frame {frame} has a different request; use a new output root')
+    if dry_run:
+        return plan
+    root.mkdir(parents=True, exist_ok=True)
+    for frame in frames:
+        prepare_frame(root, frame, patches)
+    fit(root, fit_frames, held_frames, iterations)
+    return {**plan, 'status': 'calibrated_not_visually_approved'}
+
+
+def main(argv=None):
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument('action',choices=['prepare','fit','adapt'])
+    p.add_argument('action',choices=['prepare','fit','adapt','calibrate'])
+    p.add_argument('--dry-run',action='store_true',help='Print the calibrate plan without writing files or loading images/GPU tensors')
     p.add_argument('--frames',nargs='+',help='Explicit new times for prepare/adapt; never changes fit-frame selection')
     p.add_argument('--output',type=Path,default=ROOT)
     p.add_argument('--fit-frames',nargs='+',default=['000899','000973','001139','001197'])
     p.add_argument('--held-frames',nargs='+',default=['001059'])
     p.add_argument('--patches',type=int,default=6000)
     p.add_argument('--iterations',type=int,default=160)
-    a=p.parse_args();a.output.mkdir(parents=True,exist_ok=True)
+    a=p.parse_args(argv)
+    if a.dry_run and a.action!='calibrate':p.error('--dry-run is only valid with calibrate')
+    if a.action=='calibrate':
+        if a.frames:p.error('calibrate uses --fit-frames and --held-frames, not --frames')
+        print(json.dumps(calibrate(a.output,a.fit_frames,a.held_frames,patches=a.patches,
+                                  iterations=a.iterations,dry_run=a.dry_run),indent=2))
+        return
+    a.output.mkdir(parents=True,exist_ok=True)
     if set(a.fit_frames)&set(a.held_frames):raise ValueError('Temporal train/holdout overlap')
     if a.action=='prepare':
         for f in a.frames or a.fit_frames+a.held_frames:prepare_frame(a.output,f,a.patches)

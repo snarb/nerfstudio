@@ -124,3 +124,57 @@ def test_robust_linear_fusion_preserves_identical_views_and_ignores_zero_weight(
     colors=torch.full((5,3,20),.2);weights=torch.ones((5,20))
     colors[4]=9.;weights[4]=0
     torch.testing.assert_close(baker.robust_fusion(colors,weights),torch.full((3,20),.2))
+
+
+def test_calibrate_helper_prepares_all_times_then_fits_once(tmp_path, monkeypatch):
+    calls=[]
+    monkeypatch.setattr(joint,'prepare_frame',lambda *args:calls.append(('prepare',*args)))
+    monkeypatch.setattr(joint,'fit',lambda *args:calls.append(('fit',*args)))
+    root=tmp_path/'new';fit=['000899','000973'];held=['001059']
+    result=joint.calibrate(root,fit,held,patches=100,iterations=12)
+    assert calls==[('prepare',root,f,100) for f in fit+held]+[('fit',root,fit,held,12)]
+    assert result['status']=='calibrated_not_visually_approved'
+    assert result['uses_eval_rgb'] is False and result['changes_geometry'] is False
+    assert Path(result['report']).is_file()
+
+
+def test_calibrate_dry_run_writes_nothing_and_loads_no_images(tmp_path,monkeypatch,capsys):
+    import json
+    def forbidden(*args,**kwargs):raise AssertionError('Dry run must not execute stages')
+    monkeypatch.setattr(joint,'prepare_frame',forbidden);monkeypatch.setattr(joint,'fit',forbidden)
+    root=tmp_path/'new'
+    joint.main(['calibrate','--output',str(root),'--dry-run'])
+    result=json.loads(capsys.readouterr().out)
+    assert result['status']=='planned' and len(result['stages'])==6
+    assert not root.exists()
+
+
+@pytest.mark.parametrize('fit,held',[
+    (['000899'],['001059']),
+    (['000899','000973'],[]),
+    (['000899','000899'],['001059']),
+    (['000899','000973'],['000973']),
+    (['000899','../973'],['001059']),
+])
+def test_calibrate_rejects_invalid_time_inventory_before_writes(tmp_path,fit,held):
+    root=tmp_path/'new'
+    with pytest.raises(ValueError):joint.calibrate(root,fit,held,dry_run=True)
+    assert not root.exists()
+
+
+def test_calibrate_rejects_changed_existing_recipe_before_preparing(tmp_path,monkeypatch):
+    root=tmp_path/'existing'
+    joint.atomic_json(root/'fit_request.json',{'fit_frames':['000899','000973'],
+                     'held_frames':['001059'],'iterations':160,'script_sha256':'old_code'})
+    def forbidden(*args,**kwargs):raise AssertionError('Must fail before preparing')
+    monkeypatch.setattr(joint,'prepare_frame',forbidden)
+    with pytest.raises(ValueError,match='Existing calibration request differs'):
+        joint.calibrate(root,['000899','000973'],['001059'])
+    assert not (root/'cache').exists()
+
+
+def test_calibrate_rejects_source_as_output(monkeypatch,tmp_path):
+    monkeypatch.setattr(joint,'SOURCE',tmp_path/'source')
+    with pytest.raises(ValueError,match='immutable source'):
+        joint.calibrate(joint.SOURCE/'new',['000899','000973'],['001059'],dry_run=True)
+    assert not joint.SOURCE.exists()
