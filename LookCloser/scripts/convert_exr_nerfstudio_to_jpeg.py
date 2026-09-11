@@ -30,7 +30,9 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--eval-mode", default="filename")
     parser.add_argument("--eval-interval", type=int, default=8)
     parser.add_argument("--middle-gray", type=float, default=0.18)
-    parser.add_argument("--exposure-mode", choices=("global", "per-image"), default="global")
+    parser.add_argument("--exposure-mode", choices=("global", "per-image", "fixed"), default="global")
+    parser.add_argument("--fixed-exposure-gain", type=float, default=None,
+                        help="One positive, content-independent multiplier for the entire temporal campaign; requires --exposure-mode fixed.")
     parser.add_argument("--exposure-percentile", type=float, default=70.0)
     parser.add_argument("--quality", type=int, default=95)
     parser.add_argument(
@@ -104,8 +106,15 @@ def main(argv: list[str] | None = None) -> int:
         eval_interval=args.eval_interval,
         require_exr=True,
     )
-    calibration = calibrate_exr_paths(split.train_images)
-    global_gain = args.middle_gray / (calibration.log_mean_luminance * (1.0 - args.middle_gray))
+    if (args.exposure_mode == "fixed") != (args.fixed_exposure_gain is not None):
+        raise ValueError("Fixed mode and --fixed-exposure-gain must be supplied together")
+    if args.fixed_exposure_gain is not None and (
+        not np.isfinite(args.fixed_exposure_gain) or args.fixed_exposure_gain <= 0
+    ):
+        raise ValueError("Fixed exposure gain must be finite and positive")
+    calibration = None if args.exposure_mode == "fixed" else calibrate_exr_paths(split.train_images)
+    global_gain = (float(args.fixed_exposure_gain) if calibration is None else
+                   args.middle_gray / (calibration.log_mean_luminance * (1.0 - args.middle_gray)))
     source_transforms = source / "transforms.json"
     payload = json.loads(source_transforms.read_text(encoding="utf-8"))
     frames = payload.get("frames")
@@ -124,6 +133,8 @@ def main(argv: list[str] | None = None) -> int:
         "jpeg_subsampling": "4:4:4",
         "curve": "global_exposure_then_reinhard_then_srgb",
     }
+    if args.exposure_mode == "fixed":
+        request["fixed_exposure_gain"] = global_gain
     request_hash = canonical_sha256(request)
     request["request_sha256"] = request_hash
     request_path = destination / "conversion_request.json"
@@ -183,7 +194,7 @@ def main(argv: list[str] | None = None) -> int:
             anchor = float(np.percentile(luminance, args.exposure_percentile))
             gain = args.middle_gray / (max(anchor, 1e-8) * (1.0 - args.middle_gray))
         else:
-            anchor = calibration.log_mean_luminance
+            anchor = None if calibration is None else calibration.log_mean_luminance
             gain = global_gain
         jpeg = tone_map(image, gain)
         temporary = output_path.with_name(f".{output_path.name}.tmp-{os.getpid()}")
@@ -234,7 +245,7 @@ def main(argv: list[str] | None = None) -> int:
         "middle_gray": args.middle_gray,
         "jpeg_quality": args.quality,
         "jpeg_subsampling": "4:4:4",
-        "calibration": calibration.as_metadata(),
+        "calibration": None if calibration is None else calibration.as_metadata(),
     }
     atomic_json(destination / "transforms.json", payload)
     atomic_json(

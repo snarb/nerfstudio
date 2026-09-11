@@ -1226,3 +1226,13 @@ The completed 150-frame campaign stores both a lossless FFV1 RGB-round-trip
 video and an H.264 delivery video. Its terminal audit requires 150 ordered
 hash-valid frame results, matching camera-path records, explicit pass/fail review
 receipts with no implicit pass, valid video hashes, and no target-view RGB read.
+
+The separate joint temporal texture pipeline freezes one numeric display exposure
+and fits one diagonal RGB profile per physical train camera across multiple times.
+Fixed mesh-space patches constrain shared and per-time bounded native UV fields;
+new-time adaptation changes no camera profile, exposure, pose, or mesh vertex.
+A robust train-only UV bake exports a static unlit textured GLB and OBJ archive,
+with native held-out review, a mesh-patch inspector, face-only scoring and hash
+audits. The opt-in JPEG `fixed` mode also bypasses content-adaptive exposure.
+Two-frame measurements show modest LPIPS benefit but remaining geometry defects;
+this experimental path does not replace the existing renderer/model defaults.
