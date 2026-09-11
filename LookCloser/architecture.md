@@ -1236,3 +1236,11 @@ with native held-out review, a mesh-patch inspector, face-only scoring and hash
 audits. The opt-in JPEG `fixed` mode also bypasses content-adaptive exposure.
 Two-frame measurements show modest LPIPS benefit but remaining geometry defects;
 this experimental path does not replace the existing renderer/model defaults.
+
+The separate hard-source UV bake labels connected mesh-face regions with one
+train camera using alpha expansion, visibility/angle quality and low-frequency
+train-color agreement. Full-frequency RGB always comes from a single source;
+per-texel camera fallback is visibility-only. Frozen exposure/profiles, UV atlas
+and geometry remain unchanged. A separate hash-pinned output, embedded GLB,
+native comparisons and audit distinguish artifact validity from visual acceptance.
+Temporal geometry reconstruction is deferred, not part of this texture mode.

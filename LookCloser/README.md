@@ -120,3 +120,21 @@ train images at viewing time. The calibration has modest perceptual benefits but
 does not repair geometry and is not promoted to production defaults.
 
 Measured results and native comparisons: [joint temporal texture report](experiments/dec5_joint_temporal_texture.md).
+
+### Sharp, single-source mesh texture (opt-in)
+
+`bake_joint_temporal_mesh.py bake --hard-source --calibration-root FITTED_ROOT
+--output NEW_ROOT` reuses the frozen calibration and geometry but selects one
+camera on connected regions of the mesh adjacency graph. Native detail is never
+averaged across cameras. Train-only low-frequency color agreement guides source
+labels; those low-pass pixels are never baked. A selected source is replaced only
+where it fails per-texel visibility. The output GLB embeds the texture and needs
+no train images at viewing time. The graph helper additionally requires
+`PyMaxflow==1.3.2` (the experiment installed it without changing other packages).
+
+Use a separate output root: configuration/source hashes prevent incompatible
+resume, and `hard_texture_complete.json` is written only after GLB round-trip
+validation. Run native review and the independent audit before visual acceptance.
+This is **texture only**, not temporal mesh completion; geometry repair is deferred.
+Commands, known limitations and comparisons:
+[hard-source texture report](experiments/dec5_hard_surface_texture.md).

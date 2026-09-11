@@ -90,13 +90,30 @@ def robust_fusion(colors,weights):
     return rgb
 
 
-def bake(root,frame,resolution):
-    out=root/'frames'/frame;out.mkdir(parents=True,exist_ok=True)
+def bake(root,frame,resolution,*,output_root=None,hard_source=False,smoothness=.08,color_weight=.5):
+    root=Path(root)
+    if hard_source and (output_root is None or Path(output_root).resolve()==root.resolve()):
+        raise ValueError('Hard-source experiments require a separate output root')
+    destination=Path(output_root) if output_root is not None else root
+    if destination.resolve().is_relative_to(SOURCE.resolve()):
+        raise ValueError('Cannot write into immutable source data')
     mesh_path,meta=geometry_paths(frame)
+    if sha(mesh_path)!=read(root/'cache'/frame/'request.json')['mesh_sha256']:raise ValueError('Geometry changed after fitting')
+    out=destination/'frames'/frame
+    if hard_source:
+        request={'frame':frame,'resolution':resolution,'source_calibration_root':str(root.resolve()),
+                 'source_smoothness':smoothness,'source_color_weight':color_weight,'mesh_sha256':sha(mesh_path),'geometry_changed':False,
+                 'calibration_hashes':{n:sha(root/n) for n in ['parameters.npz','exposure.json','camera_profiles.json']},
+                 'scripts_sha256':{n:sha(Path(__file__).with_name(n)) for n in
+                    ['bake_joint_temporal_mesh.py','hard_surface_texture.py','joint_temporal_texture.py']},
+                 'cache_complete_sha256':sha(root/'cache'/frame/'complete.json'),'uses_eval_rgb':False}
+        request_path=out/'hard_texture_request.json'
+        if request_path.exists() and read(request_path)!=request:raise ValueError('Hard texture request mismatch; use a new output root')
+        atomic_json(request_path,request)
+    out.mkdir(parents=True,exist_ok=True)
     a=atlas_geometry(mesh_path,out,resolution)
     data=load_frame(root,frame);rows=data['rows'];device=data['images'].device
     profile,static,residual=load_parameters(root,frame,device)
-    if sha(mesh_path)!=read(root/'cache'/frame/'request.json')['mesh_sha256']:raise ValueError('Geometry changed after fitting')
     if [r['physical_camera'] for r in rows]!=read(root/'camera_profiles.json')['physical_cameras']:raise ValueError('Texture/profile camera mismatch')
     gain=read(root/'exposure.json')['fixed_exposure_gain']
     scene=o3d.t.geometry.RaycastingScene(nthreads=8)
@@ -114,6 +131,31 @@ def bake(root,frame,resolution):
     v,t=a['vertices'],a['triangles'];tv=v[t]
     normal=np.cross(tv[:,1]-tv[:,0],tv[:,2]-tv[:,0]);normal/=np.linalg.norm(normal,axis=1)[:,None].clip(1e-12)
     centers=np.array([r['transform_matrix'] for r in rows],np.float32)[:,:3,3]
+    face_labels=None;fallback_count=0
+    if hard_source:
+        from hard_surface_texture import select_surface_sources,gather_hard_rgb
+        centroid=tv.mean(1);face_uv,face_z=project(centroid,rows)
+        with torch.inference_mode():
+            q=torch.tensor(face_uv[:,None],device=device);zq=torch.tensor(face_z,device=device)
+            dq=sample(depth,q)[:,0,0]
+            valid=(zq>0)&(dq>0)&((dq-zq).abs()<zq*.0015)
+            valid&=(q[:,0,:,0]>2)&(q[:,0,:,0]<1917)&(q[:,0,:,1]>2)&(q[:,0,:,1]<1077)
+            dirs=centers[:,None]-centroid[None];length=np.linalg.norm(dirs,axis=-1);dirs/=length[...,None]
+            quality=np.abs((dirs*normal[None]).sum(-1))**8/length.clip(.01)**2
+            quality*=valid.cpu().numpy()
+            quality=np.where(quality>=quality.max(0)[None]*.12,quality,0)
+            # Low-pass RGB is used ONLY to choose labels; all baked samples below
+            # still use the original full-frequency single-camera observation.
+            low=torch.nn.functional.avg_pool2d(data['images'],kernel_size=9,stride=1,padding=4)
+            color=apply_response(sample(low,q),profile)[:,:,0].permute(0,2,1).cpu().numpy()
+            del low
+            color=display(color,gain)
+        face_labels,graph=select_surface_sources(color,quality,t,smoothness=smoothness,color_weight=color_weight)
+        np.save(out/'face_source_labels.npy',face_labels)
+        atomic_json(out/'source_label_manifest.json',{**graph,'physical_cameras':[r['physical_camera'] for r in rows],
+                    'mesh_sha256':sha(mesh_path),'source_label_sha256':sha(out/'face_source_labels.npy'),
+                    'helper_sha256':sha(Path(__file__).with_name('hard_surface_texture.py')),'uses_eval_rgb':False,
+                    'label_only_lowpass_kernel':9,'label_min_relative_quality':.12})
     start=time.monotonic();count=len(a['pixels'])
     with torch.inference_mode():
         for start_idx in range(0,count,60000):
@@ -142,17 +184,23 @@ def bake(root,frame,resolution):
             quality=cosine**8/length.clip(.01)**2
             weights=torch.tensor(quality,device=device)*valid
             # Restrict broad angle mixtures to nearby high-quality observations.
-            threshold=weights.max(0).values*.12
-            weights=torch.where(weights>=threshold[None],weights,0)
+            if not hard_source:
+                threshold=weights.max(0).values*.12
+                weights=torch.where(weights>=threshold[None],weights,0)
             raw=sample(data['images'],uv_t)[:,:,0].clamp_min(0)
             corrected=apply_response(raw[:,:,:,None],profile)[...,0]
             aligned=apply_response(sample(data['images'],shifted),profile)[:,:,0].clamp_min(0)
             pixels=a['pixels'][start_idx:end]
             for name,rgb in [('fixed_exposure',raw),('camera_profile',corrected),('joint',aligned)]:
-                fusion=robust_fusion(rgb,weights).T.cpu().numpy()
+                if hard_source:
+                    hard,chosen,fallback=gather_hard_rgb(rgb,weights,torch.tensor(face_labels[ids],device=device))
+                    fusion=hard.T.cpu().numpy()
+                    if name=='joint':fallback_count+=int(fallback.sum())
+                else:fusion=robust_fusion(rgb,weights).T.cpu().numpy()
                 variants[name][pixels]=display(fusion,gain)
             support[pixels]=(weights>0).sum(0).clamp(0,254).cpu().numpy().astype(np.uint8)
-            selected=weights.argmax(0).cpu().numpy().astype(np.uint8);selected[(weights.sum(0)==0).cpu().numpy()]=255
+            selected=(chosen if hard_source else weights.argmax(0)).cpu().numpy().astype(np.uint8)
+            selected[(weights.sum(0)==0).cpu().numpy()]=255
             source_map[pixels]=selected
             if start_idx//60000%20==0:print(f'bake frame={frame} texels={end}/{count} seconds={time.monotonic()-start:.1f}',flush=True)
     occupied=np.zeros(size,bool);occupied[a['pixels']]=True;occupied=occupied.reshape(h,w)
@@ -168,17 +216,26 @@ def bake(root,frame,resolution):
     atomic_json(out/'bake_result.json',{'frame':frame,'status':'baked_pending_visual_review',
                 'mesh_sha256':sha(mesh_path),'parameters_sha256':sha(root/'parameters.npz'),
                 'exposure_sha256':sha(root/'exposure.json'),'geometry_changed':False,
+                'color_aggregation':'single_source_mesh_graph' if hard_source else 'robust_linear_average',
+                'fallback_texels':fallback_count if hard_source else None,'source_calibration_root':str(root),
                 'scripts_sha256':{Path(__file__).name:sha(__file__),
                     'joint_temporal_texture.py':sha(Path(__file__).with_name('joint_temporal_texture.py'))},
                 'adaptation_sha256':sha(root/'adaptations'/frame/'residual.npz') if (root/'adaptations'/frame/'result.json').exists() else None,
                 'fixed_texture_no_runtime_view_selection':True,'uses_eval_rgb':False,
                 'covered_texels':count,'unobserved_texels':int((support[a['pixels']]==0).sum()),
                 'texture_sha256':{n:sha(out/f'texture_{n}.png') for n in variants}})
-    export_asset(out,a,frame,meta)
+    export_asset(out,a,frame,meta,tag='hard_source' if hard_source else 'joint_calibrated')
+    if hard_source:
+        retained=['hard_texture_request.json','bake_result.json','asset_manifest.json',
+                  'source_label_manifest.json','face_source_labels.npy','texture_support.npz',
+                  'atlas_request.json','atlas_geometry.npz',f'dec5_{frame}_hard_source.glb',
+                  f'dec5_{frame}_hard_source_obj.zip',*[f'texture_{name}.png' for name in variants]]
+        atomic_json(out/'hard_texture_complete.json',{'status':'baked_not_visually_approved',
+                    'hashes':{name:sha(out/name) for name in retained}})
     return a
 
 
-def export_asset(out,a,frame,meta):
+def export_asset(out,a,frame,meta,tag='joint_calibrated'):
     texture=Image.open(out/'texture_joint.png').convert('RGB')
     v=a['vertices'][a['mapping']].copy();v-=a['vertices'].mean(0)
     # Nerfstudio's up is +Z; glTF's up is +Y. This rigid export transform is saved.
@@ -190,12 +247,12 @@ def export_asset(out,a,frame,meta):
         tree.setdefault('extensionsUsed',[]).append('KHR_materials_unlit')
         for m in tree.get('materials',[]):m.setdefault('extensions',{})['KHR_materials_unlit']={}
     glb=trimesh.exchange.gltf.export_glb(trimesh.Scene(mesh),tree_postprocessor=unlit)
-    glb_path=out/f'dec5_{frame}_joint_calibrated.glb';glb_path.write_bytes(glb)
+    glb_path=out/f'dec5_{frame}_{tag}.glb';glb_path.write_bytes(glb)
     # OBJ alongside GLB for applications with older importers.
     obj=trimesh.exchange.obj.export_obj(mesh,include_texture=True,return_texture=True)
     text,assets=obj;(out/'mesh.obj').write_text(text)
     for name,data in assets.items():(out/name).write_bytes(data)
-    archive=out/f'dec5_{frame}_joint_calibrated_obj.zip'
+    archive=out/f'dec5_{frame}_{tag}_obj.zip'
     with zipfile.ZipFile(archive,'w',compression=zipfile.ZIP_DEFLATED) as z:
         z.write(out/'mesh.obj','mesh.obj')
         for name in assets:z.write(out/name,name)
@@ -212,10 +269,10 @@ def export_asset(out,a,frame,meta):
                 'geometry_changed':False,'roundtrip_vertices_max_error':float(np.max(np.abs(loaded.vertices-v)))})
 
 
-def render_review(root,frame):
+def render_review(root,frame,*,calibration_root=None):
     from render_patchmatch_camera_path import normalize_frame
     out=root/'frames'/frame;a=dict(np.load(out/'atlas_geometry.npz'));mesh,meta=geometry_paths(frame)
-    cal=read(CALIBRATION);metadata=read(meta);gain=read(root/'exposure.json')['fixed_exposure_gain']
+    cal=read(CALIBRATION);metadata=read(meta);gain=read((calibration_root or root)/'exposure.json')['fixed_exposure_gain']
     scene=o3d.t.geometry.RaycastingScene(nthreads=8)
     scene.add_triangles(o3d.core.Tensor(a['vertices']),o3d.core.Tensor(a['triangles'].astype(np.uint32)))
     textures={n:np.asarray(Image.open(out/f'texture_{n}.png').convert('RGB')) for n in ['fixed_exposure','camera_profile','joint']}
@@ -264,9 +321,15 @@ def render_review(root,frame):
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('action',choices=['bake','review'])
     p.add_argument('--output',type=Path,default=ROOT);p.add_argument('--frame',default='000973');p.add_argument('--resolution',type=int,default=4096)
+    p.add_argument('--calibration-root',type=Path,help='Read frozen RGB/profile caches here; write only to --output')
+    p.add_argument('--hard-source',action='store_true',help='One source per connected mesh-label region, no cross-camera averaging')
+    p.add_argument('--source-smoothness',type=float,default=.08)
+    p.add_argument('--source-color-weight',type=float,default=.5,help='Train-only low-frequency agreement cost for source labels, never RGB blending')
     a=p.parse_args();torch.set_num_threads(8)
-    if a.action=='bake':bake(a.output,a.frame,a.resolution)
-    else:render_review(a.output,a.frame)
+    if a.action=='bake':bake(a.calibration_root or a.output,a.frame,a.resolution,
+            output_root=a.output if a.calibration_root else None,hard_source=a.hard_source,
+            smoothness=a.source_smoothness,color_weight=a.source_color_weight)
+    else:render_review(a.output,a.frame,calibration_root=a.calibration_root)
 
 
 if __name__=='__main__':main()
