@@ -138,3 +138,18 @@ validation. Run native review and the independent audit before visual acceptance
 This is **texture only**, not temporal mesh completion; geometry repair is deferred.
 Commands, known limitations and comparisons:
 [hard-source texture report](experiments/dec5_hard_surface_texture.md).
+
+### Local geometry repair and smooth mesh flythrough (opt-in pilot)
+
+`diffusion_mesh_repair.py` records three masked synthetic-view proposals, a matched
+real-only stereo control, independent depth-support carving, selected chin-hole
+filling and an explicitly disclosed cylindrical object prior for frame 000973.
+`bake_local_mesh_repair.py` textures only added faces and preserves the old atlas;
+`finalize_local_mesh_repair.py` publishes an embedded GLB and checks hashes.
+`smooth_mesh_flythrough.py` renders a slow, arc-length-parameterized central rig
+loop with fixed intrinsics and nonempty-frame checks, without image morphing.
+These scripts change no model or existing runner defaults. Generated views are
+not real observations; this pilot improves two defects but remains visually
+imperfect. Masks/loop IDs are frame-specific, not a general moving-scene recipe.
+See [diffusion-assisted repair report](experiments/dec5_diffusion_mesh_repair.md)
+for replay commands, negative controls, final assets and known limitations.

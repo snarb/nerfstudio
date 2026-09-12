@@ -1244,3 +1244,13 @@ per-texel camera fallback is visibility-only. Frozen exposure/profiles, UV atlas
 and geometry remain unchanged. A separate hash-pinned output, embedded GLB,
 native comparisons and audit distinguish artifact validity from visual acceptance.
 Temporal geometry reconstruction is deferred, not part of this texture mode.
+
+The opt-in 000973 local-repair pilot keeps synthetic proposals explicitly separate
+from real measurements: masked image edits and matched real-only MVS control,
+native-depth support veto, selected-boundary hole filling and a disclosed tube
+shape prior. A local UV extension preserves every retained original texture texel;
+hash-audited GLB publication separates artifact integrity from visual quality.
+The independent smooth camera helper uses a convex central-rig loop, arc-length
+speed, fixed intrinsics/reference optical target and nonempty-frame preflights.
+This is a single-time-frame experiment, not resumed temporal geometry completion;
+see `experiments/dec5_diffusion_mesh_repair.md`. Existing runner/model defaults stay unchanged.
