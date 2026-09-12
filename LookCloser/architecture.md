@@ -1254,3 +1254,13 @@ The independent smooth camera helper uses a convex central-rig loop, arc-length
 speed, fixed intrinsics/reference optical target and nonempty-frame preflights.
 This is a single-time-frame experiment, not resumed temporal geometry completion;
 see `experiments/dec5_diffusion_mesh_repair.md`. Existing runner/model defaults stay unchanged.
+
+The separate opt-in temporal mesh video renderer reuses 150 existing meshes and
+streams immutable train EXRs with fixed exposure, fixed camera response and static
+registration. A single calibration-space central loop is transferred into each
+mesh normalization; source RGB is selected without cross-camera averaging.
+An isolated angular source-label prior has a held-out face-only control. Disjoint
+workers publish atomic hash receipts; nonblocking native review panels and strict
+150-frame video/audit inventories distinguish tolerant viewing acceptance from
+artifact-free geometry. No per-frame geometry repair is inferred from the static
+pilot. See `experiments/dec5_smooth_temporal_mesh_video.md`; model defaults are unchanged.

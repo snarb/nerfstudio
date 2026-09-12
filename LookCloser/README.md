@@ -153,3 +153,15 @@ not real observations; this pilot improves two defects but remains visually
 imperfect. Masks/loop IDs are frame-specific, not a general moving-scene recipe.
 See [diffusion-assisted repair report](experiments/dec5_diffusion_mesh_repair.md)
 for replay commands, negative controls, final assets and known limitations.
+
+### Slow 150-time-frame mesh video (opt-in)
+
+`render_smooth_temporal_mesh_video.py` streams the existing 150 temporal meshes
+with frozen exposure/camera profiles, one-source RGB and a small smooth central
+camera path transferred through each mesh's normalization. No new training is
+required. `run_smooth_temporal_workers.py` supervises disjoint render workers;
+`temporal_texture_view_prior.py` optionally favors close-angle texture sources.
+`review_encode_smooth_temporal_video.py` builds native review panels while workers
+run and encodes only a complete chronological inventory. Explicit visual reviews
+and `audit_smooth_temporal_video.py` distinguish verified files from artifact-free
+quality. See [150-time video report](experiments/dec5_smooth_temporal_mesh_video.md).
