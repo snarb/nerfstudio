@@ -110,13 +110,35 @@ def encoded_review(output):
         'encoded_temporal_overview_sha256':sha(output/'encoded_temporal_overview.png')})
 
 
+def encoded_transition_review(output,first,last):
+    """Consecutive native-size decoded crops around an explicitly chosen edit."""
+    if not 0<=first<last<=150 or last-first>12:raise ValueError('Require 1..12 consecutive temporal indices')
+    request=verify_request(output);video=output/'smooth_temporal_150.mp4'
+    target=output/f'encoded_transition_{first:03d}_{last-1:03d}';target.mkdir(exist_ok=True)
+    env=dict(os.environ,LD_PRELOAD='/lib/x86_64-linux-gnu/libmpg123.so.0')
+    subprocess.run(['ffmpeg','-y','-hide_banner','-loglevel','error','-i',str(video),
+        '-vf',f'select=between(n\\,{first}\\,{last-1}),crop=450:450:280:970','-vsync','vfr',str(target/'%03d.png')],env=env,check=True)
+    samples=sorted(target.glob('[0-9][0-9][0-9].png'))
+    if len(samples)!=last-first:raise ValueError('Decoded transition inventory mismatch')
+    panel=Image.new('RGB',(1350,474*((len(samples)+2)//3)));draw=ImageDraw.Draw(panel)
+    for i,path in enumerate(samples):
+        x,y=i%3*450,i//3*474;panel.paste(Image.open(path),(x,y+24))
+        draw.text((x+4,y+5),request['ordered_frame_ids'][first+i],fill='white')
+    panel.save(target/'contact.png')
+    atomic_json(target/'manifest.json',{'video_sha256':sha(video),'indices':list(range(first,last)),
+                'source_frame_ids':request['ordered_frame_ids'][first:last],'crop_portrait':[280,970,730,1420],
+                'contact_sha256':sha(target/'contact.png'),'decoded_frame_hashes':{p.name:sha(p) for p in samples},
+                'visual_status':'requires_actual_review'})
+
+
 def main():
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('action',choices=['sheets','encode','watch','decoded'])
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('action',choices=['sheets','encode','watch','decoded','transition'])
     p.add_argument('--output',type=Path,default=OUTPUT);p.add_argument('--first',type=int,default=0);p.add_argument('--last',type=int,default=150)
     a=p.parse_args()
     if a.action=='sheets':sheets(a.output,a.first,a.last)
     elif a.action=='encode':encode(a.output)
     elif a.action=='decoded':encoded_review(a.output)
+    elif a.action=='transition':encoded_transition_review(a.output,a.first,a.last)
     else:
         while True:
             sheets(a.output,0,150)

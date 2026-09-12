@@ -36,6 +36,27 @@ def test_normalized_name_removes_dot_prefix() -> None:
     assert MODULE.normalized_name("./images/a.jpg") == "images/a.jpg"
 
 
+def test_import_snapshot_does_not_require_writable_filesystem_timestamps(tmp_path, monkeypatch):
+    import argparse
+    import json
+    data=tmp_path/'data';(data/'images').mkdir(parents=True)
+    raw=tmp_path/'maps';(raw/'images').mkdir(parents=True)
+    output=tmp_path/'imported'
+    payload={'frames':[{'file_path':'images/frame_train_00000.jpg'}],
+             'train_filenames':['images/frame_train_00000.jpg']}
+    (data/'transforms.json').write_text(json.dumps(payload))
+    write_colmap_dense(raw/'images/frame_train_00000.jpg.geometric.bin',np.ones((2,3,1),np.float32))
+    args=argparse.Namespace(data=data,depth_maps=raw,output=output,input_type='geometric',colmap_model=None,undistorted_images=None)
+    monkeypatch.setattr(MODULE,'parse_args',lambda:args)
+    def forbidden_metadata_copy(*args,**kwargs):
+        raise PermissionError('NFS forbids timestamp metadata copy')
+    monkeypatch.setattr(MODULE.shutil,'copystat',forbidden_metadata_copy)
+    assert MODULE.main()==0
+    assert (output/'transforms.source.json').read_bytes()==(data/'transforms.json').read_bytes()
+    result=json.loads((output/'transforms.json').read_text())
+    assert result['colmap_mvs_depth']['train_depth_count']==1
+
+
 def test_binary_pinhole_calibration_reader_has_no_pycolmap_dependency(tmp_path: Path) -> None:
     model = tmp_path / "model"
     model.mkdir()

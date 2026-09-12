@@ -1,5 +1,10 @@
 # DEC5: 150 real-time meshes, a slow central camera, and near-view texture selection
 
+Final reviewed video: `/mnt/data/dec5_smooth_150_final/video.mp4`.
+The final revision fixes the notable 000971 shelf with a matched full-block TSDF
+control; all 150 times pass the requested artifact-tolerant viewing gate. Minor
+hair/shoulder fringe and skin seams remain; artifact-free geometry is not claimed.
+
 ## What was tested
 
 Continuation of the [local geometry / diffusion pilot](dec5_diffusion_mesh_repair.md),
@@ -11,8 +16,10 @@ reliable mesh-completion method. Its local cylinder/chin repair is specific to
 This opt-in renderer reuses the existing 150 temporal PatchMatch/TSDF meshes,
 000899 through 001197 inclusive, every second source index. Frame 000973 uses
 the independently audited full-block TSDF variant selected by the earlier joint
-texture workflow. Other frames retain the campaign geometry. No new SfM,
-PatchMatch, NeRF training, temporal morph, or diffusion RGB is used in this pass.
+texture workflow. Other frames initially retain the campaign geometry. No new SfM,
+PatchMatch, NeRF training, temporal morph, or diffusion RGB is used in that initial
+texture pass. The final single-time 000971 repair control below reruns PatchMatch
+with identical historical JPEG inputs, then changes only TSDF block activation.
 
 Each frame reads 62 immutable train EXRs into RAM. Exposure is the same fixed
 10.570320292648677 multiplier for every camera and time, followed by Reinhard
@@ -90,7 +97,7 @@ parallelism, **not concurrent PatchMatch on one GPU**. Worker/PID/GPU memory/fre
 space/progress checks are logged every 30 seconds. No source or prior output was
 removed. Numerical recipes and per-frame hashes are frozen before rendering.
 
-### Publications and review status
+### Initial publications and historical review status
 
 - Baseline 150-frame video: `/mnt/data/lookcloser_dec5_5a3_smooth_temporal_150_v2/smooth_temporal_150.mp4`
 - Near-view full-pass workspace: `/mnt/data/lookcloser_dec5_5a3_smooth_temporal_prior_canary`
@@ -115,15 +122,15 @@ exposure, and the complete chronological video inventory. After inverting the
 individual mesh gauges, camera-speed max/min is 1.000166; angular speed remains
 2.9105–3.2080 degrees/s, including the periodic camera seam.
 
-This is a **reviewed video candidate, not complete geometry-repair success**.
+The initial version was a **reviewed candidate, not complete geometry-repair success**.
 The face/ear/hand motion is coherent and broad skin source boundaries are weaker,
 but tan hair/shoulder fringe, polygonal nose/skin seams and metal-edge chips remain.
 **000971 is a notable local geometry failure:** a thin, wrong skin-colored triangular
 shelf extends beside the tube and across the adjacent lip area. It is explicitly
 flagged `fail_local_geometry` in `frames_audit.csv`; the other 149 frames are
 `accepted_with_known_artifacts`, not strict artifact-free passes. No frames are
-pending or uncertain, and no whole-body/camera collapse was observed. The active
-quality goal is not claimed fully achieved while this local defect remains.
+pending or uncertain, and no whole-body/camera collapse was observed. The quality
+goal was not claimed fully achieved at that stage; see the final revision below.
 A nearby real train image is qualitative context, **not exact target GT**.
 
 Review evidence: [000971 defect and neighboring instants](/mnt/data/lookcloser_dec5_5a3_smooth_temporal_prior_canary/contact_sheets/036_039/lipstick_hand.png),
@@ -142,6 +149,47 @@ angular source preference, worker partition coverage, unfinished/duplicate revie
 rejection, and the existing local-repair/path tests. Only new opt-in helpers,
 tests and targeted documentation are committed; unrelated worktree edits and
 existing model/single-frame runner defaults are preserved.
+
+### Final revision: 000971 repaired, all 150 real instants retained
+
+The [matched geometry control](dec5_temporal_shelf_repair.md) establishes the
+cause and repair of the shelf. Six real train views show no shelf; representative
+false faces have 22–25 reliable farther-depth observations and zero near-surface
+observations under the stated strict footprint rule. Per-view-block TSDF again
+produces the defect on freshly reproduced depth; full-block-union integration
+removes it without a new lip hole. No synthetic RGB, hand sculpting or per-frame
+texture/exposure change is used for the selected correction.
+
+Final workspace: `/mnt/data/lookcloser_dec5_5a3_smooth_temporal_150_repaired_v3`.
+Exactly 149 verified unchanged renders are reused with explicit ancestor-receipt
+hashes; the repaired 000971 render is substituted at the identical camera/time.
+This is not falsely reported as another 150-frame rerender. All 150 native reviews
+remain covered; the changed four-frame group was inspected again. The actual new
+MP4 was additionally checked as a 15-image overview and nine consecutive native
+lipstick/hand crops around the replacement. The camera path and earlier held-out
+face controls are unchanged.
+
+Final audit: 150 unique chronological instants, 150 explicit reviewed results,
+zero pending/uncertain, zero remaining **notable** local geometry failures in the
+video review and zero catastrophic frames. All 150 are
+`accepted_with_known_artifacts`, **not** strict artifact-free passes. Hair/shoulder
+fringe, small skin seams and edge shimmer remain accepted under the user's stated
+video policy. This completes the reviewed-video delivery scope, not a claim of
+perfect unseen backside geometry or completion of the stricter historical campaign.
+
+Final MP4 SHA-256:
+`1366ddd220e2b47f5b291251dd2d766969733f740c74aaf579fb0660cd718db2`.
+Portable bundle `/mnt/data/dec5_smooth_150_final` includes `video.mp4`, all 150 PNGs,
+review panels, decoded transition evidence, manifests and the geometry-control
+report. Existing mesh paths/hashes remain in the request; mesh binaries are not
+duplicated into this video download bundle.
+
+Final targeted regression suite: **70 passed, 1 intentionally skipped GPU case**.
+The source importer also has a tested byte-only provenance-copy fix for NFS;
+camera/depth/render numerics and existing model defaults are unchanged.
+
+[Final consecutive decoded transition](/mnt/data/lookcloser_dec5_5a3_smooth_temporal_150_repaired_v3/encoded_transition_032_040/contact.png),
+[matched shelf control](/mnt/data/lookcloser_dec5_5a3_shelf_diagnosis_000971/full_block_control/comparison_detail.png).
 
 ## Insights
 

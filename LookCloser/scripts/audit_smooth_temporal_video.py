@@ -49,6 +49,14 @@ def validate_review_inventory(ids,reviews):
     return mapped
 
 
+def validate_opt_in_delivery_claim(temporal,notable,failures):
+    """Tolerant viewing delivery is distinct from artifact-free reconstruction."""
+    claimed=temporal.get('goal_fully_achieved_claimed',False)
+    if claimed and (notable or failures or not temporal.get('artifact_tolerant_preview_accepted',False)):
+        raise ValueError('Delivery claim conflicts with unresolved notable/catastrophic visual defects')
+    return bool(claimed)
+
+
 def audit(output):
     request,ready=completed(output);ids=request['ordered_frame_ids']
     if len(ids)!=150 or len(set(ids))!=150 or [r['frame_id'] for r,_ in ready]!=ids:raise ValueError('Incomplete temporal inventory')
@@ -64,6 +72,8 @@ def audit(output):
         raise ValueError('Encoded review changed')
     if temporal['video_sha256']!=video['video_sha256'] or temporal['status']!='accepted_with_known_artifacts':
         raise ValueError('Temporal visual review incomplete or failed')
+    for item in temporal.get('transition_evidence',[]):
+        if sha(item['path'])!=item['sha256']:raise ValueError('Reviewed transition pixels changed')
     notable=set(temporal.get('notable_geometry_frames',[]))
     if not notable<=set(ids):raise ValueError('Unknown notable geometry frame')
     gains=[];seconds=[];rows=[];poses=[];calibration=read(CALIBRATION)
@@ -97,10 +107,11 @@ def audit(output):
         writer=csv.DictWriter(stream,fieldnames=list(rows[0]));writer.writeheader();writer.writerows(rows)
     os.replace(output/'frames_audit.csv.partial',output/'frames_audit.csv')
     failures=sum(r['catastrophic_geometry'] for r in rows)
+    delivery_claim=validate_opt_in_delivery_claim(temporal,notable,failures)
     atomic_json(output/'audit.json',{'integrity':'pass','visual_acceptance':'fail' if failures else 'accepted_with_known_artifacts',
         'strict_artifact_free':False,'source_instant_count':150,'reviewed_frame_count':150,'catastrophic_frame_count':failures,
         'notable_geometry_frames':sorted(notable),'notable_local_geometry_failure_count':len(notable),
-        'goal_fully_achieved_claimed':False,
+        'goal_fully_achieved_claimed':delivery_claim,
         'fixed_exposure':gains[0],'render_seconds_min_median_max':np.quantile(seconds,[0,.5,1]).tolist(),
         'angular_speed_degrees_per_second_min_median_max':np.quantile(angular,[0,.5,1]).tolist(),
         'calibration_space_speed_max_min_ratio':float(speed.max()/speed.min()),

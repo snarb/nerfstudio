@@ -3,6 +3,7 @@ from pathlib import Path
 import argparse
 import os
 import shutil
+import subprocess
 import tempfile
 from joint_temporal_texture import read,sha,atomic_json
 from finalize_local_mesh_repair import verify_hashes
@@ -10,6 +11,9 @@ from audit_smooth_temporal_video import audit
 
 
 def publish(source,destination):
+    if 'composition' in read(source/'request.json'):
+        from compose_verified_temporal_mesh_video import audit_ancestry
+        audit_ancestry(source)
     audit(source);report=read(source/'audit.json')
     if report['catastrophic_frame_count']:raise ValueError('Do not publish a failed viewing candidate as selected')
     if destination.exists():
@@ -27,6 +31,9 @@ def publish(source,destination):
     for folder in ['video_frames','contact_sheets','visual_reviews']:
         for path in sorted((source/folder).rglob('*')):
             if path.is_file():retain(path,stage/path.relative_to(source))
+    for folder in sorted(source.glob('encoded_transition_*')):
+        for path in sorted(folder.rglob('*')):
+            if path.is_file():retain(path,stage/path.relative_to(source))
     for name in ['audit.json','frames_audit.csv','request.json','video_manifest.json',
                  'encoded_review.json','encoded_temporal_overview.png','temporal_visual_review.json']:
         retain(source/name,stage/name)
@@ -37,8 +44,18 @@ def publish(source,destination):
             retain(frame/name,stage/'render_receipts'/record['frame_id']/name)
     experiment=Path(__file__).resolve().parents[1]/'experiments/dec5_smooth_temporal_mesh_video.md'
     shutil.copyfile(experiment,stage/'report.md')
+    if 'composition' in request:
+        control=Path(request['composition']['replacement']).parent
+        for name in ['comparison_detail.png','comparison_face.png','comparison_lipstick_hand.png',
+                     'local_real_depth_evidence.json','real_train_reference_shelf.png','depth_qc.json',
+                     'ingest_equivalence.json','visual_review.json','request.json','complete.json','import_recovery.json']:
+            retain(control/name,stage/'geometry_control'/name)
+        repair_report=experiment.with_name('dec5_temporal_shelf_repair.md')
+        shutil.copyfile(repair_report,stage/'geometry_control/report.md')
     atomic_json(stage/'publication.json',{'source_workspace':str(source),'source_audit_sha256':sha(source/'audit.json'),
         'status':'accepted_with_known_artifacts','strict_artifact_free':False,'source_frame_count':150,
+        'publication_script_sha256':sha(__file__),'reviewed_video_delivery_complete':report.get('goal_fully_achieved_claimed',False),
+        'repository_head':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
         'geometry_included':False,'geometry_note':'Existing meshes remain at the audited paths in request.json; this is the video/PNG download bundle',
         'render_receipts_note':'Historical render receipts also name diagnostic files retained only in the source workspace',
         'hashes':{str(p.relative_to(stage)):sha(p) for p in sorted(stage.rglob('*')) if p.is_file()}})

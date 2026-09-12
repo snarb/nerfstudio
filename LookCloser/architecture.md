@@ -1264,3 +1264,11 @@ workers publish atomic hash receipts; nonblocking native review panels and stric
 150-frame video/audit inventories distinguish tolerant viewing acceptance from
 artifact-free geometry. No per-frame geometry repair is inferred from the static
 pilot. See `experiments/dec5_smooth_temporal_mesh_video.md`; model defaults are unchanged.
+
+An isolated temporal repair control compares local deletion proposals and matched
+real-depth per-view/full-block TSDF fusion, with source hashes, supervised workers,
+independent depth footprints and native visual gates. Verified frame composition
+checks identical texture inputs/camera/time and records original receipt ancestry
+for 149 unchanged frames; the replacement receives fresh review. This is an explicit
+single-time intervention, not an automatic repair of moving objects or a model-default
+change. See `experiments/dec5_temporal_shelf_repair.md`.

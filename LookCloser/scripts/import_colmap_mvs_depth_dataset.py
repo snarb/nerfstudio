@@ -336,7 +336,9 @@ def main() -> int:
         "depth_maps": depth_rows,
     }
     (output / "transforms.json").write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-    shutil.copy2(data / "transforms.json", output / "transforms.source.json")
+    # This is a byte-for-byte provenance snapshot, not a filesystem-metadata
+    # backup. NFS/root-squash may allow content writes but reject copystat/utime.
+    shutil.copyfile(data / "transforms.json", output / "transforms.source.json")
     print(json.dumps(payload["colmap_mvs_depth"], sort_keys=True))
     return 0
 

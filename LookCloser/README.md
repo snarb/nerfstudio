@@ -165,3 +165,12 @@ required. `run_smooth_temporal_workers.py` supervises disjoint render workers;
 run and encodes only a complete chronological inventory. Explicit visual reviews
 and `audit_smooth_temporal_video.py` distinguish verified files from artifact-free
 quality. See [150-time video report](experiments/dec5_smooth_temporal_mesh_video.md).
+
+For an isolated defective time, `diagnose_temporal_mesh_shelf.py` records explicit
+local deletion proposals, and `run_temporal_full_block_control.py` supervises a
+matched real-depth TSDF block-activation control. `review_temporal_full_block_control.py`
+keeps real-view evidence and native render comparisons separate from acceptance.
+`compose_verified_temporal_mesh_video.py` can reuse the other 149 unchanged frames
+with checked input equivalence and explicit original-receipt ancestry; it does
+not claim a rerender or skip the replacement's visual gate. See the
+[000971 shelf investigation](experiments/dec5_temporal_shelf_repair.md).
