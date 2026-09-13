@@ -174,3 +174,10 @@ keeps real-view evidence and native render comparisons separate from acceptance.
 with checked input equivalence and explicit original-receipt ancestry; it does
 not claim a rerender or skip the replacement's visual gate. See the
 [000971 shelf investigation](experiments/dec5_temporal_shelf_repair.md).
+
+For a slower, wider **open** arc inside the central train-camera space, use
+`central_space_temporal_flythrough.py init`, then the existing supervised temporal
+workers. It reuses corrected meshes but rerenders all 150 actual time instants;
+the audit checks actual convex containment and excludes a nonexistent loop join.
+`publish_smooth_temporal_video.py --report PATH` can attach the matching experiment
+report. See [central-space flight and fringe controls](experiments/dec5_central_space_flight.md).

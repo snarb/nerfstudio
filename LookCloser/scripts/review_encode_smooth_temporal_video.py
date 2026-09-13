@@ -88,7 +88,8 @@ def encode(output):
     encoded_review(output)
     atomic_json(output/'video_manifest.json',{'status':'encoded_requires_temporal_visual_review','video_sha256':sha(video),
         'video':str(video),'ffprobe':probe,'source_frames':request['ordered_frame_ids'],'source_frame_count':150,
-        'camera_periodic':True,'actor_motion_periodic_not_claimed':True,'frame_interpolation':False,
+        'camera_periodic':bool(request['camera_path_report'].get('continuous_periodic_loop',True)),
+        'actor_motion_periodic_not_claimed':True,'frame_interpolation':False,
         'request_sha256':sha(output/'request.json'),'render_hashes':{r['frame_id']:result['render_sha256'] for r,result in ready}})
 
 

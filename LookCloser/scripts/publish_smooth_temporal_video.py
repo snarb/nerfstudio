@@ -10,7 +10,7 @@ from finalize_local_mesh_repair import verify_hashes
 from audit_smooth_temporal_video import audit
 
 
-def publish(source,destination):
+def publish(source,destination,experiment=None):
     if 'composition' in read(source/'request.json'):
         from compose_verified_temporal_mesh_video import audit_ancestry
         audit_ancestry(source)
@@ -28,7 +28,7 @@ def publish(source,destination):
         except OSError:shutil.copyfile(src,dst)
         if sha(src)!=sha(dst):raise ValueError('Publication checksum mismatch')
     retain(source/'smooth_temporal_150.mp4',stage/'video.mp4')
-    for folder in ['video_frames','contact_sheets','visual_reviews']:
+    for folder in ['video_frames','contact_sheets','visual_reviews','canary_review','fringe_diagnostic']:
         for path in sorted((source/folder).rglob('*')):
             if path.is_file():retain(path,stage/path.relative_to(source))
     for folder in sorted(source.glob('encoded_transition_*')):
@@ -37,12 +37,20 @@ def publish(source,destination):
     for name in ['audit.json','frames_audit.csv','request.json','video_manifest.json',
                  'encoded_review.json','encoded_temporal_overview.png','temporal_visual_review.json']:
         retain(source/name,stage/name)
+    if (source/'camera_path.png').exists():retain(source/'camera_path.png',stage/'camera_path.png')
+    # Keep rejected control evidence portable without packaging experimental meshes.
+    controls=source/'silhouette_trim_test'
+    if controls.exists():
+        for path in sorted(controls.rglob('*')):
+            if path.is_file() and (path.name.startswith('comparison_') or path.name in
+                ['real_train_mask_review.png','result.json','visual_review.json','script_snapshot.py']):
+                retain(path,stage/path.relative_to(source))
     request=read(source/'request.json')
     for record in request['inventory']:
         frame=source/'frames'/record['frame_id']
         for name in ['result.json','complete.json']:
             retain(frame/name,stage/'render_receipts'/record['frame_id']/name)
-    experiment=Path(__file__).resolve().parents[1]/'experiments/dec5_smooth_temporal_mesh_video.md'
+    experiment=Path(experiment) if experiment else Path(__file__).resolve().parents[1]/'experiments/dec5_smooth_temporal_mesh_video.md'
     shutil.copyfile(experiment,stage/'report.md')
     if 'composition' in request:
         control=Path(request['composition']['replacement']).parent
@@ -64,4 +72,5 @@ def publish(source,destination):
 
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--source',type=Path,required=True)
-    p.add_argument('--destination',type=Path,required=True);args=p.parse_args();publish(args.source,args.destination)
+    p.add_argument('--destination',type=Path,required=True);p.add_argument('--report',type=Path)
+    args=p.parse_args();publish(args.source,args.destination,args.report)

@@ -57,6 +57,29 @@ def validate_opt_in_delivery_claim(temporal,notable,failures):
     return bool(claimed)
 
 
+def camera_motion_samples(poses,fps,*,periodic=True):
+    """An open flight has no last-to-first teleport inside the delivered clip."""
+    poses=np.asarray(poses)
+    left=poses if periodic else poses[:-1]
+    right=np.roll(poses,-1,axis=0) if periodic else poses[1:]
+    angular=Rotation.from_matrix(left[:,:3,:3].transpose(0,2,1)@right[:,:3,:3]).magnitude()*fps*180/np.pi
+    speed=np.linalg.norm(right[:,:3,3]-left[:,:3,3],axis=1)*fps
+    return angular,speed
+
+
+def validate_central_containment(request,poses,calibration):
+    anchors=request['camera_path_report']['anchors']
+    if set(anchors)&HELD_CAMERAS:raise ValueError('Held-out camera cannot define train hull')
+    by_name={r['physical_camera']:r for r in calibration['frames']}
+    corners=np.array([by_name[n]['transform_matrix'] for n in anchors])[:,:3,3]
+    weights=np.array([r['camera']['convex_weights'] for r in request['inventory']])
+    if weights.shape!=(len(poses),len(anchors)) or (weights<0).any() or not np.allclose(weights.sum(1),1):
+        raise ValueError('Camera lies outside its declared train-camera hull')
+    if not np.allclose(weights@corners,np.asarray(poses)[:,:3,3],rtol=0,atol=5e-7):
+        raise ValueError('Declared convex weights do not reproduce actual camera positions')
+    return float(weights.min())
+
+
 def audit(output):
     request,ready=completed(output);ids=request['ordered_frame_ids']
     if len(ids)!=150 or len(set(ids))!=150 or [r['frame_id'] for r,_ in ready]!=ids:raise ValueError('Incomplete temporal inventory')
@@ -98,9 +121,10 @@ def audit(output):
                      'catastrophic_geometry':review['catastrophic_geometry'],'notable_geometry_artifact':frame in notable,
                      'visual_notes':review['notes'],'visual_review':str(path)})
     if len(set(gains))!=1:raise ValueError('Time-varying exposure')
-    poses=np.asarray(poses);nxt=np.roll(poses,-1,axis=0)
-    angular=Rotation.from_matrix(poses[:,:3,:3].transpose(0,2,1)@nxt[:,:3,:3]).magnitude()*30*180/np.pi
-    speed=np.linalg.norm(nxt[:,:3,3]-poses[:,:3,3],axis=1)*30
+    poses=np.asarray(poses)
+    periodic=bool(request['camera_path_report'].get('continuous_periodic_loop',True))
+    angular,speed=camera_motion_samples(poses,30,periodic=periodic)
+    margin=validate_central_containment(request,poses,calibration)
     if angular.max()>5 or speed.min()<=0 or speed.max()/speed.min()>1.02:
         raise ValueError('Fast, discontinuous or nonuniform camera path after mesh normalization')
     with (output/'frames_audit.csv.partial').open('w') as stream:
@@ -115,6 +139,7 @@ def audit(output):
         'fixed_exposure':gains[0],'render_seconds_min_median_max':np.quantile(seconds,[0,.5,1]).tolist(),
         'angular_speed_degrees_per_second_min_median_max':np.quantile(angular,[0,.5,1]).tolist(),
         'calibration_space_speed_max_min_ratio':float(speed.max()/speed.min()),
+        'camera_periodic':periodic,'camera_motion_step_count':len(speed),'verified_minimum_convex_weight':margin,
         'no_full_frame_image_quality_metrics':True,'face_metric_control':'Separate two-time heldout control, not 150-view GT metrics',
         'video_sha256':video['video_sha256'],'request_sha256':sha(output/'request.json'),
         'temporal_visual_review_sha256':sha(output/'temporal_visual_review.json'),

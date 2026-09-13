@@ -1272,3 +1272,10 @@ checks identical texture inputs/camera/time and records original receipt ancestr
 for 149 unchanged frames; the replacement receives fresh review. This is an explicit
 single-time intervention, not an automatic repair of moving objects or a model-default
 change. See `experiments/dec5_temporal_shelf_repair.md`.
+
+The opt-in central-space temporal flight uses a constant-speed open calibration-space
+arc inside four central train anchors, then maps each pose to its mesh gauge. Its
+audit reconstructs actual camera centers from convex weights and checks only the
+149 delivered transitions, not an artificial loop restart. Corrected geometry and
+fixed hard-source texturing are reused; unproven silhouette trims stay separate
+from production RGB. See `experiments/dec5_central_space_flight.md`.
