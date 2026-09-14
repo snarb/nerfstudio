@@ -111,8 +111,17 @@ real-train region restrictions, old geometry preservation, and other-view checks
 It must not call inferred geometry a measured observation or bridge into the cuff.
 This follow-up is not yet an accepted reconstruction change.
 
-Focused tests:7passed (stage attribution and existing camera-path regression).
+Focused tests:10passed (stage attribution, camera-path regression, expected config
+replacement, rejection of unexplained mutation, and mandatory visual evidence).
 No source, published movie, existing mesh, or production default was changed.
+
+`audit_forearm_depth_control.py` verifies reconstruction-stage and matched-render
+hashes. One historical stage hash is intentionally superseded: undistortion's
+default`patch-match.cfg` is replaced by the explicit source-configuration stage.
+The audit accepts only that exact path and its verified same-request successor;
+any other mismatch fails. The generic existing control runner's intermediate
+stage-resume check does not account for this overwrite, so completion here is
+verified by the dedicated final audit, not a claim of arbitrary-stage resume.
 
 The independent learned-prior study completed at two times with no candidate
 promoted: [confidence-gated depth report](dec5_confidence_depth_prior.md). The
