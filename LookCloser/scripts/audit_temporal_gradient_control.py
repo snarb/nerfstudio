@@ -65,6 +65,39 @@ def audit(output):
     print(result,flush=True)
 
 
+def compare_devices(cpu, cuda):
+    audit(cpu); audit(cuda)
+    a,b=read(cpu/'request.json'),read(cuda/'request.json')
+    for key in ['frame','crop','parent_request_sha256','mesh_sha256','fixed_profiles_sha256','fixed_exposure','solver_sha256']:
+        if a[key]!=b[key]:
+            raise ValueError('Execution comparison changed problem inputs')
+    if a.get('solver_device','cpu')!='cpu' or b['solver_device']!='cuda':
+        raise ValueError('Expected CPU versus CUDA')
+    ra,rb=read(cpu/'result.json'),read(cuda/'result.json')
+    if ra['input_hashes']!=rb['input_hashes'] or sha(cpu/'baseline.png')!=sha(cuda/'baseline.png'):
+        raise ValueError('Different source data or native baseline')
+    sa,sb=ra['stats']['solver'],rb['stats']['solver']
+    if any(s['dtype']!='float64' or not s['converged'] or s['max_relative_residual']>=5e-9 for s in [sa,sb]):
+        raise ValueError('Unconverged execution comparison')
+    if sa['ridge']!=sb['ridge']:
+        raise ValueError('Changed regularization')
+    x=np.array(Image.open(cpu/'corrected.png')); y=np.array(Image.open(cuda/'corrected.png'))
+    error=np.abs(x.astype(int)-y.astype(int))
+    delta=np.max(np.abs(np.load(cpu/'offset.npz')['offset']-np.load(cuda/'offset.npz')['offset']))
+    if error.max()>1 or delta>1e-5:
+        raise ValueError('CPU/CUDA difference exceeds execution tolerance')
+    result=dict(frame=a['frame'],cpu_result_sha256=sha(cpu/'result.json'),cuda_result_sha256=sha(cuda/'result.json'),
+        cpu_seconds=ra['elapsed_seconds'],cuda_seconds=rb['elapsed_seconds'],
+        end_to_end_speedup=ra['elapsed_seconds']/rb['elapsed_seconds'],
+        rgb8_max_difference=int(error.max()),changed_rgb8_channels=int((x!=y).sum()),offset_max_difference=float(delta),
+        cpu_iterations=sa['iterations'],cuda_iterations=sb['iterations'],same_inputs_and_solver_equations=True,
+        bit_identical=False,concurrent_host_load_may_affect_timings=True,script_sha256=sha(__file__))
+    atomic_json(cuda/'device_comparison.json',result);print(result,flush=True)
+
+
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=Path,required=True)
-    audit(p.parse_args().output)
+    p.add_argument('--compare-cuda',type=Path)
+    args=p.parse_args()
+    if args.compare_cuda:compare_devices(args.output,args.compare_cuda)
+    else:audit(args.output)

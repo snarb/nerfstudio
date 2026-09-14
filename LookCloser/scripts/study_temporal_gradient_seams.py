@@ -1,4 +1,4 @@
-"""CPU-only matched gradient-color control on an existing dynamic movie crop.
+"""Matched gradient-color control on an existing dynamic movie crop.
 
 Reuses the previously tested solver on the newer fixed-profile hard texture.
 No geometry/labels/visibility edits, no held-out RGB, no video replacement.
@@ -20,8 +20,10 @@ from diffusion_mesh_repair import scene_for
 from hard_source_gradient_leveling import level_source_gradients
 
 
-def run(parent, output, frame, crop):
+def run(parent, output, frame, crop, solver_device='cpu'):
     torch.set_num_threads(2)
+    if solver_device not in {'cpu','cuda'} or (solver_device=='cuda' and not torch.cuda.is_available()):
+        raise ValueError('Requested solver device is unavailable')
     output.mkdir(parents=True, exist_ok=False)
     started = time.monotonic()
     request = verify_request(parent)
@@ -76,6 +78,7 @@ def run(parent, output, frame, crop):
     spec = dict(frame=frame, crop=crop, parent_request_sha256=sha(parent / 'request.json'),
                 mesh_sha256=record['mesh_sha256'], uses_heldout_rgb=False, geometry_changed=False,
                 source_labels_changed=False, source_rgb_averaging=False, scope='local color diagnostic only',
+                warp_device='cpu', solver_device=solver_device,
                 fixed_profiles_sha256=sha(ROOT / 'parameters.npz'), fixed_exposure=exposure,
                 script_sha256=sha(__file__), solver_sha256=sha(Path(__file__).with_name('hard_source_gradient_leveling.py')))
     atomic_json(output / 'request.json', spec)
@@ -126,10 +129,16 @@ def run(parent, output, frame, crop):
             raise ValueError(f'CPU native control mismatch: max_rgb8={error.max()}, invalid_selected={invalid_selected}')
         Image.fromarray(baseline).save(output / 'baseline.png')
         prediction = torch.from_numpy(baseline.transpose(2,0,1).copy()).float()/255
-        atomic_json(output / 'progress.json', dict(stage='gradient_solver_cpu', elapsed_seconds=time.monotonic()-started))
+        solver_started=time.monotonic()
+        atomic_json(output / 'progress.json', dict(stage='gradient_solver_'+solver_device, elapsed_seconds=solver_started-started))
         print('matched warps; solver started', flush=True)
-        corrected, offset, stats = level_source_gradients(prediction, torch.from_numpy(selection), warped, valid_masks,
-                                                          torch.from_numpy(np.where(hit,pd,0)))
+        # Only execution device changes: same native graph, float64 PCG,
+        # guidance, ridge, stopping criterion and independently checked residual.
+        corrected, offset, stats = level_source_gradients(prediction.to(solver_device), torch.from_numpy(selection).to(solver_device),
+            [w.to(solver_device) for w in warped], [m.to(solver_device) for m in valid_masks],
+            torch.from_numpy(np.where(hit,pd,0)).to(solver_device))
+        corrected=corrected.cpu(); offset=offset.cpu()
+        solver_seconds=time.monotonic()-solver_started
     result = np.rint(corrected.permute(1,2,0).numpy()*255).clip(0,255).astype(np.uint8)
     Image.fromarray(result).save(output / 'corrected.png')
     np.savez_compressed(output / 'offset.npz', offset=offset.numpy(), selection=selection, depth=np.where(hit,pd,0))
@@ -138,7 +147,7 @@ def run(parent, output, frame, crop):
     for i, (name, rgb) in enumerate([('published hard RGB', baseline), ('same labels + gradient color correction', result)]):
         panel.paste(Image.fromarray(rgb),(i*baseline.shape[1],25));draw.text((i*baseline.shape[1]+3,4),name,fill='white')
     panel.save(output / 'comparison.png')
-    atomic_json(output / 'result.json', dict(stats=stats, elapsed_seconds=time.monotonic()-started,
+    atomic_json(output / 'result.json', dict(stats=stats, elapsed_seconds=time.monotonic()-started,solver_seconds=solver_seconds,
                 max_matched_rgb8_error=int(error.max()), invalid_selected_pixels=invalid_selected,
                 input_hashes=bindings, visual_status='pending', image_quality_metrics_computed=False,
                 hashes={p.name:sha(p) for p in output.iterdir() if p.is_file()}))
@@ -151,5 +160,6 @@ if __name__ == '__main__':
     parser.add_argument('--output',type=Path,required=True)
     parser.add_argument('--frame',default='001193')
     parser.add_argument('--crop',type=int,nargs=4,default=[200,740,700,1370])
+    parser.add_argument('--solver-device',choices=['cpu','cuda'],default='cpu')
     args=parser.parse_args()
-    run(args.parent,args.output,args.frame,args.crop)
+    run(args.parent,args.output,args.frame,args.crop,args.solver_device)

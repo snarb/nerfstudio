@@ -62,9 +62,55 @@ additional source selection, GT, geometric filling or learned image generator.
 The bounded crop retains the visible face/neck improvement and creates **zero**
 new fully black supported pixels. The skin still has some color variation and
 hair changes tone; no claim of exact GT color or temporal stability is made.
-The existing gradient tests plus bounded-gain invariants pass: **7 passed**.
-Full-image control is running separately under
-`/mnt/data/dec5_temporal_gradient_full_001193`; it is not yet a reviewed video.
+The gradient, bounded-gain and actual CUDA-equivalence tests pass: **8 passed**.
+The full 001193 image and 001191/001195 actor extents were subsequently inspected
+at native scale. All three retain the strong skin-mosaic reduction, though warmer
+hair, the original jaw holes, ragged torso boundaries and some color differences
+remain. Three nearby instants are not a full temporal-flicker test.
+
+### Execution-only CUDA acceleration
+
+The new opt-in `--solver-device cuda` keeps CPU warp reconstruction and the exact
+native float64 solver equations, guidance, ridge and true-residual gate. It does
+not downsample the image or replace the algorithm. Default remains CPU. The two
+matched actor-extent controls include the entire rendered foreground; the omitted
+outer rectangle contains only empty background.
+
+| Time | CPU total | CUDA total | CUDA solver | End-to-end speedup | Maximum RGB8 difference |
+|---|---:|---:|---:|---:|---:|
+| 001191 | 425.60 s | 19.39 s | 5.30 s | 21.95x | 1, in 14 channels |
+| 001195 | 450.61 s | 18.54 s | 4.48 s | 24.31x | 1, in 4 channels |
+| 001193 full image | 1118.73 s | 30.43 s | 14.57 s | 36.76x | 1, in 3 channels |
+
+Iteration counts are identical (6,112 and 6,736); maximum saved offset differences
+are 1.16e-6 and 1.45e-6. This is verified numerical equivalence within RGB8
+quantization, not byte identity. CPU/CUDA runs had concurrent machine load, so
+timings are operational measurements rather than isolated hardware benchmarks.
+Full-image 001193 also passes independent equivalence: both executions take
+6,112 iterations, true residual 9.17e-10, maximum saved offset difference 1.01e-6.
+All three CPU/CUDA pairs are terminal and independently audited.
+
+Artifacts: `/mnt/data/dec5_temporal_gradient_full_001193_cuda_bounded` and
+`/mnt/data/dec5_temporal_gradient_actor_{001191,001195}_cuda_bounded`.
+The bound preserves zero newly black supported pixels in all reviewed candidates.
+Published movie, geometry and source files remain unchanged.
+
+### Additional poses and explicit native verdicts
+
+Full-image 000899 and 000973 bounded controls were also inspected at native scale.
+Both reduce skin mosaics. On 000899 the natural hand cast shadow remains; on
+000973 the brown/orange rear lipstick patch remains. Crown fringe/notches,
+warmer hair and existing unsupported geometry remain in these controls.
+The unbounded proposals generate respectively 31 and 340 newly black supported
+pixels; the bounded variants generate zero. Raw numerical audits and independent
+bounded-output reproduction checks pass.
+
+All five bounded canaries have hash-bound `visual_review.json` files with
+**whole-image `fail`** despite improved color seams: this does not hide the
+remaining geometric artifacts or declare novel-view GT fidelity. The five are
+000899, 000973, 001191, 001193 and 001195; none is promoted to the published movie.
+`audit_bounded_temporal_gradient_control.py` independently reproduces the output,
+checks unsupported pixels and binds the explicit review to the inspected PNGs.
 
 ## Insights
 
