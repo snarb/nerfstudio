@@ -25,7 +25,11 @@ def configure():
 def eligible_points(z,distance,skinvotes,disagree,trusted_free):
     return np.isfinite(z)&(z>0)&(distance<=100)&(skinvotes>=2)&(disagree==0)&(trusted_free==0)
 
-def freeze():
+def semantic_domain(row,points,inside):
+    """V2 uses all in-frame pixels; the separate v3 runner overrides only this."""
+    return inside
+
+def freeze(protocol_overrides=None):
     if OUT.exists():raise ValueError('Use a fresh v2 root; never overwrite a frozen study')
     OUT.mkdir(parents=True);(OUT/'controls').mkdir()
     provenance={}
@@ -50,8 +54,9 @@ def freeze():
         original_protocol_sha256=sha(V1/'protocol.json'),script_sha256_at_freeze=sha(__file__),
         rendered_color_scope='Matched raw local ablation; no production source-mask or temporal-label wrappers',
         native_clay_review_required_before_rgb=True)
+    if protocol_overrides:protocol.update(protocol_overrides)
     atomic_json(OUT/'protocol.json',protocol)
-    print('Frozen v2 across all three times; no held-out or neural input',flush=True)
+    print(f'Frozen v{protocol.get("study_version",2)} across all three times; no held-out or neural input',flush=True)
 
 def analyze(frame):
     import open3d as o3d
@@ -69,7 +74,9 @@ def analyze(frame):
     for name in v1.NAMES:
         uv,cz=v1.project_integer(rows[byname[name]],points);xy=np.rint(uv).astype(int)
         inside=(cz>0)&(xy[:,0]>=0)&(xy[:,0]<1920)&(xy[:,1]>=0)&(xy[:,1]<1080);ids=np.flatnonzero(inside);qx,qy=xy[ids].T
-        is_skin=skin[name][qy,qx];skinvotes[ids]+=is_skin;disagree[ids]+=~is_skin;unknown+=~inside
+        available=semantic_domain(rows[byname[name]],points,inside);semantic_ids=np.flatnonzero(available)
+        sx,sy=xy[semantic_ids].T;is_skin=skin[name][sy,sx]
+        skinvotes[semantic_ids]+=is_skin;disagree[semantic_ids]+=~is_skin;unknown+=~available
         trusted_free[ids]+=data[name+'_trusted'][qy,qx]&(depths[byname[name]][qy,qx]>cz[ids]+.003)
     distance=ndimage.distance_transform_edt(~trusted)[hy,hx]
     eligible=eligible_points(z,distance,skinvotes,disagree,trusted_free)
@@ -91,7 +98,7 @@ def analyze(frame):
         accepted_two_skin_one_unknown=int((eligible&(skinvotes==2)&(unknown==1)).sum()),
         rejected_in_frame_disagreement=int((disagree>0).sum()),rejected_fewer_two_skin_views=int((skinvotes<2).sum()),
         rejected_trusted_free_space=int((trusted_free>0).sum()),mesh_sha256=sha(dest/'mesh.ply'),protocol_sha256=sha(OUT/'protocol.json'),
-        source_v1_analysis_sha256=sha(out/'v1_analysis.json'),v2=True)
+        source_v1_analysis_sha256=sha(out/'v1_analysis.json'),study_version=read(OUT/'protocol.json').get('study_version',2))
     record.pop('rejected_skin_limit',None);record.pop('elapsed_seconds',None)
     atomic_json(out/'analysis.json',record)
     print(frame,{k:record[k] for k in ['accepted_pixels','added_triangles','accepted_two_skin_one_unknown','accepted_zero_measured_votes']},flush=True)
@@ -209,7 +216,7 @@ def seam_diagnosis(frame):
 
 def summarize():
     from PIL import Image,ImageDraw
-    results=[];metrics=[];audits=[];panel=Image.new('RGB',(1720,1455));draw=ImageDraw.Draw(panel)
+    results=[];metrics=[];audits=[];panel=Image.new('RGB',(1720,1455));draw=ImageDraw.Draw(panel);version=read(OUT/'protocol.json').get('study_version',2)
     for j,frame in enumerate(FRAMES):
         out=OUT/frame;analysis=read(out/'analysis.json');clip=read(out/'plane_clipped/result.json')
         geometry=read(out/'geometry_review.json')['rows'];semantic=read(out/'semantic_review.json')['rows']
@@ -221,7 +228,7 @@ def summarize():
         src=BASE[frame] if frame!='001033' else pilot.OUT/frame
         parts=[out/'rgb'/(v1.NAMES[1]+'.png'),out/'baseline/render_train_H_A/frames'/frame/'frame.png',
             src/'plane_clipped/render_train_H_A/frames'/frame/'frame.png',out/'plane_clipped/render_train_H_A/frames'/frame/'frame.png']
-        for i,(path,label) in enumerate(zip(parts,['Train reference','Original TSDF','V1 clipped plane','V2 clipped plane'])):
+        for i,(path,label) in enumerate(zip(parts,['Train reference','Original TSDF','V1 clipped plane',f'V{version} clipped plane'])):
             im=Image.open(path)
             if i==0:im=Image.fromarray(np.rot90(np.array(im)))
             panel.paste(im.crop((0,1500,430,1920)),(i*430,j*485+30));draw.text((i*430+4,j*485+8),frame+' '+label,fill='white')
@@ -229,7 +236,7 @@ def summarize():
     atomic_json(OUT/'summary.json',dict(results=results,metrics=metrics,audits=audits,protocol_sha256=sha(OUT/'protocol.json'),
         original_geometry_preserved=True,production_defaults_changed=False,raw_ablation_not_production_color=True,
         sparse_times_not_full_temporal_validation=True,inferred_not_measured=True,manual_review_is_separate=True))
-    print('Three v2 times, 18 renders / 18 metric region records audited',flush=True)
+    print(f'Three v{version} times, 18 renders / 18 metric region records audited',flush=True)
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('command',choices=['freeze','analyze','clip_plane','geometry_review','semantic_review','render','evaluation_inputs','score','audit','summarize','seam_diagnosis'])
