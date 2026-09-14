@@ -213,3 +213,9 @@ To reuse the **exact earlier static 4×4 loop with a moving actor**, use
 It reads the saved pilot poses and resamples the full loop over 150 source times,
 preserving both translation and orientation. The full-route duration difference
 is explicit; see [dynamic replay](experiments/dec5_replayed_4x4_dynamic.md).
+
+For visible **object movement inside the image**, use the opt-in
+`screen_travel_camera_flight.py`: D..K camera translation with non-centered
+composition and a fixed wider virtual lens. The finalizer checks actual screen
+displacement and rotation-only image output; `diagnose_screen_travel.py` isolates
+camera motion on identical geometry. See [screen-travel diagnosis](experiments/dec5_screen_travel_camera_flight.md).

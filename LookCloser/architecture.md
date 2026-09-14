@@ -1320,3 +1320,13 @@ selected path, actual saved depth raycasts and decoded images separately from
 artifact quality. Timing differs explicitly from the 720-frame static pilot.
 The intermediate `interior_dynamic_camera_flight.py` records the strict two-row
 inset alternative (only vertical C is feasible); it is not the selected delivery.
+
+<!-- screen-travel-camera-20260914 -->
+`screen_travel_camera_flight.py` separates camera-center motion from composition:
+the loop widens F..I to D..K while a controlled optical-axis offset leaves the
+fixed scene landmark moving across the image. A fixed wider virtual lens avoids
+animated zoom/crop; physical calibration is unchanged. The finalizer verifies
+screen displacement, native-image rotation equality, temporal inventory and
+fresh raycasts. `diagnose_screen_travel.py` isolates camera effects on one mesh;
+the actual video still uses all 150 real times. See
+`experiments/dec5_screen_travel_camera_flight.md` for limitations.

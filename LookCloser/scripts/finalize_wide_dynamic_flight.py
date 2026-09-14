@@ -20,6 +20,7 @@ OUTPUT=Path('/mnt/data/dec5_wide_dynamic_flight_150_v2')
 def diagram(output):
     request=verify_request(output);xy=np.array([r['camera']['rig_offset_xy'] for r in request['inventory']])
     replay=request['recipe']['camera_path_kind']=='replay_static_4x4'
+    screen=request['recipe']['camera_path_kind']=='screen_travel'
     image=Image.new('RGB',(1100,700),(20,20,25));draw=ImageDraw.Draw(image)
     def pixel(q):return (int(550+110*q[0]),int(340-120*q[1]))
     for x in range(-4,5):
@@ -37,6 +38,11 @@ def diagram(output):
     draw.text((20,15),'EXACT earlier static 4x4 loop, now with 150 moving-actor times' if replay else 'Actual requested rig coordinates: LEFT -> RIGHT -> TOP -> BOTTOM -> LEFT',fill='white')
     draw.text((20,40),'150 DIFFERENT source times; source video is not periodic. Camera path is periodic.',fill='white')
     draw.text((20,650),'Saved pilot path: F..I / A..D. Full loop resampled, never only the first 150 of 720 poses.' if replay else 'Horizontal H +/-4 columns; vertical C +/-2 = ALL FIVE existing rows (not fictional +/-4).',fill='white')
+    if screen:
+        draw.rectangle((0,0,1100,70),fill=(20,20,25));draw.rectangle((0,640,1100,700),fill=(20,20,25))
+        draw.text((20,15),'D..K / A..D: expanded two columns each side, with REAL screen-space object travel',fill='white')
+        draw.text((20,40),'150 changing source times; fixed virtual lens; no image crop, stabilization or post-render translation',fill='white')
+        draw.text((20,650),'The camera no longer keeps the scene landmark centered. Camera loop is not an actor-time loop.',fill='white')
     image.save(output/'camera_path.png')
 
 
@@ -48,7 +54,8 @@ def audit(output,require_reviews=False):
     if set(p.parent.name for p in (output/'frames').glob('*/complete.json'))!=set(ids):raise ValueError('Incomplete renders')
     cal=read(CALIBRATION);lookup={r['physical_camera']:r for r in cal['frames']}
     corners=np.asarray([lookup[n]['transform_matrix'] for n in request['camera_path_report']['anchors']])[:,:3,3]
-    poses=[];weights=[];render_hashes={};mesh_hashes=[];reviews=[]
+    poses=[];weights=[];render_hashes={};mesh_hashes=[];reviews=[];image_centroids=[]
+    screen=request['recipe']['camera_path_kind']=='screen_travel'
     for record in inventory:
         frame=record['frame_id'];root=output/'frames'/frame;receipt=read(root/'complete.json')
         if receipt['request_sha256']!=digest:raise ValueError('Wrong frame request')
@@ -67,6 +74,10 @@ def audit(output,require_reviews=False):
         if sha(SOURCE/frame/'transforms.json')!=record['source_transforms_sha256']:raise ValueError('Source time changed')
         image=np.array(Image.open(root/'frame.png'))
         if image.shape!=(1920,1080,3) or not np.isfinite(image).all() or (image.max(2)>0).mean()<.01:raise ValueError('Bad image')
+        if screen:
+            native=np.asarray(Image.open(root/'prediction_native.png'))
+            if not np.array_equal(image,np.rot90(native)):raise ValueError('Unexpected output crop/stabilization')
+            yy,xx=np.nonzero(image.max(2)>0);image_centroids.append([float(xx.mean()),float(yy.mean())])
         poses.append(calibration_pose(record['camera'],cal,read(record['metadata']))['transform_matrix'])
         weights.append(record['camera']['convex_weights']);render_hashes[frame]=sha(root/'frame.png');mesh_hashes.append(record['mesh_sha256'])
         review=output/'visual_reviews'/f'{frame}.json'
@@ -83,9 +94,25 @@ def audit(output,require_reviews=False):
     u=weights[:,1]+weights[:,2];v=weights[:,2]+weights[:,3]
     replay=request['recipe']['camera_path_kind']=='replay_static_4x4'
     xy=np.column_stack((3*u-2,2-3*v)) if replay else np.column_stack((8*u-4,2-4*v))
+    if screen:xy=np.column_stack((7*u-4,2-3*v))
     # The periodic turn passes the exact left extremum just before phase zero;
     # phase zero must start within 0.2 interval of the left edge, not at center.
-    if replay:
+    if screen:
+        from screen_travel_camera_flight import screen_path,portrait_projection
+        from joint_temporal_texture import cameras
+        reference=request['reference_camera_pilot']
+        if sha(reference['path'])!=reference['sha256']:raise ValueError('Changed source loop')
+        rows,_,meta=cameras('000973');expected,report=screen_path(rows,read(reference['path']))
+        raw_expected=np.asarray([calibration_pose(p,cal,read(meta))['transform_matrix'] for p in expected])
+        if not np.allclose(poses,raw_expected,atol=1e-8):raise ValueError('Wrong translated composition')
+        for record,p in zip(inventory,expected):
+            for key in ['fl_x','fl_y','cx','cy','w','h']:
+                if record['camera'][key]!=p[key]:raise ValueError('Unexpected animated lens or image dimensions')
+        projected=np.array([portrait_projection(np.array(report['fixed_target']),p) for p in expected])
+        if (np.ptp(projected,axis=0)<[380,150]).any():raise ValueError('Scene still centered')
+        if np.ptp(np.array(image_centroids)[:,0])<200:raise ValueError('Insufficient visible RGB displacement')
+        if (np.ptp(xy,axis=0)<[6.7,2.87]).any():raise ValueError('Missing widened rig motion')
+    elif replay:
         from replay_dynamic_camera_flight import replay_path
         report=request['camera_path_report']
         for field in ['pilot_request','pilot_video','pilot_metadata']:
@@ -98,9 +125,14 @@ def audit(output,require_reviews=False):
         if np.ptp(xy[:,0])<7.9 or np.ptp(xy[:,1])<3.95 or xy[0,0]>-3.8:raise ValueError('Missing wide sweep')
         if not xy[:,0].argmax()<xy[:,1].argmax()<xy[:,1].argmin():raise ValueError('Wrong sweep sequence')
     direction=poses[:,:3,2];angular=np.rad2deg(np.arccos(np.clip(direction@direction.T,-1,1)))
-    if angular.max()<(20 if replay else 40):raise ValueError('Insufficient actual viewing-angle change')
+    if angular.max()<(20 if replay or screen else 40):raise ValueError('Insufficient actual viewing-angle change')
     step=np.linalg.norm(np.roll(poses[:,:3,3],-1,axis=0)-poses[:,:3,3],axis=1)
-    if step.max()/step.min()>1.04:raise ValueError('Camera loop join/speed discontinuity')
+    if screen:
+        # Widening one axis changes speed smoothly along the old phase curve;
+        # test local continuity, not a false constant-speed assertion.
+        ratio=step/np.roll(step,-1)
+        if max(ratio.max(),1/ratio.min())>1.07:raise ValueError('Abrupt camera speed change')
+    elif step.max()/step.min()>1.04:raise ValueError('Camera loop join/speed discontinuity')
     # Independent fresh casts verify the requested camera affected actual saved
     # depth, rather than accepting a worker copying pose metadata to its result.
     import open3d as o3d
@@ -119,6 +151,10 @@ def audit(output,require_reviews=False):
         maximum_pairwise_view_angle_degrees=float(angular.max()),camera_loop_speed_ratio=float(step.max()/step.min()),
         independent_saved_depth_checks=raychecks,visual_reviews=len(reviews),artifact_free_claimed=False,
         full_frame_quality_metrics_computed=False,script_sha256=sha(__file__))
+    if screen:
+        result.update(projected_scene_landmark_extent_pixels=np.ptp(projected,axis=0).tolist(),
+            actual_render_foreground_centroid_extent_pixels=np.ptp(image_centroids,axis=0).tolist(),
+            all_rgb_verified_as_native_rotation_only=True)
     atomic_json(output/'integrity_audit.json',result);return result
 
 
@@ -135,12 +171,13 @@ def sheets(output):
             xy=record['camera']['rig_offset_xy'];draw.text((x+3,y+3),f'{record["frame_id"]} x={xy[0]:+.2f} y={xy[1]:+.2f}',fill='white')
         panel.save(root/'overview.png');atomic_json(root/'manifest.json',dict(render_hashes=hashes))
     replay=request['recipe']['camera_path_kind']=='replay_static_4x4'
-    chosen=[0,37,75,112] if replay else [0,49,78,118]
+    loop=replay or request['recipe']['camera_path_kind']=='screen_travel'
+    chosen=[0,37,75,112] if loop else [0,49,78,118]
     if all((output/'frames'/request['inventory'][i]['frame_id']/'complete.json').exists() for i in chosen):
         panel=Image.new('RGB',(2160,984));draw=ImageDraw.Draw(panel)
         for j,i in enumerate(chosen):
             rec=request['inventory'][i];panel.paste(Image.open(output/'frames'/rec['frame_id']/'frame.png').resize((540,960)),(j*540,24))
-            labels=['phase 0','phase 1/4','phase 1/2','phase 3/4'] if replay else ['LEFT','RIGHT','TOP','BOTTOM']
+            labels=['phase 0','phase 1/4','phase 1/2','phase 3/4'] if loop else ['LEFT','RIGHT','TOP','BOTTOM']
             draw.text((j*540+3,3),f'{labels[j]} real-time {rec["frame_id"]}',fill='white')
         panel.save(output/'dynamic_extremes.png')
         if replay:
@@ -252,6 +289,12 @@ def publish(output):
         shutil.copyfile(scripts/name,snapshot/name)
     shutil.copyfile(__file__,snapshot/Path(__file__).name)
     report='dec5_replayed_4x4_dynamic.md' if request['recipe']['camera_path_kind']=='replay_static_4x4' else 'dec5_wide_dynamic_camera_flight.md'
+    if request['recipe']['camera_path_kind']=='screen_travel':report='dec5_screen_travel_camera_flight.md'
+    if request['recipe']['camera_path_kind']=='screen_travel':
+        diagnostic=read(output/'framing_diagnosis/result.json')
+        if diagnostic['visual_status']!='reviewed_screen_displacement_confirmed':raise ValueError('Review identical-mesh framing diagnostic')
+        if sha(scripts/'diagnose_screen_travel.py')!=diagnostic['script_sha256']:raise ValueError('Changed diagnostic script')
+        shutil.copyfile(scripts/'diagnose_screen_travel.py',snapshot/'diagnose_screen_travel.py')
     shutil.copyfile(scripts.parent/'experiments'/report,output/'report.md')
     files={str(p.relative_to(output)):sha(p) for p in output.rglob('*') if p.is_file()
            and p.name!='publication.json' and '.partial.' not in p.name and p.name!='supervisor.lock'}
