@@ -62,6 +62,20 @@ inference, alignment, mask-selection, or texture input. H_A was a DA3 input and
 one of the semantic gates, so its RGB metrics are only train-view reprojection
 checks. A single time cannot establish temporal stability.
 
+Rendering scope clarification: this local matched ablation calls raw
+`render_smooth_temporal_mesh_video.render_one`. The published video additionally
+installs foreground source-eligibility masks and the calibration-angle
+source-label prior; neither wrapper was installed here. These RGB comparisons
+are therefore not production-equivalent color validation, despite sharing
+camera poses, exposure and profiles. Exact-wrapper integration remains separate.
+
+Subsequent [fixed-rule transfer audit](dec5_forearm_plane_transfer.md) replayed
+this canary without modifying its artifacts. The original half-pixel renderer
+guard passes, but the additional integer-ray grid finds two supported H_A old
+pixels hidden beyond the same tolerance, plus five pixels within `sqrt(2)` pixels
+outside the inset H_A polygon. This further limits the initial preservation
+claim; it was never proof across every subpixel ray or a production promotion.
+
 ## Results
 
 | Candidate | Reference pixels added | Added triangles | Added pixels with zero measured votes | Moving-view newly visible pixels |
