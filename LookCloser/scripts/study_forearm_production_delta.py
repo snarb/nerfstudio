@@ -22,9 +22,10 @@ PARENT=Path('/mnt/data/dec5_phase30_dynamic_150')
 FRAMES=['001029','001033','001037']
 
 
-def prepare(root,frame,curve_source=None,boundary_conditioned=False,photometric_free_space=False,matched_plane=False):
+def prepare(root,frame,curve_source=None,boundary_conditioned=False,photometric_free_space=False,matched_plane=False,known_annotation_domain=False):
     if boundary_conditioned and curve_source is None:raise ValueError('Boundary condition requires curved source')
     if matched_plane and (curve_source is None or not boundary_conditioned):raise ValueError('Matched plane requires boundary-conditioned comparison')
+    if known_annotation_domain and (curve_source is None or not boundary_conditioned):raise ValueError('Known annotation domain requires boundary-conditioned comparison')
     folder=root/frame;folder.mkdir(parents=True,exist_ok=True)
     source=next(r for r in read(PARENT/'request.json')['inventory'] if r['frame_id']==frame)
     prior_spec=read(PRIOR/frame/'input.json');prior_result=read(PRIOR/frame/'plane_clipped/result.json')
@@ -58,6 +59,9 @@ def prepare(root,frame,curve_source=None,boundary_conditioned=False,photometric_
     if photometric_free_space:
         request['observed_guard'].update(kind='depth_and_color_witnesses',min_color_witnesses=3,chroma_mean_abs_limit=.04,patch_size=5)
         request['color_guard_script_hashes']={n:sha(Path(__file__).with_name(n)) for n in ['photometric_forearm_depth_guard.py','diagnose_forearm_color_witnesses.py']}
+    if known_annotation_domain:
+        request['curvature_policy']['known_annotation_margin']=3
+        request['annotation_domain_helper_sha256']=sha(Path(__file__).with_name('annotation_mask_domain.py'))
     if (folder/'request.json').exists() and read(folder/'request.json')!=request:raise ValueError('Frozen production transfer mismatch')
     atomic_json(folder/'request.json',request)
     if (folder/'geometry_result.json').exists():
@@ -71,6 +75,8 @@ def prepare(root,frame,curve_source=None,boundary_conditioned=False,photometric_
     curve_record=None
     if curve_source is not None:
         from curve_forearm_delta import curve_vertices,boundary_curve_vertices,semantic_faces
+        if known_annotation_domain:
+            from annotation_mask_domain import semantic_faces
         import study_forearm_plane_transfer_v3 as v3
         v3.configure();rows,_,_=evidence.cameras(frame);reference=next(r for r in rows if r['physical_camera']==evidence.NAMES[0])
         delta_faces=np.asarray(prior.triangles)[len(base.triangles):]
@@ -164,6 +170,6 @@ if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('action',choices=['prepare','render']);p.add_argument('--frame',required=True,choices=FRAMES)
     p.add_argument('--root',type=Path,default=Path('/mnt/data/dec5_forearm_production_delta'))
     p.add_argument('--curved-anchor-root',type=Path);p.add_argument('--boundary-conditioned',action='store_true')
-    p.add_argument('--photometric-free-space',action='store_true');p.add_argument('--matched-plane',action='store_true');a=p.parse_args()
-    if a.action=='prepare':prepare(a.root,a.frame,a.curved_anchor_root,a.boundary_conditioned,a.photometric_free_space,a.matched_plane)
+    p.add_argument('--photometric-free-space',action='store_true');p.add_argument('--matched-plane',action='store_true');p.add_argument('--known-annotation-domain',action='store_true');a=p.parse_args()
+    if a.action=='prepare':prepare(a.root,a.frame,a.curved_anchor_root,a.boundary_conditioned,a.photometric_free_space,a.matched_plane,a.known_annotation_domain)
     else:render(a.root,a.frame)

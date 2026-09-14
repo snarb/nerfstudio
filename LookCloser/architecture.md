@@ -16,6 +16,12 @@ before carving added geometry. The independent fresh ray audit distinguishes
 this from the old depth-only guard; it does not modify input depth maps or RGB.
 See [color/depth confidence canaries](experiments/dec5_forearm_color_depth_confidence.md).
 
+`--known-annotation-domain` separates unknown image-border annotations from
+negative skin evidence, retaining two known supports and all known disagreements.
+The separate measured-boundary solver is an unpromoted negative shape control;
+fresh audits check original geometry, face admission and 62-view depth/color rays.
+See [annotation-domain controls](experiments/dec5_forearm_annotation_domain.md).
+
 ## Key files
 
 The opt-in `study_early_texture_prior.py` adapter applies target-angle weights
