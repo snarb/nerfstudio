@@ -1300,3 +1300,23 @@ on the 96GB host); `finalize_dynamic_grid_video.py` verifies all derived meshes,
 renders, source times and camera poses, uses request FPS, and separates actual
 visual verdicts from integrity. Global person silhouettes do not solve internal
 lipstick/hand occlusion; see `experiments/dec5_dynamic_grid_background_guard.md`.
+
+<!-- wide-dynamic-camera-20260914 -->
+`wide_dynamic_camera_flight.py` adds an independent, opt-in horizontal D..L
+(H +/-4), full-height A..E, closed-return trajectory over 150 real scene times.
+An identical-mesh extreme-pose probe and fresh saved-depth comparisons test the
+actual raycaster. `prepare_wide_dynamic_geometry.py` monotonically restores old
+silhouette deletions for the new poses while preserving source masks and original
+geometry. `run_wide_dynamic_workers.py` reuses supervised disjoint workers;
+`finalize_wide_dynamic_flight.py` gates actual two-axis travel, temporal diversity,
+encoded review and hashes. Five available vertical levels are disclosed, not
+misrepresented as nine. See `experiments/dec5_wide_dynamic_camera_flight.md`.
+
+`replay_dynamic_camera_flight.py` implements the subsequently selected route:
+checksum-bound reuse of the earlier static 4×4 pilot's saved poses, resampled
+over 150 distinct real actor times. Position and orientation are both preserved;
+per-time normalization does not freeze the camera. The finalizer verifies the
+selected path, actual saved depth raycasts and decoded images separately from
+artifact quality. Timing differs explicitly from the 720-frame static pilot.
+The intermediate `interior_dynamic_camera_flight.py` records the strict two-row
+inset alternative (only vertical C is feasible); it is not the selected delivery.

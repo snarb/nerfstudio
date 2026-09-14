@@ -198,3 +198,18 @@ worker supervisor supports up to eight render workers on the 96GB host;
 and encodes at the request FPS. See
 [dynamic grid and foreground-guard experiment](experiments/dec5_dynamic_grid_background_guard.md)
 for measured limitations, including unresolved internal lipstick occlusion.
+
+For the wider **horizontal -4..+4, full-height vertical, closed-return** dynamic
+route, use `wide_dynamic_camera_flight.py` and `run_wide_dynamic_workers.py`.
+The rig has only five vertical rows; the helper explicitly records that limit.
+An identical-mesh camera probe plus independent saved-depth raycasts validate
+actual rendering, not just pose metadata. `prepare_wide_dynamic_geometry.py`
+rechecks view-dependent contour deletions for the new poses;
+`finalize_wide_dynamic_flight.py` checks all 150 changing times and encodes them.
+See [wide dynamic camera flight](experiments/dec5_wide_dynamic_camera_flight.md).
+
+To reuse the **exact earlier static 4×4 loop with a moving actor**, use
+`replay_dynamic_camera_flight.py`, then the same geometry/worker/finalizer helpers.
+It reads the saved pilot poses and resamples the full loop over 150 source times,
+preserving both translation and orientation. The full-route duration difference
+is explicit; see [dynamic replay](experiments/dec5_replayed_4x4_dynamic.md).
