@@ -181,3 +181,9 @@ workers. It reuses corrected meshes but rerenders all 150 actual time instants;
 the audit checks actual convex containment and excludes a nonexistent loop join.
 `publish_smooth_temporal_video.py --report PATH` can attach the matching experiment
 report. See [central-space flight and fringe controls](experiments/dec5_central_space_flight.md).
+
+That first open arc was visually too small: smoothness alone did not validate
+multi-row travel. `diagnose_camera_grid_flight.py` provides frozen-actor 3x3/4x4
+cubic-spline controls with explicit two-axis extent and loop-speed gates;
+`audit_camera_grid_flight.py` checks PNG/MP4 inventories and decoded samples.
+See [camera-grid diagnosis](experiments/dec5_camera_grid_diagnosis.md).

@@ -1,5 +1,10 @@
 # DEC5: slow central-space flight, 150 real instants
 
+**2026-09-14 correction:** the user rejected the camera movement as visually
+near-static. Its actual extent was only 1.228 horizontal / 0.650 vertical grid
+intervals. Smoothness and containment were insufficient acceptance criteria.
+See [camera-grid diagnosis and wider static controls](dec5_camera_grid_diagnosis.md).
+
 ## What was tested
 
 Opt-in `scripts/central_space_temporal_flythrough.py` reuses the corrected geometry

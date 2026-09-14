@@ -1279,3 +1279,10 @@ audit reconstructs actual camera centers from convex weights and checks only the
 149 delivered transitions, not an artificial loop restart. Corrected geometry and
 fixed hard-source texturing are reused; unproven silhouette trims stay separate
 from production RGB. See `experiments/dec5_central_space_flight.md`.
+
+Camera-only grid pilots additionally validate achieved horizontal/vertical travel,
+not just smoothness and containment. A periodic cubic spline in rig coordinates
+maps into a bilinear train-anchor hull and is resampled by complete closed-arc
+length; a fixed actor separates camera parallax from temporal motion. These static
+3x3/4x4 diagnostics do not change the temporal renderer or imply new temporal meshes.
+See `experiments/dec5_camera_grid_diagnosis.md`.
