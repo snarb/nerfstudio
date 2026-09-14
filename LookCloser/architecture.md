@@ -1,5 +1,14 @@
 # LookCloser architecture
 
+## Opt-in jaw-repair transfer
+
+`study_jaw_repair_transfer.py` applies the frozen camera-independent notch,
+train-anchor and depth-footprint recipe to multiple times; historical controls
+must replay exact meshes. Separate native/held-out review and fresh ray/topology
+audits distinguish a safe small cap from a general reconstruction improvement.
+Post-hoc support/mask diagnostics do not enter geometry or scoring. See
+[four-time transfer and limitations](experiments/dec5_jaw_repair_transfer.md).
+
 ## Opt-in production forearm delta study
 
 `append_verified_mesh_delta.py` composes only added faces onto independently
