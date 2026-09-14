@@ -191,6 +191,16 @@ def verify_video_review(output):
     return video
 
 
+def copy_tree_contents(source,destination):
+    """Copy bytes only: the shared mount rejects directory metadata changes."""
+    destination.mkdir(parents=True,exist_ok=False)
+    for path in sorted(source.rglob('*')):
+        target=destination/path.relative_to(source)
+        if path.is_dir():target.mkdir(exist_ok=True)
+        elif path.is_file():shutil.copyfile(path,target)
+        else:raise ValueError(f'Unsupported publication entry: {path}')
+
+
 def publish(output,destination):
     checked=audit(output,True);video=verify_video_review(output)
     if destination.exists():
@@ -206,7 +216,7 @@ def publish(output,destination):
     for name in ['video.mp4','video_manifest.json','request.json','integrity_audit.json','camera_path.png','encoded_overview.png','checks.jsonl','progress.json']:
         shutil.copyfile(output/name,stage/name)
     for name in ['contact_sheets','visual_reviews','pixel_traces','encoded_review']:
-        if (output/name).exists():shutil.copytree(output/name,stage/name,copy_function=shutil.copyfile)
+        if (output/name).exists():copy_tree_contents(output/name,stage/name)
     report=Path(__file__).resolve().parents[1]/'experiments/dec5_dynamic_grid_background_guard.md'
     shutil.copyfile(report,stage/'report.md')
     with zipfile.ZipFile(stage/'frames.zip','w',compression=zipfile.ZIP_STORED) as archive:

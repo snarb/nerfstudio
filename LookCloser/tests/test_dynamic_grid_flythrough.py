@@ -89,3 +89,13 @@ def test_publication_rejects_changed_encoded_evidence(tmp_path,monkeypatch):
     monkeypatch.setattr(audit,'read',lambda p:video if Path(p).name=='video_manifest.json' else crop)
     with pytest.raises(ValueError,match='Changed decoded crop evidence'):
         audit.verify_video_review(tmp_path)
+
+
+def test_publication_tree_does_not_copy_directory_metadata(tmp_path,monkeypatch):
+    import finalize_dynamic_grid_video as audit
+    src=tmp_path/'source';(src/'nested').mkdir(parents=True)
+    (src/'nested/frame.png').write_bytes(b'image payload')
+    def forbidden(*args,**kwargs):raise PermissionError('Shared mount metadata restrictions')
+    monkeypatch.setattr(audit.shutil,'copystat',forbidden)
+    audit.copy_tree_contents(src,tmp_path/'published')
+    assert (tmp_path/'published/nested/frame.png').read_bytes()==b'image payload'

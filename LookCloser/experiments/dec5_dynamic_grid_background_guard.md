@@ -78,7 +78,7 @@ allowance for small seams/rough edges; it does not mean clean geometry.
 | Linear speed max/min ratio | 1.00000355 |
 | Foreground triangle removal fraction min / median / max | 4.734% / 7.404% / 10.087%; this is not an image-quality metric |
 | Final visual verdicts | 114 accepted with known defects; 36 failures |
-| Tests | 34 passed; original model/runner defaults unchanged |
+| Tests | 35 passed; original model/runner defaults unchanged |
 
 The actual encoded overview and four **consecutive, native-resolution MP4**
 patch groups (indices 24–27, 40–43, 52–55, 146–149) were inspected separately.
@@ -117,6 +117,10 @@ resumed from 32 checksum-valid frames with eight workers on clever-shadow's
 96GB GPU; the remaining 118 completed in 1654.4 s. That is not an isolated 4×/8×
 speed benchmark: the guard adds segmentation/GrabCut work and the control ran
 concurrently for part of the interval. All eight final workers exited zero.
+The first publication attempt hit shared-mount directory-metadata restrictions;
+the atomic destination was not published. A byte-only recursive copier and a
+regression test replace `copytree` metadata operations; the partial staging
+directory is retained separately and never treated as a completed output.
 Supervisor PID, stage/frame, GPU memory and disk checks were recorded every
 30 seconds. The original four-worker supervisor's nonzero exit was a documented
 owned-process restart, not an unexplained CUDA/OOM failure. No new PatchMatch
