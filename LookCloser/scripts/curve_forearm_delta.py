@@ -19,7 +19,30 @@ def curve_vertices(vertices,base_count,reference,fit,vertex_ids=None):
     return result,dict(displacement_depth_quantiles=np.quantile(newz-z,[0,.5,1]).tolist(),original_vertices_unchanged=True)
 
 
-def semantic_faces(vertices,faces,rows,masks):
+def boundary_curve_vertices(vertices,base_count,reference,fit,vertex_ids,accepted,feather_px=10):
+    """Keep the existing-depth ring exact; smoothly introduce curvature inside it."""
+    from scipy.ndimage import distance_transform_edt
+    if feather_px<=0:raise ValueError('Positive boundary feather required')
+    selected=np.asarray(vertex_ids,dtype=int)
+    if (selected<base_count).any() or (selected>=len(vertices)).any():raise ValueError('Invalid appended indices')
+    uv,z=project_integer(reference,vertices[selected]);xy=np.rint(uv).astype(int)
+    if not np.isfinite(uv).all() or (xy<0).any() or (xy[:,0]>=accepted.shape[1]).any() or (xy[:,1]>=accepted.shape[0]).any():
+        raise ValueError('Boundary vertex outside reference domain')
+    interior=accepted[xy[:,1],xy[:,0]]
+    curved,receipt=curve_vertices(vertices,base_count,reference,fit,selected[interior])
+    _,curved_z=project_integer(reference,curved[selected[interior]])
+    distance=distance_transform_edt(accepted)[xy[interior,1],xy[interior,0]]
+    u=np.clip(distance/feather_px,0,1);weight=u*u*(3-2*u)
+    newz=z[interior]+weight*(curved_z-z[interior])
+    result=vertices.copy();result[selected[interior]]=unproject(reference,uv[interior,0],uv[interior,1],newz)
+    if not np.array_equal(result[selected[~interior]],vertices[selected[~interior]]):raise ValueError('Moved old-depth ring')
+    receipt.update(boundary_ring_vertices=int((~interior).sum()),boundary_ring_exact=True,
+        feather_px=feather_px,interior_vertices=int(interior.sum()),
+        applied_depth_displacement_quantiles=np.quantile(newz-z[interior],[0,.5,1]).tolist())
+    return result,receipt
+
+
+def semantic_faces(vertices,faces,rows,masks,axis_extent=False):
     used=np.unique(faces);points=vertices[used];support=np.zeros(len(points),np.uint8);outside=np.zeros(len(points),bool)
     for camera in rows:
         name=camera['physical_camera']
@@ -31,6 +54,8 @@ def semantic_faces(vertices,faces,rows,masks):
         support+=inside;outside|=available&~inside
     valid=np.zeros(len(vertices),bool);valid[used]=(support>=2)&~outside
     edges=vertices[faces[:,[1,2,0]]]-vertices[faces]
-    keep=valid[faces].all(1)&(np.linalg.norm(edges,axis=2).max(1)<=.002)
+    extent_ok=(np.ptp(vertices[faces],axis=1).max(1)<.002) if axis_extent else (np.linalg.norm(edges,axis=2).max(1)<=.002)
+    keep=valid[faces].all(1)&extent_ok
     return faces[keep],dict(proposed_triangles=len(faces),semantic_or_extent_rejected=int((~keep).sum()),
-        unchanged_skin_masks=True,minimum_skin_cameras=2,maximum_triangle_extent=.002)
+        unchanged_skin_masks=True,minimum_skin_cameras=2,maximum_triangle_extent=.002,
+        extent_metric='axis_extent_strict' if axis_extent else 'euclidean_edge')

@@ -10,6 +10,12 @@ curvature; the separate scorer/audit retain fixed train-skin metrics and visual
 rejections. Neither variant is promoted or changes model defaults. See
 [results and boundary-condition limitations](experiments/dec5_forearm_production_delta.md).
 
+`--boundary-conditioned` fixes the existing-depth ring during inferred curvature.
+`--photometric-free-space` additionally requires color-compatible depth witnesses
+before carving added geometry. The independent fresh ray audit distinguishes
+this from the old depth-only guard; it does not modify input depth maps or RGB.
+See [color/depth confidence canaries](experiments/dec5_forearm_color_depth_confidence.md).
+
 ## Key files
 
 - `nerfstudio/scripts/lookcloser_preprocess.py` — 2D patch frequency preprocessing.

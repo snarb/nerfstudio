@@ -32,7 +32,15 @@ def run(output):
             if not np.array_equal(v[:len(ov)],ov) or not np.array_equal(t[:len(ot)],ot):raise ValueError('Changed production prefix')
             _,cc,_=mesh.cluster_connected_triangles()
             record=dict(frame=frame,model=name,added_triangles=r['final_added_triangles'],old_components=len(oldcc),new_components=len(cc),
-                        geometry_result_sha256=sha(folder/'geometry_result.json'),views=[])
+                        geometry_result_sha256=sha(folder/'geometry_result.json'),views=[],
+                        guard_kind=read(folder/'request.json')['observed_guard'].get('kind','depth_only'))
+            if r.get('color_guard_provenance'):
+                fresh=read(root/'fresh_audit'/(frame+'.json'))
+                if fresh['geometry_result_sha256']!=sha(folder/'geometry_result.json') or fresh['qualified_veto_pixels']!=0:
+                    raise ValueError('Missing fresh color-qualified ray audit')
+                record['depth_only_final_veto_pixels']=fresh['original_depth_only_veto_pixels']
+                for p,h in r['color_guard_provenance']['source_rgb_hashes'].items():
+                    if sha(p)!=h:raise ValueError('Changed color witness RGB')
             for view in ['moving',v1.NAMES[1]]:
                 images=[];depths=[];results=[];ids=[]
                 for variant in ['baseline','guarded']:
@@ -62,7 +70,8 @@ def run(output):
             metrics.extend([dict(model=name,**m) for m in read(root/'metrics.json')['rows'] if m['frame']==frame])
             records.append(record)
         for view in ['moving',v1.NAMES[1]]:
-            if not np.array_equal(comparisons['plane',view],comparisons['quadratic',view]):raise ValueError('Baseline replay changed')
+            for name in ROOTS:
+                if not np.array_equal(comparisons['plane',view],comparisons[name,view]):raise ValueError('Baseline replay changed')
         # Diagnose the appended old-depth boundary ring, distinct from source mesh vertices.
         base=o3d.io.read_triangle_mesh(read(prior.OUT/frame/'input.json')['mesh'])
         raw=o3d.io.read_triangle_mesh(str(prior.OUT/frame/'plane/mesh.ply'))
@@ -70,8 +79,12 @@ def run(output):
         used=np.unique(np.asarray(raw.triangles)[len(base.triangles):]);used=used[used>=len(base.vertices)]
         uv,_=project_integer(reference,np.asarray(raw.vertices)[used]);xy=np.rint(uv).astype(int)
         accepted=np.load(prior.OUT/frame/'plane/evidence.npz')['accepted'];ring=~accepted[xy[:,1],xy[:,0]]
-        records[-1]['appended_active_old_depth_ring_vertices']=int(ring.sum())
-        records[-1]['curvature_ring_handling']='Moved along with other referenced appended vertices; source mesh prefix unchanged. Boundary-condition limitation.'
+        for record in records:
+            if record['frame']!=frame or record['model']=='plane':continue
+            policy=read(ROOTS[record['model']]/frame/'request.json')['curvature_policy']
+            record['appended_active_old_depth_ring_vertices']=int(ring.sum())
+            record['curvature_ring_handling']=('Exact old-depth ring; smooth interior feather' if policy.get('boundary_ring_exact') else
+                'Moved along with other referenced appended vertices; source mesh prefix unchanged. Boundary-condition limitation.')
     atomic_json(output/'result.json',dict(script_sha256=sha(__file__),records=records,metrics=metrics,
         metric_scope='fixed real-train forearm skin only, not heldout or full-frame',production_video_unchanged=True,
         baseline_replay_bytes_equal=True,visual_status='requires_explicit_review'))
@@ -89,8 +102,12 @@ def run(output):
         atomic_json(output/'artifact_manifest.json',dict(reviewed_images={p:sha(p) for p in review['inspected_images']},
             audit_sha256=sha(output/'result.json'),visual_review_sha256=sha(output/'visual_review.json'),
             retained_hashes={str(p):sha(p) for root in [*ROOTS.values(),Path('/mnt/data/dec5_forearm_multiview_anchors')]
-                             for p in sorted(root.rglob('*')) if p.is_file()},status='remaining_artifacts_not_promoted'))
+                             for p in sorted(root.rglob('*')) if p.is_file() and not p.is_relative_to(output)},status='remaining_artifacts_not_promoted'))
 
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=Path,default=Path('/mnt/data/dec5_forearm_production_review'));run(p.parse_args().output)
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=Path,default=Path('/mnt/data/dec5_forearm_production_review'))
+    p.add_argument('--boundary-root',type=Path);p.add_argument('--color-root',type=Path);a=p.parse_args()
+    if a.boundary_root:ROOTS['boundary_quadratic']=a.boundary_root
+    if a.color_root:ROOTS['color_qualified_quadratic']=a.color_root
+    run(a.output)

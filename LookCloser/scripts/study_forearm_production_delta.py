@@ -22,7 +22,8 @@ PARENT=Path('/mnt/data/dec5_phase30_dynamic_150')
 FRAMES=['001029','001033','001037']
 
 
-def prepare(root,frame,curve_source=None):
+def prepare(root,frame,curve_source=None,boundary_conditioned=False,photometric_free_space=False):
+    if boundary_conditioned and curve_source is None:raise ValueError('Boundary condition requires curved source')
     folder=root/frame;folder.mkdir(parents=True,exist_ok=True)
     source=next(r for r in read(PARENT/'request.json')['inventory'] if r['frame_id']==frame)
     prior_spec=read(PRIOR/frame/'input.json');prior_result=read(PRIOR/frame/'plane_clipped/result.json')
@@ -48,6 +49,11 @@ def prepare(root,frame,curve_source=None):
             inferred_local_plane_not_measured_anatomy=False,inferred_quadric_not_measured_anatomy=True,
             curvature_policy=dict(max_depth_displacement=.01,max_triangle_extent=.002,recheck_same_available_skin_masks=True,
                                   minimum_skin_views=2,require_better_partitioned_p90_than_plane=True))
+        if boundary_conditioned:
+            request['curvature_policy'].update(boundary_ring_exact=True,interior_feather_px=10,extent_metric='axis_extent_strict')
+    if photometric_free_space:
+        request['observed_guard'].update(kind='depth_and_color_witnesses',min_color_witnesses=3,chroma_mean_abs_limit=.04,patch_size=5)
+        request['color_guard_script_hashes']={n:sha(Path(__file__).with_name(n)) for n in ['photometric_forearm_depth_guard.py','diagnose_forearm_color_witnesses.py']}
     if (folder/'request.json').exists() and read(folder/'request.json')!=request:raise ValueError('Frozen production transfer mismatch')
     atomic_json(folder/'request.json',request)
     if (folder/'geometry_result.json').exists():
@@ -60,13 +66,17 @@ def prepare(root,frame,curve_source=None):
     prior=o3d.io.read_triangle_mesh(str(PRIOR/frame/('plane' if curve_source is not None else 'plane_clipped')/'mesh.ply'))
     curve_record=None
     if curve_source is not None:
-        from curve_forearm_delta import curve_vertices,semantic_faces
+        from curve_forearm_delta import curve_vertices,boundary_curve_vertices,semantic_faces
         import study_forearm_plane_transfer_v3 as v3
         v3.configure();rows,_,_=evidence.cameras(frame);reference=next(r for r in rows if r['physical_camera']==evidence.NAMES[0])
         delta_faces=np.asarray(prior.triangles)[len(base.triangles):]
         selected=np.unique(delta_faces);selected=selected[selected>=len(base.vertices)]
-        pv,curve_record=curve_vertices(np.asarray(prior.vertices),len(base.vertices),reference,fits['quadratic'],selected)
-        additions,semantic=semantic_faces(pv,delta_faces,rows,evidence.masks(frame));curve_record.update(semantic)
+        if boundary_conditioned:
+            accepted=np.load(PRIOR/frame/'plane/evidence.npz')['accepted']
+            pv,curve_record=boundary_curve_vertices(np.asarray(prior.vertices),len(base.vertices),reference,fits['quadratic'],selected,accepted)
+        else:
+            pv,curve_record=curve_vertices(np.asarray(prior.vertices),len(base.vertices),reference,fits['quadratic'],selected)
+        additions,semantic=semantic_faces(pv,delta_faces,rows,evidence.masks(frame),axis_extent=boundary_conditioned);curve_record.update(semantic)
         prior.vertices=o3d.utility.Vector3dVector(pv);prior.triangles=o3d.utility.Vector3iVector(np.concatenate([np.asarray(base.triangles),additions]))
     ov,ot=np.asarray(target.vertices),np.asarray(target.triangles)
     v,t,transfer=append_delta(ov,ot,np.asarray(base.vertices),np.asarray(base.triangles),np.asarray(prior.vertices),np.asarray(prior.triangles))
@@ -77,12 +87,16 @@ def prepare(root,frame,curve_source=None):
     save('transferred.ply',t)
     evidence.OUT=PRIOR;evidence.CONTROLS=PRIOR/'controls';rows,depths,hashes=evidence.load_real(frame)
     if hashes!=read(PRIOR/frame/'analysis.json')['source_depth_sha256']:raise ValueError('Changed native observed depth')
+    veto=measured_pixel_veto;color_calls=[];color_provenance=None
+    if photometric_free_space:
+        from photometric_forearm_depth_guard import make_guard
+        veto,color_calls,color_provenance=make_guard(frame,rows,depths)
     rounds=[]
     for iteration in range(8):
         scene=scene_for(v,t);remove=set();checks=[]
         for ci,(camera,depth) in enumerate(zip(rows,depths)):
             for offset in [0,.5]:
-                ids,count,raw=measured_pixel_veto(scene,camera,depth,rows,depths,len(ot),len(t),offset)
+                ids,count,raw=veto(scene,camera,depth,rows,depths,len(ot),len(t),offset)
                 remove.update(ids.tolist());checks.append(dict(camera=camera['physical_camera'],offset=offset,trusted_free_pixels=count,raw_far_pixels=raw))
             if (ci+1)%10==0:
                 atomic_json(folder/'progress.json',dict(stage='observed_depth_guard',iteration=iteration,cameras_done=ci+1,triangles_flagged=len(remove),unix_time=time.time()))
@@ -108,6 +122,7 @@ def prepare(root,frame,curve_source=None):
     panel.save(folder/'moving_forearm_clay_native.png')
     atomic_json(folder/'geometry_result.json',dict(request_sha256=sha(folder/'request.json'),transfer=transfer,final_added_triangles=len(t)-len(ot),
         observed_guard_passed=passed,rounds=rounds,depth_hashes=hashes,visual=visual,visual_status='pending',production_accepted=False,
+        color_guard_calls=color_calls,color_guard_provenance=color_provenance,
         hashes={n:sha(folder/n) for n in ['transferred.ply','guarded.ply','moving_forearm_clay_native.png']}))
     print(frame,'finished',transfer['transferred_triangles'],'->',len(t)-len(ot),'pass',passed,visual,flush=True)
 
@@ -142,6 +157,7 @@ def render(root,frame):
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('action',choices=['prepare','render']);p.add_argument('--frame',required=True,choices=FRAMES)
     p.add_argument('--root',type=Path,default=Path('/mnt/data/dec5_forearm_production_delta'))
-    p.add_argument('--curved-anchor-root',type=Path);a=p.parse_args()
-    if a.action=='prepare':prepare(a.root,a.frame,a.curved_anchor_root)
+    p.add_argument('--curved-anchor-root',type=Path);p.add_argument('--boundary-conditioned',action='store_true')
+    p.add_argument('--photometric-free-space',action='store_true');a=p.parse_args()
+    if a.action=='prepare':prepare(a.root,a.frame,a.curved_anchor_root,a.boundary_conditioned,a.photometric_free_space)
     else:render(a.root,a.frame)
