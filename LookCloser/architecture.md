@@ -1330,3 +1330,22 @@ screen displacement, native-image rotation equality, temporal inventory and
 fresh raycasts. `diagnose_screen_travel.py` isolates camera effects on one mesh;
 the actual video still uses all 150 real times. See
 `experiments/dec5_screen_travel_camera_flight.md` for limitations.
+
+<!-- expanded-head-camera-20260914 -->
+`expanded_head_camera_flight.py` maps the wider dynamic route through a five-anchor
+convex rig polygon. `repair_temporal_head_boundaries.py` appends bounded boundary
+membranes; `complete_head_depth_notches.py` appends camera-conditioned 3D patches
+with train silhouette support. Neither claims independent depth measurements.
+Real cheek shadows and true silhouette gaps are not geometry defects; matched
+controls and train evidence distinguish them from crown holes. The finalizer
+audits repair receipts and produces only the requested normal-speed MP4.
+
+`artifact_aware_camera_flight.py` is a shot-level workaround with a smoothly
+restricted camera envelope and unchanged temporal order. It reuses the fixed
+boundary-only geometry stage, excluding view-conditioned depth-notch triangles.
+Primitive-ID overlays in `diagnose_camera_patch_provenance.py` distinguish those
+added priors from original geometry; the publication audit verifies that choice.
+
+`elevated_camera_workaround.py` raises the lower arc without changing that mesh
+stage. Periodic cubic-spline resampling by 3D camera distance prevents the reduced
+vertical envelope from causing long dwells and fast traversals.

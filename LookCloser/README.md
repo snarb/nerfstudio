@@ -219,3 +219,19 @@ For visible **object movement inside the image**, use the opt-in
 composition and a fixed wider virtual lens. The finalizer checks actual screen
 displacement and rotation-only image output; `diagnose_screen_travel.py` isolates
 camera motion on identical geometry. See [screen-travel diagnosis](experiments/dec5_screen_travel_camera_flight.md).
+
+`expanded_head_camera_flight.py --output NEW_ROOT` expands that route to C..L /
+A..E using five real anchors (C/A and rows above A do not exist). It combines
+bounded head-boundary and local 3D-notch completion with the unchanged hard-source
+renderer. The finalizer emits only the normal-speed movie for this opt-in mode.
+This expanded depth-notch variant is retained as an experimental control, not
+the selected general-view reconstruction: its patches can fail from other angles.
+See [head-defect controls and limitations](experiments/dec5_expanded_head_camera_flight.md).
+
+For the subsequent user-authorized shot workaround, use
+`artifact_aware_camera_flight.py --output NEW_ROOT`. It uses a smoothly restricted
+camera envelope and the fixed boundary-only mesh stage; view-conditioned depth
+patches are excluded because they can become stretched membranes from other views.
+`elevated_camera_workaround.py --output NEW_ROOT` further raises the lower arc
+to hide exposed under-chin boundaries. It trades vertical range for visibility
+and resamples a periodic cubic spline by 3D distance to keep camera speed even.

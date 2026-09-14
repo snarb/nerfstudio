@@ -20,7 +20,7 @@ OUTPUT=Path('/mnt/data/dec5_wide_dynamic_flight_150_v2')
 def diagram(output):
     request=verify_request(output);xy=np.array([r['camera']['rig_offset_xy'] for r in request['inventory']])
     replay=request['recipe']['camera_path_kind']=='replay_static_4x4'
-    screen=request['recipe']['camera_path_kind']=='screen_travel'
+    screen=request['recipe']['camera_path_kind'] in {'screen_travel','expanded_head','artifact_avoidance'}
     image=Image.new('RGB',(1100,700),(20,20,25));draw=ImageDraw.Draw(image)
     def pixel(q):return (int(550+110*q[0]),int(340-120*q[1]))
     for x in range(-4,5):
@@ -43,11 +43,21 @@ def diagram(output):
         draw.text((20,15),'D..K / A..D: expanded two columns each side, with REAL screen-space object travel',fill='white')
         draw.text((20,40),'150 changing source times; fixed virtual lens; no image crop, stabilization or post-render translation',fill='white')
         draw.text((20,650),'The camera no longer keeps the scene landmark centered. Camera loop is not an actor-time loop.',fill='white')
+        if request['recipe']['camera_path_kind']=='expanded_head':
+            draw.rectangle((0,0,1100,35),fill=(20,20,25))
+            draw.text((20,15),'C..L / A..E: five real anchors, no invented C/A corner or row above A',fill='white')
+        if request['recipe']['camera_path_kind']=='artifact_avoidance':
+            draw.rectangle((0,0,1100,35),fill=(20,20,25))
+            draw.text((20,15),'Shot workaround: smooth smaller upper-left envelope; still real camera AND actor movement',fill='white')
     image.save(output/'camera_path.png')
 
 
 def audit(output,require_reviews=False):
     request=verify_request(output);digest=sha(output/'request.json');inventory=request['inventory']
+    for field in ['repair_parent','camera_workaround_parent','elevated_camera_parent']:
+        if field in request:
+            spec=request[field]
+            if sha(spec['path'])!=spec['sha256']:raise ValueError('Changed parent request provenance')
     ids=request['ordered_frame_ids']
     if ids!=[f'{899+2*i:06d}' for i in range(150)] or [r['frame_id'] for r in inventory]!=ids:
         raise ValueError('Wrong dynamic source-time inventory')
@@ -55,7 +65,10 @@ def audit(output,require_reviews=False):
     cal=read(CALIBRATION);lookup={r['physical_camera']:r for r in cal['frames']}
     corners=np.asarray([lookup[n]['transform_matrix'] for n in request['camera_path_report']['anchors']])[:,:3,3]
     poses=[];weights=[];render_hashes={};mesh_hashes=[];reviews=[];image_centroids=[]
-    screen=request['recipe']['camera_path_kind']=='screen_travel'
+    workaround=request['recipe']['camera_path_kind']=='artifact_avoidance'
+    expanded=request['recipe']['camera_path_kind'] in {'expanded_head','artifact_avoidance'}
+    screen=request['recipe']['camera_path_kind'] in {'screen_travel','expanded_head','artifact_avoidance'}
+    if expanded and request.get('partial_diagnostic_only'):raise ValueError('Cannot publish partial diagnostic')
     for record in inventory:
         frame=record['frame_id'];root=output/'frames'/frame;receipt=read(root/'complete.json')
         if receipt['request_sha256']!=digest:raise ValueError('Wrong frame request')
@@ -70,7 +83,13 @@ def audit(output,require_reviews=False):
         spec=record['source_masks'];source_root=Path(spec['root'])
         for name,key in [('complete.json','complete_sha256'),('masks.npz','masks_sha256'),('cameras.json','cameras_sha256')]:
             if sha(source_root/name)!=spec[key]:raise ValueError('Changed mask input')
-        if sha(record['target_restoration_receipt'])!=record['target_restoration_receipt_sha256']:raise ValueError('Changed restoration receipt')
+        if expanded:
+            for field in ['head_repair_receipt','notch_receipt']:
+                if sha(record[field])!=record[field+'_sha256']:raise ValueError('Changed head repair receipt')
+                repaired=read(record[field]);folder=Path(record[field]).parent
+                if sha(folder/'mesh.ply')!=repaired['mesh_sha256'] or sha(folder/'operations.json')!=repaired['operations_sha256']:raise ValueError('Changed repair output')
+                if 'evidence_sha256' in repaired and sha(folder/'evidence.npz')!=repaired['evidence_sha256']:raise ValueError('Changed repair evidence')
+        elif sha(record['target_restoration_receipt'])!=record['target_restoration_receipt_sha256']:raise ValueError('Changed restoration receipt')
         if sha(SOURCE/frame/'transforms.json')!=record['source_transforms_sha256']:raise ValueError('Source time changed')
         image=np.array(Image.open(root/'frame.png'))
         if image.shape!=(1920,1080,3) or not np.isfinite(image).all() or (image.max(2)>0).mean()<.01:raise ValueError('Bad image')
@@ -95,10 +114,20 @@ def audit(output,require_reviews=False):
     replay=request['recipe']['camera_path_kind']=='replay_static_4x4'
     xy=np.column_stack((3*u-2,2-3*v)) if replay else np.column_stack((8*u-4,2-4*v))
     if screen:xy=np.column_stack((7*u-4,2-3*v))
+    if expanded:
+        from expanded_head_camera_flight import RIG_POLYGON
+        xy=weights@RIG_POLYGON
     # The periodic turn passes the exact left extremum just before phase zero;
     # phase zero must start within 0.2 interval of the left edge, not at center.
     if screen:
         from screen_travel_camera_flight import screen_path,portrait_projection
+        if expanded:
+            from expanded_head_camera_flight import expanded_path as screen_path
+        if workaround:
+            from artifact_aware_camera_flight import avoidance_path as screen_path
+        elevated=request['recipe'].get('camera_path_variant')=='elevated'
+        if elevated:
+            from elevated_camera_workaround import elevated_path as screen_path
         from joint_temporal_texture import cameras
         reference=request['reference_camera_pilot']
         if sha(reference['path'])!=reference['sha256']:raise ValueError('Changed source loop')
@@ -111,7 +140,8 @@ def audit(output,require_reviews=False):
         projected=np.array([portrait_projection(np.array(report['fixed_target']),p) for p in expected])
         if (np.ptp(projected,axis=0)<[380,150]).any():raise ValueError('Scene still centered')
         if np.ptp(np.array(image_centroids)[:,0])<200:raise ValueError('Insufficient visible RGB displacement')
-        if (np.ptp(xy,axis=0)<[6.7,2.87]).any():raise ValueError('Missing widened rig motion')
+        minimum_extent=[4.5,.7] if elevated else ([4.5,2.8] if workaround else ([8.6,3.8] if expanded else [6.7,2.87]))
+        if (np.ptp(xy,axis=0)<minimum_extent).any():raise ValueError('Missing requested rig motion')
     elif replay:
         from replay_dynamic_camera_flight import replay_path
         report=request['camera_path_report']
@@ -171,7 +201,7 @@ def sheets(output):
             xy=record['camera']['rig_offset_xy'];draw.text((x+3,y+3),f'{record["frame_id"]} x={xy[0]:+.2f} y={xy[1]:+.2f}',fill='white')
         panel.save(root/'overview.png');atomic_json(root/'manifest.json',dict(render_hashes=hashes))
     replay=request['recipe']['camera_path_kind']=='replay_static_4x4'
-    loop=replay or request['recipe']['camera_path_kind']=='screen_travel'
+    loop=replay or request['recipe']['camera_path_kind'] in {'screen_travel','expanded_head','artifact_avoidance'}
     chosen=[0,37,75,112] if loop else [0,49,78,118]
     if all((output/'frames'/request['inventory'][i]['frame_id']/'complete.json').exists() for i in chosen):
         panel=Image.new('RGB',(2160,984));draw=ImageDraw.Draw(panel)
@@ -227,7 +257,9 @@ def encode(output):
             if sha(dest)!=sha(source):raise ValueError('Changed encode sequence')
         else:os.link(source,dest)
     env=dict(os.environ,LD_PRELOAD='/lib/x86_64-linux-gnu/libmpg123.so.0');videos={}
-    for name,fps in [('video.mp4',24),('video_slow_12fps.mp4',12)]:
+    normal_only=request['recipe']['camera_path_kind'] in {'expanded_head','artifact_avoidance'}
+    versions=[('video.mp4',24)] if normal_only else [('video.mp4',24),('video_slow_12fps.mp4',12)]
+    for name,fps in versions:
         temp=output/f'{name}.partial.mp4'
         subprocess.run(['ffmpeg','-y','-hide_banner','-loglevel','error','-framerate',str(fps),'-i',str(sequence/'%05d.png'),
             '-frames:v','150','-c:v','libx264','-crf','16','-preset','slow','-threads','8','-pix_fmt','yuv420p','-movflags','+faststart',str(temp)],check=True,env=env)
@@ -245,7 +277,7 @@ def encode(output):
         panel.save(decoded/f'sheet_{first:03d}.png')
     atomic_json(output/'video_manifest.json',dict(videos=videos,render_hashes=checked['render_hashes'],
         request_sha256=sha(output/'request.json'),unique_source_times=150,source_time_repetition=False,
-        slow_version='Same 150 unique frames at 12fps: half-speed actor and camera, lower cadence; no optical-flow interpolation',
+        slow_version='Not requested; not created' if normal_only else 'Same 150 unique frames at 12fps: half-speed actor and camera, lower cadence; no optical-flow interpolation',
         camera_periodic=True,actor_clip_periodic=False,encoded_visual_status='pending'))
 
 
@@ -290,6 +322,15 @@ def publish(output):
     shutil.copyfile(__file__,snapshot/Path(__file__).name)
     report='dec5_replayed_4x4_dynamic.md' if request['recipe']['camera_path_kind']=='replay_static_4x4' else 'dec5_wide_dynamic_camera_flight.md'
     if request['recipe']['camera_path_kind']=='screen_travel':report='dec5_screen_travel_camera_flight.md'
+    if request['recipe']['camera_path_kind'] in {'expanded_head','artifact_avoidance'}:report='dec5_expanded_head_camera_flight.md'
+    if request['recipe']['camera_path_kind'] in {'expanded_head','artifact_avoidance'}:
+        geometry=read(output/'head_geometry_audit.json')
+        if (geometry['status']!='preservation_and_locality_pass' or geometry['frames']!=150
+                or geometry['request_sha256']!=sha(output/'request.json')
+                or geometry['script_sha256']!=sha(scripts/'audit_head_completion_geometry.py')):
+            raise ValueError('Independent head preservation/locality audit required')
+        shutil.copyfile(scripts/'audit_head_completion_geometry.py',snapshot/'audit_head_completion_geometry.py')
+        shutil.copyfile(scripts/'diagnose_camera_patch_provenance.py',snapshot/'diagnose_camera_patch_provenance.py')
     if request['recipe']['camera_path_kind']=='screen_travel':
         diagnostic=read(output/'framing_diagnosis/result.json')
         if diagnostic['visual_status']!='reviewed_screen_displacement_confirmed':raise ValueError('Review identical-mesh framing diagnostic')
