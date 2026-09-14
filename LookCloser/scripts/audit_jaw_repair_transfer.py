@@ -4,7 +4,7 @@ from pathlib import Path
 import numpy as np
 import open3d as o3d
 from joint_temporal_texture import read,sha,atomic_json
-from study_jaw_repair_transfer import OUT
+from study_jaw_repair_transfer import OUT,PARENT,mask_votes
 from study_jaw_boundary_notches import propose,SETTINGS
 from study_confidence_depth_prior import load_real
 from guard_jaw_measured_depth import measured_pixel_veto,initial_admission
@@ -39,6 +39,22 @@ def run(output,frame):
         raise ValueError('New island or nonmanifold edge')
     rows,depths,receipt=load_real(Path(request['depth_root']),frame)
     if receipt!=request['depth_receipt']:raise ValueError('Changed observed depth')
+    source=next(r for r in read(PARENT/'request.json')['inventory'] if r['frame_id']==frame)
+    maskroot=Path(source['source_masks']['root']);masks=np.load(maskroot/'masks.npz')['masks'];names=read(maskroot/'cameras.json')
+    if sha(maskroot/'masks.npz')!=request['source_mask_sha256']:raise ValueError('Changed original masks')
+    if 'mask_override' in request:
+        from build_measured_foreground_override import add_certified_seeds
+        override=Path(request['mask_override']['root'])/frame;mr=read(override/'result.json')
+        if sha(override/'result.json')!=request['mask_override']['result_sha256']:raise ValueError('Changed override result')
+        if mr['request_sha256']!=sha(override/'request.json'):raise ValueError('Changed override request')
+        for name,h in mr['hashes'].items():
+            if sha(override/name)!=h:raise ValueError('Changed override evidence')
+        seeds=np.load(override/'evidence.npz')['seeds'];index=names.index(mr['camera'])
+        expected=add_certified_seeds(masks[index],seeds);actual=np.load(override/'mask.npy')
+        if not np.array_equal(expected,actual):raise ValueError('Changed mask expansion rule')
+        masks=masks.copy();masks[index]=actual
+    ms,mo=mask_votes(v,a['proposals'],rows,masks,names)
+    if not np.array_equal(ms,a['mask_support']) or not np.array_equal(mo,a['mask_outside']):raise ValueError('Semantic gate replay mismatch')
     scene=scene_for(v,nt);checks=[]
     for camera,depth in zip(rows,depths):
         for offset in [0,.5]:
@@ -46,7 +62,7 @@ def run(output,frame):
             if len(ids) or count:raise ValueError('Final measured ray contradiction')
             checks.append(dict(camera=camera['physical_camera'],offset=offset,qualified_veto_pixels=count))
     atomic_json(folder/'independent_audit.json',dict(result_sha256=sha(folder/'result.json'),
-        original_prefix_exact=True,proposal_replay_exact=True,retained_mapping_exact=True,
+        original_prefix_exact=True,proposal_replay_exact=True,retained_mapping_exact=True,semantic_replay_exact=True,
         topology_before=before,topology_after=after,checks=checks,script_sha256=sha(__file__),production_accepted=False))
     print(frame,'124 fresh rays pass; topology',before,'->',after,flush=True)
 

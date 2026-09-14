@@ -42,7 +42,7 @@ def mask_votes(vertices, proposals, rows, masks, names):
     return support, outside
 
 
-def prepare(output, frame):
+def prepare(output, frame, mask_override_root=None):
     source = next(r for r in read(PARENT/'request.json')['inventory'] if r['frame_id'] == frame)
     folder = output/frame; folder.mkdir(parents=True, exist_ok=True)
     old_root = Path('/mnt/data/dec5_jaw_train_confidence/footprint')
@@ -69,6 +69,19 @@ def prepare(output, frame):
         final_free_separation=.003, final_other_depth_support=3, ray_offsets=[0,.5], max_rounds=8,
         geometry_uses_target_camera=False, heldout_rgb_used=False, production_accepted=False,
         scripts={n:sha(Path(__file__).with_name(n)) for n in SCRIPTS})
+    masks=np.load(maskroot/'masks.npz')['masks'];names=read(maskroot/'cameras.json')
+    if mask_override_root is not None:
+        override=mask_override_root/frame;mr=read(override/'result.json')
+        if mr['request_sha256']!=sha(override/'request.json') or mr['original_masks_sha256']!=sha(maskroot/'masks.npz'):
+            raise ValueError('Override source mismatch')
+        for name,h in mr['hashes'].items():
+            if sha(override/name)!=h:raise ValueError('Changed mask override')
+        replacement=np.load(override/'mask.npy');index=names.index(mr['camera'])
+        if replacement.shape!=masks[index].shape or not replacement[masks[index].astype(bool)].all():
+            raise ValueError('Override must preserve the original mask')
+        masks=masks.copy();masks[index]=replacement
+        request['mask_override']=dict(root=str(mask_override_root),result_sha256=sha(override/'result.json'),
+            camera=mr['camera'],geometry_only=True,texture_masks_unchanged=True)
     if (folder/'request.json').exists() and read(folder/'request.json') != request:
         raise ValueError('Frozen transfer mismatch')
     atomic_json(folder/'request.json', request)
@@ -82,7 +95,7 @@ def prepare(output, frame):
     raw, notes = propose(v, t); proposals = raw[len(t):]
     points = barycentric_samples(v[proposals]); votes, references = train_reference_votes(points.reshape(-1,3), rows, depths)
     free = footprint_veto(points.reshape(-1,3), rows, depths).reshape(62,-1,10)
-    mask_support, mask_outside = mask_votes(v, proposals, rows, np.load(maskroot/'masks.npz')['masks'], read(maskroot/'cameras.json'))
+    mask_support, mask_outside = mask_votes(v, proposals, rows, masks, names)
     keep = initial_admission(votes.reshape(-1,10), free, mask_support, mask_outside)
     ids = np.flatnonzero(keep); triangles = np.concatenate([t,proposals[keep]]); rounds=[]
     for iteration in range(8):
@@ -107,7 +120,7 @@ def prepare(output, frame):
     if not np.array_equal(v,np.asarray(saved.vertices)) or not np.array_equal(t,np.asarray(saved.triangles)[:len(t)]):
         raise ValueError('Original prefix changed')
     replay=None
-    if frame in ['001193','001195']:
+    if frame in ['001193','001195'] and mask_override_root is None:
         replay=sha(folder/'mesh.ply')==sha(old_root/'guarded'/frame/'mesh.ply')
         if not replay: raise ValueError('Historical canary did not replay exact mesh bytes')
     np.savez_compressed(folder/'evidence.npz',proposals=proposals,points=points,votes=votes.reshape(-1,10),
@@ -145,4 +158,8 @@ def render(output,frame):
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__); p.add_argument('action',choices=['prepare','render'])
     p.add_argument('--frame',choices=FRAMES,required=True); p.add_argument('--output',type=Path,default=OUT)
-    a=p.parse_args(); (prepare if a.action=='prepare' else render)(a.output,a.frame)
+    p.add_argument('--mask-override-root',type=Path)
+    a=p.parse_args()
+    if a.action=='prepare':prepare(a.output,a.frame,a.mask_override_root)
+    elif a.mask_override_root is not None:p.error('Mask override belongs to prepare, not render')
+    else:render(a.output,a.frame)

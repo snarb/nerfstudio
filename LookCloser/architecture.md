@@ -9,6 +9,12 @@ audits distinguish a safe small cap from a general reconstruction improvement.
 Post-hoc support/mask diagnostics do not enter geometry or scoring. See
 [four-time transfer and limitations](experiments/dec5_jaw_repair_transfer.md).
 
+`build_measured_foreground_override.py` tests bounded semantic additions seeded
+by query depth plus other-view foreground/color evidence. The jaw controller's
+`--mask-override-root` applies these only to geometry; source texture masks stay
+unchanged. Fresh audits replay semantic votes and bounded expansion. See
+[measured-mask control](experiments/dec5_jaw_measured_mask.md).
+
 ## Opt-in production forearm delta study
 
 `append_verified_mesh_delta.py` composes only added faces onto independently
