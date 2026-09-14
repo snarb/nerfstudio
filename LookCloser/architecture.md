@@ -1349,3 +1349,15 @@ added priors from original geometry; the publication audit verifies that choice.
 `elevated_camera_workaround.py` raises the lower arc without changing that mesh
 stage. Periodic cubic-spline resampling by 3D camera distance prevents the reduced
 vertical envelope from causing long dwells and fast traversals.
+
+`study_temporal_gradient_seams.py` reconstructs exact frozen hard-source warps
+and applies an opt-in float64 gradient-color solve; CUDA changes execution only.
+The bounded proposal preserves missing pixels, labels and geometry, but held-out
+fidelity checks in `study_gradient_heldout.py` reject its low-frequency color drift.
+Independent audits bind numerical invariants, face-only scores and native reviews.
+See `experiments/dec5_temporal_gradient_color.md`; this is not a model default.
+
+`probe_elevated_jaw_visibility.py` and `study_elevated_jaw_rgb.py` isolate a uniform
+camera-height offset on unchanged dynamic meshes, preserving horizontal travel
+and fixed intrinsics. Clay and exact-wrapper RGB distinguish reduced visibility
+of holes from true mesh recovery; five-view canaries do not certify a full movie.

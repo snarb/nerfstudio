@@ -62,7 +62,8 @@ additional source selection, GT, geometric filling or learned image generator.
 The bounded crop retains the visible face/neck improvement and creates **zero**
 new fully black supported pixels. The skin still has some color variation and
 hair changes tone; no claim of exact GT color or temporal stability is made.
-The gradient, bounded-gain and actual CUDA-equivalence tests pass: **8 passed**.
+The gradient, bounded-gain, independent-audit and actual CUDA-equivalence tests
+pass together: **9 passed**.
 The full 001193 image and 001191/001195 actor extents were subsequently inspected
 at native scale. All three retain the strong skin-mosaic reduction, though warmer
 hair, the original jaw holes, ragged torso boundaries and some color differences
@@ -112,6 +113,53 @@ remaining geometric artifacts or declare novel-view GT fidelity. The five are
 `audit_bounded_temporal_gradient_control.py` independently reproduces the output,
 checks unsupported pixels and binds the explicit review to the inspected PNGs.
 
+### Held-out fidelity gate: do not promote this correction
+
+`study_gradient_heldout.py` renders F004_B005_1210O9 at 000899, 000973 and
+001193 with the **exact published foreground-mask and angular source-prior
+wrappers**, frozen current meshes, profiles and exposure. Baseline and corrected
+views have identical geometry/source labels. GT is used only by separate
+evaluation commands; the face polygons were selected on GT before inspecting
+the compared predictions. No parameter was fitted to held-out images.
+
+Artifact root: `/mnt/data/dec5_gradient_heldout_fidelity`.
+Display GT uses the same fixed global exposure, Reinhard and sRGB, without a
+fitted held-out camera gain. Metrics are face only: exact selected-pixel PSNR,
+tight zero-outside-ROI SSIM/AlexNet LPIPS. These new polygons/display profile are
+not numerically interchangeable with historical per-image-exposure tables.
+
+| Time | Variant | Face PSNR | Face SSIM | Face LPIPS |
+|---|---|---:|---:|---:|
+| 000899 | frozen hard baseline | 26.2374 | .901630 | .106682 |
+| 000899 | bounded gradient | 23.0756 | .900578 | .110920 |
+| 000973 | frozen hard baseline | 29.0789 | .902917 | .083757 |
+| 000973 | bounded gradient | 26.0943 | .905821 | .082696 |
+| 001193 | frozen hard baseline | 28.2061 | .924161 | .086169 |
+| 001193 | bounded gradient | 25.9013 | .925914 | .088851 |
+
+All three native GT/baseline/corrected face-hair panels were inspected. Broad
+seams improve, but skin brightness/color shifts away from GT. Hair already has
+lost fine structure and incorrect opaque crown fragments in the baseline; the
+correction changes color, not those defects. The 000973 rear lipstick/neck patch
+also remains. Face PSNR degrades **2.30–3.16 dB**, SSIM changes are small, and
+LPIPS worsens on two of three frames. The correction is **not promoted** to the
+150-frame video despite positive seam-continuity diagnostics.
+
+`audit_gradient_heldout.py` verifies the three render inventories/hashes,
+train-only source lists, production angular prior, exact bounded output
+reproduction, GT/ROI bindings, six finite face metric triplets, independent
+NumPy face PSNR, and all three explicit hash-bound native visual reviews.
+
+The mechanism is consistent with weak global anchoring (`ridge=1e-6`): a
+source-derived gradient field can improve boundary continuity while shifting
+large connected regions' low-frequency color. This is a hypothesis about the
+remaining drift, not proof that a particular camera exposure is wrong. Any
+follow-up must constrain that drift without fitting the held-out RGB.
+
+Native comparisons: [000899](/mnt/data/dec5_gradient_heldout_fidelity/evaluation/000899/native_face_hair_comparison.png),
+[000973](/mnt/data/dec5_gradient_heldout_fidelity/evaluation/000973/native_face_hair_comparison.png),
+[001193](/mnt/data/dec5_gradient_heldout_fidelity/evaluation/001193/native_face_hair_comparison.png).
+
 ## Insights
 
 The current broad color mosaic is at least partly a source-seam problem: it can
@@ -119,6 +167,6 @@ be substantially reduced without moving or filling a single triangle. This is
 different from the original unsupported lipstick geometry and the remaining
 black jaw holes. Improved color continuity cannot certify mesh recovery.
 
-Next checks are full-frame composition, hair/lip detail, independent skin/color
-fidelity where a real camera exists, and adjacent-frame stability. Do not expand
-to a 150-time corrected movie on the strength of one cropped screenshot.
+Held-out fidelity now rules out blindly expanding this candidate to the movie.
+Geometry repair and the trajectory workaround remain separate workstreams;
+neither is certified by improved color continuity.
