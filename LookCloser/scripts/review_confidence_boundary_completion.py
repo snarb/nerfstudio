@@ -13,13 +13,13 @@ ROOTS={'previous':Path('/mnt/data/dec5_forearm_early_texture_prior'),
        'pins_only':Path('/mnt/data/dec5_forearm_measured_boundary'),
        'pins_and_domain':Path('/mnt/data/dec5_forearm_measured_boundary_domain')}
 
-def run(output,frames,annotation_only=False):
+def run(output,frames,annotation_only=False,variants=None):
     prior.configure();v1=prior.v2.v1;torch.set_num_threads(2)
     model=LearnedPerceptualImagePatchSimilarity(net_type='alex',normalize=True).cuda().eval();records=[];inputs={}
     for frame in frames:
         name=v1.NAMES[1];gtpath=prior.OUT/frame/'rgb'/(name+'.png');gt=np.rot90(np.array(Image.open(gtpath))).copy()
         mask=np.rot90(v1.masks(frame)[name]).copy()
-        labels=(['previous','annotation_only'] if annotation_only else
+        labels=variants or (['previous','annotation_only'] if annotation_only else
                 ['previous']+(['pins_only'] if frame=='001037' else [])+['pins_and_domain'])
         for view in ['moving',name]:
             images=[];results=[];metrics=[]

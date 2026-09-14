@@ -22,6 +22,11 @@ The separate measured-boundary solver is an unpromoted negative shape control;
 fresh audits check original geometry, face admission and 62-view depth/color rays.
 See [annotation-domain controls](experiments/dec5_forearm_annotation_domain.md).
 
+`--witness-rgb-limit` additionally qualifies free-space witnesses by absolute
+calibrated display RGB, without fitting exposure or changing the chroma default.
+Its positive-anchor controls and fresh 62-view audit are separate from visual
+acceptance; see [RGB confidence study](experiments/dec5_forearm_rgb_confidence.md).
+
 ## Key files
 
 The opt-in `study_early_texture_prior.py` adapter applies target-angle weights

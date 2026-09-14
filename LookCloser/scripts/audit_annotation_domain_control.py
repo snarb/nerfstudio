@@ -6,8 +6,8 @@ import open3d as o3d
 from joint_temporal_texture import read, sha, atomic_json
 
 
-def audit(root, frame):
-    previous = Path('/mnt/data/dec5_forearm_color_qualified_curved') / frame
+def audit(root, frame, reference_root=Path('/mnt/data/dec5_forearm_color_qualified_curved')):
+    previous = reference_root / frame
     current = root / frame
     request = read(current / 'request.json')
     if request['curvature_policy']['known_annotation_margin'] != 3:
@@ -46,7 +46,7 @@ def audit(root, frame):
     fresh = root / 'fresh_audit' / (frame + '.json')
     if read(fresh)['geometry_result_sha256'] != sha(current / 'geometry_result.json'):
         raise ValueError('Fresh ray audit not for this mesh')
-    result = dict(frame=frame, controls=records, original_production_prefix_exact=True,
+    result = dict(frame=frame, reference_root=str(reference_root), controls=records, original_production_prefix_exact=True,
                   fresh_audit_sha256=sha(fresh), script_sha256=sha(__file__),
                   geometry_result_sha256=sha(current / 'geometry_result.json'),
                   artifact_free=False, production_accepted=False)
@@ -58,6 +58,7 @@ if __name__ == '__main__':
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--root', type=Path, default=Path('/mnt/data/dec5_forearm_annotation_domain_only'))
     p.add_argument('--frames', nargs='+', default=['001029', '001033', '001037'])
+    p.add_argument('--reference-root', type=Path, default=Path('/mnt/data/dec5_forearm_color_qualified_curved'))
     a = p.parse_args()
     for frame in a.frames:
-        audit(a.root, frame)
+        audit(a.root, frame, a.reference_root)
