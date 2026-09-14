@@ -1,5 +1,12 @@
 # LookCloser architecture
 
+## Opt-in secondary-reference surface probe
+
+`forearm_quadric_rays.py` expresses one inferred inverse-depth surface in world
+coordinates. Separate probe/assembly/audit scripts test extra train references
+with unchanged semantic and measured-depth gates. This is not a new default or
+production repair; see [canary and connectivity limits](experiments/dec5_forearm_secondary_reference.md).
+
 ## Opt-in jaw-repair transfer
 
 `study_jaw_repair_transfer.py` applies the frozen camera-independent notch,
