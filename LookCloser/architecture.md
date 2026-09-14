@@ -1,5 +1,15 @@
 # LookCloser architecture
 
+## Opt-in production forearm delta study
+
+`append_verified_mesh_delta.py` composes only added faces onto independently
+repaired production meshes. `study_forearm_production_delta.py` guards additions
+against all 62 measured depth views before exact-wrapper RGB rendering.
+`collect_forearm_depth_anchors.py` and `curve_forearm_delta.py` test inferred
+curvature; the separate scorer/audit retain fixed train-skin metrics and visual
+rejections. Neither variant is promoted or changes model defaults. See
+[results and boundary-condition limitations](experiments/dec5_forearm_production_delta.md).
+
 ## Key files
 
 - `nerfstudio/scripts/lookcloser_preprocess.py` — 2D patch frequency preprocessing.
