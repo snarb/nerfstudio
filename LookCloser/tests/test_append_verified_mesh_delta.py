@@ -62,3 +62,11 @@ def test_opt_in_axis_extent_matches_original_grid_builder():
     legacy,_=semantic_faces(v,f,rows,masks)
     axis,r=semantic_faces(v,f,rows,masks,axis_extent=True)
     assert len(legacy)==0 and len(axis)==1 and r['extent_metric']=='axis_extent_strict'
+
+
+def test_matched_plane_cannot_silently_select_a_different_admission_protocol(tmp_path):
+    from study_forearm_production_delta import prepare
+    out=tmp_path/'must_not_exist'
+    with pytest.raises(ValueError,match='Matched plane requires'):
+        prepare(out,'001029',matched_plane=True)
+    assert not out.exists()

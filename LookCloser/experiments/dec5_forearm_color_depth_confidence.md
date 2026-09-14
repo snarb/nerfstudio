@@ -140,6 +140,13 @@ No source, reference or failed workspace was deleted.
 
 ## Insights
 
+The matched-plane follow-up inventory, fresh color-qualified ray checks and
+retained hashes are consolidated at
+`/mnt/data/dec5_forearm_matched_plane_review/artifact_manifest.json`.
+All three matched-plane verdicts remain fail/not-promoted; original movie
+geometry is unchanged. An initial audit invocation used a nonexistent boundary
+root and failed closed; the corrected path passed without rerendering.
+
 1. **Geometric corroboration of a background point is not sufficient evidence
    of free space along a foreground query ray.** In these canaries, matching
    colors exposes that missing distinction. Motion blur and low skin texture are
@@ -166,3 +173,18 @@ python scripts/audit_color_qualified_forearm.py --frame 001037 --root NEW_ROOT
 
 Repeat uniformly on 001029/001033 before scoring or promotion. The published
 150-time dynamic video remains unchanged and is **not artifact-free**.
+
+### Matched plane follow-up
+
+`--matched-plane` retains every input vertex of the unclipped plane, then runs
+the same axis-extent/skin admission and color-qualified guard as the quadratic.
+It cannot silently select the earlier, already depth-clipped plane. All three
+times were freshly prepared, rendered and ray-audited in
+`/mnt/data/dec5_forearm_color_qualified_plane`. Fixed train-skin PSNR / SSIM /
+LPIPS is 28.334/.8559/.1989, 20.176/.7365/.3719 and 19.180/.5811/.5401.
+This is mixed versus the quadratic: no decisive general advantage, and the
+side cuts and small horizontal 001037 discontinuity remain in native views.
+No per-frame shape selection or video mesh substitution is made.
+
+A separate [source-admission-order control](dec5_early_texture_admission.md)
+locates a stronger contributor to skin mosaics without changing this geometry.

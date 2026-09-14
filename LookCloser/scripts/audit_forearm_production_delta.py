@@ -83,7 +83,8 @@ def run(output):
             if record['frame']!=frame or record['model']=='plane':continue
             policy=read(ROOTS[record['model']]/frame/'request.json')['curvature_policy']
             record['appended_active_old_depth_ring_vertices']=int(ring.sum())
-            record['curvature_ring_handling']=('Exact old-depth ring; smooth interior feather' if policy.get('boundary_ring_exact') else
+            record['curvature_ring_handling']=('Exact old-depth ring; unchanged plane' if policy.get('shape')=='matched_unchanged_plane' else
+                'Exact old-depth ring; smooth interior feather' if policy.get('boundary_ring_exact') else
                 'Moved along with other referenced appended vertices; source mesh prefix unchanged. Boundary-condition limitation.')
     atomic_json(output/'result.json',dict(script_sha256=sha(__file__),records=records,metrics=metrics,
         metric_scope='fixed real-train forearm skin only, not heldout or full-frame',production_video_unchanged=True,
@@ -107,7 +108,8 @@ def run(output):
 
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=Path,default=Path('/mnt/data/dec5_forearm_production_review'))
-    p.add_argument('--boundary-root',type=Path);p.add_argument('--color-root',type=Path);a=p.parse_args()
+    p.add_argument('--boundary-root',type=Path);p.add_argument('--color-root',type=Path);p.add_argument('--plane-root',type=Path);a=p.parse_args()
     if a.boundary_root:ROOTS['boundary_quadratic']=a.boundary_root
     if a.color_root:ROOTS['color_qualified_quadratic']=a.color_root
+    if a.plane_root:ROOTS['color_qualified_plane']=a.plane_root
     run(a.output)

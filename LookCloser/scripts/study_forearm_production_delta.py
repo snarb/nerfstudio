@@ -22,8 +22,9 @@ PARENT=Path('/mnt/data/dec5_phase30_dynamic_150')
 FRAMES=['001029','001033','001037']
 
 
-def prepare(root,frame,curve_source=None,boundary_conditioned=False,photometric_free_space=False):
+def prepare(root,frame,curve_source=None,boundary_conditioned=False,photometric_free_space=False,matched_plane=False):
     if boundary_conditioned and curve_source is None:raise ValueError('Boundary condition requires curved source')
+    if matched_plane and (curve_source is None or not boundary_conditioned):raise ValueError('Matched plane requires boundary-conditioned comparison')
     folder=root/frame;folder.mkdir(parents=True,exist_ok=True)
     source=next(r for r in read(PARENT/'request.json')['inventory'] if r['frame_id']==frame)
     prior_spec=read(PRIOR/frame/'input.json');prior_result=read(PRIOR/frame/'plane_clipped/result.json')
@@ -51,6 +52,9 @@ def prepare(root,frame,curve_source=None,boundary_conditioned=False,photometric_
                                   minimum_skin_views=2,require_better_partitioned_p90_than_plane=True))
         if boundary_conditioned:
             request['curvature_policy'].update(boundary_ring_exact=True,interior_feather_px=10,extent_metric='axis_extent_strict')
+        if matched_plane:
+            request.update(inferred_local_plane_not_measured_anatomy=True,inferred_quadric_not_measured_anatomy=False)
+            request['curvature_policy'].update(shape='matched_unchanged_plane',max_depth_displacement=0,interior_feather_px=0)
     if photometric_free_space:
         request['observed_guard'].update(kind='depth_and_color_witnesses',min_color_witnesses=3,chroma_mean_abs_limit=.04,patch_size=5)
         request['color_guard_script_hashes']={n:sha(Path(__file__).with_name(n)) for n in ['photometric_forearm_depth_guard.py','diagnose_forearm_color_witnesses.py']}
@@ -71,7 +75,9 @@ def prepare(root,frame,curve_source=None,boundary_conditioned=False,photometric_
         v3.configure();rows,_,_=evidence.cameras(frame);reference=next(r for r in rows if r['physical_camera']==evidence.NAMES[0])
         delta_faces=np.asarray(prior.triangles)[len(base.triangles):]
         selected=np.unique(delta_faces);selected=selected[selected>=len(base.vertices)]
-        if boundary_conditioned:
+        if matched_plane:
+            pv=np.asarray(prior.vertices).copy();curve_record=dict(shape='matched_unchanged_plane',all_input_vertices_exact=True)
+        elif boundary_conditioned:
             accepted=np.load(PRIOR/frame/'plane/evidence.npz')['accepted']
             pv,curve_record=boundary_curve_vertices(np.asarray(prior.vertices),len(base.vertices),reference,fits['quadratic'],selected,accepted)
         else:
@@ -158,6 +164,6 @@ if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('action',choices=['prepare','render']);p.add_argument('--frame',required=True,choices=FRAMES)
     p.add_argument('--root',type=Path,default=Path('/mnt/data/dec5_forearm_production_delta'))
     p.add_argument('--curved-anchor-root',type=Path);p.add_argument('--boundary-conditioned',action='store_true')
-    p.add_argument('--photometric-free-space',action='store_true');a=p.parse_args()
-    if a.action=='prepare':prepare(a.root,a.frame,a.curved_anchor_root,a.boundary_conditioned,a.photometric_free_space)
+    p.add_argument('--photometric-free-space',action='store_true');p.add_argument('--matched-plane',action='store_true');a=p.parse_args()
+    if a.action=='prepare':prepare(a.root,a.frame,a.curved_anchor_root,a.boundary_conditioned,a.photometric_free_space,a.matched_plane)
     else:render(a.root,a.frame)

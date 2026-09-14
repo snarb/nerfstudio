@@ -18,6 +18,12 @@ See [color/depth confidence canaries](experiments/dec5_forearm_color_depth_confi
 
 ## Key files
 
+The opt-in `study_early_texture_prior.py` adapter applies target-angle weights
+before irreversible incidence clipping; it preserves hard one-source RGB and
+does not change the default renderer. `run_early_texture_video.py` evaluates it
+on the unchanged 150-time phase-shifted flight with disjoint supervised workers.
+See [admission diagnosis and held-out controls](experiments/dec5_early_texture_admission.md).
+
 - `nerfstudio/scripts/lookcloser_preprocess.py` — 2D patch frequency preprocessing.
 - `nerfstudio/scripts/lookcloser_debug_preprocess.py` — focused standalone preprocessing debug checks.
 - `nerfstudio/model_components/lookcloser_grid.py` — 3D frequency grid.

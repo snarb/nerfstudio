@@ -335,6 +335,8 @@ def publish(output):
     if request['recipe']['camera_path_kind'] in {'expanded_head','artifact_avoidance'}:report='dec5_expanded_head_camera_flight.md'
     if request['recipe'].get('camera_path_variant')=='elevated_periodic_phase_plus30':
         report='dec5_temporal_camera_phase.md'
+    if request['recipe'].get('texture_source_prior')=='target_angle_before_incidence_clip':
+        report='dec5_early_texture_admission.md'
     if request['recipe']['camera_path_kind'] in {'expanded_head','artifact_avoidance'}:
         geometry=read(output/'head_geometry_audit.json')
         if (geometry['status']!='preservation_and_locality_pass' or geometry['frames']!=150
