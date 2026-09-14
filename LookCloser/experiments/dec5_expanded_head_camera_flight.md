@@ -215,6 +215,28 @@ filtering losses. Do not describe 12 as experimentally optimal for these holes.
 
 ## Insights
 
+### All-time native jaw follow-up
+
+The selected elevated movie was additionally inspected at native crop resolution
+for **all 150 times**, using 25 six-frame sheets produced by
+`review_temporal_camera_workaround.py`. The 500x300 crops track only the saved
+fixed-landmark projection; no source image, video, camera or geometry is changed.
+The separate [review bundle](/mnt/data/dec5_elevated_camera_jaw_review_150)
+binds original image checksums, crop coordinates, sheet hashes and explicit LLM
+notes. `finalize_temporal_camera_review.py` verifies complete ordered coverage.
+
+No broad under-chin opening or stretched membrane was seen in these crops.
+However, this is **not** a zero-hole verdict: tiny contact notches occur while
+the hand overlaps the chin, and small black holes recur at **001193/001195**.
+Fresh original/final raycasts and source-ID attribution show **44/45** and
+**73/74** black spot pixels respectively already miss the original mesh.
+One boundary pixel was later removed at 001193; one lacks RGB at 001195.
+Major skin-color seams remain, especially late in the clip.
+The native jaw crop does not include the crown or lower forearm. This follow-up
+does not upgrade the existing imperfect-video publication to artifact-free,
+and no full movie was rerendered for these small defects. The review/inventory
+and existing camera-path regression tests pass: **12 passed**.
+
 - A black pixel with zero mesh depth is not by itself proof of missing anatomy.
   Compare real train silhouettes before filling an apparent opening.
 - Keep geometry-vs-texture diagnosis separate from cosmetic improvements. A
