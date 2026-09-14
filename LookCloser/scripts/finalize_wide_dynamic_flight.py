@@ -125,13 +125,20 @@ def audit(output,require_reviews=False):
             from expanded_head_camera_flight import expanded_path as screen_path
         if workaround:
             from artifact_aware_camera_flight import avoidance_path as screen_path
-        elevated=request['recipe'].get('camera_path_variant')=='elevated'
+        phase_shifted=request['recipe'].get('camera_path_variant')=='elevated_periodic_phase_plus30'
+        elevated=request['recipe'].get('camera_path_variant')=='elevated' or phase_shifted
+        if phase_shifted and request['recipe'].get('camera_phase_frames')!=30:
+            raise ValueError('Phase variant does not match its declared offset')
         if elevated:
             from elevated_camera_workaround import elevated_path as screen_path
         from joint_temporal_texture import cameras
         reference=request['reference_camera_pilot']
         if sha(reference['path'])!=reference['sha256']:raise ValueError('Changed source loop')
         rows,_,meta=cameras('000973');expected,report=screen_path(rows,read(reference['path']))
+        if phase_shifted:
+            # Same periodic path, shifted relative to unchanged actor times.
+            # Do not change geometry or disguise a static camera with metadata.
+            expected=expected[30:]+expected[:30]
         raw_expected=np.asarray([calibration_pose(p,cal,read(meta))['transform_matrix'] for p in expected])
         if not np.allclose(poses,raw_expected,atol=1e-8):raise ValueError('Wrong translated composition')
         for record,p in zip(inventory,expected):
@@ -323,6 +330,8 @@ def publish(output):
     report='dec5_replayed_4x4_dynamic.md' if request['recipe']['camera_path_kind']=='replay_static_4x4' else 'dec5_wide_dynamic_camera_flight.md'
     if request['recipe']['camera_path_kind']=='screen_travel':report='dec5_screen_travel_camera_flight.md'
     if request['recipe']['camera_path_kind'] in {'expanded_head','artifact_avoidance'}:report='dec5_expanded_head_camera_flight.md'
+    if request['recipe'].get('camera_path_variant')=='elevated_periodic_phase_plus30':
+        report='dec5_temporal_camera_phase.md'
     if request['recipe']['camera_path_kind'] in {'expanded_head','artifact_avoidance'}:
         geometry=read(output/'head_geometry_audit.json')
         if (geometry['status']!='preservation_and_locality_pass' or geometry['frames']!=150
