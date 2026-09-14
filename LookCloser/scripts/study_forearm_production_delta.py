@@ -22,12 +22,14 @@ PARENT=Path('/mnt/data/dec5_phase30_dynamic_150')
 FRAMES=['001029','001033','001037']
 
 
-def prepare(root,frame,curve_source=None,boundary_conditioned=False,photometric_free_space=False,matched_plane=False,known_annotation_domain=False,witness_rgb_limit=None,witness_comparison_margin=None):
+def prepare(root,frame,curve_source=None,boundary_conditioned=False,photometric_free_space=False,matched_plane=False,known_annotation_domain=False,witness_rgb_limit=None,witness_comparison_margin=None,admission_shape=None,observed_ring_feather=False):
     if boundary_conditioned and curve_source is None:raise ValueError('Boundary condition requires curved source')
     if matched_plane and (curve_source is None or not boundary_conditioned):raise ValueError('Matched plane requires boundary-conditioned comparison')
     if known_annotation_domain and (curve_source is None or not boundary_conditioned):raise ValueError('Known annotation domain requires boundary-conditioned comparison')
     if witness_rgb_limit is not None and (not photometric_free_space or not 0<witness_rgb_limit<=1):raise ValueError('RGB witness limit requires photometric guard and valid limit')
     if witness_comparison_margin is not None and (witness_rgb_limit!=.12 or not 0<witness_comparison_margin<1):raise ValueError('Comparison requires RGB limit .12 and positive margin')
+    if admission_shape is not None and (admission_shape not in ['plane','quadric'] or curve_source is None or not boundary_conditioned or matched_plane):raise ValueError('Admission order requires boundary-conditioned curved comparison')
+    if observed_ring_feather and (curve_source is None or not boundary_conditioned or matched_plane):raise ValueError('Observed-ring feather requires boundary-conditioned curvature')
     folder=root/frame;folder.mkdir(parents=True,exist_ok=True)
     source=next(r for r in read(PARENT/'request.json')['inventory'] if r['frame_id']==frame)
     prior_spec=read(PRIOR/frame/'input.json');prior_result=read(PRIOR/frame/'plane_clipped/result.json')
@@ -71,6 +73,12 @@ def prepare(root,frame,curve_source=None,boundary_conditioned=False,photometric_
         request['observed_guard']['comparison_margin']=witness_comparison_margin
         request['observed_guard']['unavailable_comparison_uses_original_rgb_rule']=True
         request['comparison_guard_script_hashes']={n:sha(Path(__file__).with_name(n)) for n in ['contrastive_forearm_depth_guard.py','contrastive_forearm_witnesses.py']}
+    if admission_shape is not None:
+        request['admission_order']=dict(shape=admission_shape,helper_sha256=sha(Path(__file__).with_name('ordered_forearm_admission.py')),
+            grid_helper_sha256=sha(Path(__file__).with_name('confidence_boundary_completion.py')),initial_lookup_and_grid_rules_unchanged=True)
+    if observed_ring_feather:
+        request['observed_ring_feather']=dict(helper_sha256=sha(Path(__file__).with_name('observed_ring_curvature.py')),
+            feather_px=10,original_depth_ring_fixed=True,unknown_boundary_forces_plane=False)
     if (folder/'request.json').exists() and read(folder/'request.json')!=request:raise ValueError('Frozen production transfer mismatch')
     atomic_json(folder/'request.json',request)
     if (folder/'geometry_result.json').exists():
@@ -81,20 +89,29 @@ def prepare(root,frame,curve_source=None,boundary_conditioned=False,photometric_
         print(frame,'verified transfer',flush=True);return
     target=o3d.io.read_triangle_mesh(source['mesh']);base=o3d.io.read_triangle_mesh(prior_spec['mesh'])
     prior=o3d.io.read_triangle_mesh(str(PRIOR/frame/('plane' if curve_source is not None else 'plane_clipped')/'mesh.ply'))
-    curve_record=None
+    curve_record=None;admission_record=None;admission_accepted=None
     if curve_source is not None:
         from curve_forearm_delta import curve_vertices,boundary_curve_vertices,semantic_faces
         if known_annotation_domain:
             from annotation_mask_domain import semantic_faces
         import study_forearm_plane_transfer_v3 as v3
         v3.configure();rows,_,_=evidence.cameras(frame);reference=next(r for r in rows if r['physical_camera']==evidence.NAMES[0])
+        if admission_shape is not None:
+            from ordered_forearm_admission import rebuild
+            prior,admission_accepted,admission_record,arrays=rebuild(frame,admission_shape,fits['quadratic'])
+            np.savez_compressed(folder/'admission_evidence.npz',**arrays)
         delta_faces=np.asarray(prior.triangles)[len(base.triangles):]
         selected=np.unique(delta_faces);selected=selected[selected>=len(base.vertices)]
         if matched_plane:
             pv=np.asarray(prior.vertices).copy();curve_record=dict(shape='matched_unchanged_plane',all_input_vertices_exact=True)
         elif boundary_conditioned:
-            accepted=np.load(PRIOR/frame/'plane/evidence.npz')['accepted']
-            pv,curve_record=boundary_curve_vertices(np.asarray(prior.vertices),len(base.vertices),reference,fits['quadratic'],selected,accepted)
+            accepted=np.load(PRIOR/frame/'plane/evidence.npz')['accepted'] if admission_accepted is None else admission_accepted
+            if observed_ring_feather:
+                from observed_ring_curvature import boundary_curve_vertices as observed_curve
+                mesh_depth=np.load(PRIOR/frame/'diagnostic.npz')[evidence.NAMES[0]+'_mesh']
+                pv,curve_record=observed_curve(np.asarray(prior.vertices),len(base.vertices),reference,fits['quadratic'],selected,accepted,mesh_depth)
+            else:
+                pv,curve_record=boundary_curve_vertices(np.asarray(prior.vertices),len(base.vertices),reference,fits['quadratic'],selected,accepted)
         else:
             pv,curve_record=curve_vertices(np.asarray(prior.vertices),len(base.vertices),reference,fits['quadratic'],selected)
         additions,semantic=semantic_faces(pv,delta_faces,rows,evidence.masks(frame),axis_extent=boundary_conditioned);curve_record.update(semantic)
@@ -102,6 +119,7 @@ def prepare(root,frame,curve_source=None,boundary_conditioned=False,photometric_
     ov,ot=np.asarray(target.vertices),np.asarray(target.triangles)
     v,t,transfer=append_delta(ov,ot,np.asarray(base.vertices),np.asarray(base.triangles),np.asarray(prior.vertices),np.asarray(prior.triangles))
     if curve_record is not None:transfer['curvature']=curve_record
+    if admission_record is not None:transfer['admission_order']=admission_record
     def save(name,triangles):
         mesh=o3d.geometry.TriangleMesh(o3d.utility.Vector3dVector(v),o3d.utility.Vector3iVector(triangles));mesh.compute_vertex_normals()
         o3d.io.write_triangle_mesh(str(folder/name),mesh)
@@ -151,7 +169,7 @@ def prepare(root,frame,curve_source=None,boundary_conditioned=False,photometric_
     atomic_json(folder/'geometry_result.json',dict(request_sha256=sha(folder/'request.json'),transfer=transfer,final_added_triangles=len(t)-len(ot),
         observed_guard_passed=passed,rounds=rounds,depth_hashes=hashes,visual=visual,visual_status='pending',production_accepted=False,
         color_guard_calls=color_calls,color_guard_provenance=color_provenance,
-        hashes={n:sha(folder/n) for n in ['transferred.ply','guarded.ply','moving_forearm_clay_native.png']}))
+        hashes={n:sha(folder/n) for n in ['transferred.ply','guarded.ply','moving_forearm_clay_native.png']+(['admission_evidence.npz'] if admission_shape is not None else [])}))
     print(frame,'finished',transfer['transferred_triangles'],'->',len(t)-len(ot),'pass',passed,visual,flush=True)
 
 
@@ -187,6 +205,7 @@ if __name__=='__main__':
     p.add_argument('--root',type=Path,default=Path('/mnt/data/dec5_forearm_production_delta'))
     p.add_argument('--curved-anchor-root',type=Path);p.add_argument('--boundary-conditioned',action='store_true')
     p.add_argument('--photometric-free-space',action='store_true');p.add_argument('--matched-plane',action='store_true');p.add_argument('--known-annotation-domain',action='store_true')
-    p.add_argument('--witness-rgb-limit',type=float);p.add_argument('--witness-comparison-margin',type=float);a=p.parse_args()
-    if a.action=='prepare':prepare(a.root,a.frame,a.curved_anchor_root,a.boundary_conditioned,a.photometric_free_space,a.matched_plane,a.known_annotation_domain,a.witness_rgb_limit,a.witness_comparison_margin)
+    p.add_argument('--witness-rgb-limit',type=float);p.add_argument('--witness-comparison-margin',type=float);p.add_argument('--admission-shape',choices=['plane','quadric'])
+    p.add_argument('--observed-ring-feather',action='store_true');a=p.parse_args()
+    if a.action=='prepare':prepare(a.root,a.frame,a.curved_anchor_root,a.boundary_conditioned,a.photometric_free_space,a.matched_plane,a.known_annotation_domain,a.witness_rgb_limit,a.witness_comparison_margin,a.admission_shape,a.observed_ring_feather)
     else:render(a.root,a.frame)

@@ -33,6 +33,12 @@ The separate local anchor-residual solver is a rejected shape control. A
 read-only admission-order probe identifies points discarded before curvature;
 see [depth observability controls](experiments/dec5_forearm_depth_observability.md).
 
+`--admission-shape` tests the same eligibility rule on curved rather than planar
+points, with an exact-replay plane control. Independent audits replay admission,
+curvature and transfer. `--observed-ring-feather` is a rejected opt-in boundary
+control; neither changes production defaults. See
+[admission-order study](experiments/dec5_forearm_admission_order.md).
+
 ## Key files
 
 The opt-in `study_early_texture_prior.py` adapter applies target-angle weights
