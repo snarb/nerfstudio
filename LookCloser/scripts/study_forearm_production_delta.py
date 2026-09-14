@@ -22,11 +22,12 @@ PARENT=Path('/mnt/data/dec5_phase30_dynamic_150')
 FRAMES=['001029','001033','001037']
 
 
-def prepare(root,frame,curve_source=None,boundary_conditioned=False,photometric_free_space=False,matched_plane=False,known_annotation_domain=False,witness_rgb_limit=None):
+def prepare(root,frame,curve_source=None,boundary_conditioned=False,photometric_free_space=False,matched_plane=False,known_annotation_domain=False,witness_rgb_limit=None,witness_comparison_margin=None):
     if boundary_conditioned and curve_source is None:raise ValueError('Boundary condition requires curved source')
     if matched_plane and (curve_source is None or not boundary_conditioned):raise ValueError('Matched plane requires boundary-conditioned comparison')
     if known_annotation_domain and (curve_source is None or not boundary_conditioned):raise ValueError('Known annotation domain requires boundary-conditioned comparison')
     if witness_rgb_limit is not None and (not photometric_free_space or not 0<witness_rgb_limit<=1):raise ValueError('RGB witness limit requires photometric guard and valid limit')
+    if witness_comparison_margin is not None and (witness_rgb_limit!=.12 or not 0<witness_comparison_margin<1):raise ValueError('Comparison requires RGB limit .12 and positive margin')
     folder=root/frame;folder.mkdir(parents=True,exist_ok=True)
     source=next(r for r in read(PARENT/'request.json')['inventory'] if r['frame_id']==frame)
     prior_spec=read(PRIOR/frame/'input.json');prior_result=read(PRIOR/frame/'plane_clipped/result.json')
@@ -66,6 +67,10 @@ def prepare(root,frame,curve_source=None,boundary_conditioned=False,photometric_
     if witness_rgb_limit is not None:
         request['observed_guard']['rgb_mean_abs_limit']=witness_rgb_limit
         request['rgb_guard_script_hashes']={n:sha(Path(__file__).with_name(n)) for n in ['rgb_qualified_forearm_depth_guard.py','forearm_rgb_witnesses.py']}
+    if witness_comparison_margin is not None:
+        request['observed_guard']['comparison_margin']=witness_comparison_margin
+        request['observed_guard']['unavailable_comparison_uses_original_rgb_rule']=True
+        request['comparison_guard_script_hashes']={n:sha(Path(__file__).with_name(n)) for n in ['contrastive_forearm_depth_guard.py','contrastive_forearm_witnesses.py']}
     if (folder/'request.json').exists() and read(folder/'request.json')!=request:raise ValueError('Frozen production transfer mismatch')
     atomic_json(folder/'request.json',request)
     if (folder/'geometry_result.json').exists():
@@ -106,7 +111,10 @@ def prepare(root,frame,curve_source=None,boundary_conditioned=False,photometric_
     veto=measured_pixel_veto;color_calls=[];color_provenance=None
     if photometric_free_space:
         from photometric_forearm_depth_guard import make_guard
-        if witness_rgb_limit is None:
+        if witness_comparison_margin is not None:
+            from contrastive_forearm_depth_guard import make_guard as comparison_guard
+            veto,color_calls,color_provenance=comparison_guard(frame,rows,depths,witness_comparison_margin)
+        elif witness_rgb_limit is None:
             veto,color_calls,color_provenance=make_guard(frame,rows,depths)
         else:
             from rgb_qualified_forearm_depth_guard import make_guard as rgb_guard
@@ -179,6 +187,6 @@ if __name__=='__main__':
     p.add_argument('--root',type=Path,default=Path('/mnt/data/dec5_forearm_production_delta'))
     p.add_argument('--curved-anchor-root',type=Path);p.add_argument('--boundary-conditioned',action='store_true')
     p.add_argument('--photometric-free-space',action='store_true');p.add_argument('--matched-plane',action='store_true');p.add_argument('--known-annotation-domain',action='store_true')
-    p.add_argument('--witness-rgb-limit',type=float);a=p.parse_args()
-    if a.action=='prepare':prepare(a.root,a.frame,a.curved_anchor_root,a.boundary_conditioned,a.photometric_free_space,a.matched_plane,a.known_annotation_domain,a.witness_rgb_limit)
+    p.add_argument('--witness-rgb-limit',type=float);p.add_argument('--witness-comparison-margin',type=float);a=p.parse_args()
+    if a.action=='prepare':prepare(a.root,a.frame,a.curved_anchor_root,a.boundary_conditioned,a.photometric_free_space,a.matched_plane,a.known_annotation_domain,a.witness_rgb_limit,a.witness_comparison_margin)
     else:render(a.root,a.frame)

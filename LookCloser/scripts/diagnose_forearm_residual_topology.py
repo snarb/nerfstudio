@@ -100,4 +100,5 @@ def run(output,frame):
 
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--frame',required=True,choices=['001029','001033','001037'])
-    p.add_argument('--output',type=Path,default=Path('/mnt/data/dec5_forearm_residual_topology'));a=p.parse_args();run(a.output,a.frame)
+    p.add_argument('--output',type=Path,default=Path('/mnt/data/dec5_forearm_residual_topology'))
+    p.add_argument('--base',type=Path,default=BASE);a=p.parse_args();BASE=a.base;run(a.output,a.frame)

@@ -27,6 +27,12 @@ calibrated display RGB, without fitting exposure or changing the chroma default.
 Its positive-anchor controls and fresh 62-view audit are separate from visual
 acceptance; see [RGB confidence study](experiments/dec5_forearm_rgb_confidence.md).
 
+`--witness-comparison-margin` tests whether RGB distinguishes observed depth
+from the nearer prior; unavailable comparisons retain the earlier RGB rule.
+The separate local anchor-residual solver is a rejected shape control. A
+read-only admission-order probe identifies points discarded before curvature;
+see [depth observability controls](experiments/dec5_forearm_depth_observability.md).
+
 ## Key files
 
 The opt-in `study_early_texture_prior.py` adapter applies target-angle weights
