@@ -49,6 +49,9 @@ def diagram(output):
         if request['recipe']['camera_path_kind']=='artifact_avoidance':
             draw.rectangle((0,0,1100,35),fill=(20,20,25))
             draw.text((20,15),'Shot workaround: smooth smaller upper-left envelope; still real camera AND actor movement',fill='white')
+            if request['recipe'].get('camera_path_variant')=='elevated_periodic_phase_plus30':
+                draw.rectangle((0,0,1100,35),fill=(20,20,25))
+                draw.text((20,15),'Same elevated periodic path, phase +30 / 150 relative to the unchanged actor times',fill='white')
     image.save(output/'camera_path.png')
 
 

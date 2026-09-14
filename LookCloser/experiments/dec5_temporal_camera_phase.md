@@ -50,11 +50,42 @@ fixed intrinsics, 150 distinct nonstationary positions, train-only source lists,
 and completed render hashes. A unit test independently exercises positive,
 negative and wrapped phases under different per-frame scales/translations.
 
-Full rendering is active with four disjoint frame workers on clever-shadow.
-`checks.jsonl` records process/GPU/free-space status every 30 seconds. Initial
-operational throughput is approximately eight frames/minute; this is not an
-isolated performance benchmark. Full inventory, native/encoded temporal review,
-encoding and publication audits remain required before delivering the candidate.
+All 150 frames are rendered and encoded: `video.mp4`, 1080 x 1920, 24 fps,
+6.25 seconds, no slow version. Four disjoint workers on clever-shadow finished
+the remaining 141 frames in 1,022 seconds (17.0 minutes), reusing the nine
+audited canaries. `checks.jsonl` contains 30-second supervision through normal
+worker termination, without CUDA/OOM failures. Approximately 8.3 new frames/minute
+is operational throughput, not an isolated speedup benchmark.
+
+The complete phase/provenance audit passes. Independent publication checks find
+150 unique actor times, meshes and renders; all RGB is exactly native rotation
+without crop/stabilization. Six independent raycasts match saved depth. Camera
+view span is 31.513 degrees, maximum/minimum loop step ratio 1.01238; fixed scene
+landmark travel is 384.0 x 153.6 pixels and actual rendered foreground-centroid
+travel is 301.4 x 150.4 pixels. The path is exactly the earlier elevated loop,
+phase-shifted, not a newly narrowed excursion. Original-triangle preservation
+and bounded-head locality pass independently across all 150 meshes.
+
+All 15 ten-frame overviews and all 15 sheets decoded from the actual MP4 were
+directly inspected; four distributed full native images were also reviewed.
+`jaw_review/` contains 25 additional sheets covering **all 150 native jaw crops**
+with explicit hash-bound notes and a completed review. Exposed cheek/chin regions
+avoid conspicuous broad black cavities; early hand occlusion limits what can be
+seen, and tiny late black flecks remain, notably 001195. This is partial shot-level
+improvement, not zero missing pixels or geometry recovery.
+
+Known failures remain: forearm/hand holes around 001029–001043 (overview groups
+060–079 explicitly fail); rear lipstick skin/blue fins, especially around
+000995–001007; crown/right-hair notches at 001123; changing skin/neck source seams
+and open lower torso. None is removed from the output inventory. The decoded
+sequence shows continuous viewpoint and actor changes; this inspection does not
+pretend to be a real-time playback judgment. The camera is periodic, but actor
+motion is not: looping the movie resets the actor pose.
+
+Seven focused camera-path tests pass. `frames.zip` retains the 150 ordered PNGs;
+publication checks bind archive contents, renders, requests, reviews and reports.
+The delivered status is **camera and actor dynamic, artifacts remain**, not
+artifact-free success. No full-frame quality metrics were computed.
 
 ## Insights
 
@@ -62,3 +93,15 @@ Camera-path phase is a useful independent control: it changes which view sees
 each dynamic pose without sacrificing camera travel or smoothness. Fewer visible
 holes must not be described as better mesh geometry. Remaining source seams and
 hair/lipstick reconstruction problems require their own evidence and fixes.
+
+Parallel geometry studies are intentionally separate from this immutable movie:
+[12/24/36 source-count ablation](dec5_patchmatch_source_count_ablation.md) did
+not establish a reliable crown-hole fix; 36 sources degraded all three face
+metrics at both tested times and cost about 34% more runtime. Keep 12 for now.
+[Confidence-gated local forearm completion](dec5_forearm_plane_transfer_v3.md)
+gave a partial three-time improvement while preserving original triangles.
+Its newly diagnosed image-border semantic veto was fixed consistently; the
+001037 artificial horizontal split fell from 248 missing pixels to zero.
+This remains inferred planar geometry with wrist/cuff defects, tested through
+the raw local renderer, not accepted production geometry or learned anatomy.
+Neither experiment changes the meshes or texture settings in this video.
