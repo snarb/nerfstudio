@@ -1286,3 +1286,17 @@ maps into a bilinear train-anchor hull and is resampled by complete closed-arc
 length; a fixed actor separates camera parallax from temporal motion. These static
 3x3/4x4 diagnostics do not change the temporal renderer or imply new temporal meshes.
 See `experiments/dec5_camera_grid_diagnosis.md`.
+
+<!-- dynamic-grid-background-guard-20260914 -->
+The opt-in `dynamic_grid_flythrough.py` binds 150 chronological source times to
+an arc-length-sampled open cubic grid trajectory, with explicit source-diversity,
+convex-containment, speed and minimum two-axis travel gates. The separate
+`train_foreground_guard.py` proposes real-train silhouette carving and excludes
+background texture taps; it preserves source data, original meshes and runner
+defaults. Independent depth can veto semantic removals, while target-view
+restoration prevents new enclosed geometry holes or exposed backing surfaces.
+`run_dynamic_grid_workers.py` supervises disjoint hash-resumable jobs (up to eight
+on the 96GB host); `finalize_dynamic_grid_video.py` verifies all derived meshes,
+renders, source times and camera poses, uses request FPS, and separates actual
+visual verdicts from integrity. Global person silhouettes do not solve internal
+lipstick/hand occlusion; see `experiments/dec5_dynamic_grid_background_guard.md`.

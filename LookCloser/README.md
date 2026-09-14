@@ -187,3 +187,14 @@ multi-row travel. `diagnose_camera_grid_flight.py` provides frozen-actor 3x3/4x4
 cubic-spline controls with explicit two-axis extent and loop-speed gates;
 `audit_camera_grid_flight.py` checks PNG/MP4 inventories and decoded samples.
 See [camera-grid diagnosis](experiments/dec5_camera_grid_diagnosis.md).
+
+Those static controls are not the dynamic deliverable. The opt-in
+`dynamic_grid_flythrough.py` uses 150 distinct source meshes/RGB instants and an
+open cubic 3x3/4x4 grid traversal with a minimum achieved two-axis extent gate.
+`train_foreground_guard.py` tests train-only silhouette carving and background
+RGB rejection without changing the original mask-free runner. The dynamic
+worker supervisor supports up to eight render workers on the 96GB host;
+`finalize_dynamic_grid_video.py` audits time diversity and actual camera travel
+and encodes at the request FPS. See
+[dynamic grid and foreground-guard experiment](experiments/dec5_dynamic_grid_background_guard.md)
+for measured limitations, including unresolved internal lipstick occlusion.
