@@ -1,5 +1,13 @@
 # LookCloser architecture
 
+## Opt-in local train-waypoint camera diagnostic
+
+`smooth_train_waypoint.py` applies a compact periodic pose displacement in
+common calibration coordinates without actor retiming or image stabilization.
+The seven-time RGB gate and independent inventory/hull audit remain separate
+from geometry acceptance. The first loop was rejected for an early under-chin
+regression; see [camera workaround report](experiments/dec5_local_train_waypoint.md).
+
 ## Opt-in calibrated neural stereo depth canary
 
 `calibrated_stereo_rectification.py` preserves portrait pixel-center geometry
