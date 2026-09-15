@@ -1,5 +1,13 @@
 # LookCloser architecture
 
+## Opt-in measured-depth patch alignment
+
+`calibrated_depth_witness.py` matches the renderer response for train-only
+evidence. `regularized_depth_displacement.py` bounds a smooth displacement field;
+the alignment controller changes new patches only and rechecks native support.
+The real canary remains a failed hand/video repair, not a production default:
+[RGB veto diagnosis and alignment limits](experiments/dec5_body_rgb_veto_and_alignment.md).
+
 ## Opt-in body-neighborhood study
 
 `body_surface_neighborhood.py` distributes bounded interpolation seeds around
