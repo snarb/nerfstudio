@@ -1,5 +1,12 @@
 # LookCloser architecture
 
+## Opt-in native texture footprint
+
+`native_texture_footprint.py` uses bounded near-integer snapping, exact center
+gathers and nonzero-weight depth-tap checks. The isolated rendering control and
+`run_neighborhood_completion_transfer.py` leave production defaults unchanged;
+see [texture repair and two-time local transfer](experiments/dec5_native_texture_footprint.md).
+
 ## Opt-in continuous-surface completion
 
 `study_poisson_jaw_completion.py` proposes local boundary surfaces without
