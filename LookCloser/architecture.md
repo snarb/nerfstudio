@@ -1,5 +1,13 @@
 # LookCloser architecture
 
+## Opt-in native 6K texture replay
+
+`render_cinematic_6k_texture.py` samples native source RGB with frozen geometry,
+camera path, source IDs and color profiles. `review_cinematic_6k_texture.py`
+verifies and packages the dynamic video, native-source comparisons and PNGs.
+Delivery resolution stays separate from source resolution; see the
+[6K replay experiment](experiments/dec5_cinematic_6k_texture.md).
+
 ## Opt-in anatomical surface conformance
 
 `conform_mhr_measured_surface.py` fits a smooth displacement field on a pinned
