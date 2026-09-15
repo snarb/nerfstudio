@@ -12,8 +12,8 @@ ROOT=Path('/mnt/data/dec5_constrained_forearm_surface_guard16')
 PARENT=Path('/mnt/data/dec5_phase30_early_texture_dynamic_150')
 
 
-def run(frame):
-    folder=ROOT/frame;request=read(folder/'request.json');result=read(folder/'geometry_result.json')
+def run(frame,root=ROOT):
+    folder=root/frame;request=read(folder/'request.json');result=read(folder/'geometry_result.json')
     if result['request_sha256']!=sha(folder/'request.json'):raise ValueError('Changed request')
     for n,h in result['hashes'].items():
         if sha(folder/n)!=h:raise ValueError('Changed output')
@@ -40,4 +40,5 @@ def run(frame):
 
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--frame',required=True);a=p.parse_args();run(a.frame)
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--frame',required=True);p.add_argument('--root',type=Path,default=ROOT)
+    a=p.parse_args();run(a.frame,a.root)

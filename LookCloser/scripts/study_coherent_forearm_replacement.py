@@ -22,8 +22,9 @@ BASE=Path('/mnt/data/dec5_forearm_admission_quadric_bounded')
 OUT=Path('/mnt/data/dec5_coherent_forearm_replacement')
 
 
-def prepare(output,frame,feasible_depth_constraints=False,guard_max_rounds=8):
+def prepare(output,frame,feasible_depth_constraints=False,guard_max_rounds=8,preserve_production_surface=False):
     if not 1<=guard_max_rounds<=64:raise ValueError('Guard limit must be in 1..64')
+    if preserve_production_surface and not feasible_depth_constraints:raise ValueError('Protection control requires constrained surface')
     if feasible_depth_constraints and output.resolve()==OUT.resolve():raise ValueError('Use a separate output for constrained surface study')
     prior.configure();v1=prior.v2.v1;root=prior.OUT/frame;folder=output/frame;folder.mkdir(parents=True,exist_ok=True)
     rows,depths,hashes=v1.load_real(frame);analysis=read(root/'analysis.json');data=np.load(root/'diagnostic.npz')
@@ -48,6 +49,13 @@ def prepare(output,frame,feasible_depth_constraints=False,guard_max_rounds=8):
             offset_bounds=[-.012,.012],step=.0005,initial_and_final_mask_rules=True,plane_bound_applied_to_solved_points=True,
             trusted_constraint_conflicts_excluded_not_moved=True)
         request['scripts'].update({n:sha(Path(__file__).with_name(n)) for n in ['feasible_forearm_surface.py','discrete_surface_constraints.py']})
+    if preserve_production_surface:
+        parent=Path('/mnt/data/dec5_phase30_early_texture_dynamic_150/request.json')
+        production=next(r for r in read(parent)['inventory'] if r['frame_id']==frame)
+        if sha(production['mesh'])!=production['mesh_sha256']:raise ValueError('Changed protected production mesh')
+        request['protected_production']=dict(mesh=production['mesh'],mesh_sha256=production['mesh_sha256'],
+            parent_request_sha256=sha(parent),source_holes_only=True,boundary_depth_from_production=True)
+        request['scripts']['protected_production_grid.py']=sha(Path(__file__).with_name('protected_production_grid.py'))
     if (folder/'request.json').exists() and read(folder/'request.json')!=request:raise ValueError('Frozen request mismatch')
     atomic_json(folder/'request.json',request)
     if (folder/'geometry_result.json').exists():
@@ -81,6 +89,12 @@ def prepare(output,frame,feasible_depth_constraints=False,guard_max_rounds=8):
     retained=ot[~removed].copy();yy,xx=np.nonzero(domain)
     vertices=np.concatenate([ov,unproject(camera,xx,yy,solved[yy,xx])]);index=np.full(domain.shape,-1,int)
     index[yy,xx]=np.arange(len(xx))+len(ov);faces=grid_faces(domain,domain,index)
+    if preserve_production_surface:
+        from protected_production_grid import assemble
+        protected=o3d.io.read_triangle_mesh(request['protected_production']['mesh'])
+        vertices,retained,faces,removed,protection_arrays,protection_stats=assemble(ov,ot,np.asarray(protected.vertices),np.asarray(protected.triangles),camera,domain,solved)
+        stats['production_protection']=protection_stats
+        np.savez_compressed(folder/'protection_evidence.npz',**protection_arrays)
     faces,semantic=semantic_faces(vertices,faces,rows,masks,axis_extent=True);triangles=np.concatenate([retained,faces])
     stats.update(domain_pixels=int(domain.sum()),removed_old_triangles=int(removed.sum()),initial_new_triangles=len(faces),semantic=semantic)
     np.savez_compressed(folder/'evidence.npz',domain=domain,model=model,solved=solved,pins=pins,removed_original_faces=removed)
@@ -108,7 +122,7 @@ def prepare(output,frame,feasible_depth_constraints=False,guard_max_rounds=8):
         observed_guard_passed=not rounds[-1]['removed_triangles'],retained_original_triangles=len(retained),
         final_added_triangles=len(triangles)-len(retained),color_guard_calls=calls,color_guard_provenance=provenance,
         visual_status='pending',production_accepted=False,
-        hashes={n:sha(folder/n) for n in ['transferred.ply','guarded.ply','evidence.npz']+(['constraint_samples.npz'] if feasible_depth_constraints else [])}))
+        hashes={n:sha(folder/n) for n in ['transferred.ply','guarded.ply','evidence.npz']+(['constraint_samples.npz'] if feasible_depth_constraints else [])+(['protection_evidence.npz'] if preserve_production_surface else [])}))
     print(frame,'finished',stats,'final',len(triangles)-len(retained),'guard',not rounds[-1]['removed_triangles'],flush=True)
 
 
@@ -116,4 +130,5 @@ if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--frame',choices=['001029','001033','001037'],required=True)
     p.add_argument('--output',type=Path,default=OUT);p.add_argument('--feasible-depth-constraints',action='store_true')
     p.add_argument('--guard-max-rounds',type=int,default=8)
-    a=p.parse_args();prepare(a.output,a.frame,a.feasible_depth_constraints,a.guard_max_rounds)
+    p.add_argument('--preserve-production-surface',action='store_true')
+    a=p.parse_args();prepare(a.output,a.frame,a.feasible_depth_constraints,a.guard_max_rounds,a.preserve_production_surface)

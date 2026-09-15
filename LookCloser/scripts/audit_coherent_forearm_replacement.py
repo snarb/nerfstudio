@@ -43,14 +43,26 @@ def run(root,frame):
     if not np.array_equal(solved,ev['solved']) or np.max(np.abs(solved[domain]-model[domain]))>.012:raise ValueError('Solve replay mismatch')
     old=o3d.io.read_triangle_mesh(request['source_mesh']);ov,ot=np.asarray(old.vertices),np.asarray(old.triangles)
     uv,z=project_integer(camera,ov);removed=removable_faces(uv,z,ot,domain,solved,.012)
-    if not np.array_equal(removed,ev['removed_original_faces']):raise ValueError('Removal exceeds bounded domain')
     retained=ot[~removed];y,x=np.nonzero(domain);vertices=np.concatenate([ov,unproject(camera,x,y,solved[y,x])])
     index=np.full(domain.shape,-1,int);index[y,x]=np.arange(len(x))+len(ov)
-    faces=grid_faces(domain,domain,index);faces,_=semantic_faces(vertices,faces,rows,v1.masks(frame),axis_extent=True)
+    faces=grid_faces(domain,domain,index)
+    if 'protected_production' in request:
+        from protected_production_grid import assemble
+        p=request['protected_production']
+        if sha(p['mesh'])!=p['mesh_sha256']:raise ValueError('Changed protected mesh')
+        production=o3d.io.read_triangle_mesh(p['mesh'])
+        vertices,retained,faces,removed,protection_arrays,_=assemble(ov,ot,np.asarray(production.vertices),np.asarray(production.triangles),camera,domain,solved)
+        recorded=np.load(folder/'protection_evidence.npz')
+        if set(recorded.files)!=set(protection_arrays) or any(not np.array_equal(recorded[k],a) for k,a in protection_arrays.items()):raise ValueError('Protection replay mismatch')
+    if not np.array_equal(removed,ev['removed_original_faces']):raise ValueError('Removal exceeds bounded domain')
+    faces,_=semantic_faces(vertices,faces,rows,v1.masks(frame),axis_extent=True)
     raw=o3d.io.read_triangle_mesh(str(folder/'transferred.ply'));mesh=o3d.io.read_triangle_mesh(str(folder/'guarded.ply'))
     v,t=np.asarray(mesh.vertices),np.asarray(mesh.triangles)
     if not np.array_equal(np.asarray(raw.vertices),vertices) or not np.array_equal(np.asarray(raw.triangles),np.concatenate([retained,faces])):raise ValueError('Raw assembly replay mismatch')
     if not np.array_equal(v,vertices) or not np.array_equal(t[:len(retained)],retained):raise ValueError('Protected geometry changed')
+    if 'protected_production' in request:
+        if not np.array_equal(v[:len(production.vertices)],np.asarray(production.vertices)) or not np.array_equal(t[:len(production.triangles)],np.asarray(production.triangles)):
+            raise ValueError('Production prefix was changed')
     allowed={tuple(f) for f in faces}
     if any(tuple(f) not in allowed for f in t[len(retained):]):raise ValueError('Unproposed final face')
     guard,calls,provenance=make_guard(frame,rows,depths,.01)
@@ -69,7 +81,8 @@ def run(root,frame):
     atomic_json(folder/'independent_audit.json',dict(frame=frame,geometry_result_sha256=sha(folder/'geometry_result.json'),
         script_sha256=sha(__file__),bounded_old_face_removal_exact=True,trusted_pins_exact=True,solve_replay_exact=True,
         assembly_replay_exact=True,unaffected_old_geometry_exact=True,checks=124,qualified_veto_pixels=0,topology=topology,
-        production_accepted=False,visual_review_required=True,feasible_depth_constraints_replayed='feasible_depth_constraints' in request))
+        production_accepted=False,visual_review_required=True,feasible_depth_constraints_replayed='feasible_depth_constraints' in request,
+        protected_production_prefix_exact='protected_production' in request))
     print(frame,'independent audit passed',topology,flush=True)
 
 

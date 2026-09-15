@@ -1,5 +1,13 @@
 # LookCloser architecture
 
+## Opt-in protected-production prior composition
+
+`protected_production_grid.py` preserves the production mesh prefix, samples
+its depth at the boundary and adds a constrained grid only around production
+holes. `--preserve-production-surface` is disabled by default. Independent
+audits verify the prefix and native evidence; see
+[three-time improvement and remaining defects](experiments/dec5_protected_forearm_surface.md).
+
 ## Opt-in feasible-depth surface constraints
 
 `discrete_surface_constraints.py` preserves disconnected feasible depth sets
