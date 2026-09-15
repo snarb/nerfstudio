@@ -1,5 +1,12 @@
 # LookCloser architecture
 
+## Opt-in coherent bounded surface replacement
+
+`bounded_surface_replacement.py` limits replacement to fully contained, nearby
+faces. The coherent forearm controller, independent replay and depth-interval
+probe test shape constraints without changing production defaults. See
+[control and remaining geometry constraints](experiments/dec5_coherent_forearm_replacement.md).
+
 ## Opt-in secondary-reference surface probe
 
 `forearm_quadric_rays.py` expresses one inferred inverse-depth surface in world
