@@ -1,5 +1,13 @@
 # LookCloser architecture
 
+## Opt-in body-neighborhood study
+
+`body_surface_neighborhood.py` distributes bounded interpolation seeds around
+holes. The body controller preserves the protected forearm mesh and audits
+new Poisson patches against native depths; the one-depth-seed ablation remains
+explicitly weaker. Both improve clothing but fail the hand/video gate:
+[evidence and admission bottlenecks](experiments/dec5_body_neighborhood_completion.md).
+
 ## Opt-in earlier-time head transfer review
 
 `study_head_neighborhood_transfer.py` compares frozen surface completion with
