@@ -1,5 +1,14 @@
 # LookCloser architecture
 
+## Opt-in view-consistent source quality
+
+`view_consistent_source_quality.py` and isolated study adapters soften the
+incidence penalty and test target-angle fallback without RGB averaging.
+`run_view_consistent_dynamic_video.py` replays unchanged meshes and camera poses
+with fixed color profiles and zero image registration in disjoint workers.
+This is a texture improvement, not a hole repair; see
+[matched controls and dynamic validation](experiments/dec5_head_source_quality.md).
+
 ## Opt-in central train-pose diagnostics
 
 `probe_central_train_camera_workaround.py` compares exact central physical poses
