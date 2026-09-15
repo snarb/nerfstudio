@@ -56,6 +56,9 @@ switching from one source to another across adjacent faces.
 
 A useful separate control is coherent source assignment across a whole lip
 patch and suppression of tiny hair source islands, always retaining visibility
-checks. That has not been tested here. Do not change the running 150-frame 6K
+checks. The subsequent [coherent lip control](dec5_coherent_lip_texture.md)
+found that fine bright glints can persist with a single source: correlation
+with a source boundary alone did not prove every apparent line was an artifact.
+It also found quality culling explained only part of the hair islands. Do not change the running 150-frame 6K
 request, claim that these seams are fixed, or promote an unverified relabeling.
 The source-boundary overlays are diagnostic evidence, not production masks.
