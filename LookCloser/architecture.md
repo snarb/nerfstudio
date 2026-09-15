@@ -1,5 +1,14 @@
 # LookCloser architecture
 
+## Opt-in lower-forearm stereo observations
+
+`study_foundation_lower_forearm.py` stages four lower-row train observations
+and reuses calibrated stereo and spatial-anchor validation. Its build adapter
+keeps the existing foreground/visibility thresholds unchanged. Additional arm
+coverage still fails RGB review; native near/far witnesses distinguish some
+background-layer mismatches from unresolved skin-to-skin depth ambiguity.
+See [lower-forearm canary](experiments/dec5_foundation_lower_forearm.md).
+
 ## Opt-in measured-anchor stereo alignment
 
 `stereo_anchor_bias.py` fits bounded disparity offsets with spatially held-out
