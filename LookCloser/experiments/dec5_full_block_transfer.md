@@ -68,3 +68,21 @@ otherwise a hypothesis about a lost fix is easy to assert incorrectly. Here,
 000971's correction survived, while generalization to other affected times
 remains untested. The next decision depends on the paired geometry/RGB result,
 not the number of added/removed triangles or aggregate face metrics alone.
+
+### Comparison workflow prepared while reconstruction runs
+
+`review_full_block_transfer.py` receives only a completed paired experiment,
+validates the exact retained-file inventory and all62 raw geometric map hashes,
+then independently checks their shape/finiteness/coverage and calibrated camera
+mapping. Geometry transfer has an all-vertex inverse round-trip check.
+It prepares matched current hard-source RGB in the actual left-arc view and
+two real train poses (H/C,K/B); native target aliases prevent source-mask clipping
+of the target depth. Production is shown as a separately labelled reference,
+because the raw fusion pair does not include its later head repairs.
+
+Native train GT, individual native crops and three/four-way panels are retained.
+No novel-view quality metric is invented; pixel-change counts are explicitly
+diagnostic. Receipt validation rejects path traversal and unexpected filenames.
+Three focused controller/receiver tests pass. The new comparison workflow is
+prepared and compiled, but actual receive/render/visual validation remains
+pending until the ongoing reconstruction completes.
