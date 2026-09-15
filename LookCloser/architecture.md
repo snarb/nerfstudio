@@ -1,5 +1,13 @@
 # LookCloser architecture
 
+## Opt-in anatomical surface conformance
+
+`conform_mhr_measured_surface.py` fits a smooth displacement field on a pinned
+anatomical prior using trusted train-depth anchors and reserved fitting cameras.
+Native boundary and intersection reviews remain separate from fitting; the
+whole prior is not a replacement for measured COLMAP geometry. See the
+[conformance controls](experiments/dec5_mhr_measured_conformance.md).
+
 ## Opt-in train-semantic texture controls
 
 `build_train_hair_semantics.py` caches hash-bound hair and protected-surface
