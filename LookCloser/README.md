@@ -259,3 +259,10 @@ not the prior or existing runner defaults. Use `audit_mhr_radius_seed_control.py
 and `render_mhr_radius_seed_control.py` afterward; this remains a fixed-frame
 experiment, not an approved temporal repair. See
 [measured-support neighborhood control](experiments/dec5_mhr_radius_seed_support.md).
+
+For an already audited, frame-configured completion, the separate
+`transfer_mhr_radius_seed_control.py {produce,audit,render}` adapter tests that
+same neighborhood rule without rerunning prior fitting. The three-way review
+compares production, nearest24 completion and all-radius completion; increased
+certificate counts alone are not image improvement. Cross-frame evidence and
+limitations: [radius-support transfer](experiments/dec5_mhr_radius_seed_transfer.md).
