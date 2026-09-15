@@ -1,5 +1,15 @@
 # LookCloser architecture
 
+## Opt-in silhouette-constrained head completion
+
+`probe_head_silhouette_completion.py` builds a local 62-train-view envelope
+with explicit unknown-camera domains. Measured-depth carving and independent
+raycast replay gate additions; original geometry and texture defaults stay fixed.
+`extend_head_silhouette_guard.py` preserves failed bounded attempts while
+continuing the same monotone guard. Exact saved cinematic-pose controls test
+transfer separately from native-view coverage. This remains a partial,
+unpromoted repair; see [experiment](experiments/dec5_head_silhouette_completion.md).
+
 ## Opt-in surface texture ownership controls
 
 `component_texture_owner.py` and `nearby_texture_regions.py` test coverage-first
