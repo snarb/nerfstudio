@@ -108,3 +108,49 @@ OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 ../.venv/bin/python -m pytest -q -o add
    Future work must verify wider-angle/temporal behavior and held-out fidelity before any
    production rollout. The separately running larger-motion videos still use production
    geometry, not these two-frame candidates.
+
+### Wider-path transfer check
+
+The main agent subsequently raycast all three meshes on the **actual four new wide
+camera paths** at both times (24 full-resolution CPU-only depth/clay renders).
+Camera requests and baseline mesh hashes match the video campaign exactly. No GPU
+worker slot, production mesh or video request was changed. These are eight isolated
+time/pose checks, not complete temporal validation or new RGB renders.
+
+| Frame / path | Removal: lost depth pixels | Replacement: newly covered pixels | Replacement: lost depth pixels |
+|---|---:|---:|---:|
+| 001083 diagonal | 382 | 337 | 352 |
+| 001083 oval | 417 | 127 | 404 |
+| 001083 left arc | 420 | 256 | 396 |
+| 001083 right arc | 238 | 31 | 238 |
+| 001123 diagonal | 583 | 45 | 583 |
+| 001123 oval | 344 | 22 | 344 |
+| 001123 left arc | 489 | 35 | 489 |
+| 001123 right arc | 326 | 19 | 326 |
+
+All eight three-arm head panels were actually inspected. The detached top arch is
+reduced, especially at 001123, but the ragged outline remains. The refined right arc
+still shows a side hair/temple opening. There is no conspicuous new broad face/neck
+deformation in these clay comparisons. This does **not** establish texture quality,
+absence of RGB seams, anatomical accuracy or improvement over held-out images.
+
+Removal produces no new or nearer surface in all eight checks, as required by exact
+triangle deletion. Replacement also brings an inferred shell in front of existing
+depth at 1,841–2,309 pixels (>0.0001 normalized depth); it is not solely hole filling.
+Consequently it still requires matched RGB/held-out checking before promotion.
+The depth-change counts are diagnostics, not full-frame quality metrics.
+
+The initial independent count replay exposed two float32 threshold-boundary pixels
+in 001083 oval: subtraction-first and addition-first comparisons differ by one ULP.
+The audit now reproduces the documented producer operation exactly; no mesh or
+render was changed to satisfy it.
+
+- [Wide-path audit](/mnt/data/dec5_wide_fringe_geometry/audit.json)
+- [Eight-panel visual verdict](/mnt/data/dec5_wide_fringe_geometry/visual_review.json)
+- [001123 left-arc geometry comparison](/mnt/data/dec5_wide_fringe_geometry/001123/left_high_arc/head_comparison.png)
+- [001083 diagonal geometry comparison](/mnt/data/dec5_wide_fringe_geometry/001083/diagonal_sweep/head_comparison.png)
+
+Replay with `scripts/screen_wide_fringe_geometry.py`, then
+`scripts/audit_wide_fringe_geometry.py`. The latter verifies hashes, inventory,
+24 finite depth arrays, recorded change counts and deletion monotonicity;
+the final check passed and rechecked 64 SHA-256 bindings.
