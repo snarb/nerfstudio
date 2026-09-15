@@ -8,6 +8,11 @@ Native boundary and intersection reviews remain separate from fitting; the
 whole prior is not a replacement for measured COLMAP geometry. See the
 [conformance controls](experiments/dec5_mhr_measured_conformance.md).
 
+`build_mhr_local_patch_candidates.py` extracts bounded, finely subdivided
+anatomical facets near actual open edges without modifying original geometry.
+These are raw proposals, not depth-approved repairs; see the
+[local patch controls](experiments/dec5_mhr_local_patch_candidates.md).
+
 ## Opt-in train-semantic texture controls
 
 `build_train_hair_semantics.py` caches hash-bound hair and protected-surface
