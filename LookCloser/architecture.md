@@ -1,5 +1,12 @@
 # LookCloser architecture
 
+## Opt-in continuous-surface completion
+
+`study_poisson_jaw_completion.py` proposes local boundary surfaces without
+replacing observed geometry. `local_surface_certificate.py` checks interpolation
+inside verified train-depth neighborhoods; measured free-space guards remain.
+See [jaw improvement, held-out check and remaining texture rejection](experiments/dec5_poisson_jaw_completion.md).
+
 ## Opt-in curved boundary-cap study
 
 `subdivide_boundary_caps.py` preserves original geometry and cap perimeter while
