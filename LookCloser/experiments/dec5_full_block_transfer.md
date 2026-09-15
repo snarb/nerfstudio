@@ -32,16 +32,46 @@ change the fixed exposure/profiles used by current video texturing.
 
 ## Results
 
-**In progress; no new geometry or quality result is claimed yet.**
+**Completed at 000995: no convincing lipstick improvement; not promoted.**
 
 Local root: `/mnt/data/dec5_full_block_transfer`.
 Remote root: `/fsx/oregon/dec5_full_block_transfer` on dev3.
 
 At the launch checkpoint on2026-09-15, 000995 matches **63/63 historical staged
 JPEG hashes and gains**. Export, undistortion and PatchMatch configuration completed.
-The remote photometric worker is live; the independent clever-shadow video
-queue is unaffected. 000997 is planned as the second same-rule control and is
-not launched before the first time reaches a terminal state.
+The independent clever-shadow video queue was unaffected. All remote stages
+and eight matched RGB renders subsequently completed with exit code zero.
+000997 was not launched after the negative first transfer gate.
+
+All 62 geometric maps are finite at 1080×1920. Positive coverage is
+0.38443036576563117 mean and 0.24904947916666667 minimum. Both meshes, metadata,
+compact logs and the 62 raw geometric maps were returned and SHA-256 verified.
+The per-view mesh has 79,552 vertices / 153,646 triangles; full-block has
+79,693 / 153,827. Both have one component. Counts alone do not certify shape.
+
+| Matched camera | New depth pixels | Lost depth pixels | Changed RGB pixels |
+|---|---:|---:|---:|
+| Actual wide left arc | 133 | 125 | 2,383 |
+| H/C train pose | 75 | 450 | 1,570 |
+| K/B train pose | 361 | 880 | 3,234 |
+
+These are diagnostic differences, **not PSNR/SSIM/LPIPS or quality scores**.
+Main LLM inspected all six initial head/hand panels and three supplementary
+native-scale lipstick panels. Fixed initial boxes missed the lipstick in K/B
+and much of the head in the moving pose; supplementary crops correct coverage
+without rerendering or changing the candidate. In H/C, the false patch beside
+the lipstick and broadened shape remain. In K/B, both raw arms retain a blue,
+clothing-textured false surface behind the lipstick, absent in train GT. The
+moving crop likewise retains the rough membrane. No convincing local benefit
+justifies promotion or the second expensive reconstruction.
+
+Native panels:
+[moving](/mnt/data/dec5_full_block_transfer/000995/review/moving/lipstick_native.png),
+[H/C](/mnt/data/dec5_full_block_transfer/000995/review/H004_C005_1210SZ/lipstick_native.png),
+[K/B](/mnt/data/dec5_full_block_transfer/000995/review/K004_B005_1210DS/lipstick_native.png).
+The separate [visual verdict](/mnt/data/dec5_full_block_transfer/000995/visual_review.json)
+records the negative gate and limited scope. No production mesh or video changed;
+remote scratch is retained.
 
 Before promotion, require full-resolution finite62-depth inventory; matched
 per-view/full-block meshes from those exact depths; gauge-verified transfer into
@@ -65,9 +95,14 @@ v1 resume may fail closed on tuple/list comparison. Do not bypass request hashes
 
 A correct local experiment must be tracked through later artifact ancestry;
 otherwise a hypothesis about a lost fix is easy to assert incorrectly. Here,
-000971's correction survived, while generalization to other affected times
-remains untested. The next decision depends on the paired geometry/RGB result,
-not the number of added/removed triangles or aggregate face metrics alone.
+000971's correction survived, but at 000995 the same full-block correction is
+insufficient. This rejects treating every lipstick fin as the same block-update
+bug. It does not establish the remaining cause: erroneous measured depths,
+weak geometric constraints, and visibility/source mapping still need to be
+distinguished. The native K/B clothing-colored patch is not evidence of RGB
+averaging: this controlled renderer selects one hard source per surface patch.
+Further work should examine the retained false surface against the actual raw
+depth observations before another reconstruction sweep.
 
 ### Comparison workflow prepared while reconstruction runs
 
@@ -83,6 +118,10 @@ because the raw fusion pair does not include its later head repairs.
 Native train GT, individual native crops and three/four-way panels are retained.
 No novel-view quality metric is invented; pixel-change counts are explicitly
 diagnostic. Receipt validation rejects path traversal and unexpected filenames.
-Three focused controller/receiver tests pass. The new comparison workflow is
-prepared and compiled, but actual receive/render/visual validation remains
-pending until the ongoing reconstruction completes.
+Three focused controller/receiver tests pass. Receive, gauge validation,
+all eight new RGB renders, matched-receipt checks and visual review completed.
+`finish_full_block_transfer.py` adds native diagnostic crops and a checksum seal
+over retained experiment artifacts, train RGB inputs and renderer dependencies.
+It does not modify geometry, exposure, camera paths or source masks.
+Final seal rechecked **468 SHA-256 bindings**. The three focused tests were
+rerun successfully (3/3, 1.32 seconds); all experiment workers are terminal.
