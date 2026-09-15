@@ -1,5 +1,13 @@
 # LookCloser architecture
 
+## Opt-in local silhouette-domain diagnostics
+
+`local_silhouette_volume.py` and `silhouette_domain_surface.py` distinguish
+unknown camera/annotation coverage from negative silhouette evidence and reject
+implicit facets at availability boundaries. Six/twelve-view hand envelopes are
+diagnostic constraints, not an accepted replacement for measured geometry; see
+[rejected hand-surface pilot](experiments/dec5_hand_silhouette_volume.md).
+
 ## Opt-in narrow-crack proposal repair
 
 `study_close_boundary_completion.py` removes a minimum-centroid-gap heuristic
