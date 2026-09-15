@@ -1655,3 +1655,16 @@ See `experiments/dec5_temporal_gradient_color.md`; this is not a model default.
 camera-height offset on unchanged dynamic meshes, preserving horizontal travel
 and fixed intrinsics. Clay and exact-wrapper RGB distinguish reduced visibility
 of holes from true mesh recovery; five-view canaries do not certify a full movie.
+
+### Opt-in true 6K cinematic output
+
+`render_cinematic_6k_output.py` preserves the approved dynamic camera path while
+casting a new 6144×3456 target-ray lattice, rotated once to 3456×6144 portrait.
+Native 5461×3072 cropped sources provide fresh visibility and RGB samples;
+only fixed mesh-face graph labels are reused, never enlarged HD source-ID pixels.
+The explicit moving-train ending retains its existing optical crop and transition.
+Disjoint ending workers publish verified payloads through atomic internal relative
+directory links; `review_cinematic_6k_output.py` verifies the complete temporal
+inventory, native encodes, PNG bytes and visual review before delivery. This is
+not a model default, new geometry, or an artifact-free claim. See
+`experiments/dec5_cinematic_6k_output.md` for retained limitations and provenance.
