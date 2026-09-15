@@ -57,6 +57,14 @@ focused tests cover half-pixel ray coordinates, exact identity including image
 borders, out-of-source requests, immutable pose/lens hold, and the exact
 118/8/24 split with byte-preserved endpoints.
 
+A further independent float64, separable-resampling audit verifies **all 128
+prepared ending images** against the 32 distinct original EXRs. It does not
+call the compositor's sampler or display function: 64 two-framing replays
+match within one uint8 level, and the corresponding ending images in the
+other two variants match pixel-for-pixel. Two additional tests check this
+independent sampler against an analytic affine image and the display response.
+The combined main-agent endpoint/audit suite passes seven tests.
+
 The main agent inspected the locked/free transition contact sheets and a native
 final beauty frame. Face, eyes and ears align through the dissolve; the old mesh
 silhouette briefly remains visible during blending. The original background
@@ -66,6 +74,7 @@ tradeoffs, not repaired geometry. Full-video render/publication status and
 progressive visual review belong to the linked campaign report.
 
 - [Independent v4 path audit](/mnt/data/dec5_cinematic_pushin_v4/independent_path_audit.json)
+- [Independent replay of all ending RGBs](/mnt/data/dec5_cinematic_pushin_v4/independent_real_ending_audit.json)
 - [Whole-head transition](/mnt/data/dec5_cinematic_pushin_v4/locked_arc/train_transition_review/contact.png)
 - [Beauty transition](/mnt/data/dec5_cinematic_pushin_v4/free_arc/train_transition_review/contact.png)
 - [Actual final beauty RGB](/mnt/data/dec5_cinematic_pushin_v4/free_arc/train_ending/frames/001197/frame.png)
