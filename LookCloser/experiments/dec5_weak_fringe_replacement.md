@@ -154,3 +154,38 @@ Replay with `scripts/screen_wide_fringe_geometry.py`, then
 `scripts/audit_wide_fringe_geometry.py`. The latter verifies hashes, inventory,
 24 finite depth arrays, recorded change counts and deletion monotonicity;
 the final check passed and rechecked 64 SHA-256 bindings.
+
+### Actual wide-angle RGB transfer
+
+Two additional matched RGB controls reuse the exact left-high-arc cameras at
+001083/001123, with the sealed replacement meshes. No parameters, camera poses,
+fixed profiles/exposure, source masks or hard-source RGB rule change. Rendering
+used one slot released by the video queue (about35seconds per time), without
+increasing total active rendering beyond six or altering the four videos.
+
+| Time | New / lost depth pixels | Changed RGB pixels | Black introduced / removed |
+|---|---:|---:|---:|
+| 001083 | 256 / 396 | 3,833 | 398 / 264 |
+| 001123 | 35 / 489 | 3,000 | 488 / 43 |
+
+These are change diagnostics, not quality scores: removing false fringe naturally
+turns some foreground pixels black. Both actual RGB-run depth arrays match the
+previous independent wide-path CPU casts within1e-6. Camera/source/exposure
+receipts match the production controls. Both crown panels and both full-head
+panels were directly inspected. The top arch is reduced, particularly at001123;
+the broader tan/brown crown rim and coarse hair silhouette remain. No conspicuous
+new face, ear or neck defect appears in these two inspected comparisons.
+
+This establishes a small real wide-angle RGB improvement, not complete crown
+repair, held-out fidelity or temporal acceptance. The existing native-side gap
+remains unresolved and no production video is replaced. Finalization replays
+the comparisons and rechecks207SHA-256bindings.
+
+- [Wide RGB crown comparison001123](/mnt/data/dec5_wide_fringe_rgb/left_high_arc/review/001123/crown.png)
+- [Wide RGB head comparison001083](/mnt/data/dec5_wide_fringe_rgb/left_high_arc/review/001083/head.png)
+- [Actual visual verdict](/mnt/data/dec5_wide_fringe_rgb/left_high_arc/visual_review.json)
+- [Retained integrity manifest](/mnt/data/dec5_wide_fringe_rgb/left_high_arc/artifact_manifest.json)
+
+Replay: `render_wide_fringe_rgb.py render`, then `review`; the separate
+`freeze_wide_fringe_rgb.py` requires the explicit visual verdict. Both RGB workers
+completed normally; no source, old mesh or published video was removed.
