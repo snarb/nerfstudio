@@ -26,7 +26,7 @@ apparent actor sizes are caused by actual camera distance.
 | Sweep | Gradual lateral sweep, shallow elevation | 18.73° | 384 × 154 px |
 | High arc | Rises and pulls farther back before approaching the ending view | 19.31° | 384 × 154 px |
 | S curve | Crosses left, returns right, then reaches the ending view | 18.43° | 384 × 154 px |
-| Closer portrait (additional candidate) | Same physical S curve, fixed 1.7× closer lens and analytic composition | 18.85° | 180 × 40 px |
+| Closer portrait (additional framing option) | Same physical S curve, fixed 1.7× closer lens and analytic composition | 18.85° | 180 × 40 px |
 
 These angles are smaller than the published 31.51° route by design. Screen-space
 composition and physical camera translation remain visible. Constant camera
@@ -34,16 +34,16 @@ speed and a seamless video loop are not claimed.
 
 ## Results
 
-The original three paths completed all **450 renders** with six workers exiting
-normally. All three independent 150-frame integrity audits pass. The three
-normal-speed MP4s are encoded and verified; the additional closer-portrait
-full render remains in progress.
+All four options completed **600 renders**, with both six-worker batches exiting
+normally. All four independent 150-frame integrity audits pass. All four
+normal-speed MP4s are encoded, fully decoded and verified.
 
 | Ready video | Format | PNG archive |
 |---|---|---|
 | [Sweep](/mnt/data/dec5_artifact_aware_variants/sweep/video.mp4) | 1080 × 1920, 24 fps, 6.25 s | [150 frames](/mnt/data/dec5_artifact_aware_variants/sweep/frames.zip) |
 | [High arc](/mnt/data/dec5_artifact_aware_variants/high_arc/video.mp4) | 1080 × 1920, 24 fps, 6.25 s | [150 frames](/mnt/data/dec5_artifact_aware_variants/high_arc/frames.zip) |
 | [S curve](/mnt/data/dec5_artifact_aware_variants/s_curve/video.mp4) | 1080 × 1920, 24 fps, 6.25 s | [150 frames](/mnt/data/dec5_artifact_aware_variants/s_curve/frames.zip) |
+| [Closer portrait](/mnt/data/dec5_artifact_aware_variants/closer_portrait/video.mp4) | 1080 × 1920, 24 fps, 6.25 s | [150 frames](/mnt/data/dec5_artifact_aware_variants/closer_portrait/frames.zip) |
 
 All 150 decoded frames in each MP4 were checked against the matching native PNG,
 and the ZIP inventories were verified. Every source frame was visually inspected
@@ -54,11 +54,12 @@ inspection, not a claim of certified real-time playback review. Each option's
 review notes and the actual inspected images. The result is a reviewed choice
 with known residuals, not a production replacement.
 
-| Original path | Actual rendered foreground-centroid travel | Fresh saved-depth checks | Distinct times / meshes / renders |
+| Path | Actual rendered foreground-centroid travel | Fresh saved-depth checks | Distinct times / meshes / renders |
 |---|---:|---:|---:|
 | Sweep | 401 × 192 px | 7 pass | 150 / 150 / 150 |
 | High arc | 401 × 182 px | 7 pass | 150 / 150 / 150 |
 | S curve | 368 × 190 px | 7 pass | 150 / 150 / 150 |
+| Closer portrait | 118 × 109 px | 7 pass | 150 / 150 / 150 |
 
 All requested camera centers are inside the train-camera-center convex hull.
 Four additional casts of the same frozen actor mesh from separated movie poses
@@ -75,11 +76,20 @@ field of view excludes the lower-forearm defect at `001029/001037` while retaini
 the whole crown and painting hand at `000899/000995`. At `001037` the lowered
 hand naturally leaves the frame. This is not a per-frame tracked or post-render
 crop. Existing crown roughness/opening is more visible at the larger portrait
-size, so the closer option is not artifact-free either.
+size, so the closer option is not artifact-free either. Inspection of every
+frame in `001019..001057` confirms that the original conspicuous lower-forearm
+gap leaves this camera's field of view; the raised hand remains visible until
+it lowers out of the portrait. The hand is therefore not visible for the whole
+clip. Native `001123` still shows a crown shell/arch opening, a narrow nose-side
+slit and jagged neck/source boundaries. The camera workaround does not repair
+these defects.
 
 - [Closer portrait keeps the painting hand](/mnt/data/dec5_artifact_aware_variants/closer_portrait/review/000899_comparison.png)
 - [Lower forearm leaves the actual camera field](/mnt/data/dec5_artifact_aware_variants/closer_portrait/review/001029_comparison.png)
 - [Later dropping hand exits naturally](/mnt/data/dec5_artifact_aware_variants/closer_portrait/review/001037_comparison.png)
+- [All dropping-hand frames, first half](/mnt/data/dec5_artifact_aware_variants/closer_portrait/review/060_069_overview.png)
+- [All dropping-hand frames, second half](/mnt/data/dec5_artifact_aware_variants/closer_portrait/review/070_079_overview.png)
+- [Native closer crown and nose residuals](/mnt/data/dec5_artifact_aware_variants/closer_portrait/frames/001123/frame.png)
 
 All 27 native RGB canaries (9 times × 3 paths) completed normally. The agent
 inspected all three geometry contact sheets and native comparisons for initial
@@ -102,7 +112,7 @@ crown `001123`, and late jaw `001193/001197`.
 - [Explicit canary verdict](/mnt/data/dec5_artifact_aware_variants/canary_visual_review.json)
 
 The outputs live under `/mnt/data/dec5_artifact_aware_variants/` in
-`sweep`, `high_arc`, and `s_curve`. The source production output remains
+`sweep`, `high_arc`, `s_curve`, and `closer_portrait`. The source production output remains
 `/mnt/data/dec5_incidence2_unwarped_dynamic_150`.
 
 Copy the ready movies from a machine with SSH access to `clever-shadow`:
@@ -111,6 +121,7 @@ Copy the ready movies from a machine with SSH access to `clever-shadow`:
 scp clever-shadow:/mnt/data/dec5_artifact_aware_variants/sweep/video.mp4 ./dec5_sweep.mp4
 scp clever-shadow:/mnt/data/dec5_artifact_aware_variants/high_arc/video.mp4 ./dec5_high_arc.mp4
 scp clever-shadow:/mnt/data/dec5_artifact_aware_variants/s_curve/video.mp4 ./dec5_s_curve.mp4
+scp clever-shadow:/mnt/data/dec5_artifact_aware_variants/closer_portrait/video.mp4 ./dec5_closer_portrait.mp4
 ```
 
 ## Insights
@@ -136,6 +147,14 @@ Replay helpers:
 ../.venv/bin/python scripts/finalize_artifact_aware_video_variants.py sheets
 ../.venv/bin/python scripts/finalize_artifact_aware_video_variants.py audit
 ../.venv/bin/python scripts/finalize_artifact_aware_video_variants.py encode
+# Optional closer framing; inspect five canaries before the full render:
+../.venv/bin/python scripts/closer_portrait_camera_variant.py init
+../.venv/bin/python scripts/closer_portrait_camera_variant.py canary
+../.venv/bin/python scripts/closer_portrait_camera_variant.py panels
+../.venv/bin/python scripts/run_view_consistent_dynamic_video.py supervise --output /mnt/data/dec5_artifact_aware_variants/closer_portrait --workers 6
+../.venv/bin/python scripts/finalize_artifact_aware_video_variants.py sheets --variant closer_portrait
+../.venv/bin/python scripts/finalize_artifact_aware_video_variants.py audit --variant closer_portrait
+../.venv/bin/python scripts/finalize_artifact_aware_video_variants.py encode --variant closer_portrait
 ```
 
 The supervisor keeps exactly six workers total and writes process/GPU/free-space
@@ -144,3 +163,10 @@ unchanged production meshes and source masks, source-time provenance, fixed
 radiometry, finite saved depths, fresh raycasts at seven actual poses, and a
 separate frozen-actor camera-motion control. Encoding requires the audit and
 decodes all 150 MP4 frames to verify their order and content against source PNGs.
+
+The original three full-render workers finished at `2026-09-15T08:13:42Z`;
+the closer portrait finished at `2026-09-15T08:27:43Z`. All twelve worker exits
+and both supervisor exits were zero. The closer portrait reused five approved
+canaries, rendering the other 145 frames with six workers. Its terminal check
+recorded 146.2 GB free and no remaining render-worker GPU allocation. No new
+geometry or masks from the parallel repair research were promoted into any clip.
