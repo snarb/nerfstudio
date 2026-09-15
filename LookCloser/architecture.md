@@ -1,5 +1,14 @@
 # LookCloser architecture
 
+## Opt-in foreground-layer confidence diagnostic
+
+`foreground_layer_evidence.py` qualifies measured free-space witnesses using
+four-view near-arm/far-clothing evidence. Its isolated adapter binds the modified
+guard in an outer request; old geometry and render defaults remain unchanged.
+Additional coverage still fails visual acceptance. Rectified patch diagnostics
+audit photographed sampling footprints separately from depth confidence; see
+[layer-qualified guard](experiments/dec5_forearm_layer_qualified_guard.md).
+
 ## Opt-in lower-forearm stereo observations
 
 `study_foundation_lower_forearm.py` stages four lower-row train observations
