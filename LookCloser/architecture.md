@@ -1,5 +1,12 @@
 # LookCloser architecture
 
+## Opt-in curved boundary-cap study
+
+`subdivide_boundary_caps.py` preserves original geometry and cap perimeter while
+adding bounded centroid curvature from adjacent surface rings. Matched flat,
+curved and larger-cap controls retain native observed-depth vetoes; no production
+defaults change. See [local gains and remaining jaw defect](experiments/dec5_curved_jaw_caps.md).
+
 ## Opt-in anatomical correspondence validation
 
 `study_hand_landmark_prior.py` runs in an isolated environment;
