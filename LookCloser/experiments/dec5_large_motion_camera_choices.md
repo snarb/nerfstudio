@@ -22,9 +22,53 @@ is no periodic wrap into the initial chin/hand pose.
 
 ## Results
 
-**All four selected RGB gates pass for full-sequence evaluation with known
-residuals. Three paths are rendering; the refined fourth is queued next under
-the same six-worker limit. No new video is published yet.**
+**All four choices are complete, audited and encoded.** All 600 source frames
+were inspected in chronological contact sheets. Each MP4 was fully decoded and
+compared with all 150 corresponding PNGs, and its decoded overview was inspected.
+Each audit verifies 150 unique times/meshes/renders, seven independent saved-depth
+recasts, four frozen-actor camera controls, finite complete depths, camera-center
+train-hull containment, fixed exposure and unchanged production geometry/source
+manifests. There is no frozen actor, retiming, repeated time or frame interpolation.
+
+| Path | Actual full dynamic RGB travel | Maximum decoded MAE / 255 |
+|---|---:|---:|
+| Diagonal sweep | 583 × 564 px | 0.876 |
+| Wide oval | 580 × 533 px | 0.824 |
+| Left high arc | 579 × 576 px | 0.780 |
+| Refined right high arc | 588 × 483 px | 0.789 |
+
+| Ready video | Format | Archive |
+|---|---|---|
+| [Left high arc](/mnt/data/dec5_large_motion_choices_v3/left_high_arc/video.mp4) | 1080 × 1920, 24 fps, 6.25 s | [150 PNG frames](/mnt/data/dec5_large_motion_choices_v3/left_high_arc/frames.zip) |
+| [Wide oval](/mnt/data/dec5_large_motion_choices_v3/wide_oval/video.mp4) | 1080 × 1920, 24 fps, 6.25 s | [150 PNG frames](/mnt/data/dec5_large_motion_choices_v3/wide_oval/frames.zip) |
+| [Diagonal sweep](/mnt/data/dec5_large_motion_choices_v3/diagonal_sweep/video.mp4) | 1080 × 1920, 24 fps, 6.25 s | [150 PNG frames](/mnt/data/dec5_large_motion_choices_v3/diagonal_sweep/frames.zip) |
+| [Refined right high arc](/mnt/data/dec5_large_motion_choices_v3/right_high_arc_refined/video.mp4) | 1080 × 1920, 24 fps, 6.25 s | [150 PNG frames](/mnt/data/dec5_large_motion_choices_v3/right_high_arc_refined/frames.zip) |
+
+```bash
+scp clever-shadow:/mnt/data/dec5_large_motion_choices_v3/left_high_arc/video.mp4 ./dec5_large_left_high_arc.mp4
+scp clever-shadow:/mnt/data/dec5_large_motion_choices_v3/wide_oval/video.mp4 ./dec5_large_wide_oval.mp4
+scp clever-shadow:/mnt/data/dec5_large_motion_choices_v3/diagonal_sweep/video.mp4 ./dec5_large_diagonal_sweep.mp4
+scp clever-shadow:/mnt/data/dec5_large_motion_choices_v3/right_high_arc_refined/video.mp4 ./dec5_large_right_high_arc.mp4
+```
+
+Every source frame in the full descending-hand interval `001019..001057` was
+inspected in all four completed videos: the major lower-forearm gap stays outside their camera FOV.
+The head and painting action remain visible. Crown fringe/shell openings,
+lipstick/hand membranes, source/neck boundaries and a truncated lower torso
+remain. Publication is a reviewed choice with known residuals, not a clean or
+production-replacement approval. Review is frame/contact inspection, not a
+claim of real-time playback certification.
+
+Refined right is the less-clean option: native `001005` shows the strongest
+hand–neck membrane/black wedge of these choices, and tilted crown fringe comes
+very close to the side border. It is supplied as a genuinely different broad
+arc, not as a claim that all holes were hidden. The other three are preferable
+if that defect dominates the user's selection.
+
+- [Right hand–neck residual at native scale](/mnt/data/dec5_large_motion_choices_v3/right_high_arc_refined/canary_review/001005_head_native.png)
+- [Left arc decoded chronological overview](/mnt/data/dec5_large_motion_choices_v3/left_high_arc/decoded_overview.png)
+- [Right arc final integrity audit](/mnt/data/dec5_large_motion_choices_v3/right_high_arc_refined/integrity_audit.json)
+- [Exact inspected-image record](/mnt/data/dec5_large_motion_choices_v3/right_high_arc_refined/manual_visual_review.json)
 
 | Path | Physical center-ray separation | Row-coordinate range | Frozen-actor rendered travel |
 |---|---:|---:|---:|
@@ -42,7 +86,7 @@ These are measured raycasts of the **same actor mesh** at six actual movie
 cameras, not an inference from camera metadata or changing actor pose. A pair
 of fixed depth-separated 3D landmarks also shows over 1.5× the relative image
 movement of the previous S curve. Pure framing translation cannot cause that
-relative parallax. The full dynamic RGB movement audit is still pending.
+relative parallax. Full dynamic RGB audits have passed for all four choices.
 
 - [Previous S-curve frozen-actor camera probe](/mnt/data/dec5_large_motion_choices_v3/diagonal_sweep/motion_probe/previous_s_curve_contact.png)
 - [New diagonal frozen-actor camera probe](/mnt/data/dec5_large_motion_choices_v3/diagonal_sweep/motion_probe/new_contact.png)
@@ -83,7 +127,8 @@ the large initial chin cutout is hidden. All twelve refined RGB canaries and
 native `000995`, `001029/001037/001045`, and `001123` crops are now inspected:
 the large lower-forearm gap is outside the field of view, but lipstick/hand
 membranes, crown openings and source boundaries remain. This fourth path is
-approved only for full-sequence evaluation with those explicit residuals.
+was approved for full-sequence evaluation with those explicit residuals;
+that full sequence is now inspected and published with the same limitations.
 
 - [Diagonal RGB canaries](/mnt/data/dec5_large_motion_choices_v3/diagonal_sweep/canary_review/contact.png)
 - [Native crown residual](/mnt/data/dec5_large_motion_choices_v3/diagonal_sweep/canary_review/001123_head_native.png)
@@ -96,6 +141,21 @@ supervisor resumes missing frames, caps concurrency at six and records process,
 GPU, inventory and free-space checks every 30 seconds. Original failure logs
 remain under `v3/canary_workers`; resumed logs use `v3/canary_fresh_workers`.
 
+The mixed render pool reached its terminal record with all 20 child shards
+exited zero. Its outer exec session nevertheless later reported status 143.
+The final right-arc outer session also reported 143 near completion, and a
+process check confirmed the supervisor and workers had gone, with 149 valid
+receipts retained and no renderer traceback/OOM. The SIGTERM origin was not
+established. Its complete attempt logs were preserved as
+`v3/full_fresh_workers_attempt1`; a fresh bounded resume requested only missing
+time `000951`; the resume and its one worker exited zero. Completed frames were
+not rerendered or overwritten. All task render workers are terminal. The prior
+four published small-motion outputs and the production root were not modified.
+
+The five path/refinement tests pass (`pytest -o addopts=''`, 3.29 seconds).
+Tests verify large physical travel, fixed lens, strictly interior row
+coordinates and unchanged input requests; they do not certify artifact freedom.
+
 ## Insights
 
 The requested larger motion needs both a genuinely wider 3D arc and sufficient
@@ -106,7 +166,7 @@ Native RGB gates, full-sequence review and honest residual disclosure remain
 required before publication. Pixelwise PSNR/SSIM/LPIPS between different novel
 views would not be a valid quality comparison, so none is reported here.
 
-Active replay commands (existing hash-bound requests are immutable):
+Replay commands (existing hash-bound requests are immutable):
 
 ```bash
 ../.venv/bin/python scripts/visible_large_motion_choices.py init
