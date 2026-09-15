@@ -1,5 +1,13 @@
 # LookCloser architecture
 
+## Opt-in narrow-crack proposal repair
+
+`study_close_boundary_completion.py` removes a minimum-centroid-gap heuristic
+from local Poisson proposals while keeping measured-depth and semantic gates.
+An identical-raw-surface counterfactual isolates the change; geometry-aware
+held-out scoring is separate from texture-only scoring. See
+[two-time jaw-crack evidence](experiments/dec5_close_boundary_completion.md).
+
 ## Opt-in view-consistent source quality
 
 `view_consistent_source_quality.py` and isolated study adapters soften the
