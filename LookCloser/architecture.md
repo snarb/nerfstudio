@@ -1,5 +1,13 @@
 # LookCloser architecture
 
+## Opt-in feasible-depth surface constraints
+
+`discrete_surface_constraints.py` preserves disconnected feasible depth sets
+and exact native pins during grid optimization. The coherent study's opt-in
+constraint branch and guard work-limit flag have unchanged defaults. Transfer
+audits distinguish loss of production geometry from loss of earlier priors;
+see [regression and composition requirements](experiments/dec5_constrained_forearm_surface.md).
+
 ## Opt-in coherent bounded surface replacement
 
 `bounded_surface_replacement.py` limits replacement to fully contained, nearby

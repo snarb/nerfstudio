@@ -26,9 +26,20 @@ def run(root,frame):
     camera=request['reference_camera'];ci=next(i for i,r in enumerate(rows) if r['physical_camera']==camera['physical_camera'])
     if camera!=rows[ci]:raise ValueError('Camera mismatch')
     ev=np.load(folder/'evidence.npz');domain=ev['domain'];model=ev['model'];pins=ev['pins'];observed=depths[ci]
-    diagnostic=np.load(prior.OUT/frame/'diagnostic.npz');expected_pins=domain&diagnostic[camera['physical_camera']+'_trusted']&(np.abs(observed-model)<=.012)
-    if not np.array_equal(pins,expected_pins):raise ValueError('Trusted pin mismatch')
-    solved,_=solve_depth(domain,model,observed,pins,.05)
+    diagnostic=np.load(prior.OUT/frame/'diagnostic.npz')
+    if 'feasible_depth_constraints' in request:
+        from feasible_forearm_surface import build
+        fitpath=Path('/mnt/data/dec5_forearm_multiview_anchors')/frame/'result.json'
+        if sha(fitpath)!=request['fit_sha256']:raise ValueError('Changed constrained fit')
+        fit=next(r for r in read(fitpath)['fit'] if r['model']=='quadratic')
+        dd,mm,solved,pp,_,arrays=build(camera,request['fit_reference_camera'],fit,read(prior.OUT/frame/'analysis.json'),rows,depths,v1.masks(frame),diagnostic)
+        if not np.array_equal(dd,domain) or not np.array_equal(mm,model) or not np.array_equal(pp,pins):raise ValueError('Constrained domain/pin replay mismatch')
+        recorded=np.load(folder/'constraint_samples.npz')
+        if set(recorded.files)!=set(arrays) or any(not np.array_equal(recorded[k],a) for k,a in arrays.items()):raise ValueError('Feasible depth sample replay mismatch')
+    else:
+        expected_pins=domain&diagnostic[camera['physical_camera']+'_trusted']&(np.abs(observed-model)<=.012)
+        if not np.array_equal(pins,expected_pins):raise ValueError('Trusted pin mismatch')
+        solved,_=solve_depth(domain,model,observed,pins,.05)
     if not np.array_equal(solved,ev['solved']) or np.max(np.abs(solved[domain]-model[domain]))>.012:raise ValueError('Solve replay mismatch')
     old=o3d.io.read_triangle_mesh(request['source_mesh']);ov,ot=np.asarray(old.vertices),np.asarray(old.triangles)
     uv,z=project_integer(camera,ov);removed=removable_faces(uv,z,ot,domain,solved,.012)
@@ -58,7 +69,7 @@ def run(root,frame):
     atomic_json(folder/'independent_audit.json',dict(frame=frame,geometry_result_sha256=sha(folder/'geometry_result.json'),
         script_sha256=sha(__file__),bounded_old_face_removal_exact=True,trusted_pins_exact=True,solve_replay_exact=True,
         assembly_replay_exact=True,unaffected_old_geometry_exact=True,checks=124,qualified_veto_pixels=0,topology=topology,
-        production_accepted=False,visual_review_required=True))
+        production_accepted=False,visual_review_required=True,feasible_depth_constraints_replayed='feasible_depth_constraints' in request))
     print(frame,'independent audit passed',topology,flush=True)
 
 
