@@ -10,7 +10,7 @@ from discrete_surface_constraints import solve
 import study_forearm_plane_transfer_v3 as prior
 
 
-def build(camera,reference,fit,analysis,rows,depths,masks,data):
+def build(camera,reference,fit,analysis,rows,depths,masks,data,positive_only_annotations=False):
     name=camera['physical_camera'];y,x=np.nonzero(masks[name]);center=np.asarray(camera['transform_matrix'])[:3,3]
     directions=unproject(camera,x,y,np.ones(len(x)))-center
     model_z,_=intersect_near_plane(center,directions,world_quadric(reference,fit),world_plane(reference,analysis['plane_inverse_coefficients']))
@@ -21,7 +21,7 @@ def build(camera,reference,fit,analysis,rows,depths,masks,data):
         points=unproject(camera,x,y,z);uv,rz=project_integer(reference,points)
         inverse=np.column_stack([uv/100,np.ones(len(uv))])@analysis['plane_inverse_coefficients']
         within=(inverse>0)&(np.abs(rz-1/np.maximum(inverse,1e-12))<=.01)&(distance<=100)
-        votes,negative,free=point_votes(points,rows,names,masks,data,depths,prior.v2.semantic_domain)
+        votes,negative,free=point_votes(points,rows,names,masks,data,depths,prior.v2.semantic_domain,positive_only_annotations)
         # Enforce the existing final-vertex mask convention as well as initial
         # integer admission, so the solve cannot cross their disagreement band.
         final_support=np.zeros(len(points),np.uint8);final_negative=np.zeros(len(points),bool)
@@ -30,7 +30,8 @@ def build(camera,reference,fit,analysis,rows,depths,masks,data):
             q,zz=project(points,[row]);q,zz=q[0],zz[0];xy=np.rint(q).astype(int)
             available=known_domain(q,zz,row['w'],row['h']);ids=np.flatnonzero(available)
             inside=np.zeros(len(points),bool);inside[ids]=masks[row['physical_camera']][xy[ids,1],xy[ids,0]]
-            final_support+=inside;final_negative|=available&~inside
+            final_support+=inside
+            if not positive_only_annotations:final_negative|=available&~inside
         return within&(votes>=2)&(negative==0)&(free==0)&(final_support>=2)&~final_negative
     offsets=np.linspace(-.012,.012,49);allowed=np.stack([eligible(model_z+delta) for delta in offsets],1)
     observed=depths[next(i for i,r in enumerate(rows) if r['physical_camera']==name)][y,x]

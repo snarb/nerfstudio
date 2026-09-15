@@ -1,5 +1,13 @@
 # LookCloser architecture
 
+## Opt-in partial-annotation and camera-phase controls
+
+The constrained forearm study can treat unlabelled pixels outside inset skin
+ROIs as unknown, still requiring two positive views and measured depth guards.
+This opt-in control is not promoted; its RGB canary regressed. Camera-phase
+screening also failed to hide the broken hand without clipping it. See
+[controls, roundoff fix and remaining scope](experiments/dec5_forearm_workaround_limits.md).
+
 ## Opt-in protected-production prior composition
 
 `protected_production_grid.py` preserves the production mesh prefix, samples

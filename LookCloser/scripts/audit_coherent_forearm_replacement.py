@@ -5,7 +5,7 @@ import numpy as np
 import open3d as o3d
 from joint_temporal_texture import read,sha,atomic_json
 from study_confidence_depth_prior import unproject,project_integer
-from bounded_surface_replacement import removable_faces
+from bounded_surface_replacement import removable_faces,displacement_within_bound
 from confidence_boundary_completion import solve_depth,grid_faces
 from annotation_mask_domain import semantic_faces
 from contrastive_forearm_depth_guard import make_guard
@@ -32,7 +32,7 @@ def run(root,frame):
         fitpath=Path('/mnt/data/dec5_forearm_multiview_anchors')/frame/'result.json'
         if sha(fitpath)!=request['fit_sha256']:raise ValueError('Changed constrained fit')
         fit=next(r for r in read(fitpath)['fit'] if r['model']=='quadratic')
-        dd,mm,solved,pp,_,arrays=build(camera,request['fit_reference_camera'],fit,read(prior.OUT/frame/'analysis.json'),rows,depths,v1.masks(frame),diagnostic)
+        dd,mm,solved,pp,_,arrays=build(camera,request['fit_reference_camera'],fit,read(prior.OUT/frame/'analysis.json'),rows,depths,v1.masks(frame),diagnostic,'positive_only_annotations' in request)
         if not np.array_equal(dd,domain) or not np.array_equal(mm,model) or not np.array_equal(pp,pins):raise ValueError('Constrained domain/pin replay mismatch')
         recorded=np.load(folder/'constraint_samples.npz')
         if set(recorded.files)!=set(arrays) or any(not np.array_equal(recorded[k],a) for k,a in arrays.items()):raise ValueError('Feasible depth sample replay mismatch')
@@ -40,7 +40,7 @@ def run(root,frame):
         expected_pins=domain&diagnostic[camera['physical_camera']+'_trusted']&(np.abs(observed-model)<=.012)
         if not np.array_equal(pins,expected_pins):raise ValueError('Trusted pin mismatch')
         solved,_=solve_depth(domain,model,observed,pins,.05)
-    if not np.array_equal(solved,ev['solved']) or np.max(np.abs(solved[domain]-model[domain]))>.012:raise ValueError('Solve replay mismatch')
+    if not np.array_equal(solved,ev['solved']) or not displacement_within_bound(solved[domain],model[domain],.012):raise ValueError('Solve replay mismatch')
     old=o3d.io.read_triangle_mesh(request['source_mesh']);ov,ot=np.asarray(old.vertices),np.asarray(old.triangles)
     uv,z=project_integer(camera,ov);removed=removable_faces(uv,z,ot,domain,solved,.012)
     retained=ot[~removed];y,x=np.nonzero(domain);vertices=np.concatenate([ov,unproject(camera,x,y,solved[y,x])])
@@ -55,7 +55,7 @@ def run(root,frame):
         recorded=np.load(folder/'protection_evidence.npz')
         if set(recorded.files)!=set(protection_arrays) or any(not np.array_equal(recorded[k],a) for k,a in protection_arrays.items()):raise ValueError('Protection replay mismatch')
     if not np.array_equal(removed,ev['removed_original_faces']):raise ValueError('Removal exceeds bounded domain')
-    faces,_=semantic_faces(vertices,faces,rows,v1.masks(frame),axis_extent=True)
+    faces,_=semantic_faces(vertices,faces,rows,v1.masks(frame),axis_extent=True,positive_only_annotations='positive_only_annotations' in request)
     raw=o3d.io.read_triangle_mesh(str(folder/'transferred.ply'));mesh=o3d.io.read_triangle_mesh(str(folder/'guarded.ply'))
     v,t=np.asarray(mesh.vertices),np.asarray(mesh.triangles)
     if not np.array_equal(np.asarray(raw.vertices),vertices) or not np.array_equal(np.asarray(raw.triangles),np.concatenate([retained,faces])):raise ValueError('Raw assembly replay mismatch')

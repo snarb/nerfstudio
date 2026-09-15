@@ -14,7 +14,7 @@ from confidence_boundary_completion import grid_faces
 import study_forearm_plane_transfer_v3 as prior
 
 
-def point_votes(points,rows,names,masks,data,depths,semantic_domain):
+def point_votes(points,rows,names,masks,data,depths,semantic_domain,positive_only_annotations=False):
     support=np.zeros(len(points),np.uint8);disagree=np.zeros(len(points),np.uint8);free=np.zeros(len(points),np.uint8)
     for name in names:
         i=next(i for i,r in enumerate(rows) if r['physical_camera']==name);row=rows[i]
@@ -23,7 +23,8 @@ def point_votes(points,rows,names,masks,data,depths,semantic_domain):
         ids=np.flatnonzero(inside);qx,qy=xy[ids].T
         available=semantic_domain(row,points,inside);selected=np.flatnonzero(available)
         sx,sy=xy[selected].T;skin=masks[name][sy,sx]
-        support[selected]+=skin;disagree[selected]+=~skin
+        support[selected]+=skin
+        if not positive_only_annotations:disagree[selected]+=~skin
         free[ids]+=data[name+'_trusted'][qy,qx]&(depths[i][qy,qx]>z[ids]+.003)
     return support,disagree,free
 

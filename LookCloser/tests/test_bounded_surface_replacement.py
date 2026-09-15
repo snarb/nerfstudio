@@ -1,6 +1,13 @@
 import sys
 from pathlib import Path
 import numpy as np
+
+
+def test_bound_allows_subtraction_roundoff_but_not_geometric_excess():
+    from bounded_surface_replacement import displacement_within_bound
+    assert displacement_within_bound(np.array([.212]), np.array([.2]), .012)
+    assert not displacement_within_bound(np.array([.212000001]), np.array([.2]), .012)
+    assert not displacement_within_bound(np.array([np.nan]), np.array([.2]), .012)
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from bounded_surface_replacement import removable_faces
 

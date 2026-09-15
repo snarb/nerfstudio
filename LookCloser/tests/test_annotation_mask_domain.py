@@ -23,6 +23,12 @@ def test_known_negative_veto_and_two_known_sources_required(monkeypatch):
     monkeypatch.setattr(module,'project',fake_project)
     vertices=np.array([[0,0,0],[.001,0,0],[0,.001,0]]);faces=np.array([[0,1,2]])
     assert len(module.semantic_faces(vertices,faces,rows,masks)[0])==0
+    # An inset positive ROI is not an exhaustive silhouette: an unlabelled
+    # third view is unknown in the explicit partial-annotation experiment.
+    assert len(module.semantic_faces(vertices,faces,rows,masks,positive_only_annotations=True)[0])==1
+    masks['1'][:]=False
+    assert len(module.semantic_faces(vertices,faces,rows,masks,positive_only_annotations=True)[0])==0
+    masks['1'][:]=True
     positions['2']=2.2
     assert len(module.semantic_faces(vertices,faces,rows,masks)[0])==1
     positions['1']=2.2
