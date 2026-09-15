@@ -1,5 +1,14 @@
 # LookCloser architecture
 
+## Opt-in temporal hand registration
+
+`study_temporal_wrist_registration.py` chains adjacent-time train-only RAFT
+tracks and fits a rigid palm transform in a common calibration gauge.
+`temporal_rigid_patch.py` handles point normalization, flow composition and
+multiview fitting. Affine and camera-consensus controls remain diagnostic,
+without mesh/video replacement; see [observed benefits and unresolved camera
+discrepancy](experiments/dec5_temporal_wrist_registration.md).
+
 ## Opt-in partial-annotation and camera-phase controls
 
 The constrained forearm study can treat unlabelled pixels outside inset skin
