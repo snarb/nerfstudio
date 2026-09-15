@@ -1,5 +1,13 @@
 # LookCloser architecture
 
+## Opt-in central train-pose diagnostics
+
+`probe_central_train_camera_workaround.py` compares exact central physical poses
+with native and fixed movie intrinsics, without changing production meshes.
+The transfer launcher isolates renderer installation per actual actor time;
+pose/mask-gauge audits and hash-bound visual reviews reject clipping as a fix.
+See [three-time camera-workaround limits](experiments/dec5_central_train_pose_workaround.md).
+
 ## Opt-in measured-depth patch alignment
 
 `calibrated_depth_witness.py` matches the renderer response for train-only
