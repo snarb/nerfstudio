@@ -1,5 +1,12 @@
 # LookCloser architecture
 
+## Opt-in earlier-time head transfer review
+
+`study_head_neighborhood_transfer.py` compares frozen surface completion with
+matched native-footprint rendering and fixed train-GT face/hair regions.
+Independent geometry replay and hash-bound visual review reject broad crown
+improvement at both earlier times; see [transfer limits](experiments/dec5_head_neighborhood_transfer.md).
+
 ## Opt-in native texture footprint
 
 `native_texture_footprint.py` uses bounded near-integer snapping, exact center
