@@ -1,5 +1,14 @@
 # LookCloser architecture
 
+## Opt-in calibrated neural stereo depth canary
+
+`calibrated_stereo_rectification.py` preserves portrait pixel-center geometry
+and recovers metric depth with explicit unequal-principal-point correction.
+Research-only FoundationStereo adapters save fixed-pose local depth, reverse
+consistency and cross-pair diagnostics without replacing production meshes.
+See [the hand stereo canary](experiments/dec5_foundation_hand_stereo.md) and
+[the rejected TSDF-scale control](experiments/dec5_forearm_tsdf_scale.md).
+
 ## Opt-in local silhouette-domain diagnostics
 
 `local_silhouette_volume.py` and `silhouette_domain_surface.py` distinguish
