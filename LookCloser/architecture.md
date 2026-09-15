@@ -1,5 +1,15 @@
 # LookCloser architecture
 
+## Opt-in train-semantic texture controls
+
+`build_train_hair_semantics.py` caches hash-bound hair and protected-surface
+probabilities from train RGB in an isolated inference environment.
+`study_semantic_hair_sources.py` combines multiple visible train observations
+with original foreground-mask distance to switch only uncertain hair sources.
+Non-selected pixels preserve their original source/RGB; geometry, graph labels,
+and model defaults remain fixed. See the
+[semantic-source experiment](experiments/dec5_semantic_hair_sources.md).
+
 ## Opt-in silhouette-constrained head completion
 
 `probe_head_silhouette_completion.py` builds a local 62-train-view envelope
