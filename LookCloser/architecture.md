@@ -1,5 +1,15 @@
 # LookCloser architecture
 
+## Opt-in multiview admission and independent patch confidence
+
+`plane_patch_evidence.py` compares calibrated train patches while excluding
+prior-input cameras; its explored guard remains unapproved. The separate
+`build_multiview_forearm_admission.py` replaces reference-only coverage for
+additional agreed points with missing-layer evidence in at least two train
+views. This repairs local wrist gaps but does not merge surfaces or validate a
+full temporal clip. See [patch confidence](experiments/dec5_independent_plane_patch_guard.md)
+and [multiview admission](experiments/dec5_multiview_forearm_admission.md).
+
 ## Opt-in foreground-layer confidence diagnostic
 
 `foreground_layer_evidence.py` qualifies measured free-space witnesses using
