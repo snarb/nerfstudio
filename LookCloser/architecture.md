@@ -1,5 +1,13 @@
 # LookCloser architecture
 
+## Opt-in measured-anchor stereo alignment
+
+`stereo_anchor_bias.py` fits bounded disparity offsets with spatially held-out
+PatchMatch anchors. Foreground completion distinguishes a missing front layer
+from a completely empty mesh ray and retains native measured-free-space guards.
+Better pair alignment did not yield useful wrist completion; see
+[anchor-bias and foreground-layer canary](experiments/dec5_foundation_anchor_bias.md).
+
 ## Opt-in local train-waypoint camera diagnostic
 
 `smooth_train_waypoint.py` applies a compact periodic pose displacement in
