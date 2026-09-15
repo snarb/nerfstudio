@@ -235,3 +235,27 @@ patches are excluded because they can become stretched membranes from other view
 `elevated_camera_workaround.py --output NEW_ROOT` further raises the lower arc
 to hide exposed under-chin boundaries. It trades vertical range for visibility
 and resamples a periodic cubic spline by 3D distance to keep camera speed even.
+
+## Experimental prior-guided local completion
+
+For the fixed DEC5 `001193` diagnostic, `run_mhr_dense_sampling_control.py`
+tests train-only silhouette fitting at triangle-interior samples, not only
+vertices. `--order 4` / `--order 8` select explicit quadrature controls;
+`--dry-run` validates their adapters without launching a fit. These are prior-only
+outputs: existing geometry guards, local patch extraction, measured-depth
+admission and native RGB review are still required. This is not yet a general
+frame/campaign completion command. See [density tests and limits](experiments/dec5_mhr_dense_surface_sampling.md).
+
+`recover_original_surface_texture.py` separately tests a narrow texture fallback
+after inferred completion: it can reuse a verified baseline train reprojection
+only at the same original triangle and surface intersection. It does not fill
+new geometry, average RGB, use GT or change production defaults. See
+[visibility-backoff protocol](experiments/dec5_inferred_visibility_backoff.md).
+
+`run_mhr_radius_seed_control.py --candidate-root AUDITED_CANDIDATE --output NEW_ROOT`
+tests all radius/normal-eligible verified depth seeds instead of the nearest24
+cap, with unchanged hull/fit/free-space gates. It changes evidence selection,
+not the prior or existing runner defaults. Use `audit_mhr_radius_seed_control.py`
+and `render_mhr_radius_seed_control.py` afterward; this remains a fixed-frame
+experiment, not an approved temporal repair. See
+[measured-support neighborhood control](experiments/dec5_mhr_radius_seed_support.md).
