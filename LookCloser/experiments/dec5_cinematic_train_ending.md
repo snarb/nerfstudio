@@ -63,9 +63,9 @@ call the compositor's sampler or display function: 64 two-framing replays
 match within one uint8 level, and the corresponding ending images in the
 other two variants match pixel-for-pixel. Two additional tests check this
 independent sampler against an analytic affine image and the display response.
-The combined main-agent endpoint/audit suite passes seven tests.
+The combined endpoint, path, delivery and packaging suite passes **13 tests**.
 
-The main agent inspected the locked/free transition contact sheets and a native
+The main agent inspected all four transition contact sheets and a native
 final beauty frame. Face, eyes and ears align through the dissolve; the old mesh
 silhouette briefly remains visible during blending. The original background
 and support stand are visible in the whole-head framing. The beauty framing
@@ -73,8 +73,31 @@ excludes that stand and the top of the hair by design. These are editorial
 tradeoffs, not repaired geometry. Full-video render/publication status and
 progressive visual review belong to the linked campaign report.
 
+All four compositions are complete: **504 raw mesh frames** and **600 final
+presentation frames**, with the same 150 chronological actor times per shot.
+The raw supervisor finished at `2026-09-15 12:25:23 UTC`; all 20 workers exited
+successfully, with no active or queued render jobs. Raw rendering took about
+41 minutes using a maximum of six workers. This is a throughput measurement,
+not a controlled speedup comparison against a serial run.
+
+The delivery audit checks terminal publication/review receipts, all PNG hashes,
+the exact 150-file inventory and every PNG inside each ZIP, then decodes/counts
+the MP4 stream metadata (1080×1920, 24 fps, 6.25 seconds). The agent additionally
+decoded every MP4 frame and visually reviewed chronological contact sheets.
+The compositor's immutable pre-review
+`visual_status=pending` placeholder is not the terminal verdict: see each
+variant's `publication.json` and `manual_visual_review.json`.
+
+The videos-only bundle labels all four films and their actual-source endings;
+suggested first choices are `02_free_arc_beauty.mp4` and
+`04_wide_arc_beauty.mp4`. These are reviewed presentation choices with disclosed
+residuals, **not artifact-free reconstruction approvals**.
+
 - [Independent v4 path audit](/mnt/data/dec5_cinematic_pushin_v4/independent_path_audit.json)
 - [Independent replay of all ending RGBs](/mnt/data/dec5_cinematic_pushin_v4/independent_real_ending_audit.json)
+- [Four-film delivery audit](/mnt/data/dec5_cinematic_pushin_v4/delivery_audit.json)
+- [Videos-only download bundle](/mnt/data/dec5_cinematic_pushin_v4/cinematic_choices.zip)
+- [Bundle checksum and provenance](/mnt/data/dec5_cinematic_pushin_v4/cinematic_choices_bundle.json)
 - [Whole-head transition](/mnt/data/dec5_cinematic_pushin_v4/locked_arc/train_transition_review/contact.png)
 - [Beauty transition](/mnt/data/dec5_cinematic_pushin_v4/free_arc/train_transition_review/contact.png)
 - [Actual final beauty RGB](/mnt/data/dec5_cinematic_pushin_v4/free_arc/train_ending/frames/001197/frame.png)
