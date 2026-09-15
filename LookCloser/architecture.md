@@ -1,5 +1,13 @@
 # LookCloser architecture
 
+## Opt-in anatomical correspondence validation
+
+`study_hand_landmark_prior.py` runs in an isolated environment;
+`triangulate_hand_landmarks.py` checks train-only multi-view joint consistency
+with one excluded camera before any geometry transfer. These diagnostics do
+not replace surfaces or model defaults. See the
+[negative hand-prior and flow-reset controls](experiments/dec5_hand_landmark_consistency.md).
+
 ## Opt-in temporal hand registration
 
 `study_temporal_wrist_registration.py` chains adjacent-time train-only RAFT
