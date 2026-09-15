@@ -76,6 +76,9 @@ def raw_audit(variant):
 def audit(variant):
     root=BASE/variant;req=verify_request(root);out=root/'presentation';raw=read(root/'raw_integrity_audit.json');complete=read(out/'complete.json')
     assert raw['request_sha256']==sha(root/'request.json')
+    ending_config=read(root/'train_ending'/'request.json')
+    assert ending_config==read(out/'request.json') and ending_config['raw_request_sha256']==sha(root/'request.json')
+    assert ending_config['script_sha256']==sha(Path(__file__).with_name('compose_cinematic_train_ending.py'))
     assert complete['ordered_frame_ids']==req['ordered_frame_ids'] and complete['pure_train_count']==24 and complete['dissolve_count']==8
     hashes={};kinds=[]
     for i,frame in enumerate(req['ordered_frame_ids']):
@@ -88,8 +91,13 @@ def audit(variant):
             a=np.asarray(Image.open(root/'frames'/frame/'frame.png'));assert sha(root/'frames'/frame/'frame.png')==raw['render_hashes'][frame]
         if i>=118:
             source=root/'train_ending'/'frames'/frame;sr=read(source/'complete.json');b=np.asarray(Image.open(source/'frame.png'))
+            assert sr['request_sha256']==sha(root/'train_ending'/'request.json') and sr['camera']==req['inventory'][i]['camera']
             assert sha(source/'frame.png')==sr['image_sha256'] and sha(sr['source_exr'])==sr['source_sha256']
             assert sr['source_physical_camera']=='H004_C005_1210SZ' and not sr['mesh_used'] and not sr['generated_pixels']
+            frozen=next(r for r in req['source_rows'] if Path(r['source_dataset']).name==frame)
+            witness=next(r for r in frozen['source_images'] if r['physical_camera']==sr['source_physical_camera'])
+            assert witness['sha256']==sr['source_sha256'] and 'frame_train_' in witness['file_path']
+            assert Path(sr['source_exr'])==(Path(frozen['source_dataset'])/witness['file_path']).resolve()
         expected=a if i<118 else b if i>=126 else np.rint(a.astype(np.float32)*(1-alpha)+b.astype(np.float32)*alpha).clip(0,255).astype(np.uint8)
         np.testing.assert_array_equal(image,expected);hashes[frame]=sha(out/'frames'/frame/'frame.png');assert hashes[frame]==rec['image_sha256'];kinds.append(rec['kind'])
     assert len(set(hashes.values()))==150 and kinds.count('3d_render')==118 and kinds.count('real_train_rgb')==24
@@ -112,7 +120,11 @@ def encode(variant):
 def publish(variant):
     root=BASE/variant;out=root/'presentation';req=verify_request(root);notes=read(root/'manual_visual_review.json');m=read(out/'video_manifest.json')
     assert notes['overview_groups_inspected']==list(range(0,150,10)) and notes['known_residuals']
+    assert notes['status']=='reviewed_hybrid_choice_with_known_residuals'
+    for relative,digest in notes['inspected_image_hashes'].items():assert sha(root/relative)==digest
+    assert 'presentation/decoded_overview.png' in notes['inspected_image_paths']
     assert sha(out/'video.mp4')==m['video_sha256'] and sha(out/'frames.zip')==m['frames_zip_sha256']
+    assert read(root/'train_ending'/'request.json')['script_sha256']==sha(Path(__file__).with_name('compose_cinematic_train_ending.py'))
     shutil.copyfile(Path(__file__).parents[1]/'experiments'/'dec5_cinematic_pushin_choices.md',root/'report.md')
     snapshot=root/'script_snapshot';snapshot.mkdir(exist_ok=True)
     for name,digest in req['script_hashes'].items():assert sha(Path(__file__).with_name(name))==digest;shutil.copyfile(Path(__file__).with_name(name),snapshot/name)
@@ -125,6 +137,28 @@ def publish(variant):
         artifact_free_approval=False,production_replacement=False,utc=datetime.now(timezone.utc).isoformat()))
     print(variant,'hybrid_published',flush=True)
 
+def record_review(variant,groups,images,note):
+    """Call only AFTER the operator has actually viewed the specified images."""
+    root=BASE/variant;target=root/'manual_visual_review.json'
+    record=read(target) if target.exists() else dict(status='review_in_progress',overview_groups_inspected=[],inspected_image_paths=[],
+        known_residuals=read(BASE/'canary_visual_review.json')['known_residuals'],notes=[],inspected_image_hashes={})
+    for start in groups:
+        assert start in range(0,150,10)
+        images.append(f'review/{start:03d}_{start+9:03d}_overview.png')
+        record['overview_groups_inspected']=sorted(set(record['overview_groups_inspected']+[start]))
+    for relative in images:
+        digest=sha(root/relative)
+        if relative in record['inspected_image_hashes']:assert record['inspected_image_hashes'][relative]==digest
+        record['inspected_image_hashes'][relative]=digest
+    record['inspected_image_paths']=sorted(record['inspected_image_hashes'])
+    if record['overview_groups_inspected']==list(range(0,150,10)) and 'presentation/decoded_overview.png' in record['inspected_image_paths']:
+        record['status']='reviewed_hybrid_choice_with_known_residuals'
+    if note:record['notes'].append(note)
+    atomic_json(target,record)
+
 if __name__=='__main__':
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('action',choices=['panels','sheets','raw_audit','audit','encode','publish']);p.add_argument('--variant',choices=VARIANTS);a=p.parse_args()
-    for variant in ([a.variant] if a.variant else VARIANTS):globals()[a.action](variant)
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('action',choices=['panels','sheets','raw_audit','audit','encode','publish','record']);p.add_argument('--variant',choices=VARIANTS)
+    p.add_argument('--groups',nargs='*',type=int,default=[]);p.add_argument('--images',nargs='*',default=[]);p.add_argument('--note');a=p.parse_args()
+    for variant in ([a.variant] if a.variant else VARIANTS):
+        if a.action=='record':record_review(variant,a.groups,a.images.copy(),a.note)
+        else:globals()[a.action](variant)
