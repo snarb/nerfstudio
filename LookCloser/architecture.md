@@ -1,5 +1,13 @@
 # LookCloser architecture
 
+## Opt-in surface texture ownership controls
+
+`component_texture_owner.py` and `nearby_texture_regions.py` test coverage-first
+hard source labels with target-visible weighting and nearby old/new regions.
+Geometry and radiometry remain fixed. The controls move rather than eliminate
+the forearm source seam and are not promoted; see
+[texture ownership experiment](experiments/dec5_forearm_texture_ownership.md).
+
 ## Opt-in multiview admission and independent patch confidence
 
 `plane_patch_evidence.py` compares calibrated train patches while excluding
