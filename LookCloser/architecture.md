@@ -1,5 +1,20 @@
 # LookCloser architecture
 
+## Mesh-teacher distillation data (opt-in, no trainer changes)
+
+`prepare_mesh_distillation_dataset.py` exports one fixed DEC5 time as calibrated
+synthetic RGB, camera-z depth, validity, heuristic confidence and original-mesh
+provenance. `run_mesh_distillation_preparation.py` supervises independent view
+workers; `audit_mesh_distillation_dataset.py` checks renderer parity, unique
+frequency-cache image stems, retained hashes and the actual Nerfstudio loader.
+Synthetic 300-train/24-validation and real 62-train/1-eval datasets share exactly
+one normalized coordinate frame and frozen display calibration. Unknown mesh
+coverage is not black/empty-space supervision. The color teacher and repaired
+mesh remain imperfect. Training, frequency preprocessing and a tested
+Frequency-Grid-preserving phase transition are delegated to the explicit
+[next-session task](experiments/dec5_mesh_distillation_training_task.md); no model
+or existing training default changes in this preparation step.
+
 ## Opt-in native 6K texture replay
 
 `render_cinematic_6k_texture.py` samples native source RGB with frozen geometry,

@@ -266,3 +266,20 @@ same neighborhood rule without rerunning prior fitting. The three-way review
 compares production, nearest24 completion and all-radius completion; increased
 certificate counts alone are not image improvement. Cross-frame evidence and
 limitations: [radius-support transfer](experiments/dec5_mhr_radius_seed_transfer.md).
+
+## Mesh-teacher data for LookCloser pretraining (opt-in)
+
+`scripts/prepare_mesh_distillation_dataset.py` prepares one DEC5 time (`000973`):
+300 synthetic train views, 24 synthetic validation views, camera-z depth, RGB
+validity, heuristic confidence and geometry provenance. It reuses the selected
+hard-source renderer, with cached immutable source images/raycasts. Invalid mesh
+coverage is unknown, not black supervision. Real 62-train/1-eval display RGB is
+separate, with the same frozen exposure and train-camera profiles.
+
+`run_mesh_distillation_preparation.py` supervises up to eight render workers;
+`audit_mesh_distillation_dataset.py` verifies renderer parity, unique image-stem
+packaging, source hashes, actual Nerfstudio loading and depth conventions.
+This only prepares data: it does not train or change LookCloser defaults. The
+teacher still has incomplete lipstick/edge geometry; masks are not a geometry fix.
+See the [preparation report](experiments/dec5_mesh_distillation_preparation.md) and
+[separate-session training task](experiments/dec5_mesh_distillation_training_task.md).
