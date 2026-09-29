@@ -11,6 +11,7 @@ from blur_runtime import write, sha
 @torch.no_grad()
 def main():
     p=argparse.ArgumentParser();p.add_argument('checkpoints',type=Path,nargs='+');p.add_argument('--output',type=Path,required=True)
+    p.add_argument('--color-gradient',action='store_true',help='Measure the derivative of summed RGB with respect to the color head on 64 fixed rays')
     args=p.parse_args();torch.set_num_threads(2);results=[]
     for path in args.checkpoints:
         checkpoint_sha=sha(path)
@@ -28,6 +29,16 @@ def main():
             channel_saturation_fraction=(effective_rgb>.99).float().mean(0).cpu().tolist(),
             white_saturation_fraction=float((effective_rgb.min(-1).values>.99).float().mean()),
             mean_effective_chroma=float((effective_rgb.max(-1).values-effective_rgb.min(-1).values).mean())))
+        if args.color_gradient:
+            with torch.enable_grad():
+                differentiable=pipe.model(rays[:64])
+                gradients=torch.autograd.grad(differentiable['rgb'].float().sum(),
+                                              tuple(pipe.model.field.mlp_color.parameters()))
+                flat=torch.cat([g.detach().float().reshape(-1) for g in gradients])
+                if not torch.isfinite(flat).all():raise FloatingPointError('Nonfinite color-head gradient')
+                results[-1]['rgb_sum_color_gradient_l2']=float(flat.norm())
+                results[-1]['rgb_sum_color_gradient_nonzero_fraction']=float((flat!=0).float().mean())
+            del differentiable,gradients,flat
         del pipe,state,out;torch.cuda.empty_cache()
     write(args.output,results);print(json.dumps(results,indent=2))
 

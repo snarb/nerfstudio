@@ -1,0 +1,42 @@
+[
+  {
+    "checkpoint": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/a6_original_legacy/best.pt",
+    "checkpoint_sha256": "0d033f361563cdc60eb5f6fbaeda1497a56ac2c4e6733b55d16e0378ac9f19f6",
+    "step": 8000,
+    "mean_opacity": 0.3279036581516266,
+    "mean_effective_rgb": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "channel_saturation_fraction": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "white_saturation_fraction": 1.0,
+    "mean_effective_chroma": 0.0,
+    "rgb_sum_color_gradient_l2": 0.0,
+    "rgb_sum_color_gradient_nonzero_fraction": 0.0
+  },
+  {
+    "checkpoint": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/a11_reference3_fp16_activation/best.pt",
+    "checkpoint_sha256": "d9e024e1178f38a4d81047c60a8e7290d1fb149bcce660d011671bc3ec432277",
+    "step": 8000,
+    "mean_opacity": 0.8425285220146179,
+    "mean_effective_rgb": [
+      0.36866626143455505,
+      0.36034899950027466,
+      0.3617219924926758
+    ],
+    "channel_saturation_fraction": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "white_saturation_fraction": 0.0,
+    "mean_effective_chroma": 0.1799800992012024,
+    "rgb_sum_color_gradient_l2": 171.6136474609375,
+    "rgb_sum_color_gradient_nonzero_fraction": 0.3031529188156128
+  }
+]

@@ -4,7 +4,10 @@
 
 Opt-in field controls separate density activation, inverse-AABB normalization,
 FP32 density evaluation, clipping and the TCNN SH direction convention. Defaults
-preserve existing checkpoints. `run_blur_experiment.py` uses the standard trainer
+preserve existing checkpoints. The `canonical_aabb` control multiplies density
+by `3 / max(AABB side lengths)` in FP32 after activation; 3 is the original
+bounded scene's side length. It is being checked against unit-reference scaling
+and the unchanged fight baseline. `run_blur_experiment.py` uses the standard trainer
 update with seed42, unchanged evaluation RNG and full-frame all-eval checkpoint
 selection. Synthetic masked diagnostics are distinct from real 62/3 DEC5 and
 66/3 fight comparisons. A separate 62/3 masked actor test restores the historical

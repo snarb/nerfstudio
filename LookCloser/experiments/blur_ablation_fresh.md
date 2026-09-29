@@ -500,3 +500,26 @@ longer training and fight transfer are still pending.
 ![Room training faces, matched8000](assets/blur_ablation_fresh/room_bounds8k_train_face.jpg)
 ![Room eval hair, matched8000](assets/blur_ablation_fresh/room_bounds8k_eval_hair.jpg)
 ![Room eval lipstick, matched8000](assets/blur_ablation_fresh/room_bounds8k_eval_lipstick.jpg)
+
+### Frequency projection is not the measured blur fix
+
+The completed full-room correction changes8000-step eval detail
+**17.49859 / .67597 / .66204 → 17.33685 / .67438 / .66409**.
+Train detail changes27.63456→27.64087; ghosted faces remain in all three
+eval views. Together with both foreground controls, this excludes the tested
+projection correction from the quality recipe. Its dimensional-consistency
+unit test is separate from this negative image-quality result.
+[Native records](assets/blur_ablation_fresh/room_frequency_projection_completed.json).
+![Projection correction at matched8000](assets/blur_ablation_fresh/room_projection_eval_face.jpg)
+
+### Frozen color-head sensitivity audit
+
+For64 fixed valid training rays, the derivative of summed rendered RGB with
+respect to all color-head parameters has L2 norm **0** in original `a6`, and
+**171.61365** in canonical-scaled `a11`. The fraction of nonzero entries is
+0 versus .30315. The separate1024-ray audit finds100% versus0% white
+saturation and mean opacity .32790 versus .84253. These checkpoint-bound
+measurements support sigmoid saturation with opacity carrying grayscale
+structure. They are a local sensitivity diagnostic, not a claim that every
+training gradient or all sources of blur have been explained.
+[Color-head audit](assets/blur_ablation_fresh/actor_color_gradient.json).
