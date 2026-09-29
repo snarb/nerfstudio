@@ -1,0 +1,22 @@
+{
+  "output_dir": [
+    "/home/brans/lookcloser_artifacts/blur_ablation_fresh/f0_original",
+    "/home/brans/lookcloser_artifacts/blur_ablation_fresh/f4_reference3"
+  ],
+  "pipeline.datamanager.dataparser.aabb_override": [
+    null,
+    "None"
+  ],
+  "pipeline.model.density_normalization": [
+    "none",
+    "aabb"
+  ],
+  "pipeline.model.density_reference_length": [
+    null,
+    "3.0"
+  ],
+  "pipeline.normalized_frequency_projection": [
+    null,
+    "False"
+  ]
+}
