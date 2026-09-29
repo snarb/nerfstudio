@@ -5,7 +5,8 @@
 The field keeps legacy softplus behavior for old checkpoints. The opt-in
 `canonical_aabb` mode multiplies density by `3 / max(AABB side lengths)` in
 FP32 after activation. Three is the original bounded fight scene's side length;
-this avoids changing its optical density while adapting to small scene units.
+the model resolves an exact unit gain to the legacy field path, preserving
+its activation dtype. Other spans scale in FP32 to support small scene units.
 `trunc_exp` always casts logits to FP32 before the bias and exponential, because
 TCNN outputs can overflow in FP16. The SH direction correction remains opt-in
 pending the combined recipe's transfer check.
@@ -15,7 +16,7 @@ projection were removed after ablations. Equivalent historical reference-three
 checkpoints are mapped to canonical mode; incompatible research checkpoints
 must use their original code version. The full ablation code is archived at
 `lookcloser-blur-ablation-archive` (`7a6ffd5f`). Render parity checks on four pinned
-checkpoints and twelve focused tests accompany the cleanup.
+checkpoints and thirteen focused tests accompany the cleanup.
 
 `run_blur_experiment.py` uses the standard trainer with seed42, unchanged
 evaluation RNG and all-eval PSNR checkpoint selection, with LPIPS as tie-breaker

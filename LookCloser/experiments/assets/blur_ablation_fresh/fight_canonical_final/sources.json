@@ -1,0 +1,98 @@
+[
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/f0_original/eval_030376/eval_000_stand.png",
+    "run": "f0_original",
+    "step": 30376,
+    "split": "eval",
+    "index": 0,
+    "region": "stand"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/f4_reference3/eval_030376/eval_000_stand.png",
+    "run": "f4_reference3",
+    "step": 30376,
+    "split": "eval",
+    "index": 0,
+    "region": "stand"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/f0_original/eval_030376/eval_000_hand.png",
+    "run": "f0_original",
+    "step": 30376,
+    "split": "eval",
+    "index": 0,
+    "region": "hand"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/f4_reference3/eval_030376/eval_000_hand.png",
+    "run": "f4_reference3",
+    "step": 30376,
+    "split": "eval",
+    "index": 0,
+    "region": "hand"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/f0_original/eval_030376/eval_001_fingers.png",
+    "run": "f0_original",
+    "step": 30376,
+    "split": "eval",
+    "index": 1,
+    "region": "fingers"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/f0_original/eval_030376/eval_002_fingers.png",
+    "run": "f0_original",
+    "step": 30376,
+    "split": "eval",
+    "index": 2,
+    "region": "fingers"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/f4_reference3/eval_030376/eval_001_fingers.png",
+    "run": "f4_reference3",
+    "step": 30376,
+    "split": "eval",
+    "index": 1,
+    "region": "fingers"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/f4_reference3/eval_030376/eval_002_fingers.png",
+    "run": "f4_reference3",
+    "step": 30376,
+    "split": "eval",
+    "index": 2,
+    "region": "fingers"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/f0_original/eval_030376/eval_002_label.png",
+    "run": "f0_original",
+    "step": 30376,
+    "split": "eval",
+    "index": 2,
+    "region": "label"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/f4_reference3/eval_030376/eval_002_label.png",
+    "run": "f4_reference3",
+    "step": 30376,
+    "split": "eval",
+    "index": 2,
+    "region": "label"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/f0_original/eval_030376/eval_002_cable.png",
+    "run": "f0_original",
+    "step": 30376,
+    "split": "eval",
+    "index": 2,
+    "region": "cable"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/f4_reference3/eval_030376/eval_002_cable.png",
+    "run": "f4_reference3",
+    "step": 30376,
+    "split": "eval",
+    "index": 2,
+    "region": "cable"
+  }
+]

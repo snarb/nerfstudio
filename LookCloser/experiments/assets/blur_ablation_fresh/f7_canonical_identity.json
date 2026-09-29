@@ -1,0 +1,61 @@
+{
+  "data": "/home/brans/temporal_perframe_stride7_45f/007740",
+  "output": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/f7_canonical_identity",
+  "steps": 30376,
+  "eval_every": 15188,
+  "eval_stride": 1,
+  "seed": 42,
+  "train_review_indices": [
+    0,
+    33,
+    65
+  ],
+  "rois_by_image": {
+    "frame_eval_00001.jpg": {
+      "stand": [
+        320,
+        0,
+        617,
+        530
+      ],
+      "hand": [
+        300,
+        210,
+        560,
+        500
+      ]
+    },
+    "frame_eval_00002.jpg": {
+      "fingers": [
+        1030,
+        430,
+        1210,
+        610
+      ]
+    },
+    "frame_eval_00003.jpg": {
+      "label": [
+        60,
+        450,
+        290,
+        900
+      ],
+      "cable": [
+        0,
+        130,
+        300,
+        500
+      ],
+      "fingers": [
+        690,
+        330,
+        980,
+        610
+      ]
+    }
+  },
+  "model": {
+    "density_normalization": "canonical_aabb"
+  },
+  "comparison_parent": "f0_original"
+}

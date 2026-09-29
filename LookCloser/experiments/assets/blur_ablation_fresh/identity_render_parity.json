@@ -1,0 +1,38 @@
+{
+  "scope": "1024 fixed valid train-0 rays per pinned checkpoint; before cleanup versus unit-gain identity implementation",
+  "comparisons": [
+    {
+      "run": "f0_original",
+      "max_absolute_difference": {
+        "rgb": 2.7418136596679688e-06,
+        "accumulation": 2.1457672119140625e-06,
+        "depth": 7.152557373046875e-06
+      }
+    },
+    {
+      "run": "v_actor_canonical",
+      "max_absolute_difference": {
+        "rgb": 0.0,
+        "accumulation": 0.0,
+        "depth": 0.0
+      }
+    },
+    {
+      "run": "r11_exp_sh_bounds",
+      "max_absolute_difference": {
+        "rgb": 1.1324882507324219e-06,
+        "accumulation": 2.5033950805664062e-06,
+        "depth": 3.7550926208496094e-06
+      }
+    },
+    {
+      "run": "f4_reference3",
+      "max_absolute_difference": {
+        "rgb": 1.6689300537109375e-06,
+        "accumulation": 3.3974647521972656e-06,
+        "depth": 3.933906555175781e-06
+      }
+    }
+  ],
+  "tests": "13 passed"
+}

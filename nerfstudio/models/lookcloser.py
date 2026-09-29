@@ -34,7 +34,7 @@ from nerfstudio.utils.lookcloser_rng import fork_seeded_rng
 from nerfstudio.utils.hdr import hdr_display_preview, scene_linear_to_pq
 
 
-def compatible_density_normalization(config) -> str:
+def compatible_density_normalization(config, aabb=None) -> str:
     """Load equivalent research checkpoints; reject settings with different math."""
     incompatible = bool(getattr(config, "density_clip", False))
     incompatible |= bool(getattr(config, "density_fp32", False)) and config.density_activation == "softplus"
@@ -54,6 +54,11 @@ def compatible_density_normalization(config) -> str:
             "This research checkpoint uses removed density controls. "
             "Load it with the code version used for training."
         )
+    if normalization == "canonical_aabb" and aabb is not None:
+        # A gain of one must preserve the original activation dtype as well as
+        # its value. Resolve once at construction, avoiding per-query GPU sync.
+        if float((aabb[1] - aabb[0]).max()) == 3.0:
+            return "none"
     return normalization
 
 
@@ -544,7 +549,7 @@ class LookCloserModel(Model):
             hdr_softplus_beta=self.config.hdr_softplus_beta,
             pq_code_temperature=self.config.pq_code_temperature,
             density_activation=self.config.density_activation,
-            density_normalization=compatible_density_normalization(self.config),
+            density_normalization=compatible_density_normalization(self.config, self.scene_box.aabb),
             correct_sh_directions=self.config.correct_sh_directions,
         )
 

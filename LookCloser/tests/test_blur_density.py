@@ -71,6 +71,20 @@ def test_compatible_checkpoint_settings():
     assert compatible_density_normalization(holder(density_activation='trunc_exp',density_fp32=True))=='none'
 
 
+def test_reference_scene_resolves_to_legacy_dtype_and_values():
+    from nerfstudio.models.lookcloser import compatible_density_normalization
+    reference=torch.tensor([[-1.5]*3,[1.5]*3])
+    h=holder(density_normalization='canonical_aabb')
+    h.density_normalization=compatible_density_normalization(h,reference)
+    assert h.density_normalization=='none'
+    x=torch.linspace(-12,12,65,dtype=torch.float16,requires_grad=True)
+    actual=LookCloserField.activate_density(h,x)
+    expected=torch.nn.functional.softplus(x+1)
+    assert actual.dtype==expected.dtype==torch.float16
+    assert torch.equal(actual,expected)
+    assert compatible_density_normalization(holder(density_normalization='canonical_aabb'),reference*.1)=='canonical_aabb'
+
+
 @pytest.mark.skipif(not torch.cuda.is_available(),reason='TCNN CUDA contract')
 def test_corrected_sh_addition_theorem():
     import tinycudann as tcnn

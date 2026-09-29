@@ -11,7 +11,7 @@ metrics, cropped images and dataset provenance.
 | `lipstick_actor.json` | Historical masked actor, small AABB | Completed24k pair |
 | `lipstick_room_canonical.json` | All RGB, tight room AABB, canonical softplus | Long validation running |
 | `lipstick_room_exp_sh.json` | All RGB, tight room AABB, safe exponential and corrected SH | Long validation and fight transfer running |
-| `fight_canonical.json` | Original66/3 bounded fight scene | Final transfer check running |
+| `fight_canonical.json` | Original66/3 bounded fight scene | Unit-gain identity correction undergoing fresh transfer check |
 
 The bounds in the lipstick requests belong to the frozen DEC5 coordinate system.
 They are not general defaults for another scene. The actor recipe supervises

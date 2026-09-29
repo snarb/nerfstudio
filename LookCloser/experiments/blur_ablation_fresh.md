@@ -203,6 +203,7 @@ Some hair softness and train61 facial distortion remain.
 | Original | 29.47409 | .67341 | .29662 | Reference |
 | Only SH correction | 29.46895 | .66643 | .28515 | Fails SSIM tolerance |
 | Softplus / AABB span | 28.76697 | .67299 | .31341 | Fails PSNR and LPIPS |
+| Canonical3/span, always FP32 output | 29.42683 | .66527 | .29439 | Fails SSIM tolerance |
 
 [Original metrics](assets/blur_ablation_fresh/fight_baseline_metrics.json),
 [unit-reference completed pair](assets/blur_ablation_fresh/fight_unit_reference_completed.json).
@@ -217,8 +218,9 @@ FP32 multiplication prevents overflow in tiny world units.
 
 At 15188, original versus canonical-reference gives
 **28.77557 / .65091 / .36464 → 28.81332 / .64847 / .35851**.
-All three deltas pass the predefined intermediate tolerances. The final30376
-result is pending. [Native intermediate pair](assets/blur_ablation_fresh/fight_canonical_early.json).
+All three deltas pass the predefined intermediate tolerances. At30376, however,
+SSIM falls by.00814, beyond the.005 limit; PSNR changes by−.04726dB and LPIPS
+by−.00223. This candidate fails the final gate and is not promoted. [Native intermediate pair](assets/blur_ablation_fresh/fight_canonical_early.json).
 The safe-exponential + SH room recipe is also undergoing fresh fight transfer
 with the original fight bounds. That is a combined recipe check, not an
 independent precision/SH attribution on fight.
@@ -367,3 +369,20 @@ Thus the main conditioned gain cannot be attributed to FP32 alone.
 [Metrics](assets/blur_ablation_fresh/room_fp32_removal_completed.json),
 [faces](assets/blur_ablation_fresh/room_fp32_removal/eval_face.jpg),
 [hair](assets/blur_ablation_fresh/room_fp32_removal/eval_hair.jpg).
+
+### Preserving the reference scene's numerical path
+
+The first canonical-reference fight run fails the strict SSIM gate despite
+passing the intermediate boundary. Crops show no conspicuous new artifact, but
+that does not override the numerical gate.
+[Completed result](assets/blur_ablation_fresh/fight_canonical_completed.json),
+[final crops](assets/blur_ablation_fresh/fight_canonical_final/eval_fingers.jpg).
+
+The model now resolves canonical normalization to the legacy unnormalized field
+when its gain is exactly one (longest AABB side exactly3). This preserves the
+activation dtype, avoiding an unnecessary FP32 conversion. It is a mathematical
+identity check, with no filename/dataset lookup or tuned tolerance. All other
+scene spans retain the tested FP32 rescaling. This addresses a real numerical
+path difference; the previous single-seed result alone does not prove that the
+dtype caused its SSIM regression. A fresh seed42 fight run (`f7`) is in progress
+to check the corrected implementation. Thirteen focused tests pass.
