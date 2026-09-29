@@ -1,0 +1,9 @@
+{
+  "scope": "65 fixed FP16 logits, matching the Python-scalar multiplication in occupancy callbacks",
+  "reference_step_size": 0.005196152422706632,
+  "legacy_dtype": "torch.float16",
+  "unnecessary_cast_dtype": "torch.float32",
+  "max_absolute_difference": 1.593679189682007e-05,
+  "different_values": 65,
+  "note": "Shows a numerical difference in the occupancy input; does not prove it caused the observed SSIM delta."
+}

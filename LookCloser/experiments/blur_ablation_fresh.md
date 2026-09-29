@@ -430,3 +430,13 @@ have no ground-truth metrics.
 [paired contact](assets/blur_ablation_fresh/room_exp_sh_final/comparison_contact.jpg),
 [all24 candidate frames](assets/blur_ablation_fresh/room_exp_sh_final/path_all_frames.jpg),
 [receipt](assets/blur_ablation_fresh/room_exp_sh_final/comparison_complete.json).
+
+The occupancy callback multiplies density by a Python scalar. On65 fixed FP16
+logits, a needless cast at unit gain changes every resulting occupancy input,
+with maximum absolute difference1.59e-5 for the reference step size. The new
+identity-path test checks both values and dtype through this operation. This
+establishes a concrete numerical distinction, without claiming it alone caused
+the observed SSIM delta. The fresh identity run passes the15188 interim gate
+(−.03797dB PSNR, −.00255 SSIM, −.00247 LPIPS); final validation remains pending.
+[Occupancy audit](assets/blur_ablation_fresh/unit_gain_occupancy_dtype.json),
+[interim metrics](assets/blur_ablation_fresh/fight_identity_early.json).

@@ -82,6 +82,11 @@ def test_reference_scene_resolves_to_legacy_dtype_and_values():
     expected=torch.nn.functional.softplus(x+1)
     assert actual.dtype==expected.dtype==torch.float16
     assert torch.equal(actual,expected)
+    # Occupancy callbacks multiply by a Python scalar, which preserves FP16.
+    # An unnecessary FP32 cast changes those values even when density gain is 1.
+    step_size=math.sqrt(27.)/1000.
+    assert torch.equal(actual*step_size,expected*step_size)
+    assert (actual*step_size).dtype==torch.float16
     assert compatible_density_normalization(holder(density_normalization='canonical_aabb'),reference*.1)=='canonical_aabb'
 
 
