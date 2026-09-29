@@ -326,3 +326,19 @@ artifacts throughout the inspected frames. All24 frames are finite and the
 encoded video decodes fully.
 [Contact](assets/blur_ablation_fresh/room_original_path_contact.jpg),
 [receipt](assets/blur_ablation_fresh/room_original_path_complete.json).
+
+### SH with canonical softplus and tight room bounds
+
+At8k, adding only corrected SH to canonical softplus (`r18`→`r20`) improves
+held-out detail26.41853/.76474/.36337→27.64696/.77832/.33809 and train detail
+27.56385/.70788/.44904→27.84404/.71312/.42778. Full eval is23.99571/.82492/.40123.
+All three eval face/hair crops and all three train faces were inspected: facial
+shape improves, but hair stays soft and train61 remains distorted. The safe
+exponential+SH+tight-bounds recipe (`r11`) still exceeds this alternative by
+1.07437 dB eval detail and .51578 dB train detail at the same step. That last
+comparison changes activation and normalization together; it is a recipe
+comparison, not a one-factor attribution.
+[Metrics](assets/blur_ablation_fresh/room_canonical_sh_completed.json),
+[eval faces](assets/blur_ablation_fresh/room_canonical_sh/eval_face.jpg),
+[eval hair](assets/blur_ablation_fresh/room_canonical_sh/eval_hair.jpg),
+[train faces](assets/blur_ablation_fresh/room_canonical_sh/train_face.jpg).
