@@ -200,3 +200,35 @@ initial LR .001 versus .01, and decay horizon8000 versus200000. Additional
 exp+SH and exp+SH+bounds controls are prepared to test interactions before
 rejecting a component solely on its standalone result. Each request records
 one changed training condition against its named parent.
+
+### Precision and denser warmup, 8000 updates
+
+| Control | Full eval PSNR / SSIM / LPIPS | Eval detail PSNR / SSIM / LPIPS | Train detail PSNR / SSIM / LPIPS |
+| --- | --- | --- | --- |
+| FP32 softplus only | 14.772 / .73140 / .78440 | 17.438 / .67387 / .67195 | 27.623 / .68770 / .56757 |
+| Warmup256→1024 only | 15.305 / .74418 / .72981 | 17.865 / .68701 / .62592 | 27.766 / .69299 / .56084 |
+
+[Receipts](assets/blur_ablation_fresh/real_precision_warmup_screen.json).
+FP32 changes detail by -.060 dB and does not remove blur. Denser warmup gains
++.366 dB detail and improves LPIPS, but falls below the registered .5 dB gate
+and still leaves severe blur. These are not accepted as the main quality fix.
+The original 16000-step run remains blurred (full eval14.494 dB; detail17.394 dB),
+so doubling training from8000 has not resolved held-out-view failure.
+
+### Historical foreground task versus the full room
+
+The archived [real-only request](assets/blur_ablation_fresh/historical_real_only_request.json)
+used a small actor AABB and train validity masks. It was not full-room training.
+A second 62/3 real diagnostic now freezes that actor extent and those train masks,
+with the same observed RGB as the full-room benchmark. It uses fixed256, hash21,
+correct SH, FP32 density, LR .01→.001 over12000, and no teacher RGB, depth,
+checkpoint initialization or visual-hull support. Uniform valid-pixel sampling
+replaces historical masked FAS to avoid the current sampler's mask inconsistency.
+This is a fresh controlled density test, not a bitwise historical reproduction.
+
+The four arms separate softplus/exponential and inverse-AABB scale. They render
+all three eval cameras at native resolution. Full-frame scores still include
+untrained background, so this diagnostic **cannot pass full-scene acceptance**;
+the face/hair/lipstick scores address the historical foreground claim.
+[Train mask receipt](assets/blur_ablation_fresh/actor_mask_receipt.json);
+[shared real RGB hashes](assets/blur_ablation_fresh/real_input_hashes.json).

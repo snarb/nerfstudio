@@ -1,0 +1,127 @@
+[
+  {
+    "run": "f1_correct_sh",
+    "parent": "f0_original",
+    "changed_condition": "model.correct_sh_directions"
+  },
+  {
+    "run": "r10_exp_sh",
+    "parent": "r4_exp_fp32",
+    "changed_condition": "model.correct_sh_directions"
+  },
+  {
+    "run": "r11_exp_sh_bounds",
+    "parent": "r10_exp_sh",
+    "changed_condition": "aabb"
+  },
+  {
+    "run": "r12_fast_lr_decay",
+    "parent": "r0_original",
+    "changed_condition": "lr_steps"
+  },
+  {
+    "run": "r13_lower_lr",
+    "parent": "r0_original",
+    "changed_condition": "lr"
+  },
+  {
+    "run": "r14_exp_scaled_sh",
+    "parent": "r5_exp_scaled",
+    "changed_condition": "model.correct_sh_directions"
+  },
+  {
+    "run": "r1_softplus_scaled",
+    "parent": "r0_original",
+    "changed_condition": "model.density_normalization"
+  },
+  {
+    "run": "r2_correct_sh",
+    "parent": "r0_original",
+    "changed_condition": "model.correct_sh_directions"
+  },
+  {
+    "run": "r3_softplus_fp32",
+    "parent": "r0_original",
+    "changed_condition": "model.density_fp32"
+  },
+  {
+    "run": "r4_exp_fp32",
+    "parent": "r3_softplus_fp32",
+    "changed_condition": "model.density_activation"
+  },
+  {
+    "run": "r5_exp_scaled",
+    "parent": "r4_exp_fp32",
+    "changed_condition": "model.density_normalization"
+  },
+  {
+    "run": "r6_scaled_fp32",
+    "parent": "r1_softplus_scaled",
+    "changed_condition": "model.density_fp32"
+  },
+  {
+    "run": "r7_dense_warmup",
+    "parent": "r0_original",
+    "changed_condition": "model.fixed_num_samples_per_ray"
+  },
+  {
+    "run": "r8_no_warmup",
+    "parent": "r0_original",
+    "changed_condition": "model.adaptive_warmup_steps"
+  },
+  {
+    "run": "r9_scene_bounds",
+    "parent": "r0_original",
+    "changed_condition": "aabb"
+  },
+  {
+    "run": "s1_softplus_fp32",
+    "parent": "s0_softplus",
+    "changed_condition": "model.density_fp32"
+  },
+  {
+    "run": "s2_exp_fp32",
+    "parent": "s1_softplus_fp32",
+    "changed_condition": "model.density_activation"
+  },
+  {
+    "run": "s3_softplus_scaled",
+    "parent": "s1_softplus_fp32",
+    "changed_condition": "model.density_normalization"
+  },
+  {
+    "run": "s4_exp_scaled",
+    "parent": "s2_exp_fp32",
+    "changed_condition": "model.density_normalization"
+  },
+  {
+    "run": "s5_exp_scaled_clip",
+    "parent": "s4_exp_scaled",
+    "changed_condition": "model.density_clip"
+  },
+  {
+    "run": "s6_softplus_scaled_fp16",
+    "parent": "s3_softplus_scaled",
+    "changed_condition": "model.density_fp32"
+  },
+  {
+    "run": "s7_scaled_legacy_sh",
+    "parent": "s6_softplus_scaled_fp16",
+    "changed_condition": "model.correct_sh_directions"
+  },
+  {
+    "run": "s8_softplus_scaler65536",
+    "parent": "s0_softplus",
+    "changed_condition": "grad_scale"
+  },
+  {
+    "run": "s9_softplus_no_distortion",
+    "parent": "s0_softplus",
+    "changed_condition": "model.distortion_loss_mult"
+  },
+  {
+    "run": "t1_real_single_scaled",
+    "parent": "t0_real_single",
+    "changed_condition": "model.density_normalization"
+  }
+]
