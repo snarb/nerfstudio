@@ -110,7 +110,7 @@ class LookCloserModelConfig(ModelConfig):
 
     # Loss weights
     density_activation: Literal["softplus", "trunc_exp"] = "softplus"
-    density_normalization: Literal["none", "aabb"] = "none"
+    density_normalization: Literal["none", "aabb", "canonical_aabb"] = "none"
     density_reference_length: float = 1.0
     density_fp32: bool = False
     density_clip: bool = False

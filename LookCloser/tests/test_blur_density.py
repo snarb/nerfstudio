@@ -54,8 +54,9 @@ def test_normalized_softplus_requires_fp32_for_tiny_world_units():
     assert x.grad.isfinite().all() and (x.grad>0).all()
 
 
-def test_canonical_reference_preserves_optical_thickness_and_gradients():
-    h=holder(density_normalization='aabb',density_reference_length=3.0)
+@pytest.mark.parametrize('mode',['aabb','canonical_aabb'])
+def test_canonical_reference_preserves_optical_thickness_and_gradients(mode):
+    h=holder(density_normalization=mode,density_reference_length=3.0 if mode=='aabb' else 1.0)
     h.aabb=torch.tensor([[-1.5]*3,[1.5]*3])
     old=torch.linspace(-12,12,65,dtype=torch.float16,requires_grad=True)
     new=old.detach().clone().requires_grad_()

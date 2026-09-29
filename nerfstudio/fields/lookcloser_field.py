@@ -65,7 +65,7 @@ class LookCloserField(Field):
             hdr_softplus_beta: float = 1.0,
             pq_code_temperature: float = 1.0,
             density_activation: Literal["softplus", "trunc_exp"] = "softplus",
-            density_normalization: Literal["none", "aabb"] = "none",
+            density_normalization: Literal["none", "aabb", "canonical_aabb"] = "none",
             density_reference_length: float = 1.0,
             density_fp32: bool = False,
             density_clip: bool = False,
@@ -320,14 +320,15 @@ class LookCloserField(Field):
             density = trunc_exp(logits + 1.)
         else:
             density = F.softplus(logits + 1.)
-        if self.density_normalization == "aabb":
+        if self.density_normalization in {"aabb", "canonical_aabb"}:
             span = (self.aabb[1] - self.aabb[0]).max()
-            if self.density_reference_length == 1.0:
+            reference = 3.0 if self.density_normalization == "canonical_aabb" else self.density_reference_length
+            if reference == 1.0:
                 # Keep the already measured unit-reference controls exact.
                 density = density / span
             else:
                 # Scale in FP32; the reference scene has a gain of exactly one.
-                density = density.float() * (self.density_reference_length / span)
+                density = density.float() * (reference / span)
         return density
 
     def encode_directions(self, directions: Tensor) -> Tensor:

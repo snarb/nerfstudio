@@ -1,7 +1,26 @@
 [
-  {"parent": "s3_softplus_scaled", "child": "s4_exp_scaled"},
-  {"parent": "a1_softplus_scaled", "child": "a3_exp_scaled"},
-  {"parent": "a4_scaled_legacy_sh", "child": "a8_exp_scaled_legacy_sh"},
-  {"parent": "r6_scaled_fp32", "child": "r5_exp_scaled"},
-  {"parent": "r10_exp_sh", "child": "r14_exp_scaled_sh"}
+  {
+    "parent": "s3_softplus_scaled",
+    "child": "s4_exp_scaled"
+  },
+  {
+    "parent": "a1_softplus_scaled",
+    "child": "a3_exp_scaled"
+  },
+  {
+    "parent": "a4_scaled_legacy_sh",
+    "child": "a8_exp_scaled_legacy_sh"
+  },
+  {
+    "parent": "r6_scaled_fp32",
+    "child": "r5_exp_scaled"
+  },
+  {
+    "parent": "r10_exp_sh",
+    "child": "r14_exp_scaled_sh"
+  },
+  {
+    "parent": "r9_scene_bounds",
+    "child": "r17_softplus_fp32_bounds"
+  }
 ]
