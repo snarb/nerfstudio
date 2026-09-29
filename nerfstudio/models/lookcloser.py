@@ -111,6 +111,7 @@ class LookCloserModelConfig(ModelConfig):
     # Loss weights
     density_activation: Literal["softplus", "trunc_exp"] = "softplus"
     density_normalization: Literal["none", "aabb"] = "none"
+    density_reference_length: float = 1.0
     density_fp32: bool = False
     density_clip: bool = False
     correct_sh_directions: bool = False
@@ -520,6 +521,7 @@ class LookCloserModel(Model):
             pq_code_temperature=self.config.pq_code_temperature,
             density_activation=self.config.density_activation,
             density_normalization=self.config.density_normalization,
+            density_reference_length=self.config.density_reference_length,
             density_fp32=self.config.density_fp32,
             density_clip=self.config.density_clip,
             correct_sh_directions=self.config.correct_sh_directions,

@@ -1,0 +1,194 @@
+{
+  "f0_original": {
+    "step": 15188,
+    "eval_stride": 1,
+    "per_view": [
+      {
+        "split": "eval",
+        "index": 0,
+        "image": "/home/brans/temporal_perframe_stride7_45f/007740/images/frame_eval_00001.jpg",
+        "psnr": 28.091209411621094,
+        "ssim": 0.6124200224876404,
+        "lpips": 0.43640992045402527,
+        "rois": {
+          "stand": {
+            "psnr": 27.771928787231445,
+            "ssim": 0.6957423686981201,
+            "lpips": 0.20804718136787415
+          },
+          "hand": {
+            "psnr": 27.510066986083984,
+            "ssim": 0.6709787249565125,
+            "lpips": 0.1921253651380539
+          }
+        }
+      },
+      {
+        "split": "eval",
+        "index": 1,
+        "image": "/home/brans/temporal_perframe_stride7_45f/007740/images/frame_eval_00002.jpg",
+        "psnr": 28.74089241027832,
+        "ssim": 0.623766303062439,
+        "lpips": 0.39010733366012573,
+        "rois": {
+          "fingers": {
+            "psnr": 28.75835609436035,
+            "ssim": 0.7040951251983643,
+            "lpips": 0.1701476275920868
+          }
+        }
+      },
+      {
+        "split": "eval",
+        "index": 2,
+        "image": "/home/brans/temporal_perframe_stride7_45f/007740/images/frame_eval_00003.jpg",
+        "psnr": 29.494609832763672,
+        "ssim": 0.7165340185165405,
+        "lpips": 0.2674099802970886,
+        "rois": {
+          "label": {
+            "psnr": 28.06816864013672,
+            "ssim": 0.7726956009864807,
+            "lpips": 0.17125827074050903
+          },
+          "cable": {
+            "psnr": 28.77704620361328,
+            "ssim": 0.7333841323852539,
+            "lpips": 0.1951809823513031
+          },
+          "fingers": {
+            "psnr": 29.02845573425293,
+            "ssim": 0.7755537033081055,
+            "lpips": 0.1168735921382904
+          }
+        }
+      },
+      {
+        "split": "train",
+        "index": 0,
+        "image": "/home/brans/temporal_perframe_stride7_45f/007740/images/frame_train_00001.jpg",
+        "psnr": 28.26653289794922,
+        "ssim": 0.5878989100456238,
+        "lpips": 0.49665915966033936,
+        "rois": {}
+      },
+      {
+        "split": "train",
+        "index": 33,
+        "image": "/home/brans/temporal_perframe_stride7_45f/007740/images/frame_train_00034.jpg",
+        "psnr": 28.785551071166992,
+        "ssim": 0.7499561905860901,
+        "lpips": 0.22190704941749573,
+        "rois": {}
+      },
+      {
+        "split": "train",
+        "index": 65,
+        "image": "/home/brans/temporal_perframe_stride7_45f/007740/images/frame_train_00066.jpg",
+        "psnr": 26.72588539123535,
+        "ssim": 0.6807084083557129,
+        "lpips": 0.32858988642692566,
+        "rois": {}
+      }
+    ],
+    "eval_all_psnr": 28.775570551554363,
+    "eval_all_ssim": 0.6509067813555399,
+    "eval_all_lpips": 0.3646424114704132
+  },
+  "f2_softplus_scaled": {
+    "step": 15188,
+    "eval_stride": 1,
+    "per_view": [
+      {
+        "split": "eval",
+        "index": 0,
+        "image": "/home/brans/temporal_perframe_stride7_45f/007740/images/frame_eval_00001.jpg",
+        "psnr": 27.28578758239746,
+        "ssim": 0.633023738861084,
+        "lpips": 0.4644314646720886,
+        "rois": {
+          "stand": {
+            "psnr": 27.42021369934082,
+            "ssim": 0.6681177616119385,
+            "lpips": 0.23882293701171875
+          },
+          "hand": {
+            "psnr": 27.172815322875977,
+            "ssim": 0.6663968563079834,
+            "lpips": 0.22016924619674683
+          }
+        }
+      },
+      {
+        "split": "eval",
+        "index": 1,
+        "image": "/home/brans/temporal_perframe_stride7_45f/007740/images/frame_eval_00002.jpg",
+        "psnr": 28.018653869628906,
+        "ssim": 0.6218780875205994,
+        "lpips": 0.40946125984191895,
+        "rois": {
+          "fingers": {
+            "psnr": 28.053255081176758,
+            "ssim": 0.6956179141998291,
+            "lpips": 0.18737651407718658
+          }
+        }
+      },
+      {
+        "split": "eval",
+        "index": 2,
+        "image": "/home/brans/temporal_perframe_stride7_45f/007740/images/frame_eval_00003.jpg",
+        "psnr": 28.70018196105957,
+        "ssim": 0.7108193635940552,
+        "lpips": 0.28197741508483887,
+        "rois": {
+          "label": {
+            "psnr": 27.29736328125,
+            "ssim": 0.7577632665634155,
+            "lpips": 0.17821148037910461
+          },
+          "cable": {
+            "psnr": 28.077096939086914,
+            "ssim": 0.7237668037414551,
+            "lpips": 0.19206684827804565
+          },
+          "fingers": {
+            "psnr": 28.73133659362793,
+            "ssim": 0.7656970620155334,
+            "lpips": 0.12761808931827545
+          }
+        }
+      },
+      {
+        "split": "train",
+        "index": 0,
+        "image": "/home/brans/temporal_perframe_stride7_45f/007740/images/frame_train_00001.jpg",
+        "psnr": 27.974794387817383,
+        "ssim": 0.5799147486686707,
+        "lpips": 0.5247220396995544,
+        "rois": {}
+      },
+      {
+        "split": "train",
+        "index": 33,
+        "image": "/home/brans/temporal_perframe_stride7_45f/007740/images/frame_train_00034.jpg",
+        "psnr": 28.429670333862305,
+        "ssim": 0.7443568110466003,
+        "lpips": 0.23396506905555725,
+        "rois": {}
+      },
+      {
+        "split": "train",
+        "index": 65,
+        "image": "/home/brans/temporal_perframe_stride7_45f/007740/images/frame_train_00066.jpg",
+        "psnr": 26.399385452270508,
+        "ssim": 0.6747025847434998,
+        "lpips": 0.3422829210758209,
+        "rois": {}
+      }
+    ],
+    "eval_all_psnr": 28.001541137695312,
+    "eval_all_ssim": 0.6552403966585795,
+    "eval_all_lpips": 0.3852900465329488
+  }
+}

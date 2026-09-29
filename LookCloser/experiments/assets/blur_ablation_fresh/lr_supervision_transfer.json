@@ -1,0 +1,16 @@
+{
+  "before": {
+    "worker": 2085185,
+    "old_controller": 2054571,
+    "worker_created": 1790694576.02,
+    "step": 2802
+  },
+  "after": {
+    "worker": 2085185,
+    "new_controller": 2093340,
+    "worker_created": 1790694576.02,
+    "step": 2802,
+    "time": 1790695629.029769
+  },
+  "reason": "Shared-GPU accounting; training process not restarted"
+}

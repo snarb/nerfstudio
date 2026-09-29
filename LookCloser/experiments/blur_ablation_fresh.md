@@ -344,3 +344,63 @@ Fast LR decay (horizon8000 instead of200000) fails the full-room screen:
 step8000 eval detail **16.10835 / .64032 / .76551**, down1.390 dB versus
 the original. Train detail also declines to **25.88656 / .63970 / .68253**.
 [LR receipts](assets/blur_ablation_fresh/real_fast_decay_screen.json).
+
+The original SH convention with FP16 density also reproduces gray collapse.
+At matched step2000, changing only inverse-AABB scale improves eval detail
+**15.58008 / .56858 / .84788 → 21.56923 / .67352 / .46068** and train detail
+**16.20260 / .54424 / .82915 → 22.04651 / .64552 / .53824**.
+Thus the scaling intervention does not depend on first correcting SH.
+[Original-convention evidence](assets/blur_ablation_fresh/actor_original_early.json).
+
+### Completed four-arm density experiment, real foreground
+
+All entries are native, matched step8000 and also selected step8000.
+Correct SH and FP32 are common to these four arms.
+
+| Density | Eval detail PSNR / SSIM / LPIPS | Train detail PSNR / SSIM / LPIPS |
+| --- | --- | --- |
+| Softplus | 15.554 / .52192 / .82373 | 16.390 / .56500 / .73676 |
+| Softplus / AABB span | **22.867 / .68308 / .39498** | 23.451 / .69270 / .42944 |
+| Exponential | 22.511 / .69306 / .38490 | 23.503 / .69413 / .43032 |
+| Exponential / AABB span | 22.949 / .69176 / .37730 | 23.647 / .70699 / .40200 |
+
+Exponential adds only +.08248 dB eval detail and +.19658 dB train detail once
+softplus is normalized. Although SSIM/LPIPS improve, this is below the .5 dB
+gate and leaves visually soft detail. The combined density bundle is not
+necessary for the large recovery. [Full paired records](assets/blur_ablation_fresh/actor_density_factorial.json).
+
+With legacy SH, adding exponential to normalized FP32 softplus gives only
++.25784 dB eval detail and +.01386 dB train detail. Correcting SH on that
+exponential field adds +.26834 dB eval detail. Neither incremental change
+meets the .5 dB gate. Their combined advantage over legacy-SH scaled softplus
+is .52618 dB (LPIPS .39890→.37730); this cumulative tradeoff is retained in the
+record, not described as exact equivalence. SH separately fails the fight SSIM
+gate. [Conditioned contrasts](assets/blur_ablation_fresh/actor_exp_sh_screen.json).
+
+### Original-convention and full-room completed screens
+
+At8000 with legacy SH and FP16, original foreground eval detail is
+**15.56894 / .52118 / .81758**; changing only scale gives
+**22.42666 / .66826 / .39628** (+6.858 dB). Both selectors choose8000.
+[Native original-convention pairs](assets/blur_ablation_fresh/actor_original_scale_screen.json).
+
+Full room at8000, exp+scale gives eval detail **17.85570 / .68717 / .61978**
+(+.357 dB against original), and exp+SH gives **17.72418 / .62624 / .76345**.
+Both remain visibly blurred; neither supplies the main room-wide fix.
+[Complete interaction screens](assets/blur_ablation_fresh/real_exp_combinations.json).
+
+### Reference length and original-scene transfer
+
+At matched15188, unit-reference scaling worsens fight PSNR
+**28.77557→28.00154** and LPIPS **.36464→.38529**; SSIM improves
+**.65091→.65524**. It fails the interim regression gate.
+[Native early fight comparison](assets/blur_ablation_fresh/fight_scale_early.json).
+
+The [original field AABB has span3](assets/blur_ablation_fresh/canonical_reference.json).
+Consequently `1 / span` changes its density by a factor of1/3. A new independent
+control uses `3 / span`, preserving the established coordinate reference.
+This is one global reference length, not a per-scene lookup. Scaling is evaluated
+in FP32 after activation. At span3, optical thickness and its gradients match
+legacy arithmetic exactly in the numerical test; uniform coordinate scaling
+preserves optical thickness and avoids FP16 overflow. Existing unit-reference
+controls retain their original arithmetic. Image-quality validation is pending.

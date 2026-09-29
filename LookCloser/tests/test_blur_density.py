@@ -8,6 +8,7 @@ from nerfstudio.fields.lookcloser_field import LookCloserField
 def holder(**kwargs):
     return SimpleNamespace(aabb=torch.tensor([[-.1,-.1,-.1],[.1,.1,.1]]),
         **(dict(density_activation='softplus',density_normalization='none',
+                density_reference_length=1.0,
                 density_fp32=False,density_clip=False)|kwargs))
 
 
@@ -51,6 +52,23 @@ def test_normalized_softplus_requires_fp32_for_tiny_world_units():
     assert y.isfinite().all()
     (y*1e-5).sum().backward()
     assert x.grad.isfinite().all() and (x.grad>0).all()
+
+
+def test_canonical_reference_preserves_optical_thickness_and_gradients():
+    h=holder(density_normalization='aabb',density_reference_length=3.0)
+    h.aabb=torch.tensor([[-1.5]*3,[1.5]*3])
+    old=torch.linspace(-12,12,65,dtype=torch.float16,requires_grad=True)
+    new=old.detach().clone().requires_grad_()
+    delta=torch.full_like(old,.01,dtype=torch.float32)
+    expected=torch.nn.functional.softplus(old+1)*delta
+    actual=LookCloserField.activate_density(h,new)*delta
+    assert torch.equal(expected,actual)
+    expected.sum().backward();actual.sum().backward()
+    assert torch.equal(old.grad,new.grad)
+    h.aabb=h.aabb*1e-5
+    scaled=LookCloserField.activate_density(h,new)
+    assert scaled.isfinite().all()
+    torch.testing.assert_close(scaled*(delta*1e-5),expected,rtol=1e-5,atol=1e-7)
 
 
 @pytest.mark.skipif(not torch.cuda.is_available(),reason='TCNN CUDA contract')

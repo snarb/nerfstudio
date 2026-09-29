@@ -1,0 +1,18 @@
+{
+  "source": "f0_original selected checkpoint",
+  "step": 30376,
+  "aabb": [
+    [
+      -1.5,
+      -1.5,
+      -1.5
+    ],
+    [
+      1.5,
+      1.5,
+      1.5
+    ]
+  ],
+  "reference_length": 3.0,
+  "reason": "Preserve the original bounded recipe optical thickness while changing coordinate scale"
+}

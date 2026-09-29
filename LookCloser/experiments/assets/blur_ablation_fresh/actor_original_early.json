@@ -1,0 +1,320 @@
+{
+  "a6_original_legacy": {
+    "step": 2000,
+    "eval_stride": 1,
+    "per_view": [
+      {
+        "split": "eval",
+        "index": 0,
+        "image": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/actor_real/images/eval_0062.png",
+        "psnr": 10.02734088897705,
+        "ssim": 0.4121874272823334,
+        "lpips": 0.9517303705215454,
+        "rois": {
+          "face": {
+            "psnr": 18.830087661743164,
+            "ssim": 0.6303125619888306,
+            "lpips": 0.804298460483551
+          },
+          "hair": {
+            "psnr": 15.018674850463867,
+            "ssim": 0.4087013900279999,
+            "lpips": 1.0162290334701538
+          },
+          "lipstick": {
+            "psnr": 16.936838150024414,
+            "ssim": 0.6468580365180969,
+            "lpips": 0.8504665493965149
+          }
+        }
+      },
+      {
+        "split": "eval",
+        "index": 1,
+        "image": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/actor_real/images/eval_0063.png",
+        "psnr": 9.113207817077637,
+        "ssim": 0.46854299306869507,
+        "lpips": 0.8571393489837646,
+        "rois": {
+          "face": {
+            "psnr": 18.588802337646484,
+            "ssim": 0.7661467790603638,
+            "lpips": 0.757014811038971
+          },
+          "hair": {
+            "psnr": 13.362727165222168,
+            "ssim": 0.4871360659599304,
+            "lpips": 0.8700131773948669
+          },
+          "lipstick": {
+            "psnr": 9.795267105102539,
+            "ssim": 0.5065523386001587,
+            "lpips": 0.7571356296539307
+          }
+        }
+      },
+      {
+        "split": "eval",
+        "index": 2,
+        "image": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/actor_real/images/eval_0064.png",
+        "psnr": 9.587115287780762,
+        "ssim": 0.44392457604408264,
+        "lpips": 0.8794514536857605,
+        "rois": {
+          "face": {
+            "psnr": 19.4068660736084,
+            "ssim": 0.7036725282669067,
+            "lpips": 0.7443051934242249
+          },
+          "hair": {
+            "psnr": 10.361284255981445,
+            "ssim": 0.40740519762039185,
+            "lpips": 0.8799025416374207
+          },
+          "lipstick": {
+            "psnr": 17.920185089111328,
+            "ssim": 0.5604572296142578,
+            "lpips": 0.951563835144043
+          }
+        }
+      },
+      {
+        "split": "train",
+        "index": 0,
+        "image": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/actor_real/images/train_0000.png",
+        "psnr": 13.745049476623535,
+        "ssim": 0.4055456817150116,
+        "lpips": 0.9680667519569397,
+        "rois": {
+          "face": {
+            "psnr": 19.92863655090332,
+            "ssim": 0.6093748807907104,
+            "lpips": 0.8064165711402893
+          },
+          "hair": {
+            "psnr": 23.71044158935547,
+            "ssim": 0.4308425486087799,
+            "lpips": 0.916646420955658
+          },
+          "lipstick": {
+            "psnr": 10.795870780944824,
+            "ssim": 0.327166885137558,
+            "lpips": 0.8487599492073059
+          }
+        }
+      },
+      {
+        "split": "train",
+        "index": 33,
+        "image": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/actor_real/images/train_0033.png",
+        "psnr": 8.411921501159668,
+        "ssim": 0.4279201328754425,
+        "lpips": 0.8674687147140503,
+        "rois": {
+          "face": {
+            "psnr": 18.570842742919922,
+            "ssim": 0.7004790306091309,
+            "lpips": 0.7447155117988586
+          },
+          "hair": {
+            "psnr": 12.28832721710205,
+            "ssim": 0.5122458338737488,
+            "lpips": 0.8850212097167969
+          },
+          "lipstick": {
+            "psnr": 14.56027889251709,
+            "ssim": 0.6563485264778137,
+            "lpips": 0.7667036056518555
+          }
+        }
+      },
+      {
+        "split": "train",
+        "index": 61,
+        "image": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/actor_real/images/train_0061.png",
+        "psnr": 10.753373146057129,
+        "ssim": 0.4134150743484497,
+        "lpips": 0.8642674684524536,
+        "rois": {
+          "face": {
+            "psnr": 18.57180404663086,
+            "ssim": 0.6465867161750793,
+            "lpips": 0.7995793223381042
+          },
+          "hair": {
+            "psnr": 10.656911849975586,
+            "ssim": 0.4057314097881317,
+            "lpips": 0.8664861917495728
+          },
+          "lipstick": {
+            "psnr": 16.740327835083008,
+            "ssim": 0.6093584299087524,
+            "lpips": 0.8280608057975769
+          }
+        }
+      }
+    ],
+    "eval_all_psnr": 9.57588799794515,
+    "eval_all_ssim": 0.44155166546503705,
+    "eval_all_lpips": 0.8961070577303568
+  },
+  "a5_scaled_legacy_fp16": {
+    "step": 2000,
+    "eval_stride": 1,
+    "per_view": [
+      {
+        "split": "eval",
+        "index": 0,
+        "image": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/actor_real/images/eval_0062.png",
+        "psnr": 11.555438041687012,
+        "ssim": 0.5176681280136108,
+        "lpips": 0.7016857862472534,
+        "rois": {
+          "face": {
+            "psnr": 27.067676544189453,
+            "ssim": 0.72683185338974,
+            "lpips": 0.39436888694763184
+          },
+          "hair": {
+            "psnr": 18.351428985595703,
+            "ssim": 0.4679301083087921,
+            "lpips": 0.797828197479248
+          },
+          "lipstick": {
+            "psnr": 24.178869247436523,
+            "ssim": 0.7936251163482666,
+            "lpips": 0.3307691812515259
+          }
+        }
+      },
+      {
+        "split": "eval",
+        "index": 1,
+        "image": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/actor_real/images/eval_0063.png",
+        "psnr": 10.531167984008789,
+        "ssim": 0.572212278842926,
+        "lpips": 0.5942484140396118,
+        "rois": {
+          "face": {
+            "psnr": 31.456850051879883,
+            "ssim": 0.885535478591919,
+            "lpips": 0.1864302009344101
+          },
+          "hair": {
+            "psnr": 15.845556259155273,
+            "ssim": 0.5666733384132385,
+            "lpips": 0.5907512903213501
+          },
+          "lipstick": {
+            "psnr": 12.082328796386719,
+            "ssim": 0.5716139078140259,
+            "lpips": 0.5098789930343628
+          }
+        }
+      },
+      {
+        "split": "eval",
+        "index": 2,
+        "image": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/actor_real/images/eval_0064.png",
+        "psnr": 11.720659255981445,
+        "ssim": 0.606292188167572,
+        "lpips": 0.602776050567627,
+        "rois": {
+          "face": {
+            "psnr": 28.90382957458496,
+            "ssim": 0.80388343334198,
+            "lpips": 0.2680951654911041
+          },
+          "hair": {
+            "psnr": 13.764074325561523,
+            "ssim": 0.5549591779708862,
+            "lpips": 0.6430538296699524
+          },
+          "lipstick": {
+            "psnr": 22.472423553466797,
+            "ssim": 0.6905977129936218,
+            "lpips": 0.42493361234664917
+          }
+        }
+      },
+      {
+        "split": "train",
+        "index": 0,
+        "image": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/actor_real/images/train_0000.png",
+        "psnr": 16.883380889892578,
+        "ssim": 0.4921189248561859,
+        "lpips": 0.8160433173179626,
+        "rois": {
+          "face": {
+            "psnr": 28.418853759765625,
+            "ssim": 0.7114898562431335,
+            "lpips": 0.479819118976593
+          },
+          "hair": {
+            "psnr": 24.649757385253906,
+            "ssim": 0.4396115839481354,
+            "lpips": 0.8307026028633118
+          },
+          "lipstick": {
+            "psnr": 22.603900909423828,
+            "ssim": 0.5867758989334106,
+            "lpips": 0.5242867469787598
+          }
+        }
+      },
+      {
+        "split": "train",
+        "index": 33,
+        "image": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/actor_real/images/train_0033.png",
+        "psnr": 9.936384201049805,
+        "ssim": 0.5438394546508789,
+        "lpips": 0.6354788541793823,
+        "rois": {
+          "face": {
+            "psnr": 28.337848663330078,
+            "ssim": 0.8040470480918884,
+            "lpips": 0.3158694803714752
+          },
+          "hair": {
+            "psnr": 15.025876998901367,
+            "ssim": 0.5710616707801819,
+            "lpips": 0.6467644572257996
+          },
+          "lipstick": {
+            "psnr": 20.846923828125,
+            "ssim": 0.765092670917511,
+            "lpips": 0.3780510425567627
+          }
+        }
+      },
+      {
+        "split": "train",
+        "index": 61,
+        "image": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/actor_real/images/train_0061.png",
+        "psnr": 11.939876556396484,
+        "ssim": 0.49878931045532227,
+        "lpips": 0.695935845375061,
+        "rois": {
+          "face": {
+            "psnr": 21.436498641967773,
+            "ssim": 0.7019702196121216,
+            "lpips": 0.48517173528671265
+          },
+          "hair": {
+            "psnr": 13.858370780944824,
+            "ssim": 0.502991259098053,
+            "lpips": 0.7267845869064331
+          },
+          "lipstick": {
+            "psnr": 23.240528106689453,
+            "ssim": 0.7265998721122742,
+            "lpips": 0.4567178189754486
+          }
+        }
+      }
+    ],
+    "eval_all_psnr": 11.269088427225748,
+    "eval_all_ssim": 0.5653908650080363,
+    "eval_all_lpips": 0.6329034169514974
+  }
+}
