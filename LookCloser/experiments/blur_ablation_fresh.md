@@ -9,6 +9,8 @@ campaign budget: 24 GPU-hours. Main was not changed.
 Budget accounting merges overlapping active intervals on the one shared GPU,
 including setup and evaluation. The sum of concurrent job wall times is also
 logged as a conservative upper bound; it is not labeled actual GPU time.
+The long fight-density worker was [adopted by the updated supervisor](assets/blur_ablation_fresh/supervision_transfer.json)
+without restarting training: PID and process creation time are unchanged.
 
 The density bundle is split into activation, inverse-AABB scale, precision and
 clipping. SH remains an independent control. The diagnostic runner uses the
@@ -318,3 +320,16 @@ detail to scaled softplus compared with legacy SH. The eval effect is below
 the registered .5 dB threshold; it does not remove residual softness.
 The legacy-SH result is **22.42303 / .66828 / .39890** on eval detail.
 [Paired SH receipts](assets/blur_ablation_fresh/actor_sh_screen.json).
+
+[Checkpoint frequency histograms](assets/blur_ablation_fresh/frequency_grid_histograms.json)
+show that every positive voxel is at level15 in the selected original room,
+scaled actor and original fight fields (1370, 11679 and 22837 positive voxels).
+The baseline update saturates its frequency labels; the corrected-unit control
+will measure whether repairing that behavior helps scene quality.
+
+The completed unscaled-exponential actor control selects step8000, with eval
+detail **22.51136 / .69306 / .38490** and train detail
+**23.50340 / .69413 / .43032**. Relative to scaled softplus it trades
+-.355 dB eval detail for slightly better SSIM/LPIPS; neither dominates.
+Both recover color compared with the common unscaled-softplus control.
+[Exponential-only paired evidence](assets/blur_ablation_fresh/actor_unscaled_exp_screen.json).

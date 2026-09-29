@@ -27,8 +27,14 @@ def main():
         progress = output/'progress.json'
         history = output/'history.json'
         last = json.loads(history.read_text())[-1] if history.exists() else None
-        runs.append(dict(run=output.name,pid=process['pid'],controller=process['ppid'],
-             controller_alive=any(p['pid']==process['ppid'] for p in processes),
+        controller = process['ppid']
+        if (output/'adoption.json').exists():
+            adoption = json.loads((output/'adoption.json').read_text())
+            if adoption['worker_pid']==process['pid']:
+                controller = adoption['controller_pid']
+        runs.append(dict(run=output.name,pid=process['pid'],controller=controller,
+             worker_parent_pid=process['ppid'],
+             controller_alive=any(p['pid']==controller for p in processes),
              worker_status=process['status'],
              progress=json.loads(progress.read_text()) if progress.exists() else None,
              last_eval=None if last is None else {k:last[k] for k in ['step','eval_all_psnr','eval_all_ssim','eval_all_lpips']},

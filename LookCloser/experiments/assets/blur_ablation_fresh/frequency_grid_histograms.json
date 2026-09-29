@@ -1,0 +1,77 @@
+[
+  {
+    "run": "r0_original",
+    "step": 2000,
+    "positive_voxels": 1370,
+    "total_voxels": 2097152,
+    "histogram": [
+      2095782,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1370
+    ],
+    "fraction_max_among_positive": 1.0
+  },
+  {
+    "run": "a1_softplus_scaled",
+    "step": 8000,
+    "positive_voxels": 11679,
+    "total_voxels": 2097152,
+    "histogram": [
+      2085473,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      11679
+    ],
+    "fraction_max_among_positive": 1.0
+  },
+  {
+    "run": "f0_original",
+    "step": 30376,
+    "positive_voxels": 22837,
+    "total_voxels": 2097152,
+    "histogram": [
+      2074315,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      22837
+    ],
+    "fraction_max_among_positive": 1.0
+  }
+]

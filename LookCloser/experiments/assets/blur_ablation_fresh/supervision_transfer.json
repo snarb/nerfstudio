@@ -1,0 +1,16 @@
+{
+  "before": {
+    "worker": 2060371,
+    "old_controller": 2060370,
+    "worker_created": 1790691714.35,
+    "step": 12155
+  },
+  "after": {
+    "worker": 2060371,
+    "new_controller": 2084558,
+    "worker_created": 1790691714.35,
+    "step": 12155,
+    "time": 1790694512.1462436
+  },
+  "reason": "Replace conservative sum of concurrent wall times with shared-GPU interval accounting; training process not restarted"
+}

@@ -81,10 +81,41 @@ def consumed_seconds(root):
     return interval_union_seconds(intervals)
 
 
+class ExistingWorker:
+    """Adopt this campaign's recorded worker without restarting its training."""
+    def __init__(self, pid, request_path, out):
+        self.pid = pid
+        self.out = out
+        self.process = psutil.Process(pid)
+        progress = json.loads((out / 'progress.json').read_text())
+        command = self.process.cmdline()
+        if (progress.get('pid') != pid or len(command) < 3
+                or Path(command[1]).name != 'run_blur_experiment.py'
+                or Path(command[2]).resolve() != Path(request_path).resolve()):
+            raise ValueError('Worker PID does not match the recorded experiment')
+
+    def poll(self):
+        try:
+            if self.process.is_running() and self.process.status() != psutil.STATUS_ZOMBIE:
+                return None
+        except psutil.NoSuchProcess:
+            pass
+        return 0 if (self.out / 'complete.json').exists() else 1
+
+    def terminate(self):
+        self.process.terminate()
+
+    def wait(self):
+        self.process.wait()
+
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('manifest',type=Path);args=parser.parse_args()
+    parser.add_argument('manifest',type=Path)
+    parser.add_argument('--adopt-pid',type=int,help='Supervise one existing recorded worker without relaunching it')
+    args=parser.parse_args()
     jobs=json.loads(args.manifest.read_text());root=args.manifest.parent
+    if args.adopt_pid and len(jobs)!=1:raise ValueError('Adoption requires exactly one experiment')
     repo=Path(__file__).resolve().parents[2]
     env=os.environ.copy();env['PYTHONPATH']=str(repo)+os.pathsep+str(repo/'LookCloser/scripts')
     env['PATH']=str(Path(sys.executable).parent)+os.pathsep+'/home/brans/repos/nerfstudio/.cuda128-toolchain/bin'+os.pathsep+env['PATH']
@@ -101,9 +132,15 @@ def main():
                 if len(differences)!=1:raise ValueError(f'Expected one changed condition: {differences}')
             if (out/'complete.json').exists():continue
             if consumed_seconds(root)>=22*3600:raise SystemExit('Training budget exhausted; evaluation reserve retained')
-            with (out/'stdout.log').open('w') as log:
-                p=subprocess.Popen([sys.executable,str(repo/'LookCloser/scripts/run_blur_experiment.py'),str(request_path)],
-                                   cwd=repo/'LookCloser',env=env,stdout=log,stderr=subprocess.STDOUT)
+            with (out/'stdout.log').open('a' if args.adopt_pid else 'w') as log:
+                if args.adopt_pid:
+                    p=ExistingWorker(args.adopt_pid,request_path,out)
+                    adoption=out/'adoption.tmp'
+                    adoption.write_text(json.dumps(dict(controller_pid=os.getpid(),worker_pid=p.pid,time=time.time())))
+                    adoption.replace(out/'adoption.json')
+                else:
+                    p=subprocess.Popen([sys.executable,str(repo/'LookCloser/scripts/run_blur_experiment.py'),str(request_path)],
+                                       cwd=repo/'LookCloser',env=env,stdout=log,stderr=subprocess.STDOUT)
                 while True:
                     code=p.poll()
                     process=psutil.Process(p.pid) if code is None else None
