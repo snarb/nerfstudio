@@ -353,3 +353,17 @@ This is a combined-recipe transfer check; it does not attribute the gain to a
 single component. The30376 result remains required.
 [Metrics](assets/blur_ablation_fresh/fight_exp_sh_early.json),
 [crops](assets/blur_ablation_fresh/fight_interim/eval_fingers.jpg).
+
+### Final precision control under tight room bounds
+
+With legacy SH, changing only softplus evaluation to FP32 (`r9`→`r17`) gives
+21.72906/.68824/.53915→22.19602/.69449/.51367 eval detail, and
+25.94503/.65297/.56149→26.03128/.65521/.54451 train detail at8k.
+The+.46696dB eval gain is just below the predeclared.5dB gate; it is not evidence
+of exactly zero effect. Severe facial ghosting remains in all three reviewed
+eval views. Switching only the activation to exponential at the same precision
+(`r17`→`r16`) then adds5.10270dB eval detail and1.91978dB train detail.
+Thus the main conditioned gain cannot be attributed to FP32 alone.
+[Metrics](assets/blur_ablation_fresh/room_fp32_removal_completed.json),
+[faces](assets/blur_ablation_fresh/room_fp32_removal/eval_face.jpg),
+[hair](assets/blur_ablation_fresh/room_fp32_removal/eval_hair.jpg).

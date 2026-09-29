@@ -1,0 +1,434 @@
+[
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r9_scene_bounds/eval_008000/train_000_face.png",
+    "run": "r9_scene_bounds",
+    "step": 8000,
+    "split": "train",
+    "index": 0,
+    "region": "face"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r9_scene_bounds/eval_008000/train_033_face.png",
+    "run": "r9_scene_bounds",
+    "step": 8000,
+    "split": "train",
+    "index": 33,
+    "region": "face"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r9_scene_bounds/eval_008000/train_061_face.png",
+    "run": "r9_scene_bounds",
+    "step": 8000,
+    "split": "train",
+    "index": 61,
+    "region": "face"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r17_softplus_fp32_bounds/eval_008000/train_000_face.png",
+    "run": "r17_softplus_fp32_bounds",
+    "step": 8000,
+    "split": "train",
+    "index": 0,
+    "region": "face"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r17_softplus_fp32_bounds/eval_008000/train_033_face.png",
+    "run": "r17_softplus_fp32_bounds",
+    "step": 8000,
+    "split": "train",
+    "index": 33,
+    "region": "face"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r17_softplus_fp32_bounds/eval_008000/train_061_face.png",
+    "run": "r17_softplus_fp32_bounds",
+    "step": 8000,
+    "split": "train",
+    "index": 61,
+    "region": "face"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r16_exp_bounds/eval_008000/train_000_face.png",
+    "run": "r16_exp_bounds",
+    "step": 8000,
+    "split": "train",
+    "index": 0,
+    "region": "face"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r16_exp_bounds/eval_008000/train_033_face.png",
+    "run": "r16_exp_bounds",
+    "step": 8000,
+    "split": "train",
+    "index": 33,
+    "region": "face"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r16_exp_bounds/eval_008000/train_061_face.png",
+    "run": "r16_exp_bounds",
+    "step": 8000,
+    "split": "train",
+    "index": 61,
+    "region": "face"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r9_scene_bounds/eval_008000/train_000_hair.png",
+    "run": "r9_scene_bounds",
+    "step": 8000,
+    "split": "train",
+    "index": 0,
+    "region": "hair"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r9_scene_bounds/eval_008000/train_033_hair.png",
+    "run": "r9_scene_bounds",
+    "step": 8000,
+    "split": "train",
+    "index": 33,
+    "region": "hair"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r9_scene_bounds/eval_008000/train_061_hair.png",
+    "run": "r9_scene_bounds",
+    "step": 8000,
+    "split": "train",
+    "index": 61,
+    "region": "hair"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r17_softplus_fp32_bounds/eval_008000/train_000_hair.png",
+    "run": "r17_softplus_fp32_bounds",
+    "step": 8000,
+    "split": "train",
+    "index": 0,
+    "region": "hair"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r17_softplus_fp32_bounds/eval_008000/train_033_hair.png",
+    "run": "r17_softplus_fp32_bounds",
+    "step": 8000,
+    "split": "train",
+    "index": 33,
+    "region": "hair"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r17_softplus_fp32_bounds/eval_008000/train_061_hair.png",
+    "run": "r17_softplus_fp32_bounds",
+    "step": 8000,
+    "split": "train",
+    "index": 61,
+    "region": "hair"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r16_exp_bounds/eval_008000/train_000_hair.png",
+    "run": "r16_exp_bounds",
+    "step": 8000,
+    "split": "train",
+    "index": 0,
+    "region": "hair"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r16_exp_bounds/eval_008000/train_033_hair.png",
+    "run": "r16_exp_bounds",
+    "step": 8000,
+    "split": "train",
+    "index": 33,
+    "region": "hair"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r16_exp_bounds/eval_008000/train_061_hair.png",
+    "run": "r16_exp_bounds",
+    "step": 8000,
+    "split": "train",
+    "index": 61,
+    "region": "hair"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r9_scene_bounds/eval_008000/train_000_lipstick.png",
+    "run": "r9_scene_bounds",
+    "step": 8000,
+    "split": "train",
+    "index": 0,
+    "region": "lipstick"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r9_scene_bounds/eval_008000/train_033_lipstick.png",
+    "run": "r9_scene_bounds",
+    "step": 8000,
+    "split": "train",
+    "index": 33,
+    "region": "lipstick"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r9_scene_bounds/eval_008000/train_061_lipstick.png",
+    "run": "r9_scene_bounds",
+    "step": 8000,
+    "split": "train",
+    "index": 61,
+    "region": "lipstick"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r17_softplus_fp32_bounds/eval_008000/train_000_lipstick.png",
+    "run": "r17_softplus_fp32_bounds",
+    "step": 8000,
+    "split": "train",
+    "index": 0,
+    "region": "lipstick"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r17_softplus_fp32_bounds/eval_008000/train_033_lipstick.png",
+    "run": "r17_softplus_fp32_bounds",
+    "step": 8000,
+    "split": "train",
+    "index": 33,
+    "region": "lipstick"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r17_softplus_fp32_bounds/eval_008000/train_061_lipstick.png",
+    "run": "r17_softplus_fp32_bounds",
+    "step": 8000,
+    "split": "train",
+    "index": 61,
+    "region": "lipstick"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r16_exp_bounds/eval_008000/train_000_lipstick.png",
+    "run": "r16_exp_bounds",
+    "step": 8000,
+    "split": "train",
+    "index": 0,
+    "region": "lipstick"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r16_exp_bounds/eval_008000/train_033_lipstick.png",
+    "run": "r16_exp_bounds",
+    "step": 8000,
+    "split": "train",
+    "index": 33,
+    "region": "lipstick"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r16_exp_bounds/eval_008000/train_061_lipstick.png",
+    "run": "r16_exp_bounds",
+    "step": 8000,
+    "split": "train",
+    "index": 61,
+    "region": "lipstick"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r9_scene_bounds/eval_008000/eval_000_face.png",
+    "run": "r9_scene_bounds",
+    "step": 8000,
+    "split": "eval",
+    "index": 0,
+    "region": "face"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r9_scene_bounds/eval_008000/eval_001_face.png",
+    "run": "r9_scene_bounds",
+    "step": 8000,
+    "split": "eval",
+    "index": 1,
+    "region": "face"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r9_scene_bounds/eval_008000/eval_002_face.png",
+    "run": "r9_scene_bounds",
+    "step": 8000,
+    "split": "eval",
+    "index": 2,
+    "region": "face"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r17_softplus_fp32_bounds/eval_008000/eval_000_face.png",
+    "run": "r17_softplus_fp32_bounds",
+    "step": 8000,
+    "split": "eval",
+    "index": 0,
+    "region": "face"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r17_softplus_fp32_bounds/eval_008000/eval_001_face.png",
+    "run": "r17_softplus_fp32_bounds",
+    "step": 8000,
+    "split": "eval",
+    "index": 1,
+    "region": "face"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r17_softplus_fp32_bounds/eval_008000/eval_002_face.png",
+    "run": "r17_softplus_fp32_bounds",
+    "step": 8000,
+    "split": "eval",
+    "index": 2,
+    "region": "face"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r16_exp_bounds/eval_008000/eval_000_face.png",
+    "run": "r16_exp_bounds",
+    "step": 8000,
+    "split": "eval",
+    "index": 0,
+    "region": "face"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r16_exp_bounds/eval_008000/eval_001_face.png",
+    "run": "r16_exp_bounds",
+    "step": 8000,
+    "split": "eval",
+    "index": 1,
+    "region": "face"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r16_exp_bounds/eval_008000/eval_002_face.png",
+    "run": "r16_exp_bounds",
+    "step": 8000,
+    "split": "eval",
+    "index": 2,
+    "region": "face"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r9_scene_bounds/eval_008000/eval_000_hair.png",
+    "run": "r9_scene_bounds",
+    "step": 8000,
+    "split": "eval",
+    "index": 0,
+    "region": "hair"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r9_scene_bounds/eval_008000/eval_001_hair.png",
+    "run": "r9_scene_bounds",
+    "step": 8000,
+    "split": "eval",
+    "index": 1,
+    "region": "hair"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r9_scene_bounds/eval_008000/eval_002_hair.png",
+    "run": "r9_scene_bounds",
+    "step": 8000,
+    "split": "eval",
+    "index": 2,
+    "region": "hair"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r17_softplus_fp32_bounds/eval_008000/eval_000_hair.png",
+    "run": "r17_softplus_fp32_bounds",
+    "step": 8000,
+    "split": "eval",
+    "index": 0,
+    "region": "hair"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r17_softplus_fp32_bounds/eval_008000/eval_001_hair.png",
+    "run": "r17_softplus_fp32_bounds",
+    "step": 8000,
+    "split": "eval",
+    "index": 1,
+    "region": "hair"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r17_softplus_fp32_bounds/eval_008000/eval_002_hair.png",
+    "run": "r17_softplus_fp32_bounds",
+    "step": 8000,
+    "split": "eval",
+    "index": 2,
+    "region": "hair"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r16_exp_bounds/eval_008000/eval_000_hair.png",
+    "run": "r16_exp_bounds",
+    "step": 8000,
+    "split": "eval",
+    "index": 0,
+    "region": "hair"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r16_exp_bounds/eval_008000/eval_001_hair.png",
+    "run": "r16_exp_bounds",
+    "step": 8000,
+    "split": "eval",
+    "index": 1,
+    "region": "hair"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r16_exp_bounds/eval_008000/eval_002_hair.png",
+    "run": "r16_exp_bounds",
+    "step": 8000,
+    "split": "eval",
+    "index": 2,
+    "region": "hair"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r9_scene_bounds/eval_008000/eval_000_lipstick.png",
+    "run": "r9_scene_bounds",
+    "step": 8000,
+    "split": "eval",
+    "index": 0,
+    "region": "lipstick"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r9_scene_bounds/eval_008000/eval_001_lipstick.png",
+    "run": "r9_scene_bounds",
+    "step": 8000,
+    "split": "eval",
+    "index": 1,
+    "region": "lipstick"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r9_scene_bounds/eval_008000/eval_002_lipstick.png",
+    "run": "r9_scene_bounds",
+    "step": 8000,
+    "split": "eval",
+    "index": 2,
+    "region": "lipstick"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r17_softplus_fp32_bounds/eval_008000/eval_000_lipstick.png",
+    "run": "r17_softplus_fp32_bounds",
+    "step": 8000,
+    "split": "eval",
+    "index": 0,
+    "region": "lipstick"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r17_softplus_fp32_bounds/eval_008000/eval_001_lipstick.png",
+    "run": "r17_softplus_fp32_bounds",
+    "step": 8000,
+    "split": "eval",
+    "index": 1,
+    "region": "lipstick"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r17_softplus_fp32_bounds/eval_008000/eval_002_lipstick.png",
+    "run": "r17_softplus_fp32_bounds",
+    "step": 8000,
+    "split": "eval",
+    "index": 2,
+    "region": "lipstick"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r16_exp_bounds/eval_008000/eval_000_lipstick.png",
+    "run": "r16_exp_bounds",
+    "step": 8000,
+    "split": "eval",
+    "index": 0,
+    "region": "lipstick"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r16_exp_bounds/eval_008000/eval_001_lipstick.png",
+    "run": "r16_exp_bounds",
+    "step": 8000,
+    "split": "eval",
+    "index": 1,
+    "region": "lipstick"
+  },
+  {
+    "source": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r16_exp_bounds/eval_008000/eval_002_lipstick.png",
+    "run": "r16_exp_bounds",
+    "step": 8000,
+    "split": "eval",
+    "index": 2,
+    "region": "lipstick"
+  }
+]
