@@ -1,0 +1,160 @@
+{
+  "reference_commit": "7a6ffd5f",
+  "scope": "1024 fixed valid train-0 rays for each of four pinned checkpoints; not all possible views",
+  "comparisons": [
+    {
+      "run": "f0_original",
+      "checkpoint_sha256": "6106f9a7557f554488a92718f0673e97dc3de0bcd7359ee371d4c4da517de168",
+      "tensors": {
+        "rgb": {
+          "exact": false,
+          "max_absolute_difference": 2.205371856689453e-06,
+          "shape": [
+            1024,
+            3
+          ],
+          "dtype": "torch.float32"
+        },
+        "accumulation": {
+          "exact": false,
+          "max_absolute_difference": 1.6689300537109375e-06,
+          "shape": [
+            1024,
+            1
+          ],
+          "dtype": "torch.float32"
+        },
+        "depth": {
+          "exact": false,
+          "max_absolute_difference": 6.67572021484375e-06,
+          "shape": [
+            1024,
+            1
+          ],
+          "dtype": "torch.float32"
+        }
+      },
+      "same_code_repeat_max_absolute_difference": {
+        "rgb": 2.682209014892578e-06,
+        "accumulation": 3.0994415283203125e-06,
+        "depth": 8.106231689453125e-06
+      }
+    },
+    {
+      "run": "v_actor_canonical",
+      "checkpoint_sha256": "ea42e6fe2d5caa54eee895ad5e0eb1e916571f034e51e70156f096568c7fd28e",
+      "tensors": {
+        "rgb": {
+          "exact": true,
+          "max_absolute_difference": 0.0,
+          "shape": [
+            1024,
+            3
+          ],
+          "dtype": "torch.float32"
+        },
+        "accumulation": {
+          "exact": true,
+          "max_absolute_difference": 0.0,
+          "shape": [
+            1024,
+            1
+          ],
+          "dtype": "torch.float32"
+        },
+        "depth": {
+          "exact": true,
+          "max_absolute_difference": 0.0,
+          "shape": [
+            1024,
+            1
+          ],
+          "dtype": "torch.float32"
+        }
+      },
+      "same_code_repeat_max_absolute_difference": {
+        "rgb": 0.0,
+        "accumulation": 0.0,
+        "depth": 0.0
+      }
+    },
+    {
+      "run": "r11_exp_sh_bounds",
+      "checkpoint_sha256": "0e2d7639c974e55f78556e65f6523e54e9670a6f66fa998adb6b0f2a68f00e09",
+      "tensors": {
+        "rgb": {
+          "exact": false,
+          "max_absolute_difference": 1.1324882507324219e-06,
+          "shape": [
+            1024,
+            3
+          ],
+          "dtype": "torch.float32"
+        },
+        "accumulation": {
+          "exact": false,
+          "max_absolute_difference": 3.039836883544922e-06,
+          "shape": [
+            1024,
+            1
+          ],
+          "dtype": "torch.float32"
+        },
+        "depth": {
+          "exact": false,
+          "max_absolute_difference": 2.86102294921875e-06,
+          "shape": [
+            1024,
+            1
+          ],
+          "dtype": "torch.float32"
+        }
+      },
+      "same_code_repeat_max_absolute_difference": {
+        "rgb": 1.6391277313232422e-06,
+        "accumulation": 2.562999725341797e-06,
+        "depth": 5.0067901611328125e-06
+      }
+    },
+    {
+      "run": "f4_reference3",
+      "checkpoint_sha256": "aa9d111035b3ea72087e0eb199afdc60b525c756c182f202ac3c2b28ac03219f",
+      "tensors": {
+        "rgb": {
+          "exact": false,
+          "max_absolute_difference": 1.7285346984863281e-06,
+          "shape": [
+            1024,
+            3
+          ],
+          "dtype": "torch.float32"
+        },
+        "accumulation": {
+          "exact": false,
+          "max_absolute_difference": 2.4437904357910156e-06,
+          "shape": [
+            1024,
+            1
+          ],
+          "dtype": "torch.float32"
+        },
+        "depth": {
+          "exact": false,
+          "max_absolute_difference": 4.410743713378906e-06,
+          "shape": [
+            1024,
+            1
+          ],
+          "dtype": "torch.float32"
+        }
+      },
+      "same_code_repeat_max_absolute_difference": {
+        "rgb": 1.1324882507324219e-06,
+        "accumulation": 2.0265579223632812e-06,
+        "depth": 3.814697265625e-06
+      }
+    }
+  ],
+  "tests": "11 passed; 2 pre-existing AMP deprecation warnings",
+  "conclusion": "All before/after and unchanged-code repeat differences below 1e-5 absolute. Adaptive renders are not bitwise repeatable; fixed actor renders are exact."
+}

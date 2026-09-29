@@ -65,10 +65,7 @@ class LookCloserField(Field):
             hdr_softplus_beta: float = 1.0,
             pq_code_temperature: float = 1.0,
             density_activation: Literal["softplus", "trunc_exp"] = "softplus",
-            density_normalization: Literal["none", "aabb", "canonical_aabb"] = "none",
-            density_reference_length: float = 1.0,
-            density_fp32: bool = False,
-            density_clip: bool = False,
+            density_normalization: Literal["none", "canonical_aabb"] = "none",
             correct_sh_directions: bool = False,
             spatial_distortion=None,
     ) -> None:
@@ -78,12 +75,15 @@ class LookCloserField(Field):
                 "LookCloserField requires tinycudann. Install the CUDA extension or avoid importing this field."
             ) from tcnn_import_exception
 
+        if density_activation not in {"softplus", "trunc_exp"}:
+            raise ValueError(f"Unknown density activation: {density_activation}")
+        if density_normalization not in {"none", "canonical_aabb"}:
+            raise ValueError(f"Unknown density normalization: {density_normalization}")
+        if not torch.isfinite(aabb).all() or not (aabb[1] > aabb[0]).all():
+            raise ValueError("AABB must have finite, positive extents")
         self.register_buffer("aabb", aabb)
         self.density_activation = density_activation
         self.density_normalization = density_normalization
-        self.density_reference_length = density_reference_length
-        self.density_fp32 = density_fp32
-        self.density_clip = density_clip
         self.correct_sh_directions = correct_sh_directions
         self.geo_feat_dim = geo_feat_dim
         self.num_levels = num_levels
@@ -310,25 +310,16 @@ class LookCloserField(Field):
         return density, rgb
 
     def activate_density(self, logits: Tensor) -> Tensor:
-        """Independent density controls; defaults preserve historical checkpoints."""
-        if self.density_fp32:
-            logits = logits.float()
-        if self.density_clip:
-            logits = logits.clamp(-16., 11.)
+        """Density in world units, preserving the original span-three scene scale."""
         if self.density_activation == "trunc_exp":
             from nerfstudio.field_components.activations import trunc_exp
-            density = trunc_exp(logits + 1.)
+            # TCNN returns FP16 even outside autocast; cast before adding the bias.
+            density = trunc_exp(logits.float() + 1.)
         else:
             density = F.softplus(logits + 1.)
-        if self.density_normalization in {"aabb", "canonical_aabb"}:
+        if self.density_normalization == "canonical_aabb":
             span = (self.aabb[1] - self.aabb[0]).max()
-            reference = 3.0 if self.density_normalization == "canonical_aabb" else self.density_reference_length
-            if reference == 1.0:
-                # Keep the already measured unit-reference controls exact.
-                density = density / span
-            else:
-                # Scale in FP32; the reference scene has a gain of exactly one.
-                density = density.float() * (reference / span)
+            density = density.float() * (3.0 / span)
         return density
 
     def encode_directions(self, directions: Tensor) -> Tensor:

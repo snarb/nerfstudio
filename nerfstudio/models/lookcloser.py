@@ -34,6 +34,24 @@ from nerfstudio.utils.lookcloser_rng import fork_seeded_rng
 from nerfstudio.utils.hdr import hdr_display_preview, scene_linear_to_pq
 
 
+def compatible_density_normalization(config) -> str:
+    """Load equivalent research checkpoints; reject settings with different math."""
+    incompatible = bool(getattr(config, "density_clip", False))
+    incompatible |= bool(getattr(config, "density_fp32", False)) and config.density_activation == "softplus"
+    normalization = config.density_normalization
+    if normalization == "aabb":
+        if getattr(config, "density_reference_length", 1.0) == 3.0:
+            normalization = "canonical_aabb"
+        else:
+            incompatible = True
+    if incompatible:
+        raise ValueError(
+            "This research checkpoint uses removed density controls. "
+            "Load it with the code version used for training."
+        )
+    return normalization
+
+
 @dataclass
 class LookCloserModelConfig(ModelConfig):
     """Configuration for LookCloser Model."""
@@ -110,10 +128,7 @@ class LookCloserModelConfig(ModelConfig):
 
     # Loss weights
     density_activation: Literal["softplus", "trunc_exp"] = "softplus"
-    density_normalization: Literal["none", "aabb", "canonical_aabb"] = "none"
-    density_reference_length: float = 1.0
-    density_fp32: bool = False
-    density_clip: bool = False
+    density_normalization: Literal["none", "canonical_aabb"] = "none"
     correct_sh_directions: bool = False
 
     distortion_loss_mult: float = 0.01
@@ -520,10 +535,7 @@ class LookCloserModel(Model):
             hdr_softplus_beta=self.config.hdr_softplus_beta,
             pq_code_temperature=self.config.pq_code_temperature,
             density_activation=self.config.density_activation,
-            density_normalization=self.config.density_normalization,
-            density_reference_length=self.config.density_reference_length,
-            density_fp32=self.config.density_fp32,
-            density_clip=self.config.density_clip,
+            density_normalization=compatible_density_normalization(self.config),
             correct_sh_directions=self.config.correct_sh_directions,
         )
 

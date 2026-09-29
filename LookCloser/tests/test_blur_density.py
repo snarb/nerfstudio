@@ -8,8 +8,7 @@ from nerfstudio.fields.lookcloser_field import LookCloserField
 def holder(**kwargs):
     return SimpleNamespace(aabb=torch.tensor([[-.1,-.1,-.1],[.1,.1,.1]]),
         **(dict(density_activation='softplus',density_normalization='none',
-                density_reference_length=1.0,
-                density_fp32=False,density_clip=False)|kwargs))
+)|kwargs))
 
 
 def test_legacy_softplus_exact():
@@ -19,7 +18,7 @@ def test_legacy_softplus_exact():
 
 @pytest.mark.parametrize('activation',['softplus','trunc_exp'])
 def test_optical_thickness_under_world_scale(activation):
-    h=holder(density_activation=activation,density_normalization='aabb',density_fp32=True)
+    h=holder(density_activation=activation,density_normalization='canonical_aabb')
     x=torch.tensor([-5.,0.,10.703],dtype=torch.float16,requires_grad=True)
     a=LookCloserField.activate_density(h,x);h.aabb=h.aabb*7
     b=LookCloserField.activate_density(h,x)
@@ -28,35 +27,16 @@ def test_optical_thickness_under_world_scale(activation):
     (a*1e-4).sum().backward();assert x.grad.isfinite().all() and (x.grad>0).all()
 
 
-def test_eval_exp_requires_explicit_fp32_outside_autocast():
-    x=torch.tensor([10.703],dtype=torch.float16)
-    assert not LookCloserField.activate_density(holder(density_activation='trunc_exp'),x).isfinite().all()
-    assert LookCloserField.activate_density(holder(density_activation='trunc_exp',density_fp32=True),x).isfinite().all()
-
-
-def test_clipping_is_separate_and_stops_outside_gradients():
-    x=torch.tensor([-17.,0.,12.],requires_grad=True)
-    h=holder(density_activation='trunc_exp',density_fp32=True,density_clip=True)
-    y=LookCloserField.activate_density(h,x);y.sum().backward()
-    torch.testing.assert_close(y,torch.exp(torch.tensor([-15.,1.,12.])))
-    assert x.grad[0]==0 and x.grad[2]==0 and x.grad[1]>0
-
-
-def test_normalized_softplus_requires_fp32_for_tiny_world_units():
-    h=holder(density_normalization='aabb')
-    h.aabb=h.aabb*1e-4
-    x=torch.tensor([10.],dtype=torch.float16,requires_grad=True)
-    assert not LookCloserField.activate_density(h,x).isfinite().all()
-    h.density_fp32=True
-    y=LookCloserField.activate_density(h,x)
-    assert y.isfinite().all()
-    (y*1e-5).sum().backward()
+def test_exp_is_finite_outside_autocast():
+    x=torch.tensor([10.703],dtype=torch.float16,requires_grad=True)
+    y=LookCloserField.activate_density(holder(density_activation='trunc_exp'),x)
+    assert y.dtype==torch.float32 and y.isfinite().all()
+    (y*1e-4).sum().backward()
     assert x.grad.isfinite().all() and (x.grad>0).all()
 
 
-@pytest.mark.parametrize('mode',['aabb','canonical_aabb'])
-def test_canonical_reference_preserves_optical_thickness_and_gradients(mode):
-    h=holder(density_normalization=mode,density_reference_length=3.0 if mode=='aabb' else 1.0)
+def test_canonical_reference_preserves_optical_thickness_and_gradients():
+    h=holder(density_normalization='canonical_aabb')
     h.aabb=torch.tensor([[-1.5]*3,[1.5]*3])
     old=torch.linspace(-12,12,65,dtype=torch.float16,requires_grad=True)
     new=old.detach().clone().requires_grad_()
@@ -70,6 +50,24 @@ def test_canonical_reference_preserves_optical_thickness_and_gradients(mode):
     scaled=LookCloserField.activate_density(h,new)
     assert scaled.isfinite().all()
     torch.testing.assert_close(scaled*(delta*1e-5),expected,rtol=1e-5,atol=1e-7)
+
+
+@pytest.mark.parametrize('kwargs',[
+    {'density_normalization':'aabb'},
+    {'density_clip':True},
+    {'density_fp32':True},
+])
+def test_incompatible_research_checkpoint_fails_loudly(kwargs):
+    from nerfstudio.models.lookcloser import compatible_density_normalization
+    with pytest.raises(ValueError,match='code version used for training'):
+        compatible_density_normalization(holder(**kwargs))
+
+
+def test_compatible_checkpoint_settings():
+    from nerfstudio.models.lookcloser import LookCloserModelConfig, compatible_density_normalization
+    assert compatible_density_normalization(LookCloserModelConfig())=='none'
+    assert compatible_density_normalization(holder(density_normalization='aabb',density_reference_length=3.))=='canonical_aabb'
+    assert compatible_density_normalization(holder(density_activation='trunc_exp',density_fp32=True))=='none'
 
 
 @pytest.mark.skipif(not torch.cuda.is_available(),reason='TCNN CUDA contract')
@@ -88,7 +86,7 @@ def test_density_query_and_occupancy_use_same_parameterization():
     aabb=torch.tensor([[-.1,-.1,-.1],[.1,.1,.1]],device='cuda')
     field=LookCloserField(aabb=aabb,freq_grid=SimpleNamespace(enabled=False),
         enable_feature_reweighting=False,log2_hashmap_size=12,
-        density_activation='trunc_exp',density_normalization='aabb',density_fp32=True,
+        density_activation='trunc_exp',density_normalization='canonical_aabb',
         correct_sh_directions=True).cuda()
     positions=torch.tensor([[0.,0.,0.],[.02,-.03,.04],[2.,0.,0.]],device='cuda')
     directions=torch.tensor([[0.,0.,1.]],device='cuda').expand_as(positions)

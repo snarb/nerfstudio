@@ -302,3 +302,27 @@ hourly, recording controllers, workers, progress, GPU memory and OOM evidence.
 old intermediate checkpoints owned by `brans`; other users' files were untouched.
 Completed work is committed on the working branch. Earlier chronological notes
 remain in Git history; this report summarizes the current measured conclusions.
+
+### Production cleanup and checkpoint compatibility
+
+The complete ablation implementation is preserved in branch
+`lookcloser-blur-ablation-archive`, commit `7a6ffd5f`; use it to replay the raw
+historical requests. The working implementation removes clipping, a separate
+pre-activation precision switch, arbitrary density reference length and the
+alternative frequency-projection control. Safe exponential casts before the
+bias/activation; canonical density scales in FP32 afterwards. Legacy softplus
+remains available. Final preset promotion awaits the completed fight check.
+
+A reference-three historical checkpoint maps to canonical normalization.
+Checkpoints requiring removed math fail explicitly and must use the archived
+code. Four pinned checkpoints were rendered on 1024 fixed valid train-0 rays
+before/after cleanup: actor tensors match exactly; adaptive RGB, opacity and
+depth differ by less than 1e-5, also the bound in an unchanged-code repeat.
+This is a sampled parity check, not an all-view proof. Eleven focused tests pass.
+[Parity evidence](assets/blur_ablation_fresh/retained_formula_parity.json).
+
+The long full-room control's selected8k path contains severe translucent/ghost
+artifacts throughout the inspected frames. All24 frames are finite and the
+encoded video decodes fully.
+[Contact](assets/blur_ablation_fresh/room_original_path_contact.jpg),
+[receipt](assets/blur_ablation_fresh/room_original_path_complete.json).

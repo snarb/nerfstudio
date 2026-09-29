@@ -1,19 +1,28 @@
 # LookCloser architecture
 
-## Controlled blur investigation (unpromoted)
+## Density scale and blur validation
 
-Opt-in field controls separate density activation, inverse-AABB normalization,
-FP32 density evaluation, clipping and the TCNN SH direction convention. Defaults
-preserve existing checkpoints. The `canonical_aabb` control multiplies density
-by `3 / max(AABB side lengths)` in FP32 after activation; 3 is the original
-bounded scene's side length. It is being checked against unit-reference scaling
-and the unchanged fight baseline. `run_blur_experiment.py` uses the standard trainer
-update with seed42, unchanged evaluation RNG and full-frame all-eval checkpoint
-selection. Synthetic masked diagnostics are distinct from real 62/3 DEC5 and
-66/3 fight comparisons. A separate 62/3 masked actor test restores the historical
-small-AABB task. An opt-in pipeline control converts UV frequency resolution to
-scene units using normalized intrinsics, camera-z and AABB span; it is pending
-scene validation. See [fresh ablations](experiments/blur_ablation_fresh.md).
+The field keeps legacy softplus behavior for old checkpoints. The opt-in
+`canonical_aabb` mode multiplies density by `3 / max(AABB side lengths)` in
+FP32 after activation. Three is the original bounded fight scene's side length;
+this avoids changing its optical density while adapting to small scene units.
+`trunc_exp` always casts logits to FP32 before the bias and exponential, because
+TCNN outputs can overflow in FP16. The SH direction correction remains opt-in
+pending the combined recipe's transfer check.
+
+Clipping, separate precision/reference controls and the alternative frequency
+projection were removed after ablations. Equivalent historical reference-three
+checkpoints are mapped to canonical mode; incompatible research checkpoints
+must use their original code version. The full ablation code is archived at
+`lookcloser-blur-ablation-archive` (`7a6ffd5f`). Render parity checks on four pinned
+checkpoints and eleven focused tests accompany the cleanup.
+
+`run_blur_experiment.py` uses the standard trainer with seed42, unchanged
+evaluation RNG and all-eval PSNR checkpoint selection, with LPIPS as tie-breaker
+within .07 dB. Synthetic diagnostics, masked actor, full-room 62/3 DEC5 and 66/3
+fight comparisons are reported separately. The supervisor records processes,
+GPU memory and the union of active GPU time. See
+[fresh ablations](experiments/blur_ablation_fresh.md).
 
 ## Mesh-teacher distillation data (opt-in, no trainer changes)
 
