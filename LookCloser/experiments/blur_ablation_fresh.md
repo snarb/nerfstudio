@@ -148,6 +148,12 @@ Its selected 8000 checkpoint is weaker than the original screen's early2000
 checkpoint, which must remain visible in any final selected-checkpoint comparison.
 [Long original room control](assets/blur_ablation_fresh/real_original_long.json).
 
+The adaptive runs use different numbers of training ray points: original20.297
+billion, tight bounds14.353, canonical-softplus/bounds16.553, exp+SH/bounds11.955.
+The large gain is not explained by more sampled points. These counts are a
+compute proxy, not matched FLOPs; per-job wall times are not directly comparable
+because the jobs shared a GPU. [Recorded counts](assets/blur_ablation_fresh/room_sample_counts.json).
+
 Component removal is ongoing. At 2000, removing SH from the successful tight-room
 exponential recipe lowers detail25.48294→23.37704; removing exponential while
 keeping SH/FP32 lowers it to 21.07263. Weak foreground SH effects must not be

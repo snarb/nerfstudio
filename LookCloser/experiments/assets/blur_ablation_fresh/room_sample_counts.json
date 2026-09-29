@@ -1,0 +1,30 @@
+[
+  {
+    "run": "r0_original",
+    "updates": 8000,
+    "training_point_samples": 20296848978,
+    "job_wall_seconds": 1132.6841788152233,
+    "wall_time_comparable": false
+  },
+  {
+    "run": "r9_scene_bounds",
+    "updates": 8000,
+    "training_point_samples": 14352666525,
+    "job_wall_seconds": 1437.7101406860165,
+    "wall_time_comparable": false
+  },
+  {
+    "run": "r18_canonical_density_bounds",
+    "updates": 8000,
+    "training_point_samples": 16553375243,
+    "job_wall_seconds": 4033.3359899050556,
+    "wall_time_comparable": false
+  },
+  {
+    "run": "r11_exp_sh_bounds",
+    "updates": 8000,
+    "training_point_samples": 11954715283,
+    "job_wall_seconds": 3575.215274708811,
+    "wall_time_comparable": false
+  }
+]

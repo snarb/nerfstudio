@@ -27,7 +27,10 @@ def encode(output, metadata, executable=None):
     subprocess.run([executable,'-hide_banner','-loglevel','error','-y','-framerate','6',
                     '-i',str(output/'frame_%03d.png'),'-c:v','libx264','-crf','18',
                     '-threads','2','-pix_fmt','yuv420p',str(output/'learned_rgb.mp4')],check=True)
+    subprocess.run([executable,'-v','error','-i',str(output/'learned_rgb.mp4'),
+                    '-f','null','-'],check=True)
     write(output/'complete.json',dict(metadata,encoder=executable,
+          full_video_decode_checked=True,
           video_sha256=sha(output/'learned_rgb.mp4')))
 
 
