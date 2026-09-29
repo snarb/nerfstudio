@@ -142,3 +142,42 @@ not remove facial blur. Full-frame selection chooses original step2000
 (16.690 / .74761 / .73014), versus scaled step8000
 (15.923 / .74405 / .72526). The early synthetic win is specific to the small
 actor box and its saturation failure; it is not a validated global real-scene fix.
+
+### Real pixels in the small actor box
+
+Two additional fresh seed42 probes replace synthetic RGB with the actual
+`train_0033` photo, keeping the same actor bounds, known-pixel mask, fixed128,
+2048 rays, LR and SH. They use a duplicate of the same camera for diagnostic
+evaluation: **there is no held-out-view claim**. The mesh supplies only a
+validity mask for train sampling, not RGB or depth supervision.
+
+| Real single train view, step2000 | PSNR ↑ | SSIM ↑ | LPIPS ↓ |
+| --- | ---: | ---: | ---: |
+| Original softplus | 20.2251 | .93685 | .23067 |
+| Only inverse-AABB scaling | **40.9725** | **.99043** | **.00336** |
+
+[Quantized stride2 masked train metrics](assets/blur_ablation_fresh/real_single_metrics.json).
+The color-collapse mechanism transfers to real pixels in the small box.
+Unknown/untrained background is excluded from these scores.
+
+![Real unscaled: GT / learned RGB](assets/blur_ablation_fresh/t0_real_single_train2000.png)
+![Real scaled: GT / learned RGB](assets/blur_ablation_fresh/t1_real_single_scaled_train2000.png)
+
+### Other initial full-scene controls
+
+| Isolated control, 8000 updates | Full eval PSNR / SSIM / LPIPS | Eval detail PSNR / SSIM / LPIPS | Train detail PSNR / SSIM / LPIPS |
+| --- | --- | --- | --- |
+| Correct SH only | 14.941 / .71695 / .82522 | 15.835 / .62070 / .79339 | 27.046 / .67157 / .62443 |
+| Tighter full-scene bounds only | 21.311 / .77495 / .52494 | 21.729 / .68824 / .53915 | 25.945 / .65297 / .56149 |
+
+SH alone does not fix blur and worsens matched-step detail. Its contract test
+is not evidence of an image-quality gain. [Receipts](assets/blur_ablation_fresh/real_sh_screen.json).
+Tighter bounds improve eval detail by +4.230 dB, but train detail PSNR/SSIM
+decline and the face remains visibly soft. This is a useful geometric-volume
+control, not yet a complete blur fix. [Receipts](assets/blur_ablation_fresh/real_bounds_screen.json).
+
+A [frozen-field depth audit](assets/blur_ablation_fresh/real_baseline_surface_density.json)
+on train33 uses an approximate historical mesh reference. Original step8000
+has median expected ray depth .607 versus reference .813, while a local
+density peak remains near the reference surface. This suggests substantial
+opacity in front of the face; the imperfect mesh is not declared ground truth.

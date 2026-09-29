@@ -1,0 +1,48 @@
+{
+  "dataset": "real_single",
+  "protocol": "8-bit PNG, stride2; teacher-valid train PSNR; tight zero-masked SSIM/LPIPS. Diagnostic only.",
+  "results": [
+    {
+      "run": "t0_real_single",
+      "step": 1000,
+      "psnr": 20.165546417236328,
+      "ssim": 0.9153285622596741,
+      "lpips": 0.24685317277908325
+    },
+    {
+      "run": "t0_real_single",
+      "step": 2000,
+      "psnr": 20.225126266479492,
+      "ssim": 0.9368459582328796,
+      "lpips": 0.2306683212518692
+    },
+    {
+      "run": "t0_real_single",
+      "step": 3000,
+      "psnr": 20.238204956054688,
+      "ssim": 0.9425393342971802,
+      "lpips": 0.22814036905765533
+    },
+    {
+      "run": "t1_real_single_scaled",
+      "step": 1000,
+      "psnr": 36.27046203613281,
+      "ssim": 0.9703443050384521,
+      "lpips": 0.012468659318983555
+    },
+    {
+      "run": "t1_real_single_scaled",
+      "step": 2000,
+      "psnr": 40.97248458862305,
+      "ssim": 0.9904338717460632,
+      "lpips": 0.003364396747201681
+    },
+    {
+      "run": "t1_real_single_scaled",
+      "step": 3000,
+      "psnr": 43.65699005126953,
+      "ssim": 0.9953305721282959,
+      "lpips": 0.0015562947373837233
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "unscaled": {
+    "initial_weights": "bb385ea0c561978ebf42ec4ea1bd48827b6aec07b4fbaa66348231ddb81d7b92",
+    "train_count": 1,
+    "eval_count": 1,
+    "transforms_sha256": "50868147c98d7c1fde4f6ebc374b44a0911165a859e6b83849fda56c4b219652",
+    "torch": "2.7.1+cu128",
+    "gpu": "NVIDIA RTX PRO 6000 Blackwell Workstation Edition",
+    "seed": 42,
+    "model_source": "bceaf8e7d7dc93ad5b17b5206795023ea1c6cdfcb5b7345cac6328dae1799760",
+    "field_source": "032fe88dede44e5452778c81e48ff9802f827956298d993d7a0e7169e7e45b87",
+    "runtime_source": "63b7f9991e8c96e6eb931dde4eba973505d1d56a03130f68dfc7f0a4478feef4"
+  },
+  "scaled": {
+    "initial_weights": "bb385ea0c561978ebf42ec4ea1bd48827b6aec07b4fbaa66348231ddb81d7b92",
+    "train_count": 1,
+    "eval_count": 1,
+    "transforms_sha256": "50868147c98d7c1fde4f6ebc374b44a0911165a859e6b83849fda56c4b219652",
+    "torch": "2.7.1+cu128",
+    "gpu": "NVIDIA RTX PRO 6000 Blackwell Workstation Edition",
+    "seed": 42,
+    "model_source": "bceaf8e7d7dc93ad5b17b5206795023ea1c6cdfcb5b7345cac6328dae1799760",
+    "field_source": "032fe88dede44e5452778c81e48ff9802f827956298d993d7a0e7169e7e45b87",
+    "runtime_source": "63b7f9991e8c96e6eb931dde4eba973505d1d56a03130f68dfc7f0a4478feef4"
+  },
+  "initial_weights_match": true,
+  "first_batches_match": true,
+  "same_view_diagnostic": true
+}

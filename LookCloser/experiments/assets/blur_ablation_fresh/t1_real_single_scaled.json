@@ -1,0 +1,32 @@
+{
+  "data": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/real_single",
+  "output": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/t1_real_single_scaled",
+  "steps": 3000,
+  "eval_every": 1000,
+  "eval_stride": 2,
+  "rays": 2048,
+  "lr_final": 0.001,
+  "lr_steps": 3000,
+  "grad_scale": 128,
+  "model": {
+    "log2_hashmap_size": 19,
+    "ray_sampling_mode": "fixed",
+    "fixed_num_samples_per_ray": 128,
+    "correct_sh_directions": true,
+    "near_plane": 0.01,
+    "density_normalization": "aabb"
+  },
+  "rois": {
+    "head": [
+      640,
+      256,
+      1408,
+      960
+    ]
+  },
+  "seed": 42,
+  "sampler": {
+    "enable_fas": false
+  },
+  "comparison_parent": "t0_real_single"
+}

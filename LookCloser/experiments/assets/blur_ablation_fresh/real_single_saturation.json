@@ -1,0 +1,36 @@
+[
+  {
+    "checkpoint": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/t0_real_single/best.pt",
+    "step": 2000,
+    "mean_opacity": 0.4633777141571045,
+    "mean_effective_rgb": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "channel_saturation_fraction": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "white_saturation_fraction": 1.0,
+    "mean_effective_chroma": 0.0
+  },
+  {
+    "checkpoint": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/t1_real_single_scaled/best.pt",
+    "step": 1000,
+    "mean_opacity": 0.6028170585632324,
+    "mean_effective_rgb": [
+      0.7470600605010986,
+      0.7543513178825378,
+      0.7871444225311279
+    ],
+    "channel_saturation_fraction": [
+      0.09765625,
+      0.0,
+      0.08203125
+    ],
+    "white_saturation_fraction": 0.0,
+    "mean_effective_chroma": 0.34355318546295166
+  }
+]
