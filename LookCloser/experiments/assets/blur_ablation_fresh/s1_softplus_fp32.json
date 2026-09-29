@@ -27,5 +27,6 @@
   "seed": 42,
   "sampler": {
     "enable_fas": false
-  }
+  },
+  "comparison_parent": "s0_softplus"
 }

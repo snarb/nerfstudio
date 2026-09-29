@@ -30,5 +30,6 @@
   "seed": 42,
   "sampler": {
     "enable_fas": false
-  }
+  },
+  "comparison_parent": "s4_exp_scaled"
 }

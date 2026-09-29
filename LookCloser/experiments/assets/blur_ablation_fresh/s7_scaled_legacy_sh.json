@@ -27,5 +27,6 @@
   "seed": 42,
   "sampler": {
     "enable_fas": false
-  }
+  },
+  "comparison_parent": "s6_softplus_scaled_fp16"
 }

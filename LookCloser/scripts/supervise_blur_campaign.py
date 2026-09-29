@@ -9,6 +9,29 @@ import time
 import psutil
 
 
+def changed_conditions(left, right):
+    def flatten(value, prefix=''):
+        if isinstance(value,dict):
+            return {k:v for name,item in value.items() if name not in {'output','comparison_parent'}
+                    for k,v in flatten(item,prefix+name+'.').items()}
+        return {prefix.rstrip('.'):value}
+    a,b=flatten(left),flatten(right)
+    return sorted(k for k in a.keys()|b.keys() if a.get(k)!=b.get(k))
+
+
+def consumed_seconds(root):
+    total=0.
+    for folder in root.iterdir():
+        if not folder.is_dir():continue
+        for names in [('complete.json','progress.json'),('frequency_complete.json','frequency_progress.json')]:
+            for name in names:
+                path=folder/name
+                if path.exists():
+                    total+=json.loads(path.read_text()).get('seconds',0.)
+                    break
+    return total
+
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('manifest',type=Path);args=parser.parse_args()
@@ -23,7 +46,12 @@ def main():
     with (root/(args.manifest.stem+'_supervision.jsonl')).open('a') as journal:
         for request_path in jobs:
             request=json.loads(Path(request_path).read_text());out=Path(request['output']);out.mkdir(parents=True,exist_ok=True)
+            if request.get('comparison_parent'):
+                parent=Path(request_path).with_name(request['comparison_parent']+'.json')
+                differences=changed_conditions(json.loads(parent.read_text()),request)
+                if len(differences)!=1:raise ValueError(f'Expected one changed condition: {differences}')
             if (out/'complete.json').exists():continue
+            if consumed_seconds(root)>=22*3600:raise SystemExit('Training budget exhausted; evaluation reserve retained')
             with (out/'stdout.log').open('w') as log:
                 p=subprocess.Popen([sys.executable,str(repo/'LookCloser/scripts/run_blur_experiment.py'),str(request_path)],
                                    cwd=repo/'LookCloser',env=env,stdout=log,stderr=subprocess.STDOUT)
@@ -41,8 +69,8 @@ def main():
                     if code is not None:
                         if code or not (out/'complete.json').exists():raise SystemExit(f'Run failed: {out}')
                         break
-                    if time.time()-started>24*3600:
-                        p.terminate();p.wait();raise SystemExit('24 hour stage safety limit')
+                    if time.time()-started>22*3600 or consumed_seconds(root)>=22*3600:
+                        p.terminate();p.wait();raise SystemExit('Training budget limit; evaluation reserve retained')
                     time.sleep(30)
     print('visual_review_gate',flush=True)
 

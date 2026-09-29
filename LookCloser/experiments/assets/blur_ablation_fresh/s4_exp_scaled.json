@@ -29,5 +29,6 @@
   "seed": 42,
   "sampler": {
     "enable_fas": false
-  }
+  },
+  "comparison_parent": "s2_exp_fp32"
 }

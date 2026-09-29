@@ -28,5 +28,6 @@
   "seed": 42,
   "sampler": {
     "enable_fas": false
-  }
+  },
+  "comparison_parent": "s1_softplus_fp32"
 }

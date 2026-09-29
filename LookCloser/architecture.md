@@ -1,5 +1,14 @@
 # LookCloser architecture
 
+## Controlled blur investigation (unpromoted)
+
+Opt-in field controls separate density activation, inverse-AABB normalization,
+FP32 density evaluation, clipping and the TCNN SH direction convention. Defaults
+preserve existing checkpoints. `run_blur_experiment.py` uses the standard trainer
+update with seed42, unchanged evaluation RNG and full-frame all-eval checkpoint
+selection. Synthetic masked diagnostics are distinct from real 62/3 DEC5 and
+66/3 fight comparisons. See [fresh ablations](experiments/blur_ablation_fresh.md).
+
 ## Mesh-teacher distillation data (opt-in, no trainer changes)
 
 `prepare_mesh_distillation_dataset.py` exports one fixed DEC5 time as calibrated

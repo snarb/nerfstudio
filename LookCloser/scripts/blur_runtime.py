@@ -7,7 +7,7 @@ import os
 from pathlib import Path
 import random
 import time
-from typing import Type
+from typing import Type, Optional, Tuple
 
 import numpy as np
 from PIL import Image
@@ -36,7 +36,7 @@ class ProbeParser(Nerfstudio):
     def _generate_dataparser_outputs(self, split='train'):
         out = super()._generate_dataparser_outputs(split)
         meta = json.loads((self.config.data/'transforms.json').read_text())
-        bounds = meta.get('blur_aabb')
+        bounds = self.config.aabb_override or meta.get('blur_aabb')
         if bounds is not None:
             if self.config.auto_scale_poses or self.config.center_method != 'none' or self.config.orientation_method != 'none':
                 raise ValueError('Explicit bounds require unchanged camera coordinates')
@@ -47,6 +47,7 @@ class ProbeParser(Nerfstudio):
 @dataclass
 class ProbeParserConfig(NerfstudioDataParserConfig):
     _target: Type = field(default_factory=lambda: ProbeParser)
+    aabb_override: Optional[Tuple[Tuple[float, float, float], Tuple[float, float, float]]] = None
 
 
 def configuration(request):
@@ -60,6 +61,8 @@ def configuration(request):
     if 'blur_aabb' in meta or meta.get('coordinate_system'):
         parser = cfg.pipeline.datamanager.dataparser
         parser.auto_scale_poses=False; parser.center_method='none'; parser.orientation_method='none'
+    if 'aabb' in request:
+        cfg.pipeline.datamanager.dataparser.aabb_override=tuple(tuple(row) for row in request['aabb'])
     dm = cfg.pipeline.datamanager
     dm.train_num_images_to_sample_from = -1; dm.train_num_times_to_repeat_images = -1
     dm.images_on_gpu = False; dm.masks_on_gpu = False
@@ -139,6 +142,9 @@ def train(request):
     out=Path(request['output']);out.mkdir(parents=True,exist_ok=True)
     if (out/'complete.json').exists() or (out/'history.json').exists():
         raise RuntimeError('Refusing to overwrite an existing experiment')
+    if (out/'request.json').exists() and json.loads((out/'request.json').read_text())!=request:
+        raise RuntimeError('Experiment request changed')
+    write(out/'request.json',request)
     seed=request.get('seed',42)
     torch.set_num_threads(2);random.seed(seed);np.random.seed(seed);torch.manual_seed(seed)
     torch.backends.cuda.matmul.allow_tf32=False
