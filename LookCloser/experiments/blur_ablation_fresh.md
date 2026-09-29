@@ -178,12 +178,15 @@ SH has a substantial conditioned contribution in this domain.
 [Completed removal](assets/blur_ablation_fresh/room_sh_removal_completed.json),
 [faces](assets/blur_ablation_fresh/room_sh_removal_eval_face.jpg),
 [hair](assets/blur_ablation_fresh/room_sh_removal_eval_hair.jpg).
-The activation removal is still running: at 2000, replacing exponential with
-softplus while keeping SH/FP32 lowers detail 25.48294→21.07263.
+At 8000, replacing exponential with softplus while keeping SH/FP32 lowers
+eval detail 28.72132→25.30754 dB and train detail 28.35982→26.95908.
+SSIM and LPIPS also worsen. Exponential has a substantial conditioned effect
+at this horizon. [Completed removal](assets/blur_ablation_fresh/room_exp_removal_completed.json),
+[eval faces](assets/blur_ablation_fresh/room_exp_removal_eval_face.jpg).
 Weak foreground SH effects must not be extrapolated to this room interaction.
 Canonical-scaled softplus + SH is being
 tested as a possible replacement for exponential. The 24k exponential/SH room
-validation is running; a 24k canonical-softplus/bounds request is prepared.
+validation is running alongside a fresh 24k canonical-softplus/bounds control.
 
 ![All eval faces, matched8000: GT then RGB in each cell](assets/blur_ablation_fresh/room_bounds8k_eval_face.jpg)
 
@@ -209,7 +212,7 @@ The [original fight AABB has span3](assets/blur_ablation_fresh/canonical_referen
 Consequently1/span reduces its density by 3. The canonical control uses3/span,
 a single global reference length anchored to this original coordinate scale.
 At span3, optical thickness and gradients match legacy arithmetic exactly in
-numerical tests; uniform coordinate scaling preserves optical thickness.
+numerical tests; uniform coordinate scaling preserves optical thickness for corresponding samples.
 FP32 multiplication prevents overflow in tiny world units.
 
 At 15188, original versus canonical-reference gives
@@ -263,7 +266,7 @@ parameterization and SH in the room task. Final retention depends on the pending
 component-removal and transfer results; there is no claim of complete texture
 recovery, all-seed robustness or unseen-benchmark generalization.
 
-Remaining: finish long actor/room and fight checks; choose the smallest recipe
+Remaining: finish long room and fight checks; choose the smallest recipe
 passing both domains; save its selected native outputs and common camera path;
 remove unused production controls; run focused checks and commit the final code,
 recipes, architecture note and report.
