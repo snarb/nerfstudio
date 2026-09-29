@@ -1,0 +1,16 @@
+{
+  "original_runtime_commit": "518bef34",
+  "original_runtime_sha256": "b4f2713bbc27c448051f2ed492119082384ac47687e644d322407b62e75438ba",
+  "reference_runtime_commit": "6e7c774c",
+  "reference_runtime_sha256": "63b7f9991e8c96e6eb931dde4eba973505d1d56a03130f68dfc7f0a4478feef4",
+  "verified_diff": [
+    "Optional explicit AABB override, inactive on fight",
+    "Persist immutable request JSON before setting the random seed"
+  ],
+  "unchanged": [
+    "Training updates and callbacks",
+    "Evaluation and RNG restoration",
+    "Metric calculations",
+    "Thread count, seed and TF32 setting"
+  ]
+}
