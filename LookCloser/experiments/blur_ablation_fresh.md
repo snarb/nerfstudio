@@ -132,6 +132,7 @@ The bounds are a data recipe, not a per-pixel rendering correction.
 | Original | 14.797 / .73208 / .77829 | 17.499 / .67597 / .66204 | 27.635 / .68848 / .56359 |
 | Only tighter bounds | 21.311 / .77495 / .52494 | 21.729 / .68824 / .53915 | 25.945 / .65297 / .56149 |
 | Tight bounds + canonical-scaled softplus | **23.546 / .81642 / .42234** | **26.419 / .76474 / .36337** | 27.564 / .70788 / .44904 |
+| Tight bounds + FP32 exponential | 23.406 / .82677 / .39479 | 27.299 / .78209 / .32955 | 27.951 / .72167 / .41225 |
 | Tight bounds + FP32 exponential + SH | **24.966 / .83957 / .36379** | **28.721 / .79622 / .29865** | **28.360 / .72861 / .39544** |
 
 The last bundle passes the8000-step quality screen: +11.223 dB eval detail,
@@ -154,12 +155,18 @@ The large gain is not explained by more sampled points. These counts are a
 compute proxy, not matched FLOPs; per-job wall times are not directly comparable
 because the jobs shared a GPU. [Recorded counts](assets/blur_ablation_fresh/room_sample_counts.json).
 
-Component removal is ongoing. At 2000, removing SH from the successful tight-room
-exponential recipe lowers detail25.48294→23.37704; removing exponential while
-keeping SH/FP32 lowers it to 21.07263. Weak foreground SH effects must not be
-extrapolated to this room interaction. Canonical-scaled softplus + SH is being
+At 8000, removing SH from the tight-room exponential recipe lowers eval detail
+28.72132→27.29872 dB and train detail 28.35982→27.95106, with worse SSIM/LPIPS.
+SH has a substantial conditioned contribution in this domain.
+[Completed removal](assets/blur_ablation_fresh/room_sh_removal_completed.json),
+[faces](assets/blur_ablation_fresh/room_sh_removal_eval_face.jpg),
+[hair](assets/blur_ablation_fresh/room_sh_removal_eval_hair.jpg).
+The activation removal is still running: at 2000, replacing exponential with
+softplus while keeping SH/FP32 lowers detail 25.48294→21.07263.
+Weak foreground SH effects must not be extrapolated to this room interaction.
+Canonical-scaled softplus + SH is being
 tested as a possible replacement for exponential. The 24k exponential/SH room
-validation is running; a24k canonical-softplus/bounds request is prepared.
+validation is running; a 24k canonical-softplus/bounds request is prepared.
 
 ![All eval faces, matched8000: GT then RGB in each cell](assets/blur_ablation_fresh/room_bounds8k_eval_face.jpg)
 
