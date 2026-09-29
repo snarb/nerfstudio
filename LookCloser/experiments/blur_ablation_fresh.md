@@ -181,3 +181,22 @@ on train33 uses an approximate historical mesh reference. Original step8000
 has median expected ray depth .607 versus reference .813, while a local
 density peak remains near the reference surface. This suggests substantial
 opacity in front of the face; the imperfect mesh is not declared ground truth.
+
+The [dense-warmup frozen renderer audit](assets/blur_ablation_fresh/dense_warmup_rendering_audit.json)
+uses step4000, trained with fixed1024. Corrected ARM allocation raises one train
+face from 24.023 to 26.003 dB but lowers the eval face from 19.048 to 18.206 dB;
+fixed4096 also fails to recover sharp held-out detail. No renderer-only fix is
+promoted from these mixed results.
+
+The long original run reaches 14.843 dB at step8000, versus 14.797 for the
+short screening run with the same seed. The same-seed runs are not bitwise identical; their eval schedules and GPU
+concurrency differ. Evaluation restores RNG, and initialization and first
+sampled batches match. This is not a between-seed uncertainty estimate. Differences of
+hundredths of a dB are not treated as meaningful, and no cross-seed robustness
+is claimed.
+
+Pending controls also separate learning-rate choices from field changes:
+initial LR .001 versus .01, and decay horizon8000 versus200000. Additional
+exp+SH and exp+SH+bounds controls are prepared to test interactions before
+rejecting a component solely on its standalone result. Each request records
+one changed training condition against its named parent.

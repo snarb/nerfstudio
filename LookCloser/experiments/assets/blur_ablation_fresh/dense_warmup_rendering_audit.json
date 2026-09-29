@@ -1,0 +1,107 @@
+{
+  "checkpoint": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/audit_r7_rendering/snapshot.pt",
+  "checkpoint_sha256": "c4269c1f7d4b25b3a2241583518efd0824a8ecf04c663bf65c9aad4689089d54",
+  "step": 4000,
+  "stride": 2,
+  "order": [
+    "GT",
+    "original",
+    "corrected_allocator",
+    "fixed256",
+    "fixed1024",
+    "fixed4096"
+  ],
+  "results": [
+    {
+      "split": "train",
+      "index": 33,
+      "mode": "original",
+      "psnr": 24.023387908935547,
+      "ssim": 0.7041041851043701,
+      "lpips": 0.45671346783638,
+      "mean_opacity": 0.6729483604431152
+    },
+    {
+      "split": "train",
+      "index": 33,
+      "mode": "corrected_allocator",
+      "psnr": 26.003440856933594,
+      "ssim": 0.7251356840133667,
+      "lpips": 0.4184364378452301,
+      "mean_opacity": 0.7048061490058899
+    },
+    {
+      "split": "train",
+      "index": 33,
+      "mode": "fixed256",
+      "psnr": 24.8402042388916,
+      "ssim": 0.6721315979957581,
+      "lpips": 0.38428476452827454,
+      "mean_opacity": 0.7054683566093445
+    },
+    {
+      "split": "train",
+      "index": 33,
+      "mode": "fixed1024",
+      "psnr": 25.28894805908203,
+      "ssim": 0.7067579030990601,
+      "lpips": 0.42729517817497253,
+      "mean_opacity": 0.7064728736877441
+    },
+    {
+      "split": "train",
+      "index": 33,
+      "mode": "fixed4096",
+      "psnr": 26.110183715820312,
+      "ssim": 0.7357569336891174,
+      "lpips": 0.4561351537704468,
+      "mean_opacity": 0.7052246928215027
+    },
+    {
+      "split": "eval",
+      "index": 0,
+      "mode": "original",
+      "psnr": 19.04779624938965,
+      "ssim": 0.592104971408844,
+      "lpips": 0.6608022451400757,
+      "mean_opacity": 0.7499373555183411
+    },
+    {
+      "split": "eval",
+      "index": 0,
+      "mode": "corrected_allocator",
+      "psnr": 18.20598793029785,
+      "ssim": 0.5806742906570435,
+      "lpips": 0.6526602506637573,
+      "mean_opacity": 0.7811746597290039
+    },
+    {
+      "split": "eval",
+      "index": 0,
+      "mode": "fixed256",
+      "psnr": 17.687589645385742,
+      "ssim": 0.4922795593738556,
+      "lpips": 0.6760082840919495,
+      "mean_opacity": 0.7799232602119446
+    },
+    {
+      "split": "eval",
+      "index": 0,
+      "mode": "fixed1024",
+      "psnr": 18.139719009399414,
+      "ssim": 0.5774815082550049,
+      "lpips": 0.643816351890564,
+      "mean_opacity": 0.7826489806175232
+    },
+    {
+      "split": "eval",
+      "index": 0,
+      "mode": "fixed4096",
+      "psnr": 18.179119110107422,
+      "ssim": 0.590828537940979,
+      "lpips": 0.66346275806427,
+      "mean_opacity": 0.7831429839134216
+    }
+  ],
+  "seconds": 9.833946731872857
+}

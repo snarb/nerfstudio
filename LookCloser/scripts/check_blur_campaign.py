@@ -28,6 +28,8 @@ def main():
         history = output/'history.json'
         last = json.loads(history.read_text())[-1] if history.exists() else None
         runs.append(dict(run=output.name,pid=process['pid'],controller=process['ppid'],
+             controller_alive=any(p['pid']==process['ppid'] for p in processes),
+             worker_status=process['status'],
              progress=json.loads(progress.read_text()) if progress.exists() else None,
              last_eval=None if last is None else {k:last[k] for k in ['step','eval_all_psnr','eval_all_ssim','eval_all_lpips']},
              oom='out of memory' in (output/'stdout.log').read_text(errors='replace').lower()))
@@ -37,8 +39,9 @@ def main():
                   charged_hours=consumed_seconds(args.root)/3600)
     with (args.root/'manual_checks.jsonl').open('a') as stream:
         stream.write(json.dumps(record)+'\n')
-    compact = [dict(run=r['run'],pid=r['pid'],step=(r['progress'] or {}).get('step'),
-                    last_eval=r['last_eval'],oom=r['oom']) for r in runs]
+    compact = [dict(run=r['run'],step=(r['progress'] or {}).get('step'),
+                    eval_psnr=None if r['last_eval'] is None else round(r['last_eval']['eval_all_psnr'],3),
+                    controller_alive=r['controller_alive'],oom=r['oom']) for r in runs]
     print(json.dumps(dict(runs=compact,gpu=record['gpu'],charged_hours=round(record['charged_hours'],3))))
 
 
