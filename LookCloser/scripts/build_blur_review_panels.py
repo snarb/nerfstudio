@@ -20,17 +20,27 @@ def main():
         folder = args.root / name
         selection = json.loads((folder / 'selection.json').read_text())
         step = args.step or int(Path(selection['path']).stem.split('_')[-1])
-        request = json.loads((folder / 'request.json').read_text())
+        request_path = folder / 'request.json'
+        if not request_path.exists():
+            request_path = Path(__file__).resolve().parents[1] / 'experiments/assets/blur_ablation_fresh' / f'{name}.json'
+        request = json.loads(request_path.read_text())
+        if Path(request['output']).resolve() != folder.resolve():
+            raise ValueError(f'Request output does not match the reviewed run: {request_path}')
         sources.append((name, step, folder / f'eval_{step:06d}', request))
     manifest = []
     for split in ['train', 'eval']:
         indices = sources[0][3].get('train_review_indices', [0]) if split == 'train' else [0, 1, 2]
         for region in args.regions:
+            available = [index for index in indices if any(
+                (folder / f'{split}_{index:03d}_{region}.png').exists()
+                for _, _, folder, _ in sources)]
+            if not available:
+                continue
             width, height = 400, 240
-            sheet = Image.new('RGB', (width * len(sources), height * len(indices)), (30, 30, 30))
+            sheet = Image.new('RGB', (width * len(sources), height * len(available)), (30, 30, 30))
             draw = ImageDraw.Draw(sheet)
             for column, (name, step, folder, _) in enumerate(sources):
-                for row, index in enumerate(indices):
+                for row, index in enumerate(available):
                     path = folder / f'{split}_{index:03d}_{region}.png'
                     with Image.open(path) as raw:
                         picture = raw.convert('RGB')

@@ -342,3 +342,14 @@ comparison, not a one-factor attribution.
 [eval faces](assets/blur_ablation_fresh/room_canonical_sh/eval_face.jpg),
 [eval hair](assets/blur_ablation_fresh/room_canonical_sh/eval_hair.jpg),
 [train faces](assets/blur_ablation_fresh/room_canonical_sh/train_face.jpg).
+
+### Intermediate combined-recipe transfer
+
+At15188 on fight, safe exponential plus corrected SH gives
+28.89501/.65961/.35245 versus original28.77557/.65091/.36464. All three regression
+limits pass at this intermediate boundary. Reviewed hand/finger and equipment
+crops show no new conspicuous artifact, with fine detail still imperfect.
+This is a combined-recipe transfer check; it does not attribute the gain to a
+single component. The30376 result remains required.
+[Metrics](assets/blur_ablation_fresh/fight_exp_sh_early.json),
+[crops](assets/blur_ablation_fresh/fight_interim/eval_fingers.jpg).
