@@ -453,3 +453,21 @@ The completed lower-LR screen worsens detail at8000: original
 Together with the independently faster-decay control, this rejects lowering
 these learning-rate settings as the main full-room blur fix.
 [Both complete LR screens](assets/blur_ablation_fresh/real_lr_completed.json).
+
+### Completed activation-precision removal at reference3
+
+At8000, FP32 versus FP16 softplus activation gives eval detail
+**23.02297 / .68431 / .39134 → 23.00029 / .68400 / .38814**.
+Train detail changes23.50000→23.38613. FP32 before softplus has no material
+quality benefit at this gate; both retain FP32 multiplication by3/span.
+The simpler configuration improves eval detail by7.43135 dB over original
+legacy-SH/FP16 softplus. Native views still show soft hair and some distorted
+features, so this is recovery from collapse rather than complete detail recovery.
+[Completed records](assets/blur_ablation_fresh/actor_reference_precision_completed.json).
+![Precision removal, training faces](assets/blur_ablation_fresh/actor_reference_precision_train_face.jpg)
+![Precision removal, eval hair](assets/blur_ablation_fresh/actor_reference_precision_eval_hair.jpg)
+
+A separate safe-exponential fight transfer request is prepared, conditional on
+the tight-room component-removal results. It tests the numerically safe recipe
+(exponential plus the required FP32 exponentiation), not independent precision
+attribution on fight. It has no one-factor parent and is not yet a result.
