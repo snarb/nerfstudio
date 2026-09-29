@@ -29,6 +29,9 @@ def main():
                 regions = sorted({r for v in views for r in v['rois']})
                 row[split+'_rois'] = {r:{k:mean(v['rois'][r][k] for v in views if r in v['rois'])
                                         for k in ['psnr','ssim','lpips']} for r in regions}
+                details = [v['rois'][r] for v in views for r in ['face','hair','lipstick'] if r in v['rois']]
+                if details:
+                    row[split+'_detail'] = {k:mean(d[k] for d in details) for k in ['psnr','ssim','lpips']}
             rows.append(row)
     args.output.parent.mkdir(parents=True,exist_ok=True)
     args.output.write_text(json.dumps(rows,indent=2)+'\n')

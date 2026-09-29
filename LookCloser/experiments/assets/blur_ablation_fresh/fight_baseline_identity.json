@@ -1,0 +1,12 @@
+{
+  "initial_weights": "a84f0a2d57ec71d503e386510835faae9f9a8e35ed90bc7479c0381d1b45b09e",
+  "train_count": 66,
+  "eval_count": 3,
+  "transforms_sha256": "022f8748a1a039861a754e68ab3ef830beeb3e5dd94ccb00457a630d28f64aa1",
+  "torch": "2.7.1+cu128",
+  "gpu": "NVIDIA RTX PRO 6000 Blackwell Workstation Edition",
+  "seed": 42,
+  "model_source": "bceaf8e7d7dc93ad5b17b5206795023ea1c6cdfcb5b7345cac6328dae1799760",
+  "field_source": "032fe88dede44e5452778c81e48ff9802f827956298d993d7a0e7169e7e45b87",
+  "runtime_source": "b4f2713bbc27c448051f2ed492119082384ac47687e644d322407b62e75438ba"
+}

@@ -84,7 +84,9 @@ same control. Transfer to real full-scene training is still unverified.
 
 The final selector uses mean full-frame eval PSNR across all held-out cameras,
 with LPIPS breaking ties within .07 dB. Matched-step comparisons remain separate.
-Acceptance requires ≥.5 dB detail improvement with supporting SSIM/LPIPS and
+The primary detail score is the equal-weight mean over face/hair/lipstick
+rectangles across the three eval cameras (nine rectangles); the three train
+cameras are diagnostic. Acceptance requires ≥.5 dB detail improvement with supporting SSIM/LPIPS and
 visible train/eval improvement; fight tolerance is .10 dB PSNR / .005 SSIM /
 .01 LPIPS with no new visible defect. No between-seed robustness is claimed.
 
@@ -108,3 +110,18 @@ must not be presented as an already proven explanation of the real failure.
 The calibrated input cameras and color profiles predate this experiment; some
 held-out views were examined during earlier development. This is a paired
 regression benchmark, not an untouched generalization benchmark.
+
+### Fresh fight baseline
+
+| Updates | Eval PSNR ↑ | SSIM ↑ | LPIPS ↓ |
+| --- | ---: | ---: | ---: |
+| 15188 | 28.7756 | .65091 | .36464 |
+| **30376, selected** | **29.4741** | **.67341** | **.29662** |
+
+Native all-three-view [metrics](assets/blur_ablation_fresh/fight_baseline_metrics.json),
+[input hashes](assets/blur_ablation_fresh/fight_input_hashes.json) and
+[initialization receipt](assets/blur_ablation_fresh/fight_baseline_identity.json).
+Visual review of full frames and fingers shows no lipstick-like collapse.
+This is the fresh regression control, not the longer historical Stage-A→FR.3 leader.
+
+![Fight baseline: GT / learned RGB](assets/blur_ablation_fresh/fight_baseline_fingers.png)

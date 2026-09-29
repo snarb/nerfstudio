@@ -1,0 +1,17 @@
+{
+  "source": "/mnt/data/dec5_lookcloser_mesh_distillation_v1/geometry.json",
+  "source_sha256": "d0d0e5bd6fb3fc2f807be3d6269c6b139175139ac0d0cd22e7c781544eb2b557",
+  "bounds": [
+    [
+      -0.6149862753599882,
+      -0.12560394430719315,
+      -0.7342630175501108
+    ],
+    [
+      0.239327352270484,
+      1.3279411810468882,
+      0.6021449870616198
+    ]
+  ],
+  "rule": "union of historical actor and full-background bounds, plus 5% padding on each axis; no pixels or masks discarded; validate visual coverage"
+}
