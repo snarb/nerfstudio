@@ -21,7 +21,10 @@ shared. Historical numbers are not used as a paired baseline.
 
 Real benchmark: fixed calibrated RGB for DEC5 `000973`, 62 train / **3** eval,
 1920×1080; the two additional held-out cameras use identity color profiles and
-the same frozen exposure. No eval RGB fits a profile, geometry or frequency map.
+the same frozen exposure. This campaign fits no profile or geometry from eval
+RGB and fits frequency maps on train RGB only. Historical camera calibration
+and mesh-derived masks are reused; their provenance does not establish an
+untouched holdout. This is a paired regression benchmark.
 The real room remains in training and full-frame evaluation. Native GT-only
 detail rectangles are fixed before real training. Full-image frequency maps are
 fitted on train images only, 1000 updates/level as in the local paper.
@@ -232,3 +235,15 @@ untrained background, so this diagnostic **cannot pass full-scene acceptance**;
 the face/hair/lipstick scores address the historical foreground claim.
 [Train mask receipt](assets/blur_ablation_fresh/actor_mask_receipt.json);
 [shared real RGB hashes](assets/blur_ablation_fresh/real_input_hashes.json).
+
+### Long original control, completed
+
+The fresh original full-room run finishes 24000 updates. At matched step24000:
+full eval **14.419 / .73231 / .74986**, eval detail **17.373 / .68612 / .62831**,
+train detail **29.512 / .73039 / .47782** (PSNR / SSIM / LPIPS).
+The full-frame selector chooses step8000 (14.843 dB); the separate shorter
+original screen had a better early step2000 (16.690 dB). Neither is omitted
+when judging a candidate. More updates improve train fit but leave visible
+held-out ghosting and blur. [Metrics and selection](assets/blur_ablation_fresh/real_original_long.json).
+
+![Original 24000, eval face: GT / prediction](assets/blur_ablation_fresh/v0_original_24000_eval_000_face.png)

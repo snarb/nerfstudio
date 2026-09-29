@@ -1,0 +1,72 @@
+{
+  "history": [
+    {
+      "step": 8000,
+      "eval_stride": 1,
+      "eval_all_psnr": 14.842778841654459,
+      "eval_all_ssim": 0.7330214778582255,
+      "eval_all_lpips": 0.7761806646982828,
+      "train_detail": {
+        "psnr": 27.52423816257053,
+        "ssim": 0.6874023212326897,
+        "lpips": 0.564081910583708
+      },
+      "eval_detail": {
+        "psnr": 17.376415676540798,
+        "ssim": 0.6755896376238929,
+        "lpips": 0.664455403884252
+      }
+    },
+    {
+      "step": 16000,
+      "eval_stride": 1,
+      "eval_all_psnr": 14.493505477905273,
+      "eval_all_ssim": 0.7318986852963766,
+      "eval_all_lpips": 0.756739338239034,
+      "train_detail": {
+        "psnr": 28.856613159179688,
+        "ssim": 0.7155887848801084,
+        "lpips": 0.5008039573828379
+      },
+      "eval_detail": {
+        "psnr": 17.39431561364068,
+        "ssim": 0.6835522684786055,
+        "lpips": 0.6366566949420505
+      }
+    },
+    {
+      "step": 24000,
+      "eval_stride": 1,
+      "eval_all_psnr": 14.4188601175944,
+      "eval_all_ssim": 0.7323110103607178,
+      "eval_all_lpips": 0.7498616178830465,
+      "train_detail": {
+        "psnr": 29.511648813883465,
+        "ssim": 0.7303927607006497,
+        "lpips": 0.47782467471228707
+      },
+      "eval_detail": {
+        "psnr": 17.37253761291504,
+        "ssim": 0.6861209505134158,
+        "lpips": 0.6283127963542938
+      }
+    }
+  ],
+  "selection": {
+    "path": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/v0_original/candidate_008000.pt",
+    "psnr": 14.842778841654459,
+    "lpips": 0.7761806646982828
+  },
+  "identity": {
+    "initial_weights": "a84f0a2d57ec71d503e386510835faae9f9a8e35ed90bc7479c0381d1b45b09e",
+    "train_count": 62,
+    "eval_count": 3,
+    "transforms_sha256": "5af501cd267ad7ca6ea6f64b4ffeea2589b1d9f00e02339f7e51bc96d22742dd",
+    "torch": "2.7.1+cu128",
+    "gpu": "NVIDIA RTX PRO 6000 Blackwell Workstation Edition",
+    "seed": 42,
+    "model_source": "bceaf8e7d7dc93ad5b17b5206795023ea1c6cdfcb5b7345cac6328dae1799760",
+    "field_source": "032fe88dede44e5452778c81e48ff9802f827956298d993d7a0e7169e7e45b87",
+    "runtime_source": "63b7f9991e8c96e6eb931dde4eba973505d1d56a03130f68dfc7f0a4478feef4"
+  }
+}
