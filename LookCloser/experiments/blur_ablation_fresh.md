@@ -2,8 +2,14 @@
 
 ## What was tested
 
-**Status: all lipstick validations and exponential/SH fight transfer are complete.
-The final fight check for unit-gain identity is running. No new default is promoted.**
+**Complete. Retain explicit scene recipes; keep standard defaults unchanged.**
+
+- Masked lipstick actor: canonical density scale is the minimal validated fix,
+  adding 7.40 dB eval detail and 7.18 dB train detail in fresh long validation.
+- Full lipstick frame: tight bounds + safe exponential + corrected SH is the
+  preferred validated recipe. Its activation/SH pair passes the original fight check.
+- Canonical normalization is **not promoted globally**: even with unit-gain
+  identity, the fight run misses the strict SSIM limit. That limitation is retained.
 
 2026-09-29. Base `630d58bd`; historical candidate `8389770b`; working branch
 `lookcloser-blur-validated`. Main is unchanged. Every run starts from random
@@ -18,12 +24,14 @@ be pooled. The historical successful recipe trained a masked actor, not the room
 
 | Domain | Data and supervision | Configuration |
 | --- | --- | --- |
-| Synthetic diagnostic | One teacher train camera, two teacher eval cameras; valid pixels | 128 fixed samples, hash19, 2048 rays |
+| Synthetic diagnostic | One teacher train camera, two teacher eval cameras; valid pixels | 128 fixed samples, `log2_hashmap_size=19`, 2048 rays |
 | Actual single-camera diagnostic | Actual train33 photo and mask; same camera evaluated | Diagnostic only, no held-out claim |
-| Masked actor | 62 train / 3 eval, actual HD RGB, historical masks; AABB span .14812 | 256 fixed samples, hash21, uniform valid pixels; LR .01→.001 over 12000 |
-| Full room | Same 62/3 actual RGB/calibration; all pixels | Hash23, 256-sample warmup through 4096 then adaptive sampling; LR .01→.0001 over 200000 |
+| Masked actor | 62 train / 3 eval, actual HD RGB, historical masks; AABB span .14812 | 256 fixed samples, `log2_hashmap_size=21`, uniform valid pixels; LR .01→.001 over 12000 |
+| Full room | Same 62/3 actual RGB/calibration; all pixels | `log2_hashmap_size=23`, 256-sample warmup through 4096 then adaptive sampling; LR .01→.0001 over 200000 |
 | Fight `007740` | Original 66 train / 3 eval | Bounded Stage A, 30376 updates |
 
+Component attributions use one changed condition per pair; final transfers
+compare complete recipes and do not claim single-factor attribution.
 Real runs use 4096 rays, unchanged Charbonnier supervision and regularization.
 Screens run 8000 steps, evaluating every 2000. Long lipstick validations run
 24000, evaluating every 8000. Three train cameras and all three eval cameras
@@ -207,6 +215,7 @@ per-job wall times are not directly comparable.
 | SH only | 29.46895 | .66643 | .28515 | Fails SSIM |
 | Softplus / AABB span | 28.76697 | .67299 | .31341 | Fails PSNR and LPIPS |
 | Canonical 3/span, unconditional FP32 output | 29.42683 | .66527 | .29439 | Fails SSIM |
+| Canonical with exact-unit-gain identity | 29.42984 | .66738 | .29979 | Fails SSIM |
 | Safe exponential + corrected SH | **29.51649** | **.67501** | **.29078** | **Passes all limits** |
 
 All selected exponential/SH train/eval frames and saved hand/equipment crops
@@ -229,8 +238,22 @@ The model now resolves an **exact unit gain** to the legacy field path, includin
 dtype. There is no dataset-name lookup or tuned tolerance. Occupancy updates
 multiply density by a Python scalar: the previous cast changes all 65 audited
 values, by up to 1.59e-5. This is a concrete numerical difference, not proof that
-it caused the SSIM decline. The fresh identity run passes the intermediate gate
-(−.03797 dB PSNR, −.00255 SSIM, −.00247 LPIPS); **its final result is pending**.
+it caused the SSIM decline. The fresh identity run passes the intermediate gate,
+but its final deltas are **−.04426 dB PSNR, −.00603 SSIM, +.00317 LPIPS**. The SSIM
+limit is missed by .00103. All three train/eval frames and saved detail crops were
+inspected without a conspicuous new defect, but the numerical gate still fails.
+
+The reference field path now matches legacy values and dtype, so these runs do
+not isolate a causal quality regression from GPU/run variation. Nevertheless,
+we do not relax the gate or select another seed to obtain a pass. Standard
+LookCloser defaults remain unchanged. Canonical normalization stays an explicit
+lipstick recipe; the proposed fight canonical recipe is removed from the runnable
+recommendations. The full-room exponential/SH recipe has a completed passing
+fight transfer. These are scoped results, not a universal recipe guarantee.
+[Final identity check](assets/blur_ablation_fresh/fight_identity_completed.json),
+[full eval](assets/blur_ablation_fresh/fight_identity_final/eval_full.jpg),
+[train](assets/blur_ablation_fresh/fight_identity_final/train_full.jpg),
+[detail](assets/blur_ablation_fresh/fight_identity_final/eval_fingers.jpg).
 [Occupancy audit](assets/blur_ablation_fresh/unit_gain_occupancy_dtype.json),
 [interim result](assets/blur_ablation_fresh/fight_identity_early.json),
 [saved-config comparison](assets/blur_ablation_fresh/fight_canonical_config_diff.json),
@@ -277,9 +300,9 @@ Clipping, separate precision/reference controls and alternative frequency
 projection were removed. The full pre-cleanup ablation code is archived at
 `lookcloser-blur-ablation-archive`, commit `7a6ffd5f`. Requests requiring those
 removed controls use that version; the later identity test (`f7`) uses current
-code. Incompatible research checkpoints fail explicitly rather than silently
-changing their density math. Model-config legacy defaults remain unchanged;
-standard-preset promotion awaits the final identity check.
+code. Research checkpoints requiring removed controls fail explicitly rather than
+silently changing their density math. Both model-config and standard method-preset defaults remain unchanged.
+The validated recipes explicitly select the required field settings and bounds.
 
 **13 focused tests pass**, including optical thickness/gradients, FP32 exponential,
 SH contract, both density-query paths, checkpoint guards and occupancy dtype.
@@ -295,6 +318,8 @@ render parity, not an all-view or exact-resume proof.
 Trainer update. `supervise_blur_campaign.py` logs controller/worker liveness,
 progress, GPU memory and OOM evidence every 30 seconds. `review_blur_results.py`
 rebuilds the paired evidence; `build_blur_review_panels.py` rebuilds the figures.
+`finalize_blur_campaign.py` checks selections, recipes, source hashes, regression
+gates and all encoded review frames, producing the completion audit.
 Large datasets, checkpoints and native images are at
 `/home/brans/lookcloser_artifacts/blur_ablation_fresh`; source, recipes, reports
 and compact review evidence are committed here. The requested Ubuntu Conda is
@@ -302,7 +327,12 @@ inaccessible; runs use `/home/brans/repos/nerfstudio/.venv`, Torch 2.7.1+cu128 a
 one RTX PRO 6000. The installed imageio ffmpeg handles encoding and full decoding.
 
 The 24 GPU-hour budget counts the union of active intervals on this shared GPU,
-not the sum of concurrent job wall times. Supervision remains active until the
-last training and visual gate finish. The authorized checkpoint cleanup removed
+not the sum of concurrent job wall times. All 57 runs are complete; all 52
+executed one-condition pairs match initial weights and first batches. The
+prepared `f3_scaled_fp32` comparison was not run and contributes no evidence.
+Recorded active GPU intervals total **7.77 hours**; no training or rendering
+worker remains. All checkpoint selections were independently checked against
+the declared rule. [Completion audit](assets/blur_ablation_fresh/completion_audit.json).
+The authorized checkpoint cleanup removed
 96.45 GiB of old files owned by `brans`; other users' files were untouched.
 [Cleanup receipt](assets/blur_ablation_fresh/cleanup.jsonl).

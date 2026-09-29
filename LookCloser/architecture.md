@@ -6,7 +6,8 @@ The field keeps legacy softplus behavior for old checkpoints. The opt-in
 `canonical_aabb` mode multiplies density by `3 / max(AABB side lengths)` in
 FP32 after activation. Three is the original bounded fight scene's side length;
 the model resolves an exact unit gain to the legacy field path, preserving
-its activation dtype. Other spans scale in FP32 to support small scene units.
+its activation dtype. Other spans scale in FP32 to support small scene units. The canonical fight run misses the strict SSIM gate, so
+standard defaults remain legacy; canonical scale is an explicit lipstick recipe.
 `trunc_exp` always casts logits to FP32 before the bias and exponential, because
 TCNN outputs can overflow in FP16. The SH direction correction remains opt-in. Combined with safe exponential
 and tight room bounds it improves DEC5, and the activation/SH pair passes the

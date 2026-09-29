@@ -1,0 +1,133 @@
+{
+  "completed_runs": 57,
+  "seed": 42,
+  "executed_one_condition_pairs": 52,
+  "all_paired_initial_weights_and_first_32_batches_match": true,
+  "all_checkpoint_selections_verified": true,
+  "prepared_unrun_pairs": [
+    {
+      "parent": "f2_softplus_scaled",
+      "child": "f3_scaled_fp32"
+    }
+  ],
+  "tests": "13 passed; 2 existing AMP deprecation warnings",
+  "standard_defaults_unchanged": true,
+  "fight_gates": {
+    "f6_safe_exp_sh_transfer": {
+      "delta": {
+        "psnr": 0.042400360107421875,
+        "ssim": 0.0016015966733297082,
+        "lpips": -0.005833188692728697
+      },
+      "passed": true
+    },
+    "f7_canonical_identity": {
+      "delta": {
+        "psnr": -0.04425621032714844,
+        "ssim": -0.006026128927866581,
+        "lpips": 0.0031742652257283344
+      },
+      "passed": false
+    }
+  },
+  "recipes": [
+    {
+      "recipe": "recipes/blur_fixes/fight_exp_sh.json",
+      "sha256": "b8d392a869e546a7d3e9eb168f31a599549c9fa3c529742794b820698b7cdee0",
+      "activation": "trunc_exp",
+      "normalization": "none",
+      "correct_sh": true
+    },
+    {
+      "recipe": "recipes/blur_fixes/lipstick_actor.json",
+      "sha256": "b63a170fc6a34bb2e6cba00182cc84fa6e4dfe4a20f96f17925121b0a47fbff4",
+      "activation": "softplus",
+      "normalization": "canonical_aabb",
+      "correct_sh": false
+    },
+    {
+      "recipe": "recipes/blur_fixes/lipstick_room_canonical.json",
+      "sha256": "e88a020af251632d93664b516aa07ef477a590b52f23947205c40ee1cdd84380",
+      "activation": "softplus",
+      "normalization": "canonical_aabb",
+      "correct_sh": false
+    },
+    {
+      "recipe": "recipes/blur_fixes/lipstick_room_exp_sh.json",
+      "sha256": "9f9aa7b9d8fddfd482b50eaba948ab3d82363ae12a7eab515aed5bae7230c910",
+      "activation": "trunc_exp",
+      "normalization": "none",
+      "correct_sh": true
+    }
+  ],
+  "paths": [
+    {
+      "path": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/paths/actor_canonical",
+      "frames": 24,
+      "full_video_decode_checked": true,
+      "receipt_sha256": "9e6557796cd8e6bebf1f4d49dde585e34c512db3959e462025f35ba3540ece18",
+      "video_sha256": "eaf72bf43fb8b130ecb11c36f6f842b708a384a0fa57fcfb7fe3257a6d42d07f"
+    },
+    {
+      "path": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/paths/actor_comparison",
+      "frames": 24,
+      "full_video_decode_checked": true,
+      "receipt_sha256": "8d8d4352262b894d4621ccd89de778527c7bbc900ed7b876276eb430842dd77c",
+      "video_sha256": "69b9c9cf06d09d0e6d5b70e69ac8854dbb933ddd9eef886a43a89e49d88334e0"
+    },
+    {
+      "path": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/paths/actor_original",
+      "frames": 24,
+      "full_video_decode_checked": true,
+      "receipt_sha256": "78153c62a59958f4f19f606717b5fc679ffaaa82edd9236a50f45f76baf127b5",
+      "video_sha256": "5714d2bd635941ea54ad6b08a13341833bdbb77113f46dc0d1dfafeb398567c5"
+    },
+    {
+      "path": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/paths/room_canonical",
+      "frames": 24,
+      "full_video_decode_checked": true,
+      "receipt_sha256": "e08e11981f1c5af86d16b6c8bc29248d5de00b810d9ae46626204cb1822f6711",
+      "video_sha256": "2d280acff053a193e4da5b5707f9de1820cdba0349fe7577487d8abc14485b7f"
+    },
+    {
+      "path": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/paths/room_canonical_comparison",
+      "frames": 24,
+      "full_video_decode_checked": true,
+      "receipt_sha256": "c95c94068ed66ad0b67ce43c89a78262f9f0fd1b496847b711fcaaae29bfabbf",
+      "video_sha256": "359de573b97ca97039218cab139084ad990a7877c252095c2c476137b1f8a369"
+    },
+    {
+      "path": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/paths/room_comparison",
+      "frames": 24,
+      "full_video_decode_checked": true,
+      "receipt_sha256": "de39502ec27d068aab73fde3bc3372f1052145b5738aa0f9fcd2f4b634eb5dd9",
+      "video_sha256": "04d8986dc4fc75fb94dd3fe4bee966658ab777fe9fc7c99f6babce85769221d1"
+    },
+    {
+      "path": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/paths/room_exp_sh",
+      "frames": 24,
+      "full_video_decode_checked": true,
+      "receipt_sha256": "2e48d37c73a127acff1a3f2f82498a4e65d16216b914da6c1072b748b56433b5",
+      "video_sha256": "9ffe614a3b7fedb8e9c276c0584e0caa927188567d726338c64c052c64c4eef2"
+    },
+    {
+      "path": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/paths/room_original",
+      "frames": 24,
+      "full_video_decode_checked": true,
+      "receipt_sha256": "695e11ddabc854ef973dcbdcf43e6eeaa89a76d15a1be1e14ffd8302f8e3c702",
+      "video_sha256": "4df45d70af05a3b57b3ff5209c8e59ce77f4e88ceeefda6a844d03b775fc66f3"
+    }
+  ],
+  "source_sha256": {
+    "../nerfstudio/fields/lookcloser_field.py": "87e0d375ababedf830d259dd8d65afdd16dd6e2e5e0096352eaccc65f64a6724",
+    "../nerfstudio/models/lookcloser.py": "48c0d731b293d9a822c014fb939e7ff5abc848c5eaeff8896decff784253d192",
+    "../nerfstudio/pipelines/lookcloser_pipeline.py": "a8120516163373741d2bf31951470c77e2461dbfe7bcc04ba32ef3cdf59bc205",
+    "scripts/blur_runtime.py": "e558b045b4a26b3e2e7e728b92fa1c3827de631bcc7e3cf702ee7d7efa6952cc",
+    "scripts/finalize_blur_campaign.py": "62a94ae3fdbcfa0f97ff1a8f16b68f20d0bfe7d5002aa6d0eeb0099915e8367b"
+  },
+  "recorded_active_gpu_hours": 7.770946918129921,
+  "aggregate_concurrent_job_hours": 41.79360615413274,
+  "active_training_workers": 0,
+  "active_controllers": 0,
+  "last_supervision_check": 1790709900.0569715
+}
