@@ -125,3 +125,20 @@ Visual review of full frames and fingers shows no lipstick-like collapse.
 This is the fresh regression control, not the longer historical Stage-A→FR.3 leader.
 
 ![Fight baseline: GT / learned RGB](assets/blur_ablation_fresh/fight_baseline_fingers.png)
+
+### Real density-scale control, 8000 updates
+
+Identical initialization and first 32 pixel batches. All numbers are native
+float RGB; [full receipts](assets/blur_ablation_fresh/real_density_screen_initial.json).
+
+| Control | Full eval PSNR / SSIM / LPIPS | Eval detail PSNR / SSIM / LPIPS | Train detail PSNR / SSIM / LPIPS |
+| --- | --- | --- | --- |
+| Original | 14.797 / .73208 / .77829 | 17.499 / .67597 / .66204 | 27.635 / .68848 / .56359 |
+| Only inverse-AABB density | 15.923 / .74405 / .72526 | 17.618 / .67278 / .66897 | 26.973 / .67203 / .59745 |
+
+Scaling does **not** pass the real-detail gate: +.119 dB with worse SSIM/LPIPS,
+and worse train detail. It helps full-frame appearance at this step but does
+not remove facial blur. Full-frame selection chooses original step2000
+(16.690 / .74761 / .73014), versus scaled step8000
+(15.923 / .74405 / .72526). The early synthetic win is specific to the small
+actor box and its saturation failure; it is not a validated global real-scene fix.
