@@ -44,11 +44,19 @@ def main():
     runs = {d.name: read_run(d) for d in args.root.iterdir()
             if (d / 'history.json').exists() and (d / 'selection.json').exists()}
     pairs = []
+    specifications = []
     for path in sorted(args.requests.glob('*.json')):
         request = json.loads(path.read_text())
         if not isinstance(request, dict) or not request.get('comparison_parent'):
             continue
-        parent = request['comparison_parent']
+        specifications.append(dict(child=path.stem, parent=request['comparison_parent']))
+    additional = args.requests / 'additional_comparisons.json'
+    if additional.exists():
+        specifications.extend(json.loads(additional.read_text()))
+    for spec in specifications:
+        parent = spec['parent']
+        path = args.requests / (spec['child'] + '.json')
+        request = json.loads(path.read_text())
         changes = changed_conditions(json.loads(path.with_name(parent + '.json').read_text()), request)
         if len(changes) != 1:
             raise ValueError(f'{path.name}: expected one changed condition, got {changes}')

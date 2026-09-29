@@ -333,3 +333,14 @@ detail **22.51136 / .69306 / .38490** and train detail
 -.355 dB eval detail for slightly better SSIM/LPIPS; neither dominates.
 Both recover color compared with the common unscaled-softplus control.
 [Exponential-only paired evidence](assets/blur_ablation_fresh/actor_unscaled_exp_screen.json).
+
+The completed scaled-softplus precision control (legacy SH) differs by only
+.00363 dB eval detail between FP16 and FP32. FP16 gives
+**22.42666 / .66826 / .39628**, FP32 **22.42303 / .66828 / .39890**.
+FP32 remains a numerical-range safeguard, not a measured blur cure here.
+[Precision receipts](assets/blur_ablation_fresh/actor_precision_screen.json).
+
+Fast LR decay (horizon8000 instead of200000) fails the full-room screen:
+step8000 eval detail **16.10835 / .64032 / .76551**, down1.390 dB versus
+the original. Train detail also declines to **25.88656 / .63970 / .68253**.
+[LR receipts](assets/blur_ablation_fresh/real_fast_decay_screen.json).

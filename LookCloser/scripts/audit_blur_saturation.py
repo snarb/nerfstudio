@@ -5,7 +5,7 @@ from pathlib import Path
 import sys
 sys.path.insert(0,str(Path(__file__).resolve().parents[2]))
 import torch
-from blur_runtime import write
+from blur_runtime import write, sha
 
 
 @torch.no_grad()
@@ -13,7 +13,9 @@ def main():
     p=argparse.ArgumentParser();p.add_argument('checkpoints',type=Path,nargs='+');p.add_argument('--output',type=Path,required=True)
     args=p.parse_args();torch.set_num_threads(2);results=[]
     for path in args.checkpoints:
+        checkpoint_sha=sha(path)
         state=torch.load(path,map_location='cpu',weights_only=False)
+        if sha(path)!=checkpoint_sha:raise RuntimeError('Checkpoint changed while loading; pin a snapshot first')
         pipe=state['config'].pipeline.setup(device='cuda');pipe.load_pipeline(state['pipeline'],state['step']);pipe.eval()
         data=pipe.datamanager.train_dataset[0]
         valid=data.get('mask',torch.ones_like(data['image'][...,:1],dtype=torch.bool))[...,0].bool()
@@ -21,7 +23,7 @@ def main():
         rays=pipe.datamanager.train_dataset.cameras[0:1].to('cuda').generate_rays(0,coords=coords)
         out=pipe.model(rays);opacity=out['accumulation'].float()
         effective_rgb=out['rgb'].float()/opacity.clamp_min(1e-8)
-        results.append(dict(checkpoint=str(path),step=state['step'],
+        results.append(dict(checkpoint=str(path),checkpoint_sha256=checkpoint_sha,step=state['step'],
             mean_opacity=float(opacity.mean()),mean_effective_rgb=effective_rgb.mean(0).cpu().tolist(),
             channel_saturation_fraction=(effective_rgb>.99).float().mean(0).cpu().tolist(),
             white_saturation_fraction=float((effective_rgb.min(-1).values>.99).float().mean()),
