@@ -6,6 +6,11 @@ from pathlib import Path
 from PIL import Image, ImageDraw
 
 
+def panel_path(folder, split, index, region):
+    suffix = 'panel.jpg' if region == 'full' else f'{region}.png'
+    return folder / f'{split}_{index:03d}_{suffix}'
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('root', type=Path)
@@ -32,22 +37,23 @@ def main():
         indices = sources[0][3].get('train_review_indices', [0]) if split == 'train' else [0, 1, 2]
         for region in args.regions:
             available = [index for index in indices if any(
-                (folder / f'{split}_{index:03d}_{region}.png').exists()
+                panel_path(folder, split, index, region).exists()
                 for _, _, folder, _ in sources)]
             if not available:
                 continue
-            width, height = 400, 240
+            width, height = (720, 180) if region == 'full' else (400, 240)
             sheet = Image.new('RGB', (width * len(sources), height * len(available)), (30, 30, 30))
             draw = ImageDraw.Draw(sheet)
             for column, (name, step, folder, _) in enumerate(sources):
                 for row, index in enumerate(available):
-                    path = folder / f'{split}_{index:03d}_{region}.png'
+                    path = panel_path(folder, split, index, region)
                     with Image.open(path) as raw:
                         picture = raw.convert('RGB')
                         picture.thumbnail((width - 8, height - 42))
                     x, y = column * width + 4, row * height
                     draw.text((x, y + 3), f'{name} / {step}', fill='white')
-                    draw.text((x, y + 17), f'{split}{index}: {region} / GT | RGB', fill='white')
+                    components = 'GT | RGB | opacity' if region == 'full' else 'GT | RGB'
+                    draw.text((x, y + 17), f'{split}{index}: {region} / {components}', fill='white')
                     sheet.paste(picture, (x, y + 38))
                     manifest.append(dict(source=str(path), run=name, step=step,
                                          split=split, index=index, region=region))
