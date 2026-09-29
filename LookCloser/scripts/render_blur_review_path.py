@@ -1,6 +1,8 @@
 """Render a short learned-RGB path through the three held-out camera poses."""
 import argparse
+import json
 from pathlib import Path
+import shutil
 import subprocess
 import sys
 import time
@@ -12,14 +14,40 @@ from nerfstudio.cameras.camera_paths import get_interpolated_camera_path
 from blur_runtime import write, sha
 
 
+def encode(output, metadata, executable=None):
+    if executable is None:
+        try:
+            from imageio_ffmpeg import get_ffmpeg_exe
+            executable=get_ffmpeg_exe()
+        except ImportError:
+            executable=shutil.which('ffmpeg')
+    if executable is None:raise RuntimeError('Set --ffmpeg to an available encoder')
+    expected=[output/f'frame_{i:03d}.png' for i in range(metadata['frames'])]
+    if sorted(output.glob('frame_*.png'))!=expected:raise ValueError('Unexpected review frame sequence')
+    subprocess.run([executable,'-hide_banner','-loglevel','error','-y','-framerate','6',
+                    '-i',str(output/'frame_%03d.png'),'-c:v','libx264','-crf','18',
+                    '-threads','2','-pix_fmt','yuv420p',str(output/'learned_rgb.mp4')],check=True)
+    write(output/'complete.json',dict(metadata,encoder=executable,
+          video_sha256=sha(output/'learned_rgb.mp4')))
+
+
 @torch.no_grad()
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('checkpoint',type=Path)
     parser.add_argument('--output',type=Path,required=True)
+    parser.add_argument('--encode-only',action='store_true',help='Retry encoding an already recorded render')
+    parser.add_argument('--ffmpeg',help='Override the bundled imageio encoder or system fallback')
     args=parser.parse_args();args.output.mkdir(parents=True,exist_ok=True)
+    if args.encode_only:
+        metadata=json.loads((args.output/'render_complete.json').read_text())
+        if metadata['checkpoint_sha256']!=sha(args.checkpoint):raise ValueError('Checkpoint differs from the recorded render')
+        encode(args.output,metadata,args.ffmpeg)
+        return
     torch.set_num_threads(2);start=time.monotonic()
+    checkpoint_sha=sha(args.checkpoint)
     state=torch.load(args.checkpoint,map_location='cpu',weights_only=False)
+    if checkpoint_sha!=sha(args.checkpoint):raise RuntimeError('Checkpoint changed while loading')
     pipe=state['config'].pipeline.setup(device='cuda')
     pipe.load_pipeline(state['pipeline'],state['step']);pipe.eval()
     ds=pipe.datamanager.eval_dataset
@@ -49,14 +77,13 @@ def main():
     y=0
     for img in contact:sheet.paste(img,(0,y));y+=img.height
     sheet.save(args.output/'contact.jpg')
-    subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-y','-framerate','6',
-                    '-i',str(args.output/'frame_%03d.png'),'-c:v','libx264','-crf','18',
-                    '-pix_fmt','yuv420p',str(args.output/'learned_rgb.mp4')],check=True)
-    write(args.output/'complete.json',dict(checkpoint=str(args.checkpoint),
-          checkpoint_sha256=sha(args.checkpoint),step=state['step'],
+    metadata=dict(checkpoint=str(args.checkpoint),
+          checkpoint_sha256=checkpoint_sha,step=state['step'],
           seconds=time.monotonic()-start,frames=len(cameras),render='learned RGB only',
           finite_rgb_checked=True,
-          note='Interpolated views are a visual stability check; no ground-truth metrics exist for them.'))
+          note='Interpolated views are a visual stability check; no ground-truth metrics exist for them.')
+    write(args.output/'render_complete.json',metadata)
+    encode(args.output,metadata,args.ffmpeg)
 
 
 if __name__=='__main__':main()

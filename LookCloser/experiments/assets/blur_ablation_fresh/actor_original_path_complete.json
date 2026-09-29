@@ -1,0 +1,13 @@
+{
+  "checkpoint": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/v_actor_original/best.pt",
+  "checkpoint_sha256": "e7a591a16bef8c5cf22934c24b3d29ff0340cc7e00a389291484af481ebc9591",
+  "step": 16000,
+  "frames": 24,
+  "render": "learned RGB only",
+  "finite_rgb_checked": true,
+  "seconds": null,
+  "recovery_note": "All 24 frames passed the renderer finite check before the system ffmpeg symbol-lookup error. Reconstructed receipt from the completed training checkpoint, frame sequence and render log; render duration was not recorded.",
+  "note": "Interpolated views have no ground-truth metrics.",
+  "encoder": "/home/brans/repos/nerfstudio/.venv/lib/python3.10/site-packages/imageio_ffmpeg/binaries/ffmpeg-linux-x86_64-v7.0.2",
+  "video_sha256": "5714d2bd635941ea54ad6b08a13341833bdbb77113f46dc0d1dfafeb398567c5"
+}

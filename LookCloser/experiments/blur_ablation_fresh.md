@@ -523,3 +523,44 @@ measurements support sigmoid saturation with opacity carrying grayscale
 structure. They are a local sensitivity diagnostic, not a claim that every
 training gradient or all sources of blur have been explained.
 [Color-head audit](assets/blur_ablation_fresh/actor_color_gradient.json).
+
+### Completed unit-reference fight regression
+
+At30376 (selected for both), original versus1/span softplus gives
+**29.47409 / .67341 / .29662 → 28.76697 / .67299 / .31341**.
+PSNR worsens .70713 dB and LPIPS .01679, failing the transfer gates.
+[Native completed pair](assets/blur_ablation_fresh/fight_unit_reference_completed.json).
+The reference3 transfer is still running. The exp+SH tight-room bundle has
+passed the8000-step room visual gate and is now undergoing its own fresh fight
+transfer, with the original fight bounds. This is a recipe-transfer test,
+not an independent three-factor attribution on fight.
+
+The original masked-actor24k control selects16000: full9.64565 / .39093 /
+.88535 and detail15.60872 / .50357 / .80802. At24000 detail remains
+15.60060 / .48792 / .80800, so extra updates have not removed collapse.
+[Completed control](assets/blur_ablation_fresh/actor_original_long.json).
+Its selected model produces24 finite learned-RGB path frames; the contact
+sheet still shows grayscale structure and unsupervised background.
+[Path receipt](assets/blur_ablation_fresh/actor_original_path_complete.json).
+The system ffmpeg had a libmpg123 symbol mismatch. The bundled imageio encoder
+assembled the existing frames, and full video decoding passed. The renderer now
+saves a render receipt before encoding and supports an encoding-only retry.
+
+### Canonical scale: room screen and first fight gate
+
+With tight room bounds at8000, canonical-scaled softplus selects8000 and
+reaches full **23.54607 / .81642 / .42234**, eval detail
+**26.41853 / .76474 / .36337**, and train detail
+**27.56385 / .70788 / .44904**. Train PSNR is .07071 dB below original,
+but SSIM/LPIPS improve and facial ghosting decreases. The exp+SH bundle is
+stronger by2.30279 dB eval detail and .79597 dB train detail. The independent
+SH addition to canonical-scaled softplus is running to test whether it can
+replace exponential in the room recipe.
+[Completed screen](assets/blur_ablation_fresh/room_canonical_bounds_completed.json).
+![Canonical scale versus exp+SH with tight bounds](assets/blur_ablation_fresh/room_canonical_eval_face.jpg)
+
+At15188, original versus canonical-reference fight gives
+**28.77557 / .65091 / .36464 → 28.81332 / .64847 / .35851**.
+Deltas are +.03775 dB, -.00243 SSIM and -.00613 LPIPS, within the predefined
+regression limits at this intermediate gate. The final30376 result is pending.
+[Native first gate](assets/blur_ablation_fresh/fight_canonical_early.json).
