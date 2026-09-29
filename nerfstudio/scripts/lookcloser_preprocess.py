@@ -828,6 +828,7 @@ def train_progressive_and_estimate_frequency_map(
     debug_levels: Optional[List[int]] = None,
     debug_patch_count: int = 24,
     debug_seed: int = 0,
+    validity_mask: Optional[torch.Tensor] = None,
 ) -> Tuple[InstantNGP2D, torch.Tensor, torch.Tensor, DebugBundle]:
     """
     Trains 2D NGP progressively and assigns each patch the first level
@@ -866,6 +867,18 @@ def train_progressive_and_estimate_frequency_map(
     optimizer = torch.optim.Adam(model.parameters(), lr=lr, eps=1e-15)
 
     level_map = torch.full((h_steps, w_steps), -1, dtype=torch.int16, device=device)
+    eligible_pixels = None
+    if validity_mask is not None:
+        validity_mask = validity_mask.to(device=device, dtype=torch.bool)
+        if validity_mask.shape != (h, w) or not validity_mask.any():
+            raise ValueError("Frequency validity mask must match RGB and contain valid pixels")
+        if h % patch_size or w % patch_size:
+            raise ValueError("Masked preprocessing requires whole patches in both image dimensions")
+        eligible_pixels = validity_mask.flatten().nonzero().flatten()
+        valid_patches = F.avg_pool2d(validity_mask[None, None].float(), patch_size, stride)[0, 0] == 1
+        # Unknown patches retain a conservative capacity fallback, but are
+        # excluded from fitting and from 2D->3D initialization via a sidecar.
+        level_map[~valid_patches] = n_levels - 1
 
     # Fixed debug patches for visual progressive check.
     pred_by_level: Dict[int, torch.Tensor] = {}
@@ -958,6 +971,9 @@ def train_progressive_and_estimate_frequency_map(
 
             iy = torch.randint(0, h, (batch_size,), device=device)
             ix = torch.randint(0, w, (batch_size,), device=device)
+            if eligible_pixels is not None:
+                selected = eligible_pixels[torch.randint(len(eligible_pixels), (batch_size,), device=device)]
+                iy, ix = selected // w, selected % w
 
             target = image_tensor[iy, ix]
             uv = torch.stack(

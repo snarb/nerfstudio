@@ -112,6 +112,9 @@ class LookCloserModelConfig(ModelConfig):
     distortion_loss_mult: float = 0.01
     """Multiplier for Mip-NeRF 360 distortion loss."""
 
+    opacity_neutral_distortion: bool = False
+    """Experimental: retain distortion's shape gradient without its ray-opacity scale gradient."""
+
     depth_loss_mult: float = 0.001
     """Multiplier for sparse depth supervision."""
 
@@ -238,6 +241,16 @@ class LookCloserModelConfig(ModelConfig):
 
     fixed_num_samples_per_ray: int = 256
     """Number of uniform samples per ray when adaptive ray marching is disabled."""
+    fixed_stratified_sampling: bool = False
+    """Opt-in independent within-bin training jitter; evaluation keeps bin centers."""
+    fixed_importance_samples: int = 0
+    """Opt-in extra interval boundaries from a detached coarse termination PDF.
+
+    Uniform boundaries are retained, including the complete near/far interval.
+    This is a diagnostic sampling alternative, not the paper's adaptive marcher.
+    """
+    fixed_depth_estimator: Literal["expected", "median", "mode"] = "expected"
+    """Diagnostic depth output for the fixed marcher; RGB integration is unchanged."""
 
     background_color: Literal["random", "last_sample", "black", "white"] = "black"
     """Background color strategy."""
@@ -410,6 +423,8 @@ class LookCloserModel(Model):
             raise ValueError("linear_pq/EAG PQ losses require a linear RGB output parameterization.")
         if self.config.fixed_num_samples_per_ray <= 0:
             raise ValueError("fixed_num_samples_per_ray must be > 0.")
+        if self.config.fixed_importance_samples < 0:
+            raise ValueError("fixed_importance_samples must be >= 0.")
         if self.config.adaptive_min_step_size <= 0 or self.config.adaptive_max_step_size <= 0:
             raise ValueError("adaptive step sizes must be > 0.")
         if self.config.adaptive_max_step_size < self.config.adaptive_min_step_size:
@@ -1083,6 +1098,20 @@ class LookCloserModel(Model):
         return per_ray[:, None]
 
     @staticmethod
+    def _opacity_neutral_distortion(per_ray: torch.Tensor, mass: torch.Tensor) -> torch.Tensor:
+        """Same forward penalty; remove the homogeneous opacity direction.
+
+        Distortion is quadratic in rendering weights. Multiplying by a
+        stop-gradient mass ratio cancels its derivative under uniform weight
+        scaling, preserving tangential shape derivatives and the original
+        per-ray strength. This is a surrogate gradient, not a new alpha target.
+        Empty/tiny rays use a finite denominator. The default model never calls
+        this experimental path.
+        """
+        mass = mass.float()
+        return per_ray * (mass.detach() / mass.clamp_min(1e-6)).square()
+
+    @staticmethod
     def _dense_distortion_loss(
         spacing_starts: torch.Tensor,
         spacing_ends: torch.Tensor,
@@ -1163,6 +1192,7 @@ class LookCloserModel(Model):
                 "packed_spacing_ends": ray_samples.spacing_ends,
                 "packed_ray_indices": ray_indices,
                 "packed_weights": torch.zeros((0, 1), device=ray_bundle.origins.device),
+                "optical_thickness": torch.zeros((num_rays, 1), device=ray_bundle.origins.device),
             }
 
         field_outputs = self.field(ray_samples)
@@ -1217,6 +1247,8 @@ class LookCloserModel(Model):
             "packed_spacing_ends": ray_samples.spacing_ends,
             "packed_ray_indices": ray_indices,
             "packed_weights": weights,
+            "optical_thickness": torch.zeros((num_rays, 1),device=ray_bundle.origins.device).index_add(
+                0,ray_indices,field_outputs[FieldHeadNames.DENSITY].float()*(ray_samples.frustums.ends-ray_samples.frustums.starts)),
         }
 
     def occupancy_ray_marching(self, ray_bundle: RayBundle) -> Dict[str, torch.Tensor]:
@@ -1542,6 +1574,40 @@ class LookCloserModel(Model):
         ends = nears + span * edges[1:].view(1, num_samples, 1)
         mids = 0.5 * (starts + ends)
         deltas = ends - starts
+        if self.training and self.config.fixed_stratified_sampling:
+            mids = starts + torch.rand_like(starts) * deltas
+
+        importance_samples = int(getattr(self.config, "fixed_importance_samples", 0))
+        if importance_samples:
+            # Reuse the learned field as a proposal, without optimizing sampling
+            # coordinates. Retain every uniform edge so empty space remains
+            # represented in the RGB, optical thickness and distortion integrals.
+            with torch.no_grad():
+                coarse_positions = rays_o[:, None, :] + rays_d[:, None, :] * mids
+                coarse_density = F.relu(self.field.density_fn(coarse_positions.reshape(-1, 3)))
+                tau = coarse_density.float().view(n_rays, num_samples) * deltas[..., 0]
+                survival = torch.exp(-torch.cat([torch.zeros_like(tau[:, :1]), tau.cumsum(-1)[:, :-1]], -1))
+                mass = -torch.expm1(-tau) * survival
+                # Refine neighboring bins too: a coarse midpoint can miss the
+                # edge of a thin surface that crosses an interval boundary.
+                mass = F.max_pool1d(mass[:, None], kernel_size=3, stride=1, padding=1)[:, 0] + 1e-5
+                pdf = mass / mass.sum(-1, keepdim=True)
+                cdf = torch.cat([torch.zeros_like(pdf[:, :1]), pdf.cumsum(-1)], -1)
+                cdf[:, -1] = 1.
+                u = torch.arange(importance_samples, device=device).float()[None].expand(n_rays, -1)
+                u = (u + (torch.rand_like(u) if self.training and self.config.fixed_stratified_sampling else .5)) / importance_samples
+                interval = torch.searchsorted(cdf.contiguous(), u.contiguous(), right=True).sub(1).clamp(0, num_samples-1)
+                low = cdf.gather(1, interval); high = cdf.gather(1, interval+1)
+                fraction = (u-low) / (high-low).clamp_min(1e-8)
+                proposed = (interval+fraction) / num_samples
+                normalized_edges = torch.cat([edges[None].expand(n_rays, -1), proposed], -1).sort(-1).values
+                starts = nears + span * normalized_edges[:, :-1, None]
+                ends = nears + span * normalized_edges[:, 1:, None]
+                deltas = ends-starts
+                mids = (starts+ends)*.5
+                if self.training and self.config.fixed_stratified_sampling:
+                    mids = starts + torch.rand_like(starts)*deltas
+                num_samples += importance_samples
 
         positions = rays_o[:, None, :] + rays_d[:, None, :] * mids
         directions = rays_d[:, None, :].expand(-1, num_samples, -1)
@@ -1570,14 +1636,37 @@ class LookCloserModel(Model):
         acc_weights = torch.sum(weights, dim=1)
         transmittance = 1.0 - acc_weights
 
+        depth_final = acc_depth / (acc_weights + 1e-6)
+        depth_estimator = getattr(self.config, "fixed_depth_estimator", "expected")
+        if depth_estimator == "median":
+            cumulative = weights[..., 0].cumsum(-1)
+            target = acc_weights * .5
+            index = torch.searchsorted(cumulative.contiguous(),target.contiguous()).clamp_max(num_samples-1)
+            previous = torch.cat([torch.zeros_like(cumulative[:, :1]), cumulative[:, :-1]], -1).gather(1,index)
+            transmission = trans[..., 0].gather(1,index)
+            alpha_fraction = ((target-previous)/transmission.clamp_min(1e-10)).clamp(0,1-1e-7)
+            local_distance = -torch.log1p(-alpha_fraction)/density[..., 0].gather(1,index).clamp_min(1e-10)
+            depth_final = starts[..., 0].gather(1,index)+torch.minimum(local_distance,deltas[..., 0].gather(1,index))
+        elif depth_estimator == "mode":
+            index = (weights / deltas.clamp_min(1e-12))[..., 0].argmax(-1, keepdim=True)
+            depth_final = mids[..., 0].gather(1, index)
+        elif depth_estimator != "expected":
+            raise ValueError(f"Unknown fixed depth estimator {depth_estimator!r}")
+        if depth_estimator != "expected":
+            depth_final = torch.where(acc_weights > 1e-6, depth_final, torch.zeros_like(depth_final))
+
         if self.renderer_rgb.background_color == "white":
             acc_rgb = acc_rgb + transmittance
         elif self.renderer_rgb.background_color == "random":
             bg = torch.rand_like(acc_rgb) if self.training else torch.zeros_like(acc_rgb)
             acc_rgb = acc_rgb + transmittance * bg
 
-        norm_starts = edges[:-1].view(1, num_samples, 1).expand(n_rays, -1, -1)
-        norm_ends = edges[1:].view(1, num_samples, 1).expand(n_rays, -1, -1)
+        if importance_samples:
+            norm_starts = normalized_edges[:, :-1, None]
+            norm_ends = normalized_edges[:, 1:, None]
+        else:
+            norm_starts = edges[:-1].view(1, num_samples, 1).expand(n_rays, -1, -1)
+            norm_ends = edges[1:].view(1, num_samples, 1).expand(n_rays, -1, -1)
         dummy_dirs = torch.zeros((n_rays, num_samples, 3), device=device)
         dummy_origins = torch.zeros((n_rays, num_samples, 3), device=device)
 
@@ -1597,8 +1686,10 @@ class LookCloserModel(Model):
 
         return {
             "rgb": acc_rgb,
-            "depth": acc_depth / (acc_weights + 1e-6),
+            "depth": depth_final,
             "accumulation": acc_weights,
+            "optical_thickness": (density * deltas).sum(dim=1),
+            "sample_distances": mids,
             "loss_ray_samples": loss_ray_samples,
             "loss_weights": weights,
         }
@@ -1808,14 +1899,20 @@ class LookCloserModel(Model):
                     weights=outputs["packed_weights"],
                     ray_indices=outputs["packed_ray_indices"],
                     num_rays=outputs["rgb"].shape[0],
-                ).mean()
+                )
+                if self.config.opacity_neutral_distortion:
+                    mass = torch.zeros(distortion.shape, device=distortion.device, dtype=torch.float32)
+                    mass.index_add_(0, outputs["packed_ray_indices"].reshape(-1).long(), outputs["packed_weights"].reshape(-1, 1).float())
+                    distortion = self._opacity_neutral_distortion(distortion, mass)
             else:
                 distortion = self._dense_distortion_loss(
                     spacing_starts=outputs["loss_ray_samples"].spacing_starts,
                     spacing_ends=outputs["loss_ray_samples"].spacing_ends,
                     weights=outputs["loss_weights"],
-                ).mean()
-            loss_dict["distortion_loss"] = self.config.distortion_loss_mult * distortion
+                )
+                if self.config.opacity_neutral_distortion:
+                    distortion = self._opacity_neutral_distortion(distortion, outputs["loss_weights"].sum(dim=-2))
+            loss_dict["distortion_loss"] = self.config.distortion_loss_mult * distortion.mean()
 
         # 3. Depth Loss (Sparse Supervision)
         if (

@@ -1,0 +1,38 @@
+{
+  "training_finished": true,
+  "training_runs_reviewed": 7,
+  "single_view_diagnostic_additional": true,
+  "tests": "29 passed",
+  "checkpoint": "/home/brans/lookcloser_artifacts/dec5_core_retraining/native_pose_uncertain_hull/best.pt",
+  "selected_step": 37000,
+  "pure_video": "/home/brans/lookcloser_artifacts/dec5_core_retraining/selected_field_native_review/full_scene.mp4",
+  "hybrid_video": "/home/brans/lookcloser_artifacts/dec5_core_retraining/continuous_absolute_review/full_scene.mp4",
+  "comparison_video": "/home/brans/lookcloser_artifacts/dec5_core_retraining/motion_comparison_absolute/comparison.mp4",
+  "video_frames": 24,
+  "fps": 12.0,
+  "size": [
+    1080,
+    1920
+  ],
+  "encoded_last_frame_mean_absolute_u8_error": 1.703668499228395,
+  "alpha_unchanged_all_24_frames": true,
+  "reviewed_full_contact_sheet": true,
+  "reviewed_transition_frames": [
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+  ],
+  "uses_local_render_patches": false,
+  "wall": "Existing user-authorized simplified brick asset, not exact room reconstruction",
+  "accepted_as_artifact_free_fix": false,
+  "limitations": [
+    "Pure learned appearance remains blurred",
+    "Hybrid crown texture and face improve but hand-region accuracy regresses",
+    "Soft hair boundary and occlusion-related hand/cheek errors remain",
+    "No untouched cross-scene generalization test"
+  ],
+  "video_sha256": "b557021211aa5921be896fd750d8dcae4b300c2886f545101f33540590786e33"
+}

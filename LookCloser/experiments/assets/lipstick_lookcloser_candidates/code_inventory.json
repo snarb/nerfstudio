@@ -1,0 +1,139 @@
+{
+  "base": "630d58bd",
+  "source_history": "d36e1068",
+  "scope": "Only changed/added Python sources; historical base tools remain inherited.",
+  "files": [
+    {
+      "path": "LookCloser/scripts/build_distillation_hybrid_frequency.py",
+      "sha256": "6c31cabe7abab6f5da3b28b1f6bc57d5aefcd0e0148e55bf58146e765352402c",
+      "source_commit": "d36e1068",
+      "identical_to_source_worktree": true
+    },
+    {
+      "path": "LookCloser/scripts/mesh_distillation_background.py",
+      "sha256": "0655762e5bef5e491887cc978864327394824189af44beccf99479efbec3a42c",
+      "source_commit": "d36e1068",
+      "identical_to_source_worktree": true
+    },
+    {
+      "path": "LookCloser/scripts/prepare_distillation_actor_probe.py",
+      "sha256": "227b7fc68368bd430de611c1189802685a2df03ad1484b0ced89b1853c20e112",
+      "source_commit": "d36e1068",
+      "identical_to_source_worktree": true
+    },
+    {
+      "path": "LookCloser/scripts/prepare_distillation_clean_wall.py",
+      "sha256": "2156f36cb464edcef7fd8701b1e1a058c67d3036b00a7e14f9e4d7d84be9ec4e",
+      "source_commit": "d36e1068",
+      "identical_to_source_worktree": true
+    },
+    {
+      "path": "LookCloser/scripts/run_distillation_actor_probe.py",
+      "sha256": "6ddfd30019baa70b64a97551ac7dbc541e366a003494d5aa18c54e51bf262c2e",
+      "source_commit": "d36e1068",
+      "identical_to_source_worktree": false
+    },
+    {
+      "path": "LookCloser/tests/test_lookcloser_candidate_distortion.py",
+      "sha256": "ff694a49a02b6002bff50385acdf6b54819d4141505f2548bd0fcb2b74a6de49",
+      "source_commit": null,
+      "identical_to_source_worktree": false
+    },
+    {
+      "path": "LookCloser/tests/test_mesh_distillation_pipeline_gpu.py",
+      "sha256": "169605bc76544b6448947f8ccc10392c41c9742c548e8db0113945bba2d45907",
+      "source_commit": "d36e1068",
+      "identical_to_source_worktree": true
+    },
+    {
+      "path": "LookCloser/tests/test_mesh_distillation_training.py",
+      "sha256": "ab97f2b4cdecd6aaa47125e95bb288be54b66605cffb197fe8c0e589b05a4143",
+      "source_commit": "d36e1068",
+      "identical_to_source_worktree": true
+    },
+    {
+      "path": "LookCloser/tests/test_native_patches.py",
+      "sha256": "53b75f7ce3cd8ec978222862f88843fff7658a23bc87bffc9741dcc6887cd5b1",
+      "source_commit": "d36e1068",
+      "identical_to_source_worktree": true
+    },
+    {
+      "path": "LookCloser/tests/test_native_training.py",
+      "sha256": "63705d8a62f32b3df6429dff9d84b91369885c7b71b4fe9066c65a32af1b5854",
+      "source_commit": "d36e1068",
+      "identical_to_source_worktree": false
+    },
+    {
+      "path": "LookCloser/tests/test_observed_background.py",
+      "sha256": "bd91457026469750067cc400c9f70758ccc6ce7f20a0532135c1fd8eafb7bfaf",
+      "source_commit": "d36e1068",
+      "identical_to_source_worktree": true
+    },
+    {
+      "path": "LookCloser/tests/test_stereo_depth_evidence.py",
+      "sha256": "fa283097cafa84bd75b6069b6a1bd9181b435145ba6fbc49c9a77ac61f06d70d",
+      "source_commit": "d36e1068",
+      "identical_to_source_worktree": true
+    },
+    {
+      "path": "nerfstudio/data/utils/data_utils.py",
+      "sha256": "697ae650e5c44ff3a85d09cc75711d245e1ef4a86a8adac4d33b37c80ee5b159",
+      "source_commit": "d36e1068",
+      "identical_to_source_worktree": true
+    },
+    {
+      "path": "nerfstudio/fields/lookcloser_field.py",
+      "sha256": "b5460ef21d3706329391b89615458b921241b6434dc7069a4c93dbbc16386d39",
+      "source_commit": "d36e1068",
+      "identical_to_source_worktree": true
+    },
+    {
+      "path": "nerfstudio/model_components/mesh_distillation.py",
+      "sha256": "8a9d8f31925a768d78ee58fd997d84314698392721c480f14c370795645bf78b",
+      "source_commit": "d36e1068",
+      "identical_to_source_worktree": true
+    },
+    {
+      "path": "nerfstudio/model_components/native_patches.py",
+      "sha256": "d76d558d5b0f242e39c6ffc148ba424645bfc933d19e83bfa96fd1926849d54e",
+      "source_commit": "d36e1068",
+      "identical_to_source_worktree": true
+    },
+    {
+      "path": "nerfstudio/model_components/native_training.py",
+      "sha256": "88846efbbd03dc6925d528c7fdbf61dc54069930582c257a07bb90fc9497a520",
+      "source_commit": "d36e1068",
+      "identical_to_source_worktree": true
+    },
+    {
+      "path": "nerfstudio/model_components/observed_background.py",
+      "sha256": "1da1f5f522a5c583415fd414370cdd26c8e98f36b710e5e770e54521d78eb2e2",
+      "source_commit": "d36e1068",
+      "identical_to_source_worktree": true
+    },
+    {
+      "path": "nerfstudio/model_components/stereo_depth_evidence.py",
+      "sha256": "d36807397cea0b4a1cf09e3d68cbb4355466fc0992dbdcd24d7576a958c8ab11",
+      "source_commit": "d36e1068",
+      "identical_to_source_worktree": true
+    },
+    {
+      "path": "nerfstudio/models/lookcloser.py",
+      "sha256": "b7ed07cad636bb6980d308c23380e33418b3c40dad591ec360ef319004f1a4e4",
+      "source_commit": "d36e1068",
+      "identical_to_source_worktree": true
+    },
+    {
+      "path": "nerfstudio/pipelines/mesh_distillation_pipeline.py",
+      "sha256": "bae8899d843b2620b0a991c87741d60846dd515bdc9c1d75b24c38b6fbd2659d",
+      "source_commit": "d36e1068",
+      "identical_to_source_worktree": true
+    },
+    {
+      "path": "nerfstudio/scripts/lookcloser_preprocess.py",
+      "sha256": "261f51c1cb5735b735ce6b195ee83dc25edf3fa6dde73cfaac4bf143ca3924bc",
+      "source_commit": "d36e1068",
+      "identical_to_source_worktree": true
+    }
+  ]
+}

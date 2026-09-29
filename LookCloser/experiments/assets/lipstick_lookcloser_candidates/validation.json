@@ -1,0 +1,38 @@
+{
+  "date": "2026-09-29",
+  "tests_passed": 44,
+  "groups": [
+    {
+      "files": [
+        "test_mesh_distillation_training.py",
+        "test_mesh_distillation_pipeline_gpu.py",
+        "test_native_training.py",
+        "test_native_patches.py",
+        "test_observed_background.py",
+        "test_stereo_depth_evidence.py"
+      ],
+      "passed": 40,
+      "seconds": 59.85
+    },
+    {
+      "files": [
+        "test_lookcloser_candidate_distortion.py"
+      ],
+      "passed": 4,
+      "seconds": 1.36
+    }
+  ],
+  "pytest_options": [
+    "-q",
+    "-o",
+    "addopts="
+  ],
+  "imports": "Candidate repository first in sys.path; scripts directory available",
+  "python": "/home/brans/repos/nerfstudio/.venv/bin/python",
+  "cuda_home": "/home/brans/repos/nerfstudio/.cuda128-toolchain",
+  "new_scene_training": false,
+  "visual_inspection": [
+    "softplus_train_head.png",
+    "normalized_exp_train_head.png"
+  ]
+}

@@ -1,0 +1,1609 @@
+{
+  "gradient": {
+    "raw": {
+      "checkpoint_sha256": "4af8b1283bc6c14b5e0cdebfec7f0feea44c788841ebd659dd2eb89e01b4af7c",
+      "script_sha256": "54159b7a19247bf70135e00ec1e86a41cd40c2ee43e4505e8a494b527dd9315d",
+      "rays_sha256": "0f1f5145f8c6f06fd258d1c5f4bce552102b8b8794ba77d4fe05e5433aecd954",
+      "checkpoint": "/home/brans/lookcloser_artifacts/dec5_core_retraining/coverage_lc_large/best.pt",
+      "batches": 40,
+      "rays_per_batch": 2048,
+      "sampler_step": 4000,
+      "identity_max": 0.0,
+      "groups": {
+        "eligible": {
+          "count": 35049,
+          "total_pushes_opacity_down": 0.628120631116437,
+          "distortion_changes_direction_to_down": 0.1786926873805244,
+          "negligible_all_terms": 0.000485035236383349,
+          "sign_tolerance": 1e-07,
+          "distortion_absolute_share_median": 0.0026795186568051577,
+          "distortion_absolute_share_p90": 1.0,
+          "terms": {
+            "rgb_loss": {
+              "pushes_down": 0.2575251790350652,
+              "pushes_up": 0.25504293988416216,
+              "median": 0.0,
+              "absolute_median": 0.0003583369543775916
+            },
+            "distortion_loss": {
+              "pushes_down": 0.999172586949699,
+              "pushes_up": 0.0,
+              "median": 8.862817048793659e-05,
+              "absolute_median": 8.862817048793659e-05
+            },
+            "matte_opacity": {
+              "pushes_down": 0.24260321264515392,
+              "pushes_up": 0.26996490627407344,
+              "median": 0.0,
+              "absolute_median": 0.00039405524148605764
+            },
+            "known_empty": {
+              "pushes_down": 0.003680561499614825,
+              "pushes_up": 0.0,
+              "median": 0.0,
+              "absolute_median": 0.0
+            },
+            "observed_composite": {
+              "pushes_down": 0.18659590858512368,
+              "pushes_up": 0.11886216439841366,
+              "median": 0.0,
+              "absolute_median": 0.0
+            }
+          }
+        },
+        "opaque_target_deficit": {
+          "count": 839,
+          "total_pushes_opacity_down": 0.1907032181168057,
+          "distortion_changes_direction_to_down": 0.041716328963051254,
+          "negligible_all_terms": 0.0,
+          "sign_tolerance": 1e-07,
+          "distortion_absolute_share_median": 0.0021526759956032038,
+          "distortion_absolute_share_p90": 0.019118377938866615,
+          "terms": {
+            "rgb_loss": {
+              "pushes_down": 0.19547079856972585,
+              "pushes_up": 0.5125148986889154,
+              "median": -0.008806757628917694,
+              "absolute_median": 0.1055302545428276
+            },
+            "distortion_loss": {
+              "pushes_down": 1.0,
+              "pushes_up": 0.0,
+              "median": 0.0005846822750754654,
+              "absolute_median": 0.0005846822750754654
+            },
+            "matte_opacity": {
+              "pushes_down": 0.0,
+              "pushes_up": 0.7079856972586412,
+              "median": -0.09831037372350693,
+              "absolute_median": 0.09831037372350693
+            },
+            "known_empty": {
+              "pushes_down": 0.0,
+              "pushes_up": 0.0,
+              "median": 0.0,
+              "absolute_median": 0.0
+            },
+            "observed_composite": {
+              "pushes_down": 0.07032181168057211,
+              "pushes_up": 0.1799761620977354,
+              "median": 0.0,
+              "absolute_median": 0.0
+            }
+          }
+        },
+        "soft_matte": {
+          "count": 14292,
+          "total_pushes_opacity_down": 0.498250769661349,
+          "distortion_changes_direction_to_down": 0.0006297229219143577,
+          "negligible_all_terms": 0.0,
+          "sign_tolerance": 1e-07,
+          "distortion_absolute_share_median": 0.0017142260912805796,
+          "distortion_absolute_share_p90": 0.007162690628319979,
+          "terms": {
+            "rgb_loss": {
+              "pushes_down": 0.47593059054016235,
+              "pushes_up": 0.5240694094598377,
+              "median": -0.0011323920916765928,
+              "absolute_median": 0.04915725439786911
+            },
+            "distortion_loss": {
+              "pushes_down": 0.9999300307864539,
+              "pushes_up": 0.0,
+              "median": 0.00015720099327154458,
+              "absolute_median": 0.00015720099327154458
+            },
+            "matte_opacity": {
+              "pushes_down": 0.47732997481108314,
+              "pushes_up": 0.5226700251889169,
+              "median": -0.0006225303513929248,
+              "absolute_median": 0.015024568885564804
+            },
+            "known_empty": {
+              "pushes_down": 0.0,
+              "pushes_up": 0.0,
+              "median": 0.0,
+              "absolute_median": 0.0
+            },
+            "observed_composite": {
+              "pushes_down": 0.0,
+              "pushes_up": 0.0,
+              "median": 0.0,
+              "absolute_median": 0.0
+            }
+          }
+        },
+        "observed_boundary": {
+          "count": 16955,
+          "total_pushes_opacity_down": 0.7545856679445592,
+          "distortion_changes_direction_to_down": 0.368858743733412,
+          "negligible_all_terms": 0.0010026540843409025,
+          "sign_tolerance": 1e-07,
+          "distortion_absolute_share_median": 0.011294716037809849,
+          "distortion_absolute_share_p90": 1.0,
+          "terms": {
+            "rgb_loss": {
+              "pushes_down": 0.0,
+              "pushes_up": 0.0,
+              "median": 0.0,
+              "absolute_median": 0.0
+            },
+            "distortion_loss": {
+              "pushes_down": 0.9985255086994986,
+              "pushes_up": 0.0,
+              "median": 3.929806553060189e-05,
+              "absolute_median": 3.929806553060189e-05
+            },
+            "matte_opacity": {
+              "pushes_down": 0.0,
+              "pushes_up": 0.0,
+              "median": 0.0,
+              "absolute_median": 0.0
+            },
+            "known_empty": {
+              "pushes_down": 0.0,
+              "pushes_up": 0.0,
+              "median": 0.0,
+              "absolute_median": 0.0
+            },
+            "observed_composite": {
+              "pushes_down": 0.3857269242111472,
+              "pushes_up": 0.24570923031554115,
+              "median": 0.0,
+              "absolute_median": 0.0036761481314897537
+            }
+          }
+        },
+        "known_empty": {
+          "count": 129,
+          "total_pushes_opacity_down": 1.0,
+          "distortion_changes_direction_to_down": 0.0,
+          "negligible_all_terms": 0.0,
+          "sign_tolerance": 1e-07,
+          "distortion_absolute_share_median": 8.73844874149654e-06,
+          "distortion_absolute_share_p90": 2.449723797326442e-05,
+          "terms": {
+            "rgb_loss": {
+              "pushes_down": 0.0,
+              "pushes_up": 0.0,
+              "median": 0.0,
+              "absolute_median": 0.0
+            },
+            "distortion_loss": {
+              "pushes_down": 0.9844961240310077,
+              "pushes_up": 0.0,
+              "median": 2.2930153136258014e-06,
+              "absolute_median": 2.2930153136258014e-06
+            },
+            "matte_opacity": {
+              "pushes_down": 0.0,
+              "pushes_up": 0.0,
+              "median": 0.0,
+              "absolute_median": 0.0
+            },
+            "known_empty": {
+              "pushes_down": 1.0,
+              "pushes_up": 0.0,
+              "median": 0.288974791765213,
+              "absolute_median": 0.288974791765213
+            },
+            "observed_composite": {
+              "pushes_down": 0.0,
+              "pushes_up": 0.0,
+              "median": 0.0,
+              "absolute_median": 0.0
+            }
+          }
+        }
+      },
+      "selected_step": 73000,
+      "opacity_neutral_distortion": false,
+      "model_source_sha256": "b7ed07cad636bb6980d308c23380e33418b3c40dad591ec360ef319004f1a4e4",
+      "pipeline_source_sha256": "2036c9b4bf147f19c9e157b77fba559628db62abbea8221a9746fe57206167b2",
+      "derivative": "Batch-size-scaled d objective / d log ray-weight gain; positive pushes opacity down",
+      "cache_order": [
+        7,
+        32,
+        30,
+        36,
+        11,
+        29,
+        19,
+        37,
+        4,
+        31,
+        25,
+        33,
+        60,
+        12,
+        28,
+        61,
+        1,
+        16,
+        26,
+        45,
+        43,
+        22,
+        35,
+        27,
+        52,
+        39,
+        38,
+        57,
+        3,
+        44,
+        48,
+        51,
+        47,
+        40,
+        58,
+        2,
+        14,
+        56,
+        34,
+        9,
+        53,
+        46,
+        0,
+        6,
+        8,
+        17,
+        42,
+        59,
+        54,
+        50,
+        49,
+        41,
+        24,
+        18,
+        15,
+        55,
+        5,
+        23,
+        20,
+        21,
+        10,
+        13
+      ],
+      "protocol": "Training sampler/native targets; torch/numpy/Python seed 73; deterministic ray integration; no Frequency Grid or model updates",
+      "uses_eval": false,
+      "changes_training": false,
+      "limitations": "Diagnose opacity-directed objective derivatives on unchanged training rays.\n\nScale each ray's weights and premultiplied color together while retaining its\nconditional color/depth distribution. This isolates a local opacity direction;\nit is not the gradient of any one network parameter or a causal artifact proof.\n"
+    },
+    "neutral": {
+      "checkpoint_sha256": "4af8b1283bc6c14b5e0cdebfec7f0feea44c788841ebd659dd2eb89e01b4af7c",
+      "script_sha256": "54159b7a19247bf70135e00ec1e86a41cd40c2ee43e4505e8a494b527dd9315d",
+      "rays_sha256": "061545b46f0809043d763dcc86f18b7d4681c8b8a3664d2a23f32611de81bdae",
+      "checkpoint": "/home/brans/lookcloser_artifacts/dec5_core_retraining/coverage_lc_large/best.pt",
+      "batches": 40,
+      "rays_per_batch": 2048,
+      "sampler_step": 4000,
+      "identity_max": 0.0,
+      "groups": {
+        "eligible": {
+          "count": 35049,
+          "total_pushes_opacity_down": 0.4494279437359126,
+          "distortion_changes_direction_to_down": 0.0,
+          "negligible_all_terms": 0.17829324659762047,
+          "sign_tolerance": 1e-07,
+          "distortion_absolute_share_median": 6.221032022857287e-10,
+          "distortion_absolute_share_p90": 6.6060490411246064e-09,
+          "terms": {
+            "rgb_loss": {
+              "pushes_down": 0.2575251790350652,
+              "pushes_up": 0.25504293988416216,
+              "median": 0.0,
+              "absolute_median": 0.0003583369543775916
+            },
+            "distortion_loss": {
+              "pushes_down": 0.0,
+              "pushes_up": 0.0,
+              "median": 0.0,
+              "absolute_median": 3.5413449950283393e-11
+            },
+            "matte_opacity": {
+              "pushes_down": 0.24260321264515392,
+              "pushes_up": 0.26996490627407344,
+              "median": 0.0,
+              "absolute_median": 0.00039405524148605764
+            },
+            "known_empty": {
+              "pushes_down": 0.003680561499614825,
+              "pushes_up": 0.0,
+              "median": 0.0,
+              "absolute_median": 0.0
+            },
+            "observed_composite": {
+              "pushes_down": 0.18659590858512368,
+              "pushes_up": 0.11886216439841366,
+              "median": 0.0,
+              "absolute_median": 0.0
+            }
+          }
+        },
+        "opaque_target_deficit": {
+          "count": 839,
+          "total_pushes_opacity_down": 0.14898688915375446,
+          "distortion_changes_direction_to_down": 0.0,
+          "negligible_all_terms": 0.041716328963051254,
+          "sign_tolerance": 1e-07,
+          "distortion_absolute_share_median": 9.624184782452971e-10,
+          "distortion_absolute_share_p90": 6.04672578674581e-09,
+          "terms": {
+            "rgb_loss": {
+              "pushes_down": 0.19547079856972585,
+              "pushes_up": 0.5125148986889154,
+              "median": -0.008806757628917694,
+              "absolute_median": 0.1055302545428276
+            },
+            "distortion_loss": {
+              "pushes_down": 0.0,
+              "pushes_up": 0.0,
+              "median": 2.1373125491663814e-11,
+              "absolute_median": 3.410605131648481e-10
+            },
+            "matte_opacity": {
+              "pushes_down": 0.0,
+              "pushes_up": 0.7079856972586412,
+              "median": -0.09831037372350693,
+              "absolute_median": 0.09831037372350693
+            },
+            "known_empty": {
+              "pushes_down": 0.0,
+              "pushes_up": 0.0,
+              "median": 0.0,
+              "absolute_median": 0.0
+            },
+            "observed_composite": {
+              "pushes_down": 0.07032181168057211,
+              "pushes_up": 0.1799761620977354,
+              "median": 0.0,
+              "absolute_median": 0.0
+            }
+          }
+        },
+        "soft_matte": {
+          "count": 14292,
+          "total_pushes_opacity_down": 0.49762104673943464,
+          "distortion_changes_direction_to_down": 0.0,
+          "negligible_all_terms": 0.0,
+          "sign_tolerance": 1e-07,
+          "distortion_absolute_share_median": 9.193867889223384e-10,
+          "distortion_absolute_share_p90": 5.436517014345554e-09,
+          "terms": {
+            "rgb_loss": {
+              "pushes_down": 0.47593059054016235,
+              "pushes_up": 0.5240694094598377,
+              "median": -0.0011323920916765928,
+              "absolute_median": 0.04915725439786911
+            },
+            "distortion_loss": {
+              "pushes_down": 0.0,
+              "pushes_up": 0.0,
+              "median": 9.903189379656396e-14,
+              "absolute_median": 7.275957614183426e-11
+            },
+            "matte_opacity": {
+              "pushes_down": 0.47732997481108314,
+              "pushes_up": 0.5226700251889169,
+              "median": -0.0006225303513929248,
+              "absolute_median": 0.015024568885564804
+            },
+            "known_empty": {
+              "pushes_down": 0.0,
+              "pushes_up": 0.0,
+              "median": 0.0,
+              "absolute_median": 0.0
+            },
+            "observed_composite": {
+              "pushes_down": 0.0,
+              "pushes_up": 0.0,
+              "median": 0.0,
+              "absolute_median": 0.0
+            }
+          }
+        },
+        "observed_boundary": {
+          "count": 16955,
+          "total_pushes_opacity_down": 0.3857269242111472,
+          "distortion_changes_direction_to_down": 0.0,
+          "negligible_all_terms": 0.3685638454733117,
+          "sign_tolerance": 1e-07,
+          "distortion_absolute_share_median": 3.468164644360172e-10,
+          "distortion_absolute_share_p90": 9.929841837674758e-09,
+          "terms": {
+            "rgb_loss": {
+              "pushes_down": 0.0,
+              "pushes_up": 0.0,
+              "median": 0.0,
+              "absolute_median": 0.0
+            },
+            "distortion_loss": {
+              "pushes_down": 0.0,
+              "pushes_up": 0.0,
+              "median": -3.552713678800501e-15,
+              "absolute_median": 1.2676082405960187e-11
+            },
+            "matte_opacity": {
+              "pushes_down": 0.0,
+              "pushes_up": 0.0,
+              "median": 0.0,
+              "absolute_median": 0.0
+            },
+            "known_empty": {
+              "pushes_down": 0.0,
+              "pushes_up": 0.0,
+              "median": 0.0,
+              "absolute_median": 0.0
+            },
+            "observed_composite": {
+              "pushes_down": 0.3857269242111472,
+              "pushes_up": 0.24570923031554115,
+              "median": 0.0,
+              "absolute_median": 0.0036761481314897537
+            }
+          }
+        },
+        "known_empty": {
+          "count": 129,
+          "total_pushes_opacity_down": 1.0,
+          "distortion_changes_direction_to_down": 0.0,
+          "negligible_all_terms": 0.0,
+          "sign_tolerance": 1e-07,
+          "distortion_absolute_share_median": 1.4095385015427953e-12,
+          "distortion_absolute_share_p90": 1.0303978156822602e-11,
+          "terms": {
+            "rgb_loss": {
+              "pushes_down": 0.0,
+              "pushes_up": 0.0,
+              "median": 0.0,
+              "absolute_median": 0.0
+            },
+            "distortion_loss": {
+              "pushes_down": 0.0,
+              "pushes_up": 0.0,
+              "median": -2.842170943040401e-14,
+              "absolute_median": 4.3520742565306136e-13
+            },
+            "matte_opacity": {
+              "pushes_down": 0.0,
+              "pushes_up": 0.0,
+              "median": 0.0,
+              "absolute_median": 0.0
+            },
+            "known_empty": {
+              "pushes_down": 1.0,
+              "pushes_up": 0.0,
+              "median": 0.288974791765213,
+              "absolute_median": 0.288974791765213
+            },
+            "observed_composite": {
+              "pushes_down": 0.0,
+              "pushes_up": 0.0,
+              "median": 0.0,
+              "absolute_median": 0.0
+            }
+          }
+        }
+      },
+      "selected_step": 73000,
+      "opacity_neutral_distortion": true,
+      "model_source_sha256": "b7ed07cad636bb6980d308c23380e33418b3c40dad591ec360ef319004f1a4e4",
+      "pipeline_source_sha256": "2036c9b4bf147f19c9e157b77fba559628db62abbea8221a9746fe57206167b2",
+      "derivative": "Batch-size-scaled d objective / d log ray-weight gain; positive pushes opacity down",
+      "cache_order": [
+        7,
+        32,
+        30,
+        36,
+        11,
+        29,
+        19,
+        37,
+        4,
+        31,
+        25,
+        33,
+        60,
+        12,
+        28,
+        61,
+        1,
+        16,
+        26,
+        45,
+        43,
+        22,
+        35,
+        27,
+        52,
+        39,
+        38,
+        57,
+        3,
+        44,
+        48,
+        51,
+        47,
+        40,
+        58,
+        2,
+        14,
+        56,
+        34,
+        9,
+        53,
+        46,
+        0,
+        6,
+        8,
+        17,
+        42,
+        59,
+        54,
+        50,
+        49,
+        41,
+        24,
+        18,
+        15,
+        55,
+        5,
+        23,
+        20,
+        21,
+        10,
+        13
+      ],
+      "protocol": "Training sampler/native targets; torch/numpy/Python seed 73; deterministic ray integration; no Frequency Grid or model updates",
+      "uses_eval": false,
+      "changes_training": false,
+      "limitations": "Diagnose opacity-directed objective derivatives on unchanged training rays.\n\nScale each ray's weights and premultiplied color together while retaining its\nconditional color/depth distribution. This isolates a local opacity direction;\nit is not the gradient of any one network parameter or a causal artifact proof.\n"
+    }
+  },
+  "gradient_pairing": {
+    "fields_equal": {
+      "eligible": true,
+      "opaque_target_deficit": true,
+      "soft_matte": true,
+      "observed_boundary": true,
+      "known_empty": true,
+      "alpha": true,
+      "target": true,
+      "indices": true
+    },
+    "other_derivatives_equal": {
+      "gradient_rgb_loss": true,
+      "gradient_matte_opacity": true,
+      "gradient_known_empty": true,
+      "gradient_observed_composite": true
+    },
+    "neutral_distortion_absolute_max": 4.079083737451583e-09,
+    "raw_distortion_absolute_max": 0.006532881874591112
+  },
+  "observed_subgroups": {
+    "observed_positive": {
+      "count": 12359,
+      "total_pushes_opacity_down": 0.6774819969253176,
+      "distortion_changes_direction_to_down": 0.29241848045958413,
+      "negligible_all_terms": 8.091269520187717e-05,
+      "sign_tolerance": 1e-07,
+      "distortion_absolute_share_median": 0.0078589441254735,
+      "distortion_absolute_share_p90": 1.0,
+      "terms": {
+        "rgb_loss": {
+          "pushes_down": 0.0,
+          "pushes_up": 0.0,
+          "median": 0.0,
+          "absolute_median": 0.0
+        },
+        "distortion_loss": {
+          "pushes_down": 0.9998381746095962,
+          "pushes_up": 0.0,
+          "median": 0.00011559231643332168,
+          "absolute_median": 0.00011559231643332168
+        },
+        "matte_opacity": {
+          "pushes_down": 0.0,
+          "pushes_up": 0.0,
+          "median": 0.0,
+          "absolute_median": 0.0
+        },
+        "known_empty": {
+          "pushes_down": 0.0,
+          "pushes_up": 0.0,
+          "median": 0.0,
+          "absolute_median": 0.0
+        },
+        "observed_composite": {
+          "pushes_down": 0.38506351646573345,
+          "pushes_up": 0.32405534428351807,
+          "median": 0.0,
+          "absolute_median": 0.012792984023690224
+        }
+      }
+    },
+    "observed_zero": {
+      "count": 4596,
+      "total_pushes_opacity_down": 0.9619234116623151,
+      "distortion_changes_direction_to_down": 0.5744125326370757,
+      "negligible_all_terms": 0.0034812880765883376,
+      "sign_tolerance": 1e-07,
+      "distortion_absolute_share_median": 1.0,
+      "distortion_absolute_share_p90": 1.0,
+      "terms": {
+        "rgb_loss": {
+          "pushes_down": 0.0,
+          "pushes_up": 0.0,
+          "median": 0.0,
+          "absolute_median": 0.0
+        },
+        "distortion_loss": {
+          "pushes_down": 0.9949956483899043,
+          "pushes_up": 0.0,
+          "median": 3.262520294811111e-06,
+          "absolute_median": 3.262520294811111e-06
+        },
+        "matte_opacity": {
+          "pushes_down": 0.0,
+          "pushes_up": 0.0,
+          "median": 0.0,
+          "absolute_median": 0.0
+        },
+        "known_empty": {
+          "pushes_down": 0.0,
+          "pushes_up": 0.0,
+          "median": 0.0,
+          "absolute_median": 0.0
+        },
+        "observed_composite": {
+          "pushes_down": 0.38751087902523934,
+          "pushes_up": 0.035030461270670145,
+          "median": 0.0,
+          "absolute_median": 0.0
+        }
+      }
+    },
+    "observed_positive_deficit": {
+      "count": 2227,
+      "total_pushes_opacity_down": 0.4957341715312079,
+      "distortion_changes_direction_to_down": 0.24202963628199373,
+      "negligible_all_terms": 0.0,
+      "sign_tolerance": 1e-07,
+      "distortion_absolute_share_median": 0.009775334969162941,
+      "distortion_absolute_share_p90": 1.0,
+      "terms": {
+        "rgb_loss": {
+          "pushes_down": 0.0,
+          "pushes_up": 0.0,
+          "median": 0.0,
+          "absolute_median": 0.0
+        },
+        "distortion_loss": {
+          "pushes_down": 1.0,
+          "pushes_up": 0.0,
+          "median": 0.00016648104065097868,
+          "absolute_median": 0.00016648104065097868
+        },
+        "matte_opacity": {
+          "pushes_down": 0.0,
+          "pushes_up": 0.0,
+          "median": 0.0,
+          "absolute_median": 0.0
+        },
+        "known_empty": {
+          "pushes_down": 0.0,
+          "pushes_up": 0.0,
+          "median": 0.0,
+          "absolute_median": 0.0
+        },
+        "observed_composite": {
+          "pushes_down": 0.2537045352492142,
+          "pushes_up": 0.5060619667714414,
+          "median": -0.000278424471616745,
+          "absolute_median": 0.014866411685943604
+        }
+      }
+    }
+  },
+  "checkpoints": [
+    {
+      "checkpoint": "best.pt",
+      "steps": [
+        72999,
+        72999
+      ],
+      "parameters_finite": [
+        true,
+        true
+      ],
+      "optimizer_finite": [
+        true,
+        true
+      ],
+      "torch_rng_equal": true,
+      "cuda_rng_equal": true,
+      "python_rng_equal": true,
+      "cache_order_equal": true,
+      "sample_counts": [
+        73055,
+        73055
+      ],
+      "argument_differences": {
+        "output": [
+          "/home/brans/lookcloser_artifacts/dec5_core_retraining/neutral_distortion_control",
+          "/home/brans/lookcloser_artifacts/dec5_core_retraining/neutral_distortion_shape"
+        ],
+        "opacity_neutral_distortion": [
+          "False",
+          "True"
+        ]
+      }
+    },
+    {
+      "checkpoint": "latest.pt",
+      "steps": [
+        73999,
+        73999
+      ],
+      "parameters_finite": [
+        true,
+        true
+      ],
+      "optimizer_finite": [
+        true,
+        true
+      ],
+      "torch_rng_equal": true,
+      "cuda_rng_equal": true,
+      "python_rng_equal": true,
+      "cache_order_equal": true,
+      "sample_counts": [
+        74056,
+        74056
+      ],
+      "argument_differences": {
+        "output": [
+          "/home/brans/lookcloser_artifacts/dec5_core_retraining/neutral_distortion_control",
+          "/home/brans/lookcloser_artifacts/dec5_core_retraining/neutral_distortion_shape"
+        ],
+        "opacity_neutral_distortion": [
+          "False",
+          "True"
+        ]
+      }
+    }
+  ],
+  "runs": {
+    "control": {
+      "completion": {
+        "step": 74000,
+        "seconds": 693.6702958969399,
+        "best_checkpoint_sha256": "cee443d03ed23a0b7a66e0b1d1f941948ac759fec34471cf4b86af666d40df37",
+        "visual_review_pending": true,
+        "stop_reason": "budget_or_steps_or_plateau"
+      },
+      "history": [
+        {
+          "step": 71000,
+          "metrics": {
+            "eval_all_psnr": 32.60648727416992,
+            "eval_all_ssim": 0.928331732749939,
+            "eval_all_lpips": 0.052608318626880646
+          },
+          "per_view": [
+            {
+              "psnr": 27.073190689086914,
+              "ssim": 0.8064902424812317,
+              "lpips": 0.21942538022994995,
+              "split": "train",
+              "index": 0,
+              "image": "train_0000.png",
+              "mean_actor_opacity": 0.9774429798126221
+            },
+            {
+              "psnr": 32.60648727416992,
+              "ssim": 0.928331732749939,
+              "lpips": 0.052608318626880646,
+              "split": "val",
+              "index": 0,
+              "image": "eval_0062.png",
+              "mean_actor_opacity": 0.9990218281745911
+            }
+          ],
+          "scale": 2,
+          "protocol": "Exact GT mask PSNR; tight zero-masked ROI SSIM/LPIPS; sampled native pixel centers"
+        },
+        {
+          "step": 72000,
+          "metrics": {
+            "eval_all_psnr": 32.799781799316406,
+            "eval_all_ssim": 0.9285184741020203,
+            "eval_all_lpips": 0.05265357717871666
+          },
+          "per_view": [
+            {
+              "psnr": 27.092144012451172,
+              "ssim": 0.8066771626472473,
+              "lpips": 0.21924173831939697,
+              "split": "train",
+              "index": 0,
+              "image": "train_0000.png",
+              "mean_actor_opacity": 0.9774125218391418
+            },
+            {
+              "psnr": 32.799781799316406,
+              "ssim": 0.9285184741020203,
+              "lpips": 0.05265357717871666,
+              "split": "val",
+              "index": 0,
+              "image": "eval_0062.png",
+              "mean_actor_opacity": 0.9989776015281677
+            }
+          ],
+          "scale": 2,
+          "protocol": "Exact GT mask PSNR; tight zero-masked ROI SSIM/LPIPS; sampled native pixel centers"
+        },
+        {
+          "step": 73000,
+          "metrics": {
+            "eval_all_psnr": 33.111209869384766,
+            "eval_all_ssim": 0.9286602735519409,
+            "eval_all_lpips": 0.052185043692588806
+          },
+          "per_view": [
+            {
+              "psnr": 27.099742889404297,
+              "ssim": 0.8069021701812744,
+              "lpips": 0.21896980702877045,
+              "split": "train",
+              "index": 0,
+              "image": "train_0000.png",
+              "mean_actor_opacity": 0.9775682687759399
+            },
+            {
+              "psnr": 33.111209869384766,
+              "ssim": 0.9286602735519409,
+              "lpips": 0.052185043692588806,
+              "split": "val",
+              "index": 0,
+              "image": "eval_0062.png",
+              "mean_actor_opacity": 0.9990530610084534
+            }
+          ],
+          "scale": 2,
+          "protocol": "Exact GT mask PSNR; tight zero-masked ROI SSIM/LPIPS; sampled native pixel centers"
+        },
+        {
+          "step": 74000,
+          "metrics": {
+            "eval_all_psnr": 32.7742919921875,
+            "eval_all_ssim": 0.9288222193717957,
+            "eval_all_lpips": 0.051863811910152435
+          },
+          "per_view": [
+            {
+              "psnr": 27.11075210571289,
+              "ssim": 0.807110071182251,
+              "lpips": 0.21857786178588867,
+              "split": "train",
+              "index": 0,
+              "image": "train_0000.png",
+              "mean_actor_opacity": 0.9775320887565613
+            },
+            {
+              "psnr": 32.7742919921875,
+              "ssim": 0.9288222193717957,
+              "lpips": 0.051863811910152435,
+              "split": "val",
+              "index": 0,
+              "image": "eval_0062.png",
+              "mean_actor_opacity": 0.9990649223327637
+            }
+          ],
+          "scale": 2,
+          "protocol": "Exact GT mask PSNR; tight zero-masked ROI SSIM/LPIPS; sampled native pixel centers"
+        }
+      ],
+      "source_hashes": {
+        "LookCloser/scripts/run_distillation_actor_probe.py": "47fddbf01f6ddf15a151ca4e2126184e62e855cf4e457475d9266589694c1072",
+        "nerfstudio/pipelines/mesh_distillation_pipeline.py": "2036c9b4bf147f19c9e157b77fba559628db62abbea8221a9746fe57206167b2",
+        "nerfstudio/fields/lookcloser_field.py": "b5460ef21d3706329391b89615458b921241b6434dc7069a4c93dbbc16386d39",
+        "nerfstudio/models/lookcloser.py": "b7ed07cad636bb6980d308c23380e33418b3c40dad591ec360ef319004f1a4e4",
+        "nerfstudio/model_components/mesh_distillation.py": "8a9d8f31925a768d78ee58fd997d84314698392721c480f14c370795645bf78b",
+        "nerfstudio/model_components/native_training.py": "face79a4ec5611c9cf25d16f864fd336b130ad89c0fa3f648fd95edda7476c08",
+        "nerfstudio/model_components/native_patches.py": "d76d558d5b0f242e39c6ffc148ba424645bfc933d19e83bfa96fd1926849d54e",
+        "nerfstudio/model_components/observed_background.py": "9099083b1e1e52f11ad0e78d9c08a1a0b29b5a525e59b966b96976381ecd7984"
+      },
+      "request": {
+        "data": "/home/brans/lookcloser_artifacts/dec5_core_retraining/learned_matte_data",
+        "output": "/home/brans/lookcloser_artifacts/dec5_core_retraining/neutral_distortion_control",
+        "steps": 4000,
+        "seconds": 3600.0,
+        "rays": 4096,
+        "samples": 1024,
+        "sampling": "fixed",
+        "hash_size": 21,
+        "max_resolution": 8192,
+        "lr": 0.0001,
+        "lr_final": 2e-05,
+        "depth_weight": 0.0,
+        "depth_steps": 0,
+        "depth_distribution_weight": 0.0,
+        "depth_distribution_sigma": 0.0015,
+        "distortion_weight": 0.01,
+        "opacity_neutral_distortion": false,
+        "eval_every": 1000,
+        "eval_scale": 2,
+        "load": "/home/brans/lookcloser_artifacts/dec5_core_retraining/observed_lc_extended/best.pt",
+        "freeze_grid": false,
+        "legacy_sh": false,
+        "normalized_density": true,
+        "view_independent_color": false,
+        "foreground_support": "/home/brans/lookcloser_artifacts/dec5_core_retraining/learned_matte_data/aabb_support.pt",
+        "background_checkpoint": null,
+        "equipment_slab": null,
+        "slab_plane": null,
+        "empty_fraction": 0.25,
+        "detail_fraction": 0.0,
+        "boundary_fraction": 0.5,
+        "boundary_radius": 3,
+        "empty_weight": 0.1,
+        "matte_weight": 0.3,
+        "matte_all_pixels": true,
+        "matte_soft_target_weight": 0.1,
+        "opacity_hard_fraction": 1.0,
+        "native_patches": 4,
+        "patch_size": 16,
+        "patch_every": 4,
+        "patch_ssim_weight": 0.0,
+        "stratified": true,
+        "importance_samples": 256,
+        "camera_lr": 0.0,
+        "freeze_decoders": false,
+        "initial_frequency_grid": null,
+        "replace_frequency_grid": null,
+        "initialize_occupancy": false,
+        "native_training_manifest": "/home/brans/lookcloser_artifacts/dec5_core_retraining/native_training/native_manifest.json",
+        "observed_background": "/home/brans/lookcloser_artifacts/dec5_core_retraining/temporal_background_all",
+        "stereo_depth": null,
+        "stereo_depth_weight": 0.0,
+        "eval_only": false,
+        "data_manifest_sha256": "7e5513217f2857398e63913a2e67b1c037af62ad61472895e3f6109b13b9554a",
+        "pid": 743128,
+        "script_sha256": "47fddbf01f6ddf15a151ca4e2126184e62e855cf4e457475d9266589694c1072"
+      },
+      "native": {
+        "views": [
+          {
+            "split": "train",
+            "index": 19,
+            "file": "/home/brans/lookcloser_artifacts/dec5_core_retraining/learned_matte_data/images/train_0019.png",
+            "regions": {
+              "opaque": {
+                "psnr": 28.80687713623047,
+                "ssim": 0.8125432729721069,
+                "lpips": 0.2782423496246338,
+                "pixels": 810503
+              },
+              "boundary": {
+                "psnr": 28.719608306884766,
+                "ssim": 0.9921795725822449,
+                "lpips": 0.012014021165668964,
+                "pixels": 58584
+              },
+              "observed_boundary_composite": {
+                "psnr": 31.36275863647461,
+                "ssim": 0.9910951256752014,
+                "lpips": 0.009724813513457775,
+                "pixels": 116226
+              },
+              "evaluation": {
+                "psnr": 23.080739974975586,
+                "ssim": 0.7820205092430115,
+                "lpips": 0.3241612911224365,
+                "pixels": 845013
+              }
+            },
+            "opacity": {
+              "opaque_pixels": 810503,
+              "opaque_mean": 0.9978165030479431,
+              "opaque_fraction_below_09": 0.005162226501852274,
+              "matte_mae": 0.010004165582358837,
+              "known_empty": {
+                "pixels": 1080463,
+                "mean": 0.010084452107548714,
+                "fraction_above_01": 0.27393072843551636,
+                "fraction_above_1": 0.009706024080514908
+              }
+            }
+          },
+          {
+            "split": "train",
+            "index": 23,
+            "file": "/home/brans/lookcloser_artifacts/dec5_core_retraining/learned_matte_data/images/train_0023.png",
+            "regions": {
+              "opaque": {
+                "psnr": 28.269044876098633,
+                "ssim": 0.817840039730072,
+                "lpips": 0.2767728567123413,
+                "pixels": 742588
+              },
+              "boundary": {
+                "psnr": 28.10468864440918,
+                "ssim": 0.9931517243385315,
+                "lpips": 0.010445664636790752,
+                "pixels": 53827
+              },
+              "observed_boundary_composite": {
+                "psnr": 30.458927154541016,
+                "ssim": 0.9907253384590149,
+                "lpips": 0.010474029928445816,
+                "pixels": 119559
+              },
+              "evaluation": {
+                "psnr": 21.440256118774414,
+                "ssim": 0.7826088070869446,
+                "lpips": 0.3206533193588257,
+                "pixels": 780166
+              }
+            },
+            "opacity": {
+              "opaque_pixels": 742588,
+              "opaque_mean": 0.9978436827659607,
+              "opaque_fraction_below_09": 0.005334048066288233,
+              "matte_mae": 0.009863239713013172,
+              "known_empty": {
+                "pixels": 1144582,
+                "mean": 0.013686173595488071,
+                "fraction_above_01": 0.2598389685153961,
+                "fraction_above_1": 0.012687601149082184
+              }
+            }
+          },
+          {
+            "split": "eval",
+            "index": 0,
+            "file": "/home/brans/lookcloser_artifacts/dec5_core_retraining/learned_matte_data/images/eval_0062.png",
+            "regions": {
+              "evaluation": {
+                "psnr": 33.156524658203125,
+                "ssim": 0.9160987138748169,
+                "lpips": 0.1649162471294403,
+                "pixels": 94658
+              }
+            }
+          }
+        ],
+        "frames": [
+          {
+            "frame": 21,
+            "camera_sha256": "fa9504e216606169ac0444f55a7cf06eaa89a257164f9fab0dd09bda223d0ae6",
+            "sha256": "d464335cf4867bad73a1554d758f593eb3623437866f1986dadf9fbe5621be2d"
+          },
+          {
+            "frame": 22,
+            "camera_sha256": "fb65343fe2ee644b0bda8195dd56afc94423af8a10f458b1daa890272b6c925a",
+            "sha256": "e74bd8d8000db05157d48fe59485454e79500afd16eb503d16896c6c84b5055b"
+          },
+          {
+            "frame": 23,
+            "camera_sha256": "b6a61aa55fa51ba54066c3424f3dfd7d3b1f43e54c9c4fc6ad567816d1009e68",
+            "sha256": "fe8f342f2eed7fba35f1a4f97755b36a43b939948b638766b6876e74f9552ef9"
+          }
+        ],
+        "scale": 1,
+        "checkpoint_sha256": "cee443d03ed23a0b7a66e0b1d1f941948ac759fec34471cf4b86af666d40df37",
+        "seconds": 114.50188105599955
+      },
+      "review_receipt_sha256": "8e0405751f845ae30da8e771b8499f912d46008cbb6f648d208c2ee90223bac4"
+    },
+    "shape": {
+      "completion": {
+        "step": 74000,
+        "seconds": 692.437248757109,
+        "best_checkpoint_sha256": "ce332bf13ff0d29aab5d75ac38822fcdfa0820f4fc372f2ed97fc009e24c0b62",
+        "visual_review_pending": true,
+        "stop_reason": "budget_or_steps_or_plateau"
+      },
+      "history": [
+        {
+          "step": 71000,
+          "metrics": {
+            "eval_all_psnr": 32.61356735229492,
+            "eval_all_ssim": 0.928332507610321,
+            "eval_all_lpips": 0.0525943748652935
+          },
+          "per_view": [
+            {
+              "psnr": 27.07380485534668,
+              "ssim": 0.8064931035041809,
+              "lpips": 0.21942228078842163,
+              "split": "train",
+              "index": 0,
+              "image": "train_0000.png",
+              "mean_actor_opacity": 0.9774637222290039
+            },
+            {
+              "psnr": 32.61356735229492,
+              "ssim": 0.928332507610321,
+              "lpips": 0.0525943748652935,
+              "split": "val",
+              "index": 0,
+              "image": "eval_0062.png",
+              "mean_actor_opacity": 0.9990250468254089
+            }
+          ],
+          "scale": 2,
+          "protocol": "Exact GT mask PSNR; tight zero-masked ROI SSIM/LPIPS; sampled native pixel centers"
+        },
+        {
+          "step": 72000,
+          "metrics": {
+            "eval_all_psnr": 32.80022048950195,
+            "eval_all_ssim": 0.9285130500793457,
+            "eval_all_lpips": 0.05268483608961105
+          },
+          "per_view": [
+            {
+              "psnr": 27.092357635498047,
+              "ssim": 0.8066736459732056,
+              "lpips": 0.21921801567077637,
+              "split": "train",
+              "index": 0,
+              "image": "train_0000.png",
+              "mean_actor_opacity": 0.9774361848831177
+            },
+            {
+              "psnr": 32.80022048950195,
+              "ssim": 0.9285130500793457,
+              "lpips": 0.05268483608961105,
+              "split": "val",
+              "index": 0,
+              "image": "eval_0062.png",
+              "mean_actor_opacity": 0.9989797472953796
+            }
+          ],
+          "scale": 2,
+          "protocol": "Exact GT mask PSNR; tight zero-masked ROI SSIM/LPIPS; sampled native pixel centers"
+        },
+        {
+          "step": 73000,
+          "metrics": {
+            "eval_all_psnr": 33.12115478515625,
+            "eval_all_ssim": 0.9286662936210632,
+            "eval_all_lpips": 0.05217549577355385
+          },
+          "per_view": [
+            {
+              "psnr": 27.099733352661133,
+              "ssim": 0.8069097995758057,
+              "lpips": 0.21900585293769836,
+              "split": "train",
+              "index": 0,
+              "image": "train_0000.png",
+              "mean_actor_opacity": 0.9775879383087158
+            },
+            {
+              "psnr": 33.12115478515625,
+              "ssim": 0.9286662936210632,
+              "lpips": 0.05217549577355385,
+              "split": "val",
+              "index": 0,
+              "image": "eval_0062.png",
+              "mean_actor_opacity": 0.999055027961731
+            }
+          ],
+          "scale": 2,
+          "protocol": "Exact GT mask PSNR; tight zero-masked ROI SSIM/LPIPS; sampled native pixel centers"
+        },
+        {
+          "step": 74000,
+          "metrics": {
+            "eval_all_psnr": 32.77809524536133,
+            "eval_all_ssim": 0.9288236498832703,
+            "eval_all_lpips": 0.051872383803129196
+          },
+          "per_view": [
+            {
+              "psnr": 27.111146926879883,
+              "ssim": 0.8071218132972717,
+              "lpips": 0.2186168134212494,
+              "split": "train",
+              "index": 0,
+              "image": "train_0000.png",
+              "mean_actor_opacity": 0.9775632619857788
+            },
+            {
+              "psnr": 32.77809524536133,
+              "ssim": 0.9288236498832703,
+              "lpips": 0.051872383803129196,
+              "split": "val",
+              "index": 0,
+              "image": "eval_0062.png",
+              "mean_actor_opacity": 0.999069094657898
+            }
+          ],
+          "scale": 2,
+          "protocol": "Exact GT mask PSNR; tight zero-masked ROI SSIM/LPIPS; sampled native pixel centers"
+        }
+      ],
+      "source_hashes": {
+        "LookCloser/scripts/run_distillation_actor_probe.py": "47fddbf01f6ddf15a151ca4e2126184e62e855cf4e457475d9266589694c1072",
+        "nerfstudio/pipelines/mesh_distillation_pipeline.py": "2036c9b4bf147f19c9e157b77fba559628db62abbea8221a9746fe57206167b2",
+        "nerfstudio/fields/lookcloser_field.py": "b5460ef21d3706329391b89615458b921241b6434dc7069a4c93dbbc16386d39",
+        "nerfstudio/models/lookcloser.py": "b7ed07cad636bb6980d308c23380e33418b3c40dad591ec360ef319004f1a4e4",
+        "nerfstudio/model_components/mesh_distillation.py": "8a9d8f31925a768d78ee58fd997d84314698392721c480f14c370795645bf78b",
+        "nerfstudio/model_components/native_training.py": "face79a4ec5611c9cf25d16f864fd336b130ad89c0fa3f648fd95edda7476c08",
+        "nerfstudio/model_components/native_patches.py": "d76d558d5b0f242e39c6ffc148ba424645bfc933d19e83bfa96fd1926849d54e",
+        "nerfstudio/model_components/observed_background.py": "9099083b1e1e52f11ad0e78d9c08a1a0b29b5a525e59b966b96976381ecd7984"
+      },
+      "request": {
+        "data": "/home/brans/lookcloser_artifacts/dec5_core_retraining/learned_matte_data",
+        "output": "/home/brans/lookcloser_artifacts/dec5_core_retraining/neutral_distortion_shape",
+        "steps": 4000,
+        "seconds": 3600.0,
+        "rays": 4096,
+        "samples": 1024,
+        "sampling": "fixed",
+        "hash_size": 21,
+        "max_resolution": 8192,
+        "lr": 0.0001,
+        "lr_final": 2e-05,
+        "depth_weight": 0.0,
+        "depth_steps": 0,
+        "depth_distribution_weight": 0.0,
+        "depth_distribution_sigma": 0.0015,
+        "distortion_weight": 0.01,
+        "opacity_neutral_distortion": true,
+        "eval_every": 1000,
+        "eval_scale": 2,
+        "load": "/home/brans/lookcloser_artifacts/dec5_core_retraining/observed_lc_extended/best.pt",
+        "freeze_grid": false,
+        "legacy_sh": false,
+        "normalized_density": true,
+        "view_independent_color": false,
+        "foreground_support": "/home/brans/lookcloser_artifacts/dec5_core_retraining/learned_matte_data/aabb_support.pt",
+        "background_checkpoint": null,
+        "equipment_slab": null,
+        "slab_plane": null,
+        "empty_fraction": 0.25,
+        "detail_fraction": 0.0,
+        "boundary_fraction": 0.5,
+        "boundary_radius": 3,
+        "empty_weight": 0.1,
+        "matte_weight": 0.3,
+        "matte_all_pixels": true,
+        "matte_soft_target_weight": 0.1,
+        "opacity_hard_fraction": 1.0,
+        "native_patches": 4,
+        "patch_size": 16,
+        "patch_every": 4,
+        "patch_ssim_weight": 0.0,
+        "stratified": true,
+        "importance_samples": 256,
+        "camera_lr": 0.0,
+        "freeze_decoders": false,
+        "initial_frequency_grid": null,
+        "replace_frequency_grid": null,
+        "initialize_occupancy": false,
+        "native_training_manifest": "/home/brans/lookcloser_artifacts/dec5_core_retraining/native_training/native_manifest.json",
+        "observed_background": "/home/brans/lookcloser_artifacts/dec5_core_retraining/temporal_background_all",
+        "stereo_depth": null,
+        "stereo_depth_weight": 0.0,
+        "eval_only": false,
+        "data_manifest_sha256": "7e5513217f2857398e63913a2e67b1c037af62ad61472895e3f6109b13b9554a",
+        "pid": 743144,
+        "script_sha256": "47fddbf01f6ddf15a151ca4e2126184e62e855cf4e457475d9266589694c1072"
+      },
+      "native": {
+        "views": [
+          {
+            "split": "train",
+            "index": 19,
+            "file": "/home/brans/lookcloser_artifacts/dec5_core_retraining/learned_matte_data/images/train_0019.png",
+            "regions": {
+              "opaque": {
+                "psnr": 28.807132720947266,
+                "ssim": 0.8125373125076294,
+                "lpips": 0.27821817994117737,
+                "pixels": 810503
+              },
+              "boundary": {
+                "psnr": 28.722856521606445,
+                "ssim": 0.9921837449073792,
+                "lpips": 0.012004687450826168,
+                "pixels": 58584
+              },
+              "observed_boundary_composite": {
+                "psnr": 31.359899520874023,
+                "ssim": 0.9910938739776611,
+                "lpips": 0.009726210497319698,
+                "pixels": 116226
+              },
+              "evaluation": {
+                "psnr": 23.081825256347656,
+                "ssim": 0.7820194363594055,
+                "lpips": 0.32411450147628784,
+                "pixels": 845013
+              }
+            },
+            "opacity": {
+              "opaque_pixels": 810503,
+              "opaque_mean": 0.9978209733963013,
+              "opaque_fraction_below_09": 0.005142485722899437,
+              "matte_mae": 0.010002292692661285,
+              "known_empty": {
+                "pixels": 1080463,
+                "mean": 0.010094989091157913,
+                "fraction_above_01": 0.27400290966033936,
+                "fraction_above_1": 0.009741194546222687
+              }
+            }
+          },
+          {
+            "split": "train",
+            "index": 23,
+            "file": "/home/brans/lookcloser_artifacts/dec5_core_retraining/learned_matte_data/images/train_0023.png",
+            "regions": {
+              "opaque": {
+                "psnr": 28.268945693969727,
+                "ssim": 0.8178379535675049,
+                "lpips": 0.27675631642341614,
+                "pixels": 742588
+              },
+              "boundary": {
+                "psnr": 28.102092742919922,
+                "ssim": 0.9931498169898987,
+                "lpips": 0.010451514273881912,
+                "pixels": 53827
+              },
+              "observed_boundary_composite": {
+                "psnr": 30.45416259765625,
+                "ssim": 0.9907222986221313,
+                "lpips": 0.010476846247911453,
+                "pixels": 119559
+              },
+              "evaluation": {
+                "psnr": 21.44110107421875,
+                "ssim": 0.7826106548309326,
+                "lpips": 0.3206360340118408,
+                "pixels": 780166
+              }
+            },
+            "opacity": {
+              "opaque_pixels": 742588,
+              "opaque_mean": 0.9978471398353577,
+              "opaque_fraction_below_09": 0.005321928299963474,
+              "matte_mae": 0.00986687745898962,
+              "known_empty": {
+                "pixels": 1144582,
+                "mean": 0.013696512207388878,
+                "fraction_above_01": 0.25991061329841614,
+                "fraction_above_1": 0.012712064199149609
+              }
+            }
+          },
+          {
+            "split": "eval",
+            "index": 0,
+            "file": "/home/brans/lookcloser_artifacts/dec5_core_retraining/learned_matte_data/images/eval_0062.png",
+            "regions": {
+              "evaluation": {
+                "psnr": 33.16606140136719,
+                "ssim": 0.9161074757575989,
+                "lpips": 0.16494238376617432,
+                "pixels": 94658
+              }
+            }
+          }
+        ],
+        "frames": [
+          {
+            "frame": 21,
+            "camera_sha256": "fa9504e216606169ac0444f55a7cf06eaa89a257164f9fab0dd09bda223d0ae6",
+            "sha256": "319ef672e875a52a5e0b409d07793fe3562b102159d4e9fa4c863172c9dc6e22"
+          },
+          {
+            "frame": 22,
+            "camera_sha256": "fb65343fe2ee644b0bda8195dd56afc94423af8a10f458b1daa890272b6c925a",
+            "sha256": "38b7c79719e1f1cf1ac86386cb7182d6c887ddb4ae450d85f74e7444467fe9ca"
+          },
+          {
+            "frame": 23,
+            "camera_sha256": "b6a61aa55fa51ba54066c3424f3dfd7d3b1f43e54c9c4fc6ad567816d1009e68",
+            "sha256": "57b585834bd3046724862277a17bbb4385ecbe2e563d6a4eadf472c6c5caab44"
+          }
+        ],
+        "scale": 1,
+        "checkpoint_sha256": "ce332bf13ff0d29aab5d75ac38822fcdfa0820f4fc372f2ed97fc009e24c0b62",
+        "seconds": 114.25563506083563
+      },
+      "review_receipt_sha256": "f6e6cad2c7de38ce56e968bd486d414d09429d5f600498b3f4f26d6a47f609d2"
+    }
+  },
+  "regions": {
+    "regions": {
+      "reference_sha256": "54567b04c5c82d0e8736aaa48d2e99953135719fd14ada769d5b6e48329cc863",
+      "polygons": {
+        "hair_crown": [
+          [
+            1200,
+            432
+          ],
+          [
+            1280,
+            432
+          ],
+          [
+            1280,
+            656
+          ],
+          [
+            1200,
+            656
+          ]
+        ],
+        "hand_core": [
+          [
+            433,
+            548
+          ],
+          [
+            478,
+            521
+          ],
+          [
+            538,
+            519
+          ],
+          [
+            594,
+            543
+          ],
+          [
+            608,
+            583
+          ],
+          [
+            578,
+            623
+          ],
+          [
+            529,
+            648
+          ],
+          [
+            465,
+            617
+          ]
+        ],
+        "lipstick": [
+          [
+            614,
+            553
+          ],
+          [
+            696,
+            553
+          ],
+          [
+            696,
+            584
+          ],
+          [
+            614,
+            584
+          ]
+        ]
+      },
+      "origin": "Existing frozen DEC5 diagnostic polygons; evaluation only"
+    },
+    "scale": 1,
+    "metrics": {
+      "hair_crown": {
+        "initial": {
+          "psnr": 24.522781372070312,
+          "ssim": 0.44087034463882446,
+          "lpips": 0.7702083587646484,
+          "pixels": 18225
+        },
+        "control": {
+          "psnr": 24.600940704345703,
+          "ssim": 0.4434255063533783,
+          "lpips": 0.7643985748291016,
+          "pixels": 18225
+        },
+        "neutral": {
+          "psnr": 24.601131439208984,
+          "ssim": 0.4433844983577728,
+          "lpips": 0.7637366056442261,
+          "pixels": 18225
+        }
+      },
+      "hand_core": {
+        "initial": {
+          "psnr": 34.06397247314453,
+          "ssim": 0.9535433053970337,
+          "lpips": 0.0388762503862381,
+          "pixels": 15684
+        },
+        "control": {
+          "psnr": 34.31446838378906,
+          "ssim": 0.9537146687507629,
+          "lpips": 0.036926962435245514,
+          "pixels": 15684
+        },
+        "neutral": {
+          "psnr": 34.3186149597168,
+          "ssim": 0.9536975026130676,
+          "lpips": 0.03689603507518768,
+          "pixels": 15684
+        }
+      },
+      "lipstick": {
+        "initial": {
+          "psnr": 22.58073616027832,
+          "ssim": 0.9079418182373047,
+          "lpips": 0.061945755034685135,
+          "pixels": 2656
+        },
+        "control": {
+          "psnr": 22.679338455200195,
+          "ssim": 0.9080450534820557,
+          "lpips": 0.06257207691669464,
+          "pixels": 2656
+        },
+        "neutral": {
+          "psnr": 22.682186126708984,
+          "ssim": 0.9081037044525146,
+          "lpips": 0.06269130110740662,
+          "pixels": 2656
+        }
+      }
+    },
+    "predictions": {
+      "initial": {
+        "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/observed_lc_extended_review/eval_0000/rgb.png",
+        "sha256": "9c3fcda4c97ccbf7ec8800c387e08f3df5f1fcae543904b940b533416260cae2"
+      },
+      "control": {
+        "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/neutral_distortion_control_review/eval_0000/rgb.png",
+        "sha256": "05911e69aaa97e5e0516591878d6a66f41f2b1b9f32ba7c25d7f9dec1140b871"
+      },
+      "neutral": {
+        "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/neutral_distortion_shape_review/eval_0000/rgb.png",
+        "sha256": "464e7f7a7bde13ff1e2f1f529ccc09bea43cfed5a55797ed21d258ebad4a2d06"
+      }
+    },
+    "reference": "/mnt/data/dec5_lookcloser_calibration_v4/actor_boundary_data/images/eval_0062.png",
+    "script_sha256": "3980f786cb48ae4b82130e312ac41da93a09b9a3f439cb80118b912926b4324a",
+    "protocol": "Quantized PNG; exact-region PSNR; tight zero-masked SSIM/LPIPS, padded to >=64px",
+    "limitations": "Interior diagnostics; do not validate silhouettes or temporal consistency"
+  },
+  "validation": {
+    "tests_passed": 23,
+    "log_sha256": "c290e0a58645a3ef335bc20d3a50e0f13301acbdd29c848408298aa6f4e7b931",
+    "visual_review": "Hair softness, cheek smear and thumb contour defects remain; not promoted."
+  }
+}

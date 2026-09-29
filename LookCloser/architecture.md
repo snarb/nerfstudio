@@ -1,5 +1,19 @@
 # LookCloser architecture
 
+## Lipstick-scene LookCloser candidates (unpromoted)
+
+`DistillationPipeline` keeps the teacher/real camera gauge fixed, masks unknown
+observations, and carries the Frequency Grid into real-image continuation. Its
+LookCloser field has opt-in normalized FP32 exponential density and corrected
+SH inputs; optional conservative support, native photo targets and observed
+background composition are isolated from ordinary method defaults.
+`run_distillation_actor_probe.py` resolves this checkout and preserves field/Adam
+state, but its historical selection metrics cover a masked ROI. It is a diagnostic
+runner, not the required full-frame final evaluation. No Gaussian/NHT trainer is
+part of this candidate addition. Evidence, limitations and staged ablations:
+[DEC5 candidates](experiments/dec5_lookcloser_candidates.md).
+
+
 ## Mesh-teacher distillation data (opt-in, no trainer changes)
 
 `prepare_mesh_distillation_dataset.py` exports one fixed DEC5 time as calibrated

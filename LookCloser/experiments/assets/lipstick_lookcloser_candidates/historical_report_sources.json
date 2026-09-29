@@ -1,0 +1,42 @@
+{
+  "dec5_lookcloser_recovery": {
+    "git_object": "d36e1068:LookCloser/experiments/dec5_lookcloser_recovery.md",
+    "sha256": "f0a68defb5a81acfe56c57c4ca4bf9af9faf644e1605a6ed886c56e9aae61e2a"
+  },
+  "dec5_core_retraining": {
+    "git_object": "d36e1068:LookCloser/experiments/dec5_core_retraining.md",
+    "sha256": "963491831dad0421ef367f87b555e4abcb325a9ee1806e03a8112818a1c1050b"
+  },
+  "dec5_observed_background_training": {
+    "git_object": "d36e1068:LookCloser/experiments/dec5_observed_background_training.md",
+    "sha256": "ce07efa096315915586118f3e57bb84ecf2fbb28206143e41664e1c213cef3df"
+  },
+  "dec5_native_patch_supervision": {
+    "git_object": "d36e1068:LookCloser/experiments/dec5_native_patch_supervision.md",
+    "sha256": "f59c4c9cccbd2b8df6e49a055576dd6bb13ae7b4c33be652c6492e2969a26235"
+  },
+  "dec5_native_composite_training": {
+    "git_object": "d36e1068:LookCloser/experiments/dec5_native_composite_training.md",
+    "sha256": "92f5c4150cf67ecaf1e950cc73c5a76ead2a76df8e787138c6e033cccb3215f7"
+  },
+  "dec5_training_ray_coverage": {
+    "git_object": "d36e1068:LookCloser/experiments/dec5_training_ray_coverage.md",
+    "sha256": "9760aed96aec7096f75c92626f02b9ebeeb27a37d4232bbb17f900dc9f738cc0"
+  },
+  "dec5_opacity_neutral_distortion": {
+    "git_object": "d36e1068:LookCloser/experiments/dec5_opacity_neutral_distortion.md",
+    "sha256": "8606492c3fa0e644c184091f5e709dda830595741d3ffb5ed777231945ba264c"
+  },
+  "dec5_shared_gaussian_radiance": {
+    "git_object": "d36e1068:LookCloser/experiments/dec5_shared_gaussian_radiance.md",
+    "sha256": "96af5d7418b092e2f19b9fb7ee005b8ad5065fd2e9e143e89d72091b109e326c"
+  },
+  "dec5_000899_lookcloser_blur_causal": {
+    "git_object": "d36e1068:LookCloser/experiments/dec5_000899_lookcloser_blur_causal.md",
+    "sha256": "eecdb1584f3bfd9f461f40cb8b9a82cde0ec131646118825c1245cd5ca6bcc07"
+  },
+  "dec5_uniform_learned_mattes": {
+    "git_object": "d36e1068:LookCloser/experiments/dec5_uniform_learned_mattes.md",
+    "sha256": "08a752ee0f896fc5154a5324e3270445c1bc0509ed6ed12c6831043a12b74ca8"
+  }
+}

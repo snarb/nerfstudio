@@ -278,11 +278,13 @@ class LookCloserField(Field):
             l_grid=l_grid,
         )
         h = self.mlp_geo(features)
-        density = F.softplus(h[..., 0:1] + 1.0)
+        density = self.activate_density(h[..., 0:1])
         density = density * selector.reshape(-1, 1)
+        density = density * self.foreground_support_at(positions_flat)
+        density = density * self.slab_support_at(positions.reshape(-1, 3))
         geo_feat = h[..., 1:]
 
-        d_encoded = self.direction_encoding(directions.reshape(-1, 3))
+        d_encoded = self.encode_directions(directions.reshape(-1, 3))
         color_inputs = [geo_feat, d_encoded]
         if self.embedding_appearance is not None:
             if self.training and camera_indices is not None:
@@ -296,6 +298,40 @@ class LookCloserField(Field):
             color_inputs.append(embedded_appearance)
         rgb = self._activate_rgb(self.mlp_color(torch.cat(color_inputs, dim=-1)))
         return density, rgb
+
+    def encode_directions(self, directions: Tensor) -> Tensor:
+        if getattr(self, "view_independent_color", False):
+            # Opt-in Lambertian control keeps checkpoint tensor dimensions and
+            # removes directional color variation in every rendering path.
+            directions = torch.zeros_like(directions)
+            directions[..., 2] = 1.0
+        # TCNN kernel_sh applies 2*x-1 internally. Preserve historical checkpoint
+        # behavior unless a new model explicitly selects the corrected contract.
+        if getattr(self, "correct_sh_directions", False):
+            directions = (directions + 1.0) * 0.5
+        return self.direction_encoding(directions)
+
+    def activate_density(self, logits: Tensor) -> Tensor:
+        if getattr(self, "normalized_exponential_density", False):
+            from nerfstudio.field_components.activations import trunc_exp
+            # Density is inverse length. Hash coordinates are AABB-normalized;
+            # keep optical thickness invariant to the immutable scene gauge.
+            return trunc_exp(logits.float().clamp(-16.,11.) + 1.0) / (self.aabb[1]-self.aabb[0]).max()
+        return F.softplus(logits + 1.0)
+
+    def foreground_support_at(self, normalized_positions: Tensor) -> Tensor:
+        support=getattr(self,"foreground_support",None)
+        if support is None:
+            return 1.0
+        grid=(normalized_positions[:,[2,1,0]]*2-1).reshape(1,1,1,-1,3)
+        return F.grid_sample(support[None,None],grid,mode='bilinear',padding_mode='zeros',align_corners=True).reshape(-1,1)
+
+    def slab_support_at(self, positions: Tensor) -> Tensor:
+        slab = getattr(self, "density_slab", None)
+        if slab is None:
+            return 1.0
+        signed = (positions.float() * slab[:3].float()).sum(-1) + slab[3].float()
+        return ((signed >= slab[4]) & (signed <= slab[5]))[:, None]
 
     def get_weights(self, l_grid: Tensor, batch_size: int) -> Tensor:
         """
@@ -368,7 +404,7 @@ class LookCloserField(Field):
         density_before_activation = h[..., 0:1]
         geo_feat = h[..., 1:]
 
-        density = F.softplus(density_before_activation + 1.0)
+        density = self.activate_density(density_before_activation)
 
         # Reshape back to ray samples structure
         density = density.view(*prefix_shape, 1)
@@ -376,6 +412,10 @@ class LookCloserField(Field):
 
         # Apply valid mask
         density = density * selector[..., None]
+        if hasattr(self,'foreground_support'):
+            density = density * self.foreground_support_at(positions_flat).reshape(*prefix_shape,1)
+        if hasattr(self,'density_slab'):
+            density = density * self.slab_support_at(positions.reshape(-1,3)).reshape(*prefix_shape,1)
 
         return density, geo_feat
 
@@ -392,7 +432,7 @@ class LookCloserField(Field):
         prefix_shape = directions.shape[:-1]
         directions_flat = directions.reshape(-1, 3)
 
-        d_encoded = self.direction_encoding(directions_flat)
+        d_encoded = self.encode_directions(directions_flat)
 
         # Flatten density embedding
         geo_feat_flat = density_embedding.reshape(-1, self.geo_feat_dim)

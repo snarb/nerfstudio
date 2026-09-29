@@ -1,0 +1,96 @@
+{
+  "softplus_request.json": {
+    "source": "/mnt/data/dec5_lookcloser_recovery_v2/single_correct_sh/request.json",
+    "sha256": "85aad53c305a9e0d326d84ed1b3c18a10cd117666692ea855d0b7fb6e563e01f"
+  },
+  "softplus_metrics.json": {
+    "source": "/mnt/data/dec5_lookcloser_recovery_v2/single_correct_sh/eval_002000/metrics.json",
+    "sha256": "fe9e736f045c363659634d18680cc837ce291f5aae9e5b9d4aaf68a5f7a89cf2"
+  },
+  "softplus_train_head.png": {
+    "source": "/mnt/data/dec5_lookcloser_recovery_v2/single_correct_sh/eval_002000/train_0000_head.png",
+    "sha256": "8e01846fd2f632450c41d72114681ae376b8dcb5bffd4e3162691f366ce203e0"
+  },
+  "normalized_exp_request.json": {
+    "source": "/mnt/data/dec5_lookcloser_recovery_v2/single_normalized_density/request.json",
+    "sha256": "7d28f2f9e4a5add87fee072defe556a7c23d10aa783189990a291d50387d3772"
+  },
+  "normalized_exp_metrics.json": {
+    "source": "/mnt/data/dec5_lookcloser_recovery_v2/single_normalized_density/eval_002000/metrics.json",
+    "sha256": "ad87c8336ad61762c7e67b3f4aa8cb9424559e802f67aef5a43b4cece953c7d2"
+  },
+  "normalized_exp_train_head.png": {
+    "source": "/mnt/data/dec5_lookcloser_recovery_v2/single_normalized_density/eval_002000/train_0000_head.png",
+    "sha256": "e0f6a50bf80367cf70c8743c9fe7e73c95eccb7ab8354ec5519165a7406bdcfd"
+  },
+  "final_review.json": {
+    "source": "/home/brans/.codex/worktrees/952d/nerfstudio/LookCloser/experiments/assets/dec5_core_retraining/final_review.json",
+    "sha256": "9c4f610b24db8dc681a8593948aa14360f6a228e60f46ecbb3d3d178cb794e3a"
+  },
+  "final_regions.json": {
+    "source": "/home/brans/.codex/worktrees/952d/nerfstudio/LookCloser/experiments/assets/dec5_core_retraining/final_regions.json",
+    "sha256": "1b9137302828b5dbddb860b00506755ee9d5aaf0ede9d6357bb75dd91b98a5b1"
+  },
+  "training_requests.json": {
+    "source": "/home/brans/.codex/worktrees/952d/nerfstudio/LookCloser/experiments/assets/dec5_core_retraining/training_requests.json",
+    "sha256": "a0cfc5df1acdea8be278087f87d696e4f0518cf2ea3b70e3a17bf3c583cd59c2"
+  },
+  "dec5_000899_lookcloser_blur_causal.md": {
+    "source": "/home/brans/.codex/worktrees/952d/nerfstudio/LookCloser/experiments/dec5_000899_lookcloser_blur_causal.md",
+    "sha256": "eecdb1584f3bfd9f461f40cb8b9a82cde0ec131646118825c1245cd5ca6bcc07",
+    "scope": "Historical different-frame diagnostic; duplicated train/eval, not novel-view quality",
+    "archived": false,
+    "git_commit": "f1d3d69f",
+    "reason": "Summarized in candidate report; original relative links depend on historical checkout."
+  },
+  "dec5_000899_camera8_fixed1024_step16000_gt_pred.jpg": {
+    "source": "/home/brans/.codex/worktrees/952d/nerfstudio/LookCloser/experiments/assets/dec5_000899_camera8_fixed1024_step16000_gt_pred.jpg",
+    "sha256": "a9956ac7c7302d28676a3e37add497defcf5fbf9dc99073d300da5cad83732c6",
+    "scope": "Historical different-frame diagnostic; duplicated train/eval, not novel-view quality"
+  },
+  "dec5_000899_camera8_fixed4096_step10000_gt_pred.jpg": {
+    "source": "/home/brans/.codex/worktrees/952d/nerfstudio/LookCloser/experiments/assets/dec5_000899_camera8_fixed4096_step10000_gt_pred.jpg",
+    "sha256": "3cedd06ada670ee5627b5ae4e9ee2f64487e42d3908c6df1f6b553e4b673f891",
+    "scope": "Historical different-frame diagnostic; duplicated train/eval, not novel-view quality"
+  },
+  "dec5_observed_background_training_results.json": {
+    "source": "/home/brans/.codex/worktrees/952d/nerfstudio/LookCloser/experiments/assets/dec5_observed_background_training/results.json",
+    "sha256": "f7231458ec292ba89c7cc5fc38fb0ebe1d7aa13882315acfc4d8d5bf82f4fe26"
+  },
+  "dec5_native_patch_supervision_results.json": {
+    "source": "/home/brans/.codex/worktrees/952d/nerfstudio/LookCloser/experiments/assets/dec5_native_patch_supervision/results.json",
+    "sha256": "faf6006cc539f0c41c6e837a0dc1803a621ff29ed56fd1434eb3143d9744145d"
+  },
+  "dec5_native_composite_training_results.json": {
+    "source": "/home/brans/.codex/worktrees/952d/nerfstudio/LookCloser/experiments/assets/dec5_native_composite_training/results.json",
+    "sha256": "f182fec7435fde853a7fc11046b18345e07aa52cc4db3886a57a6038f0291abc"
+  },
+  "dec5_training_ray_coverage_results.json": {
+    "source": "/home/brans/.codex/worktrees/952d/nerfstudio/LookCloser/experiments/assets/dec5_training_ray_coverage/results.json",
+    "sha256": "d4e4dc7197d5fcf32dd2bb5e054f6d702318bc3c778adfbfb6091e052e5b8dc9"
+  },
+  "dec5_opacity_neutral_distortion_results.json": {
+    "source": "/home/brans/.codex/worktrees/952d/nerfstudio/LookCloser/experiments/assets/dec5_opacity_neutral_distortion/results.json",
+    "sha256": "b3dc57c4ecec35f1f09a2f891d275d98a9842718a8a26e94bbae32f689e2bd72"
+  },
+  "actor_tube_rgb_request.json": {
+    "source": "/mnt/data/dec5_lookcloser_recovery_v3/actor_tube_rgb/request.json",
+    "sha256": "ecbe9e8d637316df15fe8dd61da645468d1c3d6710808685cfc84f899ffe67f4"
+  },
+  "observed_lc_canary_request.json": {
+    "source": "/home/brans/lookcloser_artifacts/dec5_core_retraining/observed_lc_canary/request.json",
+    "sha256": "08070bc00a795d4fa0b5d146af9af8b3510e938ece1e45303afbc22e4f3818de"
+  },
+  "observed_lc_control_request.json": {
+    "source": "/home/brans/lookcloser_artifacts/dec5_core_retraining/observed_lc_control/request.json",
+    "sha256": "852a3274939d3d7a9a833143e1878a53733cbe2fe5c96264d049376dd2d6c027"
+  },
+  "observed_lc_extended_request.json": {
+    "source": "/home/brans/lookcloser_artifacts/dec5_core_retraining/observed_lc_extended/request.json",
+    "sha256": "06e11be06ef32b63b6877127e77066677664b8391279490d9b16a66c2860920e"
+  },
+  "observed_lc_plates_request.json": {
+    "source": "/home/brans/lookcloser_artifacts/dec5_core_retraining/observed_lc_plates/request.json",
+    "sha256": "6a4c15ae27d5586dff7d4c63f8ee2ac8eab91c6b4a69d36c319326064e68e2f6"
+  }
+}

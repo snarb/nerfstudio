@@ -1,0 +1,460 @@
+{
+  "protocol": "Train-only native RGB spatial patches and paired ray-integration continuation; fixed eval regions; no anatomical repairs. All four runs visually rejected as artifact-free replacements.",
+  "runs": {
+    "native_patch_rgb": {
+      "request": {
+        "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/native_patch_rgb/request.json",
+        "sha256": "9a01c1c79e6608a85f8c06b34f17d09000b1ebb6e568b5f2040f2f01f4de99fa"
+      },
+      "source_hashes": {
+        "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/native_patch_rgb/source_hashes.json",
+        "sha256": "e9f2c80eefaab329059793948874f514495883785769d18149513b046ddeb5c8"
+      },
+      "history": {
+        "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/native_patch_rgb/history.json",
+        "sha256": "12fee7b181c931d33752f75f06feb96eaab3d68942d6e4725f4963e6fcd981a9"
+      },
+      "transition": {
+        "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/native_patch_rgb/transition.json",
+        "sha256": "96140936549f16193dc307dbf7822bee025633327fd4d23e608454095c1af484"
+      },
+      "patch_protocol": {
+        "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/native_patch_rgb/patch_protocol.json",
+        "sha256": "09727ac49cd9640f2a94d39fa2f451e016e9c2ba2ccfffffc09bb82aaae4f7c9"
+      },
+      "selection": {
+        "step": 52000,
+        "checkpoint_sha256": "4dd48a9e70295cfcc6e910fddeffd3ba191b3b3c485eb2d833457fc0d5bc4da3",
+        "half_face_metrics": {
+          "eval_all_psnr": 31.791118621826172,
+          "eval_all_ssim": 0.9136888980865479,
+          "eval_all_lpips": 0.055304039269685745
+        }
+      },
+      "native_review": {
+        "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/native_patch_rgb_review/metrics.json",
+        "sha256": "862d5c2d7fa3a0bb82377573b8d450cda203a62a0b57c29ffdfbbccef826c658"
+      },
+      "native_face": {
+        "psnr": 31.816720962524414,
+        "ssim": 0.9043441414833069,
+        "lpips": 0.18037131428718567,
+        "pixels": 94658
+      },
+      "native_train_opacity": {
+        "19": {
+          "opaque_pixels": 742755,
+          "opaque_mean": 0.9963821768760681,
+          "opaque_fraction_below_09": 0.007399478927254677,
+          "matte_mae": 0.015265478752553463,
+          "known_empty": {
+            "pixels": 516495,
+            "mean": 0.001591583713889122,
+            "fraction_above_01": 0.014044665731489658,
+            "fraction_above_1": 0.004625407513231039
+          }
+        },
+        "23": {
+          "opaque_pixels": 679955,
+          "opaque_mean": 0.9959453344345093,
+          "opaque_fraction_below_09": 0.009522688575088978,
+          "matte_mae": 0.014622350223362446,
+          "known_empty": {
+            "pixels": 512186,
+            "mean": 0.0009744244161993265,
+            "fraction_above_01": 0.010736334137618542,
+            "fraction_above_1": 0.0029247186612337828
+          }
+        }
+      },
+      "visual_review": "Native cheek/hand/crown and frames21-23 inspected; visible fragments and blurred hair remain; not accepted.",
+      "supervision": {
+        "final_progress": {
+          "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/native_patch_rgb/progress.json",
+          "sha256": "5e16d3e663a251783d1014213d87444aee2242c9519259a7f62fe3530d7a0c94"
+        },
+        "campaign_log": {
+          "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/native_patch_rgb/campaign_checks.jsonl",
+          "sha256": "4341163e6b2f526b4b4d125a7fb01343ac1534fb3d790227c96abe3178f1c8fb"
+        },
+        "worker_pid": 528843,
+        "worker_alive_after_completion": false,
+        "finished": true,
+        "cuda_oom_count": 0
+      }
+    },
+    "native_patch_ssim": {
+      "request": {
+        "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/native_patch_ssim/request.json",
+        "sha256": "010f93ce15a26dbc3dcfed516b6047fb76d7748dc9fc9e5609416cd013203d48"
+      },
+      "source_hashes": {
+        "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/native_patch_ssim/source_hashes.json",
+        "sha256": "e9f2c80eefaab329059793948874f514495883785769d18149513b046ddeb5c8"
+      },
+      "history": {
+        "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/native_patch_ssim/history.json",
+        "sha256": "0e3e3106da75e1878f0aea69c123e184deb47d150b363f81c4ecaea2ef0beb3a"
+      },
+      "transition": {
+        "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/native_patch_ssim/transition.json",
+        "sha256": "96140936549f16193dc307dbf7822bee025633327fd4d23e608454095c1af484"
+      },
+      "patch_protocol": {
+        "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/native_patch_ssim/patch_protocol.json",
+        "sha256": "8ef24eb12a607e83a8c8fe7d04bacbdd26cccaebfe6a12af5c93743802052f9b"
+      },
+      "selection": {
+        "step": 52000,
+        "checkpoint_sha256": "e4f8a052adf6444a408ad5bc8abe919e75fe4f598255f995371902771f1dae5e",
+        "half_face_metrics": {
+          "eval_all_psnr": 31.821069717407227,
+          "eval_all_ssim": 0.9147650599479675,
+          "eval_all_lpips": 0.05971361696720123
+        }
+      },
+      "native_review": {
+        "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/native_patch_ssim_review/metrics.json",
+        "sha256": "e3558cf33640bd41561efeb2970782aedcd3dc4b158e50442f8937bcbdbe7a11"
+      },
+      "native_face": {
+        "psnr": 31.83649444580078,
+        "ssim": 0.9055586457252502,
+        "lpips": 0.18535637855529785,
+        "pixels": 94658
+      },
+      "native_train_opacity": {
+        "19": {
+          "opaque_pixels": 742755,
+          "opaque_mean": 0.9963772892951965,
+          "opaque_fraction_below_09": 0.007468142546713352,
+          "matte_mae": 0.01527368649840355,
+          "known_empty": {
+            "pixels": 516495,
+            "mean": 0.0015587082598358393,
+            "fraction_above_01": 0.01371939666569233,
+            "fraction_above_1": 0.004516984336078167
+          }
+        },
+        "23": {
+          "opaque_pixels": 679955,
+          "opaque_mean": 0.9959429502487183,
+          "opaque_fraction_below_09": 0.009290320798754692,
+          "matte_mae": 0.014652533456683159,
+          "known_empty": {
+            "pixels": 512186,
+            "mean": 0.0009590149275027215,
+            "fraction_above_01": 0.010664094239473343,
+            "fraction_above_1": 0.0028388123027980328
+          }
+        }
+      },
+      "visual_review": "Native cheek/hand/crown and frames21-23 inspected; visible fragments and blurred hair remain; not accepted.",
+      "supervision": {
+        "final_progress": {
+          "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/native_patch_ssim/progress.json",
+          "sha256": "d2af538762c50aafe291269de1cbfdd0bdc88a9aad04fb144fac94cd11417da9"
+        },
+        "campaign_log": {
+          "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/native_patch_ssim/campaign_checks.jsonl",
+          "sha256": "4dcc6dac636ac3639cbc4fbdcafc2f807fa199b41938dce6c248751dc431e8e6"
+        },
+        "worker_pid": 528844,
+        "worker_alive_after_completion": false,
+        "finished": true,
+        "cuda_oom_count": 0
+      }
+    },
+    "quadrature_control": {
+      "request": {
+        "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/quadrature_control/request.json",
+        "sha256": "e06cf1757b2b9436998d474dcd345e3466f43351d2797dccf63cf993135de432"
+      },
+      "source_hashes": {
+        "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/quadrature_control/source_hashes.json",
+        "sha256": "c4d71f19fc20a532fd17d431024b24ef70dcb2e286fbdec628bf383557c7fc89"
+      },
+      "history": {
+        "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/quadrature_control/history.json",
+        "sha256": "a4c34c5c07fc806675dcf7884a1208cb2dc68f93cd87c6c97dda4124e57d8ea0"
+      },
+      "transition": {
+        "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/quadrature_control/transition.json",
+        "sha256": "799441d010ebddf3d5875843aac608d2feab3fc869dd82578fcb6c90b4c6567b"
+      },
+      "patch_protocol": {
+        "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/quadrature_control/patch_protocol.json",
+        "sha256": "09727ac49cd9640f2a94d39fa2f451e016e9c2ba2ccfffffc09bb82aaae4f7c9"
+      },
+      "selection": {
+        "step": 58000,
+        "checkpoint_sha256": "e696e0cdef29ca7281d449a0e5cf15202bb254affb7399384fdfceec34a64b6e",
+        "half_face_metrics": {
+          "eval_all_psnr": 31.78734588623047,
+          "eval_all_ssim": 0.9139724969863892,
+          "eval_all_lpips": 0.053501226007938385
+        }
+      },
+      "native_review": {
+        "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/quadrature_control_review/metrics.json",
+        "sha256": "e8b88cf61ee7616325c87c00c8a06a177c91bf56c6a32fcc807db69791b3c490"
+      },
+      "native_face": {
+        "psnr": 31.808565139770508,
+        "ssim": 0.9043110013008118,
+        "lpips": 0.17821410298347473,
+        "pixels": 94658
+      },
+      "native_train_opacity": {
+        "19": {
+          "opaque_pixels": 742755,
+          "opaque_mean": 0.9964507222175598,
+          "opaque_fraction_below_09": 0.007158484309911728,
+          "matte_mae": 0.015159270726144314,
+          "known_empty": {
+            "pixels": 516495,
+            "mean": 0.0016313514206558466,
+            "fraction_above_01": 0.014468677341938019,
+            "fraction_above_1": 0.004795786924660206
+          }
+        },
+        "23": {
+          "opaque_pixels": 679955,
+          "opaque_mean": 0.9960070848464966,
+          "opaque_fraction_below_09": 0.009246200323104858,
+          "matte_mae": 0.014521525241434574,
+          "known_empty": {
+            "pixels": 512186,
+            "mean": 0.0009871633956208825,
+            "fraction_above_01": 0.010849573649466038,
+            "fraction_above_1": 0.00295790983363986
+          }
+        }
+      },
+      "visual_review": "Native cheek/hand/crown and frames21-23 inspected; visible fragments and blurred hair remain; not accepted.",
+      "supervision": {
+        "final_progress": {
+          "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/quadrature_control/progress.json",
+          "sha256": "a680a8999162c47412df83527d0fe542482b95c4760ae2e8a163d325808b6463"
+        },
+        "campaign_log": {
+          "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/quadrature_control/campaign_checks.jsonl",
+          "sha256": "c81e8eb174b5b153765377d6d5e3c4485afe839f7dc029a7924c6ac0da6233fa"
+        },
+        "worker_pid": 534814,
+        "worker_alive_after_completion": false,
+        "finished": true,
+        "cuda_oom_count": 0
+      }
+    },
+    "quadrature_dense": {
+      "request": {
+        "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/quadrature_dense/request.json",
+        "sha256": "76089034f96cc1fe2b4ed74d38545b253bfff56c88bb41f8470e1c1f0aea9376"
+      },
+      "source_hashes": {
+        "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/quadrature_dense/source_hashes.json",
+        "sha256": "c4d71f19fc20a532fd17d431024b24ef70dcb2e286fbdec628bf383557c7fc89"
+      },
+      "history": {
+        "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/quadrature_dense/history.json",
+        "sha256": "f63b88e38a748c151c88f615a17c32687c49f71c70eaefdd9e39eb741458e7b8"
+      },
+      "transition": {
+        "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/quadrature_dense/transition.json",
+        "sha256": "799441d010ebddf3d5875843aac608d2feab3fc869dd82578fcb6c90b4c6567b"
+      },
+      "patch_protocol": {
+        "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/quadrature_dense/patch_protocol.json",
+        "sha256": "09727ac49cd9640f2a94d39fa2f451e016e9c2ba2ccfffffc09bb82aaae4f7c9"
+      },
+      "selection": {
+        "step": 58000,
+        "checkpoint_sha256": "8c7faba4687548a05c56d793d841bb23d672ec9c54bf8a973a5307e8dee434c8",
+        "half_face_metrics": {
+          "eval_all_psnr": 31.838848114013672,
+          "eval_all_ssim": 0.9136365056037903,
+          "eval_all_lpips": 0.05274532735347748
+        }
+      },
+      "native_review": {
+        "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/quadrature_dense_review/metrics.json",
+        "sha256": "24d0cdd8f6635dcd3eebe906fa09a157d08772c16f5171d11fc491f2f5a11322"
+      },
+      "native_face": {
+        "psnr": 31.861434936523438,
+        "ssim": 0.9040823578834534,
+        "lpips": 0.1770710051059723,
+        "pixels": 94658
+      },
+      "native_train_opacity": {
+        "19": {
+          "opaque_pixels": 742755,
+          "opaque_mean": 0.9964424967765808,
+          "opaque_fraction_below_09": 0.00734024029225111,
+          "matte_mae": 0.015157743357121944,
+          "known_empty": {
+            "pixels": 516495,
+            "mean": 0.0016747009940445423,
+            "fraction_above_01": 0.014774586074054241,
+            "fraction_above_1": 0.004842253867536783
+          }
+        },
+        "23": {
+          "opaque_pixels": 679955,
+          "opaque_mean": 0.9959856867790222,
+          "opaque_fraction_below_09": 0.009441801346838474,
+          "matte_mae": 0.014523577876389027,
+          "known_empty": {
+            "pixels": 512186,
+            "mean": 0.0010077909100800753,
+            "fraction_above_01": 0.01099600549787283,
+            "fraction_above_1": 0.0030047676991671324
+          }
+        }
+      },
+      "visual_review": "Native cheek/hand/crown and frames21-23 inspected; visible fragments and blurred hair remain; not accepted.",
+      "supervision": {
+        "final_progress": {
+          "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/quadrature_dense/progress.json",
+          "sha256": "04c1b1a56c88f5c6395bdfa87d173cf9da6eb4fee17232d80671a9fde79e8e19"
+        },
+        "campaign_log": {
+          "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/quadrature_dense/campaign_checks.jsonl",
+          "sha256": "c5216d25b3ea694e580e5290486fde574aa39d96dfe3e0712c14c476ba0d1857"
+        },
+        "worker_pid": 534830,
+        "worker_alive_after_completion": false,
+        "finished": true,
+        "cuda_oom_count": 0
+      }
+    }
+  },
+  "regions": {
+    "patch": {
+      "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/native_patch_regions/metrics.json",
+      "sha256": "b6839bc172b52ad431803bbf96c45da578d8531f291e2a61906ac16a8466fd63"
+    },
+    "quadrature": {
+      "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/quadrature_regions/metrics.json",
+      "sha256": "cecbf2d5d148685136de397eca895f67623bf38be2133e70efeeaf66c0cdf8b4"
+    }
+  },
+  "axis_audit": {
+    "receipt": {
+      "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/gaussian_axis_audit/audit.json",
+      "sha256": "1d5adc12e6273dfa40e3f60eac646d2881d09a70dfce41418f09116ae1fc26e8"
+    },
+    "regions": [
+      {
+        "name": "skin_edge",
+        "rectangle": [
+          770,
+          635,
+          800,
+          650
+        ],
+        "primitives_99_percent": 425,
+        "contribution_total": 448.41448974609375,
+        "alpha_total": 448.91168212890625,
+        "mean_radius_pixels": 17.737762451171875,
+        "mean_scale_ratio": 1120.6602783203125,
+        "mean_needle_ratio": 2.316988706588745,
+        "mean_disk_ratio": 614.5107421875,
+        "contribution_needle_ratio_above_10": 0.007314649410545826,
+        "contribution_disk_ratio_above_10": 0.7628700733184814,
+        "contribution_ratio_above_10": 0.8192869424819946,
+        "center_behind_mesh_3pixels": 0.5784083008766174,
+        "center_before_mesh_3pixels": 0.0203414149582386,
+        "mesh_hit_fraction": 1.0,
+        "center_outside_roi": 0.4298807978630066,
+        "center_in_any_known_empty_view": 0.0,
+        "weighted_empty_views": 0.0
+      },
+      {
+        "name": "contour",
+        "rectangle": [
+          770,
+          650,
+          800,
+          665
+        ],
+        "primitives_99_percent": 496,
+        "contribution_total": 365.1282958984375,
+        "alpha_total": 395.34844970703125,
+        "mean_radius_pixels": 14.863183975219727,
+        "mean_scale_ratio": 2393.310302734375,
+        "mean_needle_ratio": 2.795016288757324,
+        "mean_disk_ratio": 1056.17236328125,
+        "contribution_needle_ratio_above_10": 0.0256655253469944,
+        "contribution_disk_ratio_above_10": 0.7874970436096191,
+        "contribution_ratio_above_10": 0.8713398575782776,
+        "center_behind_mesh_3pixels": 0.8143787384033203,
+        "center_before_mesh_3pixels": 0.0013268961338326335,
+        "mesh_hit_fraction": 1.0,
+        "center_outside_roi": 0.31838181614875793,
+        "center_in_any_known_empty_view": 0.0,
+        "weighted_empty_views": 0.0
+      },
+      {
+        "name": "skin_control",
+        "rectangle": [
+          820,
+          570,
+          890,
+          595
+        ],
+        "primitives_99_percent": 1177,
+        "contribution_total": 1740.9593505859375,
+        "alpha_total": 1749.5673828125,
+        "mean_radius_pixels": 12.366735458374023,
+        "mean_scale_ratio": 974.2698974609375,
+        "mean_needle_ratio": 2.9958102703094482,
+        "mean_disk_ratio": 418.3885498046875,
+        "contribution_needle_ratio_above_10": 0.020757177844643593,
+        "contribution_disk_ratio_above_10": 0.5660966038703918,
+        "contribution_ratio_above_10": 0.6939806938171387,
+        "center_behind_mesh_3pixels": 0.47000202536582947,
+        "center_before_mesh_3pixels": 0.1435915231704712,
+        "mesh_hit_fraction": 0.9999999403953552,
+        "center_outside_roi": 0.11970795691013336,
+        "center_in_any_known_empty_view": 0.0,
+        "weighted_empty_views": 0.0
+      }
+    ]
+  },
+  "all_camera_geometry": {
+    "audit_path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/all_camera_geometry/audit.json",
+    "audit_sha256": "15e7523777592b86e7dd46bf4062cdeafff98e8eb9977ad4df5f35f7f8bf6dfd",
+    "script_sha256": "1fe1d03b3a3c51c0e84bb4d0399cb400cd754ebfe86b05231181aa756e149c21",
+    "checkpoint_sha256": "4dd48a9e70295cfcc6e910fddeffd3ba191b3b3c485eb2d833457fc0d5bc4da3",
+    "manifest_sha256": "08c550c15812a978e63a85e575954a43376e791caf66cd3715cb339aebb8958c",
+    "mesh_sha256": "68487f5cb375723ba8121c38954c21d8d9f7dfad26aac13336a3e678da3bfa69",
+    "neighbors": 4,
+    "uses_eval_images": false,
+    "split": "70% fit F; 30% held out; report only held-out fitted-F residual <1px",
+    "caution": "SIFT inliers are correspondence evidence, not ground-truth geometry; occlusions and specularity remain possible",
+    "measured_pairs": 149,
+    "minimum_heldout_inliers": 55,
+    "summaries": {
+      "epipolar": {
+        "median_of_pair_medians": 0.33259462301999626,
+        "p90_of_pair_medians": 0.6931337686660288,
+        "max_pair_median": 1.2904775224340068,
+        "pairs_with_median_over_1px": 3
+      },
+      "mesh": {
+        "median_of_pair_medians": 0.8671000950406855,
+        "p90_of_pair_medians": 1.6792582299409542,
+        "max_pair_median": 2.975935386948112,
+        "pairs_with_median_over_1px": 59
+      }
+    },
+    "requested_cameras": 62,
+    "covered_cameras": 62,
+    "missing_cameras": [],
+    "requested_pair_count": 149
+  },
+  "validation": "51 distinct targeted tests passed; git diff --check clean.",
+  "checked_utc": "2026-09-27T16:41:12.144072+00:00"
+}

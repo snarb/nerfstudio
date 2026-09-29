@@ -24,6 +24,7 @@ from typing import IO, List, Tuple, Union
 os.environ.setdefault("OPENCV_IO_ENABLE_OPENEXR", "1")
 
 import cv2
+import gzip
 import numpy as np
 import torch
 from PIL import Image
@@ -178,13 +179,17 @@ def get_depth_image_from_path(
     Returns:
         Depth image torch tensor with shape [height, width, 1].
     """
-    if filepath.suffix == ".npy":
-        image = np.load(filepath).astype(np.float32) * scale_factor
-        image = cv2.resize(image, (width, height), interpolation=interpolation)
+    if filepath.name.endswith(".npy.gz"):
+        with gzip.open(filepath, "rb") as stream:
+            image = np.load(stream, allow_pickle=False)
+    elif filepath.suffix == ".npy":
+        image = np.load(filepath, allow_pickle=False)
     else:
         image = cv2.imread(str(filepath.absolute()), cv2.IMREAD_ANYDEPTH)
-        image = image.astype(np.float32) * scale_factor
-        image = cv2.resize(image, (width, height), interpolation=interpolation)  # type: ignore
+    if image is None:
+        raise ValueError(f"Could not decode depth image: {filepath}")
+    image = image.astype(np.float32) * scale_factor
+    image = cv2.resize(image, (width, height), interpolation=interpolation)
     return torch.from_numpy(image[:, :, np.newaxis])
 
 

@@ -1,0 +1,159 @@
+{
+  "regions": {
+    "reference_sha256": "54567b04c5c82d0e8736aaa48d2e99953135719fd14ada769d5b6e48329cc863",
+    "polygons": {
+      "hair_crown": [
+        [
+          1200,
+          432
+        ],
+        [
+          1280,
+          432
+        ],
+        [
+          1280,
+          656
+        ],
+        [
+          1200,
+          656
+        ]
+      ],
+      "hand_core": [
+        [
+          433,
+          548
+        ],
+        [
+          478,
+          521
+        ],
+        [
+          538,
+          519
+        ],
+        [
+          594,
+          543
+        ],
+        [
+          608,
+          583
+        ],
+        [
+          578,
+          623
+        ],
+        [
+          529,
+          648
+        ],
+        [
+          465,
+          617
+        ]
+      ],
+      "lipstick": [
+        [
+          614,
+          553
+        ],
+        [
+          696,
+          553
+        ],
+        [
+          696,
+          584
+        ],
+        [
+          614,
+          584
+        ]
+      ]
+    },
+    "origin": "Existing frozen DEC5 diagnostic polygons; evaluation only"
+  },
+  "scale": 1,
+  "metrics": {
+    "hair_crown": {
+      "old_field": {
+        "psnr": 23.538301467895508,
+        "ssim": 0.39365264773368835,
+        "lpips": 0.8404495716094971,
+        "pixels": 18225
+      },
+      "native_field": {
+        "psnr": 23.574413299560547,
+        "ssim": 0.37220853567123413,
+        "lpips": 0.8089641332626343,
+        "pixels": 18225
+      },
+      "hybrid": {
+        "psnr": 23.886241912841797,
+        "ssim": 0.35267868638038635,
+        "lpips": 0.41548824310302734,
+        "pixels": 18225
+      }
+    },
+    "hand_core": {
+      "old_field": {
+        "psnr": 32.602848052978516,
+        "ssim": 0.9473986625671387,
+        "lpips": 0.04250483959913254,
+        "pixels": 15684
+      },
+      "native_field": {
+        "psnr": 32.594512939453125,
+        "ssim": 0.9415512681007385,
+        "lpips": 0.03714771196246147,
+        "pixels": 15684
+      },
+      "hybrid": {
+        "psnr": 29.613590240478516,
+        "ssim": 0.9216994047164917,
+        "lpips": 0.057023175060749054,
+        "pixels": 15684
+      }
+    },
+    "lipstick": {
+      "old_field": {
+        "psnr": 28.377201080322266,
+        "ssim": 0.9514954090118408,
+        "lpips": 0.025779716670513153,
+        "pixels": 2656
+      },
+      "native_field": {
+        "psnr": 28.555410385131836,
+        "ssim": 0.9468884468078613,
+        "lpips": 0.01921471208333969,
+        "pixels": 2656
+      },
+      "hybrid": {
+        "psnr": 26.741714477539062,
+        "ssim": 0.9324781894683838,
+        "lpips": 0.025320352986454964,
+        "pixels": 2656
+      }
+    }
+  },
+  "predictions": {
+    "old_field": {
+      "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/region_inputs_native/baseline_native_review.png",
+      "sha256": "b67d9d5354029021bfd840e875fb418dc600bd765c5064e9fc3497d716b844d4"
+    },
+    "native_field": {
+      "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/region_inputs_native/selected_field_native_review.png",
+      "sha256": "ffb3bf06c375204007329520c936de0496f1430a0080870da78661570cfc9525"
+    },
+    "hybrid": {
+      "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/region_inputs_native/absolute.png",
+      "sha256": "2765c2e4128dd6dd4575703d23d6f587567cfb0bcdda0aabb9478633c2e00bc9"
+    }
+  },
+  "reference": "/mnt/data/dec5_lookcloser_calibration_v4/actor_boundary_data/images/eval_0062.png",
+  "script_sha256": "3980f786cb48ae4b82130e312ac41da93a09b9a3f439cb80118b912926b4324a",
+  "protocol": "Quantized PNG; exact-region PSNR; tight zero-masked SSIM/LPIPS, padded to >=64px",
+  "limitations": "Interior diagnostics; do not validate silhouettes or temporal consistency"
+}

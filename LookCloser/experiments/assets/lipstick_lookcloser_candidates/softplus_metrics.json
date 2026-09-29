@@ -1,0 +1,39 @@
+{
+  "step": 2000,
+  "metrics": {
+    "eval_all_psnr": 17.61476707458496,
+    "eval_all_ssim": 0.7005084156990051,
+    "eval_all_lpips": 0.4935247600078583
+  },
+  "per_view": [
+    {
+      "psnr": 20.211793899536133,
+      "ssim": 0.9345906972885132,
+      "lpips": 0.23257732391357422,
+      "split": "train",
+      "index": 0,
+      "image": "train_0033.png",
+      "mean_actor_opacity": 0.46422284841537476
+    },
+    {
+      "psnr": 17.709177017211914,
+      "ssim": 0.7209845781326294,
+      "lpips": 0.4780973196029663,
+      "split": "val",
+      "index": 0,
+      "image": "val_0000.png",
+      "mean_actor_opacity": 0.48578834533691406
+    },
+    {
+      "psnr": 17.520357131958008,
+      "ssim": 0.6800322532653809,
+      "lpips": 0.5089522004127502,
+      "split": "val",
+      "index": 1,
+      "image": "val_0001.png",
+      "mean_actor_opacity": 0.48459678888320923
+    }
+  ],
+  "scale": 2,
+  "protocol": "Exact GT mask PSNR; tight zero-masked ROI SSIM/LPIPS; sampled native pixel centers"
+}

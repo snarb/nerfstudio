@@ -1,0 +1,184 @@
+{
+  "status": "unpromoted; no scene training launched during branch extraction",
+  "checked_date": "2026-09-29",
+  "base_commit": "630d58bd",
+  "extracted_from": "d36e1068",
+  "cwd": "LookCloser",
+  "environment": {
+    "requested_conda": {
+      "path": "/home/ubuntu/anaconda3/envs/nerfstudio",
+      "exists": null,
+      "error": "[Errno 13] Permission denied: '/home/ubuntu/anaconda3/envs/nerfstudio'"
+    },
+    "tested_python": "/home/brans/repos/nerfstudio/.venv/bin/python",
+    "CUDA_HOME": "/home/brans/repos/nerfstudio/.cuda128-toolchain",
+    "TORCH_EXTENSIONS_DIR": "/home/brans/.cache/torch_extensions_lookcloser",
+    "PATH_prefix": [
+      "/home/brans/repos/nerfstudio/.venv/bin",
+      "/home/brans/repos/nerfstudio/.cuda128-toolchain/bin"
+    ],
+    "PYTHONPATH": "absolute path to this branch nerfstudio root, followed by LookCloser/scripts"
+  },
+  "execution_notes": [
+    "Replace python with the activated environment interpreter and ${ARTIFACT_ROOT} with a new writable output directory.",
+    "Runner resolves its own repository; preparation helpers require the stated PYTHONPATH.",
+    "Historical arguments are diagnostic starting points, not bitwise reproduction claims.",
+    "Selection is masked ROI; native full-frame all-eval selection and visual gate are required before promotion.",
+    "Keep supervisor active and record process/progress/GPU checks at least hourly for subsequent training."
+  ],
+  "recipes": [
+    {
+      "id": "single_softplus",
+      "scope": "single synthetic training view; diagnostic ROI; current candidate code",
+      "argv": [
+        "python",
+        "scripts/run_distillation_actor_probe.py",
+        "--data",
+        "/mnt/data/dec5_lookcloser_recovery_v2/synthetic_single",
+        "--output",
+        "${ARTIFACT_ROOT}/single_softplus",
+        "--steps",
+        "3000",
+        "--seconds",
+        "1800",
+        "--rays",
+        "2048",
+        "--samples",
+        "128",
+        "--sampling",
+        "fixed",
+        "--hash-size",
+        "19",
+        "--lr",
+        ".01",
+        "--lr-final",
+        ".001",
+        "--depth-weight",
+        ".1",
+        "--depth-steps",
+        "1500",
+        "--distortion-weight",
+        ".01",
+        "--eval-every",
+        "1000",
+        "--eval-scale",
+        "2"
+      ]
+    },
+    {
+      "id": "single_normalized_exp",
+      "scope": "single synthetic training view; diagnostic ROI; current candidate code",
+      "argv": [
+        "python",
+        "scripts/run_distillation_actor_probe.py",
+        "--data",
+        "/mnt/data/dec5_lookcloser_recovery_v2/synthetic_single",
+        "--output",
+        "${ARTIFACT_ROOT}/single_normalized_exp",
+        "--steps",
+        "3000",
+        "--seconds",
+        "1800",
+        "--rays",
+        "2048",
+        "--samples",
+        "128",
+        "--sampling",
+        "fixed",
+        "--hash-size",
+        "19",
+        "--lr",
+        ".01",
+        "--lr-final",
+        ".001",
+        "--depth-weight",
+        ".1",
+        "--depth-steps",
+        "1500",
+        "--distortion-weight",
+        ".01",
+        "--eval-every",
+        "1000",
+        "--eval-scale",
+        "2",
+        "--normalized-density"
+      ]
+    }
+  ],
+  "historical_requests": [
+    {
+      "request": "../experiments/assets/lipstick_lookcloser_candidates/actor_tube_rgb_request.json",
+      "scope": "Historical continuation; inspect masks and metrics domain before replay"
+    },
+    {
+      "request": "../experiments/assets/lipstick_lookcloser_candidates/observed_lc_canary_request.json",
+      "scope": "Historical continuation; inspect masks and metrics domain before replay"
+    },
+    {
+      "request": "../experiments/assets/lipstick_lookcloser_candidates/observed_lc_control_request.json",
+      "scope": "Historical continuation; inspect masks and metrics domain before replay"
+    },
+    {
+      "request": "../experiments/assets/lipstick_lookcloser_candidates/observed_lc_extended_request.json",
+      "scope": "Historical continuation; inspect masks and metrics domain before replay"
+    },
+    {
+      "request": "../experiments/assets/lipstick_lookcloser_candidates/observed_lc_plates_request.json",
+      "scope": "Historical continuation; inspect masks and metrics domain before replay"
+    }
+  ],
+  "external_availability": [
+    {
+      "path": "/mnt/data/dec5_000973_mesh_distillation_v1",
+      "exists": true
+    },
+    {
+      "path": "/mnt/data/dec5_lookcloser_recovery_v2/synthetic_single",
+      "exists": true
+    },
+    {
+      "path": "/mnt/data/dec5_lookcloser_recovery_v3/actor_tube_rgb/best.pt",
+      "exists": true
+    },
+    {
+      "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/native_pose_uncertain_hull/best.pt",
+      "exists": true
+    },
+    {
+      "path": "/mnt/data/dec5_lookcloser_recovery_v3/real_rgb_tube_final",
+      "exists": true
+    },
+    {
+      "path": "/mnt/data/dec5_lookcloser_recovery_v2/real_empty_tight_refine/best.pt",
+      "exists": true
+    },
+    {
+      "path": "/mnt/data/dec5_lookcloser_recovery_v3/visual_hull_tube_final/support.pt",
+      "exists": true
+    },
+    {
+      "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/learned_matte_data",
+      "exists": true
+    },
+    {
+      "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/learned_matte_lc/best.pt",
+      "exists": true
+    },
+    {
+      "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/learned_matte_data/aabb_support.pt",
+      "exists": true
+    },
+    {
+      "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/native_training/native_manifest.json",
+      "exists": true
+    },
+    {
+      "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/temporal_background_all",
+      "exists": true
+    },
+    {
+      "path": "/home/brans/lookcloser_artifacts/dec5_core_retraining/observed_lc_plates/best.pt",
+      "exists": true
+    }
+  ]
+}
