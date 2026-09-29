@@ -6,6 +6,10 @@
 archive `8389770b`, one seed (42), independently initialized experiments. Maximum
 campaign budget: 24 GPU-hours. Main was not changed.
 
+Budget accounting merges overlapping active intervals on the one shared GPU,
+including setup and evaluation. The sum of concurrent job wall times is also
+logged as a conservative upper bound; it is not labeled actual GPU time.
+
 The density bundle is split into activation, inverse-AABB scale, precision and
 clipping. SH remains an independent control. The diagnostic runner uses the
 standard LookCloser pipeline and `Trainer.train_iteration`, including its normal
@@ -236,6 +240,16 @@ the face/hair/lipstick scores address the historical foreground claim.
 [Train mask receipt](assets/blur_ablation_fresh/actor_mask_receipt.json);
 [shared real RGB hashes](assets/blur_ablation_fresh/real_input_hashes.json).
 
+At matched step2000, scale alone changes real foreground eval detail from
+**15.563 / .56641 / .85146** to **22.101 / .68625 / .44572** and train detail
+from **16.184 / .54123 / .83247** to **22.195 / .64729 / .52439**.
+Color collapse disappears in all-camera training; residual softness remains.
+These early results are not a final-checkpoint acceptance claim.
+[Native paired metrics](assets/blur_ablation_fresh/actor_scale_early.json).
+
+![Unscaled real foreground, step2000](assets/blur_ablation_fresh/a0_softplus_2000_eval_000_face.png)
+![Scaled softplus real foreground, step2000](assets/blur_ablation_fresh/a1_softplus_scaled_2000_eval_000_face.png)
+
 ### Long original control, completed
 
 The fresh original full-room run finishes 24000 updates. At matched step24000:
@@ -247,3 +261,22 @@ when judging a candidate. More updates improve train fit but leave visible
 held-out ghosting and blur. [Metrics and selection](assets/blur_ablation_fresh/real_original_long.json).
 
 ![Original 24000, eval face: GT / prediction](assets/blur_ablation_fresh/v0_original_24000_eval_000_face.png)
+
+### Completed SH regression and exponential screen
+
+Fight, selected step30376: original **29.47409 / .67341 / .29662**;
+SH correction **29.46895 / .66643 / .28515**. The .00698 SSIM decrease
+exceeds the .005 tolerance despite better LPIPS and nearly unchanged PSNR.
+SH is therefore not accepted as a global quality default.
+[Paired receipts](assets/blur_ablation_fresh/fight_sh_regression.json).
+
+Full room, exponential versus FP32 softplus at step8000: eval detail
+**17.67248 / .63199 / .76287** versus **17.43818 / .67387 / .67195**.
+The +.234 dB is below the .5 dB gate, with worse SSIM/LPIPS and visible blur.
+Exponential alone is rejected. [Native receipts](assets/blur_ablation_fresh/real_exp_screen.json).
+
+A separate unpromoted control tests a candidate-pipeline difference in frequency
+projection: UV resolution must use normalized focal lengths and camera-z depth,
+then be expressed across the AABB span. The baseline multiplies UV resolution
+by pixel focal length over ray distance. The numerical reference is invariant
+to image resizing and uniform world scaling; scene-quality validation is pending.

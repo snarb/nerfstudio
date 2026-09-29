@@ -1,0 +1,326 @@
+{
+  "f0_original": {
+    "complete": true,
+    "history": [
+      {
+        "step": 15188,
+        "eval_stride": 1,
+        "full": {
+          "psnr": 28.775570551554363,
+          "ssim": 0.6509067813555399,
+          "lpips": 0.3646424114704132
+        },
+        "train_rois": {},
+        "eval_rois": {
+          "cable": {
+            "psnr": 28.77704620361328,
+            "ssim": 0.7333841323852539,
+            "lpips": 0.1951809823513031
+          },
+          "fingers": {
+            "psnr": 28.89340591430664,
+            "ssim": 0.7398244142532349,
+            "lpips": 0.1435106098651886
+          },
+          "hand": {
+            "psnr": 27.510066986083984,
+            "ssim": 0.6709787249565125,
+            "lpips": 0.1921253651380539
+          },
+          "label": {
+            "psnr": 28.06816864013672,
+            "ssim": 0.7726956009864807,
+            "lpips": 0.17125827074050903
+          },
+          "stand": {
+            "psnr": 27.771928787231445,
+            "ssim": 0.6957423686981201,
+            "lpips": 0.20804718136787415
+          }
+        }
+      },
+      {
+        "step": 30376,
+        "eval_stride": 1,
+        "full": {
+          "psnr": 29.474092483520508,
+          "ssim": 0.6734073559443156,
+          "lpips": 0.2966178059577942
+        },
+        "train_rois": {},
+        "eval_rois": {
+          "cable": {
+            "psnr": 29.95305061340332,
+            "ssim": 0.7490477561950684,
+            "lpips": 0.14307785034179688
+          },
+          "fingers": {
+            "psnr": 29.630240440368652,
+            "ssim": 0.7547651529312134,
+            "lpips": 0.10977598652243614
+          },
+          "hand": {
+            "psnr": 28.554889678955078,
+            "ssim": 0.6909868121147156,
+            "lpips": 0.12786254286766052
+          },
+          "label": {
+            "psnr": 29.74646759033203,
+            "ssim": 0.7976095080375671,
+            "lpips": 0.12156303226947784
+          },
+          "stand": {
+            "psnr": 28.557842254638672,
+            "ssim": 0.7208912968635559,
+            "lpips": 0.14846587181091309
+          }
+        }
+      }
+    ],
+    "selected": {
+      "step": 30376,
+      "eval_stride": 1,
+      "full": {
+        "psnr": 29.474092483520508,
+        "ssim": 0.6734073559443156,
+        "lpips": 0.2966178059577942
+      },
+      "train_rois": {},
+      "eval_rois": {
+        "cable": {
+          "psnr": 29.95305061340332,
+          "ssim": 0.7490477561950684,
+          "lpips": 0.14307785034179688
+        },
+        "fingers": {
+          "psnr": 29.630240440368652,
+          "ssim": 0.7547651529312134,
+          "lpips": 0.10977598652243614
+        },
+        "hand": {
+          "psnr": 28.554889678955078,
+          "ssim": 0.6909868121147156,
+          "lpips": 0.12786254286766052
+        },
+        "label": {
+          "psnr": 29.74646759033203,
+          "ssim": 0.7976095080375671,
+          "lpips": 0.12156303226947784
+        },
+        "stand": {
+          "psnr": 28.557842254638672,
+          "ssim": 0.7208912968635559,
+          "lpips": 0.14846587181091309
+        }
+      }
+    },
+    "identity": {
+      "initial_weights": "a84f0a2d57ec71d503e386510835faae9f9a8e35ed90bc7479c0381d1b45b09e",
+      "train_count": 66,
+      "eval_count": 3,
+      "transforms_sha256": "022f8748a1a039861a754e68ab3ef830beeb3e5dd94ccb00457a630d28f64aa1",
+      "torch": "2.7.1+cu128",
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Workstation Edition",
+      "seed": 42,
+      "model_source": "bceaf8e7d7dc93ad5b17b5206795023ea1c6cdfcb5b7345cac6328dae1799760",
+      "field_source": "032fe88dede44e5452778c81e48ff9802f827956298d993d7a0e7169e7e45b87",
+      "runtime_source": "b4f2713bbc27c448051f2ed492119082384ac47687e644d322407b62e75438ba"
+    },
+    "first_batches": [
+      "4da909c7e461ddae88cef482161f75cf30a839cf49bf8f6eb533b2ffdb904b89",
+      "1948e12f0e634a1e075522387382069ae9195d40cf5a1d2bfaf986009aae7eaf",
+      "6d9d0133f13d886c51a5c73971ad0280b9b5a844edee368128da721d7f7ae73f",
+      "00487b0e7ce7e888471e0e3bcdb11aa8eb88a6d002c9ee25bc6d0d7cdc1cc295",
+      "b4bb87fc3f594f55ccbcd8b0116692958d7f5f9abe14faddd7d0a8fa16cb3ef5",
+      "c2d80579bebbb2157d1ed3205e1cca11ec0847e081edcd9fefa31fe9e5e5613c",
+      "6248cc70a99bf3bdb0363bc75a02de7355a983a3db6adc5a650e163b21c66363",
+      "ab7332d149794d7ee6be3f9da4881d767e390c4ece8ded7a2aad1a4ec5092ef3",
+      "be5232708cfd1bffcbd76f1f0fe53b25d2a186022514c6f4a2f4c9e3b206c107",
+      "d17d9ad0213bb48b0ef25d41f28b0ab677c15c32348a1e407fd5f5ddbe4f3c8f",
+      "55fa9c727ebde9ed3637de31ea99377dc7a708f2428aa72cf094a02471205338",
+      "d5392cd3cdca9c5f44c1a686280a37ee85d52f0372abf1ec6964ca993ba9ffb6",
+      "59cb59419577356e19e8d09d44ab49856532b67bc8a1eb6d3e4660165e76fabb",
+      "92f9ae79eb2b6f280c12324e6a3da065aeb08ca87c31bdbdfa01c4561abbf198",
+      "292a4a4fc9ddd034577d018ac39c1636daed87faeecf09c6e12c124b818ecb0c",
+      "4c737d16c85225e903a45703526f857340b460fbd09cfe9a58e30a469d0ffc5e",
+      "2d85f55a97d88234167a7e7535cb69ce9d514537280cedd42b651608e8ac6772",
+      "b3e038582592ae33a975c6b76c91e283d1a09336ffdaf525d7eb0f2b919fc0a9",
+      "7794e11de5a58d0f5ed0843f616b2873a5c5cf93f44c07a99611181fcba3a913",
+      "b5df284b011cfaf2dcee51cea2a3ac4ffed580ac6d08146da9f7f44d5a27062b",
+      "1c08553c9ae18694ccc0678862c77da50d8801034c294441f224e5b11df4d41a",
+      "183571fa2a2c73393cae5ee1fb79950e31544c9678984ed25409d5c6c0de7457",
+      "e0245803407ffc2d7152cddfe82b6fd8d88bf711bd34719e0d0411bd9b37b1c0",
+      "ffce8162be5c79d4ca399d2cec1bcb158b15ee1afa368880472324ca313a0267",
+      "e8576d4f7048b1874ecacf30b11180d0a4645262d99d1beaf01711bb82fb839c",
+      "e10bd7c8a17a00d40a9715f195d1adf018883349efffd345e7782226579d22fc",
+      "943761283e637f54f3926f4d3690abd4e3db1193c72f71fbed06ade49eabf912",
+      "15800305d82abed24f584c3fac50c0ac49dd5fb2322b4a48e288c40f4a2686da",
+      "1933a9030e62a1362fdbb39e2153a5a1b39ce9b808455fa111a23939d8ee318c",
+      "bd2d34031f38c1f9a7e1666f0d253356f60785f876e301a265b92a5b2238cbcc",
+      "f97c93ad4b73a28a67207d475e82a7e8b68fdfbf7a9c23431ac105a7d199ec5b",
+      "5388e58901a17e99f802591b1f145df37131f63cb5f857cba5646a873876a4e6"
+    ]
+  },
+  "f1_correct_sh": {
+    "complete": true,
+    "history": [
+      {
+        "step": 15188,
+        "eval_stride": 1,
+        "full": {
+          "psnr": 28.841277440388996,
+          "ssim": 0.6499621073404948,
+          "lpips": 0.3481803933779399
+        },
+        "train_rois": {},
+        "eval_rois": {
+          "cable": {
+            "psnr": 28.56412124633789,
+            "ssim": 0.7322201728820801,
+            "lpips": 0.20182323455810547
+          },
+          "fingers": {
+            "psnr": 29.315016746520996,
+            "ssim": 0.743733674287796,
+            "lpips": 0.13248403742909431
+          },
+          "hand": {
+            "psnr": 27.735193252563477,
+            "ssim": 0.6753019690513611,
+            "lpips": 0.17683443427085876
+          },
+          "label": {
+            "psnr": 28.275657653808594,
+            "ssim": 0.7714679837226868,
+            "lpips": 0.17157691717147827
+          },
+          "stand": {
+            "psnr": 27.989885330200195,
+            "ssim": 0.6804683208465576,
+            "lpips": 0.19428494572639465
+          }
+        }
+      },
+      {
+        "step": 30376,
+        "eval_stride": 1,
+        "full": {
+          "psnr": 29.46894900004069,
+          "ssim": 0.6664252082506815,
+          "lpips": 0.28515442709128064
+        },
+        "train_rois": {},
+        "eval_rois": {
+          "cable": {
+            "psnr": 29.79210662841797,
+            "ssim": 0.7516999840736389,
+            "lpips": 0.1588982194662094
+          },
+          "fingers": {
+            "psnr": 29.72513771057129,
+            "ssim": 0.7557002305984497,
+            "lpips": 0.10649525001645088
+          },
+          "hand": {
+            "psnr": 28.931703567504883,
+            "ssim": 0.6915174722671509,
+            "lpips": 0.12788677215576172
+          },
+          "label": {
+            "psnr": 29.671709060668945,
+            "ssim": 0.799564778804779,
+            "lpips": 0.12999501824378967
+          },
+          "stand": {
+            "psnr": 28.841087341308594,
+            "ssim": 0.7023972868919373,
+            "lpips": 0.14272168278694153
+          }
+        }
+      }
+    ],
+    "selected": {
+      "step": 30376,
+      "eval_stride": 1,
+      "full": {
+        "psnr": 29.46894900004069,
+        "ssim": 0.6664252082506815,
+        "lpips": 0.28515442709128064
+      },
+      "train_rois": {},
+      "eval_rois": {
+        "cable": {
+          "psnr": 29.79210662841797,
+          "ssim": 0.7516999840736389,
+          "lpips": 0.1588982194662094
+        },
+        "fingers": {
+          "psnr": 29.72513771057129,
+          "ssim": 0.7557002305984497,
+          "lpips": 0.10649525001645088
+        },
+        "hand": {
+          "psnr": 28.931703567504883,
+          "ssim": 0.6915174722671509,
+          "lpips": 0.12788677215576172
+        },
+        "label": {
+          "psnr": 29.671709060668945,
+          "ssim": 0.799564778804779,
+          "lpips": 0.12999501824378967
+        },
+        "stand": {
+          "psnr": 28.841087341308594,
+          "ssim": 0.7023972868919373,
+          "lpips": 0.14272168278694153
+        }
+      }
+    },
+    "identity": {
+      "initial_weights": "a84f0a2d57ec71d503e386510835faae9f9a8e35ed90bc7479c0381d1b45b09e",
+      "train_count": 66,
+      "eval_count": 3,
+      "transforms_sha256": "022f8748a1a039861a754e68ab3ef830beeb3e5dd94ccb00457a630d28f64aa1",
+      "torch": "2.7.1+cu128",
+      "gpu": "NVIDIA RTX PRO 6000 Blackwell Workstation Edition",
+      "seed": 42,
+      "model_source": "bceaf8e7d7dc93ad5b17b5206795023ea1c6cdfcb5b7345cac6328dae1799760",
+      "field_source": "032fe88dede44e5452778c81e48ff9802f827956298d993d7a0e7169e7e45b87",
+      "runtime_source": "63b7f9991e8c96e6eb931dde4eba973505d1d56a03130f68dfc7f0a4478feef4"
+    },
+    "first_batches": [
+      "4da909c7e461ddae88cef482161f75cf30a839cf49bf8f6eb533b2ffdb904b89",
+      "1948e12f0e634a1e075522387382069ae9195d40cf5a1d2bfaf986009aae7eaf",
+      "6d9d0133f13d886c51a5c73971ad0280b9b5a844edee368128da721d7f7ae73f",
+      "00487b0e7ce7e888471e0e3bcdb11aa8eb88a6d002c9ee25bc6d0d7cdc1cc295",
+      "b4bb87fc3f594f55ccbcd8b0116692958d7f5f9abe14faddd7d0a8fa16cb3ef5",
+      "c2d80579bebbb2157d1ed3205e1cca11ec0847e081edcd9fefa31fe9e5e5613c",
+      "6248cc70a99bf3bdb0363bc75a02de7355a983a3db6adc5a650e163b21c66363",
+      "ab7332d149794d7ee6be3f9da4881d767e390c4ece8ded7a2aad1a4ec5092ef3",
+      "be5232708cfd1bffcbd76f1f0fe53b25d2a186022514c6f4a2f4c9e3b206c107",
+      "d17d9ad0213bb48b0ef25d41f28b0ab677c15c32348a1e407fd5f5ddbe4f3c8f",
+      "55fa9c727ebde9ed3637de31ea99377dc7a708f2428aa72cf094a02471205338",
+      "d5392cd3cdca9c5f44c1a686280a37ee85d52f0372abf1ec6964ca993ba9ffb6",
+      "59cb59419577356e19e8d09d44ab49856532b67bc8a1eb6d3e4660165e76fabb",
+      "92f9ae79eb2b6f280c12324e6a3da065aeb08ca87c31bdbdfa01c4561abbf198",
+      "292a4a4fc9ddd034577d018ac39c1636daed87faeecf09c6e12c124b818ecb0c",
+      "4c737d16c85225e903a45703526f857340b460fbd09cfe9a58e30a469d0ffc5e",
+      "2d85f55a97d88234167a7e7535cb69ce9d514537280cedd42b651608e8ac6772",
+      "b3e038582592ae33a975c6b76c91e283d1a09336ffdaf525d7eb0f2b919fc0a9",
+      "7794e11de5a58d0f5ed0843f616b2873a5c5cf93f44c07a99611181fcba3a913",
+      "b5df284b011cfaf2dcee51cea2a3ac4ffed580ac6d08146da9f7f44d5a27062b",
+      "1c08553c9ae18694ccc0678862c77da50d8801034c294441f224e5b11df4d41a",
+      "183571fa2a2c73393cae5ee1fb79950e31544c9678984ed25409d5c6c0de7457",
+      "e0245803407ffc2d7152cddfe82b6fd8d88bf711bd34719e0d0411bd9b37b1c0",
+      "ffce8162be5c79d4ca399d2cec1bcb158b15ee1afa368880472324ca313a0267",
+      "e8576d4f7048b1874ecacf30b11180d0a4645262d99d1beaf01711bb82fb839c",
+      "e10bd7c8a17a00d40a9715f195d1adf018883349efffd345e7782226579d22fc",
+      "943761283e637f54f3926f4d3690abd4e3db1193c72f71fbed06ade49eabf912",
+      "15800305d82abed24f584c3fac50c0ac49dd5fb2322b4a48e288c40f4a2686da",
+      "1933a9030e62a1362fdbb39e2153a5a1b39ce9b808455fa111a23939d8ee318c",
+      "bd2d34031f38c1f9a7e1666f0d253356f60785f876e301a265b92a5b2238cbcc",
+      "f97c93ad4b73a28a67207d475e82a7e8b68fdfbf7a9c23431ac105a7d199ec5b",
+      "5388e58901a17e99f802591b1f145df37131f63cb5f857cba5646a873876a4e6"
+    ]
+  }
+}

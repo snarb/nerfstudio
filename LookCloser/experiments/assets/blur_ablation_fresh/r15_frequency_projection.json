@@ -1,0 +1,140 @@
+{
+  "data": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/real",
+  "steps": 8000,
+  "eval_every": 2000,
+  "seed": 42,
+  "eval_stride": 1,
+  "train_review_indices": [
+    0,
+    33,
+    61
+  ],
+  "rois_by_image": {
+    "train_0000.png": {
+      "face": [
+        790,
+        340,
+        1090,
+        660
+      ],
+      "hair": [
+        1080,
+        200,
+        1390,
+        620
+      ],
+      "lipstick": [
+        560,
+        740,
+        730,
+        930
+      ]
+    },
+    "train_0033.png": {
+      "face": [
+        800,
+        330,
+        1150,
+        700
+      ],
+      "hair": [
+        1120,
+        230,
+        1420,
+        800
+      ],
+      "lipstick": [
+        620,
+        260,
+        850,
+        450
+      ]
+    },
+    "train_0061.png": {
+      "face": [
+        800,
+        200,
+        1170,
+        600
+      ],
+      "hair": [
+        1100,
+        350,
+        1430,
+        800
+      ],
+      "lipstick": [
+        300,
+        0,
+        550,
+        200
+      ]
+    },
+    "eval_0062.png": {
+      "face": [
+        820,
+        460,
+        1170,
+        780
+      ],
+      "hair": [
+        1140,
+        400,
+        1450,
+        870
+      ],
+      "lipstick": [
+        600,
+        530,
+        820,
+        700
+      ]
+    },
+    "eval_0063.png": {
+      "face": [
+        800,
+        400,
+        1150,
+        700
+      ],
+      "hair": [
+        1120,
+        330,
+        1430,
+        850
+      ],
+      "lipstick": [
+        720,
+        180,
+        980,
+        350
+      ]
+    },
+    "eval_0064.png": {
+      "face": [
+        880,
+        230,
+        1230,
+        610
+      ],
+      "hair": [
+        1190,
+        280,
+        1520,
+        850
+      ],
+      "lipstick": [
+        520,
+        140,
+        810,
+        350
+      ]
+    }
+  },
+  "output": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r15_frequency_projection",
+  "model": {},
+  "comparison_parent": "r0_original",
+  "pipeline": {
+    "normalized_frequency_projection": true
+  }
+}

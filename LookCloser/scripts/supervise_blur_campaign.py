@@ -19,7 +19,7 @@ def changed_conditions(left, right):
     return sorted(k for k in a.keys()|b.keys() if a.get(k)!=b.get(k))
 
 
-def consumed_seconds(root):
+def aggregate_job_seconds(root):
     total=0.
     for folder in root.iterdir():
         if not folder.is_dir():continue
@@ -30,6 +30,55 @@ def consumed_seconds(root):
                     total+=json.loads(path.read_text()).get('seconds',0.)
                     break
     return total
+
+
+def interval_union_seconds(intervals):
+    """A shared GPU cannot consume two GPU-hours during one wall-clock hour."""
+    total = 0.
+    previous_end = float('-inf')
+    for start, end in sorted(intervals):
+        total += max(0., end - max(start, previous_end))
+        previous_end = max(previous_end, end)
+    return total
+
+
+def consumed_seconds(root):
+    """Conservative active time on this campaign's single shared GPU.
+
+    Include setup, training and evaluation, merging concurrent job intervals.
+    The former sum of per-job durations remains available as an upper bound.
+    """
+    intervals = []
+    now = time.time()
+    for folder in root.iterdir():
+        if not folder.is_dir():
+            continue
+        for complete, progress in [('complete.json', 'progress.json'),
+                                   ('frequency_complete.json', 'frequency_progress.json')]:
+            path = folder / complete
+            finished = path.exists()
+            if not finished:
+                path = folder / progress
+            if not path.exists():
+                continue
+            record = json.loads(path.read_text())
+            seconds = record.get('seconds', 0.)
+            if seconds <= 0:
+                continue
+            end = path.stat().st_mtime
+            start = end - seconds
+            request = folder / 'request.json'
+            if request.exists():
+                start = min(start, request.stat().st_mtime)
+            if not finished and record.get('pid'):
+                try:
+                    proc = psutil.Process(record['pid'])
+                    if 'run_blur_experiment.py' in ' '.join(proc.cmdline()):
+                        end = now
+                except (psutil.NoSuchProcess, psutil.AccessDenied):
+                    pass
+            intervals.append((start, end))
+    return interval_union_seconds(intervals)
 
 
 def main():

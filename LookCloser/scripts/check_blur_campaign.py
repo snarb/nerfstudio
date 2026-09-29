@@ -5,7 +5,7 @@ from pathlib import Path
 import subprocess
 import time
 import psutil
-from supervise_blur_campaign import consumed_seconds
+from supervise_blur_campaign import consumed_seconds, aggregate_job_seconds
 
 
 def main():
@@ -36,13 +36,16 @@ def main():
     gpu = subprocess.run(['nvidia-smi','--query-compute-apps=pid,used_memory',
                           '--format=csv,noheader'],capture_output=True,text=True,check=True)
     record = dict(time=time.time(),processes=processes,runs=runs,gpu=gpu.stdout.strip(),
-                  charged_hours=consumed_seconds(args.root)/3600)
+                  gpu_active_hours=consumed_seconds(args.root)/3600,
+                  aggregate_job_hours=aggregate_job_seconds(args.root)/3600)
     with (args.root/'manual_checks.jsonl').open('a') as stream:
         stream.write(json.dumps(record)+'\n')
     compact = [dict(run=r['run'],step=(r['progress'] or {}).get('step'),
                     eval_psnr=None if r['last_eval'] is None else round(r['last_eval']['eval_all_psnr'],3),
                     controller_alive=r['controller_alive'],oom=r['oom']) for r in runs]
-    print(json.dumps(dict(runs=compact,gpu=record['gpu'],charged_hours=round(record['charged_hours'],3))))
+    print(json.dumps(dict(runs=compact,gpu=record['gpu'],
+        gpu_active_hours=round(record['gpu_active_hours'],3),
+        aggregate_job_hours=round(record['aggregate_job_hours'],3))))
 
 
 if __name__ == '__main__': main()

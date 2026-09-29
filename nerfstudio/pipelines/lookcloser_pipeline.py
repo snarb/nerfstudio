@@ -24,6 +24,13 @@ from nerfstudio.utils.lookcloser_rng import fork_seeded_rng, stream_seed
 from nerfstudio.utils.rich_utils import CONSOLE
 
 
+def normalized_frequency_resolution(resolution, fx, fy, width, height, ray_depth, ray_norm, aabb_size):
+    """Convert UV hash resolution into resolution across the scene AABB."""
+    camera_z = ray_depth / ray_norm
+    focal_uv = torch.maximum(fx / width, fy / height)
+    return resolution * focal_uv * aabb_size.max() / camera_z.clamp_min(1e-8)
+
+
 @dataclass
 class LookCloserPipelineConfig(VanillaPipelineConfig):
     """Configuration for LookCloser Pipeline."""
@@ -41,6 +48,9 @@ class LookCloserPipelineConfig(VanillaPipelineConfig):
 
     enable_frequency_grid: bool = True
     """Whether to load 2D maps and run periodic 3D frequency-grid updates."""
+
+    normalized_frequency_projection: bool = False
+    """Opt-in ablation: convert UV image resolution and ray depth into scene units."""
 
     grid_update_interval: int = 1024
     """Step interval for updating the 3D frequency grid using dense depth rendering."""
@@ -938,6 +948,16 @@ class LookCloserPipeline(VanillaPipeline):
         # Get positions (surface intersection)
         # pos = o + d * depth
         positions = ray_bundle.origins + ray_bundle.directions * depth.unsqueeze(-1)
+
+        if self.config.normalized_frequency_projection:
+            width = cameras.width[camera_indices_cpu].to(self.device).squeeze()
+            height = cameras.height[camera_indices_cpu].to(self.device).squeeze()
+            ray_norm = ray_bundle.metadata['directions_norm'].reshape(-1)
+            resolution = normalized_frequency_resolution(
+                f2d_tensor, fx, fy, width, height, depth, ray_norm,
+                self.model.freq_grid.aabb_size_buf)
+            self.model.freq_grid.update_max(positions, self.model.freq_grid.freq_to_level(resolution))
+            return
 
         # Call model's grid update
         self.model.freq_grid.update_step(
