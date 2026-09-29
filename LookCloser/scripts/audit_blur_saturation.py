@@ -1,0 +1,32 @@
+"""Measure opacity-normalized learned color on fixed, valid training rays."""
+import argparse
+import json
+from pathlib import Path
+import sys
+sys.path.insert(0,str(Path(__file__).resolve().parents[2]))
+import torch
+from blur_runtime import write
+
+
+@torch.no_grad()
+def main():
+    p=argparse.ArgumentParser();p.add_argument('checkpoints',type=Path,nargs='+');p.add_argument('--output',type=Path,required=True)
+    args=p.parse_args();torch.set_num_threads(2);results=[]
+    for path in args.checkpoints:
+        state=torch.load(path,map_location='cpu',weights_only=False)
+        pipe=state['config'].pipeline.setup(device='cuda');pipe.load_pipeline(state['pipeline'],state['step']);pipe.eval()
+        data=pipe.datamanager.train_dataset[0]
+        valid=data.get('mask',torch.ones_like(data['image'][...,:1],dtype=torch.bool))[...,0].bool()
+        coords=valid.nonzero();index=torch.linspace(0,len(coords)-1,1024).long();coords=coords[index].cuda().float()+.5
+        rays=pipe.datamanager.train_dataset.cameras[0:1].to('cuda').generate_rays(0,coords=coords)
+        out=pipe.model(rays);opacity=out['accumulation'].float()
+        effective_rgb=out['rgb'].float()/opacity.clamp_min(1e-8)
+        results.append(dict(checkpoint=str(path),step=state['step'],
+            mean_opacity=float(opacity.mean()),mean_effective_rgb=effective_rgb.mean(0).cpu().tolist(),
+            white_saturation_fraction=float((effective_rgb.min(-1).values>.99).float().mean()),
+            mean_effective_chroma=float((effective_rgb.max(-1).values-effective_rgb.min(-1).values).mean())))
+        del pipe,state,out;torch.cuda.empty_cache()
+    write(args.output,results);print(json.dumps(results,indent=2))
+
+
+if __name__=='__main__':main()

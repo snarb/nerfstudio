@@ -109,6 +109,12 @@ class LookCloserModelConfig(ModelConfig):
     """TCNN field network(s) affected by initial and live JIT enablement."""
 
     # Loss weights
+    density_activation: Literal["softplus", "trunc_exp"] = "softplus"
+    density_normalization: Literal["none", "aabb"] = "none"
+    density_fp32: bool = False
+    density_clip: bool = False
+    correct_sh_directions: bool = False
+
     distortion_loss_mult: float = 0.01
     """Multiplier for Mip-NeRF 360 distortion loss."""
 
@@ -512,6 +518,11 @@ class LookCloserModel(Model):
             pq_peak_nits=self.config.pq_peak_nits,
             hdr_softplus_beta=self.config.hdr_softplus_beta,
             pq_code_temperature=self.config.pq_code_temperature,
+            density_activation=self.config.density_activation,
+            density_normalization=self.config.density_normalization,
+            density_fp32=self.config.density_fp32,
+            density_clip=self.config.density_clip,
+            correct_sh_directions=self.config.correct_sh_directions,
         )
 
         # 3. Renderers

@@ -64,6 +64,11 @@ class LookCloserField(Field):
             pq_peak_nits: float = 10_000.0,
             hdr_softplus_beta: float = 1.0,
             pq_code_temperature: float = 1.0,
+            density_activation: Literal["softplus", "trunc_exp"] = "softplus",
+            density_normalization: Literal["none", "aabb"] = "none",
+            density_fp32: bool = False,
+            density_clip: bool = False,
+            correct_sh_directions: bool = False,
             spatial_distortion=None,
     ) -> None:
         super().__init__()
@@ -73,6 +78,11 @@ class LookCloserField(Field):
             ) from tcnn_import_exception
 
         self.register_buffer("aabb", aabb)
+        self.density_activation = density_activation
+        self.density_normalization = density_normalization
+        self.density_fp32 = density_fp32
+        self.density_clip = density_clip
+        self.correct_sh_directions = correct_sh_directions
         self.geo_feat_dim = geo_feat_dim
         self.num_levels = num_levels
         self.features_per_level = features_per_level
@@ -278,11 +288,11 @@ class LookCloserField(Field):
             l_grid=l_grid,
         )
         h = self.mlp_geo(features)
-        density = F.softplus(h[..., 0:1] + 1.0)
+        density = self.activate_density(h[..., 0:1])
         density = density * selector.reshape(-1, 1)
         geo_feat = h[..., 1:]
 
-        d_encoded = self.direction_encoding(directions.reshape(-1, 3))
+        d_encoded = self.encode_directions(directions.reshape(-1, 3))
         color_inputs = [geo_feat, d_encoded]
         if self.embedding_appearance is not None:
             if self.training and camera_indices is not None:
@@ -296,6 +306,26 @@ class LookCloserField(Field):
             color_inputs.append(embedded_appearance)
         rgb = self._activate_rgb(self.mlp_color(torch.cat(color_inputs, dim=-1)))
         return density, rgb
+
+    def activate_density(self, logits: Tensor) -> Tensor:
+        """Independent density controls; defaults preserve historical checkpoints."""
+        if self.density_fp32:
+            logits = logits.float()
+        if self.density_clip:
+            logits = logits.clamp(-16., 11.)
+        if self.density_activation == "trunc_exp":
+            from nerfstudio.field_components.activations import trunc_exp
+            density = trunc_exp(logits + 1.)
+        else:
+            density = F.softplus(logits + 1.)
+        if self.density_normalization == "aabb":
+            density = density / (self.aabb[1] - self.aabb[0]).max()
+        return density
+
+    def encode_directions(self, directions: Tensor) -> Tensor:
+        if self.correct_sh_directions:
+            directions = (directions + 1.) * .5
+        return self.direction_encoding(directions)
 
     def get_weights(self, l_grid: Tensor, batch_size: int) -> Tensor:
         """
@@ -368,7 +398,7 @@ class LookCloserField(Field):
         density_before_activation = h[..., 0:1]
         geo_feat = h[..., 1:]
 
-        density = F.softplus(density_before_activation + 1.0)
+        density = self.activate_density(density_before_activation)
 
         # Reshape back to ray samples structure
         density = density.view(*prefix_shape, 1)
@@ -392,7 +422,7 @@ class LookCloserField(Field):
         prefix_shape = directions.shape[:-1]
         directions_flat = directions.reshape(-1, 3)
 
-        d_encoded = self.direction_encoding(directions_flat)
+        d_encoded = self.encode_directions(directions_flat)
 
         # Flatten density embedding
         geo_feat_flat = density_embedding.reshape(-1, self.geo_feat_dim)

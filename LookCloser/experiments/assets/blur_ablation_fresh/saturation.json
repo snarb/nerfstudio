@@ -1,0 +1,38 @@
+[
+  {
+    "checkpoint": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/s0_softplus/best.pt",
+    "step": 1000,
+    "mean_opacity": 0.4620788097381592,
+    "mean_effective_rgb": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "white_saturation_fraction": 1.0,
+    "mean_effective_chroma": 0.0
+  },
+  {
+    "checkpoint": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/s3_softplus_scaled/best.pt",
+    "step": 1000,
+    "mean_opacity": 0.6007429361343384,
+    "mean_effective_rgb": [
+      0.7453055381774902,
+      0.7536903619766235,
+      0.788979172706604
+    ],
+    "white_saturation_fraction": 0.0,
+    "mean_effective_chroma": 0.3438393175601959
+  },
+  {
+    "checkpoint": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/s2_exp_fp32/best.pt",
+    "step": 1000,
+    "mean_opacity": 0.46007412672042847,
+    "mean_effective_rgb": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "white_saturation_fraction": 1.0,
+    "mean_effective_chroma": 0.0
+  }
+]
