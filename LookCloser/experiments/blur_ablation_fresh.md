@@ -471,3 +471,32 @@ A separate safe-exponential fight transfer request is prepared, conditional on
 the tight-room component-removal results. It tests the numerically safe recipe
 (exponential plus the required FP32 exponentiation), not independent precision
 attribution on fight. It has no one-factor parent and is not yet a result.
+
+### SH contribution depends on the training domain
+
+At2000 with tight whole-room bounds, removing SH correction from the safe
+exponential field lowers full PSNR24.66479→22.163 and eval detail
+25.48294→23.37704. The third held-out camera has more ghosting. This is an
+early interaction result, not a final8000 gate. Weak SH gains in masked-actor
+training must not be generalized to this recipe. A conditioned removal of
+exponential while keeping SH and tight bounds is prepared as another single
+change (`r19_softplus_sh_bounds`), still pending.
+[Early SH removal records](assets/blur_ablation_fresh/room_sh_removal_early.json).
+
+### Whole-room interaction passes the8000-step quality screen
+
+The exp+FP32+SH+tight-bounds model selects8000: full eval
+**24.96618 / .83957 / .36379**, eval detail
+**28.72132 / .79622 / .29865**, train detail
+**28.35982 / .72861 / .39544**. Against original at the same step,
+eval detail gains11.22273 dB and train detail .72526 dB, both with better
+SSIM/LPIPS. Faces, hair and the held object visibly improve across all three
+eval cameras. Some hair softness and train61 facial distortion remain.
+Only tighter bounds, and only exp+SH, are much weaker: the interaction matters.
+This validates the bundle at this horizon; necessity of each component,
+longer training and fight transfer are still pending.
+[Native matched and selected records](assets/blur_ablation_fresh/room_exp_sh_bounds_completed.json).
+![Room eval faces, matched8000](assets/blur_ablation_fresh/room_bounds8k_eval_face.jpg)
+![Room training faces, matched8000](assets/blur_ablation_fresh/room_bounds8k_train_face.jpg)
+![Room eval hair, matched8000](assets/blur_ablation_fresh/room_bounds8k_eval_hair.jpg)
+![Room eval lipstick, matched8000](assets/blur_ablation_fresh/room_bounds8k_eval_lipstick.jpg)
