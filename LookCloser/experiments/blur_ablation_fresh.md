@@ -184,9 +184,9 @@ SSIM and LPIPS also worsen. Exponential has a substantial conditioned effect
 at this horizon. [Completed removal](assets/blur_ablation_fresh/room_exp_removal_completed.json),
 [eval faces](assets/blur_ablation_fresh/room_exp_removal_eval_face.jpg).
 Weak foreground SH effects must not be extrapolated to this room interaction.
-Canonical-scaled softplus + SH is being
-tested as a possible replacement for exponential. The 24k exponential/SH room
-validation is running alongside a fresh 24k canonical-softplus/bounds control.
+Canonical-scaled softplus + SH reaches27.64696dB eval detail at8k, still
+1.07437dB below exponential + SH. The exponential/SH24k room validation is
+complete (selected8k); the canonical-softplus/bounds long control is running.
 
 ![All eval faces, matched8000: GT then RGB in each cell](assets/blur_ablation_fresh/room_bounds8k_eval_face.jpg)
 
@@ -204,6 +204,7 @@ Some hair softness and train61 facial distortion remain.
 | Only SH correction | 29.46895 | .66643 | .28515 | Fails SSIM tolerance |
 | Softplus / AABB span | 28.76697 | .67299 | .31341 | Fails PSNR and LPIPS |
 | Canonical3/span, always FP32 output | 29.42683 | .66527 | .29439 | Fails SSIM tolerance |
+| Safe exponential + corrected SH | 29.51649 | .67501 | .29078 | Passes all three limits |
 
 [Original metrics](assets/blur_ablation_fresh/fight_baseline_metrics.json),
 [unit-reference completed pair](assets/blur_ablation_fresh/fight_unit_reference_completed.json).
@@ -221,9 +222,15 @@ At 15188, original versus canonical-reference gives
 All three deltas pass the predefined intermediate tolerances. At30376, however,
 SSIM falls by.00814, beyond the.005 limit; PSNR changes by−.04726dB and LPIPS
 by−.00223. This candidate fails the final gate and is not promoted. [Native intermediate pair](assets/blur_ablation_fresh/fight_canonical_early.json).
-The safe-exponential + SH room recipe is also undergoing fresh fight transfer
-with the original fight bounds. That is a combined recipe check, not an
+The safe-exponential + SH recipe completes fresh fight transfer with the
+original fight bounds: +.04240dB PSNR, +.00160 SSIM, −.00583 LPIPS. All three
+limits pass; all3 eval and3 train frames plus the saved equipment/hand detail
+crops show no new conspicuous defect. This is a combined recipe check, not an
 independent precision/SH attribution on fight.
+[Final transfer](assets/blur_ablation_fresh/fight_exp_sh_completed.json),
+[full eval](assets/blur_ablation_fresh/fight_exp_sh_final/eval_full.jpg),
+[train](assets/blur_ablation_fresh/fight_exp_sh_final/train_full.jpg),
+[detail](assets/blur_ablation_fresh/fight_exp_sh_final/eval_fingers.jpg).
 
 ### 4. Controls that do not explain the main recovery
 
@@ -268,10 +275,10 @@ parameterization and SH in the room task. Final retention depends on the pending
 component-removal and transfer results; there is no claim of complete texture
 recovery, all-seed robustness or unseen-benchmark generalization.
 
-Remaining: finish long room and fight checks; choose the smallest recipe
-passing both domains; save its selected native outputs and common camera path;
-remove unused production controls; run focused checks and commit the final code,
-recipes, architecture note and report.
+Remaining: finish the canonical-softplus room control and two fight checks;
+decide preset promotion, then finalize the report and recipes. Unused controls
+have been removed; actor and exponential/SH room outputs and camera paths
+have been saved and inspected. Thirteen focused tests pass.
 
 The selected actor pair has24 finite learned-RGB frames on exactly identical
 interpolated camera paths. [Paired video](assets/blur_ablation_fresh/actor_final/comparison.mp4),
@@ -308,8 +315,8 @@ remain in Git history; this report summarizes the current measured conclusions.
 ### Production cleanup and checkpoint compatibility
 
 The complete ablation implementation is preserved in branch
-`lookcloser-blur-ablation-archive`, commit `7a6ffd5f`; use it to replay the raw
-historical requests. The working implementation removes clipping, a separate
+`lookcloser-blur-ablation-archive`, commit `7a6ffd5f`; use it to replay requests requiring removed controls. The later unit-gain
+identity control (`f7`) requires the current implementation. The working implementation removes clipping, a separate
 pre-activation precision switch, arbitrary density reference length and the
 alternative frequency-projection control. Safe exponential casts before the
 bias/activation; canonical density scales in FP32 afterwards. Legacy softplus
