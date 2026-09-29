@@ -2,441 +2,307 @@
 
 ## What was tested
 
-**Status: final validation is running. No quality change has been promoted.**
-2026-09-29. Base `630d58bd`; previous candidates `8389770b`; working branch
-`lookcloser-blur-validated`. Main is unchanged. Every experiment starts from
-scratch with **seed 42**. There are no multi-seed sweeps.
+**Status: all lipstick validations and exponential/SH fight transfer are complete.
+The final fight check for unit-gain identity is running. No new default is promoted.**
 
-The tests separate density activation, density scale, activation precision,
-clipping, SH direction encoding, AABB bounds, sampling and frequency projection.
-One-factor requests name a `comparison_parent`; the supervisor rejects requests
-that change more than one condition. Final recipe transfers are identified
-separately and do not claim single-factor attribution.
+2026-09-29. Base `630d58bd`; historical candidate `8389770b`; working branch
+`lookcloser-blur-validated`. Main is unchanged. Every run starts from random
+weights with **seed 42**. No multi-seed sweep or optimizer resume was used.
 
-### Protocol and domains
+The primary actor fix is density scale in scene units. Full-frame training has
+an additional, substantial interaction between scene bounds, exponential density
+and SH encoding. These are separate supervision domains; their scores must not
+be pooled. The historical successful recipe trained a masked actor, not the room.
 
-| Domain | Images and supervision | Training protocol |
+### Protocol
+
+| Domain | Data and supervision | Configuration |
 | --- | --- | --- |
-| Synthetic diagnostic | One teacher train camera, two teacher eval cameras; valid pixels only | 3000 updates, 128 fixed samples, `log2_hashmap_size=19`, 2048 rays |
-| Actual single-camera diagnostic | Actual train33 photo and its valid mask; same camera used for evaluation | Diagnostic only; no held-out claim |
-| Real masked actor | 62 train / 3 eval, actual HD RGB, historical train masks, actor AABB span .14812 | 256 fixed samples, `log2_hashmap_size=21`, uniform valid-pixel sampling, LR .01→.001 over 12000 |
-| Real full frame | Same 62/3 actual HD RGB and calibration; all pixels supervised | `log2_hashmap_size=23`, 256-sample warmup through 4096 then adaptive sampling, LR .01→.0001 over 200000 |
-| Fight `007740` | 66 train / 3 eval | Original bounded Stage-A configuration, 30376 updates |
+| Synthetic diagnostic | One teacher train camera, two teacher eval cameras; valid pixels | 128 fixed samples, hash19, 2048 rays |
+| Actual single-camera diagnostic | Actual train33 photo and mask; same camera evaluated | Diagnostic only, no held-out claim |
+| Masked actor | 62 train / 3 eval, actual HD RGB, historical masks; AABB span .14812 | 256 fixed samples, hash21, uniform valid pixels; LR .01→.001 over 12000 |
+| Full room | Same 62/3 actual RGB/calibration; all pixels | Hash23, 256-sample warmup through 4096 then adaptive sampling; LR .01→.0001 over 200000 |
+| Fight `007740` | Original 66 train / 3 eval | Bounded Stage A, 30376 updates |
 
-Real experiments use4096 rays, Charbonnier RGB supervision and the same
-regularization. Real screens run8000 updates with evaluation every2000;
-long validation runs24000 with evaluation every8000. Three train cameras
-(indices0, 33, 61) are inspected alongside all three eval cameras.
+Real runs use 4096 rays, unchanged Charbonnier supervision and regularization.
+Screens run 8000 steps, evaluating every 2000. Long lipstick validations run
+24000, evaluating every 8000. Three train cameras and all three eval cameras
+are rendered at native resolution. Actor FAS is disabled because the stock
+frequency sampler does not preserve the valid-mask contract.
 
-The historical successful real-only recipe trained the **masked actor in a small
-AABB**. It did not train the whole room. Both domains are tested here. Actor
-background is unsupervised; its full-frame score cannot establish room quality.
-Historic masks exclude some hair/object pixels and were not repaired for these
-controls. Masked-actor FAS is disabled because the stock frequency sampler does
-not preserve the valid-pixel mask contract.
+Metrics below are **PSNR ↑ / SSIM ↑ / LPIPS ↓** on native float RGB, unless
+explicitly labeled diagnostic. “Detail” equally averages face, hair and lipstick
+rectangles across three cameras: nine ROIs. Select checkpoints by mean
+**full-frame all-eval PSNR**, with lower LPIPS breaking ties within **.07 dB**.
+Matched-step comparisons are labeled separately.
 
-Calibration and mesh-derived bounds/masks predate this campaign. Their provenance
-does not establish an untouched holdout. This is a paired regression benchmark.
-The new full-image frequency maps use train RGB only:16 levels, 1000 updates per
-level, resolutions16→8192, patch8, SSIM threshold .95, following the local
-`Paper LookCloser.md`. No teacher RGB/depth or Gaussian/NHT output supervises
-real-scene training. [Real input hashes](assets/blur_ablation_fresh/real_input_hashes.json),
+The quality screen requires ≥.5 dB eval-detail gain, supporting SSIM/LPIPS and
+visible train/eval improvement. Fight limits are .10 dB PSNR, .005 SSIM and
+.01 LPIPS worsening, with no new visible defect. These are practical gates,
+not significance tests. Available pairs have identical initial field weights
+and first 32 sampled batches. Evaluation restores Python, NumPy and Torch RNG.
+Bitwise GPU training and between-seed robustness are not claimed.
+
+Fresh lipstick frequency maps use train RGB only: 16 levels, 1000 updates/level,
+resolutions 16→8192, patch8 and SSIM threshold .95, following local
+`Paper LookCloser.md`. Real training uses no teacher RGB/depth or Gaussian/NHT
+output. Calibration and mesh-derived bounds/masks predate this campaign; they
+do not establish an untouched holdout. This is a paired regression benchmark.
+[Input hashes](assets/blur_ablation_fresh/real_input_hashes.json),
 [fight hashes](assets/blur_ablation_fresh/fight_input_hashes.json),
-[fixed GT-only detail rectangles](assets/blur_ablation_fresh/real_rois.json).
-
-All scene tables use native float RGB PSNR/SSIM/LPIPS. “Detail” is the equal-weight
-mean over face/hair/lipstick rectangles across three cameras: nine rectangles.
-Checkpoint selection uses mean **full-frame all-eval PSNR**, with LPIPS breaking
-ties within .07 dB. Matched-step tables are labeled separately.
-
-The screen requires ≥.5 dB eval-detail gain with supporting SSIM/LPIPS and visible
-train/eval improvement. Fight tolerances are .10 dB PSNR, .005 SSIM, .01 LPIPS,
-with no new visible defect. These are practical gates, not significance tests.
-Initial field weights and first 32 sampled batches match in every available
-paired comparison. No between-seed robustness or bitwise GPU reproducibility is
-claimed. Evaluation restores Python, NumPy and Torch CPU/CUDA RNG states.
+[frozen ROIs](assets/blur_ablation_fresh/real_rois.json),
+[all run histories and pair checks](assets/blur_ablation_fresh/campaign_evidence.json).
 
 ## Results
 
-### 1. Density scale removes the small-AABB color collapse
+### 1. Density scale removes the small-actor collapse
 
-| Single-view diagnostic, matched 2000 | PSNR ↑ | SSIM ↑ | LPIPS ↓ |
-| --- | ---: | ---: | ---: |
-| Synthetic softplus | 20.233 | .93720 | .22891 |
-| Only FP32 density | 20.233 | .93722 | .22885 |
-| Exponential + FP32, unscaled | 20.244 | .94077 | .22669 |
-| Only inverse-AABB scale, FP16 softplus | **39.721** | **.98948** | **.00500** |
-| Actual single photo, original | 20.225 | .93685 | .23067 |
-| Actual single photo, only scale | **40.973** | **.99043** | **.00336** |
+At matched 2000 steps on the synthetic diagnostic, original softplus gives
+20.233/.93720/.22891; FP32 alone gives 20.233/.93722/.22885; unscaled exponential
+with FP32 gives 20.244/.94077/.22669. Changing only inverse-AABB scale with FP16
+softplus gives **39.721/.98948/.00500**. On the actual single photo, scale changes
+20.225/.93685/.23067 to **40.973/.99043/.00336**. These are masked, quantized
+stride-2 diagnostics, not native scene scores.
+[Diagnostics](assets/blur_ablation_fresh/single_metrics.json),
+[actual-photo control](assets/blur_ablation_fresh/real_single_metrics.json).
 
-These are masked, quantized stride-2 diagnostics, not native scene scores.
-[Synthetic controls](assets/blur_ablation_fresh/single_metrics.json),
-[actual-photo controls](assets/blur_ablation_fresh/real_single_metrics.json).
-Increasing the AMP scale or removing distortion did not rescue the same collapse.
-Clipping the scaled exponential gave only a small additional diagnostic change.
+The real actor factorial uses common corrected SH, FP32 activation and sampling:
 
-The real 62/3 foreground factorial separates activation from scale. All four rows
-below share corrected SH, FP32 activation and the same fixed-sampling recipe.
-
-| Actor, matched 8000 | Eval-detail PSNR / SSIM / LPIPS | Train-detail PSNR |
+| Actor, matched 8000 | Eval detail | Train detail PSNR |
 | --- | --- | ---: |
 | Softplus | 15.554 / .52192 / .82373 | 16.391 |
-| Softplus / AABB span | **22.867 / .68308 / .39498** | 23.451 |
+| Softplus / AABB span | 22.867 / .68308 / .39498 | 23.451 |
 | Exponential, unscaled | 22.511 / .69306 / .38490 | 23.503 |
 | Exponential / AABB span | 22.949 / .69176 / .37730 | 23.647 |
 
-Scale adds7.313 dB to softplus; exponential adds only .082 dB once softplus is
-scaled. Unlike the single-camera diagnostic, exponential alone also escapes
-collapse in the 62-image task. Scale is effective, not the only possible remedy.
-[Full factorial](assets/blur_ablation_fresh/actor_density_factorial.json).
+Scale adds **7.313 dB** to softplus; exponential adds only **.082 dB** once it is
+scaled. Exponential alone also escapes collapse in this 62-image task, unlike
+the single-camera diagnostic. Scale is effective, not the unique remedy.
+[Factorial evidence](assets/blur_ablation_fresh/actor_density_factorial.json).
 
-With **legacy SH and FP16**, changing only1/span gives15.56894→22.42666 dB.
-Thus the scale effect does not depend on first correcting SH.
-[Original-convention pair](assets/blur_ablation_fresh/actor_original_scale_screen.json).
-With legacy SH and FP32, changing the reference from 1 to 3 gives
-22.42303→23.02297 dB. Removing FP32 before softplus then gives
-**23.00029 / .68400 / .38814**: only -.02268 dB, with better LPIPS.
-FP32 multiplication after activation remains in the canonical-scale implementation.
-[Reference and precision controls](assets/blur_ablation_fresh/actor_reference_precision_completed.json).
+With legacy SH and FP16, scale alone gives 15.56894→22.42666 dB. Changing the
+reference from 1 to 3 with legacy SH/FP32 gives 22.42303→23.02297 dB; removing
+FP32 before softplus then gives 23.00029/.68400/.38814, only −.02268 dB.
+Exponential and SH have small conditioned actor gains; together they add .52618 dB
+and improve LPIPS .39890→.37730 over unit-scaled legacy-SH softplus. This is not
+zero effect, but those changes are unnecessary for the main actor recovery.
+[Legacy-convention pair](assets/blur_ablation_fresh/actor_original_scale_screen.json),
+[reference/precision](assets/blur_ablation_fresh/actor_reference_precision_completed.json),
+[conditioned activation/SH](assets/blur_ablation_fresh/actor_exp_sh_screen.json).
 
-SH and exponential each have small conditioned gains in the foreground task.
-Their combined gain over unit-scaled legacy-SH softplus is .52618 dB and LPIPS
-.39890→.37730; this cumulative tradeoff is not described as zero.
-[Conditioned SH/activation records](assets/blur_ablation_fresh/actor_exp_sh_screen.json).
+**Fresh 24k validation:** only canonical density normalization differs. Both
+selectors choose step 16000.
 
-**Measured mechanism.** On 1024 fixed valid training rays, original legacy
-softplus has mean opacity .32790 and 100% white saturation after dividing RGB
-by opacity. Canonical-scaled softplus has opacity .84253 and 0% white saturation.
-For 64 fixed rays, the derivative of summed RGB with respect to the color head
-has L2 norm0 versus 171.61365. These measurements support sigmoid saturation
-with opacity carrying grayscale structure. They are local sensitivity evidence,
-not a claim that every training gradient or all blur mechanisms are explained.
-[Checkpoint-bound color/gradient audit](assets/blur_ablation_fresh/actor_color_gradient.json).
+| Selected actor checkpoint | Eval detail | Train detail |
+| --- | --- | --- |
+| Original, 16000 | 15.60872 / .50357 / .80802 | 16.47468 / .58100 / .70659 |
+| Canonical scale, 16000 | **23.01250 / .67137 / .38289** | **23.65109 / .70683 / .39495** |
 
-The fresh24k actor pair is complete. Both selectors choose16000 (full PSNR
-within .07 dB of the maximum, lower LPIPS). Only canonical density normalization
-differs between these two requests.
+Gains are **+7.40378 dB eval** and **+7.17641 dB train**. At matched 24000, eval
+PSNR is 15.60060→23.07434 and train is 16.51306→23.83073: more updates do not
+rescue the original. Full-frame PSNR is low (9.64565→12.03851 at selection)
+because background is unsupervised; it cannot establish room quality.
+[Final validation](assets/blur_ablation_fresh/actor_final_validation.json).
 
-| Selected actor checkpoints | Full PSNR / SSIM / LPIPS | Eval detail PSNR / SSIM / LPIPS | Train detail PSNR / SSIM / LPIPS |
+![Actor eval faces: GT then RGB in each cell](assets/blur_ablation_fresh/actor_final/eval_face.jpg)
+
+**Measured mechanism:** on 1024 fixed valid train rays, original mean opacity is
+.32790 and effective RGB is 100% saturated white. Canonical scaling gives .84253
+opacity and 0% white saturation. On 64 fixed rays, the derivative of summed RGB
+with respect to the color head has L2 norm 0 versus 171.61365. This supports color
+saturation with opacity carrying grayscale structure; it is local sensitivity
+evidence, not an explanation of every gradient or all blur mechanisms.
+[Checkpoint-bound audit](assets/blur_ablation_fresh/actor_color_gradient.json).
+
+All selected train/eval crops and the common 24-frame path were inspected.
+Color and structure recover, while soft hair, train61 distortion and unknown
+mask/background regions remain. [Train faces](assets/blur_ablation_fresh/actor_final/train_face.jpg),
+[paired video](assets/blur_ablation_fresh/actor_final/comparison.mp4),
+[path receipt](assets/blur_ablation_fresh/actor_final/actor_comparison_complete.json).
+
+### 2. Full-room recovery depends on bounds and density/SH interaction
+
+Tight bounds enclose historical actor/background geometry with 5% padding:
+maximum side 1.45355 instead of 3. All RGB remains supervised. This is a dataset
+recipe, not a per-pixel rendering correction.
+
+| Room, matched 8000 | Eval detail | Train detail |
+| --- | --- | --- |
+| Original | 17.499 / .67597 / .66204 | 27.635 / .68848 / .56359 |
+| Tight bounds only | 21.729 / .68824 / .53915 | 25.945 / .65297 / .56149 |
+| Tight bounds + FP32 softplus | 22.196 / .69449 / .51367 | 26.031 / .65521 / .54451 |
+| Tight bounds + FP32 exponential | 27.299 / .78209 / .32955 | 27.951 / .72167 / .41225 |
+| Tight bounds + FP32 exponential + SH | **28.721 / .79622 / .29865** | **28.360 / .72861 / .39544** |
+| Tight bounds + canonical softplus | 26.419 / .76474 / .36337 | 27.564 / .70788 / .44904 |
+| Tight bounds + canonical softplus + SH | 27.647 / .77832 / .33809 | 27.844 / .71312 / .42778 |
+
+Single-factor conclusions at this horizon:
+
+- FP32 before softplus adds .46696 dB eval and .08625 dB train under tight bounds.
+  This is below the .5 dB gate, not evidence of exactly zero effect. Severe ghosting remains.
+- At the same precision/bounds/legacy SH, exponential adds **5.10270 dB eval** and
+  **1.91978 dB train**. With SH already corrected, exponential adds **3.41379 dB eval**.
+- With exponential/bounds fixed, corrected SH adds **1.42260 dB eval** and
+  **.40876 dB train**, with better SSIM/LPIPS. With canonical softplus it adds 1.22842 dB eval.
+
+[Precision/activation removal](assets/blur_ablation_fresh/room_fp32_removal_completed.json),
+[activation with SH](assets/blur_ablation_fresh/room_exp_removal_completed.json),
+[SH removal](assets/blur_ablation_fresh/room_sh_removal_completed.json),
+[canonical SH control](assets/blur_ablation_fresh/room_canonical_sh_completed.json).
+
+**Fresh 24k validations, selected by full eval PSNR:**
+
+| Selected room checkpoint | Full eval | Eval detail | Train detail |
 | --- | --- | --- | --- |
-| Original,16000 | 9.64565 / .39093 / .88535 | 15.60872 / .50357 / .80802 | 16.47468 / .58100 / .70659 |
-| Canonical scale,16000 | **12.03851 / .55391 / .59894** | **23.01250 / .67137 / .38289** | **23.65109 / .70683 / .39495** |
+| Original, 8000 | 14.84278 / .73302 / .77618 | 17.37642 / .67559 / .66446 | 27.52424 / .68740 / .56408 |
+| Canonical softplus + bounds, 16000 | 23.72593 / .82324 / .41159 | 27.26238 / .78446 / .31697 | 28.75700 / .74721 / .37132 |
+| Exponential + SH + bounds, 8000 | **24.93983 / .83966 / .36401** | **28.33937 / .79299 / .30988** | 28.19536 / .72419 / .40069 |
 
-At matched24000, eval detail is15.60060 versus23.07434 dB; train detail is
-16.51306 versus23.83073. Extra updates do not rescue the original collapse.
-The selected pair improves eval detail by7.40378 dB and train detail by7.17641.
-[Completed long validation](assets/blur_ablation_fresh/actor_final_validation.json).
+The preferred room recipe gains **10.96295 dB eval detail** and **.67112 dB train**
+over the long original control. The original screen's earlier selected 2000-step
+checkpoint is a stronger full-frame baseline, **16.68988/.74761/.73014**; the new
+recipe still exceeds it by **8.24995 dB**. It is retained explicitly rather than
+hidden by the long runs' coarser evaluation cadence.
 
-![Selected actor eval faces: GT then RGB in each cell](assets/blur_ablation_fresh/actor_final/eval_face.jpg)
+Canonical softplus is a simpler successful alternative. The exponential/SH
+selection improves eval detail by 1.07698 dB over it, but its earlier selected
+checkpoint has .56164 dB lower train detail. At matched 24000, exponential/SH
+improves both: eval **28.96124 versus 27.25773**, train **29.68862 versus 29.01063**,
+with better SSIM/LPIPS. The extra components therefore retain a substantial
+conditioned effect; they are not required for every successful actor recipe.
+[All final room histories](assets/blur_ablation_fresh/room_final_comparison.json).
 
-[Training faces](assets/blur_ablation_fresh/actor_final/train_face.jpg),
-[eval hair](assets/blur_ablation_fresh/actor_final/eval_hair.jpg),
-[eval lipstick](assets/blur_ablation_fresh/actor_final/eval_lipstick.jpg),
-[training lipstick](assets/blur_ablation_fresh/actor_final/train_lipstick.jpg).
-Color and facial structure recover across the reviewed cameras. Hair remains
-soft, train61 has facial distortion, and unknown mask/background regions remain
-poorly modeled. This is recovery from the severe collapse, not complete detail
-recovery or a full-room result.
+![Selected room eval faces: original, canonical, exponential/SH](assets/blur_ablation_fresh/room_final/eval_face.jpg)
 
-### 2. Full-frame training needs a separate bounds interaction
+All three eval and three train frames and face/hair/lipstick crops were reviewed.
+Large eval ghosting disappears. Soft hair, train61 facial distortion and severe
+local artifacts on train0's reflective lipstick remain.
+[Full eval](assets/blur_ablation_fresh/room_final/eval_full.jpg),
+[train faces](assets/blur_ablation_fresh/room_final/train_face.jpg),
+[train lipstick](assets/blur_ablation_fresh/room_final/train_lipstick.jpg).
+The preferred recipe stays improved throughout the common 24-frame camera path;
+background rails and hand/lipstick still have local artifacts. All frames are
+finite and full MP4 decoding passes. Novel path frames have no ground-truth scores.
+[Paired video](assets/blur_ablation_fresh/room_exp_sh_final/comparison.mp4),
+[all candidate frames](assets/blur_ablation_fresh/room_exp_sh_final/path_all_frames.jpg),
+[receipt](assets/blur_ablation_fresh/room_exp_sh_final/comparison_complete.json).
+The canonical-softplus alternative was also checked on all 24 frames of the
+same path. Subject recovery persists, but its background has more blocky/floating
+artifacts than the preferred recipe; its video also passes full decoding.
+[Alternative video](assets/blur_ablation_fresh/room_final/canonical_comparison.mp4),
+[all frames](assets/blur_ablation_fresh/room_final/canonical_path_all_frames.jpg),
+[receipt](assets/blur_ablation_fresh/room_final/comparison_complete.json).
 
-“Tight bounds” enclose the historical actor/background geometry with 5% padding;
-the maximum side is 1.45355, versus the original3. All room RGB remains supervised.
-The bounds are a data recipe, not a per-pixel rendering correction.
+At 8000, training ray-point counts are original 20.297 billion, tight bounds
+14.353, canonical/bounds 16.553 and exponential/SH/bounds 11.955. Recovery is not
+explained by more sampled points. These are not matched FLOPs, and concurrent
+per-job wall times are not directly comparable.
+[Counts](assets/blur_ablation_fresh/room_sample_counts.json).
 
-| Full frame, matched 8000 | Full eval PSNR / SSIM / LPIPS | Eval detail PSNR / SSIM / LPIPS | Train detail PSNR / SSIM / LPIPS |
-| --- | --- | --- | --- |
-| Original | 14.797 / .73208 / .77829 | 17.499 / .67597 / .66204 | 27.635 / .68848 / .56359 |
-| Only tighter bounds | 21.311 / .77495 / .52494 | 21.729 / .68824 / .53915 | 25.945 / .65297 / .56149 |
-| Tight bounds + canonical-scaled softplus | **23.546 / .81642 / .42234** | **26.419 / .76474 / .36337** | 27.564 / .70788 / .44904 |
-| Tight bounds + FP32 exponential | 23.406 / .82677 / .39479 | 27.299 / .78209 / .32955 | 27.951 / .72167 / .41225 |
-| Tight bounds + FP32 exponential + SH | **24.966 / .83957 / .36379** | **28.721 / .79622 / .29865** | **28.360 / .72861 / .39544** |
+### 3. Original fight scene
 
-The last bundle passes the8000-step quality screen: +11.223 dB eval detail,
-+.725 dB train detail, better SSIM/LPIPS, and visible recovery across all three
-eval cameras. The canonical-softplus alternative also removes much ghosting;
-its train PSNR is .071 dB below original, with better train SSIM/LPIPS.
-[Matched and selected bundle records](assets/blur_ablation_fresh/room_exp_sh_bounds_completed.json),
-[canonical-softplus records](assets/blur_ablation_fresh/room_canonical_bounds_completed.json).
-
-The original screen selects2000, full16.68988 / .74761 / .73014. The improved
-room variants select8000. The independent original 24k run remains blurred;
-at 24000 full PSNR is 14.41886 and detail17.37254 / .68612 / .62831.
-Its selected 8000 checkpoint is weaker than the original screen's early2000
-checkpoint, which must remain visible in any final selected-checkpoint comparison.
-[Long original room control](assets/blur_ablation_fresh/real_original_long.json).
-
-The adaptive runs use different numbers of training ray points: original20.297
-billion, tight bounds14.353, canonical-softplus/bounds16.553, exp+SH/bounds11.955.
-The large gain is not explained by more sampled points. These counts are a
-compute proxy, not matched FLOPs; per-job wall times are not directly comparable
-because the jobs shared a GPU. [Recorded counts](assets/blur_ablation_fresh/room_sample_counts.json).
-
-At 8000, removing SH from the tight-room exponential recipe lowers eval detail
-28.72132→27.29872 dB and train detail 28.35982→27.95106, with worse SSIM/LPIPS.
-SH has a substantial conditioned contribution in this domain.
-[Completed removal](assets/blur_ablation_fresh/room_sh_removal_completed.json),
-[faces](assets/blur_ablation_fresh/room_sh_removal_eval_face.jpg),
-[hair](assets/blur_ablation_fresh/room_sh_removal_eval_hair.jpg).
-At 8000, replacing exponential with softplus while keeping SH/FP32 lowers
-eval detail 28.72132→25.30754 dB and train detail 28.35982→26.95908.
-SSIM and LPIPS also worsen. Exponential has a substantial conditioned effect
-at this horizon. [Completed removal](assets/blur_ablation_fresh/room_exp_removal_completed.json),
-[eval faces](assets/blur_ablation_fresh/room_exp_removal_eval_face.jpg).
-Weak foreground SH effects must not be extrapolated to this room interaction.
-Canonical-scaled softplus + SH reaches27.64696dB eval detail at8k, still
-1.07437dB below exponential + SH. The exponential/SH24k room validation is
-complete (selected8k); the canonical-softplus/bounds long control is running.
-
-![All eval faces, matched8000: GT then RGB in each cell](assets/blur_ablation_fresh/room_bounds8k_eval_face.jpg)
-
-[Train faces](assets/blur_ablation_fresh/room_bounds8k_train_face.jpg),
-[eval hair](assets/blur_ablation_fresh/room_bounds8k_eval_hair.jpg),
-[eval lipstick](assets/blur_ablation_fresh/room_bounds8k_eval_lipstick.jpg),
-[canonical-softplus comparison](assets/blur_ablation_fresh/room_canonical_eval_face.jpg).
-Some hair softness and train61 facial distortion remain.
-
-### 3. Original-scene regression checks
-
-| Fight, 30376 updates, selected | PSNR ↑ | SSIM ↑ | LPIPS ↓ | Gate |
+| Selected at 30376 | PSNR | SSIM | LPIPS | Gate |
 | --- | ---: | ---: | ---: | --- |
 | Original | 29.47409 | .67341 | .29662 | Reference |
-| Only SH correction | 29.46895 | .66643 | .28515 | Fails SSIM tolerance |
+| SH only | 29.46895 | .66643 | .28515 | Fails SSIM |
 | Softplus / AABB span | 28.76697 | .67299 | .31341 | Fails PSNR and LPIPS |
-| Canonical3/span, always FP32 output | 29.42683 | .66527 | .29439 | Fails SSIM tolerance |
-| Safe exponential + corrected SH | 29.51649 | .67501 | .29078 | Passes all three limits |
+| Canonical 3/span, unconditional FP32 output | 29.42683 | .66527 | .29439 | Fails SSIM |
+| Safe exponential + corrected SH | **29.51649** | **.67501** | **.29078** | **Passes all limits** |
 
-[Original metrics](assets/blur_ablation_fresh/fight_baseline_metrics.json),
-[unit-reference completed pair](assets/blur_ablation_fresh/fight_unit_reference_completed.json).
-This is a fresh Stage-A check, not the historical longer Stage-A→FR leader.
-
-The [original fight AABB has span3](assets/blur_ablation_fresh/canonical_reference.json).
-Consequently1/span reduces its density by 3. The canonical control uses3/span,
-a single global reference length anchored to this original coordinate scale.
-At span3, optical thickness and gradients match legacy arithmetic exactly in
-numerical tests; uniform coordinate scaling preserves optical thickness for corresponding samples.
-FP32 multiplication prevents overflow in tiny world units.
-
-At 15188, original versus canonical-reference gives
-**28.77557 / .65091 / .36464 → 28.81332 / .64847 / .35851**.
-All three deltas pass the predefined intermediate tolerances. At30376, however,
-SSIM falls by.00814, beyond the.005 limit; PSNR changes by−.04726dB and LPIPS
-by−.00223. This candidate fails the final gate and is not promoted. [Native intermediate pair](assets/blur_ablation_fresh/fight_canonical_early.json).
-The safe-exponential + SH recipe completes fresh fight transfer with the
-original fight bounds: +.04240dB PSNR, +.00160 SSIM, −.00583 LPIPS. All three
-limits pass; all3 eval and3 train frames plus the saved equipment/hand detail
-crops show no new conspicuous defect. This is a combined recipe check, not an
-independent precision/SH attribution on fight.
-[Final transfer](assets/blur_ablation_fresh/fight_exp_sh_completed.json),
+All selected exponential/SH train/eval frames and saved hand/equipment crops
+were inspected without a new conspicuous defect. This is a combined-recipe
+transfer, not a separate attribution of each component on fight. It validates
+Stage A, not the historical longer Stage-A→FR leader.
+[Final metrics](assets/blur_ablation_fresh/fight_exp_sh_completed.json),
 [full eval](assets/blur_ablation_fresh/fight_exp_sh_final/eval_full.jpg),
 [train](assets/blur_ablation_fresh/fight_exp_sh_final/train_full.jpg),
 [detail](assets/blur_ablation_fresh/fight_exp_sh_final/eval_fingers.jpg).
 
-### 4. Controls that do not explain the main recovery
+The original AABB has span 3, so 1/span reduces its density by three. Canonical
+3/span preserves the reference scale, but an unconditional FP32 cast still
+changes the numerical path. Its final SSIM decline .00814 fails the .005 gate,
+despite passing at 15188. Visual similarity does not override that failure.
+[Unit-reference failure](assets/blur_ablation_fresh/fight_unit_reference_completed.json),
+[canonical failure](assets/blur_ablation_fresh/fight_canonical_completed.json).
 
-| Control | Fresh measured result / decision |
+The model now resolves an **exact unit gain** to the legacy field path, including
+dtype. There is no dataset-name lookup or tuned tolerance. Occupancy updates
+multiply density by a Python scalar: the previous cast changes all 65 audited
+values, by up to 1.59e-5. This is a concrete numerical difference, not proof that
+it caused the SSIM decline. The fresh identity run passes the intermediate gate
+(−.03797 dB PSNR, −.00255 SSIM, −.00247 LPIPS); **its final result is pending**.
+[Occupancy audit](assets/blur_ablation_fresh/unit_gain_occupancy_dtype.json),
+[interim result](assets/blur_ablation_fresh/fight_identity_early.json),
+[saved-config comparison](assets/blur_ablation_fresh/fight_canonical_config_diff.json),
+[runtime revision audit](assets/blur_ablation_fresh/fight_runtime_audit.json).
+
+### 4. Changes excluded from the retained recipes
+
+| Control | Fresh finding |
 | --- | --- |
-| Whole-room1/span alone | +.119 dB eval detail at 8000, worse SSIM/LPIPS; fails main quality gate |
-| Whole-room FP32 softplus alone | -.060 dB eval detail; no substantial gain |
-| Whole-room exponential alone, FP32 | +.234 dB versus FP32 softplus, worse SSIM/LPIPS |
-| Whole-room SH alone | -1.663 dB eval detail; its effect is conditional on the recipe |
-| Warmup1024 instead of 256 | +.366 dB detail; strong ghosting remains |
-| No warmup | +.697 dB detail, but strong ghosting remains; not the main cure |
-| Faster LR decay / lower initial LR | -1.390 / -2.753 dB eval detail |
-| Corrected frequency projection | -.019 / -.096 dB in the two actor controls; -.162 dB in full-frame training |
-| Denser frozen rendering / allocator correction | Does not recover missing detail at the tested checkpoints |
+| Room 1/span alone | +.119 dB eval detail; worse SSIM/LPIPS |
+| Room FP32 softplus alone | −.060 dB eval detail |
+| Room exponential alone, FP32 | +.234 dB versus FP32 softplus; worse SSIM/LPIPS |
+| Room SH alone | −1.663 dB eval detail; effect is conditional |
+| Warmup 1024 / no warmup | +.366 / +.697 dB detail, but strong ghosting remains |
+| Faster LR decay / lower initial LR | −1.390 / −2.753 dB eval detail |
+| Alternative frequency projection | −.019 / −.096 dB actor; −.162 dB room |
+| Clipping, AMP scale, removing distortion | No substantial rescue in single-camera controls |
+| Denser frozen rendering / allocator correction | Does not recover missing detail at tested checkpoints |
 
-[Density/precision controls](assets/blur_ablation_fresh/real_density_screen_initial.json),
-[activation controls](assets/blur_ablation_fresh/real_exp_screen.json),
-[precision and warmup](assets/blur_ablation_fresh/real_precision_warmup_screen.json),
-[no-warmup](assets/blur_ablation_fresh/real_no_warmup_screen.json),
-[LR controls](assets/blur_ablation_fresh/real_lr_completed.json),
-[actor frequency controls](assets/blur_ablation_fresh/actor_frequency_projection_screen.json),
-[room frequency control](assets/blur_ablation_fresh/room_frequency_projection_completed.json),
-[frozen rendering](assets/blur_ablation_fresh/frozen_rendering.json),
-[actor rendering](assets/blur_ablation_fresh/actor_scaled_rendering_audit.json).
-
-The SH encoding contract and frequency-projection units have numerical tests;
-mathematical correctness does not establish an image-quality gain. Explicit
-FP32 before exponential fixes a demonstrated overflow. This does not establish
-that whole-network FP32 caused the historical quality jump.
+[Density controls](assets/blur_ablation_fresh/real_density_screen_initial.json),
+[warmup](assets/blur_ablation_fresh/real_precision_warmup_screen.json),
+[no warmup](assets/blur_ablation_fresh/real_no_warmup_screen.json),
+[LR](assets/blur_ablation_fresh/real_lr_completed.json),
+[actor projection](assets/blur_ablation_fresh/actor_frequency_projection_screen.json),
+[room projection](assets/blur_ablation_fresh/room_frequency_projection_completed.json),
+[frozen rendering](assets/blur_ablation_fresh/frozen_rendering.json).
 
 Observed-background objectives, native patch supervision, matte/support repair,
-pose refinement and teacher pretraining are **not freshly validated here as
-incremental improvements**. Recovery without them shows they are unnecessary
-for the measured main collapse; it does not prove they have no other benefit.
-The historical candidate branch remains provenance, not fresh paired evidence.
+pose refinement and teacher pretraining were **not freshly validated as incremental
+improvements**. Recovery without them establishes that they are unnecessary for
+this measured main collapse; it does not prove they have no other benefit.
+Whole-network FP32 is not established as the cause of the historical jump.
 
-## Insights, remaining work and reproducibility
+## Retained implementation and reproduction
 
-The small-actor failure and the full-frame ghosting are distinct. Density scale
-is the clearest isolated actor fix. Tight bounds interact strongly with density
-parameterization and SH in the room task. Final retention depends on the pending
-component-removal and transfer results; there is no claim of complete texture
-recovery, all-seed robustness or unseen-benchmark generalization.
+The field retains softplus, canonical density scale, safe exponential and an
+opt-in SH direction correction. Exponential casts logits to FP32 **before** the
+bias/activation, fixing demonstrated TCNN FP16 overflow. Canonical scaling uses
+FP32 **after** activation, with the exact-unit-gain bypass described above.
+SH maps unit directions to TCNN's [0, 1] domain. The preferred room recipe uses
+exponential + SH + tight bounds without extra density normalization.
 
-Remaining: finish the canonical-softplus room control and two fight checks;
-decide preset promotion, then finalize the report and recipes. Unused controls
-have been removed; actor and exponential/SH room outputs and camera paths
-have been saved and inspected. Thirteen focused tests pass.
+Clipping, separate precision/reference controls and alternative frequency
+projection were removed. The full pre-cleanup ablation code is archived at
+`lookcloser-blur-ablation-archive`, commit `7a6ffd5f`. Requests requiring those
+removed controls use that version; the later identity test (`f7`) uses current
+code. Incompatible research checkpoints fail explicitly rather than silently
+changing their density math. Model-config legacy defaults remain unchanged;
+standard-preset promotion awaits the final identity check.
 
-The selected actor pair has24 finite learned-RGB frames on exactly identical
-interpolated camera paths. [Paired video](assets/blur_ablation_fresh/actor_final/comparison.mp4),
-[paired contact sheet](assets/blur_ablation_fresh/actor_final/actor_comparison_contact.jpg),
-[paired receipt](assets/blur_ablation_fresh/actor_final/actor_comparison_complete.json).
-The color collapse is removed along the reviewed path; mask/background artifacts
-and soft detail remain. The original actor path is also recorded separately.
-[Path receipt](assets/blur_ablation_fresh/actor_original_path_complete.json),
-[contact sheet](assets/blur_ablation_fresh/actor_original_path_contact.jpg).
-Interpolated views have no ground-truth scores. A system ffmpeg library mismatch
-was handled with the installed imageio encoder; full video decoding passed.
-The renderer now records completed frames before encoding and can retry encoding.
+**13 focused tests pass**, including optical thickness/gradients, FP32 exponential,
+SH contract, both density-query paths, checkpoint guards and occupancy dtype.
+Four pinned checkpoints were rendered on 1024 fixed valid train-0 rays before and
+after cleanup: actor tensors are exact; adaptive RGB/opacity/depth differences
+are below 1e-5, also the bound in an unchanged-code repeat. This is sampled
+render parity, not an all-view or exact-resume proof.
+[Cleanup parity](assets/blur_ablation_fresh/retained_formula_parity.json),
+[identity parity](assets/blur_ablation_fresh/identity_render_parity.json).
 
-Runtime: `/home/brans/repos/nerfstudio/.venv`, Torch 2.7.1+cu128, RTX PRO 6000.
-The requested Ubuntu Conda is inaccessible. The runner uses standard
-`Trainer.train_iteration`, AMP/Adam/scheduler and callbacks. Requests and compact
-evidence are under `experiments/assets/blur_ablation_fresh`; large checkpoints,
-PNGs and MP4s are under `/home/brans/lookcloser_artifacts/blur_ablation_fresh`.
-Use `scripts/run_blur_experiment.py REQUEST.json` for an individual fresh run;
-`scripts/supervise_blur_campaign.py MANIFEST.json` adds process/GPU/budget logs.
-`scripts/review_blur_results.py` checks paired evidence;
-`scripts/build_blur_review_panels.py` rebuilds labeled sheets from saved crops.
-Training requests cannot overwrite existing histories.
+[Runnable recipes](../recipes/blur_fixes/README.md) use repository runtime helpers.
+`run_blur_experiment.py` executes one immutable request through the standard
+Trainer update. `supervise_blur_campaign.py` logs controller/worker liveness,
+progress, GPU memory and OOM evidence every 30 seconds. `review_blur_results.py`
+rebuilds the paired evidence; `build_blur_review_panels.py` rebuilds the figures.
+Large datasets, checkpoints and native images are at
+`/home/brans/lookcloser_artifacts/blur_ablation_fresh`; source, recipes, reports
+and compact review evidence are committed here. The requested Ubuntu Conda is
+inaccessible; runs use `/home/brans/repos/nerfstudio/.venv`, Torch 2.7.1+cu128 and
+one RTX PRO 6000. The installed imageio ffmpeg handles encoding and full decoding.
 
-The 24 GPU-hour budget uses the union of active intervals on one shared GPU,
-including setup/evaluation. Concurrent job wall times are also logged as an
-upper bound, not actual GPU-hours. Live jobs are checked much more often than
-hourly, recording controllers, workers, progress, GPU memory and OOM evidence.
-[Cleanup receipt](assets/blur_ablation_fresh/cleanup.jsonl) records96.45 GiB of
-old intermediate checkpoints owned by `brans`; other users' files were untouched.
-Completed work is committed on the working branch. Earlier chronological notes
-remain in Git history; this report summarizes the current measured conclusions.
-
-### Production cleanup and checkpoint compatibility
-
-The complete ablation implementation is preserved in branch
-`lookcloser-blur-ablation-archive`, commit `7a6ffd5f`; use it to replay requests requiring removed controls. The later unit-gain
-identity control (`f7`) requires the current implementation. The working implementation removes clipping, a separate
-pre-activation precision switch, arbitrary density reference length and the
-alternative frequency-projection control. Safe exponential casts before the
-bias/activation; canonical density scales in FP32 afterwards. Legacy softplus
-remains available. Final preset promotion awaits the completed fight check.
-
-A reference-three historical checkpoint maps to canonical normalization.
-Checkpoints requiring removed math fail explicitly and must use the archived
-code. Four pinned checkpoints were rendered on 1024 fixed valid train-0 rays
-before/after cleanup: actor tensors match exactly; adaptive RGB, opacity and
-depth differ by less than 1e-5, also the bound in an unchanged-code repeat.
-This is a sampled parity check, not an all-view proof. Twelve focused tests pass.
-[Parity evidence](assets/blur_ablation_fresh/retained_formula_parity.json).
-
-The long full-room control's selected8k path contains severe translucent/ghost
-artifacts throughout the inspected frames. All24 frames are finite and the
-encoded video decodes fully.
-[Contact](assets/blur_ablation_fresh/room_original_path_contact.jpg),
-[receipt](assets/blur_ablation_fresh/room_original_path_complete.json).
-
-### SH with canonical softplus and tight room bounds
-
-At8k, adding only corrected SH to canonical softplus (`r18`→`r20`) improves
-held-out detail26.41853/.76474/.36337→27.64696/.77832/.33809 and train detail
-27.56385/.70788/.44904→27.84404/.71312/.42778. Full eval is23.99571/.82492/.40123.
-All three eval face/hair crops and all three train faces were inspected: facial
-shape improves, but hair stays soft and train61 remains distorted. The safe
-exponential+SH+tight-bounds recipe (`r11`) still exceeds this alternative by
-1.07437 dB eval detail and .51578 dB train detail at the same step. That last
-comparison changes activation and normalization together; it is a recipe
-comparison, not a one-factor attribution.
-[Metrics](assets/blur_ablation_fresh/room_canonical_sh_completed.json),
-[eval faces](assets/blur_ablation_fresh/room_canonical_sh/eval_face.jpg),
-[eval hair](assets/blur_ablation_fresh/room_canonical_sh/eval_hair.jpg),
-[train faces](assets/blur_ablation_fresh/room_canonical_sh/train_face.jpg).
-
-### Intermediate combined-recipe transfer
-
-At15188 on fight, safe exponential plus corrected SH gives
-28.89501/.65961/.35245 versus original28.77557/.65091/.36464. All three regression
-limits pass at this intermediate boundary. Reviewed hand/finger and equipment
-crops show no new conspicuous artifact, with fine detail still imperfect.
-This is a combined-recipe transfer check; it does not attribute the gain to a
-single component. The30376 result remains required.
-[Metrics](assets/blur_ablation_fresh/fight_exp_sh_early.json),
-[crops](assets/blur_ablation_fresh/fight_interim/eval_fingers.jpg).
-
-### Final precision control under tight room bounds
-
-With legacy SH, changing only softplus evaluation to FP32 (`r9`→`r17`) gives
-21.72906/.68824/.53915→22.19602/.69449/.51367 eval detail, and
-25.94503/.65297/.56149→26.03128/.65521/.54451 train detail at8k.
-The+.46696dB eval gain is just below the predeclared.5dB gate; it is not evidence
-of exactly zero effect. Severe facial ghosting remains in all three reviewed
-eval views. Switching only the activation to exponential at the same precision
-(`r17`→`r16`) then adds5.10270dB eval detail and1.91978dB train detail.
-Thus the main conditioned gain cannot be attributed to FP32 alone.
-[Metrics](assets/blur_ablation_fresh/room_fp32_removal_completed.json),
-[faces](assets/blur_ablation_fresh/room_fp32_removal/eval_face.jpg),
-[hair](assets/blur_ablation_fresh/room_fp32_removal/eval_hair.jpg).
-
-### Preserving the reference scene's numerical path
-
-The first canonical-reference fight run fails the strict SSIM gate despite
-passing the intermediate boundary. Crops show no conspicuous new artifact, but
-that does not override the numerical gate.
-[Completed result](assets/blur_ablation_fresh/fight_canonical_completed.json),
-[final crops](assets/blur_ablation_fresh/fight_canonical_final/eval_fingers.jpg).
-
-The model now resolves canonical normalization to the legacy unnormalized field
-when its gain is exactly one (longest AABB side exactly3). This preserves the
-activation dtype, avoiding an unnecessary FP32 conversion. It is a mathematical
-identity check, with no filename/dataset lookup or tuned tolerance. All other
-scene spans retain the tested FP32 rescaling. This addresses a real numerical
-path difference; the previous single-seed result alone does not prove that the
-dtype caused its SSIM regression. A fresh seed42 fight run (`f7`) is in progress
-to check the corrected implementation. Thirteen focused tests pass.
-
-### Completed 24k full-room exponential/SH validation
-
-Both the original long control and exponential/SH/tight-bounds run select8k.
-All three native eval and three train frames, including face/hair/lipstick crops,
-were visually inspected. The large eval ghosting disappears. Hair remains soft;
-train61 has facial distortion and train0's reflective lipstick still has severe
-local artifacts. Recovery is substantial, not complete tiny-detail reconstruction.
-
-| Selected after24k | Full eval PSNR / SSIM / LPIPS | Eval detail PSNR / SSIM / LPIPS | Train detail PSNR / SSIM / LPIPS |
-| --- | --- | --- | --- |
-| Original,8k | 14.84278 / .73302 / .77618 | 17.37642 / .67559 / .66446 | 27.52424 / .68740 / .56408 |
-| Exponential + SH + tight bounds,8k | 24.93983 / .83966 / .36401 | 28.33937 / .79299 / .30988 | 28.19536 / .72419 / .40069 |
-
-The selected detail gains are+10.96295dB eval and+.67112dB train, with supporting
-SSIM/LPIPS. The earlier original screen's selected2k full PSNR16.68988 is a
-stronger full-frame baseline than the long control; the candidate still exceeds
-it by8.24995dB. That earlier screen is retained explicitly, not hidden by the
-coarser validation cadence. At matched24k, candidate full/eval-detail/train-detail
-PSNR is24.60000/28.96124/29.68862. The selector retains8k because full-frame PSNR
-at16k and24k falls more than.07dB, despite improving detail/perceptual metrics.
-[Metrics and histories](assets/blur_ablation_fresh/room_exp_sh_final_validation.json),
-[full eval](assets/blur_ablation_fresh/room_exp_sh_final/eval_full.jpg),
-[eval faces](assets/blur_ablation_fresh/room_exp_sh_final/eval_face.jpg),
-[train faces](assets/blur_ablation_fresh/room_exp_sh_final/train_face.jpg),
-[train lipstick](assets/blur_ablation_fresh/room_exp_sh_final/train_lipstick.jpg).
-
-The selected room recipe and original checkpoint were rendered on exactly the
-same24-frame interpolated camera path. All RGB values are finite and both MP4s
-pass a full decode check. All24 candidate thumbnails were inspected: the main
-color/shape recovery persists between cameras. Background rails and the hand/
-lipstick region still show local geometry/appearance artifacts. These frames
-have no ground-truth metrics.
-[Paired video](assets/blur_ablation_fresh/room_exp_sh_final/comparison.mp4),
-[paired contact](assets/blur_ablation_fresh/room_exp_sh_final/comparison_contact.jpg),
-[all24 candidate frames](assets/blur_ablation_fresh/room_exp_sh_final/path_all_frames.jpg),
-[receipt](assets/blur_ablation_fresh/room_exp_sh_final/comparison_complete.json).
-
-The occupancy callback multiplies density by a Python scalar. On65 fixed FP16
-logits, a needless cast at unit gain changes every resulting occupancy input,
-with maximum absolute difference1.59e-5 for the reference step size. The new
-identity-path test checks both values and dtype through this operation. This
-establishes a concrete numerical distinction, without claiming it alone caused
-the observed SSIM delta. The fresh identity run passes the15188 interim gate
-(−.03797dB PSNR, −.00255 SSIM, −.00247 LPIPS); final validation remains pending.
-[Occupancy audit](assets/blur_ablation_fresh/unit_gain_occupancy_dtype.json),
-[interim metrics](assets/blur_ablation_fresh/fight_identity_early.json).
+The 24 GPU-hour budget counts the union of active intervals on this shared GPU,
+not the sum of concurrent job wall times. Supervision remains active until the
+last training and visual gate finish. The authorized checkpoint cleanup removed
+96.45 GiB of old files owned by `brans`; other users' files were untouched.
+[Cleanup receipt](assets/blur_ablation_fresh/cleanup.jsonl).

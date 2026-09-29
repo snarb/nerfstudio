@@ -9,7 +9,7 @@ metrics, cropped images and dataset provenance.
 | Request | Scope | Validation status |
 |---|---|---|
 | `lipstick_actor.json` | Historical masked actor, small AABB | Completed24k pair |
-| `lipstick_room_canonical.json` | All RGB, tight room AABB, canonical softplus | Long validation running |
+| `lipstick_room_canonical.json` | All RGB, tight room AABB, canonical softplus | Completed24k control; selected16k |
 | `lipstick_room_exp_sh.json` | All RGB, tight room AABB, safe exponential and corrected SH | Completed24k room pair and30376 fight transfer |
 | `fight_exp_sh.json` | Original66/3 fight, safe exponential and corrected SH | Completed30376 transfer; all limits pass |
 | `fight_canonical.json` | Original66/3 bounded fight scene | Unit-gain identity correction undergoing fresh transfer check |

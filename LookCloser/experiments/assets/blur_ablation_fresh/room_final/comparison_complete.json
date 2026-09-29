@@ -1,0 +1,27 @@
+{
+  "frames": 24,
+  "camera_paths_equal": true,
+  "sources": [
+    {
+      "folder": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/paths/room_original",
+      "receipt_sha256": "695e11ddabc854ef973dcbdcf43e6eeaa89a76d15a1be1e14ffd8302f8e3c702",
+      "checkpoint_sha256": "2d88dcecb5304c8087509cdec380fcce3d4ce908bac6c1b2a9a157dee08e9ec3",
+      "step": 8000
+    },
+    {
+      "folder": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/paths/room_canonical",
+      "receipt_sha256": "e08e11981f1c5af86d16b6c8bc29248d5de00b810d9ae46626204cb1822f6711",
+      "checkpoint_sha256": "a630168de720b2ef4f566f178c9c6fe65515738344631e23b10421fa946acc88",
+      "step": 16000
+    }
+  ],
+  "labels": [
+    "Original",
+    "Canonical_bounds"
+  ],
+  "render": "paired learned RGB; labels only added",
+  "finite_rgb_checked": true,
+  "encoder": "/home/brans/repos/nerfstudio/.venv/lib/python3.10/site-packages/imageio_ffmpeg/binaries/ffmpeg-linux-x86_64-v7.0.2",
+  "full_video_decode_checked": true,
+  "video_sha256": "359de573b97ca97039218cab139084ad990a7877c252095c2c476137b1f8a369"
+}
