@@ -386,3 +386,29 @@ scene spans retain the tested FP32 rescaling. This addresses a real numerical
 path difference; the previous single-seed result alone does not prove that the
 dtype caused its SSIM regression. A fresh seed42 fight run (`f7`) is in progress
 to check the corrected implementation. Thirteen focused tests pass.
+
+### Completed 24k full-room exponential/SH validation
+
+Both the original long control and exponential/SH/tight-bounds run select8k.
+All three native eval and three train frames, including face/hair/lipstick crops,
+were visually inspected. The large eval ghosting disappears. Hair remains soft;
+train61 has facial distortion and train0's reflective lipstick still has severe
+local artifacts. Recovery is substantial, not complete tiny-detail reconstruction.
+
+| Selected after24k | Full eval PSNR / SSIM / LPIPS | Eval detail PSNR / SSIM / LPIPS | Train detail PSNR / SSIM / LPIPS |
+| --- | --- | --- | --- |
+| Original,8k | 14.84278 / .73302 / .77618 | 17.37642 / .67559 / .66446 | 27.52424 / .68740 / .56408 |
+| Exponential + SH + tight bounds,8k | 24.93983 / .83966 / .36401 | 28.33937 / .79299 / .30988 | 28.19536 / .72419 / .40069 |
+
+The selected detail gains are+10.96295dB eval and+.67112dB train, with supporting
+SSIM/LPIPS. The earlier original screen's selected2k full PSNR16.68988 is a
+stronger full-frame baseline than the long control; the candidate still exceeds
+it by8.24995dB. That earlier screen is retained explicitly, not hidden by the
+coarser validation cadence. At matched24k, candidate full/eval-detail/train-detail
+PSNR is24.60000/28.96124/29.68862. The selector retains8k because full-frame PSNR
+at16k and24k falls more than.07dB, despite improving detail/perceptual metrics.
+[Metrics and histories](assets/blur_ablation_fresh/room_exp_sh_final_validation.json),
+[full eval](assets/blur_ablation_fresh/room_exp_sh_final/eval_full.jpg),
+[eval faces](assets/blur_ablation_fresh/room_exp_sh_final/eval_face.jpg),
+[train faces](assets/blur_ablation_fresh/room_exp_sh_final/train_face.jpg),
+[train lipstick](assets/blur_ablation_fresh/room_exp_sh_final/train_lipstick.jpg).
