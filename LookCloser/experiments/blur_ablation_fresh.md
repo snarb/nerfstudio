@@ -280,3 +280,21 @@ projection: UV resolution must use normalized focal lengths and camera-z depth,
 then be expressed across the AABB span. The baseline multiplies UV resolution
 by pixel focal length over ray distance. The numerical reference is invariant
 to image resizing and uniform world scaling; scene-quality validation is pending.
+
+### Completed foreground scale control and warmup control
+
+Foreground, matched8000: unscaled softplus eval detail
+**15.55416 / .52192 / .82373**, scaled softplus
+**22.86674 / .68308 / .39498** (+7.313 dB). Train detail rises
+from **16.39050 / .56500 / .73676** to **23.45059 / .69270 / .42944**.
+The scaled full-frame selector chooses step8000. This is a substantial measured
+foreground gain, with residual soft skin/hair and unsupervised room background.
+[Paired metrics](assets/blur_ablation_fresh/actor_scale_screen.json).
+
+Full room without warmup, matched8000: full **15.80557 / .74957 / .71104**;
+eval detail **18.19524 / .68509 / .63706**; train detail
+**27.88605 / .69435 / .55433**. Detail gains +.697 dB against the original,
+passing the numerical improvement threshold, but visible ghosting remains.
+This uses adaptive sampling for more training updates and is not claimed to
+remove the main blur. The full-frame selector still prefers step2000.
+[Paired metrics](assets/blur_ablation_fresh/real_no_warmup_screen.json).
