@@ -155,6 +155,6 @@
       }
     }
   ],
-  "tests": "11 passed; 2 pre-existing AMP deprecation warnings",
+  "tests": "12 passed; 2 pre-existing AMP deprecation warnings",
   "conclusion": "All before/after and unchanged-code repeat differences below 1e-5 absolute. Adaptive renders are not bitwise repeatable; fixed actor renders are exact."
 }

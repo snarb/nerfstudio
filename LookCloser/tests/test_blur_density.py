@@ -56,6 +56,7 @@ def test_canonical_reference_preserves_optical_thickness_and_gradients():
     {'density_normalization':'aabb'},
     {'density_clip':True},
     {'density_fp32':True},
+    {'density_activation':'trunc_exp','density_fp32':False},
 ])
 def test_incompatible_research_checkpoint_fails_loudly(kwargs):
     from nerfstudio.models.lookcloser import compatible_density_normalization

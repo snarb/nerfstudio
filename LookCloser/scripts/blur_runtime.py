@@ -52,6 +52,9 @@ class ProbeParserConfig(NerfstudioDataParserConfig):
 
 def configuration(request):
     cfg = deepcopy(method_configs['lookcloser'])
+    # Research requests without this key mean the original baseline, even if
+    # the interactive method preset later adopts the validated normalization.
+    cfg.pipeline.model.density_normalization = 'none'
     data = Path(request['data']); meta = json.loads((data/'transforms.json').read_text())
     cfg.output_dir = Path(request['output']); cfg.experiment_name = 'trainer'
     cfg.timestamp = 'seed42'; cfg.vis = 'tensorboard'

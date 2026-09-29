@@ -38,6 +38,11 @@ def compatible_density_normalization(config) -> str:
     """Load equivalent research checkpoints; reject settings with different math."""
     incompatible = bool(getattr(config, "density_clip", False))
     incompatible |= bool(getattr(config, "density_fp32", False)) and config.density_activation == "softplus"
+    incompatible |= (
+        config.density_activation == "trunc_exp"
+        and hasattr(config, "density_fp32")
+        and not config.density_fp32
+    )
     normalization = config.density_normalization
     if normalization == "aabb":
         if getattr(config, "density_reference_length", 1.0) == 3.0:
@@ -126,11 +131,15 @@ class LookCloserModelConfig(ModelConfig):
     tcnn_network_jit_scope: TCNNNetworkJITScope = "both"
     """TCNN field network(s) affected by initial and live JIT enablement."""
 
-    # Loss weights
+    # Field parameterization. Legacy defaults preserve existing checkpoints.
     density_activation: Literal["softplus", "trunc_exp"] = "softplus"
+    """Exponential evaluates logits in FP32 to prevent TCNN FP16 overflow."""
     density_normalization: Literal["none", "canonical_aabb"] = "none"
+    """Scale by 3 / longest AABB side, preserving the original fight scene scale."""
     correct_sh_directions: bool = False
+    """Map unit directions to the [0, 1] domain expected by TCNN SH encoding."""
 
+    # Loss weights
     distortion_loss_mult: float = 0.01
     """Multiplier for Mip-NeRF 360 distortion loss."""
 

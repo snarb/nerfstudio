@@ -318,7 +318,7 @@ Checkpoints requiring removed math fail explicitly and must use the archived
 code. Four pinned checkpoints were rendered on 1024 fixed valid train-0 rays
 before/after cleanup: actor tensors match exactly; adaptive RGB, opacity and
 depth differ by less than 1e-5, also the bound in an unchanged-code repeat.
-This is a sampled parity check, not an all-view proof. Eleven focused tests pass.
+This is a sampled parity check, not an all-view proof. Twelve focused tests pass.
 [Parity evidence](assets/blur_ablation_fresh/retained_formula_parity.json).
 
 The long full-room control's selected8k path contains severe translucent/ghost

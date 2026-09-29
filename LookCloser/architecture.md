@@ -15,7 +15,7 @@ projection were removed after ablations. Equivalent historical reference-three
 checkpoints are mapped to canonical mode; incompatible research checkpoints
 must use their original code version. The full ablation code is archived at
 `lookcloser-blur-ablation-archive` (`7a6ffd5f`). Render parity checks on four pinned
-checkpoints and eleven focused tests accompany the cleanup.
+checkpoints and twelve focused tests accompany the cleanup.
 
 `run_blur_experiment.py` uses the standard trainer with seed42, unchanged
 evaluation RNG and all-eval PSNR checkpoint selection, with LPIPS as tie-breaker
