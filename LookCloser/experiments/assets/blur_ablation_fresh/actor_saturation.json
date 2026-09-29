@@ -1,0 +1,128 @@
+[
+  {
+    "checkpoint": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/a0_softplus/best.pt",
+    "checkpoint_sha256": "8d26c47626ae456aa1527fefc44c098a716e1c738a73fbe00f8d27f0145c8b74",
+    "step": 8000,
+    "mean_opacity": 0.3275551199913025,
+    "mean_effective_rgb": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "channel_saturation_fraction": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "white_saturation_fraction": 1.0,
+    "mean_effective_chroma": 0.0
+  },
+  {
+    "checkpoint": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/a1_softplus_scaled/best.pt",
+    "checkpoint_sha256": "ee9100db03575792896e77c47251098649801f1ec7f97b2cfae5fccdbcf9e25f",
+    "step": 8000,
+    "mean_opacity": 0.844562828540802,
+    "mean_effective_rgb": [
+      0.36921751499176025,
+      0.358720064163208,
+      0.36235737800598145
+    ],
+    "channel_saturation_fraction": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "white_saturation_fraction": 0.0,
+    "mean_effective_chroma": 0.17523738741874695
+  },
+  {
+    "checkpoint": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/a2_exp/best.pt",
+    "checkpoint_sha256": "4ae6b6942288fad27351dbcd5f36abf035324050846f3686c92b1c79f8692c7a",
+    "step": 8000,
+    "mean_opacity": 0.8548992872238159,
+    "mean_effective_rgb": [
+      0.3695027232170105,
+      0.3595004677772522,
+      0.36299464106559753
+    ],
+    "channel_saturation_fraction": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "white_saturation_fraction": 0.0,
+    "mean_effective_chroma": 0.1772511601448059
+  },
+  {
+    "checkpoint": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/a3_exp_scaled/best.pt",
+    "checkpoint_sha256": "41a2e36fbbdbc2300ebafddd91f9e89ea24798415e76b9115b2d133f3a216904",
+    "step": 8000,
+    "mean_opacity": 0.8393737077713013,
+    "mean_effective_rgb": [
+      0.37144601345062256,
+      0.3638617694377899,
+      0.3665103316307068
+    ],
+    "channel_saturation_fraction": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "white_saturation_fraction": 0.0,
+    "mean_effective_chroma": 0.17645955085754395
+  },
+  {
+    "checkpoint": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/a4_scaled_legacy_sh/best.pt",
+    "checkpoint_sha256": "dac288a12af485f331cefe6af25b6e7a154cf5b1395bf117facad45acd5be532",
+    "step": 8000,
+    "mean_opacity": 0.7966166734695435,
+    "mean_effective_rgb": [
+      0.3880343735218048,
+      0.3844911754131317,
+      0.38961970806121826
+    ],
+    "channel_saturation_fraction": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "white_saturation_fraction": 0.0,
+    "mean_effective_chroma": 0.1863395869731903
+  },
+  {
+    "checkpoint": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/a5_scaled_legacy_fp16/best.pt",
+    "checkpoint_sha256": "6f2abeb3355a11f1818fd9c47571b9725a6920c97bf6454f22d69085931667e6",
+    "step": 8000,
+    "mean_opacity": 0.8041614294052124,
+    "mean_effective_rgb": [
+      0.38660871982574463,
+      0.38047194480895996,
+      0.38462767004966736
+    ],
+    "channel_saturation_fraction": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "white_saturation_fraction": 0.0,
+    "mean_effective_chroma": 0.18796733021736145
+  },
+  {
+    "checkpoint": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/a6_original_legacy/best.pt",
+    "checkpoint_sha256": "0d033f361563cdc60eb5f6fbaeda1497a56ac2c4e6733b55d16e0378ac9f19f6",
+    "step": 8000,
+    "mean_opacity": 0.3279036581516266,
+    "mean_effective_rgb": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "channel_saturation_fraction": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "white_saturation_fraction": 1.0,
+    "mean_effective_chroma": 0.0
+  }
+]

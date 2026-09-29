@@ -404,3 +404,38 @@ in FP32 after activation. At span3, optical thickness and its gradients match
 legacy arithmetic exactly in the numerical test; uniform coordinate scaling
 preserves optical thickness and avoids FP16 overflow. Existing unit-reference
 controls retain their original arithmetic. Image-quality validation is pending.
+
+At2000, reference3 versus reference1 on legacy-SH FP32 softplus improves eval
+detail **21.56397 / .67157 / .45996 → 22.21169 / .68356 / .44303**.
+The equivalent `canonical_aabb` mode fixes this reference to the original span3
+and is tested with tight full-room bounds as one model condition.
+
+Frequency-unit correction on the completed foreground runs gives -.01902 dB
+eval detail for scaled softplus and -.09609 dB for scaled exponential. It does
+not pass a quality-improvement gate in this domain.
+[Both conditioned results](assets/blur_ablation_fresh/actor_frequency_projection_screen.json).
+
+The full-room exp+SH+bounds interaction reaches full PSNR24.665 at2000,
+eval detail **25.48294 / .71199 / .56009**, and train detail
+**24.89146 / .63118 / .63761**. Compared with the loose-volume controls,
+held-out structure is much better aligned, though the short-run faces remain
+soft. Its final8000 result and component removal tests remain pending.
+
+### Canonical reference screen and color mechanism
+
+At8000, reference3 versus reference1 (FP32 softplus, legacy SH) gives
+eval detail **22.42303 / .66828 / .39890 → 23.02297 / .68431 / .39134**
+(+.600 dB). Train detail improves23.37303→23.50000.
+[Native records](assets/blur_ablation_fresh/actor_reference_screen.json).
+
+On1024 fixed valid training rays, both original softplus conventions have
+100% white saturation after dividing rendered RGB by opacity. Normalized
+softplus and both exponential controls have0% white saturation and recover
+color variation. This diagnostic supports a density/color compensation
+failure; it does not establish a unique optimization mechanism.
+[Checkpoint-bound audit](assets/blur_ablation_fresh/actor_saturation.json).
+
+Visual inspection of completed frequency-projection pairs shows no clear
+recovery of hair texture or object edges. Reference3 preserves color and
+facial structure but still has soft hair. Each crop pair below is GT then RGB.
+![Foreground projection and reference review](assets/blur_ablation_fresh/actor_projection_reference_review.jpg)
