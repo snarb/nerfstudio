@@ -439,3 +439,17 @@ Visual inspection of completed frequency-projection pairs shows no clear
 recovery of hair texture or object edges. Reference3 preserves color and
 facial structure but still has soft hair. Each crop pair below is GT then RGB.
 ![Foreground projection and reference review](assets/blur_ablation_fresh/actor_projection_reference_review.jpg)
+
+At2000, canonical density plus tight room bounds reaches full PSNR21.823
+and eval detail22.023 / .67381 / .61824. This improves the loose-volume
+control but trails the exp+SH+bounds interaction. At this early fixed-sampling
+gate all room variants still blur faces. The displayed columns are train33
+and eval0; each pair is GT then RGB.
+![Early room bounds controls](assets/blur_ablation_fresh/room_bounds_early_review.jpg)
+[Native early records](assets/blur_ablation_fresh/room_bounds_early.json).
+
+The completed lower-LR screen worsens detail at8000: original
+17.49859 / .67597 / .66204 versus14.74553 / .62257 / .81159.
+Together with the independently faster-decay control, this rejects lowering
+these learning-rate settings as the main full-room blur fix.
+[Both complete LR screens](assets/blur_ablation_fresh/real_lr_completed.json).
