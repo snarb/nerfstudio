@@ -412,3 +412,14 @@ at16k and24k falls more than.07dB, despite improving detail/perceptual metrics.
 [eval faces](assets/blur_ablation_fresh/room_exp_sh_final/eval_face.jpg),
 [train faces](assets/blur_ablation_fresh/room_exp_sh_final/train_face.jpg),
 [train lipstick](assets/blur_ablation_fresh/room_exp_sh_final/train_lipstick.jpg).
+
+The selected room recipe and original checkpoint were rendered on exactly the
+same24-frame interpolated camera path. All RGB values are finite and both MP4s
+pass a full decode check. All24 candidate thumbnails were inspected: the main
+color/shape recovery persists between cameras. Background rails and the hand/
+lipstick region still show local geometry/appearance artifacts. These frames
+have no ground-truth metrics.
+[Paired video](assets/blur_ablation_fresh/room_exp_sh_final/comparison.mp4),
+[paired contact](assets/blur_ablation_fresh/room_exp_sh_final/comparison_contact.jpg),
+[all24 candidate frames](assets/blur_ablation_fresh/room_exp_sh_final/path_all_frames.jpg),
+[receipt](assets/blur_ablation_fresh/room_exp_sh_final/comparison_complete.json).
