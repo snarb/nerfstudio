@@ -70,10 +70,10 @@ have opacity-normalized RGB exactly `[1,1,1]` on all sampled rays at the selecte
 step1000 checkpoint. They encode a grayscale image through opacity. With scaled
 softplus the white-saturation fraction is zero and chroma is nonzero.
 
-Seven numerical/GPU tests pass: legacy softplus identity; FP32 exponentiation
+Eight numerical/GPU tests pass: legacy softplus identity; FP32 exponentiation
 outside autocast; scaling of optical thickness and gradients; clipping;
 independent SH addition-theorem reference; and agreement between field-query
-and density/occupancy-query paths. Scene-quality acceptance remains pending.
+and density/occupancy-query paths. The additional check covers FP16 overflow of scaled softplus in tiny world units. Scene-quality acceptance remains pending.
 
 ## Insights and next steps
 
@@ -87,3 +87,24 @@ with LPIPS breaking ties within .07 dB. Matched-step comparisons remain separate
 Acceptance requires ≥.5 dB detail improvement with supporting SSIM/LPIPS and
 visible train/eval improvement; fight tolerance is .10 dB PSNR / .005 SSIM /
 .01 LPIPS with no new visible defect. No between-seed robustness is claimed.
+
+### Initial real-scene checks
+
+The original full-scene model reproduces blurred train and eval views at 2000
+and 4000 updates; facial structure starts to appear after switching from the
+256-sample warmup to adaptive marching. The 6000-step frozen-weight
+[rendering audit](assets/blur_ablation_fresh/frozen_rendering.json) changes only
+integration, with stride-2 face patches. Corrected allocation changes train
+PSNR by +.016 dB and eval PSNR by -.014 dB. Uniform4096 does not restore detail.
+This rules out a render-only correction as the main fix at this checkpoint.
+
+![GT / original / corrected allocation / fixed256 / fixed1024 / fixed4096](assets/blur_ablation_fresh/frozen_rendering_train.png)
+
+The [real early color audit](assets/blur_ablation_fresh/real_saturation_early.json)
+finds no saturated RGB channel among the sampled rays, unlike the synthetic
+control. These are distinct failure conditions. The synthetic density result
+must not be presented as an already proven explanation of the real failure.
+
+The calibrated input cameras and color profiles predate this experiment; some
+held-out views were examined during earlier development. This is a paired
+regression benchmark, not an untouched generalization benchmark.

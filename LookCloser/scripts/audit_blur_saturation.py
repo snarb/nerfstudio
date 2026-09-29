@@ -23,6 +23,7 @@ def main():
         effective_rgb=out['rgb'].float()/opacity.clamp_min(1e-8)
         results.append(dict(checkpoint=str(path),step=state['step'],
             mean_opacity=float(opacity.mean()),mean_effective_rgb=effective_rgb.mean(0).cpu().tolist(),
+            channel_saturation_fraction=(effective_rgb>.99).float().mean(0).cpu().tolist(),
             white_saturation_fraction=float((effective_rgb.min(-1).values>.99).float().mean()),
             mean_effective_chroma=float((effective_rgb.max(-1).values-effective_rgb.min(-1).values).mean())))
         del pipe,state,out;torch.cuda.empty_cache()

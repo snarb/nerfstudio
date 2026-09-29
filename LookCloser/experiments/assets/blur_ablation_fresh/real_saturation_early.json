@@ -1,0 +1,19 @@
+[
+  {
+    "checkpoint": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/r0_original/best.pt",
+    "step": 2000,
+    "mean_opacity": 0.4021734893321991,
+    "mean_effective_rgb": [
+      0.5763716697692871,
+      0.4844832718372345,
+      0.4008360505104065
+    ],
+    "channel_saturation_fraction": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "white_saturation_fraction": 0.0,
+    "mean_effective_chroma": 0.2657777667045593
+  }
+]

@@ -41,6 +41,18 @@ def test_clipping_is_separate_and_stops_outside_gradients():
     assert x.grad[0]==0 and x.grad[2]==0 and x.grad[1]>0
 
 
+def test_normalized_softplus_requires_fp32_for_tiny_world_units():
+    h=holder(density_normalization='aabb')
+    h.aabb=h.aabb*1e-4
+    x=torch.tensor([10.],dtype=torch.float16,requires_grad=True)
+    assert not LookCloserField.activate_density(h,x).isfinite().all()
+    h.density_fp32=True
+    y=LookCloserField.activate_density(h,x)
+    assert y.isfinite().all()
+    (y*1e-5).sum().backward()
+    assert x.grad.isfinite().all() and (x.grad>0).all()
+
+
 @pytest.mark.skipif(not torch.cuda.is_available(),reason='TCNN CUDA contract')
 def test_corrected_sh_addition_theorem():
     import tinycudann as tcnn
