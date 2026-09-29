@@ -1,0 +1,13 @@
+{
+  "checkpoint": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/v_actor_canonical/best.pt",
+  "checkpoint_sha256": "ea42e6fe2d5caa54eee895ad5e0eb1e916571f034e51e70156f096568c7fd28e",
+  "step": 16000,
+  "seconds": 40.86749859387055,
+  "frames": 24,
+  "render": "learned RGB only",
+  "finite_rgb_checked": true,
+  "note": "Interpolated views are a visual stability check; no ground-truth metrics exist for them.",
+  "encoder": "/home/brans/repos/nerfstudio/.venv/lib/python3.10/site-packages/imageio_ffmpeg/binaries/ffmpeg-linux-x86_64-v7.0.2",
+  "full_video_decode_checked": true,
+  "video_sha256": "eaf72bf43fb8b130ecb11c36f6f842b708a384a0fa57fcfb7fe3257a6d42d07f"
+}

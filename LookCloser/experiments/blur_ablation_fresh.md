@@ -113,13 +113,30 @@ with opacity carrying grayscale structure. They are local sensitivity evidence,
 not a claim that every training gradient or all blur mechanisms are explained.
 [Checkpoint-bound color/gradient audit](assets/blur_ablation_fresh/actor_color_gradient.json).
 
-The original 24k actor control still has detail15.60060 / .48792 / .80800 at 24000.
-Its selector chooses16000: full9.64565 / .39093 / .88535 and detail15.60872 /
-.50357 / .80802. Extra updates did not remove collapse.
-[Completed long control](assets/blur_ablation_fresh/actor_original_long.json).
-The fresh canonical-scale 24k validation is still running; at 8000 it reproduces
-23.02501 / .68253 / .38943 eval detail. Hair softness and some facial distortion
-remain even after the large recovery.
+The fresh24k actor pair is complete. Both selectors choose16000 (full PSNR
+within .07 dB of the maximum, lower LPIPS). Only canonical density normalization
+differs between these two requests.
+
+| Selected actor checkpoints | Full PSNR / SSIM / LPIPS | Eval detail PSNR / SSIM / LPIPS | Train detail PSNR / SSIM / LPIPS |
+| --- | --- | --- | --- |
+| Original,16000 | 9.64565 / .39093 / .88535 | 15.60872 / .50357 / .80802 | 16.47468 / .58100 / .70659 |
+| Canonical scale,16000 | **12.03851 / .55391 / .59894** | **23.01250 / .67137 / .38289** | **23.65109 / .70683 / .39495** |
+
+At matched24000, eval detail is15.60060 versus23.07434 dB; train detail is
+16.51306 versus23.83073. Extra updates do not rescue the original collapse.
+The selected pair improves eval detail by7.40378 dB and train detail by7.17641.
+[Completed long validation](assets/blur_ablation_fresh/actor_final_validation.json).
+
+![Selected actor eval faces: GT then RGB in each cell](assets/blur_ablation_fresh/actor_final/eval_face.jpg)
+
+[Training faces](assets/blur_ablation_fresh/actor_final/train_face.jpg),
+[eval hair](assets/blur_ablation_fresh/actor_final/eval_hair.jpg),
+[eval lipstick](assets/blur_ablation_fresh/actor_final/eval_lipstick.jpg),
+[training lipstick](assets/blur_ablation_fresh/actor_final/train_lipstick.jpg).
+Color and facial structure recover across the reviewed cameras. Hair remains
+soft, train61 has facial distortion, and unknown mask/background regions remain
+poorly modeled. This is recovery from the severe collapse, not complete detail
+recovery or a full-room result.
 
 ### 2. Full-frame training needs a separate bounds interaction
 
@@ -251,7 +268,12 @@ passing both domains; save its selected native outputs and common camera path;
 remove unused production controls; run focused checks and commit the final code,
 recipes, architecture note and report.
 
-The selected original actor model has24 finite learned-RGB path frames.
+The selected actor pair has24 finite learned-RGB frames on exactly identical
+interpolated camera paths. [Paired video](assets/blur_ablation_fresh/actor_final/comparison.mp4),
+[paired contact sheet](assets/blur_ablation_fresh/actor_final/actor_comparison_contact.jpg),
+[paired receipt](assets/blur_ablation_fresh/actor_final/actor_comparison_complete.json).
+The color collapse is removed along the reviewed path; mask/background artifacts
+and soft detail remain. The original actor path is also recorded separately.
 [Path receipt](assets/blur_ablation_fresh/actor_original_path_complete.json),
 [contact sheet](assets/blur_ablation_fresh/actor_original_path_contact.jpg).
 Interpolated views have no ground-truth scores. A system ffmpeg library mismatch
