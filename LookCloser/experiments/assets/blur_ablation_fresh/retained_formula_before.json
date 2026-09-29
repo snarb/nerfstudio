@@ -1,0 +1,74 @@
+[
+  {
+    "checkpoint": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/parity_checkpoints/f0_original/selected.pt",
+    "checkpoint_sha256": "6106f9a7557f554488a92718f0673e97dc3de0bcd7359ee371d4c4da517de168",
+    "step": 30376,
+    "mean_opacity": 0.936234712600708,
+    "mean_effective_rgb": [
+      0.6143685579299927,
+      0.5445864200592041,
+      0.5143758058547974
+    ],
+    "channel_saturation_fraction": [
+      0.0068359375,
+      0.005859375,
+      0.0048828125
+    ],
+    "white_saturation_fraction": 0.0048828125,
+    "mean_effective_chroma": 0.12164288759231567
+  },
+  {
+    "checkpoint": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/parity_checkpoints/v_actor_canonical/selected.pt",
+    "checkpoint_sha256": "ea42e6fe2d5caa54eee895ad5e0eb1e916571f034e51e70156f096568c7fd28e",
+    "step": 16000,
+    "mean_opacity": 0.845271110534668,
+    "mean_effective_rgb": [
+      0.36795854568481445,
+      0.36001643538475037,
+      0.3628098964691162
+    ],
+    "channel_saturation_fraction": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "white_saturation_fraction": 0.0,
+    "mean_effective_chroma": 0.17788194119930267
+  },
+  {
+    "checkpoint": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/parity_checkpoints/r11_exp_sh_bounds/selected.pt",
+    "checkpoint_sha256": "0e2d7639c974e55f78556e65f6523e54e9670a6f66fa998adb6b0f2a68f00e09",
+    "step": 8000,
+    "mean_opacity": 0.7145528793334961,
+    "mean_effective_rgb": [
+      0.35197198390960693,
+      0.3011157214641571,
+      0.23585638403892517
+    ],
+    "channel_saturation_fraction": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "white_saturation_fraction": 0.0,
+    "mean_effective_chroma": 0.17501039803028107
+  },
+  {
+    "checkpoint": "/home/brans/lookcloser_artifacts/blur_ablation_fresh/parity_checkpoints/f4_reference3/selected.pt",
+    "checkpoint_sha256": "aa9d111035b3ea72087e0eb199afdc60b525c756c182f202ac3c2b28ac03219f",
+    "step": 15188,
+    "mean_opacity": 0.9344760775566101,
+    "mean_effective_rgb": [
+      0.615975022315979,
+      0.5494348406791687,
+      0.5179969072341919
+    ],
+    "channel_saturation_fraction": [
+      0.0078125,
+      0.0068359375,
+      0.005859375
+    ],
+    "white_saturation_fraction": 0.005859375,
+    "mean_effective_chroma": 0.11902914196252823
+  }
+]

@@ -12,6 +12,7 @@ from blur_runtime import write, sha
 def main():
     p=argparse.ArgumentParser();p.add_argument('checkpoints',type=Path,nargs='+');p.add_argument('--output',type=Path,required=True)
     p.add_argument('--color-gradient',action='store_true',help='Measure the derivative of summed RGB with respect to the color head on 64 fixed rays')
+    p.add_argument('--snapshot-dir',type=Path,help='Save frozen RGB/opacity/depth tensors for implementation parity checks')
     args=p.parse_args();torch.set_num_threads(2);results=[]
     for path in args.checkpoints:
         checkpoint_sha=sha(path)
@@ -23,6 +24,10 @@ def main():
         coords=valid.nonzero();index=torch.linspace(0,len(coords)-1,1024).long();coords=coords[index].cuda().float()+.5
         rays=pipe.datamanager.train_dataset.cameras[0:1].to('cuda').generate_rays(0,coords=coords)
         out=pipe.model(rays);opacity=out['accumulation'].float()
+        if args.snapshot_dir:
+            args.snapshot_dir.mkdir(parents=True,exist_ok=True)
+            torch.save({k:out[k].detach().cpu() for k in ('rgb','accumulation','depth')},
+                       args.snapshot_dir/(path.parent.name+'.pt'))
         effective_rgb=out['rgb'].float()/opacity.clamp_min(1e-8)
         results.append(dict(checkpoint=str(path),checkpoint_sha256=checkpoint_sha,step=state['step'],
             mean_opacity=float(opacity.mean()),mean_effective_rgb=effective_rgb.mean(0).cpu().tolist(),

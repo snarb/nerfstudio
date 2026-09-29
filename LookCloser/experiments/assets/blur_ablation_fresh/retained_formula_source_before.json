@@ -1,0 +1,18 @@
+[
+  {
+    "file": "../nerfstudio/fields/lookcloser_field.py",
+    "sha256": "393a002fadc48cf18011c2ee21386653bdb46b332280b336656251dab601b64e"
+  },
+  {
+    "file": "../nerfstudio/models/lookcloser.py",
+    "sha256": "2df5bf9d5ea5142d646d9d7b2c0d2439000293a1f7db7f2957cb5fe32b01533d"
+  },
+  {
+    "file": "../nerfstudio/pipelines/lookcloser_pipeline.py",
+    "sha256": "1587dede3f100cb22d87246a54dbba118d8dbc005fd464d9d227535d1a179618"
+  },
+  {
+    "file": "scripts/audit_blur_saturation.py",
+    "sha256": "1929a4f9f54eed3c68078be616d2497339257a176ddffbd131b1ea583e41ab3c"
+  }
+]
