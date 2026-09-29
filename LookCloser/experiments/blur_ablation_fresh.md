@@ -298,3 +298,23 @@ passing the numerical improvement threshold, but visible ghosting remains.
 This uses adaptive sampling for more training updates and is not claimed to
 remove the main blur. The full-frame selector still prefers step2000.
 [Paired metrics](assets/blur_ablation_fresh/real_no_warmup_screen.json).
+
+The [frozen scaled-actor audit](assets/blur_ablation_fresh/actor_scaled_rendering_audit.json)
+changes only inference sampling on the selected step8000 field. On stride2 face
+patches, 256→4096 samples gives train PSNR30.744→30.041 and eval27.880→27.874;
+eval LPIPS worsens .13167→.19508. Denser integration does not recover the
+missing texture. This is a frozen-render diagnostic, not another training run.
+
+The 62-camera unscaled-exponential control also recovers color by step2000:
+eval detail **21.77941 / .68979 / .46238**, train detail
+**21.74059 / .63709 / .54976**. Unlike the synthetic single-camera probe,
+it escapes gray collapse. Scaling is therefore a demonstrated intervention,
+not yet proved uniquely necessary for multi-view training. The completed
+four-arm comparison will determine whether combining activation and scaling
+adds a substantial gain.
+
+At step8000, corrected SH adds +.44370 dB eval detail and +.07756 dB train
+detail to scaled softplus compared with legacy SH. The eval effect is below
+the registered .5 dB threshold; it does not remove residual softness.
+The legacy-SH result is **22.42303 / .66828 / .39890** on eval detail.
+[Paired SH receipts](assets/blur_ablation_fresh/actor_sh_screen.json).

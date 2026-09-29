@@ -35,6 +35,8 @@ def main():
     for index in range(len(cameras)):
         rays=cameras[index:index+1].generate_rays(0)
         out=pipe.model.get_outputs_for_camera_ray_bundle(rays)
+        if not torch.isfinite(out['rgb']).all():
+            raise FloatingPointError(f'Nonfinite RGB at review frame {index}')
         rgb=np.rint(out['rgb'].cpu().numpy().clip(0,1)*255).astype('uint8')
         img=Image.fromarray(rgb)
         img.save(args.output/f'frame_{index:03d}.png')
@@ -53,6 +55,7 @@ def main():
     write(args.output/'complete.json',dict(checkpoint=str(args.checkpoint),
           checkpoint_sha256=sha(args.checkpoint),step=state['step'],
           seconds=time.monotonic()-start,frames=len(cameras),render='learned RGB only',
+          finite_rgb_checked=True,
           note='Interpolated views are a visual stability check; no ground-truth metrics exist for them.'))
 
 

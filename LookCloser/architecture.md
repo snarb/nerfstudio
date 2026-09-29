@@ -7,7 +7,10 @@ FP32 density evaluation, clipping and the TCNN SH direction convention. Defaults
 preserve existing checkpoints. `run_blur_experiment.py` uses the standard trainer
 update with seed42, unchanged evaluation RNG and full-frame all-eval checkpoint
 selection. Synthetic masked diagnostics are distinct from real 62/3 DEC5 and
-66/3 fight comparisons. See [fresh ablations](experiments/blur_ablation_fresh.md).
+66/3 fight comparisons. A separate 62/3 masked actor test restores the historical
+small-AABB task. An opt-in pipeline control converts UV frequency resolution to
+scene units using normalized intrinsics, camera-z and AABB span; it is pending
+scene validation. See [fresh ablations](experiments/blur_ablation_fresh.md).
 
 ## Mesh-teacher distillation data (opt-in, no trainer changes)
 
