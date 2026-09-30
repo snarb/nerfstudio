@@ -57,12 +57,21 @@ def main():
             stages.append(dict(path=str(path),controller_alive=alive(status['controller_pid']),worker_alive=alive(status['worker_pid']),**status))
     record['active_stage_records']=stages
     record['campaign_status']=load(root/'campaign_status.json')
+    current=(record['campaign_status'] or {}).get('frame')
+    if current:
+        histories=sorted((root/'frames'/current/'runs').glob('*/history.json'),key=lambda x:x.stat().st_mtime)
+        if histories:
+            history=load(histories[-1])
+            if history:
+                record['latest_evaluation']={k:history[-1][k] for k in ['step','eval_all_psnr','eval_all_ssim','eval_all_lpips']}
+                record['latest_evaluation']['run']=histories[-1].parent.name
     with (root/'agent_checks.jsonl').open('a') as f:f.write(json.dumps(record)+'\n')
     if prep:record['preparation_failure_count']=len(prep.get('failures',{}))
     if args.compact:
         summary={k:record[k] for k in ['time','prepared','frequencies','snapshots','total','gpu']}
         summary['free_GiB']=round(record['free_GiB'],1)
         summary['campaign']=record['campaign_status']
+        if record.get('latest_evaluation'):summary['evaluation']=record['latest_evaluation']
         summary['controllers']=[dict(pid=row['pid'],alive=row['alive'],script=next((Path(arg).name for arg in row['command'] if arg.endswith('.py')),'')) for row in controllers]
         summary['stages']=[dict(stage='/'.join(Path(row['path']).parts[-4:-1]),controller=row['controller_alive'],worker=row['worker_alive'],
                                 step=(row.get('progress') or {}).get('step'),phase=(row.get('progress') or {}).get('phase'),oom=row.get('oom')) for row in stages]
