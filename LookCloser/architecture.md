@@ -9,6 +9,11 @@ masks, source hashes, mask repair receipts and frequency-map input hashes are
 retained. Mixed portrait/landscape FAS samples global camera/pixel triples once;
 the ragged gather preserves camera identity instead of overwriting it per image.
 The old equal-resolution tensor path is unchanged.
+FAS bucket initialization takes each frequency map's own shape. The last map's
+shape must never be reused across portrait/landscape images, even when the total
+patch count matches. Ragged sampling extends the final patch over residual edge
+pixels. `audit_luster_sampling.py` verifies every cell's coordinate, level and
+single coverage against the cached maps; runs retain first32-batch pixel extents.
 
 `run_luster_experiment.py` uses Trainer updates and full Trainer checkpoints,
 including Adam, scheduler, AMP scaler and RNG. Each requested stage ends at an

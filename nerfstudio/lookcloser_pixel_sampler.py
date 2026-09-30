@@ -464,6 +464,7 @@ class LookCloserPixelSampler(PixelSampler):
         bucket_lists = {l: [] for l in range(self.config.num_levels)}
 
         for img_idx, freq_file, f_map, min_res, max_res, num_levels in map_records:
+            H_map, W_map = f_map.shape
 
             # Compute levels for the map
             # l = log_b(f / min_res)
@@ -996,8 +997,16 @@ class LookCloserPixelSampler(PixelSampler):
             cells = bucket[torch.randint(len(bucket), (int(np.ceil(count / group)),))]
             cells = cells.repeat_interleave(group, dim=0)[:count].to(device)
             camera = cells[:, 0]
-            y = cells[:, 1] * self.patch_stride + torch.randint(self.patch_size, (count,), device=device)
-            x = cells[:, 2] * self.patch_stride + torch.randint(self.patch_size, (count,), device=device)
+            y0 = cells[:, 1] * self.patch_stride
+            x0 = cells[:, 2] * self.patch_stride
+            # Preprocessing fits complete patches. Extend the last patch's
+            # sampling support over any residual image border (e.g. 1406px).
+            y_span = torch.where(y0 + self.patch_stride + self.patch_size > heights[camera],
+                                 heights[camera] - y0, self.patch_size)
+            x_span = torch.where(x0 + self.patch_stride + self.patch_size > widths[camera],
+                                 widths[camera] - x0, self.patch_size)
+            y = y0 + (torch.rand(count, device=device) * y_span).long()
+            x = x0 + (torch.rand(count, device=device) * x_span).long()
             y = y.clamp_min(0).minimum(heights[camera] - 1)
             x = x.clamp_min(0).minimum(widths[camera] - 1)
             selected.append(torch.stack((camera, y, x), -1))

@@ -128,7 +128,7 @@ def train(request):
     pipe=trainer.pipeline
     sampler=pipe.datamanager.train_pixel_sampler
     background_lookup=load_background_lookup(pipe.datamanager.train_dataset,request) if cfg.pipeline.model.background_opacity_loss_mult>0 else None
-    sample=sampler.sample;trace=[]
+    sample=sampler.sample;trace=[];traced_indices=[]
     def traced(*a, **kw):
         batch=sample(*a,**kw)
         if background_lookup is not None:batch['background_mask']=background_lookup(batch['indices'])
@@ -136,6 +136,15 @@ def train(request):
             import hashlib
             trace.append(hashlib.sha256(batch['indices'].detach().cpu().numpy().tobytes()).hexdigest())
             write(out/'first_batches.json',trace)
+            traced_indices.append(batch['indices'].detach().cpu())
+            if len(trace)==32:
+                indices=torch.cat(traced_indices);coverage=[]
+                for index,path in enumerate(pipe.datamanager.train_dataset.image_filenames):
+                    xy=indices[indices[:,0]==index,1:]
+                    coverage.append(dict(image=Path(path).name,samples=len(xy),
+                                         min_yx=xy.min(0).values.tolist() if len(xy) else None,
+                                         max_yx=xy.max(0).values.tolist() if len(xy) else None))
+                write(out/'ray_coverage_first32.json',coverage);traced_indices.clear()
         return batch
     sampler.sample=traced
     identity=dict(initial_weights=state_digest(pipe.model.field),seed=seed,

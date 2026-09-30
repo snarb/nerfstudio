@@ -2,6 +2,8 @@
 import numpy as np
 import pytest
 import torch
+import json
+from types import SimpleNamespace
 from nerfstudio.lookcloser_pixel_sampler import LookCloserPixelSamplerConfig
 
 
@@ -47,3 +49,30 @@ def test_masked_ragged_fas_fails_explicitly():
     s = sampler()
     with pytest.raises(ValueError, match='unmasked supervision'):
         s.sample({'image': [torch.zeros(2, 4, 3)], 'mask': [torch.ones(2, 4, 1)], 'image_idx': torch.tensor([7])})
+
+
+@pytest.mark.parametrize('shapes', [[(3,2),(2,3)],[(4,2),(2,3)]])
+def test_initialization_uses_each_frequency_maps_own_shape(tmp_path,shapes):
+    images=tmp_path/'images';images.mkdir();freq=tmp_path/'lookcloser_frequencies';freq.mkdir();filenames=[]
+    for i,(h,w) in enumerate(shapes):
+        name=f'cam_{i}';filenames.append(images/f'{name}.png')
+        values=torch.full((h,w),16.);values[-1,-1]=8192.;torch.save(values,freq/f'{name}.pt')
+        (freq/f'{name}.json').write_text(json.dumps(dict(value_type='scalar_resolution',image_shape=[h*8,w*8],patch_size=8,stride=8,min_res=16,max_res=8192,n_levels=16)))
+    s=LookCloserPixelSamplerConfig().setup();s._initialize_buckets(SimpleNamespace(image_filenames=filenames))
+    all_cells=torch.cat(list(s.buckets.values()))
+    for i,(h,w) in enumerate(shapes):
+        actual={tuple(row) for row in all_cells[all_cells[:,0]==i,1:].tolist()}
+        assert actual=={(y,x) for y in range(h) for x in range(w)}
+        assert [i,h-1,w-1] in s.buckets[15].tolist()
+
+
+def test_ragged_fas_covers_residual_border_pixels():
+    torch.manual_seed(42)
+    s=LookCloserPixelSamplerConfig(num_rays_per_batch=4096).setup();s.is_initialized=True
+    s.patch_size=s.patch_stride=8;s.image_shapes={0:(17,25)}
+    s.buckets={i:torch.empty((0,3),dtype=torch.int32) for i in range(16)}
+    s.buckets[0]=torch.tensor([[0,1,2]]);s.probs=np.array([1.]+[0.]*15)
+    result=s.sample({'image':[torch.zeros(17,25,3)],'image_idx':torch.tensor([0])})
+    _,y,x=result['indices'].T
+    assert y.max()==16 and x.max()==24
+    assert y.min()==8 and x.min()==16
