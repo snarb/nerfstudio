@@ -71,7 +71,9 @@ map hashes to current RGB. Head/body review crops follow train-hull projections.
 `run_luster_video_campaign.py` extends bounded stages only while quality improves
 or until a quality-review gate. Batch boundaries require recorded visual review.
 `render_luster_video_frame.py` uses shared fixed virtual cameras and writes model,
-field-parameter and PNG hashes. `assemble_luster_video.py` requires 60 distinct
+field-parameter and PNG hashes. Framing fits projected train-hull points over the
+whole motion, with6% border clearance; the detail view fits the upper42% of height.
+`assemble_luster_video.py` requires 60 distinct
 learned fields and 60 consecutive real frames; it checks the encoded 30FPS, 2-second
 timeline. Selected, latest and PSNR/LPIPS tradeoff Trainer checkpoints are archived
 through dev3 and byte-verified before local cache release. Dominated temporary

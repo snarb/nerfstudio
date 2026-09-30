@@ -25,9 +25,10 @@ def camera_spec(root):
     heading=np.arctan2(eye[1]-center[1],eye[0]-center[0])
     wide=np.array([r['transform_matrix'] for r in rows if r['camera_id']<=48])
     radius=float(np.median(np.linalg.norm(wide[:,:2,3]-center[:2],axis=1)))
-    head_lows=[];head_highs=[]
+    head_lows=[];head_highs=[];sequence_points=[];hull_hashes={}
     for frame in manifest['frames']:
-        points=np.load(root/'frames'/frame/'data/hull.npz')['points']
+        hull_path=root/'frames'/frame/'data/hull.npz'
+        points=np.load(hull_path)['points'];sequence_points.append(points);hull_hashes[frame]=sha(hull_path)
         head=points[points[:,2]>bounds[1,2]-.30*(bounds[1,2]-bounds[0,2])]
         if len(head):head_lows.append(head[:,:2].min(0));head_highs.append(head[:,:2].max(0))
     head_low=np.min(head_lows,axis=0);head_high=np.max(head_highs,axis=0)
@@ -41,14 +42,21 @@ def camera_spec(root):
         target=box.mean(0)
         position=np.array([center[0]+radius*np.cos(heading),center[1]+radius*np.sin(heading),target[2]+.12])
         pose=look_at(position,target)
-        corners=np.array([[x,y,z] for x in box[:,0] for y in box[:,1] for z in box[:,2]])
-        view=(corners-pose[:3,3])@pose[:3,:3]
+        points=np.concatenate(sequence_points)
+        if kind=='detail':points=points[points[:,2]>=box[0,2]]
+        view=(points-pose[:3,3])@pose[:3,:3]
         assert (view[:,2]<0).all()
-        projected=view[:,:2]/-view[:,2,None]
+        projected=view[:,:2]/-view[:,2,None];projected[:,1]*=-1
+        low=projected.min(0);high=projected.max(0);middle=(low+high)/2
         width,height=1080,1920
-        focal=min(.44*width/np.abs(projected[:,0]).max(),.44*height/np.abs(projected[:,1]).max())
-        spec[kind]=dict(pose=pose.tolist(),width=width,height=height,fx=float(focal),fy=float(focal),cx=width/2,cy=height/2)
-    write(path,dict(protocol='Fixed virtual cameras; one fresh trained model for each real time',fps=30,cameras=spec))
+        focal=min(.88*width/(high[0]-low[0]),.88*height/(high[1]-low[1]))
+        principal=np.array([width/2,height/2])-focal*middle
+        pixel_bounds=np.stack([low,high])*focal+principal
+        assert (pixel_bounds[0]>=np.array([width,height])*.06-1e-5).all()
+        assert (pixel_bounds[1]<=np.array([width,height])*.94+1e-5).all()
+        spec[kind]=dict(pose=pose.tolist(),width=width,height=height,fx=float(focal),fy=float(focal),cx=float(principal[0]),cy=float(principal[1]),
+                       framing=dict(source='All sequence train-hull points; detail uses upper42 percent of common height',projected_bounds=pixel_bounds.tolist()))
+    write(path,dict(protocol='Fixed virtual cameras; one fresh trained model for each real time',fps=30,cameras=spec,hull_sha256=hull_hashes))
     return json.loads(path.read_text())
 
 
