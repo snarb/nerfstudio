@@ -35,7 +35,7 @@ def main():
         subprocess.Popen([sys.executable,str(Path(__file__).resolve()),str(root),'--watchdog'],stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
     def stop(*unused):raise SystemExit(0)
     signal.signal(signal.SIGTERM,stop);signal.signal(signal.SIGINT,stop)
-    names={'run_luster_experiment.py','export_luster_selection.py','render_luster_video_frame.py'}
+    names={'run_luster_experiment.py','export_luster_selection.py','render_luster_video_frame.py','benchmark_luster_frequencies.py'}
     last=None
     try:
         while not (directory/'stop').exists():
