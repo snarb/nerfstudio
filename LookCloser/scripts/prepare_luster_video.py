@@ -35,6 +35,16 @@ def environment():
     return env
 
 
+def export_directory(frame_root,step):
+    revision=frame_root/'data/revision.json'
+    suffix=''
+    if revision.exists():
+        label=json.loads(revision.read_text())['id']
+        if not label or any(not (c.isalnum() or c=='_') for c in label):raise ValueError('Invalid data revision label')
+        suffix='_'+label
+    return frame_root/f'export_s{step:06d}{suffix}'
+
+
 def ingest(root, frame, host):
     source = root / 'source'; source.mkdir(parents=True, exist_ok=True)
     remote = f'/fsx/tmp/luster/root_8s/working/fullres/{frame}'

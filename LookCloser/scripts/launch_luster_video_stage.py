@@ -50,6 +50,8 @@ def main():
         request['model']['adaptive_warmup_steps']=args.adaptive_warmup_steps
     overrides=json.loads((frame_root/'source/mask_overrides.json').read_text()) if (frame_root/'source/mask_overrides.json').exists() else {}
     request['background_mask_exclude_cameras']=sorted({164,*[int(cid) for cid in overrides]})
+    if (data/'revision.json').exists():
+        request['data_revision']=json.loads((data/'revision.json').read_text())
     label=args.label or f's{args.end_step:06d}'
     if Path(label).name!=label:raise ValueError('Stage label must be one path component')
     output=frame_root/'runs'/label

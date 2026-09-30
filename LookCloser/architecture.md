@@ -67,6 +67,10 @@ The known cam020/036 background stand is removed by connected component, preserv
 an arm that enters the old fixed strip. Every frame has its own hull and optional
 render envelope. Fresh per-image frequency fits run in local/dev3 queues and bind
 map hashes to current RGB. Head/body review crops follow train-hull projections.
+Reviewed local background polygons can repair a train mask with source hashes,
+before/after receipts and backups of the affected RGB, mask and frequency map.
+The affected map is refitted and audits rerun; export directories include the
+data revision so cached train metrics cannot be reused. Eval targets stay fixed.
 
 `run_luster_video_campaign.py` extends bounded stages only while quality improves
 or until a quality-review gate. At a viable raw plateau it checks the final render

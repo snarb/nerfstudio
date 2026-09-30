@@ -5,7 +5,7 @@ from pathlib import Path
 import subprocess
 import sys
 import time
-from prepare_luster_video import write,environment,SCRIPTS
+from prepare_luster_video import write,environment,SCRIPTS,export_directory
 from archive_luster_checkpoint import archive,restore
 from luster_checkpoint_retention import prune_dominated
 
@@ -33,7 +33,7 @@ def gate_action(history, selected, final_metrics=None, polished=False, at_limit=
 
 
 def export_candidate(frame_root,run,selected):
-    export=frame_root/f'export_s{selected["step"]:06d}'
+    export=export_directory(frame_root,selected['step'])
     if not (export/'complete.json').exists():
         with (frame_root/'logs'/f'export_s{selected["step"]:06d}.log').open('w') as log:
             subprocess.run([sys.executable,str(SCRIPTS/'export_luster_selection.py'),str(run),'--output',str(export),

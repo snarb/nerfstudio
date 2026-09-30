@@ -207,6 +207,7 @@ def train(request):
         if step in gates:
             write(out/'progress.json',dict(step=step,pid=os.getpid(),seconds=time.monotonic()-start,phase='evaluation'))
             result=evaluate(trainer,request,step)
+            if request.get('data_revision'):result['data_revision']=request['data_revision']
             trainer.save_checkpoint(step)
             checkpoint=trainer.checkpoint_dir/f'step-{step:09d}.ckpt'
             result['checkpoint']=str(checkpoint)

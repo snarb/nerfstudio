@@ -5,7 +5,7 @@ from pathlib import Path
 import subprocess
 import sys
 import time
-from prepare_luster_video import write,environment,SCRIPTS
+from prepare_luster_video import write,environment,SCRIPTS,export_directory
 from archive_luster_checkpoint import archive,restore
 from luster_checkpoint_retention import prune_dominated
 
@@ -15,7 +15,7 @@ def main():
     p.add_argument('--remote-root',default='/fsx/tmp/luster/lookcloser_video_000470_000529_20260930');args=p.parse_args()
     root=args.root.resolve();frame_root=root/'frames'/args.frame
     selected=json.loads((args.run/'selection.json').read_text());restore(selected['checkpoint'])
-    export=frame_root/f'export_s{selected["step"]:06d}'
+    export=export_directory(frame_root,selected['step'])
     if not (export/'complete.json').exists():
         with (frame_root/'logs'/f'export_s{selected["step"]:06d}.log').open('w') as log:
             subprocess.run([sys.executable,str(SCRIPTS/'export_luster_selection.py'),str(args.run),'--output',str(export),'--hull-margin-voxels','3'],env=environment(),stdout=log,stderr=subprocess.STDOUT,check=True)

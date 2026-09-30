@@ -60,8 +60,11 @@ def main():
     pipe.model.get_outputs_for_camera_ray_bundle=render
     (args.output/'config.yml').write_text(yaml.dump(cfg))
     request.update(output=str(args.output),eval_stride=1,render_only=True)
+    revision=Path(request['data'])/'revision.json'
+    if revision.exists():request['data_revision']=json.loads(revision.read_text())
     write(args.output/'request.json',request)
     result=evaluate(SimpleNamespace(pipeline=pipe),request,selected['step'])
+    if request.get('data_revision'):result['data_revision']=request['data_revision']
     result.update(checkpoint=selected['checkpoint'],config=str(args.output/'config.yml'),render_dir=str(args.output/f'eval_{selected["step"]:06d}'),
                   selected_by=dict(protocol='Training all-eval PSNR, LPIPS tie-break within0.07dB',source=str(args.run/'selection.json'),
                                    **{k:selected[k] for k in ['eval_all_psnr','eval_all_ssim','eval_all_lpips']}))
