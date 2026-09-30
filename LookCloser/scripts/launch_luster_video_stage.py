@@ -15,6 +15,7 @@ def main():
     p.add_argument('--resume-run',type=Path);p.add_argument('--warm-parent',type=Path)
     p.add_argument('--lr-base',type=float);p.add_argument('--initial-lr',type=float)
     p.add_argument('--fr',type=float);p.add_argument('--eval-steps',nargs='*',type=int)
+    p.add_argument('--adaptive-warmup-steps',type=int)
     p.add_argument('--label');p.add_argument('--reason',required=True);p.add_argument('--dry-run',action='store_true')
     args=p.parse_args();root=args.root.resolve();frame_root=root/'frames'/args.frame;data=frame_root/'data'
     if not (root/'preparation_complete.json').exists():raise ValueError('Freeze and audit sequence bounds before training')
@@ -44,6 +45,9 @@ def main():
         if not args.resume_run or args.lr_base<=0:raise ValueError('LR override requires a same-frame resume')
         request['resume_fields_lr_override']=args.lr_base
     if args.fr is not None:request['model']['feature_reweighting_strength']=args.fr
+    if args.adaptive_warmup_steps is not None:
+        if args.adaptive_warmup_steps<0:raise ValueError('Adaptive warmup must be nonnegative')
+        request['model']['adaptive_warmup_steps']=args.adaptive_warmup_steps
     overrides=json.loads((frame_root/'source/mask_overrides.json').read_text()) if (frame_root/'source/mask_overrides.json').exists() else {}
     request['background_mask_exclude_cameras']=sorted({164,*[int(cid) for cid in overrides]})
     label=args.label or f's{args.end_step:06d}'
