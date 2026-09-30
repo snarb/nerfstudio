@@ -17,6 +17,21 @@ def remote(host, code, *args):
     return subprocess.check_output(['ssh','-o','BatchMode=yes',host,command],text=True)
 
 
+def validate_adoption(existing, frame, worker):
+    """Only explicitly adopt an unfinished claim whose local owner has exited."""
+    if existing.get('frame') != frame or existing.get('worker') != worker or existing.get('complete'):
+        raise ValueError('Cannot adopt a completed or differently owned frequency claim')
+    pid = int(existing['pid'])
+    if pid <= 0:
+        raise ValueError('Invalid frequency queue PID')
+    try:
+        state = Path(f'/proc/{pid}/stat').read_text().rsplit(')', 1)[1].split()[0]
+    except FileNotFoundError:
+        return
+    if state != 'Z':
+        raise ValueError('Frequency claim still has a live owner')
+
+
 def main():
     p=argparse.ArgumentParser();p.add_argument('root',type=Path);p.add_argument('--remote',action='store_true')
     p.add_argument('--remote-root',default='/fsx/tmp/luster/lookcloser_video_000470_000529_20260930')
@@ -31,8 +46,14 @@ def main():
             for frame in ([args.adopt] if args.adopt else frames):
                 data=args.root/'frames'/frame/'data'
                 if not (data/'audit_preprocessing.json').exists() or (data/'frequency_complete.json').exists():continue
-                if (claims/f'{frame}.json').exists():continue
-                write(claims/f'{frame}.json',dict(frame=frame,worker=name,pid=os.getpid(),time=time.time()))
+                claim_path=claims/f'{frame}.json';previous=None
+                if claim_path.exists():
+                    if frame != args.adopt:continue
+                    previous=json.loads(claim_path.read_text())
+                    validate_adoption(previous,frame,name)
+                record=dict(frame=frame,worker=name,pid=os.getpid(),time=time.time())
+                if previous is not None:record['adopted_claim']=previous
+                write(claim_path,record)
                 return frame
         return None
     while True:
