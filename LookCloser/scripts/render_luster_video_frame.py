@@ -64,7 +64,9 @@ def camera_spec(root):
 def main():
     p=argparse.ArgumentParser();p.add_argument('root',type=Path);p.add_argument('frame');p.add_argument('selection',type=Path)
     args=p.parse_args();torch.set_num_threads(2);spec=camera_spec(args.root)
-    selected=json.loads(args.selection.read_text());cfg=yaml.load(Path(selected['config']).read_text(),Loader=yaml.Loader)
+    selected=json.loads(args.selection.read_text())
+    if selected.get('diagnostic_only'):raise ValueError('Diagnostic exports cannot be promoted to a temporal video')
+    cfg=yaml.load(Path(selected['config']).read_text(),Loader=yaml.Loader)
     if Path(cfg.pipeline.datamanager.dataparser.data).parent.name!=args.frame:raise ValueError('Selected model belongs to another temporal frame')
     state=torch.load(selected['checkpoint'],map_location='cpu',weights_only=False)
     pipe=cfg.pipeline.setup(device='cuda');pipe.load_pipeline(state['pipeline'],state['step']);pipe.eval();del state

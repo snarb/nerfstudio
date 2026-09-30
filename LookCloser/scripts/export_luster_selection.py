@@ -17,6 +17,7 @@ def main():
     p.add_argument('--coarse-step',type=float,default=.0005);p.add_argument('--max-samples',type=int,default=4096)
     p.add_argument('--hull-margin-voxels',type=float,help='Optional conservative train-hull occupancy envelope; original field remains unchanged')
     p.add_argument('--evaluation-data',type=Path,help='Diagnostic only: evaluate unchanged source field on another frame in identical coordinates')
+    p.add_argument('--zero-frequency-grid',action='store_true',help='Diagnostic only: isolate the rendering effect of resetting the frequency buffer')
     args=p.parse_args();torch.set_num_threads(2)
     if args.output.exists():raise ValueError('Export destination must be new')
     if args.coarse_step<=0 or args.max_samples<=0:raise ValueError('Integration settings must be positive')
@@ -40,6 +41,9 @@ def main():
     cfg.load_checkpoint=Path(selected['checkpoint']);cfg.load_dir=None
     state=torch.load(selected['checkpoint'],map_location='cpu',weights_only=False)
     pipe=cfg.pipeline.setup(device='cuda');pipe.load_pipeline(state['pipeline'],state['step']);pipe.eval();del state
+    if args.zero_frequency_grid:
+        pipe.model.freq_grid.grid.zero_()
+        request.update(diagnostic_only=True,zero_frequency_grid=True)
     args.output.mkdir(parents=True)
     guard=None
     if args.hull_margin_voxels is not None:
@@ -66,6 +70,10 @@ def main():
     if args.evaluation_data is not None:
         result['selected_by']['protocol']='Diagnostic source field on another frame; no target-frame training or checkpoint selection'
         result['diagnostic_source_data']=source_data
+    if args.zero_frequency_grid:
+        result['selected_by']['protocol']='Diagnostic frequency-buffer reset; field weights unchanged, not a promotable export'
+        result['zero_frequency_grid']=True
+    if args.evaluation_data is not None or args.zero_frequency_grid:result['diagnostic_only']=True
     write(args.output/'selection.json',result)
     write(args.output/'complete.json',dict(checkpoint_sha256=sha(Path(selected['checkpoint'])),transforms_sha256=sha(Path(request['data'])/'transforms.json'),
                                          coarse_step=args.coarse_step,max_samples=args.max_samples,marching_statistics=statistics))
