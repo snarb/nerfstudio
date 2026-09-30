@@ -5,6 +5,7 @@ from pathlib import Path
 import sys
 sys.path.insert(0,str(Path(__file__).resolve().parents[2]))
 import numpy as np
+import cv2
 from PIL import Image
 import torch
 import yaml
@@ -59,17 +60,32 @@ def main():
     if Path(cfg.pipeline.datamanager.dataparser.data).parent.name!=args.frame:raise ValueError('Selected model belongs to another temporal frame')
     state=torch.load(selected['checkpoint'],map_location='cpu',weights_only=False)
     pipe=cfg.pipeline.setup(device='cuda');pipe.load_pipeline(state['pipeline'],state['step']);pipe.eval();del state
+    raw_occupancy=pipe.model.occupancy_grid.binaries.clone()
     if selected.get('occupancy_guard'):apply_guard(pipe,selected['occupancy_guard'])
+    guarded_occupancy=pipe.model.occupancy_grid.binaries.clone()
     record=dict(frame=args.frame,selection=str(args.selection),checkpoint=selected['checkpoint'],checkpoint_sha256=sha(Path(selected['checkpoint'])),
-                field_parameters_sha256=state_digest(pipe.model.field),cameras_sha256=sha(args.root/'video_cameras.json'),images={})
+                field_parameters_sha256=state_digest(pipe.model.field),cameras_sha256=sha(args.root/'video_cameras.json'),images={},raw_images={},guard_diagnostics={})
     for kind,view in spec['cameras'].items():
         out=args.root/'video_frames'/kind/f'{args.frame}.png';out.parent.mkdir(parents=True,exist_ok=True)
         camera=Cameras(camera_to_worlds=torch.tensor(view['pose'],dtype=torch.float32)[None],
               fx=view['fx'],fy=view['fy'],cx=view['cx'],cy=view['cy'],width=view['width'],height=view['height'],camera_type=CameraType.PERSPECTIVE).to('cuda')
-        result=pipe.model.get_outputs_for_camera_ray_bundle(camera.generate_rays(0));rgb=result['rgb']
+        rays=camera.generate_rays(0)
+        pipe.model.occupancy_grid.binaries.copy_(raw_occupancy)
+        raw=pipe.model.get_outputs_for_camera_ray_bundle(rays)['rgb']
+        if not torch.isfinite(raw).all():raise FloatingPointError('Raw temporal RGB is nonfinite')
+        raw=np.rint(raw.cpu().numpy().clip(0,1)*255).astype('uint8')
+        raw_path=args.root/'video_frames'/f'raw_{kind}'/f'{args.frame}.png';raw_path.parent.mkdir(parents=True,exist_ok=True)
+        Image.fromarray(raw).save(raw_path);record['raw_images'][kind]=dict(path=str(raw_path),sha256=sha(raw_path))
+        pipe.model.occupancy_grid.binaries.copy_(guarded_occupancy)
+        result=pipe.model.get_outputs_for_camera_ray_bundle(rays);rgb=result['rgb']
         if not torch.isfinite(rgb).all():raise FloatingPointError('Temporal render has nonfinite RGB')
         if 'num_samples_per_ray' in result and int(result['num_samples_per_ray'].max())>=cfg.pipeline.model.max_steps_per_ray:raise ValueError('Temporal export saturates integration cap')
-        Image.fromarray(np.rint(rgb.cpu().numpy().clip(0,1)*255).astype('uint8')).save(out)
+        prediction=np.rint(rgb.cpu().numpy().clip(0,1)*255).astype('uint8');Image.fromarray(prediction).save(out)
+        count,labels,stats,_=cv2.connectedComponentsWithStats((raw.max(-1)>16).astype('uint8'))
+        main=labels==(1+stats[1:,cv2.CC_STAT_AREA].argmax()) if count>1 else np.zeros(raw.shape[:2],dtype=bool)
+        changed=np.abs(raw.astype('int16')-prediction).max(-1)>8
+        record['guard_diagnostics'][kind]=dict(main_colored_component_pixels=int(main.sum()),changed_gt8_pixels=int((main&changed).sum()),
+                changed_fraction=float((main&changed).sum()/max(1,main.sum())),protocol='Largest connected raw RGB component above16/255; diagnostic only, not ground truth')
         record['images'][kind]=dict(path=str(out),sha256=sha(out),size=[view['width'],view['height']])
     write(args.root/'video_frames/receipts'/f'{args.frame}.json',record)
 
