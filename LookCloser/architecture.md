@@ -73,8 +73,10 @@ or until a quality-review gate. Batch boundaries require recorded visual review.
 `render_luster_video_frame.py` uses shared fixed virtual cameras and writes model,
 field-parameter and PNG hashes. `assemble_luster_video.py` requires 60 distinct
 learned fields and 60 consecutive real frames; it checks the encoded 30FPS, 2-second
-timeline. Full Trainer checkpoints and redundant HD originals are archived through
-dev3 and byte-verified before local cache release. Dataset audits reverify archived
+timeline. Selected, latest and PSNR/LPIPS tradeoff Trainer checkpoints are archived
+through dev3 and byte-verified before local cache release. Dominated temporary
+checkpoints are pruned with SHA receipts; their metrics and renders remain.
+Dataset audits reverify archived
 original bytes. See [Luster video](experiments/luster_video_000470_000529.md).
 
 ## Density scale and blur validation

@@ -7,6 +7,7 @@ import sys
 import time
 from prepare_luster_video import write,environment,SCRIPTS
 from archive_luster_checkpoint import archive,restore
+from luster_checkpoint_retention import prune_dominated
 
 
 def numeric_pass(selected):
@@ -48,9 +49,7 @@ def main():
                 subprocess.run(command,env=environment(),check=True)
             history=json.loads((run/'history.json').read_text());selected=json.loads((run/'selection.json').read_text())
             restore(selected['checkpoint'])
-            keep={selected['checkpoint'],json.loads((run/'complete.json').read_text())['latest_checkpoint']}
-            for checkpoint in (frame_root/'runs').glob('*/trainer/lookcloser/seed42/nerfstudio_models/*.ckpt'):
-                archive(root,checkpoint,args.remote_root,release=str(checkpoint) not in keep)
+            prune_dominated(root,frame_root,history,json.loads((run/'complete.json').read_text())['latest_checkpoint'])
             last_run=run
             if numeric_pass(selected) and not useful_improvement(history[-2],history[-1]):break
             if len(history)>=2 and not numeric_pass(selected) and not useful_improvement(history[-2],history[-1]):
@@ -63,7 +62,8 @@ def main():
         subprocess.run([sys.executable,str(SCRIPTS/'finish_luster_video_frame.py'),str(root),frame,str(last_run),'--remote-root',args.remote_root],env=environment(),check=True)
         # The predecessor is no longer needed in GPU startup. Its archive was
         # already byte-verified, and restore() can materialize it for rerenders.
-        archive(root,parent['archived_checkpoint']['local_path'],args.remote_root,release=True)
+        for retained in parent.get('retained_checkpoints',[parent['archived_checkpoint']]):
+            archive(root,retained['local_path'],args.remote_root,release=True)
         write(root/'campaign_status.json',dict(phase='frame_complete_pending_batch_review',frame=frame,time=time.time()))
     write(root/'campaign_status.json',dict(phase='visual_review_required',through=f'{args.end:06d}',time=time.time()))
 

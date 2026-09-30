@@ -7,6 +7,7 @@ import sys
 import time
 from prepare_luster_video import write,environment,SCRIPTS
 from archive_luster_checkpoint import archive,restore
+from luster_checkpoint_retention import prune_dominated
 
 
 def main():
@@ -27,13 +28,16 @@ def main():
     rendering=json.loads(receipt.read_text());complete=json.loads((export/'complete.json').read_text())
     if rendering['checkpoint_sha256']!=complete['checkpoint_sha256']:raise ValueError('Temporal render used a different model')
     archived=archive(root,selected['checkpoint'],args.remote_root)
-    # Keep full-state resume checkpoints, including unselected gates, durably.
-    for checkpoint in (frame_root/'runs').glob('*/trainer/lookcloser/seed42/nerfstudio_models/*.ckpt'):
-        if str(checkpoint)!=selected['checkpoint']:archive(root,checkpoint,args.remote_root,release=True)
+    history=json.loads((args.run/'history.json').read_text())
+    latest=json.loads((args.run/'complete.json').read_text())['latest_checkpoint']
+    keep=prune_dominated(root,frame_root,history,latest);retained=[archived]
+    for checkpoint in sorted(keep):
+        if checkpoint!=selected['checkpoint']:
+            restore(checkpoint);retained.append(archive(root,checkpoint,args.remote_root))
     snapshot=dict(frame=args.frame,run=str(args.run),selection=str(export/'selection.json'),
                   training_selection={k:selected[k] for k in ['step','eval_all_psnr','eval_all_ssim','eval_all_lpips']},
                   export_metrics={k:final[k] for k in ['eval_all_psnr','eval_all_ssim','eval_all_lpips']},
-                  archived_checkpoint=archived,render_receipt=str(receipt),review_status='pending_visual_review',time=time.time())
+                  archived_checkpoint=archived,retained_checkpoints=retained,render_receipt=str(receipt),review_status='pending_visual_review',time=time.time())
     write(root/'snapshots'/f'{args.frame}.json',snapshot)
     remote=f'ubuntu@dev3:{args.remote_root}/artifacts/frames/{args.frame}/'
     # Earlier checkpoint archives live under this same directory. No --delete:
