@@ -60,8 +60,12 @@ def main():
             snapshot=json.loads(snapshot_path.read_text())
             final=json.loads(Path(snapshot['selection']).read_text())
             review_path=root/'visual_reviews'/f'{frame}.json'
-            rejected=review_path.exists() and not json.loads(review_path.read_text()).get('accepted')
-            if rejected or not numeric_pass(final):
+            reviewed=json.loads(review_path.read_text()) if review_path.exists() else {}
+            rejected=review_path.exists() and not reviewed.get('accepted')
+            exception=reviewed.get('numeric_gate_override') or {}
+            explicit_exception=(reviewed.get('accepted') and bool(exception.get('reason'))
+                                and exception.get('checkpoint_sha256')==snapshot['archived_checkpoint']['sha256'])
+            if rejected or (not numeric_pass(final) and not explicit_exception):
                 write(root/'campaign_status.json',dict(phase='quality_review_required',frame=frame,reason='Existing snapshot failed a quality or visual gate',time=time.time()))
                 raise SystemExit(2)
             receipt_path=frame_root/'finish_complete.json'

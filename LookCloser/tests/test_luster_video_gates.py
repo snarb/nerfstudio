@@ -68,3 +68,22 @@ def test_resume_never_retrains_completed_or_rejected_snapshot(tmp_path,monkeypat
     else:campaign.main()
     status=json.loads((tmp_path/'campaign_status.json').read_text())
     assert status['phase']==('quality_review_required' if rejected else 'visual_review_required')
+
+
+@pytest.mark.parametrize('reviewed_sha',['verified','wrong',None])
+def test_numeric_exception_requires_review_of_the_exact_checkpoint(tmp_path,monkeypatch,reviewed_sha):
+    def write(relative,value):
+        path=tmp_path/relative;path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(value))
+    write('visual_reviews/000472.json',dict(accepted=True))
+    review=dict(accepted=True)
+    if reviewed_sha:review['numeric_gate_override']=dict(checkpoint_sha256=reviewed_sha,reason='Near-threshold PSNR; foreground and visual review support acceptance')
+    write('visual_reviews/000473.json',review)
+    write('selection.json',result(29.985,.04616,.95325))
+    write('snapshots/000473.json',dict(selection=str(tmp_path/'selection.json'),run='/completed/run',archived_checkpoint=dict(sha256='verified')))
+    write('frames/000473/finish_complete.json',dict(run='/completed/run',checkpoint_sha256='verified'))
+    monkeypatch.setattr(sys,'argv',['campaign',str(tmp_path),'--start','473','--end','473'])
+    monkeypatch.setattr(campaign.subprocess,'run',lambda *a,**kw:pytest.fail('No training should be launched'))
+    if reviewed_sha=='verified':campaign.main()
+    else:
+        with pytest.raises(SystemExit) as error:campaign.main()
+        assert error.value.code==2
