@@ -31,10 +31,18 @@ def main():
     points=np.array([[1.8,.7,.3],[2.,.9,.5],[2.7,.4,.7],[3.5,.2,1.]])
     points_norm=(points@transform[:3,:3].T+transform[:3,3])*scale
     max_error=0.;receipts=0;derived={}
+    archived_originals=None
+    if (data/'original_hd_archive.json').exists():
+        from archive_luster_originals import verify_archived_originals
+        archived_originals=verify_archived_originals(data)
     for row in meta['frames']:
         cid=row['camera_id'];name=Path(row['file_path']).name
         for folder in ['images','original_hd','masks']:
             path=data/folder/name
+            if folder=='original_hd' and archived_originals is not None:
+                if archived_originals[name]['size']!=[row['w'],row['h']]:raise ValueError('Archived original shape mismatch')
+                derived[str(path.relative_to(data))]=archived_originals[name]['sha256']
+                continue
             if Image.open(path).size!=(row['w'],row['h']):raise ValueError('Prepared shape mismatch')
             derived[str(path.relative_to(data))]=sha(path)
         im=ims[cid];cam=cs[im.camera_id]

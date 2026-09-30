@@ -6,13 +6,26 @@ import numpy as np
 import torch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'scripts'))
-from prepare_luster_frame import resize_intrinsics, ray_box_hits
+from prepare_luster_frame import resize_intrinsics, ray_box_hits, repair_background_strip
 from run_luster_experiment import select_best
 from nerfstudio.fields.lookcloser_field import LookCloserField
 from nerfstudio.models.lookcloser import LookCloserModel
 from run_luster_experiment import load_background_lookup
 from PIL import Image
 import pytest
+
+
+def test_temporal_strip_repair_preserves_connected_moving_arm():
+    mask=np.zeros((40,60),dtype=np.uint8)
+    mask[10:35,25:45]=255
+    mask[15:20,5:30]=255  # Hand extends into the formerly cleared strip.
+    mask[1:8,1:3]=255    # Disconnected background stand.
+    mask[1:8,17:23]=255  # A stand fragment crosses the old strip boundary.
+    repaired=repair_background_strip(mask,width=20)
+    np.testing.assert_array_equal(repaired[15:20,5:30],mask[15:20,5:30])
+    assert not repaired[1:8,1:3].any()
+    assert not repaired[1:8,17:23].any()
+    np.testing.assert_array_equal(repaired[10:35,25:45],mask[10:35,25:45])
 
 
 def test_background_penalty_only_pushes_trusted_background_transparent():

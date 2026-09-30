@@ -73,8 +73,9 @@ def evaluate(trainer, request, step):
                 if not torch.isfinite(pred).all(): raise FloatingPointError('Nonfinite RGB')
                 mask_np = np.array(Image.open(Path(request['data'])/'masks'/name))[::stride, ::stride] >= 128
                 mask = torch.from_numpy(mask_np).to(pipe.device)
-                foreground_mse = (pred.clamp(0,1)[mask]-gt[mask]).square().mean()
-                fg_psnr = float(-10*torch.log10(foreground_mse.clamp_min(1e-12)))
+                foreground_pixels=int(mask.sum())
+                foreground_mse = (pred.clamp(0,1)[mask]-gt[mask]).square().mean() if foreground_pixels else None
+                fg_psnr = float(-10*torch.log10(foreground_mse.clamp_min(1e-12))) if foreground_pixels else None
                 values = metrics(pipe.model, pred, gt)
                 rois = {}
                 for label, box in request.get('rois_by_image', {}).get(name, {}).items():
@@ -82,6 +83,7 @@ def evaluate(trainer, request, step):
                     a,b = pred[y0:y1,x0:x1],gt[y0:y1,x0:x1]
                     if min(a.shape[:2]) < 32: raise ValueError(f'ROI too small: {name}/{label}')
                     rois[label] = metrics(pipe.model, a, b)
+                    rois[label]['foreground_fraction']=float(mask[y0:y1,x0:x1].float().mean())
                     panel = torch.cat([b,a],1)
                     Image.fromarray(np.rint(panel.cpu().numpy().clip(0,1)*255).astype('uint8')).save(folder/f'{split}_{index:03d}_{label}.png')
                 Image.fromarray(np.rint(pred.cpu().numpy().clip(0,1)*255).astype('uint8')).save(folder/f'{split}_{index:03d}.png')
@@ -90,8 +92,9 @@ def evaluate(trainer, request, step):
                 im = Image.fromarray(np.rint(panel.cpu().numpy().clip(0,1)*255).astype('uint8'))
                 im.thumbnail((1500,640));im.save(folder/f'{split}_{index:03d}_panel.jpg')
                 rows.append(dict(split=split,index=index,image=name,physical_camera=by_name[name]['physical_camera'],
-                                 **values,foreground_psnr=fg_psnr,foreground_opacity=float(opacity[mask].mean()),
-                                 background_opacity=float(opacity[~mask].mean()),rois=rois))
+                                 **values,foreground_psnr=fg_psnr,foreground_pixels=foreground_pixels,
+                                 foreground_opacity=float(opacity[mask].mean()) if foreground_pixels else None,
+                                 background_opacity=float(opacity[~mask].mean()) if (~mask).any() else None,rois=rois))
         ev = [r for r in rows if r['split']=='eval']
         result = dict(step=step,eval_stride=stride,per_view=rows,
                       **{f'eval_all_{k}':float(np.mean([r[k] for r in ev])) for k in ['psnr','ssim','lpips']})
@@ -120,6 +123,23 @@ def train(request):
     cfg.save_only_latest_checkpoint=False
     cfg.pipeline.model.depth_loss_mult=0.
     cfg.pipeline.datamanager.pixel_sampler.ignore_mask=True
+    if request.get('warm_start'):
+        if request.get('resume') or request.get('parent_history'):
+            raise ValueError('A new temporal frame must not inherit optimizer state or metric history')
+        parent=Path(request['warm_start'])
+        parent_request=json.loads(Path(request['warm_start_request']).read_text())
+        old_meta=json.loads((Path(parent_request['data'])/'transforms.json').read_text())
+        new_meta=json.loads((Path(request['data'])/'transforms.json').read_text())
+        if old_meta['blur_aabb'] != new_meta['blur_aabb']:
+            raise ValueError('Temporal field weights require identical normalized AABBs')
+        old_bounds=json.loads((Path(parent_request['data'])/'bounds_audit.json').read_text())
+        new_bounds=json.loads((Path(request['data'])/'bounds_audit.json').read_text())
+        if old_bounds['normalization']!=new_bounds['normalization'] or old_bounds['scale']!=new_bounds['scale']:
+            raise ValueError('Temporal field weights require the same world-coordinate normalization')
+        cfg.load_checkpoint=parent
+        cfg.checkpoint_load_mode='model_parameters_only'
+        cfg.checkpoint_load_parameter_hash_audit=True
+        cfg.load_optimizers=False;cfg.load_scheduler=False
     if request.get('resume'):
         cfg.load_checkpoint=Path(request['resume'])
         cfg.load_scheduler=True;cfg.load_optimizers=True

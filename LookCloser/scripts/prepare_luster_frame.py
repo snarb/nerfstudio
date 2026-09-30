@@ -40,15 +40,31 @@ def ray_box_hits(origin, directions, bounds):
     return np.minimum(t0, t1).max(-1) <= np.maximum(t0, t1).min(-1), np.maximum(t0, t1).min(-1) > 0
 
 
+def repair_background_strip(mask, width=680):
+    """Remove the known left-edge stand without cutting a connected moving arm."""
+    count, labels, stats, _ = cv2.connectedComponentsWithStats((mask > 0).astype(np.uint8))
+    if count <= 1: return mask
+    subject = 1 + int(stats[1:, cv2.CC_STAT_AREA].argmax())
+    repaired = mask.copy()
+    unwanted = np.unique(labels[:, :width])
+    unwanted = unwanted[(unwanted != 0) & (unwanted != subject)]
+    repaired[np.isin(labels, unwanted)] = 0
+    return repaired
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('root', type=Path)
+    p.add_argument('--frame', default='000470', help='Six-digit source frame')
+    p.add_argument('--normalization-reference', type=Path, help='Freeze sequence coordinates using an existing bounds_audit.json')
     p.add_argument('--grid', type=int, default=256)
     p.add_argument('--search-radius-factor', type=float, default=2.6)
     p.add_argument('--reuse-images', action='store_true', help='Resume this preparation after an interrupted audit')
     p.add_argument('--rebuild-bounds', action='store_true', help='Re-audit bounds before any scene training')
     args = p.parse_args()
+    if len(args.frame) != 6 or not args.frame.isdigit(): raise ValueError('Expected six-digit frame')
     root = args.root; source = root / 'source'; out = root / 'data'
+    overrides=json.loads((source/'mask_overrides.json').read_text()) if (source/'mask_overrides.json').exists() else {}
     if (out / 'complete.json').exists() and not args.rebuild_bounds:
         raise RuntimeError('Prepared dataset already exists')
     for folder in ['images', 'original_hd', 'masks', 'reviews']:
@@ -62,27 +78,31 @@ def main():
         c = cameras[image.camera_id]
         cid = int(image.name.split('_')[1])
         rgb_path = source / 'frame/images' / image.name
-        mask_path = source / 'masks' / f'cam_{cid}' / '000470.png'
+        mask_path = source / 'masks' / f'cam_{cid}' / f'{args.frame}.png'
         # SAM3 cam164 has 2984 rows versus the calibrated 3000-row image.
         # Use the provided full-size plate-difference mask rather than invent
         # a crop offset or stretch the silhouette without calibration evidence.
         if cid == 164:
             mask_path = source / 'plate_difference_cam164.png'
+        if str(cid) in overrides:
+            mask_path = source / overrides[str(cid)]['path']
         rgb_size = Image.open(rgb_path).size
         mask = np.array(Image.open(mask_path).convert('L'))
         if c.model != 'PINHOLE' or rgb_size != (c.width, c.height) or mask.shape != (c.height, c.width):
             raise ValueError(f'Camera/image/mask mismatch: {cid}')
-        # Reviewed false positives on the far-left background stands. Neither
-        # subject touches this strip; source masks remain unchanged on disk.
+        # The moving hand enters this strip later in the sequence. Preserve the
+        # complete dominant subject component instead of cutting a fixed column.
         if cid in {20,36}:
-            mask[:, :680] = 0
+            mask = repair_background_strip(mask)
         wh = (round(c.width * 1920 / max(c.width, c.height)), round(c.height * 1920 / max(c.width, c.height)))
         coverage = cv2.resize(mask, wh, interpolation=cv2.INTER_AREA)
         foreground = coverage >= 128
-        contained.append(not (foreground[:8].any() or foreground[-8:].any() or foreground[:,:8].any() or foreground[:,-8:].any()))
-        name = f'cam_{cid:03d}_000470.png'
+        contained.append(bool(foreground.any()) and not (foreground[:8].any() or foreground[-8:].any() or foreground[:,:8].any() or foreground[:,-8:].any()))
+        name = f'cam_{cid:03d}_{args.frame}.png'
         targets = [out / folder / name for folder in ['images', 'original_hd', 'masks']]
-        if not args.reuse_images or not all(path.exists() and Image.open(path).size == wh for path in targets):
+        repaired_mask_changed = (cid in {20,36} and targets[2].exists()
+                                 and not np.array_equal(np.array(Image.open(targets[2])),coverage))
+        if not args.reuse_images or repaired_mask_changed or not all(path.exists() and Image.open(path).size == wh for path in targets):
             rgb = np.array(Image.open(rgb_path).convert('RGB'))
             original = cv2.resize(rgb, wh, interpolation=cv2.INTER_AREA)
             masked = cv2.resize(rgb.astype(np.float32) * (mask[..., None] / 255.), wh, interpolation=cv2.INTER_AREA)
@@ -109,6 +129,9 @@ def main():
     normalized, transform = auto_orient_and_center_poses(torch.tensor(poses[train], dtype=torch.float32), method='up', center_method='focus')
     scale = 1 / float(normalized[:, :3, 3].abs().max())
     transform4 = np.eye(4); transform4[:3] = transform.numpy()
+    if args.normalization_reference:
+        reference = json.loads(args.normalization_reference.read_text())
+        transform4 = np.array(reference['normalization']); scale = float(reference['scale'])
     converted = transform4[None] @ poses
     converted[:, :3, 3] *= scale
     for row, pose in zip(rows, converted): row['transform_matrix'] = pose.tolist()
@@ -161,13 +184,15 @@ def main():
         yy, xx = np.nonzero(mask)
         dirs = np.stack([(xx+.5-row['cx']) / row['fl_x'], -(yy+.5-row['cy']) / row['fl_y'], -np.ones(len(xx))], -1) @ pose[:3, :3].T
         hit, positive = ray_box_hits(pose[:3, 3], dirs, bounds)
-        coverage_rows.append(dict(camera=row['physical_camera'], foreground_pixels=len(xx), aabb_hit_fraction=float((hit & positive).mean())))
+        coverage_rows.append(dict(camera=row['physical_camera'], foreground_pixels=len(xx), aabb_hit_fraction=float((hit & positive).mean()) if len(xx) else 1.))
     np.savez_compressed(out / 'hull.npz', points=nhull, raw_points=hull)
     audit = dict(grid=n, pitch_world=pitch, hull_voxels=len(hull), initial_search_margin=float(edge_margin),
                  bounds=bounds.tolist(), padding_fraction=.05, consensus=.98, minimum_witnesses=10,
                  train_cameras=len(train), normalization=transform4.tolist(), scale=scale, coverage=coverage_rows,
                  mask_exception={'cam_164':'full-size plate-difference mask; SAM3 has 2984 rather than 3000 rows'})
     audit['fully_contained_train_cameras']=[rows[i]['physical_camera'] for i in train if contained[i]]
+    audit['mask_overrides']=overrides
+    audit['left_strip_repair']='cam020/036: preserve dominant connected component; remove whole other components touching x<680'
     write(out / 'bounds_audit.json', audit)
     meta = dict(camera_model='OPENCV', coordinate_system='train_normalized_opengl', orientation_override='none',
                 blur_aabb=bounds.tolist(), frames=rows,

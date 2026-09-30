@@ -51,6 +51,32 @@ mutation. `render_luster_paths.py` reads the export selection JSON and applies
 that same envelope for the orbit and face arc. Generic config-only rendering
 does not apply it. Raw field exports remain available for comparison.
 
+### Luster temporal sequence
+
+`prepare_luster_video.py` transfers calibrated frames through dev3, freezes the
+train-derived world normalization, and forms one padded AABB covering the complete
+motion. Temporal field transfer requires identical normalization and AABB because
+the hash encoding uses normalized positions. `launch_luster_video_stage.py` reuses
+the existing Trainer `model_parameters_only` contract for adjacent frames: only
+field parameters are copied; Adam, scheduler, scaler, RNG, occupancy, frequency
+state and sampling counters are fresh. Same-frame extensions use full-state resume.
+
+Empty subject masks constrain their visible frustum, not the entire world.
+Dimension-mismatched SAM masks use audited full-size plate-difference fallbacks.
+The known cam020/036 background stand is removed by connected component, preserving
+an arm that enters the old fixed strip. Every frame has its own hull and optional
+render envelope. Fresh per-image frequency fits run in local/dev3 queues and bind
+map hashes to current RGB. Head/body review crops follow train-hull projections.
+
+`run_luster_video_campaign.py` extends bounded stages only while quality improves
+or until a quality-review gate. Batch boundaries require recorded visual review.
+`render_luster_video_frame.py` uses shared fixed virtual cameras and writes model,
+field-parameter and PNG hashes. `assemble_luster_video.py` requires 60 distinct
+learned fields and 60 consecutive real frames; it checks the encoded 30FPS, 2-second
+timeline. Full Trainer checkpoints and redundant HD originals are archived through
+dev3 and byte-verified before local cache release. Dataset audits reverify archived
+original bytes. See [Luster video](experiments/luster_video_000470_000529.md).
+
 ## Density scale and blur validation
 
 The field keeps legacy softplus behavior for old checkpoints. The opt-in
