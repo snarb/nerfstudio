@@ -19,6 +19,17 @@ def resume(workers):
         except psutil.NoSuchProcess:pass
 
 
+def owned_descendants(parent,root):
+    """A queue can briefly report a worker that has exited or awaits reaping."""
+    if not parent:return {}
+    try:
+        process=psutil.Process(parent);command=process.cmdline()
+        if not any(Path(arg).name=='prepare_luster_frequencies.py' for arg in command) or not any(Path(arg).is_relative_to(root) for arg in command):
+            return {}
+        return {p.pid:p for p in process.children(recursive=True)}
+    except (psutil.NoSuchProcess,psutil.ZombieProcess):return {}
+
+
 def main():
     p=argparse.ArgumentParser();p.add_argument('root',type=Path);p.add_argument('--watchdog',action='store_true');args=p.parse_args()
     root=args.root.resolve();directory=root/'gpu_priority';directory.mkdir(exist_ok=True);status_path=directory/'status.json'
@@ -42,18 +53,17 @@ def main():
             fields=[]
             for process in psutil.process_iter(['pid','cmdline']):
                 command=process.info['cmdline'] or []
-                if any(Path(arg).name in names for arg in command) and any(arg.startswith(str(root)) for arg in command):fields.append(process.pid)
+                if any(Path(arg).name in names for arg in command) and any(Path(arg).is_relative_to(root) for arg in command):fields.append(process.pid)
             if fields:
                 try:queue=json.loads((root/'frequency_queue/local.json').read_text());parent=(queue.get('progress') or {}).get('pid')
                 except (FileNotFoundError,json.JSONDecodeError):parent=None
-                if parent and psutil.pid_exists(parent):
-                    parent_process=psutil.Process(parent);command=parent_process.cmdline()
-                    if not any(Path(arg).name=='prepare_luster_frequencies.py' for arg in command) or not any(arg.startswith(str(root)) for arg in command):
-                        raise RuntimeError('Frequency parent identity changed')
-                    descendants={p.pid:p for p in parent_process.children(recursive=True)}
+                descendants=owned_descendants(parent,root)
+                if descendants:
                     gpu={int(x.strip()) for x in subprocess.check_output(['nvidia-smi','--query-compute-apps=pid','--format=csv,noheader'],text=True,timeout=10).splitlines() if x.strip().isdigit()}
                     for pid in gpu & descendants.keys():
-                        process=descendants[pid];paused[pid]=dict(pid=pid,created=process.create_time());process.suspend()
+                        try:
+                            process=descendants[pid];paused[pid]=dict(pid=pid,created=process.create_time());process.suspend()
+                        except (psutil.NoSuchProcess,psutil.ZombieProcess):paused.pop(pid,None)
             else:
                 resume(paused.values());paused={}
             status=dict(pid=os.getpid(),time=time.time(),field_pids=fields,paused=list(paused.values()))
