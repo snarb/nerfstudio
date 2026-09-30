@@ -43,6 +43,7 @@ def main():
     # Earlier checkpoint archives live under this same directory. No --delete:
     # released local checkpoints must remain in the durable archive.
     subprocess.run(['rsync','-a','--exclude=*.ckpt',str(frame_root)+'/',remote],check=True)
+    write(frame_root/'finish_complete.json',dict(time=time.time(),run=str(args.run),checkpoint_sha256=archived['sha256']))
     print(json.dumps(snapshot,indent=2))
 
 

@@ -55,6 +55,22 @@ def main():
         raise ValueError('Review the preceding batch before starting another temporal batch')
     for number in range(args.start,args.end+1):
         frame=f'{number:06d}';frame_root=root/'frames'/frame;data=frame_root/'data'
+        snapshot_path=root/'snapshots'/f'{frame}.json'
+        if snapshot_path.exists():
+            snapshot=json.loads(snapshot_path.read_text())
+            final=json.loads(Path(snapshot['selection']).read_text())
+            review_path=root/'visual_reviews'/f'{frame}.json'
+            rejected=review_path.exists() and not json.loads(review_path.read_text()).get('accepted')
+            if rejected or not numeric_pass(final):
+                write(root/'campaign_status.json',dict(phase='quality_review_required',frame=frame,reason='Existing snapshot failed a quality or visual gate',time=time.time()))
+                raise SystemExit(2)
+            receipt_path=frame_root/'finish_complete.json'
+            receipt=json.loads(receipt_path.read_text()) if receipt_path.exists() else {}
+            if receipt.get('checkpoint_sha256')!=snapshot['archived_checkpoint']['sha256'] or receipt.get('run')!=snapshot['run']:
+                subprocess.run([sys.executable,str(SCRIPTS/'finish_luster_video_frame.py'),str(root),frame,snapshot['run'],
+                                '--remote-root',args.remote_root],env=environment(),check=True)
+            write(root/'campaign_status.json',dict(phase='resumed_completed_frame',frame=frame,time=time.time()))
+            continue
         while not (data/'frequency_complete.json').exists():
             write(root/'campaign_status.json',dict(phase='waiting_for_frequencies',frame=frame,time=time.time()))
             time.sleep(30)

@@ -3,6 +3,9 @@ from pathlib import Path
 import sys
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from run_luster_video_campaign import gate_action,numeric_pass
+import json
+import pytest
+import run_luster_video_campaign as campaign
 
 
 def result(psnr,lpips,ssim=.944,foreground=25):
@@ -45,3 +48,23 @@ def test_empty_foreground_cannot_pass_on_black_background_alone():
 def test_budget_cap_does_not_continue_even_when_metrics_improve():
     previous=result(29.1,.078);current=result(29.4,.070)
     assert gate_action([previous,current],current,at_limit=True)=='export'
+
+
+@pytest.mark.parametrize('rejected',[False,True])
+def test_resume_never_retrains_completed_or_rejected_snapshot(tmp_path,monkeypatch,rejected):
+    def write(relative,value):
+        path=tmp_path/relative;path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(value))
+    write('visual_reviews/000471.json',dict(accepted=True))
+    if rejected:write('visual_reviews/000472.json',dict(accepted=False))
+    write('selection.json',result(30.5,.04,.96))
+    write('snapshots/000472.json',dict(selection=str(tmp_path/'selection.json'),run='/completed/run',archived_checkpoint=dict(sha256='verified')))
+    write('frames/000472/finish_complete.json',dict(run='/completed/run',checkpoint_sha256='verified'))
+    monkeypatch.setattr(sys,'argv',['campaign',str(tmp_path),'--start','472','--end','472'])
+    def unexpected(*a,**kw):raise AssertionError('Must not launch or restore pruned earlier stages')
+    monkeypatch.setattr(campaign.subprocess,'run',unexpected)
+    if rejected:
+        with pytest.raises(SystemExit) as error:campaign.main()
+        assert error.value.code==2
+    else:campaign.main()
+    status=json.loads((tmp_path/'campaign_status.json').read_text())
+    assert status['phase']==('quality_review_required' if rejected else 'visual_review_required')
