@@ -69,7 +69,10 @@ render envelope. Fresh per-image frequency fits run in local/dev3 queues and bin
 map hashes to current RGB. Head/body review crops follow train-hull projections.
 
 `run_luster_video_campaign.py` extends bounded stages only while quality improves
-or until a quality-review gate. Batch boundaries require recorded visual review.
+or until a quality-review gate. At a viable raw plateau it checks the final render
+setting before choosing any further training. A failed export allows one bounded
+half-LR polish; another failure returns for review. Batch boundaries require
+recorded visual review.
 `render_luster_video_frame.py` uses shared fixed virtual cameras and writes model,
 field-parameter and PNG hashes. Framing fits projected train-hull points over the
 whole motion, with 6% border clearance; the detail view fits the upper 30% of height.
