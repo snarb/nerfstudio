@@ -34,6 +34,7 @@ def main():
         result=json.loads(Path(snapshot['selection']).read_text())
         for view in result['per_view']:
             row=dict(frame=frame,split=view['split'],camera=view['physical_camera'],step=result['step'],
+                     evaluation_data_revision=(result.get('data_revision') or {}).get('id','original_prepared'),
                      **{k:view[k] for k in ['psnr','ssim','lpips','foreground_psnr']})
             for label,values in view['rois'].items():
                 for key in ['psnr','ssim','lpips','foreground_fraction']:row[f'{label}_{key}']=values[key]
