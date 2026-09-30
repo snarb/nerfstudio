@@ -19,7 +19,7 @@ def alive(pid):
 
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('root',type=Path);args=p.parse_args();root=args.root
+    p=argparse.ArgumentParser();p.add_argument('root',type=Path);p.add_argument('--compact',action='store_true');args=p.parse_args();root=args.root
     manifest=load(root/'manifest.json');frames=manifest['frames']
     record=dict(time=time.time(),prepared=sum((root/'frames'/f/'data/audit_preprocessing.json').exists() for f in frames),
                 frequencies=sum((root/'frames'/f/'data/frequency_complete.json').exists() for f in frames),
@@ -56,8 +56,21 @@ def main():
         if status and status.get('exit') is None:
             stages.append(dict(path=str(path),controller_alive=alive(status['controller_pid']),worker_alive=alive(status['worker_pid']),**status))
     record['active_stage_records']=stages
+    record['campaign_status']=load(root/'campaign_status.json')
     with (root/'agent_checks.jsonl').open('a') as f:f.write(json.dumps(record)+'\n')
     if prep:record['preparation_failure_count']=len(prep.get('failures',{}))
+    if args.compact:
+        summary={k:record[k] for k in ['time','prepared','frequencies','snapshots','total','gpu']}
+        summary['free_GiB']=round(record['free_GiB'],1)
+        summary['campaign']=record['campaign_status']
+        summary['controllers']=[dict(pid=row['pid'],alive=row['alive'],script=next((Path(arg).name for arg in row['command'] if arg.endswith('.py')),'')) for row in controllers]
+        summary['stages']=[dict(stage='/'.join(Path(row['path']).parts[-4:-1]),controller=row['controller_alive'],worker=row['worker_alive'],
+                                step=(row.get('progress') or {}).get('step'),phase=(row.get('progress') or {}).get('phase'),oom=row.get('oom')) for row in stages]
+        summary['queues']={name:dict(frame=status.get('frame'),images=(status.get('progress') or {}).get('images'),
+                                    queue_alive=status.get('queue_alive'),worker_alive=status.get('worker_alive_checked',status.get('alive')),
+                                    oom=status.get('oom'),age=round(status['status_age_seconds'],1)) for name,status in record['queues'].items()}
+        summary['gpu_priority']=record.get('gpu_priority')
+        print(json.dumps(summary));return
     print(json.dumps({k:v for k,v in record.items() if k not in ['preparation','queues']},indent=2))
     for name,status in record['queues'].items():print(name,json.dumps({k:status.get(k) for k in ['frame','alive','queue_alive','worker_alive_checked','progress','oom','status_age_seconds']}))
 
