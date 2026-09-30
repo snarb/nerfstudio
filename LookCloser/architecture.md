@@ -41,6 +41,16 @@ equal to `-log(1-alpha)` without clipping accumulated alpha. This retains useful
 gradients when alpha rounds to one. It is implemented for fixed and adaptive
 marching; other marching modes do not provide this supervision signal.
 
+Final exports load the metric-selected checkpoint unchanged and use a separately
+recorded, measured integration setting (`export_luster_selection.py`). The script
+checks native-view sample-cap saturation and writes checkpoint/data hashes.
+An optional train-hull envelope (`luster_render_guard.py`) intersects occupancy
+binaries with conservative hull neighborhoods, preserving field parameters.
+Its hashed NPZ records grid coordinates and resolution; mismatches fail before
+mutation. `render_luster_paths.py` reads the export selection JSON and applies
+that same envelope for the orbit and face arc. Generic config-only rendering
+does not apply it. Raw field exports remain available for comparison.
+
 ## Density scale and blur validation
 
 The field keeps legacy softplus behavior for old checkpoints. The opt-in

@@ -43,6 +43,9 @@ def main():
     selected=json.loads(args.selection.read_text());cfg=yaml.load(Path(selected['config']).read_text(),Loader=yaml.Loader)
     state=torch.load(selected['checkpoint'],map_location='cpu',weights_only=False)
     pipe=cfg.pipeline.setup(device='cuda');pipe.load_pipeline(state['pipeline'],state['step']);pipe.eval();del state
+    if selected.get('occupancy_guard'):
+        from luster_render_guard import apply_guard
+        apply_guard(pipe,selected['occupancy_guard'])
     data=cfg.pipeline.datamanager.dataparser.data
     meta=json.loads((data/'transforms.json').read_text());rows=meta['frames'];rois=json.loads((data/'rois.json').read_text())
     bounds=np.array(meta['blur_aabb']);body=bounds.mean(0);face=face_center(rows,rois)
@@ -73,7 +76,8 @@ def main():
         poses=np.array([look_at(np.array([target[0]+radius*np.cos(a),target[1]+radius*np.sin(a),z]),target) for a in angles])
         cameras=Cameras(camera_to_worlds=torch.tensor(poses,dtype=torch.float32),fx=focal,fy=focal,cx=width/2,cy=height/2,width=width,height=height,camera_type=CameraType.PERSPECTIVE).to('cuda')
         write(out/'path.json',dict(poses=poses.tolist(),target=target.tolist(),width=width,height=height,focal=focal,
-                                   checkpoint=selected['checkpoint'],checkpoint_sha256=sha(Path(selected['checkpoint']))))
+                                   checkpoint=selected['checkpoint'],checkpoint_sha256=sha(Path(selected['checkpoint'])),
+                                   occupancy_guard=selected.get('occupancy_guard')))
         start=time.monotonic();thumbs=[]
         for i in range(count):
             prediction=pipe.model.get_outputs_for_camera_ray_bundle(cameras[i:i+1].generate_rays(0))['rgb']

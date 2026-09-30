@@ -13,7 +13,7 @@ from blur_runtime import metrics,write
 
 @torch.no_grad()
 def main():
-    p=argparse.ArgumentParser();p.add_argument('run',type=Path);p.add_argument('--output',type=Path,required=True);p.add_argument('--allocator',action='store_true');p.add_argument('--coarse',action='store_true');p.add_argument('--occupancy',action='store_true');args=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('run',type=Path);p.add_argument('--output',type=Path,required=True);p.add_argument('--allocator',action='store_true');p.add_argument('--coarse',action='store_true');p.add_argument('--occupancy',action='store_true');p.add_argument('--fine',action='store_true');args=p.parse_args()
     torch.set_num_threads(2)
     request=json.loads((args.run/'request.json').read_text());selection=json.loads((args.run/'selection.json').read_text())
     cfg=yaml.load(Path(selection['config']).read_text(),Loader=yaml.Loader)
@@ -36,12 +36,15 @@ def main():
                 variants = [('coarse00625','adaptive',256,False,1024),('coarse001','adaptive',256,False,1024),('coarse0005','adaptive',256,False,4096)]
             if args.occupancy:
                 variants = [('original','adaptive',256,False,1024),('dilate1','adaptive',256,False,1024),('fixed1024','fixed',1024,False,1024)]
+            if args.fine:
+                variants = [('coarse001','adaptive',256,False,1024),('coarse0005','adaptive',256,False,4096),('coarse00025','adaptive',256,False,4096)]
             for label,mode,samples,corrected,cap in variants:
                 pipe.model.occupancy_grid.binaries.copy_(original_binaries);pipe.model._eval_occupancy_backup=None
                 pipe.model.config.occupancy_eval_dilation_radius=int(label=='dilate1')
                 pipe.model.config.ray_sampling_mode=mode;pipe.model.config.fixed_num_samples_per_ray=samples
                 pipe.model.config.corrected_arm_allocator=corrected;pipe.model.config.max_steps_per_ray=cap
                 if args.coarse:pipe.model.config.adaptive_coarse_step_size={'coarse00625':.00625,'coarse001':.001,'coarse0005':.0005}[label]
+                if args.fine:pipe.model.config.adaptive_coarse_step_size={'coarse001':.001,'coarse0005':.0005,'coarse00025':.00025}[label]
                 output=pipe.model.get_outputs_for_camera_ray_bundle(rays)
                 if not torch.isfinite(output['rgb']).all():raise FloatingPointError('Nonfinite probe')
                 row=dict(split=split,image=name,mode=label,**metrics(pipe.model,output['rgb'],gt),opacity=float(output['accumulation'].mean()))

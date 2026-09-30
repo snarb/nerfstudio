@@ -55,7 +55,7 @@ def main():
                     box=requests[0]['rois_by_image'][view['image']][label];images=[im.crop(box) for im in images]
                 else:
                     for im in images:im.thumbnail((600,500))
-                width=max(im.width for im in images);height=max(im.height for im in images)
+                width=max(220,max(im.width for im in images));height=max(im.height for im in images)
                 row=Image.new('RGB',(width*len(images),height+28),(35,35,35));d=ImageDraw.Draw(row)
                 for i,im in enumerate(images):
                     row.paste(im,(i*width,28));name='GT' if i==0 else args.runs[i-1].name

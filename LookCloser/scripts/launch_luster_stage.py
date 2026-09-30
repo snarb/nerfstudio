@@ -14,6 +14,7 @@ def main():
     p.add_argument('--parent',type=Path);p.add_argument('--fr',type=float,choices=[1.,.3])
     p.add_argument('--coarse-step',type=float,help='Override adaptive coarse marching step after a frozen-render diagnostic')
     p.add_argument('--background-opacity',type=float,help='Opt-in background opacity weight; masks keep a 3px unknown margin and exclude cam164')
+    p.add_argument('--lr-base',type=float,help='Resumed scheduler base LR; keeps Adam moments and scheduler progress')
     p.add_argument('--reason',required=True);p.add_argument('--label');p.add_argument('--dry-run',action='store_true')
     args=p.parse_args();repo=Path(__file__).resolve().parents[2];root=args.root.resolve()
     if args.parent:
@@ -33,6 +34,9 @@ def main():
         if args.background_opacity<0:raise ValueError('Background opacity weight must be nonnegative')
         request['model']['background_opacity_loss_mult']=args.background_opacity
         request['background_mask_margin']=3;request['background_mask_exclude_cameras']=[164]
+    if args.lr_base is not None:
+        if args.lr_base<=0 or not args.parent:raise ValueError('A positive LR base requires a parent checkpoint')
+        request['resume_fields_lr_override']=args.lr_base
     label=args.label or f'{args.variant}_{args.end_step:05d}'
     if Path(label).name!=label:raise ValueError('Label must be one directory name')
     output=root/'runs'/label

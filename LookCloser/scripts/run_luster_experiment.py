@@ -123,6 +123,7 @@ def train(request):
     if request.get('resume'):
         cfg.load_checkpoint=Path(request['resume'])
         cfg.load_scheduler=True;cfg.load_optimizers=True
+        cfg.resume_fields_lr_override=request.get('resume_fields_lr_override')
     cfg.save_config()
     trainer=cfg.setup(local_rank=0,world_size=1);trainer.setup()
     pipe=trainer.pipeline
@@ -178,7 +179,8 @@ def train(request):
         if time.monotonic()-last_status>=30 or step==trainer._start_step:
             status=dict(step=step,seconds=time.monotonic()-start,pid=os.getpid(),
                         gpu_allocated_GiB=torch.cuda.memory_allocated()/2**30,scaler=trainer.grad_scaler.get_scale(),
-                        point_samples=int(pipe.cumulative_point_samples),phase='train')
+                        point_samples=int(pipe.cumulative_point_samples),phase='train',
+                        fields_lr=trainer.optimizers.optimizers['fields'].param_groups[0]['lr'])
             if 'psnr' in batch_metrics:
                 status['batch_psnr']=float(batch_metrics['psnr'])
             write(out/'progress.json',status);print(json.dumps(status),flush=True);last_status=time.monotonic()

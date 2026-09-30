@@ -33,7 +33,9 @@ def main():
     model=SimpleNamespace(ssim=structural_similarity_index_measure,lpips=LearnedPerceptualImagePatchSimilarity(normalize=True))
     rows=[];panels=[]
     for run in args.runs:
-        request=json.loads((run/'request.json').read_text());result=json.loads((run/'history.json').read_text())[-1]
+        request=json.loads((run/'request.json').read_text())
+        result=(json.loads((run/'history.json').read_text())[-1] if (run/'history.json').exists()
+                else json.loads((run/'selection.json').read_text()))
         for view in result['per_view']:
             name=view['image'];box=BOXES[name]
             gt=Image.open(Path(request['data'])/'images'/name).convert('RGB').crop(box)
