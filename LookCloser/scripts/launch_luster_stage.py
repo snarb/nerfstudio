@@ -13,6 +13,7 @@ def main():
     p.add_argument('root',type=Path);p.add_argument('variant',choices=['control','exp_sh']);p.add_argument('end_step',type=int)
     p.add_argument('--parent',type=Path);p.add_argument('--fr',type=float,choices=[1.,.3])
     p.add_argument('--coarse-step',type=float,help='Override adaptive coarse marching step after a frozen-render diagnostic')
+    p.add_argument('--background-opacity',type=float,help='Opt-in background opacity weight; masks keep a 3px unknown margin and exclude cam164')
     p.add_argument('--reason',required=True);p.add_argument('--label');p.add_argument('--dry-run',action='store_true')
     args=p.parse_args();repo=Path(__file__).resolve().parents[2];root=args.root.resolve()
     if args.parent:
@@ -28,6 +29,10 @@ def main():
     if args.coarse_step is not None:
         if args.coarse_step<=0:raise ValueError('Coarse step must be positive')
         request['model']['adaptive_coarse_step_size']=args.coarse_step
+    if args.background_opacity is not None:
+        if args.background_opacity<0:raise ValueError('Background opacity weight must be nonnegative')
+        request['model']['background_opacity_loss_mult']=args.background_opacity
+        request['background_mask_margin']=3;request['background_mask_exclude_cameras']=[164]
     label=args.label or f'{args.variant}_{args.end_step:05d}'
     if Path(label).name!=label:raise ValueError('Label must be one directory name')
     output=root/'runs'/label

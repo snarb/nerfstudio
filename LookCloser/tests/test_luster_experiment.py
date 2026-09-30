@@ -9,6 +9,48 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'scripts'))
 from prepare_luster_frame import resize_intrinsics, ray_box_hits
 from run_luster_experiment import select_best
 from nerfstudio.fields.lookcloser_field import LookCloserField
+from nerfstudio.models.lookcloser import LookCloserModel
+from run_luster_experiment import load_background_lookup
+from PIL import Image
+import pytest
+
+
+def test_background_penalty_only_pushes_trusted_background_transparent():
+    opacity=torch.tensor([[.2],[.7],[30.]],requires_grad=True)
+    value=LookCloserModel.background_opacity_penalty(opacity,torch.tensor([[True],[False],[True]]))
+    value.backward()
+    assert opacity.grad[0]>0 and opacity.grad[2]>0 and opacity.grad[1]==0
+    assert torch.isfinite(value)
+    # Thickness30 rounds alpha to1 in FP32, but must retain a clearing gradient.
+    assert (1-torch.exp(-opacity[2].detach())).item()==1.
+
+
+def test_background_thickness_matches_unsaturated_alpha_bce():
+    thickness=torch.tensor([[.1],[1.],[3.]])
+    alpha=1-torch.exp(-thickness)
+    penalty=LookCloserModel.background_opacity_penalty(thickness,torch.ones_like(thickness,dtype=torch.bool))
+    torch.testing.assert_close(penalty,-torch.log1p(-alpha).mean())
+
+
+def test_background_penalty_empty_mask_has_zero_gradient():
+    opacity=torch.tensor([[1.],[.4]],requires_grad=True)
+    value=LookCloserModel.background_opacity_penalty(opacity,torch.zeros_like(opacity,dtype=torch.bool))
+    value.backward()
+    assert value==0 and torch.equal(opacity.grad,torch.zeros_like(opacity))
+    with pytest.raises(ValueError):
+        LookCloserModel.background_opacity_penalty(opacity,torch.ones_like(opacity))
+
+
+def test_background_lookup_respects_camera_order_soft_margin_and_exclusions(tmp_path):
+    (tmp_path/'masks').mkdir()
+    filenames=[]
+    for cid,shape in [(97,(5,8)),(12,(8,5)),(164,(5,8))]:
+        name=f'cam_{cid:03d}_000470.png';mask=np.zeros(shape,dtype='uint8');mask[2,2]=1
+        Image.fromarray(mask).save(tmp_path/'masks'/name);filenames.append(Path(name))
+    lookup=load_background_lookup(SimpleNamespace(image_filenames=filenames),dict(data=str(tmp_path),background_mask_margin=1,background_mask_exclude_cameras=[164]))
+    result=lookup(torch.tensor([[0,0,7],[1,7,4],[0,1,1],[0,2,2],[2,0,7]]))
+    assert result.shape==(5,1) and result.dtype==torch.bool
+    assert result[:,0].tolist()==[True,True,False,False,False]
 
 
 def test_resize_projection_uses_actual_axis_scales():

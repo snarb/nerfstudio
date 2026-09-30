@@ -24,6 +24,28 @@ def select_best(history):
     return min(candidates, key=lambda r: (r['eval_all_lpips'], -r['eval_all_psnr']))
 
 
+def load_background_lookup(dataset, request):
+    """Keep soft edges/near-boundary pixels unknown; never force foreground opaque."""
+    import cv2
+    cv2.setNumThreads(2)
+    margin=int(request.get('background_mask_margin',3))
+    if margin<0:raise ValueError('Background mask margin must be nonnegative')
+    excluded=set(request.get('background_mask_exclude_cameras',[164]))
+    arrays=[];offsets=[];widths=[];offset=0
+    for filename in dataset.image_filenames:
+        name=Path(filename).name;cid=int(name.split('_')[1])
+        coverage=np.asarray(Image.open(Path(request['data'])/'masks'/name))
+        possible_foreground=cv2.dilate((coverage>0).astype('uint8'),np.ones((2*margin+1,2*margin+1),'uint8'))
+        background=possible_foreground==0
+        if cid in excluded:background[:]=False
+        offsets.append(offset);widths.append(coverage.shape[1]);offset+=background.size;arrays.append(background.ravel())
+    flat=torch.from_numpy(np.concatenate(arrays));offsets=torch.tensor(offsets);widths=torch.tensor(widths)
+    def lookup(indices):
+        idx=indices.detach().cpu().long();camera,y,x=idx.unbind(-1)
+        return flat[offsets[camera]+y*widths[camera]+x,None]
+    return lookup
+
+
 @torch.no_grad()
 def evaluate(trainer, request, step):
     pipe = trainer.pipeline
@@ -105,9 +127,11 @@ def train(request):
     trainer=cfg.setup(local_rank=0,world_size=1);trainer.setup()
     pipe=trainer.pipeline
     sampler=pipe.datamanager.train_pixel_sampler
+    background_lookup=load_background_lookup(pipe.datamanager.train_dataset,request) if cfg.pipeline.model.background_opacity_loss_mult>0 else None
     sample=sampler.sample;trace=[]
     def traced(*a, **kw):
         batch=sample(*a,**kw)
+        if background_lookup is not None:batch['background_mask']=background_lookup(batch['indices'])
         if len(trace)<32:
             import hashlib
             trace.append(hashlib.sha256(batch['indices'].detach().cpu().numpy().tobytes()).hexdigest())

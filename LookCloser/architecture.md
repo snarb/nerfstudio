@@ -25,6 +25,17 @@ differences, and tests the adaptive cap and coarse interval size independently.
 `launch_luster_stage.py --coarse-step` records a scene-specific marching distance
 in an explicit continuation request; method defaults stay unchanged.
 
+Optional `background_opacity_loss_mult` penalizes accumulated opacity only where
+the batch's boolean `background_mask` marks trusted background. It does not force
+foreground opacity. Luster's runner derives that mask from zero segmentation
+coverage with a3px safety margin, excludes uncertain cam164, and gathers it using
+the same global camera/pixel indices as RGB. RGB, frequency caches and primary
+evaluation stay fixed. The default weight is zero.
+The background objective uses optical thickness `sum(sigma * delta)`, exactly
+equal to `-log(1-alpha)` without clipping accumulated alpha. This retains useful
+gradients when alpha rounds to one. It is implemented for fixed and adaptive
+marching; other marching modes do not provide this supervision signal.
+
 ## Density scale and blur validation
 
 The field keeps legacy softplus behavior for old checkpoints. The opt-in

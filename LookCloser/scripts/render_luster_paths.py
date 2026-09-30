@@ -46,6 +46,13 @@ def main():
     data=cfg.pipeline.datamanager.dataparser.data
     meta=json.loads((data/'transforms.json').read_text());rows=meta['frames'];rois=json.loads((data/'rois.json').read_text())
     bounds=np.array(meta['blur_aabb']);body=bounds.mean(0);face=face_center(rows,rois)
+    face_spans=[]
+    for row in rows:
+        if row['camera_id'] in [11,97,151]:
+            box=rois[Path(row['file_path']).name]['face']
+            distance=np.linalg.norm(np.array(row['transform_matrix'])[:3,3]-face)
+            face_spans.append((box[3]-box[1])*distance/row['fl_y'])
+    face_span=float(np.median(face_spans))*2.2
     reference=next(r for r in rows if r['camera_id']==150)
     ref_eye=np.array(reference['transform_matrix'])[:3,3]
     head_radius=np.linalg.norm(ref_eye[:2]-face[:2]);heading=np.arctan2(ref_eye[1]-face[1],ref_eye[0]-face[0])
@@ -61,7 +68,7 @@ def main():
         radius=body_radius if kind=='orbit' else head_radius
         height=960;width=704
         z=body[2]+.12 if kind=='orbit' else ref_eye[2]
-        vertical_span=float((bounds[1,2]-bounds[0,2])*1.2) if kind=='orbit' else .36
+        vertical_span=float((bounds[1,2]-bounds[0,2])*1.2) if kind=='orbit' else face_span
         distance=np.hypot(radius,z-target[2]);focal=height*distance/vertical_span
         poses=np.array([look_at(np.array([target[0]+radius*np.cos(a),target[1]+radius*np.sin(a),z]),target) for a in angles])
         cameras=Cameras(camera_to_worlds=torch.tensor(poses,dtype=torch.float32),fx=focal,fy=focal,cx=width/2,cy=height/2,width=width,height=height,camera_type=CameraType.PERSPECTIVE).to('cuda')

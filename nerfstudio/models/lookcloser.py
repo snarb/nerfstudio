@@ -278,6 +278,9 @@ class LookCloserModelConfig(ModelConfig):
     background_color: Literal["random", "last_sample", "black", "white"] = "black"
     """Background color strategy."""
 
+    background_opacity_loss_mult: float = 0.0
+    """Opt-in opacity penalty on batch background_mask pixels (True means trusted background)."""
+
     reconstruction_loss_type: Literal[
         "charbonnier",
         "mse",
@@ -1193,6 +1196,7 @@ class LookCloserModel(Model):
                 "depth": depth,
                 "accumulation": accumulation,
                 "num_samples_per_ray": torch.zeros((num_rays,), device=ray_bundle.origins.device),
+                "optical_thickness": torch.zeros((num_rays, 1), device=ray_bundle.origins.device),
                 "adaptive_num_samples": stats.num_samples.float(),
                 "adaptive_samples_mean": stats.mean_samples_per_ray,
                 "adaptive_samples_max": stats.max_samples_per_ray,
@@ -1242,11 +1246,17 @@ class LookCloserModel(Model):
                 weights=weights, ray_samples=ray_samples, ray_indices=ray_indices, num_rays=num_rays
             )
 
+        opacity_supervision = {}
+        if self.training and self.config.background_opacity_loss_mult > 0:
+            thickness = torch.zeros((num_rays, 1), device=weights.device, dtype=torch.float32)
+            thickness.index_add_(0, ray_indices, field_outputs[FieldHeadNames.DENSITY].float() * ray_samples.deltas.float())
+            opacity_supervision["optical_thickness"] = thickness
         return {
             "rgb": rgb,
             "depth": depth,
             "accumulation": accumulation,
             "num_samples_per_ray": packed_info[:, 1],
+            **opacity_supervision,
             "adaptive_num_samples": stats.num_samples.float(),
             "adaptive_samples_mean": stats.mean_samples_per_ray,
             "adaptive_samples_max": stats.max_samples_per_ray,
@@ -1638,6 +1648,8 @@ class LookCloserModel(Model):
             "rgb": acc_rgb,
             "depth": acc_depth / (acc_weights + 1e-6),
             "accumulation": acc_weights,
+            **({"optical_thickness": (density.float() * deltas.float()).sum(dim=1)}
+               if self.training and self.config.background_opacity_loss_mult > 0 else {}),
             "loss_ray_samples": loss_ray_samples,
             "loss_weights": weights,
         }
@@ -1730,6 +1742,17 @@ class LookCloserModel(Model):
         for name, value in self._last_occupancy_stats.items():
             metrics_dict[name] = value
         return metrics_dict
+
+    @staticmethod
+    def background_opacity_penalty(optical_thickness, background_mask):
+        """Exact background BCE: -log(1-alpha)=sum(sigma*dt), even at saturated alpha."""
+        if background_mask.dtype != torch.bool or background_mask.shape != optical_thickness.shape:
+            raise ValueError("background_mask must be boolean with the optical_thickness shape")
+        background_mask = background_mask.to(optical_thickness.device)
+        selected = optical_thickness.float()[background_mask]
+        if selected.numel() == 0:
+            return optical_thickness.sum() * 0.0
+        return selected.mean()
 
     def get_loss_dict(self, outputs, batch, metrics_dict=None):
         loss_dict = {}
@@ -1868,6 +1891,15 @@ class LookCloserModel(Model):
                 depth_loss = F.mse_loss(pred_depth[mask], gt_depth[mask])
                 loss_dict["depth_loss"] = self.config.depth_loss_mult * depth_loss
 
+        background_weight = float(self.config.background_opacity_loss_mult)
+        if background_weight > 0 and self.training:
+            if "background_mask" not in batch:
+                raise ValueError("Background opacity supervision requires a trusted background_mask")
+            if "optical_thickness" not in outputs:
+                raise ValueError("Background opacity supervision supports fixed and adaptive marching only")
+            loss_dict["background_opacity_loss"] = background_weight * self.background_opacity_penalty(
+                outputs["optical_thickness"], batch["background_mask"]
+            )
         return loss_dict
 
     def get_image_metrics_and_images(

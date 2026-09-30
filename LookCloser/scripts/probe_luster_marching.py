@@ -13,12 +13,13 @@ from blur_runtime import metrics,write
 
 @torch.no_grad()
 def main():
-    p=argparse.ArgumentParser();p.add_argument('run',type=Path);p.add_argument('--output',type=Path,required=True);p.add_argument('--allocator',action='store_true');p.add_argument('--coarse',action='store_true');args=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('run',type=Path);p.add_argument('--output',type=Path,required=True);p.add_argument('--allocator',action='store_true');p.add_argument('--coarse',action='store_true');p.add_argument('--occupancy',action='store_true');args=p.parse_args()
     torch.set_num_threads(2)
     request=json.loads((args.run/'request.json').read_text());selection=json.loads((args.run/'selection.json').read_text())
     cfg=yaml.load(Path(selection['config']).read_text(),Loader=yaml.Loader)
     state=torch.load(selection['checkpoint'],map_location='cpu',weights_only=False)
     pipe=cfg.pipeline.setup(device='cuda');pipe.load_pipeline(state['pipeline'],state['step']);pipe.eval();del state
+    original_binaries=pipe.model.occupancy_grid.binaries.clone()
     args.output.mkdir(parents=True,exist_ok=True);results=[];panels=[]
     for split,ds,camids in [('eval',pipe.datamanager.eval_dataset,[95,150]),('train',pipe.datamanager.train_dataset,[97,151])]:
         for i,path in enumerate(ds.image_filenames):
@@ -33,7 +34,11 @@ def main():
                 variants = [('legacy1024','adaptive',256,False,1024),('corrected1024','adaptive',256,True,1024),('legacy4096','adaptive',256,False,4096)]
             if args.coarse:
                 variants = [('coarse00625','adaptive',256,False,1024),('coarse001','adaptive',256,False,1024),('coarse0005','adaptive',256,False,4096)]
+            if args.occupancy:
+                variants = [('original','adaptive',256,False,1024),('dilate1','adaptive',256,False,1024),('fixed1024','fixed',1024,False,1024)]
             for label,mode,samples,corrected,cap in variants:
+                pipe.model.occupancy_grid.binaries.copy_(original_binaries);pipe.model._eval_occupancy_backup=None
+                pipe.model.config.occupancy_eval_dilation_radius=int(label=='dilate1')
                 pipe.model.config.ray_sampling_mode=mode;pipe.model.config.fixed_num_samples_per_ray=samples
                 pipe.model.config.corrected_arm_allocator=corrected;pipe.model.config.max_steps_per_ray=cap
                 if args.coarse:pipe.model.config.adaptive_coarse_step_size={'coarse00625':.00625,'coarse001':.001,'coarse0005':.0005}[label]
