@@ -35,7 +35,21 @@ def main():
             if 'queue_pid' in status:status['queue_alive']=alive(status['queue_pid'])
             progress=status.get('progress') or {}
             if name=='local' and progress.get('pid'):status['worker_alive_checked']=alive(progress['pid'])
+            if name=='local' and status.get('frame'):
+                log=root/'frames'/status['frame']/'logs/frequencies_queue.log'
+                if log.exists():
+                    with log.open('rb') as stream:
+                        stream.seek(max(0,log.stat().st_size-6000));tail=stream.read().decode(errors='replace')
+                    status['oom']='out of memory' in tail.lower()
             record['queues'][name]=status
+    controllers=[]
+    for process in psutil.process_iter(['pid','cmdline']):
+        command=process.info['cmdline'] or []
+        if any(Path(arg).name in ['run_luster_video_campaign.py','finish_luster_video_frame.py','export_luster_selection.py','render_luster_video_frame.py'] for arg in command) and any(arg.startswith(str(root)) for arg in command):
+            controllers.append(dict(pid=process.pid,alive=alive(process.pid),command=command))
+    record['campaign_processes']=controllers
+    priority=load(root/'gpu_priority/status.json')
+    if priority:record['gpu_priority']=dict(pid=priority['pid'],alive=alive(priority['pid']),age_seconds=time.time()-priority['time'],paused=len(priority.get('paused',[])))
     stages=[]
     for path in (root/'frames').glob('*/logs/s*/status.json'):
         status=load(path)
