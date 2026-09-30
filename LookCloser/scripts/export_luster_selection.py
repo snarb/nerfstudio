@@ -16,11 +16,25 @@ def main():
     p=argparse.ArgumentParser();p.add_argument('run',type=Path);p.add_argument('--output',required=True,type=Path)
     p.add_argument('--coarse-step',type=float,default=.0005);p.add_argument('--max-samples',type=int,default=4096)
     p.add_argument('--hull-margin-voxels',type=float,help='Optional conservative train-hull occupancy envelope; original field remains unchanged')
+    p.add_argument('--evaluation-data',type=Path,help='Diagnostic only: evaluate unchanged source field on another frame in identical coordinates')
     args=p.parse_args();torch.set_num_threads(2)
     if args.output.exists():raise ValueError('Export destination must be new')
     if args.coarse_step<=0 or args.max_samples<=0:raise ValueError('Integration settings must be positive')
     selected=json.loads((args.run/'selection.json').read_text());request=json.loads((args.run/'request.json').read_text())
     cfg=yaml.load(Path(selected['config']).read_text(),Loader=yaml.Loader)
+    source_data=request['data']
+    if args.evaluation_data is not None:
+        target=args.evaluation_data.resolve()
+        before=json.loads((Path(source_data)/'transforms.json').read_text())
+        after=json.loads((target/'transforms.json').read_text())
+        if before['blur_aabb']!=after['blur_aabb']:raise ValueError('Diagnostic transfer needs the same AABB')
+        old=json.loads((Path(source_data)/'bounds_audit.json').read_text())
+        new=json.loads((target/'bounds_audit.json').read_text())
+        if any(old[k]!=new[k] for k in ['normalization','scale']):raise ValueError('Diagnostic transfer needs identical coordinates')
+        cfg.pipeline.datamanager.dataparser.data=target
+        cfg.pipeline.datamanager.data=target
+        request.update(data=str(target),rois_by_image=json.loads((target/'video_rois.json').read_text()),
+                       diagnostic_only=True,diagnostic_source_data=source_data)
     cfg.pipeline.model.adaptive_coarse_step_size=args.coarse_step
     cfg.pipeline.model.max_steps_per_ray=args.max_samples
     cfg.load_checkpoint=Path(selected['checkpoint']);cfg.load_dir=None
@@ -49,6 +63,9 @@ def main():
                                    **{k:selected[k] for k in ['eval_all_psnr','eval_all_ssim','eval_all_lpips']}))
     for view,stats in zip(result['per_view'],statistics):stats['image']=view['image']
     if guard is not None:result['occupancy_guard']=guard
+    if args.evaluation_data is not None:
+        result['selected_by']['protocol']='Diagnostic source field on another frame; no target-frame training or checkpoint selection'
+        result['diagnostic_source_data']=source_data
     write(args.output/'selection.json',result)
     write(args.output/'complete.json',dict(checkpoint_sha256=sha(Path(selected['checkpoint'])),transforms_sha256=sha(Path(request['data'])/'transforms.json'),
                                          coarse_step=args.coarse_step,max_samples=args.max_samples,marching_statistics=statistics))
