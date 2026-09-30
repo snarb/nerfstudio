@@ -73,6 +73,8 @@ or until a quality-review gate. At a viable raw plateau it checks the final rend
 setting before choosing any further training. A failed export allows one bounded
 half-LR polish; another failure returns for review. Batch boundaries require
 recorded visual review.
+An individual numeric exception requires an accepted visual review, an explanation
+and the exact checkpoint SHA. It does not change the campaign's general thresholds.
 `render_luster_video_frame.py` uses shared fixed virtual cameras and writes model,
 field-parameter and PNG hashes. Framing fits projected train-hull points over the
 whole motion, with 6% border clearance; the detail view fits the upper 30% of height.
