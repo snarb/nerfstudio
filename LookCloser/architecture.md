@@ -1,5 +1,24 @@
 # LookCloser architecture
 
+## Luster static subject experiments
+
+The Luster runner keeps scene configuration separate from method defaults. It
+uses the validated density/SH implementation, a train-derived subject AABB,
+black-composited RGB and three held-out cameras. Original images, calibration,
+masks, source hashes, mask repair receipts and frequency-map input hashes are
+retained. Mixed portrait/landscape FAS samples global camera/pixel triples once;
+the ragged gather preserves camera identity instead of overwriting it per image.
+The old equal-resolution tensor path is unchanged.
+
+`run_luster_experiment.py` uses Trainer updates and full Trainer checkpoints,
+including Adam, scheduler, AMP scaler and RNG. Each requested stage ends at an
+explicit visual gate. Evaluation restores RNG, reports native RGB and fixed
+subject crops, and selects all-eval PSNR with LPIPS tie-break within .07 dB.
+`supervise_luster_job.py` records workers, GPU memory, progress and OOM evidence
+every 30 seconds. Frequency regression runs independently per train image;
+maps are shared by the paired experiments. See
+[Luster 000470](experiments/luster_000470.md).
+
 ## Density scale and blur validation
 
 The field keeps legacy softplus behavior for old checkpoints. The opt-in
