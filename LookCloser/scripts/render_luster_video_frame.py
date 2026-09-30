@@ -65,7 +65,8 @@ def main():
     p=argparse.ArgumentParser();p.add_argument('root',type=Path);p.add_argument('frame');p.add_argument('selection',type=Path)
     args=p.parse_args();torch.set_num_threads(2);spec=camera_spec(args.root)
     selected=json.loads(args.selection.read_text())
-    if selected.get('diagnostic_only'):raise ValueError('Diagnostic exports cannot be promoted to a temporal video')
+    if any(selected.get(key) for key in ['diagnostic_only','diagnostic_source_data','zero_frequency_grid']):
+        raise ValueError('Diagnostic exports cannot be promoted to a temporal video')
     cfg=yaml.load(Path(selected['config']).read_text(),Loader=yaml.Loader)
     if Path(cfg.pipeline.datamanager.dataparser.data).parent.name!=args.frame:raise ValueError('Selected model belongs to another temporal frame')
     state=torch.load(selected['checkpoint'],map_location='cpu',weights_only=False)
