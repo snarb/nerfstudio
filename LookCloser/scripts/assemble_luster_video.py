@@ -3,6 +3,7 @@ import argparse
 import csv
 import hashlib
 import json
+import os
 from pathlib import Path
 import subprocess
 from PIL import Image,ImageDraw
@@ -43,15 +44,22 @@ def main():
     with (out/'metrics.csv').open('w') as f:
         writer=csv.DictWriter(f,fieldnames=columns);writer.writeheader();writer.writerows(rows)
     ffmpeg=imageio_ffmpeg.get_ffmpeg_exe();videos={}
+    # This host's /usr/local/lib contains an incompatible libmpg123. Restrict
+    # only the system ffprobe child to the matching distribution libraries.
+    probe_env=os.environ.copy();probe_env.pop('LD_PRELOAD',None)
+    probe_env['LD_LIBRARY_PATH']='/usr/lib/x86_64-linux-gnu'
     for kind in ['body','detail']:
         destination=out/f'{kind}_30fps.mp4'
         subprocess.run([ffmpeg,'-hide_banner','-loglevel','error','-y','-framerate','30','-start_number',str(int(frames[0])),
                         '-i',str(root/'video_frames'/kind/'%06d.png'),'-frames:v','60','-c:v','libx264','-crf','16','-threads','2',
-                        '-pix_fmt','yuv420p','-movflags','+faststart',str(destination)],check=True)
+                        '-vf','scale=in_range=full:out_range=tv:out_color_matrix=bt709','-pix_fmt','yuv420p',
+                        '-color_range','tv','-colorspace','bt709','-color_primaries','bt709','-color_trc','bt709',
+                        '-movflags','+faststart',str(destination)],check=True)
         subprocess.run([ffmpeg,'-v','error','-i',str(destination),'-f','null','-'],check=True)
         probe=json.loads(subprocess.check_output(['ffprobe','-v','error','-count_frames','-select_streams','v:0',
-                         '-show_entries','stream=width,height,avg_frame_rate,nb_read_frames,duration','-of','json',str(destination)],text=True))['streams'][0]
+                         '-show_entries','stream=width,height,avg_frame_rate,nb_read_frames,duration,color_space,color_range,color_primaries,color_transfer','-of','json',str(destination)],text=True,env=probe_env))['streams'][0]
         if probe['nb_read_frames']!='60' or probe['avg_frame_rate']!='30/1' or abs(float(probe['duration'])-2)>1e-6:raise ValueError('Encoded timeline differs')
+        if probe['color_space']!='bt709' or probe['color_range']!='tv':raise ValueError('Encoded color metadata differs')
         sheet=Image.new('RGB',(10*180,6*342))
         for i,frame in enumerate(frames):
             im=Image.open(root/'video_frames'/kind/f'{frame}.png');im.thumbnail((180,320));x=(i%10)*180;y=(i//10)*342
