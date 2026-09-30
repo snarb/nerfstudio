@@ -12,6 +12,7 @@ def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('root',type=Path);p.add_argument('variant',choices=['control','exp_sh']);p.add_argument('end_step',type=int)
     p.add_argument('--parent',type=Path);p.add_argument('--fr',type=float,choices=[1.,.3])
+    p.add_argument('--coarse-step',type=float,help='Override adaptive coarse marching step after a frozen-render diagnostic')
     p.add_argument('--reason',required=True);p.add_argument('--label');p.add_argument('--dry-run',action='store_true')
     args=p.parse_args();repo=Path(__file__).resolve().parents[2];root=args.root.resolve()
     if args.parent:
@@ -24,6 +25,9 @@ def main():
     else:
         request=json.loads((repo/'LookCloser/recipes/luster_000470'/f'{args.variant}_02000.json').read_text())
     if args.fr is not None:request['model']['feature_reweighting_strength']=args.fr
+    if args.coarse_step is not None:
+        if args.coarse_step<=0:raise ValueError('Coarse step must be positive')
+        request['model']['adaptive_coarse_step_size']=args.coarse_step
     label=args.label or f'{args.variant}_{args.end_step:05d}'
     if Path(label).name!=label:raise ValueError('Label must be one directory name')
     output=root/'runs'/label

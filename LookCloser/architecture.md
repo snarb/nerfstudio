@@ -19,6 +19,12 @@ every 30 seconds. Frequency regression runs independently per train image;
 maps are shared by the paired experiments. See
 [Luster 000470](experiments/luster_000470.md).
 
+`probe_luster_marching.py` compares integrators on identical frozen face rays.
+It separates field reconstruction from early fixed-training/adaptive-evaluation
+differences, and tests the adaptive cap and coarse interval size independently.
+`launch_luster_stage.py --coarse-step` records a scene-specific marching distance
+in an explicit continuation request; method defaults stay unchanged.
+
 ## Density scale and blur validation
 
 The field keeps legacy softplus behavior for old checkpoints. The opt-in
