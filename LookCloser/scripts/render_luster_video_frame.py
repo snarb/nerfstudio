@@ -37,7 +37,7 @@ def camera_spec(root):
     for kind in ['body','detail']:
         box=bounds.copy()
         if kind=='detail':
-            box[0,2]=bounds[1,2]-.42*(bounds[1,2]-bounds[0,2])
+            box[0,2]=bounds[1,2]-.30*(bounds[1,2]-bounds[0,2])
             box[0,:2]=head_low-head_padding;box[1,:2]=head_high+head_padding
         target=box.mean(0)
         position=np.array([center[0]+radius*np.cos(heading),center[1]+radius*np.sin(heading),target[2]+.12])
@@ -55,7 +55,7 @@ def camera_spec(root):
         assert (pixel_bounds[0]>=np.array([width,height])*.06-1e-5).all()
         assert (pixel_bounds[1]<=np.array([width,height])*.94+1e-5).all()
         spec[kind]=dict(pose=pose.tolist(),width=width,height=height,fx=float(focal),fy=float(focal),cx=float(principal[0]),cy=float(principal[1]),
-                       framing=dict(source='All sequence train-hull points; detail uses upper42 percent of common height',projected_bounds=pixel_bounds.tolist()))
+                       framing=dict(source='All sequence train-hull points; detail uses upper30 percent of common height',projected_bounds=pixel_bounds.tolist()))
     write(path,dict(protocol='Fixed virtual cameras; one fresh trained model for each real time',fps=30,cameras=spec,hull_sha256=hull_hashes))
     return json.loads(path.read_text())
 
