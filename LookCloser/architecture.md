@@ -1683,3 +1683,18 @@ directory links; `review_cinematic_6k_output.py` verifies the complete temporal
 inventory, native encodes, PNG bytes and visual review before delivery. This is
 not a model default, new geometry, or an artifact-free claim. See
 `experiments/dec5_cinematic_6k_output.md` for retained limitations and provenance.
+
+## Validated density and mixed-resolution sampling fixes (2026-10-01)
+
+`LookCloserField` has opt-in `density_activation=trunc_exp` and
+`correct_sh_directions=True`. The exponential casts TCNN logits to FP32 before
+bias and activation; SH maps unit directions from [-1, 1] to [0, 1]. Defaults
+retain legacy softplus and direction handling. Archived density experiments
+with different math fail explicitly; use their training branch to load them.
+
+FAS initializes each frequency map with its own height and width. For list image
+batches it samples global camera buckets once, restricts them to cached camera
+IDs, then gathers pixels from those same cameras. The last patch covers residual
+image borders. Masked ragged batches and grouped training patches are rejected
+explicitly. Tests cover shuffled/subset camera IDs, mixed dimensions and borders.
+Dataset-specific background supervision and hull rendering remain on `chinise_girl`.

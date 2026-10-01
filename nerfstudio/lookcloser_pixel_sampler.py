@@ -464,6 +464,7 @@ class LookCloserPixelSampler(PixelSampler):
         bucket_lists = {l: [] for l in range(self.config.num_levels)}
 
         for img_idx, freq_file, f_map, min_res, max_res, num_levels in map_records:
+            H_map, W_map = f_map.shape
 
             # Compute levels for the map
             # l = log_b(f / min_res)
@@ -937,6 +938,95 @@ class LookCloserPixelSampler(PixelSampler):
         shuffle_mask = torch.randperm(all_indices.shape[0], device=device)
         return all_indices[shuffle_mask]
 
+    def _sample_variable_resolution(self, batch: Dict) -> Dict:
+        """Sample global FAS buckets once, then gather each camera's own pixels.
+
+        The base list collator samples once per image and overwrites the camera
+        index. That is invalid for FAS, whose buckets already select a camera.
+        Bucket camera IDs refer to dataset indices, not positions in this batch.
+        """
+        if self.config.training_patch_size != 1:
+            raise ValueError("Variable-resolution FAS supports independent rays only")
+        if "mask" in batch and not self.config.ignore_mask:
+            raise ValueError("Variable-resolution FAS requires unmasked supervision")
+        images = batch["image"]
+        device = images[0].device
+        ids = batch["image_idx"].detach().cpu().long()
+        if len(ids) != len(images) or len(torch.unique(ids)) != len(ids):
+            raise ValueError("Expected one unique dataset camera index per image")
+        if (ids < 0).any():
+            raise ValueError("Dataset camera indices must be nonnegative")
+        # Restrict global buckets for cached subsets, preserving level weights.
+        signature = tuple(ids.tolist())
+        if getattr(self, "_variable_batch_signature", None) != signature:
+            lut = torch.full((max(int(ids.max()), max(self.image_shapes, default=0)) + 1,), -1, dtype=torch.long)
+            lut[ids] = torch.arange(len(ids))
+            buckets = []
+            for level in range(self.config.num_levels):
+                bucket = self.buckets[level].cpu().long()
+                valid = (bucket[:, 0] >= 0) & (bucket[:, 0] < len(lut))
+                bucket = bucket[valid]
+                bucket = bucket[lut[bucket[:, 0]] >= 0]
+                bucket = bucket.clone()
+                bucket[:, 0] = lut[bucket[:, 0]]
+                buckets.append(bucket)
+            self._variable_batch_signature = signature
+            self._variable_batch_buckets = buckets
+        buckets = self._variable_batch_buckets
+        weights = np.asarray(self.probs) * np.array([len(b) > 0 for b in buckets])
+        fas_count = round(self.num_rays_per_batch * self.current_fas_strength) if weights.sum() else 0
+        weights = weights / weights.sum() if weights.sum() else weights
+        expected = weights * fas_count
+        counts = np.floor(expected).astype(int)
+        for level in np.argsort(-(expected - counts))[:fas_count - counts.sum()]:
+            counts[level] += 1
+        heights = torch.tensor([im.shape[0] for im in images], device=device)
+        widths = torch.tensor([im.shape[1] for im in images], device=device)
+        selected = []
+        uniform_count = self.num_rays_per_batch - fas_count
+        if uniform_count:
+            camera = torch.randint(len(images), (uniform_count,), device=device)
+            y = (torch.rand(uniform_count, device=device) * heights[camera]).long()
+            x = (torch.rand(uniform_count, device=device) * widths[camera]).long()
+            selected.append(torch.stack((camera, y, x), -1))
+        for level, count in enumerate(counts):
+            if not count:
+                continue
+            group = max(int(self.config.fas_patch_group_size), 1)
+            bucket = buckets[level]
+            cells = bucket[torch.randint(len(bucket), (int(np.ceil(count / group)),))]
+            cells = cells.repeat_interleave(group, dim=0)[:count].to(device)
+            camera = cells[:, 0]
+            y0 = cells[:, 1] * self.patch_stride
+            x0 = cells[:, 2] * self.patch_stride
+            # Preprocessing fits complete patches. Extend the last patch's
+            # sampling support over any residual image border (e.g. 1406px).
+            y_span = torch.where(y0 + self.patch_stride + self.patch_size > heights[camera],
+                                 heights[camera] - y0, self.patch_size)
+            x_span = torch.where(x0 + self.patch_stride + self.patch_size > widths[camera],
+                                 widths[camera] - x0, self.patch_size)
+            y = y0 + (torch.rand(count, device=device) * y_span).long()
+            x = x0 + (torch.rand(count, device=device) * x_span).long()
+            y = y.clamp_min(0).minimum(heights[camera] - 1)
+            x = x.clamp_min(0).minimum(widths[camera] - 1)
+            selected.append(torch.stack((camera, y, x), -1))
+        indices = torch.cat(selected)[torch.randperm(self.num_rays_per_batch, device=device)]
+        result = {}
+        for key, values in batch.items():
+            if key == "image_idx" or values is None:
+                continue
+            output = torch.empty((len(indices), *values[0].shape[2:]), dtype=values[0].dtype, device=values[0].device)
+            for camera in torch.unique(indices[:, 0]).tolist():
+                keep = indices[:, 0] == camera
+                xy = indices[keep].to(values[camera].device)
+                output[keep.to(output.device)] = values[camera][xy[:, 1], xy[:, 2]]
+            result[key] = output
+        indices[:, 0] = ids.to(device)[indices[:, 0]]
+        result["indices"] = indices
+        if self.config.keep_full_image:
+            result["full_image"] = images
+        return result
+
     def sample(self, image_batch: Dict, *, commit_sample_count: bool = True):
         """
         Main sampling entry point called by DataManager.
@@ -962,7 +1052,8 @@ class LookCloserPixelSampler(PixelSampler):
 
         # Call the standard sample logic which internally calls sample_method
         self.current_fas_strength = self._active_fas_strength()
-        batch = super().sample(image_batch)
+        batch = (self._sample_variable_resolution(image_batch)
+                 if isinstance(image_batch["image"], list) else super().sample(image_batch))
         if commit_sample_count:
             self.sample_count += 1
         return batch

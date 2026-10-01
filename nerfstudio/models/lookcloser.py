@@ -34,6 +34,17 @@ from nerfstudio.utils.lookcloser_rng import fork_seeded_rng
 from nerfstudio.utils.hdr import hdr_display_preview, scene_linear_to_pq
 
 
+def validate_density_checkpoint_controls(config):
+    """Refuse archived experimental math that this branch does not implement."""
+    activation = config.density_activation
+    unsupported = getattr(config, "density_normalization", "none") != "none"
+    unsupported |= bool(getattr(config, "density_clip", False))
+    unsupported |= activation == "softplus" and bool(getattr(config, "density_fp32", False))
+    unsupported |= activation == "trunc_exp" and getattr(config, "density_fp32", True) is False
+    if unsupported:
+        raise ValueError("Use the training code branch for experimental density checkpoint controls")
+
+
 @dataclass
 class LookCloserModelConfig(ModelConfig):
     """Configuration for LookCloser Model."""
@@ -107,6 +118,12 @@ class LookCloserModelConfig(ModelConfig):
 
     tcnn_network_jit_scope: TCNNNetworkJITScope = "both"
     """TCNN field network(s) affected by initial and live JIT enablement."""
+
+    # Field parameterization. Legacy defaults preserve existing checkpoints.
+    density_activation: Literal["softplus", "trunc_exp"] = "softplus"
+    """Exponential evaluates logits in FP32 to prevent TCNN FP16 overflow."""
+    correct_sh_directions: bool = False
+    """Map unit directions to the [0, 1] domain expected by TCNN SH encoding."""
 
     # Loss weights
     distortion_loss_mult: float = 0.01
@@ -485,6 +502,7 @@ class LookCloserModel(Model):
         self._geometry_support_binary_cache_key: Optional[Tuple[int, float, int, str]] = None
 
         # 2. LookCloser Field (Frequency-Aware)
+        validate_density_checkpoint_controls(self.config)
         self.field = LookCloserField(
             aabb=self.scene_box.aabb,
             freq_grid=self.freq_grid,
@@ -512,6 +530,8 @@ class LookCloserModel(Model):
             pq_peak_nits=self.config.pq_peak_nits,
             hdr_softplus_beta=self.config.hdr_softplus_beta,
             pq_code_temperature=self.config.pq_code_temperature,
+            density_activation=self.config.density_activation,
+            correct_sh_directions=self.config.correct_sh_directions,
         )
 
         # 3. Renderers
