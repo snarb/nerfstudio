@@ -1,0 +1,114 @@
+[
+  {
+    "frame": "000470",
+    "step": 28000,
+    "eval_all_psnr": 30.65871238708496,
+    "eval_all_ssim": 0.9620521664619446,
+    "eval_all_lpips": 0.03690147896607717,
+    "checkpoint_sha256": "e08b1a6b492054baddc994785a0b05132b4b92469d7ea79691af9722a6907a4d"
+  },
+  {
+    "frame": "000471",
+    "step": 20000,
+    "eval_all_psnr": 30.145644505818684,
+    "eval_all_ssim": 0.9555781881014506,
+    "eval_all_lpips": 0.044631131614247956,
+    "checkpoint_sha256": "dd3d0c002965b521e8ea3115a0cbd5bc5061f1e3b142acb2f144f54aba61298f"
+  },
+  {
+    "frame": "000472",
+    "step": 20000,
+    "eval_all_psnr": 30.03840700785319,
+    "eval_all_ssim": 0.9539291461308798,
+    "eval_all_lpips": 0.04581602911154429,
+    "checkpoint_sha256": "922cbf1785df0158ae2edce14a8a46eb5d7c85371d3374572817fbbba717b5e2"
+  },
+  {
+    "frame": "000473",
+    "step": 22000,
+    "eval_all_psnr": 29.98516782124837,
+    "eval_all_ssim": 0.9532480239868164,
+    "eval_all_lpips": 0.046158443515499435,
+    "checkpoint_sha256": "312c9955f1ad5a332da050426a9089e97d6ab3a8267ddf488241e77521d0b63b"
+  },
+  {
+    "frame": "000474",
+    "step": 18000,
+    "eval_all_psnr": 29.600283940633137,
+    "eval_all_ssim": 0.9511522253354391,
+    "eval_all_lpips": 0.04962916920582453,
+    "checkpoint_sha256": "619f1184f67e140234d44fc9f957d921891a8ccc5e271e49625788e6fc6431d2"
+  },
+  {
+    "frame": "000475",
+    "step": 16000,
+    "eval_all_psnr": 29.668113072713215,
+    "eval_all_ssim": 0.9506870905558268,
+    "eval_all_lpips": 0.05233025550842285,
+    "checkpoint_sha256": "f723921e421c7e3ce5d6eb6e59bbc35a293ffa666bae9b4b0a7936c03c2a9e4f"
+  },
+  {
+    "frame": "000476",
+    "step": 20000,
+    "eval_all_psnr": 29.912537892659504,
+    "eval_all_ssim": 0.9516027967135111,
+    "eval_all_lpips": 0.05020562931895256,
+    "checkpoint_sha256": "979a94497a9d59df108165dfce96d808d82c9fa5d1782e20678df4c4684d743b"
+  },
+  {
+    "frame": "000477",
+    "step": 20000,
+    "eval_all_psnr": 29.994873046875,
+    "eval_all_ssim": 0.9514560699462891,
+    "eval_all_lpips": 0.05120708296696345,
+    "checkpoint_sha256": "7e4667a85f46aa62e4fd75a94d54fed3c0adc9692930107bbd5a2b863b107f3d"
+  },
+  {
+    "frame": "000478",
+    "step": 24000,
+    "eval_all_psnr": 29.987144470214844,
+    "eval_all_ssim": 0.9524693489074707,
+    "eval_all_lpips": 0.04973555728793144,
+    "checkpoint_sha256": "637aee6b17e69091613041e72f9bbeea9ad73176bffdfb9d8dec493862feb8db"
+  },
+  {
+    "frame": "000479",
+    "step": 24000,
+    "eval_all_psnr": 30.066596349080402,
+    "eval_all_ssim": 0.9523490269978842,
+    "eval_all_lpips": 0.051176571597655617,
+    "checkpoint_sha256": "c90aaa85e3993f1f6ea9bdc6aac5a5b8c0d18149000bcd02527d94ba21b4dd06"
+  },
+  {
+    "frame": "000480",
+    "step": 22000,
+    "eval_all_psnr": 29.110713958740234,
+    "eval_all_ssim": 0.9512614210446676,
+    "eval_all_lpips": 0.0524895116686821,
+    "checkpoint_sha256": "75e1671fe9d36dfe80621ceabcd384304eefaf7f92ff14936253df00aa920a1e"
+  },
+  {
+    "frame": "000481",
+    "step": 18000,
+    "eval_all_psnr": 28.943801244099934,
+    "eval_all_ssim": 0.9487747550010681,
+    "eval_all_lpips": 0.05713741729656855,
+    "checkpoint_sha256": "92e08fced954f65ddc95e12363ebeee2b22d39450f3e7fdc73d0570e5909adaa"
+  },
+  {
+    "frame": "000482",
+    "step": 16000,
+    "eval_all_psnr": 29.028010686238606,
+    "eval_all_ssim": 0.9458783864974976,
+    "eval_all_lpips": 0.061361261953910194,
+    "checkpoint_sha256": "3c777e686968cc26e5fd2a51258a4c64938f249d7fe2826914fd6ab1c12eb09f"
+  },
+  {
+    "frame": "000483",
+    "step": 16000,
+    "eval_all_psnr": 29.01458803812663,
+    "eval_all_ssim": 0.9447440107663473,
+    "eval_all_lpips": 0.06358419234553973,
+    "checkpoint_sha256": "ddebb746dad8c815ce98d253ce0dc85bdb425a6bdd69df6ab4728af9d22b186c"
+  }
+]
