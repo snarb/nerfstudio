@@ -42,7 +42,7 @@ def main():
     if panels:
         sheet=Image.new('RGB',(6*240,((len(panels)+5)//6)*350))
         for i,panel in enumerate(panels):sheet.paste(panel,((i%6)*240,(i//6)*350))
-        destination=args.root/'preflight/video_roi_contact.jpg';sheet.save(destination,quality=92)
+        destination=args.root/'preflight/video_roi_contact.jpg';destination.parent.mkdir(parents=True,exist_ok=True);sheet.save(destination,quality=92)
     write(args.root/'video_rois_complete.json',dict(frames=frames))
 
 

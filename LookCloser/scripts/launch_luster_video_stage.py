@@ -6,7 +6,7 @@ from pathlib import Path
 import subprocess
 import sys
 
-from prepare_luster_video import write, environment, SCRIPTS, REFERENCE
+from prepare_luster_video import write, environment, SCRIPTS, CONFIG
 from archive_luster_checkpoint import restore
 
 
@@ -20,7 +20,7 @@ def main():
     args=p.parse_args();root=args.root.resolve();frame_root=root/'frames'/args.frame;data=frame_root/'data'
     if not (root/'preparation_complete.json').exists():raise ValueError('Freeze and audit sequence bounds before training')
     if args.resume_run and args.warm_parent:raise ValueError('Choose continuation within a frame or transfer to a new frame')
-    template=REFERENCE/'runs/exp_sh_fasfix_fr03_lr002_40000/request.json'
+    template=CONFIG/'recipe.json'
     if args.resume_run:
         request=json.loads((args.resume_run/'request.json').read_text())
         if Path(request['data']).resolve()!=data:raise ValueError('Full-state resume cannot cross frames')
@@ -30,7 +30,7 @@ def main():
         request.update(resume=str(restore(previous['latest_checkpoint'])),parent_history=str(args.resume_run/'history.json'))
     else:
         source=json.loads(template.read_text())
-        request={k:deepcopy(source[k]) for k in ['seed','eval_stride','train_review_indices','model','background_mask_margin']}
+        request={k:deepcopy(source[k]) for k in ['seed','eval_stride','train_review_indices','model','background_mask_margin','rays']}
         request['rois_by_image']=json.loads((data/'video_rois.json').read_text())
         request['data']=str(data)
         request['lr']=args.initial_lr or (.002 if args.warm_parent else .01)

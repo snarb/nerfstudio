@@ -1,0 +1,33 @@
+{
+  "seed": 42,
+  "eval_stride": 1,
+  "train_review_indices": [
+    10,
+    94,
+    147
+  ],
+  "model": {
+    "density_activation": "trunc_exp",
+    "correct_sh_directions": true,
+    "density_normalization": "none",
+    "adaptive_coarse_step_size": 0.001,
+    "background_opacity_loss_mult": 0.02,
+    "feature_reweighting_strength": 0.3,
+    "log2_hashmap_size": 23,
+    "max_res": 8192.0,
+    "adaptive_warmup_steps": 4096,
+    "occupancy_warmup_steps": 4096,
+    "occupancy_binary_warmup_steps": 4096,
+    "stable_occupancy_reduction": true,
+    "max_steps_per_ray": 1024,
+    "ray_sampling_mode": "adaptive",
+    "enable_adaptive_ray_marching": true,
+    "enable_frequency_grid": true,
+    "enable_feature_reweighting": true,
+    "depth_loss_mult": 0.0
+  },
+  "background_mask_margin": 3,
+  "rays": 4096,
+  "lr_final": 0.0001,
+  "lr_steps": 200000
+}

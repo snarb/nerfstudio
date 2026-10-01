@@ -87,3 +87,27 @@ def test_numeric_exception_requires_review_of_the_exact_checkpoint(tmp_path,monk
     else:
         with pytest.raises(SystemExit) as error:campaign.main()
         assert error.value.code==2
+
+
+def test_resume_uses_latest_complete_stage_when_early_checkpoints_were_pruned(tmp_path,monkeypatch):
+    def write(relative,value):
+        path=tmp_path/relative;path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(value))
+    write('visual_reviews/000471.json',dict(accepted=True))
+    write('snapshots/000471.json',dict(run='/parent'))
+    write('frames/000472/data/frequency_complete.json',{})
+    selected=dict(result(28.,.10),step=10000,checkpoint='/latest_selected')
+    for step in (6000,10000):
+        prefix=f'frames/000472/runs/s{step:06d}'
+        write(prefix+'/complete.json',dict(latest_checkpoint='/latest'))
+        write(prefix+'/request.json',dict(lr=.002))
+        write(prefix+'/history.json',[selected])
+        write(prefix+'/selection.json',selected)
+    monkeypatch.setattr(sys,'argv',['campaign',str(tmp_path),'--start','472','--end','472'])
+    restored=[]
+    monkeypatch.setattr(campaign,'restore',lambda path:restored.append(path))
+    monkeypatch.setattr(campaign,'prune_dominated',lambda *a:None)
+    monkeypatch.setattr(campaign.subprocess,'run',lambda *a,**kw:pytest.fail('Do not retrain a completed stage'))
+    with pytest.raises(SystemExit) as error:campaign.main()
+    assert error.value.code==2
+    assert restored==['/latest_selected']
+    assert json.loads((tmp_path/'campaign_status.json').read_text())['run'].endswith('s010000')

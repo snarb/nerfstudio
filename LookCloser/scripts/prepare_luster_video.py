@@ -16,7 +16,8 @@ from PIL import Image
 
 REPO = Path(__file__).resolve().parents[2]
 SCRIPTS = REPO / 'LookCloser/scripts'
-REFERENCE = Path('/home/brans/lookcloser_luster/000470')
+CONFIG = REPO / 'LookCloser/configs/chinise_girl'
+NORMALIZATION = CONFIG / 'normalization.json'
 
 
 def write(path, value):
@@ -27,11 +28,13 @@ def write(path, value):
 
 def environment():
     env = os.environ.copy()
-    env.update(PYTHONPATH=str(REPO)+os.pathsep+str(SCRIPTS),
-               CUDA_HOME='/home/brans/repos/nerfstudio/.cuda128-toolchain',
-               TORCH_EXTENSIONS_DIR='/home/brans/.cache/torch_extensions_lookcloser',
-               OMP_NUM_THREADS='2', OPENBLAS_NUM_THREADS='2', TORCHINDUCTOR_COMPILE_THREADS='2')
-    env['PATH'] = str(Path(sys.executable).parent)+os.pathsep+env['CUDA_HOME']+'/bin'+os.pathsep+env['PATH']
+    env['PYTHONPATH'] = os.pathsep.join([str(REPO), str(SCRIPTS), env.get('PYTHONPATH', '')])
+    for key in ['OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'TORCHINDUCTOR_COMPILE_THREADS']:
+        env.setdefault(key, '2')
+    paths = [str(Path(sys.executable).parent)]
+    if env.get('CUDA_HOME'):
+        paths.append(str(Path(env['CUDA_HOME']) / 'bin'))
+    env['PATH'] = os.pathsep.join(paths + [env.get('PATH', '')])
     return env
 
 
@@ -88,31 +91,27 @@ print(json.dumps({k:hashlib.sha256(v.read_bytes()).hexdigest() for k,v in items.
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('root',type=Path);p.add_argument('--start',type=int,default=470)
-    p.add_argument('--end',type=int,default=529);p.add_argument('--host',default='ubuntu@dev3');p.add_argument('--workers',type=int,default=4)
+    p.add_argument('--end',type=int,default=529);p.add_argument('--host',default='ubuntu@dev3');p.add_argument('--workers',type=int,default=1)
     args=p.parse_args();args.root.mkdir(parents=True,exist_ok=True)
     frames=[f'{i:06d}' for i in range(args.start,args.end+1)]
     if (args.root/'preparation_complete.json').exists():
         if json.loads((args.root/'preparation_complete.json').read_text())['frames']!=frames:raise ValueError('Prepared frame range differs')
         print('Sequence preparation already complete');return
     write(args.root/'manifest.json',dict(frames=frames,fps=30,duration_seconds=len(frames)/30,
-          source='/fsx/tmp/luster/root_8s/working/fullres',normalization_reference=str(REFERENCE/'data/bounds_audit.json'),
+          source='/fsx/tmp/luster/root_8s/working/fullres',normalization_reference=str(NORMALIZATION),
           status='preparing',pid=os.getpid()))
     def prepare_one(frame):
         root=args.root/'frames'/frame;logdir=root/'logs';logdir.mkdir(parents=True,exist_ok=True)
         if (root/'data/audit_preprocessing.json').exists():return frame
         if shutil.disk_usage(args.root).free < 9*2**30:raise RuntimeError('Less than 9 GiB free before preprocessing')
         write(root/'prepare_progress.json',dict(phase='preparing',frame=frame,pid=os.getpid(),time=time.time()))
-        if frame=='000470':
-            for folder in ['source','data']:
-                if not (root/folder).exists():shutil.copytree(REFERENCE/folder,root/folder)
-        else:
-            ingest(root,frame,args.host)
-            if not (root/'data/complete.json').exists():
-                with (logdir/'prepare.log').open('a') as log:
-                    subprocess.run([sys.executable,str(SCRIPTS/'prepare_luster_frame.py'),str(root),'--frame',frame,
-                         '--normalization-reference',str(REFERENCE/'data/bounds_audit.json'),'--reuse-images'],env=environment(),stdout=log,stderr=subprocess.STDOUT,check=True)
-            with (logdir/'audit_preprocessing.log').open('a') as log:
-                subprocess.run([sys.executable,str(SCRIPTS/'audit_luster_data.py'),str(root)],env=environment(),stdout=log,stderr=subprocess.STDOUT,check=True)
+        ingest(root,frame,args.host)
+        if not (root/'data/complete.json').exists():
+            with (logdir/'prepare.log').open('a') as log:
+                subprocess.run([sys.executable,str(SCRIPTS/'prepare_luster_frame.py'),str(root),'--frame',frame,
+                     '--normalization-reference',str(NORMALIZATION),'--reuse-images'],env=environment(),stdout=log,stderr=subprocess.STDOUT,check=True)
+        with (logdir/'audit_preprocessing.log').open('a') as log:
+            subprocess.run([sys.executable,str(SCRIPTS/'audit_luster_data.py'),str(root)],env=environment(),stdout=log,stderr=subprocess.STDOUT,check=True)
         return frame
     failures={}
     with ThreadPoolExecutor(max_workers=args.workers) as executor:

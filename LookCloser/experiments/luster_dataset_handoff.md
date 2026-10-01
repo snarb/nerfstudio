@@ -122,3 +122,22 @@ fine jewelry; no claim of artifact-free rendering from arbitrary cameras is made
 Detailed histories: [static experiment](luster_000470.md),
 [video experiment](luster_video_000470_000529.md). Historical absolute links in
 those reports identify archived evidence rather than fresh-machine dependencies.
+
+
+### Portable implementation validation
+
+The `chinise_girl` entrypoint and task file now live in Git. The recipe no longer
+loads the historical static request or forces a previous host's CUDA/cache paths.
+Frame470 is ingested from dev3 like every other frame. Source-specific mask
+repair is bundled with its reviewed evidence and exact source hashes. The first
+6000-step warm-frame stage requires visual review before longer continuation.
+The controller resumes the latest completed stage even if older checkpoints
+were pruned. Final acceptance binds the model identity and any numeric exception.
+
+CPU validation covers recipe construction, fresh470 preparation dispatch,
+new-machine environment settings, immutable campaign inputs, exclusive locking,
+checkpoint-bound visual gates, archive verification and retention. A real H.264
+fixture encodes two distinct1080×1920 frames at30FPS and verifies decode/ffprobe;
+stale acceptance and duplicate learned fields are rejected. GPU training and SSH
+are not available in the packaging session, so a fresh end-to-end run remains
+required on the destination machine. See `chinise_girl_video_task.md` at repo root.

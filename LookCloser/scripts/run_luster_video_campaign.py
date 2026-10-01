@@ -80,6 +80,17 @@ def main():
             time.sleep(30)
         parent=json.loads((root/'snapshots'/f'{number-1:06d}.json').read_text())
         prior_run=Path(parent['run']);last_run=None;end_step=6000;polished=False;lr_override=None
+        # Resume from the last complete stage. Earlier dominated checkpoints may
+        # already be pruned and must not be restored merely to replay decisions.
+        completed=[]
+        for candidate in (frame_root/'runs').glob('s[0-9][0-9][0-9][0-9][0-9][0-9]'):
+            if (candidate/'complete.json').exists():
+                completed.append((int(candidate.name[1:]),candidate))
+        if completed:
+            end_step,last_run=max(completed)
+            prior_request=json.loads((last_run/'request.json').read_text())
+            lr_override=prior_request.get('resume_fields_lr_override')
+            polished=lr_override is not None
         while True:
             run=frame_root/'runs'/f's{end_step:06d}'
             write(root/'campaign_status.json',dict(phase='training',frame=frame,end_step=end_step,time=time.time()))

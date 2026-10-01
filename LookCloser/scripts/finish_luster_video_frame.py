@@ -1,6 +1,7 @@
 """Export, render and archive one selected temporal model without hiding raw metrics."""
 import argparse
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -39,7 +40,7 @@ def main():
                   export_metrics={k:final[k] for k in ['eval_all_psnr','eval_all_ssim','eval_all_lpips']},
                   archived_checkpoint=archived,retained_checkpoints=retained,render_receipt=str(receipt),review_status='pending_visual_review',time=time.time())
     write(root/'snapshots'/f'{args.frame}.json',snapshot)
-    remote=f'ubuntu@dev3:{args.remote_root}/artifacts/frames/{args.frame}/'
+    remote=f"{os.environ.get('LUSTER_HOST','ubuntu@dev3')}:{args.remote_root}/artifacts/frames/{args.frame}/"
     # Earlier checkpoint archives live under this same directory. No --delete:
     # released local checkpoints must remain in the durable archive.
     subprocess.run(['rsync','-a','--exclude=*.ckpt',str(frame_root)+'/',remote],check=True)

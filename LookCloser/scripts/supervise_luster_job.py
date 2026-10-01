@@ -13,12 +13,8 @@ def main():
     p=argparse.ArgumentParser();p.add_argument('job',type=Path);args=p.parse_args()
     job=json.loads(args.job.read_text());root=Path(job['log_dir']);root.mkdir(parents=True,exist_ok=True)
     repo=Path(__file__).resolve().parents[2]
-    env=os.environ.copy()
-    env.update(PYTHONPATH=str(repo)+os.pathsep+str(repo/'LookCloser/scripts'),
-               CUDA_HOME='/home/brans/repos/nerfstudio/.cuda128-toolchain',
-               TORCH_EXTENSIONS_DIR='/home/brans/.cache/torch_extensions_lookcloser',
-               OMP_NUM_THREADS='2',OPENBLAS_NUM_THREADS='2',TORCHINDUCTOR_COMPILE_THREADS='2')
-    env['PATH']=str(Path(sys.executable).parent)+os.pathsep+env['CUDA_HOME']+'/bin'+os.pathsep+env['PATH']
+    from prepare_luster_video import environment
+    env=environment()
     started=time.time()
     with (root/'stdout.log').open('x') as log, (root/'supervision.jsonl').open('a') as journal:
         worker=subprocess.Popen(job['command'],cwd=repo/'LookCloser',env=env,stdout=log,stderr=subprocess.STDOUT)

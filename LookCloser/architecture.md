@@ -1815,3 +1815,16 @@ IDs, then gathers pixels from those same cameras. The last patch covers residual
 image borders. Masked ragged batches and grouped training patches are rejected
 explicitly. Tests cover shuffled/subset camera IDs, mixed dimensions and borders.
 Dataset-specific background supervision and hull rendering remain on `chinise_girl`.
+
+### Fresh-machine Luster entrypoint
+
+`run_chinise_girl_video.py` owns the new campaign manifest and exclusive lock.
+It fetches source data through the selected SSH host, uses repository-owned
+normalization/recipe files, prepares common bounds, fits frequency maps locally,
+and delegates measured training/export/archiving to the existing Luster tools.
+Current Python/CUDA/cache settings come from the new machine. Cold seed and
+per-frame final gates require evidence and checkpoint-bound reviews; failed
+numeric screens need an explicit recorded exception. Exit2 leaves a resumable
+visual gate. Stage/process/GPU/OOM records are written every30s. The assembler
+accepts any consecutive range at30FPS and verifies individual accepted models;
+470–529 produces exactly2seconds. No final image-quality acceptance is automatic.

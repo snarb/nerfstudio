@@ -1,0 +1,92 @@
+{
+  "frame": "000475",
+  "camera": 11,
+  "polygon_full_resolution": [
+    [
+      1344,
+      1390
+    ],
+    [
+      1325,
+      1412
+    ],
+    [
+      1310,
+      1432
+    ],
+    [
+      1303,
+      1453
+    ],
+    [
+      1293,
+      1470
+    ],
+    [
+      1275,
+      1495
+    ],
+    [
+      1250,
+      1525
+    ],
+    [
+      1230,
+      1548
+    ],
+    [
+      1212,
+      1564
+    ],
+    [
+      1297,
+      1564
+    ],
+    [
+      1310,
+      1549
+    ],
+    [
+      1327,
+      1533
+    ],
+    [
+      1346,
+      1521
+    ],
+    [
+      1358,
+      1500
+    ],
+    [
+      1360,
+      1472
+    ],
+    [
+      1361,
+      1440
+    ],
+    [
+      1358,
+      1423
+    ],
+    [
+      1353,
+      1406
+    ],
+    [
+      1350,
+      1390
+    ]
+  ],
+  "reason": "Visually confirmed studio background in SAM gap between left image arm and waist; conservative interior polygon leaves boundaries unchanged.",
+  "id": "cam011_gap_v1",
+  "reviewed": true,
+  "rgb_sha256": "b7a9542804bef044e05629ffc523d2d20c60b7130001788fd441592067125864",
+  "mask_sha256": "1edacb308de1775c9fa509e16a015101727036bb9e5f2da8fb438e395831a757",
+  "evidence": [
+    "LookCloser/experiments/assets/luster_handoff/cam011_gap_grid.jpg",
+    "LookCloser/experiments/assets/luster_handoff/cam011_polygon_proposal.jpg",
+    "LookCloser/experiments/assets/luster_handoff/cam011_plate_alignment.jpg"
+  ]
+}

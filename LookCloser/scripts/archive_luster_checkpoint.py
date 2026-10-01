@@ -2,6 +2,7 @@
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 import shlex
 import subprocess
@@ -17,7 +18,8 @@ def sha(path):
     return result.hexdigest()
 
 
-def archive(root, checkpoint, remote_root, host='ubuntu@dev3', release=False):
+def archive(root, checkpoint, remote_root, host=None, release=False):
+    host=host or os.environ.get('LUSTER_HOST','ubuntu@dev3')
     root=Path(root).resolve();checkpoint=Path(checkpoint).resolve()
     relative=checkpoint.relative_to(root)
     if 'runs' not in relative.parts or checkpoint.suffix!='.ckpt':raise ValueError('Only campaign training checkpoints may be released')
