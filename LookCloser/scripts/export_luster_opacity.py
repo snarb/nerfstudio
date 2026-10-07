@@ -12,7 +12,7 @@ import sys
 import numpy as np
 from PIL import Image,ImageDraw
 
-from run_luster_opacity import configuration,evaluate,sha,write
+from run_luster_opacity import configuration,configure_runtime,evaluate,sha,write
 
 
 def load(selected):
@@ -21,6 +21,7 @@ def load(selected):
     source=checkpoint.parents[4]
     request=json.loads((source/'request.json').read_text())
     request=deepcopy(request)
+    configure_runtime(request)
     request['resume']=str(checkpoint)
     request['end_step']=selected['step']
     cfg=configuration(request)

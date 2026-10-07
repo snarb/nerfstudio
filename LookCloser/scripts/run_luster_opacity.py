@@ -228,10 +228,22 @@ def evaluate(trainer,request,step,preview=False):
         pipe.train()
 
 
-def train(request):
+def configure_runtime(request):
+    """Apply recorded math controls before CUDA initialization, including exports."""
     deterministic = request.get('deterministic_torch', False)
     if deterministic:
         os.environ['CUBLAS_WORKSPACE_CONFIG'] = ':4096:8'
+    import torch
+    torch.set_num_threads(2)
+    torch.backends.cuda.matmul.allow_tf32=False
+    torch.use_deterministic_algorithms(deterministic)
+    torch.backends.cudnn.deterministic=deterministic
+    torch.backends.cudnn.benchmark=False
+    return deterministic
+
+
+def train(request):
+    deterministic = configure_runtime(request)
     import numpy as np
     import torch
     from nerfstudio.engine.callbacks import TrainingCallbackLocation
@@ -248,11 +260,6 @@ def train(request):
         raise ValueError('Train-only frequency preprocessing is incomplete')
     seed=request.get('seed',42)
     random.seed(seed); np.random.seed(seed); torch.manual_seed(seed)
-    torch.set_num_threads(2)
-    torch.backends.cuda.matmul.allow_tf32=False
-    torch.use_deterministic_algorithms(deterministic)
-    torch.backends.cudnn.deterministic=deterministic
-    torch.backends.cudnn.benchmark=False
     write(output/'request.json',request)
     source_root=Path(__file__).resolve().parents[2]
     source_files=[

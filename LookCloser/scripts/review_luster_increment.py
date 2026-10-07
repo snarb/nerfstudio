@@ -30,7 +30,7 @@ def review(control, candidate, output, step):
         raise FileExistsError('Preserve previous reviews; choose a new directory')
     requests=[read(run/'request.json') for run in [control,candidate]]
     results=[read(run/'result.json') for run in [control,candidate]]
-    for key in ['seed','data','independent_rng_streams']:
+    for key in ['seed','data','independent_rng_streams','deterministic_torch']:
         if requests[0].get(key)!=requests[1].get(key):
             raise ValueError(f'Unmatched comparison: {key}')
     origin=requests[0].get('comparison_origin_checkpoint',requests[0].get('resume'))
