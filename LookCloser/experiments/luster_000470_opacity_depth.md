@@ -759,3 +759,24 @@ and eval near.05, no added priors and no old incomparable history. After this
 baseline gate, reevaluate gentler/later opacity+depth branches with identical
 bounds before choosing the next small change. The complete40k hard-opaque,
 semantic and artifact-free recipe requirements remain outstanding.
+
+
+### Near.05 training gate at28k
+
+The ordinary model resumes26k→28k with train/eval near.05, no new priors and
+full optimizer/scaler/RNG state. It scores19.906/.8070/.2339. All six native
+face/hand/hair/clothing rows were inspected against26k evaluated at the same
+near.05. Quality stays coherent with mixed small changes:095 face PSNR−1.99dB,
+LPIPS+.0038;150 face PSNR+.61dB, LPIPS−.0028. This is a usable control rather
+than a claim of uniform quality improvement.28k becomes the common parent for
+new matched short prior tests. Historical near0 scores are excluded from its
+selection history.
+
+[Near.05 longitudinal review](/home/pavlo/renders/luster_000470_opacity/reviews/near05_training28k/comparison.json)
+
+The incremental reviewer now accepts explicit reevaluation directories while
+still checking source ancestry, first32 identical pixel/RGB batches, native
+GT crops and identical effective ray-bound/sampling settings. The corrected
+8k depth comparison passes those checks and remains visually unpromoted.
+The late16k opacity control under near.05 scores20.622/.8154/.2358; the matching
+gentle-depth candidate is being reevaluated before choosing a fresh branch.
