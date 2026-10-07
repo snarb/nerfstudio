@@ -77,11 +77,33 @@ def review(control, candidate, output, step):
             panel.thumbnail((770,200));sheet.paste(panel,(5,row*225+22))
             draw.text((5,row*225+3),name+' GT | control | candidate',fill='white')
         sheet.save(output/f'{label}.jpg')
+    interior=[]
+    sheet=Image.new('RGB',(780,225*6),'#222222');draw=ImageDraw.Draw(sheet)
+    for row,(split,index,_) in enumerate(keys[0]):
+        name=f'{split}_{index:03d}_face.png'
+        panels=[Image.open(run/f'eval_{step:06d}'/name).convert('RGB') for run in [control,candidate]]
+        width,height=panels[0].size;face_width=width//2
+        box=(face_width//4,height//4,3*face_width//4,3*height//4)
+        gt=panels[0].crop(box)
+        predictions=[p.crop((box[0]+face_width,box[1],box[2]+face_width,box[3])) for p in panels]
+        psnr=[]
+        for prediction in predictions:
+            mse=np.mean(((np.asarray(prediction,dtype=float)-np.asarray(gt,dtype=float))/255)**2)
+            psnr.append(float(-10*np.log10(max(mse,1e-12))))
+        interior.append(dict(split=split,index=index,relative_box=box,control_psnr=psnr[0],
+                             candidate_psnr=psnr[1],delta_psnr=psnr[1]-psnr[0]))
+        panel=Image.new('RGB',(gt.width*3,gt.height))
+        for i,im in enumerate([gt]+predictions):panel.paste(im,(i*gt.width,0))
+        panel.thumbnail((770,200));sheet.paste(panel,(5,row*225+22))
+        draw.text((5,row*225+3),name+' inner face GT | control | candidate',fill='white')
+    sheet.save(output/'face_interior.jpg')
     summary=dict(control=str(control),candidate=str(candidate),step=step,visual_review='pending',
         comparison_origin_checkpoint=origin,
         first32_pixel_rgb_batches_identical=True,transforms_sha256=results[0]['transforms_sha256'],
         full_metrics=[{k:m[f'eval_all_{k}'] for k in ['psnr','ssim','lpips']} for m in metrics],
         full_delta={k:metrics[1][f'eval_all_{k}']-metrics[0][f'eval_all_{k}'] for k in ['psnr','ssim','lpips']},
+        inner_face_8bit_psnr=interior,
+        inner_face_scope='Supplemental fixed central half of original face ROI; saved8bit RGB; no masks; not checkpoint selection',
         per_view_roi_deltas=deltas,worker_seconds_including_eval=[r['elapsed'] for r in results],
         note='Prepared evidence only; visual acceptance and repeat robustness require separate review')
     (output/'comparison.json').write_text(json.dumps(summary,indent=2,allow_nan=False)+'\n')
