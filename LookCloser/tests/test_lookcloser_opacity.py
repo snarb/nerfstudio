@@ -135,6 +135,52 @@ def test_hard_forward_has_geometry_surrogate_gradient():
     assert model.field.geometry.grad.abs()>0
 
 
+def test_implicit_first_root_depth_has_the_analytic_geometry_gradient():
+    model=_toy_surface().train()
+    model.config.surface_geometry_gradient_mode='implicit'
+    outputs=model._surface_outputs(_toy_rays())
+    assert abs(float(outputs['depth'][0])-1)<1e-4
+    outputs['depth'][0].backward()
+    # (z-1)(z-2)+theta=0 gives dz/dtheta=1 at the first root z=1.
+    assert torch.allclose(model.field.geometry.grad,torch.tensor(1.),atol=1e-3)
+    assert outputs['depth'][1]==0
+
+
+def test_implicit_rgb_gradient_follows_the_actual_surface_position():
+    model=_toy_surface().train()
+    model.config.surface_geometry_gradient_mode='implicit'
+    original=model.field.query_surface
+    def continuous_color(points,directions=None):
+        value=original(points,directions)
+        if directions is None:return value
+        sdf,_,alpha=value
+        rgb=torch.cat([points[:,2:3]*.25,torch.zeros_like(sdf),torch.zeros_like(sdf)],-1)
+        return sdf,rgb,alpha
+    model.field.query_surface=continuous_color
+    outputs=model._surface_outputs(_toy_rays())
+    assert torch.allclose(outputs['rgb'][0],torch.tensor([.25,0.,0.]),atol=1e-4)
+    outputs['rgb'][0,0].backward()
+    assert torch.allclose(model.field.geometry.grad,torch.tensor(.25),atol=1e-3)
+
+
+def test_hard_surface_depth_prior_does_not_penalize_nonphysical_cdf_width():
+    losses=[]
+    for mode in ['implicit','cdf']:
+        model=_toy_surface().train()
+        model.device_indicator_param=torch.nn.Parameter(torch.empty(0),requires_grad=False)
+        model.config.surface_geometry_gradient_mode=mode
+        model.config.depth_prior_strength=16.
+        rays=_toy_rays()
+        prior=dict(depth_prior=torch.tensor([[1.],[0.]]),depth_uncertainty=torch.tensor([[.001],[0.]]),
+                   depth_valid=torch.tensor([[True],[False]]))
+        rays.metadata=prior
+        outputs=model._surface_outputs(rays)
+        batch=dict(image=outputs['rgb'].detach(),**prior)
+        losses.append(model.get_loss_dict(outputs,batch)['trusted_depth_loss'])
+    assert losses[0]<1e-7
+    assert losses[1]>.01
+
+
 def test_eikonal_surface_probes_exclude_missed_brackets():
     model=_toy_surface().train()
     model.config.eikonal_loss_mult=.1

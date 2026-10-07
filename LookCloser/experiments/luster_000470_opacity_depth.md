@@ -201,3 +201,32 @@ are not appended on top of existing intervals (which would double optical
 thickness). Unknown rays keep normal sampling. Surface priors additionally
 supervise signed distance at the measured point and measured free space;
 linear-tail penalties preserve correction gradients far from the target.
+
+### Integrator correction and continuous surface trials (2026-10-07)
+
+Legacy ARM with a1024 interval cap could truncate the far part of a ray in the
+large unmasked camera-envelope AABB. Three of four inspected skin rays had
+near-zero accumulated opacity despite density peaks at trusted depth. The same
+checkpoint rendered with4096 or16384 intervals reaches opacity≈1 and the
+measured skin surface. Consequently early volume scores, including the depth4
+score4.85dB, do not establish model quality and must not rank recipes.
+The four legacy volume continuations were stopped and retained. Corrected
+volume trials start from the common step4096 state, enable the allocator that
+preserves the whole ray, train with4096 intervals and evaluate with16384
+intervals/coarse step.0005. They do not inherit legacy evaluation scores.
+
+- [Same-checkpoint sampling probe](/home/pavlo/renders/luster_000470_opacity/reviews/depth4_sampling_probe.json)
+- [Measured-depth ray profiles](/home/pavlo/renders/luster_000470_opacity/reviews/depth4_002000_profiles/profiles.png)
+
+The initial implicit-gradient surface trials still used discontinuous
+nearest-cell frequency weights for geometry. Their2k held-out PSNR/SSIM/LPIPS
+were8.075/.3916/.8054 without depth and9.545/.5240/.6629 with depth4; neither
+is promoted. A regression demonstrates that a frequency-cell boundary can
+change the signed-field sign without a continuous zero. New isolated trials
+use continuous interpolated hash features for signed geometry and the original
+frequency reweighting for appearance. Implicit first-hit derivatives and a
+physical surface depth objective avoid constraining CDF surrogate thickness.
+Defaults preserve archived configurations.27 focused tests and a16-step
+measured-depth CUDA smoke pass; these validate execution, not image quality.
+
+No final40k checkpoint or download artifact is available at this stage.

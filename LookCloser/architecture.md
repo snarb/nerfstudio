@@ -24,11 +24,22 @@ keeps its volume field. Its volume mode integrates `T(1-T)` exactly over
 constant-density intervals, including unsampled gaps. Trusted depth constrains
 termination mass inside an uncertainty interval, rather than expected depth
 alone. `depth_prior_strength=0` disables these additional constraints.
+The campaign enables the existing corrected ARM allocator so interval caps
+preserve the complete ray partition. High-resolution evaluation uses separate,
+explicit sampling settings, recorded in each metrics row and export manifest.
 
 The surface modes retain LookCloser hash features, SH appearance, FAS and
 Frequency Grid, but replace density with a signed surface head. A coarse
 sign-change search and bisection render the first intersection with alpha 1;
-the training forward is hard while a CDF surrogate supplies geometry gradients.
+the training forward is hard. Archived prototypes use CDF geometry gradients;
+opt-in `surface_geometry_gradient_mode=implicit` differentiates the actual
+intersection with a guarded signed-field directional derivative. Missing
+intersections keep a CDF fallback. Its trusted-depth objective constrains the
+physical first hit, signed zero/free space and a local sign bracket, rather
+than penalizing the artificial width of the CDF gradient surrogate.
+`surface_sdf_features=continuous` uses interpolated hash features for geometry
+and retains frequency reweighting for appearance: nearest-cell frequency
+weights can create sign discontinuities without a surface zero.
 Appearance is learned at the actual intersection. Numerical eikonal gradients
 avoid depending on second derivatives of tiny-cuda-nn. Surface traversal does
 not use the density occupancy grid or the volume distortion objective. This is

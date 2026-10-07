@@ -22,6 +22,8 @@ class LookCloserOpacityModelConfig(LookCloserModelConfig):
     surface_num_samples: int = 256
     surface_refine_steps: int = 8
     surface_inverse_width: float = 400.
+    surface_geometry_gradient_mode: Literal['cdf','implicit'] = 'cdf'
+    surface_sdf_features: Literal['reweighted','continuous'] = 'reweighted'
     eikonal_loss_mult: float = .1
     semantic_grid_path: str | None = None
     semantic_transparency_mult: float = .01
@@ -33,6 +35,10 @@ class LookCloserOpacityModel(LookCloserModel):
     def populate_modules(self):
         if self.config.representation not in {'volume','opaque_surface','semantic_surface'}:
             raise ValueError('Unknown LookCloser representation')
+        if self.config.surface_geometry_gradient_mode not in {'cdf','implicit'}:
+            raise ValueError('Unknown surface geometry gradient mode')
+        if self.config.surface_sdf_features not in {'reweighted','continuous'}:
+            raise ValueError('Unknown signed geometry feature mode')
         controls=[self.config.opacity_regularization,self.config.depth_prior_strength,self.config.eikonal_loss_mult]
         if any(not math.isfinite(value) or value<0 for value in controls):
             raise ValueError('Regularization must be nonnegative')
@@ -44,6 +50,8 @@ class LookCloserOpacityModel(LookCloserModel):
             raise ValueError('Surface experiments require sigmoid RGB/Charbonnier, black or white background, and no appearance embedding')
         self.field_class = LookCloserField if self.config.representation == 'volume' else LookCloserSurfaceField
         super().populate_modules()
+        if self.config.representation!='volume':
+            self.field.continuous_sdf = self.config.surface_sdf_features == 'continuous'
         self.freq_grid.skip_invalid_depth_updates = True
         self.register_buffer('opacity_representation',torch.tensor(
             ['volume','opaque_surface','semantic_surface'].index(self.config.representation),dtype=torch.int64))
@@ -90,7 +98,12 @@ class LookCloserOpacityModel(LookCloserModel):
         t = self._guided_edges(ray_bundle,t)
         count=t.shape[1]-1
         points = o[:,None]+d[:,None]*t[...,None]
-        sdf = self.field.query_surface(points.reshape(-1,3)).reshape(n,count+1)
+        implicit = self.training and self.config.surface_geometry_gradient_mode == 'implicit'
+        if implicit:
+            with torch.no_grad():
+                sdf = self.field.query_surface(points.reshape(-1,3)).reshape(n,count+1)
+        else:
+            sdf = self.field.query_surface(points.reshape(-1,3)).reshape(n,count+1)
         first,hit = first_crossing(sdf.detach())
         crossing = (sdf.detach()[:,:-1]*sdf.detach()[:,1:]<=0) & (
             (sdf.detach()[:,:-1]!=0)|(sdf.detach()[:,1:]!=0))
@@ -114,11 +127,24 @@ class LookCloserOpacityModel(LookCloserModel):
                 s_lo = torch.where(same,s_mid,s_lo)
             root = (lo+hi)*.5
             root_points = o[ray_ids]+d[ray_ids]*root[:,None]
-        _,color,alpha = self.field.query_surface(root_points,d[ray_ids])
+        differentiable_root = root
+        query_points = root_points
+        if implicit:
+            # dt/dtheta = -S_theta / (grad(S).direction), evaluated at the
+            # actual first intersection. The subtraction leaves the hard
+            # forward root exactly unchanged. Guard grazing derivatives.
+            with torch.no_grad():
+                denominator = (self.field.finite_gradients(root_points)*d[ray_ids]).sum(-1)
+                sign = torch.where(denominator>=0,1.,-1.)
+                denominator = sign*denominator.abs().clamp_min(.05)
+            root_sdf = self.field.query_surface(root_points).flatten()
+            differentiable_root = root-(root_sdf-root_sdf.detach())/denominator
+            query_points = o[ray_ids]+d[ray_ids]*differentiable_root[:,None]
+        _,color,alpha = self.field.query_surface(query_points,d[ray_ids])
         if self.config.representation == 'opaque_surface':
             hard_rgb = color*valid[:,None]
             hard_acc = valid[:,None].float()
-            hard_depth = root[:,None]*valid[:,None]
+            hard_depth = differentiable_root[:,None]*valid[:,None]
             transparency = color.sum()*0
         else:
             allowed = self._semantic_allowed(root_points)
@@ -132,12 +158,12 @@ class LookCloserOpacityModel(LookCloserModel):
             w,_ = nerfacc.render_weight_from_alpha(alpha[:,0],packed_info=packing)
             hard_rgb = w.new_zeros(n,3).index_add(0,ray_ids,w[:,None]*color.float())
             hard_acc = w.new_zeros(n,1).index_add(0,ray_ids,w[:,None])
-            expected_depth = w.new_zeros(n,1).index_add(0,ray_ids,w[:,None]*root[:,None])/hard_acc.clamp_min(1e-6)
+            expected_depth = w.new_zeros(n,1).index_add(0,ray_ids,w[:,None]*differentiable_root[:,None])/hard_acc.clamp_min(1e-6)
             # Surface geometry/frequency correspondence uses an actual surface,
             # never the mean location between hair and background layers.
             has_crossing=packing[:,1]>0
             hard_depth=w.new_zeros(n,1)
-            hard_depth[has_crossing]=root[packing[has_crossing,0],None]
+            hard_depth[has_crossing]=differentiable_root[packing[has_crossing,0],None]
             front_allowed=torch.zeros(n,dtype=torch.bool,device=o.device)
             front_allowed[has_crossing]=allowed[packing[has_crossing,0]]
             # RGB is averaged over the whole ray batch. Use that same domain
@@ -154,7 +180,12 @@ class LookCloserOpacityModel(LookCloserModel):
         if not self.training and self.config.representation == 'opaque_surface':
             gradients = self.field.finite_gradients(root_points)
             output['normals'] = F.normalize(gradients,dim=-1)*valid[:,None]
-        if self.training or getattr(self,'_surrogate_eval',False):
+        needs_surrogate = ((self.training and not implicit) or getattr(self,'_surrogate_eval',False)
+                           or (implicit and not bool(hit.all())))
+        if needs_surrogate:
+            if implicit:
+                # Only missed rays need a CDF fallback to form a surface.
+                sdf = self.field.query_surface(points.reshape(-1,3)).reshape(n,count+1)
             mids = (t[:,:-1]+t[:,1:])*.5
             sample_points = o[:,None]+d[:,None]*mids[...,None]
             _,rgb,_ = self.field.query_surface(sample_points.reshape(-1,3),d[:,None].expand(-1,count,-1).reshape(-1,3))
@@ -172,8 +203,13 @@ class LookCloserOpacityModel(LookCloserModel):
                 geometry_rgb = (weights[...,None]*rgb.detach().reshape(n,count,3)).sum(1)
                 if self.config.background_color == 'white':
                     geometry_rgb = geometry_rgb+1-soft_acc
-                output['rgb'] = hard_rgb+geometry_rgb-geometry_rgb.detach()
-                output['depth'] = hard_depth.detach()+soft_depth-soft_depth.detach()
+                if implicit:
+                    missing = (~hit)[:,None]
+                    output['rgb'] = hard_rgb+(geometry_rgb-geometry_rgb.detach())*missing
+                    output['depth'] = hard_depth+(soft_depth-soft_depth.detach())*missing
+                else:
+                    output['rgb'] = hard_rgb+geometry_rgb-geometry_rgb.detach()
+                    output['depth'] = hard_depth.detach()+soft_depth-soft_depth.detach()
             output.update(prior_weights=weights.reshape(-1,1),prior_mids=mids.reshape(-1,1),
                           prior_indices=torch.arange(n,device=o.device).repeat_interleave(count),
                           soft_rgb=soft_rgb,soft_accumulation=soft_acc,
@@ -187,6 +223,14 @@ class LookCloserOpacityModel(LookCloserModel):
             aabb = self.scene_box.aabb.to(o)
             uniform = aabb[0]+torch.rand(256,3,device=o.device)*(aabb[1]-aabb[0])
             sample = torch.cat([sample,uniform])
+            metadata=ray_bundle.metadata or {}
+            if implicit and self.config.depth_prior_strength>0 and 'depth_valid' in metadata:
+                trusted=metadata['depth_valid'].reshape(-1)
+                if self.config.representation == 'semantic_surface':
+                    trusted=trusted&~front_allowed
+                measured_points=(o+d*metadata['depth_prior'])[trusted].detach()
+                measured_points=measured_points[::max(1,len(measured_points)//256)][:256]
+                sample=torch.cat([sample,measured_points])
             if len(sample):
                 gradients = self.field.finite_gradients(sample)
                 output['eikonal'] = (gradients.norm(dim=-1)-1).square().mean()
@@ -197,6 +241,12 @@ class LookCloserOpacityModel(LookCloserModel):
             fractions=torch.tensor([.25,.5,.75,.95],device=o.device)
             probes=o[:,None]+d[:,None]*(gt*fractions[None,:])[...,None]
             output['prior_free_sdf']=self.field.query_surface(probes.reshape(-1,3)).reshape(n,4)
+            if implicit:
+                tolerance=torch.maximum(2*metadata['depth_uncertainty'],.01*gt/self.config.depth_prior_strength)
+                bracket=torch.cat([gt-2*tolerance,gt+2*tolerance],-1)
+                bracket=torch.minimum(torch.maximum(bracket,near),far)
+                probes=o[:,None]+d[:,None]*bracket[...,None]
+                output['prior_bracket_sdf']=self.field.query_surface(probes.reshape(-1,3)).reshape(n,2)
         return output
 
     def _guided_edges(self,ray_bundle,t):
@@ -323,8 +373,14 @@ class LookCloserOpacityModel(LookCloserModel):
             if 'prior_opaque' in outputs:
                 valid=valid&outputs['prior_opaque']
             tolerance = torch.maximum(2*uncertainty,.01*depth/strength)
-            prior = depth_interval_loss(outputs['prior_weights'],outputs['prior_mids'],outputs['prior_indices'],
-                                        len(depth),depth,tolerance,valid)
+            physical_surface = (self.config.representation!='volume'
+                                and self.config.surface_geometry_gradient_mode=='implicit')
+            # A hard surface already has a Dirac termination distribution.
+            # Penalizing the CDF training surrogate's width would conflict
+            # with unit SDF gradients and the requested arbitrarily tight prior.
+            prior = (outputs['rgb'].sum()*0 if physical_surface else
+                     depth_interval_loss(outputs['prior_weights'],outputs['prior_mids'],outputs['prior_indices'],
+                                         len(depth),depth,tolerance,valid))
             if self.config.representation != 'volume' and valid.any():
                 distance = ((outputs['depth']-depth).abs()-tolerance).clamp_min(0)/tolerance.clamp_min(1e-6)
                 prior = prior+F.smooth_l1_loss(distance[valid],torch.zeros_like(distance[valid]))
@@ -333,5 +389,12 @@ class LookCloserOpacityModel(LookCloserModel):
                 free=(tolerance-outputs['prior_free_sdf']).clamp_min(0)/tolerance.clamp_min(1e-6)
                 free=free[valid.reshape(-1)]
                 prior = prior+F.smooth_l1_loss(free,torch.zeros_like(free))
+                if physical_surface:
+                    brackets=outputs['prior_bracket_sdf']
+                    margin=.01*tolerance
+                    signs=torch.cat([margin-brackets[:,:1],margin+brackets[:,1:]],-1).clamp_min(0)/tolerance.clamp_min(1e-6)
+                    signs=signs[valid.reshape(-1)]
+                    prior=prior+F.smooth_l1_loss(signs,torch.zeros_like(signs))
+                    prior=prior+(1-outputs['surface_hit'][valid]).mean()
             losses['trusted_depth_loss'] = .01*strength*prior
         return losses

@@ -137,6 +137,14 @@ def evaluate(trainer,request,step,preview=False):
     pipe=trainer.pipeline
     state=_capture_rng_state()
     pipe.eval()
+    evaluation_model=request.get('evaluation_model',{})
+    allowed={'adaptive_coarse_step_size','max_steps_per_ray','surface_num_samples',
+             'surface_refine_steps','corrected_arm_allocator'}
+    if set(evaluation_model)-allowed:
+        raise ValueError('Evaluation overrides must change sampling controls only')
+    original_sampling={key:getattr(pipe.model.config,key) for key in evaluation_model}
+    for key,value in evaluation_model.items():
+        setattr(pipe.model.config,key,value)
     destination=Path(request['output'])/f'eval_{step:06d}'
     destination.mkdir(parents=True,exist_ok=True)
     rows=[]
@@ -188,12 +196,15 @@ def evaluate(trainer,request,step,preview=False):
                     rows.append(dict(split=split,index=index,image=name,**values,rois=rois,
                                      mean_opacity=float(acc.mean()),nonbinary_opacity_fraction=float(((acc>.001)&(acc<.999)).float().mean())))
         held=[r for r in rows if r['split']=='eval']
-        summary=dict(step=step,eval_stride=stride,checkpoint=str(trainer.checkpoint_dir/f'step-{step:09d}.ckpt'),
+        summary=dict(step=step,eval_stride=stride,evaluation_model=evaluation_model,
+                     checkpoint=str(trainer.checkpoint_dir/f'step-{step:09d}.ckpt'),
                      renders=str(destination),per_view=rows,
                      **{f'eval_all_{k}':float(np.mean([r[k] for r in held])) for k in ['psnr','ssim','lpips']})
         write(destination/'metrics.json',summary)
         return summary
     finally:
+        for key,value in original_sampling.items():
+            setattr(pipe.model.config,key,value)
         _restore_rng_state(state)
         pipe.train()
 
