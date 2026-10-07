@@ -64,6 +64,10 @@ front surfaces with permitted transparency do not receive opaque-depth priors.
 boundaries, saves native metrics/renders, and pauses at a visual review gate.
 Its `baseline_preset` request uses the ordinary model, manager and parser with
 standard model defaults and scene scale; new prior/semantic inputs are rejected.
+`leader_preset` retains those ordinary components and selects the documented
+exponential-density/corrected-SH field recipe. It rejects added priors and
+conflicting field math. Source RGB remains unmasked; masked historical leader
+scores are not comparable. Density activation changes require a fresh fit.
 Prepared camera normalization is retained without a second transformation.
 `incremental_standard` adds the prior subclass while retaining all ordinary
 model settings and bounds. Its explicit plain-volume checkpoint adapter adds

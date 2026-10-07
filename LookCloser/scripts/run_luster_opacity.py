@@ -60,7 +60,10 @@ def configuration(request):
         raise ValueError('Choose full resume or parameter-only warm start')
     cfg=deepcopy(method_configs['lookcloser'])
     data=Path(request['data'])
-    baseline=request.get('baseline_preset',False)
+    leader=request.get('leader_preset',False)
+    if leader and request.get('baseline_preset',False):
+        raise ValueError('Choose literal preset or the documented leader recipe')
+    baseline=request.get('baseline_preset',False) or leader
     incremental=request.get('incremental_standard',False)
     if baseline and incremental:
         raise ValueError('Choose ordinary preset or its incremental prior extension')
@@ -99,6 +102,11 @@ def configuration(request):
         model.correct_sh_directions=True
         model.depth_loss_mult=0.
         model.adaptive_coarse_step_size=.001
+    if leader:
+        for key,value in [('density_activation','trunc_exp'),('correct_sh_directions',True)]:
+            if request.get('model',{}).get(key,value)!=value:
+                raise ValueError(f'Leader recipe requires {key}={value}')
+            setattr(model,key,value)
     model.eval_num_rays_per_chunk=request.get('eval_chunk',model.eval_num_rays_per_chunk)
     if request.get('resume') and int(Path(request['resume']).stem.split('-')[-1])>=20000:
         model.feature_reweighting_strength=.3
