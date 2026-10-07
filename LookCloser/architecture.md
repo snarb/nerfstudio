@@ -6,6 +6,12 @@ Depth confidence policy v2 backprojects each measured nearest-neighbor source
 depth from its actual integer pixel. The manifest records the policy version
 and builder hash. `review_luster_depth_confidence.py` exports native RGB,
 measured-depth and trusted-depth crops plus ROI coverage for the visual gate.
+Semantic alpha scans and RGB accumulation use FP32 under autocast. An explicit
+`warm_start` request copies only field parameters with hash verification, while
+preserving the new representation/permissions and resetting optimization and
+sampling state; semantic comparisons require an equally reset surface control.
+`resume` keeps full training state. The runner rejects expired campaigns,
+nonadvancing continuations and destinations with existing training records.
 
 `LookCloserOpacityModel` is an opt-in subclass; the normal `lookcloser` preset
 keeps its volume field. Its volume mode integrates `T(1-T)` exactly over

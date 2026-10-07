@@ -1,5 +1,6 @@
 """Behavioral tests for opacity profiles and hard first-hit rendering."""
 import torch
+import pytest
 from nerfstudio.model_components.lookcloser_opacity import first_crossing, sdf_weights, opacity_profile_loss, depth_interval_loss
 
 
@@ -80,7 +81,7 @@ def test_soft_sdf_weights_concentrate_at_first_surface():
     assert w[0,3:].sum()<1e-5
 
 
-def _toy_surface(representation='opaque_surface',permission=False):
+def _toy_surface(representation='opaque_surface',permission=False,appearance_dtype=torch.float32):
     from nerfstudio.models.lookcloser_opacity import LookCloserOpacityModel,LookCloserOpacityModelConfig
     from nerfstudio.data.scene_box import SceneBox
     class Field(torch.nn.Module):
@@ -94,7 +95,7 @@ def _toy_surface(representation='opaque_surface',permission=False):
                 return sdf
             first=p[:,2:3]<1.5
             rgb=torch.cat([first.float(),torch.zeros_like(sdf),(~first).float()],-1)
-            return sdf,rgb,torch.sigmoid(self.alpha).expand(len(p),1)
+            return sdf,rgb.to(appearance_dtype),torch.sigmoid(self.alpha).expand(len(p),1).to(appearance_dtype)
         def finite_gradients(self,p):
             return torch.stack([p[:,0].sign(),torch.zeros_like(p[:,1]),2*p[:,2]-3],-1)
     model=LookCloserOpacityModel.__new__(LookCloserOpacityModel)
@@ -150,9 +151,11 @@ def test_guided_samples_partition_the_ray_and_leave_unknown_ray_unchanged():
     assert torch.equal(model._guided_edges(rays,t),t)
 
 
-def test_semantic_alpha_is_fixed_outside_permissions_and_gets_rgb_gradient(monkeypatch):
+@pytest.mark.parametrize('appearance_dtype',[torch.float32,torch.float16])
+def test_semantic_alpha_is_fixed_outside_permissions_and_gets_rgb_gradient(monkeypatch,appearance_dtype):
     import nerfacc
     def pure_weights(alpha,packed_info):
+        assert alpha.dtype==torch.float32  # Nerfacc's CUDA scan contract.
         trans=torch.cumprod(torch.cat([torch.ones_like(alpha[:1]),1-alpha]),0)[:-1]
         return alpha*trans,trans
     monkeypatch.setattr(nerfacc,'render_weight_from_alpha',pure_weights)
@@ -160,9 +163,9 @@ def test_semantic_alpha_is_fixed_outside_permissions_and_gets_rgb_gradient(monke
         counts=torch.bincount(indices,minlength=n)
         return torch.stack([counts.cumsum(0)-counts,counts],-1)
     monkeypatch.setattr(nerfacc,'pack_info',pure_pack)
-    forbidden=_toy_surface('semantic_surface',False).eval()._surface_outputs(_toy_rays())
+    forbidden=_toy_surface('semantic_surface',False,appearance_dtype).eval()._surface_outputs(_toy_rays())
     assert torch.equal(forbidden['rgb'][0],torch.tensor([1.,0.,0.]))
-    allowed=_toy_surface('semantic_surface',True).train()
+    allowed=_toy_surface('semantic_surface',True,appearance_dtype).train()
     outputs=allowed._surface_outputs(_toy_rays())
     assert torch.allclose(outputs['rgb'][0],torch.tensor([.5,0.,.25]),atol=1e-5)
     (outputs['rgb'][0]-torch.tensor([1.,0.,0.])).square().sum().backward()

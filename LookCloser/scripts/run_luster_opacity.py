@@ -55,6 +55,8 @@ def configuration(request):
     from nerfstudio.data.dataparsers.luster_opacity_dataparser import LusterOpacityDataParserConfig
     from nerfstudio.data.datamanagers.luster_opacity_datamanager import LusterOpacityDataManagerConfig
     from nerfstudio.models.lookcloser_opacity import LookCloserOpacityModelConfig
+    if request.get('resume') and request.get('warm_start'):
+        raise ValueError('Choose full resume or parameter-only warm start')
     cfg=deepcopy(method_configs['lookcloser'])
     data=Path(request['data'])
     cfg.pipeline.datamanager=LusterOpacityDataManagerConfig(**{k:v for k,v in vars(cfg.pipeline.datamanager).items() if k!='_target'})
@@ -109,6 +111,13 @@ def configuration(request):
         cfg.load_checkpoint=Path(request['resume'])
         cfg.load_optimizers=True
         cfg.load_scheduler=True
+    elif request.get('warm_start'):
+        # For paired surface/semantic forks, keep the reviewed permission grid
+        # and representation marker from the new config. Copy field parameters
+        # only; restart both paired arms with fresh optimization/sampling state.
+        cfg.load_checkpoint=Path(request['warm_start'])
+        cfg.checkpoint_load_mode='model_parameters_only'
+        cfg.checkpoint_load_parameter_hash_audit=True
     return cfg
 
 
@@ -198,6 +207,10 @@ def train(request):
     output.mkdir(parents=True,exist_ok=True)
     if (output/'request.json').exists():
         raise FileExistsError('Use a new output directory for each stage')
+    if time.time()>=request.get('campaign_deadline',float('inf')):
+        raise TimeoutError('Campaign budget has expired; do not launch another stage')
+    if request.get('resume') and request['end_step']<=int(Path(request['resume']).stem.split('-')[-1]):
+        raise ValueError('Full continuation must advance beyond its source checkpoint')
     if not request.get('smoke',False) and not (Path(request['data'])/'frequency_ready.json').exists():
         raise ValueError('Train-only frequency preprocessing is incomplete')
     seed=request.get('seed',42)
@@ -298,6 +311,8 @@ def train(request):
 def supervise(request_path):
     request=json.loads(Path(request_path).read_text())
     output=Path(request['output']); output.mkdir(parents=True,exist_ok=True)
+    if (output/'request.json').exists():
+        raise FileExistsError('Use a new output directory; preserve existing logs')
     log=output/'train_stdout.log'
     with log.open('w') as handle:
         child=subprocess.Popen([sys.executable,__file__,'train','--request',str(request_path)],

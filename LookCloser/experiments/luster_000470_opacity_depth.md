@@ -37,7 +37,7 @@ face/hair/hand/clothing patches have been visually inspected and retained:
 - [Data audit](/home/pavlo/renders/luster_000470_opacity/data/audit.json)
 - [Campaign budget](/home/pavlo/renders/luster_000470_opacity/campaign.json)
 
-Eighteen focused opacity/depth behavioral tests pass: first-crossing occlusion, empty rays,
+Twenty focused opacity/depth behavioral tests pass: first-crossing occlusion, empty rays,
 either SDF orientation, exact zero, finite surrogate gradients, interval-split
 invariance, empty-gap penalties, independent ray sums, saturated gradients,
 two-layer depth cancellation rejection, and invalid-depth exclusion.
@@ -56,6 +56,14 @@ fixed review paths encoded successfully on a tiny smoke checkpoint. These
 tests validate infrastructure, not reconstruction quality.
 No training quality claim follows
 from these infrastructure tests.
+
+A semantic CUDA smoke exposed an FP16 alpha input to Nerfacc's FP32 scan.
+Alpha and color accumulation now use FP32, with an added half-appearance
+regression case. Both forbidden-alpha and permitted-alpha CUDA smokes passed;
+the permitted case changed opacity-head parameters through RGB gradients.
+Parameter-only surface→semantic initialization preserved exact field hashes
+and fresh optimizer/grid/sampler state. These are infrastructure checks only;
+the artificial smoke permission grids are excluded from all quality arms.
 
 ### PatchMatch build canary
 

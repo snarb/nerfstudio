@@ -122,18 +122,21 @@ class LookCloserOpacityModel(LookCloserModel):
             transparency = color.sum()*0
         else:
             allowed = self._semantic_allowed(root_points)
+            # Nerfacc scans require FP32 even under mixed-precision training.
+            # Accumulate colors in the same dtype; casting retains head grads.
+            alpha = alpha.float()
             alpha = torch.where(allowed[:,None],alpha,torch.ones_like(alpha))
             # Packed ray IDs are sorted; opaque crossings set all later weights to zero.
             import nerfacc
             packing = nerfacc.pack_info(ray_ids,n)
             w,_ = nerfacc.render_weight_from_alpha(alpha[:,0],packed_info=packing)
-            hard_rgb = color.new_zeros(n,3).index_add(0,ray_ids,w[:,None]*color)
-            hard_acc = color.new_zeros(n,1).index_add(0,ray_ids,w[:,None])
-            expected_depth = color.new_zeros(n,1).index_add(0,ray_ids,w[:,None]*root[:,None])/hard_acc.clamp_min(1e-6)
+            hard_rgb = w.new_zeros(n,3).index_add(0,ray_ids,w[:,None]*color.float())
+            hard_acc = w.new_zeros(n,1).index_add(0,ray_ids,w[:,None])
+            expected_depth = w.new_zeros(n,1).index_add(0,ray_ids,w[:,None]*root[:,None])/hard_acc.clamp_min(1e-6)
             # Surface geometry/frequency correspondence uses an actual surface,
             # never the mean location between hair and background layers.
             has_crossing=packing[:,1]>0
-            hard_depth=color.new_zeros(n,1)
+            hard_depth=w.new_zeros(n,1)
             hard_depth[has_crossing]=root[packing[has_crossing,0],None]
             front_allowed=torch.zeros(n,dtype=torch.bool,device=o.device)
             front_allowed[has_crossing]=allowed[packing[has_crossing,0]]
