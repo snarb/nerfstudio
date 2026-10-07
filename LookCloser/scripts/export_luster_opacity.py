@@ -29,8 +29,9 @@ def load(selected):
     trainer.setup()
     trainer.pipeline.model.current_train_step=selected['step']
     if selected['step']>=20000:
-        trainer.pipeline.model.config.feature_reweighting_strength=.3
-        trainer.pipeline.model.field.feature_reweighting_strength=.3
+        strength=request.get('feature_reweighting_after_switch',.3)
+        trainer.pipeline.model.config.feature_reweighting_strength=strength
+        trainer.pipeline.model.field.feature_reweighting_strength=strength
     trainer.pipeline.eval()
     return trainer,request
 

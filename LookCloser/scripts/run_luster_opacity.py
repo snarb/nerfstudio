@@ -108,14 +108,15 @@ def configuration(request):
                 raise ValueError(f'Leader recipe requires {key}={value}')
             setattr(model,key,value)
     model.eval_num_rays_per_chunk=request.get('eval_chunk',model.eval_num_rays_per_chunk)
+    fr_after=request.get('feature_reweighting_after_switch',.3)
     if request.get('resume') and int(Path(request['resume']).stem.split('-')[-1])>=20000:
-        model.feature_reweighting_strength=.3
+        model.feature_reweighting_strength=fr_after
     for key,value in request.get('model',{}).items():
         if not hasattr(model,key):
             raise ValueError(f'Unknown model control {key}')
         setattr(model,key,value)
     cfg.pipeline.feature_reweighting_switch_step=20000
-    cfg.pipeline.feature_reweighting_after_switch=.3
+    cfg.pipeline.feature_reweighting_after_switch=fr_after
     cfg.pipeline.datamanager.pixel_sampler.ignore_mask=True
     cfg.pipeline.datamanager.train_num_rays_per_batch=request.get('rays',4096)
     if request.get('smoke',False):
