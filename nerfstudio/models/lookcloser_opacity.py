@@ -20,6 +20,7 @@ class LookCloserOpacityModelConfig(LookCloserModelConfig):
     opacity_ramp_steps: int = 4096
     depth_prior_strength: float = 0.
     depth_prior_loss_mult: float = .01
+    depth_prior_objective: Literal['distance','interval_mass'] = 'distance'
     surface_num_samples: int = 256
     surface_refine_steps: int = 8
     surface_inverse_width: float = 400.
@@ -43,6 +44,8 @@ class LookCloserOpacityModel(LookCloserModel):
             raise ValueError('Unknown surface geometry gradient mode')
         if self.config.surface_sdf_features not in {'reweighted','continuous'}:
             raise ValueError('Unknown signed geometry feature mode')
+        if self.config.depth_prior_objective not in {'distance','interval_mass'}:
+            raise ValueError('Unknown depth interval objective')
         controls=[self.config.opacity_regularization,self.config.depth_prior_strength,
                   self.config.depth_prior_loss_mult,self.config.eikonal_loss_mult]
         if any(not math.isfinite(value) or value<0 for value in controls):
@@ -393,7 +396,8 @@ class LookCloserOpacityModel(LookCloserModel):
             # with unit SDF gradients and the requested arbitrarily tight prior.
             prior = (outputs['rgb'].sum()*0 if physical_surface else
                      depth_interval_loss(outputs['prior_weights'],outputs['prior_mids'],outputs['prior_indices'],
-                                         len(depth),depth,tolerance,valid))
+                                         len(depth),depth,tolerance,valid,
+                                         objective=self.config.depth_prior_objective))
             if self.config.representation != 'volume' and valid.any():
                 distance = ((outputs['depth']-depth).abs()-tolerance).clamp_min(0)/tolerance.clamp_min(1e-6)
                 prior = prior+F.smooth_l1_loss(distance[valid],torch.zeros_like(distance[valid]))

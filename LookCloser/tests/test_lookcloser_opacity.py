@@ -4,6 +4,23 @@ import pytest
 from nerfstudio.model_components.lookcloser_opacity import first_crossing, sdf_weights, opacity_profile_loss, depth_interval_loss
 
 
+def test_interval_mass_prior_prefers_measured_surface_over_empty_or_remote_layers():
+    indices=torch.tensor([0,0,1,1])
+    depth=torch.tensor([[2.],[2.]])
+    tolerance=torch.full_like(depth,.02)
+    valid=torch.tensor([[True],[False]])
+    def compute(weights,mids):
+        return depth_interval_loss(weights,mids,indices,2,depth,tolerance,valid,'interval_mass')
+    w=torch.tensor([.02,.98,.5,.5],requires_grad=True)
+    value=compute(w,torch.tensor([1.,2.,.1,10.]))
+    value.backward()
+    assert w.grad[0]>0 and w.grad[1]<0
+    assert torch.equal(w.grad[2:],torch.zeros(2))
+    assert value<compute(torch.zeros(4),torch.tensor([1.,2.,.1,10.]))
+    assert torch.allclose(value,compute(w.detach(),torch.tensor([.01,2.,.1,10.])))
+    assert value<compute(torch.tensor([1.,0.,.5,.5]),torch.tensor([1.,2.,.1,10.]))
+
+
 def test_first_hit_occludes_second_surface_and_preserves_empty_ray():
     sdf=torch.tensor([[1.,-1.,1.,-1.],[1.,2.,3.,4.]])
     indices,hit=first_crossing(sdf)

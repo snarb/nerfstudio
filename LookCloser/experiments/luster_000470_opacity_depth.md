@@ -480,3 +480,52 @@ Reviewed12k comparison previews are copied to
 `/var/tmp/lookcloser_000470_delivery/incremental_12k`. All jobs finished at the
 visual gate; GPU is idle. Next: the prepared precise-interval/gentle-weight
 depth test, then any passing combination and bounded20k comparisons.
+
+
+### 16k/20k opacity and precise depth with gentler influence
+
+The opacity.1 branch continued from its latest12k state without other changes.
+A separate trial added native-sampler depth strength1 and coefficient.001 to
+that same12k parent, retaining the original1%/uncertainty interval. Another
+matched4k→8k trial tested depth alone with the same coefficient.
+
+| Branch | Step | PSNR | SSIM | LPIPS |
+| --- | ---: | ---: | ---: | ---: |
+| standard_opacity01_020000 | 16000 | 18.599 | 0.8030 | 0.2524 |
+| standard_opacity01_020000 | 20000 | 18.230 | 0.7974 | 0.2526 |
+| standard_depth1_weight0001_008000 | 8000 | 19.686 | 0.7902 | 0.2776 |
+| standard_opacity01_depth1_weight0001_016000 | 16000 | 18.243 | 0.7944 | 0.2566 |
+
+Adding precise depth at16k reduces full-frame PSNR.356dB and worsens LPIPS.00422
+against opacity.1 alone. All six face/hand/hair/clothing contacts were inspected.
+The095 face rectangle loses5.56dB. A supplemental fixed central-half face crop
+from saved8bit RGB loses13.35dB, with visibly darker skin; the background-margin
+hypothesis is rejected. Inner-face SSIM worsens in all six views. This branch
+is rejected at16k, rather than extended blindly. Depth alone at8k also fails
+foreground review despite acceptable full-frame metrics.
+
+- [Fixed inner-face measurements](/home/pavlo/renders/luster_000470_opacity/reviews/face_core_depth16k/metrics.json)
+- [Fixed inner-face comparison](/home/pavlo/renders/luster_000470_opacity/reviews/face_core_depth16k/contact.jpg)
+- [Full16k comparison](/home/pavlo/renders/luster_000470_opacity/reviews/standard_opacity01_depth1_weight0001_016000/comparison.json)
+
+A20×20 fixed integer-pixel grid per face/hand/clothing region on train cameras
+011/097/151 probes actual packed renderer weights without sampling overrides.
+The ordinary-opacity16k face mode already agrees with trusted PatchMatch:
+median relative errors+.025%,+.015%,+.019%;90th-percentile signed errors below
+.15%. Median premature face mass is1.714%,.334%,0%; added depth reduces all
+three medians to0%, yet changes skin color. Thus lower front-layer mass alone
+is not sufficient for visual acceptance. The result supports testing gentler
+or bounded influence, rather than assuming wholesale geometry displacement.
+These train-region probes do not certify unseen geometry or depth correctness.
+
+- [Opacity16k alignment](/home/pavlo/renders/luster_000470_opacity/reviews/depth_alignment_control16k.json)
+- [Added depth16k alignment](/home/pavlo/renders/luster_000470_opacity/reviews/depth_alignment_candidate16k.json)
+
+Two independent next screens preserve that same opacity12k parent: coefficient
+.0001 with historical distance cost; or coefficient.001 with `interval_mass`
+cost. The latter penalizes off-interval termination mass and missing in-interval
+mass without scaling remote layers by distance. Native RGB sampling, targets,
+seed and opacity strength stay unchanged. It is opt-in; the historical default
+is preserved.25 opacity tests pass, including gradient direction, empty-ray
+penalty, invalid-ray freedom, and bounded treatment of remote layers.
+The ordinary control is actively continuing12k→20k for matched gates.

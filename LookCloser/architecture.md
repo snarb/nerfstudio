@@ -1775,6 +1775,14 @@ not a model default, new geometry, or an artifact-free claim. See
 
 ## Validated density and mixed-resolution sampling fixes (2026-10-01)
 
+The opacity experiment can select `depth_prior_objective=interval_mass`: it
+penalizes termination mass outside a confidence interval plus missing mass
+inside it, without multiplying remote layers by their distance. The historical
+distance objective remains the default. This option changes only the auxiliary
+objective; native RGB sampling and invalid-depth freedom are preserved.
+`probe_luster_depth_alignment.py` measures actual packed termination on fixed
+integer train pixels using the unchanged checkpoint renderer.
+
 `LookCloserField` has opt-in `density_activation=trunc_exp` and
 `correct_sh_directions=True`. The exponential casts TCNN logits to FP32 before
 bias and activation; SH maps unit directions from [-1, 1] to [0, 1]. Defaults

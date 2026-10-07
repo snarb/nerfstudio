@@ -58,7 +58,8 @@ def opacity_profile_loss(weights: Tensor, starts: Tensor, ends: Tensor,
 
 
 def depth_interval_loss(weights: Tensor, mids: Tensor, indices: Tensor, num_rays: int,
-                        depth: Tensor, tolerance: Tensor, valid: Tensor) -> Tensor:
+                        depth: Tensor, tolerance: Tensor, valid: Tensor,
+                        objective: str = 'distance') -> Tensor:
     """Concentrate termination in a trusted interval; no constraints on invalid rays.
 
     Penalizing off-interval termination plus the missing in-interval mass avoids
@@ -69,10 +70,17 @@ def depth_interval_loss(weights: Tensor, mids: Tensor, indices: Tensor, num_rays
     trusted = valid.reshape(-1).bool()
     if not trusted.any():
         return w.sum()*0
-    distance = ((t-d[indices]).abs()-eps[indices]).clamp_min(0)/eps[indices]
-    penalty = torch.where(distance<1,.5*distance.square(),distance-.5)
-    per_ray = w.new_zeros(num_rays).scatter_add(0,indices,w*penalty)
     # Smooth admission provides gradients close to the interval boundary.
     admission = torch.sigmoid(8*(1-(t-d[indices]).abs()/eps[indices]))
+    if objective == 'distance':
+        distance = ((t-d[indices]).abs()-eps[indices]).clamp_min(0)/eps[indices]
+        penalty = torch.where(distance<1,.5*distance.square(),distance-.5)
+    elif objective == 'interval_mass':
+        # Small remote layers must not dominate solely because of distance.
+        # The missing-mass term still requires termination in the measured slab.
+        penalty = 1-admission
+    else:
+        raise ValueError('Unknown depth interval objective')
+    per_ray = w.new_zeros(num_rays).scatter_add(0,indices,w*penalty)
     mass = w.new_zeros(num_rays).scatter_add(0,indices,w*admission)
     return (per_ray[trusted]+(1-mass[trusted]).square()).mean()
