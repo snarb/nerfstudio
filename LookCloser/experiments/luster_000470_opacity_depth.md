@@ -566,3 +566,15 @@ from four8k rays, but do not certify all views or a hard opaque surface.
 The focused opacity/depth-witness/semantic suite passes32 tests. The new
 interval-mass experiment is prepared; the separate coefficient.0001 distance
 screen is actively training. Neither is promoted without its16k native gate.
+
+
+The12k→16k historical-distance screen with coefficient.0001 scores
+18.257/.7916/.2553, below opacity-only18.599/.8030/.2524. All six fixed
+inner-face/hand/hair/clothing rows were inspected. The095 inner-face PSNR
+falls14.68dB with visible darkening, despite tenfold gentler influence; this
+branch is rejected at the gate. The interval-mass screen is running separately.
+A metadata-only control is prepared: keep the measured-depth loader but set
+depth strength0, using the same12k parent. This will test the full training
+path rather than attributing repeated color drift solely to the objective.
+
+[Gentler16k comparison](/home/pavlo/renders/luster_000470_opacity/reviews/standard_opacity01_depth1_weight00001_016000/comparison.json)
