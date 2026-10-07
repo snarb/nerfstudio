@@ -19,6 +19,7 @@ class LookCloserOpacityModelConfig(LookCloserModelConfig):
     opacity_regularization: float = 0.
     opacity_ramp_steps: int = 4096
     depth_prior_strength: float = 0.
+    depth_prior_loss_mult: float = .01
     surface_num_samples: int = 256
     surface_refine_steps: int = 8
     surface_inverse_width: float = 400.
@@ -42,7 +43,8 @@ class LookCloserOpacityModel(LookCloserModel):
             raise ValueError('Unknown surface geometry gradient mode')
         if self.config.surface_sdf_features not in {'reweighted','continuous'}:
             raise ValueError('Unknown signed geometry feature mode')
-        controls=[self.config.opacity_regularization,self.config.depth_prior_strength,self.config.eikonal_loss_mult]
+        controls=[self.config.opacity_regularization,self.config.depth_prior_strength,
+                  self.config.depth_prior_loss_mult,self.config.eikonal_loss_mult]
         if any(not math.isfinite(value) or value<0 for value in controls):
             raise ValueError('Regularization must be nonnegative')
         if self.config.surface_num_samples < 2 or self.config.surface_refine_steps < 0 or self.config.surface_inverse_width <= 0:
@@ -407,5 +409,5 @@ class LookCloserOpacityModel(LookCloserModel):
                     signs=signs[valid.reshape(-1)]
                     prior=prior+F.smooth_l1_loss(signs,torch.zeros_like(signs))
                     prior=prior+(1-outputs['surface_hit'][valid]).mean()
-            losses['trusted_depth_loss'] = .01*strength*prior
+            losses['trusted_depth_loss'] = self.config.depth_prior_loss_mult*strength*prior
         return losses

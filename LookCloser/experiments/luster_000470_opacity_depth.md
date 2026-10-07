@@ -438,3 +438,10 @@ and does not establish that every ray is unaffected. The12k comparison keeps
 ordinary sampling settings rather than mixing renderer changes with training.
 
 [Frozen12k budget probe](/home/pavlo/renders/luster_000470_opacity/reviews/budget_probe_12k.json)
+
+The next depth experiment separates interval precision from loss influence:
+strength1 keeps its original uncertainty interval, while
+`depth_prior_loss_mult=.001` reduces the old.01 objective coefficient tenfold.
+The historical default is unchanged. A behavioral test confirms proportional
+loss scaling with unchanged targets;32 focused tests pass. This request is
+prepared but not yet run. It is not evidence of an image-quality improvement.

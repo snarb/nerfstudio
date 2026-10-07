@@ -72,6 +72,9 @@ loading; confidence input uses the same transforms hash with the ordinary parser
 For volume experiments, `volume_depth_guided_sampling=False` preserves native
 ARM/fixed sampling and adds only the trusted-depth objective. The archived
 guided partition remains opt-in through its recorded configuration.
+`depth_prior_loss_mult` defaults to.01 and controls objective weight separately
+from `depth_prior_strength`, which sets the uncertainty interval. This permits
+gentler RGB optimization without broadening the depth target.
 See [the opacity campaign](experiments/luster_000470_opacity_depth.md).
 
 `review_luster_increment.py` verifies common ancestry, calibrated native crops

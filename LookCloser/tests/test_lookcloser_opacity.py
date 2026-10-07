@@ -55,6 +55,25 @@ def test_trusted_depth_can_preserve_native_volume_sampling(monkeypatch):
     assert model._volume_outputs(rays) is original
 
 
+def test_depth_loss_weight_changes_without_relaxing_target_interval(monkeypatch):
+    from nerfstudio.models.lookcloser import LookCloserModel
+    from nerfstudio.models.lookcloser_opacity import LookCloserOpacityModel,LookCloserOpacityModelConfig
+    monkeypatch.setattr(LookCloserModel,'get_loss_dict',lambda self,o,b,m:{'rgb_loss':o['rgb'].sum()*0})
+    model=LookCloserOpacityModel.__new__(LookCloserOpacityModel)
+    torch.nn.Module.__init__(model)
+    model.config=LookCloserOpacityModelConfig(depth_prior_strength=1)
+    model.device_indicator_param=torch.nn.Parameter(torch.empty(0),requires_grad=False)
+    outputs=dict(rgb=torch.zeros(1,3),prior_weights=torch.tensor([.2,.8]),
+                 prior_mids=torch.tensor([1.,2.]),prior_indices=torch.tensor([0,0]))
+    batch=dict(depth_prior=torch.tensor([[2.]]),depth_uncertainty=torch.tensor([[.001]]),
+               depth_valid=torch.tensor([[True]]))
+    original=model.get_loss_dict(outputs,batch)['trusted_depth_loss']
+    model.config.depth_prior_loss_mult=.001
+    gentler=model.get_loss_dict(outputs,batch)['trusted_depth_loss']
+    assert torch.allclose(original,10*gentler)
+    assert model.config.depth_prior_strength==1
+
+
 def test_sign_orientation_and_exact_zero():
     indices,hit=first_crossing(torch.tensor([[-1.,1.,-1.],[1.,0.,-1.],[0.,0.,0.]]))
     assert hit.tolist()==[True,True,False]
