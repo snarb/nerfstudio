@@ -445,3 +445,38 @@ strength1 keeps its original uncertainty interval, while
 The historical default is unchanged. A behavioral test confirms proportional
 loss scaling with unchanged targets;32 focused tests pass. This request is
 prepared but not yet run. It is not evidence of an image-quality improvement.
+
+### Matched12k continuation gate
+
+All three branches continue their own8k states with the same common4k
+ancestor. Native12k comparison checks verified ancestry, identical first32
+batches and GT crops. All6 ROI contact sheets were visually inspected.
+
+| Pinned12k branch | PSNR | SSIM | LPIPS |
+| --- | ---: | ---: | ---: |
+| Ordinary control | 16.912 | .7906 | .2764 |
+| Opacity.01 | 17.537 | .7900 | .2675 |
+| Opacity.1 | 18.924 | .7979 | .2596 |
+
+Opacity.1 improves all3 held-out hand LPIPS and hand PSNR by+2.09/+1.30/+3.86dB.
+Held-out face PSNR changes−.09/−.56/+3.48dB; face LPIPS improves012/150 but
+worsens095 by.0127. Train151 face PSNR falls1.45dB. Remaining skin softness,
+noise and studio artifacts are not resolved. Opacity.01 has a larger095 face
+regression (−2.67dB). Opacity.1 is now the main provisional branch for further
+gates, supported by better12k metrics and its8k front-layer reduction. This
+does not prove that its12k front-layer statistics match8k; remeasurement is pending.
+
+Full-frame12k PSNR is below8k for all branches because studio errors increase,
+despite clearer foreground details. The historical best-checkpoint selector
+therefore still selects8k, and remains authoritative for best-metric exports.
+Continuation must use the latest12k state rather than reverting to that best
+checkpoint. No long/40k branch or artifact-free recipe is promoted here.
+
+- [Opacity.1 at12k](/home/pavlo/renders/luster_000470_opacity/reviews/standard_opacity01_012000/comparison.json)
+- [Face at12k](/home/pavlo/renders/luster_000470_opacity/reviews/standard_opacity01_012000/face.jpg)
+- [Hands at12k](/home/pavlo/renders/luster_000470_opacity/reviews/standard_opacity01_012000/hand.jpg)
+
+Reviewed12k comparison previews are copied to
+`/var/tmp/lookcloser_000470_delivery/incremental_12k`. All jobs finished at the
+visual gate; GPU is idle. Next: the prepared precise-interval/gentle-weight
+depth test, then any passing combination and bounded20k comparisons.
