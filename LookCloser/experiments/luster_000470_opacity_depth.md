@@ -696,3 +696,46 @@ The original goal remains incomplete: no accepted depth improvement, no
 40k hard opaque artifact, and no semantic3D quality arm. Next useful gate is
 baseline repair with one controlled FR continuation or the separately audited
 pixel-centre correction, before further opacity/depth combinations.
+
+
+### Camera-near density explains a large apparent foreground regression
+
+The FR1 continuation alone scores16.427/.7836/.2617 at28k against ordinary
+16.801/.7873/.2591. It is not promoted under the original evaluator; those
+scores still contain the subsequently identified camera-near contamination.
+
+On the same ordinary26k checkpoint, changing inference near plane0→.02 raises
+095 native-face PSNR18.159→27.211, SSIM.8916→.9259, LPIPS.07567→.05405. Exactly
+matching the old train near.01 produces no change: the entire effect cannot be
+attributed solely to train/eval mismatch. The harmful layer extends beyond.01.
+Near.05 yields27.501/.9271/.05211; further.25/.5 changes very little. Camera095,
+097,012,150 origins are inside the standard AABB. All qualified train-depth
+pixels have ray distance≥.5744; none is below.05. Unknown depth is not certified
+by this audit.
+
+A LookCloser-only opt-in collider now preserves the configured near plane in
+eval. Historical defaults and shared nerfstudio collider behavior remain
+unchanged. New train/eval near.05 settings can be tested consistently without
+source masks or RGB edits.34 focused tests pass, covering inside-camera rays,
+unchanged outer-box entry, historical defaults and positive dummy intervals.
+
+| Same ordinary26k weights, native all3 eval views | PSNR | SSIM | LPIPS |
+| --- | ---: | ---: | ---: |
+| Original eval near0 | 16.401 | .7816 | .2601 |
+| Eval near.05 | 19.832 | .7989 | .2277 |
+
+All six face/hand/hair/clothing contacts were inspected;095 face and garment
+lose the gray overlay. Noise, softness and studio artifacts remain. This is a
+renderer-domain diagnosis, not a learned depth/opacity improvement or a final
+best-checkpoint export. Existing prior comparisons must be reevaluated with
+the same ray bounds before interpreting their foreground regressions.
+Cold exponential4k fog persists at near.05 and remains unpromoted.
+
+- [Six-view near comparison](/home/pavlo/renders/luster_000470_opacity/reviews/near_fixed_standard26k/comparison.json)
+- [Minimum measured distances](/home/pavlo/renders/luster_000470_opacity/reviews/trusted_near_distance_audit.json)
+- [Exact near.01/.02 diagnostic](/home/pavlo/renders/luster_000470_opacity/reviews/near_match_counterfactual26k/metrics.json)
+- Delivery: `/var/tmp/lookcloser_000470_delivery/near_fixed_baseline26k`.
+
+Next active check: reevaluate the shared4k→8k ordinary control and native
+strength1 depth candidate with the same near.05 evaluator. Do not combine old
+near0 and corrected scores in checkpoint selection.
