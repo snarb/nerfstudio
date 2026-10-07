@@ -12,6 +12,8 @@ preserving the new representation/permissions and resetting optimization and
 sampling state; semantic comparisons require an equally reset surface control.
 `resume` keeps full training state. The runner rejects expired campaigns,
 nonadvancing continuations and destinations with existing training records.
+Surface eikonal probes include only actual visible hits plus uniform spatial
+probes, excluding failed brackets and fully occluded semantic back surfaces.
 
 `LookCloserOpacityModel` is an opt-in subclass; the normal `lookcloser` preset
 keeps its volume field. Its volume mode integrates `T(1-T)` exactly over

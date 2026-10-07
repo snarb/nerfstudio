@@ -37,7 +37,7 @@ face/hair/hand/clothing patches have been visually inspected and retained:
 - [Data audit](/home/pavlo/renders/luster_000470_opacity/data/audit.json)
 - [Campaign budget](/home/pavlo/renders/luster_000470_opacity/campaign.json)
 
-Twenty focused opacity/depth behavioral tests pass: first-crossing occlusion, empty rays,
+Twenty-one focused opacity/depth behavioral tests pass: first-crossing occlusion, empty rays,
 either SDF orientation, exact zero, finite surrogate gradients, interval-split
 invariance, empty-gap penalties, independent ray sums, saturated gradients,
 two-layer depth cancellation rejection, and invalid-depth exclusion.
@@ -93,6 +93,27 @@ train-normalized coordinate frame, so import applies normalization scale1.
 - [Face depth/validity review](/home/pavlo/renders/luster_000470_opacity/depth_canary_confidence_v2/face_review.jpg)
 - [Confidence manifest](/home/pavlo/renders/luster_000470_opacity/depth_canary_confidence_v2/manifest.json)
 - [Rejected native build](/home/pavlo/renders/luster_000470_opacity/depth_canary/canary_failure.json)
+
+The full162-camera PatchMatch reconstruction finished: all162 depth hashes are
+unique, no map is empty, and measured whole-frame coverage is1.15–38.62%
+(median8.53%). Policy-v2 confidence retains a median6.47% of the whole frame;
+the studio background accounts for much of the image area.
+
+| Train camera | Trusted face ROI | Trusted hand ROI | Trusted clothing ROI |
+| --- | ---: | ---: | ---: |
+| 011 | 63.88% | 3.64% | 1.93% |
+| 097 | 68.82% | 57.13% | 38.12% |
+| 151 | 55.59% | 49.53% | 63.57% |
+
+Native RGB/measured/trusted face crops, train097 hand, train151 clothing and
+the low-coverage train011 hand were visually reviewed. The accepted samples
+follow visible surface shape; rejected regions remain unknown. Qualification
+allows testing the prior, rather than certifying absolute depth accuracy.
+
+- [Full confidence face review](/home/pavlo/renders/luster_000470_opacity/depth_confidence/face_review.jpg)
+- [Full ROI coverage](/home/pavlo/renders/luster_000470_opacity/depth_confidence/roi_coverage.json)
+- [Qualification record](/home/pavlo/renders/luster_000470_opacity/depth_confidence/visual_review.json)
+- [Full PatchMatch inventory](/home/pavlo/renders/luster_000470_opacity/depth_full/depth_inventory.json)
 
 ### Semantic permission review
 

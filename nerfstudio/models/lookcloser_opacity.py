@@ -179,7 +179,11 @@ class LookCloserOpacityModel(LookCloserModel):
                           soft_rgb=soft_rgb,soft_accumulation=soft_acc,
                           surrogate_rgb_gap=(hard_rgb-soft_rgb).abs().mean())
         if self.training and self.config.eikonal_loss_mult>0:
-            sample = root_points.detach()[::max(1,len(root_points)//256)]
+            # A failed bracket is not a surface. Semantic back surfaces hidden
+            # by a fully opaque first hit should not change this regularizer.
+            visible_roots = valid if self.config.representation == 'opaque_surface' else w.detach()>1e-4
+            surface_points = root_points.detach()[visible_roots]
+            sample = surface_points[::max(1,len(surface_points)//256)]
             aabb = self.scene_box.aabb.to(o)
             uniform = aabb[0]+torch.rand(256,3,device=o.device)*(aabb[1]-aabb[0])
             sample = torch.cat([sample,uniform])

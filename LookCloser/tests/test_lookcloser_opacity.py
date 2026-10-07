@@ -135,6 +135,21 @@ def test_hard_forward_has_geometry_surrogate_gradient():
     assert model.field.geometry.grad.abs()>0
 
 
+def test_eikonal_surface_probes_exclude_missed_brackets():
+    model=_toy_surface().train()
+    model.config.eikonal_loss_mult=.1
+    observed=[]
+    original=model.field.finite_gradients
+    def recorded(points):
+        observed.append(points.detach().clone())
+        return original(points)
+    model.field.finite_gradients=recorded
+    model._surface_outputs(_toy_rays())
+    # One real first surface plus256 uniform probes. The second ray misses.
+    assert len(observed)==1 and len(observed[0])==257
+    assert torch.allclose(observed[0][0],torch.tensor([0.,0.,1.]),atol=1e-4)
+
+
 def test_guided_samples_partition_the_ray_and_leave_unknown_ray_unchanged():
     model=_toy_surface().train()
     model.config.depth_prior_strength=16.
