@@ -37,7 +37,7 @@ face/hair/hand/clothing patches have been visually inspected and retained:
 - [Data audit](/home/pavlo/renders/luster_000470_opacity/data/audit.json)
 - [Campaign budget](/home/pavlo/renders/luster_000470_opacity/campaign.json)
 
-Twenty-one focused opacity/depth behavioral tests pass: first-crossing occlusion, empty rays,
+Twenty-three focused opacity/depth/permission behavioral tests pass: first-crossing occlusion, empty rays,
 either SDF orientation, exact zero, finite surrogate gradients, interval-split
 invariance, empty-gap penalties, independent ray sums, saturated gradients,
 two-layer depth cancellation rejection, and invalid-depth exclusion.
@@ -124,6 +124,9 @@ only90/165/557 pixels on train011/097/151. The revised overlays were reviewed;
 skin/hand vetoes remain. A spatial grid still requires agreement in at least
 two visible training cameras and whole-voxel skin vetoes; these2D annotations
 alone do not enable alpha learning.
+The voxel veto uses the bounding footprint of all eight projected corners:
+an unprotected center is insufficient if the voxel overlaps skin. Regression
+tests cover this case and unbounded camera-plane footprints.
 
 [Reviewed sparse permissions](/home/pavlo/renders/luster_000470_opacity/semantic_annotations_v2/review.jpg)
 

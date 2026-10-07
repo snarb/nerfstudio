@@ -29,6 +29,31 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def voxel_skin_veto(centers,cell_size,row,protected):
+    """Conservatively exclude any voxel whose projected footprint touches skin."""
+    if not len(centers):
+        return np.zeros(0,dtype=bool)
+    corners=np.array([(x,y,z) for x in [-.5,.5] for y in [-.5,.5] for z in [-.5,.5]])
+    world=centers[:,None,:]+corners[None,:,:]*cell_size
+    w2c=world_to_camera(row)
+    camera=world@w2c[:3,:3].T+w2c[:3,3]
+    z=camera[...,2]
+    in_front=(z>0).all(-1)
+    # A camera-plane crossing has no bounded image footprint: deny it.
+    blocked=(z>0).any(-1)&~in_front
+    u=row['fl_x']*camera[...,0]/np.maximum(z,1e-8)+row['cx']-.5
+    v=row['fl_y']*camera[...,1]/np.maximum(z,1e-8)+row['cy']-.5
+    h,w=protected.shape
+    x0=np.floor(u.min(-1).clip(0,w)).astype('int64')
+    x1=(np.ceil(u.max(-1)).clip(-1,w-1)+1).astype('int64')
+    y0=np.floor(v.min(-1).clip(0,h)).astype('int64')
+    y1=(np.ceil(v.max(-1)).clip(-1,h-1)+1).astype('int64')
+    integral=np.pad(protected.astype('int64'),((1,0),(1,0))).cumsum(0).cumsum(1)
+    touched=integral[y1,x1]-integral[y0,x1]-integral[y1,x0]+integral[y0,x0]
+    blocked |= in_front&(x1>x0)&(y1>y0)&(touched>0)
+    return blocked
+
+
 def prepare(data,request_path,output):
     if (output/'annotation_manifest.json').exists():
         raise FileExistsError('Use a new annotation output')
@@ -104,6 +129,8 @@ def build_grid(data,annotations,renders,output,resolution,reviewed):
         name=receipt['image'];row=rows[name]
         if receipt['source_sha256']!=sha(data/row['file_path']):
             raise ValueError('Semantic RGB changed')
+        if receipt['permissions_sha256']!=sha(annotations/receipt['file']):
+            raise ValueError('Reviewed semantic permissions changed')
         with np.load(annotations/receipt['file'],allow_pickle=False) as p:
             permitted=p['permissions'];protected=p['protected']
         masks[name]=(permitted,protected)
@@ -140,25 +167,20 @@ def build_grid(data,annotations,renders,output,resolution,reviewed):
     grid=torch.zeros((resolution,)*3,dtype=torch.bool)
     if len(ijk):
         grid[ijk[:,0],ijk[:,1],ijk[:,2]]=True
-    # Whole-voxel skin protection: quantization must not open alpha on a
-    # neighboring skin pixel even when the accepted seed is a hair boundary.
+    # Whole-voxel skin protection: project all eight corners, then veto any
+    # protected pixel inside the conservative image footprint, not just its center.
     coordinates=torch.nonzero(grid).numpy()
     centers=aabb[0]+(coordinates+.5)/resolution*(aabb[1]-aabb[0])
     blocked=np.zeros(len(centers),dtype=bool)
     for name,(_,protected) in masks.items():
-        row=rows[name];w2c=world_to_camera(row)
-        camera=centers@w2c[:3,:3].T+w2c[:3,3]
-        x=np.rint(row['fl_x']*camera[:,0]/np.maximum(camera[:,2],1e-8)+row['cx']-.5).astype('int64')
-        y=np.rint(row['fl_y']*camera[:,1]/np.maximum(camera[:,2],1e-8)+row['cy']-.5).astype('int64')
-        visible=(camera[:,2]>0)&(x>=0)&(y>=0)&(x<row['w'])&(y<row['h'])
-        x=x.clip(0,row['w']-1);y=y.clip(0,row['h']-1)
-        blocked |= visible&protected[y,x]
+        blocked |= voxel_skin_veto(centers,(aabb[1]-aabb[0])/resolution,rows[name],protected)
     bad=coordinates[blocked]
     if len(bad):
         grid[bad[:,0],bad[:,1],bad[:,2]]=False
     output.parent.mkdir(parents=True,exist_ok=True)
     torch.save(dict(aabb=torch.from_numpy(aabb),permissions=grid,train_only=True,reviewed=True),output)
     receipt=dict(train_only=True,reviewed=True,grid_sha256=sha(output),annotation_manifest_sha256=sha(annotations/'annotation_manifest.json'),
+                 permission_policy_version=2,builder_sha256=sha(Path(__file__)),
                  geometry_metrics_sha256=sha(renders/'metrics.json'),seed_points=len(points),supported_points=len(accepted),
                  permitted_voxels=int(grid.sum()),skin_vetoed_voxels=int(blocked.sum()),resolution=resolution)
     output.with_suffix('.json').write_text(json.dumps(receipt,indent=2)+'\n')

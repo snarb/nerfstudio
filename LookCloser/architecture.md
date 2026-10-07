@@ -14,6 +14,10 @@ sampling state; semantic comparisons require an equally reset surface control.
 nonadvancing continuations and destinations with existing training records.
 Surface eikonal probes include only actual visible hits plus uniform spatial
 probes, excluding failed brackets and fully occluded semantic back surfaces.
+Semantic permission policy v2 vetoes the complete projected voxel footprint
+when it overlaps protected skin, using all eight corners and a mask integral;
+center-only checks cannot protect neighboring skin. Reviewed map hashes are
+checked before grid construction, and grid receipts include the builder hash.
 
 `LookCloserOpacityModel` is an opt-in subclass; the normal `lookcloser` preset
 keeps its volume field. Its volume mode integrates `T(1-T)` exactly over
