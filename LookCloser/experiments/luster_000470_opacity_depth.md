@@ -230,3 +230,32 @@ Defaults preserve archived configurations.27 focused tests and a16-step
 measured-depth CUDA smoke pass; these validate execution, not image quality.
 
 No final40k checkpoint or download artifact is available at this stage.
+
+### Standard baseline gate (2026-10-07)
+
+User-directed priority: reproduce healthy ordinary LookCloser before extending
+experimental models. Compare matched2k/8k steps, then add one change at a time;
+large early quality regression triggers diagnosis. Time to comparable image
+quality is measured, rather than assuming that depth guidance accelerates it.
+The prepared continuous-surface40k continuations have not been launched.
+
+The old successful frame report used black-composited masks, background
+supervision and a much tighter silhouette-derived AABB. These remain excluded
+from the new experiment. Its31dB result is not an unmasked baseline certificate.
+The new `standard_preset_008000` uses the existing raw RGB/frequency maps and
+already-normalized calibration with ordinary `LookCloserModel`,
+`VanillaDataManager` and `Nerfstudio` parser. All model configuration fields
+match the current standard preset: softplus density, original SH handling,
+FR1/FAS1, historical ARM cap1024/coarse.00625, warmup4096, hash23/max8192.
+Standard scene bounds are[-1.5,1.5] on each axis. Parser orientation/centering
+and autoscaling are disabled because normalization is already applied. No
+source masks, depth manifest, new objective or experimental renderer is used.
+
+- [Exact preset receipt](/home/pavlo/renders/luster_000470_opacity/standard_preset_receipt.json)
+- [Baseline request](/home/pavlo/renders/luster_000470_opacity/requests/standard_preset_008000.json)
+
+The previous two incomplete jobs (corrected volume8k and continuous surface
+with depth2k) no longer had live processes after the execution-access reset.
+Their final metrics are missing; they are interrupted evaluations, not quality
+results. Cause is unverified. The completed continuous no-depth2k prototype
+scored8.412/.3983/.8161 and is not promoted.

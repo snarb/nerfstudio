@@ -62,6 +62,9 @@ actual intersection; weighted expected depth is retained separately, and
 front surfaces with permitted transparency do not receive opaque-depth priors.
 `run_luster_opacity.py` restores optimizer, scheduler, scaler and RNG at stage
 boundaries, saves native metrics/renders, and pauses at a visual review gate.
+Its `baseline_preset` request uses the ordinary model, manager and parser with
+standard model defaults and scene scale; new prior/semantic inputs are rejected.
+Prepared camera normalization is retained without a second transformation.
 See [the opacity campaign](experiments/luster_000470_opacity_depth.md).
 
 `run_luster_patchmatch.py` stages fixed PINHOLE cameras without additional
