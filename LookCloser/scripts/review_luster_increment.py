@@ -25,7 +25,7 @@ def descends_from(checkpoint, origin):
     return False
 
 
-def review(control, candidate, output, step):
+def review(control, candidate, output, step, control_eval=None, candidate_eval=None):
     if output.exists():
         raise FileExistsError('Preserve previous reviews; choose a new directory')
     requests=[read(run/'request.json') for run in [control,candidate]]
@@ -41,7 +41,16 @@ def review(control, candidate, output, step):
             raise ValueError('Different parents without verified common checkpoint ancestry')
     if results[0]['transforms_sha256']!=results[1]['transforms_sha256']:
         raise ValueError('Different calibration or split')
-    metrics=[read(run/f'eval_{step:06d}/metrics.json') for run in [control,candidate]]
+    evaluation_dirs=[control_eval or control/f'eval_{step:06d}',candidate_eval or candidate/f'eval_{step:06d}']
+    metrics=[read(path/'metrics.json') for path in evaluation_dirs]
+    for key in ['near_plane','eval_use_training_near_plane','adaptive_coarse_step_size',
+                'max_steps_per_ray','corrected_arm_allocator']:
+        effective=[m.get('evaluation_model',{}).get(key,(r.get('model') or {}).get(key))
+                   for m,r in zip(metrics,requests)]
+        if effective[0]!=effective[1]:
+            raise ValueError(f'Different evaluation settings: {key}')
+    if any(m['step']!=step for m in metrics):
+        raise ValueError('Evaluation step differs from requested comparison')
     if any(m['eval_stride']!=1 for m in metrics):
         raise ValueError('Quality comparisons require native resolution')
     keys=[[(v['split'],v['index'],v['image']) for v in m['per_view']] for m in metrics]
@@ -65,8 +74,7 @@ def review(control, candidate, output, step):
         sheet=Image.new('RGB',(780,225*6),'#222222');draw=ImageDraw.Draw(sheet)
         for row,(split,index,_) in enumerate(keys[0]):
             name=f'{split}_{index:03d}_{label}.png'
-            images=[Image.open(run/f'eval_{step:06d}'/name).convert('RGB')
-                    for run in [control,candidate]]
+            images=[Image.open(path/name).convert('RGB') for path in evaluation_dirs]
             if images[0].size!=images[1].size or images[0].width%2:
                 raise ValueError(f'Different crop dimensions: {name}')
             width,height=images[0].size
@@ -81,7 +89,7 @@ def review(control, candidate, output, step):
     sheet=Image.new('RGB',(780,225*6),'#222222');draw=ImageDraw.Draw(sheet)
     for row,(split,index,_) in enumerate(keys[0]):
         name=f'{split}_{index:03d}_face.png'
-        panels=[Image.open(run/f'eval_{step:06d}'/name).convert('RGB') for run in [control,candidate]]
+        panels=[Image.open(path/name).convert('RGB') for path in evaluation_dirs]
         width,height=panels[0].size;face_width=width//2
         box=(face_width//4,height//4,3*face_width//4,3*height//4)
         gt=panels[0].crop(box)
@@ -98,6 +106,7 @@ def review(control, candidate, output, step):
         draw.text((5,row*225+3),name+' inner face GT | control | candidate',fill='white')
     sheet.save(output/'face_interior.jpg')
     summary=dict(control=str(control),candidate=str(candidate),step=step,visual_review='pending',
+        evaluation_directories=[str(path) for path in evaluation_dirs],
         comparison_origin_checkpoint=origin,
         first32_pixel_rgb_batches_identical=True,transforms_sha256=results[0]['transforms_sha256'],
         full_metrics=[{k:m[f'eval_all_{k}'] for k in ['psnr','ssim','lpips']} for m in metrics],
@@ -116,5 +125,7 @@ if __name__=='__main__':
     p.add_argument('--candidate',type=Path,required=True)
     p.add_argument('--output',type=Path,required=True)
     p.add_argument('--step',type=int,default=8000)
+    p.add_argument('--control-eval',type=Path)
+    p.add_argument('--candidate-eval',type=Path)
     a=p.parse_args()
-    review(a.control,a.candidate,a.output,a.step)
+    review(a.control,a.candidate,a.output,a.step,a.control_eval,a.candidate_eval)
