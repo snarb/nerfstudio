@@ -74,6 +74,11 @@ ARM/fixed sampling and adds only the trusted-depth objective. The archived
 guided partition remains opt-in through its recorded configuration.
 See [the opacity campaign](experiments/luster_000470_opacity_depth.md).
 
+`review_luster_increment.py` verifies common ancestry, calibrated native crops
+and matched RGB/pixel receipts before preparing comparison sheets. Acceptance
+remains a visual review. Ray diagnostics distinguish occupancy-skipped density
+from actual renderer weights and measure secondary mass before a trusted depth.
+
 `run_luster_patchmatch.py` stages fixed PINHOLE cameras without additional
 undistortion and excludes all eval images. A local build canary rejected native
 sm120 CUDA kernels; the qualified commit5509fffe uses sm90 PTX. Its MVS

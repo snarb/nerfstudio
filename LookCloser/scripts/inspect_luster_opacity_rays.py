@@ -54,6 +54,7 @@ def inspect(selections,output,depth_manifest=None):
                             # nearest pixel's measured depth, not exact ray GT.
                             references[ray]=dict(nearest_pixel=[int(x),int(y)],
                                 ray_distance=float(measured['depth'][y,x])*float(rays.metadata['directions_norm'][ray])*prior['normalization_scale'],
+                                ray_uncertainty=float(measured['uncertainty'][y,x])*float(rays.metadata['directions_norm'][ray])*prior['normalization_scale'],
                                 camera_z=float(measured['depth'][y,x]))
         with torch.no_grad():
             rendered=model(rays)
@@ -98,6 +99,16 @@ def inspect(selections,output,depth_manifest=None):
                         left,right=np.searchsorted(actual_cdf,[.05,.95]).clip(0,len(actual_weights)-1)
                         record['renderer_termination_90pct_width']=float(actual_distances[right]-actual_distances[left])
                         record['renderer_weights_sum']=float(actual_total)
+                        interval_width=((rays.fars[ray]-rays.nears[ray])*(rendered['packed_spacing_ends'][selected_ray]-rendered['packed_spacing_starts'][selected_ray])).flatten().cpu().numpy()
+                        mode=float(actual_distances[np.argmax(actual_weights/interval_width.clip(1e-8))])
+                        record['renderer_mode_distance']=mode
+                        record['renderer_mass_before_mode_1pct']=float(actual_weights[actual_distances<mode-.01*mode].sum())
+                        if references[ray] is not None:
+                            target=references[ray]['ray_distance']
+                            tolerance=max(2*references[ray]['ray_uncertainty'],.01*target)
+                            record['reference_interval']=dict(tolerance=tolerance,scope='Nearest trusted pixel; midpoint approximate interval mass')
+                            record['renderer_mass_before_reference']=float(actual_weights[actual_distances<target-tolerance].sum())
+                            record['renderer_mass_after_reference']=float(actual_weights[actual_distances>target+tolerance].sum())
                 axis.plot(distances[ray],weights[ray]/(ends-starts)[ray].cpu().numpy(),label=label,color=f'C{selection_index}')
             else:
                 changes=np.flatnonzero(values[ray,:-1]*values[ray,1:]<=0)
@@ -112,9 +123,11 @@ def inspect(selections,output,depth_manifest=None):
             axis.set_ylabel('Termination density / surface hit')
             axis.legend(fontsize=7)
             rows.append(record)
+        packed={f'renderer_{key}':rendered[key].detach().cpu().numpy() for key in
+                ['packed_weights','packed_spacing_starts','packed_spacing_ends','packed_ray_indices'] if key in rendered}
         np.savez_compressed(output/(selection.parent.name+f"_{selected['step']}_profiles.npz"),
                             distance=distances,field_values=values,
-                            weights=weights if weights is not None else np.empty((0,)),pixels=xy)
+                            weights=weights if weights is not None else np.empty((0,)),pixels=xy,**packed)
         del trainer,model
         torch.cuda.empty_cache()
     figure.savefig(output/'profiles.png',dpi=140)

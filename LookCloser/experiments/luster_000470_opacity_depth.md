@@ -393,3 +393,48 @@ scp coder@olive-lark:/var/tmp/lookcloser_000470_delivery/incremental_8k/face_com
 This downloads an8k comparison preview, not the requested final hard-opaque40k
 artifact. Semantic/full-depth combinations, hard opacity, final40k paths and
 seed-repeat verification remain outstanding.
+
+### Stronger opacity, native weak depth and combined8k gate
+
+| Matched4k→8k variant | PSNR | SSIM | LPIPS |
+| --- | ---: | ---: | ---: |
+| Only opacity.1 | 19.651 | .7983 | .2754 |
+| Only depth.25, native sampler | 19.839 | .7891 | .2778 |
+| Opacity.01 + depth.25, native sampler | 19.421 | .7934 | .2811 |
+
+All6 face/hand/hair/clothing sheets were inspected for each. Opacity.1 has
+similar visual behavior to.01 and slightly worse overall scores. Native
+depth.25 avoids the severe blur of its guided predecessor, but held-out face
+LPIPS still worsens+.0076–.0201 against the ordinary reference. Adding depth.25
+to opacity.01 worsens all full-frame metrics; that combination is not promoted.
+The new review helper validates shared calibration, matching native GT crops,
+six camera identities and first32 pixel/RGB batches before building comparisons.
+For continuations from different intermediate parents, it also verifies their
+explicit common-checkpoint ancestry; it never auto-accepts visual quality.
+
+The new actual-renderer front-mass diagnostic gives an important qualification
+to the metric ranking. On the three skin rays with trusted nearest-pixel depth,
+probability mass before the reference interval is1.967–4.079% for control,
+1.327–4.517% for opacity.01 (mixed), and.139–.170% for opacity.1. Weak native
+depth.25 reduces it to.290–.458%; the combination to.110–.161%. The opacity.1
+surface mode stays near the same reference depth. These three rays support a
+real reduction in secondary foreground layers, not a scene-wide certificate.
+The lower LPIPS of opacity.01 alone is therefore insufficient to select a
+final transparency recipe. Both opacity strengths continue to12k alongside
+the ordinary control, retaining full optimizer/grid/RNG state.
+
+- [Opacity.1 comparison](/home/pavlo/renders/luster_000470_opacity/reviews/standard_opacity01_008000/comparison.json)
+- [Native weak depth comparison](/home/pavlo/renders/luster_000470_opacity/reviews/standard_depth025_native_sampler_008000/comparison.json)
+- [Combined comparison](/home/pavlo/renders/luster_000470_opacity/reviews/standard_opacity001_depth025_008000/comparison.json)
+- [Front-layer mass/profiles](/home/pavlo/renders/luster_000470_opacity/reviews/standard_008000_front_mass/profiles.json)
+
+The ordinary12k control scores16.912/.7906/.2764. Face quality improves
+(held-out face PSNR23.76/25.73/23.70), while studio/background errors lower
+full-frame PSNR. A frozen20-ray background probe compares legacy1024/coarse.00625,
+corrected1024 at the same step, and corrected4096/coarse.001. RGB MAE is
+.14494/.14494/.14112 respectively; the allocator-only difference is negligible
+on these rays. This probe does not explain the global decline as truncation,
+and does not establish that every ray is unaffected. The12k comparison keeps
+ordinary sampling settings rather than mixing renderer changes with training.
+
+[Frozen12k budget probe](/home/pavlo/renders/luster_000470_opacity/reviews/budget_probe_12k.json)
