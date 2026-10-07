@@ -26,7 +26,7 @@ from nerfstudio.model_components.lookcloser_samplers import FrequencyAwareSample
 from nerfstudio.model_components.losses import nerfstudio_distortion_loss, scale_gradients_by_distance_squared
 from nerfstudio.model_components import renderers as renderer_module
 from nerfstudio.model_components.renderers import AccumulationRenderer, DepthRenderer, RGBRenderer
-from nerfstudio.model_components.scene_colliders import AABBBoxCollider
+from nerfstudio.model_components.lookcloser_colliders import LookCloserAABBBoxCollider
 from nerfstudio.models.base_model import Model, ModelConfig
 from nerfstudio.utils import colormaps
 from nerfstudio.utils.colors import get_color
@@ -124,6 +124,8 @@ class LookCloserModelConfig(ModelConfig):
     """Exponential evaluates logits in FP32 to prevent TCNN FP16 overflow."""
     correct_sh_directions: bool = False
     """Map unit directions to the [0, 1] domain expected by TCNN SH encoding."""
+    eval_use_training_near_plane: bool = False
+    """Keep the configured near plane during evaluation; False preserves archived rendering."""
 
     # Loss weights
     distortion_loss_mult: float = 0.01
@@ -543,7 +545,10 @@ class LookCloserModel(Model):
         self.renderer_accumulation = AccumulationRenderer()
         self.renderer_depth = DepthRenderer(method="expected")
         if self.config.enable_collider:
-            self.collider = AABBBoxCollider(scene_box=self.scene_box, near_plane=self.config.near_plane)
+            self.collider = LookCloserAABBBoxCollider(
+                scene_box=self.scene_box, near_plane=self.config.near_plane,
+                eval_use_training_near_plane=self.config.eval_use_training_near_plane,
+            )
 
         self.scene_aabb = Parameter(self.scene_box.aabb.flatten(), requires_grad=False)
         if self.config.render_step_size is None:

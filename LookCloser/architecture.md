@@ -72,6 +72,11 @@ Prepared camera normalization is retained without a second transformation.
 The request's `feature_reweighting_after_switch` defaults to.3 and is applied
 at20k, restored on continuation, and honored by checkpoint exports. FR1 repair
 screens can retain the original strength without changing the field or sampler.
+`eval_use_training_near_plane` opts into the same AABB near bound in train and
+eval; the default preserves archived rendering. The shared nerfstudio collider
+is unchanged. Camera starts inside the box can otherwise expose near-camera
+density during evaluation. Near-plane choices are recorded separately from
+learned opacity/depth changes and require geometry and native-view review.
 `incremental_standard` adds the prior subclass while retaining all ordinary
 model settings and bounds. Its explicit plain-volume checkpoint adapter adds
 only representation/permission bookkeeping buffers and keeps strict parameter

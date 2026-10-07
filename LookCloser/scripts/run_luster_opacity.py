@@ -276,6 +276,7 @@ def train(request):
         'nerfstudio/models/lookcloser.py','nerfstudio/fields/lookcloser_surface_field.py',
         'nerfstudio/fields/lookcloser_field.py','nerfstudio/model_components/lookcloser_opacity.py',
         'nerfstudio/model_components/lookcloser_grid.py','nerfstudio/model_components/lookcloser_samplers.py',
+        'nerfstudio/model_components/lookcloser_colliders.py',
         'nerfstudio/pipelines/lookcloser_pipeline.py','nerfstudio/lookcloser_pixel_sampler.py',
         'nerfstudio/data/datamanagers/luster_opacity_datamanager.py',
         'nerfstudio/data/dataparsers/luster_opacity_dataparser.py','nerfstudio/engine/trainer.py']
