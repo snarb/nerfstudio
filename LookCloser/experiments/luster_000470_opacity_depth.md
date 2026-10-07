@@ -2,7 +2,7 @@
 
 ## What was tested
 
-Status: implementation and smoke validation in progress; no quality recipe has
+Status: primary and depth experiments in progress; no quality recipe has
 been promoted. Branch `lookcloser/000470-opacity-depth`, starting at `f73cc3c5`.
 Campaign root: `/home/pavlo/renders/luster_000470_opacity` on `olive-lark`.
 Maximum budget: 48 single-device GPU hours, starting with frequency fits.
@@ -29,13 +29,53 @@ not the control for this experiment. Full-frame background has changed.
 
 ## Results
 
-No primary experiment has completed. Initial RGB contacts and fixed native
+The initial2000-step primary gates completed; full trajectories are in progress.
+Initial RGB contacts and fixed native
 face/hair/hand/clothing patches have been visually inspected and retained:
 
 - [Initial views](/home/pavlo/renders/luster_000470_opacity/data/initial_contact.jpg)
 - [Initial patches](/home/pavlo/renders/luster_000470_opacity/data/initial_patches.jpg)
 - [Data audit](/home/pavlo/renders/luster_000470_opacity/data/audit.json)
 - [Campaign budget](/home/pavlo/renders/luster_000470_opacity/campaign.json)
+
+### Initial native comparison at2000
+
+| Representation | PSNR ↑ | SSIM ↑ | LPIPS ↓ | Visual gate |
+| --- | ---: | ---: | ---: | --- |
+| Unmasked volume | 9.047 | .51568 | .84535 | Failed: held-out face almost gray; train face blurry |
+| Hard first-hit SDF | 8.516 | .41153 | .79492 | Failed: opaque fragmented/mottled wrong surfaces |
+
+These are early checkpoints, not final recipe scores. Both are continuing to8000.
+All six SDF views have binary alpha with mean1.0 and no intermediate values.
+That property alone does not repair wrong geometry. The volume also has mean
+accumulated alpha near1.0, despite its blurred reconstruction.
+
+The first32 pixel/RGB batch hashes match across arms, include all162 training
+cameras and reach portrait row1919. No depth priors or masks were used.
+Runtime parser poses match all165 prepared cameras exactly; intrinsics differ
+only by float32 rounding (maximum.000244px). Adam performed1999/1990 updates
+in2001 iterations for volume/SDF, so the bad images are not explained by
+persistent AMP overflow.
+
+On four fixed train097 skin rays, the volume has termination90%-mass widths
+.316–.361 normalized units and expected depths.181–.210. SDF first hits lie
+at.748–.800. Three corresponding nearest pixels have trusted PatchMatch ray
+depths1.028–1.042; the fourth has no trusted measurement and remains unknown.
+These diagnostic subpixel rays use nearest-pixel measured references explicitly;
+the reference is not substituted into any rendered output.
+
+- [Face comparison](/home/pavlo/renders/luster_000470_opacity/reviews/gate_002000/face.jpg)
+- [Hands](/home/pavlo/renders/luster_000470_opacity/reviews/gate_002000/hand.jpg)
+- [Clothing](/home/pavlo/renders/luster_000470_opacity/reviews/gate_002000/clothing.jpg)
+- [Hair](/home/pavlo/renders/luster_000470_opacity/reviews/gate_002000/hair.jpg)
+- [Termination profiles and measured references](/home/pavlo/renders/luster_000470_opacity/reviews/gate_002000/ray_profiles_with_depth/profiles.png)
+- [Runtime camera audit](/home/pavlo/renders/luster_000470_opacity/runtime_camera_audit.json)
+
+Frequency preprocessing finished in16932s (4.70h); the final train-only audit
+passed162 maps/162 train/3 eval. Primary runs started after this audit.
+The SSH account `coder` cannot traverse `/home/pavlo`; reviewed exports will be
+copied to `/var/tmp/lookcloser_000470_delivery`, with a named-user read/traverse
+ACL on that task directory. No home-directory access was broadened.
 
 Twenty-three focused opacity/depth/permission behavioral tests pass: first-crossing occlusion, empty rays,
 either SDF orientation, exact zero, finite surrogate gradients, interval-split
