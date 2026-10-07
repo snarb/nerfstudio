@@ -805,3 +805,55 @@ remote distance. Neither screen is accepted before native30k visual review.
 Opacity training is active under supervision.
 
 [Tight interval receipt](/home/pavlo/renders/luster_000470_opacity/reviews/tight_depth_interval_receipt.json)
+
+
+### Fresh matched30k opacity and tight-depth screens
+
+Both independent2k screens start from ordinary near.05 step28k, preserve
+optimizer/scaler/RNG, native sampling, pixel batches, calibration and GT. The
+verifier confirms ancestry and identical first32 RGB/pixel batches. All six
+face/hand/hair/clothing contacts were inspected for both candidates.
+
+| Pinned30k branch | PSNR | SSIM | LPIPS |
+| --- | ---: | ---: | ---: |
+| Control | 19.839 | .8076 | .2315 |
+| Opacity.1 only | 20.060 | .8161 | .2266 |
+| Tight interval-mass depth only | 19.796 | .8099 | .2318 |
+
+Opacity.1 improves the held-out metrics with small mixed foreground changes:
+inner-face PSNR−.273/+.512/−.022dB; train inner faces lose.42/.80/.96dB, with
+small LPIPS differences. It is provisional rather than uniformly better.
+Tight depth keeps appearance close (inner-face changes+.430/−.103/+.158dB
+held-out) and improves or preserves several foreground LPIPS values. Neither
+candidate removes all observed noise, softness or studio artifacts.
+
+Actual native-renderer termination is probed on fixed20×20 grids in train
+011/097/151 face/hand/clothing regions, using confidence-qualified measurements
+and unchanged checkpoint sampling. The following face medians are conditional
+on trusted points; they are not a whole-scene or held-out certificate.
+
+| Train face | Control90% width | Opacity90% width | Tight-depth90% width | Control front mass | Opacity front mass | Tight-depth front mass |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 011 | .003296 | .003113 | .002588 | 2.746% | 2.080% | 2.406% |
+| 097 | .002930 | .002771 | .002483 | 1.220% | .349% | 1.157% |
+| 151 | .002954 | .002771 | .002563 | 2.190% | .063% | 1.778% |
+
+Widths are normalized scene units. Front mass uses the same reference interval
+max(2uncertainty,1% depth) across all probes, whereas the new training objective
+uses0.1% with the uncertainty floor. Opacity mainly removes secondary front
+layers; tight depth reduces core width by roughly13–21% without a large RGB
+regression in this gate. This supports a single additional-depth fork from the
+opacity30k state, compared to opacity-only30k→32k. Both requests are prepared;
+no combination gain is yet established. The32k LR reduction remains identical.
+
+- [Opacity30k verified comparison](/home/pavlo/renders/luster_000470_opacity/reviews/near05_opacity01_030000/comparison.json)
+- [Tight-depth30k verified comparison](/home/pavlo/renders/luster_000470_opacity/reviews/near05_depth10_mass_030000/comparison.json)
+- [Control termination](/home/pavlo/renders/luster_000470_opacity/reviews/near05_control30k_alignment.json)
+- [Opacity termination](/home/pavlo/renders/luster_000470_opacity/reviews/near05_opacity30k_alignment.json)
+- [Tight-depth termination](/home/pavlo/renders/luster_000470_opacity/reviews/near05_depth30k_alignment.json)
+
+The exporter now restores selected reevaluation near bounds; an actual loaded
+8k camera-ray check verifies near.05. Preview copies are available at
+`/var/tmp/lookcloser_000470_delivery/incremental_near05_30k`. They are pinned30k
+comparisons rather than a final best-checkpoint or hard40k artifact. All jobs
+are terminal at this review gate. The complete original goal remains active.
