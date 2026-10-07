@@ -1,5 +1,48 @@
 # LookCloser architecture
 
+## Experimental Luster opacity controls
+
+`LookCloserOpacityModel` is an opt-in subclass; the normal `lookcloser` preset
+keeps its volume field. Its volume mode integrates `T(1-T)` exactly over
+constant-density intervals, including unsampled gaps. Trusted depth constrains
+termination mass inside an uncertainty interval, rather than expected depth
+alone. `depth_prior_strength=0` disables these additional constraints.
+
+The surface modes retain LookCloser hash features, SH appearance, FAS and
+Frequency Grid, but replace density with a signed surface head. A coarse
+sign-change search and bisection render the first intersection with alpha 1;
+the training forward is hard while a CDF surrogate supplies geometry gradients.
+Appearance is learned at the actual intersection. Numerical eikonal gradients
+avoid depending on second derivatives of tiny-cuda-nn. Surface traversal does
+not use the density occupancy grid or the volume distortion objective. This is
+an experimental extension, not the paper's original renderer. The initial SDF
+combines a small central sphere and an outer room shell without source masks.
+
+Semantic mode permits alpha learning only inside a reviewed, train-only 3D
+permission grid; all other crossings stay opaque. Permission maps do not alter
+RGB targets or ray sampling. Checkpoints carry representation markers and
+reject loading a different geometry representation.
+
+`LusterOpacityDataParser` accepts the train-normalized HD calibration and an
+explicit camera-envelope AABB. `LusterOpacityDataManager` gathers optional
+camera-z depth/uncertainty/validity at sampled train coordinates, converts to
+ray distance once, and has no automatic pseudo-depth fallback.
+Trusted rays add a partitioned fine sampling band around measured depth;
+unknown rays keep the normal sampler. Surface priors constrain SDF at the
+measured point and free space ahead. Semantic geometry depth uses the first
+actual intersection; weighted expected depth is retained separately, and
+front surfaces with permitted transparency do not receive opaque-depth priors.
+`run_luster_opacity.py` restores optimizer, scheduler, scaler and RNG at stage
+boundaries, saves native metrics/renders, and pauses at a visual review gate.
+See [the opacity campaign](experiments/luster_000470_opacity_depth.md).
+
+`run_luster_patchmatch.py` stages fixed PINHOLE cameras without additional
+undistortion and excludes all eval images. A local build canary rejected native
+sm120 CUDA kernels; the qualified commit5509fffe uses sm90 PTX. Its MVS
+principal-point offset expresses integer MVS samples as the same rays as NS
+pixel centers. `build_luster_depth_confidence.py` qualifies measured depths
+using three independent views, reprojection/depth agreement and boundary vetoes.
+
 ## Mesh-teacher distillation data (opt-in, no trainer changes)
 
 `prepare_mesh_distillation_dataset.py` exports one fixed DEC5 time as calibrated

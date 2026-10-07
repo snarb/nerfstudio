@@ -298,6 +298,16 @@ class FrequencyGridManager(nn.Module):
         """
         if not self.enabled:
             return
+        # Experimental surface models have explicit miss rays. A miss is not a
+        # 2D/3D correspondence and must not stamp the camera origin into the grid.
+        if getattr(self, "skip_invalid_depth_updates", False):
+            valid = torch.isfinite(rendered_depth.reshape(-1)) & (rendered_depth.reshape(-1) > 0)
+            valid &= torch.isfinite(positions).all(-1)
+            if not valid.any():
+                return
+            positions, rendered_depth, focals, patch_f2d = (
+                value[valid] for value in (positions, rendered_depth, focals, patch_f2d)
+            )
         # Calculate f_3D
         # f_3D = f_2D * (focal / depth)
 

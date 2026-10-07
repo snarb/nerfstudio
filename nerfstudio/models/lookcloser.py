@@ -331,6 +331,7 @@ class LookCloserModel(Model):
     """
 
     config: LookCloserModelConfig
+    field_class = LookCloserField
 
     @staticmethod
     def _render_packed_black(
@@ -503,7 +504,7 @@ class LookCloserModel(Model):
 
         # 2. LookCloser Field (Frequency-Aware)
         validate_density_checkpoint_controls(self.config)
-        self.field = LookCloserField(
+        self.field = self.field_class(
             aabb=self.scene_box.aabb,
             freq_grid=self.freq_grid,
             num_levels=self.config.num_frequency_levels,
@@ -1642,7 +1643,7 @@ class LookCloserModel(Model):
         num_rays_per_chunk = self.config.eval_num_rays_per_chunk
         image_height, image_width = camera_ray_bundle.origins.shape[:2]
         num_rays = len(camera_ray_bundle)
-        image_output_names = {"rgb", "depth", "accumulation", "num_samples_per_ray"}
+        image_output_names = {"rgb", "depth", "accumulation", "num_samples_per_ray", "normals", "surface_hit", "soft_rgb"}
         outputs_lists = defaultdict(list)
         for i in range(0, num_rays, num_rays_per_chunk):
             ray_bundle = camera_ray_bundle.get_row_major_sliced_ray_bundle(i, i + num_rays_per_chunk)
