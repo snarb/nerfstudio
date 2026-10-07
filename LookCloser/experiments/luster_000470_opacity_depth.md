@@ -618,3 +618,28 @@ Next: ordinary control and opacity.1 continue their latest20k states to23k/26k
 with the same deterministic PyTorch setting, allowing adaptation after the
 20k FR switch. The ordinary continuation is active. New depth trials remain
 unpromoted; no reliable depth gain or training-speed gain is claimed.
+
+
+### Plain26k gate: improve the control before more depth
+
+The ordinary no-prior continuation in deterministic PyTorch mode scores
+17.054/.7749/.2583 at23k and16.401/.7816/.2601 at26k. Held-out095 face PSNR
+is16.43/18.16dB; the23k native GT/render face was inspected and has a large
+color/brightness error. Thus the ordinary preset itself needs improvement;
+its failure cannot be assigned to newly added opacity or depth objectives.
+The prepared opacity26k continuation is deferred while repairing this control.
+
+The repository already has `correct_sh_directions`, mapping unit directions
+from[-1,1] to TCNN's[0,1] SH input, as in the standard Nerfacto field. It is
+False in the literal LookCloser preset. The older masked leader used corrected
+SH together with exponential density, but that report does not establish
+unmasked quality or isolate the two changes. A matched26k→28k screen now tests
+**SH mapping alone**: identical parent, native sampler, softplus density, FR.3,
+optimizer/RNG and deterministic mode, no new priors. The ordinary28k control
+is active; the corrected-SH request is prepared.
+
+A separate source audit also finds that frequency-grid side-channel rays use
+integer coordinates, whereas the ordinary RGB RayGenerator uses pixel centres
+(offset.5). This discrepancy remains unchanged in the SH pair so it does not
+introduce a second simultaneous change. Correcting it requires its own gate.
+No complete or artifact-free recipe is claimed.
