@@ -298,3 +298,45 @@ parity evidence, not a quality test or a claim of bitwise CUDA determinism.
 opt-in and retaining strict errors for missing field weights.
 
 [CUDA extension parity](/home/pavlo/renders/luster_000470_opacity/reviews/incremental_standard_parity.json)
+
+### Matched4k→8k depth gates
+
+Both forks preserve standard settings and resume the same ordinary4k state.
+The first32 RGB/pixel batches are identical (18747 trusted observations in the
+depth arm). Jobs run sequentially; times below exclude setup and include the
+same4k additional updates. Evaluation always uses learned RGB without GT depth.
+
+| Variant at8k | All-eval PSNR | SSIM | LPIPS | Training seconds | Decision |
+| --- | ---: | ---: | ---: | ---: | --- |
+| Paired standard control | 19.438 | .7802 | .2787 | 182.1 | Current reference |
+| Depth strength1, guided partition | 21.473 | .8043 | .2613 | 226.5 | Reject promotion: skin ROI regression |
+| Depth strength.25, guided partition | 19.511 | .7848 | .2992 | 228.2 | Reject: blurred face/hands |
+
+Depth1 improves full-frame scores and most clothing crops, but held-out face
+LPIPS worsens in all three views (+.0042/+.0099/+.0263); face PSNR worsens on095
+and150 (−1.21/−1.42dB). Training face regressions are larger. All6 contacts for
+face/hair/hand/clothing were inspected. Lower strength.25 worsens face and hand
+PSNR/LPIPS in all6 checked views; native095 face and097 hand visibly blur.
+Neither is accepted just because background improves. Strength1 costs24.4%
+more training time per4k updates; faster convergence is not established.
+
+- [Depth1 face comparison](/home/pavlo/renders/luster_000470_opacity/reviews/standard_depth1_008000/face.jpg)
+- [Depth1 hand comparison](/home/pavlo/renders/luster_000470_opacity/reviews/standard_depth1_008000/hand.jpg)
+- [Depth1 review](/home/pavlo/renders/luster_000470_opacity/reviews/standard_depth1_008000/review.json)
+- [Matched ray receipts](/home/pavlo/renders/luster_000470_opacity/standard_depth_pair_receipt.json)
+
+Code inspection identifies a nonminimal change: the guided branch replaces
+ARM with uniform256 intervals plus65 GT-band edges on trusted rays, including
+after the warmup. The weaker band also has coarser spacing at a fixed edge count.
+Consequently these are not depth-objective-only tests. The next isolated trial
+sets `volume_depth_guided_sampling=False`, retaining the ordinary sampler and
+adding only the trusted-depth objective. Archived guided defaults stay intact.
+31 focused tests pass, including preserving the native renderer with trusted
+metadata when guidance is disabled.
+
+Frozen fine rendering is a separate diagnostic axis on both paired checkpoints.
+The control's fine result is19.257/.7905/.2740; coarse training-selection scores
+remain unchanged. Exports now support ordinary volume configs without SDF
+fields. Whole-field density profiles include occupancy-skipped regions, so
+their quantile widths are distinct from actual packed renderer-weight widths;
+the profiler records both instead of equating them.

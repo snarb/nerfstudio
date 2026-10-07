@@ -42,6 +42,19 @@ def test_plain_volume_opt_in_does_not_hide_missing_field_weights():
         model.load_state_dict({'field.bias':torch.tensor([4.])},strict=True)
 
 
+def test_trusted_depth_can_preserve_native_volume_sampling(monkeypatch):
+    from types import SimpleNamespace
+    from nerfstudio.models.lookcloser import LookCloserModel
+    from nerfstudio.models.lookcloser_opacity import LookCloserOpacityModel,LookCloserOpacityModelConfig
+    model=LookCloserOpacityModel.__new__(LookCloserOpacityModel)
+    torch.nn.Module.__init__(model)
+    model.config=LookCloserOpacityModelConfig(depth_prior_strength=1,volume_depth_guided_sampling=False)
+    rays=SimpleNamespace(metadata={'depth_valid':torch.tensor([True])})
+    original={'rgb':torch.tensor([[.2,.3,.4]])}
+    monkeypatch.setattr(LookCloserModel,'get_outputs',lambda self,r:original)
+    assert model._volume_outputs(rays) is original
+
+
 def test_sign_orientation_and_exact_zero():
     indices,hit=first_crossing(torch.tensor([[-1.,1.,-1.],[1.,0.,-1.],[0.,0.,0.]]))
     assert hit.tolist()==[True,True,False]

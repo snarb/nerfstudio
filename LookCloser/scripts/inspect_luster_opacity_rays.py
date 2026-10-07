@@ -85,7 +85,19 @@ def inspect(selections,output,depth_manifest=None):
                 cdf=np.cumsum(weights[ray])/max(total,1e-8)
                 low,high=np.searchsorted(cdf,[.05,.95]).clip(0,4095)
                 record.update(dense_profile_accumulation=float(total),
-                              termination_90pct_width=float(distances[ray,high]-distances[ray,low]) if total>1e-5 else None)
+                              dense_field_termination_90pct_width=float(distances[ray,high]-distances[ray,low]) if total>1e-5 else None,
+                              dense_profile_scope='Uniform whole-field query, including occupancy-skipped regions')
+                if 'packed_weights' in rendered:
+                    selected_ray=rendered['packed_ray_indices']==ray
+                    actual_weights=rendered['packed_weights'][selected_ray].flatten().cpu().numpy()
+                    actual_spacing=(rendered['packed_spacing_starts'][selected_ray]+rendered['packed_spacing_ends'][selected_ray])*.5
+                    actual_distances=(rays.nears[ray]+(rays.fars[ray]-rays.nears[ray])*actual_spacing).flatten().cpu().numpy()
+                    actual_total=actual_weights.sum()
+                    if len(actual_weights) and actual_total>1e-5:
+                        actual_cdf=np.cumsum(actual_weights)/actual_total
+                        left,right=np.searchsorted(actual_cdf,[.05,.95]).clip(0,len(actual_weights)-1)
+                        record['renderer_termination_90pct_width']=float(actual_distances[right]-actual_distances[left])
+                        record['renderer_weights_sum']=float(actual_total)
                 axis.plot(distances[ray],weights[ray]/(ends-starts)[ray].cpu().numpy(),label=label,color=f'C{selection_index}')
             else:
                 changes=np.flatnonzero(values[ray,:-1]*values[ray,1:]<=0)

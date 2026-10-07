@@ -69,6 +69,9 @@ Prepared camera normalization is retained without a second transformation.
 model settings and bounds. Its explicit plain-volume checkpoint adapter adds
 only representation/permission bookkeeping buffers and keeps strict parameter
 loading; confidence input uses the same transforms hash with the ordinary parser.
+For volume experiments, `volume_depth_guided_sampling=False` preserves native
+ARM/fixed sampling and adds only the trusted-depth objective. The archived
+guided partition remains opt-in through its recorded configuration.
 See [the opacity campaign](experiments/luster_000470_opacity_depth.md).
 
 `run_luster_patchmatch.py` stages fixed PINHOLE cameras without additional

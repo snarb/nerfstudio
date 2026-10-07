@@ -111,13 +111,15 @@ def export(selection_path,output,frames,ffmpeg,paths=True):
     original_settings=dict(adaptive_coarse_step_size=model.config.adaptive_coarse_step_size,
                            max_steps_per_ray=model.config.max_steps_per_ray,
                            corrected_arm_allocator=model.config.corrected_arm_allocator,
-                           surface_num_samples=model.config.surface_num_samples,
-                           surface_refine_steps=model.config.surface_refine_steps)
+                           surface_num_samples=getattr(model.config,'surface_num_samples',None),
+                           surface_refine_steps=getattr(model.config,'surface_refine_steps',None))
     model.config.adaptive_coarse_step_size=.0005
     model.config.max_steps_per_ray=16384
     model.config.corrected_arm_allocator=True
-    model.config.surface_num_samples=512
-    model.config.surface_refine_steps=12
+    surface=getattr(model.config,'representation','volume')!='volume'
+    if surface:
+        model.config.surface_num_samples=512
+        model.config.surface_refine_steps=12
     request['evaluation_model']={}  # These explicit export settings are authoritative.
     # This export is separate from the evaluator used for checkpoint selection.
     metrics=evaluate(trainer,request,selected['step'])
@@ -132,7 +134,7 @@ def export(selection_path,output,frames,ffmpeg,paths=True):
     write(output/'manifest.json',dict(checkpoint=selected['checkpoint'],checkpoint_sha256=sha(Path(selected['checkpoint'])),
         training_selection=selected,export_metrics=metrics,original_settings=original_settings,
         export_settings=dict(coarse_step=.0005,volume_cap=16384,corrected_arm_allocator=True,
-                             surface_samples=512,surface_bisection=12),
+                             surface_samples=512 if surface else None,surface_bisection=12 if surface else None),
         artifact_sha256=artifact_hashes,learned_rgb_only=True,masks_used=False,visual_review='pending'))
     print(json.dumps(dict(output=str(output),psnr=metrics['eval_all_psnr'],ssim=metrics['eval_all_ssim'],lpips=metrics['eval_all_lpips'])),flush=True)
 

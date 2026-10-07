@@ -29,6 +29,7 @@ class LookCloserOpacityModelConfig(LookCloserModelConfig):
     semantic_transparency_mult: float = .01
     skip_invalid_depth_updates: bool = True
     allow_unmarked_volume_checkpoint: bool = False
+    volume_depth_guided_sampling: bool = True
 
 
 class LookCloserOpacityModel(LookCloserModel):
@@ -307,7 +308,8 @@ class LookCloserOpacityModel(LookCloserModel):
 
     def _volume_outputs(self,ray_bundle):
         metadata=ray_bundle.metadata or {}
-        if self.config.depth_prior_strength<=0 or not self.training or 'depth_valid' not in metadata or not metadata['depth_valid'].any():
+        if (not self.config.volume_depth_guided_sampling or self.config.depth_prior_strength<=0
+                or not self.training or 'depth_valid' not in metadata or not metadata['depth_valid'].any()):
             return super().get_outputs(ray_bundle)
         trusted=metadata['depth_valid'].reshape(-1)
         groups=[]
