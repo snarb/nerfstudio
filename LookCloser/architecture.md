@@ -82,6 +82,11 @@ distance objective remains the default. This option changes only the auxiliary
 objective; native RGB sampling and invalid-depth freedom are preserved.
 `probe_luster_depth_alignment.py` measures actual packed termination on fixed
 integer train pixels using the unchanged checkpoint renderer.
+The runner's opt-in `deterministic_torch` sets deterministic PyTorch reductions
+and cuBLAS workspace configuration, recorded in each source receipt. It does
+not guarantee deterministic custom TCNN hash gradients. A4096-ray metadata
+probe shows identical forward/MLP gradients in this mode; long-run repeat
+stability still requires measured validation.
 
 See [the opacity campaign](experiments/luster_000470_opacity_depth.md).
 

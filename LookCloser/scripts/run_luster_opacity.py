@@ -229,6 +229,9 @@ def evaluate(trainer,request,step,preview=False):
 
 
 def train(request):
+    deterministic = request.get('deterministic_torch', False)
+    if deterministic:
+        os.environ['CUBLAS_WORKSPACE_CONFIG'] = ':4096:8'
     import numpy as np
     import torch
     from nerfstudio.engine.callbacks import TrainingCallbackLocation
@@ -247,6 +250,9 @@ def train(request):
     random.seed(seed); np.random.seed(seed); torch.manual_seed(seed)
     torch.set_num_threads(2)
     torch.backends.cuda.matmul.allow_tf32=False
+    torch.use_deterministic_algorithms(deterministic)
+    torch.backends.cudnn.deterministic=deterministic
+    torch.backends.cudnn.benchmark=False
     write(output/'request.json',request)
     source_root=Path(__file__).resolve().parents[2]
     source_files=[
@@ -259,7 +265,9 @@ def train(request):
         'nerfstudio/data/dataparsers/luster_opacity_dataparser.py','nerfstudio/engine/trainer.py']
     write(output/'source_manifest.json',dict(files={p:sha(source_root/p) for p in source_files},
                                           python=sys.version,torch=torch.__version__,cuda=torch.version.cuda,
-                                          gpu=torch.cuda.get_device_name(),matmul_tf32=False))
+                                          gpu=torch.cuda.get_device_name(),matmul_tf32=False,
+                                          deterministic_torch=deterministic,
+                                          custom_tcnn_gradients_not_covered=True))
     cfg=configuration(request)
     cfg.save_config()
     trainer=cfg.setup(local_rank=0,world_size=1)
