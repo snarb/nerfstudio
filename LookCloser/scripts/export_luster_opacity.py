@@ -25,6 +25,11 @@ def load(selected):
     request['resume']=str(checkpoint)
     request['end_step']=selected['step']
     cfg=configuration(request)
+    # Reevaluated historical checkpoints may have corrected ray bounds. Keep
+    # those bounds when loading a selection rather than restoring old near0.
+    for key in ['near_plane','eval_use_training_near_plane']:
+        if key in selected.get('evaluation_model',{}):
+            setattr(cfg.pipeline.model,key,selected['evaluation_model'][key])
     trainer=cfg.setup(local_rank=0,world_size=1)
     trainer.setup()
     trainer.pipeline.model.current_train_step=selected['step']
