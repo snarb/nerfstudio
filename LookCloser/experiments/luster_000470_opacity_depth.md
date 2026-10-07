@@ -673,3 +673,26 @@ Its preflight verifies the ordinary components and only the declared field/RNG
 differences. Cold2k/4k/8k native gates run under active supervision.
 
 [Leader preflight](/home/pavlo/renders/luster_000470_opacity/reviews/leader_unmasked_preflight.json)
+
+
+The cold unmasked leader scores8.941/.4916/.8706 at2k and8.956/.4663/.8802
+at4k. The095 held-out face stays featureless fog, while train097 is a noisy,
+blurred shape. Both native gates were visually inspected. The worker was
+terminated by visual review (last compact progress7100), preserving2k/4k
+checkpoints and `visual_abort.json`. No8k completion or leader-quality gain
+is claimed. All training workers are terminal.
+
+A same-checkpoint26k counterfactual changes only inference FR.3→1 on native
+095 face: PSNR18.159→19.969, SSIM.8916→.9028, LPIPS.07567→.06624. GT/control/
+counterfactual was inspected. This supports testing a separate FR1 continuation,
+but does not repair the complete color error or establish whole-view quality.
+It is a scoped diagnostic, not a new best checkpoint.
+
+- [Cold leader visual abort](/home/pavlo/renders/luster_000470_opacity/runs/leader_unmasked_008000/visual_abort.json)
+- [FR counterfactual](/home/pavlo/renders/luster_000470_opacity/reviews/fr_counterfactual26k/metrics.json)
+- [FR comparison](/home/pavlo/renders/luster_000470_opacity/reviews/fr_counterfactual26k/contact.png)
+
+The original goal remains incomplete: no accepted depth improvement, no
+40k hard opaque artifact, and no semantic3D quality arm. Next useful gate is
+baseline repair with one controlled FR continuation or the separately audited
+pixel-centre correction, before further opacity/depth combinations.
