@@ -643,3 +643,33 @@ integer coordinates, whereas the ordinary RGB RayGenerator uses pixel centres
 (offset.5). This discrepancy remains unchanged in the SH pair so it does not
 introduce a second simultaneous change. Correcting it requires its own gate.
 No complete or artifact-free recipe is claimed.
+
+
+### Warm SH screen and cold documented leader baseline
+
+The matched28k ordinary/SH-only continuations score16.801/.7873/.2591 and
+16.681/.7900/.2613. All six face-interior/hand/hair/clothing rows were inspected.
+Changing SH mapping on the already-trained softplus checkpoint does not repair
+095 skin in2k steps; this warm branch is not promoted. It does not establish
+that corrected SH is ineffective when trained from initialization.
+
+A review-only photometric audit projects trusted097 central-face points into
+095 and nearby train cameras.095 median sRGB differences are+.0076/+.0045/+.0033
+(1815 points, target visibility not independently certified); confidence-qualified
+096 differs−.0503/−.0275/−.0347,154 differs+.0132/+.0039/+.0051. Source differences
+exist but do not by themselves explain the full rendered darkening. No exposure,
+pose or held-out color adjustment is fitted.
+
+[Photometric correspondence audit](/home/pavlo/renders/luster_000470_opacity/reviews/face_photometric_correspondence.json)
+
+The historical masked leader used exponential density and corrected SH, whereas
+the literal preset retains legacy softplus/raw SH. The next baseline restores
+that documented field math **from initialization** with ordinary LookCloser,
+VanillaDataManager, built-in parser, scene scale1.5 and unmasked source RGB.
+No opacity/depth/semantic priors or hull guard are enabled. Independent RNG
+streams and deterministic PyTorch are recorded. This is a baseline restoration,
+not a clean two-parameter causal comparison against old differently-seeded stages.
+Its preflight verifies the ordinary components and only the declared field/RNG
+differences. Cold2k/4k/8k native gates run under active supervision.
+
+[Leader preflight](/home/pavlo/renders/luster_000470_opacity/reviews/leader_unmasked_preflight.json)
