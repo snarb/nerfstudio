@@ -780,3 +780,28 @@ GT crops and identical effective ray-bound/sampling settings. The corrected
 8k depth comparison passes those checks and remains visually unpromoted.
 The late16k opacity control under near.05 scores20.622/.8154/.2358; the matching
 gentle-depth candidate is being reevaluated before choosing a fresh branch.
+
+
+### Late gentle depth after corrected evaluation bounds
+
+The common12k opacity.1 parent branches reevaluated at16k/near.05 score
+20.622/.8154/.2358 (opacity only) and20.654/.8132/.2364 (plus depth1,
+coefficient.001). Source ancestry, identical first32 pixel/RGB batches and
+identical native bounds were verified. All six face/hand/hair/clothing contacts
+were inspected. Gray darkening is removed by the near correction; remaining
+appearance differences are small, but face LPIPS worsens in all six views.
+The branch is not promoted. The earlier large skin-darkening attribution to
+this prior alone is superseded by the ray-bound evidence.
+
+[Verified late-depth comparison](/home/pavlo/renders/luster_000470_opacity/reviews/near_fixed_opacity_depth16k_verified/comparison.json)
+
+The fresh near.05 ordinary28k→30k control scores19.839/.8076/.2315. Two separate
+same-parent2k screens are prepared: opacity.1 with no depth; or depth strength10
+with `interval_mass`, coefficient.0001, native sampling and no opacity penalty.
+The depth coefficient totals.001; median trusted face tolerances are
+.001109/.001036/.001019 scene units (cam011/097/151), with measured uncertainty
+as a floor. This tightens geometry influence rather than penalizing arbitrary
+remote distance. Neither screen is accepted before native30k visual review.
+Opacity training is active under supervision.
+
+[Tight interval receipt](/home/pavlo/renders/luster_000470_opacity/reviews/tight_depth_interval_receipt.json)
