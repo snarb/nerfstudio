@@ -27,6 +27,8 @@ class LookCloserOpacityModelConfig(LookCloserModelConfig):
     eikonal_loss_mult: float = .1
     semantic_grid_path: str | None = None
     semantic_transparency_mult: float = .01
+    skip_invalid_depth_updates: bool = True
+    allow_unmarked_volume_checkpoint: bool = False
 
 
 class LookCloserOpacityModel(LookCloserModel):
@@ -52,7 +54,7 @@ class LookCloserOpacityModel(LookCloserModel):
         super().populate_modules()
         if self.config.representation!='volume':
             self.field.continuous_sdf = self.config.surface_sdf_features == 'continuous'
-        self.freq_grid.skip_invalid_depth_updates = True
+        self.freq_grid.skip_invalid_depth_updates = self.config.skip_invalid_depth_updates
         self.register_buffer('opacity_representation',torch.tensor(
             ['volume','opaque_surface','semantic_surface'].index(self.config.representation),dtype=torch.int64))
         self.register_buffer('semantic_permissions',torch.zeros(1,1,1,dtype=torch.bool))
@@ -70,6 +72,13 @@ class LookCloserOpacityModel(LookCloserModel):
 
     def _load_from_state_dict(self,state_dict,prefix,local_metadata,strict,missing_keys,unexpected_keys,error_msgs):
         key = prefix+'opacity_representation'
+        if (key not in state_dict and self.config.allow_unmarked_volume_checkpoint
+                and self.config.representation=='volume'):
+            # A standard volume field has the identical parameter/optimizer
+            # layout. Initialize only the extension's bookkeeping buffers;
+            # strict loading still checks every actual field/grid parameter.
+            state_dict[key]=self.opacity_representation.detach().clone()
+            state_dict[prefix+'semantic_permissions']=self.semantic_permissions.detach().clone()
         if key in state_dict and int(state_dict[key]) != int(self.opacity_representation):
             error_msgs.append('Checkpoint surface/volume representation is incompatible with config')
         super()._load_from_state_dict(state_dict,prefix,local_metadata,strict,missing_keys,unexpected_keys,error_msgs)

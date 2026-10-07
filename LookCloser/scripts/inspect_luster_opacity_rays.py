@@ -26,7 +26,8 @@ def inspect(selections,output,depth_manifest=None):
         trainer,request=load(selected)
         model=trainer.pipeline.model
         model.config.adaptive_coarse_step_size=.0005
-        model.config.max_steps_per_ray=4096
+        model.config.max_steps_per_ray=16384
+        model.config.corrected_arm_allocator=True
         model.config.surface_num_samples=512
         model.config.surface_refine_steps=12
         trainer.pipeline.eval()
@@ -61,7 +62,8 @@ def inspect(selections,output,depth_manifest=None):
             ends=rays.nears+(rays.fars-rays.nears)*edges[None,1:]
             mids=(starts+ends)*.5
             positions=rays.origins[:,None]+rays.directions[:,None]*mids[...,None]
-            if model.config.representation=='volume':
+            representation=getattr(model.config,'representation','volume')
+            if representation=='volume':
                 sigma=model.field.density_fn(positions.reshape(-1,3)).reshape(4,4096).float()
                 alpha=1-torch.exp(-sigma*(ends-starts))
                 trans=torch.cumprod(torch.cat([torch.ones_like(alpha[:,:1]),(1-alpha).clamp_min(1e-10)],-1),-1)[:,:-1]
@@ -74,7 +76,8 @@ def inspect(selections,output,depth_manifest=None):
         distances=mids.cpu().numpy()
         for ray in range(4):
             axis=axes.reshape(-1)[ray]
-            record=dict(selection=str(selection),step=selected['step'],representation=model.config.representation,
+            record=dict(selection=str(selection),step=selected['step'],representation=representation,
+                        diagnostic_sampling=dict(coarse_step=.0005,cap=16384,corrected_allocator=True),
                         train_camera=97,pixel_xy=xy[ray].tolist(),rendered_depth=float(rendered['depth'][ray]),
                         rendered_accumulation=float(rendered['accumulation'][ray]),nearest_trusted_depth_reference=references[ray])
             if weights is not None:

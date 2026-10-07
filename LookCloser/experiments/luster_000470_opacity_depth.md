@@ -259,3 +259,42 @@ with depth2k) no longer had live processes after the execution-access reset.
 Their final metrics are missing; they are interrupted evaluations, not quality
 results. Cause is unverified. The completed continuous no-depth2k prototype
 scored8.412/.3983/.8161 and is not promoted.
+
+The ordinary preset completed8k in473 seconds including the two native6-view
+evaluations (setup excluded). All face/hair/hand/clothing contacts and the
+eval012 RGB/alpha panel were inspected. Face/eyes/lips, fingers and garment
+are coherent; skin banding/noise, soft embroidery and studio-frame artifacts
+remain. This is a learnable baseline for incremental tests, not final quality.
+
+| Standard preset step | All-eval PSNR | SSIM | LPIPS |
+| ---: | ---: | ---: | ---: |
+| 2000 | 18.482 | .7223 | .4314 |
+| 8000 | 18.585 | .7856 | .2853 |
+
+At8k, held-out face PSNR is22.96/19.54/25.48 for012/095/150. Full-frame
+metrics include the unmasked studio and cannot be compared to the old masked
+31dB score. No recipe is promoted on these scores alone.
+
+- [Native face comparison](/home/pavlo/renders/luster_000470_opacity/reviews/standard_008000/face.jpg)
+- [Hand comparison](/home/pavlo/renders/luster_000470_opacity/reviews/standard_008000/hand.jpg)
+- [Hair comparison](/home/pavlo/renders/luster_000470_opacity/reviews/standard_008000/hair.jpg)
+- [Clothing comparison](/home/pavlo/renders/luster_000470_opacity/reviews/standard_008000/clothing.jpg)
+- [8k metrics](/home/pavlo/renders/luster_000470_opacity/runs/standard_preset_008000/eval_008000/metrics.json)
+
+The next pair resumes the identical ordinary4k checkpoint through8k. Both
+forks isolate pixel/occupancy/frequency RNG streams for matched pixel batches;
+only the candidate adds trusted-depth strength1 and its local sampling band.
+They retain standard bounds, softplus, SH handling, FR/FAS and ARM settings.
+Run sequentially to measure comparable single-device wall time. Alpha
+regularization and semantic permissions stay disabled.
+
+An opt-in strict volume checkpoint adapter initializes only two bookkeeping
+buffers and preserves every field/grid parameter and optimizer state. With
+both strengths0, an eight-ray CUDA comparison verifies exact field parameters,
+renderer differences below1e-5, matching objectives within numerical tolerance
+and maximum hash-gradient difference9.54e-6 (MLP differences0). This is scoped
+parity evidence, not a quality test or a claim of bitwise CUDA determinism.
+30 focused behavior tests pass, including refusing unmarked checkpoints without
+opt-in and retaining strict errors for missing field weights.
+
+[CUDA extension parity](/home/pavlo/renders/luster_000470_opacity/reviews/incremental_standard_parity.json)

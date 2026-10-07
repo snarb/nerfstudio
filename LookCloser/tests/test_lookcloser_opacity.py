@@ -11,6 +11,37 @@ def test_first_hit_occludes_second_surface_and_preserves_empty_ray():
     assert hit.tolist()==[True,False]
 
 
+@pytest.mark.parametrize('allow',[False,True])
+def test_plain_volume_checkpoint_requires_explicit_opt_in(allow):
+    from nerfstudio.models.lookcloser_opacity import LookCloserOpacityModel,LookCloserOpacityModelConfig
+    model=LookCloserOpacityModel.__new__(LookCloserOpacityModel)
+    torch.nn.Module.__init__(model)
+    model.config=LookCloserOpacityModelConfig(allow_unmarked_volume_checkpoint=allow)
+    model.register_buffer('opacity_representation',torch.tensor(0))
+    model.register_buffer('semantic_permissions',torch.zeros(1,1,1,dtype=torch.bool))
+    model.field=torch.nn.Linear(2,1)
+    state={'field.weight':torch.tensor([[2.,3.]]),'field.bias':torch.tensor([4.])}
+    if allow:
+        model.load_state_dict(state,strict=True)
+        assert torch.equal(model.field.weight,state['field.weight'])
+        assert torch.equal(model.field.bias,state['field.bias'])
+    else:
+        with pytest.raises(RuntimeError,match='Missing key'):
+            model.load_state_dict(state,strict=True)
+
+
+def test_plain_volume_opt_in_does_not_hide_missing_field_weights():
+    from nerfstudio.models.lookcloser_opacity import LookCloserOpacityModel,LookCloserOpacityModelConfig
+    model=LookCloserOpacityModel.__new__(LookCloserOpacityModel)
+    torch.nn.Module.__init__(model)
+    model.config=LookCloserOpacityModelConfig(allow_unmarked_volume_checkpoint=True)
+    model.register_buffer('opacity_representation',torch.tensor(0))
+    model.register_buffer('semantic_permissions',torch.zeros(1,1,1,dtype=torch.bool))
+    model.field=torch.nn.Linear(2,1)
+    with pytest.raises(RuntimeError,match='field.weight'):
+        model.load_state_dict({'field.bias':torch.tensor([4.])},strict=True)
+
+
 def test_sign_orientation_and_exact_zero():
     indices,hit=first_crossing(torch.tensor([[-1.,1.,-1.],[1.,0.,-1.],[0.,0.,0.]]))
     assert hit.tolist()==[True,True,False]

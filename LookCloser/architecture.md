@@ -65,6 +65,10 @@ boundaries, saves native metrics/renders, and pauses at a visual review gate.
 Its `baseline_preset` request uses the ordinary model, manager and parser with
 standard model defaults and scene scale; new prior/semantic inputs are rejected.
 Prepared camera normalization is retained without a second transformation.
+`incremental_standard` adds the prior subclass while retaining all ordinary
+model settings and bounds. Its explicit plain-volume checkpoint adapter adds
+only representation/permission bookkeeping buffers and keeps strict parameter
+loading; confidence input uses the same transforms hash with the ordinary parser.
 See [the opacity campaign](experiments/luster_000470_opacity_depth.md).
 
 `run_luster_patchmatch.py` stages fixed PINHOLE cameras without additional

@@ -61,13 +61,17 @@ def configuration(request):
     cfg=deepcopy(method_configs['lookcloser'])
     data=Path(request['data'])
     baseline=request.get('baseline_preset',False)
+    incremental=request.get('incremental_standard',False)
+    if baseline and incremental:
+        raise ValueError('Choose ordinary preset or its incremental prior extension')
+    standard=baseline or incremental
     if baseline and (request.get('representation','volume')!='volume' or request.get('opacity_regularization',0.)
                      or request.get('depth_prior_strength',0.) or request.get('depth_prior_manifest')
                      or request.get('semantic_grid_path') or request.get('warm_start')):
         raise ValueError('The standard baseline cannot include experimental priors or field transfer')
     if not baseline:
         cfg.pipeline.datamanager=LusterOpacityDataManagerConfig(**{k:v for k,v in vars(cfg.pipeline.datamanager).items() if k!='_target'})
-    parser=NerfstudioDataParserConfig if baseline else LusterOpacityDataParserConfig
+    parser=NerfstudioDataParserConfig if standard else LusterOpacityDataParserConfig
     cfg.pipeline.datamanager.dataparser=parser(data=data,eval_mode='filename',
         scene_scale=cfg.pipeline.datamanager.dataparser.scene_scale,
         orientation_method='none',center_method='none',auto_scale_poses=False,downscale_factor=1,load_3D_points=False)
@@ -78,7 +82,7 @@ def configuration(request):
     model=cfg.pipeline.model
     # Keep pixel batches comparable when surface eikonal/probing consumes extra
     # random numbers. This is recorded as an experimental campaign default.
-    cfg.pipeline.independent_rng_streams=request.get('independent_rng_streams',not baseline)
+    cfg.pipeline.independent_rng_streams=request.get('independent_rng_streams',not standard)
     model.independent_rng_streams=cfg.pipeline.independent_rng_streams
     cfg.pipeline.training_seed=request.get('seed',42)
     model.training_seed=request.get('seed',42)
@@ -87,6 +91,10 @@ def configuration(request):
         model.opacity_regularization=request.get('opacity_regularization',0.)
         model.depth_prior_strength=request.get('depth_prior_strength',0.)
         model.semantic_grid_path=request.get('semantic_grid_path')
+    if incremental:
+        model.skip_invalid_depth_updates=False
+        model.allow_unmarked_volume_checkpoint=True
+    if not standard:
         model.density_activation='trunc_exp'
         model.correct_sh_directions=True
         model.depth_loss_mult=0.

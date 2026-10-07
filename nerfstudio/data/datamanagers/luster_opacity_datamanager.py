@@ -36,7 +36,8 @@ class LusterOpacityDataManager(VanillaDataManager):
             train_names = {p.name for p in self.train_dataset.image_filenames}
             if set(self._depth_manifest['maps'])-train_names:
                 raise ValueError('Depth manifest includes held-out images')
-            expected_hash=hashlib.sha256((Path(self.train_dataset.metadata['opacity_source_data'])/'transforms.json').read_bytes()).hexdigest()
+            source=Path(self.train_dataset.metadata.get('opacity_source_data',self.config.dataparser.data))
+            expected_hash=hashlib.sha256((source/'transforms.json').read_bytes()).hexdigest()
             if self._depth_manifest['transforms_sha256']!=expected_hash:
                 raise ValueError('Depth manifest calibration/split differs from RGB')
         indices = batch['indices'].detach().cpu().numpy()
