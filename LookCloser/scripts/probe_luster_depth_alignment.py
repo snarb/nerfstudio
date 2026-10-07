@@ -49,17 +49,26 @@ def probe(selection, manifest_path, output, grid):
                 mid = near[indices] + (far - near)[indices] * (starts + ends) / 2
                 interval = (far - near)[indices] * (ends - starts)
                 rgb = result['rgb'].cpu().numpy()
+                points = rays.origins.cpu().numpy() + rays.directions.cpu().numpy() * target[:, None]
+                aabb = model.scene_box.aabb.cpu().numpy()
+                effective_valid = measured['valid'][y, x] & np.isfinite(target) & (target > 0)
+                effective_valid &= ((points >= aabb[0]) & (points <= aabb[1])).all(-1)
                 for i in range(len(x)):
                     take = indices == i
                     w, t, dt = weights[take], mid[take], interval[take]
-                    if not len(w) or not measured['valid'][y[i], x[i]]:
+                    if not len(w) or not effective_valid[i] or w.sum() <= 1e-8:
                         continue
                     mode = float(t[np.argmax(w / dt.clip(1e-8))])
+                    order = np.argsort(t)
+                    cdf = np.cumsum(w[order]) / w.sum()
+                    lo, hi = np.searchsorted(cdf, [.05, .95]).clip(0, len(w) - 1)
+                    width = float(t[order[hi]] - t[order[lo]])
                     distance = np.maximum(0, abs(t - target[i]) - tolerance[i]) / max(tolerance[i], 1e-6)
                     penalty = np.where(distance < 1, .5 * distance ** 2, distance - .5)
                     records.append(dict(camera=cid, region=region, xy=[int(x[i]), int(y[i])],
                         target=float(target[i]), tolerance=float(tolerance[i]), mode=mode,
                         relative_mode_error=float((mode - target[i]) / target[i]),
+                        termination_90pct_width=width,
                         front_mass=float(w[t < target[i] - tolerance[i]].sum()),
                         back_mass=float(w[t > target[i] + tolerance[i]].sum()),
                         weighted_distance_penalty=float((w * penalty).sum()), rgb=rgb[i].tolist()))
@@ -69,7 +78,7 @@ def probe(selection, manifest_path, output, grid):
             rows = [r for r in records if r['camera'] == cid and r['region'] == region]
             summaries.append(dict(camera=cid, region=region, trusted=len(rows), sampled=grid ** 2,
                 quantiles={key: np.quantile([r[key] for r in rows], [.1, .5, .9]).tolist() if rows else []
-                           for key in ['relative_mode_error', 'front_mass', 'back_mass', 'weighted_distance_penalty']}))
+                           for key in ['relative_mode_error', 'front_mass', 'back_mass', 'termination_90pct_width', 'weighted_distance_penalty']}))
     write(output, dict(selection=str(selection), sampling='Unchanged checkpoint renderer; integer pixel centres; train-only depth; no RGB masks',
                        summaries=summaries, rays=records))
     print(json.dumps(summaries))

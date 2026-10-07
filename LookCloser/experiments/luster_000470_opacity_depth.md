@@ -529,3 +529,40 @@ seed and opacity strength stay unchanged. It is opt-in; the historical default
 is preserved.25 opacity tests pass, including gradient direction, empty-ray
 penalty, invalid-ray freedom, and bounded treatment of remote layers.
 The ordinary control is actively continuing12k→20k for matched gates.
+
+
+### Ordinary control through20k, matched opacity continuation
+
+The ordinary baseline finished with unchanged standard field, native sampling,
+calibration and shared4k ancestry. Comparisons verify identical first32 RGB/pixel
+batches and six native GT crops. The20k face/hand/hair/clothing sheets were all
+visually inspected.
+
+| Branch | Step | PSNR | SSIM | LPIPS |
+| --- | ---: | ---: | ---: | ---: |
+| standard_paired_020000 | 16000 | 17.688 | 0.7949 | 0.2583 |
+| standard_opacity01_020000 | 16000 | 18.599 | 0.8030 | 0.2524 |
+| standard_paired_020000 | 20000 | 16.645 | 0.7808 | 0.2620 |
+| standard_opacity01_020000 | 20000 | 18.230 | 0.7974 | 0.2526 |
+
+Opacity.1 retains a measured advantage at16k and20k. At20k it avoids much of
+ordinary095 face/garment darkening and remains the provisional continuation.
+The prescribed feature-reweighting change1→.3 happens at20k; this boundary is
+not yet evidence of quality after adaptation to that change. Continue latest
+20k states to23k/26k, retaining optimizer/scaler/RNG state. Full-frame historical
+best selection remains earlier8k;20k preview delivery is explicitly a pinned
+comparison rather than the best-metric final artifact.
+
+The20k opacity train-face grid has premature-mass medians1.382%,.431%,0%
+(cam011/097/151), p90s4.130%,2.787%,.907%; median90% termination widths
+.00314/.00304/.00295 normalized scene units. Small forward layers remain on
+some rays. These actual-renderer train measurements replace extrapolation
+from four8k rays, but do not certify all views or a hard opaque surface.
+
+- [20k paired evidence](/home/pavlo/renders/luster_000470_opacity/reviews/standard_opacity01_20000_matched/comparison.json)
+- [20k termination probe](/home/pavlo/renders/luster_000470_opacity/reviews/depth_alignment_opacity20k.json)
+- Delivery: `/var/tmp/lookcloser_000470_delivery/incremental_20k`.
+
+The focused opacity/depth-witness/semantic suite passes32 tests. The new
+interval-mass experiment is prepared; the separate coefficient.0001 distance
+screen is actively training. Neither is promoted without its16k native gate.
