@@ -340,3 +340,56 @@ remain unchanged. Exports now support ordinary volume configs without SDF
 fields. Whole-field density profiles include occupancy-skipped regions, so
 their quantile widths are distinct from actual packed renderer-weight widths;
 the profiler records both instead of equating them.
+
+### Native-sampler depth and first positive opacity candidate
+
+Keeping native sampling with depth strength1 yields21.122/.7969/.2634 in
+216.2 training seconds (276.3 including evaluation). It still fails the
+foreground gate: face LPIPS worsens in all3 held-out views, and camera095 face
+PSNR drops3.71dB. All6 face/hand/hair/clothing contacts were inspected. Thus
+the sampling substitution was not the sole regression cause. This candidate
+is retained as diagnostic evidence, not extended to40k.
+
+The next test changes only opacity regularization to.01, without depth input,
+using the same4k parent and matched first32 batches. It completes in194.4
+training seconds (259.2 including evaluation).
+
+| Paired8k variant | PSNR | SSIM | LPIPS |
+| --- | ---: | ---: | ---: |
+| Ordinary reference | 19.438 | .7802 | .2787 |
+| Only opacity.01 | 19.715 | .7996 | .2736 |
+
+Held-out face PSNR changes+1.22/+1.59/−.25dB; hand+1.34/+2.42/−.36dB.
+Clothing LPIPS improves in all3 eval views. All6 contact sheets for each ROI
+were inspected: no large foreground regression is visible, although skin
+noise/softness and small face LPIPS regressions on012/150 remain. This is a
+provisional positive candidate, not a final recipe or an artifact-free claim.
+It still needs longer paired gates and seed-repeat validation.
+
+- [Opacity face comparison](/home/pavlo/renders/luster_000470_opacity/reviews/standard_opacity001_008000/face.jpg)
+- [Opacity hand comparison](/home/pavlo/renders/luster_000470_opacity/reviews/standard_opacity001_008000/hand.jpg)
+- [Opacity review/metrics](/home/pavlo/renders/luster_000470_opacity/reviews/standard_opacity001_008000/review.json)
+- [Actual renderer profiles](/home/pavlo/renders/luster_000470_opacity/reviews/standard_008000_actual_profiles/profiles.json)
+
+The four inspected skin rays already have a thin dominant peak: actual
+renderer90% widths are.0045–.0055 normalized units for the reference and
+.0047–.0052 for opacity.01, so this diagnostic does not prove that opacity.01
+removed secondary layers. The raw uniform whole-field widths≈1.03 include
+occupancy-skipped near-camera density and must not be called visible fog.
+Native depth1 moves means near the three measured reference depths and narrows
+the dominant peak to.0033–.0038, while image quality of skin regresses.
+Geometry and appearance therefore need separate visual assessment.
+
+Stronger only-opacity.1 and weaker native-sampler depth.25 requests are prepared
+for subsequent small comparisons; neither was launched at this handoff.
+All workers/evaluators exited, GPU is idle, and the goal remains incomplete.
+Reviewed GT/reference/opacity comparison images were physically copied into
+the private coder-readable delivery directory, without changing home access:
+
+```bash
+scp coder@olive-lark:/var/tmp/lookcloser_000470_delivery/incremental_8k/face_comparison.jpg ~/Downloads/
+```
+
+This downloads an8k comparison preview, not the requested final hard-opaque40k
+artifact. Semantic/full-depth combinations, hard opacity, final40k paths and
+seed-repeat verification remain outstanding.
