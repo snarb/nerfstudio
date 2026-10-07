@@ -739,3 +739,23 @@ Cold exponential4k fog persists at near.05 and remains unpromoted.
 Next active check: reevaluate the shared4k→8k ordinary control and native
 strength1 depth candidate with the same near.05 evaluator. Do not combine old
 near0 and corrected scores in checkpoint selection.
+
+
+### Shared4k→8k depth trial under corrected near bounds
+
+Both saved branches are reevaluated with native sampling and eval near.05.
+The control scores21.254/.7776/.2643; native depth strength1 scores
+21.531/.8013/.2617. Six identical GT face/hand/hair/clothing rows were compared
+and inspected. The depth branch still has visibly noisier skin, wrinkled/blurry
+hands and worse foreground details despite slightly better full-frame scores.
+It remains unpromoted at8k. Near-plane repair explains the large gray overlay,
+but does not make this strong early depth objective acceptable.
+
+[Corrected-bound depth comparison](/home/pavlo/renders/luster_000470_opacity/reviews/near_fixed_depth1_8k/comparison.json)
+
+All training/evaluation workers are terminal at the review gate. The next
+prepared request is `standard_near05_028000`: same ordinary26k parent, train
+and eval near.05, no added priors and no old incomparable history. After this
+baseline gate, reevaluate gentler/later opacity+depth branches with identical
+bounds before choosing the next small change. The complete40k hard-opaque,
+semantic and artifact-free recipe requirements remain outstanding.
