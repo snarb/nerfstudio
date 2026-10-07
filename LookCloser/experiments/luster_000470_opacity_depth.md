@@ -67,8 +67,11 @@ geometric maps were zero. Those artifacts are rejected and retained.
 
 Rebuilding the same source with `CMAKE_CUDA_ARCHITECTURES=90-virtual` produced
 16 unique, nondegenerate geometric maps, with whole-image coverage3.54–33.33%.
-After the independent3-camera/1px/1% gate, face ROI coverage is60.27% on train097
-and39.65% on train151. The native depth/validity face patches were inspected:
+The corrected independent3-camera/1px/1% gate gives face ROI coverage60.13%
+on train097 and18.31% on train151. Confidence policy v2 backprojects the actual
+nearest source pixel from which the measured depth was read; the old policy
+used the continuous projected coordinate and concealed subpixel correspondence
+error. The new subpixel regression test passes. The native depth/validity face patches were inspected:
 observed depth follows the head/face; holes and rejected pixels remain unknown.
 This qualifies the PTX build for the full162-train-camera reconstruction; it
 does not certify that all surviving depths are correct.
@@ -79,8 +82,8 @@ undistorted again, resized again, or masked. Depths are in the already
 train-normalized coordinate frame, so import applies normalization scale1.
 
 - [PTX canary inventory](/home/pavlo/renders/luster_000470_opacity/depth_canary_ptx90/depth_inventory.json)
-- [Face depth/validity review](/home/pavlo/renders/luster_000470_opacity/depth_canary_confidence/face_review.jpg)
-- [Confidence manifest](/home/pavlo/renders/luster_000470_opacity/depth_canary_confidence/manifest.json)
+- [Face depth/validity review](/home/pavlo/renders/luster_000470_opacity/depth_canary_confidence_v2/face_review.jpg)
+- [Confidence manifest](/home/pavlo/renders/luster_000470_opacity/depth_canary_confidence_v2/manifest.json)
 - [Rejected native build](/home/pavlo/renders/luster_000470_opacity/depth_canary/canary_failure.json)
 
 ### Semantic permission review
@@ -101,9 +104,10 @@ Train-only SIFT matching plus an independently estimated fundamental matrix
 selects image correspondences; residuals are then measured against the unchanged
 supplied calibration. Pairs010/011 and097/098 have median epipolar residuals
 .157px/.134px and93.9%/97.7% within1px. Pair151/152 has only16 independent
-inliers and median1.10px, so it needs additional neighboring-camera checks
-before any conclusion about that camera. No calibration or pose optimization
-has been applied.
+inliers and median1.10px. Additional pairs094/151 and151/153 have825/136
+independent inliers, median.210px/.222px, and94.1%/94.1% within1px;
+they do not support changing camera151 based on the weak151/152 pair.
+No calibration or pose optimization has been applied.
 
 The face-arc pivot is frozen from a qualified train097 center depth and used
 only for the common evaluation camera path. Every model follows identical

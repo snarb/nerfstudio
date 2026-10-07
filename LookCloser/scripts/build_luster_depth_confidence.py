@@ -37,8 +37,11 @@ def witness_residuals(depth,reference,source_depth,source):
     observed=source_depth[iy,ix]
     inside &= torch.isfinite(observed)&(observed>0)
     relative=(observed-z).abs()/z.clamp_min(1e-8)
-    source_camera=torch.stack([(u+.5-source['cx'])/source['fl_x'],
-                               (v+.5-source['cy'])/source['fl_y'],torch.ones_like(u)],-1)*observed[...,None]
+    # The observed value belongs to the rounded source pixel, not the
+    # continuous projection. Backproject that actual measurement; otherwise
+    # the round-trip check hides subpixel correspondence errors.
+    source_camera=torch.stack([(ix+.5-source['cx'])/source['fl_x'],
+                               (iy+.5-source['cy'])/source['fl_y'],torch.ones_like(u)],-1)*observed[...,None]
     back_world=(source_camera-ws[:3,3])@ws[:3,:3]
     back=back_world@wr[:3,:3].T+wr[:3,3]
     bu=reference['fl_x']*back[...,0]/back[...,2].clamp_min(1e-8)+reference['cx']-.5
@@ -109,7 +112,9 @@ def build(data:Path,depth_maps:Path,output:Path,minimum_witnesses=3,source_count
             valid_pixels=int(valid.sum()),valid_fraction=float(valid.float().mean()),
             measured_fraction=float((depth>0).float().mean()),maximum_witnesses=int(count.max()))
         print(json.dumps(dict(image=name,**receipts[Path(name).name])),flush=True)
-    manifest=dict(train_only=True,depth_convention='camera_z',coordinate_system='train_normalized_opengl',
+    manifest=dict(train_only=True,confidence_policy_version=2,
+                  builder_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+                  depth_convention='camera_z',coordinate_system='train_normalized_opengl',
                   normalization_scale=1.,transforms_sha256=hashlib.sha256((data/'transforms.json').read_bytes()).hexdigest(),
                   minimum_witnesses=minimum_witnesses,max_reprojection_px=1.,max_relative_depth_error=.01,
                   source_count=source_count,maps=receipts)

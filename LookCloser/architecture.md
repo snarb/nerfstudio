@@ -2,6 +2,11 @@
 
 ## Experimental Luster opacity controls
 
+Depth confidence policy v2 backprojects each measured nearest-neighbor source
+depth from its actual integer pixel. The manifest records the policy version
+and builder hash. `review_luster_depth_confidence.py` exports native RGB,
+measured-depth and trusted-depth crops plus ROI coverage for the visual gate.
+
 `LookCloserOpacityModel` is an opt-in subclass; the normal `lookcloser` preset
 keeps its volume field. Its volume mode integrates `T(1-T)` exactly over
 constant-density intervals, including unsampled gaps. Trusted depth constrains

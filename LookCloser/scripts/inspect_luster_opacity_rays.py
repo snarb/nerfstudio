@@ -74,7 +74,7 @@ def inspect(selections,output):
                 axis.axvline(record['rendered_depth'],label=label,linestyle='--')
             axis.set_title(f'cam097 skin ray{ray} ({xy[ray,0]:.0f},{xy[ray,1]:.0f})')
             axis.set_xlabel('Ray distance (normalized scene units)')
-            axis.set_ylabel('Volume termination density / hard surface marker')
+            axis.set_ylabel('Termination density / surface hit')
             axis.legend(fontsize=7)
             rows.append(record)
         np.savez_compressed(output/(selection.parent.name+f"_{selected['step']}_profiles.npz"),

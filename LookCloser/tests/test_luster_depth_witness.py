@@ -31,6 +31,16 @@ def test_nearer_occluder_is_not_farther_geometry_contradiction():
     assert not farther.any()
 
 
+def test_subpixel_projection_backprojects_the_measured_pixel():
+    depth=torch.full((24,32),2.)
+    # Disparity is 1.4 pixels, so nearest-neighbor source depth is measured
+    # 0.4 pixels away from the continuous projected coordinate.
+    visible,relative,pixel,absolute,_=witness_residuals(depth,camera(),depth,camera(.07))
+    assert relative[visible].max()<1e-6
+    assert torch.allclose(pixel[visible],torch.full_like(pixel[visible],.4),atol=1e-5)
+    assert absolute[visible].max()<1e-6
+
+
 def test_invalid_source_depth_does_not_confirm_reference():
     depth=torch.full((24,32),2.)
     source=torch.zeros_like(depth)
