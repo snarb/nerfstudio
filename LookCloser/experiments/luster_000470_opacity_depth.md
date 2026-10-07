@@ -578,3 +578,43 @@ depth strength0, using the same12k parent. This will test the full training
 path rather than attributing repeated color drift solely to the objective.
 
 [Gentler16k comparison](/home/pavlo/renders/luster_000470_opacity/reviews/standard_opacity01_depth1_weight00001_016000/comparison.json)
+
+
+### Repeated-control audit: revise causal interpretation
+
+The interval-mass candidate also fails the original16k foreground gate. Before
+attributing its darkening to depth, a12k→16k metadata-only control retained
+measured-depth loading but set depth strength0. A second repeat removed the
+depth manifest as well. Both use the same parent, seed, pixels and current code.
+
+| Run at16k | PSNR | SSIM | LPIPS | 095 inner-face delta vs original control, dB |
+| --- | ---: | ---: | ---: | ---: |
+| standard_opacity01_depth1_mass_016000 | 18.045 | 0.7894 | 0.2541 | -12.20 |
+| standard_opacity01_depth0_metadata_016000 | 18.321 | 0.7964 | 0.2548 | -10.05 |
+| standard_opacity01_repeat_016000 | 18.504 | 0.7977 | 0.2527 | -13.67 |
+
+**The earlier causal explanation is not established.** Even the repeat without
+depth metadata loses13.67dB on the095 interior while full-frame PSNR changes
+only−.094dB. Thus substantial local run variability confounds those single-run
+depth comparisons. Candidate non-promotion remains valid, but does not prove
+the depth objective itself caused the entire color change. Do not select a
+recipe or infer geometry from full-frame scores alone.
+
+At14k the metadata-only control has different hash/MLP weights from the old
+control despite identical first32 RGB/pixel batches. A4096-ray same-model,
+same-RNG probe isolates metadata: forward errors below4.5e−6 and field gradient
+errors below7.7e−6. With deterministic PyTorch enabled, RGB/depth/accumulation
+and MLP gradients match exactly; TCNN hash gradients still differ by up to
+3.94e−6. This is single-batch evidence, not long-run reproducibility. The flag
+is opt-in and restored during export. It does not cover custom TCNN kernels.
+
+- [Metadata-only comparison](/home/pavlo/renders/luster_000470_opacity/reviews/standard_opacity01_depth0_metadata_016000/comparison.json)
+- [Repeat without depth](/home/pavlo/renders/luster_000470_opacity/reviews/standard_opacity01_repeat_016000/comparison.json)
+- [14k weight audit](/home/pavlo/renders/luster_000470_opacity/reviews/depth0_metadata_14k_weight_parity.json)
+- [4096-ray probe](/home/pavlo/renders/luster_000470_opacity/reviews/metadata_gradient_parity.json)
+- [Deterministic probe](/home/pavlo/renders/luster_000470_opacity/reviews/metadata_gradient_parity_deterministic.json)
+
+Next: ordinary control and opacity.1 continue their latest20k states to23k/26k
+with the same deterministic PyTorch setting, allowing adaptation after the
+20k FR switch. The ordinary continuation is active. New depth trials remain
+unpromoted; no reliable depth gain or training-speed gain is claimed.
