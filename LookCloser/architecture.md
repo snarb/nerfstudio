@@ -40,6 +40,16 @@ than penalizing the artificial width of the CDF gradient surrogate.
 `surface_sdf_features=continuous` uses interpolated hash features for geometry
 and retains frequency reweighting for appearance: nearest-cell frequency
 weights can create sign discontinuities without a surface zero.
+An optional `surface_geometry_head=independent` adds a zero-initialized FP32
+MLP over continuous hash features and coordinates. It separates signed geometry
+from copied density logits while retaining the copied appearance network.
+The default shared head preserves archived field layouts. The train-only learned
+termination cache in `build_luster_surface_teacher.py` is an initialization
+candidate, not measured geometry. `bootstrap_luster_surface.py` fits only the
+independent head, checks cache/checkpoint/calibration hashes and saves a fresh
+surface checkpoint. Its default stride4 render is a diagnostic; native quality
+gates require stride1. The first 300-step bootstrap failed the visual gate and
+is not a trained opaque recipe.
 Appearance is learned at the actual intersection. Numerical eikonal gradients
 avoid depending on second derivatives of tiny-cuda-nn. Surface traversal does
 not use the density occupancy grid or the volume distortion objective. This is

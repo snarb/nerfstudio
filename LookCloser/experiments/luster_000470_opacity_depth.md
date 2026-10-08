@@ -857,3 +857,55 @@ The exporter now restores selected reevaluation near bounds; an actual loaded
 `/var/tmp/lookcloser_000470_delivery/incremental_near05_30k`. They are pinned30k
 comparisons rather than a final best-checkpoint or hard40k artifact. All jobs
 are terminal at this review gate. The complete original goal remains active.
+
+### Matched opacity and tight-depth continuation, 32k–36k
+
+What was tested: from the same opacity30k checkpoint, retain opacity coefficient
+.1 or add confidence-qualified interval-mass depth strength10 with coefficient
+.0001 (effective .001). Near.05 applies in train and eval, native sampling stays
+unchanged, full optimizer state is restored and the first32 pixel/RGB batches
+match. Both branches use the same LR change at32k and deterministic Torch
+controls; custom CUDA hash gradients are not guaranteed bitwise deterministic.
+
+| Native held-out gate | PSNR | SSIM | LPIPS |
+| --- | ---: | ---: | ---: |
+| Opacity only,32k | 20.1624 | .813827 | .227709 |
+| Opacity+tight depth,32k | 20.1407 | .814202 | .227082 |
+| Opacity only,36k | 20.0957 | .816466 | .222051 |
+
+Results: the32k depth addition improves inner-face PSNR in all six review views:
+held-out+.365/+.271/+.446dB and train+.149/+.795/+.033dB. Face LPIPS differences
+are small and mixed. This is a provisional local gain, not proof of complete
+artifact removal or faster convergence. The36k opacity-only gate was inspected
+on all six face/hand/hair/clothing contacts against32k. Faces remain coherent;
+softness, hand noise and background errors remain. No major foreground collapse
+appears. Its PSNR is within.07dB of32k and LPIPS is lower, so the current selector
+chooses36k. The matched36k depth branch is under supervision and is not accepted
+before its native comparison.
+
+- [Matched32k evidence](/home/pavlo/renders/luster_000470_opacity/reviews/near05_opacity01_depth10_mass_032000/comparison.json)
+- [Opacity32k→36k faces](/home/pavlo/renders/luster_000470_opacity/reviews/near05_opacity01_036000_gate/face.jpg)
+- [Opacity32k→36k hands](/home/pavlo/renders/luster_000470_opacity/reviews/near05_opacity01_036000_gate/hand.jpg)
+
+### Independent signed-head initialization: rejected smoke gate
+
+What was tested: transfer the ordinary control30k hash encoding and appearance,
+then fit a separate zero-initialized signed residual head using learned train-only
+termination points. The cache has30,002 accepted points across162 train cameras;
+only widths≤.005 enter the head fit. No source masks, held-out targets or MVS
+depth are used. Appearance and encoding stay frozen during300 geometry steps.
+
+Results: sampled surface absolute error falls from.1209 to.01458 scene units,
+but the native initial render scores4.9193/.101012/.981914 PSNR/SSIM/LPIPS.
+The face render is severely fragmented with spurious bright colors. This smoke
+test fails the visual gate; it is not a viable opaque40k initialization and will
+not be promoted merely because the geometry fitting error decreases.
+
+Insights: copied appearance queried at inaccurate first hits does not preserve
+ordinary volume quality. Geometry anchoring alone did not establish correct
+first-hit topology. Further hard-surface work needs an explicit ray/first-hit
+audit before a long RGB fit. Future initialization diagnostics default to
+stride4 previews; primary quality comparisons remain native stride1.
+
+- [Failed native initialization metrics](/home/pavlo/renders/luster_000470_opacity/surface_bootstrap_030000_smoke/initial_surface_metrics.json)
+- [Failed face crop](/home/pavlo/renders/luster_000470_opacity/reviews/near05_opacity01_036000_gate/bootstrap_face.jpg)

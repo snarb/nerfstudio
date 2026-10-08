@@ -275,6 +275,7 @@ def train(request):
         'LookCloser/scripts/run_luster_opacity.py','nerfstudio/models/lookcloser_opacity.py',
         'nerfstudio/models/lookcloser.py','nerfstudio/fields/lookcloser_surface_field.py',
         'nerfstudio/fields/lookcloser_field.py','nerfstudio/model_components/lookcloser_opacity.py',
+        'nerfstudio/fields/lookcloser_geometry_head.py',
         'nerfstudio/model_components/lookcloser_grid.py','nerfstudio/model_components/lookcloser_samplers.py',
         'nerfstudio/model_components/lookcloser_colliders.py',
         'nerfstudio/pipelines/lookcloser_pipeline.py','nerfstudio/lookcloser_pixel_sampler.py',

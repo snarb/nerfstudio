@@ -17,6 +17,7 @@ def field():
     f.mlp_geo=Geo();f.mlp_color=Color();f._activate_rgb=lambda p:p
     f.encode_directions=lambda d:torch.zeros(len(d),16)
     f.opacity_head=torch.nn.Linear(15,1)
+    f.geometry_head=None
     f.enable_feature_reweighting=True
     return f
 

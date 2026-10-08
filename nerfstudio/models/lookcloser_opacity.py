@@ -26,6 +26,7 @@ class LookCloserOpacityModelConfig(LookCloserModelConfig):
     surface_inverse_width: float = 400.
     surface_geometry_gradient_mode: Literal['cdf','implicit'] = 'cdf'
     surface_sdf_features: Literal['reweighted','continuous'] = 'reweighted'
+    surface_geometry_head: Literal['shared','independent'] = 'shared'
     eikonal_loss_mult: float = .1
     semantic_grid_path: str | None = None
     semantic_transparency_mult: float = .01
@@ -44,6 +45,8 @@ class LookCloserOpacityModel(LookCloserModel):
             raise ValueError('Unknown surface geometry gradient mode')
         if self.config.surface_sdf_features not in {'reweighted','continuous'}:
             raise ValueError('Unknown signed geometry feature mode')
+        if self.config.surface_geometry_head not in {'shared','independent'}:
+            raise ValueError('Unknown geometry head mode')
         if self.config.depth_prior_objective not in {'distance','interval_mass'}:
             raise ValueError('Unknown depth interval objective')
         controls=[self.config.opacity_regularization,self.config.depth_prior_strength,
@@ -60,6 +63,8 @@ class LookCloserOpacityModel(LookCloserModel):
         super().populate_modules()
         if self.config.representation!='volume':
             self.field.continuous_sdf = self.config.surface_sdf_features == 'continuous'
+            if self.config.surface_geometry_head == 'independent':
+                self.field.enable_independent_geometry()
         self.freq_grid.skip_invalid_depth_updates = self.config.skip_invalid_depth_updates
         self.register_buffer('opacity_representation',torch.tensor(
             ['volume','opaque_surface','semantic_surface'].index(self.config.representation),dtype=torch.int64))
