@@ -155,5 +155,25 @@ Cam097 cord PSNR rises `.11 dB`, and cam095 face PSNR changes by only
 `.011 dB`. The [four-way GT/control/frozen/trained crop](/home/pavlo/renders/luster_000470_opacity/reviews/cord_geometry_20261008/occupancy_31k_cam095_comparison.png)
 shows a slightly denser middle braid, while the lower braid still fades
 strongly. Thus missing occupancy contributed locally but does not explain
-the whole artifact; keeping these cells occupied is safe and cheap, but
+the whole artifact. Keeping these cells occupied remains experimental and
 is not yet a complete recipe.
+
+The next one-parameter continuation widened the local sampling radius from
+`.002` to `.005`, leaving the fine step `.001`, baseline 30k checkpoint,
+training data, and all priors unchanged. First 32 pixel/RGB batches match the
+`.002` control, and the supervised run finished without OOM.
+
+| Local radius | Step | Eval PSNR | SSIM | LPIPS | cam095 cord PSNR | cam097 cord PSNR |
+|---|---:|---:|---:|---:|---:|---:|
+| .002 | 30500 | 19.8579 | .806497 | .230433 | 20.0684 | 26.4811 |
+| .005 | 30500 | 19.8427 | .806922 | .230550 | 20.3545 | 26.4842 |
+| .002 | 31000 | 19.8305 | .806558 | .229773 | 19.6143 | 26.2664 |
+| .005 | 31000 | 19.8209 | .806440 | .229882 | 19.9177 | 26.2408 |
+
+The selection rule picks 31k for both. Widening the radius raises held-out
+cam095 cord PSNR about `.30 dB` at both gates and changes global PSNR by less
+than `.016 dB`. The [30.5k](/home/pavlo/renders/luster_000470_opacity/reviews/cord_geometry_20261008/radius_r005_30500_cam095.png)
+and [31k](/home/pavlo/renders/luster_000470_opacity/reviews/cord_geometry_20261008/radius_r005_31000_cam095.png)
+GT/control/wider-radius crops show a slightly stronger upper and middle
+braid, while the lower portion still fades. This is a measured incremental
+improvement, not a solution to transparency.
