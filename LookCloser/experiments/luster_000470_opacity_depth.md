@@ -2069,3 +2069,26 @@ SSH user `coder`. No source masks were used. No training jobs remain active.
 Next justified investigation is reliable thin-cord multiview correspondence/
 geometry; this screen does not authorize or claim a new trusted cord depth
 prior. The upstream reason for missing geometry remains open.
+
+
+### All-camera original-photo cord collage (2026-10-08)
+
+User-requested one-image collage of all165 original camera JPGs. Native
+pixels are retained1:1 in the PNG; no renders, source masks or upscaling.
+A calibrated approximate cord envelope is used only to position crops.
+94 camera photos intersect that envelope, while71 do not; those cells are
+labeled OUT OF FRAME. EDGE means the photo clips the crop. Back views can
+show the occluding body/hair rather than the cord; no visibility classifier
+is used. All165 original source hashes match the data-preparation receipts.
+All four review pages were visually inspected. Exact crop-pixel equality
+is checked during composition and after PNG roundtrip on cams011/023/095/
+097/098/150/163. The original cam023 photo is itself soft at the braid;
+this collage does not infer model transparency from source-photo softness.
+
+PNG8890x6754,23,181,705bytes:
+[Full native collage](/var/tmp/lookcloser_000470_delivery/cord_000470_all_165_fullres.png),
+[Preview](/var/tmp/lookcloser_000470_delivery/cord_000470_all_165_preview.jpg),
+[Source/crop provenance](/var/tmp/lookcloser_000470_delivery/cord_000470_all_165_manifest.json).
+
+Reproduction: `scripts/make_luster_cord_collage.py --output NEW_DIRECTORY`
+using the documented Conda Python. SSH download host/user: coder@olive-lark.
