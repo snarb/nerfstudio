@@ -43,6 +43,18 @@ manifest. It acts only on colour after the separate termination-mass prior
 has chosen geometry; it cannot reward changing density to fit a colour target.
 The runner verifies the audit and source-image hashes. It defaults to zero,
 and its effect must be assessed with the same held-out cord gate.
+A sparse alternative places selected auxiliary ray targets at 3D points from
+train-only guided stereo instead of the two-endpoint straight segment. The
+stereo audit scans depth along cam097's line-projected rays and compares
+native grayscale patches in cams025/026/027/098. It records patch-size,
+camera-subset and peak-ambiguity checks; only provisionally qualified lower
+fractions are eligible. A matched line/stereo manifest pair selects exactly
+the same camera/fraction indices, while the stereo manifest overrides those
+3D points. The runner checks each override against the hash-pinned audit and
+its supporting training cameras. The local fine sampler still uses the
+original endpoints, so only auxiliary depth geometry differs. Patch
+correlation is not certified depth; held-out render and person-crop gates
+decide whether a candidate can be used.
 
 Separately, a cord occupancy option admits grid cells intersected by the
 fitted segment and a configurable narrow tube. It unions those cells into

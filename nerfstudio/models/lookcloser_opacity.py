@@ -202,6 +202,22 @@ class LookCloserOpacityModel(LookCloserModel):
                     raise ValueError('Repeated selected cord ray')
             frames = {int(frame['camera_id']): frame for frame in transforms['frames']}
             points = endpoints[0][None] + torch.linspace(.08,.92,12,device=endpoints.device)[:,None] * (endpoints[1]-endpoints[0])[None]
+            if selected_pairs is not None:
+                overrides=selection.get('stereo_points',{})
+                if not isinstance(overrides,dict):
+                    raise ValueError('Stereo cord points must be indexed by fraction')
+                selected_fractions={index for _,index in selected_pairs}
+                for key,value in overrides.items():
+                    if not key.isdecimal() or int(key) not in selected_fractions:
+                        raise ValueError('Stereo cord point is not a selected train fraction')
+                    index=int(key)
+                    candidate=torch.as_tensor(value,dtype=points.dtype,device=points.device)
+                    if (candidate.shape!=(3,) or not torch.isfinite(candidate).all()
+                            or (candidate-points[index]).norm()>.01
+                            or not ((candidate>=self.scene_box.aabb[0].to(candidate))
+                                    &(candidate<=self.scene_box.aabb[1].to(candidate))).all()):
+                        raise ValueError('Stereo cord point is invalid or too far from the landmark fit')
+                    points[index]=candidate
             origins, directions, depths = [], [], []
             ray_pairs=[]
             for camera_id in camera_ids:

@@ -200,6 +200,31 @@ def configuration(request):
             raise ValueError('Trusted cord rays do not match the source field or geometry')
         if selection.get('source_audit_sha256')!=sha(Path(selection['source_audit'])):
             raise ValueError('Trusted cord ray audit changed')
+        if selection.get('stereo_points'):
+            stereo=json.loads(Path(selection['source_audit']).read_text())
+            if (stereo.get('train_only') is not True or stereo.get('masks_used') is not False
+                    or stereo.get('fit_sha256')!=model.cord_sampling_fit_sha256
+                    or stereo.get('transforms_sha256')!=model.cord_sampling_transforms_sha256):
+                raise ValueError('Stereo cord points are not pinned to train-only geometry')
+            selected_pairs={tuple(pair) for pair in selection['selected_camera_fraction_indices']}
+            offsets=stereo['normalized_depth_offsets']
+            for key,point in selection['stereo_points'].items():
+                index=int(key)
+                row=stereo['rows'][index]
+                if (row['provisional_high_confidence'] is not True
+                        or len(point)!=3
+                        or max(abs(float(a)-float(b)) for a,b in zip(point,row['candidate_normalized_xyz']))>1e-7):
+                    raise ValueError('Stereo cord point differs from its audited candidate')
+                take=min(range(len(offsets)),key=lambda i:abs(offsets[i]-row['candidate_offset_normalized']))
+                expected={stereo['reference_camera']}
+                for camera_id in stereo['target_cameras']:
+                    score=row['patch_scores']['9']['cameras'][str(camera_id)]
+                    candidate_ncc=score['curve'][take]
+                    if candidate_ncc>.5 and score['best_ncc']-candidate_ncc<.15:
+                        expected.add(camera_id)
+                actual={camera_id for camera_id,fraction_index in selected_pairs if fraction_index==index}
+                if actual!=expected or len(actual)<4:
+                    raise ValueError('Stereo cord point lacks its audited training witnesses')
         if getattr(model,'cord_ray_color_regularization',0.)>0:
             frames={int(frame['camera_id']):frame for frame in json.loads((data/'transforms.json').read_text())['frames']}
             expected={}
