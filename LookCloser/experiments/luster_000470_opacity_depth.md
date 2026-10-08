@@ -1933,3 +1933,12 @@ scp -r coder@olive-lark:/var/tmp/lookcloser_000470_delivery/face_comparison_2026
 Optimization timings for these short screens are observations, not isolated
 benchmarks: some read-only probes overlapped other jobs. The isolated repeated
 control agrees with original runtime, and no convergence-speed gain is proven.
+
+The repeated40k four-pose visual gate is complete. Compared with the repeated
+control at18/23/25/26, the main central pale skirt layer is again reduced in23;
+remaining patches persist, including the left-side patch. This supports repeat
+local improvement but does not change the failed global selection gate or the
+face conclusion. All controllers/workers are terminal, GPU is idle, and the
+campaign check is recorded. The full original goal remains unfinished.
+
+- [Repeated40k four-pose crops](/home/pavlo/renders/luster_000470_opacity/reviews/floor_repeat40_four_skirt_crops.jpg)
