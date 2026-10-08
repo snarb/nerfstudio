@@ -1643,3 +1643,64 @@ scp coder@olive-lark:/var/tmp/lookcloser_000470_delivery/opacity01_admission38k_
 scp coder@olive-lark:/var/tmp/lookcloser_000470_delivery/opacity01_admission38k_native/face/learned_rgb.mp4 ~/Downloads/
 scp coder@olive-lark:/var/tmp/lookcloser_000470_delivery/opacity01_admission38k_native/hand_comparison_40k.jpg ~/Downloads/
 ```
+
+### Shared band-prior with admission40k: not promoted
+
+What was tested: same38k parent→40k as the admitted shared control, adding only
+qualified≥6-witness density-band99%, strength10/coefficient.0001 (total.001).
+Native RGB sampling is retained; all32 first RGB/pixel batches match. Auxiliary
+metadata adds no standard depth_image objective. No masks or additional encoding.
+
+| Native40k | PSNR | SSIM | LPIPS | Optimization seconds |
+| --- | ---: | ---: | ---: | ---: |
+| Admission control | 20.0849 | .818908 | .220265 | 144.14 |
+| Admission+band99 | 20.0818 | .818713 | .220021 | 186.77 |
+
+Results: all six face/hand/hair/clothing contacts inspected. Inner-face held-out
+PSNR changes+.108/−.103/−.186dB; train+.051/+.518/+.515dB. Face ROI LPIPS worsens
+in four, improves slightly in two. No clear image/artifact improvement. Cost rises
+29.6%. The recipe is not promoted. Pinned native20×20 geometry probes use the
+same original trusted reference, including unknown pixels not trained by the prior.
+Face median slab opacity(control→prior) is.7355→.7672/.7430→.7749/.7215→.7575;
+90% termination widths.002954→.002771/.002628→.002564/.002600→.002489.
+Tight front mass.02776→.02732/.00365→.00698/.00098→.00844: no consistent reduction.
+Restoring sampling support is useful but has not solved the depth-opacity recipe.
+
+### Remaining skirt ghosts: foreground layers, not transparent cloth alone
+
+What was tested: frozen admitted38k, exact exported orbit18/23/25/26 cameras,
+original occupancy versus temporary one-voxel expansion. Original native PNGs
+reproduce exactly; the entire field fingerprint is unchanged. Before/after crops
+are visually inspected. Large pale patches persist despite some detail changes.
+
+A five-ray decomposition on orbit23 reconstructs native RGB from queried point
+colors and packed weights with maximum error1.22e−5. On white spots, a pale layer
+at distance.29–.38 contributes35–82% of termination mass; green cloth at.84–.94
+contributes the remainder. Nearby clean cloth rays place99% at the green layer.
+Total accumulation is already1, so total-opacity metrics cannot diagnose this.
+Making the earliest layer opaque would intensify that false/uncertain occlusion.
+
+The white-layer points cluster near worldy.59–.62,z−.37–−.43, outside the main
+cloth points near y.12. Conservative qualified3×3 depth projections with an extra
+1cm margin provide no empty-space or matching-surface witnesses, only one
+occluded/behind vote. Available depth does not justify hard carving these points.
+Actual source RGB context projections mostly land on bright floor/background;
+only one near-direction camera(016,18.7°) sees the point. Other visible source
+views are over100° away. This suggests weak coverage/background geometry ambiguity;
+it is an inference, not proof of a real panel or proof of empty space.
+
+Next experiment: an optional spatial density-element regularizer discourages
+intermediate opacity and unnecessary occupied support. It samples current active
+cells with a separate RNG stream; element size is the occupancy voxel diagonal.
+alpha*(1−alpha)+.99*alpha prefers sparse support and leaves saturated dense
+regions with near-zero derivative. Nineteen focused tests pass, including gradient
+signs, empty/invalid inputs, unchanged RGB forward, active-cell sampling and RNG
+preservation. It is a soft penalty, not a guarantee of opaque geometry. A single
+2k shared38k→40k screen uses coefficient.01; ordinary RGB supervision and
+admission are unchanged. No stronger band-prior continuation is launched.
+
+- [Reviewed band40k gate](/home/pavlo/renders/luster_000470_opacity/reviews/opacity01_admission_band99_040000/comparison.json)
+- [Unchanged-field skirt expansion](/home/pavlo/renders/luster_000470_opacity/reviews/skirt_occupancy_radius1/manifest.json)
+- [Ray color/termination layers](/home/pavlo/renders/luster_000470_opacity/reviews/skirt_ghost_ray_layers.json)
+- [Qualified depth visibility audit](/home/pavlo/renders/luster_000470_opacity/reviews/skirt_ghost_depth_votes.json)
+- [Actual RGB camera context](/home/pavlo/renders/luster_000470_opacity/reviews/ghost_point_actual_camera_context.jpg)

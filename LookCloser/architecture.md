@@ -13,6 +13,15 @@ updates in train/eval. The default has no prior buffer or checkpoint-layout chan
 enabled static data is revalidated on load rather than stored as learned state.
 Frozen-field forward/visual checks precede any training-quality claim.
 
+The optional volume density-element objective samples1,024 positions uniformly
+inside current active occupancy cells using a separate deterministic RNG stream.
+Element opacity is1−exp(−sigma*voxel_diagonal). Its objective isalpha*(1−alpha)
+plus an L1 occupancy cost; bias.99 pushes intermediate elements toward empty
+space while saturated dense elements have nearly zero derivative. This is a
+soft preference, not binary material enforcement. It changes no RGB rays/samples
+and defaults to zero. Current support is bounded single-level volume; RGB
+supervision can retain necessary elements. Training/visual acceptance is required.
+
 `separate_density_encoding` optionally clones the density hash encoding and MLP
 while retaining the original encoding/geometry features for RGB. Initial density
 and RGB are identical to the shared field. Density objectives then differentiate

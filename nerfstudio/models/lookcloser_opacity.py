@@ -8,8 +8,9 @@ import torch
 import torch.nn.functional as F
 from nerfstudio.fields.lookcloser_field import LookCloserField
 from nerfstudio.fields.lookcloser_surface_field import LookCloserSurfaceField
-from nerfstudio.model_components.lookcloser_opacity import first_crossing, sdf_weights, opacity_profile_loss, depth_interval_loss, density_band_loss
+from nerfstudio.model_components.lookcloser_opacity import first_crossing, sdf_weights, opacity_profile_loss, depth_interval_loss, density_band_loss, density_element_loss
 from nerfstudio.models.lookcloser import LookCloserModel, LookCloserModelConfig
+from nerfstudio.utils.lookcloser_rng import fork_seeded_rng
 
 
 @dataclass
@@ -22,6 +23,9 @@ class LookCloserOpacityModelConfig(LookCloserModelConfig):
     depth_prior_loss_mult: float = .01
     depth_prior_objective: Literal['distance','interval_mass','density_band'] = 'distance'
     depth_prior_opacity_target: float = .99
+    density_element_regularization: float = 0.
+    density_element_samples: int = 1024
+    density_element_sparse_bias: float = .99
     surface_num_samples: int = 256
     surface_refine_steps: int = 8
     surface_inverse_width: float = 400.
@@ -57,8 +61,14 @@ class LookCloserOpacityModel(LookCloserModel):
         if self.config.depth_prior_objective=='density_band' and (
                 self.config.representation!='volume' or self.config.volume_depth_guided_sampling):
             raise ValueError('Density-band prior requires volume and unchanged native RGB sampling')
+        if self.config.density_element_samples < 1 or not 0 <= self.config.density_element_sparse_bias < 1:
+            raise ValueError('Invalid density element sampling/bias')
+        if self.config.density_element_regularization > 0 and (
+                self.config.representation != 'volume' or self.config.occupancy_grid_levels != 1):
+            raise ValueError('Density elements currently require bounded single-level volume')
         controls=[self.config.opacity_regularization,self.config.depth_prior_strength,
-                  self.config.depth_prior_loss_mult,self.config.eikonal_loss_mult]
+                  self.config.depth_prior_loss_mult,self.config.eikonal_loss_mult,
+                  self.config.density_element_regularization]
         if any(not math.isfinite(value) or value<0 for value in controls):
             raise ValueError('Regularization must be nonnegative')
         if self.config.surface_num_samples < 2 or self.config.surface_refine_steps < 0 or self.config.surface_inverse_width <= 0:
@@ -374,6 +384,21 @@ class LookCloserOpacityModel(LookCloserModel):
             indices = torch.arange(len(ray_bundle),device=weights.device).repeat_interleave(outputs['loss_weights'].shape[1])
         if self.training and self.config.opacity_regularization>0:
             outputs['opacity_profile'] = opacity_profile_loss(weights,starts,ends,indices,len(ray_bundle))
+        if self.training and self.config.density_element_regularization > 0:
+            active=torch.nonzero(self.occupancy_grid.binaries[0],as_tuple=False)
+            if len(active):
+                with fork_seeded_rng(self.config.training_seed,'density_elements',self.current_train_step,self.device):
+                    ids=torch.randint(len(active),(self.config.density_element_samples,),device=self.device)
+                    offsets=torch.rand(self.config.density_element_samples,3,device=self.device)
+                box=self.occupancy_grid.aabbs[0]
+                resolution=self.occupancy_grid.resolution.to(box)
+                cell_size=(box[3:]-box[:3])/resolution
+                points=box[:3]+(active[ids].to(box)+offsets)*cell_size
+                outputs['density_element_sigma']=self.field.density_fn(points)
+                outputs['density_element_length']=float(cell_size.norm())
+            else:
+                outputs['density_element_sigma']=weights.new_empty(0)
+                outputs['density_element_length']=1.
         if self.training and self.config.depth_prior_strength>0:
             if self.config.depth_prior_objective=='density_band':
                 metadata=ray_bundle.metadata or {}
@@ -423,6 +448,9 @@ class LookCloserOpacityModel(LookCloserModel):
             ramp = min(1.,max(0.,(self.current_train_step-self.config.adaptive_warmup_steps)/max(self.config.opacity_ramp_steps,1)))
             deficit = -torch.log(outputs['accumulation'].clamp_min(1e-6)).mean()
             losses['opacity_loss'] = self.config.opacity_regularization*ramp*(outputs['opacity_profile']+deficit)
+        if self.config.density_element_regularization > 0 and 'density_element_sigma' in outputs:
+            losses['density_element_loss']=self.config.density_element_regularization*density_element_loss(
+                outputs['density_element_sigma'],outputs['density_element_length'],self.config.density_element_sparse_bias)
         if self.config.depth_prior_strength>0 and 'depth_prior' in batch:
             strength = self.config.depth_prior_strength
             if self.config.depth_prior_objective=='density_band':

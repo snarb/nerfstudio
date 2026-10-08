@@ -109,3 +109,17 @@ def density_band_loss(band_sigma: Tensor, tolerance: Tensor, free_sigma: Tensor,
     free_tau=free_sigma.float().clamp_min(0)*width[:,None]/target_tau
     free=torch.where(free_tau<1,.5*free_tau.square(),free_tau-.5).mean(-1)
     return (missing+free).mean()
+
+
+def density_element_loss(sigma: Tensor, element_length: float, sparse_bias: float = .99) -> Tensor:
+    """Bimodal element opacity with an L1 occupancy cost favoring sparse support.
+
+    Convert physical density to opacity over one spatial element. Dense opaque
+    elements have almost zero derivative, whereas diffuse intermediate elements
+    are pushed toward zero. RGB can maintain an element when it is necessary.
+    """
+    if not math.isfinite(element_length) or element_length <= 0 or not 0 <= sparse_bias < 1:
+        raise ValueError('Positive element length and sparse bias in [0,1) required')
+    if not sigma.numel():return sigma.sum()*0
+    alpha=-torch.expm1(-sigma.float().clamp_min(0)*element_length)
+    return (alpha*(1-alpha)+sparse_bias*alpha).mean()
