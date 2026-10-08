@@ -17,7 +17,9 @@ six views. The new direct density-band prior at46k changes actual geometry,
 but its+.0051dB global PSNR is too small to establish superiority. A matched
 coefficient-only threefold screen also retains quality overall but worsens all
 six face ROI LPIPS values. The stricter depth-confidence screen is also rejected at46k.
-A paired frozen-density color-adaptation gate is running next.
+The paired frozen-density color-adaptation48k gate also gives no established
+foreground gain. Read-only sampling probes reveal a small set of large
+field-versus-renderer opacity discrepancies; those require further diagnosis.
 Opacity.3 and all tested hard-boundary/signed-head initializations are not
 promoted. Hard opaque40k, semantic transparency quality training, a stronger
 successful geometry recipe and repeat robustness remain incomplete; the full
@@ -1478,3 +1480,64 @@ This is an unproven experiment, not an accepted quality or speed recipe.
 
 - [Rejected confidence screen](/home/pavlo/renders/luster_000470_opacity/reviews/density_split_band99x3_min6_046000/comparison.json)
 - [Same-reference geometry](/home/pavlo/renders/luster_000470_opacity/reviews/density_split_band99x3_min6_046000_band_audit_v2.json)
+
+### Frozen-density color adaptation48k: no established improvement
+
+What was tested: paired46k→48k continuations after the control and band×3 screen.
+Each branch freezes its density clones and frequency grid; only RGB learns.
+No new depth objective or RGB masks. Both retain full optimizer/scheduler/scaler/RNG
+state and identical first32 RGB/pixel batches. Their common44k ancestry is verified.
+
+| Native48k | PSNR | SSIM | LPIPS | Optimization seconds |
+| --- | ---: | ---: | ---: | ---: |
+| Frozen control,color adaptation | 20.0828 | .818800 | .221558 | 143.34 |
+| Frozen band×3,color adaptation | 20.0694 | .819210 | .221396 | 143.20 |
+
+Results: all six face/hand/hair/clothing/interior contacts inspected. Five of six
+full-face ROI PSNR values worsen. All three held-out face LPIPS values worsen;
+two train face LPIPS values improve slightly. Inner-face PSNR changes+.070/+.152/
+−.039dB held-out and+.127/+.534/+.392dB train. These mixed local changes do not
+establish a better foreground or artifact removal. The candidate is not promoted.
+Both histories select the earlier no-depth44k checkpoint under the PSNR/.07dB
+LPIPS rule. Accepted38k delivery remains the prior reviewed intermediate recipe.
+
+The actual checkpoint gates verify identical before/after density fingerprints,
+including cloned weights, frequency grid, AABB, FR strength and activation.
+This is stronger than merely requesting frozen parameters. The cost of color-only
+optimization is lower than joint fitting, but these stages do not demonstrate
+better total time-to-quality for a depth recipe.
+
+### Native sampling support diagnostic on pinned48k
+
+What was tested: fixed1,568 original trusted train rays, direct65-node density
+slab opacity versus density requery at actual packed ray midpoints, integrated
+over their overlap with the slab. A separate read-only probe uses coarse.001/cap4096
+instead of native.00625/cap1024; another also enables the corrected allocator.
+The field is not changed. Identical direct65-point opacities and ray sets are
+verified between probes. No held-out depth or training update is used.
+
+Results: typical train-face bands contain11–12 native midpoint samples. Median
+absolute field/native opacity discrepancy is.00056 for the control and.00040
+for band×3;90th percentiles.00189/.00167. This does not indicate pervasive
+under-integration on these samples. However,18 control and15 band×3 rays differ
+by more than.05, with maximum.887/.918. These rare cases include face and clothing
+points with high field opacity but zero or few native nodes in the measured slab.
+They must not be hidden behind the good median.
+
+For band×3 cam097 pixel[660,481], slab opacity is.9434 while native midpoint
+integration gives.0251 with3 nodes. Coarse.001/cap4096 gives.1949 with4 nodes;
+corrected allocation gives.1909. Other face points do recover with denser sampling,
+including[646,250]:.0278→.9217 against field.9216. Overall outlier count decreases
+only15→14, also with corrected allocation. Some missing support remains. This
+points to further checks of actual occupancy admission and local density support,
+not a justification to increase all depth weights or globally adopt a slower
+sampler. The exact failing rays and RGB values are retained for that next gate.
+
+All training controllers/workers and sampling probes are terminal at this visual
+review gate. No successful hard opaque40k, semantic quality arm, artifact-free
+recipe or robust depth speedup is claimed; the original goal remains active.
+
+- [Reviewed48k comparison](/home/pavlo/renders/luster_000470_opacity/reviews/density_split_band99x3_color_048000/comparison.json)
+- [Control density invariance](/home/pavlo/renders/luster_000470_opacity/runs/density_split_control_color_048000/frozen_density_audit.json)
+- [Prior density invariance](/home/pavlo/renders/luster_000470_opacity/runs/density_split_band99x3_color_048000/frozen_density_audit.json)
+- [Sampling outlier receipt](/home/pavlo/renders/luster_000470_opacity/reviews/sampling_outliers_48k.json)

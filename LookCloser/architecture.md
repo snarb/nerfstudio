@@ -40,6 +40,9 @@ The depth alignment probe measures fixed-reference interval opacity with nine
 and65 density quadrature nodes, qualifies the complete interval against actual
 near/far bounds, and records a separate tight front termination mass. Its local
 front-density opacity proxy is explicitly distinct from integrated front opacity.
+It also requeries density at actual packed ray midpoints to compare the native
+interval rule with dense slab quadrature. Optional declared sampling overrides
+support read-only diagnoses while leaving field parameters and defaults intact.
 
 Depth confidence policy v2 backprojects each measured nearest-neighbor source
 depth from its actual integer pixel. The manifest records the policy version
