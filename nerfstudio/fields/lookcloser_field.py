@@ -67,6 +67,7 @@ class LookCloserField(Field):
             density_activation: Literal["softplus", "trunc_exp"] = "softplus",
             correct_sh_directions: bool = False,
             spatial_distortion=None,
+            separate_density_encoding: bool = False,
     ) -> None:
         super().__init__()
         if not TCNN_EXISTS:
@@ -168,7 +169,28 @@ class LookCloserField(Field):
                 "n_hidden_layers": color_num_layers,
             },
         )
+        self.density_geometry_encoding = None
+        self.density_geometry_mlp = None
+        if separate_density_encoding:
+            # Clone compatible learned modules; a converted checkpoint supplies
+            # matching weights and Adam state. RGB retains the original branch.
+            from copy import deepcopy
+            self.density_geometry_encoding = deepcopy(self.encoding)
+            self.density_geometry_mlp = deepcopy(self.mlp_geo)
         self.set_tcnn_network_jit(tcnn_network_jit, scope=tcnn_network_jit_scope)
+
+    def _density_logits(self, normalized: Tensor, world: Tensor, color_h: Tensor,
+                        l_grid: Optional[Tensor] = None) -> Tensor:
+        if self.density_geometry_encoding is None:
+            return color_h[..., :1]
+        features = self.density_geometry_encoding(normalized)
+        if self.enable_feature_reweighting:
+            discrete = l_grid is None and self.freq_grid.enabled
+            levels = self.freq_grid.query(world) if l_grid is None else l_grid
+            weights = (self._get_discrete_feature_weights(levels) if discrete else
+                       self.get_weights(levels, batch_size=len(normalized)))
+            features = features * weights
+        return self.density_geometry_mlp(features)[..., :1]
 
     def _activate_rgb(self, raw_rgb: Tensor) -> Tensor:
         if self.rgb_output_parameterization == "sigmoid":
@@ -190,10 +212,12 @@ class LookCloserField(Field):
     def _tcnn_networks_for_scope(self, scope: TCNNNetworkJITScope) -> Tuple[nn.Module, ...]:
         """Return the TCNN networks selected by a validated JIT scope."""
 
+        extra = getattr(self, "density_geometry_mlp", None)
+        geometry = (self.mlp_geo,) + ((extra,) if extra is not None else ())
         if scope == "both":
-            return self.mlp_geo, self.mlp_color
+            return (*geometry, self.mlp_color)
         if scope == "geometry":
-            return (self.mlp_geo,)
+            return geometry
         if scope == "color":
             return (self.mlp_color,)
         raise ValueError(f"Unsupported TCNN network JIT scope: {scope!r}")
@@ -286,7 +310,7 @@ class LookCloserField(Field):
             l_grid=l_grid,
         )
         h = self.mlp_geo(features)
-        density = self.activate_density(h[..., 0:1])
+        density = self.activate_density(self._density_logits(positions_flat,query_positions_flat,h,l_grid))
         density = density * selector.reshape(-1, 1)
         geo_feat = h[..., 1:]
 
@@ -388,7 +412,7 @@ class LookCloserField(Field):
         h = self.mlp_geo(weighted_features)
 
         # Split output
-        density_before_activation = h[..., 0:1]
+        density_before_activation = self._density_logits(positions_flat,query_positions_flat,h)
         geo_feat = h[..., 1:]
 
         density = self.activate_density(density_before_activation)

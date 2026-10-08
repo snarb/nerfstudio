@@ -1106,3 +1106,92 @@ review gate; the full original goal remains active.
 scp coder@olive-lark:/var/tmp/lookcloser_000470_delivery/accepted_opacity36k_native/eval_img_0001.png ~/Downloads/
 scp coder@olive-lark:/var/tmp/lookcloser_000470_delivery/accepted_opacity36k_native/face/learned_rgb.mp4 ~/Downloads/
 ```
+
+### Additional38k evaluation and opacity.3 screen
+
+What was tested: reevaluate the saved opacity.1 step38k using native integration,
+then train opacity.3 for2k steps from the same36k parent. Only the coefficient
+changes. Native GT, calibration, ray bounds and first32 pixel/RGB batches match.
+
+| Native38k | PSNR | SSIM | LPIPS |
+| --- | ---: | ---: | ---: |
+| Opacity.1 control | 20.1719 | .816426 | .222436 |
+| Opacity.3 | 20.1921 | .817917 | .220531 |
+
+Results: all six face/hand/hair/clothing contacts were inspected. Global gains
+are small. Inner-face PSNR changes+.008/+.256/+.157dB held-out, but−1.661/
+−.408/+.013dB in train review. Face LPIPS differences are small and mixed.
+The stronger coefficient is held rather than accepted from global scores alone.
+Repeat robustness is unproven. No source masks are used.
+
+The new opacity-only38k evaluation changes that branch's selection:38k is now
+the maximum and36k lies.07624dB below it, outside the.07dB tie window. The older
+36k export remains a historical intermediate artifact. A new selection/history
+receipt preserves all evaluations without rewriting the original run history.
+
+- [Verified opacity.3 screen](/home/pavlo/renders/luster_000470_opacity/reviews/near05_opacity03_038000/comparison.json)
+- [Updated opacity-only selection](/home/pavlo/renders/luster_000470_opacity/selections/opacity01_with_38k_gate.json)
+
+### Hard density boundaries: geometry/color diagnostics, not accepted models
+
+What was tested: use the trained opacity38k field directly, bracket the first
+density-level boundary with its native ARM intervals, bisect12 times, and render
+one point with alpha1. Thresholds100/300/1000 are read-only counterfactuals,
+with no MVS targets or masks. Empty rays stay black. The method can miss narrow
+peaks and density/frequency-cell discontinuities; it is not certified geometry.
+
+Results: all six face crops were visually inspected. Level1000 preserves a
+recognizable face but has noise and holes; lower levels have severe color errors.
+Face PSNR for level1000 is14.55/11.34/21.42 held-out and9.02/12.56/20.18 train,
+versus volume24.88/28.50/28.18 and26.71/30.80/32.44. Hit fractions are81.6–92.5%;
+95–100% of found roots meet the1% density residual criterion depending on level.
+These are face-only diagnostics, not full-frame quality metrics or trained40k
+opaque results.
+
+Two1,000-step RGB adaptations keep the geometry teacher/frequency grid frozen:
+fresh Adam.001 on the color MLP, or on a separate complete color field. The first
+attempt failed at its first step because target RGB remained on CPU; the fixed
+run moves targets to the renderer device. Both completed runs verify unchanged
+geometry hashes. All RGB targets remain in the objective; no source mask excludes
+empty rays. The full color field's density output is unused by the hard renderer.
+
+| Central-half face,8bit PSNR | Before | RGB head only | Independent complete RGB field |
+| --- | ---: | ---: | ---: |
+| 012 | 24.16 | 25.72 | 26.35 |
+| 095 | 26.20 | 27.64 | 27.77 |
+| 150 | 24.88 | 27.52 | 27.62 |
+| 011 | 24.36 | 25.77 | 25.76 |
+| 097 | 26.12 | 27.71 | 27.91 |
+| 151 | 26.29 | 27.31 | 27.85 |
+
+Insights: copied volume color is not already the correct opaque surface color;
+adaptation helps local interiors but remains worse than the ordinary volume.
+Holes, grain and bad background coverage persist, so neither model is promoted.
+Batch equivalence across these diagnostic fits is unproven; they do not establish
+an isolated causal gain from the full encoding. Learned geometry also needs repair.
+
+- [Density-level renders/receipts](/home/pavlo/renders/luster_000470_opacity/reviews/density_surface_opacity38k/manifest.json)
+- [RGB head diagnostic](/home/pavlo/renders/luster_000470_opacity/density_rgb_adaptation_1000_38k_v2/manifest.json)
+- [Independent color-field diagnostic](/home/pavlo/renders/luster_000470_opacity/density_rgb_fullfield_1000_38k/manifest.json)
+- [Fixed interior evidence](/home/pavlo/renders/luster_000470_opacity/reviews/density_rgb_adaptation_inner_face.json)
+
+### Independent density branch: parity passed, quality gate pending
+
+What was tested: separate density hash/MLP parameters from RGB features while
+keeping the exact initial field. The converter clones171,739,264 encoding values,
+3,072 density-MLP values and their Adam moments, preserving the original four
+parameter slots (including empty SH), scheduler, scaler and RNG.
+
+Results:38 focused tests pass. On the real checkpoint,512 point queries have
+exactly zero density/RGB difference, and256 native camera rays have zero RGB,
+depth and accumulation difference. Density gradients reach only the two new
+geometry modules; fixed-point RGB gradients reach only the original color branch.
+The checkpoint loader confirms full optimizer/scheduler/scaler/RNG restoration.
+
+A matched38k→40k repeat of the shared control is running first, followed by the
+split branch with no new depth prior. Both use the same source state, opacity.1,
+native sampler and near.05. This architecture is not accepted before native
+quality review. Only after that gate will a stronger geometry prior be compared.
+
+- [Actual native parity and gradient audit](/home/pavlo/renders/luster_000470_opacity/reviews/density_clone38k_parity.json)
+- [Checkpoint conversion receipt](/home/pavlo/renders/luster_000470_opacity/split_density_initial38k/conversion.json)

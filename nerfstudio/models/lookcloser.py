@@ -88,6 +88,8 @@ class LookCloserModelConfig(ModelConfig):
 
     feature_reweighting_strength: float = 1.0
     """Blend strength for feature re-weighting; 1.0 preserves Eq. 6, 0.0 is identity."""
+    separate_density_encoding: bool = False
+    """Experimental independent density hash/MLP; default preserves shared fields."""
 
     geo_feat_dim: int = 15
     """Geometry feature dimension emitted by the density MLP."""
@@ -525,6 +527,7 @@ class LookCloserModel(Model):
             tcnn_network_jit_scope=self.config.tcnn_network_jit_scope,
             enable_feature_reweighting=self.config.enable_feature_reweighting,
             feature_reweighting_strength=self.config.feature_reweighting_strength,
+            separate_density_encoding=self.config.separate_density_encoding,
             rgb_output_parameterization=self.config.rgb_output_parameterization,
             hdr_linear_scale=self.hdr_linear_scale,
             hdr_initial_radiance=self.hdr_initial_radiance,

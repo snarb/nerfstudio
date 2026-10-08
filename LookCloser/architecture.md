@@ -2,6 +2,24 @@
 
 ## Experimental Luster opacity controls
 
+`separate_density_encoding` optionally clones the density hash encoding and MLP
+while retaining the original encoding/geometry features for RGB. Initial density
+and RGB are identical to the shared field. Density objectives then differentiate
+only the cloned branch; fixed-point RGB objectives differentiate only appearance.
+Volume rendering still differentiates visibility with respect to density. The
+default keeps the original parameter layout. The conversion script copies the
+original weights, matching Adam moments, scheduler, scaler and RNG into an expanded
+checkpoint; its layout checks include the empty SH parameter. Native forward and
+gradient audits precede training, followed by a no-new-prior quality gate. This
+option currently rejects signed/semantic surface representations.
+
+The read-only density-surface probe tests hard first boundaries bracketed by
+native volume samples, reports root residuals and empty rays, and retains all RGB
+pixels. Its RGB adaptation diagnostic can fit only the color MLP or a separate
+full color field over a frozen geometry teacher; hashes verify geometry invariance.
+Those archives require the explicit probe renderer and are not standard volume
+or accepted opaque-model checkpoints.
+
 Depth confidence policy v2 backprojects each measured nearest-neighbor source
 depth from its actual integer pixel. The manifest records the policy version
 and builder hash. `review_luster_depth_confidence.py` exports native RGB,

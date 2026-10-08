@@ -47,6 +47,8 @@ class LookCloserOpacityModel(LookCloserModel):
             raise ValueError('Unknown signed geometry feature mode')
         if self.config.surface_geometry_head not in {'shared','independent'}:
             raise ValueError('Unknown geometry head mode')
+        if self.config.separate_density_encoding and self.config.representation!='volume':
+            raise ValueError('Independent density encoding currently supports volume experiments only')
         if self.config.depth_prior_objective not in {'distance','interval_mass'}:
             raise ValueError('Unknown depth interval objective')
         controls=[self.config.opacity_regularization,self.config.depth_prior_strength,
