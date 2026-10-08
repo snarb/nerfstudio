@@ -25,17 +25,23 @@ The [voxel-cover receipt](/home/pavlo/renders/luster_000470_opacity/reviews/cord
 reports 11 cells from sampled admission and 12 in the complete conservative
 cover. Eight cover cells were occupied in the checkpoint, and all four missing
 cells were already included in the sampled admission. The one extra cover
-cell was therefore already occupied. The complete cover changed **zero** RGB
+cell was therefore already occupied. The grid cells are approximately `.0234`
+normalized scene units wide, much larger than this cord tube. Widening the
+complete-cover tube to `.006` also covers the same 12 cells, as recorded in its
+[separate receipt](/home/pavlo/renders/luster_000470_opacity/reviews/cord_geometry_20261008/sharp28_control33k_local_r005_full_voxel_cover_r006/result.json).
+The complete cover changed **zero** RGB
 pixels in the cam095 cord crop and left all eval metrics exactly unchanged:
 
 | Renderer | Eval PSNR | SSIM | LPIPS | cam095 cord PSNR | cam095 cord SSIM | cam095 cord LPIPS |
 |---|---:|---:|---:|---:|---:|---:|
 | Sampled 11-cell admission | 19.824818 | .816858 | .220518 | 22.686262 | .786803 | .066941 |
-| Complete 12-cell voxel cover | 19.824818 | .816858 | .220518 | 22.686262 | .786803 | .066941 |
+| Complete 12-cell voxel cover, `.003` | 19.824818 | .816858 | .220518 | 22.686262 | .786803 | .066941 |
+| Complete 12-cell voxel cover, `.006` | 19.824818 | .816858 | .220518 | 22.686262 | .786803 | .066941 |
 
 The [GT/sampled/complete-cover comparison](/home/pavlo/renders/luster_000470_opacity/reviews/cord_geometry_20261008/sharp28_control33k_full_voxel_cover_comparison.png)
-confirms the lower braid remains too faint. No extra occupancy initialization
-could improve this frozen field at the same cells.
+confirms the lower braid remains too faint. The `.003` and `.006` full-cam095
+renders are pixel-identical. No extra occupancy initialization could improve
+this frozen field at the same cells.
 
 The [ray-layer receipt](/home/pavlo/renders/luster_000470_opacity/reviews/cord_geometry_20261008/sharp28_control33k_ray_layers/result.json)
 shows that near the fitted line the ray is already fully terminated, but the
