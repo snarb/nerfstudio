@@ -1942,3 +1942,130 @@ face conclusion. All controllers/workers are terminal, GPU is idle, and the
 campaign check is recorded. The full original goal remains unfinished.
 
 - [Repeated40k four-pose crops](/home/pavlo/renders/luster_000470_opacity/reviews/floor_repeat40_four_skirt_crops.jpg)
+
+
+## Belt cord: PatchMatch audit and strong binary opacity screen (2026-10-08)
+
+What was tested: focus on the person, specifically the visibly disappearing
+teal braided cord on held-out cam095. Studio background quality is not a
+criterion for this investigation. No RGB masks are used.
+
+Before training, inspected the corresponding cord on neighboring training
+cam097, raw geometric PatchMatch depth, three-witness qualification and
+six-witness qualification. Camera095 has no depth map because it is held out.
+The manually reviewed cord centre strip has 1,337 pixels: measured depth
+40.31%, qualified by >=3 witnesses 26.25%, qualified by >=6 witnesses 0%.
+Five of seven inspected centreline points have no measured depth; the upper
+two have five witnesses. The depth image does not recover a continuous
+separate braided cord surface. Missing or weakly qualified depths cannot
+justify a hard cord prior. These percentages describe this narrow annotated
+strip, not all cord pixels or the entire scene.
+
+| Frozen baseline30k cord patch | PSNR | SSIM | LPIPS |
+|---|---:|---:|---:|
+| cam095 native | 20.7014 | .730594 | .099895 |
+| cam095 smaller coarse step / larger sample cap | 21.9924 | .751567 | .082061 |
+| cam097 native | 26.0661 | .803680 | .087125 |
+| cam097 smaller coarse step / larger sample cap | 26.3465 | .809585 | .082603 |
+
+The sampling-only counterfactual uses coarse step .001 and cap4096, versus
+unchanged native settings; weights are frozen. Visually the break persists
+in both cameras despite some improvement. This establishes a sampling
+contribution but does not establish that the entire failure is transparency.
+Full-ray accumulation is approximately1 even where the cord disappears:
+it includes fabric and other surfaces behind the cord and is not a cord
+opacity measurement. At unmeasured-depth pixels no front/band/back labels
+are assigned.
+
+- [Depth/support comparison](/home/pavlo/renders/luster_000470_opacity/reviews/cord_depth_20261008/cam097_cord_depth.png)
+- [Annotated braid centreline](/home/pavlo/renders/luster_000470_opacity/reviews/cord_depth_20261008/annotations.png)
+- [GT/native/denser sampling crops](/home/pavlo/renders/luster_000470_opacity/reviews/cord_depth_20261008/baseline30/comparison.png)
+- [Frozen-field measurements](/home/pavlo/renders/luster_000470_opacity/reviews/cord_depth_20261008/baseline30/metrics.json)
+
+Next experiment: paired full-state resumes from the ordinary no-prior
+baseline30k, with identical RGB batches and independent RNG streams.
+Control adds no prior. Candidate adds only existing spatial-element binary
+opacity penalty alpha*(1-alpha), coefficient1, 4096 randomly resampled
+active-cell positions per step, sparse bias0. Element opacity is defined
+over the fixed occupancy-cell diagonal, rather than a variable marching
+interval. This penalizes intermediate opacity with equal zero/one minima.
+An L1 penalty on alpha alone would instead prefer deletion; it is not used.
+No depth admission, floor prior, depth penalty or ray-profile penalty is
+added. Gates30500/31000/32000; crop metrics supplement full-scene metrics
+because background errors do not express the user's priority.
+
+Status: both runs finished successfully at32k. First32 RGB/pixel receipts
+match exactly; supervised checks recorded no OOM. All gates were visually
+reviewed on the cord; final face/hand guards inspected in cams095/097/151.
+The control selects31k by the standard PSNR/.07dB-LPIPS rule; the binary
+candidate selects32k. Matched32k renders are retained separately.
+
+Results:
+
+
+| Run | Step | Eval PSNR | SSIM | LPIPS | cam095 cord PSNR | cam097 cord PSNR |
+|---|---:|---:|---:|---:|---:|---:|
+| Control | 30500 | 19.8614 | 0.806698 | 0.230085 | 19.4653 | 26.1256 |
+| Control | 31000 | 19.8459 | 0.806976 | 0.229897 | 19.1775 | 25.9653 |
+| Control | 32000 | 19.8918 | 0.807513 | 0.230798 | 18.4207 | 26.0106 |
+| Binary coefficient1 | 30500 | 19.6902 | 0.783640 | 0.288354 | 24.3438 | 24.9953 |
+| Binary coefficient1 | 31000 | 19.7522 | 0.785980 | 0.271583 | 24.0490 | 24.9722 |
+| Binary coefficient1 | 32000 | 19.8598 | 0.785603 | 0.259887 | 24.6739 | 25.0258 |
+
+Insights: strong binarization clears a pale cast and improves the cam095
+cord crop's contrast/color metrics. The actual break remains. Cam097's cord
+SSIM falls .80617 to .77208 and its PSNR falls26.0106 to25.0258 at the
+matched32k gate. Final face differences versus the control are modest but
+mixed; there is no evidence of a robust person-quality improvement. The
+candidate is rejected as a cord repair. These are single paired runs; tiny
+quality differences are not claimed to exceed custom-CUDA variation.
+
+### Native ray evidence for the remaining break
+
+A frozen-field audit captures exact field outputs using a temporary forward
+hook, rather than requerying positions reconstructed from normalized spacing.
+The first requery version failed its RGB parity guard (max .001675); it is
+not used for conclusions. Hook-based reconstructions have max RGB error0,
+and field fingerprints remain unchanged.
+
+At cam095 pixel[883,1340], the GT is teal RGB[74,118,127]. Baseline30k has
+a pale foreground layer at ray distances .078-.116 with termination mass
+.114, plus a body/belt layer at1.053-1.063 with mass .885 and conditional
+RGB[.719,.161,.248], which is red. The binary candidate removes the pale
+layer on this ray, but its body layer is almost completely opaque (mass
+.99948), with conditional RGB[.738,.152,.251]. The gap thus survives even
+after opacity of the body layer approaches1. This directly separates the
+pale-overlay component from the remaining missing-cord visibility error.
+Distances are normalized scene coordinates, not claimed physical metres.
+
+The candidate's dominant red point on this ray (t1.0535723) is projected
+through the unchanged calibration into training cams093/097/098/011. All
+four projections lie on red belt fabric in the GT photographs. Cam095's
+corresponding pixel instead lies on the visible teal braid. This supports
+the concrete mechanism: the learned belt surface is being shown where the
+front cord should occlude it. Making that belt more opaque cannot restore
+the missing cord surface. It does not distinguish the upstream causes
+(insufficient learned geometry, alignment, sampling or view-dependent color)
+and does not independently validate thin-cord geometry.
+
+The frozen opaque-dominant-sample diagnostic also fails to restore the braid
+and can pick the pale near-camera layer in the baseline. It is a diagnostic
+only, not an accepted surface renderer. The candidate's fixed-cell opacities
+are nearly binary, yet that does not certify opaque thin surfaces: cell
+diagonal opacity and integrated opacity of a thin structure are distinct.
+
+- [Matched32k cord crops in two views](/home/pavlo/renders/luster_000470_opacity/reviews/cord_depth_20261008/cord_two_views_comparison.png)
+- [Baseline/paired-control/binary cam095 crop](/home/pavlo/renders/luster_000470_opacity/reviews/cord_depth_20261008/strong32000_comparison.png)
+- [Person visual guards](/home/pavlo/renders/luster_000470_opacity/reviews/cord_depth_20261008/person_guards32k.png)
+- [Neighboring camera depth support](/home/pavlo/renders/luster_000470_opacity/reviews/cord_depth_20261008/neighbor_depth.png)
+- [Exact native baseline ray audit](/home/pavlo/renders/luster_000470_opacity/reviews/cord_depth_20261008/baseline30_layers_v3/metrics.json)
+- [Exact native binary ray audit](/home/pavlo/renders/luster_000470_opacity/reviews/cord_depth_20261008/binary32_layers/metrics.json)
+- [Wrong red surface projected into GT views](/home/pavlo/renders/luster_000470_opacity/reviews/cord_depth_20261008/wrong_red_surface_projection.png)
+- [Projection coordinates and depth support](/home/pavlo/renders/luster_000470_opacity/reviews/cord_depth_20261008/wrong_red_surface_projection.json)
+
+Physical download delivery, with readable permissions and file hashes:
+`/var/tmp/lookcloser_000470_delivery/cord_depth_20261008` on `olive-lark`,
+SSH user `coder`. No source masks were used. No training jobs remain active.
+Next justified investigation is reliable thin-cord multiview correspondence/
+geometry; this screen does not authorize or claim a new trusted cord depth
+prior. The upstream reason for missing geometry remains open.
