@@ -22,6 +22,11 @@ queries density in a narrow depth band and six points ahead of it. The
 configurable objective asks for an opaque band and empty foreground without
 altering RGB rays or source images. It is experimental and must pass the
 held-out cord and person-crop review before adoption.
+The alternative `cord_ray_objective=termination_mass` samples a wider shell
+around the same depth and computes opacity with per-interval transmittance.
+It penalizes visible termination just before or behind the trusted band,
+which sparse free-space probes alone can miss; the fit and RGB data remain
+unchanged.
 
 Separately, a cord occupancy option admits grid cells intersected by the
 fitted segment and a configurable narrow tube. It unions those cells into

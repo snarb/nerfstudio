@@ -12,7 +12,7 @@ import torch.nn.functional as F
 import nerfacc
 from nerfstudio.fields.lookcloser_field import LookCloserField
 from nerfstudio.fields.lookcloser_surface_field import LookCloserSurfaceField
-from nerfstudio.model_components.lookcloser_opacity import first_crossing, sdf_weights, opacity_profile_loss, depth_interval_loss, density_band_loss, density_element_loss, floor_ray_geometry_loss
+from nerfstudio.model_components.lookcloser_opacity import first_crossing, sdf_weights, opacity_profile_loss, depth_interval_loss, density_band_loss, cord_termination_mass_loss, density_element_loss, floor_ray_geometry_loss
 from nerfstudio.model_components.lookcloser_occupancy import admit_occupancy_points_
 from nerfstudio.models.lookcloser import LookCloserModel, LookCloserModelConfig
 from nerfstudio.utils.lookcloser_rng import fork_seeded_rng
@@ -59,6 +59,7 @@ class LookCloserOpacityModelConfig(LookCloserModelConfig):
     cord_rays_per_batch: int = 32
     cord_ray_tolerance: float = .003
     cord_ray_opacity_target: float = .99
+    cord_ray_objective: Literal['density_band','termination_mass'] = 'density_band'
     cord_occupancy_radius: float = 0.
 
 
@@ -78,6 +79,8 @@ class LookCloserOpacityModel(LookCloserModel):
             raise ValueError('Independent density encoding currently supports volume experiments only')
         if self.config.depth_prior_objective not in {'distance','interval_mass','density_band'}:
             raise ValueError('Unknown depth interval objective')
+        if self.config.cord_ray_objective not in {'density_band','termination_mass'}:
+            raise ValueError('Unknown cord ray objective')
         if not 0 < self.config.depth_prior_opacity_target < 1:
             raise ValueError('Depth-band opacity target must be between zero and one')
         if self.config.depth_prior_objective=='density_band' and (
@@ -618,9 +621,15 @@ class LookCloserOpacityModel(LookCloserModel):
             o,d=self.cord_ray_origins[ids],self.cord_ray_directions[ids]
             center=self.cord_ray_depths[ids,None]
             eps=self.config.cord_ray_tolerance
-            distances=center+eps*torch.linspace(-1,1,17,device=self.device)[None,:]
-            points=o[:,None]+d[:,None]*distances[...,None]
-            outputs['cord_band_sigma']=self.field.density_fn(points.reshape(-1,3)).reshape(len(ids),17)
+            if self.config.cord_ray_objective=='density_band':
+                distances=center+eps*torch.linspace(-1,1,17,device=self.device)[None,:]
+                points=o[:,None]+d[:,None]*distances[...,None]
+                outputs['cord_band_sigma']=self.field.density_fn(points.reshape(-1,3)).reshape(len(ids),17)
+            else:
+                edges=torch.linspace(-5,5,61,device=self.device)
+                distances=center+eps*((edges[:-1]+edges[1:])/2)[None,:]
+                points=o[:,None]+d[:,None]*distances[...,None]
+                outputs['cord_shell_sigma']=self.field.density_fn(points.reshape(-1,3)).reshape(len(ids),60)
             fractions=o.new_tensor([.25,.5,.75])
             margins=o.new_tensor([2.,4.,8.])
             free_distances=torch.cat([center*fractions[None,:],center-eps*margins[None,:]],-1)
@@ -709,10 +718,17 @@ class LookCloserOpacityModel(LookCloserModel):
             losses['floor_geometry_loss']=self.config.floor_ray_regularization*floor_ray_geometry_loss(
                 outputs['floor_free_sigma'],outputs['floor_free_length'],outputs['floor_band_sigma'],outputs['floor_tolerance'],
                 free_monte_carlo=outputs.get('floor_free_monte_carlo',False))
-        if self.config.cord_ray_regularization > 0 and 'cord_band_sigma' in outputs:
-            losses['cord_ray_geometry_loss']=self.config.cord_ray_regularization*density_band_loss(
-                outputs['cord_band_sigma'],outputs['cord_tolerance'],
-                outputs['cord_free_sigma'],self.config.cord_ray_opacity_target)
+        if self.config.cord_ray_regularization > 0:
+            if 'cord_band_sigma' in outputs:
+                value=density_band_loss(outputs['cord_band_sigma'],outputs['cord_tolerance'],
+                                        outputs['cord_free_sigma'],self.config.cord_ray_opacity_target)
+            elif 'cord_shell_sigma' in outputs:
+                value=cord_termination_mass_loss(outputs['cord_shell_sigma'],outputs['cord_tolerance'],
+                                                 outputs['cord_free_sigma'],self.config.cord_ray_opacity_target)
+            else:
+                value=None
+            if value is not None:
+                losses['cord_ray_geometry_loss']=self.config.cord_ray_regularization*value
         if self.config.depth_prior_strength>0 and 'depth_prior' in batch:
             strength = self.config.depth_prior_strength
             if self.config.depth_prior_objective=='density_band':

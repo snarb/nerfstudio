@@ -111,6 +111,45 @@ def density_band_loss(band_sigma: Tensor, tolerance: Tensor, free_sigma: Tensor,
     return (missing+free).mean()
 
 
+def cord_termination_mass_loss(shell_sigma: Tensor, tolerance: Tensor,
+                               free_sigma: Tensor, opacity_target: float = .99,
+                               shell_extent: float = 5.) -> Tensor:
+    """Concentrate actual ray termination inside the fitted cord-depth slab.
+
+    The shell covers +/- ``shell_extent * tolerance`` with equal-width
+    intervals. Unlike an integrated slab-density target, its native alpha and
+    transmittance account for nearby front/back density that can wash out a
+    thin foreground cord. Distant free-space probes remain a separate guard.
+    """
+    if (shell_sigma.ndim != 2 or shell_sigma.shape[1] < 4
+            or free_sigma.shape != (len(shell_sigma),6)
+            or tolerance.shape != (len(shell_sigma),)
+            or not 0 < opacity_target < 1 or shell_extent <= 1):
+        raise ValueError('Invalid cord termination shell')
+    if not len(shell_sigma):
+        return shell_sigma.sum()*0+free_sigma.sum()*0
+    if (tolerance<=0).any():
+        raise ValueError('Cord tolerance must be positive')
+    sigma=shell_sigma.float().clamp_min(0)
+    eps=tolerance.float()
+    count=sigma.shape[1]
+    step=(2*shell_extent/count)*eps[:,None]
+    alpha=-torch.expm1(-sigma*step)
+    trans=torch.cumprod(torch.cat([torch.ones_like(alpha[:,:1]),
+                                   (1-alpha).clamp_min(1e-8)],dim=-1),dim=-1)[:,:-1]
+    weights=alpha*trans
+    offsets=torch.linspace(-shell_extent,shell_extent,count+1,device=sigma.device,dtype=sigma.dtype)
+    mids=(offsets[:-1]+offsets[1:])*.5
+    inside=mids.abs()<=1
+    band_mass=weights[:,inside].sum(-1)
+    outside_mass=weights[:,~inside].sum(-1)
+    missing=((opacity_target-band_mass)/opacity_target).clamp_min(0).square()
+    target_tau=-math.log1p(-opacity_target)
+    free_tau=free_sigma.float().clamp_min(0)*(2*eps[:,None])/target_tau
+    free=torch.where(free_tau<1,.5*free_tau.square(),free_tau-.5).mean(-1)
+    return (outside_mass+missing+free).mean()
+
+
 def density_element_loss(sigma: Tensor, element_length: float, sparse_bias: float = .99) -> Tensor:
     """Bimodal element opacity with an L1 occupancy cost favoring sparse support.
 
