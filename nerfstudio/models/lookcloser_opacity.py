@@ -3,12 +3,16 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from pathlib import Path
 import math
+import hashlib
+import json
+import numpy as np
 from typing import Literal, Type
 import torch
 import torch.nn.functional as F
 from nerfstudio.fields.lookcloser_field import LookCloserField
 from nerfstudio.fields.lookcloser_surface_field import LookCloserSurfaceField
-from nerfstudio.model_components.lookcloser_opacity import first_crossing, sdf_weights, opacity_profile_loss, depth_interval_loss, density_band_loss, density_element_loss
+from nerfstudio.model_components.lookcloser_opacity import first_crossing, sdf_weights, opacity_profile_loss, depth_interval_loss, density_band_loss, density_element_loss, floor_ray_geometry_loss
+from nerfstudio.model_components.lookcloser_occupancy import admit_occupancy_points_
 from nerfstudio.models.lookcloser import LookCloserModel, LookCloserModelConfig
 from nerfstudio.utils.lookcloser_rng import fork_seeded_rng
 
@@ -26,6 +30,11 @@ class LookCloserOpacityModelConfig(LookCloserModelConfig):
     density_element_regularization: float = 0.
     density_element_samples: int = 1024
     density_element_sparse_bias: float = .99
+    floor_ray_prior_path: str | None = None
+    floor_ray_transforms_sha256: str | None = None
+    floor_ray_regularization: float = 0.
+    floor_rays_per_batch: int = 64
+    floor_free_sampling: str = 'uniform'
     surface_num_samples: int = 256
     surface_refine_steps: int = 8
     surface_inverse_width: float = 400.
@@ -68,7 +77,7 @@ class LookCloserOpacityModel(LookCloserModel):
             raise ValueError('Density elements currently require bounded single-level volume')
         controls=[self.config.opacity_regularization,self.config.depth_prior_strength,
                   self.config.depth_prior_loss_mult,self.config.eikonal_loss_mult,
-                  self.config.density_element_regularization]
+                  self.config.density_element_regularization,self.config.floor_ray_regularization]
         if any(not math.isfinite(value) or value<0 for value in controls):
             raise ValueError('Regularization must be nonnegative')
         if self.config.surface_num_samples < 2 or self.config.surface_refine_steps < 0 or self.config.surface_inverse_width <= 0:
@@ -79,6 +88,35 @@ class LookCloserOpacityModel(LookCloserModel):
             raise ValueError('Surface experiments require sigmoid RGB/Charbonnier, black or white background, and no appearance embedding')
         self.field_class = LookCloserField if self.config.representation == 'volume' else LookCloserSurfaceField
         super().populate_modules()
+        if self.config.floor_ray_regularization > 0:
+            if self.config.floor_free_sampling not in {'uniform','stratified'}:
+                raise ValueError('Unknown floor free-space sampling mode')
+            if self.config.representation!='volume' or not self.config.floor_ray_prior_path or self.config.floor_rays_per_batch<1:
+                raise ValueError('Floor rays require volume, an explicit prior and a positive ray batch')
+            path=Path(self.config.floor_ray_prior_path);manifest=json.loads(path.read_text())
+            if not manifest.get('train_only') or manifest.get('transforms_sha256')!=self.config.floor_ray_transforms_sha256:
+                raise ValueError('Floor prior must match train-only data calibration')
+            archive=path.parent/manifest['archive']
+            if hashlib.sha256(archive.read_bytes()).hexdigest()!=manifest['archive_sha256']:
+                raise ValueError('Floor ray archive hash mismatch')
+            with np.load(archive,allow_pickle=False) as arrays:
+                for key in ['origins','directions','depth','tolerance']:
+                    value=torch.tensor(arrays[key],dtype=torch.float32,device=self.occupancy_grid.aabbs.device)
+                    if not torch.isfinite(value).all():raise ValueError('Nonfinite floor ray data')
+                    self.register_buffer('floor_'+key,value,persistent=False)
+            if (self.floor_depth.ndim!=1 or len(self.floor_depth)<1 or self.floor_origins.shape!=(len(self.floor_depth),3)
+                    or self.floor_directions.shape!=self.floor_origins.shape or self.floor_tolerance.shape!=self.floor_depth.shape
+                    or (self.floor_tolerance<=0).any() or (self.floor_depth-self.floor_tolerance<=self.config.near_plane).any()
+                    or not torch.allclose(self.floor_directions.norm(dim=-1),torch.ones_like(self.floor_depth),atol=1e-5)):
+                raise ValueError('Invalid floor ray geometry')
+            offsets=torch.linspace(-1,1,9,device=self.floor_origins.device)
+            distances=self.floor_depth[:,None]+self.floor_tolerance[:,None]*offsets
+            positions=self.floor_origins[:,None]+self.floor_directions[:,None]*distances[...,None]
+            if not ((positions>=self.scene_box.aabb[0])&(positions<=self.scene_box.aabb[1])).all():
+                raise ValueError('Floor uncertainty band outside scene box')
+            admission=torch.zeros_like(self.occupancy_grid.binaries)
+            admit_occupancy_points_(admission,self.occupancy_grid.aabbs,positions.reshape(-1,3))
+            self.register_buffer('floor_admission',admission,persistent=False)
         if self.config.representation!='volume':
             self.field.continuous_sdf = self.config.surface_sdf_features == 'continuous'
             if self.config.surface_geometry_head == 'independent':
@@ -373,7 +411,30 @@ class LookCloserOpacityModel(LookCloserModel):
     def get_outputs(self,ray_bundle):
         if self.config.representation != 'volume':
             return self._surface_outputs(ray_bundle)
+        if self.config.floor_ray_regularization > 0:
+            self.occupancy_grid.binaries.logical_or_(self.floor_admission)
         outputs = self._volume_outputs(ray_bundle)
+        if self.training and self.config.floor_ray_regularization > 0:
+            with fork_seeded_rng(self.config.training_seed,'floor_rays',self.current_train_step,self.device):
+                ids=torch.randint(len(self.floor_depth),(self.config.floor_rays_per_batch,),device=self.device)
+                if self.config.floor_free_sampling=='stratified':
+                    fraction=(torch.arange(65,device=self.device)[None]+
+                              torch.rand(len(ids),65,device=self.device))/65
+                else:
+                    fraction=torch.linspace(0,1,65,device=self.device)[None]
+            o,d=self.floor_origins[ids],self.floor_directions[ids]
+            center,eps=self.floor_depth[ids,None],self.floor_tolerance[ids,None]
+            near=self.config.near_plane
+            length=(center-eps-near).flatten()
+            distances=near+length[:,None]*fraction
+            points=o[:,None]+d[:,None]*distances[...,None]
+            outputs['floor_free_sigma']=self.field.density_fn(points.reshape(-1,3)).reshape(len(ids),65)
+            distances=center+eps*torch.linspace(-1,1,9,device=self.device)
+            points=o[:,None]+d[:,None]*distances[...,None]
+            outputs['floor_band_sigma']=self.field.density_fn(points.reshape(-1,3)).reshape(len(ids),9)
+            outputs['floor_free_length']=length
+            outputs['floor_tolerance']=eps.flatten()
+            outputs['floor_free_monte_carlo']=self.config.floor_free_sampling=='stratified'
         if 'packed_weights' in outputs:
             weights,indices = outputs['packed_weights'],outputs['packed_ray_indices']
             starts,ends = outputs['packed_spacing_starts'],outputs['packed_spacing_ends']
@@ -451,6 +512,10 @@ class LookCloserOpacityModel(LookCloserModel):
         if self.config.density_element_regularization > 0 and 'density_element_sigma' in outputs:
             losses['density_element_loss']=self.config.density_element_regularization*density_element_loss(
                 outputs['density_element_sigma'],outputs['density_element_length'],self.config.density_element_sparse_bias)
+        if self.config.floor_ray_regularization > 0 and 'floor_free_sigma' in outputs:
+            losses['floor_geometry_loss']=self.config.floor_ray_regularization*floor_ray_geometry_loss(
+                outputs['floor_free_sigma'],outputs['floor_free_length'],outputs['floor_band_sigma'],outputs['floor_tolerance'],
+                free_monte_carlo=outputs.get('floor_free_monte_carlo',False))
         if self.config.depth_prior_strength>0 and 'depth_prior' in batch:
             strength = self.config.depth_prior_strength
             if self.config.depth_prior_objective=='density_band':

@@ -150,6 +150,11 @@ def configuration(request):
         if model.occupancy_prior_transforms_sha256 not in {None, digest}:
             raise ValueError('Occupancy prior calibration does not match current data')
         model.occupancy_prior_transforms_sha256 = digest
+    if getattr(model,'floor_ray_prior_path',None) is not None:
+        digest=sha(data/'transforms.json')
+        if model.floor_ray_transforms_sha256 not in {None,digest}:
+            raise ValueError('Floor ray prior calibration does not match current data')
+        model.floor_ray_transforms_sha256=digest
     if request.get('freeze_density_geometry', False):
         if not model.separate_density_encoding or request.get('representation','volume') != 'volume':
             raise ValueError('Only split volume density can be frozen independently of RGB')
@@ -191,6 +196,20 @@ def configuration(request):
         cfg.checkpoint_load_mode='model_parameters_only'
         cfg.checkpoint_load_parameter_hash_audit=True
     return cfg
+
+
+def floor_evaluation_protocol(request):
+    """Identify floor admission, which changes checkpoint evaluation rendering."""
+    model=request.get('model',{})
+    if model.get('floor_ray_regularization',0)>0:
+        return sha(Path(model['floor_ray_prior_path']))
+    return None
+
+
+def qualify_floor_history(history,request):
+    """Never select a historical score measured with different floor admission."""
+    expected=floor_evaluation_protocol(request)
+    return [row for row in history if row.get('floor_evaluation_protocol')==expected]
 
 
 def score(model,pred,gt):
@@ -269,6 +288,7 @@ def evaluate(trainer,request,step,preview=False):
                                      mean_opacity=float(acc.mean()),nonbinary_opacity_fraction=float(((acc>.001)&(acc<.999)).float().mean())))
         held=[r for r in rows if r['split']=='eval']
         summary=dict(step=step,eval_stride=stride,evaluation_model=evaluation_model,
+                     floor_evaluation_protocol=floor_evaluation_protocol(request),
                      checkpoint=str(trainer.checkpoint_dir/f'step-{step:09d}.ckpt'),
                      renders=str(destination),per_view=rows,
                      **{f'eval_all_{k}':float(np.mean([r[k] for r in held])) for k in ['psnr','ssim','lpips']})
@@ -322,6 +342,7 @@ def train(request):
         'nerfstudio/fields/lookcloser_geometry_head.py',
         'nerfstudio/model_components/lookcloser_grid.py','nerfstudio/model_components/lookcloser_samplers.py',
         'nerfstudio/model_components/lookcloser_colliders.py',
+        'nerfstudio/utils/lookcloser_rng.py',
         'nerfstudio/pipelines/lookcloser_pipeline.py','nerfstudio/lookcloser_pixel_sampler.py',
         'nerfstudio/data/datamanagers/luster_opacity_datamanager.py',
         'nerfstudio/data/dataparsers/luster_opacity_dataparser.py','nerfstudio/engine/trainer.py']
@@ -360,11 +381,35 @@ def train(request):
         return rays,batch
     trainer.pipeline.datamanager.next_train=recorded_next_train
     history=json.loads(Path(request['parent_history']).read_text()) if request.get('parent_history') else []
+    qualified_history=qualify_floor_history(history,request)
+    if len(qualified_history)!=len(history):
+        write(output/'excluded_parent_history.json',dict(
+            reason='Different floor admission evaluation protocol; re-evaluate parent to make it eligible',
+            expected_floor_protocol=floor_evaluation_protocol(request),
+            excluded=[row for row in history if row not in qualified_history]))
+    history=qualified_history
     gates=set(request.get('eval_steps',[2000,8000,20000,26000,32000,40000]))
     start=time.time()
     optimization_seconds=0.
     evaluation_seconds=0.
     last_step=None
+    if request.get('evaluate_initial_checkpoint',False):
+        if not request.get('resume'):
+            raise ValueError('Initial checkpoint evaluation requires a full resume')
+        initial_step=trainer._start_step-1
+        trainer.step=initial_step
+        trainer.pipeline.model.current_train_step=initial_step
+        trainer.save_checkpoint(initial_step)
+        write(output/'progress.json',dict(status='evaluating_initial',worker=os.getpid(),step=initial_step))
+        evaluation_start=time.perf_counter()
+        initial=evaluate(trainer,request,initial_step)
+        evaluation_seconds+=time.perf_counter()-evaluation_start
+        initial.update(optimization_seconds=0.,stage_iterations=0,
+                       scope='Unchanged resumed field evaluated under current rendering protocol')
+        write(Path(initial['renders'])/'metrics.json',initial)
+        history.append(initial)
+        write(output/'history.json',history)
+        write(output/'selection.json',select_best(history))
     write(output/'progress.json',dict(status='training',worker=os.getpid(),start=start,start_step=trainer._start_step))
     for step in range(trainer._start_step,request['end_step']+1):
         iteration_start=time.perf_counter()

@@ -14,6 +14,18 @@ in train/eval. Source calibration is transformed once. All train-only frequency
 fits are complete. Qualified depth with≥6 witnesses adds724 spatial cells to
 learned occupancy; it does not exclude unknown space or assign density.
 
+A new local floor prior has a visible but incomplete effect on the skirt ghost.
+Three reviewed floor patches define768 auxiliary geometry rays; source RGB is
+unchanged. At40k, coefficient0.0001 with stratified free-segment samples scores
+20.082285/.818865/.220125 versus control20.084923/.818908/.220265.
+One fixed ghost ray's front mass falls0.810→0.480; dense camera016 free optical
+thickness falls0.340→0.031. The pale patch persists and inner-face PSNR declines
+up to0.33dB, so this remains an unpromoted screen. An exact control repeat differs by−0.0143dB globally and up to−0.424dB in
+held-out face interiors, so the small face differences are not yet attributable
+to the prior. The repeated floor screen completes38k/39k/40k; selection retains the unchanged
+38k parent because trained gates fall outside its0.07dB window. Speedup is not
+demonstrated.
+
 The independent density branch passes exact initial native parity and a normal
 quality gate, but costs47% more optimization time without an established gain
 by itself. The interval-mass prior is rejected at44k: face LPIPS worsens in all
@@ -1736,3 +1748,188 @@ The full original goal, including hard/semantic material controls, stays active.
 
 - [Rejected native40k comparison](/home/pavlo/renders/luster_000470_opacity/reviews/opacity01_admission_elements001_040000/comparison.json)
 - [Fixed skirt comparison](/home/pavlo/renders/luster_000470_opacity/reviews/density_elements_skirt40k_comparison.jpg)
+
+## Local observed-floor geometry prior: initial 38k→40k gate
+
+### What was tested
+
+The pale skirt occluder already terminates almost all light; increasing its
+opacity alone cannot remove it. Existing confidence-qualified MVS gave no
+empty-space votes at the diagnosed ghost point. A separate train-only floor
+plane fit uses 152 qualified points across 18 cameras. Its residual p90 is
+0.001516 normalized units; disjoint-camera verification p90 is 0.002003 and
+0.001786. A neighboring horizontal fixture forms a separate plane, so this
+is not a global free-space certificate.
+
+Three visually inspected bare-floor patches in train cameras 016/033/038
+produce 768 auxiliary rays. Conservative height tolerance 0.01 is converted
+by incidence; no source masks or original RGB exclusions are used. Camera016
+ray [920,1643.8] passes within 0.000055 of the diagnosed pale-layer point;
+the nearest of 65 quadrature nodes is 0.00610 away. Thus the constraint reaches
+that measured artifact location, while other unknown space remains unconstrained.
+
+The optional objective integrates density at 65 points over the observed empty
+segment and nine over the floor uncertainty band. It linearly penalizes front
+optical thickness and encourages band opacity 0.99. The floor band also admits
+native occupancy cells. New static buffers are nonpersistent, and the new RNG
+stream preserves existing stream IDs. The initial gate uses coefficient 0.001,
+64 auxiliary rays per batch, and the exact same full-state 38k parent as the
+accepted admission-only 40k control. All other controls stay matched.
+
+### Results
+
+Pending native six-view and four-orbit-frame review. Helper/gradient tests:
+18 passed; floor, opacity, occupancy and collider regression suite: 38 passed.
+The actual GPU loader resumed the old checkpoint successfully. Supervision
+records are in the campaign agent_checks.jsonl and run supervision.jsonl.
+
+### Evidence
+
+- [Reviewed floor patches](/home/pavlo/renders/luster_000470_opacity/reviews/floor_geometry_candidates/auxiliary_floor_patches.jpg)
+- [Plane fit](/home/pavlo/renders/luster_000470_opacity/reviews/floor_geometry_candidates/floor_plane_point_dominant_fit.json)
+- [Qualified auxiliary bank](/home/pavlo/renders/luster_000470_opacity/floor_ray_prior/manifest.json)
+- [Ghost overlap](/home/pavlo/renders/luster_000470_opacity/reviews/floor_ray_prior_ghost_overlap.json)
+
+### Insights
+
+This is a local measured-geometry test, not evidence of globally opaque,
+artifact-free surfaces. Adoption depends on a matched visual/metric gate.
+
+### Initial coefficient 0.001 outcome
+
+| Matched 40k run | PSNR | SSIM | LPIPS | Optimization seconds |
+|---|---:|---:|---:|---:|
+| Admission-only control | 20.084923 | 0.818908 | 0.220265 | 144.143 |
+| Auxiliary floor prior 0.001 | 20.042837 | 0.818208 | 0.221702 | 165.850 |
+
+First32 RGB/pixel receipts match exactly; optimizer, scheduler, scaler, RNG and
+pipeline buffers resumed. The prior is not promoted: global metrics are slightly
+worse, and held-out inner-face PSNR deltas are −0.073/−0.256/−0.249 dB.
+Two train face interiors improve +0.419/+0.321 dB. Visually the frame23 pale
+patch becomes smaller but remains; the other three poses remain coherent.
+
+At three fixed ghost rays, front termination mass (t<0.6) changes
+0.810→0.421, 0.656→0.602 and 0.361→0.284. These are matched40k native
+measurements, not hard opacity or complete artifact-removal claims.
+
+A denser513-point free-segment check exposes quadrature sensitivity: camera016
+mean optical thickness is 0.07593 versus 0.00820 at the trained65 nodes.
+The fixed nodes undersample thin residual density. A coefficient-only0.0001
+screen is in progress; a separate stratified-sampling correction should be tested
+before stronger optimization. No speedup is established (this run is15.1% slower).
+
+- [Frame23 detail](/home/pavlo/renders/luster_000470_opacity/reviews/floor001_skirt_frame23_detail.jpg)
+- [Matched metrics and face deltas](/home/pavlo/renders/luster_000470_opacity/reviews/floor001_040000/comparison.json)
+- [Fixed ghost-ray layers](/home/pavlo/renders/luster_000470_opacity/reviews/floor001_ghost_ray_layers.json)
+- [Dense free-segment audit](/home/pavlo/renders/luster_000470_opacity/reviews/floor001_floor_bank_513.json)
+
+### Coefficient-only 0.0001 screen
+
+At matched40k, PSNR/SSIM/LPIPS are20.092330/0.818716/0.220163;
+optimization takes166.381s. This tiny global gain (+0.0074dB) is not robust
+superiority. Held-out inner-face deltas are −0.0003/−0.2477/−0.3419dB.
+Frame23 is improved locally but still contains the pale layer. Fixed ghost-ray
+front masses are0.543/0.626/0.319 versus control0.810/0.656/0.361.
+The standard accepted recipe remains unchanged.
+
+A separate screen changes only free-segment sampling at coefficient0.0001:
+one independently jittered sample per65 equal strata, mean density times length.
+This estimator covers each interval over repeated steps rather than always
+querying the same endpoints. Existing uniform screens remain reproducible via
+the explicit mode; the full floor objective remains disabled by default.
+Forty floor/opacity/occupancy/collider tests pass, including correct interval
+weights, repeatability, step-dependent samples and preservation of global RNG.
+
+- [Coefficient comparison](/home/pavlo/renders/luster_000470_opacity/reviews/floor_coefficients_skirt_frame23.jpg)
+- [0.0001 comparison](/home/pavlo/renders/luster_000470_opacity/reviews/floor0001_040000/comparison.json)
+
+### Stratified free-segment screen
+
+Matched40k PSNR/SSIM/LPIPS:20.082285/0.818865/0.220125. Optimization:
+166.310s versus144.143s control (+15.4%). First32 RGB/pixel receipts match.
+The four full orbit frames remain coherent. Frame23's central pale patch is
+substantially smaller, but the left patch remains; this is partial improvement.
+Fixed ghost front masses are0.480/0.616/0.303 versus0.810/0.656/0.361.
+At513-point quadrature, camera016 free optical thickness is0.03079, compared
+with0.33973 control. This supports a real density change beyond the trained
+fixed nodes. Global metrics are essentially unchanged. Inner-face deltas are
+−0.056/−0.330/−0.329/−0.055/−0.179/−0.011dB. No promotion yet.
+
+A selection audit found that the inherited38k score did not include floor-band
+occupancy admission. It cannot select a parent checkpoint under this new renderer.
+Archived run logs remain intact, but their inherited best-parent labels are not
+used for floor quality claims or exports. The corrected sidecar ranks only the
+actual40k stage evaluations; PSNR/LPIPS tie-break chooses the stratified screen.
+Future runs stamp the floor-manifest protocol and exclude incompatible parent
+scores. An initial38k checkpoint would need a native re-evaluation under that
+protocol before inclusion. Forty-one focused tests pass, including this guard.
+
+- [Sampling comparison](/home/pavlo/renders/luster_000470_opacity/reviews/floor_sampling_skirt_frame23.jpg)
+- [Four complete poses](/home/pavlo/renders/luster_000470_opacity/reviews/floor_stratified_four_full_frames.jpg)
+- [Quality comparison](/home/pavlo/renders/luster_000470_opacity/reviews/floor0001_stratified_040000/comparison.json)
+- [Qualified40k screen selection](/home/pavlo/renders/luster_000470_opacity/selections/floor_40k_screen_comparison.json)
+
+### Exact admission-only control repeat
+
+Same parent, optimizer/RNG, data and first32 pixel/RGB receipts. Repeated40k:
+20.070612/0.818207/0.220389, optimization144.314s versus144.143s originally.
+Global PSNR changes−0.01431dB. Inner-face deltas versus the first control are
+−0.091/−0.424/−0.320/−0.151/+0.387/+0.004dB. This variation is consistent
+with the documented nondeterministic custom tcnn gradient path despite matched
+Torch/RNG controls; it prevents attributing all small face deltas to the prior.
+The floor screen versus this repeat is globally+0.01167dB/−0.000265LPIPS,
+with inner-face+0.035/+0.093/−0.009/+0.096/−0.566/−0.015dB. This does not
+establish global superiority or a repeat artifact-free recipe.
+
+The repeated stratified floor run now evaluates the unchanged38k parent under
+its own admission protocol, then39k and40k. Initial evaluation stores a local
+checkpoint and excludes the incompatible inherited history; selection therefore
+uses only measured scores from the same renderer. Native initial/39k/40k review
+and repeat artifact measurements are pending. The accepted38k ordinary admission
+export remains unchanged.
+
+- [Exact control repeat](/home/pavlo/renders/luster_000470_opacity/reviews/admission_repeat_040000/comparison.json)
+- [Floor versus repeat](/home/pavlo/renders/luster_000470_opacity/reviews/floor_stratified_vs_repeat_040000/comparison.json)
+
+### Repeated stratified screen and requested face delivery
+
+| Same floor rendering protocol | PSNR | SSIM | LPIPS | Prior optimizer steps |
+|---|---:|---:|---:|---:|
+| Unchanged initial38k | 20.195126 | 0.817436 | 0.221316 | 0 |
+| Trained39k | 20.115185 | 0.819133 | 0.220688 | 1000 |
+| Trained40k | 20.088336 | 0.818809 | 0.220342 | 2000 |
+
+The field/frequency copy audit verifies all17 source tensors exactly. First32
+RGB/pixel receipts match the original control. Five incompatible historical
+scores are excluded. Selection correctly retains38k: neither trained gate lies
+within0.07dB of its PSNR. The selected parent has not been optimized with the
+floor prior. Thus this remains a local artifact experiment, not an accepted
+improvement over the best global recipe. The next useful screen is shorter
+than1000 steps, with a matched control, or better isolation of density from
+appearance; no such result is claimed here.
+
+At the user's request, physical copies of the best ordinary no-prior30k,
+accepted opacity+depth-admission38k, and best actually trained floor-prior screen
+among tested gates40k are delivered for the same held-out cam095. The four-column
+native face comparison includes identical ground truth. Face skin nonuniformity
+and softness remain visibly present; the latest floor constraint does not
+establish facial artifact removal. The floor-only scope is explicit.
+The experimental trained-only ranking does not override the full-trajectory
+selection that retains38k. All files are readable by coder and SHA256-verified
+against source renders. Full-render bytes are unchanged; comparison crops retain
+native pixels. No source masks or RGB exclusions are used.
+
+- [Initial field audit](/home/pavlo/renders/luster_000470_opacity/runs/opacity01_admission_floor0001_stratified_repeat_040000/initial_field_copy_audit.json)
+- [Qualified trajectory selection](/home/pavlo/renders/luster_000470_opacity/runs/opacity01_admission_floor0001_stratified_repeat_040000/selection.json)
+- [Delivered face comparison](/var/tmp/lookcloser_000470_delivery/face_comparison_20261008/face_comparison.png)
+- [Delivery provenance](/var/tmp/lookcloser_000470_delivery/face_comparison_20261008/manifest.json)
+
+Download all three full native renders and face crops:
+
+```bash
+scp -r coder@olive-lark:/var/tmp/lookcloser_000470_delivery/face_comparison_20261008 ~/Downloads/
+```
+
+Optimization timings for these short screens are observations, not isolated
+benchmarks: some read-only probes overlapped other jobs. The isolated repeated
+control agrees with original runtime, and no convergence-speed gain is proven.

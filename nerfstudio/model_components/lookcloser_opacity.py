@@ -123,3 +123,21 @@ def density_element_loss(sigma: Tensor, element_length: float, sparse_bias: floa
     if not sigma.numel():return sigma.sum()*0
     alpha=-torch.expm1(-sigma.float().clamp_min(0)*element_length)
     return (alpha*(1-alpha)+sparse_bias*alpha).mean()
+
+
+def floor_ray_geometry_loss(free_sigma: Tensor, free_length: Tensor,
+                            band_sigma: Tensor, tolerance: Tensor,
+                            free_monte_carlo: bool = False) -> Tensor:
+    """Empty observed floor-ray segments plus opaque backing at measured floor."""
+    if free_sigma.ndim!=2 or band_sigma.ndim!=2 or free_sigma.shape[1]<2 or band_sigma.shape[1]<2:
+        raise ValueError('Floor integration requires at least two points per interval')
+    if len(free_sigma)!=len(band_sigma) or free_length.shape!=(len(free_sigma),) or tolerance.shape!=free_length.shape:
+        raise ValueError('Floor ray arrays must have matching batches')
+    if (free_length<0).any() or (tolerance<=0).any():raise ValueError('Invalid floor interval lengths')
+    if not len(free_sigma):return free_sigma.sum()*0+band_sigma.sum()*0
+    positive=free_sigma.float().clamp_min(0)
+    free_tau=(positive.mean(dim=-1) if free_monte_carlo else
+              torch.trapezoid(positive,dx=1/(free_sigma.shape[1]-1),dim=-1))*free_length
+    band_tau=torch.trapezoid(band_sigma.float().clamp_min(0),dx=1/(band_sigma.shape[1]-1),dim=-1)*2*tolerance
+    missing=(1-band_tau/(-math.log(.01))).clamp_min(0).square()
+    return (free_tau+missing).mean()

@@ -2,6 +2,29 @@
 
 ## Experimental Luster opacity controls
 
+An optional floor-ray prior adds auxiliary geometry supervision on three visually
+reviewed, visible-floor patches in training cameras. A robust plane fit from
+qualified train depth defines each ray's floor distance and a conservative
+height uncertainty of 0.01 normalized scene units, converted by ray incidence.
+The objective integrates density at 65 points before the floor and nine points
+across its uncertainty band: free-space optical thickness is penalized linearly,
+while the band is encouraged to reach opacity 0.99. Its weight is configurable
+and defaults to zero. Uniform endpoint quadrature is retained for historical
+screens; optional stratified sampling draws one point in each of 65 equal free
+intervals and uses their mean density times physical length. New points each
+step prevent the objective from repeatedly missing gaps between fixed nodes.
+The floor band also admits occupancy cells before native
+rendering. Thus native marching may change, but original RGB rays and targets
+remain intact. Auxiliary rays use a separate RNG stream; calibration and archive
+hashes are checked on load, and static buffers do not alter checkpoint layout.
+Checkpoint selection excludes historical scores with different floor admission;
+the parent must be re-evaluated under the new renderer to become eligible.
+An optional full-resume initial gate saves the unchanged parent locally and
+evaluates it before optimization, so early39k/40k gates compete with a valid
+38k reference rather than an inherited score.
+This local constraint does not certify other unobserved space as empty. A matched
+training and visual gate is required before adopting the recipe.
+
 An optional train-depth occupancy admission manifest adds qualified surface-band
 cells to nerfacc's learned occupancy before adaptive marching. The external grid
 is qualified by data calibration, archive hash, cascade AABBs and resolution.
