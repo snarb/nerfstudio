@@ -12,6 +12,13 @@ original weights, matching Adam moments, scheduler, scaler and RNG into an expan
 checkpoint; its layout checks include the empty SH parameter. Native forward and
 gradient audits precede training, followed by a no-new-prior quality gate. This
 option currently rejects signed/semantic surface representations.
+An experimental runner request can freeze the cloned density parameters after
+the20k FR switch for separate color adaptation. It retains optimizer parameter
+layout and moments, disables updates of the density-dependent frequency grid,
+and verifies density-module/grid/AABB/FR/activation hashes at checkpoint gates.
+Geometry priors are disabled during this stage; the RGB field continues learning.
+Native rendering can still vary with occupancy traversal, so fixed field density
+is the invariant rather than bitwise rendered depth. Normal runs remain unchanged.
 
 The read-only density-surface probe tests hard first boundaries bracketed by
 native volume samples, reports root residuals and empty rays, and retains all RGB

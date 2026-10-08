@@ -16,8 +16,8 @@ by itself. The interval-mass prior is rejected at44k: face LPIPS worsens in all
 six views. The new direct density-band prior at46k changes actual geometry,
 but its+.0051dB global PSNR is too small to establish superiority. A matched
 coefficient-only threefold screen also retains quality overall but worsens all
-six face ROI LPIPS values. A stricter depth-confidence screen is being prepared
-from the same44k parent.
+six face ROI LPIPS values. The stricter depth-confidence screen is also rejected at46k.
+A paired frozen-density color-adaptation gate is running next.
 Opacity.3 and all tested hard-boundary/signed-head initializations are not
 promoted. Hard opaque40k, semantic transparency quality training, a stronger
 successful geometry recipe and repeat robustness remain incomplete; the full
@@ -1446,3 +1446,35 @@ is now running. This is confidence qualification, not a source RGB mask.
 
 - [Confidence invariance receipt](/home/pavlo/renders/luster_000470_opacity/reviews/depth_confidence_min6_invariance.json)
 - [Filtered manifest](/home/pavlo/renders/luster_000470_opacity/depth_confidence_min6/manifest.json)
+
+### Depth witness≥6 confidence screen46k: rejected
+
+What was tested: same44k parent, strength10/coefficient.0003/band99 and2k duration;
+only qualify existing depth with≥6 witnesses instead of≥3. Full unmasked RGB,
+calibration, native sampling and first32 pixel/RGB batches still match the control.
+
+| Native46k | PSNR | SSIM | LPIPS | Optimization seconds |
+| --- | ---: | ---: | ---: | ---: |
+| Split control | 20.0836 | .818058 | .221512 | 212.22 |
+| Band×3,witness≥6 | 20.0830 | .818258 | .221279 | 258.73 |
+
+Results: all six full-region and interior-face contacts visually inspected.
+All six face ROI PSNR values decrease(.025–.422dB) and LPIPS worsens
+(+.00032–.00255). Hand LPIPS also worsens in all six. No long continuation.
+The confidence hypothesis does not resolve the tradeoff. Geometric probes use
+the same original≥3-witness reference in all arms, including pixels excluded
+from the new training prior. Face median65-point slab opacity is.8508/.8560/.8424;
+90% termination width.002380/.002197/.002102, but tight front mass is still
+.03243/.00645/.00787. A tighter surface has not established a better image.
+
+Next hypothesis: color may require separate adaptation after geometry changes.
+A matched46k→48k pair freezes each arm's cloned density and shared frequency grid;
+only RGB parameters learn. Both retain optimizer/scaler/RNG state, no new priors,
+all RGB targets and native sampling. A geometry fingerprint checks the actual
+cloned parameters, grid, AABB, FR strength and activation at each checkpoint.
+Nine focused tests cover gradient isolation, optimizer layout and the hash audit.
+The control is running first; the band×3 arm follows after its normal quality gate.
+This is an unproven experiment, not an accepted quality or speed recipe.
+
+- [Rejected confidence screen](/home/pavlo/renders/luster_000470_opacity/reviews/density_split_band99x3_min6_046000/comparison.json)
+- [Same-reference geometry](/home/pavlo/renders/luster_000470_opacity/reviews/density_split_band99x3_min6_046000_band_audit_v2.json)

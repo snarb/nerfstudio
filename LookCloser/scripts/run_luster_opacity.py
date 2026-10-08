@@ -44,6 +44,36 @@ def sha(path):
     return h.hexdigest()
 
 
+def density_geometry_fingerprint(model):
+    """Hash all changing inputs to the split field's physical density function."""
+    field = model.field
+    digest = hashlib.sha256()
+    for prefix in ['density_geometry_encoding', 'density_geometry_mlp']:
+        module = getattr(field, prefix, None)
+        if module is None:
+            raise ValueError('Density freezing requires the independent density branch')
+        for name, tensor in module.state_dict().items():
+            digest.update((prefix + '.' + name).encode())
+            digest.update(tensor.detach().cpu().contiguous().numpy().tobytes())
+    for name, tensor in [('frequency_grid', model.freq_grid.grid), ('aabb', field.aabb)]:
+        digest.update(name.encode())
+        digest.update(tensor.detach().cpu().contiguous().numpy().tobytes())
+    digest.update(json.dumps(dict(feature_reweighting_strength=field.feature_reweighting_strength,
+                                  enable_feature_reweighting=field.enable_feature_reweighting,
+                                  density_activation=field.density_activation), sort_keys=True).encode())
+    return digest.hexdigest()
+
+
+def freeze_density_parameters(model):
+    """Keep optimizer layout/moments; only color parameters can receive gradients."""
+    modules = [getattr(model.field, name, None)
+               for name in ['density_geometry_encoding', 'density_geometry_mlp']]
+    if any(module is None for module in modules):
+        raise ValueError('Density freezing requires the independent density branch')
+    for module in modules:
+        module.requires_grad_(False)
+
+
 def select_best(history):
     maximum=max(row['eval_all_psnr'] for row in history)
     return min((r for r in history if maximum-r['eval_all_psnr']<=.07),
@@ -115,6 +145,15 @@ def configuration(request):
         if not hasattr(model,key):
             raise ValueError(f'Unknown model control {key}')
         setattr(model,key,value)
+    if request.get('freeze_density_geometry', False):
+        if not model.separate_density_encoding or request.get('representation','volume') != 'volume':
+            raise ValueError('Only split volume density can be frozen independently of RGB')
+        if request.get('depth_prior_strength', 0):
+            raise ValueError('Disable geometry priors during frozen-density color adaptation')
+        if not request.get('resume') or int(Path(request['resume']).stem.split('-')[-1]) < 20000:
+            raise ValueError('Freeze after the final frequency reweighting switch')
+        # Density depends on this shared grid as well as on its own parameters.
+        cfg.pipeline.grid_update_interval = 0
     cfg.pipeline.feature_reweighting_switch_step=20000
     cfg.pipeline.feature_reweighting_after_switch=fr_after
     cfg.pipeline.datamanager.pixel_sampler.ignore_mask=True
@@ -290,6 +329,12 @@ def train(request):
     cfg.save_config()
     trainer=cfg.setup(local_rank=0,world_size=1)
     trainer.setup()
+    frozen_density_before = None
+    if request.get('freeze_density_geometry', False):
+        freeze_density_parameters(trainer.pipeline.model)
+        frozen_density_before = density_geometry_fingerprint(trainer.pipeline.model)
+        write(output/'frozen_density_initial.json', dict(sha256=frozen_density_before,
+              frequency_grid_updates_disabled=True, source_checkpoint=request['resume']))
     if trainer._loaded_rng_state is not None:
         _restore_rng_state(trainer._loaded_rng_state)
         trainer._loaded_rng_state=None
@@ -343,6 +388,12 @@ def train(request):
                   elapsed=elapsed,train_psnr=float(metrics['psnr']),memory_allocated=torch.cuda.memory_allocated(),
                   scaler=float(trainer.grad_scaler.get_scale())))
         if step in gates or step==request['end_step'] or limited:
+            if frozen_density_before is not None:
+                after = density_geometry_fingerprint(trainer.pipeline.model)
+                if after != frozen_density_before:
+                    raise ValueError('Frozen density parameters/grid/reweighting changed')
+                write(output/'frozen_density_audit.json', dict(before_sha256=frozen_density_before,
+                      after_sha256=after, step=step, all_density_inputs_unchanged=True))
             trainer.save_checkpoint(step)
             cfg.pipeline.model.feature_reweighting_strength=trainer.pipeline.model.field.feature_reweighting_strength
             cfg.save_config()
