@@ -4,12 +4,14 @@ from dataclasses import dataclass, field
 from functools import cached_property
 import json
 import hashlib
+import math
 from pathlib import Path
 from typing import Type
 import numpy as np
 import torch
 from nerfstudio.data.datamanagers.base_datamanager import VanillaDataManager,VanillaDataManagerConfig
 from nerfstudio.data.datasets.base_dataset import InputDataset
+from nerfstudio.utils.lookcloser_rng import fork_seeded_rng
 
 
 @dataclass
@@ -18,6 +20,13 @@ class LusterOpacityDataManagerConfig(VanillaDataManagerConfig):
     depth_prior_manifest: str | None = None
     train_camera_ids: tuple[int, ...] | None = None
     """Optional physical-camera allowlist for training sampling only."""
+    cord_rgb_fit_path: str | None = None
+    cord_rgb_fit_sha256: str | None = None
+    cord_rgb_camera_ids: tuple[int, ...] | None = None
+    cord_rgb_rays_per_batch: int = 0
+    cord_rgb_jitter_px: float = 6.
+    cord_rgb_seed: int = 42
+    """Opt-in RGB sampling near a train-only fitted cord line; no masks."""
 
 
 def filter_camera_image_batch(batch, allowed_dataset_indices):
@@ -54,6 +63,8 @@ class LusterOpacityDataManager(VanillaDataManager):
         super().setup_train()
         ids = self.config.train_camera_ids
         if ids is None:
+            if self.config.cord_rgb_rays_per_batch:
+                raise ValueError('Cord RGB sampling requires a training-camera allowlist')
             return
         if not ids or len(set(ids)) != len(ids) or any(not isinstance(i,int) or i<1 for i in ids):
             raise ValueError('Require unique positive physical camera IDs')
@@ -65,6 +76,90 @@ class LusterOpacityDataManager(VanillaDataManager):
         self._allowed_train_dataset_indices = tuple(lookup[i] for i in ids)
         self._filtered_source_batch = None
         self._filtered_image_batch = None
+        if self.config.cord_rgb_rays_per_batch:
+            self._setup_cord_rgb_sampling()
+
+    def _setup_cord_rgb_sampling(self):
+        count = self.config.cord_rgb_rays_per_batch
+        if (count < 1 or count >= self.train_pixel_sampler.num_rays_per_batch
+                or not math.isfinite(self.config.cord_rgb_jitter_px)
+                or self.config.cord_rgb_jitter_px < 0
+                or not self.config.cord_rgb_fit_path or not self.config.cord_rgb_fit_sha256):
+            raise ValueError('Invalid cord RGB sampling controls')
+        fit_path = Path(self.config.cord_rgb_fit_path)
+        if hashlib.sha256(fit_path.read_bytes()).hexdigest() != self.config.cord_rgb_fit_sha256:
+            raise ValueError('Cord RGB fit changed since request creation')
+        fit = json.loads(fit_path.read_text())
+        source = Path(self.train_dataset.metadata.get('opacity_source_data',self.config.dataparser.data))
+        transforms_path = source/'transforms.json'
+        if (fit.get('train_only') is not True
+                or fit.get('coordinate_system') != 'train_normalized_opengl'
+                or fit.get('transforms_sha256') != hashlib.sha256(transforms_path.read_bytes()).hexdigest()):
+            raise ValueError('Cord RGB fit must match train-only scene calibration')
+        transforms = json.loads(transforms_path.read_text())
+        common = set.intersection(*(set(fit['fit_camera_ids'][key]) for key in ('junction','first_bead')))
+        requested = (set(self.config.cord_rgb_camera_ids) if self.config.cord_rgb_camera_ids is not None
+                     else common & set(self.config.train_camera_ids))
+        if (not requested or requested - common or requested - set(self.config.train_camera_ids)
+                or fit['validation_camera_id'] in requested):
+            raise ValueError('Cord RGB cameras must be annotated training cameras only')
+        frames = {int(frame['camera_id']):frame for frame in transforms['frames']}
+        lookup = {int(path.stem.split('_')[1]):i for i,path in enumerate(self.train_dataset.image_filenames)}
+        train_names = {path.name for path in self.train_dataset.image_filenames}
+        endpoints = torch.tensor([fit['fits'][key]['normalized_world_xyz']
+                                  for key in ('junction','first_bead')],dtype=torch.float64)
+        lines, indices, dimensions = [], [], []
+        for camera_id in sorted(requested):
+            frame=frames[camera_id]
+            if Path(frame['file_path']).name not in train_names:
+                raise ValueError('Cord RGB camera is not in the training split')
+            pose=torch.tensor(frame['transform_matrix'],dtype=torch.float64)
+            local=(endpoints-pose[:3,3])@pose[:3,:3]
+            forward=-local[:,2]
+            xy=torch.stack([frame['fl_x']*local[:,0]/forward+frame['cx'],
+                            -frame['fl_y']*local[:,1]/forward+frame['cy']],dim=-1)
+            dataset_index=lookup[camera_id]
+            height=int(self.train_dataset.cameras.height[dataset_index])
+            width=int(self.train_dataset.cameras.width[dataset_index])
+            if (not torch.isfinite(xy).all() or not (forward>0).all()
+                    or (xy[1]-xy[0]).norm() < 1
+                    or not ((xy[:,0]>=0)&(xy[:,0]<width)&(xy[:,1]>=0)&(xy[:,1]<height)).all()):
+                raise ValueError(f'Cord RGB line is outside camera {camera_id}')
+            lines.append(xy.float())
+            indices.append(dataset_index)
+            dimensions.append([width,height])
+        self._cord_rgb_lines=torch.stack(lines)
+        self._cord_rgb_dataset_indices=torch.tensor(indices,dtype=torch.long)
+        self._cord_rgb_dimensions=torch.tensor(dimensions,dtype=torch.long)
+
+    def _replace_cord_rgb_rays(self, step, batch, image_batch):
+        count=self.config.cord_rgb_rays_per_batch
+        device=batch['indices'].device
+        lines=self._cord_rgb_lines.to(device)
+        global_indices=self._cord_rgb_dataset_indices.to(device)
+        dimensions=self._cord_rgb_dimensions.to(device)
+        with fork_seeded_rng(self.config.cord_rgb_seed,'cord_rgb',step,device):
+            selection=torch.randint(len(lines),(count,),device=device)
+            fraction=.08+.84*torch.rand(count,1,device=device)
+            transverse=(2*torch.rand(count,1,device=device)-1)*self.config.cord_rgb_jitter_px
+        chosen=lines[selection]
+        axis=chosen[:,1]-chosen[:,0]
+        perpendicular=torch.stack([-axis[:,1],axis[:,0]],dim=-1)/axis.norm(dim=-1,keepdim=True)
+        xy=(chosen[:,0]+fraction*axis+transverse*perpendicular).round().long()
+        limits=dimensions[selection]-1
+        xy=torch.minimum(xy.clamp_min(0),limits)
+        indices=torch.stack([global_indices[selection],xy[:,1],xy[:,0]],dim=-1)
+        cached={int(value):i for i,value in enumerate(image_batch['image_idx'].tolist())}
+        color=torch.empty((count,3),device=batch['image'].device,dtype=batch['image'].dtype)
+        for global_index in global_indices.tolist():
+            positions=torch.nonzero(indices[:,0]==global_index).flatten()
+            if not len(positions):
+                continue
+            image=image_batch['image'][cached[global_index]]
+            local=indices[positions].to(image.device)
+            color[positions.to(color.device)]=image[local[:,1],local[:,2],:3].to(color)
+        batch['indices'][-count:]=indices.to(batch['indices'].device)
+        batch['image'][-count:]=color
 
     def _next_camera_filtered_train(self,step):
         self.train_count += 1
@@ -73,6 +168,8 @@ class LusterOpacityDataManager(VanillaDataManager):
             self._filtered_image_batch = filter_camera_image_batch(image_batch,self._allowed_train_dataset_indices)
             self._filtered_source_batch = image_batch
         batch = self.train_pixel_sampler.sample(self._filtered_image_batch)
+        if self.config.cord_rgb_rays_per_batch:
+            self._replace_cord_rgb_rays(step,batch,self._filtered_image_batch)
         allowed = torch.tensor(self._allowed_train_dataset_indices,device=batch['indices'].device)
         if not torch.isin(batch['indices'][:,0],allowed).all():
             raise ValueError('Pixel sampler leaked an excluded camera')

@@ -119,9 +119,20 @@ def configuration(request):
             if json.loads(path.read_text())['train_camera_ids']!=camera_ids:
                 raise ValueError('Camera selection receipt differs from requested allowlist')
         cfg.pipeline.datamanager.train_camera_ids=tuple(camera_ids) if camera_ids is not None else None
+        cord_rgb=request.get('cord_rgb_sampling')
+        if cord_rgb is not None:
+            allowed={'fit_path','fit_sha256','camera_ids','rays_per_batch','jitter_px'}
+            if set(cord_rgb)-allowed:
+                raise ValueError('Unknown cord RGB sampling control')
+            cfg.pipeline.datamanager.cord_rgb_fit_path=cord_rgb['fit_path']
+            cfg.pipeline.datamanager.cord_rgb_fit_sha256=cord_rgb['fit_sha256']
+            cfg.pipeline.datamanager.cord_rgb_camera_ids=tuple(cord_rgb['camera_ids'])
+            cfg.pipeline.datamanager.cord_rgb_rays_per_batch=int(cord_rgb['rays_per_batch'])
+            cfg.pipeline.datamanager.cord_rgb_jitter_px=float(cord_rgb['jitter_px'])
+            cfg.pipeline.datamanager.cord_rgb_seed=request.get('seed',42)
         cfg.pipeline.model=LookCloserOpacityModelConfig(**{k:v for k,v in vars(cfg.pipeline.model).items() if k!='_target'})
-    elif request.get('train_camera_ids') is not None:
-        raise ValueError('Training camera allowlist is unavailable in baseline_preset mode')
+    elif request.get('train_camera_ids') is not None or request.get('cord_rgb_sampling') is not None:
+        raise ValueError('Training camera selection is unavailable in baseline_preset mode')
     model=cfg.pipeline.model
     # Keep pixel batches comparable when surface eikonal/probing consumes extra
     # random numbers. This is recorded as an experimental campaign default.

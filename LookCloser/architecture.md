@@ -202,6 +202,11 @@ reject loading a different geometry representation.
 explicit camera-envelope AABB. `LusterOpacityDataManager` gathers optional
 camera-z depth/uncertainty/validity at sampled train coordinates, converts to
 ray distance once, and has no automatic pseudo-depth fallback.
+Its opt-in cord RGB sampler replaces a small tail of the ordinary pixel batch
+with actual source RGB near a hash-pinned, train-only triangulated line in
+selected sharp cameras. The standard batch prefix, total ray count and
+ordinary pixel RNG stream are preserved; the cord coordinates use an
+independent step-seeded stream. No image masks or eval-camera pixels enter.
 Trusted rays add a partitioned fine sampling band around measured depth;
 unknown rays keep the normal sampler. Surface priors constrain SDF at the
 measured point and free space ahead. Semantic geometry depth uses the first
