@@ -1148,6 +1148,10 @@ class LookCloserModel(Model):
         if getattr(self.config, 'occupancy_prior_grid_path', None) is not None:
             self.occupancy_grid.binaries.logical_or_(self.occupancy_prior_grid)
 
+    def _refine_adaptive_samples(self, ray_bundle, ray_samples, ray_indices, stats):
+        """Extension hook; the ordinary LookCloser sampler is unchanged."""
+        return ray_samples, ray_indices, stats
+
     def adaptive_ray_marching(self, ray_bundle: RayBundle) -> Dict[str, torch.Tensor]:
         """Packed frequency-aware ray marching using nerfacc occupancy traversal."""
         assert self.config.render_step_size is not None
@@ -1176,6 +1180,9 @@ class LookCloserModel(Model):
             adaptive_interval_level_mode=self.config.adaptive_interval_level_mode,
             max_steps_per_ray=int(self.config.max_steps_per_ray),
             corrected_allocator=bool(self.config.corrected_arm_allocator),
+        )
+        ray_samples, ray_indices, stats = self._refine_adaptive_samples(
+            ray_bundle, ray_samples, ray_indices, stats
         )
         ray_samples, ray_indices, stats, fallback_samples = self._append_fallback_samples(
             ray_bundle=ray_bundle,

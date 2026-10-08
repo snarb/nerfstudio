@@ -9,6 +9,7 @@ import numpy as np
 from typing import Literal, Type
 import torch
 import torch.nn.functional as F
+import nerfacc
 from nerfstudio.fields.lookcloser_field import LookCloserField
 from nerfstudio.fields.lookcloser_surface_field import LookCloserSurfaceField
 from nerfstudio.model_components.lookcloser_opacity import first_crossing, sdf_weights, opacity_profile_loss, depth_interval_loss, density_band_loss, density_element_loss, floor_ray_geometry_loss
@@ -47,6 +48,18 @@ class LookCloserOpacityModelConfig(LookCloserModelConfig):
     skip_invalid_depth_updates: bool = True
     allow_unmarked_volume_checkpoint: bool = False
     volume_depth_guided_sampling: bool = True
+    cord_sampling_fit_path: str | None = None
+    cord_sampling_fit_sha256: str | None = None
+    cord_sampling_transforms_sha256: str | None = None
+    cord_sampling_radius: float = .002
+    cord_sampling_step_size: float = .001
+    cord_sampling_max_steps_per_ray: int = 4096
+    cord_ray_regularization: float = 0.
+    cord_ray_transforms_path: str | None = None
+    cord_rays_per_batch: int = 32
+    cord_ray_tolerance: float = .003
+    cord_ray_opacity_target: float = .99
+    cord_occupancy_radius: float = 0.
 
 
 class LookCloserOpacityModel(LookCloserModel):
@@ -77,7 +90,8 @@ class LookCloserOpacityModel(LookCloserModel):
             raise ValueError('Density elements currently require bounded single-level volume')
         controls=[self.config.opacity_regularization,self.config.depth_prior_strength,
                   self.config.depth_prior_loss_mult,self.config.eikonal_loss_mult,
-                  self.config.density_element_regularization,self.config.floor_ray_regularization]
+                  self.config.density_element_regularization,self.config.floor_ray_regularization,
+                  self.config.cord_ray_regularization,self.config.cord_occupancy_radius]
         if any(not math.isfinite(value) or value<0 for value in controls):
             raise ValueError('Regularization must be nonnegative')
         if self.config.surface_num_samples < 2 or self.config.surface_refine_steps < 0 or self.config.surface_inverse_width <= 0:
@@ -88,6 +102,100 @@ class LookCloserOpacityModel(LookCloserModel):
             raise ValueError('Surface experiments require sigmoid RGB/Charbonnier, black or white background, and no appearance embedding')
         self.field_class = LookCloserField if self.config.representation == 'volume' else LookCloserSurfaceField
         super().populate_modules()
+        if self.config.cord_sampling_fit_path is not None:
+            if (self.config.representation != 'volume'
+                    or not math.isfinite(self.config.cord_sampling_radius)
+                    or not math.isfinite(self.config.cord_sampling_step_size)
+                    or self.config.cord_sampling_radius <= 0
+                    or self.config.cord_sampling_step_size <= 0
+                    or self.config.cord_sampling_max_steps_per_ray < 1):
+                raise ValueError('Local cord sampling requires volume and positive controls')
+            fit_path = Path(self.config.cord_sampling_fit_path)
+            if hashlib.sha256(fit_path.read_bytes()).hexdigest() != self.config.cord_sampling_fit_sha256:
+                raise ValueError('Cord landmark fit changed since request creation')
+            fit = json.loads(fit_path.read_text())
+            if (fit.get('train_only') is not True or fit.get('coordinate_system') != 'train_normalized_opengl'
+                    or fit.get('transforms_sha256') != self.config.cord_sampling_transforms_sha256):
+                raise ValueError('Cord geometry must be train-only and match scene calibration')
+            fit_ids = set().union(*(set(ids) for ids in fit['fit_camera_ids'].values()))
+            if fit['validation_camera_id'] in fit_ids:
+                raise ValueError('Held-out camera was used to fit the cord')
+            endpoints = torch.tensor([fit['fits'][key]['normalized_world_xyz']
+                                      for key in ('junction', 'first_bead')],
+                                     dtype=torch.float32, device=self.occupancy_grid.aabbs.device)
+            if (not torch.isfinite(endpoints).all() or (endpoints[1]-endpoints[0]).norm() <= 0
+                    or not ((endpoints >= self.scene_box.aabb[0].to(endpoints))
+                            & (endpoints <= self.scene_box.aabb[1].to(endpoints))).all()):
+                raise ValueError('Cord segment is invalid or outside the scene')
+            self.register_buffer('cord_sampling_endpoints', endpoints, persistent=False)
+        if self.config.cord_occupancy_radius > 0:
+            if (self.config.cord_sampling_fit_path is None
+                    or not math.isfinite(self.config.cord_occupancy_radius)):
+                raise ValueError('Cord occupancy admission requires a pinned fit and finite radius')
+            start, end = self.cord_sampling_endpoints
+            axis = F.normalize(end-start,dim=0)
+            reference = start.new_tensor([1.,0.,0.])
+            if torch.abs(torch.dot(axis,reference)) > .9:
+                reference = start.new_tensor([0.,1.,0.])
+            tangent = F.normalize(torch.linalg.cross(axis,reference),dim=0)
+            bitangent = torch.linalg.cross(axis,tangent)
+            angle = torch.arange(8,device=start.device,dtype=start.dtype)* (2*math.pi/8)
+            offsets = self.config.cord_occupancy_radius*(
+                angle.cos()[:,None]*tangent + angle.sin()[:,None]*bitangent)
+            offsets = torch.cat([offsets,start.new_zeros(1,3)],dim=0)
+            center = start[None] + torch.linspace(0,1,257,device=start.device)[:,None]*(end-start)[None]
+            positions = (center[:,None]+offsets[None]).reshape(-1,3)
+            admission = torch.zeros_like(self.occupancy_grid.binaries)
+            admit_occupancy_points_(admission,self.occupancy_grid.aabbs,positions)
+            if not admission.any():
+                raise ValueError('Cord occupancy support misses the scene grid')
+            self.register_buffer('cord_occupancy_admission',admission,persistent=False)
+        if self.config.cord_ray_regularization > 0:
+            if (self.config.cord_sampling_fit_path is None or not self.config.cord_ray_transforms_path
+                    or self.config.cord_rays_per_batch < 1
+                    or not math.isfinite(self.config.cord_ray_tolerance)
+                    or self.config.cord_ray_tolerance <= 0
+                    or not 0 < self.config.cord_ray_opacity_target < 1):
+                raise ValueError('Cord ray prior requires a pinned fit, calibration and positive controls')
+            transforms_path = Path(self.config.cord_ray_transforms_path)
+            if hashlib.sha256(transforms_path.read_bytes()).hexdigest() != self.config.cord_sampling_transforms_sha256:
+                raise ValueError('Cord ray calibration changed since request creation')
+            transforms = json.loads(transforms_path.read_text())
+            train_names = set(transforms['train_filenames'])
+            # Only cameras with independently annotated endpoints constrain the
+            # segment. A projected line in an unrelated view is not evidence
+            # that the cord is visible or sharp there.
+            camera_ids = sorted(set.intersection(*(set(fit['fit_camera_ids'][key])
+                                                   for key in ('junction','first_bead'))))
+            frames = {int(frame['camera_id']): frame for frame in transforms['frames']}
+            points = endpoints[0][None] + torch.linspace(.08,.92,12,device=endpoints.device)[:,None] * (endpoints[1]-endpoints[0])[None]
+            origins, directions, depths = [], [], []
+            for camera_id in camera_ids:
+                frame = frames[camera_id]
+                if frame['file_path'] not in train_names:
+                    raise ValueError('Cord ray prior contains an evaluation camera')
+                pose = torch.tensor(frame['transform_matrix'],dtype=torch.float32,device=endpoints.device)
+                origin = pose[:3,3]
+                local = (points-origin) @ pose[:3,:3]
+                forward = -local[:,2]
+                px = frame['fl_x']*local[:,0]/forward + frame['cx']
+                py = -frame['fl_y']*local[:,1]/forward + frame['cy']
+                valid = (forward>0) & (px>=0) & (px<frame['w']) & (py>=0) & (py<frame['h'])
+                displacement = points[valid]-origin
+                origins.append(origin.expand_as(displacement))
+                depths.append(displacement.norm(dim=-1))
+                directions.append(F.normalize(displacement,dim=-1))
+            if not origins or sum(len(value) for value in depths)<1:
+                raise ValueError('No valid train-only cord prior rays')
+            origins = torch.cat(origins)
+            directions = torch.cat(directions)
+            depths = torch.cat(depths)
+            if (not torch.isfinite(depths).all()
+                    or (depths-self.config.cord_ray_tolerance <= self.config.near_plane).any()):
+                raise ValueError('Cord prior geometry invalid or too close to near plane')
+            self.register_buffer('cord_ray_origins',origins,persistent=False)
+            self.register_buffer('cord_ray_directions',directions,persistent=False)
+            self.register_buffer('cord_ray_depths',depths,persistent=False)
         if self.config.floor_ray_regularization > 0:
             if self.config.floor_free_sampling not in {'uniform','stratified'}:
                 raise ValueError('Unknown floor free-space sampling mode')
@@ -154,6 +262,75 @@ class LookCloserOpacityModel(LookCloserModel):
         if self.config.representation != 'volume':
             return []  # Density occupancy updates are not valid for an SDF.
         return super().get_training_callbacks(attributes)
+
+    def _refine_adaptive_samples(self, ray_bundle, ray_samples, ray_indices, stats):
+        if self.config.cord_sampling_fit_path is None:
+            return ray_samples, ray_indices, stats
+        with torch.no_grad():
+            start, end = self.cord_sampling_endpoints.to(ray_bundle.origins)
+            o, d = ray_bundle.origins, ray_bundle.directions
+            direction_norm_sq = (d*d).sum(-1).clamp_min(1e-12)
+            segment = end-start
+            projected_segment = segment - d*((segment*d).sum(-1)/direction_norm_sq)[:, None]
+            denominator = (projected_segment*projected_segment).sum(-1).clamp_min(1e-12)
+            fraction = -((start-o)*projected_segment).sum(-1)/denominator
+            fraction = fraction.clamp(0,1)
+            closest = start+fraction[:, None]*segment
+            ray_t = ((closest-o)*d).sum(-1)/direction_norm_sq
+            distance_sq = ((closest-o-ray_t[:, None]*d)**2).sum(-1)
+            near = ray_bundle.nears.reshape(-1) if ray_bundle.nears is not None else torch.full_like(ray_t,self.config.near_plane)
+            far = ray_bundle.fars.reshape(-1) if ray_bundle.fars is not None else torch.full_like(ray_t,self.config.far_plane)
+            selected = ((distance_sq <= self.config.cord_sampling_radius**2)
+                        & (ray_t >= near) & (ray_t <= far))
+            selected_ids = torch.nonzero(selected,as_tuple=False).flatten()
+        if selected_ids.numel() == 0:
+            return ray_samples, ray_indices, stats
+        # Sampling every ray once with the ordinary recipe preserves exact
+        # unaffected-ray outputs. Replace only selected rays with a finer native
+        # nerfacc traversal; never concatenate overlapping sample intervals.
+        fine_bundle = ray_bundle[selected_ids]
+        with fork_seeded_rng(self.config.training_seed,'cord_local_sampling',self.current_train_step,self.device):
+            fine_samples, fine_local_indices, _ = self.adaptive_sampler(
+                ray_bundle=fine_bundle,
+                render_step_size=float(self.config.cord_sampling_step_size),
+                near_plane=float(self.config.near_plane),
+                far_plane=float(self.config.far_plane),
+                alpha_thre=float(self.config.alpha_thre),
+                early_stop_eps=float(self.config.transmittance_threshold),
+                cone_angle=float(self.config.cone_angle),
+                adaptive_min_step_size=float(self.config.adaptive_min_step_size),
+                adaptive_max_step_size=float(self.config.adaptive_max_step_size),
+                adaptive_min_frequency_level=float(self.config.adaptive_min_frequency_level),
+                adaptive_max_frequency_level=(None if self.config.adaptive_max_frequency_level is None
+                                             else float(self.config.adaptive_max_frequency_level)),
+                adaptive_interval_level_mode=self.config.adaptive_interval_level_mode,
+                max_steps_per_ray=int(self.config.cord_sampling_max_steps_per_ray),
+                corrected_allocator=bool(self.config.corrected_arm_allocator),
+            )
+        fine_indices = selected_ids[fine_local_indices]
+        if fine_indices.numel() == 0:
+            return ray_samples, ray_indices, stats
+        replaced = torch.zeros_like(selected)
+        replaced[fine_indices] = True
+        kept = ~replaced[ray_indices]
+        standard_samples, standard_indices = ray_samples[kept], ray_indices[kept]
+        merged, merged_indices = self._concat_packed_ray_samples(
+            standard_samples, standard_indices, fine_samples, fine_indices
+        )
+        packed = nerfacc.pack_info(merged_indices, len(ray_bundle))
+        counts = packed[:, 1]
+        stats.num_samples = torch.tensor(merged_indices.numel(),device=merged_indices.device)
+        stats.mean_samples_per_ray = counts.float().mean()
+        stats.max_samples_per_ray = counts.max().float()
+        cap = torch.where(replaced,int(self.config.cord_sampling_max_steps_per_ray),int(self.config.max_steps_per_ray))
+        stats.saturation_rate = (counts >= cap).float().mean()
+        stats.packed_info = packed
+        return merged, merged_indices, stats
+
+    def _admit_depth_occupancy(self) -> None:
+        super()._admit_depth_occupancy()
+        if self.config.cord_occupancy_radius > 0:
+            self.occupancy_grid.binaries.logical_or_(self.cord_occupancy_admission)
 
     def _semantic_allowed(self,positions):
         aabb = self.scene_box.aabb.to(positions)
@@ -435,6 +612,22 @@ class LookCloserOpacityModel(LookCloserModel):
             outputs['floor_free_length']=length
             outputs['floor_tolerance']=eps.flatten()
             outputs['floor_free_monte_carlo']=self.config.floor_free_sampling=='stratified'
+        if self.training and self.config.cord_ray_regularization > 0:
+            with fork_seeded_rng(self.config.training_seed,'cord_rays',self.current_train_step,self.device):
+                ids=torch.randint(len(self.cord_ray_depths),(self.config.cord_rays_per_batch,),device=self.device)
+            o,d=self.cord_ray_origins[ids],self.cord_ray_directions[ids]
+            center=self.cord_ray_depths[ids,None]
+            eps=self.config.cord_ray_tolerance
+            distances=center+eps*torch.linspace(-1,1,17,device=self.device)[None,:]
+            points=o[:,None]+d[:,None]*distances[...,None]
+            outputs['cord_band_sigma']=self.field.density_fn(points.reshape(-1,3)).reshape(len(ids),17)
+            fractions=o.new_tensor([.25,.5,.75])
+            margins=o.new_tensor([2.,4.,8.])
+            free_distances=torch.cat([center*fractions[None,:],center-eps*margins[None,:]],-1)
+            free_distances=free_distances.clamp_min(self.config.near_plane)
+            points=o[:,None]+d[:,None]*free_distances[...,None]
+            outputs['cord_free_sigma']=self.field.density_fn(points.reshape(-1,3)).reshape(len(ids),6)
+            outputs['cord_tolerance']=center.new_full((len(ids),),eps)
         if 'packed_weights' in outputs:
             weights,indices = outputs['packed_weights'],outputs['packed_ray_indices']
             starts,ends = outputs['packed_spacing_starts'],outputs['packed_spacing_ends']
@@ -516,6 +709,10 @@ class LookCloserOpacityModel(LookCloserModel):
             losses['floor_geometry_loss']=self.config.floor_ray_regularization*floor_ray_geometry_loss(
                 outputs['floor_free_sigma'],outputs['floor_free_length'],outputs['floor_band_sigma'],outputs['floor_tolerance'],
                 free_monte_carlo=outputs.get('floor_free_monte_carlo',False))
+        if self.config.cord_ray_regularization > 0 and 'cord_band_sigma' in outputs:
+            losses['cord_ray_geometry_loss']=self.config.cord_ray_regularization*density_band_loss(
+                outputs['cord_band_sigma'],outputs['cord_tolerance'],
+                outputs['cord_free_sigma'],self.config.cord_ray_opacity_target)
         if self.config.depth_prior_strength>0 and 'depth_prior' in batch:
             strength = self.config.depth_prior_strength
             if self.config.depth_prior_objective=='density_band':

@@ -165,6 +165,17 @@ def configuration(request):
         if model.floor_ray_transforms_sha256 not in {None,digest}:
             raise ValueError('Floor ray prior calibration does not match current data')
         model.floor_ray_transforms_sha256=digest
+    if getattr(model,'cord_sampling_fit_path',None) is not None:
+        digest=sha(data/'transforms.json')
+        if model.cord_sampling_transforms_sha256 not in {None,digest}:
+            raise ValueError('Cord sampling calibration does not match current data')
+        if model.cord_sampling_fit_sha256 != sha(Path(model.cord_sampling_fit_path)):
+            raise ValueError('Cord sampling fit hash does not match request')
+        model.cord_sampling_transforms_sha256=digest
+    if getattr(model,'cord_ray_regularization',0.) > 0:
+        if model.cord_ray_transforms_path not in {None,str(data/'transforms.json')}:
+            raise ValueError('Cord ray prior must use the current data calibration')
+        model.cord_ray_transforms_path=str(data/'transforms.json')
     if request.get('freeze_density_geometry', False):
         if not model.separate_density_encoding or request.get('representation','volume') != 'volume':
             raise ValueError('Only split volume density can be frozen independently of RGB')

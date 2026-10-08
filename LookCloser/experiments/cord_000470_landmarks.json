@@ -1,0 +1,19 @@
+{
+  "frame": "000470",
+  "pixel_convention": "Original undistorted JPG integer pixel centers; sparse 2D landmarks, not masks",
+  "fit_camera_policy": "training views only",
+  "validation_camera_id": 95,
+  "validation_pixel_hd": [883, 1340],
+  "annotation_uncertainty_px": {"junction": 5.0, "first_bead": 3.0},
+  "landmarks": {
+    "junction": {
+      "25": [1904, 994], "26": [1794, 969], "27": [1952, 1072],
+      "93": [1728, 2720], "94": [3720, 2757], "96": [3859, 2750],
+      "97": [1800, 2490], "98": [3847, 2534]
+    },
+    "first_bead": {
+      "25": [1907, 1181], "26": [1806, 1149], "27": [1967, 1244],
+      "97": [1817, 2806], "98": [3864, 2848]
+    }
+  }
+}

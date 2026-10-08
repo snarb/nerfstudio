@@ -2,6 +2,34 @@
 
 ## Experimental Luster opacity controls
 
+An opt-in train-only two-landmark cord fit can refine volumetric ray sampling
+near the 3D segment between a reviewed waist junction and first bead. Original
+undistorted cameras triangulate the endpoints; the fit records source hashes,
+reprojection errors and the exact original-to-training coordinate transform.
+The held-out camera is projected only for diagnosis. The opacity model checks
+the fit hash and training calibration at load. During adaptive rendering it
+keeps ordinary samples for every other ray and replaces only rays passing
+within a configurable segment radius with a finer native nerfacc march.
+Fine-sampler randomness is isolated; no source masks, checkpoint weights,
+opacity objective or depth objective change. This sampling control is still
+experimental and requires matched training and visual acceptance.
+
+An optional cord-ray prior uses the same pinned fit and calibrated training
+poses. Only cameras with independently annotated junction **and** bead are
+eligible; 12 points along their projected 3D segment give static train-only
+rays. At each step an independent RNG stream selects a small ray batch and
+queries density in a narrow depth band and six points ahead of it. The
+configurable objective asks for an opaque band and empty foreground without
+altering RGB rays or source images. It is experimental and must pass the
+held-out cord and person-crop review before adoption.
+
+Separately, a cord occupancy option admits grid cells intersected by the
+fitted segment and a configurable narrow tube. It unions those cells into
+the occupancy binaries before each ray traversal, so routine EMA updates
+cannot remove the support. It changes visibility only; it does not create
+density or color. The forward-only screen records how many cells were missing
+and whether admission changes held-out renders before further training.
+
 An opt-in `train_camera_ids` allowlist filters the cached RGB image batch
 before the frequency-aware pixel sampler. The request uses physical camera
 numbers; the datamanager resolves them to training-dataset indices and keeps
