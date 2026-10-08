@@ -55,15 +55,33 @@ density; it is not being skipped by occupancy. In 69 sampled pixels within
 depth band alone** gives `23.62 dB`. This is only a diagnostic counterfactual:
 it is not a valid complete renderer or a trained result.
 
+### Globally best 30.5k checkpoint
+
+The same conservative cover was checked on the globally best sharp-28 30.5k
+checkpoint. The [grid audit](/home/pavlo/renders/luster_000470_opacity/reviews/cord_geometry_20261008/sharp28_30500_voxel_cover_audit/result.json)
+finds 12 covered cells, eight occupied in the saved grid and four missing.
+The existing sampled admission covers all four missing cells; its one omitted
+cover cell is already occupied. The [full-cover render](/home/pavlo/renders/luster_000470_opacity/reviews/cord_geometry_20261008/sharp28_30500_full_voxel_cover/result.json)
+therefore tests the effect of admitting every missing cord-tube cell against
+the original radius-zero render, with an unchanged field:
+
+| Frozen 30.5k renderer | Eval PSNR | SSIM | LPIPS | cam095 cord PSNR | SSIM | LPIPS |
+|---|---:|---:|---:|---:|---:|---:|
+| Original local sampling | **19.98045** | .812109 | .225064 | **21.71084** | .757066 | .082832 |
+| Complete voxel cover | 19.98037 | **.812127** | **.225046** | 21.69865 | **.762503** | **.080458** |
+
+The [GT/baseline/full-cover crop](/home/pavlo/renders/luster_000470_opacity/reviews/cord_geometry_20261008/sharp28_30500_full_voxel_cover_comparison.png)
+shows no visible recovery of the lower strands. The modest SSIM/LPIPS changes
+do not justify a longer occupancy warmup as the remedy for this artifact.
+
 ## Insights
 
-Filling all occupancy cells along this fitted portion of the cord has now
-been tested and gives no further improvement. A longer occupancy warmup is
-therefore not the next useful experiment on this checkpoint. The remaining
-fade is better explained by the learned colour/depth mixture and insufficient
-local contrast: appreciable weight sits outside the likely cord-depth band,
-and the band itself is softer than the original braid. The geometric line and
-its radius are uncertain, especially around twists, so a strong hard-depth
-prior remains risky. The next controlled test is a smaller cord-depth opacity
-coefficient on the existing sharp-view continuation, evaluated against its
-matched zero-prior control.
+Filling every cell intersected by the fitted cord tube was tested on both
+checkpoints and does not restore the braid. A longer occupancy warmup is
+therefore not a useful next experiment for this region. The remaining fade is
+better explained by learned colour/depth mixing and insufficient local
+contrast: appreciable weight sits outside the likely cord-depth band, and the
+band itself is softer than the original braid. The geometric line and its
+radius are uncertain around twists, so a stronger hard-depth prior remains
+risky. Subsequent trained depth-band results and the actual termination-weight
+audit are documented in [the termination-mass experiment](luster_000470_cord_termination_mass.md).
