@@ -187,6 +187,17 @@ def configuration(request):
         if model.cord_ray_transforms_path not in {None,str(data/'transforms.json')}:
             raise ValueError('Cord ray prior must use the current data calibration')
         model.cord_ray_transforms_path=str(data/'transforms.json')
+    if getattr(model,'cord_ray_selection_path',None) is not None:
+        if model.cord_ray_regularization<=0 or not request.get('resume'):
+            raise ValueError('Trusted cord rays require a regularized checkpoint continuation')
+        selection_path=Path(model.cord_ray_selection_path)
+        if model.cord_ray_selection_sha256!=sha(selection_path):
+            raise ValueError('Trusted cord ray manifest changed')
+        selection=json.loads(selection_path.read_text())
+        if (selection.get('source_checkpoint_sha256')!=sha(Path(request['resume']))
+                or selection.get('fit_sha256')!=model.cord_sampling_fit_sha256
+                or selection.get('transforms_sha256')!=model.cord_sampling_transforms_sha256):
+            raise ValueError('Trusted cord rays do not match the source field or geometry')
     if request.get('freeze_density_geometry', False):
         if not model.separate_density_encoding or request.get('representation','volume') != 'volume':
             raise ValueError('Only split volume density can be frozen independently of RGB')

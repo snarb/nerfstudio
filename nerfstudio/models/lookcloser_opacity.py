@@ -56,6 +56,8 @@ class LookCloserOpacityModelConfig(LookCloserModelConfig):
     cord_sampling_max_steps_per_ray: int = 4096
     cord_ray_regularization: float = 0.
     cord_ray_transforms_path: str | None = None
+    cord_ray_selection_path: str | None = None
+    cord_ray_selection_sha256: str | None = None
     cord_rays_per_batch: int = 32
     cord_ray_tolerance: float = .003
     cord_ray_opacity_target: float = .99
@@ -170,9 +172,29 @@ class LookCloserOpacityModel(LookCloserModel):
             # that the cord is visible or sharp there.
             camera_ids = sorted(set.intersection(*(set(fit['fit_camera_ids'][key])
                                                    for key in ('junction','first_bead'))))
+            selected_pairs = None
+            if self.config.cord_ray_selection_path is not None:
+                selection_path = Path(self.config.cord_ray_selection_path)
+                if hashlib.sha256(selection_path.read_bytes()).hexdigest()!=self.config.cord_ray_selection_sha256:
+                    raise ValueError('Cord ray selection changed since request creation')
+                selection=json.loads(selection_path.read_text())
+                if (selection.get('train_only') is not True or selection.get('masks_used') is not False
+                        or selection.get('fit_sha256')!=self.config.cord_sampling_fit_sha256
+                        or selection.get('transforms_sha256')!=self.config.cord_sampling_transforms_sha256):
+                    raise ValueError('Cord ray selection does not match train-only geometry')
+                raw_pairs=selection.get('selected_camera_fraction_indices',[])
+                if (not raw_pairs or any(not isinstance(pair,list) or len(pair)!=2
+                                         or type(pair[0]) is not int or type(pair[1]) is not int
+                                         or pair[0] not in camera_ids or not 0<=pair[1]<12
+                                         for pair in raw_pairs)):
+                    raise ValueError('Invalid selected cord ray indices')
+                selected_pairs={tuple(pair) for pair in raw_pairs}
+                if len(selected_pairs)!=len(raw_pairs):
+                    raise ValueError('Repeated selected cord ray')
             frames = {int(frame['camera_id']): frame for frame in transforms['frames']}
             points = endpoints[0][None] + torch.linspace(.08,.92,12,device=endpoints.device)[:,None] * (endpoints[1]-endpoints[0])[None]
             origins, directions, depths = [], [], []
+            ray_pairs=[]
             for camera_id in camera_ids:
                 frame = frames[camera_id]
                 if frame['file_path'] not in train_names:
@@ -184,6 +206,7 @@ class LookCloserOpacityModel(LookCloserModel):
                 px = frame['fl_x']*local[:,0]/forward + frame['cx']
                 py = -frame['fl_y']*local[:,1]/forward + frame['cy']
                 valid = (forward>0) & (px>=0) & (px<frame['w']) & (py>=0) & (py<frame['h'])
+                ray_pairs.extend((camera_id,int(index)) for index in torch.nonzero(valid).flatten())
                 displacement = points[valid]-origin
                 origins.append(origin.expand_as(displacement))
                 depths.append(displacement.norm(dim=-1))
@@ -193,6 +216,12 @@ class LookCloserOpacityModel(LookCloserModel):
             origins = torch.cat(origins)
             directions = torch.cat(directions)
             depths = torch.cat(depths)
+            if selected_pairs is not None:
+                if not selected_pairs.issubset(set(ray_pairs)):
+                    raise ValueError('Selected cord ray is outside a training camera')
+                keep=torch.tensor([pair in selected_pairs for pair in ray_pairs],
+                                  dtype=torch.bool,device=depths.device)
+                origins,directions,depths=origins[keep],directions[keep],depths[keep]
             if (not torch.isfinite(depths).all()
                     or (depths-self.config.cord_ray_tolerance <= self.config.near_plane).any()):
                 raise ValueError('Cord prior geometry invalid or too close to near plane')

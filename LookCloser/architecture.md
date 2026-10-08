@@ -27,6 +27,15 @@ around the same depth and computes opacity with per-interval transmittance.
 It penalizes visible termination just before or behind the trusted band,
 which sparse free-space probes alone can miss; the fit and RGB data remain
 unchanged.
+An optional `cord_ray_selection_path` restricts that auxiliary prior to a
+hash-pinned subset of those static rays. The manifest is derived before the
+continuation from original **training** RGB and the source checkpoint's
+conditional colour and termination mass at the fitted depth. It must match
+the fit, calibration and exact source checkpoint; camera/fraction pairs are
+validated against the train-only inventory. Unselected rays keep ordinary
+RGB training and unconstrained depth. This confidence screen does not use
+source masks or change rendered-ray sampling, and still needs a held-out
+quality gate before being treated as a depth prior.
 
 Separately, a cord occupancy option admits grid cells intersected by the
 fitted segment and a configurable narrow tube. It unions those cells into

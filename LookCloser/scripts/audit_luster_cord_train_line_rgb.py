@@ -42,6 +42,8 @@ def audit(request_path: Path, output: Path) -> None:
     start,end=model.cord_sampling_endpoints.to(model.device)
     fractions=torch.linspace(.08,.92,12,device=model.device)
     points=start[None]+fractions[:,None]*(end-start)[None]
+    offsets=(-.012,-.008,-.006,-.004,-.003,-.002,-.001,0.,.001,.002,.003,.004,.006,.008,.012)
+    sweep_halfwidth=.0015
     rows=[]
     with torch.no_grad():
         for camera_id in camera_ids:
@@ -92,6 +94,12 @@ def audit(request_path: Path, output: Path) -> None:
                 band=(ti-depth[i]).abs()<=.003
                 mass=wi[band].sum()
                 rgb=(wi[band,None]*ci[band]).sum(0)/mass.clamp_min(1e-9)
+                offset_bands={}
+                for offset in offsets:
+                    selected=(ti-(depth[i]+offset)).abs()<=sweep_halfwidth
+                    selected_mass=wi[selected].sum()
+                    selected_rgb=(wi[selected,None]*ci[selected]).sum(0)/selected_mass.clamp_min(1e-9)
+                    offset_bands[f'{offset:+.3f}']=dict(mass=float(selected_mass),rgb=selected_rgb.cpu().tolist())
                 rows.append(dict(camera_id=camera_id,fraction=float(fractions[i]),
                                  x=int(px[i]),y=int(py[i]),source_gt=gt[i].cpu().tolist(),
                                  rendered_rgb=prediction['rgb'][i].cpu().tolist(),
@@ -99,7 +107,7 @@ def audit(request_path: Path, output: Path) -> None:
                                  front_mass=float(wi[ti<depth[i]-.003].sum()),
                                  back_mass=float(wi[ti>depth[i]+.003].sum()),
                                  projected_depth=float(depth[i]),
-                                 source_rgb_sha256=source_hash))
+                                 source_rgb_sha256=source_hash,offset_bands=offset_bands))
     if field_fingerprint(model)!=before:
         raise RuntimeError('Forward audit changed model field')
     def score(key,selected):
@@ -113,14 +121,32 @@ def audit(request_path: Path, output: Path) -> None:
                                      rendered_rgb_psnr=score('rendered_rgb',selected),
                                      band_rgb_psnr=score('band_rgb',selected),
                                      mean_band_mass=float(np.mean([row['band_mass'] for row in selected])))
+    sweep={}
+    for offset in offsets:
+        key=f'{offset:+.3f}'
+        chosen=[row for row in rows if row['offset_bands']['+0.000']['mass']>=.15
+                and row['offset_bands'][key]['mass']>=.15]
+        if chosen:
+            gt=np.array([row['source_gt'] for row in chosen])
+            candidate=np.array([row['offset_bands'][key]['rgb'] for row in chosen])
+            center=np.array([row['offset_bands']['+0.000']['rgb'] for row in chosen])
+            psnr=lambda rgb: float(-10*np.log10(np.mean((rgb-gt)**2)))
+            sweep[key]=dict(points=len(chosen),candidate_psnr=psnr(candidate),
+                            center_same_points_psnr=psnr(center),
+                            mean_candidate_mass=float(np.mean([row['offset_bands'][key]['mass'] for row in chosen])),
+                            camera_counts={str(camera_id):sum(row['camera_id']==camera_id for row in chosen)
+                                           for camera_id in camera_ids})
+        else:
+            sweep[key]=dict(points=0)
     write(output/'result.json',dict(scope='Read-only train-camera line colour diagnostic, not a mask',
           masks_used=False,heldout_camera_excluded=fit['validation_camera_id'],
           source_request=str(request_path),checkpoint=request['resume'],
           checkpoint_sha256=sha(Path(request['resume'])),
           fit_sha256=sha(Path(request['model']['cord_sampling_fit_path'])),
           transforms_sha256=sha(Path(request['data'])/'transforms.json'),
-          field_sha256=before,band_halfwidth=.003,summary=summary,rows=rows))
-    print(json.dumps(summary))
+          field_sha256=before,band_halfwidth=.003,summary=summary,
+          surface_sweep_halfwidth=sweep_halfwidth,surface_sweep=sweep,rows=rows))
+    print(json.dumps(dict(summary=summary,surface_sweep=sweep)))
 
 
 if __name__=='__main__':
