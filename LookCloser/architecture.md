@@ -55,6 +55,12 @@ its supporting training cameras. The local fine sampler still uses the
 original endpoints, so only auxiliary depth geometry differs. Patch
 correlation is not certified depth; held-out render and person-crop gates
 decide whether a candidate can be used.
+An opt-in cord tube radius offers a different geometric target: each
+train-camera ray through the fitted centerline is moved to its analytic
+front intersection with a cylinder of that radius. The ray direction and
+ordinary RGB samples stay fixed. The radius must fit inside the local fine
+sampler and cannot be combined with stereo point overrides. It defaults to
+zero; the held-out braid gate determines whether it is useful.
 
 Separately, a cord occupancy option admits grid cells intersected by the
 fitted segment and a configurable narrow tube. It unions those cells into

@@ -63,6 +63,7 @@ class LookCloserOpacityModelConfig(LookCloserModelConfig):
     cord_ray_color_regularization: float = 0.
     cord_rays_per_batch: int = 32
     cord_ray_tolerance: float = .003
+    cord_ray_tube_radius: float = 0.
     cord_ray_opacity_target: float = .99
     cord_ray_objective: Literal['density_band','termination_mass'] = 'density_band'
     cord_occupancy_radius: float = 0.
@@ -100,9 +101,13 @@ class LookCloserOpacityModel(LookCloserModel):
                   self.config.depth_prior_loss_mult,self.config.eikonal_loss_mult,
                   self.config.density_element_regularization,self.config.floor_ray_regularization,
                   self.config.cord_ray_regularization,self.config.cord_ray_color_regularization,
-                  self.config.cord_occupancy_radius]
+                  self.config.cord_occupancy_radius,self.config.cord_ray_tube_radius]
         if any(not math.isfinite(value) or value<0 for value in controls):
             raise ValueError('Regularization must be nonnegative')
+        if self.config.cord_ray_tube_radius > 0 and (
+                self.config.cord_ray_regularization <= 0
+                or self.config.cord_ray_tube_radius >= self.config.cord_sampling_radius):
+            raise ValueError('Cord front-surface radius requires active ray prior inside the fine-sampling tube')
         if self.config.cord_ray_color_regularization>0 and (
                 self.config.cord_ray_regularization<=0
                 or self.config.cord_ray_selection_path is None
@@ -263,6 +268,12 @@ class LookCloserOpacityModel(LookCloserModel):
                             or (targets<0).any() or (targets>1).any()):
                         raise ValueError('Invalid selected cord RGB targets')
                     self.register_buffer('cord_ray_target_rgb',targets,persistent=False)
+            if self.config.cord_ray_tube_radius > 0:
+                if selected_pairs is not None and selection.get('stereo_points'):
+                    raise ValueError('Tube front surface cannot be combined with stereo point overrides')
+                tangent=F.normalize(endpoints[1]-endpoints[0],dim=0)
+                transverse=(1-(directions*tangent).sum(-1).square()).clamp_min(1e-6).sqrt()
+                depths=depths-self.config.cord_ray_tube_radius/transverse
             if (not torch.isfinite(depths).all()
                     or (depths-self.config.cord_ray_tolerance <= self.config.near_plane).any()):
                 raise ValueError('Cord prior geometry invalid or too close to near plane')
