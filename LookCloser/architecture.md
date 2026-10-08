@@ -20,6 +20,16 @@ full color field over a frozen geometry teacher; hashes verify geometry invarian
 Those archives require the explicit probe renderer and are not standard volume
 or accepted opaque-model checkpoints.
 
+The optional volume `depth_prior_objective=density_band` directly queries density
+at nine uniform points across a qualified depth interval and six positions ahead
+of it. Trapezoid optical thickness must reach the configured opacity target
+(default.99), while a nonsaturating free-space penalty suppresses front density.
+The interval uses the existing uncertainty floor/strength control. Unqualified
+or out-of-range bands add no constraints. This mode requires unchanged native RGB
+sampling and leaves normal/archived objectives intact. Runtime audits verify
+identical RGB/sample outputs and geometry-only prior gradients in the split field;
+it is not accepted as a quality recipe before a matched training/visual gate.
+
 Depth confidence policy v2 backprojects each measured nearest-neighbor source
 depth from its actual integer pixel. The manifest records the policy version
 and builder hash. `review_luster_depth_confidence.py` exports native RGB,

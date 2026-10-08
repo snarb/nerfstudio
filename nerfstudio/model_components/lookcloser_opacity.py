@@ -1,6 +1,7 @@
 """Sampling-aware surface and opacity operations (independent of CUDA fields)."""
 from __future__ import annotations
 
+import math
 import torch
 from torch import Tensor
 
@@ -84,3 +85,27 @@ def depth_interval_loss(weights: Tensor, mids: Tensor, indices: Tensor, num_rays
     per_ray = w.new_zeros(num_rays).scatter_add(0,indices,w*penalty)
     mass = w.new_zeros(num_rays).scatter_add(0,indices,w*admission)
     return (per_ray[trusted]+(1-mass[trusted]).square()).mean()
+
+
+def density_band_loss(band_sigma: Tensor, tolerance: Tensor, free_sigma: Tensor,
+                      opacity_target: float = .99) -> Tensor:
+    """Require an opaque measured slab and empty space ahead, without RGB resampling.
+
+    Sigma is sampled uniformly across depth +/- tolerance. Trapezoid optical
+    thickness is dimensionless, so narrowing the allowed slab requires a
+    correspondingly denser surface. Only already-qualified rays enter here.
+    """
+    if not 0 < opacity_target < 1 or band_sigma.ndim != 2 or band_sigma.shape[1] < 2:
+        raise ValueError('Valid opacity target and at least two band samples required')
+    if len(band_sigma)==0:
+        return band_sigma.sum()*0+free_sigma.sum()*0
+    sigma=band_sigma.float().clamp_min(0)
+    width=2*tolerance.reshape(-1).float()
+    tau=torch.trapezoid(sigma,dx=1/(sigma.shape[1]-1),dim=-1)*width
+    target_tau=-math.log1p(-opacity_target)
+    missing=(1-tau/target_tau).clamp_min(0).square()
+    # Linear tails keep pressure on large free-space spikes; an opacity
+    # sigmoid would saturate and cease suppressing those unwanted surfaces.
+    free_tau=free_sigma.float().clamp_min(0)*width[:,None]/target_tau
+    free=torch.where(free_tau<1,.5*free_tau.square(),free_tau-.5).mean(-1)
+    return (missing+free).mean()

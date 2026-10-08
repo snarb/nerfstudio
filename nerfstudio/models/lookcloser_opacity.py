@@ -8,7 +8,7 @@ import torch
 import torch.nn.functional as F
 from nerfstudio.fields.lookcloser_field import LookCloserField
 from nerfstudio.fields.lookcloser_surface_field import LookCloserSurfaceField
-from nerfstudio.model_components.lookcloser_opacity import first_crossing, sdf_weights, opacity_profile_loss, depth_interval_loss
+from nerfstudio.model_components.lookcloser_opacity import first_crossing, sdf_weights, opacity_profile_loss, depth_interval_loss, density_band_loss
 from nerfstudio.models.lookcloser import LookCloserModel, LookCloserModelConfig
 
 
@@ -20,7 +20,8 @@ class LookCloserOpacityModelConfig(LookCloserModelConfig):
     opacity_ramp_steps: int = 4096
     depth_prior_strength: float = 0.
     depth_prior_loss_mult: float = .01
-    depth_prior_objective: Literal['distance','interval_mass'] = 'distance'
+    depth_prior_objective: Literal['distance','interval_mass','density_band'] = 'distance'
+    depth_prior_opacity_target: float = .99
     surface_num_samples: int = 256
     surface_refine_steps: int = 8
     surface_inverse_width: float = 400.
@@ -49,8 +50,13 @@ class LookCloserOpacityModel(LookCloserModel):
             raise ValueError('Unknown geometry head mode')
         if self.config.separate_density_encoding and self.config.representation!='volume':
             raise ValueError('Independent density encoding currently supports volume experiments only')
-        if self.config.depth_prior_objective not in {'distance','interval_mass'}:
+        if self.config.depth_prior_objective not in {'distance','interval_mass','density_band'}:
             raise ValueError('Unknown depth interval objective')
+        if not 0 < self.config.depth_prior_opacity_target < 1:
+            raise ValueError('Depth-band opacity target must be between zero and one')
+        if self.config.depth_prior_objective=='density_band' and (
+                self.config.representation!='volume' or self.config.volume_depth_guided_sampling):
+            raise ValueError('Density-band prior requires volume and unchanged native RGB sampling')
         controls=[self.config.opacity_regularization,self.config.depth_prior_strength,
                   self.config.depth_prior_loss_mult,self.config.eikonal_loss_mult]
         if any(not math.isfinite(value) or value<0 for value in controls):
@@ -369,9 +375,38 @@ class LookCloserOpacityModel(LookCloserModel):
         if self.training and self.config.opacity_regularization>0:
             outputs['opacity_profile'] = opacity_profile_loss(weights,starts,ends,indices,len(ray_bundle))
         if self.training and self.config.depth_prior_strength>0:
-            near = ray_bundle.nears[indices]
-            span = ray_bundle.fars[indices]-near
-            outputs.update(prior_weights=weights,prior_mids=near+span*(starts+ends)*.5,prior_indices=indices)
+            if self.config.depth_prior_objective=='density_band':
+                metadata=ray_bundle.metadata or {}
+                if 'depth_prior' in metadata:
+                    depth=metadata['depth_prior'].reshape(-1)
+                    uncertainty=metadata['depth_uncertainty'].reshape(-1)
+                    tolerance=torch.maximum(2*uncertainty,.01*depth/self.config.depth_prior_strength)
+                    valid=metadata['depth_valid'].reshape(-1).bool()
+                    near,far=ray_bundle.nears.reshape(-1),ray_bundle.fars.reshape(-1)
+                    valid=valid&torch.isfinite(depth)&torch.isfinite(tolerance)&(tolerance>0)
+                    valid=valid&(depth-tolerance>=near)&(depth+tolerance<=far)
+                    ids=torch.nonzero(valid).flatten()
+                    outputs['density_band_tolerance']=tolerance[ids]
+                    if len(ids):
+                        o,d=ray_bundle.origins[ids],ray_bundle.directions[ids]
+                        center,eps=depth[ids,None],tolerance[ids,None]
+                        offsets=torch.linspace(-1,1,9,device=o.device)
+                        distances=center+eps*offsets[None,:]
+                        points=o[:,None]+d[:,None]*distances[...,None]
+                        outputs['density_band_sigma']=self.field.density_fn(points.reshape(-1,3)).reshape(len(ids),9)
+                        fractions=o.new_tensor([.25,.5,.75])
+                        margins=o.new_tensor([2.,4.,8.])
+                        free_distances=torch.cat([center*fractions[None,:],center-eps*margins[None,:]],-1)
+                        free_distances=torch.maximum(free_distances,near[ids,None])
+                        points=o[:,None]+d[:,None]*free_distances[...,None]
+                        outputs['density_free_sigma']=self.field.density_fn(points.reshape(-1,3)).reshape(len(ids),6)
+                    else:
+                        outputs['density_band_sigma']=weights.new_empty(0,9)
+                        outputs['density_free_sigma']=weights.new_empty(0,6)
+            else:
+                near = ray_bundle.nears[indices]
+                span = ray_bundle.fars[indices]-near
+                outputs.update(prior_weights=weights,prior_mids=near+span*(starts+ends)*.5,prior_indices=indices)
         return outputs
 
     def get_loss_dict(self,outputs,batch,metrics_dict=None):
@@ -390,6 +425,12 @@ class LookCloserOpacityModel(LookCloserModel):
             losses['opacity_loss'] = self.config.opacity_regularization*ramp*(outputs['opacity_profile']+deficit)
         if self.config.depth_prior_strength>0 and 'depth_prior' in batch:
             strength = self.config.depth_prior_strength
+            if self.config.depth_prior_objective=='density_band':
+                if 'density_band_sigma' in outputs:
+                    losses['trusted_depth_loss']=self.config.depth_prior_loss_mult*strength*density_band_loss(
+                        outputs['density_band_sigma'],outputs['density_band_tolerance'],
+                        outputs['density_free_sigma'],self.config.depth_prior_opacity_target)
+                return losses
             depth = batch['depth_prior'].to(self.device)
             uncertainty = batch['depth_uncertainty'].to(self.device)
             valid = batch['depth_valid'].to(self.device)

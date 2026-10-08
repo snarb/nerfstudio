@@ -1301,3 +1301,26 @@ scp coder@olive-lark:/var/tmp/lookcloser_000470_delivery/accepted_opacity38k_nat
 scp coder@olive-lark:/var/tmp/lookcloser_000470_delivery/accepted_opacity38k_native/face/learned_rgb.mp4 ~/Downloads/
 scp coder@olive-lark:/var/tmp/lookcloser_000470_delivery/independent_density42k/face_comparison.jpg ~/Downloads/
 ```
+
+### Direct density-band opacity prior: implemented, training pending
+
+What was tested: add an opt-in direct field objective independently of RGB ARM
+nodes. Nine uniform density samples integrate the measured depth±tolerance slab;
+its optical thickness must reach−log(1−.99). Six free-space probes use depth
+fractions.25/.5/.75 and positions2/4/8 tolerances ahead of the measured surface.
+Their nonsaturating penalty discourages opaque front layers. No RGB targets or
+rays are excluded; unqualified, nonfinite or unrenderable bands remain unknown.
+The original interval-mass/distance objectives and defaults remain unchanged.
+
+Results:36 focused tests pass, including six band-specific checks of target
+opacity, narrowing, gradient directions, unknown rays and unchanged RGB output.
+On the real split42k checkpoint,609 qualified rays exercise the nine-point band
+and six free probes. Median tolerance is.0010095 normalized scene units. RGB,
+depth, accumulation, packed weights and both sample edges have exactly zero
+forward difference with the prior toggled, using the same RNG. Prior gradients
+reach only the cloned density modules; color parameters receive none.
+This is implementation/runtime evidence, not a quality gain. A matched2k gate
+must precede acceptance. The existing interval-mass44k persistence pair is
+finishing first and has not been changed to this objective.
+
+- [Actual band runtime/gradient audit](/home/pavlo/renders/luster_000470_opacity/reviews/density_band_runtime_audit.json)
