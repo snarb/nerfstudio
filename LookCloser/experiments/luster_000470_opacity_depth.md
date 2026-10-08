@@ -1195,3 +1195,32 @@ quality review. Only after that gate will a stronger geometry prior be compared.
 
 - [Actual native parity and gradient audit](/home/pavlo/renders/luster_000470_opacity/reviews/density_clone38k_parity.json)
 - [Checkpoint conversion receipt](/home/pavlo/renders/luster_000470_opacity/split_density_initial38k/conversion.json)
+
+### Independent density40k normal-quality gate
+
+What was tested: two matched2k continuations from the same38k state. The shared
+control retains four field parameters; the split branch adds two density-only
+clones with copied moments. Native sampling, calibration, near.05, opacity.1,
+optimizer/scheduler/scaler/RNG and first32 pixel/RGB batches match. No new depth
+prior is enabled in either arm.
+
+| Native40k | PSNR | SSIM | LPIPS | Optimization seconds |
+| --- | ---: | ---: | ---: | ---: |
+| Shared repeat | 20.0676 | .817846 | .221743 | 140.61 |
+| Independent density | 20.0532 | .817861 | .221826 | 207.27 |
+
+Results: all six face/hand/hair/clothing contacts were inspected. The split
+branch preserves ordinary coherent foreground quality, without a large collapse.
+Small residual noise, softness and studio errors remain. Differences are tiny;
+the architecture alone does not improve the accepted recipe. Optimization is
+47.4% slower. A repeat of the shared continuation scores.0202dB below the earlier
+shared40k result, a warning against interpreting similarly small gains as robust.
+Separate legacy field/HDR/JIT/default-recipe checks add31 passing tests.
+
+Next: a same-parent split40k→42k pair adds only the previously tested interval-mass
+depth strength10/coefficient.0001 to one arm. Native sampling stays unchanged,
+and unknown depth stays unconstrained. The no-new-prior control is evaluating;
+the depth arm launches after it finishes. This tests whether the prior is less
+harmful when its direct gradients cannot alter color features.
+
+- [Verified split quality gate](/home/pavlo/renders/luster_000470_opacity/reviews/density_split_control_040000/comparison.json)
