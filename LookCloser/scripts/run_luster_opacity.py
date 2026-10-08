@@ -312,9 +312,12 @@ def train(request):
     history=json.loads(Path(request['parent_history']).read_text()) if request.get('parent_history') else []
     gates=set(request.get('eval_steps',[2000,8000,20000,26000,32000,40000]))
     start=time.time()
+    optimization_seconds=0.
+    evaluation_seconds=0.
     last_step=None
     write(output/'progress.json',dict(status='training',worker=os.getpid(),start=start,start_step=trainer._start_step))
     for step in range(trainer._start_step,request['end_step']+1):
+        iteration_start=time.perf_counter()
         trainer.step=step
         trainer.pipeline.train()
         if step==32000:
@@ -331,6 +334,7 @@ def train(request):
             raise FloatingPointError(f'Nonfinite training objective at step {step}')
         for callback in trainer.callbacks:
             callback.run_callback_at_location(step,location=TrainingCallbackLocation.AFTER_TRAIN_ITERATION)
+        optimization_seconds+=time.perf_counter()-iteration_start
         last_step=step
         elapsed=time.time()-start
         limited=elapsed>=request.get('max_seconds',6*3600) or time.time()>=request.get('campaign_deadline',float('inf'))
@@ -342,7 +346,13 @@ def train(request):
             trainer.save_checkpoint(step)
             cfg.pipeline.model.feature_reweighting_strength=trainer.pipeline.model.field.feature_reweighting_strength
             cfg.save_config()
+            write(output/'progress.json',dict(status='evaluating',worker=os.getpid(),step=step,
+                  elapsed=time.time()-start,optimization_seconds=optimization_seconds))
+            evaluation_start=time.perf_counter()
             row=evaluate(trainer,request,step,preview=request.get('smoke',False))
+            evaluation_seconds+=time.perf_counter()-evaluation_start
+            row.update(optimization_seconds=optimization_seconds,
+                       stage_iterations=step-trainer._start_step+1)
             target=Path(row['renders'])/'config.yml'
             shutil.copy2(cfg.get_base_dir()/'config.yml',target)
             row['config']=str(target)
@@ -357,6 +367,7 @@ def train(request):
             break
     chosen=select_best(history)
     write(output/'result.json',dict(status='review_required',last_step=last_step,elapsed=time.time()-start,
+                                   optimization_seconds=optimization_seconds,evaluation_seconds=evaluation_seconds,
                                    selected=chosen,checkpoint_load_audit=trainer.checkpoint_load_audit,
                                    transforms_sha256=sha(Path(request['data'])/'transforms.json'),
                                    checkpoint_sha256=sha(chosen['checkpoint'])))

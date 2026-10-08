@@ -93,6 +93,11 @@ eval; the default preserves archived rendering. The shared nerfstudio collider
 is unchanged. Camera starts inside the box can otherwise expose near-camera
 density during evaluation. Near-plane choices are recorded separately from
 learned opacity/depth changes and require geometry and native-view review.
+The exporter can explicitly retain native checkpoint integration with
+`--native-sampling`; its default remains the archived denser export. Both modes
+record actual near bounds and sampling controls. The campaign runner records an
+`evaluating` phase and separate optimization/evaluation durations, rather than
+leaving an ended training step labeled as active optimization during rendering.
 `incremental_standard` adds the prior subclass while retaining all ordinary
 model settings and bounds. Its explicit plain-volume checkpoint adapter adds
 only representation/permission bookkeeping buffers and keeps strict parameter

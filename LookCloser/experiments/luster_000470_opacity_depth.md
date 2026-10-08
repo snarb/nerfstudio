@@ -963,3 +963,35 @@ No convergence-speed claim is made; diagnostic GPU work overlaps these runs.
 - [Verified36k comparison and visual verdict](/home/pavlo/renders/luster_000470_opacity/reviews/near05_opacity01_depth10_mass_036000/comparison.json)
 - [Opacity-only termination](/home/pavlo/renders/luster_000470_opacity/reviews/near05_opacity36k_alignment.json)
 - [Tight-depth termination](/home/pavlo/renders/luster_000470_opacity/reviews/near05_opacity_depth36k_alignment.json)
+
+### Ordinary baseline36k endpoint verification
+
+What was tested: continue the ordinary LookCloser model/manager/parser from
+control30k to36k, retaining near.05 in train/eval and adding neither depth nor
+opacity regularization. Compare native endpoints to opacity.1 from their
+common28k origin. Stage boundaries differ; recorded32-batch samples at28k and
+30k match, but this is not a whole-trajectory bitwise replay.
+
+| Native36k endpoint | PSNR | SSIM | LPIPS |
+| --- | ---: | ---: | ---: |
+| Ordinary, no priors | 19.8106 | .808639 | .228245 |
+| Opacity.1, no depth | 20.0957 | .816466 | .222051 |
+
+Results: native GT is identical in all six views and all four region contacts
+were inspected. Both endpoints preserve a coherent actor. Opacity.1 reduces
+horizontal facial defects in012/011 and improves face LPIPS in every review
+view; hand differences are mixed and wrist noise remains. The endpoint gain
+is.285dB PSNR with lower LPIPS, not proof of an artifact-free recipe. Both
+control40k and opacity40k requests are prepared; opacity40k is running under
+supervision, followed by the same-parent weaker-depth screen. No source masks
+are used. The independent hard-surface and semantic arms remain unfinished.
+
+- [Endpoint metrics, batch evidence and visual review](/home/pavlo/renders/luster_000470_opacity/reviews/near05_baseline_opacity_036000/comparison.json)
+- [Ordinary/opacity face contact](/home/pavlo/renders/luster_000470_opacity/reviews/near05_baseline_opacity_036000/face.jpg)
+
+Pinned comparisons are copied to the coder-readable private delivery root:
+`baseline_opacity_36k` (ordinary vs opacity) and `incremental_near05_36k`
+(opacity vs stronger depth). Files are physical copies, not links into the
+private home. The exporter now supports explicit native sampling so camera
+paths can retain the quality evaluator's integration settings. Denser export
+remains the default and must be labeled separately.

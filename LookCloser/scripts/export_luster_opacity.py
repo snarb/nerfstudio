@@ -104,7 +104,7 @@ def render_path(trainer,request,output,kind,frames,ffmpeg):
                            stdout=log,stderr=subprocess.STDOUT,check=True)
 
 
-def export(selection_path,output,frames,ffmpeg,paths=True):
+def export(selection_path,output,frames,ffmpeg,paths=True,native_sampling=False):
     selected=json.loads(selection_path.read_text())
     if 'selected' in selected:
         selected=selected['selected']
@@ -118,13 +118,16 @@ def export(selection_path,output,frames,ffmpeg,paths=True):
     original_settings=dict(adaptive_coarse_step_size=model.config.adaptive_coarse_step_size,
                            max_steps_per_ray=model.config.max_steps_per_ray,
                            corrected_arm_allocator=model.config.corrected_arm_allocator,
+                           near_plane=model.config.near_plane,
+                           eval_use_training_near_plane=model.config.eval_use_training_near_plane,
                            surface_num_samples=getattr(model.config,'surface_num_samples',None),
                            surface_refine_steps=getattr(model.config,'surface_refine_steps',None))
-    model.config.adaptive_coarse_step_size=.0005
-    model.config.max_steps_per_ray=16384
-    model.config.corrected_arm_allocator=True
+    if not native_sampling:
+        model.config.adaptive_coarse_step_size=.0005
+        model.config.max_steps_per_ray=16384
+        model.config.corrected_arm_allocator=True
     surface=getattr(model.config,'representation','volume')!='volume'
-    if surface:
+    if surface and not native_sampling:
         model.config.surface_num_samples=512
         model.config.surface_refine_steps=12
     request['evaluation_model']={}  # These explicit export settings are authoritative.
@@ -140,8 +143,14 @@ def export(selection_path,output,frames,ffmpeg,paths=True):
     artifact_hashes={str(p.relative_to(output)):sha(p) for p in output.rglob('*') if p.is_file()}
     write(output/'manifest.json',dict(checkpoint=selected['checkpoint'],checkpoint_sha256=sha(Path(selected['checkpoint'])),
         training_selection=selected,export_metrics=metrics,original_settings=original_settings,
-        export_settings=dict(coarse_step=.0005,volume_cap=16384,corrected_arm_allocator=True,
-                             surface_samples=512 if surface else None,surface_bisection=12 if surface else None),
+        sampling_mode='native' if native_sampling else 'denser',
+        export_settings=dict(coarse_step=model.config.adaptive_coarse_step_size,
+                             volume_cap=model.config.max_steps_per_ray,
+                             corrected_arm_allocator=model.config.corrected_arm_allocator,
+                             near_plane=model.config.near_plane,
+                             eval_use_training_near_plane=model.config.eval_use_training_near_plane,
+                             surface_samples=model.config.surface_num_samples if surface else None,
+                             surface_bisection=model.config.surface_refine_steps if surface else None),
         artifact_sha256=artifact_hashes,learned_rgb_only=True,masks_used=False,visual_review='pending'))
     print(json.dumps(dict(output=str(output),psnr=metrics['eval_all_psnr'],ssim=metrics['eval_all_ssim'],lpips=metrics['eval_all_lpips'])),flush=True)
 
@@ -152,7 +161,9 @@ if __name__=='__main__':
     p.add_argument('--output',type=Path,required=True)
     p.add_argument('--frames',type=int,default=32)
     p.add_argument('--no-paths',action='store_true')
+    p.add_argument('--native-sampling',action='store_true',
+                   help='Retain checkpoint integration settings for eval and paths')
     p.add_argument('--ffmpeg',default=shutil.which('ffmpeg') or '/home/pavlo/.conda/envs/lookcloser-jpeg/bin/ffmpeg')
     args=p.parse_args()
     if args.frames<1:p.error('--frames must be positive')
-    export(args.selection,args.output,args.frames,args.ffmpeg,not args.no_paths)
+    export(args.selection,args.output,args.frames,args.ffmpeg,not args.no_paths,args.native_sampling)
