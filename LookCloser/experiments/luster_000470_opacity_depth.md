@@ -12,12 +12,16 @@ All train-only frequency fits are complete.
 
 The independent density branch passes exact initial native parity and a normal
 quality gate, but costs47% more optimization time without an established gain
-by itself. Its first2k depth screen narrows trusted train-face termination by
-4–7% and improves inner-face PSNR slightly, while face LPIPS also worsens slightly.
-It remains experimental. Opacity.3 and all tested hard-boundary/signed-head
-initializations are not promoted. Hard opaque40k, semantic transparency quality
-training, a stronger successful geometry recipe and repeat robustness remain
-incomplete; the full original goal stays active.
+by itself. The interval-mass prior is rejected at44k: face LPIPS worsens in all
+six views. The new direct density-band prior at46k changes actual geometry,
+but its+.0051dB global PSNR is too small to establish superiority. A matched
+coefficient-only threefold screen also retains quality overall but worsens all
+six face ROI LPIPS values. A stricter depth-confidence screen is being prepared
+from the same44k parent.
+Opacity.3 and all tested hard-boundary/signed-head initializations are not
+promoted. Hard opaque40k, semantic transparency quality training, a stronger
+successful geometry recipe and repeat robustness remain incomplete; the full
+original goal stays active.
 
 The latest accepted38k native eval PNGs and64 orbit/face frames are verified
 and copied under `/var/tmp/lookcloser_000470_delivery/accepted_opacity38k_native`.
@@ -1352,3 +1356,93 @@ follows. The implementation/runtime checks are passed, but quality acceptance
 is pending. No source masks or additional pose adjustments are introduced.
 
 - [Rejected44k comparison](/home/pavlo/renders/luster_000470_opacity/reviews/density_split_depth10_044000/comparison.json)
+
+### Direct density-band46k initial quality gate
+
+What was tested: matched split44k→46k continuations, opacity.1, either no depth
+or direct density-band99% with strength10/coefficient.0001. Same calibrated
+unmasked RGB, native sampler, full-state parent and first32 pixel/RGB batches.
+
+| Native46k | PSNR | SSIM | LPIPS | Optimization seconds |
+| --- | ---: | ---: | ---: | ---: |
+| Split control | 20.0836 | .818058 | .221512 | 212.22 |
+| Split+band99 | 20.0887 | .818232 | .221380 | 258.93 |
+
+Results: all six face/hand/hair/clothing contacts inspected. No major collapse;
+no clear artifact removal. Five of six face ROI LPIPS values worsen slightly.
+Inner-face held-out PSNR changes+.037/+.049/−.102dB. Global+.0051dB is below
+observed continuation variability and is not a robust gain. Optimization takes
+22% longer, so no acceleration is established.
+
+A fixed train-only20×20 trusted grid probes the actual pinned46k checkpoints,
+not the checkpoint selected from their history. Using the strength10 uncertainty
+slab and nine density quadrature points, train-face median band opacity changes
+.743→.781 (011), .745→.779 (097), .729→.762 (151). Termination90% width narrows
+about5–6%. This confirms a modest geometric effect, not enforcement of99% opacity
+or elimination of front layers. The diagnostic is being extended with matched
+near/far qualification and independent65-node quadrature before further claims.
+
+Next: same parent44k, same2k duration and existing matched no-depth control,
+changing only coefficient.0001→.0003. Early visual review precedes persistence.
+Unknown depth remains free; source masks are not used.
+
+- [Reviewed46k comparison](/home/pavlo/renders/luster_000470_opacity/reviews/density_split_band99_046000/comparison.json)
+- [Initial control band diagnostic](/home/pavlo/renders/luster_000470_opacity/reviews/density_control46k_band_alignment.json)
+- [Initial prior band diagnostic](/home/pavlo/renders/luster_000470_opacity/reviews/density_band46k_band_alignment.json)
+
+### Direct density-band46k coefficient×3: not promoted
+
+What was tested: same44k parent and2k gate, changing only coefficient.0001→.0003.
+Native calibration, first32 RGB/pixel batches and the no-depth control match.
+
+| Native46k | PSNR | SSIM | LPIPS | Optimization seconds |
+| --- | ---: | ---: | ---: | ---: |
+| Split control | 20.0836 | .818058 | .221512 | 212.22 |
+| Band99×3 | 20.0933 | .818266 | .221369 | 259.03 |
+
+Results: all six face/hand/hair/clothing and inner-face contacts inspected.
+Inner-face PSNR changes+.213/+.210/+.038dB held-out and+.130/+.116/+.187dB train.
+However, full face ROI LPIPS worsens in all six (+.00005–.00197), and face ROI
+PSNR worsens in five. Foreground stays coherent, but residual softness and wrist
+noise remain. Global+.00965dB is too small to prove a robust gain. No promotion.
+
+The revised pinned-checkpoint probe qualifies the entire depth slab against
+actual near/far bounds. All1,568 sampled trusted rays remain qualified. Independent
+65-node quadrature closely agrees with the nine-node estimate: median absolute
+opacity difference.00087–.00112,90th percentile.00316–.00367 across three arms.
+These are conditional measurements, not a scene-wide surface guarantee.
+
+| Train face | Control slab opacity | Band×1 | Band×3 | Control width | Band×3 width |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 011 | .7439 | .7805 | .8362 | .002939 | .002486 |
+| 097 | .7458 | .7783 | .8392 | .002588 | .002199 |
+| 151 | .7286 | .7620 | .8236 | .002566 | .002162 |
+
+Opacity values use65-node integration over the same strength10 uncertainty band.
+Width is the90% termination interval in normalized scene units. Width narrows
+15–16%, but tight front termination mass does not consistently decrease. The
+local free-density probe is mostly empty and does not certify integrated free
+space. Increasing weight changes geometry but has not solved unwanted layers.
+
+A sparse trusted train-face grid separates existing depth witness counts.
+For3–5 witnesses, RGB PSNR decreases1.568/.183/.351dB (011/097/151); for6–12,
+it changes+.194/−.128/−.182dB. This motivates a confidence-only screen but does
+not prove weaker witnesses explain the entire quality tradeoff. The new policy
+preserves all measured depth/uncertainty and narrows existing valid flags to
+witnesses≥6; it never changes RGB, sampling or source masks. Its same-parent2k
+screen retains coefficient.0003. No long continuation of the failed recipe.
+
+- [Reviewed coefficient×3 quality](/home/pavlo/renders/luster_000470_opacity/reviews/density_split_band99x3_046000/comparison.json)
+- [Pinned control geometry v2](/home/pavlo/renders/luster_000470_opacity/reviews/density_split_control_046000_band_audit_v2.json)
+- [Pinned band×3 geometry v2](/home/pavlo/renders/luster_000470_opacity/reviews/density_split_band99x3_046000_band_audit_v2.json)
+- [Witness diagnostic](/home/pavlo/renders/luster_000470_opacity/reviews/band99x3_face_witness_diagnostic.json)
+
+The witness≥6 policy is materialized and all162 maps are independently checked:
+non-valid arrays (depth, uncertainty and witnesses) are identical, every retained
+pixel was previously valid and has at least6 witnesses. It retains25,287,619 of
+37,834,327 qualified pixels (66.84%). Train-face coverage changes63.88→58.75%
+(011),68.82→60.46% (097),55.59→37.20% (151). Its same-parent44k→46k quality gate
+is now running. This is confidence qualification, not a source RGB mask.
+
+- [Confidence invariance receipt](/home/pavlo/renders/luster_000470_opacity/reviews/depth_confidence_min6_invariance.json)
+- [Filtered manifest](/home/pavlo/renders/luster_000470_opacity/depth_confidence_min6/manifest.json)

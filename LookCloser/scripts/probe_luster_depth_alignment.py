@@ -11,7 +11,9 @@ from export_luster_opacity import load
 from run_luster_opacity import sha, write
 
 
-def probe(selection, manifest_path, output, grid):
+def probe(selection, manifest_path, output, grid, band_strength=10.):
+    if band_strength <= 0:
+        raise ValueError('Band reference strength must be positive')
     selected = json.loads(selection.read_text())
     selected = selected.get('selected', selected)
     trainer, request = load(selected)
@@ -53,6 +55,36 @@ def probe(selection, manifest_path, output, grid):
                 aabb = model.scene_box.aabb.cpu().numpy()
                 effective_valid = measured['valid'][y, x] & np.isfinite(target) & (target > 0)
                 effective_valid &= ((points >= aabb[0]) & (points <= aabb[1])).all(-1)
+                # Fixed reference slab in both arms, independent of RGB nodes.
+                band_tolerance = np.maximum(
+                    2 * measured['uncertainty'][y, x] * norm, .01 * target / band_strength)
+                band_valid = effective_valid & np.isfinite(band_tolerance) & (band_tolerance > 0)
+                band_valid &= (target-band_tolerance >= near) & (target+band_tolerance <= far)
+                band_opacity = np.full(len(x), np.nan)
+                band_opacity_dense = np.full(len(x), np.nan)
+                front_probe_opacity = np.full(len(x), np.nan)
+                good = np.flatnonzero(band_valid)
+                if len(good):
+                    ids=torch.tensor(good,device=model.device)
+                    center=torch.tensor(target[good],device=model.device)[:,None]
+                    eps=torch.tensor(band_tolerance[good],device=model.device)[:,None]
+                    offsets=torch.linspace(-1,1,9,device=model.device)
+                    distances=center+eps*offsets[None,:]
+                    p=rays.origins[ids,None]+rays.directions[ids,None]*distances[...,None]
+                    sigma=model.field.density_fn(p.reshape(-1,3)).reshape(len(good),9).float()
+                    tau=torch.trapezoid(sigma,dx=1/8,dim=-1)*2*eps.flatten()
+                    band_opacity[good]=(-torch.expm1(-tau)).cpu().numpy()
+                    # Independent denser quadrature detects nine-node aliasing.
+                    offsets=torch.linspace(-1,1,65,device=model.device)
+                    distances=center+eps*offsets[None,:]
+                    p=rays.origins[ids,None]+rays.directions[ids,None]*distances[...,None]
+                    sigma=model.field.density_fn(p.reshape(-1,3)).reshape(len(good),65).float()
+                    tau=torch.trapezoid(sigma,dx=1/64,dim=-1)*2*eps.flatten()
+                    band_opacity_dense[good]=(-torch.expm1(-tau)).cpu().numpy()
+                    front_distance=torch.maximum(center-2*eps,rays.nears[ids])
+                    p=rays.origins[ids]+rays.directions[ids]*front_distance
+                    sigma=model.field.density_fn(p).flatten().float()
+                    front_probe_opacity[good]=(-torch.expm1(-sigma*2*eps.flatten())).cpu().numpy()
                 for i in range(len(x)):
                     take = indices == i
                     w, t, dt = weights[take], mid[take], interval[take]
@@ -69,6 +101,12 @@ def probe(selection, manifest_path, output, grid):
                         target=float(target[i]), tolerance=float(tolerance[i]), mode=mode,
                         relative_mode_error=float((mode - target[i]) / target[i]),
                         termination_90pct_width=width,
+                        density_band_opacity=float(band_opacity[i]) if band_valid[i] else None,
+                        density_band_opacity_dense=float(band_opacity_dense[i]) if band_valid[i] else None,
+                        density_front_probe_opacity=float(front_probe_opacity[i]) if band_valid[i] else None,
+                        band_valid=bool(band_valid[i]),
+                        band_tolerance=float(band_tolerance[i]) if band_valid[i] else None,
+                        front_mass_tight=float(w[t < target[i]-band_tolerance[i]].sum()) if band_valid[i] else None,
                         front_mass=float(w[t < target[i] - tolerance[i]].sum()),
                         back_mass=float(w[t > target[i] + tolerance[i]].sum()),
                         weighted_distance_penalty=float((w * penalty).sum()), rgb=rgb[i].tolist()))
@@ -76,10 +114,18 @@ def probe(selection, manifest_path, output, grid):
     for cid in [11, 97, 151]:
         for region in ['face', 'hand', 'clothing']:
             rows = [r for r in records if r['camera'] == cid and r['region'] == region]
+            keys = ['relative_mode_error', 'front_mass', 'back_mass', 'termination_90pct_width',
+                    'weighted_distance_penalty', 'density_band_opacity', 'density_band_opacity_dense',
+                    'density_front_probe_opacity', 'front_mass_tight']
+            quantiles = {}
+            for key in keys:
+                values = [r[key] for r in rows if r[key] is not None and np.isfinite(r[key])]
+                quantiles[key] = np.quantile(values, [.1, .5, .9]).tolist() if values else []
             summaries.append(dict(camera=cid, region=region, trusted=len(rows), sampled=grid ** 2,
-                quantiles={key: np.quantile([r[key] for r in rows], [.1, .5, .9]).tolist() if rows else []
-                           for key in ['relative_mode_error', 'front_mass', 'back_mass', 'termination_90pct_width', 'weighted_distance_penalty']}))
+                                  band_qualified=sum(r['band_valid'] for r in rows), quantiles=quantiles))
     write(output, dict(selection=str(selection), sampling='Unchanged checkpoint renderer; integer pixel centres; train-only depth; no RGB masks',
+                       probe_sha256=sha(Path(__file__)), band_reference_strength=band_strength,
+                       band_quadrature_nodes=[9,65], front_probe='Local 2*tolerance opacity proxy at max(near, depth-2*tolerance), not integrated front opacity',
                        summaries=summaries, rays=records))
     print(json.dumps(summaries))
 
@@ -90,5 +136,6 @@ if __name__ == '__main__':
     parser.add_argument('--manifest', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--grid', type=int, default=20)
+    parser.add_argument('--band-strength', type=float, default=10.)
     args = parser.parse_args()
-    probe(args.selection, args.manifest, args.output, args.grid)
+    probe(args.selection, args.manifest, args.output, args.grid, args.band_strength)

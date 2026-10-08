@@ -29,11 +29,18 @@ or out-of-range bands add no constraints. This mode requires unchanged native RG
 sampling and leaves normal/archived objectives intact. Runtime audits verify
 identical RGB/sample outputs and geometry-only prior gradients in the split field;
 it is not accepted as a quality recipe before a matched training/visual gate.
+The depth alignment probe measures fixed-reference interval opacity with nine
+and65 density quadrature nodes, qualifies the complete interval against actual
+near/far bounds, and records a separate tight front termination mass. Its local
+front-density opacity proxy is explicitly distinct from integrated front opacity.
 
 Depth confidence policy v2 backprojects each measured nearest-neighbor source
 depth from its actual integer pixel. The manifest records the policy version
 and builder hash. `review_luster_depth_confidence.py` exports native RGB,
 measured-depth and trusted-depth crops plus ROI coverage for the visual gate.
+The optional confidence-filter script only tightens existing valid flags by
+independent witness count, preserving measured depth/uncertainty and recording
+parent map/manifest hashes. It does not change RGB or the training sampler.
 Semantic alpha scans and RGB accumulation use FP32 under autocast. An explicit
 `warm_start` request copies only field parameters with hash verification, while
 preserving the new representation/permissions and resetting optimization and
