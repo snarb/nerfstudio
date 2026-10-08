@@ -1044,3 +1044,65 @@ fit is accepted from these failed initializations.
 
 - [Corrected300-step receipt](/home/pavlo/renders/luster_000470_opacity/surface_bootstrap_030000_free300_fr03/geometry_receipt.json)
 - [Corrected2000-step receipt](/home/pavlo/renders/luster_000470_opacity/surface_bootstrap_030000_free2000_fr03/geometry_receipt.json)
+
+### Final ordinary40k endpoint and intermediate delivery
+
+What was tested: complete the ordinary no-prior40k recipe, compare it to
+opacity.1 at the same endpoint, then export the accepted opacity branch's
+selected checkpoint using native integration. The comparator verifies the
+explicit common28k checkpoint ancestry, identical first32 pixel/RGB batches
+at36k, calibration, GT and near/sampling controls.
+
+| Pinned native40k | PSNR | SSIM | LPIPS | Last4k optimization seconds |
+| --- | ---: | ---: | ---: | ---: |
+| Ordinary, no priors | 19.7590 | .809926 | .226724 | 248.94 |
+| Opacity.1 | 20.0879 | .817860 | .221339 | 277.51 |
+| Opacity.1+weak tight depth | 20.0737 | .817637 | .221319 | 321.16 |
+
+Results: all six face/hand/hair/clothing contacts were inspected. Opacity-only
+improves overall PSNR.329dB and LPIPS.00538 at40k. Face LPIPS improves in five
+of six views, but differences are small: ordinary40k partly catches up to the
+facial artifact reduction seen with opacity at36k. Hand differences remain
+mixed. These are single-seed endpoint results, not proof of faster convergence
+or complete artifact removal. The measured4k intervals run without competing
+GPU work; optimization excludes native evaluation. Ordinary history selects
+30k, opacity history selects36k under the declared.07dB rule.
+
+The accepted opacity36k export keeps coarse.00625/cap1024/legacy allocator and
+near.05. All three native eval PNGs match selected renders byte-for-byte by
+SHA-256; metrics also agree. It contains32 face frames at512×512 and32 body
+orbit frames at480×640. Both H.264 videos decode to exactly32 frames. The
+initial PATH ffmpeg failed because of missing x264; the working installed JPEG
+environment binary assembled the saved face frames and completed the orbit.
+No rendering settings or model weights changed during recovery.
+
+Visual review of all64 contacts and the native face zoom finds a coherent
+actor with remaining face softness, wrist noise, studio errors and pale skirt
+ghosts at several orbit angles. The delivery manifest explicitly records that
+this is an intermediate volume result, not an artifact-free hard surface.
+All126 delivered files are physical copies with matching hashes under
+`/var/tmp/lookcloser_000470_delivery/accepted_opacity36k_native`.
+
+The corrected2000-step signed-head audit still has first-hit median absolute
+error.036739 and p90.164029 against1,024 learned teacher rays; only26.465% hit
+within.005. These are normalized scene units. The earlier audit key containing
+`5mm` was misnamed; the numeric tolerance was.005 normalized units and is
+renamed for future audits. Signed initialization remains rejected.
+
+Next: a single2k opacity.3 screen from the exact accepted36k parent is prepared
+but unlaunched, together with the saved opacity.1 step38k control selection for
+native reevaluation. Inspect38k before extending it. Hard opaque40k, semantic
+permissions/quality training, improved depth/geometry and repeat robustness
+remain incomplete. All training and export processes are terminal at this
+review gate; the full original goal remains active.
+
+- [Verified ordinary/opacity40k comparison](/home/pavlo/renders/luster_000470_opacity/reviews/near05_baseline_opacity_040000/comparison.json)
+- [Selected native export manifest](/home/pavlo/renders/luster_000470_opacity/exports/accepted_opacity36k_native/manifest.json)
+- [Face path](/home/pavlo/renders/luster_000470_opacity/exports/accepted_opacity36k_native/face/contact.jpg)
+- [Body path](/home/pavlo/renders/luster_000470_opacity/exports/accepted_opacity36k_native/orbit/contact.jpg)
+- [Corrected2000-step first-hit audit](/home/pavlo/renders/luster_000470_opacity/reviews/surface_bootstrap_free2000_fr03_first_hit_audit.json)
+
+```bash
+scp coder@olive-lark:/var/tmp/lookcloser_000470_delivery/accepted_opacity36k_native/eval_img_0001.png ~/Downloads/
+scp coder@olive-lark:/var/tmp/lookcloser_000470_delivery/accepted_opacity36k_native/face/learned_rgb.mp4 ~/Downloads/
+```

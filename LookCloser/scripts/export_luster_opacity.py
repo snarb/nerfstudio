@@ -15,6 +15,20 @@ from PIL import Image,ImageDraw
 from run_luster_opacity import configuration,configure_runtime,evaluate,sha,write
 
 
+def find_working_ffmpeg():
+    candidates=[shutil.which('ffmpeg'),str(Path.home()/'.conda/envs/lookcloser-jpeg/bin/ffmpeg'),
+                '/usr/bin/ffmpeg']
+    for candidate in dict.fromkeys(p for p in candidates if p):
+        try:
+            result=subprocess.run([candidate,'-version'],stdout=subprocess.DEVNULL,
+                                  stderr=subprocess.DEVNULL,timeout=10)
+        except (OSError,subprocess.TimeoutExpired):
+            continue
+        if result.returncode==0:
+            return candidate
+    return None
+
+
 def load(selected):
     import torch
     checkpoint=Path(selected['checkpoint'])
@@ -163,7 +177,7 @@ if __name__=='__main__':
     p.add_argument('--no-paths',action='store_true')
     p.add_argument('--native-sampling',action='store_true',
                    help='Retain checkpoint integration settings for eval and paths')
-    p.add_argument('--ffmpeg',default=shutil.which('ffmpeg') or '/home/pavlo/.conda/envs/lookcloser-jpeg/bin/ffmpeg')
+    p.add_argument('--ffmpeg',default=find_working_ffmpeg())
     args=p.parse_args()
     if args.frames<1:p.error('--frames must be positive')
     export(args.selection,args.output,args.frames,args.ffmpeg,not args.no_paths,args.native_sampling)

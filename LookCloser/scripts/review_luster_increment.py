@@ -25,7 +25,7 @@ def descends_from(checkpoint, origin):
     return False
 
 
-def review(control, candidate, output, step, control_eval=None, candidate_eval=None):
+def review(control, candidate, output, step, control_eval=None, candidate_eval=None, common_origin=None):
     if output.exists():
         raise FileExistsError('Preserve previous reviews; choose a new directory')
     requests=[read(run/'request.json') for run in [control,candidate]]
@@ -34,7 +34,11 @@ def review(control, candidate, output, step, control_eval=None, candidate_eval=N
         if requests[0].get(key)!=requests[1].get(key):
             raise ValueError(f'Unmatched comparison: {key}')
     origin=requests[0].get('comparison_origin_checkpoint',requests[0].get('resume'))
-    if requests[0].get('resume')!=requests[1].get('resume'):
+    if common_origin is not None:
+        origin=str(common_origin.resolve())
+        if not all(descends_from(r.get('resume'),origin) for r in requests):
+            raise ValueError('Explicit common origin is not an ancestor of both checkpoints')
+    elif requests[0].get('resume')!=requests[1].get('resume'):
         if not origin or origin!=requests[1].get('comparison_origin_checkpoint') or not all(
             descends_from(r.get('resume'),origin) for r in requests
         ):
@@ -127,5 +131,7 @@ if __name__=='__main__':
     p.add_argument('--step',type=int,default=8000)
     p.add_argument('--control-eval',type=Path)
     p.add_argument('--candidate-eval',type=Path)
+    p.add_argument('--common-origin',type=Path,
+                   help='Verify an older shared checkpoint when declared branch origins differ')
     a=p.parse_args()
-    review(a.control,a.candidate,a.output,a.step,a.control_eval,a.candidate_eval)
+    review(a.control,a.candidate,a.output,a.step,a.control_eval,a.candidate_eval,a.common_origin)

@@ -71,11 +71,12 @@ def audit(selection, manifest_path, output, samples=1024):
         anchor_abs_sdf_median=float(np.median([r['anchor_abs_sdf'] for r in rows])),
         first_hit_abs_error_median=float(np.median(errors)) if len(errors) else None,
         first_hit_abs_error_p90=float(np.quantile(errors, .9)) if len(errors) else None,
-        first_hit_within_5mm_fraction=float(np.mean([r['hit'] and abs(r['depth_error']) <= .005 for r in rows])),
+        first_hit_within_0_005_fraction=float(np.mean([r['hit'] and abs(r['depth_error']) <= .005 for r in rows])),
         negative_before_teacher_fraction=float(np.mean([r['negative_before_teacher'] for r in rows])))
     write(output, dict(summary=summary, selected=selected,
         checkpoint_sha256=sha(selected['checkpoint']), teacher_manifest_sha256=sha(manifest_path),
         maximum_ray_error=maximum_ray_error, seed=42,
+        distance_units='normalized scene units, not calibrated physical meters',first_hit_tolerance=.005,
         scope='Train-only learned teacher diagnostic, not measured depth or held-out validation', rows=rows))
     print(json.dumps(summary), flush=True)
 

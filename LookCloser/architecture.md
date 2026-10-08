@@ -104,6 +104,11 @@ The exporter can explicitly retain native checkpoint integration with
 record actual near bounds and sampling controls. The campaign runner records an
 `evaluating` phase and separate optimization/evaluation durations, rather than
 leaving an ended training step labeled as active optimization during rendering.
+The comparison tool accepts an explicit older `--common-origin` only after
+checking checkpoint ancestry for both arms; native GT, calibration, bounds and
+first32 pixel/RGB batches still must match. Export selects a working ffmpeg
+binary before rendering instead of accepting a broken PATH entry. Signed
+initialization audit distances are normalized scene units, not metric lengths.
 `incremental_standard` adds the prior subclass while retaining all ordinary
 model settings and bounds. Its explicit plain-volume checkpoint adapter adds
 only representation/permission bookkeeping buffers and keeps strict parameter
