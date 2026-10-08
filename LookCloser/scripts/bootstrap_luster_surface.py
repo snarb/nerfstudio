@@ -36,7 +36,8 @@ def bootstrap(manifest_path, output, steps=1000, batch_size=1024, eval_stride=4,
                    eval_stride=eval_stride)
     request['model'].update(surface_sdf_features='continuous',surface_geometry_head='independent',
         surface_geometry_gradient_mode='implicit',surface_num_samples=256,surface_refine_steps=8,
-        eikonal_loss_mult=.1,reconstruction_loss_type='charbonnier')
+        eikonal_loss_mult=.1,reconstruction_loss_type='charbonnier',
+        feature_reweighting_strength=teacher.pipeline.model.field.feature_reweighting_strength)
     configure_runtime(request)
     torch.manual_seed(42)
     config=configuration(request)
@@ -58,6 +59,13 @@ def bootstrap(manifest_path, output, steps=1000, batch_size=1024, eval_stride=4,
     if not len(origins):
         raise ValueError('No narrow teacher surfaces')
     points=origins+directions*distances
+    with torch.no_grad():
+        check_count=min(1024,len(points))
+        _,expected_rgb=teacher.pipeline.model.field.query_points(points[:check_count],directions[:check_count])
+        _,actual_rgb,_=model.field.query_surface(points[:check_count],directions[:check_count])
+        appearance_error=float((expected_rgb.float()-actual_rgb.float()).abs().max())
+        if appearance_error>2e-5:
+            raise ValueError(f'Copied appearance differs at fixed teacher points: {appearance_error}')
     # The hard renderer only traverses the box. Do not constrain geometry on
     # the unrendered segment outside it when a teacher camera starts outside.
     box=model.scene_box.aabb.to(origins)
@@ -115,6 +123,8 @@ def bootstrap(manifest_path, output, steps=1000, batch_size=1024, eval_stride=4,
     write(output/'geometry_receipt.json',dict(teacher_manifest_sha256=sha(manifest_path),
         points=len(points),steps=steps,field_transfer_missing=report.missing_keys,
         geometry_only=True,no_mvs_targets=True,no_source_masks=True,history=history,
+        appearance_point_rgb_max_abs=appearance_error,
+        feature_reweighting_strength=model.field.feature_reweighting_strength,
         free_ray_weight=free_ray_weight,
         eval_stride=eval_stride,scope='Initialization diagnostic; native quality requires eval_stride=1'))
     selected=dict(step=0,checkpoint=str(student.checkpoint_dir/'step-000000000.ckpt'))

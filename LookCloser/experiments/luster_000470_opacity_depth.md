@@ -995,3 +995,52 @@ Pinned comparisons are copied to the coder-readable private delivery root:
 private home. The exporter now supports explicit native sampling so camera
 paths can retain the quality evaluator's integration settings. Denser export
 remains the default and must be labeled separately.
+
+### Matched40k weaker-depth gate
+
+What was tested: from the exact opacity36k parent, continue4k steps with
+opacity.1 only or add depth strength10/coefficient.00003 (effective.0003).
+Native sampling, near bounds, restored optimizer state and first32 pixel/RGB
+batches match. Optimization runs sequentially without other GPU work.
+
+| Pinned native40k | PSNR | SSIM | LPIPS | Optimization seconds |
+| --- | ---: | ---: | ---: | ---: |
+| Opacity.1 only | 20.0879 | .817860 | .221339 | 277.51 |
+| Opacity.1+weaker tight depth | 20.0737 | .817637 | .221319 | 321.16 |
+
+Results: all six views and four region contacts were inspected. Neither
+collapses; neither removes wrist noise or face softness. Held-out inner-face
+PSNR changes+.044/+.051/−.035dB. Held-out face LPIPS changes+.00050/+.00026/
++.00010; train differences are tiny and mixed. No useful gain is established.
+Depth adds15.73% optimization time for the same4k steps. Evaluation overlaps
+later geometry diagnostics, so its duration is not a clean speed comparison.
+These results do not establish faster time-to-quality with a prior.
+
+Both histories select opacity-only36k under the declared PSNR/LPIPS criterion.
+The opacity40k PSNR is.07448dB below the branch maximum32k, just outside the
+.07dB tie window; lower40k LPIPS does not override that rule. Opacity-only36k
+remains the accepted recipe. Ordinary baseline40k is now running under
+supervision. The weaker-depth addition is not promoted.
+
+- [Verified40k paired comparison](/home/pavlo/renders/luster_000470_opacity/reviews/near05_opacity01_depth10_mass_weak_040000/comparison.json)
+- [Opacity36k→40k visual gate](/home/pavlo/renders/luster_000470_opacity/reviews/near05_opacity01_040000_gate/visual_review.json)
+
+### Signed initialization appearance-transfer correction
+
+The earlier surface bootstraps copied the frequency-grid tensors but omitted
+the non-buffer feature reweighting strength. The trained teacher uses.3;
+the new step0 field incorrectly used1.0. That confounds the earlier RGB
+failure attribution, although the measured wrong first-hit depths remain
+valid because independent geometry uses raw features.
+
+The correction transfers this setting explicitly and verifies the same
+1,024 teacher-point colors before geometry fitting. A corrected300-step,
+free-ray-weight1 diagnostic records exact RGB parity (maximum difference0),
+yet its preview remains severely fragmented. Increasing only the fit duration
+to2,000 steps reduces sampled surface absolute error to.007126 scene units,
+but its stride4 preview also fails (4.6641/.042957/.977823). These low-resolution
+diagnostic metrics are not compared with native volume gates. No opaque40k
+fit is accepted from these failed initializations.
+
+- [Corrected300-step receipt](/home/pavlo/renders/luster_000470_opacity/surface_bootstrap_030000_free300_fr03/geometry_receipt.json)
+- [Corrected2000-step receipt](/home/pavlo/renders/luster_000470_opacity/surface_bootstrap_030000_free2000_fr03/geometry_receipt.json)

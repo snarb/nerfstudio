@@ -56,6 +56,12 @@ It also checks signs along the preceding ray segment. An optional bootstrap
 `free_ray_weight` penalizes negative signs there, within the rendered box; a
 separate RNG preserves the anchor sampling stream. Its300-step diagnostic
 reduces early false intersections but still fails appearance quality.
+Bootstrap transfers the teacher's non-buffer feature reweighting strength
+explicitly and requires fixed-point RGB parity before geometry fitting.
+Copying field tensors alone previously reset this strength from.3 to1.0;
+the corrected300/2000-step diagnostics achieve exact point-color parity but
+still fail the visual first-surface gate. Those failures are not accepted
+ordinary-baseline or opaque-training results.
 Appearance is learned at the actual intersection. Numerical eikonal gradients
 avoid depending on second derivatives of tiny-cuda-nn. Surface traversal does
 not use the density occupancy grid or the volume distortion objective. This is
