@@ -1324,3 +1324,31 @@ must precede acceptance. The existing interval-mass44k persistence pair is
 finishing first and has not been changed to this objective.
 
 - [Actual band runtime/gradient audit](/home/pavlo/renders/luster_000470_opacity/reviews/density_band_runtime_audit.json)
+
+### Interval-mass44k persistence gate: rejected
+
+What was tested: extend both split42k arms by another2k steps without changing
+their settings. The prior branch has now seen4k steps of strength10/coefficient
+.0001; native sampling and unknown-depth freedom remain unchanged.
+
+| Native44k | PSNR | SSIM | LPIPS |
+| --- | ---: | ---: | ---: |
+| Split control | 20.1176 | .819538 | .220359 |
+| Split+interval-mass depth | 20.0685 | .818214 | .220585 |
+
+Results: all six views and four region contacts were inspected, with matched
+ancestry, pixel/RGB receipts, GT and bounds. All six face LPIPS values worsen
+(+.00128–.01224). Face ROI PSNR decreases in every view; train097 inner-face
+PSNR drops1.045dB. Small held-out inner-face gains do not establish a better
+foreground. This prior recipe is rejected. Separating its direct gradients
+from color features did not eliminate the longer-run tradeoff, so the earlier
+coupling hypothesis is not a sufficient explanation.
+
+Next: from the no-depth split44k control, a matched2k control/density-band99%
+pair is prepared. The band uses the same strength10/coefficient.0001 and native
+sampling, changing the prior formulation. Only qualified depth receives the
+opacity/free-space constraint. The control is running first; band training
+follows. The implementation/runtime checks are passed, but quality acceptance
+is pending. No source masks or additional pose adjustments are introduced.
+
+- [Rejected44k comparison](/home/pavlo/renders/luster_000470_opacity/reviews/density_split_depth10_044000/comparison.json)
