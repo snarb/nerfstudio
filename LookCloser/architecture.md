@@ -2,6 +2,15 @@
 
 ## Experimental Luster opacity controls
 
+An opt-in `train_camera_ids` allowlist filters the cached RGB image batch
+before the frequency-aware pixel sampler. The request uses physical camera
+numbers; the datamanager resolves them to training-dataset indices and keeps
+those global indices for ray generation and frequency buckets. Missing,
+held-out, or duplicate cameras fail validation. Evaluation cameras and source
+files remain unchanged. With no allowlist, sampling follows the original
+path. The frame-000470 comparison uses it with `incremental_standard` and
+no opacity or depth prior.
+
 An optional floor-ray prior adds auxiliary geometry supervision on three visually
 reviewed, visible-floor patches in training cameras. A robust plane fit from
 qualified train depth defines each ray's floor distance and a conservative

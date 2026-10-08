@@ -111,7 +111,17 @@ def configuration(request):
     cfg.pipeline.datamanager.data=data
     if not baseline:
         cfg.pipeline.datamanager.depth_prior_manifest=request.get('depth_prior_manifest')
+        camera_ids=request.get('train_camera_ids')
+        if request.get('camera_selection_manifest'):
+            path=Path(request['camera_selection_manifest'])
+            if sha(path)!=request.get('camera_selection_sha256'):
+                raise ValueError('Camera selection receipt changed')
+            if json.loads(path.read_text())['train_camera_ids']!=camera_ids:
+                raise ValueError('Camera selection receipt differs from requested allowlist')
+        cfg.pipeline.datamanager.train_camera_ids=tuple(camera_ids) if camera_ids is not None else None
         cfg.pipeline.model=LookCloserOpacityModelConfig(**{k:v for k,v in vars(cfg.pipeline.model).items() if k!='_target'})
+    elif request.get('train_camera_ids') is not None:
+        raise ValueError('Training camera allowlist is unavailable in baseline_preset mode')
     model=cfg.pipeline.model
     # Keep pixel batches comparable when surface eikonal/probing consumes extra
     # random numbers. This is recorded as an experimental campaign default.
