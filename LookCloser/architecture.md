@@ -2,6 +2,17 @@
 
 ## Experimental Luster opacity controls
 
+An optional train-depth occupancy admission manifest adds qualified surface-band
+cells to nerfacc's learned occupancy before adaptive marching. The external grid
+is qualified by data calibration, archive hash, cascade AABBs and resolution.
+It is union-only: unknown space retains ordinary learned occupancy; no RGB rays
+or targets are excluded and density is not assigned. The builder uses actual
+parsed train cameras and camera-z conversion, nine points over the confidence
+interval, and full near/far qualification. Admission is reapplied after occupancy
+updates in train/eval. The default has no prior buffer or checkpoint-layout change;
+enabled static data is revalidated on load rather than stored as learned state.
+Frozen-field forward/visual checks precede any training-quality claim.
+
 `separate_density_encoding` optionally clones the density hash encoding and MLP
 while retaining the original encoding/geometry features for RGB. Initial density
 and RGB are identical to the shared field. Density objectives then differentiate

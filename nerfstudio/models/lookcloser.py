@@ -21,7 +21,7 @@ from nerfstudio.engine.callbacks import TrainingCallback, TrainingCallbackAttrib
 from nerfstudio.field_components.field_heads import FieldHeadNames
 from nerfstudio.fields.lookcloser_field import LookCloserField, TCNNNetworkJITScope
 from nerfstudio.model_components.lookcloser_grid import FrequencyGridManager
-from nerfstudio.model_components.lookcloser_occupancy import stable_ema_max_update_
+from nerfstudio.model_components.lookcloser_occupancy import stable_ema_max_update_, load_occupancy_prior
 from nerfstudio.model_components.lookcloser_samplers import FrequencyAwareSamplerStats, FrequencyAwareVolumetricSampler
 from nerfstudio.model_components.losses import nerfstudio_distortion_loss, scale_gradients_by_distance_squared
 from nerfstudio.model_components import renderers as renderer_module
@@ -66,6 +66,12 @@ class LookCloserModelConfig(ModelConfig):
 
     occupancy_grid_levels: int = 1
     """Number of nerfacc occupancy-grid AABB cascade levels."""
+
+    occupancy_prior_grid_path: Optional[str] = None
+    """Optional train-depth spatial admission manifest; never excludes unknown cells."""
+
+    occupancy_prior_transforms_sha256: Optional[str] = None
+    """Expected calibration digest required when a spatial admission prior is enabled."""
 
     num_frequency_levels: int = 16
     """Number of discrete frequency levels."""
@@ -562,6 +568,11 @@ class LookCloserModel(Model):
             resolution=self.config.grid_resolution,
             levels=self.config.occupancy_grid_levels,
         )
+        if self.config.occupancy_prior_grid_path is not None:
+            prior = load_occupancy_prior(
+                self.config.occupancy_prior_grid_path, self.occupancy_grid.aabbs,
+                self.occupancy_grid.binaries.shape, self.config.occupancy_prior_transforms_sha256)
+            self.register_buffer('occupancy_prior_grid', prior, persistent=False)
         # A cross-frame full resume may preserve optimizer/frequency state while
         # restarting occupancy. This runtime offset makes warmup local to that
         # resume without changing ordinary absolute-step behavior.
@@ -1133,10 +1144,15 @@ class LookCloserModel(Model):
         intra = (w**2) * interval / 3.0
         return (inter + intra).sum(dim=-1, keepdim=True)
 
+    def _admit_depth_occupancy(self) -> None:
+        if getattr(self.config, 'occupancy_prior_grid_path', None) is not None:
+            self.occupancy_grid.binaries.logical_or_(self.occupancy_prior_grid)
+
     def adaptive_ray_marching(self, ray_bundle: RayBundle) -> Dict[str, torch.Tensor]:
         """Packed frequency-aware ray marching using nerfacc occupancy traversal."""
         assert self.config.render_step_size is not None
         self._ensure_eval_occupancy_dilation()
+        self._admit_depth_occupancy()
         coarse_step_size = (
             float(self.config.adaptive_coarse_step_size)
             if self.config.adaptive_coarse_step_size is not None

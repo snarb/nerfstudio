@@ -2,8 +2,47 @@
 
 from __future__ import annotations
 
+import hashlib
+import json
+from pathlib import Path
+
+import numpy as np
 import torch
 from torch import Tensor
+
+
+@torch.no_grad()
+def admit_occupancy_points_(grid: Tensor, aabbs: Tensor, points: Tensor) -> None:
+    """Conservatively add point-containing cells; retain all existing occupancy."""
+    if grid.dtype != torch.bool or grid.ndim != 4 or aabbs.shape != (len(grid), 6):
+        raise ValueError('Expected boolean cascaded occupancy and matching AABBs')
+    resolution = points.new_tensor(grid.shape[1:])
+    for level, box in enumerate(aabbs):
+        normalized = (points-box[:3])/(box[3:]-box[:3])
+        inside = torch.isfinite(normalized).all(-1) & ((normalized >= 0) & (normalized < 1)).all(-1)
+        ijk = torch.floor(normalized[inside]*resolution).long()
+        if len(ijk):
+            grid[level, ijk[:,0], ijk[:,1], ijk[:,2]] = True
+
+
+def load_occupancy_prior(manifest_path, aabbs: Tensor, shape, transforms_sha256: str) -> Tensor:
+    """Load a hash-qualified train-only spatial admission grid; no density veto."""
+    path = Path(manifest_path)
+    manifest = json.loads(path.read_text())
+    if not manifest.get('train_only') or not transforms_sha256 or manifest.get('transforms_sha256') != transforms_sha256:
+        raise ValueError('Occupancy prior requires matching train-only calibration')
+    archive = path.parent/manifest['grid_path']
+    digest = hashlib.sha256(archive.read_bytes()).hexdigest()
+    if digest != manifest['grid_sha256']:
+        raise ValueError('Occupancy prior grid hash mismatch')
+    with np.load(archive, allow_pickle=False) as values:
+        grid = values['occupied'].copy()
+        boxes = values['aabbs'].copy()
+    if grid.dtype != np.bool_ or tuple(grid.shape) != tuple(shape):
+        raise ValueError('Occupancy prior resolution/levels mismatch')
+    if not np.array_equal(boxes, aabbs.detach().cpu().numpy()):
+        raise ValueError('Occupancy prior AABB mismatch')
+    return torch.from_numpy(grid).to(aabbs.device)
 
 
 @torch.no_grad()

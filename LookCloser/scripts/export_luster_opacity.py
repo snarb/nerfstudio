@@ -155,7 +155,11 @@ def export(selection_path,output,frames,ffmpeg,paths=True,native_sampling=False)
         render_path(trainer,request,output/'face', 'face',frames,ffmpeg)
         render_path(trainer,request,output/'orbit','orbit',frames,ffmpeg)
     artifact_hashes={str(p.relative_to(output)):sha(p) for p in output.rglob('*') if p.is_file()}
+    admission_path=getattr(model.config,'occupancy_prior_grid_path',None)
+    admission=(dict(manifest=str(admission_path),manifest_sha256=sha(Path(admission_path)),
+                    occupied_cells=int(model.occupancy_prior_grid.sum())) if admission_path else None)
     write(output/'manifest.json',dict(checkpoint=selected['checkpoint'],checkpoint_sha256=sha(Path(selected['checkpoint'])),
+        occupancy_admission=admission,
         training_selection=selected,export_metrics=metrics,original_settings=original_settings,
         sampling_mode='native' if native_sampling else 'denser',
         export_settings=dict(coarse_step=model.config.adaptive_coarse_step_size,

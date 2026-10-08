@@ -3,12 +3,16 @@
 ## Current measured status
 
 The ordinary no-prior baseline has completed40k and is visually coherent.
-The accepted intermediate recipe is ordinary LookCloser plus opacity.1, with
-no MVS prior: its newly evaluated38k checkpoint scores20.1719/.816426/.222436
-(PSNR/SSIM/LPIPS). It uses unmasked HD RGB, softplus density, legacy SH directions,
-hash23/max8192, B4096, FR.3 after20k, box[-1.5,1.5]^3, coarse.00625/cap1024 and
-matched near.05 in train/eval. Source calibration is transformed once.
-All train-only frequency fits are complete.
+The new accepted intermediate recipe is ordinary LookCloser plus opacity.1 and
+train-depth occupancy admission, with no MVS density loss or additional density
+encoding. Its selected38k checkpoint scores20.1954/.817442/.221305
+(PSNR/SSIM/LPIPS), versus20.1719/.816426/.222436 without admission on the same
+field. The model weights are unchanged in this direct forward comparison.
+It uses unmasked HD RGB, softplus density, legacy SH directions, hash23/max8192,
+B4096, FR.3 after20k, box[-1.5,1.5]^3, coarse.00625/cap1024 and matched near.05
+in train/eval. Source calibration is transformed once. All train-only frequency
+fits are complete. Qualified depth with≥6 witnesses adds724 spatial cells to
+learned occupancy; it does not exclude unknown space or assign density.
 
 The independent density branch passes exact initial native parity and a normal
 quality gate, but costs47% more optimization time without an established gain
@@ -25,8 +29,8 @@ promoted. Hard opaque40k, semantic transparency quality training, a stronger
 successful geometry recipe and repeat robustness remain incomplete; the full
 original goal stays active.
 
-The latest accepted38k native eval PNGs and64 orbit/face frames are verified
-and copied under `/var/tmp/lookcloser_000470_delivery/accepted_opacity38k_native`.
+The latest admitted38k native eval PNGs and64 orbit/face frames are verified
+and copied under `/var/tmp/lookcloser_000470_delivery/opacity01_admission38k_native`.
 Both videos decode to32 frames; source eval hashes match. Remaining softness,
 wrist noise, studio errors and skirt ghosts mean this is not artifact-free.
 Detailed chronological evidence follows; the initial plan below is historical
@@ -1541,3 +1545,101 @@ recipe or robust depth speedup is claimed; the original goal remains active.
 - [Control density invariance](/home/pavlo/renders/luster_000470_opacity/runs/density_split_control_color_048000/frozen_density_audit.json)
 - [Prior density invariance](/home/pavlo/renders/luster_000470_opacity/runs/density_split_band99x3_color_048000/frozen_density_audit.json)
 - [Sampling outlier receipt](/home/pavlo/renders/luster_000470_opacity/reviews/sampling_outliers_48k.json)
+
+### Occupancy admission diagnosis: measured missing surface support
+
+What was tested: on the15 original band×3 sampling outliers, keep density/RGB
+parameters and frequency grid fixed, and independently (a) admit cells containing
+the qualified depth±uncertainty band, (b) use coarse.001/cap4096 instead of native.
+Each per-ray diagnostic restores learned occupancy afterward; field hashes match.
+This uses only train depth and is not deployable per-view evaluation guidance.
+
+Results:12 band-containing cells are initially unoccupied. Admitting the band
+cells alone restores near-reference opacity on12 of the15 rays; three require
+finer marching. Examples: cam097[660,481],opacity.0251→.9432 against field.9434;
+cam151[908,1203],0→.9054 against field.9062. On these selected outliers, the cheek
+RGB moves toward its GT and pale lace reappears instead of a green blur. Other
+rays have mixed color changes, so this sparse test is not a full-image quality
+claim. Context RGB review shows the outlier set also includes hair, decorations,
+cuffs and lace; it is not uniformly bare skin. Witness counts alone do not establish
+whether every measured band is the desired visible surface.
+
+Implementation: the new optional occupancy prior is a static camera-independent
+union of qualified train-depth bands. From the≥6-witness manifest,25,287,619 bands
+rasterize to724 cells of the1×128³ grid (0.035%). No RGB masks, no unknown-space
+veto and no direct density assignment. Hash/calibration/AABB/shape guards qualify
+the input, and the admission is reapplied after learned occupancy updates.
+Fifteen focused checks pass, covering coordinate indexing, cascade bounds,
+unknown/learned-cell preservation, reapplication and input trust, alongside the
+existing frozen-density/gradient-isolation tests. The default remains disabled.
+
+A full-native frozen48k forward screen is running first on all six RGB views.
+Its field is loaded from the same checkpoint with the admission prior as the only
+new model control. Only after that image gate will a short training screen follow.
+The original recipe goal, opaque/semantic arms and artifact removal stay unproven.
+
+- [Restored-occupancy diagnostic](/home/pavlo/renders/luster_000470_opacity/reviews/sampling_support_48k.json)
+- [Outlier RGB context](/home/pavlo/renders/luster_000470_opacity/reviews/sampling_outliers_gt_context.jpg)
+- [Train-only spatial admission](/home/pavlo/renders/luster_000470_opacity/occupancy_prior_min6/manifest.json)
+
+### Depth admission forward gates and shared-field40k screen
+
+What was tested: camera-independent admission of724 qualified train-depth cells
+on frozen38k/48k states, followed by a same-parent38k→40k shared-field trial.
+The shared control already exists with identical initial checkpoint and settings;
+all32 first pixel/RGB batches match. Only occupancy admission is new. No density
+assignment, RGB mask or additional density network. Sixty-nine tests pass,
+including54 standard occupancy/sampler/default-recipe compatibility checks.
+
+| Native recipe/state | PSNR | SSIM | LPIPS | Optimization seconds |
+| --- | ---: | ---: | ---: | ---: |
+| Shared38k,ordinary opacity.1 | 20.1719 | .816426 | .222436 | — |
+| Same shared38k,+depth admission | 20.1954 | .817442 | .221305 | No training |
+| Split band+color48k | 20.0694 | .819210 | .221396 | — |
+| Same split48k,+depth admission | 20.1024 | .819877 | .220024 | No training |
+| Shared40k matched control | 20.0676 | .817846 | .221743 | 140.61 |
+| Shared40k,+depth admission | 20.0849 | .818908 | .220265 | 144.14 |
+
+Results: all six face/hand/hair/clothing contacts inspected for both forward
+screens and the training endpoint. Shared-field40k hand ROI LPIPS improves in all
+six; held-out hand PSNR changes+.007/+.859/+3.041dB (012/095/150). Face PSNR improves
+in five, with small mixed LPIPS changes (−.00052 to+.00065). Inner-face held-out
+PSNR improves+.025/+.211/+.326dB. There is a visible local detail benefit, especially
+in selected hands/cuffs, while coherent baseline quality remains. Global+.0173dB
+alone is not a robust training improvement; the earlier direct frozen-checkpoint
+comparison isolates the admission effect from optimization randomness. Overhead
+is2.51%, substantially less than the separate density architecture. No faster
+training/time-to-quality claim is established.
+
+Selection: evaluate the initial38k and endpoint40k under the admission recipe.
+38k is the PSNR maximum;40k is.1105dB lower and outside the.07dB LPIPS tie window.
+A byte-identical copy of the initial38k checkpoint lives in the admission run's
+checkpoint directory, with the new recipe config/request. Its hash matches the
+original. The selection receipt keeps only admission-protocol evaluations;
+the original mixed parent history is preserved. This makes the initial state
+reproducible through the normal exporter without silently dropping the prior.
+It is not represented as38k weights learned with this new admission rule.
+
+The selected native export matches forward-screen eval PNG hashes. Both32-frame
+videos decode correctly; all64 face/body frames were visually inspected. Actor
+coherence remains. Wrist noise, softness, studio errors and pale skirt ghosts
+persist. Lower-skirt crops at orbit18/23/25/26 are pixel-identical to the previous
+accepted38k render: this change did not resolve them. The new artifact is an
+intermediate volume recipe, not fully opaque or artifact-free. Physical delivery
+copies match all source hashes. All workers/export processes are terminal.
+
+Next: from the normal shared-field recipe with admission, recheck a gentle
+qualified depth/opacity constraint with the surface now visible to RGB training.
+Continue in short matched gates; keep opaque and semantic requirements active.
+
+- [Selected admission recipe](/home/pavlo/renders/luster_000470_opacity/selections/opacity01_admission38_40.json)
+- [Verified short training comparison](/home/pavlo/renders/luster_000470_opacity/reviews/opacity01_depth_admission_040000/comparison.json)
+- [Full-field forward invariance](/home/pavlo/renders/luster_000470_opacity/forward_occupancy_prior38k/result.json)
+- [Reviewed64-frame export](/home/pavlo/renders/luster_000470_opacity/exports/opacity01_admission38k_native/manifest.json)
+- [Remaining skirt artifacts](/home/pavlo/renders/luster_000470_opacity/reviews/admission38k_skirt_before_after.jpg)
+
+```bash
+scp coder@olive-lark:/var/tmp/lookcloser_000470_delivery/opacity01_admission38k_native/eval_img_0001.png ~/Downloads/
+scp coder@olive-lark:/var/tmp/lookcloser_000470_delivery/opacity01_admission38k_native/face/learned_rgb.mp4 ~/Downloads/
+scp coder@olive-lark:/var/tmp/lookcloser_000470_delivery/opacity01_admission38k_native/hand_comparison_40k.jpg ~/Downloads/
+```

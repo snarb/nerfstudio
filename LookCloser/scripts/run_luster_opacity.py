@@ -145,6 +145,11 @@ def configuration(request):
         if not hasattr(model,key):
             raise ValueError(f'Unknown model control {key}')
         setattr(model,key,value)
+    if model.occupancy_prior_grid_path is not None:
+        digest = sha(data/'transforms.json')
+        if model.occupancy_prior_transforms_sha256 not in {None, digest}:
+            raise ValueError('Occupancy prior calibration does not match current data')
+        model.occupancy_prior_transforms_sha256 = digest
     if request.get('freeze_density_geometry', False):
         if not model.separate_density_encoding or request.get('representation','volume') != 'volume':
             raise ValueError('Only split volume density can be frozen independently of RGB')
