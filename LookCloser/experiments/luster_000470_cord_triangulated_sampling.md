@@ -210,3 +210,11 @@ tie band. The 32k result is retained as the strongest tested **cord-specific**
 render, not mislabeled as the selected full-scene checkpoint. This paired
 screen supports combining sharp-view continuation with fine sampling, while
 showing that correct thin-object geometry/color still needs work.
+
+A frozen screen halved the fine step from `.001` to `.0005` on the sharp-28
+32k field with local radius `.005` and occupancy admission `.003`. Global
+metrics did not move at the reported precision, and cam095 cord PSNR changed
+only `22.6045→22.6060 dB` while LPIPS changed `.06797→.06807`. The
+[receipt](/home/pavlo/renders/luster_000470_opacity/reviews/cord_geometry_20261008/sharp28_32k_local_r005_s0005_occ003/result.json)
+records identical field hashes. Smaller ray steps are not the next useful
+lever on this field.
