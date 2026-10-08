@@ -1704,3 +1704,35 @@ admission are unchanged. No stronger band-prior continuation is launched.
 - [Ray color/termination layers](/home/pavlo/renders/luster_000470_opacity/reviews/skirt_ghost_ray_layers.json)
 - [Qualified depth visibility audit](/home/pavlo/renders/luster_000470_opacity/reviews/skirt_ghost_depth_votes.json)
 - [Actual RGB camera context](/home/pavlo/renders/luster_000470_opacity/reviews/ghost_point_actual_camera_context.jpg)
+
+### Spatial element sparsity40k: rejected after short gate
+
+What was tested: same shared38k state→40k, occupancy admission/opacity.1 unchanged,
+adding density-element coefficient.01,1,024 active-cell samples and sparse bias.99.
+A separate RNG stream preserves sampling; all32 first RGB/pixel batches match.
+No depth loss, extra encoding, RGB masks or direct density clipping.
+
+| Native40k | PSNR | SSIM | LPIPS | Optimization seconds |
+| --- | ---: | ---: | ---: | ---: |
+| Admission control | 20.0849 | .818908 | .220265 | 144.14 |
+| +spatial elements.01 | 20.0682 | .818391 | .223544 | 153.95 |
+
+Results: all six region contacts inspected. Inner-face PSNR decreases in all
+six(−.087–.476dB); full face/hand LPIPS changes are mixed and global LPIPS worsens
+.00328. Cost rises6.80%. Four native fixed orbit frames(18/23/25/26) were rendered
+for both actual40k checkpoints, with field fingerprints unchanged during inference.
+Large skirt ghosts remain in the visual comparison. The candidate is rejected;
+no stronger/longer continuation is launched. Accepted shared38k admission recipe
+and physical delivery remain unchanged.17 additional RNG/default-recipe tests
+pass, alongside19 focused element/band/admission checks. No successful hard
+opacity or artifact-removal recipe is claimed.
+
+Insights: spatial sparsity with a shared geometry/color field may alter appearance,
+and the current element scale/penalty did not remove the problematic foreground
+layer. A cause of the tradeoff is not established by this one short trial. The
+layer-position/independent depth evidence should guide a geometry experiment,
+rather than silently accepting lower face quality or simply increasing opacity.
+The full original goal, including hard/semantic material controls, stays active.
+
+- [Rejected native40k comparison](/home/pavlo/renders/luster_000470_opacity/reviews/opacity01_admission_elements001_040000/comparison.json)
+- [Fixed skirt comparison](/home/pavlo/renders/luster_000470_opacity/reviews/density_elements_skirt40k_comparison.jpg)
