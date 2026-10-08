@@ -34,9 +34,14 @@ def audit(request_path: Path, output: Path) -> None:
     index = next(i for i, p in enumerate(ds.image_filenames)
                  if int(p.stem.split('_')[1]) == 95)
     camera = ds.cameras[index:index+1].to(model.device)
-    # The line is approximate: a horizontal sweep also includes both flanks.
-    points = [(x, y) for y in (1240, 1270, 1300, 1330, 1360, 1380)
-              for x in range(874, 897)]
+    # Preserve the same physical rays when auditing the original 1920px data
+    # and its 4096px successor. The line is approximate; include both flanks.
+    width = int(ds.cameras.width[index].item())
+    height = int(ds.cameras.height[index].item())
+    reference_rows = (1240, 1270, 1300, 1330, 1360, 1380)
+    points = [(min(width-1,round(x*width/1920)),
+               min(height-1,round(y*height/1406)))
+              for y in reference_rows for x in range(874,897)]
     coords = torch.tensor([[y, x] for x, y in points], device=model.device,
                           dtype=torch.float32) + .5
     ray_bundle = camera.generate_rays(0, coords=coords)
@@ -101,10 +106,13 @@ def audit(request_path: Path, output: Path) -> None:
     write(output/'result.json',dict(read_only=True,source_request=str(request_path),
           checkpoint=request['resume'],checkpoint_sha256=sha(Path(request['resume'])),
           fit_sha256=request['model']['cord_sampling_fit_sha256'],field_sha256=before,
-          camera=95,masks_used=False,band_halfwidth=.003,rows=rows))
-    for y in (1240,1270,1300,1330,1360,1380):
+          camera=95,masks_used=False,band_halfwidth=.003,
+          reference_image_size=[1920,1406],image_size=[width,height],rows=rows))
+    for reference_y in reference_rows:
+        y=min(height-1,round(reference_y*height/1406))
         local=[r for r in rows if r['y']==y and r['ray_line_distance']<.002]
-        print(json.dumps(dict(y=y,closest=min(local,key=lambda r:r['ray_line_distance']) if local else None),
+        print(json.dumps(dict(reference_y=reference_y,y=y,
+                              closest=min(local,key=lambda r:r['ray_line_distance']) if local else None),
                          ensure_ascii=False),flush=True)
 
 
