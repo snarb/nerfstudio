@@ -45,7 +45,7 @@ def conservative_cover(grid: torch.Tensor, aabbs: torch.Tensor,
     return cover
 
 
-def screen(request_path: Path, output: Path) -> None:
+def screen(request_path: Path, output: Path, audit_only: bool = False) -> None:
     if output.exists():
         raise FileExistsError(output)
     request=deepcopy(json.loads(request_path.read_text()))
@@ -72,6 +72,19 @@ def screen(request_path: Path, output: Path) -> None:
         raise ValueError('Conservative voxel cover omitted a previously admitted cell')
     model.cord_occupancy_admission.logical_or_(cover)
     grid.logical_or_(cover)
+    audit=dict(scope='Frozen conservative cover of every voxel touching fitted cord tube',
+               checkpoint=request['resume'],checkpoint_sha256=sha(Path(request['resume'])),
+               fit_sha256=request['model']['cord_sampling_fit_sha256'],
+               radius=request['model']['cord_occupancy_radius'],
+               sparse_cells=int(sparse.sum()),sparse_occupied_before=int((sparse&original).sum()),
+               cover_cells=int(cover.sum()),extra_cover_cells=int((cover&~sparse).sum()),
+               extra_cover_occupied_before=int((cover&~sparse&original).sum()),
+               originally_occupied_in_cover=int((cover&original).sum()),
+               newly_admitted=int((cover&~original).sum()))
+    write(output/'voxel_audit.json',audit)
+    if audit_only:
+        print(json.dumps(audit),flush=True)
+        return
     before=field_fingerprint(model)
     row=evaluate(trainer,request,step)
     after=field_fingerprint(model)
@@ -79,15 +92,7 @@ def screen(request_path: Path, output: Path) -> None:
         raise RuntimeError('Frozen forward screen changed field weights')
     row['checkpoint']=request['resume']
     write(Path(row['renders'])/'metrics.json',row)
-    write(output/'result.json',dict(scope='Frozen forward-only conservative cord voxel cover',
-          checkpoint=request['resume'],checkpoint_sha256=sha(Path(request['resume'])),
-          fit_sha256=request['model']['cord_sampling_fit_sha256'],
-          radius=request['model']['cord_occupancy_radius'],
-          sparse_cells=int(sparse.sum()),sparse_occupied_before=int((sparse&original).sum()),
-          cover_cells=int(cover.sum()),extra_cover_cells=int((cover&~sparse).sum()),
-          extra_cover_occupied_before=int((cover&~sparse&original).sum()),
-          originally_occupied_in_cover=int((cover&original).sum()),
-          newly_admitted=int((cover&~original).sum()),
+    write(output/'result.json',dict(**audit,
           field_before=before,field_after=after,
           metrics={key:row[key] for key in ['eval_all_psnr','eval_all_ssim','eval_all_lpips']},
           visual_review='pending'))
@@ -99,5 +104,7 @@ if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--request',type=Path,required=True)
     parser.add_argument('--output',type=Path,required=True)
+    parser.add_argument('--audit-only',action='store_true',
+                        help='Record cell coverage without rendering full evaluation images')
     args=parser.parse_args()
-    screen(args.request,args.output)
+    screen(args.request,args.output,args.audit_only)
