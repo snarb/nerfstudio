@@ -55,12 +55,19 @@ def select(audit_path: Path, output: Path, max_rgb_error: float, min_band_mass: 
         fraction_index=round((float(row['fraction'])-.08)/(.84/11))
         if not 0<=fraction_index<12 or abs(float(row['fraction'])-(.08+fraction_index*.84/11))>1e-5:
             raise ValueError('Audit fraction does not match the model rays')
-        error=float(np.linalg.norm(np.asarray(row['band_rgb'])-np.asarray(row['source_gt'])))
+        source_rgb=np.asarray(row['source_gt'],dtype=float)
+        band_rgb=np.asarray(row['band_rgb'],dtype=float)
+        if (source_rgb.shape!=(3,) or band_rgb.shape!=(3,) or not np.isfinite(source_rgb).all()
+                or not np.isfinite(band_rgb).all() or (source_rgb<0).any() or (source_rgb>1).any()):
+            raise ValueError('Invalid original RGB or band colour')
+        error=float(np.linalg.norm(band_rgb-source_rgb))
         mass=float(row['band_mass'])
         accepted=bool(np.isfinite(error) and np.isfinite(mass)
                       and error<=max_rgb_error and mass>=min_band_mass)
         reviewed.append(dict(camera_id=camera_id,fraction_index=fraction_index,
                              pixel=[int(row['x']),int(row['y'])],
+                             source_gt=source_rgb.tolist(),
+                             source_rgb_sha256=row['source_rgb_sha256'],
                              band_rgb_l2_error=error,band_mass=mass,
                              individually_qualified=accepted))
         if accepted:

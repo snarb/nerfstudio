@@ -198,6 +198,19 @@ def configuration(request):
                 or selection.get('fit_sha256')!=model.cord_sampling_fit_sha256
                 or selection.get('transforms_sha256')!=model.cord_sampling_transforms_sha256):
             raise ValueError('Trusted cord rays do not match the source field or geometry')
+        if selection.get('source_audit_sha256')!=sha(Path(selection['source_audit'])):
+            raise ValueError('Trusted cord ray audit changed')
+        if getattr(model,'cord_ray_color_regularization',0.)>0:
+            frames={int(frame['camera_id']):frame for frame in json.loads((data/'transforms.json').read_text())['frames']}
+            expected={}
+            for row in selection['reviewed']:
+                camera_id=int(row['camera_id'])
+                digest=row.get('source_rgb_sha256')
+                if camera_id in expected and expected[camera_id]!=digest:
+                    raise ValueError('Conflicting source RGB hashes in trusted cord rays')
+                expected[camera_id]=digest
+            if any(sha(data/frames[camera_id]['file_path'])!=digest for camera_id,digest in expected.items()):
+                raise ValueError('Original RGB for trusted cord rays changed')
     if request.get('freeze_density_geometry', False):
         if not model.separate_density_encoding or request.get('representation','volume') != 'volume':
             raise ValueError('Only split volume density can be frozen independently of RGB')

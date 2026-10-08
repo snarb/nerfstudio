@@ -10,6 +10,8 @@ from typing import Literal, Type
 import torch
 import torch.nn.functional as F
 import nerfacc
+from nerfstudio.cameras.rays import Frustums, RaySamples
+from nerfstudio.field_components.field_heads import FieldHeadNames
 from nerfstudio.fields.lookcloser_field import LookCloserField
 from nerfstudio.fields.lookcloser_surface_field import LookCloserSurfaceField
 from nerfstudio.model_components.lookcloser_opacity import first_crossing, sdf_weights, opacity_profile_loss, depth_interval_loss, density_band_loss, cord_termination_mass_loss, density_element_loss, floor_ray_geometry_loss
@@ -58,6 +60,7 @@ class LookCloserOpacityModelConfig(LookCloserModelConfig):
     cord_ray_transforms_path: str | None = None
     cord_ray_selection_path: str | None = None
     cord_ray_selection_sha256: str | None = None
+    cord_ray_color_regularization: float = 0.
     cord_rays_per_batch: int = 32
     cord_ray_tolerance: float = .003
     cord_ray_opacity_target: float = .99
@@ -96,9 +99,15 @@ class LookCloserOpacityModel(LookCloserModel):
         controls=[self.config.opacity_regularization,self.config.depth_prior_strength,
                   self.config.depth_prior_loss_mult,self.config.eikonal_loss_mult,
                   self.config.density_element_regularization,self.config.floor_ray_regularization,
-                  self.config.cord_ray_regularization,self.config.cord_occupancy_radius]
+                  self.config.cord_ray_regularization,self.config.cord_ray_color_regularization,
+                  self.config.cord_occupancy_radius]
         if any(not math.isfinite(value) or value<0 for value in controls):
             raise ValueError('Regularization must be nonnegative')
+        if self.config.cord_ray_color_regularization>0 and (
+                self.config.cord_ray_regularization<=0
+                or self.config.cord_ray_selection_path is None
+                or self.config.appearance_embedding_dim!=0):
+            raise ValueError('Cord band RGB anchors require selected geometry rays and no appearance embedding')
         if self.config.surface_num_samples < 2 or self.config.surface_refine_steps < 0 or self.config.surface_inverse_width <= 0:
             raise ValueError('Invalid surface integrator configuration')
         if self.config.representation!='volume' and (
@@ -222,6 +231,22 @@ class LookCloserOpacityModel(LookCloserModel):
                 keep=torch.tensor([pair in selected_pairs for pair in ray_pairs],
                                   dtype=torch.bool,device=depths.device)
                 origins,directions,depths=origins[keep],directions[keep],depths[keep]
+                if self.config.cord_ray_color_regularization>0:
+                    target_by_pair={}
+                    for row in selection.get('reviewed',[]):
+                        pair=(row.get('camera_id'),row.get('fraction_index'))
+                        if pair in selected_pairs:
+                            if pair in target_by_pair:
+                                raise ValueError('Repeated RGB target for selected cord ray')
+                            target_by_pair[pair]=row.get('source_gt')
+                    if set(target_by_pair)!=selected_pairs:
+                        raise ValueError('Missing selected cord RGB target')
+                    targets=torch.tensor([target_by_pair[pair] for pair in ray_pairs if pair in selected_pairs],
+                                         dtype=torch.float32,device=depths.device)
+                    if (targets.shape!=(len(depths),3) or not torch.isfinite(targets).all()
+                            or (targets<0).any() or (targets>1).any()):
+                        raise ValueError('Invalid selected cord RGB targets')
+                    self.register_buffer('cord_ray_target_rgb',targets,persistent=False)
             if (not torch.isfinite(depths).all()
                     or (depths-self.config.cord_ray_tolerance <= self.config.near_plane).any()):
                 raise ValueError('Cord prior geometry invalid or too close to near plane')
@@ -666,6 +691,22 @@ class LookCloserOpacityModel(LookCloserModel):
             points=o[:,None]+d[:,None]*free_distances[...,None]
             outputs['cord_free_sigma']=self.field.density_fn(points.reshape(-1,3)).reshape(len(ids),6)
             outputs['cord_tolerance']=center.new_full((len(ids),),eps)
+            if self.config.cord_ray_color_regularization>0:
+                count=7
+                step=2*eps/count
+                mid=center+step*(torch.arange(count,device=self.device)-(count-1)/2)[None,:]
+                starts,ends=mid-step/2,mid+step/2
+                frustums=Frustums(origins=o[:,None,:].expand(-1,count,-1),
+                                  directions=d[:,None,:].expand(-1,count,-1),
+                                  starts=starts[...,None],ends=ends[...,None],
+                                  pixel_area=torch.ones_like(starts)[...,None])
+                samples=RaySamples(frustums=frustums,deltas=(ends-starts)[...,None])
+                with torch.no_grad():
+                    band_density,band_geo=self.field.get_density(samples)
+                    band_weights=samples.get_weights(band_density)
+                band_rgb=self.field.get_outputs(samples,density_embedding=band_geo)[FieldHeadNames.RGB]
+                outputs['cord_color_rgb']=(band_weights*band_rgb).sum(1) / band_weights.sum(1).clamp_min(1e-6)
+                outputs['cord_color_target']=self.cord_ray_target_rgb[ids]
         if 'packed_weights' in outputs:
             weights,indices = outputs['packed_weights'],outputs['packed_ray_indices']
             starts,ends = outputs['packed_spacing_starts'],outputs['packed_spacing_ends']
@@ -758,6 +799,9 @@ class LookCloserOpacityModel(LookCloserModel):
                 value=None
             if value is not None:
                 losses['cord_ray_geometry_loss']=self.config.cord_ray_regularization*value
+        if 'cord_color_rgb' in outputs:
+            losses['cord_ray_color_loss']=self.config.cord_ray_color_regularization*torch.sqrt(
+                (outputs['cord_color_rgb']-outputs['cord_color_target']).square()+1e-4).mean()
         if self.config.depth_prior_strength>0 and 'depth_prior' in batch:
             strength = self.config.depth_prior_strength
             if self.config.depth_prior_objective=='density_band':

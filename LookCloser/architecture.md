@@ -36,6 +36,13 @@ validated against the train-only inventory. Unselected rays keep ordinary
 RGB training and unconstrained depth. This confidence screen does not use
 source masks or change rendered-ray sampling, and still needs a held-out
 quality gate before being treated as a depth prior.
+An additional opt-in `cord_ray_color_regularization` samples seven field
+colours inside each selected ray's depth band and compares their detached
+density-weighted mean with the original training pixel RGB saved in that
+manifest. It acts only on colour after the separate termination-mass prior
+has chosen geometry; it cannot reward changing density to fit a colour target.
+The runner verifies the audit and source-image hashes. It defaults to zero,
+and its effect must be assessed with the same held-out cord gate.
 
 Separately, a cord occupancy option admits grid cells intersected by the
 fitted segment and a configurable narrow tube. It unions those cells into
