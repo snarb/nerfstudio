@@ -39,6 +39,15 @@ residuals, not a measured dense calibration error, but they are large relative
 to the visible braid details in the crop. A straight line between two anchors
 cannot model every twist.
 
+A [source-resolution check](/home/pavlo/renders/luster_000470_opacity/reviews/cord_geometry_20261008/cam095_gt_original_vs_1920.png)
+compares cam095's original 4096×3000 GT crop with the actual 1920×1406
+training/evaluation image enlarged back to the original pixel grid. The lower
+braid loses some fine edges through downsampling, but its separate twists are
+still clearly visible at 1920. Resolution loss alone therefore cannot explain
+the much stronger blur in the rendered lower section; a full-resolution
+continuation would add cost without first fixing the observed colour/depth
+misalignment.
+
 ## Insights
 
 Filling the occupancy grid and pushing native termination into the depth band are insufficient to recover sharp texture. Stronger geometry improves the depth distribution but can damage the predicted colour at that depth. A small, smooth suppression of front/back colour helps both prior-free checkpoints on cam095, suggesting layer mixing is one real contributor, yet the narrow benefit and the remaining lower-braid blur prevent adoption as a general renderer. The full-person best remains the sharp-28 30.5k baseline with `19.9804 dB` global PSNR. The next training hypothesis is to isolate density updates from colour features before increasing geometry pressure further, or to verify multi-view cord colour alignment directly.
