@@ -50,6 +50,12 @@ independent head, checks cache/checkpoint/calibration hashes and saves a fresh
 surface checkpoint. Its default stride4 render is a diagnostic; native quality
 gates require stride1. The first 300-step bootstrap failed the visual gate and
 is not a trained opaque recipe.
+`audit_luster_surface_initialization.py` verifies cached rays against current
+calibration and compares actual first-hit depths to learned teacher anchors.
+It also checks signs along the preceding ray segment. An optional bootstrap
+`free_ray_weight` penalizes negative signs there, within the rendered box; a
+separate RNG preserves the anchor sampling stream. Its300-step diagnostic
+reduces early false intersections but still fails appearance quality.
 Appearance is learned at the actual intersection. Numerical eikonal gradients
 avoid depending on second derivatives of tiny-cuda-nn. Surface traversal does
 not use the density occupancy grid or the volume distortion objective. This is

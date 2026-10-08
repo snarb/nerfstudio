@@ -909,3 +909,57 @@ stride4 previews; primary quality comparisons remain native stride1.
 
 - [Failed native initialization metrics](/home/pavlo/renders/luster_000470_opacity/surface_bootstrap_030000_smoke/initial_surface_metrics.json)
 - [Failed face crop](/home/pavlo/renders/luster_000470_opacity/reviews/near05_opacity01_036000_gate/bootstrap_face.jpg)
+
+The actual first-hit audit uses1,024 fixed train-only learned teacher rays and
+verifies regenerated origins/directions against the hashed cache. It proves
+that anchor proximity did not establish correct first intersections. A separate
+300-step screen adds positive-sign constraints before the teacher point. Its
+stride4 face preview remains severely fragmented and fails the gate. Different
+preview resolutions are not compared as primary quality metrics.
+
+| Initialization diagnostic | Anchor absolute SDF median | First-hit absolute error median | First hit within.005 | Negative before teacher |
+| --- | ---: | ---: | ---: | ---: |
+| Original300 steps | .010338 | .389032 | .586% | 91.992% |
+| Free-ray penalty1,300 steps | .009403 | .119760 | 10.645% | 20.703% |
+
+These are learned-teacher diagnostics, not measured-depth certification or
+held-out validation. The new penalty changes anchor sampling through its extra
+random draw in this first screen; subsequent implementation isolates that RNG.
+These failed visual results do not justify a long opaque RGB fit.
+
+- [Original first-hit audit](/home/pavlo/renders/luster_000470_opacity/reviews/surface_bootstrap_smoke_first_hit_audit.json)
+- [Free-ray first-hit audit](/home/pavlo/renders/luster_000470_opacity/reviews/surface_bootstrap_free300_first_hit_audit.json)
+- [Failed free-ray preview](/home/pavlo/renders/luster_000470_opacity/reviews/surface_bootstrap_030000_free300_face_preview.jpg)
+
+### Tight depth36k: narrower surface, foreground tradeoff
+
+What was tested: continue the matched32k pair to36k with unchanged opacity.1,
+native sampling, calibrated near.05, and either no depth or interval-mass
+depth strength10/coefficient.0001. The verifier passes common ancestry,
+identical first32 RGB/pixel batches, calibration, native GT and ray bounds.
+
+| Native36k branch | PSNR | SSIM | LPIPS |
+| --- | ---: | ---: | ---: |
+| Opacity.1 only | 20.0957 | .816466 | .222051 |
+| Opacity.1+tight depth | 20.1766 | .815336 | .223967 |
+
+Results: all six face/hand/hair/clothing contacts were inspected. No major
+collapse occurs, but face LPIPS worsens in every view: held-out+.01152/+.00200/
++.00205, train+.01285/+.00388/+.00070. Held-out inner-face PSNR changes
++.051/−.161/−.369dB. The earlier uniformly positive32k inner-face result does
+not persist. Hand150 improves2.812dB and.01085 LPIPS. Global PSNR gain.081dB
+therefore does not establish a better face or an artifact-free scene.
+
+On the same trusted native train-face rays, median90% widths shrink from
+.002930/.002740/.002673 to.002405/.002222/.002206 (18–19%). Median relative
+mode errors also decrease. This is geometric improvement with an appearance
+tradeoff; it is conditional on the trusted train samples. Foreground softness
+and wrist artifacts remain. The strong-depth40k request is held. The next
+same-parent screen from opacity-only36k reduces only its depth coefficient
+from.0001 to.00003, keeping strength10 and the uncertainty interval unchanged.
+An ordinary no-prior baseline36k control is also running under supervision.
+No convergence-speed claim is made; diagnostic GPU work overlaps these runs.
+
+- [Verified36k comparison and visual verdict](/home/pavlo/renders/luster_000470_opacity/reviews/near05_opacity01_depth10_mass_036000/comparison.json)
+- [Opacity-only termination](/home/pavlo/renders/luster_000470_opacity/reviews/near05_opacity36k_alignment.json)
+- [Tight-depth termination](/home/pavlo/renders/luster_000470_opacity/reviews/near05_opacity_depth36k_alignment.json)

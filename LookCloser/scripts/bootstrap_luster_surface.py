@@ -12,9 +12,11 @@ from export_luster_opacity import load
 from run_luster_opacity import configuration, configure_runtime, evaluate, sha, write
 
 
-def bootstrap(manifest_path, output, steps=1000, batch_size=1024, eval_stride=4):
+def bootstrap(manifest_path, output, steps=1000, batch_size=1024, eval_stride=4, free_ray_weight=0.):
     if min(steps, batch_size, eval_stride) < 1:
         raise ValueError('Steps, batch size and evaluation stride must be positive')
+    if not np.isfinite(free_ray_weight) or free_ray_weight < 0:
+        raise ValueError('Free-ray weight must be finite and nonnegative')
     if output.exists():
         raise FileExistsError('Use a new bootstrap directory')
     manifest=json.loads(manifest_path.read_text())
@@ -56,7 +58,16 @@ def bootstrap(manifest_path, output, steps=1000, batch_size=1024, eval_stride=4)
     if not len(origins):
         raise ValueError('No narrow teacher surfaces')
     points=origins+directions*distances
+    # The hard renderer only traverses the box. Do not constrain geometry on
+    # the unrendered segment outside it when a teacher camera starts outside.
+    box=model.scene_box.aabb.to(origins)
+    parallel=directions.abs()<1e-8
+    safe_direction=torch.where(parallel,torch.ones_like(directions),directions)
+    a,b=(box[0]-origins)/safe_direction,(box[1]-origins)/safe_direction
+    entry=torch.minimum(a,b).masked_fill(parallel,float('-inf')).amax(-1,keepdim=True)
+    start=entry.clamp_min(model.config.near_plane)
     optimizer=torch.optim.Adam(model.field.geometry_head.parameters(),lr=.001)
+    free_generator=torch.Generator(device=model.device).manual_seed(142)
     history=[]
     output.mkdir(parents=True,exist_ok=True)
     write(output/'request.json',request)
@@ -76,6 +87,17 @@ def bootstrap(manifest_path, output, steps=1000, batch_size=1024, eval_stride=4)
         gradients=model.field.finite_gradients(surface[:128])
         eikonal=(gradients.norm(dim=-1)-1).square().mean()
         objective=anchor+signs+.001*eikonal
+        if free_ray_weight:
+            # Anchor proximity alone can leave an earlier false first hit.
+            # Positive signs along the observed front segment constrain that
+            # topology without forcing ray-aligned SDF gradients at the hit.
+            fractions=torch.cat([surface.new_tensor([.05,.25,.5,.75,.95]),
+                                 torch.rand(1,device=surface.device,generator=free_generator)])
+            front_end=distances[take]-.005
+            free_distance=start[take]+(front_end-start[take]).clamp_min(0)*fractions[None,:]
+            free_points=origins[take,None]+direction[:,None]*free_distance[...,None]
+            free_sdf=model.field.query_surface(free_points.reshape(-1,3))
+            objective=objective+free_ray_weight*(.001-free_sdf).clamp_min(0).square().mean()
         if not torch.isfinite(objective):
             raise FloatingPointError('Nonfinite geometry bootstrap')
         optimizer.zero_grad()
@@ -93,6 +115,7 @@ def bootstrap(manifest_path, output, steps=1000, batch_size=1024, eval_stride=4)
     write(output/'geometry_receipt.json',dict(teacher_manifest_sha256=sha(manifest_path),
         points=len(points),steps=steps,field_transfer_missing=report.missing_keys,
         geometry_only=True,no_mvs_targets=True,no_source_masks=True,history=history,
+        free_ray_weight=free_ray_weight,
         eval_stride=eval_stride,scope='Initialization diagnostic; native quality requires eval_stride=1'))
     selected=dict(step=0,checkpoint=str(student.checkpoint_dir/'step-000000000.ckpt'))
     write(output/'selection.json',selected)
@@ -109,5 +132,7 @@ if __name__=='__main__':
     p.add_argument('--batch-size',type=int,default=1024)
     p.add_argument('--eval-stride',type=int,default=4,
                    help='Debug preview stride; use 1 for native quality evaluation')
+    p.add_argument('--free-ray-weight',type=float,default=0.,
+                   help='Positive-sign penalty along teacher rays before their surface')
     a=p.parse_args()
-    bootstrap(a.manifest,a.output,a.steps,a.batch_size,a.eval_stride)
+    bootstrap(a.manifest,a.output,a.steps,a.batch_size,a.eval_stride,a.free_ray_weight)
