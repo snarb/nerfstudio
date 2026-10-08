@@ -1,8 +1,34 @@
 # Luster 000470: opacity and trusted depth
 
+## Current measured status
+
+The ordinary no-prior baseline has completed40k and is visually coherent.
+The accepted intermediate recipe is ordinary LookCloser plus opacity.1, with
+no MVS prior: its newly evaluated38k checkpoint scores20.1719/.816426/.222436
+(PSNR/SSIM/LPIPS). It uses unmasked HD RGB, softplus density, legacy SH directions,
+hash23/max8192, B4096, FR.3 after20k, box[-1.5,1.5]^3, coarse.00625/cap1024 and
+matched near.05 in train/eval. Source calibration is transformed once.
+All train-only frequency fits are complete.
+
+The independent density branch passes exact initial native parity and a normal
+quality gate, but costs47% more optimization time without an established gain
+by itself. Its first2k depth screen narrows trusted train-face termination by
+4–7% and improves inner-face PSNR slightly, while face LPIPS also worsens slightly.
+It remains experimental. Opacity.3 and all tested hard-boundary/signed-head
+initializations are not promoted. Hard opaque40k, semantic transparency quality
+training, a stronger successful geometry recipe and repeat robustness remain
+incomplete; the full original goal stays active.
+
+The latest accepted38k native eval PNGs and64 orbit/face frames are verified
+and copied under `/var/tmp/lookcloser_000470_delivery/accepted_opacity38k_native`.
+Both videos decode to32 frames; source eval hashes match. Remaining softness,
+wrist noise, studio errors and skirt ghosts mean this is not artifact-free.
+Detailed chronological evidence follows; the initial plan below is historical
+and has been superseded where later gates identify failures.
+
 ## What was tested
 
-Status: primary and depth experiments in progress; no quality recipe has
+Historical initial status: primary and depth experiments in progress; no quality recipe has
 been promoted. Branch `lookcloser/000470-opacity-depth`, starting at `f73cc3c5`.
 Campaign root: `/home/pavlo/renders/luster_000470_opacity` on `olive-lark`.
 Maximum budget: 48 single-device GPU hours, starting with frequency fits.
@@ -1224,3 +1250,54 @@ the depth arm launches after it finishes. This tests whether the prior is less
 harmful when its direct gradients cannot alter color features.
 
 - [Verified split quality gate](/home/pavlo/renders/luster_000470_opacity/reviews/density_split_control_040000/comparison.json)
+
+### Independent density plus tight prior42k gate
+
+What was tested: same-parent split40k→42k pair, opacity.1, either no depth or
+interval-mass strength10/coefficient.0001. Native RGB sampling, calibration,
+near bounds and first32 pixel/RGB batches match. Unknown depth is unconstrained.
+
+| Native42k | PSNR | SSIM | LPIPS |
+| --- | ---: | ---: | ---: |
+| Split control | 20.0875 | .817927 | .221598 |
+| Split+tight depth | 20.0985 | .818172 | .221013 |
+
+Results: all six views and four region contacts were inspected. Inner-face
+PSNR improves+.152/+.394/+.256dB held-out and+.097/+.198/+.291dB train. Face
+LPIPS worsens slightly in all six views (+.00011–.00071). There is no major
+foreground collapse, but noise/softness and room errors remain. Global gain
+.011dB is too small to establish robust superiority. Optimization timing is
+confounded by the overlapping38k export and is not used for a speed claim.
+
+Actual pinned42k checkpoints, not their selected ancestor, are probed on the
+same trusted native20×20 train-face grids. Reference front-mass tolerance stays
+max(2uncertainty,1% depth); training uses strength10 and the uncertainty floor.
+
+| Train face | Control90% width | Prior90% width | Control front mass | Prior front mass |
+| --- | ---: | ---: | ---: | ---: |
+| 011 | .002954 | .002747 | 2.3231% | 2.2373% |
+| 097 | .002601 | .002505 | .01555% | .01482% |
+| 151 | .002585 | .002405 | .00500% | .00591% |
+
+Widths shrink4–7% on these conditional trusted samples; relative mode errors
+also decrease. This does not certify all scene geometry or artifact removal.
+A further matched2k continuation to44k is prepared but unlaunched to check
+whether the local benefit persists, before changing the prior formulation.
+All current jobs are terminal at this review gate.
+
+The newly selected opacity-only38k export is visually reviewed on all32 face
+and32 body frames, matches original eval PNG hashes, and both videos contain
+exactly32 decoded frames. Physical delivery copies also match all hashes.
+The default field compatibility checks pass31 additional tests. The user's
+existing README edit remains untouched.
+
+- [Verified42k comparison](/home/pavlo/renders/luster_000470_opacity/reviews/density_split_depth10_042000/comparison.json)
+- [Pinned control geometry](/home/pavlo/renders/luster_000470_opacity/reviews/density_split_control42k_alignment.json)
+- [Pinned depth geometry](/home/pavlo/renders/luster_000470_opacity/reviews/density_split_depth42k_alignment.json)
+- [Accepted38k export](/home/pavlo/renders/luster_000470_opacity/exports/accepted_opacity38k_native/manifest.json)
+
+```bash
+scp coder@olive-lark:/var/tmp/lookcloser_000470_delivery/accepted_opacity38k_native/eval_img_0001.png ~/Downloads/
+scp coder@olive-lark:/var/tmp/lookcloser_000470_delivery/accepted_opacity38k_native/face/learned_rgb.mp4 ~/Downloads/
+scp coder@olive-lark:/var/tmp/lookcloser_000470_delivery/independent_density42k/face_comparison.jpg ~/Downloads/
+```
