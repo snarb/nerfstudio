@@ -126,7 +126,9 @@ evaluation of a fully refitted native-size recipe. The second 500-step gate
 does not recover the lower braid, so more steps with this unchanged objective
 are unlikely to be the efficient next experiment. A native frequency fit or
 more accurate cord geometry should be assessed before adding a stronger
-depth/transparency prior.
+depth/transparency prior. A matched native-size continuation with the existing
+termination-mass prior is documented [here](luster_000470_cord_fullres_termination_prior.md);
+it degraded the cord at the 33k visual gate.
 The previously tested [complete occupancy cover](luster_000470_cord_voxel_cover_and_layers.md)
 and its native-resolution repetition admitted all cells intersecting the
 fitted cord tube and did not restore the braid; extending the occupancy
