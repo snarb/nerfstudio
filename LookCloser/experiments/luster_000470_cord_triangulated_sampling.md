@@ -177,3 +177,36 @@ and [31k](/home/pavlo/renders/luster_000470_opacity/reviews/cord_geometry_202610
 GT/control/wider-radius crops show a slightly stronger upper and middle
 braid, while the lower portion still fades. This is a measured incremental
 improvement, not a solution to transparency.
+
+## Combining the sharp-camera continuation with local sampling
+
+The earlier [sharp-camera experiment](luster_000470_cord_camera_selection.md)
+continued the same no-prior baseline using 28 visually reviewed cameras.
+Its 30.5k and 32k checkpoints were rendered again with the pinned cord fit,
+local sampling radius `.005` and step `.001`, without changing the field or
+running optimizer steps. The forward-only requests and field fingerprints are
+saved in the [30.5k receipt](/home/pavlo/renders/luster_000470_opacity/reviews/cord_geometry_20261008/sharp28_30500_local_r005/result.json)
+and [32k receipt](/home/pavlo/renders/luster_000470_opacity/reviews/cord_geometry_20261008/sharp28_32k_local_r005/result.json).
+
+| Sharp-28 field and renderer | Step | Eval PSNR | SSIM | LPIPS | cam095 cord PSNR | cam095 cord LPIPS | cam097 cord PSNR |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Native | 30500 | 19.9794 | .81207 | .22507 | 20.7836 | .09793 | 26.2522 |
+| Local `.005` | 30500 | 19.9804 | .81211 | .22506 | 21.7108 | .08283 | 26.5995 |
+| Native | 32000 | 19.7965 | .81496 | .22276 | 21.5011 | .08766 | 26.5670 |
+| Local `.005` | 32000 | 19.7974 | .81501 | .22274 | 22.5941 | .07070 | 26.9249 |
+| Local `.005` + admitted occupancy `.003` | 32000 | 19.7974 | .81503 | .22273 | 22.6045 | .06797 | 26.9995 |
+
+The 32k local renderer improves the held-out cord by `1.09 dB` and reduces
+LPIPS by `.017` with unchanged field parameters; global metrics are effectively
+unchanged. The [32k GT/native/local/occupancy crop](/home/pavlo/renders/luster_000470_opacity/reviews/cord_geometry_20261008/sharp28_32k_combined_cam095_comparison.png)
+shows a more continuous, stronger braid. Occupancy admission gives a small
+further perceptual gain. Yet the lower braid still blends into the skirt and
+the texture lacks the GT's clear plaiting. The [30.5k crop](/home/pavlo/renders/luster_000470_opacity/reviews/cord_geometry_20261008/sharp28_30500_local_r005_cam095_comparison.png)
+has the same remaining issue.
+
+The required global checkpoint selection chooses **30.5k** for this sharp-28
+run: its eval PSNR exceeds 32k by `.183 dB`, outside the `.07 dB` LPIPS
+tie band. The 32k result is retained as the strongest tested **cord-specific**
+render, not mislabeled as the selected full-scene checkpoint. This paired
+screen supports combining sharp-view continuation with fine sampling, while
+showing that correct thin-object geometry/color still needs work.
