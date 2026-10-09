@@ -82,6 +82,34 @@ control also falls between 2k and 4k, mainly on cam095's complete image;
 the **cord** crop improves from 17.25 to 18.18 dB. These early gates do not
 replace the known-good no-prior 30k baseline.
 
+### Additional native-4K five-camera continuation
+
+To isolate the cameras with independently annotated cord landmarks, we
+continued the same no-prior native-4K 32.5k checkpoint for 500 steps with
+either the sharp 28 cameras or only cams025/026/027/097/098. Both arms used
+whole-image sampling, the same network and source-code hashes, and no masks,
+depth prior, or opacity regularizer. The first 32 batch receipts confirm the
+selected camera subsets. Both runs completed at 33k without OOM, with roughly
+33–34 seconds of optimization plus 103–104 seconds of native evaluation.
+The five-camera [selection manifest](/home/pavlo/renders/luster_000470_opacity/reviews/cord_geometry_20261008/cord_five_visible_source_selection.json)
+and [result](/home/pavlo/renders/luster_000470_opacity/runs/cord_fullres_no_prior_source5_033000_retry1/result.json)
+preserve the configuration and checkpoint.
+
+| 4K field | Eval PSNR | SSIM | LPIPS | Held-out cam095 cord PSNR | SSIM | LPIPS | Train cam097 cord PSNR | SSIM | LPIPS |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Shared 32.5k parent | **19.73291** | .81507 | .23267 | **23.94279** | .76467 | .10377 | 26.66791 | .81164 | .08386 |
+| 28 cameras, 33k | 19.72093 | .81522 | **.23105** | 23.93721 | **.76825** | .10115 | 26.61665 | .81219 | .08424 |
+| 5 cameras, 33k | 19.61388 | **.81545** | .23253 | 23.69649 | .76541 | **.09944** | **27.51897** | **.82692** | **.07719** |
+
+The five-camera arm improves its included cam097 cord by 0.90 dB over the
+28-camera arm, but the held-out cam095 cord loses 0.24 dB and global eval loses
+0.11 dB. [Held-out 28-camera render](/home/pavlo/renders/luster_000470_opacity/runs/cord_fullres_no_prior_source28_033000/eval_033000/eval_001_cord.png)
+and [held-out five-camera render](/home/pavlo/renders/luster_000470_opacity/runs/cord_fullres_no_prior_source5_033000_retry1/eval_033000/eval_001_cord.png)
+were inspected at native crop size: the lower braid still fades into the skirt
+in both. The five-camera run's selection rule retains the unchanged 32.5k
+parent checkpoint because its global PSNR is higher. This camera restriction
+does not repair the critical artifact and is not an accepted recipe.
+
 ## Insights
 
 Removing blurred and nonvisible whole-camera views removes too much angular
@@ -92,3 +120,6 @@ belt layer is visible at the missing-cord pixel where the teal braid should
 occlude it. Camera-image quality is therefore relevant, but this hard filter
 is not a viable stand-alone cord repair. Preserve broad-view baseline
 coverage while testing a more local geometry/visibility constraint.
+Restricting an already good 4K field to just the five annotated sharp-cord
+views also overfits an included view without recovering the held-out lower
+braid, so camera selection alone is insufficient.

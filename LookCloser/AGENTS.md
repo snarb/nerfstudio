@@ -121,6 +121,19 @@ When training finishes between checks, immediately continue with the required
 evaluation or visual gate. A detached process is a durability mechanism, not a
 replacement for hourly supervision.
 
+### Command-runner and sandbox failures
+
+If a command fails before the shell starts (for example, a `bwrap` namespace
+error), classify it as an execution-environment failure. It does not invalidate
+existing checkpoints, renders, or measurements. After the first failure, try a
+minimal read-only shell command and inspect the active permission profile. Use
+an already authorized working execution mode if one exists; do not retry the
+same failing wrapper for hours. Record the exact error and the last verified
+training/process/checkpoint state. If shell access is unavailable, state that
+supervision is interrupted without claiming that training failed. When access
+returns, check controller and worker processes, GPU/OOM evidence, checkpoints,
+and pending evaluation before starting another experiment.
+
 ## Architecture
 
 The architecture documentation is stored in ./architecture.md. Update it after each major change, but keep cosine.
