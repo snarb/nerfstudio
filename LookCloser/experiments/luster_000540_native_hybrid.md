@@ -1543,3 +1543,29 @@ brackets conservative correction strengths .85/.95 with the original
 contradiction-400 labels (gain 1 is the measured reference). Both are global
 parameter/cleanup controls, with no region-specific tuning. GPU queue order:
 robust witness, cleanup once, current gain. Results pending.
+
+## 2026-10-17 18:32 UTC — coherent-edge diagnostic and targeted middle band
+
+Frozen-render structure tensors at sigma 2/4 separate coherent edges (coherence
+at least .8, gradient RMS at least .002) from other pixels. Conditioned on these
+edges, cam007 mean spatial LPIPS deltas become positive for curvature above
+.01, increasing from +.00089 to +.00358. Other cam007 pixels still improve by
+about .011–.012. However, **all coherent-edge groups in cam012/095/150 still
+improve**. No general edge/curvature veto is justified, and none was added.
+These evaluation-only associations are not causal per-pixel error labels.
+The script writes no candidate RGB or construction confidence.
+
+A separate construction experiment tests a narrower signal: transverse
+photo-gradient energy relative to a confident coherent frozen-render edge.
+`edge_orientation_luster_hybrid.py` keeps I-G2 detail intact, attenuating only
+G2-G6 correction where baseline coherence exceeds .8 and source edge energy
+turns away from the baseline principal normal. Missing/flat/unsupported evidence
+keeps the transfer. It computes no displacement, fits no correspondence, and
+changes no lookup. The continuous risk ramp reaches full strength at coherence
+.95 and transverse-energy fraction .5; transverse fractions below .15 are
+unaffected. Global maximum attenuation .5/1 is being tested. Seams use the
+actual resulting correction, and output RGB still uses one selected native
+photo plus frozen LookCloser. No region/camera-specific settings are used.
+86 tests pass, including flat/parallel/transverse/rotation behavior and bitwise
+reference seam identity with zero attenuation. This experimental merge mode
+has not yet been independently audited for export.

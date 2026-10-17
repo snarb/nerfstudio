@@ -1156,3 +1156,57 @@ def test_phase_evidence_distinguishes_flat_missing_from_real_contrast():
     assert not k.any()
     cost,count=robust_cost(np.stack([corr,flat]),np.stack([known,k]))
     assert (cost==.5).all() and (count==1).all()
+
+
+def test_edge_coherence_has_no_flat_evidence_and_is_rotation_invariant():
+    from edge_coherence_luster_hybrid import feature
+    flat=np.full((96,96,3),.4,np.float32)
+    coherence,strength=feature(flat)
+    assert not coherence.any() and not strength.any()
+    yy,xx=np.mgrid[:96,:96]
+    ramp=np.repeat((.1+.005*xx)[...,None],3,-1).astype(np.float32)
+    a,s=feature(ramp);b,t=feature(ramp.transpose(1,0,2))
+    np.testing.assert_allclose(a[24:-24,24:-24],1,atol=1e-6)
+    np.testing.assert_allclose(s[24:-24,24:-24],.005,atol=1e-6)
+    np.testing.assert_allclose(a,b.T,atol=1e-6)
+    np.testing.assert_allclose(s,t.T,atol=1e-6)
+
+
+
+def test_orientation_gate_keeps_parallel_edges_and_only_attenuates_transverse_band():
+    from edge_orientation_luster_hybrid import orientation_gate
+    yy,xx=np.mgrid[:96,:96]
+    base=np.repeat((.1+.005*xx)[...,None],3,-1).astype(np.float32)
+    across=base.transpose(1,0,2).copy();support=np.ones((96,96),bool)
+    for amount in [.5,1.]:
+        np.testing.assert_allclose(orientation_gate(base,base,support,amount),1,atol=1e-6)
+        gate=orientation_gate(base,across,support,amount)
+        np.testing.assert_allclose(gate[24:-24,24:-24],1-amount,atol=1e-6)
+        np.testing.assert_allclose(orientation_gate(across,base,support,amount),gate.T,atol=1e-6)
+        flat=np.full_like(base,.3)
+        np.testing.assert_allclose(orientation_gate(flat,across,support,amount),1,atol=1e-6)
+        np.testing.assert_allclose(orientation_gate(base,flat,support,amount),1,atol=1e-6)
+        support[40:48]=False
+        assert (orientation_gate(base,across,support,amount)[40:48]==1).all()
+        support[:]=True
+
+
+
+def test_orientation_zero_attenuation_preserves_reference_seams_bitwise():
+    from edge_orientation_luster_hybrid import correction
+    from band_witness_luster_hybrid import assemble
+    from seam_single_luster_hybrid import merge
+    rng=np.random.default_rng(26);base=rng.uniform(.25,.75,(32,32,3)).astype(np.float32)
+    labels=np.full((32,32),8,np.int16);labels[:,16:]=9;labels[:4]=-1
+    config=dict(alpha=.99,depth_error=.005,roundtrip=1.,uncertainty=2.,max_score=1.,
+        min_resolution=.5,sigma=6.,gain=1.,filter_support='geometry',adaptive_seam=True,seam_tolerance=.02,seam_fade=3.)
+    records=[];deltas={};supports={}
+    for cid in [8,9]:
+        a={k:np.ones((32,32),np.float32) for k in ['valid','alpha','resolution_ratio']}
+        a.update({k:np.zeros((32,32),np.float32) for k in ['depth_error','roundtrip','uncertainty','score']})
+        a['rgb']=rng.uniform(.25,.75,base.shape).astype(np.float32);support=a['valid']>0
+        records.append((cid,a));deltas[cid]=correction(base,a['rgb'],support,np.ones(support.shape,np.float32));supports[cid]=support
+    expected,weight=merge(base,records,labels,config)
+    actual,actual_weight=assemble(base,deltas,supports,labels,config)
+    np.testing.assert_array_equal(actual,expected)
+    np.testing.assert_array_equal(actual_weight,weight)

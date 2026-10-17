@@ -1990,3 +1990,11 @@ parent's single cleanup pass, repeats cubic visibility, and omits only the
 second median island removal. `run_cleanup_once_luster.py` compares reference
 and contradiction-ranked sources; `run_current_gain_luster.py` separately
 brackets conservative transfer strength using existing audited seam algebra.
+
+`edge_coherence_luster_hybrid.py` and `diagnose_edge_curvature_luster_hybrid.py`
+measure frozen-render edge structure and its evaluation-only relationship to
+projection curvature; they do not change construction. Separately,
+`edge_orientation_luster_hybrid.py` tests transverse-edge attenuation confined
+to G2-G6 detail, preserving the finest band and exact coordinates. It uses
+scalar gradient tensors, no flow or displacement, with unchanged one-photo RGB
+and actual-correction seam checks. Experimental, not yet export-audited.
