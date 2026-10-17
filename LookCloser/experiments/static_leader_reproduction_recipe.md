@@ -8,6 +8,14 @@ scheduled checkpoint and has a measured same-seed repeat range inside the user-a
 This document is intentionally self-contained. The broader forensic history and rejected controls
 remain in `experiments/static_leader_e2e_reproduction.md`.
 
+## Additional-dataset findings (original leader unchanged)
+
+For Luster person-focused sampling and the final measured configuration, see
+[Luster adaptation and reusable findings](#luster-dataset-adaptation-and-reusable-findings-2026-10-17).
+**Check one-cell occupancy support early when investigating spots, grid-aligned steps or missing
+thin geometry.** This repeatedly helped in Luster/EXR controls; the section distinguishes that
+mechanism from extra density layers and specifies noncumulative dilation inside the unchanged AABB.
+
 ## One-command run
 
 From the clean main worktree `/home/brans/repos/nerfstudio/LookCloser`:
@@ -334,3 +342,107 @@ Its aggregate delta versus accepted S1 is inside the separate repeat tolerance
 Consequently `--cpu-fas-prefetch` remains default-off and the no-argument reproduction recipe in
 this document is still the authoritative accepted default. Full campaign:
 `/home/brans/lookcloser_leader_speed_runs/campaigns/leader_cache_color15189_geometry30377_prefetch_lut_seed42_v3/campaign.json`.
+
+## Luster dataset adaptation and reusable findings (2026-10-17)
+
+This is a measured adaptation on **Luster 000540**, not a replacement for the frozen 007740
+leader, its selector, numeric gates or no-argument defaults above. The final runtime remains in
+its isolated campaign worktree; this documentation does not install its experimental flags into
+main. The [full adaptation report](luster_000540_body_optimization.md) records the comparisons,
+checkpoint paths, source archive and limitations.
+
+### Check one-cell occupancy support early when diagnosing artifacts
+
+**A one-cell occupancy guard has repeatedly removed real artifacts in our investigations.**
+On Luster, the face discontinuity followed an occupancy-cell boundary: shifting only the grid
+lookup by 0.25 cell moved the discontinuity while field, camera, AABB and fixed sample positions
+stayed unchanged. A radius-one dilation removed it. In the separate EXR cable experiment,
+geometry-derived occupancy support also needed a one-cell neighborhood to avoid breaks.
+See the [Luster causal controls](luster_000540_face_fix_occupancy.md) and
+[EXR support experiment](exr_geometry_occupancy_guard.md). The support-building algorithms differ;
+the repeated finding is that a valid surface can be clipped by the binary occupancy lookup.
+
+For the Luster cold-training adaptation, `occupancy_dilation_radius=1` expands the **binary occupied
+cells** with a 3x3x3 neighborhood after each fresh thresholding (every 16 updates). Expansion is
+**noncumulative**. It changes neither AABB dimensions nor grid resolution. Keep one verified AABB
+for the whole video and check actual field, collider and grid bounds, not just metadata.
+The earlier frozen-grid intervention applied dilation once to the loaded grid; changing a config
+alone cannot repair a frozen binary buffer. Never repeatedly dilate an already expanded buffer.
+
+This is an early diagnostic control, not an instruction to increase dilation indefinitely.
+Further expansion did not fix the remaining Luster bands, and disabling occupancy exposed
+untrained density. Large dirty face bands had a **separate depth mechanism**: multiple density
+layers along a ray, reduced by raising the existing distortion regularizer to 1. Near-unit total
+opacity does not establish a single correct surface. Do not attribute the entire face improvement
+to dilation alone, or generalize distortion=1 as optimal for every scene.
+
+### Retained Luster recipe
+
+| Component | Measured configuration |
+|---|---|
+| Data and selection | Long side 1920, aspect ratio preserved; all 162 TRAIN views; cam012/095/150 used for validation/selection only; cam007 is TRAIN |
+| Targets | Original unmasked RGB and measured background plates; no new depth/semantic priors, black compositing or texture transfer |
+| Mask preparation for sampling | Preserve original positive pixels; closing 8 px and fill interior holes; protective band 16 px, 32 px over upper 75% of silhouette; no component pruning; inspect all camera overlays |
+| Camera / pixel sampling | Cameras uniform; at full FAS strength: 33.333% uniform person core, 33.333% person-FAS, 13.333% protective band, 20% global image |
+| Reliable FAS | 8x8 patches with at least 90% original-mask coverage and selected pixel inside that mask; class weights 1 to 3; uncertain edges remain reachable uniformly |
+| Frequency preparation | SSIM acceptance threshold .95; TRAIN-only maps and matching FAS pools from the same 2D fits used in the .97 control |
+| 3D frequency grid | Legacy-zero initialization; updates every 1024 steps from reliable TRAIN person pixels, alpha >= .9 and valid geometry; preserve grid when resuming |
+| Geometry support | Verified common video AABB; noncumulative occupancy radius-one guard, as described above |
+| Field | Hash size 2^23; 16 levels x 2 features; resolutions 16 to 8192; width64, geometry1/color2 layers, SH4; trunc_exp density and corrected SH directions |
+| Warmup | Steps 0–4095: fixed 256 samples/ray, batch4096 rays |
+| Adaptive stage | ARM from4096, maximum4096 samples, minimum step1e-4; FAS ramps4096–8192; distortion .01 to1 by12288 |
+| Frequency reweighting | Strength1 through75940; .3 from75941; one historical seed42 reset at that boundary, preserving model/Adam/scheduler/scaler |
+| Optimizer | Initial LR .01 decaying to .0001 over200000; no late LR multiplier |
+| Practical duration | Checkpoint91128; checkpoint106316 retained for its small additional measured improvement |
+
+Here FR=1 applies the full implemented attenuation; .3 relaxes it using
+`1 + strength * (weight - 1)`. FR=0 disables attenuation. Body80/FAS50 is a mixture
+configuration, not a guarantee that 80% of rays hit the true body: expected original-mask coverage
+was 71.43%, versus 24.72% with uniform image sampling. Expanded masks guide sampling only;
+fixed evaluation support is separate. Pixel margins and step counts are dataset-specific.
+
+### Results and lessons to test on other datasets
+
+Person metrics use fixed GT support with neutral exterior and spatial AlexNet LPIPS. They are
+means over validation012/095/150, which were used for selection, not an untouched test set.
+
+| Configuration | Step | Person PSNR | Person SSIM | Person LPIPS down | Fixed TRAIN007 skin LPIPS down |
+|---|---:|---:|---:|---:|---:|
+| Previously accepted face fix |111216|29.5697|.905105|.08450255|.01616112|
+| Practical .95 / zero-grid adaptation |91128|28.9682|.911996|.07282727|.02072238|
+| Selected existing .95 / zero-grid checkpoint |106316|28.9386|.911730|.07260232|.01950717|
+| Numerical person winner, unknown-max grid + late control |108316|29.0815|.908952|.07210023|.03786935|
+
+- **Maximum frequency can mean unresolved fitting, not genuine fine detail.** The preprocessing
+  fallback assigns the maximum level to patches that never pass its SSIM target. Preserve an
+  unresolved flag separately and inspect its coverage before interpreting high labels as texture.
+- **A stricter preprocessing threshold can hurt final quality.** With the same 2D fits, .95 versus
+  .97 reduced maximum-level coverage on reliable person pixels from33.32% to10.03%; at91128,
+  person LPIPS was .07282727 versus .07585370. Threshold changes affect FAS, ARM and feature
+  weights together; this is not an isolated test of one mechanism or proof of a universal .95 optimum.
+- **Conservative unknown=max initialization is not free.** It reached the lowest overall person
+  LPIPS here but required more work and produced worse skin than zero initialization. Unknown-cell
+  policy changes both marching and feature attenuation; zero is a measured candidate, not a
+  universally correct representation of unknown space.
+- **Track priority parts alongside the whole object.** The table shows why the numerical winner
+  was not selected for visual quality. Even the selected model's skin metric is worse than the
+  accepted face-fix baseline; the improvement is in whole-person LPIPS, not every region or PSNR.
+- **Object-focused sampling has diminishing returns.** Four matched 2000-update branches from
+  the selected106316 parent (body80/90 x LR1/2) produced .07293919/.07296228/.07273537/.07261136.
+  None materially improved the parent. These late tests do not prove the same ranking from scratch.
+- **Use dense same-checkpoint crop rendering to separate integration error from model error.**
+  Skin LPIPS at106316 was .01950717 with native ARM, .01919099 at8192 samples and .01923333 at16384.
+  Fine lace holes remained filled/merged. More accurate integration did not fix their geometry.
+- **Budget by measured work and quality, not iteration count alone.** The selected trajectory took
+  80.8/94.6 minutes of 3D training ancestry at91128/106316, including setup/save but excluding
+  preparation, evaluation and review. The extra15188 updates gained only .00022495 LPIPS.
+  Full paired 2D preparation separately cost about3h23m; do not hide that cost in speed claims.
+
+This was one frame and one seed. A .001 LPIPS practical stopping threshold was a budget decision,
+not a statistical significance bound. Large new cheek spots and obvious cord breaks were not
+seen in reviewed views, but **fine lace topology, eye shape and pendant errors remain**. The result
+is not an artifact-free geometry acceptance. Mild blur alone was not a rejection reason.
+
+Source/configuration provenance and actual metrics are retained in the
+[full report](luster_000540_body_optimization.md); the original
+[face-fix report](luster_000540_face_fix_occupancy.md) preserves the earlier causal experiments.

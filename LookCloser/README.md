@@ -4,6 +4,19 @@ This directory extends Nerfstudio with the LookCloser model and its measured pre
 rendering experiments. The paper implementation remains available as `lookcloser`; optional
 geometry/rendering tools do not change that model unless explicitly selected.
 
+## LookCloser leader recipe and cross-dataset findings
+
+The [frozen leader recipe](experiments/static_leader_reproduction_recipe.md) remains the accepted
+007740 reproduction baseline. Its separate
+[Luster adaptation](experiments/static_leader_reproduction_recipe.md#luster-dataset-adaptation-and-reusable-findings-2026-10-17)
+records whole-person sampling, frequency-map thresholds, final metrics and retained limitations.
+
+**When spots, grid-aligned steps or missing thin details appear, check a one-cell occupancy guard
+before long training or calibration sweeps.** This repeatedly removed confirmed support-clipping
+artifacts in Luster and EXR investigations. Expand binary occupied cells inside the same AABB;
+do not accumulate dilation or enlarge the video box. Extra depth layers are a separate source of
+dark contributions. These are diagnostic findings, not changes to the frozen leader defaults.
+
 ## Selected geometry backend for the DEC5 rig
 
 The selected no-training actor geometry path is **fixed-pose COLMAP PatchMatch -> continuous
