@@ -1813,3 +1813,11 @@ not accepted defaults.
 inside the frozen termination q10--q90 interval. It verifies median-depth
 reproduction and immutable model hashes. Its separate warp/combine pipeline
 uses no photograph to infer geometry; original geometry caches remain intact.
+
+
+`witness_phase_luster_hybrid.py` caches pairwise TRAIN-only fine-band agreement;
+`witness_select_luster_hybrid.py` uses two corroborating witnesses to adjust hard
+source ranking. Witness RGB never supplies output color. Missing evidence is
+neutral. `poisson_single_luster_hybrid.py` tests screened gradient transfer on a
+graph whose edges never cross selected-source boundaries; it records solver
+convergence and preserves the parent's exact fallback and boundary weights.

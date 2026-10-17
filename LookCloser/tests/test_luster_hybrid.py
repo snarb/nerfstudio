@@ -529,3 +529,31 @@ def test_intrinsic_density_surface_excludes_occluded_peak_and_uses_physical_widt
     out2=dict(packed_ray_indices=torch.tensor([0,0,0,0]),packed_weights=torch.tensor(w2[:,None]),
               packed_spacing_starts=torch.tensor(left2[:,None]),packed_spacing_ends=torch.tensor(right2[:,None]))
     np.testing.assert_allclose(packed_density_surface(out2,rays)[0,1],got[0,1],atol=1e-6)
+
+
+def test_pair_phase_requires_visible_structure_and_two_distinct_witnesses():
+    from witness_phase_luster_hybrid import pair_phase,update_best
+    y,x=np.mgrid[:64,:64];a=(.04*np.sin(x*np.pi/3)).astype(np.float32);support=np.ones((64,64),bool)
+    corr,valid=pair_phase(a,a,support);assert corr[8:-8,8:-8].mean()>.99 and valid.all()
+    opposite,op_valid=pair_phase(a,-a,support);assert opposite[8:-8,8:-8].mean()<-.99
+    best=np.full(a.shape,-2.,np.float32);second=best.copy()
+    update_best(best,second,corr,valid);assert (second==-2).all()
+    update_best(best,second,opposite,op_valid);assert (second>=-1).all()
+    _,flat=pair_phase(a,np.zeros_like(a),support);assert not flat.any()
+    _,hidden=pair_phase(a,a,np.zeros_like(support));assert not hidden.any()
+
+
+def test_screened_poisson_respects_source_boundaries_and_constant_offsets():
+    from poisson_single_luster_hybrid import solve_delta
+    y,x=np.mgrid[:48,:48];base=np.full((48,48,3),.4,np.float32);texture=base.copy()
+    labels=np.full((48,48),-1,np.int16);labels[4:44,4:24]=8;labels[4:44,24:44]=9
+    texture[labels==8]+=.02*np.sin(x[labels==8,None]*np.pi/3)
+    texture[labels==9]+=.15
+    delta,report=solve_delta(base,texture,labels,.05)
+    assert np.max(np.abs(delta[labels==8]))>.01
+    assert np.max(np.abs(delta[labels==9]))<1e-6
+    assert np.array_equal(delta[labels<0],np.zeros_like(delta[labels<0]))
+    texture[labels==9]=0.
+    other,_=solve_delta(base,texture,labels,.05)
+    np.testing.assert_allclose(delta[labels==8],other[labels==8],atol=1e-7)
+    assert max(r['relative_residual'] for r in report)<5e-5

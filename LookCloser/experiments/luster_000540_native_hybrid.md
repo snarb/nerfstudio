@@ -603,3 +603,31 @@ Focused tests: **43 passed** (`logs/tests_density.log`). The new density test
 checks exclusion of a hidden high-density layer and centroid invariance when a
 constant-density interval is split. Wide-source and cubic a=-.75 experiments
 remain in progress; GPU stages are serialized.
+
+
+## Next isolated checks (2026-10-17 14:55 UTC)
+
+Fixed-label Keys a=-.75 (`single_cubic75_fixed`) measured LPIPS
+**.0970088343**, **28.1631%** reduction, with no predefined ROI regression.
+Initial eyes/nails/cuffs review retains the same limitations; no visual
+acceptance is claimed. `single_cubic_view_detail` passed deep provenance,
+source exclusion, immutable-grid checks and exact one-photo reconstruction
+(`logs/audit_cubic_view_detail.log`).
+
+Two further automatic tests are running:
+
+- Pairwise G1-G4 luminance phase among geometrically valid TRAIN sources.
+  Two distinct witnesses can change a candidate's rank; their RGB never enters
+  its texture. Missing witness evidence is neutral, not an automatic rejection.
+  Source ranking retains the existing geometry/appearance costs.
+- Screened Poisson transfer within fixed selected-source patches:
+  `(L + lambda I) delta = L(T-B)`, followed by the parent's boundary fade.
+  L contains edges only between pixels assigned to the same photo. The solve
+  preserves the broad LookCloser color while integrating source gradients;
+  lambda .02 and .05 are tested. Each solve records relative residuals and
+  iteration counts. Exact rejected-pixel fallback is asserted.
+
+The combination of cubic a=-.75 and frozen-view illumination is also queued.
+All GPU stages wait for current owners to exit. **45 focused tests passed**
+(`logs/tests_poisson.log`), including two-witness evidence, constant-offset
+rejection, source-boundary isolation and linear-solver convergence.
