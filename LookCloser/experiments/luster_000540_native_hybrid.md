@@ -2662,3 +2662,31 @@ The patch-admission zero control also reproduces all four reference RGB,
 source-label and confidence arrays exactly. Evidence:
 `evaluation/patch_eligibility_zero_equivalence.json`. Its two nonzero controls
 remain under construction and await canonical evaluation.
+
+
+### 21:51 UTC — incremental value of the paired confidence
+
+On common informative pixels where the existing recipe selects one of the two
+compared sources, the TRAIN bracket criterion is compared directly with that
+existing choice. Both methods are scored against exactly the same counterfactual
+error difference. No target-derived construction change is made.
+
+| Camera | Common pixels | Existing ordering | Bracket ordering | Existing weighted | Bracket weighted |
+|---|---:|---:|---:|---:|---:|
+| 007 | 296,617 | 58.07% | 58.26% | 60.76% | 63.26% |
+| 012 | 493,862 | 61.79% | 52.32% | 68.40% | 55.82% |
+| 095 | 1,024,097 | 69.32% | 60.83% | 78.60% | 71.68% |
+| 150 | 750,913 | 57.66% | 62.27% | 57.67% | 70.48% |
+
+The proxy improves this diagnostic for cam150, is almost unchanged by raw
+accuracy for cam007, and is worse for cam012/cam095. It therefore cannot replace
+the existing source criterion unconditionally. The queued weighted additions
+still require full-image canonical metrics and visual review. Evidence:
+`evaluation/bracket_incremental_ranking_cpu.json`. This selected-pair subset is
+not representative of every source or pixel and is not an attainable hybrid
+score. Frozen CPU metric state remains unchanged.
+
+The no-cleanup candidate has been inspected at all four views' three fixed
+native reference crops. New irregular dark fold texture remains on cam007;
+cam012 cord/jewelry, cam095 hair/lace and cam150 fold/lace mismatches persist.
+It is visually unaccepted even before its queued canonical metrics.
