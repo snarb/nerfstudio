@@ -1952,3 +1952,29 @@ several earlier geometric diagnostics. It is not a causal attribution, and the
 other three cameras remain pending. Zero risk also includes missing evidence.
 Source: `evaluation/single_source_contradiction400_once_seam_native_restoration_association_cam007.json`.
 No rejection threshold has been introduced from this single-camera diagnostic.
+
+
+### 19:32 UTC — cam012 contradicts a universal native-risk veto
+
+All cam012 risk bins improve on average. The .4–.6 bin has mean spatial delta
+-.029334 (434,860 pixels); >=.6 has -.030768 (102,427 pixels), with only 11.8%
+positive spatial deltas. Thus the cam007 association does not generalize to
+cam012: the same source-native confidence cannot justify a global rejection
+threshold. The global source-ranking experiment remains pending; no hard veto
+was added. Source: `evaluation/single_source_contradiction400_once_seam_native_restoration_association_cam012.json`.
+
+
+### 19:35 UTC — joint risk diagnostic, no construction change
+
+A second evaluation-only diagnostic multiplies source-native contradiction by
+negative target-relative G2-G6 witness utility already cached by the earlier
+band-witness experiment. Both signals are TRAIN-only; target baseline means
+the frozen render, never target GT. This conjunction is almost always inactive:
+on cam007 only 103 selected person pixels have joint risk >=.4, compared with
+649,777 for the source-native risk alone. The earlier best-two opposite-witness
+utility therefore does not provide a broad discriminator for the observed fold
+regressions. Cam012 high joint-risk groups are also tiny. No new gate or ranking
+experiment is justified by this diagnostic alone, and none was added.
+Source: `evaluation/single_source_contradiction400_once_seam_joint_native_restoration_association_cam007_cam012.json`;
+script `diagnose_joint_native_restoration_luster_hybrid.py`. Spatial associations
+remain evaluation-only and are not causal pixel-error estimates.
