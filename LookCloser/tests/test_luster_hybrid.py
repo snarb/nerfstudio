@@ -8,6 +8,21 @@ import pytest
 import torch
 
 
+def test_interval_depth_cost_respects_spread_active_taps_and_invalid_depth():
+    from depth_interval_quality_luster_hybrid import interval_cost
+    z=np.ones((4,1,4),np.float32);lo=z-.1;hi=z+.1;taps=np.ones_like(z,bool)
+    expected=np.array([[1.,1.1,1.1,1.1]],np.float32);spread=np.array([[0,0,.5,0]],np.float32);floor=np.full((1,4),.01,np.float32)
+    first=interval_cost(expected,z,lo,hi,taps,spread,floor)
+    assert first[0,0]==0 and 0<first[0,2]<first[0,1]
+    z[3,0,3]=np.nan;taps[3,0,3]=False
+    got=interval_cost(expected,z,lo,hi,taps,spread,floor)
+    np.testing.assert_allclose(got[0,3],first[0,3])
+    taps[3,0,3]=True
+    assert interval_cost(expected,z,lo,hi,taps,spread,floor)[0,3]==1e6
+    taps[:]=False
+    np.testing.assert_array_equal(interval_cost(expected,z,lo,hi,taps,spread,floor),1e6)
+
+
 def test_census_cost_contrast_gain_reversal_unknown_and_boundary():
     from source_census_quality_luster_hybrid import census_cost,shifted
     yy,xx=np.mgrid[:32,:32];value=(xx+yy).astype(np.float32)*.01

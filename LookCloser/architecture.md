@@ -1925,3 +1925,9 @@ brightness ordering at calibrated offsets, using only native TRAIN photos and
 frozen renders. Unknown structure is neutral. The rank module adds scalar
 costs to the cubic-eligible phase selector; source RGB remains exclusive.
 `run_source_census_luster.py` respects the preceding GPU owner. Experimental.
+
+Depth-interval compatibility: `depth_interval_quality_luster_hybrid.py`
+normalizes projected source-depth disagreement by frozen source/target
+termination intervals with a native-footprint floor. The rank module adds
+this scalar cost without changing surface points, RGB coordinates or hard
+visibility checks. The runner waits for earlier GPU owners. Experimental.

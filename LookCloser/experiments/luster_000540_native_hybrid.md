@@ -1208,3 +1208,21 @@ with their sequential owner temporarily stopped. The owner's incomplete
 cache is excluded, and a finally block resumes it. GPU evaluation still waits
 for the whole source-surface campaign before the census campaign. This changes
 execution scheduling only, not calculations or immutable generator code.
+
+## Frozen depth-interval compatibility (queued 17:16 UTC)
+
+The new source-ranking cost normalizes source camera-z disagreement by the
+source q10/q50/q90 asymmetric spread and the target q10–q90 range projected
+into source camera-z. It adds a floor from half a native pixel's world size
+and half the active footprint's q50 depth range, to tolerate sampling of
+slanted surfaces. The worst active bilinear tap contributes `log1p` of this
+normalized disagreement. This is an engineering score, not a calibrated
+probability. Existing hard visibility checks and final cubic eligibility remain.
+
+Weights .25 and 1 are added to the same phase/RT2 selector. RGB lookups and
+target q50 surface points do not change. No new field query, reconstruction,
+training or target photograph is used. `run_depth_interval_luster.py` waits
+for both earlier campaigns before GPU evaluation.
+
+69 focused tests pass (`logs/tests_depth_interval.log`), including wider
+uncertainty, inactive footprint taps, invalid depth and absent support.
