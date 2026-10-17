@@ -2325,3 +2325,30 @@ validation-mean improvement or visual acceptance. The fixed-tile preview still
 shows irregular folds and ornament mismatch. Evidence:
 `evaluation/single_witness_native_admission4060_cam007_preliminary_metrics.json`
 and `evaluation/witness_native_admission_cam007_reference_tiles.png`.
+
+### 20:32 UTC — analytical native-TRAIN admission experiment and audit support
+
+The threshold-admission audit now independently rebuilds scalar admission,
+high-frequency correction, seam weight and final source labels. Its cam007
+RGB, weights, labels and saved gate reproduce exactly. This is a reconstruction
+check, not the complete four-camera deep provenance audit. Synthetic corruption
+of each output is rejected (`logs/audit_native_admission_cam007_reconstruction.log`).
+
+The next confidence control uses the actual quadratic error along the allowed
+single-photo correction. For native TRAIN witness detail bands S (projected
+source), W (witness photograph), and B (frozen witness render), compute
+`g = clip(E[(W-B)*(S-B)] / E[(S-B)^2], 0, 1)`, with RGB means and supported
+sigma-3 local moments. The band is I-G6, matching the transferred correction.
+Insufficient correction energy or support gives neutral gain one. Scalars are
+mapped back through unchanged q50 geometry with reverse visibility, aggregated
+by the median of at least two TRAIN witnesses, and projected to the target.
+Every active interpolation tap must have evidence; missing evidence stays one.
+
+`run_witness_native_gain_luster.py` tests global attenuation strengths .5 and 1
+on the unchanged depth25 labels. Sigma-2 support-normalized smoothing and
+actual-correction seam checks are retained. No validation image or mask enters
+construction, no lookup is shifted, and no model weights are fitted. The
+least-squares criterion may attenuate perceptually useful detail, so this is an
+experiment rather than an adopted recipe. The focused suite passes 103 tests,
+including analytical .5/0/1 optima, unknown neutrality, support isolation and
+the two-witness quorum. CUDA evaluation waits for existing controllers.

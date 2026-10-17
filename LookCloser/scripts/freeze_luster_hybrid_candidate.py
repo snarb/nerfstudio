@@ -30,6 +30,47 @@ def verify_plate_merge(base,records,parent_labels,vetos,labels,pred,weight,confi
     return rebuilt,rebuilt_weight
 
 
+def verify_native_admission_merge(base,records,parent_labels,costs,saved_gate,labels,pred,weight,config):
+    """Independently reconstruct confidence and single-photo correction.
+
+    This deliberately does not call the admission or correction generators.
+    Shared geometry and seam primitives are bound by the dependency audit.
+    """
+    from supported_luster_hybrid import geometric_support
+    from transfer_luster_hybrid import gaussian
+    from band_witness_luster_hybrid import assemble
+    assert config['admission_sigma']==2.
+    start,stop=config['admission_risk_start'],config['admission_risk_stop']
+    assert 0<=start<stop<=1
+    deltas={};supports={};selected_gate=np.zeros(parent_labels.shape,np.float32)
+    for source,arrays in records:
+        selected=parent_labels==source
+        if not selected.any():continue
+        support=geometric_support(arrays,config)
+        assert support[selected].all()
+        cost=np.asarray(costs[source]);assert cost.shape==support.shape
+        assert np.isfinite(cost).all() and cost.min()>=0 and cost.max()<=1
+        sf=support.astype(np.float32)
+        raw=np.clip((stop-2*(cost-.5))/(stop-start),0,1)
+        mass=gaussian(sf,2.)
+        gate=np.where(support,np.clip(gaussian(raw*sf,2.)/np.maximum(mass,1e-8),0,1),1).astype(np.float32)
+        selected_gate[selected]=gate[selected]
+        mass=gaussian(sf,config['sigma'])
+        photo=np.asarray(arrays['rgb'])
+        low_photo=gaussian(photo*sf[...,None],config['sigma'])/np.maximum(mass[...,None],1e-8)
+        low_base=gaussian(base*sf[...,None],config['sigma'])/np.maximum(mass[...,None],1e-8)
+        deltas[source]=((photo-low_photo)-(base-low_base))*gate[...,None]
+        supports[source]=support
+    rebuilt,seam_weight=assemble(base,deltas,supports,parent_labels,config)
+    effective=seam_weight*selected_gate
+    expected_labels=np.where(effective>0,parent_labels,-1).astype(np.int16)
+    np.testing.assert_array_equal(saved_gate,selected_gate)
+    np.testing.assert_array_equal(labels,expected_labels)
+    np.testing.assert_array_equal(pred,rebuilt)
+    np.testing.assert_array_equal(weight,effective)
+    return rebuilt,effective
+
+
 def freeze(root,name,warp_root,deep=False,require_single_source=False):
     rows=native_rows();candidate=root/'candidates'/name
     manifest=read(root/'preflight/manifest.json');config=read(candidate/'config.json')
@@ -134,7 +175,7 @@ def freeze(root,name,warp_root,deep=False,require_single_source=False):
                 for field,limit,lower in [('alpha',config['alpha'],True),('resolution_ratio',config['min_resolution'],True),('depth_error',config['depth_error'],False),('roundtrip',config['roundtrip'],False),('uncertainty',config['uncertainty'],False)]:
                     values=np.load(d/f'{field}.npy',mmap_mode='r')[selected]
                     assert np.all(values>=limit) if lower else np.all(values<=limit)
-            mode='detail' if config['mode'] in ['single_source_model_residual','missing_bands','single_source_view_illumination','single_source_seam','single_source_plate_seam'] else config['mode']
+            mode='detail' if config['mode'] in ['single_source_model_residual','missing_bands','single_source_view_illumination','single_source_seam','single_source_plate_seam','single_source_witness_native_admission'] else config['mode']
             rebuilt,rebuilt_weight=merge_details(np.asarray(baseline[sl]),texture,local_labels,(local_labels>=0).astype(np.float32),mode,config['sigma'],config['gain'])
             if config['mode'] in ['single_source_seam','single_source_plate_seam']:
                 from seam_single_luster_hybrid import merge
@@ -162,6 +203,28 @@ def freeze(root,name,warp_root,deep=False,require_single_source=False):
                     assert (labels[exterior]==-1).all() and (weight[exterior]==0).all()
                 else:
                     rebuilt,rebuilt_weight=merge(np.asarray(baseline[sl]),records,local_labels,config)
+            if config['mode']=='single_source_witness_native_admission':
+                parent=root/'candidates'/config['parent']
+                parent_labels=np.load(parent/f'cam{cid:03d}_sources.npy',mmap_mode='r')
+                assert receipt['admission_box']==[x0,y0,x1,y1]
+                gate_path=candidate/f'cam{cid:03d}_admission.npy'
+                assert sha(gate_path)==receipt['admission_sha256'];bind(gate_path)
+                records=[];costs={}
+                for source in receipt['sources']:
+                    if not np.any(parent_labels[sl]==source):continue
+                    directory=warp_root/'warps'/f'cam{cid:03d}'/f'src{source:03d}'
+                    wr=read(directory/'receipt.json')
+                    records.append((source,{field:np.load(directory/f'{field}.npy',mmap_mode='r') for field in wr['arrays']}))
+                    ed=root/'witness_native_restoration_projected'/f'cam{cid:03d}'/f'src{source:03d}'
+                    er=read(ed/'receipt.json')
+                    assert er['target']==cid and er['source']==source and er['box']==[x0,y0,x1,y1]
+                    assert sha(ed/'cost.npy')==er['hashes']['cost.npy']
+                    bind(ed/'receipt.json');bind(ed/'cost.npy')
+                    costs[source]=np.load(ed/'cost.npy',mmap_mode='r')
+                rebuilt,rebuilt_weight=verify_native_admission_merge(np.asarray(baseline[sl]),records,parent_labels[sl],costs,
+                    np.load(gate_path,mmap_mode='r'),local_labels,pred[sl],weight[sl],config)
+                exterior=np.ones(labels.shape,bool);exterior[sl]=False
+                assert (labels[exterior]==-1).all() and (weight[exterior]==0).all()
             if config['mode']=='single_source_view_illumination':
                 from view_illumination_luster_hybrid import merge
                 parent=root/'candidates'/config['parent']
@@ -201,6 +264,7 @@ def freeze(root,name,warp_root,deep=False,require_single_source=False):
          uses_frozen_source_view_illumination=config.get('mode')=='single_source_view_illumination',
          uses_adaptive_source_seam_confidence=config.get('mode') in ['single_source_seam','single_source_plate_seam'] and config.get('adaptive_seam',False),
          uses_measured_source_plate_veto=config.get('mode')=='single_source_plate_seam',
+         uses_native_train_witness_admission=config.get('mode')=='single_source_witness_native_admission',
          code=inventory)
     write(candidate/'provenance.json',report)
     print(name,': source exclusion, finite outputs and exact fallback verified; deep=',deep,flush=True)

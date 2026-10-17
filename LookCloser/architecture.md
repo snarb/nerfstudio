@@ -2102,3 +2102,17 @@ strong coherent frozen-render edges, with geometric support and neutral unknown
 regions. It never estimates displacement or shifts texture samples.
 `diagnose_edge_position_luster_hybrid.py` evaluates association with existing
 spatial LPIPS maps; it emits no transfer gate, labels or RGB prediction.
+
+`freeze_luster_hybrid_candidate.py` can independently reconstruct native-witness
+admission from its TRAIN confidence maps, parent labels and geometric samples.
+It checks the saved gate, effective weight, labels and RGB exactly. The cam007
+reconstruction passes; complete deep provenance still requires all four views.
+
+`witness_native_gain_luster_hybrid.py` provides a separate analytical confidence
+experiment. In native TRAIN witness coordinates it minimizes local detail MSE
+for B+g(S-B), constraining g to [0,1]. Only scalar gains return through the frozen
+q50 geometry, with reverse visibility and a two-witness median; unknown evidence
+keeps gain one. `witness_native_gain_merge_luster_hybrid.py` tests half/full
+attenuation on the unchanged depth25 source labels and actual-correction seams.
+This is a TRAIN-only scalar rule, not a new radiance or geometry model. Its
+results are pending and its merge is not yet export-audited.

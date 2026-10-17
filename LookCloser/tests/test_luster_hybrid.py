@@ -1471,3 +1471,73 @@ def test_curvature_phase_detects_displaced_edge_without_registering_it():
     support[40:56, 40:56] = False
     _, masked_known = curvature_phase(base, base, support)
     assert not masked_known[34:62, 34:62].any()
+
+
+def test_native_admission_audit_rejects_color_label_weight_and_gate_tampering():
+    from freeze_luster_hybrid_candidate import verify_native_admission_merge
+    from witness_native_admission_luster_hybrid import admission
+    from current_full_texture_luster_hybrid import correction
+    from band_witness_luster_hybrid import assemble
+    rng=np.random.default_rng(67);shape=(40,48)
+    base=rng.uniform(.3,.7,(*shape,3)).astype(np.float32)
+    parent=np.full(shape,6,np.int16);parent[:,24:]=8;parent[:3]=-1
+    config=dict(alpha=.99,depth_error=.005,roundtrip=1.,uncertainty=2.,max_score=1.,min_resolution=.5,
+                sigma=6.,gain=1.,seam_fade=3.,seam_tolerance=.02,
+                admission_sigma=2.,admission_risk_start=.4,admission_risk_stop=.6)
+    records=[];costs={};deltas={};supports={};selected_gate=np.zeros(shape,np.float32)
+    for source,cost_value in [(6,.75),(8,.9)]:
+        photo=rng.uniform(.2,.8,base.shape).astype(np.float32)
+        ones=np.ones(shape,np.float32);zeros=np.zeros(shape,np.float32)
+        arrays=dict(rgb=photo,valid=ones,alpha=ones,depth_error=zeros,roundtrip=zeros,
+                    uncertainty=zeros,score=zeros,resolution_ratio=ones)
+        support=np.ones(shape,bool);cost=np.full(shape,cost_value,np.float32)
+        gate=admission(cost,support);costs[source]=cost;records.append((source,arrays))
+        selected_gate[parent==source]=gate[parent==source]
+        deltas[source]=correction(base,photo,support,6.,0.)*gate[...,None];supports[source]=support
+    pred,seam_weight=assemble(base,deltas,supports,parent,config)
+    weight=seam_weight*selected_gate;labels=np.where(weight>0,parent,-1).astype(np.int16)
+    args=(base,records,parent,costs)
+    verify_native_admission_merge(*args,selected_gate,labels,pred,weight,config)
+    # Source 8 has no admitted contribution and must be exact fallback.
+    np.testing.assert_array_equal(pred[parent==8],base[parent==8])
+    assert np.all(labels[parent==8]==-1)
+    for which in ['gate','label','rgb','weight']:
+        bad_gate=selected_gate.copy();bad_labels=labels.copy();bad_pred=pred.copy();bad_weight=weight.copy()
+        if which=='gate':bad_gate[20,10]+=.01
+        if which=='label':bad_labels[20,10]=8
+        if which=='rgb':bad_pred[20,10,0]+=.01
+        if which=='weight':bad_weight[20,10]+=.01
+        with pytest.raises(AssertionError):
+            verify_native_admission_merge(*args,bad_gate,bad_labels,bad_pred,bad_weight,config)
+
+
+def test_native_witness_analytical_gain_optimum_and_unknown_neutrality():
+    from witness_native_gain_luster_hybrid import optimal_gain,median_gain
+    from witness_native_gain_merge_luster_hybrid import admission
+    yy,xx=np.mgrid[:48,:48]
+    truth=np.repeat((.1*np.sin(xx/3))[...,None],3,-1).astype(np.float32)
+    base=np.zeros_like(truth);support=np.ones((48,48),bool)
+    gain,known=optimal_gain(2*truth,truth,base,support)
+    assert known.all()
+    np.testing.assert_allclose(gain,.5,atol=1e-7)
+    rejected,known=optimal_gain(-truth,truth,base,support)
+    np.testing.assert_array_equal(rejected,0)
+    useful,known=optimal_gain(truth,truth,base,support)
+    np.testing.assert_array_equal(useful,1)
+    neutral,known=optimal_gain(base,truth,base,support)
+    assert not known.any();np.testing.assert_array_equal(neutral,1)
+    # Hidden/outside colors must not alter the supported scalar estimate.
+    support[:,:24]=False
+    dirty=(2*truth).copy();dirty[~support]=np.nan
+    gain,known=optimal_gain(dirty,truth,base,support)
+    np.testing.assert_allclose(gain[known],.5,atol=1e-7)
+    np.testing.assert_array_equal(gain[~known],1)
+    gains=np.array([[.2,.2,.2],[.8,.4,.4],[.5,.6,.8]],np.float32)
+    valid=np.array([[1,1,1],[1,1,0],[1,0,0]],bool)
+    median,count=median_gain(gains,valid)
+    np.testing.assert_allclose(median,[.5,.3,1.],atol=1e-7)
+    np.testing.assert_array_equal(count,[3,2,1])
+    full=np.ones((48,48),bool)
+    np.testing.assert_array_equal(admission(np.zeros(full.shape,np.float32),full,0.),1)
+    np.testing.assert_allclose(admission(np.zeros(full.shape,np.float32),full,.5),.5,atol=1e-7)
+    np.testing.assert_array_equal(admission(np.ones(full.shape,np.float32),full,1.),1)
