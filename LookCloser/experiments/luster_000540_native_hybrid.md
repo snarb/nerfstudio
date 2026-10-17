@@ -2490,3 +2490,23 @@ candidates, unsupported NaN isolation and unchanged metric weights. Metric state
 SHA256 is `5e1bf9c867d2cc37226970cccc1aae1c094da706d69409803124564c5c10ece2`.
 Evidence: `logs/train_perceptual_metric_cpu_smoke.log` and
 `logs/tests_train_perceptual_utility.log`. Results are pending.
+
+
+### 21:04 UTC — native-witness admission visual gate and complete risk diagnostic
+
+Threshold admission and both analytical native-witness gain variants are now
+constructed for all four views. Their fixed three-tile native comparisons were
+inspected in `evaluation/witness_graph_gain_reference_tiles/`. All three are
+visually unaccepted: cam007 fold irregularities are attenuated but remain;
+ornament softening/mismatch, cam012 jewelry and cord/silhouette differences,
+cam095 hair/background and lace defects, and cam150 fold/lace mismatch persist.
+Analytical attenuation also softens transferred texture. Full CUDA results are
+still queued, so no validation mean is inferred from these visual checks.
+
+The completed signed-risk association diagnostic further rejects a universal
+quadratic-risk veto. On cam095 every risk bin improves spatial LPIPS, including
+risk >=.6 (25,862 pixels, delta -.01594974). Cam150 also improves in every bin;
+its >=.6 bin has 27,709 pixels and delta -.06312204. These join cam012's counterexample
+to cam007's positive high-risk delta. This is an evaluation-only association,
+not a causal effect or a patch assignment rule. The combined evidence is in
+`evaluation/single_source_contradiction400_once_seam_witness_native_restoration_association.json`.
