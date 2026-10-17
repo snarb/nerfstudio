@@ -1123,3 +1123,36 @@ def test_cubic_eligible_ranking_selects_visible_alternative_before_fallback(tmp_
     assert (labels[28:36]==-1).all()
     np.testing.assert_array_equal(result[weight==0],base[weight==0])
     assert abs(float(result[12,52,0])-.42)<1e-6
+
+
+def test_robust_phase_requires_all_witness_consensus_and_quorum():
+    from robust_witness_phase_luster_hybrid import robust_cost
+    # Best-two correlation would select the misleading pair; median follows all five.
+    correlations=np.array([.9,.8,-.6,-.7,-.8],np.float32)[:,None,None]
+    known=np.ones(correlations.shape,bool)
+    cost,count=robust_cost(correlations,known)
+    np.testing.assert_allclose(cost,.8,atol=1e-7);assert count.item()==5
+    known[1:]=False
+    cost,count=robust_cost(correlations,known)
+    assert cost.item()==.5 and count.item()==1
+    known[:]=False
+    cost,count=robust_cost(correlations,known)
+    assert cost.item()==.5 and count.item()==0
+    known[:2]=True
+    cost,count=robust_cost(correlations,known)
+    np.testing.assert_allclose(cost,.075,atol=1e-7);assert count.item()==2
+
+
+def test_phase_evidence_distinguishes_flat_missing_from_real_contrast():
+    from witness_phase_luster_hybrid import pair_phase
+    from robust_witness_phase_luster_hybrid import robust_cost
+    yy,xx=np.mgrid[:64,:64];band=(.04*np.sin(xx*.4)).astype(np.float32)
+    support=np.ones(band.shape,bool)
+    corr,known=pair_phase(band,2*band,support)
+    assert known.all();np.testing.assert_allclose(corr,1,atol=1e-6)
+    negative,k=pair_phase(band,-band,support)
+    assert k.all();np.testing.assert_allclose(negative,-1,atol=1e-6)
+    flat,k=pair_phase(band,np.zeros_like(band),support)
+    assert not k.any()
+    cost,count=robust_cost(np.stack([corr,flat]),np.stack([known,k]))
+    assert (cost==.5).all() and (count==1).all()

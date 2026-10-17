@@ -1497,3 +1497,37 @@ filter support and recomputing seam checks on the actual correction. This
 separates the useful bandwidth question from the stricter positive-witness
 gate. It changes only an existing merge parameter and waits for the preceding
 GPU owners. These candidates are experiments, not accepted outputs.
+
+## 2026-10-17 18:30 UTC — matched controls and bandwidth results
+
+All GPU evaluations completed sequentially. No new candidate is accepted.
+
+| Variant | Validation LPIPS | Reduction | Named ROI regressions |
+|---|---:|---:|---|
+| Positive broad witness .25 | .0951045156 | 29.5733% | none |
+| Positive broad witness .60 | .0951069370 | 29.5715% | none |
+| Photometric cost .5 | .0951170325 | 29.5640% | none |
+| Photometric cost 1 | .0948756387 | 29.7428% | cam007 eyes, hair, jewelry |
+| Photometric cost 2 | .0952253665 | 29.4838% | cam007 face, eyes, hair, jewelry |
+| Matched plate .01, two median passes | .0951137791 | 29.5664% | none |
+| Matched plate .02, two median passes | .0951194465 | 29.5622% | none |
+| Current labels, detail sigma 4 | .0962432946 | 28.7300% | none |
+| Current labels, detail sigma 8 | .0953380391 | 29.4004% | none |
+| Current labels, detail sigma 12 | .0962315127 | 28.7387% | cam007 person |
+
+The matched plate controls do not improve the reference. Initial plate gains
+were confounded by one versus two median-label cleanup passes; they do not
+establish benefit from the source-background veto. Broad positive-witness
+admission has negligible aggregate effect. Sigma 6 remains preferable in this
+fixed-label bandwidth bracket. Larger photometric weights are rejected despite
+the weight-1 aggregate improvement: local cam007 harm is not hidden in means.
+
+A new TRAIN-only consistency experiment replaces best-two phase witnesses with
+the median of **all usable distinct witnesses**. Two nonflat observations are
+required; missing/flat evidence is neutral. We compare a .5 agreement cost with
+a weight-2 contradiction-only penalty. Both use the same frozen geometry,
+cubic visibility, phase baseline, one-photo RGB and seam composition. Native
+G1-G4 luminance phase is evaluated at unchanged projected coordinates. No target
+GT, masks, manual source assignments or lookup shifts enter construction.
+83 tests pass, including a misleading best-two pair rejected by the median,
+quorum behavior, flat evidence and contrast reversal. Results remain pending.

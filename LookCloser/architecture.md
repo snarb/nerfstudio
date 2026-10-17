@@ -1976,3 +1976,11 @@ the Frobenius norm of the native projection Hessian, divided by source/target
 resolution ratio. `diagnose_warp_curvature_luster_hybrid.py` associates this
 RGB-free feature with existing spatial LPIPS maps, strictly for evaluation.
 It writes no source labels, confidence gates or candidate RGB.
+
+Robust TRAIN phase ranking: `robust_witness_phase_luster_hybrid.py` aggregates
+all usable source-pair phase observations by median, requiring two distinct
+nonflat witnesses. `robust_witness_rank_luster_hybrid.py` adds either an agreement
+cost or only its contradiction portion before hard single-source argmin. Other
+photos provide scalar costs, never RGB. Geometry, lookup coordinates and cubic
+visibility remain frozen. `run_robust_witness_luster.py` evaluates both globally
+specified settings with sequential GPU execution.
