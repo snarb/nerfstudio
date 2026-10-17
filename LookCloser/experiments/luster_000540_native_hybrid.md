@@ -3,10 +3,11 @@
 Status: experiments in progress. New measured candidate
 `single_photometric_depth25_seam` reaches **29.8247%** lower native validation
 LPIPS without named ROI regressions, but is visually unaccepted (including a
-softer cam007 scalp ornament). It has not been deep-audited or exported.
-The current audited downloadable numerical candidate is
-`single_source_contradiction400_once_seam`, **29.6760%**, also visually unaccepted.
-Its deep audit passed (`logs/audit_contradiction_once.log`). The earlier
+softer cam007 scalp ornament). Its deep provenance/reconstruction audit passed
+at 19:48 UTC (`logs/audit_photometric_depth25.log`), and its verified archive is
+available below. The previous audited downloadable numerical candidate is
+`single_source_contradiction400_once_seam`, **29.6760%**, also visually unaccepted
+but better on cam007. Its deep audit passed (`logs/audit_contradiction_once.log`). The earlier
 `single_cubic_eligible_phase_rt2_seam` **29.5715%** export remains available and
 has better cam007 LPIPS. Small local degradation remains despite favorable
 predefined ROI means. **The 40% goal is not achieved.**
@@ -17,7 +18,52 @@ and rejection are automatic. No color blending between photographs, optical
 flow, geometry fitting, manual source assignments or target-GT construction.**
 Historical pair-interpolation and registration experiments below are ineligible.
 
-## Current audited download: 29.6760%, visually unaccepted
+## Current audited numerical download: 29.8247%, visually unaccepted
+
+`single_photometric_depth25_seam` adds weight-.25 directional photo-depth risk
+to the contradiction-400 ranker, then uses one cleanup and the established
+single-photo seam merge. Q10/Q90 depth spread supplies a scalar risk only;
+q50 geometry and texture coordinates are unchanged. All predefined ROI LPIPS
+means beat the baseline, but the local visual gate fails. This is an experimental
+numerical candidate, not an accepted improvement everywhere.
+
+| View | Baseline LPIPS | Hybrid LPIPS | Hybrid PSNR | Hybrid SSIM | Exact LookCloser preserved in person |
+|---|---:|---:|---:|---:|---:|
+| 007 | .06944436 | .06744967 | 31.208771 | .91347731 | 11.66% |
+| 012 | .12492531 | .09820668 | 27.905104 | .87609881 | 13.93% |
+| 095 | .12697524 | .07802769 | 29.235504 | .90826917 | 6.32% |
+| 150 | .15322061 | .10806073 | 27.912920 | .91532205 | 8.50% |
+
+Validation LPIPS **.0947650323**, PSNR 28.35117594, SSIM .8998966753.
+The archive includes all four native comparisons, detail crops, worst local
+regression panels, source/transfer maps, complete metrics and deep provenance.
+325 members, 185823094 bytes; SHA256
+`e2f0af81ba4e5eeabe1e13813327e0692346059736643579d2d8dcbe8d423ba6`.
+
+```bash
+scp olive-lark:/fsx/tmp/luster_000540_hybrid_20261017T104440Z/exports/single_photometric_depth25_seam.tar.gz .
+sha256sum single_photometric_depth25_seam.tar.gz
+```
+
+Exact reproduction with existing verified caches and fresh names:
+
+```bash
+C=/fsx/tmp/luster_000540_hybrid_20261017T104440Z
+PY=/home/pavlo/.conda/envs/nerfstudio/bin/python
+S="$C/code/LookCloser/scripts"
+export OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4
+"$PY" "$S/photometric_depth_rank_luster_hybrid.py" --root "$C" --name reproduce_depth25 --config "$C/candidates/single_photometric_depth25/config.json"
+"$PY" "$S/cubic75_once_luster_hybrid.py" --root "$C" --parent reproduce_depth25 --name reproduce_depth25_cubic
+"$PY" "$S/fixed_sampling_seam_luster_hybrid.py" --root "$C" --parent reproduce_depth25_cubic --name reproduce_depth25_seam --filter-support geometry --seam-fade 3 --adaptive-seam --seam-tolerance .02
+"$PY" "$S/evaluate_luster_hybrid.py" --root "$C" --candidate reproduce_depth25_seam --device cuda
+"$PY" "$S/freeze_luster_hybrid_candidate.py" --root "$C" --name reproduce_depth25_seam --warp-root "$C/variants/cubic75" --deep --require-single-source
+```
+
+Run GPU evaluation only after the active GPU owner exits. The archive captures
+the report just before its own export was verified; this live report supplies
+the verified archive digest above.
+
+## Previous audited download: 29.6760%, visually unaccepted
 
 `single_source_contradiction400_once_seam` uses the six-step recipe below plus
 weight-4 negative source-native TRAIN correlation evidence and exactly one
@@ -33,8 +79,8 @@ audit, but retains the local visual regressions documented in the archive.
 | 150 | .15322061 | .10819201 | 27.907913 | .91512796 | 8.50% |
 
 Validation LPIPS **.0949657410**, PSNR 28.34238307, SSIM .8993906312.
-The numerical .25 directional-risk variant at the top is a separate, unaudited
-experiment and does not replace this download.
+The numerical .25 directional-risk variant at the top is a separate experiment
+with slightly better validation mean and worse cam007 LPIPS.
 
 ```bash
 scp olive-lark:/fsx/tmp/luster_000540_hybrid_20261017T104440Z/exports/single_source_contradiction400_once_seam.tar.gz .
@@ -1807,7 +1853,8 @@ in the reviewed tiles. The small directional-risk penalty improves validation
 mean by .1486 percentage points over the current downloadable candidate, but
 cam007 LPIPS worsens from .0657562762 to .0674496666. It is still below cam007
 LookCloser .0694443583, yet the scalp ornament is visibly softened and folds
-remain irregular. It is **not visually accepted** and is not exported.
+remain irregular. It is **not visually accepted**; it was later audited and
+exported at 19:48–19:49 UTC as a numerical candidate, with that status preserved.
 The stronger penalty exceeds cam007 baseline (.0725262538) and substantially
 regresses cam012 skin (+.02241751) and cam007 embroidery (+.02171418); rejected.
 
