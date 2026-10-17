@@ -1,6 +1,8 @@
 # Frozen LookCloser + native photographs: Luster 000540
 
-Status: experiments in progress. Audited/exported provisional numerical reference: `single_source_phase_both_seam`,
+Status: experiments in progress. Current numerical leader: `single_source_phase_both_rt2_seam`,
+**29.5623%** lower native validation LPIPS, still not visually accepted.
+Audited/exported provisional reference: `single_source_phase_both_seam`,
 **29.36%** lower native validation person LPIPS. All predefined named ROI LPIPS
 checks pass, but smaller patches still show local degradation. **Not visually
 accepted; the 40% goal is not achieved.**
@@ -944,3 +946,37 @@ but regresses cam007 face/eyes/hair/jewelry and cam012 nails. It is rejected.
 The .5 rank is weaker than the current reference. These findings favor retaining
 source-model structural compatibility, rather than relying only on agreement
 between TRAIN photos. No model, geometry, grid or calibration was changed.
+
+
+## Phase refinement and band-admission tradeoff (2026-10-17 16:21 UTC)
+
+| Variant | Validation LPIPS | Reduction | Predefined ROI regressions |
+|---|---:|---:|---:|
+| Phase .5/.5 + round-trip weight 2 | .0951193372 | 29.5623% | 0 |
+| Phase weights 1.5/1.5 | .0956418638 | 29.1754% | 0 |
+| Own-source phase weight 1.5 | .0955381120 | 29.2522% | 0 |
+| Witness admission, middle band only, margin .25 | .0960674907 | 28.8602% | 0 |
+| Witness admission, both bands, margin .25 | .1065751786 | 21.0790% | 0 |
+| Witness admission, both bands, margin 1 | .0970749209 | 28.1142% | 0 |
+| Luminance-only photo detail | .1048619176 | 22.3477% | 4 |
+| Full luminance, half chromatic photo detail | .1001937489 | 25.8046% | 1 |
+
+The phase+round-trip leader was reviewed on all four worst-tile panels. Altered
+cloth-fold contrast/structure and small lace/embroidery changes remain; it is
+**not_accepted_local_detail_degradation**. The archived 29.3645% reference is
+still the last complete provenance/export bundle, distinct from this 29.5623%
+numerical result.
+
+Middle-band admission reduces the worst cam007 fold regressions, but does not
+eliminate all local changes. Cam007/cam150 worst panels were inspected and the
+candidate remains unaccepted. Fine-band witness rejection discards too much
+useful detail; it substantially worsens the full-person metric. Separately,
+removing chromatic detail also worsens metrics and named ROIs, so both chroma
+variants are rejected. These are useful negative results: retaining only
+luminance is not an adequate substitute for native RGB detail on this scene.
+
+A final directional-resolution comparison adds projected anisotropy and weakest
+sampling-axis cost to the phase+round-trip selector while **retaining** the
+capture-scale penalty. The earlier differential ablation removed that penalty
+and harmed faces; this new .1/.3 additive test separates those effects. It is
+queued, not a claimed improvement. Fifty-eight focused tests pass.

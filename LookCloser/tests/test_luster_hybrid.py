@@ -718,3 +718,25 @@ def test_band_admission_preserves_unknown_and_rejects_corrobated_harm():
     np.testing.assert_array_equal(zero,base)
     chosen=labels>=0
     np.testing.assert_array_equal(result[chosen],np.clip(base+weight[...,None]*delta,0,1)[chosen])
+
+
+def test_chroma_detail_preserves_luminance_and_full_rgb_identity():
+    from chroma_detail_luster_hybrid import adjust_chroma
+    rng=np.random.default_rng(18);delta=rng.uniform(-.2,.2,(32,32,3)).astype(np.float32)
+    weights=np.array([.2126,.7152,.0722],np.float32)
+    np.testing.assert_array_equal(adjust_chroma(delta,1),delta)
+    for gain in [0,.5]:
+        actual=adjust_chroma(delta,gain)
+        np.testing.assert_allclose(actual@weights,delta@weights,atol=3e-8)
+    gray=adjust_chroma(delta,0)
+    np.testing.assert_array_equal(gray[...,0],gray[...,1])
+    np.testing.assert_array_equal(gray[...,1],gray[...,2])
+
+
+def test_directional_cost_adds_risk_without_rewarding_anisotropic_oversampling():
+    from phase_directional_luster_hybrid import directional_cost
+    minimum=np.array([1.,1.,.5,4.,np.nan],np.float32)
+    maximum=np.array([1.,4.,.5,4.,np.nan],np.float32)
+    cost=directional_cost(minimum,maximum,np.array([1,1,1,1,0],bool))
+    np.testing.assert_allclose(cost,[0,1,1,0,1])
+    assert np.isfinite(cost).all()

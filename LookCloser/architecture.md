@@ -1874,3 +1874,10 @@ receipts recursively, including their declared array hashes. The band-witness
 experiment holds source labels fixed and admits I-G2/G2-G6 detail independently
 using TRAIN-only evidence against target LookCloser. Its seam check uses the
 actual admitted correction, and no witness supplies output RGB.
+
+
+The phase-directional selector adds Jacobian undersampling/anisotropy costs to
+the existing capture-scale and structural safeguards; it does not replace the
+scale penalty. The chroma-detail ablation preserves source labels and luminance
+while reducing selected-photo chromatic detail, with seams checked again on the
+actual correction. Both chroma variants were rejected by native ROI metrics.
