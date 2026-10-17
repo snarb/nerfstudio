@@ -1769,3 +1769,15 @@ campaign. `risk_single_luster_hybrid.py` tests soft reprojection-risk ranking.
 from unchanged ray weights and checks median reproduction and model hashes.
 `diagnose_luster_hybrid.py` is evaluation-only spatial LPIPS attribution; its
 target GT/masks never enter prediction.
+
+Additional isolated ablations preserve the same one-photo texture rule:
+`phase_single_luster_hybrid.py` ranks structural agreement without shifting lookup
+coordinates; `quality_risk_luster_hybrid.py` evaluates projected sharpness and
+surface differential quality while retaining the established angular/risk cost.
+`seam_single_luster_hybrid.py` can use neighboring photographs only to validate
+source-boundary compatibility, never to blend RGB. `cubic_luster_hybrid.py` samples
+the same projected coordinate with a clamped Keys cubic kernel and checks every
+nonzero footprint tap for visibility. These are experimental candidates, not
+accepted defaults. `review_regression_luster_hybrid.py` ranks small evaluation
+patches to expose regressions hidden by larger ROI averages; evaluation data do
+not enter construction.

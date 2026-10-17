@@ -423,3 +423,41 @@ termination-depth statistics read from the exact same frozen LookCloser.
 The depth probe appends q25/q75/PDF-mode arrays and verifies the existing median
 readout and full model-state hash; it never changes the volume, calibration,
 grids or baseline. No experimental depth recipe is accepted in advance.
+
+## Patch-coherent ranking and local review (13:42 UTC)
+
+`single_risk_patch` reaches **26.149%** improvement (LPIPS 0.09972881),
+with no regression in the predefined named ROIs. It smooths each source cost
+over sigma=3 pixels, before the hard per-pixel choice and native visibility
+recheck. Merely adding soft geometric-risk weights gives 24.671%; combining
+sigma=6 transfer with support mass=.6 gives 25.365%. Expanded source proposals
+give 24.867%, essentially unchanged from the original pool.
+
+**The 26.149% variant is not yet a final visual acceptance.** Evaluation-only
+128px tiles reveal remaining local regressions in cloth folds, jewelry and lace
+even though larger named ROI means improve. Worst-tile panels are saved in
+`C/evaluation/single_risk_patch_spatial`; some small jewelry detail becomes
+softer and some creases differ from GT. These observations motivate structural
+phase checks and native interpolation tests. The deep single-source audit
+passes, which verifies provenance/construction, not visual correctness.
+
+### Additional local safeguards under evaluation (2026-10-17 13:51 UTC)
+
+The worst local regression panels reveal cases where a selected photograph is
+softer than LookCloser and where small folds differ despite a favorable named
+ROI average. All candidates remain provisional. The early structural phase
+inspection found high coarse correlation even in several problematic jewelry
+patches, so coarse correlation alone is not treated as a sufficient safeguard.
+
+Queued controlled comparisons cover source-boundary fading, spatial cost scale,
+phase agreement, clamped cubic native sampling, and projected surface/sharpness
+quality. The surface-quality comparison retains the current angular/risk score;
+the previous surface experiment changed that score too and cannot isolate the
+benefit of a surface differential gate. The q25 and q75 frozen-density readouts
+returned validation LPIPS 0.10273537 and 0.10304938 respectively, below the quality
+of the established q50 recipe (lower is better). q25 also regressed cam150
+embroidery. Neither is selected. No geometry or saved model/grid state was edited.
+
+Validation: 32 focused transfer tests passed (`tests_projection_quality.log`),
+including automatic one-photo choice, occlusion fallback, exact unchanged pixels,
+projection conventions, cubic footprint visibility and adaptive seam behavior.

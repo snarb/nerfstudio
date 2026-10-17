@@ -219,7 +219,7 @@ def test_band_boost_preserves_coarse_reference_at_zero_boost():
     np.testing.assert_array_equal(result[w==0],base[w==0])
 
 
-@pytest.mark.parametrize('module',['single_source_luster_hybrid','graph_single_luster_hybrid','scale_single_luster_hybrid'])
+@pytest.mark.parametrize('module',['single_source_luster_hybrid','graph_single_luster_hybrid','scale_single_luster_hybrid','risk_single_luster_hybrid','phase_single_luster_hybrid','quality_risk_luster_hybrid'])
 def test_automatic_single_source_selection_and_occlusion_fallback(tmp_path,monkeypatch,module):
     """A full predictor run must select one photo and reject a depth-occluded strip."""
     import importlib
@@ -307,3 +307,57 @@ def test_surface_mode_uses_pdf_density_not_largest_bin_mass():
     got=packed_mode(out,rays)
     assert abs(got[0].item()-3.)<1e-6
     assert torch.isnan(got[1])
+
+
+def test_adaptive_seam_requires_photo_agreement_and_keeps_single_source():
+    from seam_single_luster_hybrid import merge
+    from scale_single_luster_hybrid import DEFAULT
+    shape=(80,80);y,x=np.mgrid[:80,:80];base=np.full((*shape,3),.4,np.float32)
+    first=base+np.repeat((.04*np.sin(x*np.pi/2))[...,None],3,-1).astype(np.float32)
+    def record(rgb):
+        a={k:np.ones(shape,np.float32) for k in ['valid','alpha','resolution_ratio']}
+        a.update({k:np.zeros(shape,np.float32) for k in ['depth_error','roundtrip','uncertainty','score']});a['rgb']=rgb;return a
+    labels=np.full(shape,-1,np.int16);labels[8:72,8:40]=8;labels[8:72,40:72]=9
+    config={**DEFAULT,'filter_support':'geometry','seam_fade':3.,'adaptive_seam':True,'seam_tolerance':.01}
+    result,w=merge(base,[(8,record(first)),(9,record(first))],labels,config)
+    assert np.all(w[20:60,39:41]==1)
+    conflict,w2=merge(base,[(8,record(first)),(9,record(2*base-first))],labels,config)
+    assert np.all(w2[20:60,39:41]<.5)
+    np.testing.assert_array_equal(result[w==0],base[w==0])
+    np.testing.assert_array_equal(conflict[w2==0],base[w2==0])
+    # The diagnostic control reconstructs the established merge exactly.
+    texture=first.copy();texture[:,40:]=2*base[:,40:]-first[:,40:]
+    reference,wr=merge_details(base,texture,labels,(labels>=0).astype(np.float32),'detail',8.,1.)
+    control,wc=merge(base,[(8,record(first)),(9,record(2*base-first))],labels,{**config,'filter_support':'labels','adaptive_seam':False})
+    np.testing.assert_array_equal(control,reference)
+    np.testing.assert_array_equal(wc,wr)
+
+
+def test_cubic_native_sampling_keeps_centers_range_and_rejects_hidden_tap():
+    from cubic_luster_hybrid import sample
+    y,x=np.mgrid[:12,:12];photo=np.repeat((x/11.)[...,None],3,-1).astype(np.float32)
+    depth=np.ones((12,12),np.float32);source={key:depth.copy() for key in ['alpha','depth_z_q10','depth_z_q50','depth_z_q90']}
+    uv=np.array([[[4.,5.],[4.25,5.5],[.25,5.5]]],np.float32);expected=np.ones((1,3),np.float32)
+    rgb,valid,alpha,err=sample(photo,source,uv,expected)
+    np.testing.assert_allclose(rgb[0,:2,0],[4/11,4.25/11],atol=1e-7)
+    assert valid[0,0] and valid[0,1] and not valid[0,2]
+    source['alpha'][4,3]=0
+    _,_,alpha,_=sample(photo,source,uv,expected)
+    assert alpha[0,0]==1 and alpha[0,1]==0  # zero-weight tap does not invalidate exact center
+    photo[:,5:]=1.;photo[:,:5]=0.
+    rgb,_,_,_=sample(photo,source,uv,expected)
+    assert rgb.min()>=0 and rgb.max()<=1
+
+
+def test_guided_single_source_correction_preserves_fallback_and_source_isolation():
+    from guided_single_luster_hybrid import merge
+    y,x=np.mgrid[:80,:100];base=np.repeat((.3+.002*x)[...,None],3,axis=-1).astype(np.float32)
+    labels=np.full((80,100),-1,np.int16);labels[8:72,8:45]=8;labels[8:72,55:92]=9
+    photo=base+.04;config=dict(sigma=8.,guided_epsilon=.001,gain=1.)
+    corrected,weight=merge(base,photo,labels,config)
+    np.testing.assert_allclose(corrected,base,atol=2e-6)
+    photo[labels==8]+=.03*np.sin(x[labels==8]*1.2)[:,None]
+    changed,weight=merge(base,photo,labels,config)
+    np.testing.assert_array_equal(changed[weight==0],base[weight==0])
+    np.testing.assert_array_equal(changed[labels==9],corrected[labels==9])
+    assert np.max(np.abs(changed[labels==8]-base[labels==8]))>.02
