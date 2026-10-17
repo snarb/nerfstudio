@@ -1430,3 +1430,22 @@ def test_native_graph_zero_preserves_pixel_argmin_and_visibility():
                                 dict(grid_step=1, transition_cost=0., fallback_cost=1e4))
     np.testing.assert_array_equal(labels, [[0, 1, 0], [1, 1, 2]])
     assert len(trace) == 1
+
+
+def test_native_witness_admission_neutrality_and_strong_rejection():
+    from witness_native_admission_luster_hybrid import admission
+    shape = (48, 48)
+    support = np.ones(shape, bool)
+    neutral = admission(np.full(shape, .5, np.float32), support)
+    beneficial = admission(np.full(shape, .1, np.float32), support)
+    harmful = admission(np.full(shape, .9, np.float32), support)
+    np.testing.assert_array_equal(neutral, np.ones(shape))
+    np.testing.assert_array_equal(beneficial, neutral)
+    np.testing.assert_array_equal(harmful, np.zeros(shape))
+    middle = admission(np.full(shape, .75, np.float32), support)
+    np.testing.assert_allclose(middle, .5, atol=1e-6)
+    support[:, :24] = False
+    cost = np.full(shape, .9, np.float32)
+    cost[:, :24] = .1
+    result = admission(cost, support)
+    assert np.all(result[support] == 0) and np.all(result[~support] == 1)

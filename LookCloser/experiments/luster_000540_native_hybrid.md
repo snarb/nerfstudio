@@ -2246,3 +2246,30 @@ The CPU graph runner waits for PID 693218 before CUDA evaluation. The focused
 suite passes 99 tests, including native-pixel argmin and visibility behavior.
 This is a source-seam experiment, not a claim that label smoothing improves
 quality; its numerical and visual outcomes are pending.
+
+
+### 20:16 UTC — conservative native-witness fallback experiment
+
+`witness_native_admission_luster_hybrid.py` tests the other role of confidence:
+rejecting harmful detail instead of merely preferring another source. The
+depth25 source labels, frozen q50 geometry and cubic samples stay fixed. For
+signed risk `r = 2*(cost-.5)`, admission is 1 through .4, fades linearly to zero
+at .6, and remains zero above .6. Ignoring the small error floor, these levels
+correspond to source-transfer detail MSE roughly 2.33 to 4 times the frozen
+baseline's MSE in native TRAIN witness views. A two-witness quorum and median
+are inherited from that confidence cache; missing evidence stays neutral.
+
+The scalar gate is smoothed at sigma 2 over each source's geometric support.
+It multiplies the existing high-frequency correction, not the source image
+coordinates. Actual admitted corrections determine seam compatibility. Saved
+confidence is the effective seam-times-admission weight, zero-weight pixels
+are exactly LookCloser, and their source labels become -1. No ROI or validation
+RGB defines the gate. This one global rule is experimental; the cam007
+association does not establish that it will help the other views.
+
+The runner constructs each camera only after its immutable projected confidence
+receipts exist, then waits for controllers 693218 and 694545 before CUDA
+evaluation. The focused suite passes 100 tests, including neutral/positive
+evidence, complete rejection, fractional admission and support isolation.
+Results and visual review are pending; export auditing would be required before
+distributing this new merge mode as a verified candidate.

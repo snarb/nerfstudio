@@ -2088,3 +2088,11 @@ quantization by running the same tested metric alpha expansion at every native
 pixel. A zero-transition control must reproduce all reference labels and final
 RGB exactly before the .05-transition experiment proceeds. It changes neither
 the frozen surface nor sampling, and serializes canonical GPU evaluation.
+
+`witness_native_admission_luster_hybrid.py` keeps the depth25 labels and uses
+only projected TRAIN-witness scalar utility to attenuate detail. Risk .4 to .6
+fades to LookCloser, with support-normalized sigma-2 confidence smoothing.
+Seam checks use the actual attenuated correction; saved weights include the
+admission factor, and zero-weight labels become fallback. No evaluation ROI
+defines this gate. Its runner waits for immutable confidence caches and prior
+GPU controllers. This experimental fallback is not yet export-audited.
