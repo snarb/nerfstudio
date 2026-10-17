@@ -1789,3 +1789,14 @@ failed selected footprints revert to the frozen render, never another photo.
 without mixing witness colors. `wide_sources_luster_hybrid.py` expands coverage
 proposals; its controller renders missing frozen geometry sequentially before
 warping and evaluation. These remain provisional measured ablations.
+
+`fixed_quality_luster_hybrid.py` keeps a parent's source labels and attenuates
+only its selected-photo residual using projected band energy and phase against
+LookCloser. It never switches photos or grows support. The quality gate and
+its evidence maps are saved. `illumination_single_luster_hybrid.py` tests local
+multiplicative broad-illumination matching for the same fixed selected photo;
+no target GT, displacement field or photograph mixture is introduced.
+
+`fine_phase_single_luster_hybrid.py` adds aligned G1-G4 detail evidence to source
+ranking, with a capped native-detail reward. It performs hard source selection;
+other photographs are alternative candidates, never RGB blending contributors.

@@ -219,7 +219,7 @@ def test_band_boost_preserves_coarse_reference_at_zero_boost():
     np.testing.assert_array_equal(result[w==0],base[w==0])
 
 
-@pytest.mark.parametrize('module',['single_source_luster_hybrid','graph_single_luster_hybrid','scale_single_luster_hybrid','risk_single_luster_hybrid','phase_single_luster_hybrid','quality_risk_luster_hybrid'])
+@pytest.mark.parametrize('module',['single_source_luster_hybrid','graph_single_luster_hybrid','scale_single_luster_hybrid','risk_single_luster_hybrid','phase_single_luster_hybrid','quality_risk_luster_hybrid','fine_phase_single_luster_hybrid'])
 def test_automatic_single_source_selection_and_occlusion_fallback(tmp_path,monkeypatch,module):
     """A full predictor run must select one photo and reject a depth-occluded strip."""
     import importlib
@@ -402,3 +402,63 @@ def test_cubic_fixed_labels_fall_back_instead_of_switching_sources(tmp_path,monk
     assert not (labels==9).any() and (labels[25:35]==-1).all()
     np.testing.assert_array_equal(result[25:35],base[25:35])
     np.testing.assert_allclose(result[10,10],.6,atol=1e-7)
+
+
+def test_fixed_quality_rejects_blur_and_wrong_phase_without_support_growth():
+    from fixed_quality_luster_hybrid import detail_confidence
+    y,x=np.mgrid[:80,:80];base=np.repeat((.4+.1*np.sin(x/2.))[...,None],3,-1).astype(np.float32)
+    valid=np.ones((80,80),bool);valid[30:40,30:40]=False
+    settings=dict(energy_floor=.004,sharpness_min=.8,phase_min=.8)
+    good,_,_=detail_confidence(base,base,valid,settings)
+    assert np.all(good[10:20,10:20]>.999) and not good[~valid].any()
+    blurred=np.full_like(base,.4)
+    bad,_,_=detail_confidence(base,blurred,valid,settings)
+    assert not bad[10:70,10:70].any()
+    shifted=.8-base
+    bad,_,_=detail_confidence(base,shifted,valid,settings)
+    assert not bad[10:70,10:70].any()
+    # No supported LC detail to damage: new photo detail is not rejected merely
+    # because it has no counterpart in the low-frequency frozen render.
+    good,_,_=detail_confidence(blurred,base,valid,settings)
+    assert np.all(good[10:20,10:20]>.999) and not good[~valid].any()
+
+
+def test_multiplicative_illumination_preserves_detail_and_source_isolation():
+    from illumination_single_luster_hybrid import merge
+    y,x=np.mgrid[:60,:60];base=np.full((60,60,3),.4,np.float32)
+    texture=np.repeat((.2+.03*np.sin(x/2.))[...,None],3,-1).astype(np.float32)
+    labels=np.full((60,60),8,np.int16);labels[:,30:]=9;labels[:3]=-1
+    config=dict(working_gamma=1.,sigma=6.,illumination_floor=.02,min_gain=.5,max_gain=2.,gain=1.)
+    result,w=merge(base,texture,labels,config)
+    np.testing.assert_array_equal(result[w==0],base[w==0])
+    assert result[15:45,10:20].std()>.02
+    other=texture.copy();other[:,30:]=.9
+    changed,_=merge(base,other,labels,config)
+    np.testing.assert_array_equal(changed[labels==8],result[labels==8])
+    same,_=merge(base,base,labels,config)
+    np.testing.assert_allclose(same,base,atol=2e-7)
+
+
+def test_fine_phase_prefers_aligned_native_detail_over_lower_angle_wrong_phase(tmp_path,monkeypatch):
+    import fine_phase_single_luster_hybrid as single
+    from luster_hybrid_common import write
+    h=w=80;y,x=np.mgrid[:h,:w];signal=.04*np.sin(x/2.)
+    base=np.repeat((.4+signal)[...,None],3,-1).astype(np.float32)
+    photos={8:np.repeat((.4-signal)[...,None],3,-1).astype(np.float32),9:np.repeat((.4+2*signal)[...,None],3,-1).astype(np.float32)}
+    monkeypatch.setattr(single,'native_rows',lambda:{c:dict(train=True) for c in [7,8,9]})
+    monkeypatch.setattr(single,'geometry',lambda root,target:dict(rgb=base))
+    monkeypatch.setattr(single,'source_path',lambda cid:tmp_path/f'photo{cid}.jpg')
+    (tmp_path/'logs').mkdir();write(tmp_path/'preflight/sources.json',dict(sources={'7':[8,9]}))
+    for cid,rgb in photos.items():
+        (tmp_path/f'photo{cid}.jpg').write_bytes(bytes([cid]))
+        d=tmp_path/f'warps/cam007/src{cid:03d}';d.mkdir(parents=True)
+        a={k:np.ones((h,w),np.float32) for k in ['valid','alpha','resolution_ratio']}
+        a.update({k:np.zeros((h,w),np.float32) for k in ['depth_error','roundtrip','uncertainty','score']});a['rgb']=rgb
+        a['score'][:]=.1 if cid==9 else 0.
+        for key,value in a.items():np.save(d/f'{key}.npy',value)
+        write(d/'receipt.json',dict(box=[0,0,w,h],arrays=list(a)))
+    config={**single.DEFAULT,'count':2,'mode':'direct','match_weight':0.,'match_limit':.2,'fine_phase_weight':1.,'detail_reward':.25}
+    single.combine(tmp_path,7,'check',config)
+    labels=np.load(tmp_path/'candidates/check/cam007_sources.npy');rgb=np.load(tmp_path/'candidates/check/cam007.npy')
+    assert (labels[15:65,15:65]==9).all()
+    np.testing.assert_allclose(rgb[20:60,20:60],photos[9][20:60,20:60],atol=1e-7)

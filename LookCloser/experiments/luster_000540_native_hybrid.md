@@ -524,3 +524,36 @@ Status is `provisional_local_defects`, not final acceptance.
 ```bash
 scp olive-lark:/fsx/tmp/luster_000540_hybrid_20261017T104440Z/exports/single_cubic_fixed.tar.gz .
 ```
+
+Two additional fixed-label tests are running: detail-quality rejection using
+G1-G4 energy/phase, and multiplicative broad-illumination matching (sigma6/16,
+gamma1/2.2). They retain the current cubic source labels and projection centers.
+37 focused tests pass, including blur/wrong-phase rejection, exact fallback,
+no support growth and isolation of photometric correction between sources.
+The new evidence maps and gates are construction outputs, not evaluation masks.
+
+## Fixed-source quality and photometric ablations (2026-10-17 14:23 UTC)
+
+| Candidate | Validation LPIPS reduction | Predefined ROI regressions |
+|---|---:|---:|
+| single_cubic_fixed_sharp8 | 27.034% | 1 |
+| single_cubic_fixed_phase8 | 23.178% | 1 |
+| single_cubic_fixed_quality8 | 23.206% | 1 |
+| single_cubic_illumination_s6 | 27.862% | 0 |
+| single_cubic_illumination_s16 | 26.122% | 0 |
+| single_cubic_illumination_g22 | 25.750% | 0 |
+
+The sharpness gate visibly restores small cam007 jewelry detail and reduces
+brocade softening, but regresses the cam012 hand/nail ROI by .000307 LPIPS.
+The phase gate reduces crease changes but regresses cam012 lace by .005300;
+combined gating regresses it by .005110. Rejected as overall replacements.
+Hard spatial rejection can itself disturb fine texture continuity. Dark-hair
+noise and lace geometry remain. Comparison panels are in
+`evaluation/fixed_quality_review`; their tile positions are evaluation-only.
+
+Multiplicative illumination matching does not outperform the reference.
+Fine-phase source ranking is the next isolated test: G1-G4 correlation affects
+source score, and a capped reward favors additional source detail only when
+its phase agrees with LookCloser. Geometry and sampling coordinates remain
+unchanged. 39 focused tests pass, including selection of an aligned detailed
+photo over a lower-angle but opposite-phase source.
