@@ -1449,3 +1449,25 @@ def test_native_witness_admission_neutrality_and_strong_rejection():
     cost[:, :24] = .1
     result = admission(cost, support)
     assert np.all(result[support] == 0) and np.all(result[~support] == 1)
+
+
+def test_curvature_phase_detects_displaced_edge_without_registering_it():
+    from edge_position_quality_luster_hybrid import curvature_phase
+    yy, xx = np.mgrid[:96, :96]
+    def edge(center, width):
+        return np.repeat((.5 + .2 * np.tanh((xx-center)/width))[..., None], 3, -1).astype(np.float32)
+    base = edge(48, 4.)
+    support = np.ones((96, 96), bool)
+    same, known = curvature_phase(base, base, support)
+    aligned, ka = curvature_phase(base, edge(48, 1.5), support)
+    shifted, ks = curvature_phase(base, edge(54, 1.5), support)
+    region = np.zeros_like(support)
+    region[24:72, 44:52] = True
+    shared = region & known & ka & ks
+    assert shared.any() and same[shared].max() < 1e-5
+    assert aligned[shared].mean() < shifted[shared].mean() - .2
+    _, flat_known = curvature_phase(np.full_like(base, .5), edge(48, 1.5), support)
+    assert not flat_known.any()
+    support[40:56, 40:56] = False
+    _, masked_known = curvature_phase(base, base, support)
+    assert not masked_known[34:62, 34:62].any()

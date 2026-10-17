@@ -2096,3 +2096,9 @@ Seam checks use the actual attenuated correction; saved weights include the
 admission factor, and zero-weight labels become fallback. No evaluation ROI
 defines this gate. Its runner waits for immutable confidence caches and prior
 GPU controllers. This experimental fallback is not yet export-audited.
+
+`edge_position_quality_luster_hybrid.py` measures G2 luma Laplacian phase at
+strong coherent frozen-render edges, with geometric support and neutral unknown
+regions. It never estimates displacement or shifts texture samples.
+`diagnose_edge_position_luster_hybrid.py` evaluates association with existing
+spatial LPIPS maps; it emits no transfer gate, labels or RGB prediction.

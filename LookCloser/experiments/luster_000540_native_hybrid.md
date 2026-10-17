@@ -2273,3 +2273,31 @@ evaluation. The focused suite passes 100 tests, including neutral/positive
 evidence, complete rejection, fractional admission and support isolation.
 Results and visual review are pending; export auditing would be required before
 distributing this new merge mode as a verified candidate.
+
+
+### 20:20 UTC — geometry-sensitive edge diagnostic, no new transfer gate
+
+Native-witness admission's cam007 fixed-tile preview was inspected:
+`evaluation/witness_native_admission_cam007_reference_tiles.png`. It attenuates
+some fold detail but does not eliminate irregular folds or ornament mismatch.
+Other views and canonical metrics are still pending; this is not an acceptance.
+
+The native-pixel graph's zero-transition source labels and final RGB now match
+the contradiction-once reference exactly in all four views, recorded in
+`evaluation/native_graph_zero_equivalence.json`. The .05 graph is constructing.
+This isolates seam optimization from the previously harmful 4x4 quantization.
+
+Source-to-witness reliability alone cannot detect every target-specific geometry
+error. A separate diagnostic measures signed G2 luminance Laplacian phase
+between the projected photo and frozen target render at the same coordinates.
+It is restricted to strong coherent baseline edges with sufficient curvature
+energy and geometric support. It estimates no displacement and changes no
+sample position. This differs from the earlier orientation tensor, which can
+agree even when an edge is displaced, and from the earlier middle-band-only
+admission experiment. There is no new gate or threshold derived from evaluation.
+
+`diagnose_edge_position_luster_hybrid.py --root C` compares these scalar costs
+to existing spatial LPIPS maps in all four views. Results are evaluation-only;
+the feature cache reads no validation photograph or mask. Synthetic verification
+distinguishes aligned sharpening from a displaced edge, treats flat regions as
+unknown and isolates unsupported boundaries. The focused suite passes 101 tests.
