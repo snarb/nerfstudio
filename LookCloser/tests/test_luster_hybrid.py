@@ -817,6 +817,49 @@ def test_exact_plate_veto_requires_background_match_and_model_contrast():
     np.testing.assert_array_equal(footprint_veto(mask,uv),[[False,True,True,False]])
 
 
+def test_cycle_differential_separates_point_offset_from_local_distortion():
+    from cycle_differential_luster_hybrid import cycle_cost,sample_depth
+    yy,xx=np.mgrid[:32,:32];residual=np.zeros((32,32,2),np.float32)
+    residual[:]=[.3,-.2];valid=np.ones((32,32),bool)
+    cost,known=cycle_cost(residual,valid)
+    np.testing.assert_allclose(cost[known],0)
+    residual[...,0]=xx*.2
+    cost,known=cycle_cost(residual,valid)
+    np.testing.assert_allclose(cost[known],np.log(3),atol=5e-7)
+    valid[16,16]=False;residual[16,16]=np.nan
+    cost,known=cycle_cost(residual,valid)
+    assert np.isfinite(cost).all() and not known[16,16] and not known[16,12]
+    assert not known[:4].any() and not known[-4:].any()
+    depth=np.array([[1.,2.],[3.,4.]],np.float32)
+    uv=np.array([[0.,0.],[1.,1.],[.5,.5],[-.1,0.],[np.nan,0.]],np.float32)
+    z,ok=sample_depth(depth,uv)
+    np.testing.assert_allclose(z[:3],[1,4,2.5])
+    np.testing.assert_array_equal(ok,[1,1,1,0,0])
+    depth[1,1]=np.nan
+    z,ok=sample_depth(depth,uv)
+    assert ok[0] and not ok[1] and not ok[2]
+
+
+def test_cycle_cache_identity_resume_and_input_binding(tmp_path,monkeypatch):
+    import cycle_differential_luster_hybrid as module
+    from luster_hybrid_common import write
+    row={**camera(),'train':True};shape=(row['h'],row['w'])
+    monkeypatch.setattr(module,'native_rows',lambda:{7:row,8:row})
+    monkeypatch.setattr(module,'geometry',lambda *args:dict(depth_z_q50=np.ones(shape,np.float32)))
+    (tmp_path/'logs').mkdir()
+    for cid in [7,8]:write(tmp_path/f'geometry/cam{cid:03d}/receipt.json',{})
+    p=tmp_path/'warps/cam007/src008';write(p/'receipt.json',dict(box=[0,0,row['w'],row['h']]))
+    for key in ['valid','alpha','roundtrip','uncertainty']:
+        np.save(p/f'{key}.npy',np.full(shape,int(key in ['valid','alpha']),np.float32))
+    d=module.quality(tmp_path,7,8)
+    cost=np.load(d/'cost.npy');known=np.load(d/'known.npy')
+    assert known[8:-8,8:-8].all() and np.max(cost[known])<1e-4
+    assert module.quality(tmp_path,7,8)==d
+    with np.testing.assert_raises(ValueError):module.quality(tmp_path,7,7)
+    np.save(p/'valid.npy',np.zeros(shape,np.float32))
+    with np.testing.assert_raises(AssertionError):module.quality(tmp_path,7,8)
+
+
 def test_plate_merge_excludes_rejected_color_from_neighbor_filters(tmp_path,monkeypatch):
     import exact_plate_merge_luster_hybrid as module
     from freeze_luster_hybrid_candidate import verify_plate_merge
