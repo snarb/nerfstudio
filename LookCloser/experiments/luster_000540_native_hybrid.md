@@ -2216,3 +2216,33 @@ and transfers selected-photo detail. This is an empirical result for this
 configuration, not a claim that a full-texture recipe can never work.
 The native TRAIN-witness confidence experiment is still running; the 40% goal
 and visual-acceptance requirements remain unmet.
+
+
+### 20:12 UTC — native-witness cam007 diagnostic and native-pixel graph control
+
+The native-witness signed-confidence association is complete for cam007 on the
+fixed contradiction-once candidate. Negative risk denotes positive TRAIN
+restoration utility. Risk below -.4 covers 4,365 active person pixels and both
+bins improve spatial LPIPS; the [-.2,-.1) bin covers 32,431 pixels with mean
+delta -.0209441. At risk [.4,.6), 426,262 pixels have mean delta +.00329838;
+at risk >=.6, 181,554 pixels have mean delta +.0212796, with 70.85% locally worse.
+This is a useful association, not a causal gate or a prediction for validation.
+The earlier source-frame statistic was also associated with harm in cam007
+but not in the other views. No hard threshold is introduced from this result.
+Full evidence is in
+`evaluation/single_source_contradiction400_once_seam_witness_native_restoration_association_cam007.json`.
+
+The previous graph control lost quality even at transition weight zero because
+labels were quantized into native 4x4 cells. A separate experiment removes that
+confound: `run_native_graph_luster.py` uses the existing metric alpha-expansion
+implementation at native pixel resolution, with transition weights 0 and .05.
+The zero-weight source labels must equal the contradiction-400 labels exactly,
+and its final RGB must equal the contradiction-once seam result exactly before
+the .05 experiment starts. Invalid-source cost remains 1e6; fallback cost 1e4
+prevents an arbitrary low fallback threshold from altering the matched control.
+All geometry, cubic sampling, visibility and single-photo output rules remain.
+
+The CPU graph runner waits for PID 693218 before CUDA evaluation. The focused
+suite passes 99 tests, including native-pixel argmin and visibility behavior.
+This is a source-seam experiment, not a claim that label smoothing improves
+quality; its numerical and visual outcomes are pending.

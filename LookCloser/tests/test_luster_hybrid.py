@@ -1417,3 +1417,16 @@ def test_current_full_texture_matched_detail_and_literal_photo_endpoints():
     zero = correction(base, photo, support, 6., 0.)
     quarter = correction(base, photo, support, 6., .25)
     np.testing.assert_allclose(quarter, .75 * zero + .25 * full, atol=1e-7)
+
+
+def test_native_graph_zero_preserves_pixel_argmin_and_visibility():
+    from appearance_graph_rank_luster_hybrid import patch_labels
+    scores = [np.array([[.1, .9, 9.], [.2, .3, .8]], np.float32),
+              np.array([[.2, .8, 10.], [.5, .1, .7]], np.float32)]
+    valid = [np.array([[1, 1, 1], [0, 1, 0]], bool),
+             np.array([[1, 1, 1], [1, 1, 0]], bool)]
+    features = [np.zeros((6, 3), np.float32) for _ in range(2)]
+    labels, trace = patch_labels(scores, valid, features, (2, 3),
+                                dict(grid_step=1, transition_cost=0., fallback_cost=1e4))
+    np.testing.assert_array_equal(labels, [[0, 1, 0], [1, 1, 2]])
+    assert len(trace) == 1

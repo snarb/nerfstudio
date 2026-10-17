@@ -2082,3 +2082,9 @@ the same photograph's G6 low-frequency difference. Zero is the existing detail
 merge; one is literal full texture. Actual admitted corrections determine seam
 compatibility. The runner compares .25/1 after prior GPU work; this is an
 experimental control, not an accepted change to the default recipe.
+
+`run_native_graph_luster.py` removes the earlier graph experiment's 4x4 label
+quantization by running the same tested metric alpha expansion at every native
+pixel. A zero-transition control must reproduce all reference labels and final
+RGB exactly before the .05-transition experiment proceeds. It changes neither
+the frozen surface nor sampling, and serializes canonical GPU evaluation.
