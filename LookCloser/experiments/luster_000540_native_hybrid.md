@@ -1,6 +1,6 @@
 # Frozen LookCloser + native photographs: Luster 000540
 
-Status: experiments in progress. Audited provisional numerical reference: `single_source_phase_both_seam`,
+Status: experiments in progress. Audited/exported provisional numerical reference: `single_source_phase_both_seam`,
 **29.36%** lower native validation person LPIPS. All predefined named ROI LPIPS
 checks pass, but smaller patches still show local degradation. **Not visually
 accepted; the 40% goal is not achieved.**
@@ -90,6 +90,16 @@ Saved commands/configuration and full source/model provenance accompany exports.
 The expanded <=60-degree TRAIN source search is complete and gave negligible
 improvement with the current costs; it is not part of this reference.
 
+
+Current verified review archive (273 members, 185160828 bytes):
+
+```bash
+scp olive-lark:/fsx/tmp/luster_000540_hybrid_20261017T104440Z/exports/single_source_phase_both_seam.tar.gz .
+```
+
+SHA256: `39894438c97bf05bc0722fe2f797b07b156a59297af8d19c64aab9c5d539c139`.
+Archive status: **not_accepted_local_detail_degradation**. It includes local
+regression panels and source evidence alongside the favorable average metric.
 
 Earlier verified 28.6944% reference archive (261 members, 183913153 bytes):
 
