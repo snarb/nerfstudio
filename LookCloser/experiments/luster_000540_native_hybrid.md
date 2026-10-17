@@ -2804,3 +2804,38 @@ rejected; its canonical evaluation remains queued. The TRAIN-native LPIPS
 confidence job has started on the GPU, with the target-frame opposite-side
 LPIPS experiment and the matched admission/color/graph evaluations following
 sequentially. The 40% goal is still unmet.
+
+### 22:24 UTC — actual projected texture confidence pilot
+
+`probe_actual_texture_witness_luster.py` tests a distinct confidence path:
+construct the native target's single-source detail candidate first, then
+project that actual candidate into TRAIN witnesses. Direct source-to-witness
+comparisons bypass distortions introduced at the target surface. This pilot
+uses the existing frozen q50 geometry, clamped cubic sampler and LPIPS metric;
+only scalar confidence returns to the target. All source eligibility taps must
+pass, and both forward/reverse frozen-render visibility gates remain active.
+No geometry, texture coordinates, final source labels or candidate images are
+changed by the diagnostic.
+
+For cam007's first two automatic source-pool entries (008/006), reconstructed
+baseline RGB exactly matches the pre-existing frozen render projections on
+eligible pixels (maximum absolute difference zero). The metric state is
+unchanged. Two-witness known coverage is 4.3632%/2.2969% of the stored target
+box. These percentages are not person coverage or transferred pixel fractions.
+
+`diagnose_actual_texture_witness_luster.py` builds both counterfactuals before
+reading evaluation GT/masks and saves only aggregate agreement. On 24,732
+commonly informative person pixels, actual-texture confidence agrees with the
+better source 60.93% versus 56.12% for direct witness confidence; error-margin
+weighted agreement is 54.58% versus 51.82%. However, on the 19,463 informative
+pixels where the existing selector chose one of the pair, the new criterion
+scores 63.25% versus the existing selector's 63.54% (weighted 61.03% versus
+63.24%). It therefore has not demonstrated incremental selection benefit.
+This CPU exploratory comparison uses existing CUDA direct-confidence caches;
+it is neither a final hybrid score nor an attainable metric bound.
+
+Evidence: `probes/actual_texture_witness_cpu/summary.json` and
+`probes/actual_texture_witness_cpu/pair_ranking_diagnostic.json`. A sequential
+CPU diagnostic expands to the first two automatic sources for cam012/095/150;
+GT remains evaluation-only. No production ranking or fallback threshold is
+introduced from the cam007 observation.
