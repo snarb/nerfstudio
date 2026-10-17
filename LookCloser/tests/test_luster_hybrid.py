@@ -754,6 +754,27 @@ def test_receipt_audit_follows_transitive_candidate_and_cache_dependencies(tmp_p
         verify_dependencies(final,{'generator':'other'},set().add)
 
 
+def test_nested_receipt_audit_checks_frozen_state_and_target_specific_witnesses(tmp_path):
+    from dependency_audit_luster_hybrid import verify_dependencies
+    from luster_hybrid_common import write, sha
+    leaf=tmp_path/'witness_receipt.json';parent=tmp_path/'parent_receipt.json'
+    state={'model':'frozen','occupancy':'saved','frequency':'saved'}
+    def save(**change):
+        write(leaf,dict(state_hash=state,source=6,witnesses=[7,8],**change))
+        write(parent,dict(inputs={str(leaf):sha(leaf)}))
+    save();visited=set()
+    verify_dependencies(parent,{},set().add,visited=visited,expected_state_hash=state,forbidden_sources={12,95,150})
+    # Shared caches must be rechecked when a different target becomes forbidden.
+    with pytest.raises(AssertionError,match='Forbidden witness'):
+        verify_dependencies(parent,{},set().add,visited=visited,expected_state_hash=state,forbidden_sources={7,12,95,150})
+    with pytest.raises(AssertionError,match='Frozen model/grids changed'):
+        verify_dependencies(parent,{},set().add,expected_state_hash={**state,'occupancy':'changed'})
+    write(leaf,dict(state_hash=state,source=7,witnesses=[7,8]))
+    write(parent,dict(inputs={str(leaf):sha(leaf)}))
+    with pytest.raises(AssertionError,match='Self witness'):
+        verify_dependencies(parent,{},set().add,expected_state_hash=state)
+
+
 def test_band_admission_preserves_unknown_and_rejects_corrobated_harm():
     from band_witness_luster_hybrid import admission,bands,assemble
     support=np.ones((64,64),bool)

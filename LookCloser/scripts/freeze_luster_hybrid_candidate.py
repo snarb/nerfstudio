@@ -20,7 +20,8 @@ def freeze(root,name,warp_root,deep=False,require_single_source=False):
         receipt=read(candidate/f'cam{cid:03d}_receipt.json')
         assert receipt['config']==config
         assert receipt['code_sha256'] in inventory.values(), 'Candidate generator changed since creation'
-        verify_dependencies(candidate/f'cam{cid:03d}_receipt.json',inventory,bind,deep,dependency_seen)
+        verify_dependencies(candidate/f'cam{cid:03d}_receipt.json',inventory,bind,deep,dependency_seen,
+                            expected_state_hash=state_hash,forbidden_sources={12,95,150,cid})
         allowed=set(allowed_sources(rows,cid));assert set(receipt['sources'])<=allowed
         baseline=geometry(root,cid)['rgb'];pred=np.load(candidate/f'cam{cid:03d}.npy',mmap_mode='r')
         weight=np.load(candidate/f'cam{cid:03d}_confidence.npy',mmap_mode='r')

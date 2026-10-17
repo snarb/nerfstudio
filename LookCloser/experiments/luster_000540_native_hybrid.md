@@ -1226,3 +1226,14 @@ for both earlier campaigns before GPU evaluation.
 
 69 focused tests pass (`logs/tests_depth_interval.log`), including wider
 uncertainty, inactive footprint taps, invalid depth and absent support.
+
+## Transitive confidence audit (17:24 UTC)
+
+The deep candidate audit now compares every declared nested geometry state hash
+with the frozen reference, including geometry used only by confidence witnesses.
+It also rejects validation/target witnesses and self witnesses. Memoization
+includes the target-specific exclusion set, so a shared cache verified for one
+target cannot bypass another target's exclusions. Prediction generators and
+existing artifacts are unchanged. All 70 focused tests pass
+(`logs/tests_nested_audit.log`), including changed nested occupancy identity and
+a witness that becomes forbidden for a different target.
