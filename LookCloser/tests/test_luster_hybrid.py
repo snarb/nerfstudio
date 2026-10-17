@@ -8,6 +8,20 @@ import pytest
 import torch
 
 
+def test_census_cost_contrast_gain_reversal_unknown_and_boundary():
+    from source_census_quality_luster_hybrid import census_cost,shifted
+    yy,xx=np.mgrid[:32,:32];value=(xx+yy).astype(np.float32)*.01
+    valid=np.ones(value.shape,bool)
+    np.testing.assert_allclose(census_cost(2*value+.2,value,valid)[8:-8,8:-8],0)
+    np.testing.assert_allclose(census_cost(-value,value,valid)[8:-8,8:-8],1)
+    np.testing.assert_allclose(census_cost(value,np.zeros_like(value),valid),.5)
+    valid[:]=False
+    np.testing.assert_allclose(census_cost(-value,value,valid),.5)
+    impulse=np.zeros((5,5),np.float32);impulse[0,0]=1
+    assert shifted(impulse,1,0).sum()==0 and shifted(impulse,0,1).sum()==0
+    assert shifted(impulse,-1,0)[1,0]==1
+
+
 def test_source_surface_witnesses_exclude_all_targets_and_unavailable():
     from source_surface_confidence_luster_hybrid import witness_candidates
     rows={i:dict(train=i not in (12,95,150)) for i in [7,8,9,10,11,12,95,150]}

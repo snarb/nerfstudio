@@ -1919,3 +1919,9 @@ and projects only scalar two-witness reliability to target pixels.
 `source_surface_rank_luster_hybrid.py` adds this cost before hard single-photo
 selection; `run_source_surface_luster.py` serializes evaluation. No geometry,
 RGB lookup or model parameter is fitted. Experimental, not accepted.
+
+Local-order compatibility: `source_census_quality_luster_hybrid.py` compares
+brightness ordering at calibrated offsets, using only native TRAIN photos and
+frozen renders. Unknown structure is neutral. The rank module adds scalar
+costs to the cubic-eligible phase selector; source RGB remains exclusive.
+`run_source_census_luster.py` respects the preceding GPU owner. Experimental.
