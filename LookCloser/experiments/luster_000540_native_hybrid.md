@@ -1395,3 +1395,16 @@ from parent labels, original cubic warps and saved projected vetoes. It verifies
 that rejected samples cannot contribute either selected RGB or Gaussian support.
 The regression test detects a falsely retained vetoed label and background-contaminated
 filter output; 75 tests pass. The plate candidates are still being constructed.
+
+## 2026-10-17 17:59 UTC — local geometric cycle experiment
+
+Hypothesis: pointwise round-trip agreement can hide inconsistent neighboring
+surface projections. The new cue differentiates the frozen target/source/target
+cycle residual at ±4 target pixels, scoring log(1 + Frobenius norm / .1), capped
+at log(21); unknown neighborhoods cost log(2). Existing point error, eligibility
+and texture coordinates remain unchanged. We test global cost weights .25 and 1
+against the cubic-eligible phase reference. No source or target RGB is used by
+this geometric cue. Native depth bilinear sampling requires every active tap.
+The added tests cover constant-offset invariance, affine distortion, invalid
+neighborhoods, exact boundary samples, cache resumption and altered-input
+rejection. **77 tests pass.** The GPU evaluations wait for the plate experiment.

@@ -1954,4 +1954,12 @@ sample nearly matching its measured empty background only when frozen source
 opacity and contrast predict an object. `exact_plate_rank_luster_hybrid.py`
 applies the veto before selection; `exact_plate_merge_luster_hybrid.py` applies
 it to cubic support and detail filtering. Source plate RGB never supplies
-texture. New merge mode requires audit support before export. Experimental.
+texture. The freeze auditor independently reconstructs labels, vetoed support,
+weights and RGB; a deep audit remains required before export. Experimental.
+
+Geometric cycle differential: `cycle_differential_luster_hybrid.py` measures
+spatial derivatives of the frozen target/source/target projection residual,
+using source q50 depth at the unchanged projected coordinate. It supplies only
+a scalar source cost; `cycle_rank_luster_hybrid.py` adds it to current phase and
+cubic-eligible costs. No RGB, registration or geometric fitting enters this cue.
+`run_cycle_luster.py` serializes its evaluations after the previous GPU owner.
