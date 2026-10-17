@@ -1931,3 +1931,9 @@ normalizes projected source-depth disagreement by frozen source/target
 termination intervals with a native-footprint floor. The rank module adds
 this scalar cost without changing surface points, RGB coordinates or hard
 visibility checks. The runner waits for earlier GPU owners. Experimental.
+
+One-sided source contradiction: `source_contradiction_rank_luster_hybrid.py`
+reuses source-surface confidence but penalizes only costs above neutral .5.
+Flat, absent and positive evidence cannot reward a source. Selection remains
+one native photo per pixel on frozen geometry; the runner serializes GPU
+evaluation. Experimental, not accepted.

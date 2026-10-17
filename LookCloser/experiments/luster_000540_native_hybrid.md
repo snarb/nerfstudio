@@ -1237,3 +1237,28 @@ target cannot bypass another target's exclusions. Prediction generators and
 existing artifacts are unchanged. All 70 focused tests pass
 (`logs/tests_nested_audit.log`), including changed nested occupancy identity and
 a witness that becomes forbidden for a different target.
+
+## Source-surface and local-order results (17:30 UTC)
+
+| Automatic selector | Native validation LPIPS | Reduction | Guardrail failures |
+|---|---:|---:|---|
+| Source-surface confidence .5 | .095249797 | 29.4657% | Cam007 person, face, eyes, hair, jewelry |
+| Source-surface confidence 1.5 | .095810811 | 29.0503% | Cam007 person, face, eyes, hair, jewelry |
+| Local-order cost .5 | .095413931 | 29.3442% | Cam007 jewelry |
+| Local-order cost 1.5 | .096132495 | 28.8120% | Cam007 face, hair, jewelry; cam012 face |
+
+All four are rejected by predefined ROI/person guardrails. For source-surface
+weight .5, cam007 face LPIPS increases by .01452446 and eyes by .01088574
+relative to LookCloser. A favorable validation average cannot override these.
+Results: `evaluation/source_surface_screen.json`, `source_census_screen.json`.
+The cubic-eligible phase/RT2 reference remains at 29.5715%, visually unaccepted.
+Its updated deep recursive audit passed (`logs/audit_cubic_nested.log`);
+the already distributed archive remains unchanged.
+
+A narrower ablation uses `max(source_surface_cost - .5, 0)` as a penalty only.
+Flat/flat evidence and absent evidence both give zero extra cost, so neither
+earns a reward over the reference ranking. Positive correlations also give
+zero; only contradictions penalize a source. Weights 1 and 4 are queued by
+`run_source_contradiction_luster.py`, behind the depth-interval GPU owner.
+This reuses immutable source confidence caches, without RGB changes or target
+GT access. All 71 tests pass (`logs/tests_source_contradiction.log`).

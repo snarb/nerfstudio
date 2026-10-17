@@ -775,6 +775,12 @@ def test_nested_receipt_audit_checks_frozen_state_and_target_specific_witnesses(
         verify_dependencies(parent,{},set().add,expected_state_hash=state)
 
 
+def test_source_contradiction_does_not_reward_flat_or_missing_evidence():
+    from source_contradiction_rank_luster_hybrid import contradiction_cost
+    np.testing.assert_array_equal(contradiction_cost(np.array([0.,.25,.5,.75,1.])),
+                                  [0.,0.,0.,.25,.5])
+
+
 def test_band_admission_preserves_unknown_and_rejects_corrobated_harm():
     from band_witness_luster_hybrid import admission,bands,assemble
     support=np.ones((64,64),bool)
