@@ -2873,3 +2873,84 @@ two sources: worst-witness utility greater than .1 occurs on 1,089/148/590/7,285
 assigned pixels in cam007/012/095/150 respectively. These are assigned-pixel
 counts, not person fractions, and are only a two-source subset. No new full
 texture merge is introduced from this limited evidence.
+
+### 22:40 UTC — expanded confidence diagnostic and stronger graph review
+
+The actual-target-texture witness diagnostic completed all three validation
+views. On identical informative pixels where the existing selector chose one
+of the two tested sources, source-choice agreement is:
+
+| View | Pixels | Actual-texture confidence | Existing selector | Weighted actual | Weighted existing |
+|---|---:|---:|---:|---:|---:|
+| 012 | 63,338 | 48.40% | 54.97% | 48.48% | 57.54% |
+| 095 | 1,179,190 | 46.09% | 66.94% | 47.03% | 75.62% |
+| 150 | 1,144,992 | 55.78% | 57.93% | 60.48% | 59.88% |
+
+These results do not justify replacing current source ranking. The cam150
+weighted result alone cannot offset the other views' clear failures. Evidence:
+`evaluation/actual_texture_witness_expanded_diagnostic.json`. This is an
+evaluation-only two-source counterfactual diagnostic, not a final hybrid score.
+
+The matched appearance-normalized CPU control has completed cam007. On 26,507
+common informative pixels it scores 57.47% versus the unnormalized actual
+texture criterion's 61.38%; weighted agreement is 43.91% versus 53.50%.
+It also trails the existing selector on the incremental subset. The remaining
+views are still running; no production ranking change follows from this result.
+
+The stronger native graph weight .4 was inspected in all four views at three
+fixed depth25 tiles per view. It does not eliminate irregular cam007 dark fold
+edges or altered sleeve boundaries; the other views' ornament, cord, hair,
+background and lace problems persist. It is visually rejected independently
+of its queued canonical metrics. Evidence:
+`evaluation/single_native_graph_strong40_seam_visual_review.json` and
+`evaluation/native_graph_strong_reference_tiles/`. Weight 1.6 remains running.
+
+A read-only coverage probe now examines target depth uncertainty between 2
+and 4 pixels while preserving every other geometric gate. It counts only
+locations with positive source-native restoration evidence from at least two
+strictly visible TRAIN witnesses, requiring every scalar interpolation tap to
+be known. This changes neither candidate images nor production eligibility.
+Source-native evidence does not itself certify the uncertain target mapping;
+the probe establishes only whether enough corroborated coverage exists to
+warrant a later controlled experiment.
+
+The probe has now completed. For native source utility greater than .2
+(`cost < .4`, median of at least two strict TRAIN witnesses), the new coverage is:
+
+| View | Newly available with uncertainty 4 | With positive strict witness evidence | Fraction of tested geometry domain |
+|---|---:|---:|---:|
+| 007 | 179,858 | 2,785 | 0.0804% |
+| 012 | 189,198 | 2,140 | 0.0664% |
+| 095 | 67,691 | 359 | 0.0103% |
+| 150 | 82,316 | 877 | 0.0290% |
+
+Even accepting any positive median utility (`cost < .5`) yields only
+10,309/6,117/1,876/6,823 new pixels. These counts precede patch admission and
+do not establish target correspondence or quality. No relaxed production gate
+is introduced. Evidence: `preflight/witness_supported_uncertainty.json`,
+reproduced by `probe_witness_supported_uncertainty_luster.py --root "$C"`.
+
+A separate evaluation-only diagnostic tests whether isolated photo edges
+behave differently from dense texture. Its gradient occupancy feature is
+`E(|gradient G1(photo)|)^2 / E(|gradient G1(photo)|^2)` in a support-normalized
+sigma8 window, computed independently per projected source before reading
+evaluation spatial maps. This differs from previously tested warp curvature
+and edge orientation. The script saves aggregate bins only; it emits no gate,
+candidate RGB or source map. The cam007 result is not monotonic: low occupancy
+bins improve, while .2–.6 bins degrade. Validation results remain pending.
+
+The gradient-occupancy diagnostic then completed all views. Every occupancy
+bin improves on cam012/095/150 (mean spatial LPIPS deltas range from
+-.01799 to -.07485). Thus sparse edges do not provide a general rejection
+rule, and no density gate is introduced. Cam007's .2–.4 and .4–.6 bins have
+positive mean deltas +.00317/+ .00862, while both lower and higher bins improve.
+All bin counts exactly partition the known active domain. Evidence:
+`evaluation/single_photometric_depth25_seam_texture_edge_density.json`;
+reproduce with `diagnose_texture_edge_density_luster.py --root "$C"`.
+These spatial associations do not establish causal per-pixel transfer errors.
+
+The appearance-normalized witness control also completed cam012: matched
+agreement is 46.54% versus 46.80% without normalization; weighted agreement
+43.10% versus 45.83%. On the incremental subset it trails the existing selector
+47.64% versus 54.76% (weighted 45.21% versus 57.34%). Results continue to argue
+against adding this normalized confidence to production ranking.
