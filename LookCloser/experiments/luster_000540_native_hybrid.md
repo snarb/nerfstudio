@@ -2384,3 +2384,35 @@ for that reason. `run_target_witness_gain_luster.py` compares attenuation .5/1,
 waits for prior CUDA controllers, and writes a separate screen. The focused
 suite passes 105 tests, including translated-plane camera-z projection,
 occlusion rejection and analytical gain sensitivity to baseline quality.
+
+### 20:43 UTC — analytical cam007 results and confidence observability control
+
+Native-witness analytical gain's preliminary cam007 results are:
+
+| Attenuation | Person LPIPS | PSNR | SSIM |
+|---|---:|---:|---:|
+| .5 | .0658092201 | 31.3752480 | .920945452 |
+| 1 | .0654925406 | 31.4371967 | .923282043 |
+
+Both improve on depth25's person LPIPS .0674496666, and every predefined cam007
+ROI remains better than LookCloser. They improve LPIPS less than threshold
+admission (.0617690831). Fixed native tiles were inspected at
+`evaluation/witness_native_gain_cam007_reference_tiles.png`: irregular dark
+fold edges are attenuated but remain, and ornament mismatch/softening persists.
+No validation or visual acceptance is inferred from these preliminary results.
+
+The target-conditioned confidence control initially has zero two-witness
+coverage for sources 8, 6 and 23 on cam007. Investigation reproduces the same
+visibility behavior as the existing photo warps: for cam007/render009, angular
+scores range above 1.22, so the score-1 policy rejects all pixels even though
+some pass depth and round-trip checks. This is a coverage restriction, not a
+camera-z or projection failure. Unknown confidence correctly leaves gain one.
+
+A separate `_wide` control raises **only frozen-render confidence projection**
+max_score to 2 (nominal angular allowance up to 60 degrees, reduced by resolution
+penalty). Actual source-photo projection keeps max_score 1. All alpha, depth,
+round-trip, uncertainty and footprint checks remain unchanged. Native TRAIN
+witnesses still supply only scalars, and at least two are required. Separate
+cache directories preserve the original control. This may expose view-dependent
+appearance differences, so broader confidence is experimental rather than an
+automatic improvement. No target GT or evaluation mask is used in either rule.

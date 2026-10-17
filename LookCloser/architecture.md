@@ -2127,3 +2127,10 @@ reverse visibility and a two-witness median. Evaluation cameras may supply
 their frozen render here, never their photographs. No reprojected render or
 witness RGB is used as final texture. The separate runner tests half/full
 attenuation on unchanged source labels; results and export audit are pending.
+
+`target_witness_gain_wide_luster_hybrid.py` is a separate matched confidence
+control: frozen-render reprojection permits angular score 2 instead of 1.
+Photo transfer still uses score 1 and every alpha/depth/round-trip/uncertainty
+threshold is unchanged. Its render caches are isolated under
+`variants/target_witness_confidence60`; neither original confidence caches nor
+photo warps are overwritten. This tests missing witness coverage, not geometry.
