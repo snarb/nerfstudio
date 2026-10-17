@@ -2954,3 +2954,21 @@ agreement is 46.54% versus 46.80% without normalization; weighted agreement
 43.10% versus 45.83%. On the incremental subset it trails the existing selector
 47.64% versus 54.76% (weighted 45.21% versus 57.34%). Results continue to argue
 against adding this normalized confidence to production ranking.
+
+### 22:44 UTC — native witness LPIPS ranking visual gate
+
+`single_target_witness_perceptual50_seam` has completed construction. All four
+views were inspected at the same three fixed contradiction-reference tiles,
+with GT, frozen LookCloser and depth25 alongside the candidate. Cam007 retains
+new irregular dark fold edges and softened ornament. Cam012 ornament/cord/
+silhouette and cam095 hair/background/lace mismatches remain; the added cam150
+fold detail does not resolve the fold/lace mismatch. The candidate is visually
+rejected; canonical metrics are still queued. Evidence:
+`evaluation/single_target_witness_perceptual50_seam_visual_review.json` and
+`evaluation/target_utility_perceptual_reference_tiles/`.
+
+The matched normalization diagnostic has also completed cam095. Normalized
+confidence trails its unnormalized counterpart on common informative pixels
+(44.15% versus 45.54%) and trails the existing selector on the incremental
+subset (43.79% versus 67.05%). Cam150 remains running. No new confidence rule
+is adopted from these diagnostics.
