@@ -1,6 +1,10 @@
 # Frozen LookCloser + native photographs: Luster 000540
 
-Status: experiments in progress. Best numerical candidate without predefined ROI regressions:
+Status: experiments in progress. New measured candidate
+`single_source_contradiction400_seam` reaches **29.6216%** lower native validation
+LPIPS without named ROI regressions, but remains visually unaccepted. Its deeper
+confidence-dependency audit is in progress. Cam007 is slightly worse than the
+previous recipe; see the comparison below. The current audited/exported reference is
 `single_cubic_eligible_phase_rt2_seam`, **29.5715%** lower native validation LPIPS,
 still not visually accepted. This candidate is now deeply audited and exported.
 The previous **29.5623%** reference remains available separately. All predefined
@@ -1323,3 +1327,26 @@ averaged into the prediction. The final detail merge and adaptive seam rule
 are unchanged. All 73 tests pass (`logs/tests_coherent_phase.log`), including
 small label-island removal, wholly unsupported patches and a hidden pixel
 inside an otherwise eligible patch.
+
+## Contradiction-only results (17:44 UTC)
+
+| Weight | Validation LPIPS | Reduction | Named ROI regressions |
+|---|---:|---:|---:|
+| 1 | .095049990 | 29.6137% | 0 |
+| 4 | .095039201 | 29.6216% | 0 |
+
+Weight 4 is the newest numerical result passing named ROI guardrails. The
+improvement over the audited 29.5715% recipe is small. Cam007 person LPIPS is
+.06576183 instead of .06556746 (baseline .06944436), so it is not an improvement
+in every view over the previous recipe. Validation mean PSNR is 28.341323 and
+SSIM .89936922. Exact LookCloser preservation is 12.0067%/14.2990%/6.4918%/8.6493%
+for cameras 007/012/095/150.
+
+All four worst-local-regression panels were inspected. Irregular cam007 cloth
+details, cam012 jewelry/silhouette discrepancies, cam095 hair/background strips
+and lace mismatch, and cam150 fold/lace changes persist. Status:
+**not_accepted_local_detail_degradation**. Native comparison and source panels
+are saved under `evaluation/single_source_contradiction400_seam*`. CPU spatial
+maps are diagnostic; the reported aggregate and ROI metrics are canonical CUDA.
+The source/witness transitive deep audit is still running. The existing review
+archive is retained as the downloadable reference; no claim of 40% is made.
