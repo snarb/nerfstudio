@@ -1310,3 +1310,51 @@ def test_fine_edge_guard_transverse_detail_and_flat_neutrality():
     # Full rejection affects fine detail only and retains the middle band.
     np.testing.assert_allclose(correction(base,crossed,support,np.zeros((96,96),np.float32)),pm-bm,atol=1e-7)
     np.testing.assert_allclose(correction(base,crossed,support,np.ones((96,96),np.float32)),pf+pm-bf-bm,atol=1e-7)
+
+
+def test_appearance_graph_binary_move_matches_exhaustive_energy():
+    import itertools
+    from appearance_graph_luster_hybrid import expansion,energy,grid_edges,optimize,patch_vectors
+    rng=np.random.default_rng(128)
+    p,q=grid_edges((2,3));unary=rng.uniform(0,1,(6,3));features=rng.normal(0,.02,(3,6,6))
+    labels=np.array([0,1,2,0,1,2],np.int16)
+    for alpha in range(3):
+        actual=expansion(unary,features,p,q,labels,alpha,.4)
+        best=min(energy(unary,features,p,q,np.where(choice,alpha,labels),.4) for choice in itertools.product([False,True],repeat=6))
+        assert np.isclose(energy(unary,features,p,q,actual,.4),best,atol=1e-8)
+    final,trace=optimize(unary.reshape(2,3,3),features,.4)
+    assert np.all(np.diff(trace)<=0)
+    plain,trace=optimize(unary.reshape(2,3,3),features,0)
+    assert np.array_equal(plain,unary.argmin(-1).reshape(2,3)) and len(trace)==1
+    rgb=np.arange(3*5*3).reshape(3,5,3).astype(np.float32)
+    packed=patch_vectors(rgb,2)
+    assert packed.shape==(6,12)
+    assert np.array_equal(packed[0],rgb[:2,:2].reshape(-1))
+    # Spatially varying label distances still satisfy the triangle inequality.
+    from appearance_graph_luster_hybrid import metric
+    assert np.all(metric(features,p,q,0,2,.4)<=metric(features,p,q,0,1,.4)+metric(features,p,q,1,2,.4)+1e-9)
+
+
+def test_appearance_patch_labels_preserve_native_cells_and_invalid_fallback():
+    from appearance_graph_rank_luster_hybrid import patch_labels
+    shape=(3,5);scores=[np.full(shape,.1,np.float32),np.full(shape,.5,np.float32)]
+    allowed=[np.ones(shape,bool),np.ones(shape,bool)]
+    allowed[0][0,0]=False
+    # The first 2x2 patch has only 75% support and must choose source 1.
+    features=[np.zeros((6,12),np.float32) for _ in range(2)]
+    result,trace=patch_labels(scores,allowed,features,shape,dict(grid_step=2,fallback_cost=8.,transition_cost=0.))
+    assert np.all(result[:2,:2]==1)
+    assert np.all(result[:,2:]==0) and np.all(result[2,:]==0)
+    allowed[1][:2,:2]=False
+    features=[np.zeros((6,12),np.float32) for _ in range(2)]
+    result,_=patch_labels(scores,allowed,features,shape,dict(grid_step=2,fallback_cost=8.,transition_cost=.1))
+    assert np.all(result[:2,:2]==2)
+
+
+def test_appearance_graph_places_transition_where_photos_agree():
+    from appearance_graph_luster_hybrid import optimize
+    costs=np.zeros((1,4,2),np.float64);costs[0,0,1]=100;costs[0,3,0]=100
+    features=np.zeros((2,4,3),np.float32);features[1]=np.array([.001,.001,.2,.2])[:,None]
+    labels,trace=optimize(costs,features,.1)
+    assert np.array_equal(labels,[[0,1,1,1]])
+    assert trace[-1]<trace[0]

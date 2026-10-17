@@ -1862,3 +1862,44 @@ GPU evaluations explicitly wait for that controller to exit. Results pending.
 All **92 focused tests pass**, including parallel-edge retention, transverse
 fine-detail attenuation, flat/unsupported neutrality and exact band isolation
 (`logs/tests_fine_edge_orientation.log`).
+
+
+## 2026-10-17 19:24 UTC — appearance-dependent patch assignment
+
+Earlier patch experiments used a constant Potts transition penalty. The new
+`appearance_graph_luster_hybrid.py` uses an edge-dependent metric: mean absolute
+difference between two candidate detail corrections over both incident patches,
+normalized by .02, plus a .02 label-switch floor. Each 4x4 patch retains every
+RGB correction sample in its feature vector; averaging colors before computing
+differences could conceal opposite-phase detail. Features supply costs only.
+The final pixel still samples exactly one native TRAIN photograph.
+
+`appearance_graph_rank_luster_hybrid.py` retains the contradiction-400 source
+unaries, phase/round-trip checks and cubic eligibility. Patch unaries require
+80% geometric eligibility; invalid individual pixels fall back after graph
+selection. Grid cells preserve exact native 4x4 boundaries, including cropped
+last cells. The fallback unary is 8. Three alpha-expansion cycles use exact
+submodular binary moves; all accepted moves must decrease measured energy.
+
+`run_appearance_graph_luster.py` tests weights 0, .1 and .4. Weight zero is a
+matched patch-aggregation control, necessary because patch assignment itself
+changes the pixelwise recipe. One cleanup and the established seam merge follow.
+GPU evaluations wait for both preceding controllers. Results are pending.
+Binary moves are checked against exhaustive enumeration on a small graph;
+additional tests cover metric triangle inequality, monotonically decreasing
+energy, native grid boundaries, fallback on ineligible patches, and placement
+of a source transition where the two photographs agree.
+
+The source-native restoration association diagnostic is evaluation-only:
+`diagnose_native_restoration_luster_hybrid.py` bins the already selected scalar
+risk against spatial LPIPS deltas. It writes no construction signal or threshold.
+Zero penalty includes unknown evidence and must not be interpreted as proof
+that a source is correct.
+
+
+All **95 focused tests pass** (`logs/tests_appearance_graph.log`). Both fine-edge
+variants were inspected at three fixed native tiles for all four cameras.
+They remain visually unaccepted: some fine edge irregularity changes, but fold,
+scalp ornament, jewelry, cord/silhouette, hair/background and lace mismatches
+remain. Canonical numerical evaluations are still queued. The graph experiment
+has not produced a result yet and is not claimed to improve those defects.

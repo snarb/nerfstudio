@@ -2050,3 +2050,13 @@ frozen-render edge tensors and attenuates only I-G2 at strong coherent edges
 with transverse fine energy. G2-G6 and all calibrated sample coordinates remain
 unchanged. Its runner tests .5/1 attenuation and waits for the preceding GPU
 controller. This is an experimental confidence gate, not an accepted default.
+
+
+`appearance_graph_luster_hybrid.py` implements metric alpha expansion with
+spatially varying L1 detail-disagreement seam costs, verified against exhaustive
+binary moves. `appearance_graph_rank_luster_hybrid.py` uses existing source
+unaries and native 4x4 patch eligibility, then retains one photo per pixel.
+Feature vectors are never output RGB. The runner includes a zero-transition
+patch control and queues GPU evaluation after prior controllers.
+`diagnose_native_restoration_luster_hybrid.py` only measures associations between
+TRAIN confidence and evaluation spatial errors; it cannot produce transfer gates.
