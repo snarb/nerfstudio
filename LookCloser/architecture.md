@@ -1894,3 +1894,9 @@ coordinates unchanged. Their cache receipts bind source/model inputs.
 7x7 bilateral neighborhood using only frozen target RGB/depth. Invalid samples
 are excluded and invalid centers remain ineligible. This changes assignment
 coherence without changing any texture lookup or mixing source photographs.
+
+
+`structure_admission_luster_hybrid.py` tests a G2-G6 compatibility gate against
+frozen target structure, preserving unknown and aligned detail and retaining
+the finest photo band. It does not require photo energy to exceed model energy.
+Hard source labels remain unchanged; seams use the admitted correction.

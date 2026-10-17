@@ -786,3 +786,16 @@ def test_edge_cost_respects_color_and_depth_boundaries_without_wraparound():
     geometry=aggregate(score,valid,rgb,depth)
     assert geometry[8,7]<1e-6 and geometry[8,8]>.99999
     assert geometry[8,0]==0 and geometry[8,-1]>.99999
+
+
+def test_structure_gate_rejects_reversed_middle_band_but_retains_unknown_detail():
+    from structure_admission_luster_hybrid import structure_gate
+    rng=np.random.default_rng(20);band=rng.normal(0,.05,(64,64,3)).astype(np.float32)
+    support=np.ones(band.shape[:2],bool);zero=np.zeros_like(band)
+    for start in [.5,.75]:
+        np.testing.assert_allclose(structure_gate(band,2*band,support,start),1,atol=1e-6)
+        np.testing.assert_allclose(structure_gate(band,zero,support,start),1,atol=1e-6)
+        assert np.max(structure_gate(band,-band,support,start))<1e-6
+        support[:8]=False
+        assert not structure_gate(band,zero,support,start)[:8].any()
+        support[:]=True

@@ -2,10 +2,9 @@
 
 Status: experiments in progress. Current numerical leader: `single_source_phase_both_rt2_seam`,
 **29.5623%** lower native validation LPIPS, still not visually accepted.
-Audited/exported provisional reference: `single_source_phase_both_seam`,
-**29.36%** lower native validation person LPIPS. All predefined named ROI LPIPS
-checks pass, but smaller patches still show local degradation. **Not visually
-accepted; the 40% goal is not achieved.**
+The same numerical leader is now deeply audited and exported. All predefined
+named ROI LPIPS checks pass, but smaller patches still show local degradation.
+**Not visually accepted; the 40% goal is not achieved.**
 
 **Active user requirement: fixed LookCloser geometry and exactly one native
 TRAIN photograph supplying texture per pixel/patch. Source choice, consistency
@@ -22,11 +21,11 @@ Historical pair-interpolation and registration experiments below are ineligible.
    round-trip error > 1 pixel, projected uncertainty > 2 pixels, source score
    > 1 or resolution ratio < .5. No evaluation mask is used.
 3. Rank geometrically valid sources using angular/resolution cost, patch
-   appearance, capture-scale compatibility, round-trip and depth risk. Add .5
+   appearance, capture-scale compatibility, round-trip (weight 2) and depth risk. Add .5
    times source-photo/source-render phase cost and .5 times source-render/target
    phase cost (G2-G8 luminance bands). Smooth costs over sigma 3 before hard
    selection; remove isolated labels. Exact settings are in
-   `candidates/single_source_phase_both/config.json`.
+   `candidates/single_source_phase_both_rt2/config.json`.
 4. Keep those automatic source labels fixed. Resample the selected native photo
    at the same projected coordinate with clamped Keys cubic interpolation
    (a=-.75). Every nonzero 4x4 footprint tap must pass visibility. If it fails,
@@ -46,25 +45,25 @@ or inaccurate geometry makes it unsafe.
 
 | View | Baseline LPIPS | Hybrid LPIPS | Hybrid PSNR | Hybrid SSIM | Exact LookCloser preserved in person |
 |---|---:|---:|---:|---:|---:|
-| 007 | 0.06944436 | 0.06215304 | 31.336224 | 0.915645 | 11.80% |
-| 012 | 0.12492531 | 0.09896802 | 27.865395 | 0.874542 | 14.21% |
-| 095 | 0.12697524 | 0.07860490 | 29.239731 | 0.908193 | 6.52% |
-| 150 | 0.15322061 | 0.10858662 | 27.900299 | 0.914927 | 8.71% |
+| 007 | 0.06944436 | 0.06557443 | 31.222206 | 0.914382 | 12.05% |
+| 012 | 0.12492531 | 0.09882741 | 27.879047 | 0.874746 | 14.32% |
+| 095 | 0.12697524 | 0.07821674 | 29.238457 | 0.908216 | 6.55% |
+| 150 | 0.15322061 | 0.10831387 | 27.905771 | 0.915042 | 8.72% |
 
-Validation mean: **LPIPS 0.0953865151**, PSNR 28.335141, SSIM 0.89922073.
+Validation mean: **LPIPS 0.0951193372**, PSNR 28.341092, SSIM 0.89933486.
 The 40% threshold is .0810242310. Native measurements are separate from HD.
 
 Deep provenance audit passed: exact checkpoint/runtime/geometry, source
 exclusion, cubic array hashes, single-photo reconstruction and exact fallback.
 The strengthened audit also verifies transitive parent and quality-cache receipts
-(`logs/audit_source_phase_both_recursive.log`). Fifty-six focused tests pass
-(`logs/tests_band_witness.log`), including experimental band-admission guards.
+(`logs/audit_phase_both_rt2.log`). Sixty-three focused tests pass
+(`logs/tests_structure_admission.log`), including experimental band-admission guards.
 
 Visual review is explicitly **not_accepted_local_detail_degradation**. Embroidery and many
 fine details improve, but small jewelry/brocade patches can soften and cloth
 creases can change appearance. Dark-hair texture and incorrect lace holes
 remain. Named ROI averages do not establish that every detail improved.
-Review `evaluation/single_source_phase_both_seam_visual_review.json`, the source panels,
+Review `evaluation/single_source_phase_both_rt2_seam_visual_review.json`, the source panels,
 and the worst 128px spatial-regression panels. These diagnostics never enter
 prediction. Existing eye and pendant geometry cannot be repaired by texture.
 
@@ -79,7 +78,7 @@ C=/fsx/tmp/luster_000540_hybrid_20261017T104440Z
 PY=/home/pavlo/.conda/envs/nerfstudio/bin/python
 S="$C/code/LookCloser/scripts"
 export OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4
-"$PY" "$S/source_phase_select_luster_hybrid.py" --root "$C" --name reproduce_risk --config "$C/candidates/single_source_phase_both/config.json"
+"$PY" "$S/source_phase_select_luster_hybrid.py" --root "$C" --name reproduce_risk --config "$C/candidates/single_source_phase_both_rt2/config.json"
 "$PY" "$S/cubic75_luster_hybrid.py" --root "$C" --count 16
 "$PY" "$S/cubic75_fixed_luster_hybrid.py" --root "$C" --parent reproduce_risk --name reproduce_cubic
 "$PY" "$S/fixed_sampling_seam_luster_hybrid.py" --root "$C" --parent reproduce_cubic --name reproduce_seam --filter-support geometry --seam-fade 3 --adaptive-seam --seam-tolerance .02
@@ -93,13 +92,13 @@ The expanded <=60-degree TRAIN source search is complete and gave negligible
 improvement with the current costs; it is not part of this reference.
 
 
-Current verified review archive (273 members, 185160828 bytes):
+Current verified review archive (279 members, 185648915 bytes):
 
 ```bash
-scp olive-lark:/fsx/tmp/luster_000540_hybrid_20261017T104440Z/exports/single_source_phase_both_seam.tar.gz .
+scp olive-lark:/fsx/tmp/luster_000540_hybrid_20261017T104440Z/exports/single_source_phase_both_rt2_seam.tar.gz .
 ```
 
-SHA256: `39894438c97bf05bc0722fe2f797b07b156a59297af8d19c64aab9c5d539c139`.
+SHA256: `7b2e3cbd179bc929a317b6ec0ceff5610bc02dc4d769344e9d0b0d120f56c2ad`.
 Archive status: **not_accepted_local_detail_degradation**. It includes local
 regression panels and source evidence alongside the favorable average metric.
 
@@ -1016,3 +1015,50 @@ Two separate controls test stronger round-trip ranking (weight 5) and less
 spatial averaging (sigma 1), without adding edge guidance. These isolate whether
 any benefit is due to preserving boundaries or merely changing cost scale.
 All are recipe-selection experiments; no improvement is claimed before results.
+
+
+## Completed direction, band and RGB checks (2026-10-17 16:33 UTC)
+
+| Variant | Validation LPIPS | Reduction | Predefined ROI regressions |
+|---|---:|---:|---:|
+| Added directional cost .1 | .0955484683 | 29.2445% | 0 |
+| Added directional cost .3 | .0964426026 | 28.5824% | 1 |
+| Middle-band admission, updated phase/RT2 labels | .0957285538 | 29.1112% | 0 |
+| Joint fine/middle admission, margin .25 | .0990423858 | 26.6572% | 0 |
+| Joint fine/middle admission, margin .1 | .1020517250 | 24.4287% | 0 |
+| RGB-vector phase, otherwise identical | .0951316655 | 29.5532% | 0 |
+
+Direction weight .3 regresses cam007 jewelry and is rejected. The conditional
+fine-band rule still discards useful texture. RGB-vector phase is effectively
+tied with luminance phase but does not improve its .0951193372 result. The
+middle-band-only candidate is undergoing local review as a potentially more
+conservative tradeoff, despite its lower aggregate improvement.
+
+The 29.5623% phase/RT2 reference now passes deep recursive input and exact-output
+reconstruction auditing. Native source panels were additionally reviewed for
+cam007 fingers and cam150 embroidery. It remains **not accepted** because local
+fold/texture changes persist. Verified archive: 279 members, 185648915 bytes.
+
+```bash
+scp olive-lark:/fsx/tmp/luster_000540_hybrid_20261017T104440Z/exports/single_source_phase_both_rt2_seam.tar.gz .
+```
+
+SHA256: `7b2e3cbd179bc929a317b6ec0ceff5610bc02dc4d769344e9d0b0d120f56c2ad`.
+This archive is a reviewable experiment, not a 40%-goal success.
+
+
+## Middle-band structural admission (queued 16:36 UTC)
+
+The updated middle-band witness candidate was inspected on all four worst-tile
+panels and remains unaccepted: cam007 dark fold structure remains irregular,
+with smaller changes in cam095 lace/hair and cam150 fabric.
+
+A separate guard tests target-LookCloser structural compatibility directly,
+without the old missing-band method's energy-ratio requirement. RGB-vector
+correlation is measured for G2-G6 photo/model detail on geometric support.
+Unknown or positively correlated structure is retained. Negative correlation
+attenuates only the middle-band replacement; I-G2 photo detail remains intact.
+Two settings begin attenuation at phase costs .5 and .75. Source labels and
+coordinates stay fixed, and seams are checked using the actual correction.
+The additional test checks reversed contrast, aligned gain changes, missing
+model texture and invalid support; all 63 focused tests pass.
