@@ -2034,3 +2034,12 @@ error. A two-witness quorum and all-witness median yield a one-sided scalar
 contradiction cost. `native_restoration_rank_luster_hybrid.py` uses this confidence
 in hard source selection; no witness RGB enters the output and q50 lookup stays
 fixed. The runner tests global .5/1.5 weights with sequential GPU evaluation.
+
+
+The I-G6 source-native restoration experiment was interrupted before evaluation
+because candidate and interpolated witness bandwidths differ. Its successor
+`source_native_restoration_common_luster_hybrid.py` uses G1-G6 for all confidence
+inputs, with separate caches and unchanged native output sampling.
+`native_restoration_common_rank_luster_hybrid.py` retains the two-witness quorum,
+all-witness median, and one-sided negative-utility penalty. The common band is
+an approximate reliability proxy, not a calibrated camera PSF model.

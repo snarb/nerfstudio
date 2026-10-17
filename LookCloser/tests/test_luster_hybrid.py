@@ -1272,3 +1272,17 @@ def test_native_restoration_median_quorum_and_neutral():
     assert np.array_equal(count,[3,1,3,0])
     cost,count=contradiction_median(np.array([[-.8],[-.4]],np.float32),np.ones((2,1),bool))
     assert np.allclose(cost,[.8]) and count[0]==2
+
+
+def test_common_band_restoration_ignores_unresolved_checkerboard():
+    from source_native_restoration_common_luster_hybrid import restoration_utility,contradiction_median
+    from risk_single_luster_hybrid import masked_low
+    yy,xx=np.mgrid[:64,:64]
+    pattern=np.repeat((.1*((xx+yy)%2*2-1))[...,None],3,-1).astype(np.float32)
+    support=np.ones(pattern.shape[:2],bool)
+    fine,_=masked_low(pattern,support,1.);coarse,_=masked_low(pattern,support,6.)
+    band=fine-coarse;zero=np.zeros_like(band)
+    utility,known=restoration_utility(band,zero,zero,support)
+    assert not known[16:-16,16:-16].any()
+    cost,count=contradiction_median(np.stack([utility,utility]),np.stack([known,known]))
+    assert np.all(cost[16:-16,16:-16]==.5)

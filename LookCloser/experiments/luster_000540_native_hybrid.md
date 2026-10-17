@@ -1788,7 +1788,7 @@ review is being saved in `evaluation/single_photometric_depth25_seam`.
 Construction remains q50 + one native photograph; the q10/q90 span only adds a
 scalar ranking penalty. No shifted texture coordinates were introduced.
 
-## 2026-10-17 19:08 UTC — source-native restoration reliability
+## 2026-10-17 19:08 UTC — source-native restoration reliability (superseded before evaluation)
 
 The new test compares a source photo's I-G6 RGB detail against each of four
 nearby TRAIN witness photos, projected onto the source's unchanged q50 surface.
@@ -1811,3 +1811,33 @@ All **90 focused tests pass** (`logs/tests_native_restoration.log`), including
 rejection of blur/wrong detail relative to a stronger frozen witness render,
 flat neutrality, support isolation, median outlier behavior and two-witness
 quorum. No GPU training or model/grid update is involved.
+
+
+### 19:16 UTC — common-band correction and completed local review
+
+The initial I-G6 restoration controller was intentionally interrupted before
+producing a completed candidate or canonical metrics. Native candidate detail
+and interpolated witness detail have different effective bandwidths; raw I-G6
+can penalize a sharper source merely because the witness undersamples it.
+No measured result is claimed for that interrupted experiment. Partial caches
+remain separate and retain their original provenance.
+
+The active `run_native_restoration_common_luster.py` instead compares G1-G6 RGB
+bands for all three inputs in the native source frame. This suppresses unresolved
+finest-scale patterns for confidence only; final texture sampling remains native
+and unchanged. It is an approximate common-band proxy, not calibrated optical
+PSF matching. `source_native_restoration_common_luster_hybrid.py` and
+`native_restoration_common_rank_luster_hybrid.py` use separate immutable caches.
+Global weights .5/1.5 are pending. **91 focused tests pass**, including a synthetic
+unresolved checkerboard that must not become false contradiction evidence
+(`logs/tests_native_restoration_common.log`).
+
+The directional .25 candidate's own six worst spatial regression tiles were
+inspected for each of the four cameras, in addition to the earlier fixed tiles.
+Cam007 has irregular dark fold edges and altered sleeve contour; cam012 retains
+jewelry and thin silhouette/cord mismatches; cam095 retains erroneous hair strips
+against the bright background and distorted lace; cam150 retains displaced fold
+appearance and lace/embroidery mismatch. Thus passing all predefined ROI means
+still does not imply local visual acceptance. Native detailed and source panels
+have finished. The stronger directional penalty is explicitly rejected for the
+five canonical ROI/person regressions recorded above.
