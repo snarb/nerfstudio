@@ -841,3 +841,44 @@ preparation can overlap. Fifty-three focused tests pass. The constant-color
 point-correction test permits 5e-7 FP32 Gaussian roundoff; equal directional
 colors, unchanged fallback, and independence across source labels are checked
 exactly. No target photographs or evaluation masks enter any predictor.
+
+
+## Measured source reliability and local limits (2026-10-17 16:00 UTC)
+
+The new numerical leader is `single_source_phase_both_seam`: validation LPIPS
+**.0953865151**, **29.36445%** below frozen LookCloser. This is still short of
+40% (.0810242310). All predefined person/detail ROI LPIPS checks pass, but native
+visual review of all four worst-tile panels finds remaining fold contrast/shape
+changes and small jewelry/lace/embroidery softening. Its status is
+**not_accepted_local_detail_degradation**. The eye, finger, jewelry and lace
+geometry limitations remain; the nails ROI alone cannot establish nail recovery.
+There are still zero visually accepted candidates.
+
+| Source-ranking change, same cubic-.75 adaptive-seam merge | Validation LPIPS | Reduction |
+|---|---:|---:|
+| Source photo/source-model phase only, weight .5 | .0954866558 | 29.2903% |
+| Source-model/target-model phase only, weight .5 | .0960498154 | 28.8733% |
+| Both phase costs, weights .5/.5 | .0953865151 | 29.3645% |
+| Round-trip weight 2 | .0959416380 | 28.9534% |
+| Depth weight 2 | .0963478759 | 28.6525% |
+| Uncertainty weight 2 | .0967302422 | 28.3694% |
+| Photometric mismatch weight 0 | .0969244366 | 28.2256% |
+| Opposite-side witnesses, weight .5 | .0962875038 | 28.6973% |
+| Opposite-side witnesses, weight 1.5 | .0957137297 | 29.1221% |
+
+All nine configurations pass predefined ROI checks. The round-trip variant was
+also visually reviewed and not accepted for local fold/lace changes. Unreviewed
+variants remain pending, never implicitly accepted. Results are recorded in
+`evaluation/source_phase_screen.json`, `geometric_rank_screen.json`, and
+`bracket_witness_screen.json`. The previously verified downloadable archive is
+still the adaptive-seam reference at 28.6944%, not this new numerical leader.
+
+A further TRAIN-only reliability test compares each candidate's G1-G6 detail
+against two angularly opposed witness photographs. Its scalar utility measures
+whether candidate detail predicts each witness better than that witness's own
+reprojected frozen LookCloser detail. Flat/flat has zero benefit; unavailable
+witness evidence is neutral. Only the selected source supplies output RGB.
+This uses the same target-surface projection, not a new geometry or correspondence
+estimator. Weights .5 and 1.5 are queued after Lanczos and point-view evaluations.
+Fifty-four focused tests pass, including correct/wrong-phase utility, unchanged
+baseline, flat patches and absent support (`logs/tests_witness_benefit.log`).

@@ -668,3 +668,14 @@ def test_point_view_transfer_has_identity_for_equal_directional_colors():
     other,_=merge(base,texture,target,base,labels,config)
     np.testing.assert_array_equal(other[labels==8],shifted[labels==8])
     np.testing.assert_array_equal(other[labels<0],base[labels<0])
+
+
+def test_train_witness_benefit_rewards_added_detail_and_penalizes_wrong_phase():
+    from witness_benefit_luster_hybrid import pair_benefit
+    y,x=np.mgrid[:64,:64];truth=(.04*np.sin(x*np.pi/8)).astype(np.float32);flat=np.zeros_like(truth);support=np.ones(truth.shape,bool)
+    good,valid=pair_benefit(truth,truth,flat,support);bad,_=pair_benefit(-truth,truth,flat,support)
+    same,_=pair_benefit(flat,truth,flat,support)
+    assert np.median(good[valid])>.99 and np.median(bad[valid])<-.59
+    assert not same.any()
+    uncertain,_=pair_benefit(flat,flat,flat,support);assert not uncertain.any()
+    _,hidden=pair_benefit(truth,truth,flat,np.zeros_like(support));assert not hidden.any()

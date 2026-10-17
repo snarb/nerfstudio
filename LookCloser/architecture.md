@@ -1860,3 +1860,10 @@ and a read-only point-view cache queries frozen field RGB at the same q50 point
 with two directions and saved frequency levels. Point-view queries assert equal
 density and unchanged full model state. Their results are experimental until
 native metrics, local visual review and reconstruction audit pass.
+
+
+`witness_benefit_luster_hybrid.py` adds a TRAIN-only scalar restoration-benefit
+score: candidate detail is compared with each angularly opposed witness photo,
+relative to that witness's frozen-render error. Two distinct witnesses affect
+hard source ranking; their RGB never enters the output. Flat and missing evidence
+are explicit. Target-surface geometry and all calibrated coordinates stay fixed.
