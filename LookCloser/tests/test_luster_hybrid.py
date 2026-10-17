@@ -1641,3 +1641,32 @@ def test_bracket_perceptual_modes_common_support_and_order():
     utility,broad,kd,kb=compare_modes(base,detail,truth,truth,support,metric)
     assert np.isfinite(utility).all() and np.isfinite(broad).all()
     assert not kd[~support].any() and not kb[~support].any()
+
+
+def test_local_color_control_and_low_support_preserve_reference():
+    from local_affine_texture_luster_hybrid import correction
+    from current_full_texture_luster_hybrid import correction as reference
+    rng=np.random.default_rng(170)
+    base=rng.uniform(.2,.6,(96,96,3)).astype(np.float32)
+    photo=rng.uniform(.2,.6,base.shape).astype(np.float32)
+    support=np.zeros(base.shape[:2],bool);support[45:51,45:51]=True
+    expected=reference(base,photo,support,6.,0.)
+    np.testing.assert_array_equal(correction(base,photo,support,6.,0.,False),expected)
+    np.testing.assert_array_equal(correction(base,photo,support,6.,32.,True),expected)
+
+
+def test_local_affine_color_compensates_contrast_without_shift():
+    from local_affine_texture_luster_hybrid import correction
+    yy,xx=np.mgrid[:192,:192]
+    value=(.3+.09*np.sin(xx/9)+.07*np.cos(yy/8)).astype(np.float32)
+    photo=np.repeat(value[...,None],3,-1)
+    base=photo*1.4+.04;support=np.ones(value.shape,bool)
+    affine=base+correction(base,photo,support,6.,32.,True)
+    additive=base+correction(base,photo,support,6.,32.,False)
+    region=np.s_[40:-40,40:-40]
+    assert np.mean(np.abs(affine[region]-base[region])) < .05*np.mean(np.abs(additive[region]-base[region]))
+    flat=np.full((192,192,3),.3,np.float32)
+    impulse=flat.copy();impulse[96,97]=.8
+    output=flat+correction(flat,impulse,support,6.,32.,True)
+    assert np.unravel_index(np.argmax(output[...,0]),value.shape)==(96,97)
+    assert output[96,97,0]>.5

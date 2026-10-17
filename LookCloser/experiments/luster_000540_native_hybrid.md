@@ -2690,3 +2690,29 @@ The no-cleanup candidate has been inspected at all four views' three fixed
 native reference crops. New irregular dark fold texture remains on cam007;
 cam012 cord/jewelry, cam095 hair/lace and cam150 fold/lace mismatches persist.
 It is visually unaccepted even before its queued canonical metrics.
+
+
+### 21:55 UTC — matched local photo color fitting
+
+The .10 mean-color admission control has been visually inspected in all four
+views at three fixed depth25 reference tiles. More cam012 jewelry highlight is
+admitted, but cam007 irregular dark fold texture remains. It is visually
+unaccepted; canonical metrics are still queued.
+
+A separate merge hypothesis now tests slow color/contrast fitting of the same
+automatically selected source. The baseline detail merge is an additive local
+color match at sigma6. A sigma32 additive control and a sigma32 diagonal affine
+fit test whether preserving broader source structure while fitting appearance
+reduces edge artifacts. The affine slope uses G2 inputs, Gaussian local moments,
+ridge .0001 toward unit slope, bounds [.5,2], and sigma16 parameter smoothing.
+The bias aligns raw local means. The output still samples the original cubic
+photo at the frozen q50 coordinates. No reconstruction, registration, source
+reassignment, target GT, or evaluation mask enters the fit.
+
+Large-neighborhood support mass ramps from .6 to .8; insufficient support
+retains the original detail correction. Source seams use the actual corrected
+RGB differences. A zero-fit control must reproduce all four reference RGB,
+label and weight arrays exactly before canonical metrics are run. The focused
+suite passes 111 tests, including zero-control algebra, insufficient-support
+fallback, synthetic contrast fitting and unchanged impulse position.
+Evidence: `logs/tests_local_affine.log`. No benefit is assumed from these tests.

@@ -2182,3 +2182,13 @@ counts distinguish missing geometry, patch support, color rejection and label
 cleanup. The runner checks exact reference equivalence before evaluating the
 two controls. `probe_visibility_bottlenecks_luster.py` is a separate read-only
 availability diagnostic and does not relax a production visibility gate.
+
+
+`local_affine_texture_luster_hybrid.py` is an optional experimental merge on
+fixed q50 geometry and fixed automatic source labels. It fits slow per-channel
+color gain/bias from that source to frozen target appearance using normalized
+local moments, with unit-slope regularization and bounded gain. Insufficient
+large-patch support retains the reference detail correction; source seams use
+actual corrections. No target photograph or evaluation mask is read.
+`run_local_affine_texture_luster.py` checks an exact zero control and compares
+matched additive/affine sigma32 fits in the serialized GPU evaluation queue.
