@@ -805,6 +805,49 @@ def test_coherent_phase_assignment_preserves_visibility_and_removes_small_cost_i
     assert labels[3,3]==1 and labels[2,2]==0
 
 
+def test_exact_plate_veto_requires_background_match_and_model_contrast():
+    from exact_plate_veto_luster_hybrid import background_veto,footprint_veto
+    plate=np.full((3,3),.8,np.float32);photo=plate.copy();photo[1]=.4
+    model=np.full_like(plate,.2);model[2]=.8
+    np.testing.assert_array_equal(background_veto(photo,plate,model,np.ones(3),.01),[True,False,False])
+    assert not background_veto(photo,plate,model,np.zeros(3),.01).any()
+    mask=np.zeros((8,8),bool);mask[3,3]=True
+    # At integer coordinates neighboring zero-weight cubic taps do not veto.
+    uv=np.array([[[2.,3.],[2.5,3.],[3.,3.],[np.nan,3.]]],np.float32)
+    np.testing.assert_array_equal(footprint_veto(mask,uv),[[False,True,True,False]])
+
+
+def test_plate_merge_excludes_rejected_color_from_neighbor_filters(tmp_path,monkeypatch):
+    import exact_plate_merge_luster_hybrid as module
+    from luster_hybrid_common import read,write
+    h=w=32;base=np.full((h,w,3),.4,np.float32)
+    monkeypatch.setattr(module,'geometry',lambda *args:dict(rgb=base))
+    veto_dir=tmp_path/'veto';veto_dir.mkdir();veto=np.zeros((h,w),bool);veto[:,16:]=True
+    np.save(veto_dir/'strict10.npy',veto);write(veto_dir/'receipt.json',{})
+    monkeypatch.setattr(module,'projected_veto',lambda *args:veto_dir)
+    (tmp_path/'logs').mkdir();parent=tmp_path/'candidates/parent';parent.mkdir(parents=True)
+    config=dict(alpha=.99,depth_error=.005,roundtrip=1.,uncertainty=2.,max_score=1.,
+        min_resolution=.5,sigma=6.,gain=1.,plate_veto_level='strict10')
+    write(parent/'config.json',config)
+    for target in [7,12,95,150]:
+        np.save(parent/f'cam{target:03d}_sources.npy',np.full((h,w),8,np.int16))
+        np.save(parent/f'cam{target:03d}_reasons.npy',np.zeros((h,w),np.uint8))
+        write(parent/f'cam{target:03d}_receipt.json',dict(sources=[8],reasons={}))
+        d=tmp_path/'variants/cubic75/warps'/f'cam{target:03d}'/'src008';d.mkdir(parents=True)
+        arrays={k:np.ones((h,w),np.float32) for k in ['valid','alpha','resolution_ratio']}
+        arrays.update({k:np.zeros((h,w),np.float32) for k in ['depth_error','roundtrip','uncertainty','score']})
+        arrays['rgb']=np.full_like(base,.6);arrays['rgb'][:,16:]=.95
+        for k,v in arrays.items():np.save(d/f'{k}.npy',v)
+        write(d/'receipt.json',dict(box=[0,0,w,h],arrays=list(arrays)))
+    module.combine(tmp_path,'parent','out')
+    for target in [7,12,95,150]:
+        d=tmp_path/'candidates/out'
+        result=np.load(d/f'cam{target:03d}.npy');labels=np.load(d/f'cam{target:03d}_sources.npy')
+        np.testing.assert_array_equal(result[:,16:],base[:,16:])
+        np.testing.assert_allclose(result,base,atol=2e-7)
+        assert (labels[:,16:]==-1).all() and (labels[:,:16]==8).all()
+
+
 def test_band_admission_preserves_unknown_and_rejects_corrobated_harm():
     from band_witness_luster_hybrid import admission,bands,assemble
     support=np.ones((64,64),bool)

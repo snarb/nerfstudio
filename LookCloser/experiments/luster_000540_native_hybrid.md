@@ -3,7 +3,7 @@
 Status: experiments in progress. New measured candidate
 `single_source_contradiction400_seam` reaches **29.6216%** lower native validation
 LPIPS without named ROI regressions, but remains visually unaccepted. Its deeper
-confidence-dependency audit is in progress. Cam007 is slightly worse than the
+confidence-dependency audit has passed. Cam007 is slightly worse than the
 previous recipe; see the comparison below. The current audited/exported reference is
 `single_cubic_eligible_phase_rt2_seam`, **29.5715%** lower native validation LPIPS,
 still not visually accepted. This candidate is now deeply audited and exported.
@@ -1348,5 +1348,35 @@ and lace mismatch, and cam150 fold/lace changes persist. Status:
 **not_accepted_local_detail_degradation**. Native comparison and source panels
 are saved under `evaluation/single_source_contradiction400_seam*`. CPU spatial
 maps are diagnostic; the reported aggregate and ROI metrics are canonical CUDA.
-The source/witness transitive deep audit is still running. The existing review
+The source/witness transitive deep audit passed (`logs/audit_source_contradiction400.log`). The existing review
 archive is retained as the downloadable reference; no claim of 40% is made.
+
+## Conditional scale rejected; measured-plate veto queued (17:50 UTC)
+
+| Scale relaxation strength | Validation LPIPS | Reduction | Regressions |
+|---|---:|---:|---|
+| .5 | .095392364 | 29.3601% | Cam007 face, hair, jewelry |
+| 1 | .095839227 | 29.0292% | Cam007 face, eyes, hair, jewelry; cam012 face, skin, jewelry |
+
+Both are rejected. Strong frozen structural/projection agreement does not
+justify relaxing capture-scale compatibility on this scene.
+
+The next visibility check is deliberately narrower than the earlier broad
+foreground subtraction: reject a source tap only when its sigma-1-smoothed
+native photograph matches its robustly fitted measured empty plate within
+.01 or .02 RGB, while the frozen source render differs from that plate by at
+least .12 and has alpha >=.99. Ambiguous dark-on-dark samples are retained.
+`exact_plate_veto_luster_hybrid.py` computes these source masks and checks
+every nonzero cubic footprint tap at unchanged q50 projections. The rank
+module considers another source before fallback; the merge module also
+removes vetoed samples from Gaussian support to prevent their colors leaking
+into neighboring detail. Empty-plate RGB is never used in the output.
+
+`run_exact_plate_luster.py` queues two tolerances after the coherent-patch GPU
+owner. This uses native TRAIN photos, source-specific measured background
+plates and frozen model renders, with no target photograph or evaluation mask.
+All 75 tests pass (`logs/tests_exact_plate.log`), including inactive cubic taps,
+ambiguous backgrounds and an end-to-end check that rejected background color
+cannot contaminate neighboring filtered detail. This new merge mode is
+experimental and requires an explicit reconstruction-audit extension before
+any export; no acceptance or performance improvement is claimed yet.

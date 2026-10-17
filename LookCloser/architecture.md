@@ -1948,3 +1948,10 @@ Coherent phase selection: `coherent_phase_rank_luster_hybrid.py` applies
 alpha-expansion to patch-averaged current selector costs with a source-switch
 penalty. Final per-pixel cubic visibility is enforced after patch assignment;
 each retained pixel uses one source and unchanged q50 coordinates. Experimental.
+
+Conservative plate veto: `exact_plate_veto_luster_hybrid.py` rejects a source
+sample nearly matching its measured empty background only when frozen source
+opacity and contrast predict an object. `exact_plate_rank_luster_hybrid.py`
+applies the veto before selection; `exact_plate_merge_luster_hybrid.py` applies
+it to cubic support and detail filtering. Source plate RGB never supplies
+texture. New merge mode requires audit support before export. Experimental.
