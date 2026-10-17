@@ -631,3 +631,97 @@ The combination of cubic a=-.75 and frozen-view illumination is also queued.
 All GPU stages wait for current owners to exit. **45 focused tests passed**
 (`logs/tests_poisson.log`), including two-witness evidence, constant-offset
 rejection, source-boundary isolation and linear-solver convergence.
+
+
+## Wide proposal result and local review (2026-10-17 14:58 UTC)
+
+Expanding source proposals to 64/54/68/51 cameras (cam007/012/095/150)
+produced `single_wide_risk`: LPIPS **.0997196684**, **26.1557%** reduction,
+versus .0997288103 / 26.1489% for the same risk selector with 16 proposals.
+No predefined ROI regressed. Sources beyond the initial 16 supplied only
+.05370%, .01506%, .00591%, .00529% of the union of transfer support,
+respectively. The current ranking therefore gains almost nothing from a wider
+proposal set. This is a measured result for these costs, not proof that every
+possible source-selection rule has reached its optimum.
+
+The full small-patch review of `single_cubic_view_detail` is now
+**not_accepted_local_detail_degradation**, despite its favorable named-ROI
+averages. Cam007 small brocade motifs soften/change and cloth folds change
+contrast; cam150 lace holes remain incorrect and some folds/embroidery soften.
+Cam012 hair/jewelry boundaries and cam095 lace/hair boundaries retain errors.
+See `evaluation/single_cubic_view_detail_visual_review.json` and all four
+`evaluation/single_cubic_view_detail_spatial/*worst_local_regressions.png`.
+No coordinates from this evaluation are fed to construction.
+
+`summarize_single_luster_hybrid.py` rebuilds the scoreboard only from canonical
+native metrics and receipts declaring one texture source with no lookup shift.
+CPU preview aliases are excluded. It records numerical and visual status
+separately: at this checkpoint **94 measured eligible candidates, zero visually
+accepted candidates**, and no achieved 40% result.
+
+
+## Completed readout and consistency checks (2026-10-17 15:15 UTC)
+
+| Candidate | Native validation LPIPS | Reduction | Predefined ROI regressions |
+|---|---:|---:|---|
+| single_witness25 | 0.0996983424 | 26.1715% | none |
+| single_witness25_cubic | 0.0973088096 | 27.9410% | none |
+| single_witness75 | 0.0993678669 | 26.4162% | none |
+| single_witness75_cubic | 0.0971047605 | 28.0921% | none |
+| single_cubic_poisson2 | 0.0973432561 | 27.9154% | none |
+| single_cubic_poisson5 | 0.0980198011 | 27.4145% | none |
+| single_cubic75_view_detail | 0.0967073242 | 28.3864% | cam012 nails |
+| single_density_peak | 0.1030058886 | 23.7222% | none |
+| single_density_center | 0.1026470686 | 23.9879% | none |
+| single_model_bias15 | 0.0979127636 | 27.4937% | none |
+| single_model_bias30 | 0.0989035840 | 26.7600% | none |
+| single_cubic75_gradient_guard | 0.1246083751 | 7.7251% | none |
+| single_witness75_cubic75 | 0.0968182658 | 28.3042% | cam012 nails |
+
+The density peak/center probes lose to q50 under the same first-four-source
+settings (q50: 24.098% reduction). All 19 frozen-field renders reproduced q50
+to about 5.96e-8 and verified unchanged model/grid hashes. Neither density
+readout becomes the default. The model-bias correction and gradient guard also
+fail to improve the numerical leader. The latter protects LookCloser's existing
+structure aggressively and reduces the mean gain to 7.73%.
+
+Cubic a=-.75 plus view illumination and plus witness ranking each improve the
+mean slightly, but regress cam012 nails; both are rejected. Source selection
+remains automatic: no per-ROI override is used to repair these scores.
+
+`single_cubic75_fixed` passed deep provenance reconstruction
+(`logs/audit_cubic75.log`), but its completed small-patch visual review is
+**not_accepted_local_detail_degradation**. It remains the best numerical
+candidate with no predefined ROI regression: .0970088343, 28.1631% reduction.
+This is not a claim of an accepted final result, and the 40% objective remains
+unmet. The already verified downloadable archive is still the explicitly
+provisional `single_cubic_fixed` reference documented above.
+
+Next check: replace scalar focal/depth resolution ranking with both singular
+values of the frozen-surface projection Jacobian. This tests local directional
+sampling, especially for oblique small surfaces. It does not alter the surface
+or the sampled coordinates. **47 focused tests passed**, including anisotropic
+projection detection and depth-discontinuity support rejection
+(`logs/tests_differential.log`).
+
+
+The directional-resolution follow-up differs from the earlier
+`single_surface_s8`/surface-cost trials: it uses the current risk selector,
+central differences across four native pixels, no new hard incidence gate, and
+separately tests cubic sampling with fixed labels. It is a controlled follow-up,
+not a newly discovered untested method family.
+
+A second review bundle is being prepared for `single_cubic75_fixed`, explicitly
+marked `not_accepted_local_detail_degradation`. It includes the unfavorable
+small-patch panels as well as full images, source maps and favorable ROI scores.
+
+
+Verified additional review bundle:
+
+```bash
+scp olive-lark:/fsx/tmp/luster_000540_hybrid_20261017T104440Z/exports/single_cubic75_fixed.tar.gz .
+```
+
+Archive SHA256: `c060f549e3cccc16d5b3166f4d90c7d1203fdb7126472be50b90ab065142a093`. 184036426 bytes; 256 members rehashed.
+Status: **not_accepted_local_detail_degradation**. This supplements the older
+provisional reference; it does not declare goal completion or visual acceptance.

@@ -1821,3 +1821,17 @@ source ranking. Witness RGB never supplies output color. Missing evidence is
 neutral. `poisson_single_luster_hybrid.py` tests screened gradient transfer on a
 graph whose edges never cross selected-source boundaries; it records solver
 convergence and preserves the parent's exact fallback and boundary weights.
+
+
+`consensus_residual_low_luster_hybrid.py` tests broad photo-minus-frozen-source
+radiance residuals, admitted only by other TRAIN residual witnesses. Only the
+selected photo supplies the correction. `gradient_guard_luster_hybrid.py` gates
+Poisson gradient residuals by local strength and phase relative to LookCloser;
+source boundaries remain disconnected and rejected pixels stay exact. Neither
+method improved the current provisional numerical leader.
+
+`differential_luster_hybrid.py` measures both singular values of the native
+projection Jacobian on unchanged q50 points, with finite-depth/alpha/continuity
+support. `differential_select_luster_hybrid.py` uses directional undersampling
+and anisotropy to rank sources. The Jacobian is evidence only: it never changes
+geometry, pixel coordinates, calibration or texture lookup.

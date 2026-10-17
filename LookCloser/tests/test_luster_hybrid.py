@@ -557,3 +557,29 @@ def test_screened_poisson_respects_source_boundaries_and_constant_offsets():
     other,_=solve_delta(base,texture,labels,.05)
     np.testing.assert_allclose(delta[labels==8],other[labels==8],atol=1e-7)
     assert max(r['relative_residual'] for r in report)<5e-5
+
+
+def test_gradient_guard_keeps_opposite_structure_and_admits_new_flat_region_detail():
+    from gradient_guard_luster_hybrid import solve_delta,gradient_confidence
+    y,x=np.mgrid[:48,:48];pattern=np.repeat((.04*np.sin(x*np.pi/3))[...,None],3,-1).astype(np.float32)
+    base=.4+pattern;opposite=.4-pattern;labels=np.full((48,48),8,np.int16)
+    gate=gradient_confidence(base,opposite,labels);assert gate.max()<1e-6
+    delta,_,_=solve_delta(base,opposite,labels,.02);assert np.max(np.abs(delta))<1e-6
+    flat=np.full_like(base,.4);delta,_,gate=solve_delta(flat,base,labels,.02)
+    assert gate.min()>.99 and np.max(np.abs(delta))>.02
+
+
+def test_projection_differential_detects_directional_sampling_without_moving_pixels():
+    from differential_luster_hybrid import projection_differential,singular_values
+    y,x=np.mgrid[:24,:32];z=np.full(x.shape,2.,np.float32);alpha=np.ones(x.shape,np.float32)
+    # Rotation/reflection do not change singular values; area alone would miss
+    # the fourfold loss of resolution along the compressed direction.
+    uv=np.stack([-2*y,.25*x],-1).astype(np.float32);original=uv.copy()
+    low,high,valid=projection_differential(uv,z,alpha)
+    np.testing.assert_allclose(low[valid],.25);np.testing.assert_allclose(high[valid],2.)
+    assert np.array_equal(uv,original)
+    z[:,16:]=3.
+    _,_,valid=projection_differential(uv,z,alpha)
+    assert not valid[2:-2,14:18].any() and valid[4:20,4:12].all()
+    lo,hi=singular_values(np.array([[1.,0.]]),np.array([[0.,1.]]))
+    np.testing.assert_allclose(lo,1);np.testing.assert_allclose(hi,1)
