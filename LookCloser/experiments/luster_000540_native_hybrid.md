@@ -1285,3 +1285,25 @@ The high-resolution penalty becomes `original * (1 - strength * trust)`;
 strength .5 and 1 are queued. No change is made to geometric eligibility,
 surface points, interpolation or RGB lookups. Flat model regions cannot
 qualify. All 72 tests pass (`logs/tests_conditional_scale.log`).
+
+## Confidence/error association (evaluation only, 17:37 UTC)
+
+`diagnose_confidence_luster_hybrid.py` bins the reference's already selected
+source confidence against its saved CPU spatial LPIPS maps. It writes no
+prediction, source labels or transfer masks. All selected-person pixels are
+accounted for exactly in every feature's bins. Output:
+`evaluation/single_cubic_eligible_phase_rt2_seam_confidence_association.json`.
+
+Low structural/round-trip costs are not a sufficient harm detector. In cam007,
+source phase cost below .05 includes 2.068M selected person pixels with mean
+LPIPS delta -.0030, but 41% have positive spatial delta. Round-trip below .05
+pixel similarly has about 40% positive delta. Source-surface costs are not
+monotonically related to benefit across views. Therefore a simple tightened
+threshold is not supported by these observations. These are associations,
+not causal pixel errors: LPIPS receptive fields include neighboring pixels,
+and these bins condition on an already selected source.
+
+The few selected source pixels at native scale ratio >=2 have positive mean
+delta in cam007/cam012 (approximately 15k/30k pixels). This supports keeping
+the capture-scale penalty by default; the queued relaxation is conditional
+on additional frozen-model texture and geometry evidence.
