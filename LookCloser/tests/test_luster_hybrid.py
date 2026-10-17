@@ -781,6 +781,17 @@ def test_source_contradiction_does_not_reward_flat_or_missing_evidence():
                                   [0.,0.,0.,.25,.5])
 
 
+def test_conditional_scale_requires_texture_structure_and_precise_projection():
+    from conditional_scale_rank_luster_hybrid import scale_trust
+    zeros=np.zeros(6,np.float32);source=zeros.copy();source[1]=.2
+    view=zeros.copy();view[2]=.2
+    rt=zeros.copy();rt[3]=.3
+    uncertainty=zeros.copy();uncertainty[4]=.6
+    energy=np.full(6,.01,np.float32);energy[5]=0
+    np.testing.assert_array_equal(scale_trust(source,view,rt,uncertainty,energy),[1,0,0,0,0,0])
+    assert scale_trust(np.array(.075),np.array(0),np.array(0),np.array(0),np.array(.01))==.5
+
+
 def test_band_admission_preserves_unknown_and_rejects_corrobated_harm():
     from band_witness_luster_hybrid import admission,bands,assemble
     support=np.ones((64,64),bool)

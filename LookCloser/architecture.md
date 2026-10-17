@@ -1937,3 +1937,9 @@ reuses source-surface confidence but penalizes only costs above neutral .5.
 Flat, absent and positive evidence cannot reward a source. Selection remains
 one native photo per pixel on frozen geometry; the runner serializes GPU
 evaluation. Experimental, not accepted.
+
+Conditional capture scale: `conditional_scale_rank_luster_hybrid.py` reduces
+the high-resolution capture penalty only with strong frozen structural phase
+agreement, accurate round trips, narrow projected termination intervals and
+visible model texture. It leaves eligibility and sampling unchanged. The
+runner evaluates two global strengths after earlier GPU owners. Experimental.

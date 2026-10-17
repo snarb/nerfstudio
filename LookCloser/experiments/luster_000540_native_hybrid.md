@@ -1262,3 +1262,26 @@ zero; only contradictions penalize a source. Weights 1 and 4 are queued by
 `run_source_contradiction_luster.py`, behind the depth-interval GPU owner.
 This reuses immutable source confidence caches, without RGB changes or target
 GT access. All 71 tests pass (`logs/tests_source_contradiction.log`).
+
+## Depth intervals and conditional scale (17:34 UTC)
+
+| Selector | Validation LPIPS | Reduction | Outcome |
+|---|---:|---:|---|
+| Interval cost .25 | .095271667 | 29.4495% | No named ROI regression; visually unaccepted |
+| Interval cost 1 | .095922582 | 28.9675% | Rejected: cam007 face/jewelry |
+
+The .25 candidate's native comparisons and CPU spatial diagnostics are saved
+under `evaluation/single_depth_interval25_seam*`. Inspection of the six worst
+cam007 and cam150 tiles shows the same fold-adjacent dark details and changed
+lace pattern. It does not resolve the reference's visual defects.
+Canonical summary: `evaluation/depth_interval_screen.json`.
+
+`conditional_scale_rank_luster_hybrid.py` tests reducing the capture-scale
+penalty only when both frozen structural phase costs are below .15, round-trip
+error is at most .25 pixel, projected depth uncertainty at most .5 pixel, and
+target model G2–G8 band RMS at least .005. The continuous trust is
+`max(0, 1 - max(source_phase, view_phase)/.15)` inside those gates, zero outside.
+The high-resolution penalty becomes `original * (1 - strength * trust)`;
+strength .5 and 1 are queued. No change is made to geometric eligibility,
+surface points, interpolation or RGB lookups. Flat model regions cannot
+qualify. All 72 tests pass (`logs/tests_conditional_scale.log`).
