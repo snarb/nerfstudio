@@ -1698,3 +1698,30 @@ IDs, then gathers pixels from those same cameras. The last patch covers residual
 image borders. Masked ragged batches and grouped training patches are rejected
 explicitly. Tests cover shuffled/subset camera IDs, mixed dimensions and borders.
 Dataset-specific background supervision and hull rendering remain on `chinise_girl`.
+
+## Frozen native photo hybrid experiment (2026-10-17)
+
+The opt-in `*_luster_hybrid.py` scripts isolate native inference, TRAIN-only
+texture transfer and evaluation. They use a copied runtime from the actual
+checkpoint experiment. The renderer preserves model state and exports physical
+camera-z termination quantiles; the transfer module checks source visibility,
+reprojection, footprint support and inter-source appearance before replacing
+selected frequency bands. Rejected pixels remain bit-identical to baseline RGB.
+`antialias_luster_hybrid.py` tests area-footprint integration for minified sources
+in separate caches. Evaluation owns all target GT and masks; the predictor does
+not import it. No model default, calibration, learned state or saved grid changes.
+See `experiments/luster_000540_native_hybrid.md` for campaign status and evidence.
+
+The current hybrid experiments also compare view-bracketing source pairs,
+classical bounded 2D lookup registration and detail-energy-dependent strength.
+These are optional transfer ablations, not model changes. Source foreground
+checks derive contrast against measured empty plates; target evaluation masks
+remain confined to evaluation. CPU area-cache workers may run concurrently;
+model rendering and CUDA evaluation remain strictly sequential.
+
+The native hybrid campaign also contains `pairalign_luster_hybrid.py`, a bounded
+classical source/source texture-lookup registration ablation. The camera model,
+frozen density and baseline remain unchanged; native photo samples are re-read
+after the lookup correction. Its synthetic tests verify interpolation direction,
+displacement limits and reverse-flow consistency. Candidate acceptance still
+requires the fixed evaluation protocol and visual review.
