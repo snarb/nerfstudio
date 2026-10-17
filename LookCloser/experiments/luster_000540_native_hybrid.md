@@ -2759,3 +2759,42 @@ being tested with the same automatic unaries and strict source visibility.
 The graph never blends photo RGB or changes coordinates. Its existing native
 zero control has been rechecked exactly in RGB, labels and weights; the code
 hash/config also match. No camera or ROI is favored by this global rule.
+
+### 22:17 UTC — selected-source evidence and utility ranking
+
+`review_reference_source_patches_luster.py` now makes the fold diagnosis
+reproducible. For the first two fixed cam007 depth25 regression tiles it saves
+the untouched native crops of the three most-used existing source labels,
+their cubic q50 projections, geometric eligibility and selected-pixel masks.
+The preview includes the entire native crop at its stated scale. Selected
+pixels are asserted to satisfy the unchanged source geometry gates. All six
+records' input, output and implementation hashes were checked after execution.
+Evidence: `evaluation/selected_reference_source_patches/receipt.json`.
+These are evaluation-only diagnostic images, never source assignments or gates.
+
+The inspected source006/008 examples have smoother native folds than their
+projected edges. Some irregular portions are actually selected by the hybrid;
+the source023 projection supplies much of the surrounding patch. Thus source
+image sharpness alone cannot guarantee a suitable projected texture. This
+observation does not establish that source023 is globally preferable.
+
+| Target-conditioned MSE utility rank | Validation LPIPS | Reduction | PSNR | SSIM | Predefined regressions |
+|---|---:|---:|---:|---:|---:|
+| weight .5 | 0.094811181 | 29.7905% | 28.350582 | 0.90021282 | 0 |
+| weight 1.5 | 0.096354241 | 28.6478% | 28.334400 | 0.90020021 | 0 |
+
+Both variants were visually inspected at three fixed contradiction-reference
+tiles in each of the four views. Cam007 irregular fold texture and softened
+scalp ornament remain; cam012 jewelry/cord, cam095 hair/lace and cam150
+fold/lace mismatches persist. Neither is accepted. Their zero control is exact
+in RGB, labels and weights across all four cameras. Evidence:
+`evaluation/target_witness_utility_screen.json`,
+`evaluation/target_witness_utility_zero_equivalence.json`, and
+`evaluation/target_utility_perceptual_reference_tiles/`.
+
+The local affine sigma32 fit has also been inspected at all four views' fixed
+depth25 tiles. It does not remove the new irregular fold edges and is visually
+rejected; its canonical evaluation remains queued. The TRAIN-native LPIPS
+confidence job has started on the GPU, with the target-frame opposite-side
+LPIPS experiment and the matched admission/color/graph evaluations following
+sequentially. The 40% goal is still unmet.
