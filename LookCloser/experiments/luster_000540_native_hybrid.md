@@ -1498,7 +1498,7 @@ separates the useful bandwidth question from the stricter positive-witness
 gate. It changes only an existing merge parameter and waits for the preceding
 GPU owners. These candidates are experiments, not accepted outputs.
 
-## 2026-10-17 18:30 UTC — matched controls and bandwidth results
+## 2026-10-17 18:24 UTC — matched controls and bandwidth results
 
 All GPU evaluations completed sequentially. No new candidate is accepted.
 
@@ -1531,3 +1531,15 @@ G1-G4 luminance phase is evaluated at unchanged projected coordinates. No target
 GT, masks, manual source assignments or lookup shifts enter construction.
 83 tests pass, including a misleading best-two pair rejected by the median,
 quorum behavior, flat evidence and contrast reversal. Results remain pending.
+
+## 2026-10-17 18:28 UTC — isolated cleanup and gain controls
+
+`run_cleanup_once_luster.py` compares the reference and contradiction-400 source
+maps after exactly one median island-removal pass, retaining all final cubic
+visibility checks. `cubic75_once_luster_hybrid.py` changes only the redundant
+second cleanup; no source-background veto is used. This isolates the confound
+found in the initial measured-plate branch. `run_current_gain_luster.py` then
+brackets conservative correction strengths .85/.95 with the original
+contradiction-400 labels (gain 1 is the measured reference). Both are global
+parameter/cleanup controls, with no region-specific tuning. GPU queue order:
+robust witness, cleanup once, current gain. Results pending.

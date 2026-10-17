@@ -1984,3 +1984,9 @@ cost or only its contradiction portion before hard single-source argmin. Other
 photos provide scalar costs, never RGB. Geometry, lookup coordinates and cubic
 visibility remain frozen. `run_robust_witness_luster.py` evaluates both globally
 specified settings with sequential GPU execution.
+
+`cubic75_once_luster_hybrid.py` is an isolated control that preserves the ranked
+parent's single cleanup pass, repeats cubic visibility, and omits only the
+second median island removal. `run_cleanup_once_luster.py` compares reference
+and contradiction-ranked sources; `run_current_gain_luster.py` separately
+brackets conservative transfer strength using existing audited seam algebra.
