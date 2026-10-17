@@ -2,6 +2,13 @@
 
 Status: experiments in progress; no hybrid accepted yet.
 
+**Active user requirement (2026-10-17): fixed LookCloser geometry and exactly
+one native TRAIN photograph supplying texture per pixel/patch. No interpolation
+of colors between photographs and no optical-flow texture-coordinate shifts.**
+All pair-interpolation and registration results below are historical ablations,
+not eligible final candidates. The single-source investigation supersedes their
+provisional reference status.
+
 ## What is being tested
 
 Selective transfer from native TRAIN photographs into the frozen
@@ -154,3 +161,53 @@ No geometry correction is claimed. Existing merged lace holes, eye-shape and
 pendant errors remain potential limits. Final results will include rejected
 variants, remaining defects, full-resolution comparisons, source/confidence
 maps, reproducible commands and a verified download archive.
+
+
+## Single-source projection investigation
+
+`single_source_luster_hybrid.py` assigns one camera to each accepted pixel.
+The 3D point remains the frozen target conditional median depth. Native lookup
+coordinates remain the calibrated projection of that point, without shifts.
+Eligibility checks all bilinear taps, source/target opacity, depth consistency,
+round-trip error, uncertainty and projected native sampling. Smoothed local
+appearance costs against the frozen target render regularize source choice;
+no target photograph or evaluation mask enters construction.
+
+The selected photograph supplies direct RGB or its high-frequency component.
+Source changes fade to LookCloser, never to another photograph. A second photo
+is not mandatory when one source independently passes the geometry and patch
+checks. Source labels, exact unchanged fallback and source hashes are saved.
+
+Evaluation-only nail montages are in
+`C/preflight/cam{007,012,095,150}_nail_single_sources.jpg`, with numerical
+visibility diagnostics in `C/preflight/nail_source_diagnostics.json`. The
+montages deliberately show raw projections before rejection to expose why a
+source is unsafe. Their coverage fractions include the whole crop, including
+background; they are not nail-surface coverage measurements.
+
+Initial inspection: cam007 sources 008/023 align more plausibly than oblique
+sources with stretched finger edges. In cam095, sources 094/093/097 exhibit
+shifted nail contours; source 096 is closer but has incomplete reliable support.
+This supports source-specific visibility and fallback, not unconstrained texture
+painting. GT is shown solely for evaluation.
+
+The first automatic patch-cost screen reaches 25.0175% mean validation LPIPS
+improvement (`single_patch_s8`, LPIPS 0.10125667). No nail ROI regresses, but
+cam007 face/skin/eyes/hair/jewelry and cam012 face regress, so it is not accepted.
+Increasing the detail scale to 16 reduces mean improvement to 24.3363%. Direct
+single-photo RGB gives 17.6216% and also worsens cam095 nails; preservation of
+LookCloser's broad appearance remains useful even with one texture source.
+
+Automatic eligibility and patch/source assignment are an explicit user
+requirement. There are no manual semantic region exclusions, per-camera source
+assignments, or GT-driven construction masks. `single_consensus_luster_hybrid.py`
+uses other TRAIN photographs only as independent phase/appearance witnesses;
+`graph_single_luster_hybrid.py` tests spatially coherent hard source labels with
+an explicit LookCloser fallback label. Neither shifts sampling coordinates.
+
+22 synthetic tests pass, including end-to-end hard-source selection and
+occlusion fallback for both independent and graph-based assignment. The candidate
+audit now reconstructs single-source output from its selected native warps and
+verifies exact equality with saved float RGB and transfer weights; this passed
+for `single_patch_s8`. This reconstruction audit is separate from full input
+hash verification and visual acceptance.

@@ -217,3 +217,41 @@ def test_band_boost_preserves_coarse_reference_at_zero_boost():
     np.testing.assert_allclose(flat,base,atol=2e-7)
     result,w=merge_bands(base,photo,labels,weight,8.,1.,1.)
     np.testing.assert_array_equal(result[w==0],base[w==0])
+
+
+@pytest.mark.parametrize('module',['single_source_luster_hybrid','graph_single_luster_hybrid'])
+def test_automatic_single_source_selection_and_occlusion_fallback(tmp_path,monkeypatch,module):
+    """A full predictor run must select one photo and reject a depth-occluded strip."""
+    import importlib
+    single=importlib.import_module(module)
+    from luster_hybrid_common import write,read
+    (tmp_path/'logs').mkdir()
+    h=w=80
+    first=np.full((h,w,3),[.46,.4,.4],np.float32)
+    second=np.full((h,w,3),[.4,.4,.46],np.float32)
+    base=first.copy();base[:,40:]=second[:,40:]
+    base+=.002
+    rows={7:dict(train=True),8:dict(train=True),9:dict(train=True)}
+    monkeypatch.setattr(single,'native_rows',lambda:rows)
+    monkeypatch.setattr(single,'geometry',lambda root,target:dict(rgb=base))
+    for cid in [8,9]:(tmp_path/f'photo{cid}.jpg').write_bytes(bytes([cid]))
+    monkeypatch.setattr(single,'source_path',lambda cid:tmp_path/f'photo{cid}.jpg')
+    write(tmp_path/'preflight/sources.json',dict(sources={'7':[8,9]}))
+    for cid,rgb in [(8,first),(9,second)]:
+        d=tmp_path/f'warps/cam007/src{cid:03d}';d.mkdir(parents=True)
+        a={k:np.ones((h,w),np.float32) for k in ['valid','alpha','resolution_ratio']}
+        a.update({k:np.zeros((h,w),np.float32) for k in ['depth_error','roundtrip','uncertainty','score']})
+        a['depth_error'][35:45]=1.;a['rgb']=rgb
+        for key,value in a.items():np.save(d/f'{key}.npy',value)
+        write(d/'receipt.json',dict(box=[0,0,w,h],arrays=list(a)))
+    single.combine(tmp_path,7,'check',{**single.DEFAULT,'count':2,'mode':'direct'})
+    d=tmp_path/'candidates/check';result=np.load(d/'cam007.npy');labels=np.load(d/'cam007_sources.npy');weight=np.load(d/'cam007_confidence.npy')
+    assert labels[15,15]==8 and labels[15,65]==9
+    assert (labels[35:45]==-1).all()
+    np.testing.assert_array_equal(result[weight==0],base[weight==0])
+    for cid,rgb in [(8,first),(9,second)]:
+        chosen=(labels==cid)&(weight==1)
+        assert chosen.sum()>500
+        np.testing.assert_allclose(result[chosen],rgb[chosen],atol=1e-7)
+    receipt=read(d/'cam007_receipt.json')
+    assert receipt['texture_source_count_per_pixel']==1 and not receipt['lookup_shift']
