@@ -1906,3 +1906,8 @@ The cubic-eligible phase selector applies final 4x4 footprint visibility before
 hard source ranking. It retains the original patch costs and final seam merge.
 This separate experiment tests valid alternatives where the two-stage reference
 would fall back after its chosen source fails the wider interpolation support.
+
+
+The phase-witness selector combines existing frozen-model structural costs with
+TRAIN-only restoration-benefit costs before hard source assignment. Witness
+images remain confidence inputs; the selected native photo alone supplies RGB.

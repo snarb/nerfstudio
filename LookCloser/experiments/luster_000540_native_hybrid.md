@@ -1079,3 +1079,18 @@ lookup coordinates and seam checks remain. It can choose another eligible photo
 automatically instead of falling back solely because the first proposal fails
 the wider footprint. An end-to-end test verifies alternative selection and
 exact fallback where every source is occluded. All 64 focused tests pass.
+
+
+## Combined structural and TRAIN-witness costs (queued 16:42 UTC)
+
+The earlier witness-benefit ranking did not include source/model phase costs.
+Its stronger setting improved person LPIPS but regressed face/eyes/hair/jewelry.
+The new isolated combination adds the same cached TRAIN-only scalar witness
+cost to the phase/RT2 selector, at weights .5 and 1.5. It tests whether model
+structural compatibility protects details when corroboration affects source
+choice. Witness photographs still supply no output RGB. The full-predictor
+selection/occlusion test also covers this combination; 65 tests pass.
+
+RGB-vector phase was reviewed on cam007/cam150 worst-tile panels. It retains
+the problematic dark fold detail and lace/embroidery changes and remains
+`not_accepted_local_detail_degradation`, despite its 29.5532% person reduction.

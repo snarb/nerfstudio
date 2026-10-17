@@ -219,7 +219,7 @@ def test_band_boost_preserves_coarse_reference_at_zero_boost():
     np.testing.assert_array_equal(result[w==0],base[w==0])
 
 
-@pytest.mark.parametrize('module',['single_source_luster_hybrid','graph_single_luster_hybrid','scale_single_luster_hybrid','risk_single_luster_hybrid','phase_single_luster_hybrid','quality_risk_luster_hybrid','fine_phase_single_luster_hybrid'])
+@pytest.mark.parametrize('module',['single_source_luster_hybrid','graph_single_luster_hybrid','scale_single_luster_hybrid','risk_single_luster_hybrid','phase_single_luster_hybrid','quality_risk_luster_hybrid','fine_phase_single_luster_hybrid','phase_witness_luster_hybrid'])
 def test_automatic_single_source_selection_and_occlusion_fallback(tmp_path,monkeypatch,module):
     """A full predictor run must select one photo and reject a depth-occluded strip."""
     import importlib
@@ -244,6 +244,14 @@ def test_automatic_single_source_selection_and_occlusion_fallback(tmp_path,monke
         a['depth_error'][35:45]=1.;a['rgb']=rgb
         for key,value in a.items():np.save(d/f'{key}.npy',value)
         write(d/'receipt.json',dict(box=[0,0,w,h],arrays=list(a)))
+    if module=='phase_witness_luster_hybrid':
+        from luster_hybrid_common import sha
+        q=tmp_path/'quality';q.mkdir();dummy=q/'source_receipt.json';write(dummy,{})
+        for key in ['source_phase_cost','view_phase_cost','src008_cost','src009_cost']:
+            np.save(q/f'{key}.npy',np.zeros((h,w),np.float32))
+        write(q/'receipt.json',dict(source_model_receipt=str(dummy),source_model_receipt_sha256=sha(dummy)))
+        monkeypatch.setattr(single,'quality',lambda *args:q)
+        monkeypatch.setattr(single,'evidence',lambda *args:q)
     single.combine(tmp_path,7,'check',{**single.DEFAULT,'count':2,'mode':'direct'})
     d=tmp_path/'candidates/check';result=np.load(d/'cam007.npy');labels=np.load(d/'cam007_sources.npy');weight=np.load(d/'cam007_confidence.npy')
     assert labels[15,15]==8 and labels[15,65]==9
