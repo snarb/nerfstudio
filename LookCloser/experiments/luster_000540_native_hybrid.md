@@ -999,3 +999,20 @@ chromatic-detail ablation: chroma contributes useful detail, so a luminance-only
 compatibility score may miss conflicting colored structures. No witness RGB
 is blended into the output. Sixty focused tests pass, including gray-limit
 agreement, gain invariance and chromatic reversal detection. Results pending.
+
+
+## Source-boundary cost aggregation (2026-10-17 16:32 UTC)
+
+Source-map review on cam007 fingers and cam150 embroidery shows fragmented
+assignments along geometric/appearance boundaries. An isolated selector replaces
+Gaussian scalar-cost averaging with a normalized 7x7 joint bilateral average
+guided by frozen target RGB and camera-z. Color sigma .06 and relative depth
+sigma .005 suppress averaging across distinct surfaces; spatial sigma remains
+3. Sampling coordinates, source RGB, visibility gates and merge are unchanged.
+Sixty-two focused tests pass, including constant preservation, invalid-neighbor
+exclusion, color/depth discontinuities and image borders.
+
+Two separate controls test stronger round-trip ranking (weight 5) and less
+spatial averaging (sigma 1), without adding edge guidance. These isolate whether
+any benefit is due to preserving boundaries or merely changing cost scale.
+All are recipe-selection experiments; no improvement is claimed before results.

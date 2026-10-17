@@ -761,3 +761,28 @@ def test_rgb_phase_matches_gray_limit_and_detects_equal_luminance_color_reversal
     assert np.max(np.abs(color@np.array([.2126,.7152,.0722],np.float32)))<1e-8
     assert np.mean(rgb_cost(color,-color,support))>.99
     assert np.mean(rgb_cost(color,color*2,support))<1e-6
+
+
+def test_edge_cost_constant_preservation_and_invalid_exclusion():
+    from edge_cost_luster_hybrid import aggregate
+    score=np.full((12,12),.7,np.float32);valid=np.ones(score.shape,bool)
+    rgb=np.zeros((*score.shape,3),np.float32);depth=np.ones(score.shape,np.float32)
+    score[4,4]=np.inf;valid[4,4]=False;depth[4,4]=np.nan
+    actual=aggregate(score,valid,rgb,depth)
+    assert np.isinf(actual[4,4])
+    np.testing.assert_allclose(actual[valid],.7,atol=2e-7)
+
+
+def test_edge_cost_respects_color_and_depth_boundaries_without_wraparound():
+    from edge_cost_luster_hybrid import aggregate
+    score=np.zeros((16,16),np.float32);score[:,8:]=1
+    valid=np.ones(score.shape,bool);rgb=np.zeros((*score.shape,3),np.float32);depth=np.ones(score.shape,np.float32)
+    plain=aggregate(score,valid,rgb,depth)
+    assert plain[8,7]>.2 and plain[8,8]<.8
+    rgb[:,8:]=1
+    color=aggregate(score,valid,rgb,depth)
+    assert color[8,7]<1e-6 and color[8,8]>.99999
+    rgb[:]=0;depth[:,8:]=1.1
+    geometry=aggregate(score,valid,rgb,depth)
+    assert geometry[8,7]<1e-6 and geometry[8,8]>.99999
+    assert geometry[8,0]==0 and geometry[8,-1]>.99999

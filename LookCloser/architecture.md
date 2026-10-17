@@ -1888,3 +1888,9 @@ middle TRAIN evidence disagree. The RGB-phase selector uses a vector RGB
 correlation cost while preserving the hard single-photo assignment. Both are
 isolated experiments; they leave frozen q50 geometry and calibrated sampling
 coordinates unchanged. Their cache receipts bind source/model inputs.
+
+
+`edge_cost_luster_hybrid.py` aggregates scalar source costs with a normalized
+7x7 bilateral neighborhood using only frozen target RGB/depth. Invalid samples
+are excluded and invalid centers remain ineligible. This changes assignment
+coherence without changing any texture lookup or mixing source photographs.
