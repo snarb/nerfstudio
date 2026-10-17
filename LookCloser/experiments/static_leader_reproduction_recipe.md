@@ -369,6 +369,33 @@ for the whole video and check actual field, collider and grid bounds, not just m
 The earlier frozen-grid intervention applied dilation once to the loaded grid; changing a config
 alone cannot repair a frozen binary buffer. Never repeatedly dilate an already expanded buffer.
 
+The implementation and CLI plumbing already exist in main. Append the appropriate option to
+the rest of the training command:
+
+```bash
+# scripts/run_lookcloser_quiet.py
+--occupancy-dilation-radius 1
+
+# ns-train lookcloser (model option, before the dataparser subcommand)
+--pipeline.model.occupancy-dilation-radius 1
+```
+
+The model configuration key is `occupancy_dilation_radius`; `0` disables dilation and remains
+the global default. See [`_dilate_occ_binaries`](../../nerfstudio/models/lookcloser.py) and the
+[quiet runner](../scripts/run_lookcloser_quiet.py). For an unexpanded, frozen checkpoint grid,
+the explicit one-time operation is `model._dilate_occ_binaries(1)` after loading; this is a private
+diagnostic method, not an automatic load hook. Do not apply it again to a checkpoint whose binary
+grid already contains the halo. Ordinary training rebuilds the binary grid before applying the
+configured dilation, preventing cumulative growth.
+
+**Default policy:** explicitly use `1` in the measured Luster adaptation; keep `0` in the frozen
+leader and global preset. Repeated support-clipping fixes justify testing radius one early, but
+do not establish a universal improvement: extra occupied neighbors can expose unwanted density,
+increase work and degrade quality (see [earlier occupancy controls](occupancy_improvements_repport.md)).
+Changing the global default requires matched radius0/radius1 runs on the original leader and
+additional scenes, with priority-detail/geometry review and measured runtime as well as metrics.
+The leader's existing acceptance gates still apply; this documentation does not change defaults.
+
 This is an early diagnostic control, not an instruction to increase dilation indefinitely.
 Further expansion did not fix the remaining Luster bands, and disabling occupancy exposed
 untrained density. Large dirty face bands had a **separate depth mechanism**: multiple density
