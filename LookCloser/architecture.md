@@ -2134,3 +2134,13 @@ Photo transfer still uses score 1 and every alpha/depth/round-trip/uncertainty
 threshold is unchanged. Its render caches are isolated under
 `variants/target_witness_confidence60`; neither original confidence caches nor
 photo warps are overwritten. This tests missing witness coverage, not geometry.
+
+
+`target_witness_utility_rank_luster_hybrid.py` uses the wider render-only
+confidence control's native TRAIN utility to rank a single source, instead of
+attenuating an already selected texture. At least two witnesses are required;
+unknown utility contributes zero. The signed bounded cost is added to the
+existing depth25 unary before support-normalized smoothing and hard source
+selection. Photo eligibility, q50 lookups and standard cubic/seam composition
+remain unchanged. Its runner includes a zero-weight exact-equivalence control
+and two global utility weights (.5/1.5); no evaluation image selects pixels.

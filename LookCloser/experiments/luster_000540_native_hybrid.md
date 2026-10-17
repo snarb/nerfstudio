@@ -2416,3 +2416,43 @@ witnesses still supply only scalars, and at least two are required. Separate
 cache directories preserve the original control. This may expose view-dependent
 appearance differences, so broader confidence is experimental rather than an
 automatic improvement. No target GT or evaluation mask is used in either rule.
+
+
+### 20:54 UTC — native-pixel graph result and analytical cam012 admission
+
+The native-pixel graph removes the earlier 4×4 label quantization confound.
+Transition weight zero reproduces all four reference source maps and final float
+RGB arrays exactly (`evaluation/native_graph_zero_equivalence.json`). Its CUDA
+LPIPS is .0949657410 (29.6760439% reduction). Transition weight .05 gives
+.0949808458 (29.6648585%), with no predefined ROI regressions. All four fixed
+three-patch previews were inspected in
+`evaluation/witness_graph_gain_reference_tiles/single_native_graph5_seam/`.
+Irregular fold edges, altered bright scalp ornament, jewelry/cord silhouette
+mismatch and hair/lace defects persist. Neither graph result is visually
+accepted; this control provides no improvement over its parent.
+
+Native-witness analytical admission also fails to generalize its cam007 gain.
+On cam012, attenuation .5 gives LPIPS .1049779877, PSNR 27.9450569 and SSIM
+.881448320; attenuation 1 gives .1120924130, 27.9315605 and .880810128.
+Both worsen LPIPS relative to depth25 (.0982066765), despite improved PSNR/SSIM.
+All predefined cam012 ROI LPIPS values remain better than frozen LookCloser.
+These are partial results, not four-view validation or acceptance. They support
+keeping perceptual and local visual checks separate from quadratic confidence.
+
+
+### 20:55 UTC — target-conditioned utility for source selection
+
+The next matched control uses native TRAIN restoration utility to choose the
+source, rather than scaling a fixed source's detail. It reuses the wider-angle
+**render-only** confidence caches and the depth25 ranking recipe. A positive
+witness utility lowers the source cost; negative utility raises it. At least
+two witnesses must be known, otherwise the added cost is exactly zero. Global
+weights .5 and 1.5 are compared. A zero-weight control must reproduce the
+parent's source labels, weights and float RGB exactly before evaluation.
+
+No witness photograph or warped render supplies output RGB. The q50 geometry,
+source photo visibility, native cubic lookup, source cleanup and seam rule are
+unchanged. The runner waits for the confidence producer and previous CUDA
+controllers. The focused suite passes 106 tests, including utility sign,
+evidence quorum and invalid-input rejection. Results are pending; the quadratic
+utility's earlier admission results do not establish perceptual benefit.

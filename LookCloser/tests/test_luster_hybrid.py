@@ -1575,3 +1575,12 @@ def test_native_witness_gain_uses_actual_baseline_quality():
     assert k.all() and k2.all()
     np.testing.assert_array_equal(strong,0)
     np.testing.assert_array_equal(weak,1)
+
+
+def test_target_witness_signed_utility_respects_evidence_quorum():
+    from target_witness_utility_rank_luster_hybrid import signed_utility_cost
+    cost=np.array([0.,.25,.5,.75,1.,0.,1.],np.float32)
+    count=np.array([2,3,2,4,2,1,0],np.uint8)
+    np.testing.assert_array_equal(signed_utility_cost(cost,count),[-1.,-.5,0.,.5,1.,0.,0.])
+    with pytest.raises(AssertionError):signed_utility_cost(np.array([np.nan]),np.array([0]))
+    with pytest.raises(AssertionError):signed_utility_cost(np.array([1.1]),np.array([2]))
