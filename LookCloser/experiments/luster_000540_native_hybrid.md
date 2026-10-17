@@ -2540,3 +2540,29 @@ validation GT, mask, manually selected patch, or output-image feedback. Evidence
 `train_perceptual_utility/pilot_cam007_src008.json`; script
 `probe_train_perceptual_candidates_luster.py`. A previous fixed witness023 probe
 had zero common support and was discarded before scoring.
+
+
+### 21:25 UTC — opposite-side witness coverage and target-frame LPIPS control
+
+The geometry-only 16-source-pool probe finds two-witness coverage on 52.8% and
+60.6% of coarse selected cam007/source008 and source006 points. Source023 has
+only one possible opposite-side witness and therefore zero quorum coverage.
+Cam012/source011 and source013 have 67.6% and 68.1%, but source028 has none.
+These are coarse geometric predictions, not native photometric acceptance.
+`probe_bracket_all_geometry_luster.py` extends the witness search to available
+frozen TRAIN geometry caches, with zero RGB arrays used during visibility
+sampling. Neither target GT nor an evaluation ROI enters selection.
+
+A new matched LPIPS control compares the actual target-pixel G6 detail candidate
+against projected opposite-side TRAIN photographs. This avoids changing the
+detail bandwidth to witness-native pixels. Up to four witnesses are selected
+by geometry; every scored pixel must independently pass bracketing, visibility,
+uncertainty and footprint tests. Their RGB supplies only scalar confidence.
+Unknown evidence is neutral; two known witnesses are required. Global rank
+weights .5/1.5 and exact zero-weight equivalence are tested. A conservative
+full-color utility is recorded separately but not applied yet. Projected
+witness appearance remains an imperfect proxy, so no benefit is assumed.
+
+The focused suite passes 109 tests, including quorum, contradiction, unknown
+support and shared-exterior utility tests. The runner prepares confidence warps
+on CPU and waits for existing CUDA controllers before loading the frozen metric.

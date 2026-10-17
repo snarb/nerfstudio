@@ -1604,3 +1604,40 @@ def test_train_perceptual_utility_sign_and_unknown_support():
     assert np.isfinite(value).all() and not k[~support].any()
     assert not k[:,48:52].any()
     assert k[:,80:].all()
+
+
+def test_bracket_perceptual_broad_requires_two_and_all_known_agree():
+    from bracket_perceptual_luster_hybrid import conservative_broad_utility,confidence_config
+    values=np.array([[.8,.8,.8,.8],[.2,-.1,.2,.2],[.5,.5,-.3,.5]],np.float32)
+    known=np.array([[1,1,1,0],[1,1,0,0],[1,1,0,0]],bool)
+    result,count=conservative_broad_utility(values,known)
+    np.testing.assert_allclose(result,[.2,-.1,0,0],atol=1e-7)
+    np.testing.assert_array_equal(count,[3,3,1,0])
+    dirty=values.copy();dirty[~known]=np.nan
+    result2,count2=conservative_broad_utility(dirty,known)
+    np.testing.assert_array_equal(result,result2)
+    dirty[0,0]=np.nan
+    with pytest.raises(AssertionError):conservative_broad_utility(dirty,known)
+    config=dict(alpha=.99,depth_error=.005,roundtrip=1.,uncertainty=2.,max_score=1.,min_resolution=.5,sigma=6.)
+    assert confidence_config({**config,'bracket_perceptual_weight':1.5})==config
+
+
+def test_bracket_perceptual_modes_common_support_and_order():
+    import torch
+    from bracket_perceptual_luster_hybrid import compare_modes
+    class FixedDistance(torch.nn.Module):
+        def __init__(self):
+            super().__init__();self.anchor=torch.nn.Parameter(torch.zeros(()),requires_grad=False)
+        def forward(self,a,b):return (a-b).square().mean(1,keepdim=True)+self.anchor
+    metric=FixedDistance().eval()
+    shape=(96,96,3);support=np.ones(shape[:2],bool)
+    truth=np.full(shape,.5,np.float32)
+    base=np.full(shape,.8,np.float32);detail=np.full(shape,.6,np.float32)
+    utility,broad,kd,kb=compare_modes(base,detail,truth,truth,support,metric)
+    assert kd.all() and kb.all() and (utility>0).all() and (broad>0).all()
+    _,bad,_,known=compare_modes(base,detail,base,truth,support,metric)
+    assert known.all() and (bad<0).all()
+    support[:,:48]=False;base[~support]=np.nan
+    utility,broad,kd,kb=compare_modes(base,detail,truth,truth,support,metric)
+    assert np.isfinite(utility).all() and np.isfinite(broad).all()
+    assert not kd[~support].any() and not kb[~support].any()

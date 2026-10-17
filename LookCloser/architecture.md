@@ -2158,3 +2158,17 @@ texture. The ranker adds this utility to depth25 source costs and retains the
 standard one-photo cubic/seam merge. No evaluation protocol or GT is imported.
 A serialized runner includes a zero-weight exact-equivalence control. This is
 an experimental confidence score, not a new reconstruction model.
+
+
+`bracket_perceptual_luster_hybrid.py` tests the same frozen LPIPS confidence
+in target-native pixels, avoiding the native-witness filter-bandwidth mismatch.
+A geometry-only preflight selects up to four TRAIN witnesses from available
+frozen geometry caches; each pixel additionally requires opposite tangent-plane
+camera baselines and strict cubic visibility. Source-photo eligibility remains
+unchanged; confidence-only angular score can reach 2. Witnesses supply scalar
+utility, never output RGB. The detail candidate uses the exact target G6 band.
+Median utility with quorum two ranks one source. A separate conservative scalar
+records whether full color improves on both detail and baseline for every known
+witness, with quorum two; it is not yet applied to any output. The runner checks
+zero-weight exact RGB/label/weight equivalence and serializes CUDA after prior
+controllers. Target GT and evaluation masks are absent from this construction.
