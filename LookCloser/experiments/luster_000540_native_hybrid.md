@@ -2716,3 +2716,46 @@ label and weight arrays exactly before canonical metrics are run. The focused
 suite passes 111 tests, including zero-control algebra, insufficient-support
 fallback, synthetic contrast fitting and unchanged impulse position.
 Evidence: `logs/tests_local_affine.log`. No benefit is assumed from these tests.
+
+
+### 22:06 UTC — completed target-conditioned gain controls
+
+| Candidate | Validation LPIPS | Reduction | PSNR | SSIM | Predefined regressions |
+|---|---:|---:|---:|---:|---:|
+| `single_target_witness_gain50` | 0.102328541 | 24.2237% | 28.401456 | 0.90368277 | 0 |
+| `single_target_witness_gain100` | 0.112717705 | 16.5304% | 28.398473 | 0.90444897 | 0 |
+| `single_target_witness_gain_wide50` | 0.103495392 | 23.3597% | 28.409101 | 0.90477882 | 0 |
+| `single_target_witness_gain_wide100` | 0.115226087 | 14.6729% | 28.407974 | 0.90593915 | 0 |
+
+All four were visually inspected together against GT, frozen LookCloser and
+the depth25 reference. Attenuation reduces the contrast of some irregular
+cam007 folds but does not remove the new texture defects, and loses useful
+validation detail. None is accepted. Stronger target-conditioned MSE matching
+is not an effective substitute for perceptual source selection. Evidence:
+`evaluation/target_witness_gain_screen.json`,
+`evaluation/target_witness_gain_wide_screen.json`, and
+`evaluation/target_gain_all_reference_tiles/`.
+
+The local-color zero control matches all four RGB/source/weight arrays exactly
+(`evaluation/local_color_zero_equivalence.json`). The additive sigma32 variant
+has been inspected at the same four-view crops: it makes cam007 fold blotches
+more prominent, so wider color matching alone is visually rejected. The affine
+variant is still constructing and both await canonical metrics.
+
+Evaluation-only untouched source crops at the first two cam007 reference
+fold tiles show smooth native fold edges but irregular reprojected edges for
+sources006/008. The selected-pixel overlay confirms localized contributions
+from these sources amid a smoother source023 projection. These crops only
+explain a failure; they never assign a source or gate in construction. Evidence:
+`evaluation/local_color_projection_review/`, including
+`cam007_tile0_selected.png`. The preview's native panel is a 2x top-left crop
+limited to 256px; the separate `_native.png` files preserve each full crop.
+
+Raw and photo-weighted warp curvature were already tested as evaluation-only
+features earlier in this campaign and did not support a general veto. They
+are not introduced again as a rejection threshold. Instead, stronger existing
+native-pixel appearance graph coherence (.4/1.6 versus the earlier .05) is
+being tested with the same automatic unaries and strict source visibility.
+The graph never blends photo RGB or changes coordinates. Its existing native
+zero control has been rechecked exactly in RGB, labels and weights; the code
+hash/config also match. No camera or ROI is favored by this global rule.
