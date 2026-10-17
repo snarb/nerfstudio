@@ -7,6 +7,25 @@ import numpy as np
 import pytest
 import torch
 
+
+def test_source_surface_witnesses_exclude_all_targets_and_unavailable():
+    from source_surface_confidence_luster_hybrid import witness_candidates
+    rows={i:dict(train=i not in (12,95,150)) for i in [7,8,9,10,11,12,95,150]}
+    assert witness_candidates(rows,8,[7,8,9,10,12,95,150])==[9,10]
+
+
+def test_source_surface_requires_two_distinct_known_witnesses():
+    from source_surface_confidence_luster_hybrid import two_witness_cost,sample_cost
+    costs=np.array([[[.1,.1,.2]],[[.3,.3,.4]],[[.9,.9,.6]]],np.float32)
+    valid=np.array([[[1,1,0]],[[1,0,0]],[[1,0,0]]],bool)
+    got,known=two_witness_cost(costs,valid)
+    np.testing.assert_allclose(got,[[.2,.5,.5]])
+    np.testing.assert_array_equal(known,[[1,0,0]])
+    data=np.array([[.1,.2],[.3,.4]],np.float32)
+    uv=np.array([[[10,20],[11,21],[10.5,20.5],[50,50],[np.nan,20]]],np.float32)
+    result=sample_cost(data,uv,[10,20,12,22])
+    np.testing.assert_allclose(result,[[.1,.4,.25,.5,.5]],atol=1e-6)
+
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from luster_hybrid_common import assert_source, project, unproject
 from render_luster_hybrid import packed_quantiles

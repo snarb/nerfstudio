@@ -1,8 +1,9 @@
 # Frozen LookCloser + native photographs: Luster 000540
 
-Status: experiments in progress. Current numerical leader: `single_source_phase_both_rt2_seam`,
-**29.5623%** lower native validation LPIPS, still not visually accepted.
-The same numerical leader is now deeply audited and exported. All predefined
+Status: experiments in progress. Best numerical candidate without predefined ROI regressions:
+`single_cubic_eligible_phase_rt2_seam`, **29.5715%** lower native validation LPIPS,
+still not visually accepted. The **29.5623%** reference
+`single_source_phase_both_rt2_seam` is deeply audited and exported. All predefined
 named ROI LPIPS checks pass, but smaller patches still show local degradation.
 **Not visually accepted; the 40% goal is not achieved.**
 
@@ -1094,3 +1095,48 @@ selection/occlusion test also covers this combination; 65 tests pass.
 RGB-vector phase was reviewed on cam007/cam150 worst-tile panels. It retains
 the problematic dark fold detail and lace/embroidery changes and remains
 `not_accepted_local_detail_degradation`, despite its 29.5532% person reduction.
+
+## Completed eligibility, precision and consistency checks (16:51 UTC)
+
+| Candidate | Native validation LPIPS | Reduction | Predefined ROI regressions |
+|---|---:|---:|---:|
+| Cubic eligibility before argmin | .0951069420 | 29.5715% | 0 |
+| Edge-aware color/depth cost | .0953087111 | 29.4221% | 0 |
+| Round-trip cost weight 5 | .0952950691 | 29.4322% | cam007 jewelry |
+| Cost smoothing sigma 1 | .0962498536 | 28.7251% | 0 |
+| Structure admission start .50 | .0951434051 | 29.5445% | 0 |
+| Structure admission start .75 | .0951198811 | 29.5619% | 0 |
+| Phase plus witness benefit .5 | .0950317731 | 29.6271% | cam007 jewelry |
+| Phase plus witness benefit 1.5 | .0951996396 | 29.5028% | 5 |
+
+The numerically lower phase+witness .5 result fails the jewelry guard and is
+not the selected reference. Strong witness weighting also harms face, eyes,
+hair and cam012 nails. Cubic eligibility makes a small improvement but the
+all-view worst-tile inspection still finds cam007 fold changes, cam150
+fold/lace changes and persistent hair/background and finger geometry errors.
+It remains **not_accepted_local_detail_degradation**, despite passing named ROIs.
+Evidence: `cubic_eligible_phase_screen.json`, `edge_phase_screen.json`,
+`phase_precision_screen.json`, `structure_admission_screen.json`,
+`phase_witness_screen.json` under `evaluation/`.
+
+## Source-surface TRAIN corroboration (running 16:51 UTC)
+
+A new confidence family evaluates each TRAIN source on its own frozen q50
+surface. Four neighboring TRAIN cameras are proposed from existing geometry
+caches using coverage and angular/resolution votes. All four target/demo
+cameras, including cam007, are excluded as witnesses. G2-G8 RGB structure
+is compared at calibrated projections; two distinct valid witnesses are
+required. The mean of the two lowest scalar discrepancy costs is projected
+back into each target using unchanged target geometry and added to source
+ranking at weights .5 and 1.5. Unknown evidence is neutral .5. Witness RGB
+never supplies output color; source choice remains hard and automatic.
+
+This differs from previous witness checks built around the target's surface
+point. It tests whether source-native corroboration is a better reliability
+signal. No evaluation RGB/mask or fitted lookup enters construction.
+`source_surface_confidence_luster_hybrid.py` hashes input photos, geometric
+warps, receipts and helper modules. `run_source_surface_luster.py` prepares
+CPU confidence caches and serializes both GPU evaluations.
+
+67 focused tests pass (`logs/tests_source_surface.log`), including explicit
+witness exclusions, two-observation evidence and neutral out-of-crop lookup.

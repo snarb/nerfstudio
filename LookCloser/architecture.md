@@ -1911,3 +1911,11 @@ would fall back after its chosen source fails the wider interpolation support.
 The phase-witness selector combines existing frozen-model structural costs with
 TRAIN-only restoration-benefit costs before hard source assignment. Witness
 images remain confidence inputs; the selected native photo alone supplies RGB.
+
+Source-surface confidence: `source_surface_confidence_luster_hybrid.py`
+corroborates each native TRAIN photo against four automatically proposed TRAIN
+neighbors on its own frozen q50 geometry, excludes all target/demo cameras,
+and projects only scalar two-witness reliability to target pixels.
+`source_surface_rank_luster_hybrid.py` adds this cost before hard single-photo
+selection; `run_source_surface_luster.py` serializes evaluation. No geometry,
+RGB lookup or model parameter is fitted. Experimental, not accepted.
