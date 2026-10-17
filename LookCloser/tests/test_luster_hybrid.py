@@ -1541,3 +1541,37 @@ def test_native_witness_analytical_gain_optimum_and_unknown_neutrality():
     np.testing.assert_array_equal(admission(np.zeros(full.shape,np.float32),full,0.),1)
     np.testing.assert_allclose(admission(np.zeros(full.shape,np.float32),full,.5),.5,atol=1e-7)
     np.testing.assert_array_equal(admission(np.ones(full.shape,np.float32),full,1.),1)
+
+
+def test_frozen_render_projection_plane_camera_z_and_occlusion():
+    from render_projection_luster_hybrid import project_block
+    from supported_luster_hybrid import geometric_support
+    row=camera();h,w=row['h'],row['w'];yy,xx=np.mgrid[:h,:w]
+    rgb=np.stack([xx/w,yy/h,np.full((h,w),.4)],-1).astype(np.float32)
+    z=np.ones((h,w),np.float32)
+    geometry=dict(rgb=rgb,alpha=z.copy(),depth_z_q10=z.copy(),depth_z_q50=z.copy(),depth_z_q90=z.copy())
+    yy,xx=np.mgrid[20:40,30:50];xy=np.stack([xx,yy],-1).astype(np.float32);depth=np.ones(xx.shape,np.float32)
+    gates=dict(alpha=.99,depth_error=.005,roundtrip=1.,uncertainty=2.,max_score=1.,min_resolution=.5)
+    same=project_block(row,row,geometry,xy,depth,depth,depth,depth)
+    np.testing.assert_allclose(same['rgb'],rgb[20:40,30:50],atol=2e-6)
+    assert geometric_support(same,gates).all()
+    shifted={**row,'transform_matrix':np.eye(4).tolist()};shifted['transform_matrix'][0][3]=.1
+    result=project_block(row,shifted,geometry,xy,depth,depth,depth,depth)
+    assert geometric_support(result,gates).all()
+    np.testing.assert_allclose(result['rgb'][...,0],(xx-13.)/w,atol=2e-6)
+    np.testing.assert_allclose(result['roundtrip'],0,atol=1e-5)
+    hidden={**geometry,'depth_z_q50':2*z,'depth_z_q10':2*z,'depth_z_q90':2*z}
+    wrong=project_block(row,shifted,hidden,xy,depth,depth,depth,depth)
+    assert not geometric_support(wrong,gates).any()
+
+
+def test_native_witness_gain_uses_actual_baseline_quality():
+    from witness_native_gain_luster_hybrid import optimal_gain
+    yy,xx=np.mgrid[:48,:48]
+    truth=np.repeat((.1*np.sin(xx/3))[...,None],3,-1).astype(np.float32)
+    support=np.ones(xx.shape,bool);photo=.8*truth
+    strong,k=optimal_gain(photo,truth,.95*truth,support)
+    weak,k2=optimal_gain(photo,truth,.2*truth,support)
+    assert k.all() and k2.all()
+    np.testing.assert_array_equal(strong,0)
+    np.testing.assert_array_equal(weak,1)

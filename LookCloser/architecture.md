@@ -2116,3 +2116,14 @@ keeps gain one. `witness_native_gain_merge_luster_hybrid.py` tests half/full
 attenuation on the unchanged depth25 source labels and actual-correction seams.
 This is a TRAIN-only scalar rule, not a new radiance or geometry model. Its
 results are pending and its merge is not yet export-audited.
+
+`render_projection_luster_hybrid.py` reprojects only immutable LookCloser
+RGB/alpha/depth for confidence. It has no photograph reader and applies the
+same camera-z, cubic-footprint, round-trip and uncertainty checks as photo warps.
+`target_witness_gain_luster_hybrid.py` compares each source with native TRAIN
+witness photographs relative to the actual target render projected into those
+witnesses. Scalar gain/utility return directly to the target q50 surface with
+reverse visibility and a two-witness median. Evaluation cameras may supply
+their frozen render here, never their photographs. No reprojected render or
+witness RGB is used as final texture. The separate runner tests half/full
+attenuation on unchanged source labels; results and export audit are pending.

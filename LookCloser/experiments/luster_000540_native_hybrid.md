@@ -2352,3 +2352,35 @@ least-squares criterion may attenuate perceptually useful detail, so this is an
 experiment rather than an adopted recipe. The focused suite passes 103 tests,
 including analytical .5/0/1 optima, unknown neutrality, support isolation and
 the two-witness quorum. CUDA evaluation waits for existing controllers.
+
+### 20:36 UTC — cam012 counterexample and target-conditioned TRAIN confidence
+
+Threshold admission's preliminary cam012 CUDA result is mixed: person LPIPS
+.101257697 versus depth25 .098206677 and frozen LookCloser .124925308. Face,
+hands/cuffs, skin, jewelry, cuffs, nails and lace improve relative to depth25;
+cord, hair and embroidery worsen. Every predefined cam012 ROI remains better
+than the frozen baseline. The fixed-tile preview was inspected at
+`evaluation/witness_native_admission_cam012_reference_tiles.png`; jewelry shape,
+cord/silhouette mismatch and fold structure remain. No visual acceptance follows.
+The signed-risk diagnostic also shows improvement in every cam012 risk bin,
+including risk >=.6 (86,087 pixels, spatial delta -.03140897). Cam007's association
+therefore does not generalize to cam012; complete four-view results are pending.
+
+A possible confound is that native-witness confidence uses the witness's own
+TRAIN render as baseline, whereas the actual target render may have different
+detail quality. The new **target-conditioned** control reprojects only the
+frozen target RGB into native TRAIN witness coordinates. Source texture and
+native witness photograph are compared against this actual target baseline.
+Both directions require the same geometric visibility checks, and each scalar
+gain/utility returns directly to the original target q50 surface. At least two
+TRAIN witnesses must support it; unknown evidence stays neutral. Final texture
+sampling and source labels remain unchanged.
+
+`render_projection_luster_hybrid.py` never opens photographs. The companion
+confidence module opens only explicitly allowed TRAIN witness files, excluding
+7/12/95/150, and the source photograph remains the sole transferred RGB. This
+tests a baseline-quality hypothesis, not a claim that the current gate failed
+for that reason. `run_target_witness_gain_luster.py` compares attenuation .5/1,
+waits for prior CUDA controllers, and writes a separate screen. The focused
+suite passes 105 tests, including translated-plane camera-z projection,
+occlusion rejection and analytical gain sensitivity to baseline quality.
