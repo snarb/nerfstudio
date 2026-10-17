@@ -17,7 +17,42 @@ and rejection are automatic. No color blending between photographs, optical
 flow, geometry fitting, manual source assignments or target-GT construction.**
 Historical pair-interpolation and registration experiments below are ineligible.
 
-## Audited automatic recipe
+## Current audited download: 29.6760%, visually unaccepted
+
+`single_source_contradiction400_once_seam` uses the six-step recipe below plus
+weight-4 negative source-native TRAIN correlation evidence and exactly one
+island-removal pass. Its final geometry, native sampling and merge are unchanged.
+It passes the canonical predefined ROI screen and deep provenance/reconstruction
+audit, but retains the local visual regressions documented in the archive.
+
+| View | Baseline LPIPS | Hybrid LPIPS | Hybrid PSNR | Hybrid SSIM | Exact LookCloser preserved in person |
+|---|---:|---:|---:|---:|---:|
+| 007 | .06944436 | .06575628 | 31.222990 | .91437651 | 11.63% |
+| 012 | .12492531 | .09857278 | 27.879484 | .87479757 | 13.91% |
+| 095 | .12697524 | .07813243 | 29.239752 | .90824636 | 6.31% |
+| 150 | .15322061 | .10819201 | 27.907913 | .91512796 | 8.50% |
+
+Validation LPIPS **.0949657410**, PSNR 28.34238307, SSIM .8993906312.
+The numerical .25 directional-risk variant at the top is a separate, unaudited
+experiment and does not replace this download.
+
+```bash
+scp olive-lark:/fsx/tmp/luster_000540_hybrid_20261017T104440Z/exports/single_source_contradiction400_once_seam.tar.gz .
+sha256sum single_source_contradiction400_once_seam.tar.gz
+```
+
+Verified SHA256:
+`34444d71faf7ce2bc21d03c2ee1b4dc7c57cb368ec2b60f28cc143bd35bb397a`.
+310 members, 185943386 bytes. Status: `not_accepted_local_detail_degradation`.
+Reproduction commands for this exact variant appear in the 18:40–18:49 section
+below, using `source_contradiction_rank_luster_hybrid.py` and
+`cubic75_once_luster_hybrid.py`.
+
+## Earlier audited reference: 29.5715%
+
+The following detailed recipe, table and commands describe
+`single_cubic_eligible_phase_rt2_seam`. They remain a reproducible comparison;
+the current download above adds TRAIN contradiction evidence and one cleanup.
 
 1. Unproject native target pixels using conditional median camera-z from the
    exact frozen LookCloser. Project those points into native TRAIN photos.
@@ -99,7 +134,7 @@ The expanded <=60-degree TRAIN source search is complete and gave negligible
 improvement with the current costs; it is not part of this reference.
 
 
-Current verified review archive (286 members, 185683823 bytes):
+Earlier verified review archive (286 members, 185683823 bytes):
 
 ```bash
 scp olive-lark:/fsx/tmp/luster_000540_hybrid_20261017T104440Z/exports/single_cubic_eligible_phase_rt2_seam.tar.gz .
