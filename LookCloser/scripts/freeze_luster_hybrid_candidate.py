@@ -19,6 +19,12 @@ def freeze(root,name,warp_root,deep=False):
         receipt=read(candidate/f'cam{cid:03d}_receipt.json')
         assert receipt['config']==config
         assert receipt['code_sha256'] in inventory.values(), 'Candidate generator changed since creation'
+        for path,digest in receipt.get('additional_input_hashes',{}).items():
+            assert sha(path)==digest;bind(path)
+            if 'source_model_warps' in path:
+                mr=read(path);assert mr['code_sha256'] in inventory.values()
+                cached=Path(path).parent/'rgb.npy'
+                if deep:assert sha(cached)==mr['rgb_sha256'];bind(cached)
         allowed=set(allowed_sources(rows,cid));assert set(receipt['sources'])<=allowed
         baseline=geometry(root,cid)['rgb'];pred=np.load(candidate/f'cam{cid:03d}.npy',mmap_mode='r')
         weight=np.load(candidate/f'cam{cid:03d}_confidence.npy',mmap_mode='r')
@@ -69,7 +75,8 @@ def freeze(root,name,warp_root,deep=False):
          checkpoint_sha256=DIGEST,checks=checks,deep=deep,inputs=inputs,outputs=outputs,
          uses_target_ground_truth_for_prediction=False,uses_target_evaluation_masks_for_prediction=False,
          uses_derived_source_foreground_masks='foreground' in str(warp_root),
-         uses_classical_lookup_alignment='align' in str(warp_root),
+         uses_classical_lookup_alignment='align' in str(warp_root) or bool(receipt.get('registration')),
+         uses_source_model_residual=config.get('mode')=='source_model_residual',
          code=inventory)
     write(candidate/'provenance.json',report)
     print(name,': source exclusion, finite outputs and exact fallback verified; deep=',deep,flush=True)

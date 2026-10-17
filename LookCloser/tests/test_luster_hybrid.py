@@ -188,3 +188,32 @@ def test_pair_flow_rejects_excess_displacement_and_inconsistent_reverse():
     assert safe_flow(forward,-forward,support,4)[16:48,16:48].all()
     assert not safe_flow(forward,-forward,support,1).any()
     assert not safe_flow(forward,forward,support,4).any()
+
+
+def test_source_model_residual_keeps_base_when_no_new_detail_exists():
+    from residual_luster_hybrid import merge_residual
+    rng=np.random.default_rng(9);base=rng.uniform(.2,.8,(64,64,3)).astype(np.float32)
+    labels=np.full((64,64),-1,np.int16);labels[10:54,10:54]=1
+    weight=(labels>=0).astype(np.float32)
+    np.testing.assert_array_equal(merge_residual(base,np.zeros_like(base),labels,weight,4),base)
+    residual=np.full_like(base,.02)
+    np.testing.assert_allclose(merge_residual(base,residual,labels,weight,4),base,atol=1e-7)
+    y,x=np.mgrid[:64,:64];residual=np.repeat((.05*np.sin(x*1.3))[...,None],3,axis=-1).astype(np.float32)
+    result=merge_residual(base,residual,labels,weight,4)
+    np.testing.assert_array_equal(result[weight==0],base[weight==0])
+    assert np.abs(result-base).mean()>.005
+
+
+def test_band_boost_preserves_coarse_reference_at_zero_boost():
+    from bands_luster_hybrid import merge_bands
+    from transfer_luster_hybrid import merge_details
+    rng=np.random.default_rng(12);base=rng.uniform(.2,.6,(64,64,3)).astype(np.float32)
+    photo=rng.uniform(.2,.6,(64,64,3)).astype(np.float32)
+    labels=np.full((64,64),-1,np.int16);labels[8:56,8:56]=1
+    reference,weight=merge_details(base,photo,labels,np.full((64,64),.7,np.float32),'detail',8.,1.)
+    result,_=merge_bands(base,photo,labels,weight,8.,1.,0.)
+    np.testing.assert_allclose(result,reference,atol=2e-7)
+    flat,_=merge_bands(base,base+.02,labels,weight,8.,1.,1.)
+    np.testing.assert_allclose(flat,base,atol=2e-7)
+    result,w=merge_bands(base,photo,labels,weight,8.,1.,1.)
+    np.testing.assert_array_equal(result[w==0],base[w==0])

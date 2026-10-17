@@ -1725,3 +1725,11 @@ frozen density and baseline remain unchanged; native photo samples are re-read
 after the lookup correction. Its synthetic tests verify interpolation direction,
 displacement limits and reverse-flow consistency. Candidate acceptance still
 requires the fixed evaluation protocol and visual review.
+
+`residual_luster_hybrid.py` caches each frozen source-view rendering projected
+through the identical native-photo footprint and transfers supported photo/model
+residual bands. `bands_luster_hybrid.py` independently boosts fine bands while
+retaining the conservative coarse-band mixture. Both reuse frozen visibility
+and source provenance; neither reads target RGB or evaluation masks.
+`export_luster_hybrid.py` packages native review images, metrics and provenance
+and verifies every archive member against its recorded SHA256.

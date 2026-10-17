@@ -84,6 +84,35 @@ lookups before view interpolation. It checks forward/backward consistency, a
 source/source photometric agreement. It does not reconstruct or modify geometry. The expanded
 source pool (up to 32 coverage-selected cameras per target) is being rendered.
 
+The expanded pool contains 76 unique TRAIN cameras and 103 target/source pairs.
+All geometry and point/area/foreground caches are complete. Increasing the
+per-pixel candidate ranks from 4 to 8 reduces improvement to 12.13%; those
+remaining k8 variants are deferred. Four local ranks give 14.23% without local
+regression.
+
+The resolution audit found a specific coverage issue: in the cam150 lower
+sleeve ROI, geometrically visible sources have native sampling ratios around
+0.705–0.744, just below the historical 0.75 cutoff. They still exceed the
+model's 1920/4096 training sampling ratio. Lowering the cutoff globally to 0.5
+improves the expanded-pool result to **14.629%**, LPIPS **0.11528552**, with zero
+measured local regressions on CUDA. This is the current numeric reference;
+full visual acceptance remains pending. The legacy cam150 `lace` ROI mostly
+contains the sleeve hem because the lace itself is clipped by the image edge;
+its metric must not be described as fixing lace holes.
+
+A source-model residual ablation transfers native photo minus frozen rendering
+of the same TRAIN source camera. Full strength reaches **20.041%** but regresses
+cam012 skin/nails/hem and cam095 nails, so it is rejected. A 4-pixel bounded
+TRAIN/TRAIN lookup alignment brings only a small mean gain and a cam007 eye
+regression. Current tests investigate fine-band-only strengthening and a wider,
+still visibility-checked texture lookup bound. None changes calibration, model
+weights, depth arrays or grids.
+
+The provisional 13.94% reference has passed deep input/runtime/cache verification
+and is exported to `C/exports/bracket8_s8.tar.gz` (277093152 bytes; all 141 archive
+members verified). This archive is a review milestone, not the final 40% result.
+Its SHA256 is `21cf78b2953d5587f8ea782b1f58db8e503858dcd270be53cc3a2fd6be43418b`.
+
 CPU pilot metrics are provisional: CPU and CUDA LPIPS may differ by about 1e-5.
 All formal acceptance comparisons use CUDA for both baseline and candidate;
 no cross-device difference is treated as a quality tolerance.
@@ -111,7 +140,7 @@ python "$S/screen_luster_hybrid.py" --root "$C"
 python -m pytest -q -n 0 "$C/code/LookCloser/tests/test_luster_hybrid.py"
 ```
 
-Eighteen focused tests currently pass: native pixel centers and camera-z/ray-range
+Twenty focused tests currently pass: native pixel centers and camera-z/ray-range
 conventions, source exclusion, analytic termination CDF, multiple density
 layers, empty rays, bilinear footprint validity and exact fallback with masked
 filter support. Dense diagnostics confirm unchanged model state and grids. Repeated RGB differs
