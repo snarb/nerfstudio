@@ -2542,7 +2542,7 @@ validation GT, mask, manually selected patch, or output-image feedback. Evidence
 had zero common support and was discarded before scoring.
 
 
-### 21:25 UTC — opposite-side witness coverage and target-frame LPIPS control
+### 21:23 UTC — opposite-side witness coverage and target-frame LPIPS control
 
 The geometry-only 16-source-pool probe finds two-witness coverage on 52.8% and
 60.6% of coarse selected cam007/source008 and source006 points. Source023 has
@@ -2566,3 +2566,27 @@ witness appearance remains an imperfect proxy, so no benefit is assumed.
 The focused suite passes 109 tests, including quorum, contradiction, unknown
 support and shared-exterior utility tests. The runner prepares confidence warps
 on CPU and waits for existing CUDA controllers before loading the frozen metric.
+
+
+### 21:26 UTC — complete geometric witness search and CPU metric smoke
+
+The expanded probe considered 116 allowed TRAIN cameras with complete frozen
+geometry per target. It did not resolve the missing quorum for cam007/source023
+or cam012/source028. Dominant other-source coverage remains almost identical to
+the 16-camera probe. Unknown confidence stays neutral; it is not rewarded.
+CPU confidence-warp preparation is running, followed by the serialized GPU queue.
+
+A real frozen LPIPS CPU smoke verifies positive average detail utility and
+positive full-color utility where known, with unchanged metric state. The first
+smoke incorrectly expected every pixel to be known; the configured .001 error
+floor intentionally leaves 2,011 of 16,384 broad-comparison pixels unknown.
+The corrected test checks the intended known support and passes. Evidence:
+`logs/bracket_perceptual_cpu_smoke.log` and
+`logs/bracket_perceptual_cpu_smoke_checked.log`.
+
+Partial cam007/cam012 fixed native comparisons of original and wider-angle
+target-conditioned gain were inspected in
+`evaluation/target_witness_gain_partial_reference_tiles/`. Wider attenuation
+reduces irregular fold contrast but does not remove the new fold texture defects;
+cam012 jewelry/cord mismatch remains. These two-view previews do not replace
+four-view visual review or the queued canonical CUDA metrics.
