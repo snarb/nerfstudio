@@ -2021,3 +2021,8 @@ LPIPS associations with source-label boundaries and transfer weights, with
 exhaustive mask partition checks. `run_current_seam_tolerance_luster.py` tests
 .01/.04 compatibility thresholds using the existing merge and identical labels;
 its GPU stage waits for the preceding controller to exit.
+
+
+`compare_reference_tiles_luster_hybrid.py` composes completed predictions at
+fixed evaluation-only regression tiles, with native 128px crops enlarged 2x
+by nearest neighbor and hashed inputs. It produces no construction inputs.

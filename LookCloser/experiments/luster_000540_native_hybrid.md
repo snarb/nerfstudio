@@ -1741,3 +1741,16 @@ geometry support, gain and filter scale. A looser threshold may preserve more
 detail but must pass the same local visual review; it is not accepted in advance.
 The stricter setting is a matched control. GPU evaluation waits for the
 photometric-depth runner to exit. Results are pending.
+
+
+### Interim visual review, 19:02 UTC
+
+Fixed native regression tiles were inspected for all four cameras using
+`compare_reference_tiles_luster_hybrid.py`. Both seam threshold settings retain
+the reference's local fold, jewelry, hair/background and lace defects; both are
+marked visually unaccepted. The .25 directional-depth penalty also remains
+unaccepted: the inspected cam007 scalp ornament becomes softer, while the
+other key defects remain. These panels are evaluation-only and use unchanged
+reference tile locations, not a region-specific construction rule. Canonical
+metrics are still pending. All selected samples in the .25 variant have finite
+measured directional risk (zero selected unknown-risk samples in all four views).
