@@ -2183,3 +2183,36 @@ two controls on CPU and waits for the native-witness controller before CUDA
 evaluation. The focused suite now passes 98 tests, including matched zero-gain
 detail algebra, the literal-photo endpoint, and exact no-transfer fallback.
 Results and visual acceptance are pending; neither control is a new default.
+
+
+### 20:09 UTC — full texture control rejected
+
+Construction finished while the native-witness worker still had most source
+caches outstanding and had not reached its GPU stage. After verifying all
+eight output receipts and an idle GPU, the completed-construction controller
+was restarted without its obsolete wait. Both CUDA evaluations completed
+sequentially; the handoff is recorded in
+`logs/current_full_texture_gpu_handoff.json`. No construction was interrupted.
+
+| Same-photo broad gain | Validation LPIPS | Reduction | Named regressions |
+|---|---:|---:|---|
+| 0, matched depth25 parent | .0947650323 | 29.8247% | none |
+| .25 | .0953348577 | 29.4027% | none |
+| 1, literal full texture | .1280544003 | 5.1733% | 9 |
+
+Full texture regresses cam007 person/cord; cam012 person/face/cord/hair;
+cam095 hands_cuffs/cuffs/nails. Its cam007 person LPIPS increases by .03362017
+relative to frozen LookCloser. It is rejected by the predefined numerical gate.
+The .25 control is also worse than its matched parent and remains visually
+unaccepted. All four three-tile fixed panels were inspected at
+`evaluation/current_full_texture_reference_tiles/camNNN.png`: full texture
+strengthens irregular dark fold edges in cam007; the ornament, cord, hair,
+lace and fold defects in the other views remain. Review records and canonical
+results are saved beside `evaluation/current_full_texture_screen.json`.
+
+Thus even improved source labels do not justify unconditional full photograph
+replacement. The current measured recipe retains broad LookCloser appearance
+and transfers selected-photo detail. This is an empirical result for this
+configuration, not a claim that a full-texture recipe can never work.
+The native TRAIN-witness confidence experiment is still running; the 40% goal
+and visual-acceptance requirements remain unmet.
