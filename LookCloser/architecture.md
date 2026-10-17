@@ -1852,3 +1852,11 @@ its frozen source render and that source render with the target model. These
 soft costs affect hard camera labels only. Geometry, calibrated lookup and
 single-photo RGB remain unchanged; flat/unknown evidence is explicit. This
 experimental selector is separate from the audited adaptive-seam reference.
+
+Further isolated native-hybrid experiments retain hard one-photo texture:
+angularly bracketed witnesses affect scalar selection costs only; a clamped
+Lanczos-3 sampler verifies every nonzero 6x6 native tap at the unchanged lookup;
+and a read-only point-view cache queries frozen field RGB at the same q50 point
+with two directions and saved frequency levels. Point-view queries assert equal
+density and unchanged full model state. Their results are experimental until
+native metrics, local visual review and reconstruction audit pass.

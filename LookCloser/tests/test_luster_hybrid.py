@@ -618,3 +618,53 @@ def test_source_render_phase_ranking_is_gain_invariant_and_detects_wrong_structu
     assert phase_cost(band,np.zeros_like(band),support)[region].mean()==.5
     assert not phase_cost(np.zeros_like(band),np.zeros_like(band),support).any()
     assert not phase_cost(band,-band,np.zeros_like(support)).any()
+
+
+def test_bracket_witnesses_must_lie_on_opposite_sides_of_the_target_ray():
+    from bracket_witness_luster_hybrid import tangent_cosine
+    rays=np.array([[[0.,0.,1.],[0.,0.,-1.]]],np.float32)
+    left=np.array([-1.,0.,2.],np.float32);right=np.array([1.,0.,3.],np.float32)
+    np.testing.assert_allclose(tangent_cosine(left,right,rays),-1)
+    np.testing.assert_allclose(tangent_cosine(left,left*2,rays),1)
+    vertical=np.array([0.,1.,2.],np.float32)
+    np.testing.assert_allclose(tangent_cosine(left,vertical,rays),0)
+    # A camera baseline along the viewing ray gives no directional evidence.
+    np.testing.assert_allclose(tangent_cosine(left,np.array([0.,0.,2.]),rays),1)
+
+
+def test_lanczos3_preserves_bandlimited_detail_and_checks_remote_nonzero_taps():
+    from lanczos3_luster_hybrid import sample
+    y,x=np.mgrid[:24,:32];gray=(.5+.2*np.sin(x*2*np.pi*.16)).astype(np.float32)
+    photo=np.repeat(gray[...,None],3,-1);depth=np.ones(x.shape,np.float32)
+    source=dict(alpha=depth.copy(),depth_z_q10=depth.copy(),depth_z_q50=depth.copy(),depth_z_q90=depth.copy())
+    xx=np.arange(5,24,dtype=np.float32)+.35
+    uv=np.stack([xx,np.full_like(xx,10.25)],-1)[None];z=np.ones(uv.shape[:2],np.float32)
+    rgb,valid,_,_=sample(photo,source,uv,z);assert valid.all()
+    true=.5+.2*np.sin(xx*2*np.pi*.16)
+    bilinear=.65*gray[10,np.floor(xx).astype(int)]+.35*gray[10,np.floor(xx).astype(int)+1]
+    assert np.mean((rgb[0,:,0]-true)**2)<np.mean((bilinear-true)**2)
+    integers=np.array([[[10.,10.]]],np.float32)
+    exact,valid,_,_=sample(photo,source,integers,np.ones((1,1),np.float32))
+    np.testing.assert_allclose(exact[0,0],photo[10,10],atol=1e-7)
+    source['depth_z_q50'][8,8]=np.nan
+    _,valid,_,_=sample(photo,source,np.array([[[10.35,10.25]]],np.float32),np.ones((1,1),np.float32))
+    assert not valid.any()
+
+
+def test_point_view_transfer_has_identity_for_equal_directional_colors():
+    from point_view_merge_luster_hybrid import merge
+    from transfer_luster_hybrid import merge_details
+    y,x=np.mgrid[:48,:48];base=np.full((48,48,3),.4,np.float32)
+    texture=base+np.repeat((.03*np.sin(x*np.pi/3))[...,None],3,-1).astype(np.float32)
+    labels=np.full((48,48),-1,np.int16);labels[4:44,4:24]=8;labels[4:44,24:44]=9
+    config=dict(view_gain=1.,sigma=6.,gain=1.)
+    same,w=merge(base,texture,base,base,labels,config)
+    expected,ew=merge_details(base,texture,labels,(labels>=0).astype(np.float32),'detail',6.,1.)
+    np.testing.assert_array_equal(same,expected);np.testing.assert_array_equal(w,ew)
+    # Broad directional offset is removed by detail transfer, not baked into skin.
+    target=base+.02;shifted,_=merge(base,texture,target,base,labels,config)
+    np.testing.assert_allclose(shifted,expected,atol=5e-7)  # FP32 normalized Gaussian roundoff
+    target[labels==9]=.8
+    other,_=merge(base,texture,target,base,labels,config)
+    np.testing.assert_array_equal(other[labels==8],shifted[labels==8])
+    np.testing.assert_array_equal(other[labels<0],base[labels<0])

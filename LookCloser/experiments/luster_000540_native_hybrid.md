@@ -808,3 +808,36 @@ GPU evaluation waits for all four geometric-ranking evaluations to finish.
 
 Fifty focused tests pass, including gain invariance and reversed-structure
 ranking. The archived adaptive-seam reference remains visually unaccepted.
+
+## Directional witnesses and sampling checks (2026-10-17 15:47 UTC)
+
+The completed scoreboard contains 115 eligible measured single-source recipes,
+zero visually accepted candidates, and no 40% result. The current audited and
+exported numerical reference is still adaptive-seam cubic-.75 at 28.6944%.
+
+Three further controlled checks are queued, not accepted results:
+
+- Opposite-side witnesses: projected camera baselines in each target-ray tangent
+  plane must have cosine <= -.25. Two distinct TRAIN witnesses from that side
+  must corroborate G1-G4 phase before affecting the selected photo's cost. This
+  tests whether same-side cameras were corroborating a shared parallax error.
+  Weights .5 and 1.5 retain all earlier geometry and scale safeguards.
+- Lanczos-3 interpolation with fixed automatic risk labels: all nonzero 6x6
+  taps pass native source visibility; RGB is clamped to the central 2x2 range.
+  Coordinates and geometry are unchanged. This isolates loss of source detail
+  from the interpolation filter and its larger visibility footprint.
+- Frozen pointwise directional color: query the existing field at each selected
+  q50 surface point in both target and source directions, using the saved
+  frequency grid. Density must be exactly equal for both queries, and the full
+  model state must remain unchanged. Add .5 or 1 times the directional RGB
+  difference to the single selected photo before the established detail merge.
+  This separates view-dependent appearance from the different surface samples
+  in a reprojected source-view volume render. It introduces no new model and
+  never changes the point or projected photo coordinate.
+
+GPU ownership is sequential: geometric costs, source-view phase, opposite-side
+witnesses, Lanczos, then frozen pointwise color and its two evaluations. CPU
+preparation can overlap. Fifty-three focused tests pass. The constant-color
+point-correction test permits 5e-7 FP32 Gaussian roundoff; equal directional
+colors, unchanged fallback, and independence across source labels are checked
+exactly. No target photographs or evaluation masks enter any predictor.
