@@ -2769,6 +2769,12 @@ their cubic q50 projections, geometric eligibility and selected-pixel masks.
 The preview includes the entire native crop at its stated scale. Selected
 pixels are asserted to satisfy the unchanged source geometry gates. All six
 records' input, output and implementation hashes were checked after execution.
+The diagnostic separately records assigned labels and actual contribution
+(positive merge weight and changed float RGB). In these six patches the counts
+coincide: tile0 sources023/006/008 contribute 11433/2502/1350 pixels, and tile1
+sources023/008/006 contribute 12054/2040/1941. The preview shows contribution;
+both binary masks are saved separately. This distinction avoids interpreting a
+source label with zero final transfer weight as a texture contribution.
 Evidence: `evaluation/selected_reference_source_patches/receipt.json`.
 These are evaluation-only diagnostic images, never source assignments or gates.
 

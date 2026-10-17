@@ -31,12 +31,16 @@ def run(root, reference, candidate, cameras, count, output):
         warp_root = Path(receipt['warp_root'])
         labels_path = old/f'cam{target:03d}_sources.npy'
         labels = np.load(labels_path, mmap_mode='r')
+        weight_path = old/f'cam{target:03d}_confidence.npy'
+        rgb_path = old/f'cam{target:03d}.npy'
+        weight = np.load(weight_path, mmap_mode='r')
+        rgb = np.load(rgb_path, mmap_mode='r')
         g = geometry(root, target)
         baseline_path = root/'baseline'/f'cam{target:03d}.png'
         candidate_path = old/f'cam{target:03d}.png'
         baseline = Image.open(baseline_path).convert('RGB')
         hybrid = Image.open(candidate_path).convert('RGB')
-        for p in [receipt_path, labels_path, baseline_path, candidate_path,
+        for p in [receipt_path, labels_path, weight_path, rgb_path, baseline_path, candidate_path,
                   root/'geometry'/f'cam{target:03d}'/'receipt.json']:
             inputs[str(p)] = sha(p)
         target_tiles = [t for t in tiles if t['camera'] == target][:count]
@@ -51,6 +55,7 @@ def run(root, reference, candidate, cameras, count, output):
             for cid, pixels in sorted(zip(ids, counts), key=lambda v: (-v[1], v[0]))[:3]:
                 cid = int(cid); assert_source(rows, target, cid)
                 uv, _ = project(world, rows[cid]); selected = lab == cid
+                contributing = selected & (weight[sl] > 0) & np.any(rgb[sl] != g['rgb'][sl], axis=-1)
                 assert np.isfinite(uv[selected]).all()
                 low = np.floor(uv[selected].min(0)-8).astype(int)
                 high = np.ceil(uv[selected].max(0)+9).astype(int)
@@ -71,11 +76,12 @@ def run(root, reference, candidate, cameras, count, output):
                 image(out/f'{stem}_projected.png', a['rgb'])
                 image(out/f'{stem}_eligible.png', np.repeat(support[..., None], 3, -1).astype(np.float32))
                 image(out/f'{stem}_selected.png', np.repeat(selected[..., None], 3, -1).astype(np.float32))
+                image(out/f'{stem}_contributing.png', np.repeat(contributing[..., None], 3, -1).astype(np.float32))
                 panels = []
                 scale = min(2., 320/native.width, 320/native.height)
                 panels.append((f'Native crop; preview {scale:.2f}x', native.resize(
                     (round(native.width*scale), round(native.height*scale)), Image.Resampling.NEAREST)))
-                for title, mask in [('Geometrically eligible photo, 2x', support), ('Selected photo pixels, 2x', selected)]:
+                for title, mask in [('Geometrically eligible photo, 2x', support), ('Contributing photo pixels, 2x', contributing)]:
                     value = np.where(mask[..., None], np.clip(a['rgb'], 0, 1), .5)
                     panels.append((title, Image.fromarray(np.rint(value*255).astype(np.uint8)).resize((256, 256), Image.Resampling.NEAREST)))
                 panels += [('Frozen LookCloser, 2x', baseline.crop(box).resize((256, 256), Image.Resampling.NEAREST)),
@@ -88,6 +94,7 @@ def run(root, reference, candidate, cameras, count, output):
                     inputs[str(p)] = sha(p)
                 records.append(dict(camera=target, tile=index, target_box=box, source=cid,
                                     selected_pixels=int(pixels), native_box=native_box,
+                                    contributing_pixels=int(contributing.sum()),
                                     files={p.name: sha(p) for p in out.glob(f'{stem}_*.png')}))
     write(out/'receipt.json', dict(usage='evaluation_only_no_prediction_feedback',
         reference=reference, candidate=candidate, rows=records, inputs=inputs,
