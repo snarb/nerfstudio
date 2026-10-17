@@ -2510,3 +2510,33 @@ its >=.6 bin has 27,709 pixels and delta -.06312204. These join cam012's counter
 to cam007's positive high-risk delta. This is an evaluation-only association,
 not a causal effect or a patch assignment rule. The combined evidence is in
 `evaluation/single_source_contradiction400_once_seam_witness_native_restoration_association.json`.
+
+
+### 21:17 UTC — complete native TRAIN restoration controls
+
+| Recipe | Validation LPIPS | Reduction | Named ROI regressions |
+|---|---:|---:|---:|
+| Native witness negative utility, weight 1 | .0956011365 | 29.2055214% | 0 |
+| Native witness signed utility, weight .5 | .0951759989 | 29.5203439% | 0 |
+| Threshold admission .4–.6 | .0955319181 | 29.2567789% | 0 |
+| Analytical gain, strength .5 | .1051911960 | 22.1038980% | 0 |
+| Analytical gain, strength 1 | .1186586693 | 12.1309753% | 0 |
+
+All are inferior to depth25 on canonical validation LPIPS. All four fixed
+three-patch comparisons for both ranking controls were inspected; cam007's
+new dark fold irregularities and softened ornament remain. Other views retain
+geometry and texture mismatches. Existing baseline geometry defects alone are
+not the rejection criterion: the new local texture defects prevent acceptance.
+Threshold and analytical variants already have four-view visual rejection.
+These results do not achieve the 40% goal.
+
+A CPU TRAIN-only pilot compares baseline/detail/full photo on automatically
+selected 256px native witness grid patches (support >=.8). For target007/source008,
+only witness024 supplies eligible patches; 009/025/023 have none. Full texture
+beats detail on seven of eight patches, but loses on the first (.04028243 versus
+.03587120). This does not contradict the failed full-texture target evaluation:
+a nearby TRAIN witness may prefer source-view appearance. The pilot has no
+validation GT, mask, manually selected patch, or output-image feedback. Evidence:
+`train_perceptual_utility/pilot_cam007_src008.json`; script
+`probe_train_perceptual_candidates_luster.py`. A previous fixed witness023 probe
+had zero common support and was discarded before scoring.
