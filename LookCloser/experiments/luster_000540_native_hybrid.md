@@ -1380,3 +1380,18 @@ ambiguous backgrounds and an end-to-end check that rejected background color
 cannot contaminate neighboring filtered detail. This new merge mode is
 experimental and requires an explicit reconstruction-audit extension before
 any export; no acceptance or performance improvement is claimed yet.
+
+## 2026-10-17 17:58 UTC — coherent current-cost patches and plate audit
+
+Current phase/capture-scale/cubic-eligible costs aggregated into 4-pixel cells
+and Potts alpha expansion did not improve validation: transition .05 yielded
+LPIPS .0965211938 (28.5242%, no named ROI regression); .2 yielded .0970487321
+(28.1335%) and cam007 jewelry regression +.0008517951. Neither is accepted.
+The new source-contradiction400 source panels were inspected for cam007/cam150
+hands and cam012 jewelry: finger bridging and jewelry shape mismatch remain.
+
+The independent freeze auditor now reconstructs measured-plate veto merges
+from parent labels, original cubic warps and saved projected vetoes. It verifies
+that rejected samples cannot contribute either selected RGB or Gaussian support.
+The regression test detects a falsely retained vetoed label and background-contaminated
+filter output; 75 tests pass. The plate candidates are still being constructed.

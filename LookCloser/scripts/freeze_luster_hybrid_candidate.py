@@ -7,6 +7,29 @@ from dependency_audit_luster_hybrid import verify_dependencies
 from luster_hybrid_common import (DIGEST,TARGETS,allowed_sources,geometry,native_rows,read,sha,source_path,write)
 
 
+def verify_plate_merge(base,records,parent_labels,vetos,labels,pred,weight,config):
+    """Reconstruct the plate-rejected merge without calling its generator.
+
+    The parent supplies labels, while saved native-footprint vetoes remove both
+    selected pixels and neighboring filter support. No new source can appear.
+    """
+    from supported_luster_hybrid import geometric_support
+    from seam_single_luster_hybrid import merge
+    expected_labels=np.asarray(parent_labels).copy();filtered=[]
+    for source,arrays in records:
+        veto=np.asarray(vetos[source]);assert veto.dtype==np.bool_
+        assert veto.shape==expected_labels.shape
+        arrays={**arrays,'valid':(arrays['valid']>0)&~veto}
+        expected_labels[(expected_labels==source)&~geometric_support(arrays,config)]=-1
+        filtered.append((source,arrays))
+    rebuilt,rebuilt_weight=merge(base,filtered,expected_labels,config)
+    expected_labels[rebuilt_weight==0]=-1
+    np.testing.assert_array_equal(labels,expected_labels)
+    np.testing.assert_array_equal(pred,rebuilt)
+    np.testing.assert_array_equal(weight,rebuilt_weight)
+    return rebuilt,rebuilt_weight
+
+
 def freeze(root,name,warp_root,deep=False,require_single_source=False):
     rows=native_rows();candidate=root/'candidates'/name
     manifest=read(root/'preflight/manifest.json');config=read(candidate/'config.json')
@@ -111,18 +134,34 @@ def freeze(root,name,warp_root,deep=False,require_single_source=False):
                 for field,limit,lower in [('alpha',config['alpha'],True),('resolution_ratio',config['min_resolution'],True),('depth_error',config['depth_error'],False),('roundtrip',config['roundtrip'],False),('uncertainty',config['uncertainty'],False)]:
                     values=np.load(d/f'{field}.npy',mmap_mode='r')[selected]
                     assert np.all(values>=limit) if lower else np.all(values<=limit)
-            mode='detail' if config['mode'] in ['single_source_model_residual','missing_bands','single_source_view_illumination','single_source_seam'] else config['mode']
+            mode='detail' if config['mode'] in ['single_source_model_residual','missing_bands','single_source_view_illumination','single_source_seam','single_source_plate_seam'] else config['mode']
             rebuilt,rebuilt_weight=merge_details(np.asarray(baseline[sl]),texture,local_labels,(local_labels>=0).astype(np.float32),mode,config['sigma'],config['gain'])
-            if config['mode']=='single_source_seam':
+            if config['mode'] in ['single_source_seam','single_source_plate_seam']:
                 from seam_single_luster_hybrid import merge
                 parent=root/'candidates'/config['parent']
-                np.testing.assert_array_equal(labels,np.load(parent/f'cam{cid:03d}_sources.npy',mmap_mode='r'))
+                parent_labels=np.load(parent/f'cam{cid:03d}_sources.npy',mmap_mode='r')
+                if config['mode']=='single_source_seam':np.testing.assert_array_equal(labels,parent_labels)
                 records=[]
                 for source in receipt['sources']:
                     directory=warp_root/'warps'/f'cam{cid:03d}'/f'src{source:03d}'
                     wr=read(directory/'receipt.json')
                     records.append((source,{field:np.load(directory/f'{field}.npy',mmap_mode='r') for field in wr['arrays']}))
-                rebuilt,rebuilt_weight=merge(np.asarray(baseline[sl]),records,local_labels,config)
+                if config['mode']=='single_source_plate_seam':
+                    vetos={}
+                    assert config['plate_veto_level'] in ['strict10','strict20']
+                    for source in receipt['sources']:
+                        vd=root/'exact_plate_projected'/f'cam{cid:03d}'/f'src{source:03d}'
+                        vr=read(vd/'receipt.json');assert vr['target']==cid and vr['source']==source
+                        assert vr['footprint']=='all_nonzero_cubic75_taps'
+                        path=vd/f"{config['plate_veto_level']}.npy"
+                        assert sha(path)==vr['hashes'][path.name];bind(path);bind(vd/'receipt.json')
+                        vetos[source]=np.load(path,mmap_mode='r')
+                    rebuilt,rebuilt_weight=verify_plate_merge(np.asarray(baseline[sl]),records,parent_labels[sl],
+                        vetos,local_labels,pred[sl],weight[sl],config)
+                    exterior=np.ones(labels.shape,bool);exterior[sl]=False
+                    assert (labels[exterior]==-1).all() and (weight[exterior]==0).all()
+                else:
+                    rebuilt,rebuilt_weight=merge(np.asarray(baseline[sl]),records,local_labels,config)
             if config['mode']=='single_source_view_illumination':
                 from view_illumination_luster_hybrid import merge
                 parent=root/'candidates'/config['parent']
@@ -160,7 +199,8 @@ def freeze(root,name,warp_root,deep=False,require_single_source=False):
          single_source_sampling='native_keys_cubic_clamped' if warp_root.resolve() in [(root/'variants/cubic4').resolve(),(root/'variants/cubic75').resolve()] else 'native_pixel_footprint' if warp_root.resolve()==(root/'variants/area4').resolve() else 'point' if (warp_root/'warps').resolve()==(root/'warps').resolve() else 'other_variant',
          uses_source_model_residual=config.get('mode') in ['source_model_residual','single_source_model_residual'],
          uses_frozen_source_view_illumination=config.get('mode')=='single_source_view_illumination',
-         uses_adaptive_source_seam_confidence=config.get('mode')=='single_source_seam' and config.get('adaptive_seam',False),
+         uses_adaptive_source_seam_confidence=config.get('mode') in ['single_source_seam','single_source_plate_seam'] and config.get('adaptive_seam',False),
+         uses_measured_source_plate_veto=config.get('mode')=='single_source_plate_seam',
          code=inventory)
     write(candidate/'provenance.json',report)
     print(name,': source exclusion, finite outputs and exact fallback verified; deep=',deep,flush=True)

@@ -819,6 +819,8 @@ def test_exact_plate_veto_requires_background_match_and_model_contrast():
 
 def test_plate_merge_excludes_rejected_color_from_neighbor_filters(tmp_path,monkeypatch):
     import exact_plate_merge_luster_hybrid as module
+    from freeze_luster_hybrid_candidate import verify_plate_merge
+    from seam_single_luster_hybrid import merge
     from luster_hybrid_common import read,write
     h=w=32;base=np.full((h,w,3),.4,np.float32)
     monkeypatch.setattr(module,'geometry',lambda *args:dict(rgb=base))
@@ -846,6 +848,20 @@ def test_plate_merge_excludes_rejected_color_from_neighbor_filters(tmp_path,monk
         np.testing.assert_array_equal(result[:,16:],base[:,16:])
         np.testing.assert_allclose(result,base,atol=2e-7)
         assert (labels[:,16:]==-1).all() and (labels[:,:16]==8).all()
+        weight=np.load(d/f'cam{target:03d}_confidence.npy')
+        parent_labels=np.load(parent/f'cam{target:03d}_sources.npy')
+        actual_config=read(d/'config.json')
+        args=(base,[(8,arrays)],parent_labels,{8:veto})
+        verify_plate_merge(*args,labels,result,weight,actual_config)
+        # A selected vetoed pixel and a filter that includes background must
+        # both be detected, even when output remains finite and in range.
+        bad_labels=labels.copy();bad_labels[12,20]=8
+        with np.testing.assert_raises(AssertionError):
+            verify_plate_merge(*args,bad_labels,result,weight,actual_config)
+        polluted,_=merge(base,[(8,arrays)],labels,actual_config)
+        assert not np.array_equal(polluted,result)
+        with np.testing.assert_raises(AssertionError):
+            verify_plate_merge(*args,labels,polluted,weight,actual_config)
 
 
 def test_band_admission_preserves_unknown_and_rejects_corrobated_harm():
