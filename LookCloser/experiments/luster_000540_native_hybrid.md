@@ -2301,3 +2301,27 @@ to existing spatial LPIPS maps in all four views. Results are evaluation-only;
 the feature cache reads no validation photograph or mask. Synthetic verification
 distinguishes aligned sharpening from a displaced edge, treats flat regions as
 unknown and isolates unsupported boundaries. The focused suite passes 101 tests.
+
+### 20:27 UTC — completed edge diagnostic and preliminary native-witness admission
+
+The edge-position diagnostic does not support a general high-cost veto.
+For cam007, even the best-aligned [0,.1) bin has mean spatial LPIPS delta
++.00703163 across 256,849 active person pixels; higher-cost bins are generally
+less harmful. Every populated validation bin improves on average except cam095's
+highest [.8,1] bin, which contains only 394 pixels. Thus correlation with the
+frozen render's edge phase cannot be interpreted as reliable transfer quality.
+No admission rule is added from this diagnostic. Its full evidence is
+`evaluation/single_source_contradiction400_once_seam_edge_position_association.json`.
+
+Canonical CUDA evaluation of **cam007 only** is complete for
+`single_witness_native_admission4060`: person LPIPS .0617690831,
+PSNR 31.3735676, SSIM .918834261. Its depth25 parent has LPIPS .0674496666;
+frozen LookCloser has .0694443583. All predefined cam007 ROI LPIPS values remain
+below the LookCloser baseline. Relative to the parent, cuffs and nails are
+slightly worse (+.00000126 and +.00002965), while embroidery improves by .00808175.
+Exact LookCloser preservation covers 11.7988% of the person; fractional admission
+affects additional pixels. These are preliminary single-camera findings, not
+validation-mean improvement or visual acceptance. The fixed-tile preview still
+shows irregular folds and ornament mismatch. Evidence:
+`evaluation/single_witness_native_admission4060_cam007_preliminary_metrics.json`
+and `evaluation/witness_native_admission_cam007_reference_tiles.png`.
