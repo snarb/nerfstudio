@@ -462,3 +462,70 @@ def test_fine_phase_prefers_aligned_native_detail_over_lower_angle_wrong_phase(t
     labels=np.load(tmp_path/'candidates/check/cam007_sources.npy');rgb=np.load(tmp_path/'candidates/check/cam007.npy')
     assert (labels[15:65,15:65]==9).all()
     np.testing.assert_allclose(rgb[20:60,20:60],photos[9][20:60,20:60],atol=1e-7)
+
+
+def test_view_illumination_uses_model_color_but_only_selected_photo_detail():
+    from view_illumination_luster_hybrid import merge
+    y,x=np.mgrid[:60,:60];base=np.full((60,60,3),.4,np.float32);source=np.full_like(base,.2)
+    texture=np.repeat((.2+.025*np.sin(x/2.))[...,None],3,-1).astype(np.float32)
+    labels=np.full((60,60),8,np.int16);labels[:,30:]=9;labels[:3]=-1
+    config=dict(correction_sigma=16.,illumination_floor=.02,min_gain=.5,max_gain=2.,transfer_mode='detail',sigma=6.,gain=1.)
+    result,w=merge(base,texture,source,labels,config)
+    np.testing.assert_array_equal(result[w==0],base[w==0])
+    assert result[15:45,10:20].std()>.02
+    changed_texture=texture.copy();changed_source=source.copy();changed_texture[:,30:]=.9;changed_source[:,30:]=.8
+    changed,_=merge(base,changed_texture,changed_source,labels,config)
+    np.testing.assert_array_equal(changed[labels==8],result[labels==8])
+
+
+def test_adaptive_bands_require_aligned_structure_and_do_not_mix_sources():
+    from adaptive_band_luster_hybrid import merge
+    y,x=np.mgrid[:120,:120];base=np.repeat((.4+.05*np.sin(x/8.))[...,None],3,-1).astype(np.float32)
+    texture=.4+1.5*(base-.4);labels=np.full((120,120),8,np.int16);labels[:,60:]=9;labels[:3]=-1
+    config=dict(sigma=6.,extra_sigma=16.,phase_min=.8,energy_floor=.003,gain=1.)
+    result,w,gate=merge(base,texture,labels,config)
+    assert gate[30:90,15:45].mean()>.8
+    np.testing.assert_array_equal(result[w==0],base[w==0])
+    bad=.8-texture
+    _,_,bad_gate=merge(base,bad,labels,config)
+    assert bad_gate[30:90,15:45].max()<1e-5
+    changed_texture=texture.copy();changed_texture[:,60:]=.9
+    changed,_,_=merge(base,changed_texture,labels,config)
+    np.testing.assert_array_equal(changed[labels==8],result[labels==8])
+
+
+def test_cubic75_constant_grid_and_hidden_footprint():
+    from cubic75_luster_hybrid import sample
+    photo=np.full((20,20,3),.4,np.float32)
+    source={key:np.ones((20,20),np.float32) for key in ['depth_z_q10','depth_z_q50','depth_z_q90','alpha']}
+    uv=np.array([[7.,8.],[7.25,8.5]],np.float32);z=np.ones(2,np.float32)
+    rgb,valid,alpha,error=sample(photo,source,uv,z)
+    np.testing.assert_allclose(rgb,.4,atol=1e-7);assert valid.all() and (error==0).all()
+    source['depth_z_q50'][10,9]=2
+    rgb,valid,alpha,error=sample(photo,source,uv,z)
+    assert error[0]==0 and error[1]==1
+    photo[8,7]=0;photo[9,8]=1
+    rgb,_,_,_=sample(photo,source,uv,z)
+    assert (rgb>=0).all() and (rgb<=1).all()
+
+
+def test_intrinsic_density_surface_excludes_occluded_peak_and_uses_physical_widths():
+    from density_probe_luster_hybrid import packed_density_surface
+    rays=Rays(nears=torch.tensor([[0.],[0.]]),fars=torch.tensor([[1.],[1.]]))
+    density=np.array([1.,10.,1000.]);left=np.array([.1,.2,.8]);right=np.array([.2,.6,.81])
+    optical=density*(right-left);trans=np.exp(-np.r_[0.,np.cumsum(optical)[:-1]])
+    weights=trans*(-np.expm1(-optical))
+    out=dict(packed_ray_indices=torch.tensor([0,0,0]),packed_weights=torch.tensor(weights[:,None],dtype=torch.float64),
+             packed_spacing_starts=torch.tensor(left[:,None]),packed_spacing_ends=torch.tensor(right[:,None]))
+    q=packed_quantiles(out,rays,(.1,.9))[0].numpy()
+    got=packed_density_surface(out,rays)
+    # q10 and q90 both lie in density=10; the much denser occluded bin must not win.
+    assert .2<q[0]<q[1]<.6
+    np.testing.assert_allclose(got[0].numpy(),np.repeat(q.mean(),2),atol=1e-6)
+    assert torch.isnan(got[1]).all()
+    # Splitting the constant-density bin cannot alter the density-squared centroid.
+    left2=np.array([.1,.2,.3,.8]);right2=np.array([.2,.3,.6,.81]);den2=np.array([1.,10.,10.,1000.])
+    tau=den2*(right2-left2);w2=np.exp(-np.r_[0.,np.cumsum(tau)[:-1]])*(-np.expm1(-tau))
+    out2=dict(packed_ray_indices=torch.tensor([0,0,0,0]),packed_weights=torch.tensor(w2[:,None]),
+              packed_spacing_starts=torch.tensor(left2[:,None]),packed_spacing_ends=torch.tensor(right2[:,None]))
+    np.testing.assert_allclose(packed_density_surface(out2,rays)[0,1],got[0,1],atol=1e-6)

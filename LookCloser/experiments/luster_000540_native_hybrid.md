@@ -1,6 +1,6 @@
 # Frozen LookCloser + native photographs: Luster 000540
 
-Status: experiments in progress. Current numerical reference: `single_cubic_fixed`,
+Status: experiments in progress. Audited/exported provisional reference: `single_cubic_fixed`,
 **27.93%** lower native validation person LPIPS. All predefined named ROI LPIPS
 checks pass, but smaller patches still show local degradation. **Not visually
 accepted; the 40% goal is not achieved.**
@@ -11,7 +11,7 @@ and rejection are automatic. No color blending between photographs, optical
 flow, geometry fitting, manual source assignments or target-GT construction.**
 Historical pair-interpolation and registration experiments below are ineligible.
 
-## Current automatic recipe
+## Audited automatic recipe
 
 1. Unproject native target pixels using conditional median camera-z from the
    exact frozen LookCloser. Project those points into native TRAIN photos.
@@ -58,7 +58,7 @@ Review `evaluation/single_cubic_fixed_visual_review.json`, the source panels,
 and the worst 128px spatial-regression panels. These diagnostics never enter
 prediction. Existing eye and pendant geometry cannot be repaired by texture.
 
-## Reproduce the current reference
+## Reproduce the audited reference
 
 Use the existing verified campaign caches with fresh candidate names. GPU
 commands must run after the current GPU owner exits. The immutable runtime is
@@ -557,3 +557,49 @@ source score, and a capped reward favors additional source detail only when
 its phase agrees with LookCloser. Geometry and sampling coordinates remain
 unchanged. 39 focused tests pass, including selection of an aligned detailed
 photo over a lower-angle but opposite-phase source.
+
+
+## Fine-phase selection and source-view illumination (2026-10-17 14:47 UTC)
+
+The current **unaccepted numerical leader** is `single_cubic_view_detail`:
+LPIPS **.0970667402**, **28.1202%** below the native validation baseline.
+The 40% target remains unmet. No predefined ROI regresses, but that does not
+establish absence of small local defects. Initial face/hand review still shows
+inaccurate soft eyes, finger bridges and edge halos; spatial review is pending.
+
+This candidate keeps `single_cubic_fixed` source labels and projection. Before
+transferring its G6 high-frequency component, it scales the selected photograph
+by `clip((G16(B)+.02)/(G16(S)+.02), .5, 2)`, where S is the **frozen LookCloser
+render in that source camera**, warped at the same surface points. G16 uses
+normalized support within the selected source label. This estimates broad
+view-dependent illumination without a second photograph supplying RGB.
+
+| Candidate | Native validation LPIPS | Reduction | Predefined ROI regressions |
+|---|---:|---:|---|
+| single_fine_phase25_cubic | .0972041612 | 28.0185% | none |
+| single_cubic_view_detail | .0970667402 | 28.1202% | none |
+| single_cubic_view_direct | .1032527263 | 23.5394% | cam007 person |
+| single_fine_reward25_cubic | .0972388933 | 27.9927% | cam007 jewelry, cam012 nails |
+| single_fine_reward50_cubic | .0972432494 | 27.9895% | cam007 jewelry, cam012 nails |
+| single_cubic_band16_phase80 | .0977506489 | 27.6138% | none |
+| single_cubic_band16_phase95 | .0974310736 | 27.8504% | none |
+
+Fine-phase ranking compares local G1-G4 bands at the original projected
+coordinates. Rewarding higher aligned photo-band energy still worsened jewelry
+and nails; those candidates are rejected. Expanding the transferred band from
+sigma 6 to 16 only where phase agrees also failed to improve the reference.
+No per-ROI switching or target-GT-derived construction masks were introduced.
+Results: `evaluation/fine_phase_view_screen.json` and
+`evaluation/adaptive_band_screen.json`.
+
+A separate frozen-field readout probe is queued: intrinsic density peak and
+density-squared physical-width centroid, each restricted to termination
+q10--q90. It changes the depth statistic, **not** weights, density, grids or
+calibration. Photographs never influence this depth. First-four-source transfer
+uses the exact `single_near4_full_s8` selector settings for comparison. It is a
+diagnostic, not a new default. Results are not available yet.
+
+Focused tests: **43 passed** (`logs/tests_density.log`). The new density test
+checks exclusion of a hidden high-density layer and centroid invariance when a
+constant-density interval is split. Wide-source and cubic a=-.75 experiments
+remain in progress; GPU stages are serialized.

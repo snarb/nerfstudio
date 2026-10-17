@@ -80,7 +80,7 @@ def freeze(root,name,warp_root,deep=False,require_single_source=False):
             from transfer_luster_hybrid import merge_details
             original_sampling=(warp_root/'warps').resolve()==(root/'warps').resolve() and (warp_root/'geometry').resolve()==(root/'geometry').resolve()
             area_sampling=warp_root.resolve()==(root/'variants/area4').resolve()
-            cubic_sampling=warp_root.resolve()==(root/'variants/cubic4').resolve()
+            cubic_sampling=warp_root.resolve() in [(root/'variants/cubic4').resolve(),(root/'variants/cubic75').resolve()]
             assert original_sampling or area_sampling or cubic_sampling, 'Unreviewed single-source sampling variant'
             if cubic_sampling:
                 assert (warp_root/'geometry').resolve()==(root/'geometry').resolve()
@@ -88,8 +88,9 @@ def freeze(root,name,warp_root,deep=False,require_single_source=False):
                     cd=warp_root/'warps'/f'cam{cid:03d}'/f'src{source:03d}'
                     cr=read(cd/'receipt.json')
                     assert cr['resampling']=='native_keys_cubic_clamped'
-                    assert cr['cubic_code_sha256']==inventory['cubic_luster_hybrid.py']
-                    assert cr['tap_count']==16 and cr['cubic_parameter']==-.5
+                    kernel75=warp_root.resolve()==(root/'variants/cubic75').resolve()
+                    assert cr['cubic_code_sha256']==inventory['cubic75_luster_hybrid.py' if kernel75 else 'cubic_luster_hybrid.py']
+                    assert cr['tap_count']==16 and cr['cubic_parameter']==(-.75 if kernel75 else -.5)
                     assert cr['lookup_shift'] is False
                     if deep:
                         for field,digest in cr['array_hashes'].items():
@@ -117,13 +118,18 @@ def freeze(root,name,warp_root,deep=False,require_single_source=False):
                 assert np.all(np.load(d/'valid.npy',mmap_mode='r')[selected]>0)
                 assert np.all(np.load(d/'score.npy',mmap_mode='r')[selected]<=config['max_score'])
                 photo=np.load(d/'rgb.npy',mmap_mode='r');texture[selected]=photo[selected]
-                if config['mode']=='single_source_model_residual':
+                if config['mode'] in ['single_source_model_residual','single_source_view_illumination']:
                     model=np.load(root/'source_model_warps'/f'cam{cid:03d}'/f'src{source:03d}'/'rgb.npy',mmap_mode='r');model_texture[selected]=model[selected]
                 for field,limit,lower in [('alpha',config['alpha'],True),('resolution_ratio',config['min_resolution'],True),('depth_error',config['depth_error'],False),('roundtrip',config['roundtrip'],False),('uncertainty',config['uncertainty'],False)]:
                     values=np.load(d/f'{field}.npy',mmap_mode='r')[selected]
                     assert np.all(values>=limit) if lower else np.all(values<=limit)
-            mode='detail' if config['mode'] in ['single_source_model_residual','missing_bands'] else config['mode']
+            mode='detail' if config['mode'] in ['single_source_model_residual','missing_bands','single_source_view_illumination'] else config['mode']
             rebuilt,rebuilt_weight=merge_details(np.asarray(baseline[sl]),texture,local_labels,(local_labels>=0).astype(np.float32),mode,config['sigma'],config['gain'])
+            if config['mode']=='single_source_view_illumination':
+                from view_illumination_luster_hybrid import merge
+                parent=root/'candidates'/config['parent']
+                np.testing.assert_array_equal(labels,np.load(parent/f'cam{cid:03d}_sources.npy',mmap_mode='r'))
+                rebuilt,rebuilt_weight=merge(np.asarray(baseline[sl]),texture,model_texture,local_labels,config)
             if config['mode']=='single_source_model_residual':
                 from residual_luster_hybrid import merge_residual
                 rebuilt_weight*=config['residual_gain']
@@ -153,8 +159,9 @@ def freeze(root,name,warp_root,deep=False,require_single_source=False):
          uses_target_ground_truth_for_prediction=False,uses_target_evaluation_masks_for_prediction=False,
          uses_derived_source_foreground_masks='foreground' in str(warp_root),
          uses_classical_lookup_alignment='align' in str(warp_root) or bool(receipt.get('registration')),
-         single_source_sampling='native_keys_cubic_clamped' if warp_root.resolve()==(root/'variants/cubic4').resolve() else 'native_pixel_footprint' if warp_root.resolve()==(root/'variants/area4').resolve() else 'point' if (warp_root/'warps').resolve()==(root/'warps').resolve() else 'other_variant',
+         single_source_sampling='native_keys_cubic_clamped' if warp_root.resolve() in [(root/'variants/cubic4').resolve(),(root/'variants/cubic75').resolve()] else 'native_pixel_footprint' if warp_root.resolve()==(root/'variants/area4').resolve() else 'point' if (warp_root/'warps').resolve()==(root/'warps').resolve() else 'other_variant',
          uses_source_model_residual=config.get('mode') in ['source_model_residual','single_source_model_residual'],
+         uses_frozen_source_view_illumination=config.get('mode')=='single_source_view_illumination',
          code=inventory)
     write(candidate/'provenance.json',report)
     print(name,': source exclusion, finite outputs and exact fallback verified; deep=',deep,flush=True)

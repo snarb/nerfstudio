@@ -1800,3 +1800,16 @@ no target GT, displacement field or photograph mixture is introduced.
 `fine_phase_single_luster_hybrid.py` adds aligned G1-G4 detail evidence to source
 ranking, with a capped native-detail reward. It performs hard source selection;
 other photographs are alternative candidates, never RGB blending contributors.
+
+
+`view_illumination_luster_hybrid.py` estimates broad source/target illumination
+from the same frozen field, then transfers one selected native photograph.
+`adaptive_band_luster_hybrid.py` tests phase-gated expansion of the transferred
+frequency band. `cubic75_luster_hybrid.py` and its fixed-label combiner isolate
+Keys a=-.75 interpolation from source assignment. These are measured ablations,
+not accepted defaults.
+
+`density_probe_luster_hybrid.py` appends intrinsic-density surface statistics
+inside the frozen termination q10--q90 interval. It verifies median-depth
+reproduction and immutable model hashes. Its separate warp/combine pipeline
+uses no photograph to infer geometry; original geometry caches remain intact.
