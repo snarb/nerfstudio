@@ -1445,3 +1445,21 @@ Separately, `run_phase_match_luster.py` tests global photometric cost weights
 .5, 1 and 2 on the current cubic-eligible phase recipe (reference .25). This
 retunes an existing code parameter after structural costs changed; it does not
 introduce per-view or per-region decisions. All GPU evaluations remain serial.
+
+## 2026-10-17 18:11 UTC — cycle and initial plate measurements
+
+| Variant | Validation LPIPS | Reduction | Named ROI regressions |
+|---|---:|---:|---|
+| Cycle differential weight .25 | .0951760188 | 29.5203% | none |
+| Cycle differential weight 1 | .0953114182 | 29.4201% | cam007 jewelry +.00346583 |
+| Plate .01, one median pass | .0950455591 | 29.6169% | none |
+| Plate .02, one median pass | .0950498432 | 29.6138% | none |
+
+The cycle cue does not improve the current reference. The weight-1 case is
+rejected. Initial plate gains cannot yet be assigned to the veto because the
+second median-label pass differs; matched controls are being evaluated next.
+No candidate here is visually accepted. 79 tests pass, including bitwise
+identity of the broad-band assembly with the reference when the extra gate is
+zero. On cam007, the positive broad-band gate currently activates on only
+.00325% of person pixels (evaluation-only extent diagnostic), so evidence there
+is insufficient for a substantial broad-band extension.
