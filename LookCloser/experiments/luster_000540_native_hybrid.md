@@ -2140,3 +2140,24 @@ inspected together at the fixed three tiles for every view in
 The source-frame confidence is therefore not adopted; stronger weighting loses
 useful detail. This result does not yet evaluate the separate native-WITNESS-frame
 experiment now constructing its confidence caches. Graph metrics remain pending.
+
+
+### 19:59 UTC — appearance-dependent graph outcomes
+
+| Transition weight | Validation LPIPS | Reduction | Named ROI regressions |
+|---|---:|---:|---|
+| 0, matched 4x4-patch control | .0962487807 | 28.7259% | none |
+| .1 | .0964060078 | 28.6095% | cam007 jewelry +.00470730 |
+| .4 | .0969486063 | 28.2077% | cam007 face +.00211603, hair +.00161733, jewelry +.00759436 |
+
+The appearance-dependent graph does not improve its matched coarse control,
+and both nonzero weights violate predefined ROI guards. All three also failed
+the earlier visual inspection. They are not adopted. Thus, under the tested
+native 4x4 grid and costs, reducing label fragmentation is not sufficient to
+improve rendering; the chosen source appearance itself can be wrong.
+This does not establish that every possible patch optimizer must fail.
+
+The best audited numerical candidate remains the exported 29.8247% depth-risk
+variant, still visually unaccepted. The native-WITNESS-frame experiment is the
+only remaining active construction/evaluation runner; it supplies two new
+TRAIN-only confidence recipes. The 40% goal remains unmet.
