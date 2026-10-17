@@ -1970,3 +1970,9 @@ TRAIN restoration evidence. At least two opposite-side witnesses are required;
 the median of all available utilities controls a scalar gate. Witness RGB
 never enters the output. Source-specific geometric support and actual-delta
 seam checks remain enforced. Experimental merge mode; not audited for export.
+
+Projection-curvature diagnostic: `warp_curvature_luster_hybrid.py` measures
+the Frobenius norm of the native projection Hessian, divided by source/target
+resolution ratio. `diagnose_warp_curvature_luster_hybrid.py` associates this
+RGB-free feature with existing spatial LPIPS maps, strictly for evaluation.
+It writes no source labels, confidence gates or candidate RGB.

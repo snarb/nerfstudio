@@ -1463,3 +1463,19 @@ identity of the broad-band assembly with the reference when the extra gate is
 zero. On cam007, the positive broad-band gate currently activates on only
 .00325% of person pixels (evaluation-only extent diagnostic), so evidence there
 is insufficient for a substantial broad-band extension.
+
+## 2026-10-17 18:16 UTC — plate reconstruction and geometric-jitter diagnostic
+
+The initial plate .01 candidate independently reconstructs exactly in all four
+views; source exclusion, finite outputs and exact LookCloser fallback pass.
+This was a shallow audit, not the full deep dependency verification required
+for export. Visual inspection of cam007 eyes/folds, cam012 jewelry and cam150
+lace/folds still finds local changes, so this candidate is not accepted.
+
+A separate evaluation-only diagnostic measures the native geometric projection
+Hessian (including the mixed derivative), divided by local resolution ratio,
+on fully valid 3x3 neighborhoods. It tests whether jagged projected texture
+correlates with the remaining bad cloth patches. The feature uses only frozen
+geometric projection, and the analysis writes no candidate image, source labels
+or confidence gates. Tests verify affine-map invariance, quadratic curvature,
+invalid-neighbor exclusion and exact chunk-halo behavior. **81 tests pass.**

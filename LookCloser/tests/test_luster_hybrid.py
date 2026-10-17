@@ -905,6 +905,43 @@ def test_broad_zero_gate_reproduces_reference_seams_exactly():
     np.testing.assert_array_equal(actual_weight,weight)
 
 
+def test_projection_curvature_affine_quadratic_and_invalid_neighborhoods():
+    from warp_curvature_luster_hybrid import curvature
+    yy,xx=np.mgrid[:32,:32];uv=np.stack([xx,yy],-1).astype(np.float32)
+    valid=np.ones((32,32),bool);ratio=np.ones((32,32),np.float32)
+    value,known=curvature(uv,valid,ratio)
+    assert not value.any() and known[1:-1,1:-1].all()
+    uv[...,0]=xx+.1*xx*xx
+    value,known=curvature(uv,valid,ratio*2)
+    np.testing.assert_allclose(value[known],.1,atol=1e-5)
+    valid[16,16]=False;uv[16,16]=np.nan
+    value,known=curvature(uv,valid,ratio)
+    assert np.isfinite(value).all() and not known[15:18,15:18].any()
+    assert not known[0].any() and not known[-1].any()
+
+
+def test_projection_curvature_chunk_halos_match_whole_image(tmp_path,monkeypatch):
+    import warp_curvature_luster_hybrid as module
+    from luster_hybrid_common import write
+    target={**camera(),'train':True,'h':300};source={**target,'transform_matrix':np.eye(4).tolist()}
+    source['transform_matrix'][0][3]=.2;shape=(300,target['w'])
+    depth=np.ones(shape,np.float32);depth[128:256]=1.01
+    monkeypatch.setattr(module,'native_rows',lambda:{7:target,8:source})
+    monkeypatch.setattr(module,'geometry',lambda *args:dict(depth_z_q50=depth))
+    p=tmp_path/'variants/cubic75/warps/cam007/src008'
+    a={k:np.ones(shape,np.float32) for k in ['valid','alpha','resolution_ratio']}
+    a.update({k:np.zeros(shape,np.float32) for k in ['depth_error','roundtrip','uncertainty','score']})
+    write(p/'receipt.json',dict(box=[0,0,target['w'],300],arrays=list(a)))
+    for k,v in a.items():np.save(p/f'{k}.npy',v)
+    config=dict(alpha=.99,depth_error=.005,roundtrip=1.,uncertainty=2.,max_score=1.,min_resolution=.5)
+    actual,known,_=module.feature(tmp_path,7,8,config)
+    uv,_=project(unproject(depth,target),source)
+    expected,expected_known=module.curvature(uv,np.ones(shape,bool),np.ones(shape,np.float32))
+    np.testing.assert_array_equal(known,expected_known)
+    np.testing.assert_allclose(actual,expected,atol=1e-5)
+    assert known[128,60] and known[256,60] and actual[128,60]>.2
+
+
 def test_plate_merge_excludes_rejected_color_from_neighbor_filters(tmp_path,monkeypatch):
     import exact_plate_merge_luster_hybrid as module
     from freeze_luster_hybrid_candidate import verify_plate_merge
