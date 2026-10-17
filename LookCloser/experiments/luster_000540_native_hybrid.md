@@ -1,7 +1,7 @@
 # Frozen LookCloser + native photographs: Luster 000540
 
-Status: experiments in progress. Audited/exported provisional reference: `single_cubic_fixed`,
-**27.93%** lower native validation person LPIPS. All predefined named ROI LPIPS
+Status: experiments in progress. Audited/exported provisional reference: `single_cubic75_seam_adaptive`,
+**28.69%** lower native validation person LPIPS. All predefined named ROI LPIPS
 checks pass, but smaller patches still show local degradation. **Not visually
 accepted; the 40% goal is not achieved.**
 
@@ -25,12 +25,16 @@ Historical pair-interpolation and registration experiments below are ineligible.
    Exact settings are in `candidates/single_risk_patch/config.json`.
 4. Keep those automatic source labels fixed. Resample the selected native photo
    at the same projected coordinate with clamped Keys cubic interpolation
-   (a=-.5). Every nonzero 4x4 footprint tap must pass visibility. If it fails,
+   (a=-.75). Every nonzero 4x4 footprint tap must pass visibility. If it fails,
    retain LookCloser rather than change to another photo.
 5. Let selected-photo RGB be T and frozen RGB be B. Apply
    `B + w * [(T-G6(T)) - (B-G6(B))]`, clipped to [0,1]. Gaussian support is
-   normalized within that source patch. Weight fades over three pixels at its
-   boundary. One photograph supplies RGB; rejected pixels are bitwise B.
+   normalized over that source’s geometrically visible support, independent of
+   final labels. Weight fades over three pixels at unsupported boundaries.
+   At internal source seams, full transfer is allowed only when every touching
+   source corroborates the high-pass correction within .02 RGB (with a 3x3
+   disagreement guard). Witnesses never contribute RGB. Rejected pixels are
+   bitwise B.
 
 The recipe transfers visible detail while retaining LookCloser's broad color.
 It does not promise full texture replacement where view-dependent appearance
@@ -38,23 +42,23 @@ or inaccurate geometry makes it unsafe.
 
 | View | Baseline LPIPS | Hybrid LPIPS | Hybrid PSNR | Hybrid SSIM | Exact LookCloser preserved in person |
 |---|---:|---:|---:|---:|---:|
-| 007 | 0.06944436 | 0.06122643 | 31.383936 | 0.916628 | 11.83% |
-| 012 | 0.12492531 | 0.10075122 | 27.878704 | 0.874086 | 14.15% |
-| 095 | 0.12697524 | 0.07958242 | 29.268230 | 0.908763 | 6.47% |
-| 150 | 0.15322061 | 0.11164586 | 27.881626 | 0.914361 | 8.66% |
+| 007 | 0.06944436 | 0.06186977 | 31.349873 | 0.915177 | 11.83% |
+| 012 | 0.12492531 | 0.09895791 | 27.865360 | 0.873815 | 14.15% |
+| 095 | 0.12697524 | 0.07930170 | 29.237572 | 0.907893 | 6.47% |
+| 150 | 0.15322061 | 0.11061428 | 27.897682 | 0.914091 | 8.66% |
 
-Validation mean: **LPIPS .0973265022**, PSNR 28.342854, SSIM .89907004.
+Validation mean: **LPIPS 0.0962912962**, PSNR 28.333538, SSIM 0.89859943.
 The 40% threshold is .0810242310. Native measurements are separate from HD.
 
 Deep provenance audit passed: exact checkpoint/runtime/geometry, source
 exclusion, cubic array hashes, single-photo reconstruction and exact fallback.
-35 focused tests passed (`logs/tests_single_source_final_checks.log`).
+50 focused tests passed (`logs/tests_source_phase.log`), including newer experimental selectors.
 
-Visual review is explicitly **needs_local_detail_review**. Embroidery and many
+Visual review is explicitly **not_accepted_local_detail_degradation**. Embroidery and many
 fine details improve, but small jewelry/brocade patches can soften and cloth
 creases can change appearance. Dark-hair texture and incorrect lace holes
 remain. Named ROI averages do not establish that every detail improved.
-Review `evaluation/single_cubic_fixed_visual_review.json`, the source panels,
+Review `evaluation/single_cubic75_seam_adaptive_visual_review.json`, the source panels,
 and the worst 128px spatial-regression panels. These diagnostics never enter
 prediction. Existing eye and pendant geometry cannot be repaired by texture.
 
@@ -70,16 +74,28 @@ PY=/home/pavlo/.conda/envs/nerfstudio/bin/python
 S="$C/code/LookCloser/scripts"
 export OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4
 "$PY" "$S/risk_single_luster_hybrid.py" --root "$C" --name reproduce_risk --config "$C/candidates/single_risk_patch/config.json"
-"$PY" "$S/cubic_luster_hybrid.py" --root "$C" --count 16
-"$PY" "$S/cubic_fixed_luster_hybrid.py" --root "$C" --parent reproduce_risk --name reproduce_cubic
-"$PY" "$S/evaluate_luster_hybrid.py" --root "$C" --candidate reproduce_cubic --device cuda
-"$PY" "$S/review_single_luster_hybrid.py" --root "$C" --name reproduce_cubic
-"$PY" "$S/freeze_luster_hybrid_candidate.py" --root "$C" --name reproduce_cubic --warp-root "$C/variants/cubic4" --deep --require-single-source
+"$PY" "$S/cubic75_luster_hybrid.py" --root "$C" --count 16
+"$PY" "$S/cubic75_fixed_luster_hybrid.py" --root "$C" --parent reproduce_risk --name reproduce_cubic
+"$PY" "$S/fixed_sampling_seam_luster_hybrid.py" --root "$C" --parent reproduce_cubic --name reproduce_seam --filter-support geometry --seam-fade 3 --adaptive-seam --seam-tolerance .02
+"$PY" "$S/evaluate_luster_hybrid.py" --root "$C" --candidate reproduce_seam --device cuda
+"$PY" "$S/review_single_luster_hybrid.py" --root "$C" --name reproduce_seam
+"$PY" "$S/freeze_luster_hybrid_candidate.py" --root "$C" --name reproduce_seam --warp-root "$C/variants/cubic75" --deep --require-single-source
 ```
 
 Saved commands/configuration and full source/model provenance accompany exports.
-The expanded <=60-degree TRAIN source search is running separately; it is not
-part of this reference until evaluation and visual review are complete.
+The expanded <=60-degree TRAIN source search is complete and gave negligible
+improvement with the current costs; it is not part of this reference.
+
+
+Verified review archive (261 members, 183913153 bytes):
+
+```bash
+scp olive-lark:/fsx/tmp/luster_000540_hybrid_20261017T104440Z/exports/single_cubic75_seam_adaptive.tar.gz .
+```
+
+SHA256: `be7c5ca4e378b192cf178162edb5bf2b5170d2cc0532db1b60548dfc7e0ec729`.
+The archive contains the report snapshot at export time; this live report
+continues to record subsequent experiments.
 
 ## What is being tested
 
@@ -725,3 +741,70 @@ scp olive-lark:/fsx/tmp/luster_000540_hybrid_20261017T104440Z/exports/single_cub
 Archive SHA256: `c060f549e3cccc16d5b3166f4d90c7d1203fdb7126472be50b90ab065142a093`. 184036426 bytes; 256 members rehashed.
 Status: **not_accepted_local_detail_degradation**. This supplements the older
 provisional reference; it does not declare goal completion or visual acceptance.
+
+
+## Adaptive seams and source potential (2026-10-17 15:30 UTC)
+
+With fixed cubic a=-.75 source labels, computing the detail filter on each
+source's geometric support gives LPIPS **.0964590957** (28.5702% reduction).
+Removing the LookCloser fade only at mutually compatible source boundaries
+gives **.0962912962** (**28.6944% reduction**), with no predefined ROI regression.
+The compatibility check requires every touching source in a 3px neighborhood
+to agree on the high-frequency correction within .02 RGB, with a 3x3 maximum
+disagreement guard. It uses witnesses only for confidence, never RGB blending.
+The exterior/support boundary retains its LookCloser fade.
+
+`single_cubic75_seam_adaptive` passed deep provenance and exact reconstruction
+(`logs/audit_cubic75_seam.log`). All four worst-tile panels and eyes/nails/cuffs
+were inspected. Status remains **not_accepted_local_detail_degradation**: small
+brocade motifs and some cloth folds soften/change, and existing hair/lace
+geometry errors persist. Better averages do not override this visual finding.
+
+Directional-resolution variants reduce LPIPS by 24.97--25.84%, but regress
+face/skin/eyes and other details. They are rejected. The scalar scale-compatibility
+penalty remains useful for this data; higher directional sampling resolution
+alone is not sufficient evidence that a photograph is a better texture source.
+
+`evaluate_source_potential_luster.py` generates 16 separate GT-free one-camera
+texture predictions for each target, then evaluates their spatial LPIPS maps.
+It saves only error statistics, **no GT-selected image or minimizing source map**.
+Pointwise/tile minima include the baseline and the cubic75 reference. They
+compare incompatible image neighborhoods and are **not achievable render
+metrics, a rigorous lower bound, or evidence that the 40% goal is met**.
+
+| Evaluation-only comparison | Validation mean spatial LPIPS |
+|---|---:|
+| LookCloser | .1350403999 |
+| Cubic75 reference | .0970088417 |
+| Minimum error, 256px tiles | .0886879505 |
+| Minimum error, 128px tiles | .0858354505 |
+| Minimum error, 64px tiles | .0827753488 |
+| Minimum error, 32px tiles | .0800476926 |
+| Pointwise minimum of spatial error maps | .0774553977 |
+
+This diagnostic suggests source-selection headroom, while not establishing that
+a coherent automatic selection can realize it. Prediction code never reads these
+statistics. Next isolated tests vary geometric ranking weights globally and test
+a one-photo multiplicative residual against the frozen source-view render.
+**49 focused tests passed** (`logs/tests_log_residual.log`).
+
+
+## Source-view structural reliability (2026-10-17 15:37 UTC)
+
+The log photo/source-render residual does not help: detail-only gives LPIPS
+.1027586907 (23.9052% reduction, 11 predefined regressions), and full residual
+.1044174805 (22.6768%, eight regressions). Nails/cuffs regress; both are rejected.
+Results: `evaluation/log_residual_screen.json`.
+
+The next controlled selector retains all geometric and resolution safeguards,
+and adds soft G2-G8 luminance phase costs: TRAIN photo versus the same frozen
+source-view render, and that reprojected source render versus target LookCloser.
+These are three isolated own/view/both .5-weight tests. Constant radiance gain
+does not alter the score; opposite structure is penalized, one-sided texture
+is unknown (.5), and flat/flat carries no mismatch evidence. It changes source
+labels only, not geometry, photo coordinates, or single-photo construction.
+No target GT, masks or ROI enter the selector. CPU preparation runs concurrently;
+GPU evaluation waits for all four geometric-ranking evaluations to finish.
+
+Fifty focused tests pass, including gain invariance and reversed-structure
+ranking. The archived adaptive-seam reference remains visually unaccepted.

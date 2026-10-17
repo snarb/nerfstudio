@@ -123,8 +123,18 @@ def freeze(root,name,warp_root,deep=False,require_single_source=False):
                 for field,limit,lower in [('alpha',config['alpha'],True),('resolution_ratio',config['min_resolution'],True),('depth_error',config['depth_error'],False),('roundtrip',config['roundtrip'],False),('uncertainty',config['uncertainty'],False)]:
                     values=np.load(d/f'{field}.npy',mmap_mode='r')[selected]
                     assert np.all(values>=limit) if lower else np.all(values<=limit)
-            mode='detail' if config['mode'] in ['single_source_model_residual','missing_bands','single_source_view_illumination'] else config['mode']
+            mode='detail' if config['mode'] in ['single_source_model_residual','missing_bands','single_source_view_illumination','single_source_seam'] else config['mode']
             rebuilt,rebuilt_weight=merge_details(np.asarray(baseline[sl]),texture,local_labels,(local_labels>=0).astype(np.float32),mode,config['sigma'],config['gain'])
+            if config['mode']=='single_source_seam':
+                from seam_single_luster_hybrid import merge
+                parent=root/'candidates'/config['parent']
+                np.testing.assert_array_equal(labels,np.load(parent/f'cam{cid:03d}_sources.npy',mmap_mode='r'))
+                records=[]
+                for source in receipt['sources']:
+                    directory=warp_root/'warps'/f'cam{cid:03d}'/f'src{source:03d}'
+                    wr=read(directory/'receipt.json')
+                    records.append((source,{field:np.load(directory/f'{field}.npy',mmap_mode='r') for field in wr['arrays']}))
+                rebuilt,rebuilt_weight=merge(np.asarray(baseline[sl]),records,local_labels,config)
             if config['mode']=='single_source_view_illumination':
                 from view_illumination_luster_hybrid import merge
                 parent=root/'candidates'/config['parent']
@@ -162,6 +172,7 @@ def freeze(root,name,warp_root,deep=False,require_single_source=False):
          single_source_sampling='native_keys_cubic_clamped' if warp_root.resolve() in [(root/'variants/cubic4').resolve(),(root/'variants/cubic75').resolve()] else 'native_pixel_footprint' if warp_root.resolve()==(root/'variants/area4').resolve() else 'point' if (warp_root/'warps').resolve()==(root/'warps').resolve() else 'other_variant',
          uses_source_model_residual=config.get('mode') in ['source_model_residual','single_source_model_residual'],
          uses_frozen_source_view_illumination=config.get('mode')=='single_source_view_illumination',
+         uses_adaptive_source_seam_confidence=config.get('mode')=='single_source_seam' and config.get('adaptive_seam',False),
          code=inventory)
     write(candidate/'provenance.json',report)
     print(name,': source exclusion, finite outputs and exact fallback verified; deep=',deep,flush=True)

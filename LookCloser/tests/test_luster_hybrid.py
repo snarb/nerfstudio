@@ -583,3 +583,38 @@ def test_projection_differential_detects_directional_sampling_without_moving_pix
     assert not valid[2:-2,14:18].any() and valid[4:20,4:12].all()
     lo,hi=singular_values(np.array([[1.,0.]]),np.array([[0.,1.]]))
     np.testing.assert_allclose(lo,1);np.testing.assert_allclose(hi,1)
+
+
+def test_source_potential_tile_aggregation_counts_masked_pixels_not_tiles():
+    from evaluate_source_potential_luster import tile_errors
+    values=np.array([[1.,2.,9.,100.],[3.,4.,100.,100.]])
+    mask=np.array([[True,True,True,False],[True,True,False,False]])
+    errors,pixels=tile_errors(values,mask,2)
+    np.testing.assert_allclose(errors,[10.,9.]);np.testing.assert_array_equal(pixels,[4,1])
+    assert errors.sum()/pixels.sum()==3.8
+
+
+def test_log_residual_preserves_model_when_source_matches_and_never_crosses_labels():
+    from log_residual_luster_hybrid import merge
+    y,x=np.mgrid[:48,:48];base=np.full((48,48,3),.4,np.float32);model=base.copy()
+    labels=np.full((48,48),-1,np.int16);labels[4:44,4:24]=8;labels[4:44,24:44]=9
+    config=dict(radiance_floor=.02,max_ratio=2.,transfer_mode='detail',sigma=6.,gain=1.)
+    same,w=merge(base,model,model,labels,config);assert np.array_equal(same,base)
+    texture=model.copy();texture[labels==8]+=.03*np.sin(x[labels==8,None]*np.pi/3)
+    result,w=merge(base,texture,model,labels,config)
+    assert np.max(np.abs(result[labels==8]-base[labels==8]))>.01
+    assert np.array_equal(result[labels<0],base[labels<0])
+    texture[labels==9]=.9
+    other,_=merge(base,texture,model,labels,config)
+    np.testing.assert_array_equal(result[labels==8],other[labels==8])
+
+
+def test_source_render_phase_ranking_is_gain_invariant_and_detects_wrong_structure():
+    from source_phase_quality_luster_hybrid import phase_cost
+    y,x=np.mgrid[:64,:64];band=(.04*np.sin(x*np.pi/8)).astype(np.float32)
+    support=np.ones(band.shape,bool);region=np.s_[12:-12,12:-12]
+    aligned=phase_cost(band,band*.4,support);opposite=phase_cost(band,-band,support)
+    assert aligned[region].max()<1e-5 and opposite[region].min()>.999
+    assert phase_cost(band,np.zeros_like(band),support)[region].mean()==.5
+    assert not phase_cost(np.zeros_like(band),np.zeros_like(band),support).any()
+    assert not phase_cost(band,-band,np.zeros_like(support)).any()

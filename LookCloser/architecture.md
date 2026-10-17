@@ -1835,3 +1835,20 @@ projection Jacobian on unchanged q50 points, with finite-depth/alpha/continuity
 support. `differential_select_luster_hybrid.py` uses directional undersampling
 and anisotropy to rank sources. The Jacobian is evidence only: it never changes
 geometry, pixel coordinates, calibration or texture lookup.
+
+
+`fixed_sampling_seam_luster_hybrid.py` composes geometric-support filtering and
+TRAIN-only boundary compatibility with a parent's exact native sampling variant.
+The auditor reconstructs both RGB and weights and checks unchanged source labels.
+`evaluate_source_potential_luster.py` is evaluation only: it compares errors of
+independently generated one-source predictions and never saves a GT-selected
+texture image or minimizing label map. Its optimistic error statistics are not
+final-image metrics. `log_residual_luster_hybrid.py` tests multiplicative missing
+source radiance against the frozen source render, without moving surface points.
+
+The native hybrid source selector also has a separately cached source-view
+phase reliability experiment. G2-G8 luminance bands compare a TRAIN photo with
+its frozen source render and that source render with the target model. These
+soft costs affect hard camera labels only. Geometry, calibrated lookup and
+single-photo RGB remain unchanged; flat/unknown evidence is explicit. This
+experimental selector is separate from the audited adaptive-seam reference.
