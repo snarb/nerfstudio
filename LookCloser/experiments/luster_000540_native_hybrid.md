@@ -1641,8 +1641,8 @@ export OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4
 
 87 tests pass. The deep independent reconstruction/dependency audit passed
 (`logs/audit_contradiction_once.log`), including source exclusion, finite output
-and exact fallback. This new candidate has not been exported. The prior verified download remains
-available with its explicit unaccepted visual status.
+and exact fallback. The new candidate has now been exported with explicit unaccepted visual status;
+the previous verified download remains available separately.
 
 
 ## 2026-10-17 18:49 UTC — current source-potential diagnostic
@@ -1677,7 +1677,7 @@ including analytic directional curvature, invalid neighborhoods and native
 bilinear gradient sampling. Association results below do not support a universal rejection threshold.
 
 
-## 2026-10-17 18:55 UTC — directional photo uncertainty experiment
+## 2026-10-17 18:52 UTC — directional photo uncertainty experiment
 
 Photo-weighted projection curvature is not a reliable rejection rule: on cam007
 coherent edges the lowest bin already has mean LPIPS delta +.00346, while larger
@@ -1701,3 +1701,21 @@ seam merge are held fixed. No target GT, mask, manual patch or source assignment
 enters construction. `run_photometric_depth_luster.py` serializes canonical GPU
 evaluation. Results are pending. All **88 tests pass**, including directional
 sensitivity, scale/axis invariance and unknown/flat behavior.
+
+
+## 2026-10-17 18:53 UTC — verified current numerical candidate bundle
+
+`exports/single_source_contradiction400_once_seam.tar.gz` is available:
+185943386 bytes, 310 archive members independently rehashed, SHA256
+`34444d71faf7ce2bc21d03c2ee1b4dc7c57cb368ec2b60f28cc143bd35bb397a`.
+Status remains **not_accepted_local_detail_degradation**, not final completion.
+The bundle includes native GT/LookCloser/hybrid, predefined crops, worst local
+regression panels, source maps and numeric labels, metrics, receipts, audited
+code and a report snapshot. The snapshot predates this export confirmation;
+its pending-export wording does not supersede the verified export receipt.
+The directional photo-depth experiment is still pending.
+
+```bash
+scp olive-lark:/fsx/tmp/luster_000540_hybrid_20261017T104440Z/exports/single_source_contradiction400_once_seam.tar.gz .
+sha256sum single_source_contradiction400_once_seam.tar.gz
+```
