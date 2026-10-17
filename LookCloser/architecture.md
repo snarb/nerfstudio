@@ -2172,3 +2172,13 @@ records whether full color improves on both detail and baseline for every known
 witness, with quorum two; it is not yet applied to any output. The runner checks
 zero-weight exact RGB/label/weight equivalence and serializes CUDA after prior
 controllers. Target GT and evaluation masks are absent from this construction.
+
+
+`patch_eligibility_rank_luster_hybrid.py` isolates two final admission choices:
+median removal of small source-label islands, and the hard mean-color cutoff.
+Its color score retains the original denominator when the admission cutoff
+changes. Geometry and cubic eligibility remain strict. Prediction-only stage
+counts distinguish missing geometry, patch support, color rejection and label
+cleanup. The runner checks exact reference equivalence before evaluating the
+two controls. `probe_visibility_bottlenecks_luster.py` is a separate read-only
+availability diagnostic and does not relax a production visibility gate.

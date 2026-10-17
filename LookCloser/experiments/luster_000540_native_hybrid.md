@@ -2590,3 +2590,44 @@ target-conditioned gain were inspected in
 reduces irregular fold contrast but does not remove the new fold texture defects;
 cam012 jewelry/cord mismatch remains. These two-view previews do not replace
 four-view visual review or the queued canonical CUDA metrics.
+
+
+### 21:37 UTC — real TRAIN perceptual pilot and visibility bottlenecks
+
+The isolated CPU target007/source008 bracket pilot completes without changing
+metric state. Quorum covers 9.50056% of its prediction box and 24.35501% of
+currently selected source008 pixels. Known detail-utility quartiles are
+[-.871976, -.210034, -.0868255, -.00491834, .438737]. Consistently positive
+full-color utility >.1 covers only .0236358% of the box. These are TRAIN proxy
+scores, not target improvement. The isolated caches are under
+`probes/bracket_perceptual_cpu/` and cannot replace production CUDA caches.
+
+Evaluation-only association with existing cam007/source008 spatial LPIPS is
+ordered but does not justify a rejection threshold: every risk bin still
+improves over LookCloser. Mean deltas range from -.0326308 for risk -.4 to -.2,
+to -.00555206 above .4. Thus high risk predicts weaker benefit in this one
+source/view, not guaranteed harm. Evidence:
+`evaluation/bracket_perceptual_cpu_source008_association.json`. No GT-derived
+label map, gate, image or construction threshold is written.
+
+A prediction-only gate-availability probe finds the following extra geometry
+coverage when changing one condition at a time. Domain is finite frozen q50
+with target alpha >=.95, **not the evaluated person mask**. These are potential
+coverage counts before patch checks, not quality gains or authorized relaxation.
+
+| Camera | Alpha .95 | Depth error .01 | Round trip 2 | Uncertainty 4 | Angular score 2 | Resolution .3 |
+|---|---:|---:|---:|---:|---:|---:|
+| 007 | .083% | .017% | .225% | 5.190% | .129% | 0% |
+| 012 | .079% | .025% | .244% | 5.871% | .131% | 0% |
+| 095 | .159% | .006% | .089% | 1.941% | 0% | .225% |
+| 150 | .130% | .006% | .223% | 2.719% | 0% | .994% |
+
+No visibility gate is changed on this evidence. Separately, 139,684 / 132,185 /
+55,600 / 57,630 currently preserved pixels already have some strict geometric
+source. Matched controls now inspect patch admission and island removal:
+(1) exact unchanged control, (2) omit the first median-based source-island
+removal, (3) permit patch mean-color discrepancy .10 instead of .06 while
+keeping the source score's normalization fixed at .06. All depth, opacity,
+uncertainty, footprint and output-coordinate checks remain unchanged. The
+runner requires exact zero-control RGB/label/weight equality, records counts
+after each admission stage, then evaluates CUDA after the previous queue.
