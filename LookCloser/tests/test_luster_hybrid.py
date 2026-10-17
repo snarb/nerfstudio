@@ -679,3 +679,42 @@ def test_train_witness_benefit_rewards_added_detail_and_penalizes_wrong_phase():
     assert not same.any()
     uncertain,_=pair_benefit(flat,flat,flat,support);assert not uncertain.any()
     _,hidden=pair_benefit(truth,truth,flat,np.zeros_like(support));assert not hidden.any()
+
+
+def test_receipt_audit_follows_transitive_candidate_and_cache_dependencies(tmp_path):
+    from dependency_audit_luster_hybrid import verify_dependencies
+    from luster_hybrid_common import write, sha
+    array=tmp_path/'cost.npy';np.save(array,np.ones(8,np.float32))
+    leaf=tmp_path/'quality_receipt.json';parent=tmp_path/'parent_receipt.json';final=tmp_path/'final_receipt.json'
+    write(leaf,dict(code_sha256='known',hashes={'cost':sha(array)}))
+    write(parent,dict(code_sha256='known',additional_input_hashes={str(leaf):sha(leaf)}))
+    write(final,dict(code_sha256='known',additional_input_hashes={str(parent):sha(parent)}))
+    bound=set();verify_dependencies(final,{'generator':'known'},bound.add)
+    assert {array,leaf,parent,final}<=bound
+    np.save(array,np.zeros(8,np.float32))
+    with pytest.raises(AssertionError,match='Changed cached array'):
+        verify_dependencies(final,{'generator':'known'},set().add)
+    with pytest.raises(AssertionError,match='Changed generator'):
+        verify_dependencies(final,{'generator':'other'},set().add)
+
+
+def test_band_admission_preserves_unknown_and_rejects_corrobated_harm():
+    from band_witness_luster_hybrid import admission,bands,assemble
+    support=np.ones((64,64),bool)
+    np.testing.assert_allclose(admission(np.zeros(support.shape,np.float32),support,.25),1,atol=1e-7)
+    assert not admission(np.full(support.shape,-.5,np.float32),support,.25).any()
+    rng=np.random.default_rng(17);base=rng.uniform(.2,.8,(64,64,3)).astype(np.float32)
+    texture=rng.uniform(.2,.8,base.shape).astype(np.float32)
+    parts=bands(texture,support);reference=bands(base,support)
+    delta=sum(a-b for a,b in zip(parts,reference))
+    from transfer_luster_hybrid import gaussian
+    expected=(texture-gaussian(texture,6))-(base-gaussian(base,6))
+    np.testing.assert_allclose(delta,expected,atol=2e-7)
+    labels=np.full(support.shape,8,np.int16);labels[:4]=-1
+    config=dict(seam_tolerance=.02,seam_fade=3.,gain=1.)
+    result,weight=assemble(base,{8:delta},{8:support},labels,config)
+    np.testing.assert_array_equal(result[labels<0],base[labels<0])
+    zero,_=assemble(base,{8:np.zeros_like(delta)},{8:support},labels,config)
+    np.testing.assert_array_equal(zero,base)
+    chosen=labels>=0
+    np.testing.assert_array_equal(result[chosen],np.clip(base+weight[...,None]*delta,0,1)[chosen])

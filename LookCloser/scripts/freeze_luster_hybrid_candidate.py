@@ -3,13 +3,14 @@ import argparse
 from pathlib import Path
 import time
 import numpy as np
+from dependency_audit_luster_hybrid import verify_dependencies
 from luster_hybrid_common import (DIGEST,TARGETS,allowed_sources,geometry,native_rows,read,sha,source_path,write)
 
 
 def freeze(root,name,warp_root,deep=False,require_single_source=False):
     rows=native_rows();candidate=root/'candidates'/name
     manifest=read(root/'preflight/manifest.json');config=read(candidate/'config.json')
-    inputs={};checks=[];seen_geometry=set()
+    inputs={};checks=[];seen_geometry=set();dependency_seen=set()
     state_hash=read(root/'geometry/cam007/receipt.json')['state_hash']
     inventory={p.name:sha(p) for p in sorted((root/'code/LookCloser/scripts').glob('*luster_hybrid*.py'))}
     def bind(path):
@@ -19,21 +20,7 @@ def freeze(root,name,warp_root,deep=False,require_single_source=False):
         receipt=read(candidate/f'cam{cid:03d}_receipt.json')
         assert receipt['config']==config
         assert receipt['code_sha256'] in inventory.values(), 'Candidate generator changed since creation'
-        for path,digest in receipt.get('additional_input_hashes',{}).items():
-            assert sha(path)==digest;bind(path)
-            if Path(path).name=='receipt.json':
-                extra=read(path)
-                if 'code_sha256' in extra:assert extra['code_sha256'] in inventory.values()
-                for ip,ih in extra.get('inputs',{}).items():assert sha(ip)==ih;bind(ip)
-                if deep:
-                    for key,value in extra.get('hashes',{}).items():
-                        fp=Path(path).parent/key
-                        if not fp.exists():fp=fp.with_suffix('.npy')
-                        assert sha(fp)==value;bind(fp)
-            if 'source_model_warps' in path:
-                mr=read(path);assert mr['code_sha256'] in inventory.values()
-                cached=Path(path).parent/'rgb.npy'
-                if deep:assert sha(cached)==mr['rgb_sha256'];bind(cached)
+        verify_dependencies(candidate/f'cam{cid:03d}_receipt.json',inventory,bind,deep,dependency_seen)
         allowed=set(allowed_sources(rows,cid));assert set(receipt['sources'])<=allowed
         baseline=geometry(root,cid)['rgb'];pred=np.load(candidate/f'cam{cid:03d}.npy',mmap_mode='r')
         weight=np.load(candidate/f'cam{cid:03d}_confidence.npy',mmap_mode='r')

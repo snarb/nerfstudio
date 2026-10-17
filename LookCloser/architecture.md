@@ -1867,3 +1867,10 @@ score: candidate detail is compared with each angularly opposed witness photo,
 relative to that witness's frozen-render error. Two distinct witnesses affect
 hard source ranking; their RGB never enters the output. Flat and missing evidence
 are explicit. Target-surface geometry and all calibrated coordinates stay fixed.
+
+
+The provenance auditor now traverses both candidate-parent and cache-input
+receipts recursively, including their declared array hashes. The band-witness
+experiment holds source labels fixed and admits I-G2/G2-G6 detail independently
+using TRAIN-only evidence against target LookCloser. Its seam check uses the
+actual admitted correction, and no witness supplies output RGB.

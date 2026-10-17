@@ -1,7 +1,7 @@
 # Frozen LookCloser + native photographs: Luster 000540
 
-Status: experiments in progress. Audited/exported provisional reference: `single_cubic75_seam_adaptive`,
-**28.69%** lower native validation person LPIPS. All predefined named ROI LPIPS
+Status: experiments in progress. Audited provisional numerical reference: `single_source_phase_both_seam`,
+**29.36%** lower native validation person LPIPS. All predefined named ROI LPIPS
 checks pass, but smaller patches still show local degradation. **Not visually
 accepted; the 40% goal is not achieved.**
 
@@ -20,9 +20,11 @@ Historical pair-interpolation and registration experiments below are ineligible.
    round-trip error > 1 pixel, projected uncertainty > 2 pixels, source score
    > 1 or resolution ratio < .5. No evaluation mask is used.
 3. Rank geometrically valid sources using angular/resolution cost, patch
-   appearance, capture-scale compatibility, round-trip and depth risk. Smooth
-   source costs over sigma 3 before hard selection; remove isolated labels.
-   Exact settings are in `candidates/single_risk_patch/config.json`.
+   appearance, capture-scale compatibility, round-trip and depth risk. Add .5
+   times source-photo/source-render phase cost and .5 times source-render/target
+   phase cost (G2-G8 luminance bands). Smooth costs over sigma 3 before hard
+   selection; remove isolated labels. Exact settings are in
+   `candidates/single_source_phase_both/config.json`.
 4. Keep those automatic source labels fixed. Resample the selected native photo
    at the same projected coordinate with clamped Keys cubic interpolation
    (a=-.75). Every nonzero 4x4 footprint tap must pass visibility. If it fails,
@@ -42,23 +44,25 @@ or inaccurate geometry makes it unsafe.
 
 | View | Baseline LPIPS | Hybrid LPIPS | Hybrid PSNR | Hybrid SSIM | Exact LookCloser preserved in person |
 |---|---:|---:|---:|---:|---:|
-| 007 | 0.06944436 | 0.06186977 | 31.349873 | 0.915177 | 11.83% |
-| 012 | 0.12492531 | 0.09895791 | 27.865360 | 0.873815 | 14.15% |
-| 095 | 0.12697524 | 0.07930170 | 29.237572 | 0.907893 | 6.47% |
-| 150 | 0.15322061 | 0.11061428 | 27.897682 | 0.914091 | 8.66% |
+| 007 | 0.06944436 | 0.06215304 | 31.336224 | 0.915645 | 11.80% |
+| 012 | 0.12492531 | 0.09896802 | 27.865395 | 0.874542 | 14.21% |
+| 095 | 0.12697524 | 0.07860490 | 29.239731 | 0.908193 | 6.52% |
+| 150 | 0.15322061 | 0.10858662 | 27.900299 | 0.914927 | 8.71% |
 
-Validation mean: **LPIPS 0.0962912962**, PSNR 28.333538, SSIM 0.89859943.
+Validation mean: **LPIPS 0.0953865151**, PSNR 28.335141, SSIM 0.89922073.
 The 40% threshold is .0810242310. Native measurements are separate from HD.
 
 Deep provenance audit passed: exact checkpoint/runtime/geometry, source
 exclusion, cubic array hashes, single-photo reconstruction and exact fallback.
-50 focused tests passed (`logs/tests_source_phase.log`), including newer experimental selectors.
+The strengthened audit also verifies transitive parent and quality-cache receipts
+(`logs/audit_source_phase_both_recursive.log`). Fifty-six focused tests pass
+(`logs/tests_band_witness.log`), including experimental band-admission guards.
 
 Visual review is explicitly **not_accepted_local_detail_degradation**. Embroidery and many
 fine details improve, but small jewelry/brocade patches can soften and cloth
 creases can change appearance. Dark-hair texture and incorrect lace holes
 remain. Named ROI averages do not establish that every detail improved.
-Review `evaluation/single_cubic75_seam_adaptive_visual_review.json`, the source panels,
+Review `evaluation/single_source_phase_both_seam_visual_review.json`, the source panels,
 and the worst 128px spatial-regression panels. These diagnostics never enter
 prediction. Existing eye and pendant geometry cannot be repaired by texture.
 
@@ -73,7 +77,7 @@ C=/fsx/tmp/luster_000540_hybrid_20261017T104440Z
 PY=/home/pavlo/.conda/envs/nerfstudio/bin/python
 S="$C/code/LookCloser/scripts"
 export OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4
-"$PY" "$S/risk_single_luster_hybrid.py" --root "$C" --name reproduce_risk --config "$C/candidates/single_risk_patch/config.json"
+"$PY" "$S/source_phase_select_luster_hybrid.py" --root "$C" --name reproduce_risk --config "$C/candidates/single_source_phase_both/config.json"
 "$PY" "$S/cubic75_luster_hybrid.py" --root "$C" --count 16
 "$PY" "$S/cubic75_fixed_luster_hybrid.py" --root "$C" --parent reproduce_risk --name reproduce_cubic
 "$PY" "$S/fixed_sampling_seam_luster_hybrid.py" --root "$C" --parent reproduce_cubic --name reproduce_seam --filter-support geometry --seam-fade 3 --adaptive-seam --seam-tolerance .02
@@ -87,7 +91,7 @@ The expanded <=60-degree TRAIN source search is complete and gave negligible
 improvement with the current costs; it is not part of this reference.
 
 
-Verified review archive (261 members, 183913153 bytes):
+Earlier verified 28.6944% reference archive (261 members, 183913153 bytes):
 
 ```bash
 scp olive-lark:/fsx/tmp/luster_000540_hybrid_20261017T104440Z/exports/single_cubic75_seam_adaptive.tar.gz .
@@ -882,3 +886,23 @@ This uses the same target-surface projection, not a new geometry or corresponden
 estimator. Weights .5 and 1.5 are queued after Lanczos and point-view evaluations.
 Fifty-four focused tests pass, including correct/wrong-phase utility, unchanged
 baseline, flat patches and absent support (`logs/tests_witness_benefit.log`).
+
+
+## Selective band admission and audit (2026-10-17 16:07 UTC)
+
+The source-phase leader passed the strengthened recursive dependency audit.
+It follows candidate parents and scalar quality caches, checks their generator
+hashes and verifies transitive array hashes. A focused corruption test confirms
+that changing a grandparent quality array is detected. This strengthens audit
+coverage without altering any prediction or previously verified archive.
+
+A new controlled admission test retains the phase leader's source labels and
+uses angularly opposite TRAIN photographs to compare the selected photo against
+TARGET LookCloser in two bands, I-G2 and G2-G6. At least two witnesses must
+indicate deterioration to attenuate a band; missing evidence retains the parent's
+transfer. Smooth attenuation is tested at global utility margins .25 and 1,
+including a middle-band-only variant. Each pixel still receives its detail from
+one selected photo. Adaptive seams are checked against the actual admitted
+correction. Geometry and photo coordinates remain unchanged. No target GT or
+masks enter prediction. Three cases are queued after phase-weight refinement;
+56 focused tests pass. These are unmeasured hypotheses, not accepted improvements.
