@@ -1307,3 +1307,19 @@ The few selected source pixels at native scale ratio >=2 have positive mean
 delta in cam007/cam012 (approximately 15k/30k pixels). This supports keeping
 the capture-scale penalty by default; the queued relaxation is conditional
 on additional frozen-model texture and geometry evidence.
+
+## Coherent patch assignment with current costs (queued 17:39 UTC)
+
+`coherent_phase_rank_luster_hybrid.py` averages the current phase/RT2/capture-scale
+unary costs into 4-pixel cells and performs five alpha-expansion graph-cut
+cycles with a Potts source-transition penalty. The tested penalties are .05
+and .2; fallback cost is 8. A source must have at least .8 eligible coverage in
+a cell, and every output pixel is checked again against its own exact
+eligibility, including the final cubic footprint. Unsupported pixels remain
+LookCloser. This tests coherent source patches with the current selector;
+earlier graph tests used the older appearance/round-trip costs and lacked the
+current phase, scale and cubic-eligibility terms. No photograph colors are
+averaged into the prediction. The final detail merge and adaptive seam rule
+are unchanged. All 73 tests pass (`logs/tests_coherent_phase.log`), including
+small label-island removal, wholly unsupported patches and a hidden pixel
+inside an otherwise eligible patch.

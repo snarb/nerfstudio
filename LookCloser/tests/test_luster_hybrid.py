@@ -792,6 +792,19 @@ def test_conditional_scale_requires_texture_structure_and_precise_projection():
     assert scale_trust(np.array(.075),np.array(0),np.array(0),np.array(0),np.array(.01))==.5
 
 
+def test_coherent_phase_assignment_preserves_visibility_and_removes_small_cost_island():
+    from coherent_phase_rank_luster_hybrid import coherent_labels
+    a=np.zeros((16,16),np.float32);b=np.full_like(a,.4);b[8,8]=-.1
+    visible=np.ones(a.shape,bool);none=np.zeros_like(visible)
+    labels=coherent_labels([a,b],[visible,visible],a.shape,1,.2,8.)
+    assert not labels.any()
+    hidden=coherent_labels([a,b],[none,none],a.shape,4,.2,8.)
+    assert (hidden==2).all()
+    partial=visible.copy();partial[3,3]=False
+    labels=coherent_labels([a],[partial],a.shape,4,.2,8.)
+    assert labels[3,3]==1 and labels[2,2]==0
+
+
 def test_band_admission_preserves_unknown_and_rejects_corrobated_harm():
     from band_witness_luster_hybrid import admission,bands,assemble
     support=np.ones((64,64),bool)

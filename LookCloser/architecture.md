@@ -1943,3 +1943,8 @@ the high-resolution capture penalty only with strong frozen structural phase
 agreement, accurate round trips, narrow projected termination intervals and
 visible model texture. It leaves eligibility and sampling unchanged. The
 runner evaluates two global strengths after earlier GPU owners. Experimental.
+
+Coherent phase selection: `coherent_phase_rank_luster_hybrid.py` applies
+alpha-expansion to patch-averaged current selector costs with a source-switch
+penalty. Final per-pixel cubic visibility is enforced after patch assignment;
+each retained pixel uses one source and unchanged q50 coordinates. Experimental.
