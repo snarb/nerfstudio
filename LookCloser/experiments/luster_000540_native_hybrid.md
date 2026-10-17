@@ -2839,3 +2839,37 @@ Evidence: `probes/actual_texture_witness_cpu/summary.json` and
 CPU diagnostic expands to the first two automatic sources for cam012/095/150;
 GT remains evaluation-only. No production ranking or fallback threshold is
 introduced from the cam007 observation.
+
+### 22:30 UTC — matched confidence appearance control
+
+The expanded actual-texture diagnostic has completed cam012. On 62,980
+commonly informative pixels, actual-texture confidence gives 47.50% correct
+source preference versus 46.85% for the direct witness confidence. On the
+63,338 informative pixels where the current selector chose one of the pair,
+it gives 48.40% versus the selector's 54.97% (error-margin weighted 48.48%
+versus 57.54%). This again does not justify replacing the current criterion.
+Cam095/150 diagnostics remain running.
+
+A matched CPU control now tests a possible appearance confound: source
+candidates add detail on the target baseline, whereas native witness photos
+retain their own slow view-color differences. The confidence-only reference
+becomes `clip(W + G6(B) - G6(W), 0, 1)`, with support-normalized filters. This
+is never output texture. The actual target candidate, projection, support,
+metric and reverse scalar mapping remain unchanged. Zero normalization keeps
+the witness exactly. The four added tests cover that control, constant color
+offset removal, exclusion of unsupported colors, and unchanged detail
+position. The combined focused suite passes 115 tests
+(`logs/tests_canonical_witness.log`).
+
+`run_canonical_witness_diagnostic_luster.py` waits for the unnormalized CPU
+diagnostic and compares the same first two automatic sources in all four
+views. Both paired confidence variants use CPU, with identical common
+informative pixels for the matched comparison. No production change is
+authorized by these tests alone; the criterion must show incremental benefit.
+
+An exploratory read of the existing opposite-side CPU confidence caches also
+finds little strong support for full-color transfer from the selected first
+two sources: worst-witness utility greater than .1 occurs on 1,089/148/590/7,285
+assigned pixels in cam007/012/095/150 respectively. These are assigned-pixel
+counts, not person fractions, and are only a two-source subset. No new full
+texture merge is introduced from this limited evidence.

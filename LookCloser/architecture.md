@@ -2192,3 +2192,18 @@ large-patch support retains the reference detail correction; source seams use
 actual corrections. No target photograph or evaluation mask is read.
 `run_local_affine_texture_luster.py` checks an exact zero control and compares
 matched additive/affine sigma32 fits in the serialized GPU evaluation queue.
+
+`probe_actual_texture_witness_luster.py` is a confidence-only CPU diagnostic:
+it reprojects an actual single-source target detail candidate into TRAIN
+witnesses and returns scalar LPIPS utility through frozen q50 geometry. Its
+baseline reprojection must match the existing cached render. It writes no
+hybrid prediction. A paired evaluation reads target GT only after construction
+and records aggregate ranking agreement, including comparison with existing
+source choices.
+
+`canonical_witness_luster_hybrid.py` provides a matched experimental confidence
+reference: align only its G6 color to the frozen baseline before comparing
+LPIPS. The original TRAIN photo is exact at zero strength. Unsupported colors
+cannot affect the normalized reference. The corresponding CPU pilot changes
+only this reference; native lookup and geometry stay fixed. Neither pilot is
+part of a production ranker until measured incremental benefit is established.
