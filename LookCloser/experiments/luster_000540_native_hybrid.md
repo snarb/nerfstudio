@@ -1938,3 +1938,17 @@ They remain visually unaccepted: some fine edge irregularity changes, but fold,
 scalp ornament, jewelry, cord/silhouette, hair/background and lace mismatches
 remain. Canonical numerical evaluations are still queued. The graph experiment
 has not produced a result yet and is not claimed to improve those defects.
+
+
+### 19:28 UTC — preliminary source-native risk association, cam007 only
+
+The selected-source common-band risk was compared with the audited current
+candidate's existing CPU spatial LPIPS maps. No image, label or construction
+threshold was derived from GT. At risk .4–.6, 448,788 active person pixels have
+mean delta +.001966; at risk >=.6, 200,989 pixels have mean delta +.016891 and
+65.8% positive spatial deltas. Every lower risk bin has a negative mean delta.
+Thus this confidence has a useful preliminary association on cam007, unlike
+several earlier geometric diagnostics. It is not a causal attribution, and the
+other three cameras remain pending. Zero risk also includes missing evidence.
+Source: `evaluation/single_source_contradiction400_once_seam_native_restoration_association_cam007.json`.
+No rejection threshold has been introduced from this single-camera diagnostic.

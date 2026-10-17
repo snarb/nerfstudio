@@ -10,9 +10,9 @@ from luster_hybrid_common import read,sha,write
 from diagnose_transfer_regions_luster_hybrid import summarize
 
 
-def run(root,name):
+def run(root,name,cameras=(7,12,95,150)):
     candidate=root/'candidates'/name;rows=[]
-    for target in [7,12,95,150]:
+    for target in cameras:
         prefix=f'cam{target:03d}';lp=candidate/f'{prefix}_sources.npy';wp=candidate/f'{prefix}_confidence.npy'
         mp=root/'evaluation'/f'{name}_spatial'/f'{prefix}_lpips_maps.npz'
         labels=np.load(lp,mmap_mode='r');weight=np.load(wp,mmap_mode='r')
@@ -37,10 +37,11 @@ def run(root,name):
             assert sum(g['pixels'] for g in groups)==int(active.sum())
         rows.append(dict(camera=target,risk_groups=groups,inputs=inputs))
         print('native_restoration_diagnostic_complete',target,flush=True)
-    write(root/'evaluation'/f'{name}_native_restoration_association.json',dict(candidate=name,
+    suffix='' if tuple(cameras)==(7,12,95,150) else '_'+'_'.join(f'cam{c:03d}' for c in cameras)
+    write(root/'evaluation'/f'{name}_native_restoration_association{suffix}.json',dict(candidate=name,
         usage='evaluation_only_never_construction',code_sha256=sha(Path(__file__)),
         limitation='LPIPS receptive fields span regions; associations are not causal. Zero risk also includes missing evidence.',rows=rows))
 
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser();p.add_argument('--root',type=Path,required=True);p.add_argument('--name',required=True);a=p.parse_args();run(a.root,a.name)
+    p=argparse.ArgumentParser();p.add_argument('--root',type=Path,required=True);p.add_argument('--name',required=True);p.add_argument('--cameras',nargs='+',type=int,default=[7,12,95,150]);a=p.parse_args();assert set(a.cameras)<={7,12,95,150};run(a.root,a.name,a.cameras)
