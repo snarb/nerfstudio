@@ -975,8 +975,27 @@ removing chromatic detail also worsens metrics and named ROIs, so both chroma
 variants are rejected. These are useful negative results: retaining only
 luminance is not an adequate substitute for native RGB detail on this scene.
 
-A final directional-resolution comparison adds projected anisotropy and weakest
+An additional directional-resolution comparison adds projected anisotropy and weakest
 sampling-axis cost to the phase+round-trip selector while **retaining** the
 capture-scale penalty. The earlier differential ablation removed that penalty
 and harmed faces; this new .1/.3 additive test separates those effects. It is
 queued, not a claimed improvement. Fifty-eight focused tests pass.
+
+
+## Conditional band admission and RGB structural agreement (queued 16:27 UTC)
+
+The next controlled tests use the phase/round-trip leader's source labels.
+Conditional fine-band admission attenuates I-G2 only when both fine and middle
+band TRAIN witnesses indicate harm; the retained fraction is
+`1-(1-fine_gate)*(1-middle_gate)`. Middle-band admission is unchanged.
+This tests whether the prior two-band rejection discarded useful isolated fine
+texture. Evidence caches are reused only after source lists, geometry gates and
+warp roots are asserted identical.
+
+A separate selector replaces luminance correlation by RGB-vector correlation
+for source-photo/source-model and source-model/target-model structural costs.
+Weights, geometry, interpolation and merge remain fixed. This follows the
+chromatic-detail ablation: chroma contributes useful detail, so a luminance-only
+compatibility score may miss conflicting colored structures. No witness RGB
+is blended into the output. Sixty focused tests pass, including gray-limit
+agreement, gain invariance and chromatic reversal detection. Results pending.

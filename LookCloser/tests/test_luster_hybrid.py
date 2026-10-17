@@ -740,3 +740,24 @@ def test_directional_cost_adds_risk_without_rewarding_anisotropic_oversampling()
     cost=directional_cost(minimum,maximum,np.array([1,1,1,1,0],bool))
     np.testing.assert_allclose(cost,[0,1,1,0,1])
     assert np.isfinite(cost).all()
+
+
+def test_joint_band_gate_requires_adverse_evidence_at_both_scales():
+    from joint_band_luster_hybrid import joint_gate
+    fine=np.array([0.,0.,1.,.2],np.float32);middle=np.array([1.,0.,0.,.5],np.float32)
+    actual=joint_gate(fine,middle)
+    np.testing.assert_allclose(actual,[1,0,1,.6],atol=1e-7)
+    assert np.all(actual>=fine) and np.all(actual>=middle)
+
+
+def test_rgb_phase_matches_gray_limit_and_detects_equal_luminance_color_reversal():
+    from source_rgb_phase_quality_luster_hybrid import phase_cost as rgb_cost
+    from source_phase_quality_luster_hybrid import phase_cost as gray_cost
+    rng=np.random.default_rng(19);a=rng.normal(0,.04,(64,64)).astype(np.float32);b=a*.7
+    support=np.ones(a.shape,bool)
+    ar=np.repeat(a[...,None],3,-1);br=np.repeat(b[...,None],3,-1)
+    np.testing.assert_allclose(rgb_cost(ar,br,support),gray_cost(a,b,support),atol=2e-7)
+    color=np.zeros_like(ar);color[...,0]=a;color[...,1]=-a*(.2126/.7152)
+    assert np.max(np.abs(color@np.array([.2126,.7152,.0722],np.float32)))<1e-8
+    assert np.mean(rgb_cost(color,-color,support))>.99
+    assert np.mean(rgb_cost(color,color*2,support))<1e-6

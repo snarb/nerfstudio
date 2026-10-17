@@ -1881,3 +1881,10 @@ the existing capture-scale and structural safeguards; it does not replace the
 scale penalty. The chroma-detail ablation preserves source labels and luminance
 while reducing selected-photo chromatic detail, with seams checked again on the
 actual correction. Both chroma variants were rejected by native ROI metrics.
+
+
+The joint-band admission variant retains fine detail unless both fine and
+middle TRAIN evidence disagree. The RGB-phase selector uses a vector RGB
+correlation cost while preserving the hard single-photo assignment. Both are
+isolated experiments; they leave frozen q50 geometry and calibrated sampling
+coordinates unchanged. Their cache receipts bind source/model inputs.
