@@ -2026,3 +2026,11 @@ its GPU stage waits for the preceding controller to exit.
 `compare_reference_tiles_luster_hybrid.py` composes completed predictions at
 fixed evaluation-only regression tiles, with native 128px crops enlarged 2x
 by nearest neighbor and hashed inputs. It produces no construction inputs.
+
+
+`source_native_restoration_luster_hybrid.py` compares source-native I-G6 RGB
+detail to projected TRAIN witness photographs relative to frozen witness-render
+error. A two-witness quorum and all-witness median yield a one-sided scalar
+contradiction cost. `native_restoration_rank_luster_hybrid.py` uses this confidence
+in hard source selection; no witness RGB enters the output and q50 lookup stays
+fixed. The runner tests global .5/1.5 weights with sequential GPU evaluation.

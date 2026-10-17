@@ -1,15 +1,15 @@
 # Frozen LookCloser + native photographs: Luster 000540
 
 Status: experiments in progress. New measured candidate
-`single_source_contradiction400_once_seam` reaches **29.6760%** lower native
-validation LPIPS without named ROI regressions, but is visually unaccepted.
-Its deep independent audit passed (`logs/audit_contradiction_once.log`).
-Cam007 is slightly worse than the
-current audited/exported reference `single_cubic_eligible_phase_rt2_seam`,
-**29.5715%** lower native validation LPIPS, also not visually accepted. The
-previous **29.5623%** reference remains available separately. Smaller patches
-still show local degradation despite passing predefined named ROI averages.
-**Not visually accepted; the 40% goal is not achieved.**
+`single_photometric_depth25_seam` reaches **29.8247%** lower native validation
+LPIPS without named ROI regressions, but is visually unaccepted (including a
+softer cam007 scalp ornament). It has not been deep-audited or exported.
+The current audited downloadable numerical candidate is
+`single_source_contradiction400_once_seam`, **29.6760%**, also visually unaccepted.
+Its deep audit passed (`logs/audit_contradiction_once.log`). The earlier
+`single_cubic_eligible_phase_rt2_seam` **29.5715%** export remains available and
+has better cam007 LPIPS. Small local degradation remains despite favorable
+predefined ROI means. **The 40% goal is not achieved.**
 
 **Active user requirement: fixed LookCloser geometry and exactly one native
 TRAIN photograph supplying texture per pixel/patch. Source choice, consistency
@@ -1754,3 +1754,60 @@ other key defects remain. These panels are evaluation-only and use unchanged
 reference tile locations, not a region-specific construction rule. Canonical
 metrics are still pending. All selected samples in the .25 variant have finite
 measured directional risk (zero selected unknown-risk samples in all four views).
+
+
+## 2026-10-17 19:08 UTC — directional risk and seam outcomes
+
+All four canonical GPU evaluations completed sequentially.
+
+| Variant | Validation LPIPS | Reduction | Named ROI / person regressions |
+|---|---:|---:|---|
+| Directional photo-depth cost .25 | .0947650323 | 29.8247% | none |
+| Directional photo-depth cost 1 | .0946886986 | 29.8812% | cam007 person, cord, hands/cuffs, embroidery; cam012 skin |
+| Seam tolerance .01 | .0951516777 | 29.5384% | none |
+| Seam tolerance .04 | .0949831208 | 29.6632% | none |
+
+Neither seam threshold improves the reference .02. Both retain local defects
+in the reviewed tiles. The small directional-risk penalty improves validation
+mean by .1486 percentage points over the current downloadable candidate, but
+cam007 LPIPS worsens from .0657562762 to .0674496666. It is still below cam007
+LookCloser .0694443583, yet the scalp ornament is visibly softened and folds
+remain irregular. It is **not visually accepted** and is not exported.
+The stronger penalty exceeds cam007 baseline (.0725262538) and substantially
+regresses cam012 skin (+.02241751) and cam007 embroidery (+.02171418); rejected.
+
+| Camera | Directional .25 LPIPS |
+|---|---:|
+| 007 | .0674496666 |
+| 012 | .0982066765 |
+| 095 | .0780276880 |
+| 150 | .1080607325 |
+
+Directional .25 validation PSNR 28.35117594, SSIM .8998966753. Native detailed
+review is being saved in `evaluation/single_photometric_depth25_seam`.
+Construction remains q50 + one native photograph; the q10/q90 span only adds a
+scalar ranking penalty. No shifted texture coordinates were introduced.
+
+## 2026-10-17 19:08 UTC — source-native restoration reliability
+
+The new test compares a source photo's I-G6 RGB detail against each of four
+nearby TRAIN witness photos, projected onto the source's unchanged q50 surface.
+Its error is compared with the corresponding frozen witness render's error.
+Patch utility is `(before-after)/(before+after+.002^2)`, using sigma-3 supported
+RGB squared errors. At least two nonflat observations are required; all usable
+witness utilities enter a median. Only negative median utility adds a penalty.
+Unknown, flat and positive evidence receive no reward. Witness RGB never enters
+the final image. This is a confidence proxy in the source-native frame, not
+an independent novel-view validation or a learned model.
+
+`source_native_restoration_luster_hybrid.py` computes and projects scalar costs;
+`native_restoration_rank_luster_hybrid.py` adds global weight .5 or 1.5 to the
+contradiction-400 ranker, retaining one cleanup and the current seam merge.
+All four review/evaluation cameras are excluded as witnesses. Output texture
+still comes from one automatically selected native TRAIN photo, with the same
+unshifted q50 coordinates. Results are pending.
+
+All **90 focused tests pass** (`logs/tests_native_restoration.log`), including
+rejection of blur/wrong detail relative to a stronger frozen witness render,
+flat neutrality, support isolation, median outlier behavior and two-witness
+quorum. No GPU training or model/grid update is involved.

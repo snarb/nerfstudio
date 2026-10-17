@@ -1243,3 +1243,32 @@ def test_photometric_depth_risk_direction_and_unknown():
     assert directional_cost(gradient,span,np.array([False,True]))[0]==1e6
     flat=np.zeros_like(gradient)
     assert directional_cost(flat,span,np.array([False,True]))[1]==0
+
+
+def test_native_restoration_rejects_blur_and_wrong_detail():
+    from source_native_restoration_luster_hybrid import restoration_utility
+    yy,xx=np.mgrid[:48,:48]
+    pattern=np.repeat((.1*np.sin(xx*.8))[...,None],3,-1).astype(np.float32)
+    support=np.ones(pattern.shape[:2],bool)
+    good,known=restoration_utility(pattern,pattern,np.zeros_like(pattern),support)
+    assert known[10:-10,10:-10].all() and good[10:-10,10:-10].mean()>.98
+    bad,k=restoration_utility(-pattern,pattern,np.zeros_like(pattern),support)
+    assert k[10:-10,10:-10].all() and bad[10:-10,10:-10].mean()<-.59
+    blurry,k=restoration_utility(.2*pattern,pattern,.9*pattern,support)
+    assert k[10:-10,10:-10].all() and blurry[10:-10,10:-10].mean()<-.95
+    flat,k=restoration_utility(np.zeros_like(pattern),np.zeros_like(pattern),np.zeros_like(pattern),support)
+    assert not k.any() and np.all(flat==0)
+    support[:,20:28]=False
+    masked,k=restoration_utility(pattern,pattern,np.zeros_like(pattern),support)
+    assert not k[:,20:28].any() and np.all(masked[:,20:28]==0)
+
+
+def test_native_restoration_median_quorum_and_neutral():
+    from source_native_restoration_luster_hybrid import contradiction_median
+    utilities=np.array([[-.8,-.8,.8,.8],[-.6,.7,.6,.7],[.9,.9,-.9,-.8]],np.float32)
+    known=np.array([[1,1,1,0],[1,0,1,0],[1,0,1,0]],bool)
+    cost,count=contradiction_median(utilities,known)
+    assert np.allclose(cost,[.8,.5,.5,.5])
+    assert np.array_equal(count,[3,1,3,0])
+    cost,count=contradiction_median(np.array([[-.8],[-.4]],np.float32),np.ones((2,1),bool))
+    assert np.allclose(cost,[.8]) and count[0]==2
