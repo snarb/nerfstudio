@@ -1749,3 +1749,12 @@ supply no RGB. `graph_single_luster_hybrid.py` uses alpha expansion on a reduced
 label grid to discourage fragmented source assignments, then rechecks native
 pixel eligibility. Candidate auditing can require single-source reconstruction
 and exact equality to the saved result via `--require-single-source`.
+
+Further automatic single-source ablations cache surface projection differentials
+and model/photo appearance evidence. Surface derivatives affect eligibility and
+ranking without changing 3D points. `missing_bands_luster_hybrid.py` replaces
+only frequency bands with additional source energy and compatible phase;
+construction labels are saved to make selective-band output reconstructible.
+`single_residual_luster_hybrid.py` tests photo-minus-frozen-source-render detail,
+using exactly one photograph. These remain experimental; see the measured
+local regressions in the campaign report before considering any recipe accepted.

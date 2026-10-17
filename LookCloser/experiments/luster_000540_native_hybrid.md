@@ -1,6 +1,6 @@
 # Frozen LookCloser + native photographs: Luster 000540
 
-Status: experiments in progress; no hybrid accepted yet.
+Status: experiments in progress. Current single-source reference: `single_near4_full_s8`, **24.10%** native validation person LPIPS improvement, zero measured local LPIPS regressions. The 40% goal is not achieved.
 
 **Active user requirement (2026-10-17): fixed LookCloser geometry and exactly
 one native TRAIN photograph supplying texture per pixel/patch. No interpolation
@@ -40,10 +40,14 @@ checked before and after rendering.
 Source proposals use predicted surface coverage, angular distance and projected
 resolution. Warps use native JPEGs directly and check each nonzero bilinear tap,
 source/target alpha, depth disagreement, round-trip reprojection and projected
-depth-interval uncertainty. A second TRAIN source must corroborate appearance.
-The first screen compares direct RGB, single-band detail replacement and
-multiband replacement, with an exact original-RGB fallback. Source changes fade
-towards the baseline. Evaluation masks, target photographs and evaluation ROI
+depth-interval uncertainty. The current reference ranks four automatically
+proposed cameras using angular/resolution cost, round-trip error and a weak
+patch appearance cost against LookCloser. Source selection is per pixel, with
+isolated assignments removed. A second photograph is not required. One selected
+photograph supplies detail above a masked Gaussian scale of 8 native pixels;
+LookCloser supplies the broad appearance and exact rejected-pixel fallback.
+Source changes fade towards LookCloser over 3 pixels. No colors are interpolated
+between photographs. Historical screens below also tested other merge methods. Evaluation masks, target photographs and evaluation ROI
 coordinates are not inputs to transfer.
 
 ## Results
@@ -211,3 +215,93 @@ audit now reconstructs single-source output from its selected native warps and
 verifies exact equality with saved float RGB and transfer weights; this passed
 for `single_patch_s8`. This reconstruction audit is separate from full input
 hash verification and visual acceptance.
+
+
+## Automatic single-source method comparisons
+
+These are recipe-selection measurements, not accepted final results. Every
+listed predictor chooses its sources and transfer regions automatically; no
+manual source/ROI assignment is used. Native validation person LPIPS:
+
+| Candidate | LPIPS | Reduction | Regressing local/global rows |
+|---|---:|---:|---:|
+| `single_patch_s8` | 0.10125667 | 25.017% | 6 |
+| `single_patch_s16` | 0.10217659 | 24.336% | 6 |
+| `single_patch_direct` | 0.11124409 | 17.622% | 10 |
+| `single_patch_strict_s8` | 0.10323984 | 23.549% | 7 |
+| `single_patch_s32` | 0.10345585 | 23.389% | 7 |
+| `single_consensus_30` | 0.12605630 | 6.653% | 6 |
+| `single_consensus_60` | 0.13275978 | 1.689% | 8 |
+| `single_consensus_85` | 0.13399314 | 0.776% | 8 |
+| `single_graph_s8` | 0.10177520 | 24.634% | 6 |
+| `single_pool32_s8` | 0.10125939 | 25.015% | 6 |
+| `single_residual_s8` | 0.10426928 | 22.787% | 16 |
+| `single_surface_s8` | 0.10286743 | 23.825% | 7 |
+| `single_appearance_s8` | 0.10837916 | 19.743% | 5 |
+| `single_missing_s8` | 0.13084212 | 3.109% | 11 |
+| `single_near4_s8` | 0.10932222 | 19.045% | 0 |
+
+The projection differential now measures minimum/maximum native sampling axes
+and surface incidence using finite differences of frozen median-depth points.
+It changes admission and ranking only, never the geometry or lookup coordinates.
+This corrects a limitation of focal-length/depth-only source-resolution ranking,
+but did not by itself improve the accepted image quality.
+
+A separate automatic appearance guard estimates frozen-model view dependence
+and photo structure. Its geometry and TRAIN-photo inputs are cached with hashes.
+The missing-band method retains existing model detail when a photo has no
+additional band energy or its pattern disagrees in phase. Other cameras never
+contribute RGB to the selected pixel. Its transfer-weight map records the maximum
+applied strength across bands, not one common coefficient for the entire RGB
+correction. Construction labels are retained separately for exact auditing.
+
+24 tests pass, covering projection anisotropy/back-facing surfaces and missing
+texture versus conflicting detail phase. Exact single-source reconstruction
+audit also passes for the rejected `single_residual_s8` experiment. These checks
+do not imply visual acceptance or completion of the 40% goal.
+
+## Current single-source reference: near-view priority
+
+`single_near4_full_s8` uses `single_source_luster_hybrid.py` with `count=4`,
+`match_weight=.25`, `match_limit=.06`, `gain=1`, and otherwise its defaults.
+The same rule applies to every camera and surface; no semantic masks, manual
+source assignment, target RGB or evaluation ROI enter prediction.
+
+| View | LookCloser LPIPS | Hybrid LPIPS |
+|---|---:|---:|
+| 007 | 0.06944436 | 0.06219758 |
+| 012 | 0.12492531 | 0.10591259 |
+| 095 | 0.12697524 | 0.08417430 |
+| 150 | 0.15322061 | 0.11740734 |
+| Validation mean | 0.13504039 | 0.10249808 |
+
+All measured person and detail LPIPS rows improve. This does not mean that
+PSNR/SSIM improve in every row; all three are retained in the JSON/CSV.
+Eye LPIPS in cam007 improves by 20.7%; the four nail/hand ROIs improve by
+8.5%, 1.5%, 5.6% and 8.5%. Some named nail ROIs mainly show palms/fingers,
+so these numbers are not claims that a complete nail surface was reconstructed.
+
+Visual checks of face, eyes, fingers, embroidery and sleeves show useful texture
+changes without obvious new doubled edges in the inspected crops. Existing eye
+shape, jewelry shape, filled lace gaps and finger-boundary defects remain.
+The transfer does not repair geometry. Full native crop comparisons are in
+`C/evaluation/single_near4_full_s8/`.
+
+Deep input/model/grid hashes, forbidden-source exclusion, exact unchanged
+fallback and reconstruction from one selected native photo all pass for this
+reference. See `C/candidates/single_near4_full_s8/provenance.json`. The audit
+rebuilds float RGB and transfer weights exactly; it does not merely trust a
+receipt claiming single-source construction.
+
+Reproduce with the saved candidate config:
+
+```bash
+C=/fsx/tmp/luster_000540_hybrid_20261017T104440Z
+PY=/home/pavlo/.conda/envs/nerfstudio/bin/python
+OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 "$PY" "$C/code/LookCloser/scripts/single_source_luster_hybrid.py" --root "$C" --name reproduced_single_near4_full_s8 --config "$C/candidates/single_near4_full_s8/config.json"
+OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 "$PY" "$C/code/LookCloser/scripts/evaluate_luster_hybrid.py" --root "$C" --candidate reproduced_single_near4_full_s8 --panels
+```
+
+Inputs are the verified frozen native geometry and photo warp caches described
+above. New names avoid overwriting historical results. GPU evaluation must be
+run after any other GPU campaign job finishes.

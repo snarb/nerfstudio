@@ -255,3 +255,33 @@ def test_automatic_single_source_selection_and_occlusion_fallback(tmp_path,monke
         np.testing.assert_allclose(result[chosen],rgb[chosen],atol=1e-7)
     receipt=read(d/'cam007_receipt.json')
     assert receipt['texture_source_count_per_pixel']==1 and not receipt['lookup_shift']
+
+
+def test_surface_differential_reports_foreshortening_and_backside():
+    from surface_quality_luster_hybrid import differential_quality
+    y,x=np.mgrid[:31,:31]
+    world=np.stack([(x-15)*.01,(y-15)*.01,np.full_like(x,-1)],-1).astype(np.float32)
+    uv=np.stack([2*x,.5*y],-1).astype(np.float32)
+    result=differential_quality(world,uv,np.zeros(3),np.zeros(3))
+    np.testing.assert_allclose(result['min_axis'],.5)
+    np.testing.assert_allclose(result['max_axis'],2.)
+    assert result['incidence'][15,15]==1
+    behind=differential_quality(world,uv,np.zeros(3),np.array([0,0,-2]))
+    assert behind['incidence'][15,15]==-1
+    world[15,15]=np.nan
+    invalid=differential_quality(world,uv,np.zeros(3),np.zeros(3))
+    assert not invalid['valid'][15,15] and invalid['min_axis'][15,15]==0
+
+
+def test_missing_bands_keep_existing_geometry_phase_and_admit_new_texture():
+    from missing_bands_luster_hybrid import merge_missing
+    from missing_single_luster_hybrid import DEFAULT
+    y,x=np.mgrid[:80,:80];pattern=np.repeat((.08*np.sin(x*1.2))[...,None],3,axis=-1).astype(np.float32)
+    flat=np.full_like(pattern,.5);labels=np.full((80,80),-1,np.int16);labels[10:70,10:70]=8
+    unchanged,weight=merge_missing(flat,flat,labels,DEFAULT)
+    np.testing.assert_array_equal(unchanged,flat);assert not weight.any()
+    changed,weight=merge_missing(flat,flat+pattern,labels,DEFAULT)
+    assert changed[25:55,25:55].std()>.03
+    np.testing.assert_array_equal(changed[weight==0],flat[weight==0])
+    wrong,weight=merge_missing(flat+pattern,flat-pattern*2,labels,DEFAULT)
+    np.testing.assert_allclose(wrong[25:55,25:55],(flat+pattern)[25:55,25:55],atol=1e-6)

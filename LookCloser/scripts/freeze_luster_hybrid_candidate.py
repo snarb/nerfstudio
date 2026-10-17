@@ -68,16 +68,31 @@ def freeze(root,name,warp_root,deep=False,require_single_source=False):
             assert receipt.get('lookup_shift') is False
             first=warp_root/'warps'/f'cam{cid:03d}'/f"src{receipt['sources'][0]:03d}"
             x0,y0,x1,y1=read(first/'receipt.json')['box'];sl=np.s_[y0:y1,x0:x1]
-            local_labels=np.asarray(labels[sl]);texture=np.asarray(baseline[sl]).copy()
+            local_labels=np.asarray(labels[sl])
+            if config['mode']=='missing_bands':
+                local_labels=np.load(candidate/f'cam{cid:03d}_construction_sources.npy')
+                np.testing.assert_array_equal(labels[sl],np.where(weight[sl]>0,local_labels,-1))
+                assert set(map(int,np.unique(local_labels[local_labels>=0])))<=allowed
+            texture=np.asarray(baseline[sl]).copy();model_texture=texture.copy()
             for source in receipt['sources']:
                 d=warp_root/'warps'/f'cam{cid:03d}'/f'src{source:03d}'
                 selected=local_labels==source
                 if not selected.any():continue
                 photo=np.load(d/'rgb.npy',mmap_mode='r');texture[selected]=photo[selected]
+                if config['mode']=='single_source_model_residual':
+                    model=np.load(root/'source_model_warps'/f'cam{cid:03d}'/f'src{source:03d}'/'rgb.npy',mmap_mode='r');model_texture[selected]=model[selected]
                 for field,limit,lower in [('alpha',config['alpha'],True),('resolution_ratio',config['min_resolution'],True),('depth_error',config['depth_error'],False),('roundtrip',config['roundtrip'],False),('uncertainty',config['uncertainty'],False)]:
                     values=np.load(d/f'{field}.npy',mmap_mode='r')[selected]
                     assert np.all(values>=limit) if lower else np.all(values<=limit)
-            rebuilt,rebuilt_weight=merge_details(np.asarray(baseline[sl]),texture,local_labels,(local_labels>=0).astype(np.float32),config['mode'],config['sigma'],config['gain'])
+            mode='detail' if config['mode'] in ['single_source_model_residual','missing_bands'] else config['mode']
+            rebuilt,rebuilt_weight=merge_details(np.asarray(baseline[sl]),texture,local_labels,(local_labels>=0).astype(np.float32),mode,config['sigma'],config['gain'])
+            if config['mode']=='single_source_model_residual':
+                from residual_luster_hybrid import merge_residual
+                rebuilt_weight*=config['residual_gain']
+                rebuilt=merge_residual(np.asarray(baseline[sl]),texture-model_texture,local_labels,rebuilt_weight,config['sigma'])
+            if config['mode']=='missing_bands':
+                from missing_bands_luster_hybrid import merge_missing
+                rebuilt,rebuilt_weight=merge_missing(np.asarray(baseline[sl]),texture,local_labels,config)
             np.testing.assert_array_equal(rebuilt,pred[sl])
             np.testing.assert_array_equal(rebuilt_weight,weight[sl])
             single_verified=True
@@ -100,7 +115,7 @@ def freeze(root,name,warp_root,deep=False,require_single_source=False):
          uses_target_ground_truth_for_prediction=False,uses_target_evaluation_masks_for_prediction=False,
          uses_derived_source_foreground_masks='foreground' in str(warp_root),
          uses_classical_lookup_alignment='align' in str(warp_root) or bool(receipt.get('registration')),
-         uses_source_model_residual=config.get('mode')=='source_model_residual',
+         uses_source_model_residual=config.get('mode') in ['source_model_residual','single_source_model_residual'],
          code=inventory)
     write(candidate/'provenance.json',report)
     print(name,': source exclusion, finite outputs and exact fallback verified; deep=',deep,flush=True)
