@@ -2070,3 +2070,8 @@ Neither witness RGB nor evaluation RGB enters the final texture. Its ranker
 tests negative-only and signed evidence; the runner waits for the preceding
 warp-cache producer and serializes GPU evaluations. This is an experimental
 confidence proxy, not a new model or geometry estimator.
+
+`diagnose_witness_native_restoration_luster_hybrid.py` measures evaluation-only
+spatial LPIPS association with the signed native-witness utility cost, including
+separate positive-benefit and negative-benefit bins. It emits no prediction,
+source labels or confidence thresholds.

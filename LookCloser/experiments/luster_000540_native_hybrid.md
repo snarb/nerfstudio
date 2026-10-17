@@ -2075,3 +2075,34 @@ OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 "$PY" "$S/run_witness_native_restoratio
 
 The PID arguments record this launch's queue dependencies; omit expired PIDs
 when reproducing after all prior work has finished.
+
+
+### 19:55 UTC — completed visual checks and confidence diagnostics
+
+The .4 appearance graph was also inspected in all four fixed reference panels
+(`evaluation/appearance_graph1040_reference_tiles/`), and remains visually
+unaccepted. Larger coherent source regions preserve the ornament mismatch and
+irregular/displaced folds. The common-band source-native weight-.5 candidate
+also remains unaccepted after the same four-view review
+(`evaluation/native_restoration_common50_reference_tiles/`): some cam007 fold
+irregularity changes, but the ornament softens and other local defects persist.
+Numerical results are still pending; no winning recipe is inferred from label
+smoothness alone.
+
+The common-band risk association is now complete for all views. Cam150 also
+contradicts a universal veto: every risk bin improves on average, and risk >=.6
+has mean spatial delta -.064421 over 61,047 active person pixels. The combined
+evaluation-only artifact is
+`evaluation/single_source_contradiction400_once_seam_native_restoration_association.json`.
+
+All 54 source-native common caches were verified complete before starting the
+new native-witness cache worker. The initial waiting worker was replaced to
+allow independent CPU work while the previous runner finishes ranking/merging;
+`logs/witness_native_cache_handoff.json` records the handoff. GPU dependencies
+remain serialized. No active cache writer was interrupted.
+
+`diagnose_witness_native_restoration_luster_hybrid.py` will compare signed
+native-witness utility with the existing candidate's spatial LPIPS deltas as
+each view's confidence caches finish. Negative risk means positive measured
+TRAIN restoration utility; zero also includes missing evidence. The diagnostic
+writes only evaluation summaries, never prediction gates or source maps.
