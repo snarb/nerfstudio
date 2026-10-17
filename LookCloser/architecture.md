@@ -2207,3 +2207,11 @@ LPIPS. The original TRAIN photo is exact at zero strength. Unsupported colors
 cannot affect the normalized reference. The corresponding CPU pilot changes
 only this reference; native lookup and geometry stay fixed. Neither pilot is
 part of a production ranker until measured incremental benefit is established.
+
+`run_high_gain_luster.py` is an experimental contrast control using the existing
+single-source seam merger. It keeps q50 geometry, native cubic lookup, source
+labels and eligibility fixed, but extrapolates the selected high-frequency
+residual at gain 1.1/1.3/1.6. Seam tolerance is divided by gain so final scaled
+corrections retain the same agreement threshold. Gain 1 must reproduce the
+depth25 reference exactly. Gains above one are not confidence probabilities
+or newly observed detail, and this experiment is not an accepted recipe.

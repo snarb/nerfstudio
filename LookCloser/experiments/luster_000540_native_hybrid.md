@@ -2972,3 +2972,30 @@ confidence trails its unnormalized counterpart on common informative pixels
 (44.15% versus 45.54%) and trails the existing selector on the incremental
 subset (43.79% versus 67.05%). Cam150 remains running. No new confidence rule
 is adopted from these diagnostics.
+
+### 22:46 UTC — completed normalization diagnostic; high-gain contrast control
+
+The matched appearance-normalized witness diagnostic is complete. Cam150
+improves over unnormalized confidence on 1,066,121 common informative pixels
+(57.58% versus 56.33%; weighted 62.11% versus 61.10%), but remains below the
+existing selector on 1,177,025 incremental pixels (57.73% versus 58.50%; weighted
+61.97% versus 60.72%). Together with the cam007/012/095 failures, this does not
+justify production use. Evidence:
+`evaluation/canonical_actual_texture_witness_diagnostic.json`. All four pilot
+summaries report an unchanged metric state; no prediction was built from GT.
+
+`run_high_gain_luster.py` starts a different controlled experiment: keep the
+depth25 geometry, source labels, native cubic sampling and eligibility fixed,
+and scale the existing detail residual by 1.1/1.3/1.6. The gain1 control must
+match the reference exactly in RGB, labels and applied weights on all views.
+The seam tolerance becomes `.02 / gain`, preserving the .02 threshold on actual
+scaled corrections. No geometric or photometric source gate is relaxed.
+
+This is contrast extrapolation, not additional measured detail or a new source
+of texture. Values above one in the historical `_confidence.npy` field are
+applied residual gains, not probabilities. Clipping, ringing, false edges and
+local detail harm must be checked visually. No exporter/auditor contract is
+changed merely to admit this experiment. CPU construction precedes serial GPU
+evaluation after the existing native/bracket/patch/color/graph controllers.
+Fixed depth25 crops are generated automatically for every completed variant.
+The 40% goal remains unmet.
