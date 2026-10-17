@@ -1781,3 +1781,11 @@ nonzero footprint tap for visibility. These are experimental candidates, not
 accepted defaults. `review_regression_luster_hybrid.py` ranks small evaluation
 patches to expose regressions hidden by larger ROI averages; evaluation data do
 not enter construction.
+
+`cubic_fixed_luster_hybrid.py` separates automatic source selection from texture
+interpolation: fixed source labels are sampled with clamped cubic visibility;
+failed selected footprints revert to the frozen render, never another photo.
+`consensus_low_luster_hybrid.py` tests TRAIN-only confidence on broad appearance,
+without mixing witness colors. `wide_sources_luster_hybrid.py` expands coverage
+proposals; its controller renders missing frozen geometry sequentially before
+warping and evaluation. These remain provisional measured ablations.

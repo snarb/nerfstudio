@@ -40,6 +40,13 @@ def export(root,name,status='provisional'):
             copy(candidate/f'cam{c:03d}_{kind}.npy',f'{d}/{kind}.npy')
         for p in (root/'evaluation'/name).glob(f'cam{c:03d}_*'):
             copy(p,f'{d}/crops/{p.name}')
+        # Small local regressions and source-selection evidence must travel with
+        # favorable aggregate metrics, rather than being hidden in campaign logs.
+        for family in ['spatial','sources']:
+            directory=root/'evaluation'/f'{name}_{family}'
+            for p in directory.glob(f'cam{c:03d}_*'):
+                if p.suffix.lower() in ['.png','.jpg','.json']:
+                    copy(p,f'{d}/{family}_review/{p.name}')
         labels=np.load(candidate/f'cam{c:03d}_sources.npy',mmap_mode='r')
         colors=np.asarray(Image.open(candidate/f'cam{c:03d}_sources.png').convert('RGB'))
         mask=np.asarray(Image.open(summary['cameras'][str(c)]['mask']))>0
@@ -66,6 +73,11 @@ def export(root,name,status='provisional'):
                     (root/'evaluation/protocol.json','evaluation_protocol.json'),
                     (root/'preflight/manifest.json','input_manifest.json'),
                     (Path(provenance['warp_root'])/'preflight/sources.json','source_selection.json')]:copy(src,rel)
+    visual=root/'evaluation'/f'{name}_visual_review.json'
+    if visual.exists():copy(visual,'visual_review.json')
+    for family in ['spatial','sources']:
+        for p in (root/'evaluation'/f'{name}_{family}').glob('*.json'):
+            copy(p,f'{family}_review/{p.name}')
     for filename,digest in provenance['code'].items():
         path=root/'code/LookCloser/scripts'/filename
         assert sha(path)==digest, 'Run the final provenance audit after code changes before export'
@@ -93,6 +105,9 @@ def export(root,name,status='provisional'):
                   'Source legends identify every used camera and its person coverage. A source label identifies the only photograph supplying texture at that pixel; LookCloser can still contribute broad appearance and boundary fading.',
                   'See metrics.csv for all regions and metrics; hybrid_metrics.json includes preserved/changed fractions. Sources and transfer maps accompany every camera.',
                   'No target validation RGB or evaluation masks are used to construct predictions. Existing geometric defects can remain. This status does not claim the 40% goal is achieved unless explicitly accepted in the campaign report.']
+    if visual.exists():
+        description+=['',f"Visual review status: **{read(visual).get('status','see visual_review.json')}**.",
+                      'Inspect visual_review.json and the spatial_review panels for local defects. A favorable full-person or named-region average does not establish that every small detail improved.']
     (out/'README.md').write_text('\n'.join(description)+'\n')
     copy(root/'code/LookCloser/experiments/luster_000540_native_hybrid.md','campaign_report.md')
     inventory={str(p.relative_to(out)):sha(p) for p in sorted(out.rglob('*')) if p.is_file()}

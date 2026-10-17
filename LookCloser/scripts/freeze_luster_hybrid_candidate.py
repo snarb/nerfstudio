@@ -80,7 +80,21 @@ def freeze(root,name,warp_root,deep=False,require_single_source=False):
             from transfer_luster_hybrid import merge_details
             original_sampling=(warp_root/'warps').resolve()==(root/'warps').resolve() and (warp_root/'geometry').resolve()==(root/'geometry').resolve()
             area_sampling=warp_root.resolve()==(root/'variants/area4').resolve()
-            assert original_sampling or area_sampling, 'Single-source audit permits original centers or native pixel-footprint integration only'
+            cubic_sampling=warp_root.resolve()==(root/'variants/cubic4').resolve()
+            assert original_sampling or area_sampling or cubic_sampling, 'Unreviewed single-source sampling variant'
+            if cubic_sampling:
+                assert (warp_root/'geometry').resolve()==(root/'geometry').resolve()
+                for source in receipt['sources']:
+                    cd=warp_root/'warps'/f'cam{cid:03d}'/f'src{source:03d}'
+                    cr=read(cd/'receipt.json')
+                    assert cr['resampling']=='native_keys_cubic_clamped'
+                    assert cr['cubic_code_sha256']==inventory['cubic_luster_hybrid.py']
+                    assert cr['tap_count']==16 and cr['cubic_parameter']==-.5
+                    assert cr['lookup_shift'] is False
+                    if deep:
+                        for field,digest in cr['array_hashes'].items():
+                            assert sha(cd/f'{field}.npy')==digest
+                            bind(cd/f'{field}.npy')
             if area_sampling:
                 for source in receipt['sources']:
                     ar=read(warp_root/'warps'/f'cam{cid:03d}'/f'src{source:03d}'/'receipt.json')
@@ -139,7 +153,7 @@ def freeze(root,name,warp_root,deep=False,require_single_source=False):
          uses_target_ground_truth_for_prediction=False,uses_target_evaluation_masks_for_prediction=False,
          uses_derived_source_foreground_masks='foreground' in str(warp_root),
          uses_classical_lookup_alignment='align' in str(warp_root) or bool(receipt.get('registration')),
-         single_source_sampling='native_pixel_footprint' if warp_root.resolve()==(root/'variants/area4').resolve() else 'point' if (warp_root/'warps').resolve()==(root/'warps').resolve() else 'other_variant',
+         single_source_sampling='native_keys_cubic_clamped' if warp_root.resolve()==(root/'variants/cubic4').resolve() else 'native_pixel_footprint' if warp_root.resolve()==(root/'variants/area4').resolve() else 'point' if (warp_root/'warps').resolve()==(root/'warps').resolve() else 'other_variant',
          uses_source_model_residual=config.get('mode') in ['source_model_residual','single_source_model_residual'],
          code=inventory)
     write(candidate/'provenance.json',report)

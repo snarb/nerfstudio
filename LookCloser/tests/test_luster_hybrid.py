@@ -361,3 +361,44 @@ def test_guided_single_source_correction_preserves_fallback_and_source_isolation
     np.testing.assert_array_equal(changed[weight==0],base[weight==0])
     np.testing.assert_array_equal(changed[labels==9],corrected[labels==9])
     assert np.max(np.abs(changed[labels==8]-base[labels==8]))>.02
+
+
+def test_low_frequency_witnesses_are_confidence_only_and_exclude_selected_photo():
+    from consensus_low_luster_hybrid import confidence
+    shape=(40,40);selected=np.full((*shape,3),.2,np.float32);labels=np.full(shape,8,np.int16);valid=np.ones(shape,bool)
+    config=dict(low_tolerance=.015,low_witnesses=2,low_fraction=.67,low_patch_sigma=3.)
+    records=[(8,selected,valid),(9,selected+.005,valid)]
+    assert not confidence(selected,labels,records,config).any()
+    records.append((10,selected-.005,valid))
+    np.testing.assert_allclose(confidence(selected,labels,records,config),1.)
+    records[2]=(10,selected+.1,valid)
+    assert not confidence(selected,labels,records,config).any()
+    labels[10:20,10:20]=-1
+    records[2]=(10,selected-.005,valid)
+    weights=confidence(selected,labels,records,config)
+    assert not weights[10:20,10:20].any()
+
+
+def test_cubic_fixed_labels_fall_back_instead_of_switching_sources(tmp_path,monkeypatch):
+    import cubic_fixed_luster_hybrid as fixed
+    from risk_single_luster_hybrid import DEFAULT
+    from luster_hybrid_common import write
+    h=w=60;base=np.full((h,w,3),.4,np.float32);parent=tmp_path/'candidates/parent';parent.mkdir(parents=True);(tmp_path/'logs').mkdir()
+    monkeypatch.setattr(fixed,'geometry',lambda root,camera:dict(rgb=base))
+    config={**DEFAULT,'count':2,'mode':'direct'};write(parent/'config.json',config)
+    for target in [7,12,95,150]:
+        np.save(parent/f'cam{target:03d}_sources.npy',np.full((h,w),8,np.int16));np.save(parent/f'cam{target:03d}_reasons.npy',np.zeros((h,w),np.uint8))
+        write(parent/f'cam{target:03d}_receipt.json',dict(sources=[8,9],config=config,reasons={},texture_source_count_per_pixel=1,lookup_shift=False))
+        for cid in [8,9]:
+            d=tmp_path/f'variants/cubic4/warps/cam{target:03d}/src{cid:03d}';d.mkdir(parents=True)
+            arrays={k:np.ones((h,w),np.float32) for k in ['valid','alpha','resolution_ratio']}
+            arrays.update({k:np.zeros((h,w),np.float32) for k in ['depth_error','roundtrip','uncertainty','score']})
+            arrays['rgb']=np.full_like(base,.6 if cid==8 else .2)
+            if cid==8:arrays['alpha'][25:35]=0
+            for key,value in arrays.items():np.save(d/f'{key}.npy',value)
+            write(d/'receipt.json',dict(box=[0,0,w,h],arrays=list(arrays)))
+    fixed.combine(tmp_path,'parent','checked')
+    result=np.load(tmp_path/'candidates/checked/cam007.npy');labels=np.load(tmp_path/'candidates/checked/cam007_sources.npy')
+    assert not (labels==9).any() and (labels[25:35]==-1).all()
+    np.testing.assert_array_equal(result[25:35],base[25:35])
+    np.testing.assert_allclose(result[10,10],.6,atol=1e-7)

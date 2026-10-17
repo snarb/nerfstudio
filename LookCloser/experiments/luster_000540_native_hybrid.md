@@ -1,56 +1,85 @@
 # Frozen LookCloser + native photographs: Luster 000540
 
-Status: experiments in progress. Current single-source reference: `single_scale16_s8`, **24.51%** native validation person LPIPS improvement, zero measured local LPIPS regressions. The 40% goal is not achieved.
+Status: experiments in progress. Current numerical reference: `single_cubic_fixed`,
+**27.93%** lower native validation person LPIPS. All predefined named ROI LPIPS
+checks pass, but smaller patches still show local degradation. **Not visually
+accepted; the 40% goal is not achieved.**
 
-**Active user requirement (2026-10-17): fixed LookCloser geometry and exactly
-one native TRAIN photograph supplying texture per pixel/patch. No interpolation
-of colors between photographs and no optical-flow texture-coordinate shifts.**
-All pair-interpolation and registration results below are historical ablations,
-not eligible final candidates. The single-source investigation supersedes their
-provisional reference status.
+**Active user requirement: fixed LookCloser geometry and exactly one native
+TRAIN photograph supplying texture per pixel/patch. Source choice, consistency
+and rejection are automatic. No color blending between photographs, optical
+flow, geometry fitting, manual source assignments or target-GT construction.**
+Historical pair-interpolation and registration experiments below are ineligible.
 
 ## Current automatic recipe
 
-`single_scale16_s8` considers 16 automatically proposed TRAIN cameras. It keeps
-the median camera-z geometry and all visibility checks of the original frozen
-projection. In addition to angular distance, round-trip error and patch mismatch,
-it penalizes a large capture-scale mismatch by
-`0.3 * max(0, log2(source_resolution / target_resolution))`. The existing score
-already penalizes insufficient source resolution. This is a global recipe rule,
-not a camera blacklist or a manually selected face patch.
+1. Unproject native target pixels using conditional median camera-z from the
+   exact frozen LookCloser. Project those points into native TRAIN photos.
+2. Propose 16 cameras using predicted coverage and view/resolution suitability.
+   Reject invalid footprint, alpha < .99, relative depth error > .005,
+   round-trip error > 1 pixel, projected uncertainty > 2 pixels, source score
+   > 1 or resolution ratio < .5. No evaluation mask is used.
+3. Rank geometrically valid sources using angular/resolution cost, patch
+   appearance, capture-scale compatibility, round-trip and depth risk. Smooth
+   source costs over sigma 3 before hard selection; remove isolated labels.
+   Exact settings are in `candidates/single_risk_patch/config.json`.
+4. Keep those automatic source labels fixed. Resample the selected native photo
+   at the same projected coordinate with clamped Keys cubic interpolation
+   (a=-.5). Every nonzero 4x4 footprint tap must pass visibility. If it fails,
+   retain LookCloser rather than change to another photo.
+5. Let selected-photo RGB be T and frozen RGB be B. Apply
+   `B + w * [(T-G6(T)) - (B-G6(B))]`, clipped to [0,1]. Gaussian support is
+   normalized within that source patch. Weight fades over three pixels at its
+   boundary. One photograph supplies RGB; rejected pixels are bitwise B.
 
-The selected photo is `T`, the frozen render is `B`, and `G8` is a Gaussian
-low-pass operation normalized strictly within the selected-source patch.
-The merge is `B + w * [(T - G8(T)) - (B - G8(B))]`, clipped to [0,1].
-`w` fades over three pixels at source/support boundaries; otherwise it is one.
-No other photograph contributes RGB to that pixel. Rejected pixels are an exact
-copy of `B`. The code chooses both source labels and transfer support.
+The recipe transfers visible detail while retaining LookCloser's broad color.
+It does not promise full texture replacement where view-dependent appearance
+or inaccurate geometry makes it unsafe.
 
-| View | Baseline LPIPS | Hybrid LPIPS | Exact LookCloser preserved in person |
-|---|---:|---:|---:|
-| 007 | 0.06944436 | 0.06287702 | 19.53% |
-| 012 | 0.12492531 | 0.10576124 | 21.10% |
-| 095 | 0.12697524 | 0.08318930 | 8.72% |
-| 150 | 0.15322061 | 0.11689487 | 10.98% |
+| View | Baseline LPIPS | Hybrid LPIPS | Hybrid PSNR | Hybrid SSIM | Exact LookCloser preserved in person |
+|---|---:|---:|---:|---:|---:|
+| 007 | 0.06944436 | 0.06122643 | 31.383936 | 0.916628 | 11.83% |
+| 012 | 0.12492531 | 0.10075122 | 27.878704 | 0.874086 | 14.15% |
+| 095 | 0.12697524 | 0.07958242 | 29.268230 | 0.908763 | 6.47% |
+| 150 | 0.15322061 | 0.11164586 | 27.881626 | 0.914361 | 8.66% |
 
-Validation mean: LPIPS **0.10194847**, PSNR 28.345015, SSIM 0.89996771. No measured local LPIPS row regresses. The **40% goal remains unmet**.
+Validation mean: **LPIPS .0973265022**, PSNR 28.342854, SSIM .89907004.
+The 40% threshold is .0810242310. Native measurements are separate from HD.
 
-Visual inspection of eyes, skin, nails and embroidery found no obvious new
-seams or doubled contours in the reviewed crops. The existing eye shape,
-finger-edge halos and lace geometry remain limitations. More detail in a source
-is not by itself proof that its appearance fits the target view: the head
-close-up diagnostic is `C/preflight/eyes_source61_diagnostic.png`. This is an
-evaluation-only comparison, not an input to source selection.
+Deep provenance audit passed: exact checkpoint/runtime/geometry, source
+exclusion, cubic array hashes, single-photo reconstruction and exact fallback.
+35 focused tests passed (`logs/tests_single_source_final_checks.log`).
 
-The mean-depth projection ablation (`single_mean4_s8`) converts the saved
-conditional mean ray distance to camera-z without changing model density or
-calibration. It gives 23.832% improvement and regresses cam150 embroidery, so
-the median-depth reference is retained. Both depth readouts come from LookCloser.
+Visual review is explicitly **needs_local_detail_review**. Embroidery and many
+fine details improve, but small jewelry/brocade patches can soften and cloth
+creases can change appearance. Dark-hair texture and incorrect lace holes
+remain. Named ROI averages do not establish that every detail improved.
+Review `evaluation/single_cubic_fixed_visual_review.json`, the source panels,
+and the worst 128px spatial-regression panels. These diagnostics never enter
+prediction. Existing eye and pendant geometry cannot be repaired by texture.
 
-Reproduce the current recipe using `scale_single_luster_hybrid.py`, its saved
-`C/candidates/single_scale16_s8/config.json`, and a new candidate name.
-The review exporter is `review_single_luster_hybrid.py`; it reads GT/ROIs only
-for comparisons after prediction. GPU evaluation remains sequential.
+## Reproduce the current reference
+
+Use the existing verified campaign caches with fresh candidate names. GPU
+commands must run after the current GPU owner exits. The immutable runtime is
+used by the geometry renderer; no training is invoked.
+
+```bash
+C=/fsx/tmp/luster_000540_hybrid_20261017T104440Z
+PY=/home/pavlo/.conda/envs/nerfstudio/bin/python
+S="$C/code/LookCloser/scripts"
+export OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4
+"$PY" "$S/risk_single_luster_hybrid.py" --root "$C" --name reproduce_risk --config "$C/candidates/single_risk_patch/config.json"
+"$PY" "$S/cubic_luster_hybrid.py" --root "$C" --count 16
+"$PY" "$S/cubic_fixed_luster_hybrid.py" --root "$C" --parent reproduce_risk --name reproduce_cubic
+"$PY" "$S/evaluate_luster_hybrid.py" --root "$C" --candidate reproduce_cubic --device cuda
+"$PY" "$S/review_single_luster_hybrid.py" --root "$C" --name reproduce_cubic
+"$PY" "$S/freeze_luster_hybrid_candidate.py" --root "$C" --name reproduce_cubic --warp-root "$C/variants/cubic4" --deep --require-single-source
+```
+
+Saved commands/configuration and full source/model provenance accompany exports.
+The expanded <=60-degree TRAIN source search is running separately; it is not
+part of this reference until evaluation and visual review are complete.
 
 ## What is being tested
 
@@ -81,17 +110,10 @@ not change RGB weights or expand occupancy. Complete model-state hashes are
 checked before and after rendering.
 
 Source proposals use predicted surface coverage, angular distance and projected
-resolution. Warps use native JPEGs directly and check each nonzero bilinear tap,
-source/target alpha, depth disagreement, round-trip reprojection and projected
-depth-interval uncertainty. The current reference ranks sixteen automatically
-proposed cameras using angular/resolution cost, round-trip error and a weak
-patch appearance cost against LookCloser. Source selection is per pixel, with
-isolated assignments removed. A second photograph is not required. One selected
-photograph supplies detail above a masked Gaussian scale of 8 native pixels;
-LookCloser supplies the broad appearance and exact rejected-pixel fallback.
-Source changes fade towards LookCloser over 3 pixels. No colors are interpolated
-between photographs. Historical screens below also tested other merge methods. Evaluation masks, target photographs and evaluation ROI
-coordinates are not inputs to transfer.
+resolution. The current recipe above supersedes earlier bilinear-only transfer.
+All projection coordinates and depths come from the same frozen LookCloser;
+source labels and rejection are computed by code. Evaluation photographs,
+masks and ROI coordinates are never inputs to construction.
 
 ## Results
 
@@ -461,3 +483,44 @@ embroidery. Neither is selected. No geometry or saved model/grid state was edite
 Validation: 32 focused transfer tests passed (`tests_projection_quality.log`),
 including automatic one-photo choice, occlusion fallback, exact unchanged pixels,
 projection conventions, cubic footprint visibility and adaptive seam behavior.
+
+## Interpolation, source consistency and local review (2026-10-17 14:15 UTC)
+
+Clamped cubic sampling improves detail. Keeping the original automatic source
+labels avoids a small hand/nail ROI regression caused by reranking after cubic
+sampling. A bilinear-RGB control with identical wider visibility gains less,
+so the benefit is not explained solely by the 4x4 footprint rejection.
+
+| Candidate | Validation LPIPS reduction | Predefined ROI regressions |
+|---|---:|---:|
+| single_risk_patch | 26.15% | 0 |
+| single_risk_sharp_cost | 26.18% | 0 |
+| single_cubic_fixed | 27.93% | 0 |
+| single_cubic_risk_patch | 27.91% | 1 |
+| single_cubic_visibility_control | 26.13% | 2 |
+| single_cubic_s4 | 27.49% | 1 |
+| single_cubic_match5 | 27.44% | 1 |
+| single_cubic_sharp_cost | 27.91% | 1 |
+| single_risk_surface_gate | 26.01% | 0 |
+| single_risk_surface_cost | 26.08% | 0 |
+| single_risk_sharp_gate | 25.81% | 1 |
+| single_guided_e3_s8 | 25.12% | 0 |
+| single_consensus_low15 | 25.69% | 0 |
+| single_consensus_low30 | 24.24% | 1 |
+
+Guided photometric correction and TRAIN-witness broad-color agreement do not
+improve the reference. Witnesses contribute confidence only, never RGB.
+Unchanged-density q25/q75/PDF-mode depth readouts also underperform q50;
+there is no basis to replace the median readout. Larger ROI checks pass for
+some variants but do not override visible small-patch defects. Spatial LPIPS
+maps use CPU and may differ from CUDA by about 1e-5; CUDA is the selection
+metric. Maps have finite receptive-field spill and are not causal attribution.
+
+Verified provisional export: `C/exports/single_cubic_fixed.tar.gz`, 183558628 bytes,
+242 archive members rehashed, SHA256
+`da9316e4835b85e86a56fba28108a2c2a6f04c183df0d09647974eb156b38099`.
+Status is `provisional_local_defects`, not final acceptance.
+
+```bash
+scp olive-lark:/fsx/tmp/luster_000540_hybrid_20261017T104440Z/exports/single_cubic_fixed.tar.gz .
+```

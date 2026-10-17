@@ -5,14 +5,17 @@ import numpy as np
 from PIL import Image,ImageDraw
 from luster_hybrid_common import geometry,read,write,sha
 
-def review(root,name,regions):
+def review(root,name,regions,warp_root=None):
     protocol=read(root/'evaluation/protocol.json');out=root/'evaluation'/f'{name}_sources';out.mkdir(exist_ok=True)
     rows=[];candidate=root/'candidates'/name
+    if warp_root is None:
+        provenance=candidate/'provenance.json'
+        warp_root=Path(read(provenance)['warp_root']) if provenance.exists() else root
     for c in [7,12,95,150]:
         e=protocol['cameras'][str(c)];assert sha(e['source'])==e['source_sha256']
         gt=np.asarray(Image.open(e['source']).convert('RGB'));base=geometry(root,c)['rgb']
         pred=np.load(candidate/f'cam{c:03d}.npy',mmap_mode='r');labels=np.load(candidate/f'cam{c:03d}_sources.npy',mmap_mode='r');weights=np.load(candidate/f'cam{c:03d}_confidence.npy',mmap_mode='r')
-        receipt=read(candidate/f'cam{c:03d}_receipt.json');warp_root=Path(receipt.get('warp_root',root))
+        receipt=read(candidate/f'cam{c:03d}_receipt.json')
         for region in regions:
             box=e['boxes'].get(region)
             if box is None:continue
@@ -38,7 +41,7 @@ def review(root,name,regions):
             panel.save(out/f'cam{c:03d}_{region}.png');panel.thumbnail((1500,1000));panel.save(out/f'cam{c:03d}_{region}_preview.jpg',quality=95)
             ids,counts=np.unique(lab,return_counts=True)
             rows.append(dict(camera=c,region=region,box=box,fallback_fraction=float((lab<0).mean()),full_weight_fraction=float((weight>=.999).mean()),sources={str(int(i)):int(n) for i,n in zip(ids,counts)},receipt_sha256=sha(candidate/f'cam{c:03d}_receipt.json')))
-    write(out/'receipt.json',dict(usage='evaluation_only',candidate=name,code_sha256=sha(Path(__file__)),rows=rows));print(out,flush=True)
+    write(out/'receipt.json',dict(usage='evaluation_only',candidate=name,warp_root=str(warp_root),code_sha256=sha(Path(__file__)),rows=rows));print(out,flush=True)
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser();p.add_argument('--root',type=Path,required=True);p.add_argument('--name',required=True);p.add_argument('--regions',nargs='+',default=['nails','jewelry','embroidery']);a=p.parse_args();review(a.root,a.name,a.regions)
+    p=argparse.ArgumentParser();p.add_argument('--root',type=Path,required=True);p.add_argument('--name',required=True);p.add_argument('--warp-root',type=Path);p.add_argument('--regions',nargs='+',default=['nails','jewelry','embroidery']);a=p.parse_args();review(a.root,a.name,a.regions,a.warp_root)
