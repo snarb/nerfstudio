@@ -2144,3 +2144,17 @@ existing depth25 unary before support-normalized smoothing and hard source
 selection. Photo eligibility, q50 lookups and standard cubic/seam composition
 remain unchanged. Its runner includes a zero-weight exact-equivalence control
 and two global utility weights (.5/1.5); no evaluation image selects pixels.
+
+
+`train_perceptual_utility_luster_hybrid.py` reuses the already installed, frozen
+spatial AlexNet LPIPS evaluation metric as a TRAIN-only scalar patch score.
+Its code, original weight files and complete metric state digest are recorded;
+no parameters are optimized. `target_witness_perceptual_luster_hybrid.py`
+compares a single-source detail candidate and the reprojected frozen target
+baseline against native TRAIN witness photographs. Shared geometric support
+sets a neutral .5 exterior. Only supported scalar utility returns to target
+q50, with two-witness median; neither metric features nor witness RGB supply
+texture. The ranker adds this utility to depth25 source costs and retains the
+standard one-photo cubic/seam merge. No evaluation protocol or GT is imported.
+A serialized runner includes a zero-weight exact-equivalence control. This is
+an experimental confidence score, not a new reconstruction model.

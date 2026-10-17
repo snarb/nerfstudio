@@ -1584,3 +1584,23 @@ def test_target_witness_signed_utility_respects_evidence_quorum():
     np.testing.assert_array_equal(signed_utility_cost(cost,count),[-1.,-.5,0.,.5,1.,0.,0.])
     with pytest.raises(AssertionError):signed_utility_cost(np.array([np.nan]),np.array([0]))
     with pytest.raises(AssertionError):signed_utility_cost(np.array([1.1]),np.array([2]))
+
+
+def test_train_perceptual_utility_sign_and_unknown_support():
+    from train_perceptual_utility_luster_hybrid import utility_from_errors
+    support=np.ones((96,96),bool)
+    a=np.full(support.shape,.1,np.float32);b=np.full(support.shape,.02,np.float32)
+    positive,known=utility_from_errors(a,b,support)
+    negative,k2=utility_from_errors(b,a,support)
+    assert known.all() and k2.all()
+    np.testing.assert_allclose(positive,-negative,atol=1e-7)
+    assert (positive>0).all()
+    same,k=utility_from_errors(a,a,support)
+    np.testing.assert_array_equal(same,0)
+    flat,k=utility_from_errors(a*0,a*0,support)
+    assert not k.any();np.testing.assert_array_equal(flat,0)
+    support[:,:48]=False;a[~support]=np.nan;b[~support]=np.nan
+    value,k=utility_from_errors(a,b,support)
+    assert np.isfinite(value).all() and not k[~support].any()
+    assert not k[:,48:52].any()
+    assert k[:,80:].all()

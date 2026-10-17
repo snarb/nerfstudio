@@ -2456,3 +2456,37 @@ unchanged. The runner waits for the confidence producer and previous CUDA
 controllers. The focused suite passes 106 tests, including utility sign,
 evidence quorum and invalid-input rejection. Results are pending; the quadratic
 utility's earlier admission results do not establish perceptual benefit.
+
+
+### 21:01 UTC — frozen LPIPS as a TRAIN-only confidence criterion
+
+Quadratic TRAIN admission has improved PSNR/SSIM while worsening cam012 LPIPS.
+The new perceptual control therefore reuses the **existing fixed evaluation
+LPIPS metric** to score source suitability on other TRAIN photographs. It does
+not introduce a learned reconstruction, fit weights, read target GT, or use
+metric features as output texture. Both LPIPS linear and AlexNet trunk weight
+files, library code and metric state are bound in a receipt. The metric remains
+in evaluation mode with all gradients disabled; its state is checked unchanged.
+
+In each native TRAIN witness view, compare the unchanged reprojected target
+LookCloser baseline B and a candidate B+(S-G6S)-(B-G6B) against the native witness
+photograph. The source photo S and B share the strict geometric support, with
+neutral .5 outside it. Spatial error utility is (before-after)/(before+after+.001).
+Known scores require local support mass >=.8 at sigma16 and nontrivial error.
+Only scalar utility is returned through original q50 geometry and reverse
+visibility; at least two distinct TRAIN witnesses are required. Unknown cost
+is neutral. The ranker tests global weights .5/1.5 on the existing depth25 costs,
+with a zero-weight RGB/label/weight equivalence check.
+
+This is still a cross-view proxy: the detail filter is measured in native
+witness pixels, and reprojected baseline quality can differ from the final
+view. Shared support and wider render-only angular policy do not establish
+perceptual correctness. Complete target evaluation and visual review remain
+required. CUDA waits for all previous controllers.
+
+The focused suite passes 107 tests. A real CPU LPIPS smoke test verifies positive
+utility for exact texture versus a blurred baseline, zero utility for identical
+candidates, unsupported NaN isolation and unchanged metric weights. Metric state
+SHA256 is `5e1bf9c867d2cc37226970cccc1aae1c094da706d69409803124564c5c10ece2`.
+Evidence: `logs/train_perceptual_metric_cpu_smoke.log` and
+`logs/tests_train_perceptual_utility.log`. Results are pending.
