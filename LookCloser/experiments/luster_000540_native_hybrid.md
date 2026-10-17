@@ -2631,3 +2631,34 @@ keeping the source score's normalization fixed at .06. All depth, opacity,
 uncertainty, footprint and output-coordinate checks remain unchanged. The
 runner requires exact zero-control RGB/label/weight equality, records counts
 after each admission stage, then evaluates CUDA after the previous queue.
+
+
+### 21:47 UTC — paired source-choice diagnostic, not a GT selector
+
+The CPU diagnostic constructs each TRAIN-derived confidence map and both
+complete single-source counterfactuals before reading target GT or evaluation
+masks. It saves only aggregate agreement, never GT-minimizing labels, RGB
+mosaics, gates or production caches. The first two source-pool cameras with
+positive geometry-only two-witness coverage are used per target.
+
+| Target | Sources | Informative pixels | Correct cost ordering | Error-margin weighted | 64px tile ordering | Weighted tile ordering |
+|---|---|---:|---:|---:|---:|---:|
+| 007 | 008 / 006 | 422,553 | 57.12% | 61.05% | 53.52% | 56.09% |
+| 012 | 011 / 013 | 660,226 | 50.49% | 52.50% | 53.97% | 52.08% |
+| 095 | 096 / 153 | 1,035,908 | 60.85% | 71.57% | 64.90% | 77.34% |
+| 150 | 151 / 093 | 754,708 | 62.30% | 70.49% | 62.29% | 75.63% |
+
+Informative means absolute cost difference >.01 and LPIPS difference >.001,
+with both confidences known. Tiles require at least half their pixels to
+meet common known person support. The JSON's `common_pixels` field in the
+`tiles64` object counts tiles, not pixels. These exploratory CPU comparisons
+show a weak source-ordering signal, especially on cam012, and do not justify
+a hard rejection rule. Counterfactual neighborhoods differ; these are not
+final hybrid scores or an attainable performance bound. Metric state is
+unchanged. Evidence: `evaluation/bracket_pair_ranking_cpu.json` and
+`logs/diagnose_bracket_pair_ranking.log`.
+
+The patch-admission zero control also reproduces all four reference RGB,
+source-label and confidence arrays exactly. Evidence:
+`evaluation/patch_eligibility_zero_equivalence.json`. Its two nonzero controls
+remain under construction and await canonical evaluation.
