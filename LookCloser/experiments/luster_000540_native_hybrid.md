@@ -63,6 +63,19 @@ Run GPU evaluation only after the active GPU owner exits. The archive captures
 the report just before its own export was verified; this live report supplies
 the verified archive digest above.
 
+Untouched native source crops for the automatically selected nails-region
+sources are available separately (evaluation only):
+
+```bash
+scp olive-lark:/fsx/tmp/luster_000540_hybrid_20261017T104440Z/exports/native_selected_nails_depth25.tar.gz .
+```
+
+SHA256 `a678ca4ee780a76c998de62450a06d565a688583a77f51275ef405e6e3bfd7c8`;
+31 verified members, 1141623 bytes. The selected source photographs can already
+be soft, and some nails ROIs show palm/finger sides. Native crops and projected
+sample masks make those limitations inspectable; this is not a claim that every
+possible photograph lacks sharper detail.
+
 ## Previous audited download: 29.6760%, visually unaccepted
 
 `single_source_contradiction400_once_seam` uses the six-step recipe below plus
@@ -2106,3 +2119,24 @@ native-witness utility with the existing candidate's spatial LPIPS deltas as
 each view's confidence caches finish. Negative risk means positive measured
 TRAIN restoration utility; zero also includes missing evidence. The diagnostic
 writes only evaluation summaries, never prediction gates or source maps.
+
+
+### 19:58 UTC — four canonical controls complete
+
+All evaluations ran sequentially on CUDA with the unchanged native protocol.
+
+| Variant | Validation LPIPS | Reduction | Named ROI regressions |
+|---|---:|---:|---|
+| Source-native common-band cost .5 | .0951635167 | 29.5296% | none |
+| Source-native common-band cost 1.5 | .0969020128 | 28.2422% | none |
+| Fine transverse-edge attenuation .5 | .0955288311 | 29.2591% | none |
+| Fine transverse-edge attenuation 1 | .0962082992 | 28.7559% | none |
+
+None improves the contradiction-400-once parent's 29.6760% validation result.
+All four retain local visual defects and are marked
+`not_accepted_local_detail_degradation`. Both common-band candidates were
+inspected together at the fixed three tiles for every view in
+`evaluation/native_restoration_common_both_reference_tiles/`.
+The source-frame confidence is therefore not adopted; stronger weighting loses
+useful detail. This result does not yet evaluate the separate native-WITNESS-frame
+experiment now constructing its confidence caches. Graph metrics remain pending.
