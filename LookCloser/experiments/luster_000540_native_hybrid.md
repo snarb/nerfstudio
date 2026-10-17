@@ -1479,3 +1479,21 @@ correlates with the remaining bad cloth patches. The feature uses only frozen
 geometric projection, and the analysis writes no candidate image, source labels
 or confidence gates. Tests verify affine-map invariance, quadratic curvature,
 invalid-neighbor exclusion and exact chunk-halo behavior. **81 tests pass.**
+
+## 2026-10-17 18:18 UTC — projection-curvature findings and bandwidth control
+
+The curvature association diagnostic is complete for all four views. Higher
+curvature weakly increases the fraction of positive spatial LPIPS deltas on
+cam007/095, but every curvature bin still has a negative mean delta (benefit).
+Cam150 is not monotonic and its highest-curvature group improves more on average.
+Thus a universal curvature rejection threshold is not supported by this
+diagnostic; no such gate was added. These are selected-source associations,
+not causal per-pixel errors or a proof that another source would be better.
+See `evaluation/single_cubic_eligible_phase_rt2_seam_warp_curvature/summary.json`.
+
+`run_phase_bandwidth_luster.py` independently brackets the current fixed source
+labels with detail-filter sigmas 4, 8 and 12 (reference 6), preserving geometric
+filter support and recomputing seam checks on the actual correction. This
+separates the useful bandwidth question from the stricter positive-witness
+gate. It changes only an existing merge parameter and waits for the preceding
+GPU owners. These candidates are experiments, not accepted outputs.
