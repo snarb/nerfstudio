@@ -1841,3 +1841,24 @@ appearance and lace/embroidery mismatch. Thus passing all predefined ROI means
 still does not imply local visual acceptance. Native detailed and source panels
 have finished. The stronger directional penalty is explicitly rejected for the
 five canonical ROI/person regressions recorded above.
+
+
+## 2026-10-17 19:18 UTC — fine transverse-edge control
+
+The earlier orientation experiment attenuated G2-G6 only and left the fine
+I-G2 band unchanged. Its inspected fold artifacts remained. A separate global
+control now compares the selected photo's G.5 gradient tensor with the frozen
+render's G2 tensor, aggregated over sigma 4. Only strong coherent baseline edges
+can trigger attenuation: baseline and photo tensor energy >=.002^2, coherence
+ramp .8–.95, transverse-energy ramp .05–.25, supported interior. Flat or unknown
+regions retain transfer. No contour displacement, texture-coordinate fitting,
+manual ROI, source reassignment or model change is performed.
+
+`fine_edge_orientation_luster_hybrid.py` attenuates I-G2 only, retaining G2-G6,
+with two global maximum attenuation values .5/1. The parent is the audited
+contradiction-400 single-cleanup candidate. Seam checks use the actual admitted
+corrections. CPU construction may overlap the source-native reliability cache;
+GPU evaluations explicitly wait for that controller to exit. Results pending.
+All **92 focused tests pass**, including parallel-edge retention, transverse
+fine-detail attenuation, flat/unsupported neutrality and exact band isolation
+(`logs/tests_fine_edge_orientation.log`).

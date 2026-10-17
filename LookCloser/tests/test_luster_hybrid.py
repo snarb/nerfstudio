@@ -1286,3 +1286,27 @@ def test_common_band_restoration_ignores_unresolved_checkerboard():
     assert not known[16:-16,16:-16].any()
     cost,count=contradiction_median(np.stack([utility,utility]),np.stack([known,known]))
     assert np.all(cost[16:-16,16:-16]==.5)
+
+
+def test_fine_edge_guard_transverse_detail_and_flat_neutrality():
+    from fine_edge_orientation_luster_hybrid import orientation_gate,correction
+    yy,xx=np.mgrid[:96,:96]
+    base=np.repeat((.3+.3*np.tanh((xx-48)/4))[...,None],3,-1).astype(np.float32)
+    parallel=np.repeat((.3+.3*np.tanh((xx-48)/1.5))[...,None],3,-1).astype(np.float32)
+    # Fine tangent oscillations at a strong vertical baseline edge are risky.
+    crossed=parallel+(.15*np.sin(yy*1.5)*np.exp(-((xx-48)/8)**2))[...,None].astype(np.float32)
+    support=np.ones((96,96),bool);region=np.s_[24:72,44:52]
+    safe=orientation_gate(base,parallel,support,1.)
+    risk=orientation_gate(base,crossed,support,1.)
+    assert safe[region].min()>.99 and risk[region].mean()<.6
+    flat=orientation_gate(np.full_like(base,.5),crossed,support,1.)
+    assert np.all(flat==1)
+    support[36:60,40:56]=False
+    unknown=orientation_gate(base,crossed,support,1.)
+    assert np.all(unknown[36:60,40:56]==1)
+    support[:]=True
+    from band_witness_luster_hybrid import bands
+    pf,pm=bands(crossed,support);bf,bm=bands(base,support)
+    # Full rejection affects fine detail only and retains the middle band.
+    np.testing.assert_allclose(correction(base,crossed,support,np.zeros((96,96),np.float32)),pm-bm,atol=1e-7)
+    np.testing.assert_allclose(correction(base,crossed,support,np.ones((96,96),np.float32)),pf+pm-bf-bm,atol=1e-7)

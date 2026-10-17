@@ -2043,3 +2043,10 @@ inputs, with separate caches and unchanged native output sampling.
 `native_restoration_common_rank_luster_hybrid.py` retains the two-witness quorum,
 all-witness median, and one-sided negative-utility penalty. The common band is
 an approximate reliability proxy, not a calibrated camera PSF model.
+
+
+`fine_edge_orientation_luster_hybrid.py` compares G.5 photo gradients to G2
+frozen-render edge tensors and attenuates only I-G2 at strong coherent edges
+with transverse fine energy. G2-G6 and all calibrated sample coordinates remain
+unchanged. Its runner tests .5/1 attenuation and waits for the preceding GPU
+controller. This is an experimental confidence gate, not an accepted default.
