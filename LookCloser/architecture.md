@@ -2014,3 +2014,10 @@ with the frozen q10-q90 projected span to penalize uncertain photo appearance.
 Only q50 supplies final texture coordinates. `photometric_depth_rank_luster_hybrid.py`
 adds this scalar cost to hard single-source ranking; the runner controls two
 global weights with one label cleanup and sequential canonical GPU evaluation.
+
+
+`diagnose_transfer_regions_luster_hybrid.py` records evaluation-only spatial
+LPIPS associations with source-label boundaries and transfer weights, with
+exhaustive mask partition checks. `run_current_seam_tolerance_luster.py` tests
+.01/.04 compatibility thresholds using the existing merge and identical labels;
+its GPU stage waits for the preceding controller to exit.

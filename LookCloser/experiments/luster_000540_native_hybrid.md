@@ -1719,3 +1719,25 @@ The directional photo-depth experiment is still pending.
 scp olive-lark:/fsx/tmp/luster_000540_hybrid_20261017T104440Z/exports/single_source_contradiction400_once_seam.tar.gz .
 sha256sum single_source_contradiction400_once_seam.tar.gz
 ```
+
+
+## 2026-10-17 18:56 UTC — source-boundary diagnostic and controlled threshold test
+
+`diagnose_transfer_regions_luster_hybrid.py` partitions the current candidate's
+person pixels by distance to source-label boundaries, with exhaustive partition
+assertions. Evaluation only: no labels or gates are produced for construction.
+All four views show a favorable mean LPIPS delta both at full transfer weight
+and at faded boundaries. Cam007 has many small source regions: 82.2% of active
+pixels lie within 8px of a source-label boundary, compared with 77.6%, 36.1%
+and 33.1% for cameras 12/95/150. Only 10,638 active cam007 pixels lie >=32px
+inside one label; their mean delta is -.020874. Near-boundary averages are
+about -.0025, with roughly 42% positive spatial deltas. LPIPS receptive fields
+cross regions, so this association is not a causal seam-error measurement.
+
+The .02 high-pass seam compatibility threshold was held fixed in the recent
+ranking experiments. `run_current_seam_tolerance_luster.py` now brackets it
+with .01 and .04 using the identical contradiction-400 single-cleanup labels,
+geometry support, gain and filter scale. A looser threshold may preserve more
+detail but must pass the same local visual review; it is not accepted in advance.
+The stricter setting is a matched control. GPU evaluation waits for the
+photometric-depth runner to exit. Results are pending.
