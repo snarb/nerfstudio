@@ -1358,3 +1358,32 @@ def test_appearance_graph_places_transition_where_photos_agree():
     labels,trace=optimize(costs,features,.1)
     assert np.array_equal(labels,[[0,1,1,1]])
     assert trace[-1]<trace[0]
+
+
+def test_witness_native_scalar_requires_all_nonzero_supported_taps():
+    from witness_native_restoration_luster_hybrid import sample_supported_scalar
+    values=np.array([[0.,1.],[.5,-.5]],np.float32);known=np.ones((2,2),bool)
+    uv=np.array([[10.,20.],[10.5,20.5],[11.,21.],[9.9,20.],[np.nan,20.]],np.float32)
+    sampled,valid=sample_supported_scalar(values,known,uv,[10,20,12,22])
+    np.testing.assert_array_equal(valid,[True,True,True,False,False])
+    np.testing.assert_allclose(sampled,[0.,.25,-.5,0.,0.])
+    known[1,1]=False
+    sampled,valid=sample_supported_scalar(values,known,uv,[10,20,12,22])
+    np.testing.assert_array_equal(valid,[True,False,False,False,False])
+    assert np.all(sampled==0)
+
+
+def test_witness_native_median_quorum_and_signed_restoration():
+    from witness_native_restoration_luster_hybrid import median_cost,restoration_utility
+    utilities=np.array([[.8,-.8,.8],[.4,-.4,-.9],[0.,0.,.1]],np.float32)
+    known=np.array([[1,1,1],[1,1,0],[0,0,0]],bool)
+    cost,count=median_cost(utilities,known)
+    np.testing.assert_allclose(cost,[.2,.8,.5],atol=1e-7)
+    np.testing.assert_array_equal(count,[2,2,1])
+    yy,xx=np.mgrid[:48,:48];truth=np.repeat((.1*np.sin(xx/3))[...,None],3,-1).astype(np.float32)
+    support=np.ones((48,48),bool);baseline=.3*truth
+    # Source detail already projected into the witness frame restores its
+    # true structure; reversed detail loses to the frozen witness baseline.
+    useful,known=restoration_utility(truth,truth,baseline,support)
+    harmful,known_bad=restoration_utility(-truth,truth,baseline,support)
+    assert useful[known].min()>.9 and harmful[known_bad].max()<-.7

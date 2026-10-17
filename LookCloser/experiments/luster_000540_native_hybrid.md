@@ -1978,3 +1978,53 @@ experiment is justified by this diagnostic alone, and none was added.
 Source: `evaluation/single_source_contradiction400_once_seam_joint_native_restoration_association_cam007_cam012.json`;
 script `diagnose_joint_native_restoration_luster_hybrid.py`. Spatial associations
 remain evaluation-only and are not causal pixel-error estimates.
+
+
+### 19:46 UTC — graph visual gate and native-witness restoration experiment
+
+Both graph weights 0 and .1 were inspected at the fixed three native regression
+tiles in all four views (`evaluation/appearance_graph010_reference_tiles/`).
+Both remain visually unaccepted. The .1 graph changes the scalp ornament
+substantially, but does not recover its observed appearance. Fold irregularity,
+jewelry/cord silhouette differences, hair/background and lace defects persist.
+Fewer label boundaries alone do not establish an image-quality improvement.
+Canonical metrics and the .4 graph are pending.
+
+The common-band source-native diagnostic also fails as a universal veto on
+cam095: all risk bins have negative mean spatial LPIPS deltas. Even risk >=.6
+averages -.025865 over 41,703 active person pixels. This agrees with the cam012
+counterexample; no hard rejection threshold was introduced.
+
+The next confidence experiment changes the comparison frame, not geometry.
+`witness_native_restoration_luster_hybrid.py` projects each candidate source into
+four native TRAIN witness views using their frozen q50 geometry and the same
+clamped cubic sampling. At each witness, it measures the candidate's G1-G6 RGB
+detail error against that witness photograph, relative to the frozen witness
+render's error. Thus candidate detail has already undergone the reprojection
+whose usefulness is being assessed; the reference photograph remains native.
+Scalar utility returns to the source surface only where reverse visibility and
+every nonzero bilinear scalar tap are valid. A median with a two-witness quorum
+produces confidence; missing evidence is neutral. Cameras 7/12/95/150 are
+excluded from witnesses, and source-self witnesses are prohibited.
+
+The confidence is still a proxy: appearance and projection quality can differ
+between the TRAIN witness views and the eventual target. No independent test
+or guaranteed predictor is claimed. Final geometry and calibrated coordinates
+remain fixed; one selected native photograph supplies final detail. No witness
+RGB is mixed into the result. The runner tests a weight-1 negative-only penalty
+and a weight-.5 signed penalty/reward, both against the current contradiction-400
+recipe with one cleanup. Cache construction waits for the earlier producer to
+avoid concurrent writes; GPU evaluation follows the existing queue.
+
+All **97 focused tests pass** (`logs/tests_witness_native_restoration.log`),
+including exact scalar footprint validity, nonzero-tap support, neutral missing
+evidence, median quorum and synthetic positive/negative restoration utility.
+Results are pending. Commands:
+
+```bash
+OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 "$PY" "$S/run_witness_native_restoration_luster.py" \
+  --root "$C" --cache-wait-pids 691262 --wait-pids 691262 691574 691957
+```
+
+The PID arguments record this launch's queue dependencies; omit expired PIDs
+when reproducing after all prior work has finished.

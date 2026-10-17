@@ -2060,3 +2060,13 @@ Feature vectors are never output RGB. The runner includes a zero-transition
 patch control and queues GPU evaluation after prior controllers.
 `diagnose_native_restoration_luster_hybrid.py` only measures associations between
 TRAIN confidence and evaluation spatial errors; it cannot produce transfer gates.
+
+`witness_native_restoration_luster_hybrid.py` reverses the confidence experiment:
+the candidate source is first cubic-projected into a native TRAIN witness view,
+then its G1-G6 RGB detail error is compared with the frozen render's error
+against that witness photo. Scalar utility is mapped back with reverse
+visibility and all-tap support, then aggregated by a two-witness-quorum median.
+Neither witness RGB nor evaluation RGB enters the final texture. Its ranker
+tests negative-only and signed evidence; the runner waits for the preceding
+warp-cache producer and serializes GPU evaluations. This is an experimental
+confidence proxy, not a new model or geometry estimator.
