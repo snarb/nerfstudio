@@ -1062,3 +1062,20 @@ Two settings begin attenuation at phase costs .5 and .75. Source labels and
 coordinates stay fixed, and seams are checked using the actual correction.
 The additional test checks reversed contrast, aligned gain changes, missing
 model texture and invalid support; all 63 focused tests pass.
+
+
+## Final-footprint eligibility during ranking (queued 16:40 UTC)
+
+The reference ranks with bilinear visibility and then falls back if the selected
+photo fails the cubic 4x4 footprint. A prediction-only audit found that
+4.44/4.52/1.84/2.13% of alpha>=.99 pixels in views 007/012/095/150 respectively
+currently fall back despite some geometrically eligible cubic source. These
+are upper bounds before patch checks, not claimed gains or person-mask coverage.
+See `preflight/cubic_reselection_potential.json`.
+
+The isolated candidate admits a source into hard ranking only if it also passes
+the final cubic footprint. All original patch costs/gates, source exclusions,
+lookup coordinates and seam checks remain. It can choose another eligible photo
+automatically instead of falling back solely because the first proposal fails
+the wider footprint. An end-to-end test verifies alternative selection and
+exact fallback where every source is occluded. All 64 focused tests pass.

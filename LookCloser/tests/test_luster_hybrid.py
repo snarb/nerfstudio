@@ -799,3 +799,36 @@ def test_structure_gate_rejects_reversed_middle_band_but_retains_unknown_detail(
         support[:8]=False
         assert not structure_gate(band,zero,support,start)[:8].any()
         support[:]=True
+
+
+def test_cubic_eligible_ranking_selects_visible_alternative_before_fallback(tmp_path,monkeypatch):
+    import cubic_eligible_phase_luster_hybrid as single
+    from luster_hybrid_common import write,sha
+    h=w=64;base=np.full((h,w,3),.4,np.float32)
+    monkeypatch.setattr(single,'native_rows',lambda:{c:dict(train=True) for c in [7,8,9]})
+    monkeypatch.setattr(single,'geometry',lambda root,target:dict(rgb=base))
+    monkeypatch.setattr(single,'source_path',lambda cid:tmp_path/f'photo{cid}.jpg')
+    (tmp_path/'logs').mkdir();write(tmp_path/'preflight/sources.json',dict(sources={'7':[8,9]}))
+    for c in [8,9]:(tmp_path/f'photo{c}.jpg').write_bytes(bytes([c]))
+    q=tmp_path/'quality';q.mkdir();dummy=q/'source_receipt.json';write(dummy,{})
+    for key in ['source_phase_cost','view_phase_cost']:np.save(q/f'{key}.npy',np.zeros((h,w),np.float32))
+    write(q/'receipt.json',dict(source_model_receipt=str(dummy),source_model_receipt_sha256=sha(dummy)))
+    monkeypatch.setattr(single,'quality',lambda *args:q)
+    for c in [8,9]:
+        a={k:np.ones((h,w),np.float32) for k in ['valid','alpha','resolution_ratio']}
+        a.update({k:np.zeros((h,w),np.float32) for k in ['depth_error','roundtrip','uncertainty','score']})
+        a['rgb']=base+.01*(c-7);a['score'][:]=.1*(c-8)
+        for family in ['warps','variants/cubic75/warps']:
+            d=tmp_path/family/'cam007'/f'src{c:03d}';d.mkdir(parents=True)
+            saved={k:v.copy() for k,v in a.items()}
+            if family!='warps':
+                saved['alpha'][28:36]=0
+                if c==8:saved['depth_error'][:,32:]=1
+            for k,v in saved.items():np.save(d/f'{k}.npy',v)
+            write(d/'receipt.json',dict(box=[0,0,w,h],arrays=list(saved)))
+    single.combine(tmp_path,7,'check',{**single.DEFAULT,'count':2,'mode':'direct','match_weight':0})
+    d=tmp_path/'candidates/check';labels=np.load(d/'cam007_sources.npy');result=np.load(d/'cam007.npy');weight=np.load(d/'cam007_confidence.npy')
+    assert labels[12,12]==8 and labels[12,52]==9
+    assert (labels[28:36]==-1).all()
+    np.testing.assert_array_equal(result[weight==0],base[weight==0])
+    assert abs(float(result[12,52,0])-.42)<1e-6

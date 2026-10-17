@@ -1900,3 +1900,9 @@ coherence without changing any texture lookup or mixing source photographs.
 frozen target structure, preserving unknown and aligned detail and retaining
 the finest photo band. It does not require photo energy to exceed model energy.
 Hard source labels remain unchanged; seams use the admitted correction.
+
+
+The cubic-eligible phase selector applies final 4x4 footprint visibility before
+hard source ranking. It retains the original patch costs and final seam merge.
+This separate experiment tests valid alternatives where the two-stage reference
+would fall back after its chosen source fails the wider interpolation support.
