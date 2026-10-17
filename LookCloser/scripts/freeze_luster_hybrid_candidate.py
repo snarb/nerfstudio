@@ -21,6 +21,15 @@ def freeze(root,name,warp_root,deep=False,require_single_source=False):
         assert receipt['code_sha256'] in inventory.values(), 'Candidate generator changed since creation'
         for path,digest in receipt.get('additional_input_hashes',{}).items():
             assert sha(path)==digest;bind(path)
+            if Path(path).name=='receipt.json':
+                extra=read(path)
+                if 'code_sha256' in extra:assert extra['code_sha256'] in inventory.values()
+                for ip,ih in extra.get('inputs',{}).items():assert sha(ip)==ih;bind(ip)
+                if deep:
+                    for key,value in extra.get('hashes',{}).items():
+                        fp=Path(path).parent/key
+                        if not fp.exists():fp=fp.with_suffix('.npy')
+                        assert sha(fp)==value;bind(fp)
             if 'source_model_warps' in path:
                 mr=read(path);assert mr['code_sha256'] in inventory.values()
                 cached=Path(path).parent/'rgb.npy'
@@ -29,6 +38,8 @@ def freeze(root,name,warp_root,deep=False,require_single_source=False):
         baseline=geometry(root,cid)['rgb'];pred=np.load(candidate/f'cam{cid:03d}.npy',mmap_mode='r')
         weight=np.load(candidate/f'cam{cid:03d}_confidence.npy',mmap_mode='r')
         labels=np.load(candidate/f'cam{cid:03d}_sources.npy',mmap_mode='r')
+        assert np.isfinite(weight).all() and weight.min()>=0
+        if require_single_source:assert weight.max()<=1
         assert pred.shape==baseline.shape and np.isfinite(pred).all() and pred.min()>=0 and pred.max()<=1
         assert set(map(int,np.unique(labels[labels>=0])))<=allowed
         assert np.array_equal(pred[weight==0],baseline[weight==0])
@@ -61,10 +72,21 @@ def freeze(root,name,warp_root,deep=False,require_single_source=False):
         if require_single_source:
             assert receipt.get('texture_source_count_per_pixel')==1
             assert receipt.get('lookup_shift') is False
+            selection_path=warp_root/'preflight/sources.json'
+            assert receipt['sources']==read(selection_path)['sources'][str(cid)][:config['count']]
+            bind(selection_path)
         single_verified=False
         if receipt.get('texture_source_count_per_pixel')==1:
             from transfer_luster_hybrid import merge_details
-            assert warp_root.resolve()==root.resolve(), 'Single-source audit requires exact original projections'
+            original_sampling=(warp_root/'warps').resolve()==(root/'warps').resolve() and (warp_root/'geometry').resolve()==(root/'geometry').resolve()
+            area_sampling=warp_root.resolve()==(root/'variants/area4').resolve()
+            assert original_sampling or area_sampling, 'Single-source audit permits original centers or native pixel-footprint integration only'
+            if area_sampling:
+                for source in receipt['sources']:
+                    ar=read(warp_root/'warps'/f'cam{cid:03d}'/f'src{source:03d}'/'receipt.json')
+                    assert ar['resampling']=='area_footprint_excess_minification'
+                    assert ar['area_code_sha256']==inventory['antialias_luster_hybrid.py']
+                    assert ar['quadrature']==4
             assert receipt.get('lookup_shift') is False
             first=warp_root/'warps'/f'cam{cid:03d}'/f"src{receipt['sources'][0]:03d}"
             x0,y0,x1,y1=read(first/'receipt.json')['box'];sl=np.s_[y0:y1,x0:x1]
@@ -78,6 +100,8 @@ def freeze(root,name,warp_root,deep=False,require_single_source=False):
                 d=warp_root/'warps'/f'cam{cid:03d}'/f'src{source:03d}'
                 selected=local_labels==source
                 if not selected.any():continue
+                assert np.all(np.load(d/'valid.npy',mmap_mode='r')[selected]>0)
+                assert np.all(np.load(d/'score.npy',mmap_mode='r')[selected]<=config['max_score'])
                 photo=np.load(d/'rgb.npy',mmap_mode='r');texture[selected]=photo[selected]
                 if config['mode']=='single_source_model_residual':
                     model=np.load(root/'source_model_warps'/f'cam{cid:03d}'/f'src{source:03d}'/'rgb.npy',mmap_mode='r');model_texture[selected]=model[selected]
@@ -115,6 +139,7 @@ def freeze(root,name,warp_root,deep=False,require_single_source=False):
          uses_target_ground_truth_for_prediction=False,uses_target_evaluation_masks_for_prediction=False,
          uses_derived_source_foreground_masks='foreground' in str(warp_root),
          uses_classical_lookup_alignment='align' in str(warp_root) or bool(receipt.get('registration')),
+         single_source_sampling='native_pixel_footprint' if warp_root.resolve()==(root/'variants/area4').resolve() else 'point' if (warp_root/'warps').resolve()==(root/'warps').resolve() else 'other_variant',
          uses_source_model_residual=config.get('mode') in ['source_model_residual','single_source_model_residual'],
          code=inventory)
     write(candidate/'provenance.json',report)

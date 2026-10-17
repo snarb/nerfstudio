@@ -1,6 +1,6 @@
 # Frozen LookCloser + native photographs: Luster 000540
 
-Status: experiments in progress. Current single-source reference: `single_near4_full_s8`, **24.10%** native validation person LPIPS improvement, zero measured local LPIPS regressions. The 40% goal is not achieved.
+Status: experiments in progress. Current single-source reference: `single_scale16_s8`, **24.51%** native validation person LPIPS improvement, zero measured local LPIPS regressions. The 40% goal is not achieved.
 
 **Active user requirement (2026-10-17): fixed LookCloser geometry and exactly
 one native TRAIN photograph supplying texture per pixel/patch. No interpolation
@@ -8,6 +8,49 @@ of colors between photographs and no optical-flow texture-coordinate shifts.**
 All pair-interpolation and registration results below are historical ablations,
 not eligible final candidates. The single-source investigation supersedes their
 provisional reference status.
+
+## Current automatic recipe
+
+`single_scale16_s8` considers 16 automatically proposed TRAIN cameras. It keeps
+the median camera-z geometry and all visibility checks of the original frozen
+projection. In addition to angular distance, round-trip error and patch mismatch,
+it penalizes a large capture-scale mismatch by
+`0.3 * max(0, log2(source_resolution / target_resolution))`. The existing score
+already penalizes insufficient source resolution. This is a global recipe rule,
+not a camera blacklist or a manually selected face patch.
+
+The selected photo is `T`, the frozen render is `B`, and `G8` is a Gaussian
+low-pass operation normalized strictly within the selected-source patch.
+The merge is `B + w * [(T - G8(T)) - (B - G8(B))]`, clipped to [0,1].
+`w` fades over three pixels at source/support boundaries; otherwise it is one.
+No other photograph contributes RGB to that pixel. Rejected pixels are an exact
+copy of `B`. The code chooses both source labels and transfer support.
+
+| View | Baseline LPIPS | Hybrid LPIPS | Exact LookCloser preserved in person |
+|---|---:|---:|---:|
+| 007 | 0.06944436 | 0.06287702 | 19.53% |
+| 012 | 0.12492531 | 0.10576124 | 21.10% |
+| 095 | 0.12697524 | 0.08318930 | 8.72% |
+| 150 | 0.15322061 | 0.11689487 | 10.98% |
+
+Validation mean: LPIPS **0.10194847**, PSNR 28.345015, SSIM 0.89996771. No measured local LPIPS row regresses. The **40% goal remains unmet**.
+
+Visual inspection of eyes, skin, nails and embroidery found no obvious new
+seams or doubled contours in the reviewed crops. The existing eye shape,
+finger-edge halos and lace geometry remain limitations. More detail in a source
+is not by itself proof that its appearance fits the target view: the head
+close-up diagnostic is `C/preflight/eyes_source61_diagnostic.png`. This is an
+evaluation-only comparison, not an input to source selection.
+
+The mean-depth projection ablation (`single_mean4_s8`) converts the saved
+conditional mean ray distance to camera-z without changing model density or
+calibration. It gives 23.832% improvement and regresses cam150 embroidery, so
+the median-depth reference is retained. Both depth readouts come from LookCloser.
+
+Reproduce the current recipe using `scale_single_luster_hybrid.py`, its saved
+`C/candidates/single_scale16_s8/config.json`, and a new candidate name.
+The review exporter is `review_single_luster_hybrid.py`; it reads GT/ROIs only
+for comparisons after prediction. GPU evaluation remains sequential.
 
 ## What is being tested
 
@@ -40,7 +83,7 @@ checked before and after rendering.
 Source proposals use predicted surface coverage, angular distance and projected
 resolution. Warps use native JPEGs directly and check each nonzero bilinear tap,
 source/target alpha, depth disagreement, round-trip reprojection and projected
-depth-interval uncertainty. The current reference ranks four automatically
+depth-interval uncertainty. The current reference ranks sixteen automatically
 proposed cameras using angular/resolution cost, round-trip error and a weak
 patch appearance cost against LookCloser. Source selection is per pixel, with
 isolated assignments removed. A second photograph is not required. One selected
@@ -260,7 +303,7 @@ texture versus conflicting detail phase. Exact single-source reconstruction
 audit also passes for the rejected `single_residual_s8` experiment. These checks
 do not imply visual acceptance or completion of the 40% goal.
 
-## Current single-source reference: near-view priority
+## Earlier single-source reference: near-view priority
 
 `single_near4_full_s8` uses `single_source_luster_hybrid.py` with `count=4`,
 `match_weight=.25`, `match_limit=.06`, `gain=1`, and otherwise its defaults.
@@ -305,3 +348,78 @@ OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 "$PY" "$C/code/LookCloser/scripts/evalu
 Inputs are the verified frozen native geometry and photo warp caches described
 above. New names avoid overwriting historical results. GPU evaluation must be
 run after any other GPU campaign job finishes.
+
+## Near-view, patch-consistency and footprint ablations
+
+Automatic four-source selection remains the best locally safe reference.
+Additional sources introduce close-up head cameras with roughly 2.1 source
+pixels per target pixel. Footprint integration reduces some regressions, but
+does not make these sources safe. This is evidence against treating resolution
+or angular distance alone as a sufficient suitability criterion.
+
+| Candidate | Native person LPIPS reduction | Regressing rows |
+|---|---:|---:|
+| `single_near4_full_s8` | 24.098% | 0 |
+| `single_near4_area_s8` | 24.068% | 0 |
+| `single_near4_s8` | 19.045% | 0 |
+| `single_near4_s16` | 18.772% | 0 |
+| `single_near4_s32` | 18.326% | 0 |
+| `single_near16_area_s8` | 23.947% | 8 |
+| `single_near4_graph_s8` | 23.841% | 3 |
+| `single_near8_area_s8` | 23.727% | 8 |
+| `single_near16_full_s8` | 23.674% | 8 |
+| `single_consistent8_s8` | 23.530% | 8 |
+| `single_near4_full_s16` | 22.874% | 1 |
+| `single_near2_full_s8` | 22.759% | 1 |
+| `single_near16_s8` | 18.918% | 8 |
+| `single_near8_s8` | 18.750% | 8 |
+| `single_near4_direct` | 14.482% | 2 |
+| `single_near4_full_direct` | 13.169% | 6 |
+
+The patch-consistency variant compares projected TRAIN-photo structure with
+two corroborating sources. Witnesses supply only scalar costs; RGB is always
+from one selected source. It remains rejected because face LPIPS regresses.
+Graph regularization also remains rejected: smoother source labels alone did
+not protect eye detail. Twenty-five synthetic tests pass.
+
+## Automatic selection follow-up (2026-10-17 13:31 UTC)
+
+The best numerical scale-compatible candidate is now `single_scale16_match10`
+(25.169% improvement, LPIPS 0.10105200, no measured local LPIPS regression).
+Its visual review and final provenance audit are pending. The previously audited
+reference remains `single_scale16_s8` until those checks finish.
+
+| Controlled change from scale16/sigma8 | Validation LPIPS reduction | Local regressions |
+|---|---:|---:|
+| `single_scale16_s4` | 24.507% | 0 |
+| `single_scale16_s6` | 24.866% | 0 |
+| `single_scale16_s12` | 23.779% | 0 |
+| `single_scale16_support6` | 24.956% | 0 |
+| `single_scale16_geometry2` | 25.589% | 2 |
+| `single_scale32_s8` | 24.506% | 0 |
+| `single_scale16_match4` | 23.719% | 0 |
+| `single_scale16_match10` | 25.169% | 0 |
+
+The support-mass .6 candidate was visually checked on eyes, skin, hands,
+embroidery and whole-view previews; no obvious new seams or doubled contours
+were found, while original geometry defects remain. Looser geometric gates
+regress cam150 embroidery and are rejected.
+
+Both source-model residual variants regress nails/cuffs: the high-pass version
+gives 22.954% improvement with six regressions; full residual gives 20.370% with
+seven. Neither is accepted.
+
+Evaluation-only spatial LPIPS maps are saved under
+`C/evaluation/single_scale16_match10_spatial`. CPU map means differ slightly from
+the CUDA selection metrics and are diagnostic only. On cam012, about 35.2% of
+person pixels receive boundary-faded transfer and 22.4% retain LookCloser;
+on cam095/150 about 83% receive full-strength transfer. Most remaining error
+is inside the person, not confined to the silhouette. LPIPS receptive fields
+span neighborhoods, so these strata are not causal per-pixel error estimates.
+
+Next controlled investigations use locally eligible source proposals (including
+cameras missed by coverage votes), soft geometric-risk ranking, and alternative
+termination-depth statistics read from the exact same frozen LookCloser.
+The depth probe appends q25/q75/PDF-mode arrays and verifies the existing median
+readout and full model-state hash; it never changes the volume, calibration,
+grids or baseline. No experimental depth recipe is accepted in advance.

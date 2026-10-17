@@ -1758,3 +1758,14 @@ construction labels are saved to make selective-band output reconstructible.
 `single_residual_luster_hybrid.py` tests photo-minus-frozen-source-render detail,
 using exactly one photograph. These remain experimental; see the measured
 local regressions in the campaign report before considering any recipe accepted.
+
+Native hybrid recipe ablations also include TRAIN-only patch agreement costs, capture-scale compatibility for hard source selection, and a conditional-mean depth readout from the same frozen model. The latter changes only the projection readout and is currently rejected. `review_single_luster_hybrid.py` is evaluation-only; source-selection predictors do not import it. Export bundles include source-ID legends and exact baseline-preservation fractions.
+
+`expand_sources_luster_hybrid.py` proposes every TRAIN camera with locally
+eligible predicted surface coverage, without global coverage-vote truncation.
+Its isolated source manifest shares immutable geometry/warp caches with the
+campaign. `risk_single_luster_hybrid.py` tests soft reprojection-risk ranking.
+`probe_depth_luster_hybrid.py` appends alternative termination-depth statistics
+from unchanged ray weights and checks median reproduction and model hashes.
+`diagnose_luster_hybrid.py` is evaluation-only spatial LPIPS attribution; its
+target GT/masks never enter prediction.

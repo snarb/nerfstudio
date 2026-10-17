@@ -219,7 +219,7 @@ def test_band_boost_preserves_coarse_reference_at_zero_boost():
     np.testing.assert_array_equal(result[w==0],base[w==0])
 
 
-@pytest.mark.parametrize('module',['single_source_luster_hybrid','graph_single_luster_hybrid'])
+@pytest.mark.parametrize('module',['single_source_luster_hybrid','graph_single_luster_hybrid','scale_single_luster_hybrid'])
 def test_automatic_single_source_selection_and_occlusion_fallback(tmp_path,monkeypatch,module):
     """A full predictor run must select one photo and reject a depth-occluded strip."""
     import importlib
@@ -285,3 +285,25 @@ def test_missing_bands_keep_existing_geometry_phase_and_admit_new_texture():
     np.testing.assert_array_equal(changed[weight==0],flat[weight==0])
     wrong,weight=merge_missing(flat+pattern,flat-pattern*2,labels,DEFAULT)
     np.testing.assert_allclose(wrong[25:55,25:55],(flat+pattern)[25:55,25:55],atol=1e-6)
+
+
+def test_photo_patch_agreement_rejects_phase_conflicts_and_missing_support():
+    from patch_consistency_luster_hybrid import agreement
+    y,x=np.mgrid[:40,:40]
+    texture=np.repeat((.1*np.sin(x))[...,None],3,axis=-1).astype(np.float32)
+    valid=np.ones((40,40),bool)
+    assert agreement(texture,texture,valid).max()==0
+    assert agreement(texture,-texture,valid)[10:30,10:30].mean()>1.9
+    assert np.isinf(agreement(texture,texture,np.zeros_like(valid))).all()
+    flat=np.zeros_like(texture)
+    assert agreement(flat,flat,valid).max()==0
+
+
+def test_surface_mode_uses_pdf_density_not_largest_bin_mass():
+    from probe_depth_luster_hybrid import packed_mode
+    rays=Rays(nears=torch.tensor([[2.],[2.]]),fars=torch.tensor([[12.],[12.]]))
+    out=dict(packed_ray_indices=torch.tensor([0,0]),packed_weights=torch.tensor([[.2],[.79]]),
+             packed_spacing_starts=torch.tensor([[.1],[.3]]),packed_spacing_ends=torch.tensor([[.101],[.8]]))
+    got=packed_mode(out,rays)
+    assert abs(got[0].item()-3.)<1e-6
+    assert torch.isnan(got[1])
