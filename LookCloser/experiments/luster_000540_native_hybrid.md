@@ -1,14 +1,14 @@
 # Frozen LookCloser + native photographs: Luster 000540
 
 Status: experiments in progress. New measured candidate
-`single_source_contradiction400_seam` reaches **29.6216%** lower native validation
-LPIPS without named ROI regressions, but remains visually unaccepted. Its deeper
-confidence-dependency audit has passed. Cam007 is slightly worse than the
-previous recipe; see the comparison below. The current audited/exported reference is
-`single_cubic_eligible_phase_rt2_seam`, **29.5715%** lower native validation LPIPS,
-still not visually accepted. This candidate is now deeply audited and exported.
-The previous **29.5623%** reference remains available separately. All predefined
-named ROI LPIPS checks pass, but smaller patches still show local degradation.
+`single_source_contradiction400_once_seam` reaches **29.6760%** lower native
+validation LPIPS without named ROI regressions, but is visually unaccepted.
+Its deep independent audit passed (`logs/audit_contradiction_once.log`).
+Cam007 is slightly worse than the
+current audited/exported reference `single_cubic_eligible_phase_rt2_seam`,
+**29.5715%** lower native validation LPIPS, also not visually accepted. The
+previous **29.5623%** reference remains available separately. Smaller patches
+still show local degradation despite passing predefined named ROI averages.
 **Not visually accepted; the 40% goal is not achieved.**
 
 **Active user requirement: fixed LookCloser geometry and exactly one native
@@ -1569,3 +1569,135 @@ photo plus frozen LookCloser. No region/camera-specific settings are used.
 86 tests pass, including flat/parallel/transverse/rotation behavior and bitwise
 reference seam identity with zero attenuation. This experimental merge mode
 has not yet been independently audited for export.
+
+## 2026-10-17 18:40 UTC — robust consensus, cleanup and strength outcomes
+
+All eight canonical GPU evaluations completed sequentially. No candidate is
+visually accepted. Best mean validation LPIPS with no named ROI regressions is
+now **.0949657410 (29.6760439% reduction)**, obtained by removing the redundant
+second median cleanup from the contradiction-400 recipe. This is a small
++.0544 percentage-point gain over that parent, not resolution of the visual
+limitations and not achievement of the 40% goal.
+
+| Variant | Validation LPIPS | Reduction | Named ROI regressions |
+|---|---:|---:|---|
+| All-witness median agreement .5 | .0952906286 | 29.4355% | cam012 nails +.00075625 |
+| All-witness median contradiction 2 | .0950800677 | 29.5914% | none |
+| Reference, one cleanup pass | .0950383991 | 29.6222% | none |
+| Contradiction 400, one cleanup pass | .0949657410 | 29.6760% | none |
+| Current gain .85 | .0982208128 | 27.2656% | none |
+| Current gain .95 | .0956317882 | 29.1828% | none |
+| Middle-band orientation attenuation .5 | .0951041877 | 29.5735% | none |
+| Middle-band orientation attenuation 1 | .0951025362 | 29.5747% | none |
+
+Median agreement still harms a predefined nail region and is rejected. Its
+one-sided alternative does not beat the source-native contradiction recipe.
+The no-plate one-pass control outperforms the corresponding one-pass plate
+variants, confirming that the earlier small plate gain was a cleanup confound.
+Conservative gain loses useful detail. Middle-band orientation attenuation has
+negligible mean effect and does not remove fine jagged fold contours, as seen
+in `evaluation/edge_orientation_cam007_reference_tiles.png` (GT / LookCloser /
+reference / .5 / 1, identical fixed evaluation tiles).
+
+The new numerical candidate is `single_source_contradiction400_once_seam`.
+Native and worst-tile panels for all four views have been reviewed. Irregular
+dark folds, jewelry/silhouette mismatch, hair/background strips and incorrect
+lace structure remain. Status: **not_accepted_local_detail_degradation**.
+Cam007 LPIPS is .0657562762, still slightly worse than the downloadable
+cubic-eligible phase reference (.0655674562), though better than LookCloser.
+The unchanged checkpoint and q50 geometry cannot supply missing nail visibility
+or correct finger/eye/pendant geometry through texture transfer alone.
+
+| Camera | Hybrid LPIPS | PSNR | SSIM |
+|---|---:|---:|---:|
+| 007 | 0.0657562762 | 31.222990 | 0.91437651 |
+| 012 | 0.0985727832 | 27.879484 | 0.87479757 |
+| 095 | 0.0781324282 | 29.239752 | 0.90824636 |
+| 150 | 0.1081920117 | 27.907913 | 0.91512796 |
+
+Validation mean PSNR 28.34238307, SSIM 0.8993906312.
+
+Exact LookCloser preservation within the evaluated person is 11.6273% / 13.9131%
+/ 6.3098% / 8.4976% for cameras 7/12/95/150. Spatial LPIPS diagnostic maps use
+CPU and differ slightly from the canonical CUDA metrics above; neighboring
+receptive fields can change LPIPS at an exactly preserved pixel.
+
+The new recipe differs from the exported reference by (a) adding only the
+negative-correlation portion of source-native TRAIN confidence, weight 4,
+and (b) retaining exactly one source-label cleanup pass. Reproduce using the
+verified caches and fresh output names:
+
+```bash
+C=/fsx/tmp/luster_000540_hybrid_20261017T104440Z
+PY=/home/pavlo/.conda/envs/nerfstudio/bin/python
+S="$C/code/LookCloser/scripts"
+export OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4
+"$PY" "$S/source_contradiction_rank_luster_hybrid.py" --root "$C" --name reproduce_contradiction --config "$C/candidates/single_source_contradiction400/config.json"
+"$PY" "$S/cubic75_once_luster_hybrid.py" --root "$C" --parent reproduce_contradiction --name reproduce_once_cubic
+"$PY" "$S/fixed_sampling_seam_luster_hybrid.py" --root "$C" --parent reproduce_once_cubic --name reproduce_once_seam --filter-support geometry --seam-fade 3 --adaptive-seam --seam-tolerance .02
+"$PY" "$S/evaluate_luster_hybrid.py" --root "$C" --candidate reproduce_once_seam --device cuda
+"$PY" "$S/freeze_luster_hybrid_candidate.py" --root "$C" --name reproduce_once_seam --warp-root "$C/variants/cubic75" --deep --require-single-source
+```
+
+87 tests pass. The deep independent reconstruction/dependency audit passed
+(`logs/audit_contradiction_once.log`), including source exclusion, finite output
+and exact fallback. This new candidate has not been exported. The prior verified download remains
+available with its explicit unaccepted visual status.
+
+
+## 2026-10-17 18:49 UTC — current source-potential diagnostic
+
+`evaluate_current_source_potential_luster.py` now evaluates each admissible
+single source with the current geometry-supported seam merge rather than the
+older label-normalized filter. It never saves a GT-selected image or label map.
+The existing baseline/current candidate participate in the diagnostic minimum.
+
+| Evaluation-only comparison | Mean spatial LPIPS-map value |
+|---|---:|
+| Baseline | .1350403999 |
+| Current candidate | .0949657584 |
+| Pointwise minimum across independent source predictions | .0771463749 |
+| 32px tile minimum | .0797169230 |
+| 64px tile minimum | .0824680288 |
+| 128px tile minimum | .0855066279 |
+| 256px tile minimum | .0883754954 |
+
+**These are incompatible image-neighborhood minima, not hybrid image metrics,
+not achievable gains, and not a rigorous lower bound.** They do not establish
+that 40% can be reached. Their role is to show that current source choice still
+has heterogeneous errors, while large-patch selection alone is unlikely to
+provide the needed change. Only a GT-free construction followed by full-image
+canonical evaluation can establish progress.
+
+A further evaluation-only diagnostic measures native photo gradient dotted
+with the unchanged projection Hessian. Unlike raw projection curvature, this
+captures whether distortion crosses an image edge or follows an isophote.
+It never changes geometry or lookup coordinates. All 87 focused tests pass,
+including analytic directional curvature, invalid neighborhoods and native
+bilinear gradient sampling. Association results below do not support a universal rejection threshold.
+
+
+## 2026-10-17 18:55 UTC — directional photo uncertainty experiment
+
+Photo-weighted projection curvature is not a reliable rejection rule: on cam007
+coherent edges the lowest bin already has mean LPIPS delta +.00346, while larger
+values are not monotonically worse. All bins of the three validation views
+still improve on average (cam150 high values improve especially strongly).
+Therefore no construction veto was added from this diagnostic. See
+`evaluation/single_cubic_eligible_phase_rt2_seam_photometric_curvature/summary.json`.
+
+A distinct physical cue is now tested as a ranking penalty: native RGB
+sensitivity to the frozen q10-q90 depth interval. At unchanged q50 coordinates,
+compute native G1 photo gradients and their dot product with half the q10-q90
+projection span. The cost is log1p(RGB RMS / .01). This distinguishes displacement
+across a texture edge from displacement along it. q10/q90 supply scalar confidence
+only; output texture still uses exactly the q50 lookup and one native photo.
+Unknown/nonfinite samples get a large penalty, not a confidence reward.
+
+`photometric_depth_risk_luster_hybrid.py` caches this feature;
+`photometric_depth_rank_luster_hybrid.py` adds global weight .25 or 1 to the
+contradiction-400 ranker. One cleanup pass and the current geometry-supported
+seam merge are held fixed. No target GT, mask, manual patch or source assignment
+enters construction. `run_photometric_depth_luster.py` serializes canonical GPU
+evaluation. Results are pending. All **88 tests pass**, including directional
+sensitivity, scale/axis invariance and unknown/flat behavior.

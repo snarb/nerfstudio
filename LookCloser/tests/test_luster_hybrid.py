@@ -1210,3 +1210,36 @@ def test_orientation_zero_attenuation_preserves_reference_seams_bitwise():
     actual,actual_weight=assemble(base,deltas,supports,labels,config)
     np.testing.assert_array_equal(actual,expected)
     np.testing.assert_array_equal(actual_weight,weight)
+
+
+def test_photometric_curvature_distinguishes_gradient_direction_without_fitting():
+    from photometric_curvature_luster_hybrid import sensitivity,sample_vector
+    yy,xx=np.mgrid[:32,:32];valid=np.ones((32,32),bool)
+    uv=np.stack([xx+.02*yy**2,yy],-1).astype(np.float32)
+    grad=np.zeros_like(uv);grad[...,1]=1
+    value,known=sensitivity(uv,grad,valid)
+    np.testing.assert_allclose(value[known],0,atol=1e-6)
+    grad[...,0]=.5;grad[...,1]=0
+    value,known=sensitivity(uv,grad,valid)
+    np.testing.assert_allclose(value[known],.02,atol=5e-6)
+    valid[16,16]=False
+    value,known=sensitivity(uv,grad,valid)
+    assert not known[15:18,15:18].any()
+    identity=np.stack([xx,yy],-1).astype(np.float32)
+    sampled,inside=sample_vector(identity,np.array([[[2.25,4.5],[31,31],[-1,2]]],np.float32))
+    np.testing.assert_array_equal(inside,[[True,True,False]])
+    np.testing.assert_allclose(sampled[0,:2],[[2.25,4.5],[31,31]],atol=1e-6)
+
+
+def test_photometric_depth_risk_direction_and_unknown():
+    from photometric_depth_risk_luster_hybrid import directional_cost
+    gradient=np.zeros((2,3,2),np.float32);gradient[:,:,0]=.02
+    span=np.array([[0.,2.],[2.,0.]],np.float32)
+    cost=directional_cost(gradient,span,np.ones(2,bool))
+    assert cost[0]==0 and np.isclose(cost[1],np.log(3))
+    assert np.allclose(cost,directional_cost(gradient/2,span*2,np.ones(2,bool)))
+    assert np.allclose(cost,directional_cost(gradient[...,::-1],span[...,::-1],np.ones(2,bool)))
+    span[0]=np.nan
+    assert directional_cost(gradient,span,np.array([False,True]))[0]==1e6
+    flat=np.zeros_like(gradient)
+    assert directional_cost(flat,span,np.array([False,True]))[1]==0

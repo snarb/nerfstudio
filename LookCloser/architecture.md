@@ -1998,3 +1998,19 @@ projection curvature; they do not change construction. Separately,
 to G2-G6 detail, preserving the finest band and exact coordinates. It uses
 scalar gradient tensors, no flow or displacement, with unchanged one-photo RGB
 and actual-correction seam checks. Experimental, not yet export-audited.
+
+
+`photometric_curvature_luster_hybrid.py` measures scalar native-photo gradient
+sensitivity to the Hessian of unchanged frozen-depth projection.
+`diagnose_photometric_curvature_luster_hybrid.py` relates it to spatial LPIPS
+strictly for evaluation; it emits no construction gates, labels or RGB.
+`evaluate_current_source_potential_luster.py` evaluates independent source
+predictions with geometry-supported seam merging. Diagnostic minima across
+incompatible neighborhoods are never exported as hybrid metrics or labels.
+
+
+`photometric_depth_risk_luster_hybrid.py` uses native G1 RGB gradients dotted
+with the frozen q10-q90 projected span to penalize uncertain photo appearance.
+Only q50 supplies final texture coordinates. `photometric_depth_rank_luster_hybrid.py`
+adds this scalar cost to hard single-source ranking; the runner controls two
+global weights with one label cleanup and sequential canonical GPU evaluation.
