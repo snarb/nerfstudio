@@ -916,3 +916,31 @@ one selected photo. Adaptive seams are checked against the actual admitted
 correction. Geometry and photo coordinates remain unchanged. No target GT or
 masks enter prediction. Three cases are queued after phase-weight refinement;
 56 focused tests pass. These are unmeasured hypotheses, not accepted improvements.
+
+
+## Completed sampling, point-view and witness checks (2026-10-17 16:14 UTC)
+
+| Isolated variant | Validation LPIPS | Reduction | Predefined ROI regressions |
+|---|---:|---:|---:|
+| Lanczos3 + adaptive seams, fixed risk labels | .0962866768 | 28.6979% | 0 |
+| Same-point frozen directional color, gain .5 | .0974701196 | 27.8215% | 3 |
+| Same-point frozen directional color, gain 1 | .1030412416 | 23.6960% | 12 |
+| Witness restoration-benefit ranking, weight .5 | .0961207549 | 28.8207% | 0 |
+| Witness restoration-benefit ranking, weight 1.5 | .0954305728 | 29.3318% | 5 |
+
+Lanczos differs negligibly from its same-label cubic-.75 adaptive-seam comparator
+(.0962912962). The interpolation filter is not the primary limitation in this
+comparison. It does not beat the phase-ranked reference and remains unselected.
+
+Both point-view variants are rejected. The exact frozen checkpoint loaded;
+density was identical under direction changes and the complete state hash was
+unchanged for all four cameras. Nevertheless, correcting photo RGB with the
+field's directional difference worsens local details. Gain 1 was inspected on
+cam012 skin/face and cam007 eyes: fine mottling and softer eye structure appear.
+Correct immutable inference alone is not evidence of useful texture correction.
+
+The stronger witness-benefit rank nearly matches the leader's person average,
+but regresses cam007 face/eyes/hair/jewelry and cam012 nails. It is rejected.
+The .5 rank is weaker than the current reference. These findings favor retaining
+source-model structural compatibility, rather than relying only on agreement
+between TRAIN photos. No model, geometry, grid or calibration was changed.
