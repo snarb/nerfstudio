@@ -1164,3 +1164,47 @@ All four worst-tile panels, cam007 eyes/nails, and source panels cam007 nails
 and cam150 embroidery were inspected. The middle-band structure-admission
 start-.5 variant has the same visible fold problems on inspected cam007/150
 panels and is also not visually accepted.
+
+## Native hands/nails source evidence (17:11 UTC)
+
+`review_native_sources_luster_hybrid.py` exports untouched native photo crops
+for the three largest existing source-label counts in each nails ROI. It also
+saves projected-sample masks and source-image SHA256 hashes. ROI boxes only
+locate diagnostic crops and never change prediction/source selection.
+
+Actual selected source crops were inspected for cam007, cam095 and cam150.
+Some are visibly soft; these ROIs also include palm/finger sides and do not
+isolate visible nail plates. The top sources are cam006/008/023 for cam007,
+cam096/094/025 for cam095 and cam093/092/094 for cam150.
+
+The separate `diagnose_source_resolution_luster_hybrid.py` checks all existing
+original-warp candidates inside the ROI using the reference visibility gates.
+This is evaluation-only, restricted to the cached source pool, and uses the
+bilinear footprint rather than claiming final cubic eligibility.
+
+| Target | Best available native projected scale in the checked ROI | Coverage observation |
+|---|---:|---|
+| 007 | 3.15–3.30 | Each close-up camera covers only .42–2.94% of this ROI |
+| 012 | 1.14 | cam027 passes geometry on 53.47% of the ROI |
+| 095 | 1.39–1.40 | cam156/157 cover only 3.87%/1.64% |
+| 150 | .71–.73 | Geometrically allowed sources sample below target-native scale |
+
+Source-scale means focal/depth native sampling ratio, not measured optical
+sharpness. Cam120/121/123/124 full-photo previews confirm that these close-ups
+frame the head and upper torso; their larger scale is not evidence of full
+hand/nail coverage. No manual source override was made. Detailed records are
+`evaluation/nails_source_sampling.json` and the candidate's
+`sources/native_source_crops.json` (directory suffix `_sources`).
+
+Verified diagnostic supplement: 2388996 bytes, 39 checked members, SHA256
+`ca48598bc960b42b72cd950bca7eb38b8d8f36f1bf3cf9fd5cecf392d0c13ad9`.
+
+```bash
+scp olive-lark:/fsx/tmp/luster_000540_hybrid_20261017T104440Z/exports/native_selected_nails_cubic_eligible.tar.gz .
+```
+
+Independent source-surface confidence caches are prepared on three CPU workers
+with their sequential owner temporarily stopped. The owner's incomplete
+cache is excluded, and a finally block resumes it. GPU evaluation still waits
+for the whole source-surface campaign before the census campaign. This changes
+execution scheduling only, not calculations or immutable generator code.
