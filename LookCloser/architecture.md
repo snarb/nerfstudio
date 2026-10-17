@@ -1963,3 +1963,10 @@ using source q50 depth at the unchanged projected coordinate. It supplies only
 a scalar source cost; `cycle_rank_luster_hybrid.py` adds it to current phase and
 cubic-eligible costs. No RGB, registration or geometric fitting enters this cue.
 `run_cycle_luster.py` serializes its evaluations after the previous GPU owner.
+
+Positive broad-band witnesses: `broad_witness_luster_hybrid.py` keeps the current
+automatic cubic source labels and adds G6-G16 correction only with positive
+TRAIN restoration evidence. At least two opposite-side witnesses are required;
+the median of all available utilities controls a scalar gate. Witness RGB
+never enters the output. Source-specific geometric support and actual-delta
+seam checks remain enforced. Experimental merge mode; not audited for export.

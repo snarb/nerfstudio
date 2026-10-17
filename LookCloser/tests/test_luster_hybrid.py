@@ -860,6 +860,30 @@ def test_cycle_cache_identity_resume_and_input_binding(tmp_path,monkeypatch):
     with np.testing.assert_raises(AssertionError):module.quality(tmp_path,7,8)
 
 
+def test_broad_witness_requires_positive_corroboration_and_two_distinct_witnesses():
+    from broad_witness_luster_hybrid import restoration_utility,witness_median,positive_gate,split_bands
+    from transfer_luster_hybrid import gaussian
+    yy,xx=np.mgrid[:64,:64];delta=np.repeat((.04*np.sin(xx/5))[...,None],3,-1).astype(np.float32)
+    support=np.ones((64,64),bool)
+    good,known=restoration_utility(delta,delta,support)
+    bad,_=restoration_utility(delta,-delta,support)
+    flat,_=restoration_utility(np.zeros_like(delta),delta,support)
+    assert good[known].min()>.98 and bad[known].max()<-.59
+    np.testing.assert_allclose(flat,0)
+    utility,count=witness_median(np.stack([good,bad,good]),np.stack([known,known,known]))
+    assert utility.min()>.98 and (count==3).all()
+    one,count=witness_median(np.stack([good,bad]),np.stack([known,np.zeros_like(known)]))
+    assert not one.any() and not positive_gate(one,count,support,.25).any()
+    gate=positive_gate(utility,np.full(count.shape,3),support,.25)
+    assert gate[8:-8,8:-8].min()>.97
+    support[24:32]=False
+    gate=positive_gate(utility,np.full(count.shape,3),support,.25)
+    assert not gate[23:33].any()
+    support[:]=True
+    fine,broad,mass=split_bands(delta,support)
+    np.testing.assert_allclose(fine+broad,delta-gaussian(delta,16),atol=1e-8)
+
+
 def test_plate_merge_excludes_rejected_color_from_neighbor_filters(tmp_path,monkeypatch):
     import exact_plate_merge_luster_hybrid as module
     from freeze_luster_hybrid_candidate import verify_plate_merge

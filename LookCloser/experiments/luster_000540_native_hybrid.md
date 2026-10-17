@@ -1408,3 +1408,24 @@ this geometric cue. Native depth bilinear sampling requires every active tap.
 The added tests cover constant-offset invariance, affine distortion, invalid
 neighborhoods, exact boundary samples, cache resumption and altered-input
 rejection. **77 tests pass.** The GPU evaluations wait for the plate experiment.
+
+## 2026-10-17 18:03 UTC — positive broader-band restoration evidence
+
+The coherent .05 variant was visually inspected at cam007/cam150 worst patches;
+altered cloth-fold contrast and lace mismatch remain, so it is not accepted.
+The refreshed scoreboard contains 163 measured single-source candidates and
+zero visually accepted candidates.
+
+A new experiment keeps the cubic-eligible phase reference's source labels and
+fine detail unchanged, then admits additional G6-G16 detail only on positive
+TRAIN evidence. A candidate correction T_i,band - B_target,band is compared
+against each opposite-side witness residual T_j,band - B_j,band. RGB patch MSE
+improvement over zero correction supplies utility, not output color. At least
+two distinct usable witnesses are required; the median of all usable utilities
+controls a gate, with thresholds .25 and .60. A 3x3 minimum prevents positive
+confidence from spreading into unsupported neighbors. Missing evidence admits
+no extra band. Filtering retains each source's own geometric support, and seams
+are checked on the final correction. The test is distinct from the earlier
+model-phase-only bandwidth extension and suppression of existing fine bands.
+78 tests pass, covering positive/negative/zero restoration, witness quorum,
+invalid support and exact band decomposition. Evaluation waits for cycle tests.
