@@ -2075,3 +2075,10 @@ confidence proxy, not a new model or geometry estimator.
 spatial LPIPS association with the signed native-witness utility cost, including
 separate positive-benefit and negative-benefit bins. It emits no prediction,
 source labels or confidence thresholds.
+
+`current_full_texture_luster_hybrid.py` keeps the current depth-risk-ranked
+single-source labels and q50 cubic samples, and admits a global fraction of
+the same photograph's G6 low-frequency difference. Zero is the existing detail
+merge; one is literal full texture. Actual admitted corrections determine seam
+compatibility. The runner compares .25/1 after prior GPU work; this is an
+experimental control, not an accepted change to the default recipe.

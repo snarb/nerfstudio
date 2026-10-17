@@ -1387,3 +1387,33 @@ def test_witness_native_median_quorum_and_signed_restoration():
     useful,known=restoration_utility(truth,truth,baseline,support)
     harmful,known_bad=restoration_utility(-truth,truth,baseline,support)
     assert useful[known].min()>.9 and harmful[known_bad].max()<-.7
+
+
+def test_current_full_texture_matched_detail_and_literal_photo_endpoints():
+    from current_full_texture_luster_hybrid import correction
+    from band_witness_luster_hybrid import assemble
+    from seam_single_luster_hybrid import merge
+    rng = np.random.default_rng(31)
+    shape = (40, 48)
+    base = rng.uniform(.25, .75, (*shape, 3)).astype(np.float32)
+    photo = rng.uniform(.1, .9, (*shape, 3)).astype(np.float32)
+    labels = np.full(shape, 6, np.int16)
+    labels[:, :5] = -1
+    support = np.ones(shape, bool)
+    config = dict(filter_support='labels', sigma=6., adaptive_seam=False,
+                  seam_fade=3., gain=1., seam_tolerance=.02)
+    # One source: reference merge and actual-correction assembly are identical.
+    chosen = labels == 6
+    delta = correction(base, photo, chosen, 6., 0.)
+    actual, weight = assemble(base, {6: delta}, {6: chosen}, labels, config)
+    expected, expected_weight = merge(base, [(6, {'rgb': photo})], labels, config)
+    np.testing.assert_array_equal(actual, expected)
+    np.testing.assert_array_equal(weight, expected_weight)
+    full = correction(base, photo, support, 6., 1.)
+    np.testing.assert_array_equal(full, photo - base)
+    result, weight = assemble(base, {6: full}, {6: support}, labels, config)
+    np.testing.assert_allclose(result[weight == 1], photo[weight == 1], atol=6e-8)
+    np.testing.assert_array_equal(result[weight == 0], base[weight == 0])
+    zero = correction(base, photo, support, 6., 0.)
+    quarter = correction(base, photo, support, 6., .25)
+    np.testing.assert_allclose(quarter, .75 * zero + .25 * full, atol=1e-7)

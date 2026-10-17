@@ -2161,3 +2161,25 @@ The best audited numerical candidate remains the exported 29.8247% depth-risk
 variant, still visually unaccepted. The native-WITNESS-frame experiment is the
 only remaining active construction/evaluation runner; it supplies two new
 TRAIN-only confidence recipes. The 40% goal remains unmet.
+
+
+### 20:08 UTC — full texture with current source labels, controlled experiment
+
+Earlier literal full-photo transfers used old near-four-camera or patch labels;
+the view-illumination direct control also used an older cubic source recipe.
+They do not answer whether the current source ranking makes broad photograph
+appearance useful. A separate control now keeps the depth25 candidate's labels,
+q50 geometry, cubic sampling, geometric support, and single cleanup unchanged.
+
+For selected photo T and frozen render B, the correction is
+`(T-G6T)-(B-G6B) + lambda*(G6T-G6B)`, where all filters use that source's
+geometric support. Lambda=.25 adds a quarter of the broad difference; lambda=1
+is exactly T-B. Source seam compatibility tests this actual correction. No
+other photograph supplies RGB, and no evaluation image supplies any decision.
+The output still falls back exactly to B outside admitted transfer.
+
+`run_current_full_texture_luster.py --root C --wait-pids 693218` constructs the
+two controls on CPU and waits for the native-witness controller before CUDA
+evaluation. The focused suite now passes 98 tests, including matched zero-gain
+detail algebra, the literal-photo endpoint, and exact no-transfer fallback.
+Results and visual acceptance are pending; neither control is a new default.
