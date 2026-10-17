@@ -1429,3 +1429,19 @@ are checked on the final correction. The test is distinct from the earlier
 model-phase-only bandwidth extension and suppression of existing fine bands.
 78 tests pass, covering positive/negative/zero restoration, witness quorum,
 invalid support and exact band decomposition. Evaluation waits for cycle tests.
+
+## 2026-10-17 18:09 UTC — isolate plate veto and retune global color cost
+
+A source-label extent diagnostic found that the initial plate merge omitted the
+reference's second median label-island removal (inside the cubic stage). Its
+0.15–0.38% newly transferred person pixels therefore cannot be attributed to the
+plate veto. The initial variants remain valid single-source constructions, but
+are a compound change. `run_exact_plate_matched_luster.py` now runs the same
+cubic stage before the plate-supported merge, preserving both reference median
+passes. These matched controls isolate the source/background evidence. The
+diagnostic is `evaluation/plate10_change_extent.json`; it never enters construction.
+
+Separately, `run_phase_match_luster.py` tests global photometric cost weights
+.5, 1 and 2 on the current cubic-eligible phase recipe (reference .25). This
+retunes an existing code parameter after structural costs changed; it does not
+introduce per-view or per-region decisions. All GPU evaluations remain serial.

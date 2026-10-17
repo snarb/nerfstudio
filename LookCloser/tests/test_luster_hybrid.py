@@ -884,6 +884,27 @@ def test_broad_witness_requires_positive_corroboration_and_two_distinct_witnesse
     np.testing.assert_allclose(fine+broad,delta-gaussian(delta,16),atol=1e-8)
 
 
+def test_broad_zero_gate_reproduces_reference_seams_exactly():
+    from broad_witness_luster_hybrid import split_bands
+    from band_witness_luster_hybrid import assemble
+    from seam_single_luster_hybrid import merge
+    rng=np.random.default_rng(25);base=rng.uniform(.25,.75,(32,32,3)).astype(np.float32)
+    labels=np.full((32,32),8,np.int16);labels[:,16:]=9;labels[:4]=-1
+    config=dict(alpha=.99,depth_error=.005,roundtrip=1.,uncertainty=2.,max_score=1.,
+        min_resolution=.5,sigma=6.,gain=1.,filter_support='geometry',adaptive_seam=True,seam_tolerance=.02,seam_fade=3.)
+    records=[];deltas={};supports={}
+    for cid in [8,9]:
+        a={k:np.ones((32,32),np.float32) for k in ['valid','alpha','resolution_ratio']}
+        a.update({k:np.zeros((32,32),np.float32) for k in ['depth_error','roundtrip','uncertainty','score']})
+        a['rgb']=rng.uniform(.25,.75,base.shape).astype(np.float32);support=a['valid']>0
+        p,_,_=split_bands(a['rgb'],support);b,_,_=split_bands(base,support)
+        records.append((cid,a));deltas[cid]=p-b;supports[cid]=support
+    expected,weight=merge(base,records,labels,config)
+    actual,actual_weight=assemble(base,deltas,supports,labels,config)
+    np.testing.assert_array_equal(actual,expected)
+    np.testing.assert_array_equal(actual_weight,weight)
+
+
 def test_plate_merge_excludes_rejected_color_from_neighbor_filters(tmp_path,monkeypatch):
     import exact_plate_merge_luster_hybrid as module
     from freeze_luster_hybrid_candidate import verify_plate_merge
