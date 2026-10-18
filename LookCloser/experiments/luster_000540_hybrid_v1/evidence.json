@@ -1,0 +1,121 @@
+{
+  "candidate": "single_patch_eligibility_match10_seam",
+  "artifacts": {
+    "cam007_face_preview.jpg": {
+      "original_path": "/fsx/tmp/luster_000540_hybrid_20261017T104440Z/evaluation/single_patch_eligibility_match10_seam/cam007_face_preview.jpg",
+      "sha256": "bb53e4d9f54b79b408b78149b32aaab788d56a6208144716e6fac26bd2389809"
+    },
+    "cam150_embroidery_preview.jpg": {
+      "original_path": "/fsx/tmp/luster_000540_hybrid_20261017T104440Z/evaluation/single_patch_eligibility_match10_seam/cam150_embroidery_preview.jpg",
+      "sha256": "73f2473e5075c6352f38e6ca1e132cc5b271c8026f6645d736d76c01e11e233b"
+    },
+    "cam007_fixed_regressions.png": {
+      "original_path": "/fsx/tmp/luster_000540_hybrid_20261017T104440Z/evaluation/bracket_patch_reference_tiles/single_patch_eligibility_match10_seam/cam007.png",
+      "sha256": "a95cb6fdbf163dca848dbf7d4f095865e86126059ee95965887e34fda31fd69c"
+    },
+    "hybrid_metrics.json": {
+      "original_path": "/fsx/tmp/luster_000540_hybrid_20261017T104440Z/evaluation/single_patch_eligibility_match10_seam_metrics.json",
+      "sha256": "fef003e0afab85f024afc12a19a4a847274751e72f14b40eb5da77968d8795e1"
+    },
+    "baseline_metrics.json": {
+      "original_path": "/fsx/tmp/luster_000540_hybrid_20261017T104440Z/evaluation/baseline_metrics.json",
+      "sha256": "8b603743da9459fd6e1a5042bf864b196c3d308c54d2c674d27a5ea7538c4a00"
+    }
+  },
+  "sources": {
+    "7": [
+      8,
+      6,
+      23,
+      24,
+      22,
+      61,
+      9,
+      5,
+      60,
+      39,
+      59,
+      62,
+      123,
+      25,
+      124,
+      91
+    ],
+    "12": [
+      11,
+      13,
+      28,
+      27,
+      29,
+      71,
+      70,
+      10,
+      14,
+      44,
+      137,
+      136,
+      69,
+      72,
+      26,
+      101
+    ],
+    "95": [
+      96,
+      153,
+      154,
+      94,
+      130,
+      155,
+      156,
+      129,
+      152,
+      97,
+      131,
+      93,
+      151,
+      25,
+      41,
+      132
+    ],
+    "150": [
+      151,
+      93,
+      94,
+      148,
+      92,
+      126,
+      147,
+      127,
+      91,
+      40,
+      41,
+      154,
+      24,
+      90,
+      96,
+      129
+    ]
+  },
+  "native_outputs": {
+    "7": {
+      "path": "/fsx/tmp/luster_000540_hybrid_20261017T104440Z/candidates/single_patch_eligibility_match10_seam/cam007.png",
+      "sha256": "a610b4ff5a9cabae631b77ea305e17b182b2d3894da27d5120081d26c2fdba75",
+      "receipt_sha256": "8c7c9aed8e2b103d08c206b0931d7e63b6d04139690f658f9025deef008012d3"
+    },
+    "12": {
+      "path": "/fsx/tmp/luster_000540_hybrid_20261017T104440Z/candidates/single_patch_eligibility_match10_seam/cam012.png",
+      "sha256": "211eca06377df162e88319ecd3f0b3f7a20db0a90bd29705509a52dbe1cf66f4",
+      "receipt_sha256": "0678d09429ac417e1fe3eb7eba6dad85c82351ad58c04bb2cd946bca18f8b7cd"
+    },
+    "95": {
+      "path": "/fsx/tmp/luster_000540_hybrid_20261017T104440Z/candidates/single_patch_eligibility_match10_seam/cam095.png",
+      "sha256": "748d43840403384ee684d967539e28b89477a7489622814ddc05e6dc8fa9fc12",
+      "receipt_sha256": "50b3c52630f5c96b98ac1fb9b17b60bb779367675d358485b843dea241b645a9"
+    },
+    "150": {
+      "path": "/fsx/tmp/luster_000540_hybrid_20261017T104440Z/candidates/single_patch_eligibility_match10_seam/cam150.png",
+      "sha256": "5454c3cc6d347a1fb58dbfb8d6c8cffb1a687a91c62de888c0e8df47668200b3",
+      "receipt_sha256": "9790d87c86279c7a1744ea7d3a8707b46954ef0d477db1b9390cc193d0b04d71"
+    }
+  }
+}

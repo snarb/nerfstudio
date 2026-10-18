@@ -1,5 +1,31 @@
 # Frozen LookCloser + native photographs: Luster 000540
 
+## Accepted working baseline — 2026-10-18
+
+The user reviewed the linked best cam007 hybrid and explicitly accepted the
+quality, requesting promotion to main as postprocessing after NeRF training.
+**`single_patch_eligibility_match10_seam` is now the accepted working baseline:**
+native validation person LPIPS **.0934433863**, **30.8034%** below frozen LookCloser,
+with zero predefined ROI LPIPS regressions. The 40% research goal remains unmet.
+User acceptance does not erase the local fold/hair/lace/geometry defects recorded
+below or imply review of every view by the user.
+
+Use the concise [accepted recipe](luster_000540_hybrid_postprocessing_recipe.md),
+its [fixed config](luster_000540_hybrid_v1/selection_config.json), and
+[acceptance record](luster_000540_hybrid_v1/acceptance.json).
+The earlier automated scoreboard and strict visual review remain unchanged as
+historical evidence. Their `not_accepted` status refers to the earlier stricter
+review, not the user's subsequent baseline promotion.
+
+Promotion checks passed: 115 focused tests; exact four-view replay of float RGB,
+source IDs, weights and PNGs from the committed config; deep provenance,
+source-exclusion, frozen-state and merge-reconstruction audit. See the committed
+[verification record](luster_000540_hybrid_v1/verification.json). The accepted
+match10 result is now deeply audited as well; the older export descriptions below
+remain historical snapshots, not the current acceptance decision.
+
+## Historical campaign status before user acceptance
+
 Status checked 2026-10-18 09:50 UTC: all queued runs finished; no active Python
 workers or GPU compute processes. Across 224 measured single-source variants,
 the numerical leader is `single_patch_eligibility_match10_seam`: validation

@@ -1,0 +1,145 @@
+{
+  "date": "2026-10-18",
+  "candidate": "single_patch_eligibility_match10_seam",
+  "replay_candidate": "promotion_match10_replay_seam",
+  "method": "Replay selection, cubic sampling and seam merge from the committed selector config and original immutable caches; no fresh field rendering or training.",
+  "replay_checks": [
+    {
+      "camera": 7,
+      "arrays": {
+        "rgb": {
+          "exact": true,
+          "original_sha256": "f63fb3c3cd3c63e0ceb2f33abdee5deaa5b72cb168b3753aaf7a3d565188971a",
+          "replay_sha256": "f63fb3c3cd3c63e0ceb2f33abdee5deaa5b72cb168b3753aaf7a3d565188971a"
+        },
+        "_sources": {
+          "exact": true,
+          "original_sha256": "4fdecd3251ddb6fe17d2b70bdde3ef069f02c6dcb111c0100e29285332d0c69d",
+          "replay_sha256": "4fdecd3251ddb6fe17d2b70bdde3ef069f02c6dcb111c0100e29285332d0c69d"
+        },
+        "_confidence": {
+          "exact": true,
+          "original_sha256": "25774f42d553dd62d89e288abb1442336ff559150788459d72e7e63184deab5e",
+          "replay_sha256": "25774f42d553dd62d89e288abb1442336ff559150788459d72e7e63184deab5e"
+        },
+        "png": {
+          "exact": true,
+          "sha256": "a610b4ff5a9cabae631b77ea305e17b182b2d3894da27d5120081d26c2fdba75"
+        }
+      }
+    },
+    {
+      "camera": 12,
+      "arrays": {
+        "rgb": {
+          "exact": true,
+          "original_sha256": "28ba3c42bd6dc2aa3273cba7d0ccb5c350463aa9329b422588e0bc52a4013fdd",
+          "replay_sha256": "28ba3c42bd6dc2aa3273cba7d0ccb5c350463aa9329b422588e0bc52a4013fdd"
+        },
+        "_sources": {
+          "exact": true,
+          "original_sha256": "31f50aa7be515001c793674765c44a1535bf52e7bc979cb3416b3494e0d088d6",
+          "replay_sha256": "31f50aa7be515001c793674765c44a1535bf52e7bc979cb3416b3494e0d088d6"
+        },
+        "_confidence": {
+          "exact": true,
+          "original_sha256": "81c4d690042a19cd1786fe44f031fde386fc92953efff065b1e366c04cf5f17b",
+          "replay_sha256": "81c4d690042a19cd1786fe44f031fde386fc92953efff065b1e366c04cf5f17b"
+        },
+        "png": {
+          "exact": true,
+          "sha256": "211eca06377df162e88319ecd3f0b3f7a20db0a90bd29705509a52dbe1cf66f4"
+        }
+      }
+    },
+    {
+      "camera": 95,
+      "arrays": {
+        "rgb": {
+          "exact": true,
+          "original_sha256": "c4265f46a7f3ac6fe9279eb00e5548e3d90ec3c96d355f9a31c168dbfac8ea05",
+          "replay_sha256": "c4265f46a7f3ac6fe9279eb00e5548e3d90ec3c96d355f9a31c168dbfac8ea05"
+        },
+        "_sources": {
+          "exact": true,
+          "original_sha256": "33413620241bc56f343bac079f76bcae81745d26324373158fcf26ed2c1f567b",
+          "replay_sha256": "33413620241bc56f343bac079f76bcae81745d26324373158fcf26ed2c1f567b"
+        },
+        "_confidence": {
+          "exact": true,
+          "original_sha256": "0cebc8a3c2296d834a028677f3b386a69301ade7d9e6c4ec92c98bd6feed5b0e",
+          "replay_sha256": "0cebc8a3c2296d834a028677f3b386a69301ade7d9e6c4ec92c98bd6feed5b0e"
+        },
+        "png": {
+          "exact": true,
+          "sha256": "748d43840403384ee684d967539e28b89477a7489622814ddc05e6dc8fa9fc12"
+        }
+      }
+    },
+    {
+      "camera": 150,
+      "arrays": {
+        "rgb": {
+          "exact": true,
+          "original_sha256": "128a68a4768c787bc4926719721c37e257725ed88026f0d929a0f4e00569e48b",
+          "replay_sha256": "128a68a4768c787bc4926719721c37e257725ed88026f0d929a0f4e00569e48b"
+        },
+        "_sources": {
+          "exact": true,
+          "original_sha256": "d5d027421abdea803bb1f81aa3f5c2739b00233f94d443dda870845743132d67",
+          "replay_sha256": "d5d027421abdea803bb1f81aa3f5c2739b00233f94d443dda870845743132d67"
+        },
+        "_confidence": {
+          "exact": true,
+          "original_sha256": "078ab7267f71a15c50017b3b13c13c87fe338ef70e96857fc465a541b371fe3a",
+          "replay_sha256": "078ab7267f71a15c50017b3b13c13c87fe338ef70e96857fc465a541b371fe3a"
+        },
+        "png": {
+          "exact": true,
+          "sha256": "5454c3cc6d347a1fb58dbfb8d6c8cffb1a687a91c62de888c0e8df47668200b3"
+        }
+      }
+    }
+  ],
+  "deep_audit": {
+    "path": "/fsx/tmp/luster_000540_hybrid_20261017T104440Z/candidates/single_patch_eligibility_match10_seam/provenance.json",
+    "sha256": "2233dcf81ed0e2d3662265075402ac0e9507300f97ceb6652be5110abf252bb0",
+    "checks": [
+      {
+        "camera": 7,
+        "exact_fallback": true,
+        "source_exclusion": true,
+        "single_source_reconstruction_verified": true,
+        "changed_fraction": 0.23062093098958333
+      },
+      {
+        "camera": 12,
+        "exact_fallback": true,
+        "source_exclusion": true,
+        "single_source_reconstruction_verified": true,
+        "changed_fraction": 0.21192626953125
+      },
+      {
+        "camera": 95,
+        "exact_fallback": true,
+        "source_exclusion": true,
+        "single_source_reconstruction_verified": true,
+        "changed_fraction": 0.2683946126302083
+      },
+      {
+        "camera": 150,
+        "exact_fallback": true,
+        "source_exclusion": true,
+        "single_source_reconstruction_verified": true,
+        "changed_fraction": 0.228139404296875
+      }
+    ],
+    "checkpoint_sha256": "f07369d46d29852d9816a9681ac5758e9ecf22fad087ac3aece78e443ae8413b"
+  },
+  "tests": {
+    "passed": 115,
+    "log": "/fsx/tmp/luster_000540_hybrid_20261017T104440Z/logs/tests_promoted_match10.log",
+    "sha256": "88d9310c403db774b2a6b0a21ad7b15b2a910fe0c7f3843fb8dfdc1842cabaad",
+    "command": "OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 /home/pavlo/.conda/envs/nerfstudio/bin/python -m pytest -o addopts='' tests/test_canonical_witness_luster.py tests/test_luster_hybrid.py -q"
+  }
+}

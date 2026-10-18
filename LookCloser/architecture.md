@@ -1701,6 +1701,24 @@ Dataset-specific background supervision and hull rendering remain on `chinise_gi
 
 ## Frozen native photo hybrid experiment (2026-10-17)
 
+**Promoted postprocessing baseline, 2026-10-18:** the user accepted
+`single_patch_eligibility_match10_seam` (30.8034% lower native validation person
+LPIPS) for Luster000540. The supported path is
+`patch_eligibility_rank_luster_hybrid.py` → `cubic75_once_luster_hybrid.py` →
+`fixed_sampling_seam_luster_hybrid.py`, with the committed
+`experiments/luster_000540_hybrid_v1/selection_config.json`. It uses frozen q50
+geometry, exactly one native TRAIN texture source per pixel, scalar-only witness
+confidence, one label cleanup and sigma6 residual replacement with adaptive seams.
+Patch admission .10 is distinct from score denominator .06. See the
+[accepted recipe](experiments/luster_000540_hybrid_postprocessing_recipe.md) for
+reproduction and rejected controls. It is an explicit post-training stage;
+no training default changes. Known local defects and the historical strict
+visual review are preserved; user acceptance is recorded separately.
+
+The remaining modules below describe campaign experiments, not additional
+steps in the accepted path. Pair blending and lookup registration are outside
+the accepted single-photo, frozen-coordinate contract.
+
 The opt-in `*_luster_hybrid.py` scripts isolate native inference, TRAIN-only
 texture transfer and evaluation. They use a copied runtime from the actual
 checkpoint experiment. The renderer preserves model state and exports physical

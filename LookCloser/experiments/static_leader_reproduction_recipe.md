@@ -8,6 +8,14 @@ scheduled checkpoint and has a measured same-seed repeat range inside the user-a
 This document is intentionally self-contained. The broader forensic history and rejected controls
 remain in `experiments/static_leader_e2e_reproduction.md`.
 
+**Post-training detail transfer (accepted on Luster 000540, 2026-10-18):** after
+selecting and freezing the NeRF checkpoint, apply the optional
+[native-photo hybrid postprocessing step](#post-training-step-native-photo-detail-transfer-luster-000540).
+It keeps LookCloser geometry and transfers visible detail from one automatically
+selected native TRAIN photograph per pixel. The user accepted the shown result
+as the new working baseline; native validation person LPIPS is **30.80% lower**.
+This measured Luster addition does not change the original training defaults above.
+
 ## Additional-dataset findings (original leader unchanged)
 
 For Luster person-focused sampling and the final measured configuration, see
@@ -408,7 +416,7 @@ to dilation alone, or generalize distortion=1 as optimal for every scene.
 | Component | Measured configuration |
 |---|---|
 | Data and selection | Long side 1920, aspect ratio preserved; all 162 TRAIN views; cam012/095/150 used for validation/selection only; cam007 is TRAIN |
-| Targets | Original unmasked RGB and measured background plates; no new depth/semantic priors, black compositing or texture transfer |
+| Training targets | Original unmasked RGB and measured background plates; no new depth/semantic priors, black compositing or texture transfer during training; accepted transfer is a separate frozen-inference step below |
 | Mask preparation for sampling | Preserve original positive pixels; closing 8 px and fill interior holes; protective band 16 px, 32 px over upper 75% of silhouette; no component pruning; inspect all camera overlays |
 | Camera / pixel sampling | Cameras uniform; at full FAS strength: 33.333% uniform person core, 33.333% person-FAS, 13.333% protective band, 20% global image |
 | Reliable FAS | 8x8 patches with at least 90% original-mask coverage and selected pixel inside that mask; class weights 1 to 3; uncertain edges remain reachable uniformly |
@@ -473,3 +481,55 @@ is not an artifact-free geometry acceptance. Mild blur alone was not a rejection
 Source/configuration provenance and actual metrics are retained in the
 [full report](luster_000540_body_optimization.md); the original
 [face-fix report](luster_000540_face_fix_occupancy.md) preserves the earlier causal experiments.
+
+## Post-training step: native photo detail transfer (Luster 000540)
+
+After training, checkpoint selection and native baseline rendering, use
+**`single_patch_eligibility_match10_seam`** as the accepted Luster postprocessing
+baseline. The user reviewed the linked cam007 hybrid and accepted the quality
+on 2026-10-18. See the [complete recipe and negative results](luster_000540_hybrid_postprocessing_recipe.md)
+for exact commands, configuration, inputs, per-view metrics and known limitations;
+the [versioned selector config](luster_000540_hybrid_v1/selection_config.json)
+is authoritative, rather than historical script defaults.
+
+1. Freeze the selected `cold_body80_fas50_threshold095_zero` step106316 checkpoint,
+   calibration, AABB, occupancy and frequency grids. Load its compatible saved
+   runtime; do not redilate its already expanded occupancy.
+2. Render native RGB/alpha and camera-z termination depth. Geometry and projection
+   come only from LookCloser q50. Use q10/q90 only for uncertainty costs.
+3. Automatically select among 16 geometry-ranked TRAIN source photos per target,
+   verify depth/alpha/round-trip and the full cubic footprint, and compare supported
+   appearance patches. Preserve TRAIN/validation separation and exclude a target
+   training camera from its own sources. Never use evaluation masks/GT to construct transfer.
+4. Choose one source per pixel with scalar geometric, phase, contradiction and
+   photo-depth costs. Use patch admission .10 but keep the ranking denominator .06;
+   remove source islands once. Sample native RGB with clamped cubic −.75.
+5. Replace only the sigma6 high-frequency residual at gain1, preserving broad
+   LookCloser appearance. Fade incompatible seams over 3px; retain full strength
+   only where neighboring corrections agree within .02. Other photos affect
+   confidence, not output RGB mixing. Unsupported pixels keep exact LookCloser RGB.
+6. Save native LookCloser/hybrid comparisons, detail crops, metrics, source maps,
+   transfer weights and provenance. Review local defects alongside the person mean.
+
+| Native validation012/095/150 | Frozen LookCloser | Accepted hybrid |
+|---|---:|---:|
+| Person LPIPS ↓ | .1350403850 | **.0934433863 (−30.8034%)** |
+| Person PSNR ↑ | 28.241791 | 28.348327 |
+| Person SSIM ↑ | .89937888 | .90004952 |
+
+These native metrics must not be compared directly to the earlier HD training
+table. The validation views were used for recipe selection, not independent test.
+All predefined measured ROI LPIPS means improve, but some small local patches and
+view-specific PSNR/SSIM still worsen. Fold-edge irregularity, hair/lace mismatch,
+eye/pendant geometry and source-photo sharpness remain improvement targets.
+User acceptance establishes a useful baseline, not an artifact-free result or
+achievement of the earlier 40% LPIPS target.
+
+The retained approach works best where a sharp source observes the correct frozen
+surface. Full RGB replacement, stronger residual gain, broad local color fitting
+and stronger source-coherence graphs did not improve this baseline. Texture does
+not repair wrong topology. Keep the measured v1 as a control and consult the
+[failed-control table](luster_000540_hybrid_postprocessing_recipe.md#what-worked-what-did-not-and-what-to-preserve)
+before revisiting these approaches. Temporal coherence and other frames/datasets
+need separate validation; the training controller does not automatically invoke
+this Luster-specific postprocessing step.

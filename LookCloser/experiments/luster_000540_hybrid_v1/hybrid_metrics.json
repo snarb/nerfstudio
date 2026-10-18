@@ -1,0 +1,737 @@
+{
+  "candidate": "single_patch_eligibility_match10_seam",
+  "resolution": "native",
+  "rows": [
+    {
+      "camera": 7,
+      "region": "person",
+      "status": "measured",
+      "psnr": 31.222745895385742,
+      "ssim": 0.9133903990329207,
+      "lpips": 0.06734035164117813,
+      "pixels": 2984057
+    },
+    {
+      "camera": 7,
+      "region": "face",
+      "status": "measured",
+      "psnr": 26.901885986328125,
+      "ssim": 0.8736163527885467,
+      "lpips": 0.08060551434755325,
+      "pixels": 341043
+    },
+    {
+      "camera": 7,
+      "region": "cord",
+      "status": "measured",
+      "psnr": 30.845203399658203,
+      "ssim": 0.9051372021180905,
+      "lpips": 0.06718630343675613,
+      "pixels": 1331445
+    },
+    {
+      "camera": 7,
+      "region": "hands_cuffs",
+      "status": "measured",
+      "psnr": 29.30811882019043,
+      "ssim": 0.8856647981067339,
+      "lpips": 0.08167841285467148,
+      "pixels": 674836
+    },
+    {
+      "camera": 7,
+      "region": "skin",
+      "status": "measured",
+      "psnr": 27.401140213012695,
+      "ssim": 0.9202826253033229,
+      "lpips": 0.04374372214078903,
+      "pixels": 66750
+    },
+    {
+      "camera": 7,
+      "region": "eyes",
+      "status": "measured",
+      "psnr": 31.644664764404297,
+      "ssim": 0.9239635851576549,
+      "lpips": 0.03635827451944351,
+      "pixels": 39960
+    },
+    {
+      "camera": 7,
+      "region": "hair",
+      "status": "measured",
+      "psnr": 26.59945297241211,
+      "ssim": 0.8741408127174943,
+      "lpips": 0.07257658988237381,
+      "pixels": 217345
+    },
+    {
+      "camera": 7,
+      "region": "jewelry",
+      "status": "measured",
+      "psnr": 26.085203170776367,
+      "ssim": 0.8595982980472248,
+      "lpips": 0.08763725310564041,
+      "pixels": 270623
+    },
+    {
+      "camera": 7,
+      "region": "embroidery",
+      "status": "measured",
+      "psnr": 29.9216251373291,
+      "ssim": 0.8832032653948947,
+      "lpips": 0.0582539401948452,
+      "pixels": 150400
+    },
+    {
+      "camera": 7,
+      "region": "cuffs",
+      "status": "measured",
+      "psnr": 31.930906295776367,
+      "ssim": 0.9295994702501945,
+      "lpips": 0.07412102073431015,
+      "pixels": 55128
+    },
+    {
+      "camera": 7,
+      "region": "nails",
+      "status": "measured",
+      "psnr": 30.21190643310547,
+      "ssim": 0.9092221627508114,
+      "lpips": 0.12978020310401917,
+      "pixels": 57824
+    },
+    {
+      "camera": 7,
+      "region": "lace",
+      "status": "measured",
+      "psnr": 32.09919357299805,
+      "ssim": 0.911841345896162,
+      "lpips": 0.09732795506715775,
+      "pixels": 26485
+    },
+    {
+      "camera": 12,
+      "region": "person",
+      "status": "measured",
+      "psnr": 27.91602897644043,
+      "ssim": 0.8762414746140322,
+      "lpips": 0.09799713641405106,
+      "pixels": 2865131
+    },
+    {
+      "camera": 12,
+      "region": "face",
+      "status": "measured",
+      "psnr": 30.0194149017334,
+      "ssim": 0.8176303146362135,
+      "lpips": 0.08198998868465424,
+      "pixels": 251068
+    },
+    {
+      "camera": 12,
+      "region": "cord",
+      "status": "measured",
+      "psnr": 29.289140701293945,
+      "ssim": 0.8841125445573718,
+      "lpips": 0.08643926680088043,
+      "pixels": 1321505
+    },
+    {
+      "camera": 12,
+      "region": "hands_cuffs",
+      "status": "measured",
+      "psnr": 27.799636840820312,
+      "ssim": 0.8820710960951591,
+      "lpips": 0.08424367010593414,
+      "pixels": 140186
+    },
+    {
+      "camera": 12,
+      "region": "skin",
+      "status": "measured",
+      "psnr": 27.012802124023438,
+      "ssim": 0.8771402722989461,
+      "lpips": 0.06854555755853653,
+      "pixels": 10230
+    },
+    {
+      "camera": 12,
+      "region": "eyes",
+      "status": "not_visible"
+    },
+    {
+      "camera": 12,
+      "region": "hair",
+      "status": "measured",
+      "psnr": 27.82945442199707,
+      "ssim": 0.8556829469672111,
+      "lpips": 0.118888720870018,
+      "pixels": 801108
+    },
+    {
+      "camera": 12,
+      "region": "jewelry",
+      "status": "measured",
+      "psnr": 27.480255126953125,
+      "ssim": 0.821945545630957,
+      "lpips": 0.05805571377277374,
+      "pixels": 20651
+    },
+    {
+      "camera": 12,
+      "region": "embroidery",
+      "status": "measured",
+      "psnr": 30.739717483520508,
+      "ssim": 0.8651263998446,
+      "lpips": 0.03322369605302811,
+      "pixels": 212546
+    },
+    {
+      "camera": 12,
+      "region": "cuffs",
+      "status": "measured",
+      "psnr": 32.73493194580078,
+      "ssim": 0.9333736154843578,
+      "lpips": 0.08710699528455734,
+      "pixels": 18006
+    },
+    {
+      "camera": 12,
+      "region": "nails",
+      "status": "measured",
+      "psnr": 23.63227081298828,
+      "ssim": 0.8695818637937718,
+      "lpips": 0.1363406628370285,
+      "pixels": 19496
+    },
+    {
+      "camera": 12,
+      "region": "lace",
+      "status": "measured",
+      "psnr": 31.86418342590332,
+      "ssim": 0.9257237628349008,
+      "lpips": 0.09744466096162796,
+      "pixels": 10503
+    },
+    {
+      "camera": 95,
+      "region": "person",
+      "status": "measured",
+      "psnr": 29.199813842773438,
+      "ssim": 0.9081982451216192,
+      "lpips": 0.0775495171546936,
+      "pixels": 3515141
+    },
+    {
+      "camera": 95,
+      "region": "face",
+      "status": "measured",
+      "psnr": 30.451519012451172,
+      "ssim": 0.9217807262874547,
+      "lpips": 0.05361209064722061,
+      "pixels": 976616
+    },
+    {
+      "camera": 95,
+      "region": "cord",
+      "status": "not_visible"
+    },
+    {
+      "camera": 95,
+      "region": "hands_cuffs",
+      "status": "measured",
+      "psnr": 26.693973541259766,
+      "ssim": 0.927337991198586,
+      "lpips": 0.10864459723234177,
+      "pixels": 473613
+    },
+    {
+      "camera": 95,
+      "region": "sleeve",
+      "status": "measured",
+      "psnr": 30.107704162597656,
+      "ssim": 0.9183002845668784,
+      "lpips": 0.08001984655857086,
+      "pixels": 2081837
+    },
+    {
+      "camera": 95,
+      "region": "skin",
+      "status": "measured",
+      "psnr": 36.39002990722656,
+      "ssim": 0.9694628998824832,
+      "lpips": 0.021005410701036453,
+      "pixels": 32900
+    },
+    {
+      "camera": 95,
+      "region": "eyes",
+      "status": "measured",
+      "psnr": 31.518260955810547,
+      "ssim": 0.9431934802194988,
+      "lpips": 0.03915686532855034,
+      "pixels": 63320
+    },
+    {
+      "camera": 95,
+      "region": "hair",
+      "status": "measured",
+      "psnr": 28.456260681152344,
+      "ssim": 0.9044881372190918,
+      "lpips": 0.06794428080320358,
+      "pixels": 546940
+    },
+    {
+      "camera": 95,
+      "region": "jewelry",
+      "status": "measured",
+      "psnr": 26.47960662841797,
+      "ssim": 0.9013056672336482,
+      "lpips": 0.08481323719024658,
+      "pixels": 439999
+    },
+    {
+      "camera": 95,
+      "region": "embroidery",
+      "status": "measured",
+      "psnr": 31.83881378173828,
+      "ssim": 0.9081520578289229,
+      "lpips": 0.054972101002931595,
+      "pixels": 387069
+    },
+    {
+      "camera": 95,
+      "region": "cuffs",
+      "status": "measured",
+      "psnr": 26.30437660217285,
+      "ssim": 0.9139715719835677,
+      "lpips": 0.12267494201660156,
+      "pixels": 300268
+    },
+    {
+      "camera": 95,
+      "region": "nails",
+      "status": "measured",
+      "psnr": 28.053646087646484,
+      "ssim": 0.9190859497585204,
+      "lpips": 0.1372768133878708,
+      "pixels": 40505
+    },
+    {
+      "camera": 95,
+      "region": "lace",
+      "status": "measured",
+      "psnr": 24.728525161743164,
+      "ssim": 0.875494461231219,
+      "lpips": 0.11766737699508667,
+      "pixels": 47047
+    },
+    {
+      "camera": 150,
+      "region": "person",
+      "status": "measured",
+      "psnr": 27.92913818359375,
+      "ssim": 0.9157088455627069,
+      "lpips": 0.10478350520133972,
+      "pixels": 3053939
+    },
+    {
+      "camera": 150,
+      "region": "face",
+      "status": "measured",
+      "psnr": 26.502687454223633,
+      "ssim": 0.8935378631169177,
+      "lpips": 0.11132015287876129,
+      "pixels": 619432
+    },
+    {
+      "camera": 150,
+      "region": "cord",
+      "status": "not_visible"
+    },
+    {
+      "camera": 150,
+      "region": "hands_cuffs",
+      "status": "measured",
+      "psnr": 28.47235107421875,
+      "ssim": 0.9375940188855398,
+      "lpips": 0.09968200325965881,
+      "pixels": 1208111
+    },
+    {
+      "camera": 150,
+      "region": "sleeve",
+      "status": "measured",
+      "psnr": 32.28423309326172,
+      "ssim": 0.9528914075948063,
+      "lpips": 0.07872837036848068,
+      "pixels": 920945
+    },
+    {
+      "camera": 150,
+      "region": "skin",
+      "status": "measured",
+      "psnr": 24.9246883392334,
+      "ssim": 0.9449735395037007,
+      "lpips": 0.11383503675460815,
+      "pixels": 43352
+    },
+    {
+      "camera": 150,
+      "region": "eyes",
+      "status": "measured",
+      "psnr": 25.86613655090332,
+      "ssim": 0.9150336315520212,
+      "lpips": 0.10959549248218536,
+      "pixels": 57046
+    },
+    {
+      "camera": 150,
+      "region": "hair",
+      "status": "measured",
+      "psnr": 26.146793365478516,
+      "ssim": 0.8785235402352618,
+      "lpips": 0.1091032400727272,
+      "pixels": 580931
+    },
+    {
+      "camera": 150,
+      "region": "jewelry",
+      "status": "measured",
+      "psnr": 26.07602882385254,
+      "ssim": 0.8705317090729255,
+      "lpips": 0.10768045485019684,
+      "pixels": 613311
+    },
+    {
+      "camera": 150,
+      "region": "embroidery",
+      "status": "measured",
+      "psnr": 27.56681251525879,
+      "ssim": 0.8692575123443995,
+      "lpips": 0.10440414398908615,
+      "pixels": 261484
+    },
+    {
+      "camera": 150,
+      "region": "cuffs",
+      "status": "measured",
+      "psnr": 33.37453079223633,
+      "ssim": 0.9656856030250741,
+      "lpips": 0.09595654904842377,
+      "pixels": 317695
+    },
+    {
+      "camera": 150,
+      "region": "nails",
+      "status": "measured",
+      "psnr": 25.697505950927734,
+      "ssim": 0.8873407387521409,
+      "lpips": 0.1364298313856125,
+      "pixels": 48134
+    },
+    {
+      "camera": 150,
+      "region": "lace",
+      "status": "measured",
+      "psnr": 26.07820701599121,
+      "ssim": 0.9452869762647852,
+      "lpips": 0.09264922887086868,
+      "pixels": 117973
+    }
+  ],
+  "coverage": [
+    {
+      "camera": 7,
+      "region": "person",
+      "changed_fraction": 0.8849894623326565,
+      "preserved_fraction": 0.11501053766734348
+    },
+    {
+      "camera": 7,
+      "region": "face",
+      "changed_fraction": 0.8825221453013257,
+      "preserved_fraction": 0.11747785469867436
+    },
+    {
+      "camera": 7,
+      "region": "cord",
+      "changed_fraction": 0.8829504786153389,
+      "preserved_fraction": 0.11704952138466103
+    },
+    {
+      "camera": 7,
+      "region": "hands_cuffs",
+      "changed_fraction": 0.866560171656521,
+      "preserved_fraction": 0.133439828343479
+    },
+    {
+      "camera": 7,
+      "region": "skin",
+      "changed_fraction": 0.8912659176029962,
+      "preserved_fraction": 0.10873408239700375
+    },
+    {
+      "camera": 7,
+      "region": "eyes",
+      "changed_fraction": 0.9618368368368369,
+      "preserved_fraction": 0.038163163163163163
+    },
+    {
+      "camera": 7,
+      "region": "hair",
+      "changed_fraction": 0.8851273321217419,
+      "preserved_fraction": 0.11487266787825808
+    },
+    {
+      "camera": 7,
+      "region": "jewelry",
+      "changed_fraction": 0.8918015098494955,
+      "preserved_fraction": 0.10819849015050458
+    },
+    {
+      "camera": 7,
+      "region": "embroidery",
+      "changed_fraction": 0.8629321808510638,
+      "preserved_fraction": 0.13706781914893618
+    },
+    {
+      "camera": 7,
+      "region": "cuffs",
+      "changed_fraction": 0.8402808010448412,
+      "preserved_fraction": 0.1597191989551589
+    },
+    {
+      "camera": 7,
+      "region": "nails",
+      "changed_fraction": 0.7740038738240177,
+      "preserved_fraction": 0.2259961261759823
+    },
+    {
+      "camera": 7,
+      "region": "lace",
+      "changed_fraction": 0.8097036058146121,
+      "preserved_fraction": 0.19029639418538796
+    },
+    {
+      "camera": 12,
+      "region": "person",
+      "changed_fraction": 0.8620981030186753,
+      "preserved_fraction": 0.13790189698132477
+    },
+    {
+      "camera": 12,
+      "region": "face",
+      "changed_fraction": 0.9526741759204678,
+      "preserved_fraction": 0.04732582407953224
+    },
+    {
+      "camera": 12,
+      "region": "cord",
+      "changed_fraction": 0.8685824117199707,
+      "preserved_fraction": 0.1314175882800292
+    },
+    {
+      "camera": 12,
+      "region": "hands_cuffs",
+      "changed_fraction": 0.8639807113406475,
+      "preserved_fraction": 0.13601928865935256
+    },
+    {
+      "camera": 12,
+      "region": "skin",
+      "changed_fraction": 0.9148582600195504,
+      "preserved_fraction": 0.08514173998044966
+    },
+    {
+      "camera": 12,
+      "region": "hair",
+      "changed_fraction": 0.8243008433319852,
+      "preserved_fraction": 0.1756991566680148
+    },
+    {
+      "camera": 12,
+      "region": "jewelry",
+      "changed_fraction": 0.9320129775797782,
+      "preserved_fraction": 0.06798702242022178
+    },
+    {
+      "camera": 12,
+      "region": "embroidery",
+      "changed_fraction": 0.9342307077056261,
+      "preserved_fraction": 0.06576929229437392
+    },
+    {
+      "camera": 12,
+      "region": "cuffs",
+      "changed_fraction": 0.9230811951571698,
+      "preserved_fraction": 0.07691880484283017
+    },
+    {
+      "camera": 12,
+      "region": "nails",
+      "changed_fraction": 0.8444809191629052,
+      "preserved_fraction": 0.1555190808370948
+    },
+    {
+      "camera": 12,
+      "region": "lace",
+      "changed_fraction": 0.9214510139960012,
+      "preserved_fraction": 0.07854898600399886
+    },
+    {
+      "camera": 95,
+      "region": "person",
+      "changed_fraction": 0.9373976748016651,
+      "preserved_fraction": 0.06260232519833486
+    },
+    {
+      "camera": 95,
+      "region": "face",
+      "changed_fraction": 0.9609099175110791,
+      "preserved_fraction": 0.03909008248892093
+    },
+    {
+      "camera": 95,
+      "region": "hands_cuffs",
+      "changed_fraction": 0.8447297688196903,
+      "preserved_fraction": 0.15527023118030966
+    },
+    {
+      "camera": 95,
+      "region": "sleeve",
+      "changed_fraction": 0.9602649006622517,
+      "preserved_fraction": 0.039735099337748346
+    },
+    {
+      "camera": 95,
+      "region": "skin",
+      "changed_fraction": 0.9875075987841945,
+      "preserved_fraction": 0.012492401215805471
+    },
+    {
+      "camera": 95,
+      "region": "eyes",
+      "changed_fraction": 0.9524952621604549,
+      "preserved_fraction": 0.04750473783954517
+    },
+    {
+      "camera": 95,
+      "region": "hair",
+      "changed_fraction": 0.9570611035945442,
+      "preserved_fraction": 0.04293889640545581
+    },
+    {
+      "camera": 95,
+      "region": "jewelry",
+      "changed_fraction": 0.9493521576185401,
+      "preserved_fraction": 0.05064784238145996
+    },
+    {
+      "camera": 95,
+      "region": "embroidery",
+      "changed_fraction": 0.9687161720520114,
+      "preserved_fraction": 0.031283827947988604
+    },
+    {
+      "camera": 95,
+      "region": "cuffs",
+      "changed_fraction": 0.8079915275687053,
+      "preserved_fraction": 0.1920084724312947
+    },
+    {
+      "camera": 95,
+      "region": "nails",
+      "changed_fraction": 0.5294161214664856,
+      "preserved_fraction": 0.47058387853351435
+    },
+    {
+      "camera": 95,
+      "region": "lace",
+      "changed_fraction": 0.8171403065020086,
+      "preserved_fraction": 0.18285969349799136
+    },
+    {
+      "camera": 150,
+      "region": "person",
+      "changed_fraction": 0.9177170860321703,
+      "preserved_fraction": 0.08228291396782975
+    },
+    {
+      "camera": 150,
+      "region": "face",
+      "changed_fraction": 0.8926952433842618,
+      "preserved_fraction": 0.1073047566157383
+    },
+    {
+      "camera": 150,
+      "region": "hands_cuffs",
+      "changed_fraction": 0.9257452336747203,
+      "preserved_fraction": 0.07425476632527972
+    },
+    {
+      "camera": 150,
+      "region": "sleeve",
+      "changed_fraction": 0.9457872077051289,
+      "preserved_fraction": 0.054212792294871026
+    },
+    {
+      "camera": 150,
+      "region": "skin",
+      "changed_fraction": 0.9557113858645506,
+      "preserved_fraction": 0.04428861413544934
+    },
+    {
+      "camera": 150,
+      "region": "eyes",
+      "changed_fraction": 0.8993969778775024,
+      "preserved_fraction": 0.10060302212249764
+    },
+    {
+      "camera": 150,
+      "region": "hair",
+      "changed_fraction": 0.9247208360373262,
+      "preserved_fraction": 0.07527916396267371
+    },
+    {
+      "camera": 150,
+      "region": "jewelry",
+      "changed_fraction": 0.9263619925290758,
+      "preserved_fraction": 0.07363800747092421
+    },
+    {
+      "camera": 150,
+      "region": "embroidery",
+      "changed_fraction": 0.8750210337917426,
+      "preserved_fraction": 0.12497896620825748
+    },
+    {
+      "camera": 150,
+      "region": "cuffs",
+      "changed_fraction": 0.9089598514298305,
+      "preserved_fraction": 0.0910401485701695
+    },
+    {
+      "camera": 150,
+      "region": "nails",
+      "changed_fraction": 0.5986205177213612,
+      "preserved_fraction": 0.4013794822786388
+    },
+    {
+      "camera": 150,
+      "region": "lace",
+      "changed_fraction": 0.9742398684444746,
+      "preserved_fraction": 0.025760131555525416
+    }
+  ],
+  "validation_mean": {
+    "lpips": 0.0934433862566948,
+    "psnr": 28.34832700093587,
+    "ssim": 0.9000495217661194
+  },
+  "protocol_sha256": "fb8f3b4d1daa0f6038e4639fa65df08b69744c4655baf3be286995601205ee42",
+  "seconds": 4.827605001977645,
+  "code_sha256": "e50aa44a71de73376514f9366a8b0430cd3878468eb84a4a136ab2c592063658",
+  "device": "cuda"
+}

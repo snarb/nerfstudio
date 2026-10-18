@@ -1,0 +1,28 @@
+{
+  "status": "user_accepted_baseline_with_known_limitations",
+  "date": "2026-10-18",
+  "candidate": "single_patch_eligibility_match10_seam",
+  "user_statement": "качество стало гораздо лучше. закомить код в мейн, обнови главный файл с рецептом лидера и добавь туда как поспроцессинг степ после тренировки нерф этот рецепт переноса.",
+  "scope": "Promote the shown cam007 hybrid and its four-view recipe as the working post-training baseline. This is not a claim that the user inspected every view or ROI.",
+  "previous_visual_review_preserved": "/fsx/tmp/luster_000540_hybrid_20261017T104440Z/evaluation/single_patch_eligibility_match10_seam_visual_review.json",
+  "known_limitations": [
+    "Irregular dark cam007 fold edges",
+    "Cam012 jewelry/cord geometry mismatch",
+    "Cam095 hair/lace mismatch",
+    "Cam150 fold/lace mismatch"
+  ],
+  "validation_lpips": 0.0934433862566948,
+  "validation_lpips_reduction_percent": 30.803376902762093,
+  "predefined_roi_lpips_regressions": 0,
+  "goal_40_percent_achieved": false,
+  "weights_geometry_calibration_aabb_grids_changed": false,
+  "texture_source_count_per_pixel": 1,
+  "lookup_shift": false,
+  "heldout_texture_and_witness_exclusions": [
+    12,
+    95,
+    150
+  ],
+  "cam007_self_source_excluded": true,
+  "checkpoint_sha256": "f07369d46d29852d9816a9681ac5758e9ecf22fad087ac3aece78e443ae8413b"
+}
