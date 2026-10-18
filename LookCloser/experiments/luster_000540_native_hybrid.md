@@ -1,7 +1,19 @@
 # Frozen LookCloser + native photographs: Luster 000540
 
-Status: experiments in progress. New measured candidate
-`single_photometric_depth25_seam` reaches **29.8247%** lower native validation
+Status checked 2026-10-18 09:50 UTC: all queued runs finished; no active Python
+workers or GPU compute processes. Across 224 measured single-source variants,
+the numerical leader is `single_patch_eligibility_match10_seam`: validation
+LPIPS **0.093443386**, **30.8034%** below frozen LookCloser (0.135040385), with
+zero predefined ROI-mean regressions. It is **visually rejected** for new
+irregular cam007 fold edges. No candidate is accepted; the 40% goal remains
+unmet (required LPIPS <=0.081024231). These latest measurements supersede the
+previous 29.8247% numerical headline. Evidence:
+`evaluation/current_single_source_scoreboard.json`,
+`evaluation/patch_eligibility_screen.json`, and
+`evaluation/single_patch_eligibility_match10_seam_visual_review.json`.
+
+The last deeply audited and exported candidate remains
+`single_photometric_depth25_seam`, with **29.8247%** lower native validation
 LPIPS without named ROI regressions, but is visually unaccepted (including a
 softer cam007 scalp ornament). Its deep provenance/reconstruction audit passed
 at 19:48 UTC (`logs/audit_photometric_depth25.log`), and its verified archive is
