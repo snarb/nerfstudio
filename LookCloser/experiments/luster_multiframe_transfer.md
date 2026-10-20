@@ -27,6 +27,12 @@ The worst initial heldout HD LPIPS frames are545 (.083966),544 (.079322),
 the sequence:598 (.047711),599 (.044390). These values prioritize investigation;
 they are **not** native hybrid scores or evidence that transfer already fails.
 
+At the next inventory refresh, completed553 was added after checkpoint/config
+verification (HD LPIPS0.07236865). The active inventory now contains24 frames;
+the previous23-frame snapshot is retained under
+`preflight/history/1792501213/`. Existing per-frame contexts stayed unchanged.
+This newly published model is pending native transfer evaluation.
+
 ## Isolation and GPU policy
 
 No new LookCloser training, checkpoint modification, calibration changes,
@@ -193,6 +199,19 @@ and reduced CPU priority. A per-source lock prevents a ranking worker from
 reading/writing an incomplete shared result; receipt hashes and frozen witness
 pool checks remain mandatory. A two-process test verifies serialized access
 to the same source, and all seven focused lock/frame tests pass.
+The combined hybrid, frame, summary, contour and process-lock suite subsequently
+passed **123 tests** (`logs/tests_transfer_complete.log`).
+
+New-frame control `ablation_geometry_patch` retains all v1 geometry/footprint
+gates, patch appearance admission, single-source selection, cubic sampling and
+seam merge. It sets only source-phase, view-phase, source-contradiction and
+photometric-depth-risk weights to zero. Zero-weight terms now skip their costly
+cache construction; the positive-weight v1 calculation remains unchanged.
+The control is queued on545 after all64 cubic warps complete, independently of
+the full v1 ranking. Its configuration is
+`preflight/ablation_geometry_patch_config.json`. It is an unaccepted matched
+ablation to measure the value of auxiliary evidence on a new frame.
+The111 original hybrid tests and a new zero-weight cache-exclusion test pass.
 
 ## Insights and next steps
 

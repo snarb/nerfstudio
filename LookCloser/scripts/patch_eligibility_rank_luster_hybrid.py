@@ -50,19 +50,22 @@ def combine(root,target,name,config):
         score=a['score']+config['roundtrip_weight']*a['roundtrip']/config['roundtrip']+config['match_weight']*error/config['match_limit']
         score+=config['scale_compatibility_weight']*np.maximum(0,np.log2(np.maximum(a['resolution_ratio'],1e-8)))
         score+=config['uncertainty_weight']*a['uncertainty']/config['uncertainty']+config['depth_weight']*a['depth_error']/config['depth_error']
-        qdir=quality(root,target,cid,config);qr=read(qdir/'receipt.json')
-        for key,weight_key in [('source_phase_cost','source_phase_weight'),('view_phase_cost','view_phase_weight')]:
-            path=qdir/f'{key}.npy';score+=config[weight_key]*np.load(path,mmap_mode='r');quality_inputs[str(path)]=sha(path)
-        quality_inputs[str(qdir/'receipt.json')]=sha(qdir/'receipt.json')
-        quality_inputs[qr['source_model_receipt']]=qr['source_model_receipt_sha256']
-        sd=projected_confidence(root,target,cid,config)
-        score+=config['source_contradiction_weight']*contradiction_cost(np.load(sd/'cost.npy',mmap_mode='r'))
-        quality_inputs[str(sd/'receipt.json')]=sha(sd/'receipt.json')
-        quality_inputs[str(sd/'cost.npy')]=sha(sd/'cost.npy')
-        dd=depth_risk(root,target,cid)
-        score+=config['photometric_depth_weight']*np.load(dd/'cost.npy',mmap_mode='r')
-        quality_inputs[str(dd/'receipt.json')]=sha(dd/'receipt.json')
-        quality_inputs[str(dd/'cost.npy')]=sha(dd/'cost.npy')
+        if config['source_phase_weight'] or config['view_phase_weight']:
+            qdir=quality(root,target,cid,config);qr=read(qdir/'receipt.json')
+            for key,weight_key in [('source_phase_cost','source_phase_weight'),('view_phase_cost','view_phase_weight')]:
+                path=qdir/f'{key}.npy';score+=config[weight_key]*np.load(path,mmap_mode='r');quality_inputs[str(path)]=sha(path)
+            quality_inputs[str(qdir/'receipt.json')]=sha(qdir/'receipt.json')
+            quality_inputs[qr['source_model_receipt']]=qr['source_model_receipt_sha256']
+        if config['source_contradiction_weight']:
+            sd=projected_confidence(root,target,cid,config)
+            score+=config['source_contradiction_weight']*contradiction_cost(np.load(sd/'cost.npy',mmap_mode='r'))
+            quality_inputs[str(sd/'receipt.json')]=sha(sd/'receipt.json')
+            quality_inputs[str(sd/'cost.npy')]=sha(sd/'cost.npy')
+        if config['photometric_depth_weight']:
+            dd=depth_risk(root,target,cid)
+            score+=config['photometric_depth_weight']*np.load(dd/'cost.npy',mmap_mode='r')
+            quality_inputs[str(dd/'receipt.json')]=sha(dd/'receipt.json')
+            quality_inputs[str(dd/'cost.npy')]=sha(dd/'cost.npy')
         if config['cost_sigma']>0:
             finite_valid=valid & np.isfinite(score)
             cost_mass=gaussian(finite_valid.astype(np.float32),config['cost_sigma'])
