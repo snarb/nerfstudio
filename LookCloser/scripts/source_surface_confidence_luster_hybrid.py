@@ -7,7 +7,7 @@ from pathlib import Path
 import cv2
 import numpy as np
 from PIL import Image
-from luster_hybrid_common import (assert_source, geometry, log, native_rows,
+from luster_hybrid_common import (HELDOUT, assert_source, geometry, log, native_rows,
     project, read, sha, source_path, unproject, write)
 from transfer_luster_hybrid import gaussian, source_score, warp
 from supported_luster_hybrid import geometric_support
@@ -17,14 +17,29 @@ from risk_single_luster_hybrid import masked_low
 EXCLUDED = (7, 12, 95, 150)
 
 
+def frozen_witness_pool(root):
+    pool=root/'preflight/witness_pool.json'
+    if (root/'context.json').exists() and not pool.exists():
+        sources=read(root/'preflight/sources.json')['all_sources']
+        write(pool,dict(cameras=sorted(set(sources)-set(EXCLUDED)),
+                        policy='Selected source union; fixed before confidence construction; extra caches do not change witnesses'))
+    return pool
+
+
 def witness_candidates(rows, source, available):
     return sorted(c for c in available if c != source and c not in EXCLUDED and rows[c]['train'])
 
 
 def select_witnesses(root, source, count=4):
     rows = native_rows(); row = rows[source]; g = geometry(root, source)
-    assert row['train'] and source not in EXCLUDED
+    assert row['train'] and source not in HELDOUT
     available = [int(p.parent.name[3:]) for p in (root/'geometry').glob('cam*/receipt.json')]
+    pool=frozen_witness_pool(root)
+    if pool.exists():
+        required=set(read(pool)['cameras'])
+        missing=required-set(available)
+        assert not missing, f'Frozen witness geometry is incomplete: {sorted(missing)}'
+        available=sorted(required)
     candidates = witness_candidates(rows, source, available)
     yy, xx = np.mgrid[0:row['h']:24, 0:row['w']:24]
     z = np.asarray(g['depth_z_q50'][yy, xx]); keep = np.isfinite(z) & (g['alpha'][yy, xx] >= .99)
@@ -50,16 +65,20 @@ def two_witness_cost(costs, supports):
 def source_confidence(root, source, config):
     out = root/'source_surface_confidence'/f'cam{source:03d}'; out.mkdir(parents=True, exist_ok=True)
     gates = {k:config[k] for k in ['alpha','depth_error','roundtrip','uncertainty','max_score','min_resolution']}
+    pool=frozen_witness_pool(root)
+    pool_hash=sha(pool) if pool.exists() else None
     if (out/'receipt.json').exists():
         r = read(out/'receipt.json'); assert r['code_sha256'] == sha(Path(__file__)) and r['gates'] == gates
+        assert r.get('witness_pool_sha256')==pool_hash
         assert all(sha(out/k) == v for k,v in r['hashes'].items())
         return out
-    rows = native_rows(); assert rows[source]['train'] and source not in EXCLUDED
+    rows = native_rows(); assert rows[source]['train'] and source not in HELDOUT
     witnesses = select_witnesses(root, source); assert len(witnesses) >= 2
     photo_path = source_path(source); manifest = read(root/'preflight/manifest.json')
     assert sha(photo_path) == manifest['source_hashes'][str(photo_path)]
     photo = np.asarray(Image.open(photo_path).convert('RGB'), np.float32)/255
     inputs = {str(photo_path):sha(photo_path)}
+    if pool.exists():inputs[str(pool)]=pool_hash
     for mod in ['transfer_luster_hybrid.py','source_rgb_phase_quality_luster_hybrid.py',
                 'risk_single_luster_hybrid.py','supported_luster_hybrid.py','luster_hybrid_common.py']:
         p=Path(__file__).with_name(mod); inputs[str(p)] = sha(p)
@@ -83,6 +102,7 @@ def source_confidence(root, source, config):
     cost,known=two_witness_cost(np.stack(costs),np.stack(supports))
     np.save(out/'cost.npy',cost); np.save(out/'known.npy',known)
     write(out/'receipt.json',dict(source=source,witnesses=witnesses,excluded_witnesses=EXCLUDED,
+        witness_pool_sha256=pool_hash,
         box=box,gates=gates,code_sha256=sha(Path(__file__)),inputs=inputs,
         hashes={k:sha(out/k) for k in ['cost.npy','known.npy']},
         geometry='source-view frozen camera-z q50',source_rgb_used_for_confidence_only=True,

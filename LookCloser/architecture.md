@@ -1,5 +1,18 @@
 # LookCloser architecture
 
+## Multi-frame frozen transfer experiment (2026-10-20, separate branch)
+
+`LUSTER_HYBRID_FRAME_MANIFEST` binds each isolated process to an existing final
+checkpoint, frame and native source directory. Historical540 defaults remain
+unchanged. `run_multiframe_transfer.py` writes only a separate campaign, invokes
+memory-capped inference with a self-only GPU watchdog, and evaluates on CPU.
+`occupancy_native_luster_hybrid.py` conservatively projects saved occupied
+cells to skip provably empty rays without modifying the field/grids.
+Native per-frame masks and spatial evaluation regions are isolated from
+prediction. The summary requires >=30% heldout-person LPIPS improvement on
+every frame and separate local/visual gates. See
+[the multi-frame experiment](experiments/luster_multiframe_transfer.md).
+
 ## Mesh-teacher distillation data (opt-in, no trainer changes)
 
 `prepare_mesh_distillation_dataset.py` exports one fixed DEC5 time as calibrated

@@ -15,6 +15,20 @@ ORIGIN = Path('/fsx/tmp/luster_000540_body_opt_20261016')
 SOURCE = Path('/fsx/tmp/luster/root_8s/working/fullres/000540')
 CHECKPOINT = ORIGIN / 'runs/cold_body80_fas50_threshold095_zero/G106316/field/lookcloser/run/nerfstudio_models/step-000106316.ckpt'
 DIGEST = 'f07369d46d29852d9816a9681ac5758e9ecf22fad087ac3aece78e443ae8413b'
+FRAME = 540
+# Explicit per-process context; original frame540 defaults remain unchanged.
+# Never rebind these globals in a long-lived process that has imported consumers.
+if os.environ.get('LUSTER_HYBRID_FRAME_MANIFEST'):
+    _context = json.loads(Path(os.environ['LUSTER_HYBRID_FRAME_MANIFEST']).read_text())
+    FRAME = int(_context['frame'])
+    ORIGIN = Path(_context['origin'])
+    SOURCE = Path(_context['source'])
+    CHECKPOINT = Path(_context['checkpoint'])
+    DIGEST = _context['checkpoint_sha256']
+    if not (len(DIGEST) == 64 and all(c in '0123456789abcdef' for c in DIGEST)):
+        raise ValueError('Invalid pinned checkpoint digest')
+    if SOURCE.name != f'{FRAME:06d}' or not all(p.is_absolute() for p in (ORIGIN,SOURCE,CHECKPOINT)):
+        raise ValueError('Invalid frame context')
 TARGETS = (7, 12, 95, 150)
 HELDOUT = (12, 95, 150)
 
@@ -53,7 +67,7 @@ def bootstrap(root):
 
 
 def source_path(cid):
-    return SOURCE / 'images' / f'cam_{cid:03d}_000540.jpg'
+    return SOURCE / 'images' / f'cam_{cid:03d}_{FRAME:06d}.jpg'
 
 
 def native_rows():
