@@ -34,9 +34,16 @@ def summarize(root,candidate):
         for h in hybrid['rows']:
             if h['status']!='measured':continue
             key=h['camera'],h['region'];ref=b[key]
+            assert h['pixels']==ref['pixels'], 'Compared metrics must use identical support'
+            box=protocol['cameras'][str(h['camera'])]['boxes'][h['region']]
+            box_pixels=(box[2]-box[0])*(box[3]-box[1])
+            assert 0<h['pixels']<=box_pixels
             row=dict(frame=f'{frame:06d}',split=item['split'],candidate=candidate,
                      camera=h['camera'],region=h['region'],device=hybrid['device'],
-                     protocol_sha256=hybrid['protocol_sha256'])
+                     protocol_sha256=hybrid['protocol_sha256'],
+                     checkpoint_sha256=item.get('checkpoint_sha256',''),
+                     support_pixels=h['pixels'],box_pixels=box_pixels,
+                     support_fraction=h['pixels']/box_pixels)
             for metric in ['lpips','psnr','ssim']:
                 row['baseline_'+metric]=ref[metric];row['hybrid_'+metric]=h[metric]
             row['lpips_reduction_percent']=100*(1-h['lpips']/max(ref['lpips'],1e-12))
@@ -44,7 +51,9 @@ def summarize(root,candidate):
             rows.append(row)
             if h['lpips']>ref['lpips']+1e-6:
                 regressions.append(dict(camera=h['camera'],region=h['region'],
-                                        delta=h['lpips']-ref['lpips']))
+                                        delta=h['lpips']-ref['lpips'],
+                                        support_pixels=h['pixels'],
+                                        support_fraction=h['pixels']/box_pixels))
         if hybrid['validation_mean'] is None:
             pending.append(frame);continue
         old=baseline['validation_mean']['lpips'];new=hybrid['validation_mean']['lpips']

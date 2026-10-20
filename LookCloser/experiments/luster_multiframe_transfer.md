@@ -284,6 +284,28 @@ exact baseline, distant detail is preserved, identical predictions remain
 unchanged, and flat-surface texture is not mistaken for a baseline contour.
 Evidence: `logs/tests_contour_core.log`; run log `logs/core_guard_controller.log`.
 
+545 exact-core result: native heldout-person LPIPS **0.1027885353**,
+**30.3216% reduction**. Three local LPIPS regressions remain: cam007 fold
+`spatial_r3_c1` (+0.00179740,355990 supported pixels), cam012 head-edge
+`spatial_r0_c0` (+0.00118648,52063 pixels), and cam012 `spatial_r0_c2`
+(+0.00054254,only125 pixels). The last cell is almost entirely background,
+with a small sliver of person support; do not describe it as a whole anatomical
+region getting worse. All remain reported; no acceptance threshold was relaxed.
+Initial heldout thumbnails show no obvious new silhouette discontinuity at
+that scale, but native detail review and540 results remain pending.
+
+`prefetch_multiframe_baselines.py` now queues the remaining20 verified frames
+for four native targets and CPU baseline evaluation. It shares the existing
+campaign inference lock and memory watchdog; process941286 was verified waiting
+for549 while only trainer924342 and our549 renderer936591 occupied GPU memory.
+It never launches training or constructs hybrids from validation RGB. Queue and
+progress: `preflight/native_baseline_queue.json`, `logs/native_baseline_queue.log`.
+Completed549 native baseline LPIPS is0.1435075800; its30% target is0.1004553060.
+
+Hybrid CSV rows now include checkpoint SHA, supported-pixel count, box area,
+and support fraction. The summarizer checks identical measured support between
+baseline and hybrid and retains every local regression regardless of size.
+
 ## Insights and next steps
 
 First reproduce the accepted v1 transfer on weak development frames and540;
