@@ -213,6 +213,29 @@ the full v1 ranking. Its configuration is
 ablation to measure the value of auxiliary evidence on a new frame.
 The111 original hybrid tests and a new zero-weight cache-exclusion test pass.
 
+545 control result: native heldout-person LPIPS0.1475184709 ->0.1027754843,
+**30.3304% reduction**, PSNR28.0237643 and SSIM0.89372450. Per-camera LPIPS is
+0.10554125 (012),0.08123402 (095),0.12155118 (150); cam007 is0.06210265.
+It is **visually rejected**: the cam007 crop below the embroidered panel
+adds an irregular dark crease. Three local LPIPS regressions also remain.
+Do not promote this control based on its passing mean. Metrics/visual evidence:
+`evaluation/ablation_geometry_patch_metrics.csv` at campaign root and
+`frames/000545/evaluation/early_ablation_review/` plus its visual-review JSON.
+
+The full auxiliary ranking changes18.0% of cam007 source assignments relative
+to this control, including23.4–24.4% in two fold/garment regions. This is a
+selection diagnostic, not evidence of improved final quality.
+
+Shortlist diagnostic545: all sampled opaque points (24-pixel grid, roughly
+4.8–6.0k points per view) retain their best angular/resolution/FOV proxy camera
+inside the16-camera shortlist. The proxy does not measure photographic
+sharpness or actual visibility, so this does not prove the shortlist optimal.
+After patch-support checks, color admission .10 rejects less than0.1% of
+the predicted domain in each view. Neither blindly widening the shortlist nor
+relaxing color admission is supported as the next primary change by these
+measurements. Evidence: `frames/000545/preflight/shortlist_coverage_diagnostic.json`
+and the ranking admission diagnostics.
+
 ## Insights and next steps
 
 First reproduce the accepted v1 transfer on weak development frames and540;
