@@ -35,7 +35,10 @@ def run(a):
     assert 1<=a.chunk<=4096
     # This is exclusively our transfer lock, never the other campaign's lease.
     lease=(a.root.parent.parent/'gpu_inference.lock').open('a')
-    fcntl.flock(lease,fcntl.LOCK_EX|fcntl.LOCK_NB)
+    # Queue our own renderers before importing Torch or allocating CUDA memory.
+    # This permits CPU transfer for one frame alongside inference for the next,
+    # while retaining exactly one of our GPU renderers at a time.
+    fcntl.flock(lease,fcntl.LOCK_EX)
     state=telemetry()
     if not safe(state,True):
         raise RuntimeError(f'GPU admission refused: {state}')

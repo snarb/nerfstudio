@@ -45,6 +45,11 @@ device. The watchdog covers allocations outside Torch's allocator as well;
 the reserve is intentionally much larger than the observed training footprint.
 LPIPS and candidate evaluation stay on CPU. There is no claim that monitoring
 is a mathematical guarantee against every unrelated sudden device allocation.
+The campaign-only inference lock now queues callers **before Torch import**.
+`prefetch_multiframe_geometry.py` prepares544/549 while545 projection runs on
+CPU; only one own renderer can allocate CUDA memory. A two-process test with
+stubbed CUDA confirms both calls finish and maximum concurrent rendering is1.
+Seven queue/frame-isolation tests pass. No trainer lock is acquired.
 
 ## Implementation and evaluation
 
@@ -160,6 +165,11 @@ separately. A full evaluation of sigma2/displacement1 is also scheduled.
 `run_multiframe_contour_screen.py` waits for the live, identified own v1
 controller and runs these same four settings on545/544/549 using CPU only.
 This is a matched cross-frame check, not per-frame parameter selection.
+
+The full sigma2/displacement1 evaluation subsequently completed: all protocol
+regions are covered, heldout improvement remains30.0579%, and five local
+LPIPS regressions remain (four cam007 regions and one cam150 region), versus
+seven for the reference. It still fails the local acceptance gate.
 
 ## Insights and next steps
 
