@@ -186,6 +186,14 @@ SHA256. `probes/cache_compression/receipt.json` records the measurement.
 No source cache was removed; the result supports future lossless cache archival
 if needed to retain the training disk reserve.
 
+CPU corroboration prefetch: after all545 source geometry completed,
+`precompute_source_confidence.py` started the same TRAIN-witness confidence
+calculation in parallel with cubic interpolation. It uses two OpenCV threads
+and reduced CPU priority. A per-source lock prevents a ranking worker from
+reading/writing an incomplete shared result; receipt hashes and frozen witness
+pool checks remain mandatory. A two-process test verifies serialized access
+to the same source, and all seven focused lock/frame tests pass.
+
 ## Insights and next steps
 
 First reproduce the accepted v1 transfer on weak development frames and540;

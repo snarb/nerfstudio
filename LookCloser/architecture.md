@@ -6,6 +6,9 @@
 checkpoint, frame and native source directory. Historical540 defaults remain
 unchanged. `run_multiframe_transfer.py` writes only a separate campaign, invokes
 memory-capped inference with a self-only GPU watchdog, and evaluates on CPU.
+One campaign-only GPU lease serializes geometry prefetch and foreground
+inference. CPU source-confidence precomputation can overlap interpolation;
+per-source locks serialize cache publication without changing its calculation.
 `occupancy_native_luster_hybrid.py` conservatively projects saved occupied
 cells to skip provably empty rays without modifying the field/grids.
 Native per-frame masks and spatial evaluation regions are isolated from

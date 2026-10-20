@@ -4,6 +4,7 @@ Witnesses supply a scalar reliability cost. All four evaluation/demo cameras
 are excluded from witnesses, including cam007. No new geometry or RGB mixture.
 """
 from pathlib import Path
+import fcntl
 import cv2
 import numpy as np
 from PIL import Image
@@ -63,6 +64,16 @@ def two_witness_cost(costs, supports):
 
 
 def source_confidence(root, source, config):
+    out = root/'source_surface_confidence'/f'cam{source:03d}'
+    out.mkdir(parents=True,exist_ok=True)
+    # CPU precomputation and target ranking may request the same source.
+    # Publish its receipt only after all arrays are complete.
+    with (out/'build.lock').open('a') as lease:
+        fcntl.flock(lease,fcntl.LOCK_EX)
+        return _source_confidence(root,source,config)
+
+
+def _source_confidence(root, source, config):
     out = root/'source_surface_confidence'/f'cam{source:03d}'; out.mkdir(parents=True, exist_ok=True)
     gates = {k:config[k] for k in ['alpha','depth_error','roundtrip','uncertainty','max_score','min_resolution']}
     pool=frozen_witness_pool(root)
