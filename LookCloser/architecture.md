@@ -14,6 +14,9 @@ checkpoint/configuration hashes, camera rows, array hashes/shapes and consistent
 saved model-state hashes.
 `occupancy_native_luster_hybrid.py` conservatively projects saved occupied
 cells to skip provably empty rays without modifying the field/grids.
+The separate `contour_core_guard_luster_hybrid.py` control enforces exact
+baseline fallback in saturated contour-conflict cores before feathering; it
+leaves the original soft-guard experiment and its receipts unchanged.
 Native per-frame masks and spatial evaluation regions are isolated from
 prediction. The summary requires >=30% heldout-person LPIPS improvement on
 every frame and separate local/visual gates. See

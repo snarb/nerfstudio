@@ -243,6 +243,47 @@ relaxing color admission is supported as the next primary change by these
 measurements. Evidence: `frames/000545/preflight/shortlist_coverage_diagnostic.json`
 and the ranking admission diagnostics.
 
+## Completed native545 comparison
+
+Full v1 gives heldout-person LPIPS **0.1015383179**, a **31.1691%** reduction
+from the same-resolution baseline0.1475184709 (PSNR28.0377433,
+SSIM0.89465144). Five spatial regions regress in LPIPS. Visual review rejects
+this candidate: the added irregular dark crease under the embroidered panel
+remains. Auxiliary source ranking improves the average relative to the
+geometry/patch control but does not resolve that local artifact.
+
+The first fixed contour control, `contour_s2_d1`, gives LPIPS
+**0.1025418664**, a **30.4888%** reduction, with three remaining spatial
+regressions. Initial cam007 head and garment inspection shows reduced dark
+fold contrast relative to v1, while photographic ornament colors are retained.
+This is a partial review, not visual acceptance; all-view inspection remains
+pending. Comparison images are in
+`frames/000545/evaluation/v1_vs_contour_s2_d1/`.
+
+Campaign-root `evaluation/v1_metrics.csv` and
+`evaluation/contour_s2_d1_metrics.csv` contain hybrid measurements separately
+from the external training baseline CSV. Native improvements use native
+baselines; the HD training CSV is used for inventory/prioritization only.
+Frame544 is in warp construction and549 geometry is being prefetched under
+the single inference GPU lease. No claim of universal success is justified yet.
+
+## Exact contour-core fallback control
+
+`contour_core_guard_luster_hybrid.py` is an isolated variant of the soft
+contour guard. It preserves exact LookCloser RGB in the dilated region where
+the pre-feather contour risk saturates, and retains the existing feather
+outside that region. The existing soft control remains unchanged. This tests
+whether Gaussian smoothing was reintroducing conflicting texture edges into
+regions that should have fallen back completely. It changes neither geometry
+nor projection coordinates and reads no target GT or evaluation masks.
+
+The fixed sigma2/displacement1 control is running on545 and the historical540
+reference, with complete native CPU evaluation. It is not accepted in advance.
+Five combined contour tests pass: a displaced synthetic edge falls back to
+exact baseline, distant detail is preserved, identical predictions remain
+unchanged, and flat-surface texture is not mistaken for a baseline contour.
+Evidence: `logs/tests_contour_core.log`; run log `logs/core_guard_controller.log`.
+
 ## Insights and next steps
 
 First reproduce the accepted v1 transfer on weak development frames and540;
