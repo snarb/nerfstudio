@@ -132,8 +132,34 @@ target GT/masks. The predefined screen is sigma2/4 crossed with displacement
 threshold1/2 native pixels; coherence threshold.8 and edge strength.015 are
 fixed. Three synthetic checks verify identical-input preservation, local
 rejection of a shifted step and preservation of detail on a flat surface.
-Actual-frame quality is pending; passing these tests is not evidence of an
+Full multi-frame quality is pending; passing these tests is not evidence of an
 improved universal recipe.
+
+First completed screen (`contour_s2_d1`,540): heldout-person LPIPS0.0945535004,
+**30.0579%** below the frozen baseline. Cam007 person improves from the accepted
+hybrid's0.0673453 to0.0630166. Its problematic fold region improves from0.0457955
+to0.0356025, but remains worse than baseline0.0316205. Visual inspection confirms
+that some irregular fold edges remain. This control is **not accepted**:
+local regression remains and the30% margin is narrow. The screen scores person
+plus five predefined spatial regions; it is not a full protocol evaluation.
+The summary gate now explicitly rejects incomplete metric coverage, including
+a matching regression test; all10 focused multi-frame/contour/summary tests pass.
+
+Completed540 matched screen (all four controls are unaccepted):
+
+| Control | Heldout-person LPIPS reduction | Cam007 fold LPIPS |
+| --- | ---: | ---: |
+| sigma2, displacement1 | 30.0579% | 0.0356025 |
+| sigma2, displacement2 | 30.4762% | 0.0417323 |
+| sigma4, displacement1 | 30.2277% | 0.0380800 |
+| sigma4, displacement2 | 30.5548% | 0.0431634 |
+
+`evaluation/contour_540_screen.csv` compares the same23 measured camera/region
+pairs for every control and the reference. Full protocol coverage is checked
+separately. A full evaluation of sigma2/displacement1 is also scheduled.
+`run_multiframe_contour_screen.py` waits for the live, identified own v1
+controller and runs these same four settings on545/544/549 using CPU only.
+This is a matched cross-frame check, not per-frame parameter selection.
 
 ## Insights and next steps
 
