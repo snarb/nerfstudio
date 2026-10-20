@@ -118,6 +118,7 @@ Common-protocol CPU measurements:
 | --- | ---: | ---: | ---: |
 | 540 / reused accepted v1 reference | 0.1351882741 | 0.0938206365 | 30.6000% |
 | 545 / pending | 0.1475184709 | pending | pending |
+| 544 / pending | 0.1381023899 | pending | pending |
 
 These are per-frame means across012/095/150. The540 reference uses the
 already accepted image, not a new global-recipe result. Its separate CSV is
@@ -170,6 +171,20 @@ The full sigma2/displacement1 evaluation subsequently completed: all protocol
 regions are covered, heldout improvement remains30.0579%, and five local
 LPIPS regressions remain (four cam007 regions and one cam150 region), versus
 seven for the reference. It still fails the local acceptance gate.
+
+All54 source geometries for545 completed and the controller advanced to CPU
+projection. Geometry544 is being prefetched under the single own GPU lease.
+Baseline544 metrics were evaluated on CPU alongside this work. Initial
+cam007 head comparisons for544/545 are saved as
+`frames/<frame>/evaluation/baseline_cam007_head_preview.jpg`: ornament outlines
+are already relatively crisp, while photographic glints and eyelid contours
+differ. These are baseline observations, not acceptance of an unrendered hybrid.
+
+Storage control: a separate zstd level1 copy of545/cam059 RGB compressed from
+147456128 to44642188 bytes (30.27%). Streamed decompression reproduced the exact
+SHA256. `probes/cache_compression/receipt.json` records the measurement.
+No source cache was removed; the result supports future lossless cache archival
+if needed to retain the training disk reserve.
 
 ## Insights and next steps
 
