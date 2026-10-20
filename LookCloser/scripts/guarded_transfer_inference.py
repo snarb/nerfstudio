@@ -31,8 +31,44 @@ def safe(state, admission=False):
     return state['free_mib']>=65536 and state['used_mib']<24576 and state['own_mib']<6144
 
 
+def cached_geometry_complete(root,cameras):
+    """Verify previously completed frozen outputs without CUDA initialization."""
+    receipts=[root/'geometry'/f'cam{cid:03d}'/'receipt.json' for cid in cameras]
+    if not receipts or not all(p.exists() for p in receipts):
+        return False
+    import numpy as np
+    from luster_hybrid_common import native_rows,read,sha,log
+    context=read(root/'context.json')
+    assert sha(context['checkpoint'])==context['checkpoint_sha256']
+    assert sha(context['config'])==context['config_sha256']
+    rows=native_rows();states=set()
+    required={'rgb','alpha','ray_distance_mean','depth_z_q10','depth_z_q50','depth_z_q90'}
+    for cid,path in zip(cameras,receipts):
+        r=read(path)
+        assert r['state']=='complete' and r['camera']==cid
+        assert r['checkpoint_sha256']==context['checkpoint_sha256']
+        assert r['row']==rows[cid], 'Cached geometry calibration differs'
+        assert required<=set(r['arrays'])
+        assert len(r['state_hash'])==64
+        states.add(r['state_hash'])
+        for key in r['arrays']:
+            p=path.parent/f'{key}.npy'
+            assert sha(p)==r['hashes'][key], 'Cached geometry array changed'
+            array=np.load(p,mmap_mode='r')
+            shape=(rows[cid]['h'],rows[cid]['w'])
+            assert array.shape==((*shape,3) if key=='rgb' else shape)
+    assert len(states)==1, 'Mixed frozen model states'
+    log(root,'geometry_cache_verified_without_cuda',cameras=cameras,
+        checkpoint_sha256=context['checkpoint_sha256'],state_hash=next(iter(states)))
+    return True
+
+
 def run(a):
     assert 1<=a.chunk<=4096
+    os.environ['LUSTER_HYBRID_FRAME_MANIFEST']=str((a.root/'context.json').resolve())
+    os.environ['PYTHONDONTWRITEBYTECODE']='1'
+    if cached_geometry_complete(a.root,a.cameras):
+        return
     # This is exclusively our transfer lock, never the other campaign's lease.
     lease=(a.root.parent.parent/'gpu_inference.lock').open('a')
     # Queue our own renderers before importing Torch or allocating CUDA memory.
@@ -42,8 +78,6 @@ def run(a):
     state=telemetry()
     if not safe(state,True):
         raise RuntimeError(f'GPU admission refused: {state}')
-    os.environ['LUSTER_HYBRID_FRAME_MANIFEST']=str((a.root/'context.json').resolve())
-    os.environ['PYTHONDONTWRITEBYTECODE']='1'
     os.nice(10)
     stop=threading.Event()
     path=a.root/'logs/gpu_guard.jsonl'

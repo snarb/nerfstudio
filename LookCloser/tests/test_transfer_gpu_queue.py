@@ -21,7 +21,7 @@ def worker(root,barrier,active,peak):
         cuda=types.SimpleNamespace(set_per_process_memory_fraction=lambda *args:None))
     sys.modules['occupancy_native_luster_hybrid']=types.SimpleNamespace(run=render)
     barrier.wait(timeout=10)
-    guard.run(types.SimpleNamespace(root=root,chunk=1,occupancy_only=True,aabb_only=False))
+    guard.run(types.SimpleNamespace(root=root,chunk=1,cameras=[7],occupancy_only=True,aabb_only=False))
 
 
 def test_two_own_inferences_queue_without_overlapping(tmp_path):

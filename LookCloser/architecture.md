@@ -9,6 +9,9 @@ memory-capped inference with a self-only GPU watchdog, and evaluates on CPU.
 One campaign-only GPU lease serializes geometry prefetch and foreground
 inference. CPU source-confidence precomputation can overlap interpolation;
 per-source locks serialize cache publication without changing its calculation.
+Complete geometry caches bypass GPU admission only after CPU verification of
+checkpoint/configuration hashes, camera rows, array hashes/shapes and consistent
+saved model-state hashes.
 `occupancy_native_luster_hybrid.py` conservatively projects saved occupied
 cells to skip provably empty rays without modifying the field/grids.
 Native per-frame masks and spatial evaluation regions are isolated from

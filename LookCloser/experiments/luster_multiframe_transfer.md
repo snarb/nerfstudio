@@ -56,6 +56,13 @@ The campaign-only inference lock now queues callers **before Torch import**.
 CPU; only one own renderer can allocate CUDA memory. A two-process test with
 stubbed CUDA confirms both calls finish and maximum concurrent rendering is1.
 Seven queue/frame-isolation tests pass. No trainer lock is acquired.
+Complete geometry now has a CPU verification path before GPU admission:
+checkpoint/config hashes, native camera rows, every array hash and shape, and
+consistent saved model-state hashes must agree. This avoids waiting behind
+prefetch just to re-open already complete outputs. Actual544 target-cache
+verification succeeded with `CUDA_VISIBLE_DEVICES=''`
+(`logs/544_cpu_cache_validation.log`);11 cache/queue/frame tests pass, including
+rejection of corrupted arrays, foreign checkpoint tags and changed calibration.
 
 ## Implementation and evaluation
 
