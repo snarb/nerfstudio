@@ -2233,3 +2233,6 @@ residual at gain 1.1/1.3/1.6. Seam tolerance is divided by gain so final scaled
 corrections retain the same agreement threshold. Gain 1 must reproduce the
 depth25 reference exactly. Gains above one are not confidence probabilities
 or newly observed detail, and this experiment is not an accepted recipe.
+
+
+`render_luster_depth_dof.py` is an optional offline presentation pass: relative depth, temporally stabilized focus and flow-aligned depth, then depth-dependent defocus without reading silhouette masks; see [the frozen Luster DoF recipe](experiments/luster_flythrough_depth_dof.md) for parameters, input dependencies and ProRes export (training and upstream hybrid synthesis unchanged).
