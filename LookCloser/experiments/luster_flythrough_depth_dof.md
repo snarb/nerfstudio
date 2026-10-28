@@ -1,5 +1,10 @@
 # Luster fly-through: depth-based defocus
 
+**Historical recipe, superseded for boundary-safe defocus:** mixed RGB/depth can
+retain bright/dark rims at partial coverage. Use the [validated layered DoF
+fix](layered_dof_boundary_fix.md) when clean foreground/background layers are
+available. The export instructions below remain applicable.
+
 ## What was tested
 
 Separate version of the existing 314-frame, 24fps, 1500×2048 hybrid video.

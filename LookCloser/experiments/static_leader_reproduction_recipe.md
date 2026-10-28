@@ -16,7 +16,7 @@ selected native TRAIN photograph per pixel. The user accepted the shown result
 as the new working baseline; native validation person LPIPS is **30.80% lower**.
 This measured Luster addition does not change the original training defaults above.
 
-**Recommended presentation rendering (validated on Luster):** use [depth-based DoF with a broad subject focus range and temporally stabilized depth, followed by a ProRes 4444 XQ master from PNGs](luster_flythrough_depth_dof.md) to soften the background without silhouette masks in the defocus pass.
+**Recommended presentation rendering (boundary fix validated on48 native Luster frames):** [defocus a complete background independently, then compose the unchanged in-focus premultiplied foreground](layered_dof_boundary_fix.md) to avoid bright/dark contour rims; retain the [ProRes 4444 XQ export from PNGs](luster_flythrough_depth_dof.md#professional-master-export) for the master.
 
 ## Additional-dataset findings (original leader unchanged)
 

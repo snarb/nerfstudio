@@ -2236,3 +2236,17 @@ or newly observed detail, and this experiment is not an accepted recipe.
 
 
 `render_luster_depth_dof.py` is an optional offline presentation pass: relative depth, temporally stabilized focus and flow-aligned depth, then depth-dependent defocus without reading silhouette masks; see [the frozen Luster DoF recipe](experiments/luster_flythrough_depth_dof.md) for parameters, input dependencies and ProRes export (training and upstream hybrid synthesis unchanged).
+
+
+## Layered presentation defocus (2026-10-28)
+
+`scripts/layered_dof.py` blurs a complete background independently before
+composing an in-focus premultiplied foreground with unchanged alpha. The distant
+variant uses a circular aperture in output-pixel units; the variable-CoC variant
+requires background-only blur radii, never mixed foreground/background depth.
+Color conversion unassociates/decode/reassociates sRGB contributions when needed.
+`scripts/diagnose_luster_layered_dof.py` reproduces the archived Luster ablation
+with reconstruction assertions, hashes and change masks. Existing training and
+historical movie scripts are unchanged. This fixes tested contour rims, not
+opaque false geometry or bad mattes. See
+[validation and usage](experiments/layered_dof_boundary_fix.md).
