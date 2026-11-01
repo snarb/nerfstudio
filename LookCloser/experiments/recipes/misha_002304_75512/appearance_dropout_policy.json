@@ -1,0 +1,11 @@
+{
+  "probability": 0.5,
+  "seed": 43,
+  "unit": "whole training-step color conditioning",
+  "schedule": "stateless SHA256(seed,absolute step); no global/private RNG state",
+  "train_calls": 512,
+  "zero_condition_calls": 265,
+  "eval_forward_changed": false,
+  "density_forward_changed": false,
+  "script_sha256": "549cc6a959aea75b1f347c1eb20d54445217d5dbfea2c8580319a893d08f0720"
+}

@@ -1,0 +1,10 @@
+{
+  "host": "silver-sable",
+  "path": "/cache/ubuntu/lookcloser/misha_maskfix_20261031/screen_v11/world_sampling_fine875512/field/lookcloser/run/nerfstudio_models/step-000075512.ckpt",
+  "bytes": 4147874057,
+  "sha256": "322b10d3c12612bcb9237552d357b4a28a3d8745ad2e1a86ea40bf6dcaa6d757",
+  "verified_utc": "2026-11-01T09:48:29.765759+00:00",
+  "selected_by": "mean person ROI LPIPS, user priority",
+  "source_checkpoint": "/cache/ubuntu/lookcloser/misha_maskfix_20261031/screen_v11/world_sampling_fine875512/request.json",
+  "exact_wrapper_root": "/home/ubuntu/lookcloser/campaigns/misha_maskfix_20261031/screen_code_v20"
+}

@@ -1,0 +1,235 @@
+{
+  "seed": 43,
+  "end_step": 75512,
+  "eval_steps": [
+    75256,
+    75512
+  ],
+  "roi_boxes": {
+    "DD": {
+      "head": [
+        540,
+        300,
+        1080,
+        780
+      ],
+      "face": [
+        670,
+        350,
+        1020,
+        680
+      ],
+      "background": [
+        60,
+        60,
+        500,
+        400
+      ],
+      "clothing": [
+        1200,
+        260,
+        1720,
+        620
+      ],
+      "face_interior": [
+        730,
+        420,
+        970,
+        630
+      ],
+      "person": [
+        541,
+        80,
+        1920,
+        884
+      ]
+    },
+    "HC": {
+      "head": [
+        600,
+        190,
+        1240,
+        650
+      ],
+      "face": [
+        730,
+        270,
+        1130,
+        570
+      ],
+      "hair": [
+        620,
+        240,
+        800,
+        570
+      ],
+      "background": [
+        40,
+        60,
+        540,
+        430
+      ],
+      "clothing": [
+        1300,
+        160,
+        1780,
+        650
+      ],
+      "face_interior": [
+        800,
+        310,
+        1120,
+        540
+      ],
+      "person": [
+        604,
+        0,
+        1920,
+        918
+      ]
+    },
+    "MD": {
+      "head": [
+        470,
+        0,
+        1220,
+        470
+      ],
+      "face": [
+        650,
+        0,
+        1160,
+        440
+      ],
+      "background": [
+        80,
+        530,
+        600,
+        940
+      ],
+      "clothing": [
+        1330,
+        80,
+        1850,
+        560
+      ],
+      "face_interior": [
+        700,
+        30,
+        1100,
+        380
+      ],
+      "person": [
+        492,
+        0,
+        1920,
+        650
+      ]
+    }
+  },
+  "integration_probes": [
+    {
+      "name": "common_fine8",
+      "model": {
+        "adaptive_coarse_step_size": 0.000125,
+        "adaptive_min_step_size": 1.25e-05,
+        "max_steps_per_ray": 8192
+      }
+    }
+  ],
+  "data": "/home/ubuntu/lookcloser/campaigns/misha_maskfix_20261031/world_aligned_domain_v1/data",
+  "output": "/cache/ubuntu/lookcloser/misha_maskfix_20261031/screen_v11/world_sampling_fine875512",
+  "frequency_ssim_threshold": 0.95,
+  "model": {
+    "correct_sh_directions": true,
+    "feature_reweighting_strength": 1.0,
+    "adaptive_coarse_step_size": 0.000125,
+    "density_activation": "trunc_exp",
+    "background_density_loss_mult": 0.1,
+    "opacity_regularization": 1.0,
+    "opacity_foreground_only": true,
+    "use_rgb_confidence": true,
+    "appearance_embedding_dim": 16,
+    "tcnn_init_seed": 43,
+    "depth_loss_mult": 0.0,
+    "depth_prior_strength": 10.0,
+    "depth_prior_loss_mult": 0.01,
+    "occupancy_dilation_radius": 1,
+    "depth_prior_objective": "interval_mass",
+    "volume_depth_guided_sampling": false,
+    "separate_density_encoding": true,
+    "density_element_regularization": 0.0,
+    "encoding_aabb": [
+      -0.09381421655416489,
+      -0.026750236749649048,
+      -0.08113334327936172,
+      0.2117285430431366,
+      0.22978068888187408,
+      0.16826921701431274
+    ],
+    "occupancy_grid_resolution": [
+      142,
+      84,
+      128
+    ],
+    "max_res": 8192.0,
+    "render_step_size_mult": 1.0380433560265832,
+    "adaptive_min_step_size": 1.25e-05,
+    "max_steps_per_ray": 8192
+  },
+  "use_opacity_extension": true,
+  "independent_rng_streams": true,
+  "target_family": "person",
+  "background_density_schedule": {
+    "initial": 0.1,
+    "final": 0.1,
+    "start_step": 8000,
+    "ramp_steps": 8000
+  },
+  "training_confidence": "/home/ubuntu/lookcloser/campaigns/misha_maskfix_20261031/world_aligned_domain_v1/confidence.json",
+  "exclude_unknown_background": true,
+  "prune_superseded_recovery": true,
+  "pipeline": {
+    "grid_update_interval": 256,
+    "frequency_map_dir": "/home/ubuntu/lookcloser/campaigns/misha_maskfix_20261031/person_native_v2/lookcloser_frequencies"
+  },
+  "depth_prior_manifest": "/home/ubuntu/lookcloser/campaigns/misha_maskfix_20261031/world_aligned_domain_v1/depth.json",
+  "sparse_depth_rays": 64,
+  "recipe_note": "Finite512-update paired quadrature-learning pilot from identical migratedKD75fullstate, correctedBB/nativeV5targets/H1, FR1anddensityFR0/FAS1/frozenfrequency unchanged. ONLY train integration nativevsfine8 differs. Both endpoints ALSO rendered with COMMONfine8 for fair field-quality comparison. Separate-alpha/RGB/source labels not changed. Fine8matches uniform5e-6 ROIreference closely; tests whether correctedintegral improves learnedbody rather than only changinginference. No background/hybrid.",
+  "common_evaluation_data": "/home/ubuntu/lookcloser/campaigns/misha_maskfix_20261031/person_native_sdr_v5_KD_primary",
+  "review_cameras": [
+    "AB"
+  ],
+  "matte_alpha_weight": 0.1,
+  "freeze_learned_geometry": false,
+  "filter_opacity_by_visibility": true,
+  "require_frequency_maps": false,
+  "frequency_prior_source": "/home/ubuntu/lookcloser/campaigns/misha_maskfix_20261031/person_native_v2",
+  "sampler": {
+    "frequency_map_dir": "/home/ubuntu/lookcloser/campaigns/misha_maskfix_20261031/person_native_v2/lookcloser_frequencies",
+    "ignore_mask": true,
+    "fas_warmup_steps": 0,
+    "fas_ramp_steps": 0
+  },
+  "evaluate_initial_checkpoint": true,
+  "appearance_dropout_probability": 0.5,
+  "person_occupancy_support": {
+    "manifest": "/home/ubuntu/lookcloser/campaigns/misha_maskfix_20261031/world_aligned_domain_v1/support.json",
+    "variant": "x142_y84_halo1"
+  },
+  "resume": "/cache/ubuntu/lookcloser/misha_maskfix_20261031/world_aligned_domain_v1/migrated_075000.ckpt",
+  "save_initial_checkpoint": false,
+  "sparse_depth_foreground_fraction": 1.0,
+  "matte_alpha_foreground_multiplier": 1.0,
+  "density_frequency_policy": {
+    "strength": 0
+  },
+  "photometric_RGB_sampling": {
+    "manifest": "/home/ubuntu/lookcloser/campaigns/misha_maskfix_20261031/world_aligned_domain_v1/depth.json",
+    "rays": 64
+  },
+  "freeze_runtime_frequency_grid": true,
+  "frozen_code_root": "/home/ubuntu/lookcloser/campaigns/misha_hd_20261029/train_code_v24",
+  "evaluate_checkpoint_only": false,
+  "pre_intervention_reference_metrics": "/cache/ubuntu/lookcloser/misha_maskfix_20261031/world_aligned_initial_v1/eval_075000/metrics.json"
+}

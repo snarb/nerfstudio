@@ -1,0 +1,16 @@
+{
+  "initial": {
+    "aabb_min_buf": "2035eaff784ab8d87f844788bd39606648e900a95bc1495d01059d982f3d5a7d",
+    "aabb_max_buf": "304bf4c5b526cdd6170f46d807e9f6afd1d64e5ac2809d1e819a4a1f668ac18e",
+    "aabb_size_buf": "2d742440d70133378a15f386125b5454af43b4d9c3fd57e12ae788fc99b1cc48",
+    "grid": "267b7993ab9f85de3bef26ca2304e7eb75574fd3ddc608a1fd28a8c517cbd2dc"
+  },
+  "verified_steps": [
+    75000,
+    75256,
+    75256,
+    75512,
+    75512
+  ],
+  "density_parameters_trainable": true
+}

@@ -1,0 +1,9 @@
+{
+  "manifest_sha256": "ec6bbbe15db0e449a467e1f150ccede9202b027b0a1b87548e44699994e025d5",
+  "pool_sha256": "db0c801da97b3d980fa473c3ebf21608d634c1e246a94269099414e06ad787a1",
+  "count": 64,
+  "foreground_fraction": 1.0,
+  "camera_balance": "uniform within each measured domain",
+  "renderer": "ordinary volume; no depth-guided ray sampling",
+  "script_sha256": "5afbedc0bcdb394352ef0bb2a128f3ada80c8c210674155b072c83fd7741bc2d"
+}

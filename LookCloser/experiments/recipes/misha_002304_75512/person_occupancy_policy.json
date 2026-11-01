@@ -1,0 +1,41 @@
+{
+  "manifest": "/home/ubuntu/lookcloser/campaigns/misha_maskfix_20261031/world_aligned_domain_v1/support.json",
+  "manifest_sha256": "f678b31fa9f583f886cf23e8905da798201c887d9e8c24448e25baf48ae56551",
+  "archive_sha256": "d66d724cd2551261ee84795b4a361ce6f49587f3dc754fc23ac5a39d027d34dc",
+  "variant": {
+    "name": "x142_y84_halo1",
+    "path": "/cache/ubuntu/lookcloser/misha_maskfix_20261031/extended_minimum_X_support_v1/x142_y84_halo1.npz",
+    "sha256": "d66d724cd2551261ee84795b4a361ce6f49587f3dc754fc23ac5a39d027d34dc",
+    "shape": [
+      142,
+      84,
+      128
+    ],
+    "aabb": [
+      [
+        -0.09381422400474548,
+        -0.026750244200229645,
+        -0.08113333582878113
+      ],
+      [
+        0.2451472831889987,
+        0.14159819041378796,
+        0.16826921701431274
+      ]
+    ],
+    "allowed_cells": 331103,
+    "halo_cells": 1,
+    "halo_reopens_negative_cells": 57604,
+    "point_coverage_gate_passed": true,
+    "removed_3sigma_point_boxes": 0,
+    "full_image_capacity_gate_passed": true,
+    "capacity_sha256": "28fadde334d90325aab4bc126085316f49b112c1ae51ba7b9d7f50ad9d421787"
+  },
+  "script_sha256": "21b7fb101407b11740b88eae37bc58f2efa9f070166e261615f5e918c0367e82",
+  "density_and_sampling": true,
+  "all_fixed_adaptive_point_paths": true,
+  "restored_existing_frozen_support": false,
+  "image_masking": false,
+  "hybrid_rendering": false,
+  "postprocessing": false
+}

@@ -1,0 +1,36 @@
+{
+  "source_run": "/cache/ubuntu/lookcloser/misha_maskfix_20261031/screen_v11/world_sampling_fine875512",
+  "step": 75512,
+  "selection": "lowest comparable mean person ROI LPIPS; equivalent checkpoint replays differ <1e-6",
+  "human_lpips": 0.2212120940287908,
+  "PSNR": 29.801607131958008,
+  "SSIM": 0.8912192583084106,
+  "LPIPS": 0.12234431505203247,
+  "limitations": "Numerical leader only; known novel-view arm hole and AB floaters remain. No new accepted artifact-free leader.",
+  "files": {
+    "DD": {
+      "filename": "best_DD_HD.png",
+      "size": [
+        1920,
+        1013
+      ],
+      "sha256": "04352cfefd77474d7f622440d8991102010a277bf16f44907f08157cdab46dbe"
+    },
+    "HC": {
+      "filename": "best_HC_HD.png",
+      "size": [
+        1920,
+        1013
+      ],
+      "sha256": "7d16bd5faff976dc3b7485401e6bc08a17b212abbda84a0f6a2af06ab458c584"
+    },
+    "MD": {
+      "filename": "best_MD_HD.png",
+      "size": [
+        1920,
+        1012
+      ],
+      "sha256": "72b59f886d8262beab57061bbcb3cc8c12790f9502a982be71c4cd3f4ac107c6"
+    }
+  }
+}

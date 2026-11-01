@@ -1,0 +1,12 @@
+{
+  "strength": 0,
+  "color_feature_reweighting_strength": 1.0,
+  "independent_density_encoding": true,
+  "ordinary_volume": true,
+  "sampling_changed": false,
+  "support_policy": {
+    "manifest": "/home/ubuntu/lookcloser/campaigns/misha_maskfix_20261031/world_aligned_domain_v1/support.json",
+    "variant": "x142_y84_halo1"
+  },
+  "script_sha256": "b0e3f44c6b42a7ac666bdbfee7c21b2e94ec44d2f859a2b57baa878884e3ce82"
+}

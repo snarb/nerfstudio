@@ -1,0 +1,407 @@
+!!python/object:nerfstudio.engine.trainer.TrainerConfig
+_target: !!python/name:nerfstudio.engine.trainer.Trainer ''
+checkpoint_load_mode: resume
+checkpoint_load_parameter_hash_audit: false
+data: null
+eval_checkpoint: null
+experiment_name: field
+fused_adam_switch_group: fields
+fused_adam_switch_step: null
+grad_scaler_growth_interval: 2000
+grad_scaler_init_scale: 65536.0
+gradient_accumulation_steps: {}
+load_checkpoint: !!python/object/apply:pathlib.PosixPath
+- /
+- cache
+- ubuntu
+- lookcloser
+- misha_maskfix_20261031
+- world_aligned_domain_v1
+- migrated_075000.ckpt
+load_config: null
+load_dir: null
+load_optimizers: true
+load_scheduler: true
+load_step: null
+log_gradients: false
+logging: !!python/object:nerfstudio.configs.base_config.LoggingConfig
+  csv_writer: !!python/object:nerfstudio.configs.base_config.CSVWriterConfig
+    enable: false
+    improvement_tolerance: 0.001
+    relative_log_filename: !!python/object/apply:pathlib.PosixPath
+    - metrics_compact.csv
+    write_interval: 100
+  local_writer: !!python/object:nerfstudio.configs.base_config.LocalWriterConfig
+    _target: !!python/name:nerfstudio.utils.writer.LocalWriter ''
+    enable: false
+    max_log_size: 10
+    stats_to_track: !!python/tuple
+    - !!python/object/apply:nerfstudio.utils.writer.EventName
+      - Train Iter (time)
+    - !!python/object/apply:nerfstudio.utils.writer.EventName
+      - Train Rays / Sec
+    - !!python/object/apply:nerfstudio.utils.writer.EventName
+      - Test PSNR
+    - !!python/object/apply:nerfstudio.utils.writer.EventName
+      - Vis Rays / Sec
+    - !!python/object/apply:nerfstudio.utils.writer.EventName
+      - Test Rays / Sec
+    - !!python/object/apply:nerfstudio.utils.writer.EventName
+      - ETA (time)
+  max_buffer_size: 20
+  profiler: none
+  relative_log_dir: !!python/object/apply:pathlib.PosixPath []
+  steps_per_log: 10
+machine: !!python/object:nerfstudio.configs.base_config.MachineConfig
+  device_type: cuda
+  dist_url: auto
+  machine_rank: 0
+  num_devices: 1
+  num_machines: 1
+  seed: 43
+max_num_iterations: 75513
+method_name: lookcloser
+mixed_precision: true
+optimizers:
+  fields:
+    optimizer: !!python/object:nerfstudio.engine.optimizers.AdamOptimizerConfig
+      _target: !!python/name:torch.optim.adam.Adam ''
+      eps: 1.0e-15
+      fused: null
+      lr: 0.01
+      max_norm: null
+      max_value: null
+      weight_decay: 0
+    scheduler: !!python/object:nerfstudio.engine.schedulers.ExponentialDecaySchedulerConfig
+      _target: !!python/name:nerfstudio.engine.schedulers.ExponentialDecayScheduler ''
+      lr_final: 0.0001
+      lr_pre_warmup: 1.0e-08
+      max_steps: 200000
+      ramp: cosine
+      warmup_steps: 0
+output_dir: !!python/object/apply:pathlib.PosixPath
+- /
+- cache
+- ubuntu
+- lookcloser
+- misha_maskfix_20261031
+- screen_v11
+- world_sampling_fine875512
+pipeline: !!python/object:nerfstudio.pipelines.lookcloser_pipeline.LookCloserPipelineConfig
+  _target: !!python/name:nerfstudio.pipelines.lookcloser_pipeline.LookCloserPipeline ''
+  datamanager: !!python/object:nerfstudio.data.datamanagers.luster_opacity_datamanager.LusterOpacityDataManagerConfig
+    _target: !!python/name:nerfstudio.data.datamanagers.luster_opacity_datamanager.LusterOpacityDataManager ''
+    cache_images_type: float32
+    cache_train_rays: false
+    cache_train_rays_chunk_size: 1048576
+    camera_optimizer: null
+    camera_res_scale_factor: 1.0
+    collate_fn: !!python/name:nerfstudio.data.utils.nerfstudio_collate.nerfstudio_collate ''
+    cord_rgb_camera_ids: null
+    cord_rgb_fit_path: null
+    cord_rgb_fit_sha256: null
+    cord_rgb_jitter_px: 6.0
+    cord_rgb_rays_per_batch: 0
+    cord_rgb_seed: 42
+    cpu_fas_prefetch: false
+    data: !!python/object/apply:pathlib.PosixPath
+    - /
+    - home
+    - ubuntu
+    - lookcloser
+    - campaigns
+    - misha_maskfix_20261031
+    - world_aligned_domain_v1
+    - data
+    dataparser: !!python/object:nerfstudio.data.dataparsers.luster_opacity_dataparser.LusterOpacityDataParserConfig
+      _target: !!python/name:nerfstudio.data.dataparsers.luster_opacity_dataparser.LusterOpacityDataParser ''
+      auto_scale_poses: false
+      center_method: none
+      data: !!python/object/apply:pathlib.PosixPath
+      - /
+      - home
+      - ubuntu
+      - lookcloser
+      - campaigns
+      - misha_maskfix_20261031
+      - world_aligned_domain_v1
+      - data
+      depth_unit_scale_factor: 0.001
+      downscale_factor: 1
+      eval_interval: 8
+      eval_mode: filename
+      load_3D_points: false
+      mask_color: null
+      orientation_method: none
+      scale_factor: 1.0
+      scene_scale: 1.0
+      train_split_fraction: 0.9
+    depth_prior_manifest: /home/ubuntu/lookcloser/campaigns/misha_maskfix_20261031/world_aligned_domain_v1/depth.json
+    eval_image_indices: !!python/tuple
+    - 0
+    eval_num_images_to_sample_from: .inf
+    eval_num_rays_per_batch: 4096
+    eval_num_times_to_repeat_images: .inf
+    images_on_gpu: false
+    masks_on_gpu: false
+    patch_size: 1
+    pixel_sampler: !!python/object:nerfstudio.lookcloser_pixel_sampler.LookCloserPixelSamplerConfig
+      _target: !!python/name:nerfstudio.lookcloser_pixel_sampler.LookCloserPixelSampler ''
+      debug_mode: false
+      enable_fas: true
+      fas_consolidate_h2d: false
+      fas_decay_start_steps: -1
+      fas_decay_steps: 0
+      fas_level_count_alpha: 0.0
+      fas_max_sampling_level: -1
+      fas_patch_group_size: 1
+      fas_ramp_steps: 0
+      fas_strength: 1.0
+      fas_warmup_steps: 0
+      fisheye_crop_radius: null
+      frequency_map_dir: /home/ubuntu/lookcloser/campaigns/misha_maskfix_20261031/person_native_v2/lookcloser_frequencies
+      ignore_mask: true
+      is_equirectangular: false
+      keep_full_image: false
+      max_num_iterations: 100
+      max_res: 8192.0
+      min_res: 16.0
+      num_levels: 16
+      num_rays_per_batch: 4096
+      patch_size: 8
+      rejection_sample_mask: true
+      sampling_ramp_end: 3.0
+      sampling_ramp_start: 1.0
+      stride: 8
+      training_patch_size: 1
+    train_camera_ids: null
+    train_num_images_to_sample_from: .inf
+    train_num_rays_per_batch: 4096
+    train_num_times_to_repeat_images: .inf
+  dynamic_rays_change_limit: 1.25
+  dynamic_rays_ema: 0.9
+  dynamic_rays_max: 32768
+  dynamic_rays_min: 256
+  dynamic_rays_start_step: 0
+  enable_frequency_grid: true
+  feature_reweighting_after_switch: null
+  feature_reweighting_switch_step: null
+  frequency_map_dir: /home/ubuntu/lookcloser/campaigns/misha_maskfix_20261031/person_native_v2/lookcloser_frequencies
+  frequency_patch_size: 8
+  frequency_projection_mode: legacy
+  frequency_stride: 8
+  geometry_support_batch_size: 8192
+  geometry_support_decay: 0.95
+  geometry_support_map_dir: null
+  geometry_support_map_suffix: .pt
+  geometry_support_min_accumulation: 0.1
+  geometry_support_min_peak_weight: 0.002
+  geometry_support_patch_size: 8
+  geometry_support_probe_samples: 1024
+  geometry_support_quantile: 0.8
+  geometry_support_stride: 8
+  geometry_support_update_interval: 1024
+  grid_update_batch_size: 2048
+  grid_update_interval: 256
+  grid_update_min_accumulation: 0.0
+  independent_rng_streams: true
+  model: !!python/object:nerfstudio.models.lookcloser_opacity.LookCloserOpacityModelConfig
+    _target: !!python/name:nerfstudio.models.lookcloser_opacity.LookCloserOpacityModel ''
+    adaptive_coarse_step_size: 0.000125
+    adaptive_fixed_fallback_samples_per_ray: 0
+    adaptive_interval_level_mode: midpoint
+    adaptive_max_frequency_level: null
+    adaptive_max_step_size: 0.1
+    adaptive_min_frequency_level: 0.0
+    adaptive_min_step_size: 1.25e-05
+    adaptive_warmup_steps: 4096
+    allow_unmarked_volume_checkpoint: true
+    alpha_thre: 0.0
+    appearance_embedding_dim: 16
+    background_color: black
+    background_density_loss_mult: 0.1
+    collider_params:
+      far_plane: 6.0
+      near_plane: 2.0
+    color_num_layers: 2
+    cone_angle: 0.0
+    cord_occupancy_radius: 0.0
+    cord_ray_color_regularization: 0.0
+    cord_ray_objective: density_band
+    cord_ray_opacity_target: 0.99
+    cord_ray_regularization: 0.0
+    cord_ray_selection_path: null
+    cord_ray_selection_sha256: null
+    cord_ray_tolerance: 0.003
+    cord_ray_transforms_path: null
+    cord_ray_tube_radius: 0.0
+    cord_rays_per_batch: 32
+    cord_sampling_fit_path: null
+    cord_sampling_fit_sha256: null
+    cord_sampling_max_steps_per_ray: 4096
+    cord_sampling_radius: 0.002
+    cord_sampling_step_size: 0.001
+    cord_sampling_transforms_sha256: null
+    correct_sh_directions: true
+    corrected_arm_allocator: false
+    density_activation: trunc_exp
+    density_element_regularization: 0.0
+    density_element_samples: 1024
+    density_element_sparse_bias: 0.99
+    depth_loss_mult: 0.0
+    depth_loss_steps: 5000
+    depth_prior_loss_mult: 0.01
+    depth_prior_objective: interval_mass
+    depth_prior_opacity_target: 0.99
+    depth_prior_strength: 10.0
+    distortion_loss_mult: 0.01
+    eag_dssim_weight: 0.2
+    eag_edge_weight: 0.0
+    eag_lpips_weight: 0.0
+    eag_patch_size: 11
+    eikonal_loss_mult: 0.1
+    enable_adaptive_ray_marching: true
+    enable_collider: true
+    enable_feature_reweighting: true
+    enable_frequency_grid: true
+    encoding_aabb:
+    - -0.09381421655416489
+    - -0.026750236749649048
+    - -0.08113334327936172
+    - 0.2117285430431366
+    - 0.22978068888187408
+    - 0.16826921701431274
+    eval_num_rays_per_chunk: 2048
+    eval_use_training_near_plane: false
+    fallback_frequency_level: 0.0
+    far_plane: 1000.0
+    feature_reweighting_strength: 1.0
+    field_hidden_dim: 64
+    fixed_num_samples_per_ray: 256
+    floor_free_sampling: uniform
+    floor_ray_prior_path: null
+    floor_ray_regularization: 0.0
+    floor_ray_transforms_sha256: null
+    floor_rays_per_batch: 64
+    geo_feat_dim: 15
+    geo_num_layers: 1
+    geometry_support_dilation_radius: 1
+    geometry_support_dilation_shape: cube
+    geometry_support_enabled: false
+    geometry_support_threshold: 0.2
+    grid_resolution: 128
+    hash_features_per_level: 2
+    hdr_initial_radiance: null
+    hdr_linear_scale: null
+    hdr_softplus_beta: 1.0
+    huber_delta: 0.1
+    independent_rng_streams: true
+    interpolate_frequency_features: false
+    log2_hashmap_size: 23
+    loss_coefficients:
+      rgb_loss_coarse: 1.0
+      rgb_loss_fine: 1.0
+    max_res: 8192.0
+    max_res_base: 2048.0
+    max_steps_per_ray: 8192
+    min_res: 16.0
+    near_plane: 0.01
+    num_frequency_levels: 16
+    occupancy_binary_warmup_steps: 4096
+    occupancy_diagnostics: true
+    occupancy_dilation_radius: 1
+    occupancy_ema_decay: 0.95
+    occupancy_eval_dilation_frequency_halo: 0
+    occupancy_eval_dilation_frequency_quantile: null
+    occupancy_eval_dilation_min_frequency_level: 0.0
+    occupancy_eval_dilation_radius: 0
+    occupancy_fixed_fallback_samples_per_ray: 0
+    occupancy_grid_levels: 1
+    occupancy_grid_resolution:
+    - 142
+    - 84
+    - 128
+    occupancy_occ_thre: 0.01
+    occupancy_prior_grid_path: null
+    occupancy_prior_transforms_sha256: null
+    occupancy_thre_clamp_mult: 1.0
+    occupancy_update_interval: 16
+    occupancy_update_step_size: null
+    occupancy_warmup_steps: 4096
+    opacity_foreground_only: true
+    opacity_ramp_steps: 4096
+    opacity_regularization: 1.0
+    pq_black_nits: 0.005
+    pq_code_temperature: 1.0
+    pq_linear_anchor_weight: 0.0
+    pq_nits_per_scene_unit: null
+    pq_peak_nits: 10000.0
+    prompt: null
+    rawnerf_epsilon: 0.001
+    rawnerf_grad_clip: 0.1
+    ray_sampling_mode: adaptive
+    reconstruction_loss_type: charbonnier
+    render_step_size: null
+    render_step_size_mult: 1.0380433560265832
+    representation: volume
+    rgb_output_parameterization: sigmoid
+    semantic_grid_path: null
+    semantic_transparency_mult: 0.01
+    separate_density_encoding: true
+    sh_degree: 4
+    skip_invalid_depth_updates: false
+    stable_occupancy_reduction: true
+    surface_geometry_gradient_mode: cdf
+    surface_geometry_head: shared
+    surface_inverse_width: 400.0
+    surface_num_samples: 256
+    surface_refine_steps: 8
+    surface_sdf_features: reweighted
+    tcnn_init_seed: 43
+    tcnn_network_jit: false
+    tcnn_network_jit_scope: both
+    training_seed: 43
+    transmittance_threshold: 0.0
+    use_gradient_scaling: false
+    use_rgb_confidence: true
+    volume_depth_guided_sampling: false
+  target_num_samples_after_switch: null
+  target_num_samples_per_batch: 0
+  target_num_samples_switch_step: null
+  tcnn_network_jit_second_switch_scope: null
+  tcnn_network_jit_second_switch_step: null
+  tcnn_network_jit_switch_step: null
+  train_rays_after_switch: null
+  train_rays_switch_step: null
+  training_seed: 43
+project_name: nerfstudio-project
+prompt: null
+relative_model_dir: !!python/object/apply:pathlib.PosixPath
+- nerfstudio_models
+replay_eval_trajectory: false
+resume_fields_lr_override: null
+resume_reset_frequency_grid: false
+resume_reset_occupancy_grid: false
+save_only_latest_checkpoint: false
+start_paused: false
+steps_per_eval_all_images: 15188
+steps_per_eval_batch: 15188
+steps_per_eval_image: 15188
+steps_per_save: 15188
+stop_at_cumulative_point_samples: null
+timestamp: run
+use_grad_scaler: false
+viewer: !!python/object:nerfstudio.configs.base_config.ViewerConfig
+  camera_frustum_scale: 0.1
+  default_composite_depth: true
+  image_format: jpeg
+  jpeg_quality: 75
+  make_share_url: false
+  max_num_display_images: 512
+  num_rays_per_chunk: 2048
+  quit_on_train_completion: false
+  relative_log_filename: viewer_log_filename.txt
+  websocket_host: 0.0.0.0
+  websocket_port: null
+  websocket_port_default: 7007
+vis: tensorboard

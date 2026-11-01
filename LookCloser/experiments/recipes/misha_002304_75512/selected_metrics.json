@@ -1,0 +1,166 @@
+{
+  "step": 75512,
+  "renders": "/cache/ubuntu/lookcloser/misha_maskfix_20261031/screen_v11/world_sampling_fine875512/eval_075512",
+  "integration_probe": null,
+  "checkpoint": "/cache/ubuntu/lookcloser/misha_maskfix_20261031/screen_v11/world_sampling_fine875512/field/lookcloser/run/nerfstudio_models/step-000075512.ckpt",
+  "per_view": [
+    {
+      "split": "eval",
+      "camera": "DD",
+      "crop_box": null,
+      "psnr": 32.370880126953125,
+      "ssim": 0.9038293361663818,
+      "lpips": 0.10499732196331024,
+      "rois": {
+        "head": {
+          "psnr": 27.693069458007812,
+          "ssim": 0.8755571842193604,
+          "lpips": 0.09261996299028397
+        },
+        "face": {
+          "psnr": 28.234031677246094,
+          "ssim": 0.8488501310348511,
+          "lpips": 0.0861639529466629
+        },
+        "background": {
+          "psnr": 120.0,
+          "ssim": 1.0,
+          "lpips": 0.0
+        },
+        "clothing": {
+          "psnr": 30.575313568115234,
+          "ssim": 0.6745073199272156,
+          "lpips": 0.4118824303150177
+        },
+        "face_interior": {
+          "psnr": 31.833003997802734,
+          "ssim": 0.8536478281021118,
+          "lpips": 0.07557226717472076
+        },
+        "person": {
+          "psnr": 29.929981231689453,
+          "ssim": 0.831292986869812,
+          "lpips": 0.18283900618553162
+        }
+      },
+      "integration": {
+        "mean_samples": 552.7976684570312,
+        "max_samples": 4147.0,
+        "saturation_fraction": 0.0
+      }
+    },
+    {
+      "split": "eval",
+      "camera": "HC",
+      "crop_box": null,
+      "psnr": 29.943580627441406,
+      "ssim": 0.8778042197227478,
+      "lpips": 0.13664503395557404,
+      "rois": {
+        "head": {
+          "psnr": 30.391464233398438,
+          "ssim": 0.8782473802566528,
+          "lpips": 0.057984620332717896
+        },
+        "face": {
+          "psnr": 30.769039154052734,
+          "ssim": 0.8399778008460999,
+          "lpips": 0.05783937871456146
+        },
+        "hair": {
+          "psnr": 26.534482955932617,
+          "ssim": 0.7708996534347534,
+          "lpips": 0.1180691123008728
+        },
+        "background": {
+          "psnr": 120.0,
+          "ssim": 1.0,
+          "lpips": 0.0
+        },
+        "clothing": {
+          "psnr": 27.160520553588867,
+          "ssim": 0.6158502697944641,
+          "lpips": 0.5255052447319031
+        },
+        "face_interior": {
+          "psnr": 32.31553649902344,
+          "ssim": 0.8595007658004761,
+          "lpips": 0.041699156165122986
+        },
+        "person": {
+          "psnr": 27.875459671020508,
+          "ssim": 0.8032709360122681,
+          "lpips": 0.21757076680660248
+        }
+      },
+      "integration": {
+        "mean_samples": 497.75048828125,
+        "max_samples": 2920.0,
+        "saturation_fraction": 0.0
+      }
+    },
+    {
+      "split": "eval",
+      "camera": "MD",
+      "crop_box": null,
+      "psnr": 27.090360641479492,
+      "ssim": 0.8920242190361023,
+      "lpips": 0.12539058923721313,
+      "rois": {
+        "head": {
+          "psnr": 21.305082321166992,
+          "ssim": 0.7886466979980469,
+          "lpips": 0.16998377442359924
+        },
+        "face": {
+          "psnr": 20.903499603271484,
+          "ssim": 0.7775070667266846,
+          "lpips": 0.181992769241333
+        },
+        "background": {
+          "psnr": 120.0,
+          "ssim": 1.0,
+          "lpips": 0.0
+        },
+        "clothing": {
+          "psnr": 26.502511978149414,
+          "ssim": 0.6446863412857056,
+          "lpips": 0.5325013399124146
+        },
+        "face_interior": {
+          "psnr": 21.424293518066406,
+          "ssim": 0.7719437479972839,
+          "lpips": 0.1831590235233307
+        },
+        "person": {
+          "psnr": 23.8819580078125,
+          "ssim": 0.7739721536636353,
+          "lpips": 0.2632265090942383
+        }
+      },
+      "integration": {
+        "mean_samples": 614.0159912109375,
+        "max_samples": 4454.0,
+        "saturation_fraction": 0.0
+      }
+    },
+    {
+      "split": "train",
+      "camera": "AB",
+      "crop_box": null,
+      "psnr": 33.115928649902344,
+      "ssim": 0.9409286379814148,
+      "lpips": 0.05229928344488144,
+      "rois": {},
+      "integration": {
+        "mean_samples": 398.1943054199219,
+        "max_samples": 5578.0,
+        "saturation_fraction": 0.0
+      }
+    }
+  ],
+  "eval_all_psnr": 29.801607131958008,
+  "eval_all_ssim": 0.8912192583084106,
+  "eval_all_lpips": 0.12234431505203247,
+  "stage_iterations": 512
+}

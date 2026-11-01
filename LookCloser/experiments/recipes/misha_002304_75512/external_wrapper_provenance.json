@@ -1,0 +1,6 @@
+{
+  "wrapper_sha256": "8963e74c3d3c9e9cbd2bbf28bd602e929805c99e9e67752a0798bd9cef3363ce",
+  "alpha_helper_sha256": "74a65e8c5d40b0519bffb8294e92a114bdbb44d1e3d4d05e4cae0ce5ae30ea7b",
+  "frozen_trainer_sha256": "b3918885b2573e3a3e83c7d7841b6b902fffd1c3ac6aa26ddd303747a697b848",
+  "common_evaluation_data": "/home/ubuntu/lookcloser/campaigns/misha_maskfix_20261031/person_native_sdr_v5_KD_primary"
+}
