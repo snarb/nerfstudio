@@ -58,6 +58,9 @@ The first25k gate completed and resumed training. It improves common V1 PSNR to3
 | 55k | 30.29889149 | .83168862 | .05193819 |
 | 60k | 30.29843570 | .83185537 | .05182371 |
 | 65k | 30.31342179 | .83226023 | .05168275 |
+| 70k | 30.35370592 | .83276997 | .05133222 |
+| 75k | 30.37438903 | .83316123 | .05115981 |
+| 80k | 30.37398372 | .83349795 | .05100433 |
 
 At35k the selector chooses35k; the two significant-record miss counters are1 and2, so continuation remains active. All three source/20k/previous/current hair, hand/contact and foot comparisons were inspected at30k and35k. Fine texture remains softer than source photographs, and floor/mat/bag remain; no obvious new loss of visible hair or shoe tips was seen. The CPU-only `scripts/review_marshawn_native_gate.py` creates these comparisons from completed immutable renders without changing the evaluator or training runtime.
 
@@ -74,3 +77,9 @@ The60k gate lowers LPIPS to.05182371;55k remains selected within the.001 tie win
 The65k gate becomes selected: PSNR30.31342179, SSIM.83226023, LPIPS.05168275. Three-view hair/hands/feet review finds no obvious new visible contour loss at the inspected scale. Nonactor floor/mat/bag and soft source detail remain; both stopping conditions have not yet exhausted patience.
 
 An immutable65k download snapshot is available under `native_reference_continuation_20000/downloads/`: `native_reference_000065000_snapshot_review.zip` (5,586,423bytes; SHA256 `a9ff0757e6efe3abfd3513b5dd6bf95d0300f220eaee63ed9749cc74d52fea14`) contains the original three full-HD inside renders, existing actor/detail comparisons, metrics, accepted box and provenance. The companion `_with_original_alpha.zip` (273,922,328bytes; SHA256 `62f65f3311ca2e188355c21221de2c16b8f3ba1eed414b8995bff007af74a0fc`) also includes unchanged float RGB/alpha partitions. Every copied file and each ZIP entry checksum was verified. Read-only archives and snapshot files preserve their bytes; the README explicitly identifies residual floor/mat/bag and geometry supervision. No checkpoint weights are included.
+
+The70k gate becomes selected with PSNR30.35370592, SSIM.83276997 and LPIPS.05133222. All three hair/hands/feet contact panels were reviewed; visible actor contours remain, with persistent softness and nonactor floor/mat/bag. The independently frozen65k download bundle is unchanged. Continued significant improvement in one stopping signal keeps the HD job active and the4K technical executor waiting.
+
+The75k gate becomes selected and resets both cumulative significant-record counters. PSNR is30.37438903, SSIM.83316123 and LPIPS.05115981. All three source/20k/70k/75k hair/hands/feet comparisons were inspected with no obvious new visible contour loss; residual softness and floor/mat/bag remain. The4K technical executor continues to wait for HD plateau completion.
+
+The80k gate reaches LPIPS.05100433;75k remains selected within the prescribed tie window. Three-view source/20k/75k/80k detail review finds no obvious new visible contour loss, with persistent floor/mat/bag and soft fine detail. HD training remains healthy;4K technical execution is still waiting.
