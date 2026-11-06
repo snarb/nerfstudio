@@ -42,4 +42,13 @@ scp coder@olive-lark:/fsx/tmp/marshawn_001660_hd/tuning_20261106/grid_inspector/
 
 Root visually scanned all six pages (384 slices, 128 per axis) under `/fsx/tmp/marshawn_001660_hd/tuning_20261106/grid_inspector/semantic_60752/sweep/`; source/page hashes and findings are saved in `receipt.json` and `root_manual_review.json`. There are zero active cells outside sealed admission. A broad, patchy near-floor component is apparent around Z slices0–25 and agrees with floor fragments in camera renders. Upper-body support changes continuously across adjacent slices, without obvious global axis reversal or remote high-Z blocks.
 
+The selected111316 checkpoint has a separate complete384-slice review under
+`grid_inspector/semantic_111316/sweep/`. All six pages were visually scanned.
+Its48509 active cells remain inside admission;7031 cell centers are below fitted
+floor Z=0, and4490 below−.01. These are coordinate counts, not certified false
+occupancy: cells can cross a plane and its physical fit has uncertainty. The
+broad low component persists, whereas upper-body support remains continuous
+without distant high-Z blocks. A signed-Z ray-contribution diagnostic is being
+prepared before any possible floor restriction; no cells were changed.
+
 This is an exhaustive slice-page scan, **not** independent certification of every physical cell. Empty interior cells, imperfect silhouette boundaries, and occluded geometry still need ray evidence. No cells were removed based on component size or this visual scan.
