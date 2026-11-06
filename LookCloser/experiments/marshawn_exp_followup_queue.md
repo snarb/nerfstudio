@@ -86,3 +86,19 @@ transient SSH reads retry every60seconds. Five focused eligibility checks passed
 This makes the reviewed next experiments durable without claiming their results
 in advance. The root continues supervising the active campaign through the
 user's minimum20-hour deadline.
+
+
+## Matched15188 visual gate
+
+The first three follow-up arms use identical sources, seed and evaluation protocol. These are provisional equal-step results, not final selected checkpoints.
+
+| Arm | Actor PSNR | Actor SSIM | Actor LPIPS | DC PSNR | DC LPIPS |
+|---|---:|---:|---:|---:|---:|
+| `structural_exp_hplus1` | 27.1029 | 0.798674 | 0.056944 | 25.3546 | 0.075550 |
+| `exp_followup_actor` | 27.5159 | 0.809772 | 0.053507 | 20.5371 | 0.099261 |
+| `exp_followup_lr50k` | 26.3000 | 0.791343 | 0.061211 | 22.6785 | 0.088271 |
+| `exp_followup_step_half` | 27.0478 | 0.811806 | 0.050777 | 24.2982 | 0.074221 |
+
+Root inspected the [three-view comparison](/fsx/tmp/marshawn_001660_hd/tuning_20261106/exp_followup_review_15188/three_view_comparison.jpg) and the [DC metric-support diagnostic](/fsx/tmp/marshawn_001660_hd/tuning_20261106/exp_followup_review_15188/DC_actor_metric_support.jpg). The actor objective improves the aggregate while producing large yellow holes through DC clothing. The frozen masks include those holes: independent PNG masked PSNR reproduces DC black17.5784dB and grey23.4947dB, within quantization error of the original float metrics. Better HC/KA scores offset this damage in the average. This is a view-specific reconstruction failure, not evidence of a scoring implementation error.
+
+The half-step arm improves detail and average LPIPS but still has foreground/background fog. None is promoted. The primary score remains fixed; per-view/per-actor tables and visual/depth gates expose regressions hidden by its average. Protected15188 checkpoints permit independent103-ray tracing, with separate DC diagnostic queries kept out of TRAIN supervision. Evidence hashes are in `/fsx/tmp/marshawn_001660_hd/tuning_20261106/exp_followup_review_15188/root_review.json`.
