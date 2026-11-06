@@ -105,7 +105,8 @@ print(json.dumps(r))
     commands['remote_semantic_actor'] = ['ssh', '-o', 'BatchMode=yes', '-o', 'ConnectTimeout=8',
         'ubuntu@silver-sable', shlex.join(['python3', '-c', remote_code.replace(repr(remote_root), repr(semantic_root))])]
     for label, generation in [('r1', 'semantic_actor_r1_prepared_20261106'),
-                              ('w32', 'semantic_actor_w32_prepared_20261106')]:
+                              ('w32', 'semantic_actor_w32_prepared_20261106'),
+                              ('sourcepoint', 'semantic_sourcepoint_candidate_20261106')]:
         if (args.root/generation/'release.json').exists():
             candidate_root = '/home/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/'+generation+'/controller'
             candidate_code = remote_code.replace(repr(remote_root), repr(candidate_root))
@@ -117,6 +118,29 @@ print(json.dumps(r))
         pid = json.loads((technical/'launch.json').read_text())['pid']
         commands['dev3_4k_executor'] = ['ssh', '-o', 'BatchMode=yes', '-o', 'ConnectTimeout=8',
             'ubuntu@dev3', 'ps', '-p', str(pid), '-o', 'pid=,stat=,etime=,comm=']
+    pair = args.root/'native_resolution_pair_100000'
+    if (pair/'durable_launch.json').exists():
+        meta = json.loads((pair/'durable_launch.json').read_text())
+        status = json.loads((pair/'status.json').read_text()) if (pair/'status.json').exists() else {}
+        pids = {meta.get('pid'), meta.get('controller_pid'), status.get('worker_pid')}
+        pids.discard(None)
+        if pids:
+            commands['dev3_resolution_pair_processes'] = [
+                'ssh', '-o', 'BatchMode=yes', '-o', 'ConnectTimeout=8', 'ubuntu@dev3',
+                'ps', '-p', ','.join(str(pid) for pid in sorted(pids)),
+                '-o', 'pid=,stat=,etime=,comm=']
+        result['native_resolution_pair'] = {
+            'launch': meta, 'status': status,
+            'status_age_seconds': round(time.time()-status.get('time', now), 1),
+            'complete_receipt_present': (pair/'complete.json').exists(),
+            'failure_receipts': [path.name for path in sorted(pair.glob('failure-*.json'))],
+        }
+        if (pair/'state.json').exists():
+            state = json.loads((pair/'state.json').read_text())
+            result['native_resolution_pair']['arms'] = {
+                name: {'step': arm['cursor']['step'], 'stopped': arm['plateau']['stopped'],
+                       'selected_step': arm['selection']['step']}
+                for name, arm in state['arms'].items()}
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
         futures = {pool.submit(command, cmd): key for key, cmd in commands.items()}
         for future, key in futures.items():
