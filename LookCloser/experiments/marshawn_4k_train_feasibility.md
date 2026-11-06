@@ -238,3 +238,42 @@ source-bound root release is absent. Expected fitting time is roughly5–6minute
 to be measured rather than assumed. Review should compare exact censoring,
 actor regions and visible detail before authorizing all63 maps. No threshold
 relaxation, READY creation or NeRF training is included.
+
+### AA4000 completed; source staging and next diagnostic
+
+Root reviewed and released the4000-update control. It completed in303.79seconds
+with unchanged1.391GiB peak allocation and no OOM; its GPU lock is released.
+Exact unresolved fell79.183%→45.278%, while maximum-level assignment fell
+85.638%→56.378%. Actor interior censoring fell80.84%→56.33%, black87.96%→69.41%,
+grey65.06%→27.32%, boundary47.57%→19.03%, outside79.26%→45.01%.
+There were43895 failed→passed patches and2721 passed→failed patches: changing
+the update count changes the optimization trajectory, so this is not a strictly
+monotonic per-patch comparison. Actual same-source censor overlays show more
+resolved folds, grey clothing and floor, but dark clothing remains heavily
+censored. Residual censoring cannot yet be uniquely assigned to sensor noise,
+true texture, fitting budget or capacity.
+
+`scripts/compare_marshawn_4k_frequency_fits.py` reproduces cohort statistics,
+verifies source/map/censor hashes and creates actual source/1000/4000 comparison
+panels. Artifacts are in `resolution_4k_AA_frequency_4000/result`. No NeRF quality
+or geometry approval follows from these fitting statistics.
+
+The complete4K source generation was independently transferred to silver:
+654/654 file hashes match, including unchanged FHD EVAL and floor-frame poses.
+`resolution_4k_train63_transfer/verification.json` binds that check; READY is
+absent. Two independent63-camera fleet queues are prepared at
+`resolution_4k_frequency_queue_{1000,4000}_fleet`, with exact per-camera workers,
+source hashes and unauthorized release templates. They can use any idle
+silverGPU0..7 under shared locks. Only one reviewed recipe may be launched;
+admission waits for existing training queues to claim their initial slots.
+Active jobs are never preempted. Serial preparations remain preserved and
+unlaunched. No full63 frequency queue has been authorized.
+
+A single AA16000 diagnostic is separately prepared for localGPU0, pending root
+review/release. Its only fitting change is4000→16000 updates; the three-site
+diff and exact input hashes are preserved. Local/silver Python, Torch, CUDA,
+TCNN Python/native binary, Torch extension and frozen preprocessor hashes match,
+and both GPUs are RTXPRO6000Blackwell sm120. Twelve CPU tests passed. Runtime is
+estimated around20minutes, with actual measurement required. Its purpose is to
+test whether the remaining high dark-clothing censoring is still budget-limited
+before relaxing SSIM or authorizing all-camera fitting.
