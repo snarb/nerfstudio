@@ -101,3 +101,19 @@ the campaign root,2617493bytes, SHA256
 It contains unchanged three-view HD RGB/16-bit alpha, metrics, accepted box and
 review receipts. ZIP entries were checksum-verified; no weights are included.
 The README explicitly discloses remaining halos and floor/bag fragments.
+
+
+## Completed selected R0 versus R1
+
+Both naturally completed trajectories select111316. R1 stops126316 and gives PSNR31.58028/SSIM.837760/LPIPS.02247381 versus R0's31.51845/.838073/.02233986. The new final comparison replays actual native radius0/1 and FR.3, preserving schema2 core/active/EMA/admission and exact checkpoint/source hashes. Both idle-exclusive audits perform zero updates; all206 clothing and24 DC convergence/PNG checks pass.
+
+| Source group | Native band mass R0→R1 | Median10–90 width R0→R1 |
+|---|---:|---:|
+|Old18|80.026→64.942%|.02962→.07208|
+|New66|83.124→79.897%|.02646→.04160|
+|Old8 reserves|84.218→71.118%|.03480→.05928|
+|New9 patch reserves|98.757→93.007%|.003224→.010905|
+
+Old8 early mass grows3.214→24.202%. Dense16384 replay also regresses: old8 band81.219→72.933%,new9 96.163→92.760%; therefore this is not solely an inference-grid skipping effect. HA5556 remains close to its witness but its width grows.002227→.007296. Three new66 rays in each model have unknown t90. Manual DC-black,HC-black,KA-grey comparison confirms both still have broad exterior haze, hair-adjacent floating material and floor fragments. R1 is not promoted from its slight PSNR advantage. W32 continues naturally and its actual completed selection will be replayed separately by the durable supervisor; the early15k audit is not substituted for final evidence.
+
+[Final selected source geometry](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_selected_geometry/R0_R1_clothing103/report.md), [signed depth/widths](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_selected_geometry/R0_R1_clothing103/depth_residuals.json), [DC parity](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_selected_geometry/R0_R1_DC12/report.md), [HC selected images](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_selected_geometry/HC_black_selected_comparison.jpg).
