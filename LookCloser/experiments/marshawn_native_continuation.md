@@ -52,5 +52,8 @@ The first25k gate completed and resumed training. It improves common V1 PSNR to3
 | 25k | 30.23476627 | .82883585 | .05343542 |
 | 30k | 30.25604764 | .82944691 | .05295354 |
 | 35k | 30.26555670 | .83009688 | .05258375 |
+| 40k | 30.23191134 | .83006018 | .05276731 |
 
 At35k the selector chooses35k; the two significant-record miss counters are1 and2, so continuation remains active. All three source/20k/previous/current hair, hand/contact and foot comparisons were inspected at30k and35k. Fine texture remains softer than source photographs, and floor/mat/bag remain; no obvious new loss of visible hair or shoe tips was seen. The CPU-only `scripts/review_marshawn_native_gate.py` creates these comparisons from completed immutable renders without changing the evaluator or training runtime.
+
+The40k gate regresses slightly, so35k remains selected. The40k detail review likewise finds no obvious new anatomical crop loss, but persistent fine-detail softness and nonactor floor. Training continues under the cumulative plateau rule; all HD checkpoints remain available as matched-step controls for any later resolution experiment.
