@@ -1,0 +1,394 @@
+{
+  "kind": "FLOOR_REFERENCE_DOMAIN_DIAGNOSTIC_ONLY",
+  "units": "prepared world; physical scale unspecified",
+  "source_bindings": {
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/temporal_2sec_floor_v1/floor_frame.json": "5908d9e240eef4406a6b4866652dfcf9dadf63c5cb21ea975d4e2fd9c51632e6",
+    "/fsx/tmp/marshawn_001660_hd/geometry/train_witnesses.npz": "885c7874b451ce9e90dab394e38bcf174c05e429f781b43b5fd731669714266b",
+    "/fsx/tmp/marshawn_001660_hd/floor_band_prior_PROPOSAL/proposal.json": "a93e34c4b2f941f4e9a2f245fc05fab8ac2555ed160ab331b1b1937fe0fe84aa",
+    "/fsx/tmp/marshawn_001660_hd/native_png_batch1M_sched22k_LOCAL_STAGED/black_KA_audit/raw8k_floor_sfm/manual_review_geometry.json": "21553d11db446ef7a7040e75d93da9784664264ac07385bd1a6f317c7ea3b76b",
+    "/tmp/actor_box_geometry.py": "46272bc32f9db2267ab6b0bf6ff65224f9d288d3c1f70171c8a43e9b2b954ded",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/corrected_v2/train_shoe_feature_depth.json": "bc534f9173110005f94660e4e83bd97335504f2dd0e94dfb5bf445c87a41f89a",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/mat_geometry_TRAIN/qualified_material_points_v2.json": "9ccf0ef91ad401b12c32710f2b2c4d3c23705cbb763cdfb2313c7bfb7c76f358"
+  },
+  "stored_historical_helper_sha256": "d70afb06dd61247317e31cac9ddcdd2690b14c09eacef7e66e9a1cb397c484a7",
+  "current_fit_helper_reproduces_saved_frame_to_1e_minus12": true,
+  "TRAIN_cameras": [
+    "AA",
+    "AB",
+    "AC",
+    "AD",
+    "BA",
+    "BB",
+    "BC",
+    "BD",
+    "CA",
+    "CB",
+    "CC",
+    "CD",
+    "CE",
+    "DA",
+    "DB",
+    "DD",
+    "DE",
+    "EA",
+    "EB",
+    "EC",
+    "ED",
+    "EE",
+    "FA",
+    "FB",
+    "FC",
+    "FD",
+    "FE",
+    "GA",
+    "GB",
+    "GC",
+    "GD",
+    "GE",
+    "HA",
+    "HB",
+    "HD",
+    "HE",
+    "IA",
+    "IB",
+    "IC",
+    "ID",
+    "IE",
+    "JA",
+    "JB",
+    "JC",
+    "JD",
+    "JE",
+    "KB",
+    "KC",
+    "KD",
+    "LA",
+    "LB",
+    "LC",
+    "MA",
+    "MB",
+    "MC",
+    "MD",
+    "NA",
+    "NB",
+    "NC",
+    "ND",
+    "NE",
+    "OA",
+    "OD"
+  ],
+  "floor_ids": [
+    237,
+    238,
+    239,
+    240,
+    242,
+    243,
+    253,
+    263,
+    3739,
+    3800,
+    4246,
+    4766,
+    8353,
+    8290
+  ],
+  "excluded_ids": [
+    3738,
+    8246
+  ],
+  "floor_points": [
+    [
+      -0.30534602649315395,
+      0.9248743766111776,
+      -0.0028305860021660134
+    ],
+    [
+      -0.391855173140252,
+      0.8228972848367103,
+      0.00017026203995176847
+    ],
+    [
+      -0.3918568285965125,
+      0.8226021392365078,
+      0.0005092470818733874
+    ],
+    [
+      -0.3933789820874505,
+      0.8214604556701616,
+      -0.0024847845252247702
+    ],
+    [
+      -0.22268574290036927,
+      0.9594678077196511,
+      -0.000641199340250781
+    ],
+    [
+      -0.21847115235531886,
+      0.9576555169692528,
+      -0.0032014478413991965
+    ],
+    [
+      -0.44705662977753147,
+      0.6326340429150243,
+      0.0034990670258452095
+    ],
+    [
+      -0.356975457928353,
+      0.40428449088996204,
+      0.0040493837323229975
+    ],
+    [
+      0.3514542759414646,
+      0.29974556159520876,
+      0.0029167814413447735
+    ],
+    [
+      0.3243040795929142,
+      0.10201012364866517,
+      6.230150078820329e-05
+    ],
+    [
+      0.7227958981474785,
+      0.354527375729951,
+      -0.0004752655593429911
+    ],
+    [
+      0.3984718990127472,
+      0.06322305440687792,
+      0.0029718848002225906
+    ],
+    [
+      -0.7865558122367335,
+      0.6083964244760601,
+      9.102242305000785e-05
+    ],
+    [
+      0.2636197037520796,
+      -0.6416274675194734,
+      -0.004636666777014964
+    ]
+  ],
+  "fit_max_abs": 0.004636666777014964,
+  "leave_one_witness_out": [
+    {
+      "point_id": 237,
+      "heldout_signed_residual": -0.0032824351774687344
+    },
+    {
+      "point_id": 238,
+      "heldout_signed_residual": 0.00019243715777580994
+    },
+    {
+      "point_id": 239,
+      "heldout_signed_residual": 0.0005755426265690589
+    },
+    {
+      "point_id": 240,
+      "heldout_signed_residual": -0.0028083793526919587
+    },
+    {
+      "point_id": 242,
+      "heldout_signed_residual": -0.000765642987482551
+    },
+    {
+      "point_id": 243,
+      "heldout_signed_residual": -0.0038229061461919067
+    },
+    {
+      "point_id": 253,
+      "heldout_signed_residual": 0.004004867761719488
+    },
+    {
+      "point_id": 263,
+      "heldout_signed_residual": 0.004724831444114036
+    },
+    {
+      "point_id": 3739,
+      "heldout_signed_residual": 0.0034790909678868165
+    },
+    {
+      "point_id": 3800,
+      "heldout_signed_residual": 7.389891481487942e-05
+    },
+    {
+      "point_id": 4246,
+      "heldout_signed_residual": -0.0008557850332478467
+    },
+    {
+      "point_id": 4766,
+      "heldout_signed_residual": 0.0036415877821002196
+    },
+    {
+      "point_id": 8353,
+      "heldout_signed_residual": 0.00013747790623019895
+    },
+    {
+      "point_id": 8290,
+      "heldout_signed_residual": -0.012787538321740344
+    }
+  ],
+  "leave_one_witness_out_max_abs": 0.012787538321740344,
+  "XY_support_hull": [
+    [
+      -0.7865558122367335,
+      0.6083964244760601
+    ],
+    [
+      0.2636197037520796,
+      -0.6416274675194734
+    ],
+    [
+      0.7227958981474785,
+      0.354527375729951
+    ],
+    [
+      -0.21847115235531886,
+      0.9576555169692528
+    ],
+    [
+      -0.22268574290036927,
+      0.9594678077196511
+    ],
+    [
+      -0.30534602649315395,
+      0.9248743766111776
+    ]
+  ],
+  "anchors": [
+    {
+      "name": "toe_upper",
+      "floor_xyz": [
+        -0.11769208960984658,
+        0.15127923559030565,
+        0.014567836967476211
+      ],
+      "inside_broad_floor_XY_hull": true,
+      "nearest_floor_witness_XY_distance": 0.34823582464056496
+    },
+    {
+      "name": "sole6862",
+      "floor_xyz": [
+        -0.11713805167004304,
+        0.14165073766903985,
+        0.005085417456200336
+      ],
+      "inside_broad_floor_XY_hull": true,
+      "nearest_floor_witness_XY_distance": 0.35566623366805833
+    }
+  ],
+  "support_domain_note": "Sparse TRAIN floor-covering features only. Convex hull is an interpolation footprint, not certification of continuous opaque floor or local height.",
+  "raw80": {
+    "source": {
+      "id": 80,
+      "xyz": [
+        0.2589439365346986,
+        -0.6106607807020401,
+        -0.26903322155117787
+      ],
+      "max_detected_uv_reprojection_rawpixels": 0.4858117739459202,
+      "max_angle_degrees": 10.168943462262463,
+      "observations": [
+        {
+          "camera": "MA",
+          "camera_index": 5,
+          "keypoint_index": 451,
+          "detected_uv": [
+            379.9544982910156,
+            2774.2921142578125
+          ],
+          "reprojection_error_rawpixels": 0.20907809994806412
+        },
+        {
+          "camera": "NA",
+          "camera_index": 6,
+          "keypoint_index": 3390,
+          "detected_uv": [
+            927.3033447265625,
+            2609.5648193359375
+          ],
+          "reprojection_error_rawpixels": 0.2544537522703529
+        },
+        {
+          "camera": "NB",
+          "camera_index": 7,
+          "keypoint_index": 3699,
+          "detected_uv": [
+            912.6441345214844,
+            2560.2081298828125
+          ],
+          "reprojection_error_rawpixels": 0.4858117739459202
+        }
+      ]
+    },
+    "floor_xyz": [
+      0.26396111732678196,
+      -0.64163807178497,
+      -0.004270831358721666
+    ],
+    "old8290_distance": 0.0005005109716235649,
+    "note": "Corroborates the same floor-covering fleck, not a new local spatial floor anchor."
+  },
+  "historical_finite_domain": {
+    "triangle_file": "/fsx/tmp/marshawn_001660_hd/floor_band_prior_PROPOSAL/finite_domain_triangles_PROPOSAL.npz",
+    "triangle_sha256": "4153b5fdd923196a36e34cc3c873b0d8e6c906c4393091087b3006fc66db298a",
+    "count": 2720,
+    "floor_ids": [
+      237,
+      238,
+      239,
+      240,
+      242,
+      243,
+      253,
+      263,
+      3738,
+      3739,
+      3800,
+      4246,
+      4766,
+      8246,
+      8353,
+      8290
+    ],
+    "domain_rule": "Union of explicit grid-cell triangles ONLY whereall4cellcornersshare>=3sameclearTRAINphoto votes; no convexhull bridging. Everyfull\u00b1.02normalband strictlyinsideactual10kAABB.",
+    "measured_points_in_domain": 0,
+    "physical_depth_certificate": false,
+    "inherited_as_current_truth": false
+  },
+  "relevant_128_cells": [
+    {
+      "index": 10,
+      "lower": -0.015312500000000007,
+      "center": -0.01257812500000001,
+      "upper": -0.009843750000000012
+    },
+    {
+      "index": 12,
+      "lower": -0.004375000000000018,
+      "center": -0.0016406250000000067,
+      "upper": 0.0010937499999999906
+    },
+    {
+      "index": 13,
+      "lower": 0.0010937499999999906,
+      "center": 0.003828124999999988,
+      "upper": 0.006562499999999985
+    }
+  ],
+  "suggested_signed_Z_bin_edges": [
+    -0.02,
+    -0.015,
+    -0.01,
+    -0.004636666777014908,
+    0.0,
+    0.004636666777014908,
+    0.01,
+    0.015,
+    0.02
+  ],
+  "bin_note": "Coordinate sensitivity cuts, not calibrated confidence or empty-space thresholds. Split sample intervals at cuts without changing their original transmittance.",
+  "no_GPU": true,
+  "no_field_queries": true,
+  "no_masks_or_model_or_grid_mutation": true
+}
