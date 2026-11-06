@@ -94,3 +94,10 @@ The103-ray geometry gate also regresses. W64→W32 native witness-band mass is80
 R0 stopped naturally at131316 under the unchanged plateau rule. Its recorded selector chooses111316: PSNR31.51845,SSIM.838073,LPIPS.02233986. The terminal LPIPS is.02196161; terminal and selected checkpoints are distinct and both are preserved. Viewed all six GT/30376/selected111316 actor crops: modest detail improvement, but broad exterior haze and floor/bag islands persist. [Final selected comparison](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_actor_progress/selected111316_GT_30376_crops.jpg), [exact completion/selection receipt](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_actor_progress/run_complete.json). This does not certify a clean asset or ideal occupancy.
 
 The artifact watcher now retains surviving metrics/renders/actual-grid evidence even if a dominated checkpoint was pruned before its poll. It explicitly records checkpoint_retained=false rather than inventing weight retention. R0@121316 has this limitation; first15188 weights remain protected in their separate first-gate archive, and selected111316 weights are retained. Three CPU tests cover retained versus pruned weights, idempotence and hash mismatch rejection. Production models, checkpoints and plateau decisions were not modified.
+
+Selected111316 download: `downloads/semantic_actor_000111316_review.zip` under
+the campaign root,2617493bytes, SHA256
+`15b4a3e3a4f29ad1335953494a2c49f76fed23fb65c3330d313bf53e95bde9a0`.
+It contains unchanged three-view HD RGB/16-bit alpha, metrics, accepted box and
+review receipts. ZIP entries were checksum-verified; no weights are included.
+The README explicitly discloses remaining halos and floor/bag fragments.
