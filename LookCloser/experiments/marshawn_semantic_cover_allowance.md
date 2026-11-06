@@ -25,3 +25,9 @@ This identifies additional allowed boundary space, **not** 10,435 physically emp
 A separate experiment could keep conservative traversal admission unchanged while querying original source pad1 for point density, preserving coordinate tolerance and UNKNOWN regions. Before launch it needs source-point and whole-ray positive coverage checks, actual warmup/ARM/resume parity tests, and render/depth review. It must not silently replace the current support. Existing runs remain unchanged.
 
 Reproduce with `scripts/audit_marshawn_admission_cover.py --source SOURCE.npz --archive SAVED_GRID.npz --output REPORT.json`. The audit recomputes and verifies the conservative cover against the actual archive; it does not reconstruct the learned grid from EMA.
+
+### Saved TRAIN ray evidence at matched step15,188
+
+`scripts/audit_marshawn_source_point_trace.py` measures original saved native-ray weights outside source pad1, without changing a model. All103 witness XYZ points and the corresponding points along their camera rays remain admitted. No saved sample within the ±0.02 witness-depth band lies outside this point support. Mean original foreground weight outside support is1.48% for old18 supervised rays,2.34% for new66,0.12% for old8 reserved, and0.052% for new9 reserved. Most removed weight on the supervised groups is in front of the witness band; the largest individual outside weight is20.44%.
+
+Artifact: `independent_occupancy/semantic_point_support_weights_15188.json` under the campaign. These are weights from the original integration, **not** predicted metrics or opacity after removal: transmittance would change. The103 rays are sparse clothing evidence, not a hair/sole or whole-volume guarantee. The result supports preparing a controlled point-support test while retaining the existing conservative traversal cover.
