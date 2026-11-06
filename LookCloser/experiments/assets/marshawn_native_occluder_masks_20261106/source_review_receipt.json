@@ -1,0 +1,25 @@
+{
+  "manifest_sha256": "f096be639cb46e669452e26d005eeedebe67f61ef967e2446568ce91e1162ffc",
+  "all_63_TRAIN_HD_overview_sources_visually_reviewed": true,
+  "all_63_unknown_overlays_visually_reviewed": true,
+  "DE_EE_RAW_source_and_unknown_overlays_visually_reviewed": true,
+  "refined_after_first_overlay": [
+    "AD",
+    "BC",
+    "BD",
+    "DA",
+    "DB",
+    "OA",
+    "OD"
+  ],
+  "explicit_empty_no_visible_mat_boundary": [
+    "CE",
+    "JE",
+    "NE"
+  ],
+  "records": 63,
+  "nonempty": 60,
+  "total_mat_unknown_pixels": 9063157,
+  "neighboring_floor_inclusion": "Intentional conservative envelope uncertainty; may retain extra floor geometry. This is not a precise mat segmentation.",
+  "qualification": "Approved only as separate occluder UNKNOWN map for isolated diagnostic variants. No source mask or actor label mutation."
+}

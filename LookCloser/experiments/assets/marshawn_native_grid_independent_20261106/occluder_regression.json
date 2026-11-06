@@ -1,0 +1,723 @@
+{
+  "passed": true,
+  "source_point": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/corrected_v2/train_shoe_feature_depth.json",
+  "source_point_sha256": "bc534f9173110005f94660e4e83bd97335504f2dd0e94dfb5bf445c87a41f89a",
+  "xyz_floor": [
+    -0.11769208960984658,
+    0.15127923559030565,
+    0.014567836967476211
+  ],
+  "index_xyz": [
+    93,
+    73,
+    15
+  ],
+  "mask_manifest_sha256": "f096be639cb46e669452e26d005eeedebe67f61ef967e2446568ce91e1162ffc",
+  "old_clear_views": [
+    "DE",
+    "EE"
+  ],
+  "new_clear_views": [],
+  "visibility_unqualified_clear_vote_disabled": [
+    "CE",
+    "JE",
+    "NE"
+  ],
+  "new_grid_check": null,
+  "rows": [
+    {
+      "camera": "AA",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        1059,
+        581,
+        1070,
+        596
+      ]
+    },
+    {
+      "camera": "AB",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        908,
+        637,
+        919,
+        651
+      ]
+    },
+    {
+      "camera": "AC",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        760,
+        801,
+        773,
+        817
+      ]
+    },
+    {
+      "camera": "AD",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        687,
+        769,
+        699,
+        784
+      ]
+    },
+    {
+      "camera": "BA",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        1010,
+        517,
+        1023,
+        532
+      ]
+    },
+    {
+      "camera": "BB",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        724,
+        553,
+        737,
+        569
+      ]
+    },
+    {
+      "camera": "BC",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        741,
+        781,
+        756,
+        796
+      ]
+    },
+    {
+      "camera": "BD",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        541,
+        910,
+        557,
+        925
+      ]
+    },
+    {
+      "camera": "CA",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        965,
+        608,
+        979,
+        623
+      ]
+    },
+    {
+      "camera": "CB",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        846,
+        604,
+        861,
+        619
+      ]
+    },
+    {
+      "camera": "CC",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        815,
+        860,
+        832,
+        876
+      ]
+    },
+    {
+      "camera": "CD",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        897,
+        913,
+        914,
+        928
+      ]
+    },
+    {
+      "camera": "CE",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        939,
+        1137,
+        957,
+        1151
+      ]
+    },
+    {
+      "camera": "DA",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        930,
+        412,
+        944,
+        426
+      ]
+    },
+    {
+      "camera": "DB",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        980,
+        570,
+        995,
+        584
+      ]
+    },
+    {
+      "camera": "DD",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        657,
+        887,
+        674,
+        901
+      ]
+    },
+    {
+      "camera": "DE",
+      "old_clear": true,
+      "new_clear": false,
+      "footprint": [
+        736,
+        936,
+        754,
+        949
+      ]
+    },
+    {
+      "camera": "EA",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        834,
+        446,
+        848,
+        460
+      ]
+    },
+    {
+      "camera": "EB",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        787,
+        580,
+        802,
+        594
+      ]
+    },
+    {
+      "camera": "EC",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        608,
+        765,
+        624,
+        779
+      ]
+    },
+    {
+      "camera": "ED",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        515,
+        752,
+        532,
+        766
+      ]
+    },
+    {
+      "camera": "EE",
+      "old_clear": true,
+      "new_clear": false,
+      "footprint": [
+        556,
+        957,
+        574,
+        970
+      ]
+    },
+    {
+      "camera": "FA",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        830,
+        403,
+        843,
+        415
+      ]
+    },
+    {
+      "camera": "FB",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        636,
+        356,
+        651,
+        370
+      ]
+    },
+    {
+      "camera": "FC",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        755,
+        726,
+        768,
+        738
+      ]
+    },
+    {
+      "camera": "FD",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        692,
+        838,
+        707,
+        851
+      ]
+    },
+    {
+      "camera": "FE",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        587,
+        952,
+        603,
+        964
+      ]
+    },
+    {
+      "camera": "GA",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        840,
+        479,
+        853,
+        490
+      ]
+    },
+    {
+      "camera": "GB",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        829,
+        467,
+        842,
+        479
+      ]
+    },
+    {
+      "camera": "GC",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        806,
+        639,
+        821,
+        651
+      ]
+    },
+    {
+      "camera": "GD",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        753,
+        701,
+        767,
+        714
+      ]
+    },
+    {
+      "camera": "GE",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        767,
+        860,
+        783,
+        871
+      ]
+    },
+    {
+      "camera": "HA",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        824,
+        441,
+        837,
+        452
+      ]
+    },
+    {
+      "camera": "HB",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        897,
+        318,
+        910,
+        330
+      ]
+    },
+    {
+      "camera": "HD",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        863,
+        710,
+        878,
+        721
+      ]
+    },
+    {
+      "camera": "HE",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        908,
+        871,
+        924,
+        882
+      ]
+    },
+    {
+      "camera": "IA",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        877,
+        441,
+        890,
+        454
+      ]
+    },
+    {
+      "camera": "IB",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        896,
+        501,
+        910,
+        514
+      ]
+    },
+    {
+      "camera": "IC",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        1044,
+        639,
+        1058,
+        652
+      ]
+    },
+    {
+      "camera": "ID",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        874,
+        687,
+        889,
+        699
+      ]
+    },
+    {
+      "camera": "IE",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        770,
+        852,
+        786,
+        863
+      ]
+    },
+    {
+      "camera": "JA",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        777,
+        411,
+        790,
+        424
+      ]
+    },
+    {
+      "camera": "JB",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        895,
+        500,
+        908,
+        513
+      ]
+    },
+    {
+      "camera": "JC",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        1132,
+        665,
+        1146,
+        678
+      ]
+    },
+    {
+      "camera": "JD",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        974,
+        741,
+        988,
+        753
+      ]
+    },
+    {
+      "camera": "JE",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        1131,
+        820,
+        1146,
+        831
+      ]
+    },
+    {
+      "camera": "KB",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        878,
+        459,
+        891,
+        472
+      ]
+    },
+    {
+      "camera": "KC",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        818,
+        659,
+        830,
+        671
+      ]
+    },
+    {
+      "camera": "KD",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        1112,
+        788,
+        1125,
+        800
+      ]
+    },
+    {
+      "camera": "LA",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        911,
+        427,
+        921,
+        440
+      ]
+    },
+    {
+      "camera": "LB",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        939,
+        467,
+        951,
+        480
+      ]
+    },
+    {
+      "camera": "LC",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        1160,
+        671,
+        1171,
+        683
+      ]
+    },
+    {
+      "camera": "MA",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        1142,
+        474,
+        1151,
+        487
+      ]
+    },
+    {
+      "camera": "MB",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        1154,
+        553,
+        1164,
+        566
+      ]
+    },
+    {
+      "camera": "MC",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        1295,
+        644,
+        1305,
+        657
+      ]
+    },
+    {
+      "camera": "MD",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        1268,
+        938,
+        1279,
+        950
+      ]
+    },
+    {
+      "camera": "NA",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        1195,
+        555,
+        1205,
+        568
+      ]
+    },
+    {
+      "camera": "NB",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        1271,
+        524,
+        1282,
+        537
+      ]
+    },
+    {
+      "camera": "NC",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        1388,
+        655,
+        1399,
+        669
+      ]
+    },
+    {
+      "camera": "ND",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        1288,
+        748,
+        1298,
+        760
+      ]
+    },
+    {
+      "camera": "NE",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        1334,
+        844,
+        1345,
+        855
+      ]
+    },
+    {
+      "camera": "OA",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        1146,
+        610,
+        1157,
+        623
+      ]
+    },
+    {
+      "camera": "OD",
+      "old_clear": false,
+      "new_clear": false,
+      "footprint": [
+        1237,
+        798,
+        1249,
+        810
+      ]
+    }
+  ],
+  "not_surface_truth": "One independently triangulated toe-upper feature only; neither sole nor complete hidden geometry."
+}

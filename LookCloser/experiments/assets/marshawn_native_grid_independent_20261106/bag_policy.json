@@ -1,0 +1,38 @@
+[
+  {
+    "camera": "MA",
+    "confirmed_bag_pixels": 1388,
+    "bag_clear_pixels": 785,
+    "bag_unknown_pixels": 0
+  },
+  {
+    "camera": "MB",
+    "confirmed_bag_pixels": 1229,
+    "bag_clear_pixels": 518,
+    "bag_unknown_pixels": 0
+  },
+  {
+    "camera": "MC",
+    "confirmed_bag_pixels": 1185,
+    "bag_clear_pixels": 680,
+    "bag_unknown_pixels": 0
+  },
+  {
+    "camera": "NA",
+    "confirmed_bag_pixels": 1154,
+    "bag_clear_pixels": 880,
+    "bag_unknown_pixels": 0
+  },
+  {
+    "camera": "NB",
+    "confirmed_bag_pixels": 1141,
+    "bag_clear_pixels": 383,
+    "bag_unknown_pixels": 0
+  },
+  {
+    "camera": "ND",
+    "confirmed_bag_pixels": 777,
+    "bag_clear_pixels": 259,
+    "bag_unknown_pixels": 0
+  }
+]

@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "variant": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2",
+  "records": [
+    {
+      "width": "W64",
+      "cameras": 63,
+      "all_source_support_unchanged": true,
+      "unknown_union_exact": true,
+      "added_unknown_pixels": 14405452,
+      "removed_clear_pixels": 13451652,
+      "counts": {
+        "semantic_gate0": {
+          "old": 37647,
+          "new": 78056
+        },
+        "semantic_gate_pad1": {
+          "old": 50790,
+          "new": 105049
+        }
+      },
+      "grid_sha256": "e804d736dd766e8adf11df07e346a6317af87e0b106a94dfc524ab32f1690d71",
+      "fresh_padding": true,
+      "monotone_superset": true
+    },
+    {
+      "width": "W32",
+      "cameras": 63,
+      "all_source_support_unchanged": true,
+      "unknown_union_exact": true,
+      "added_unknown_pixels": 14405452,
+      "removed_clear_pixels": 13601094,
+      "counts": {
+        "semantic_gate0": {
+          "old": 29469,
+          "new": 65970
+        },
+        "semantic_gate_pad1": {
+          "old": 41332,
+          "new": 91703
+        }
+      },
+      "grid_sha256": "a7e3d3703f9bb693c095bd5cd715f92b9ac048b3f96082dd95b39ac5db452328",
+      "fresh_padding": true,
+      "monotone_superset": true
+    }
+  ]
+}

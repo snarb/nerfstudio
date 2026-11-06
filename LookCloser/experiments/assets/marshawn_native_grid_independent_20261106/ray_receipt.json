@@ -1,0 +1,497 @@
+{
+  "method": "Independent slab intersection against all50790 admitted cells; strict positive ray lengths, half-open parallel slabs; no existing DDA imported",
+  "preferred_grid_array": "semantic_gate_pad1",
+  "qualified_prior_misses": 31,
+  "misses_independently_confirmed": 31,
+  "miss_rows": [
+    {
+      "camera": "HE",
+      "qualified_prior_misses": 7,
+      "independent_hit_count": 0,
+      "pixels": [
+        [
+          913,
+          889
+        ],
+        [
+          914,
+          889
+        ],
+        [
+          915,
+          889
+        ],
+        [
+          916,
+          889
+        ],
+        [
+          917,
+          889
+        ],
+        [
+          918,
+          889
+        ],
+        [
+          919,
+          889
+        ]
+      ]
+    },
+    {
+      "camera": "IC",
+      "qualified_prior_misses": 11,
+      "independent_hit_count": 0,
+      "pixels": [
+        [
+          1044,
+          660
+        ],
+        [
+          1045,
+          660
+        ],
+        [
+          1046,
+          660
+        ],
+        [
+          1043,
+          661
+        ],
+        [
+          1044,
+          661
+        ],
+        [
+          1045,
+          661
+        ],
+        [
+          1046,
+          661
+        ],
+        [
+          1047,
+          661
+        ],
+        [
+          1048,
+          661
+        ],
+        [
+          1049,
+          661
+        ],
+        [
+          1050,
+          661
+        ]
+      ]
+    },
+    {
+      "camera": "ID",
+      "qualified_prior_misses": 12,
+      "independent_hit_count": 0,
+      "pixels": [
+        [
+          875,
+          707
+        ],
+        [
+          876,
+          707
+        ],
+        [
+          877,
+          707
+        ],
+        [
+          878,
+          707
+        ],
+        [
+          879,
+          707
+        ],
+        [
+          875,
+          708
+        ],
+        [
+          876,
+          708
+        ],
+        [
+          877,
+          708
+        ],
+        [
+          878,
+          708
+        ],
+        [
+          879,
+          708
+        ],
+        [
+          880,
+          708
+        ],
+        [
+          881,
+          708
+        ]
+      ]
+    },
+    {
+      "camera": "JA",
+      "qualified_prior_misses": 1,
+      "independent_hit_count": 0,
+      "pixels": [
+        [
+          779,
+          432
+        ]
+      ]
+    }
+  ],
+  "random_train_rays": 315,
+  "random_train_hits": 315,
+  "random_rows": [
+    {
+      "camera": "AA",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "AB",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "AC",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "AD",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "BA",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "BB",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "BC",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "BD",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "CA",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "CB",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "CC",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "CD",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "CE",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "DA",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "DB",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "DD",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "DE",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "EA",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "EB",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "EC",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "ED",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "EE",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "FA",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "FB",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "FC",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "FD",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "FE",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "GA",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "GB",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "GC",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "GD",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "GE",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "HA",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "HB",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "HD",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "HE",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "IA",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "IB",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "IC",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "ID",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "IE",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "JA",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "JB",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "JC",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "JD",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "JE",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "KB",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "KC",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "KD",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "LA",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "LB",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "LC",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "MA",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "MB",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "MC",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "MD",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "NA",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "NB",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "NC",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "ND",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "NE",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "OA",
+      "rays": 5,
+      "hits": 5
+    },
+    {
+      "camera": "OD",
+      "rays": 5,
+      "hits": 5
+    }
+  ],
+  "independent_train_toe_upper_point": {
+    "xyz_floor": [
+      -0.11769208960984658,
+      0.15127923559030565,
+      0.014567836967476211
+    ],
+    "index_xyz": [
+      93,
+      73,
+      15
+    ],
+    "gate0": true,
+    "pad1": true
+  },
+  "limitations": [
+    "Random positive sample does not certify all rays or surfaces.",
+    "Single toe-upper feature does not certify sole/contact volumes."
+  ]
+}

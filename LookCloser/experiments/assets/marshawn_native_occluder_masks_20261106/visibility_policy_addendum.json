@@ -1,0 +1,16 @@
+{
+  "original_manifest_sha256": "f096be639cb46e669452e26d005eeedebe67f61ef967e2446568ce91e1162ffc",
+  "visibility_unqualified": [
+    "CE",
+    "JE",
+    "NE"
+  ],
+  "evidence": {
+    "CE": "Lower floor and feet largely outside overview raster; no independently verified whole projected-mat FOV bound.",
+    "JE": "Foreground worker obscures mat vicinity; existing worker UNKNOWN coverage not independently verified.",
+    "NE": "Mat boundary not distinguishable behind actors/worker; no independently qualified region."
+  },
+  "original_empty_masks_mean": "No guessed annotation; they DO NOT qualify any pixel/ray as clear background.",
+  "required_conservative_variant_policy": "Disable all clear-background votes in these three views, e.g. union all valid pixels into UNKNOWN. Preserve actor support and positive labels. Restore camera votes only after independent visibility qualification.",
+  "scope": "Policy addendum to unchanged source annotation manifest; new variants only."
+}

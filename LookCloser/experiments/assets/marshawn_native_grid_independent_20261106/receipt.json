@@ -1,0 +1,342 @@
+{
+  "accepted_box_sha256": "292609eebe9939e7ce5f840a1b317d963d39ec738cafaad8500abf3a2cd0620f",
+  "grid_sha256": "f44c273ce86b0cdcc68e3a45ef8016a1369cb90cb6aff723494eeb704278644c",
+  "all_cells": 2097152,
+  "grid0_mismatches": 0,
+  "pad1_mismatches": 0,
+  "count_mismatches": 0,
+  "sources": [
+    {
+      "camera": "AA",
+      "classified": 2097152,
+      "rejected": 0
+    },
+    {
+      "camera": "AB",
+      "classified": 2097152,
+      "rejected": 1026481
+    },
+    {
+      "camera": "AC",
+      "classified": 1070671,
+      "rejected": 1136066
+    },
+    {
+      "camera": "AD",
+      "classified": 961086,
+      "rejected": 1247449
+    },
+    {
+      "camera": "BA",
+      "classified": 849703,
+      "rejected": 1357487
+    },
+    {
+      "camera": "BB",
+      "classified": 739665,
+      "rejected": 1389948
+    },
+    {
+      "camera": "BC",
+      "classified": 707204,
+      "rejected": 1409316
+    },
+    {
+      "camera": "BD",
+      "classified": 687836,
+      "rejected": 1438522
+    },
+    {
+      "camera": "CA",
+      "classified": 658630,
+      "rejected": 1527657
+    },
+    {
+      "camera": "CB",
+      "classified": 569495,
+      "rejected": 1533297
+    },
+    {
+      "camera": "CC",
+      "classified": 563855,
+      "rejected": 1581306
+    },
+    {
+      "camera": "CD",
+      "classified": 515846,
+      "rejected": 1615298
+    },
+    {
+      "camera": "CE",
+      "classified": 481854,
+      "rejected": 1653007
+    },
+    {
+      "camera": "DA",
+      "classified": 444145,
+      "rejected": 1675078
+    },
+    {
+      "camera": "DB",
+      "classified": 422074,
+      "rejected": 1715077
+    },
+    {
+      "camera": "DD",
+      "classified": 382075,
+      "rejected": 1717177
+    },
+    {
+      "camera": "DE",
+      "classified": 379975,
+      "rejected": 1738870
+    },
+    {
+      "camera": "EA",
+      "classified": 358282,
+      "rejected": 1766045
+    },
+    {
+      "camera": "EB",
+      "classified": 331107,
+      "rejected": 1768189
+    },
+    {
+      "camera": "EC",
+      "classified": 328963,
+      "rejected": 1770387
+    },
+    {
+      "camera": "ED",
+      "classified": 326765,
+      "rejected": 1771994
+    },
+    {
+      "camera": "EE",
+      "classified": 325158,
+      "rejected": 1783656
+    },
+    {
+      "camera": "FA",
+      "classified": 313496,
+      "rejected": 1804396
+    },
+    {
+      "camera": "FB",
+      "classified": 292756,
+      "rejected": 1805776
+    },
+    {
+      "camera": "FC",
+      "classified": 291376,
+      "rejected": 1809897
+    },
+    {
+      "camera": "FD",
+      "classified": 287255,
+      "rejected": 1814669
+    },
+    {
+      "camera": "FE",
+      "classified": 282483,
+      "rejected": 1828720
+    },
+    {
+      "camera": "GA",
+      "classified": 268432,
+      "rejected": 1859387
+    },
+    {
+      "camera": "GB",
+      "classified": 237765,
+      "rejected": 1869114
+    },
+    {
+      "camera": "GC",
+      "classified": 228038,
+      "rejected": 1881526
+    },
+    {
+      "camera": "GD",
+      "classified": 215626,
+      "rejected": 1887531
+    },
+    {
+      "camera": "GE",
+      "classified": 209621,
+      "rejected": 1915304
+    },
+    {
+      "camera": "HA",
+      "classified": 181848,
+      "rejected": 1937444
+    },
+    {
+      "camera": "HB",
+      "classified": 159708,
+      "rejected": 1952911
+    },
+    {
+      "camera": "HD",
+      "classified": 144241,
+      "rejected": 1977506
+    },
+    {
+      "camera": "HE",
+      "classified": 119646,
+      "rejected": 2006487
+    },
+    {
+      "camera": "IA",
+      "classified": 90665,
+      "rejected": 2012191
+    },
+    {
+      "camera": "IB",
+      "classified": 84961,
+      "rejected": 2022639
+    },
+    {
+      "camera": "IC",
+      "classified": 74513,
+      "rejected": 2030735
+    },
+    {
+      "camera": "ID",
+      "classified": 66417,
+      "rejected": 2031399
+    },
+    {
+      "camera": "IE",
+      "classified": 65753,
+      "rejected": 2042461
+    },
+    {
+      "camera": "JA",
+      "classified": 54691,
+      "rejected": 2043324
+    },
+    {
+      "camera": "JB",
+      "classified": 53828,
+      "rejected": 2044771
+    },
+    {
+      "camera": "JC",
+      "classified": 52381,
+      "rejected": 2048337
+    },
+    {
+      "camera": "JD",
+      "classified": 48815,
+      "rejected": 2049664
+    },
+    {
+      "camera": "JE",
+      "classified": 47488,
+      "rejected": 2053144
+    },
+    {
+      "camera": "KB",
+      "classified": 44008,
+      "rejected": 2053395
+    },
+    {
+      "camera": "KC",
+      "classified": 43757,
+      "rejected": 2053701
+    },
+    {
+      "camera": "KD",
+      "classified": 43451,
+      "rejected": 2055906
+    },
+    {
+      "camera": "LA",
+      "classified": 41246,
+      "rejected": 2056081
+    },
+    {
+      "camera": "LB",
+      "classified": 41071,
+      "rejected": 2056180
+    },
+    {
+      "camera": "LC",
+      "classified": 40972,
+      "rejected": 2056325
+    },
+    {
+      "camera": "MA",
+      "classified": 40827,
+      "rejected": 2056434
+    },
+    {
+      "camera": "MB",
+      "classified": 40718,
+      "rejected": 2056503
+    },
+    {
+      "camera": "MC",
+      "classified": 40649,
+      "rejected": 2056732
+    },
+    {
+      "camera": "MD",
+      "classified": 40420,
+      "rejected": 2058941
+    },
+    {
+      "camera": "NA",
+      "classified": 38211,
+      "rejected": 2059052
+    },
+    {
+      "camera": "NB",
+      "classified": 38100,
+      "rejected": 2059140
+    },
+    {
+      "camera": "NC",
+      "classified": 38012,
+      "rejected": 2059238
+    },
+    {
+      "camera": "ND",
+      "classified": 37914,
+      "rejected": 2059352
+    },
+    {
+      "camera": "NE",
+      "classified": 37800,
+      "rejected": 2059457
+    },
+    {
+      "camera": "OA",
+      "classified": 37695,
+      "rejected": 2059475
+    },
+    {
+      "camera": "OD",
+      "classified": 37677,
+      "rejected": 2059505
+    }
+  ],
+  "gate0_count": 37647,
+  "pad1_count": 50790,
+  "elapsed": 15.521169662475586,
+  "floor_native_camera_checks": {
+    "DC": {
+      "pose_absmax": 5.551115123125783e-17,
+      "fx_absdiff": 8.373952141482732e-06
+    },
+    "HC": {
+      "pose_absmax": 3.469446951953614e-18,
+      "fx_absdiff": 1.9609112314356025e-05
+    },
+    "KA": {
+      "pose_absmax": 1.1102230246251565e-16,
+      "fx_absdiff": 3.807066195804509e-05
+    }
+  }
+}
