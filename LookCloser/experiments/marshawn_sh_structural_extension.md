@@ -51,3 +51,23 @@ The user requires investigation through at least2026-11-07 14:30:16UTC.
 Individual runs still stop at plateau. Further combinations, geometry-source
 experiments, frequency variants and paired-seed checks depend on measured
 results; no unchanged run is extended merely to consume that duration.
+
+## First matched15188 review (provisional)
+
+| Configuration | PSNR | SSIM | Actor LPIPS |
+|---|---:|---:|---:|
+| Corrected SH / softplus |26.421557|.780520|.069681|
+| Corrected SH / exp(h+1) |27.102883|.798674|.056944|
+| Corrected SH / normalized Jacobian |26.444484|.785180|.065198|
+
+All three use the same original v1 actor protocol at the same step. Both actors'
+mean LPIPS improves in both new arms. Exp improves overall LPIPS18.28% versus
+corrected SH, but the black actor's PSNR drops26.529→25.716; it is not a universal
+metric improvement. These are unfinished trajectories, not final selections.
+
+Root inspected [full views](/fsx/tmp/marshawn_001660_hd/tuning_20261106/structural_review/matched15188.jpg)
+and [same-coordinate actor crops](/fsx/tmp/marshawn_001660_hd/tuning_20261106/structural_review/matched15188_actors.jpg).
+Exp gives visibly clearer gray trousers/jacket and stronger body outlines,
+especially DC; all variants still have substantial false density/fog and floor
+fragments. No artifact-free or geometry-qualified promotion follows from these
+masked metrics. Independent surface-band tracing remains necessary.
