@@ -89,8 +89,9 @@ def assemble(plan,state):
                  heartbeat=check.get('time'),oom_evidence=check.get('oom_evidence'),scores=None)
         result=item.get('metrics')
         if item['status']=='complete' and result and not result.get('skipped') and 'selection' in result:
-            row.update(scores=scores(result),step=int(result['selection']['step']))
-            candidate=dict(name=name,host=item.get('host'),step=row['step'],scores=row['scores'],result=result)
+            selected_step=int(result['selection']['step'])
+            row.update(scores=scores(result),step=result.get('final_step',step),metric_step=selected_step)
+            candidate=dict(name=name,host=item.get('host'),step=selected_step,scores=row['scores'],result=result)
             if result.get('technical_smoke'):row['classification']='technical_smoke_excluded'
             elif is_selector(specs.get(name,{})):row['classification']='selector_excluded'
             elif result.get('config',{}).get('seed')==42:
@@ -242,7 +243,7 @@ def add_online(report, plan, state):
             except Exception as exc:errors[host]=str(exc)
     for row in report['jobs']:
         if row['scores'] is not None:
-            row.update(metric_step=row['step'],metric_source='completed_selected');continue
+            row.update(metric_step=row.get('metric_step',row['step']),metric_source='completed_selected');continue
         record=observations.get(row['name'])
         if not record:continue
         if record.get('error'):errors[row['name']]=record['error'];continue

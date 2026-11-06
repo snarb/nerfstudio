@@ -37,6 +37,16 @@ def test_tie_psnr_and_smoke_excluded():
     assert r['primary']['name']=='full_baseline_r0'
 
 
+def test_completed_progress_does_not_replace_selected_checkpoint():
+    p,s=state_fixture()
+    s['jobs']['full_baseline_r0']['metrics']['final_step']=126316
+    r,c=m.assemble(p,s)
+    m.add_online(r,p,s)
+    row=next(x for x in r['jobs'] if x['name']=='full_baseline_r0')
+    assert row['step']==126316 and row['metric_step']==106316
+    assert c['full_baseline_r0']['step']==106316
+
+
 def test_no_control_no_promotion_and_pending_unknown_oom():
     p,s=state_fixture();s['jobs']['full_baseline_r0']={'status':'running'}
     r,_=m.assemble(p,s)
