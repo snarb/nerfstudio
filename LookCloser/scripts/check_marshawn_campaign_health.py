@@ -101,6 +101,9 @@ print(json.dumps(r))
     exp_root = '/home/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/exp_geometry_candidate_20261106/controller'
     commands['remote_geometry_exp'] = ['ssh', '-o', 'BatchMode=yes', '-o', 'ConnectTimeout=8',
         'ubuntu@silver-sable', shlex.join(['python3', '-c', remote_code.replace(repr(remote_root), repr(exp_root))])]
+    semantic_root = '/home/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_actor_candidate_v2_20261106/controller'
+    commands['remote_semantic_actor'] = ['ssh', '-o', 'BatchMode=yes', '-o', 'ConnectTimeout=8',
+        'ubuntu@silver-sable', shlex.join(['python3', '-c', remote_code.replace(repr(remote_root), repr(semantic_root))])]
     technical = args.root/'native_reference_4k_technical_v2'
     if (technical/'launch.json').exists():
         pid = json.loads((technical/'launch.json').read_text())['pid']
