@@ -2067,3 +2067,9 @@ private sampling contracts, queries the actual field density and preserves its
 native backward. Prefix-only and prefix-plus-band runs require full AMP/Adam
 resume receipts and a hash-bound completed-parent release; defaults and running
 softplus arms remain unchanged.
+
+### Opt-in TRAIN semantic admission experiment
+
+`marshawn_semantic_admission.SemanticAdmissionModel` is a separately frozen experiment, not a model default. It maps a reviewed TRAIN-only semantic grid conservatively over whole LookCloser cells and gates the shared native density selector in fixed warmup, ARM and inference. Learned occupancy EMA/core remain separate; active traversal is native noncumulative halo intersected with fixed admission, including binary warmup. `marshawn_semantic_occupancy.py` exports schema2 core/EMA/admission/active evidence; skipped cells do not certify empty space. Actual native all-ones identity and warmup/ARM Adam-resume checks are documented in `experiments/marshawn_training_semantic_admission.md`.
+
+`export_occupancy_grid_viewer.py` exports aligned boolean XYZ layers into a standalone offline HTML inspector with three synchronized slices, exact cell coordinates, source hashes and downloadable review notes. It rejects frame/boundary mismatches and never mutates a grid; camera renders and ray evidence remain necessary for geometric validation.
