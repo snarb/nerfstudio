@@ -1,0 +1,89 @@
+{
+  "kind": "TRAIN_ONLY_MAT_GEOMETRY_PROPOSAL_PROVENANCE",
+  "code": [
+    {
+      "name": "discover_native_mat_sfm.py",
+      "sha256": "3d40d78a4adb4bfa0d55e16c33670436f21f452335c15acf48515923786e5eb1"
+    },
+    {
+      "name": "recover_native_mat_tracks.py",
+      "sha256": "b1e1e620a66c13c36062db2b09d052c793d9e9d26807aff046da94ceef496a7a"
+    },
+    {
+      "name": "review_native_mat_candidates.py",
+      "sha256": "bf91ed74fdfdddabaf9eefc72f157ea5cb09daf12dd0d66653da06402aa287cf"
+    },
+    {
+      "name": "review_native_mat_round2.py",
+      "sha256": "3f60b0475a5168a3d1382908b6623f33e71c4b09867de915e699c5518f1fb6a0"
+    },
+    {
+      "name": "qualify_native_mat_points.py",
+      "sha256": "1ed3149bf1a821e7ab2848d027164b46df49caaf4c02ade1ac7f18c60d632ae1"
+    },
+    {
+      "name": "qualify_native_mat_v2.py",
+      "sha256": "0842f068b3189160e0f21033f98d92148c44ba9111d0081d6e326fa49c00e3c2"
+    },
+    {
+      "name": "review_mat_top_context.py",
+      "sha256": "4368f8cacac48d8151ceb5b9f5cd3ef6fe17990601435c6bb832dbb432572743"
+    },
+    {
+      "name": "audit_marshawn_mat_geometry.py",
+      "sha256": "ab136c9538b2250e5a3ea65dc39be2bc3d562281f4fc377037f51aaff871a6e0"
+    },
+    {
+      "name": "marshawn_original_feature_tracks.py",
+      "sha256": "7f376af1528c94f19d1678fb6042835bfb789bd060c9e1f0342633731701983c"
+    },
+    {
+      "name": "audit_marshawn_geometry.py",
+      "sha256": "e676216c3524e1cf78b4d02577d77836bce1e2f8c959126b0dab44c24a121e47"
+    },
+    {
+      "name": "marshawn_actor_coordinates.py",
+      "sha256": "d4d6be06068b7cd2957375fbd2d857d4c8d75675b464dc8b4f900c31ab78b9f0"
+    },
+    {
+      "name": "prepare_marshawn_color_variants.py",
+      "sha256": "c1e6fef6b12119ef828bd8722dac2d628de0380403357abcde7487d6869d6e89"
+    },
+    {
+      "name": "marshawn_1660_1900_floor.json",
+      "sha256": "292609eebe9939e7ce5f840a1b317d963d39ec738cafaad8500abf3a2cd0620f"
+    }
+  ],
+  "artifacts": [
+    {
+      "name": "exact_feature_tracks.json",
+      "sha256": "beb3f04a5083e32a37b2f1f2344dfa4d8b7e2e1b60df0a56c74367d6eaedc1ba"
+    },
+    {
+      "name": "qualified_material_points.json",
+      "sha256": "43932dfe849922bf5bcd6da6034cd3d3899b77a085557d3c40a34629244006ac"
+    },
+    {
+      "name": "qualified_material_points_v2.json",
+      "sha256": "9ccf0ef91ad401b12c32710f2b2c4d3c23705cbb763cdfb2313c7bfb7c76f358"
+    },
+    {
+      "name": "bounded_geometry_proposal.json",
+      "sha256": "b513418df09acf4fc85836e9fc64983267e85c8387ba4b83ee178edb91f58524"
+    },
+    {
+      "name": "root_material_review.json",
+      "sha256": "b84716525c780ff9f16e60d47a50513fc2391e01c9237ce63df81d8a0a8eaffb"
+    },
+    {
+      "name": "report.md",
+      "sha256": "c0986b13a28b45b8b13750b2f3d1257bf52df9c4267ec5a4665bd1a487d273af"
+    }
+  ],
+  "checkpoint_sha256": "fd56e541d91abde26b776ffe03b91caf997b3c0ada0044cebf6407728c988fa2",
+  "checkpoint_unchanged": true,
+  "no_training": true,
+  "no_field_or_grid_mutation": true,
+  "no_eval_fit": true,
+  "two_bounded_ray_tests_passed": true
+}
