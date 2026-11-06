@@ -35,3 +35,11 @@ Download and open locally:
 ```bash
 scp coder@olive-lark:/fsx/tmp/marshawn_001660_hd/tuning_20261106/grid_inspector/index.html ~/Downloads/marshawn_grid_inspector.html
 ```
+
+## Complete orthogonal sweep at semantic R0 step60,752
+
+`scripts/export_occupancy_slice_sweep.py` exports every slice from the same validated viewer specification. Example arguments: `--spec SPEC.json --output DIRECTORY --active active_R0_60752 --support fixed_admission`. White denotes active cells within support, blue support alone, and red active cells outside support. Coordinates increase right/up on explicitly labeled axes. The two orientation/color tests and the five existing viewer tests pass.
+
+Root visually scanned all six pages (384 slices, 128 per axis) under `/fsx/tmp/marshawn_001660_hd/tuning_20261106/grid_inspector/semantic_60752/sweep/`; source/page hashes and findings are saved in `receipt.json` and `root_manual_review.json`. There are zero active cells outside sealed admission. A broad, patchy near-floor component is apparent around Z slices0–25 and agrees with floor fragments in camera renders. Upper-body support changes continuously across adjacent slices, without obvious global axis reversal or remote high-Z blocks.
+
+This is an exhaustive slice-page scan, **not** independent certification of every physical cell. Empty interior cells, imperfect silhouette boundaries, and occluded geometry still need ray evidence. No cells were removed based on component size or this visual scan.
