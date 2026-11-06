@@ -145,3 +145,35 @@ idle silver GPU locks, fresh from source60752. It does not reuse the technical
 treatment comparisons for DC/HC/KA and both actor crops at61252 and64752, with
 unchanged V1 per-view/per-actor metrics. The diagnostic remains a visual review
 gate, with no automatic geometry approval or optimization-complete claim.
+
+## Matched4000-attempt result
+
+Both diagnostic arms completed without OOM. Control had3999 actual Adam
+updates and treatment3998 across4000 attempts; native AMP was preserved.
+Initial pre-update rays and the complete sampled4000-attempt stream matched
+between arms. This does not change the historical cache-order caveat.
+
+| Attempts | Control PSNR | Control SSIM | Control LPIPS | Treatment PSNR | Treatment SSIM | Treatment LPIPS |
+|---:|---:|---:|---:|---:|---:|---:|
+|500|27.0045|.793477|.054457|30.7605|.830997|.035832|
+|1000|26.9082|.792273|.054750|30.8301|.832285|.036386|
+|2000|26.8969|.792599|.054545|30.7421|.832623|.036193|
+|4000|26.8650|.792562|.054859|30.6608|.833477|.037054|
+
+The global improvement is supported by the matched control, but it is not
+uniform by view: at4000, KA LPIPS worsens .024687→.034549 and PSNR31.520→30.500,
+while DC LPIPS improves .072454→.043710 and HC .067437→.032903. The treatment's
+raw LPIPS minimum is500; applying the existing .001-window/PSNR selector among
+these four diagnostic gates would select1000. Neither is automatically promoted.
+
+All3matched500/4000 view/actor contacts and source hashes are saved under
+`late_distortion_visuals/step-000061252` and `step-000064752`. Visual inspection
+confirms clearer clothing/hair/silhouettes in DC/HC; background haze becomes
+sharper floating clumps and floor/boundary artifacts remain. This is not an
+ideal-grid result. The independent103TRAIN+12DC geometry audit was assigned
+before any geometry claim. The paired final checkpoint hashes and actual-Adam
+receipts are in `late_distortion/diagnostic_completion.json`.
+
+These results apply to the full-objective exponential parent60752. A late
+factor on semantic actor training requires a new exact source-bound fork;
+this causal conclusion must not be transferred to that ancestry implicitly.
