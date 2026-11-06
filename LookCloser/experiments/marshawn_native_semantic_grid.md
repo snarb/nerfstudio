@@ -2,7 +2,7 @@
 
 What was tested: Read-only rendering on dev3 of checkpoint `fd56e541d91abde26b776ffe03b91caf997b3c0ada0044cebf6407728c988fa2`. An independent 128³ gate uses the unchanged accepted floor AABB. A cell is rejected only when its entire outward projected eight-corner rectangle is clear of padded actor support, invalid pixels and occluder UNKNOWN in at least two of 63 TRAIN cameras. Native field coordinates, hash normalization, original R1 occupancy, weights and sample intervals remain unchanged. The gate only zeros density at original sample midpoints.
 
-Results: **Corrected W64 support with one semantic padding is a provisional cleaner auxiliary render; it is not artifact-free or a matched LookCloser winner.** Worker/mat geometry is removed, but floor patches remain around shoes, including in ±12° HC orbit views. Hair, clothing folds and hand contact remain recognizable. All three views and hair/hand/feet crops were visually inspected.
+Results: **The earlier W64 artifact is visually cleaner but has a demonstrated source-visibility defect. The partial correction below preserves the measured toe feature while restoring substantial floor/mat geometry. Neither is an artifact-free release or a matched LookCloser winner.** Worker/mat geometry is removed, but floor patches remain around shoes, including in ±12° HC orbit views. Hair, clothing folds and hand contact remain recognizable. All three views and hair/hand/feet crops were visually inspected.
 
 | Variant | PSNR v1 | SSIM v1 | LPIPS v1 | PSNR v2 | SSIM v2 | LPIPS v2 |
 |---|---:|---:|---:|---:|---:|---:|
@@ -56,3 +56,30 @@ The direct preferred-W64 ray audit now explicitly binds `candidate_grid.npz` and
 Validation: All six margin renders retained checkpoint/model-state hashes and passed native compositing parity. The exact voxel-plane ray audit crosschecked 40 synthetic rays against the independent CPU DDA. Two packed-depth regression checks verify transparent/missing rays and that removing foreground moves box occlusion to the retained surface. Compilation passed; the checks ran directly in the historical dev3 environment because pytest is not installed there. The unchanged W64 ZIP remains the provisional deliverable, not an artifact-free final result.
 
 Independent source audit found a concrete occlusion-policy defect: the independently triangulated toe-upper feature falls in cell `[93,73,15]`; W32/W16 gate0 rejects it solely from DE/EE votes whose source projections land on a foreground mat hiding the shoe. Both padded gates still retain this particular point, and W64 mask padding suppresses those votes, but this does not make the clear-space rule correct. The audit also found 3,505 confirmed bag pixels permitted to vote clear despite the opaque bag; no independent hidden-shoe counterexample was located for that second vulnerability. Existing variants and the delivered W64 archive are preserved as provisional appearance filters. A separately versioned occlusion-aware correction is required before claiming a physically valid gate. [Independent source witness](assets/marshawn_native_grid_independent_20261106/witness_clear_votes.png), [projection votes](assets/marshawn_native_grid_independent_20261106/witness_votes.json).
+
+
+What was corrected: `occlusion_v2` separately unions 60 conservative TRAIN mat envelopes and six independently qualified bag interiors/contact shells into UNKNOWN, preserving the existing three bag-tip UNKNOWN regions and actor labels. CE/JE/NE have unqualified mat visibility; their entire raster is UNKNOWN, so these cameras supply no clear votes. This adds 14,405,452 UNKNOWN source pixels at each width. The frozen original masks, W64 ZIP, accepted AABB and native field/grid remain unchanged. `occlusion_v1` is an unrendered intermediate diagnostic lacking the three-camera exclusion.
+
+Independent verification rebuilt all 2,097,152 W64 cells and all 126 W64/W32 source archives with zero discrepancies. New gates are monotone supersets of their predecessors and use fresh, non-cumulative semantic padding. The independently triangulated toe feature `[93,73,15]` previously received DE+EE clear votes at W32/W16; both votes are now UNKNOWN and **gate0 retains the feature without padding at both widths**. This is one toe-upper feature, not a proof of complete sole geometry. See the [independent audit](marshawn_native_grid_independent_audit.md).
+
+| Partial visibility correction | Cells | Qualified TRAIN ray misses | PSNR v2 | SSIM v2 | LPIPS v2 |
+|---|---:|---:|---:|---:|---:|
+| W64 gate0 |78,056|528 grey, 0 black|28.97942|0.819543|0.064489|
+| W64 pad1 |105,049|0|29.17838|0.820786|0.063784|
+| W32 gate0 |65,970|1,084 grey, 0 black|28.85687|0.818654|0.065074|
+| W32 pad1 |91,703|237 grey, 0 black|29.03169|0.819814|0.064379|
+| W16 gate0, grid-only diagnostic |60,303|1,428 grey, 4 black|—|—|—|
+| W16 pad1, grid-only diagnostic |84,636|483 grey, 0 black|—|—|—|
+
+The denominator remains 4,657,323 qualified TRAIN rays. Remaining grey misses concentrate in previously identified bag/contact views; they are not automatically classified as non-actor pixels. All three full actor comparisons and hair/hand/feet crops were viewed, plus full-HD HC and its current-depth box overlay. Actor detail remains similar; **large foreground mat and floor remnants return**, including a broad mat to the left of the actors in HC. Better masked actor scores do not establish a cleaner isolated scene.
+
+For evaluation only, pixels with alpha >0.1 outside the EVAL-v2 actor union dilated by three HD pixels increase from 11,908 to 177,032 in DC, 11,928 to 85,622 in HC, and 10,944 to 57,048 in KA for old-W64-pad1 versus partial-W64-pad1. This measures mask-exterior opacity, not certified non-actor volume; actual full renders confirm the mat/floor tradeoff. All six new renders preserve checkpoint/model hashes and exact camera parameters from the independently audited box projection. Two additional source-occlusion regression checks pass without pytest: an opaque mat/bag prevents a clear vote behind it, while uncertain contact preserves actor support and original arrays.
+
+**Remaining scope:** mat envelopes intentionally include neighboring floor and have no independent depth. Bag identity/extents are independently qualified only in six views plus three tips, not every TRAIN camera. Other opaque clutter may still generate invalid clear votes. This is a bounded, partial visibility correction; no gate here is certified physical occupancy. Independent depth-qualified occlusion and actor-surface classification are the next required distinctions for preserving feet without retaining the mat. Native contribution weights alone are insufficient depth truth.
+
+- [Partial-v2 full-HD HC](/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/renders/HC/HC_semantic_gate_pad1.png)
+- [Partial-v2 source/native/old-W64/new-W64/new-W32 details](/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/review/all_details.jpg)
+- [Metrics v1/v2](/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/metrics_v1_v2.json)
+- [Source-scope and visual-review receipt](/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/partial_scope_receipt.json)
+- [W32/W16 toe regression before padding](/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/toe_occlusion_regression.json)
+- [Partial visibility-fix diagnostic bundle](/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/native20k_partial_visibility_fix_review.zip)
