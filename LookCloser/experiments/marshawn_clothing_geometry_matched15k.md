@@ -59,3 +59,29 @@ The original28 pixel rays were verified unchanged. New queries use75 actual revi
 All producers remained alive and advanced during each replay: reference overlap on A17741→19321, A19321→20877, B21823→23380, C20962→22340. The audit processes finished; production training continues under the existing controller/plateau policy. Parent supervision remains active.
 
 Positive-band support addresses the prefix-only tendency to move termination behind the observed cloth. It generalizes to the predeclared withheld garment patches at this gate. It does not resolve the full-scene fog or prove that every occupancy cell is correct. A separate native-exponent geometry experiment can test whether this mechanism combines with the exponent's improved native traversal; that is a new controlled branch, not an edit to these arms.
+
+## Native depth offsets and width
+
+The saved intervals also support exact unconditional10/50/90% termination quantiles, using exponential inversion within each interval. Probability is not renormalized by opacity; all requested quantiles were attainable in this audit. Signed offset is native median depth minus projected SfM witness depth (negative means in front). All numbers below are prepared-world units, not certified meters.
+
+| Subset: median signed offset across rays | SH | A | B | C |
+|---|---:|---:|---:|---:|
+| old_prefix_supervised | +0.000639 | +0.002015 | +0.002562 | -0.002299 |
+| new_prefix_supervised | +0.001422 | +0.001878 | +0.002904 | -0.001991 |
+| old_local_reserved | -0.000803 | +0.000873 | -0.001850 | -0.001053 |
+| new_whole_patch_reserved | +0.001330 | +0.003486 | +0.002297 | +0.001288 |
+
+| Subset: median10–90% width across rays | SH | A | B | C |
+|---|---:|---:|---:|---:|
+| old_prefix_supervised | 0.521897 | 0.033276 | 0.028491 | 0.010982 |
+| new_prefix_supervised | 0.026841 | 0.031358 | 0.026947 | 0.008827 |
+| old_local_reserved | 0.532603 | 0.031859 | 0.458147 | 0.446077 |
+| new_whole_patch_reserved | 0.019198 | 0.023149 | 0.024995 | 0.016414 |
+
+C shifts the fitted cloth slightly forward: mean median-depth residual−0.002078(old18) and−0.002003(new66), versus B+0.003127/+0.003422. It substantially narrows the fitted termination distribution, but its roughly0.009–0.011 median widths are not proof of an exact thin surface. The±.02 mass window and positive-band halfwidth are much wider than several source consistency measurements.
+
+Reserved-ray widths still reveal remote fog: in C the old nearby-reserve mean10–90 width is0.349144(median0.446077), and the new whole-patch mean is0.097693(median0.016414). These widths include all foreground layers, rather than selecting a convenient cloth peak. High band mass can coexist with a large width whenever more than10% mass terminates far ahead.
+
+Recovered-feature context: maximum available leave-one-source-view XYZ shifts are0.000650(old fitted;6/9points have this check),0.001011(new fitted;12/22),0.000426(old reserves;2/4), and0.000302(new whole-patch reserves;2/3). Maximum corresponding pixel-ray separations are0.000498,0.000920,0.000479 and0.000420. These fitted-graph/rig consistency quantities are not independent confidence intervals; transverse ray separation is not a longitudinal depth error. Three-view tracks have no fourth-view check. Full raw residuals, quantiles and source context are in depth_residuals.json and source_consistency_context.json.
+
+This addition used saved arrays only, no GPU. Four analytic tests pass, including exact quantile inversion, unknown transmitted tails and preservation of skipped spatial gaps. No ongoing band or prior was changed; a narrower-band experiment would be a separate future hypothesis.

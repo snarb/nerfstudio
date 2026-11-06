@@ -23,3 +23,15 @@ def test_disjoint_samples_do_not_fabricate_surface_band_density(tmp_path):
     result=inspect_trace(tmp_path,row,'native');assert result['positive_band_tau']==0
     assert result['positive_band_unconditional_mass']==0
     assert result['mass'][3]==pytest.approx(np.exp(-.2))
+
+def test_native_depth_quantile_exact_inverse_and_unknown_transmission():
+    from summarize_marshawn_depth_residuals import quantile_depth
+    start=np.array([0.]);end=np.array([1.]);sigma=np.array([2.]);weight=np.array([-np.expm1(-2.)]);trans=np.array([1.])
+    assert quantile_depth(start,end,sigma,weight,trans,.5)==pytest.approx(np.log(2)/2)
+    assert quantile_depth(start,end,sigma,weight,trans,.9)is None
+
+def test_native_depth_quantile_keeps_skipped_spatial_gap():
+    from summarize_marshawn_depth_residuals import quantile_depth
+    start=np.array([0.,10.]);end=np.array([.1,11.]);sigma=np.ones(2);trans=np.array([1.,np.exp(-.1)]);weight=trans*(-np.expm1(-(end-start)))
+    q=quantile_depth(start,end,sigma,weight,trans,.5)
+    assert q==pytest.approx(10.+np.log(2)-.1)
