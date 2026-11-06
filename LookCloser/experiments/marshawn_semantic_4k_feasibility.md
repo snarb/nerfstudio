@@ -38,7 +38,7 @@ Use a new isolated generation with a two-source derivation adapter:
    inventory and reviewed READY. Existing HD data remains the geometry source.
 2. Invoke the unchanged strict semantic loader against the original HD data,
    original manifest and original grid. The adapter independently verifies a
-   signed/hash-bound HD→4K derivation receipt: exact63 camera order/splits,
+   hash-bound HD→4K derivation receipt: exact63 camera order/splits,
    original poses/world-to-box/AABB,2×TRAIN intrinsics/size, unchanged EVAL9
    files/rows/crops, native confidence lineage, and frozen photometry.
 3. Require the same source grid bytes and final mapped128³ boolean support,
@@ -105,7 +105,10 @@ per4K run initially, with a measured CPU-cache admission gate and conservative
 headroom; this estimate is not a measured4K training peak. Keep frozen
 `images_on_gpu=False`, `masks_on_gpu=False`, `cache_train_rays=False` and
 `cpu_fas_prefetch=False`. Full ray caching alone would add at least10.94GiB.
-Do not launch eight4K runs based only on available VRAM.
+Do not launch eight4K runs based only on available VRAM. At this read-only
+check, silver reported MemTotal1,486,024,808KiB and MemAvailable1,417,876,104KiB
+(approximately1.32TiB available), so host RAM currently has ample aggregate
+headroom; still measure each new4K cache peak and recheck at admission.
 
 After root reviews the selected ancestry and all63 maps, the concrete gates are:
 
