@@ -32,8 +32,10 @@ Compare these two independent factors against the same baseline:
 For the current 4K candidate, A uses the existing4000 updates/level and
 `lr(j)=.01*10**(-j/3999)`, j=0…3999. There is no optimizer reset, extra fit
 budget, RNG alteration, full-level training substitute, or source change.
-If the final structural comparison selects HD instead, retain its existing
-fit budget; do not bundle a resolution/budget change into A.
+The exact baseline `train_steps_per_level` is retained: HD1000 or reviewed
+4K4000. For HD, use `lr(j)=.01*10**(-j/999)`, j=0…999; do not change
+1000→4000 while testing the schedule. No resolution/budget change is bundled
+into A.
 B's lower threshold is an ablation, not an assertion that low censoring is good.
 A and B are independent comparisons, not an unlabelled combination.
 

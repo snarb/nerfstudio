@@ -137,3 +137,11 @@ historical stream continuity. Producer PID487868 advanced 105377→110387 with n
 OOM, and all technical candidate GPU processes exited. Receipts and small
 state proofs are in `late_distortion_overlap/evidence` under the campaign root.
 The 4000-attempt diagnostic remains unreleased.
+
+After this successful technical review, root separately authorized the two
+4000-attempt diagnostic specs. Controller2076985 queues both on exclusively
+idle silver GPU locks, fresh from source60752. It does not reuse the technical
+60816 checkpoints. CPU watcher2077216 prepares source-hashed GT/parent/control/
+treatment comparisons for DC/HC/KA and both actor crops at61252 and64752, with
+unchanged V1 per-view/per-actor metrics. The diagnostic remains a visual review
+gate, with no automatic geometry approval or optimization-complete claim.
