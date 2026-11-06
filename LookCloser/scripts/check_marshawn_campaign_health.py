@@ -98,6 +98,14 @@ print(json.dumps(r))
 """.replace('REMOTE_ROOT', repr(remote_root))
     commands['remote_geometry_ABC'] = ['ssh', '-o', 'BatchMode=yes', '-o', 'ConnectTimeout=8',
         'ubuntu@silver-sable', shlex.join(['python3', '-c', remote_code])]
+    exp_root = '/home/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/exp_geometry_candidate_20261106/controller'
+    commands['remote_geometry_exp'] = ['ssh', '-o', 'BatchMode=yes', '-o', 'ConnectTimeout=8',
+        'ubuntu@silver-sable', shlex.join(['python3', '-c', remote_code.replace(repr(remote_root), repr(exp_root))])]
+    technical = args.root/'native_reference_4k_technical_v2'
+    if (technical/'launch.json').exists():
+        pid = json.loads((technical/'launch.json').read_text())['pid']
+        commands['dev3_4k_executor'] = ['ssh', '-o', 'BatchMode=yes', '-o', 'ConnectTimeout=8',
+            'ubuntu@dev3', 'ps', '-p', str(pid), '-o', 'pid=,stat=,etime=,comm=']
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
         futures = {pool.submit(command, cmd): key for key, cmd in commands.items()}
         for future, key in futures.items():
@@ -112,6 +120,12 @@ print(json.dumps(r))
     watcher = args.root/'exp_followup/conditional_release_checks.jsonl'
     if watcher.exists():
         result['conditional_followup'] = last_record(watcher)
+    maps = args.root/'resolution_4k_frequency_queue_4000_fleet'
+    if (maps/'admission_status.json').exists():
+        result['frequency_admission'] = json.loads((maps/'admission_status.json').read_text())
+    for name in ['wait_health.jsonl', 'phase_health.jsonl']:
+        if (technical/name).exists():
+            result['native4k_'+name] = last_record(technical/name)
     with (args.root/'root_supervision.jsonl').open('a') as stream:
         stream.write(json.dumps(result)+'\n')
     print(json.dumps(result, indent=2))
