@@ -249,6 +249,23 @@ def trace(args):
         expected_sh = getattr(args, 'expected_sh', None)
         if expected_sh is not None and actual_sh != (expected_sh == 'true'):
             raise ValueError('Loaded field uses unexpected SH convention')
+        actual_density = model.field.density_activation
+        actual_projection = pipeline.config.frequency_projection_mode
+        if actual_density != model.config.density_activation:
+            raise ValueError('Actual density activation differs from saved model config')
+        if getattr(args, 'expected_density', None) is not None and actual_density != args.expected_density:
+            raise ValueError('Unexpected structural density activation')
+        if getattr(args, 'expected_projection', None) is not None and actual_projection != args.expected_projection:
+            raise ValueError('Unexpected structural frequency projection')
+        activation_probe = None
+        if hasattr(model.field, 'activate_density'):
+            logits = torch.tensor([-4., 0., 2.], device=model.device)
+            with torch.inference_mode():
+                actual = model.field.activate_density(logits)
+                expected = torch.exp(logits+1.) if actual_density == 'trunc_exp' else torch.nn.functional.softplus(logits+1.)
+            torch.testing.assert_close(actual, expected, rtol=1e-6, atol=1e-7)
+            activation_probe = dict(raw_logits=logits.cpu().tolist(), actual_density=actual.cpu().tolist(),
+                                    formula='exp(h+1)' if actual_density == 'trunc_exp' else 'softplus(h+1)')
         # This non-tensor field attribute is not necessarily restored by a plain
         # render-only loader. Bind the reviewed ancestry explicitly, no callback.
         strength = 1. if step <= 75940 else .3
@@ -274,6 +291,7 @@ def trace(args):
                     per_ray_errors=checks, tolerance=1e-6, queries_sha256=sha(args.queries),
                     prepared_data_transforms_sha256=sha(args.data / 'transforms.json'),
                     feature_reweighting_strength=strength, correct_sh_directions=actual_sh,
+                    density_activation=actual_density, frequency_projection_mode=actual_projection, activation_probe=activation_probe,
                     config_sha256=sha(args.config), source_root=str(args.code_root),
                     field_source_sha256=sha(args.code_root/'nerfstudio/fields/lookcloser_field.py')))
         # CPU-side adapter precondition already validates hashes; compare live masks
@@ -334,6 +352,8 @@ if __name__ == '__main__':
                         help='Only with explicit concurrent read-only authorization; no speed claims')
     parser.add_argument('--memory-cap-gib', type=float, default=10.)
     parser.add_argument('--expected-sh', choices=['true', 'false'])
+    parser.add_argument('--expected-density', choices=['softplus', 'trunc_exp'])
+    parser.add_argument('--expected-projection', choices=['legacy', 'normalized_image', 'normalized_jacobian'])
     args = parser.parse_args()
     if args.mode == 'prepare':
         prepare(args.data, args.output, args.witnesses)

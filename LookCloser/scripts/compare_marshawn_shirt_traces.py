@@ -30,9 +30,14 @@ def masses(folder, row, profile):
 def compare(traces, output):
     output.mkdir(parents=True, exist_ok=False)
     reports, plotted, identifiers = {}, {}, None
+    matched_step = None
     for name, directory in traces.items():
         folder = Path(directory)
         audit = json.loads((folder/'audit.json').read_text())
+        if matched_step is None:
+            matched_step = int(audit['step'])
+        if int(audit['step']) != matched_step:
+            raise ValueError('Checkpoint steps differ; matched-step comparison required')
         ids = [(x['pixel']['witness_id'], x['pixel']['camera_name'], x['pixel']['x'], x['pixel']['y'])
                for x in audit['rows']]
         if identifiers is None:
@@ -65,7 +70,7 @@ def compare(traces, output):
             converged_rgb_opacity_rays=summary['converged_rays'],
             coordinate_chain=json.loads((folder.parent/'coordinate_chain.json').read_text()),
             provenance=json.loads((folder.parent/'subcell_density.json').read_text()))
-    result = dict(kind='MATCHED15K_SH_PREFIX_TRAIN_SHIRT_DIAGNOSTIC', models=reports,
+    result = dict(kind='MATCHED_STEP_TRAIN_SHIRT_DIAGNOSTIC', step=matched_step, models=reports,
         mass_order=['before_shirt_band', 'in_shirt_band', 'after_shirt_band', 'transmission'],
         band_halfwidth=.02, units='prepared world, not certified meters/uncertainty',
         prefix_reserved_points=sorted(RESERVED), prefix_excluded_duplicate=sorted(EXCLUDED),
@@ -83,10 +88,10 @@ def compare(traces, output):
             ax.plot(mid, cdf, label=name, linewidth=1.6)
         ax.axvspan(depth-.02, depth+.02, color='magenta', alpha=.16)
         ax.axvline(depth, color='magenta', linestyle='--', linewidth=1)
-        ax.set(title=f"AA point{point} / {'reserved' if point in RESERVED else 'prefix fitted'}",
+        ax.set(title=f"AA point{point} / {'reserved' if point in RESERVED else 'original prefix subset'}",
                xlabel='World-distance along actual unit camera ray', ylabel='Cumulative termination mass', ylim=(0,1.02))
         ax.grid(alpha=.2);ax.legend(fontsize=8)
-    fig.suptitle('Matched step 15188: dense integration with 16384 samples\nMagenta: triangulated shirt ±.02; final deficit is transmission')
+    fig.suptitle(f'Matched step {matched_step}: dense integration with 16384 samples\nMagenta: triangulated shirt ±.02; final deficit is transmission')
     fig.savefig(output/'comparison.png', dpi=150);plt.close(fig)
     print(json.dumps({k:v['groups'] for k,v in reports.items()}, indent=2))
 
