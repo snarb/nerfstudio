@@ -1,0 +1,45 @@
+{
+  "changes": [
+    {
+      "key": "load_checkpoint",
+      "old": "None",
+      "new": "/fsx/tmp/marshawn_001660_hd/native_png_radialK4_COLD_R1_DEV3_STAGED/immutable_selected_20000/step-000020000.ckpt"
+    },
+    {
+      "key": "output_dir",
+      "old": "/fsx/tmp/marshawn_001660_hd/native_png_radialK4_COLD_R1_DEV3_STAGED/run",
+      "new": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_reference_continuation_20000/run"
+    },
+    {
+      "key": "experiment_name",
+      "old": "marshawn_001660_radialK4_native_cold_R1",
+      "new": "native20k_geometry_supervised_continuation"
+    },
+    {
+      "key": "timestamp",
+      "old": "cold_seed42",
+      "new": "resume_from20000"
+    },
+    {
+      "key": "max_num_iterations",
+      "old": "22000",
+      "new": "1000000000"
+    },
+    {
+      "key": "steps_per_save",
+      "old": "2000",
+      "new": "5000"
+    },
+    {
+      "key": "pipeline.final_grid_artifact_dir",
+      "old": "/fsx/tmp/marshawn_001660_hd/native_png_radialK4_COLD_R1_DEV3_STAGED/grids",
+      "new": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_reference_continuation_20000/grids"
+    }
+  ],
+  "all_other_config_fields_unchanged": true,
+  "original_native_field_AABB_and_normalization_unchanged": true,
+  "accepted_floor_AABB_only_in_external_renderer": true,
+  "internal_original_eval_cadence": 2000,
+  "external_common_actor_gate_cadence": 5000,
+  "original_scheduler_horizon_remains22000_then_clamps_to_lr_final": true
+}

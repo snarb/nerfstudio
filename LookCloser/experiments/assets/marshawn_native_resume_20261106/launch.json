@@ -1,0 +1,18 @@
+{
+  "controller_pid": 200934,
+  "worker_pid": 200939,
+  "command": [
+    "/home/ubuntu/anaconda3/envs/nerfstudio/bin/python",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/code/run_marshawn_native_continuation.py",
+    "--release",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/native_continuation_plan/root_release.json"
+  ],
+  "time": 1793993599.137895,
+  "root_release_sha256": "ac0622978ea5d7fa7eb1c88cfd46a7c65266df0b27bebbb4e7bda92d7348c136",
+  "global_gpu_lock": "/tmp/lookcloser_tuning_gpu_1000_0.lock",
+  "initial_gpu": {
+    "memory_mib": "3, 46068",
+    "compute_processes": ""
+  },
+  "source_ancestry": "immutable original20k; technical32 excluded"
+}
