@@ -1,0 +1,64 @@
+{
+  "kind": "ISOLATED_NATIVE_RESOLUTION_VALIDATION_ADAPTER",
+  "technical_GPU_gate_authorized": false,
+  "production_launch_authorized": false,
+  "source_files": [
+    {
+      "name": "marshawn_final_pipeline.py",
+      "original_path": "/fsx/tmp/marshawn_001660_hd/native_png_radialK4_COLD_R1_DEV3_STAGED/code/marshawn_final_pipeline.py",
+      "original_sha256": "167ea693db59a08107ef5bc3f7200e300c47391afbeb35655b64865c633e56f3",
+      "staged_sha256": "5553bb954464138bae59c4913a4e9dfe9910456e937a02c18c6b755d434a11ec",
+      "nonconstructor_methods_AST_equal": true
+    },
+    {
+      "name": "marshawn_los_objective_frozen.py",
+      "original_path": "/fsx/tmp/marshawn_001660_hd/native_png_radialK4_COLD_R1_DEV3_STAGED/code/marshawn_los_objective_frozen.py",
+      "original_sha256": "fcf86aba79cb9b606380a719a418e6e233adec370a5a50f95e7023ba04b55301",
+      "staged_sha256": "fcf86aba79cb9b606380a719a418e6e233adec370a5a50f95e7023ba04b55301",
+      "nonconstructor_methods_AST_equal": true
+    },
+    {
+      "name": "marshawn_surface_band_objective.py",
+      "original_path": "/fsx/tmp/marshawn_001660_hd/native_png_radialK4_COLD_R1_DEV3_STAGED/code/marshawn_surface_band_objective.py",
+      "original_sha256": "70792b85babedd751037687fd7146a06ae48d9ef765d43e08c38dcee087114dd",
+      "staged_sha256": "70792b85babedd751037687fd7146a06ae48d9ef765d43e08c38dcee087114dd",
+      "nonconstructor_methods_AST_equal": true
+    },
+    {
+      "name": "run_final_pair.py",
+      "original_path": "/fsx/tmp/marshawn_001660_hd/native_png_radialK4_COLD_R1_DEV3_STAGED/code/run_final_pair.py",
+      "original_sha256": "b2b50695bebe6f7e02e9750db28f0914131d94e041803a871072a0951a33a48b",
+      "staged_sha256": "b2b50695bebe6f7e02e9750db28f0914131d94e041803a871072a0951a33a48b",
+      "nonconstructor_methods_AST_equal": true
+    },
+    {
+      "name": "staged_native_hash.py",
+      "original_path": "/fsx/tmp/marshawn_001660_hd/native_png_radialK4_COLD_R1_DEV3_STAGED/code/staged_native_hash.py",
+      "original_sha256": "8a9ecb9b69403a46c0e2dd4d5a1e75521e8f99d1463147432886efec65fa0756",
+      "staged_sha256": "8a9ecb9b69403a46c0e2dd4d5a1e75521e8f99d1463147432886efec65fa0756",
+      "nonconstructor_methods_AST_equal": true
+    },
+    {
+      "name": "marshawn_mvs_distribution_candidate.py",
+      "original_path": "/fsx/tmp/marshawn_001660_hd/native_png_radialK4_COLD_R1_DEV3_STAGED/code/marshawn_mvs_distribution_candidate.py",
+      "original_sha256": "537cfbdabea976957a5211d6c4724deee31055be36303e8bcc79f133fad833f3",
+      "staged_sha256": "0981167b654b395a38048a42687a2b2c36224ac6973f0c201cee3f66f16fddc1",
+      "nonconstructor_methods_AST_equal": true
+    }
+  ],
+  "validator_sha256": "956608850a523946f6dd8881e1611a5286b7e567046cafe0081ccd0be6ad4a62",
+  "stager_sha256": "712bde165ba8f45eb6d321f4723f22e80688c78c7c5fbd86316fe54e2917c404",
+  "native_source_directory_untouched": true,
+  "geometry_computations_unchanged": true,
+  "config_required": {
+    "final_geometry_transforms": "original immutable HD native transforms path",
+    "final_geometry_transforms_sha256": "exact original hash",
+    "final_rgb_train_scale": "1 identity or2 treatment",
+    "final_color_gate": "separate reviewed RGB gate binding the staged dataset",
+    "final_source_hashes": "hash every staged legacy dependency plus new validator"
+  },
+  "limitations": [
+    "CPU AST equality excludes constructors; separate source/array/sampling tests and actual-native GPU parity are required.",
+    "No checkpoint, image cache, model or optimizer is constructed by staging."
+  ]
+}

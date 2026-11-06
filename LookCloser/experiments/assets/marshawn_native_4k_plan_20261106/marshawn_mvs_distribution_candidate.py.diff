@@ -1,0 +1,21 @@
+--- /fsx/tmp/marshawn_001660_hd/native_png_radialK4_COLD_R1_DEV3_STAGED/code/marshawn_mvs_distribution_candidate.py
++++ /fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/native_4k_continuation_plan/adapter/code/marshawn_mvs_distribution_candidate.py
+@@ -25,7 +25,8 @@
+             if sha(p)!=h: raise ValueError('MVS source changed: '+p)
+         if m['uses_eval_RGB'] or m['bands_are_calibrated_CI']: raise ValueError('Wrong MVS provenance')
+         data=Path(pipeline.config.datamanager.dataparser.data)
+-        if sha(data/'transforms.json')!=m['transforms_sha256']: raise ValueError('Actual calibrated source mismatch')
++        geometry_transforms=Path(pipeline.config.final_geometry_transforms)
++        if sha(geometry_transforms)!=m['transforms_sha256']: raise ValueError('Actual calibrated source mismatch')
+         if not math.isfinite(weight) or weight<=0: raise ValueError('Positive finite weight required')
+         z=np.load(m['archive']);n=np.asarray(z['normal'],float)
+         if sha(m['archive'])!=m['archive_sha256'] or not np.isclose(np.linalg.norm(n),1,atol=1e-9): raise ValueError('Archive/normal mismatch')
+@@ -36,7 +37,7 @@
+         if origins.shape!=(4,52,3) or directions.shape!=origins.shape or depth.shape!=(4,52): raise ValueError('Exactly52candidates×4TRAINrays required')
+         if not np.allclose(origins+directions*depth[...,None],z['xyz'][None],atol=3e-7,rtol=0): raise ValueError('Rays must hit actual candidate XYZ')
+         if not np.allclose(np.linalg.norm(directions,axis=-1),1,atol=1e-7): raise ValueError('Unit world-distance rays required')
+-        tf=json.loads((data/'transforms.json').read_text());by={q['physical_camera']:q for q in tf['frames']}
++        tf=json.loads(geometry_transforms.read_text());by={q['physical_camera']:q for q in tf['frames']}
+         for c,name in enumerate(self.camera_names):
+             if not np.allclose(origins[c],np.array(by[name]['transform_matrix'])[:3,3],atol=1e-7): raise ValueError('World camera origins changed')
+         self.device=pipeline.device;self.weight=float(weight)

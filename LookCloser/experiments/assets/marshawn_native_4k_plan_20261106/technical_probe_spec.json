@@ -1,0 +1,366 @@
+{
+  "kind": "NATIVE_MIXED_RESOLUTION_TECHNICAL_PROBE_PROPOSAL",
+  "technical_GPU_gate_authorized": false,
+  "production_launch_authorized": false,
+  "source_checkpoint_NOT_FINAL": {
+    "step": 35000,
+    "checkpoint": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_reference_continuation_20000/run/native20k_geometry_supervised_continuation/instant-ngp-bounded/resume_from20000/nerfstudio_models/step-000035000.ckpt",
+    "checkpoint_sha256": "6cc4fe88329b112604c01092fde8e9bf7aefdc65cb38b1983208fe2c3eb0fd79"
+  },
+  "must_refresh_source_after_HD_completion": true,
+  "source_requires": [
+    "completed commonV1 gate",
+    "checkpoint model/optimizer/scheduler/scaler/RNG",
+    "runtime dynamic-rays/cache order",
+    "authoritative native core/active sidecar",
+    "source FHD renders/metrics"
+  ],
+  "configs": [
+    {
+      "name": "HD_identity",
+      "train_scale": 1,
+      "config": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/native_4k_continuation_plan/adapter/HD_identity_config_NOT_RELEASED.yml",
+      "config_sha256": "3de1465db5dc9ed716e787ff1a02a4fabc59cff790d6bcf932b08645a304b4cb",
+      "RGB_gate": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/native_4k_continuation_plan/adapter/HD_identity_RGB_GATE_NOT_APPROVED.json",
+      "RGB_gate_sha256": "f23ffb4f82e0a1da8dc119dc4800c119b23f723d0b2c7b6f6a674b081c547ac2",
+      "changes": [
+        {
+          "key": ".experiment_name",
+          "before": "native20k_geometry_supervised_continuation",
+          "after": "native_resolution_HD_identity"
+        },
+        {
+          "key": ".load_checkpoint",
+          "before": [
+            "/",
+            "fsx",
+            "tmp",
+            "marshawn_001660_hd",
+            "native_png_radialK4_COLD_R1_DEV3_STAGED",
+            "immutable_selected_20000",
+            "step-000020000.ckpt"
+          ],
+          "after": "null"
+        },
+        {
+          "key": ".output_dir",
+          "before": [
+            "/",
+            "fsx",
+            "tmp",
+            "marshawn_001660_hd",
+            "tuning_20261106",
+            "native_reference_continuation_20000",
+            "run"
+          ],
+          "after": [
+            "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/native_4k_continuation_plan/adapter/NOT_RELEASED_RUNTIME/HD_identity"
+          ]
+        },
+        {
+          "key": ".pipeline.datamanager.data",
+          "before": [
+            "/",
+            "fsx",
+            "tmp",
+            "marshawn_001660_hd",
+            "color_variants",
+            "radial_k4_joint_scalar_DIAGNOSTIC",
+            "sdr_png"
+          ],
+          "after": [
+            "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/native_4k_continuation_plan/adapter/data_HD_identity"
+          ]
+        },
+        {
+          "key": ".pipeline.datamanager.dataparser.data",
+          "before": [
+            "/",
+            "fsx",
+            "tmp",
+            "marshawn_001660_hd",
+            "color_variants",
+            "radial_k4_joint_scalar_DIAGNOSTIC",
+            "sdr_png"
+          ],
+          "after": [
+            "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/native_4k_continuation_plan/adapter/data_HD_identity"
+          ]
+        },
+        {
+          "key": ".pipeline.final_color_gate",
+          "before": "/fsx/tmp/marshawn_001660_hd/native_png_radialK4_COLD_STAGED/color_gate.json",
+          "after": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/native_4k_continuation_plan/adapter/HD_identity_RGB_GATE_NOT_APPROVED.json"
+        },
+        {
+          "key": ".pipeline.final_color_gate_sha256",
+          "before": "d6c168ef27841fa4154aef57f8dbb164342c2cc0f4a3f6dce2d88e969d443c7b",
+          "after": "f23ffb4f82e0a1da8dc119dc4800c119b23f723d0b2c7b6f6a674b081c547ac2"
+        },
+        {
+          "key": ".pipeline.final_geometry_transforms",
+          "before": null,
+          "after": "/fsx/tmp/marshawn_001660_hd/color_variants/radial_k4_joint_scalar_DIAGNOSTIC/sdr_png/transforms.json"
+        },
+        {
+          "key": ".pipeline.final_geometry_transforms_sha256",
+          "before": null,
+          "after": "79893ade1ef2fbab92b9f1e0891bcb925be9ae4abc8d79a21238c209c5fb4406"
+        },
+        {
+          "key": ".pipeline.final_grid_artifact_dir",
+          "before": [
+            "/",
+            "fsx",
+            "tmp",
+            "marshawn_001660_hd",
+            "tuning_20261106",
+            "native_reference_continuation_20000",
+            "grids"
+          ],
+          "after": [
+            "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/native_4k_continuation_plan/adapter/NOT_RELEASED_RUNTIME/HD_identity/grids"
+          ]
+        },
+        {
+          "key": ".pipeline.final_rgb_train_scale",
+          "before": null,
+          "after": "1"
+        },
+        {
+          "key": ".pipeline.final_source_hashes.marshawn_final_pipeline.py",
+          "before": "167ea693db59a08107ef5bc3f7200e300c47391afbeb35655b64865c633e56f3",
+          "after": "5553bb954464138bae59c4913a4e9dfe9910456e937a02c18c6b755d434a11ec"
+        },
+        {
+          "key": ".pipeline.final_source_hashes.marshawn_mvs_distribution_candidate.py",
+          "before": null,
+          "after": "0981167b654b395a38048a42687a2b2c36224ac6973f0c201cee3f66f16fddc1"
+        },
+        {
+          "key": ".pipeline.final_source_hashes.marshawn_native_resolution_binding.py",
+          "before": null,
+          "after": "956608850a523946f6dd8881e1611a5286b7e567046cafe0081ccd0be6ad4a62"
+        },
+        {
+          "key": ".timestamp",
+          "before": "resume_from20000",
+          "after": "anchor_PENDING_REVIEW"
+        }
+      ]
+    },
+    {
+      "name": "TRAIN4K",
+      "train_scale": 2,
+      "config": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/native_4k_continuation_plan/adapter/TRAIN4K_config_NOT_RELEASED.yml",
+      "config_sha256": "23cb0b7ee1e0ca74bd0c6c8b2a634257c5c904ecb38e299a4008644c84a4675e",
+      "RGB_gate": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/native_4k_continuation_plan/adapter/TRAIN4K_RGB_GATE_NOT_APPROVED.json",
+      "RGB_gate_sha256": "f62ac6d867662fb59d4f30861f72fa2c7a29fa32a394ae9b4b4244529baebc43",
+      "changes": [
+        {
+          "key": ".experiment_name",
+          "before": "native20k_geometry_supervised_continuation",
+          "after": "native_resolution_TRAIN4K"
+        },
+        {
+          "key": ".load_checkpoint",
+          "before": [
+            "/",
+            "fsx",
+            "tmp",
+            "marshawn_001660_hd",
+            "native_png_radialK4_COLD_R1_DEV3_STAGED",
+            "immutable_selected_20000",
+            "step-000020000.ckpt"
+          ],
+          "after": "null"
+        },
+        {
+          "key": ".output_dir",
+          "before": [
+            "/",
+            "fsx",
+            "tmp",
+            "marshawn_001660_hd",
+            "tuning_20261106",
+            "native_reference_continuation_20000",
+            "run"
+          ],
+          "after": [
+            "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/native_4k_continuation_plan/adapter/NOT_RELEASED_RUNTIME/TRAIN4K"
+          ]
+        },
+        {
+          "key": ".pipeline.datamanager.data",
+          "before": [
+            "/",
+            "fsx",
+            "tmp",
+            "marshawn_001660_hd",
+            "color_variants",
+            "radial_k4_joint_scalar_DIAGNOSTIC",
+            "sdr_png"
+          ],
+          "after": [
+            "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/native_4k_continuation_plan/adapter/data_TRAIN4K"
+          ]
+        },
+        {
+          "key": ".pipeline.datamanager.dataparser.data",
+          "before": [
+            "/",
+            "fsx",
+            "tmp",
+            "marshawn_001660_hd",
+            "color_variants",
+            "radial_k4_joint_scalar_DIAGNOSTIC",
+            "sdr_png"
+          ],
+          "after": [
+            "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/native_4k_continuation_plan/adapter/data_TRAIN4K"
+          ]
+        },
+        {
+          "key": ".pipeline.final_color_gate",
+          "before": "/fsx/tmp/marshawn_001660_hd/native_png_radialK4_COLD_STAGED/color_gate.json",
+          "after": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/native_4k_continuation_plan/adapter/TRAIN4K_RGB_GATE_NOT_APPROVED.json"
+        },
+        {
+          "key": ".pipeline.final_color_gate_sha256",
+          "before": "d6c168ef27841fa4154aef57f8dbb164342c2cc0f4a3f6dce2d88e969d443c7b",
+          "after": "f62ac6d867662fb59d4f30861f72fa2c7a29fa32a394ae9b4b4244529baebc43"
+        },
+        {
+          "key": ".pipeline.final_geometry_transforms",
+          "before": null,
+          "after": "/fsx/tmp/marshawn_001660_hd/color_variants/radial_k4_joint_scalar_DIAGNOSTIC/sdr_png/transforms.json"
+        },
+        {
+          "key": ".pipeline.final_geometry_transforms_sha256",
+          "before": null,
+          "after": "79893ade1ef2fbab92b9f1e0891bcb925be9ae4abc8d79a21238c209c5fb4406"
+        },
+        {
+          "key": ".pipeline.final_grid_artifact_dir",
+          "before": [
+            "/",
+            "fsx",
+            "tmp",
+            "marshawn_001660_hd",
+            "tuning_20261106",
+            "native_reference_continuation_20000",
+            "grids"
+          ],
+          "after": [
+            "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/native_4k_continuation_plan/adapter/NOT_RELEASED_RUNTIME/TRAIN4K/grids"
+          ]
+        },
+        {
+          "key": ".pipeline.final_rgb_train_scale",
+          "before": null,
+          "after": "2"
+        },
+        {
+          "key": ".pipeline.final_source_hashes.marshawn_final_pipeline.py",
+          "before": "167ea693db59a08107ef5bc3f7200e300c47391afbeb35655b64865c633e56f3",
+          "after": "5553bb954464138bae59c4913a4e9dfe9910456e937a02c18c6b755d434a11ec"
+        },
+        {
+          "key": ".pipeline.final_source_hashes.marshawn_mvs_distribution_candidate.py",
+          "before": null,
+          "after": "0981167b654b395a38048a42687a2b2c36224ac6973f0c201cee3f66f16fddc1"
+        },
+        {
+          "key": ".pipeline.final_source_hashes.marshawn_native_resolution_binding.py",
+          "before": null,
+          "after": "956608850a523946f6dd8881e1611a5286b7e567046cafe0081ccd0be6ad4a62"
+        },
+        {
+          "key": ".timestamp",
+          "before": "resume_from20000",
+          "after": "anchor_PENDING_REVIEW"
+        }
+      ]
+    }
+  ],
+  "python_path": [
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/native_4k_continuation_plan/adapter/code",
+    "/fsx/tmp/marshawn_001660_hd/native_png_radialK4_COLD_R1_DEV3_STAGED/code",
+    "/fsx/tmp/marshawn_001660_hd/code_native",
+    "/fsx/tmp/marshawn_001660_hd/code_sfm/LookCloser/scripts",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/code"
+  ],
+  "GPU_exclusivity": "Acquire same global GPU lock only after HD supervisor/worker exit and complete.json; never interrupt HD.",
+  "phases": [
+    {
+      "name": "HD_identity_restore",
+      "updates": 0,
+      "checks": [
+        "all checkpoint domains bitwise",
+        "cache/dynamic/core/RNG exact",
+        "original vs adapted fixed-step prior tensors, values and gradients",
+        "commonFHD numeric parity"
+      ]
+    },
+    {
+      "name": "TRAIN4K_restore",
+      "updates": 0,
+      "checks": [
+        "same domains and priors",
+        "all63 native world cameras/intrinsics",
+        "finite validRGB samples; original private prior sampling",
+        "commonFHD numeric parity",
+        "RSS/VRAM peak including cache collation"
+      ]
+    },
+    {
+      "name": "TRAIN4K_updates_and_restart",
+      "updates": 32,
+      "save_after": 16,
+      "checks": [
+        "actual Adam increment separately from attempts/AMP skips",
+        "save/reload all state after16",
+        "complete32 from exact saved checkpoint",
+        "compare next private sampling and RNG afterroundtrip",
+        "technical checkpoint excluded from production ancestry"
+      ]
+    }
+  ],
+  "render_parity_limits": {
+    "PNG_max_code": 1,
+    "LPIPS_absolute": 1e-05,
+    "PSNR_absolute_dB": 0.001
+  },
+  "resource_policy": {
+    "expected_floatRGB_GiB": 5.472220420837402,
+    "estimated_RGB_valid_two_copy_GiB": 11.856483459472656,
+    "reserve_host_available_GiB": 20,
+    "full_probe_after_HD_exit": true
+  },
+  "control_history_preserved": [
+    {
+      "step": 20000,
+      "checkpoint": "/fsx/tmp/marshawn_001660_hd/native_png_radialK4_COLD_R1_DEV3_STAGED/immutable_selected_20000/step-000020000.ckpt",
+      "checkpoint_sha256": "fd56e541d91abde26b776ffe03b91caf997b3c0ada0044cebf6407728c988fa2"
+    },
+    {
+      "step": 25000,
+      "checkpoint": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_reference_continuation_20000/run/native20k_geometry_supervised_continuation/instant-ngp-bounded/resume_from20000/nerfstudio_models/step-000025000.ckpt",
+      "checkpoint_sha256": "c79d7bcd3fcb0fc654fa6b8ffae51e6e03bd9cfeadb9af0cfd1336db6f043b6a"
+    },
+    {
+      "step": 30000,
+      "checkpoint": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_reference_continuation_20000/run/native20k_geometry_supervised_continuation/instant-ngp-bounded/resume_from20000/nerfstudio_models/step-000030000.ckpt",
+      "checkpoint_sha256": "50b719ee6639e7bac8a5bc26af7eef998d4d58a0907baa300462101dbc708f00"
+    },
+    {
+      "step": 35000,
+      "checkpoint": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_reference_continuation_20000/run/native20k_geometry_supervised_continuation/instant-ngp-bounded/resume_from20000/nerfstudio_models/step-000035000.ckpt",
+      "checkpoint_sha256": "6cc4fe88329b112604c01092fde8e9bf7aefdc65cb38b1983208fe2c3eb0fd79"
+    }
+  ],
+  "matched_control": "Reuse HD suffix only from exactly same selected source/runtime ancestry; otherwise separate reviewed controlled HD replay. Never prune suffix checkpoints.",
+  "selection": "commonV1 minimumactorLPIPS; .001tie thenPSNR/earlierstep; unchanged source remains eligible",
+  "production_controller_pending": "Rebase anchor to actual sourceS;5k gates and patience4, no22k cap/LR reset. Separate review required.",
+  "heldout4K": "No4KEVAL source generated. Any later4K heldout visual diagnostic must remain distinct from primary FHD scoring."
+}

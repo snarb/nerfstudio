@@ -1,0 +1,758 @@
+{
+  "actual_frozen_parser_CPU": true,
+  "GPU_initialized": false,
+  "image_cache_created": false,
+  "rows": [
+    {
+      "split": "train",
+      "count": 63,
+      "camera_tensors_exact_scaled": true,
+      "field_scene_box_exact": true,
+      "normalization_exact": true,
+      "rays": [
+        {
+          "index": 0,
+          "name": "train_AA",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24990051984786987,
+            0.25000032782554626,
+            0.2500361502170563
+          ]
+        },
+        {
+          "index": 1,
+          "name": "train_AB",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.2499176263809204,
+            0.2500026524066925,
+            0.2500711679458618
+          ]
+        },
+        {
+          "index": 2,
+          "name": "train_AC",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24995096027851105,
+            0.24999868869781494,
+            0.2500644326210022
+          ]
+        },
+        {
+          "index": 3,
+          "name": "train_AD",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24998487532138824,
+            0.24999752640724182,
+            0.2501145303249359
+          ]
+        },
+        {
+          "index": 4,
+          "name": "train_BA",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24993692338466644,
+            0.24999089539051056,
+            0.25007832050323486
+          ]
+        },
+        {
+          "index": 5,
+          "name": "train_BB",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.25002264976501465,
+            0.2499946653842926,
+            0.2500879764556885
+          ]
+        },
+        {
+          "index": 6,
+          "name": "train_BC",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.2498953640460968,
+            0.2500135898590088,
+            0.2501072287559509
+          ]
+        },
+        {
+          "index": 7,
+          "name": "train_BD",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24993601441383362,
+            0.2500028908252716,
+            0.2500183582305908
+          ]
+        },
+        {
+          "index": 8,
+          "name": "train_CA",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24994105100631714,
+            0.25001540780067444,
+            0.2500303387641907
+          ]
+        },
+        {
+          "index": 9,
+          "name": "train_CB",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24991977214813232,
+            0.2500050365924835,
+            0.2501182556152344
+          ]
+        },
+        {
+          "index": 10,
+          "name": "train_CC",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24994662404060364,
+            0.2500118613243103,
+            0.2500768005847931
+          ]
+        },
+        {
+          "index": 11,
+          "name": "train_CD",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.2500001788139343,
+            0.24998097121715546,
+            0.2500642240047455
+          ]
+        },
+        {
+          "index": 12,
+          "name": "train_CE",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24990905821323395,
+            0.2499837428331375,
+            0.2500455677509308
+          ]
+        },
+        {
+          "index": 13,
+          "name": "train_DA",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24997563660144806,
+            0.25003519654273987,
+            0.25010794401168823
+          ]
+        },
+        {
+          "index": 14,
+          "name": "train_DB",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24994079768657684,
+            0.24998104572296143,
+            0.2500709593296051
+          ]
+        },
+        {
+          "index": 15,
+          "name": "train_DD",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.2499064952135086,
+            0.24999429285526276,
+            0.25000813603401184
+          ]
+        },
+        {
+          "index": 16,
+          "name": "train_DE",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.2498967945575714,
+            0.24998705089092255,
+            0.2500518560409546
+          ]
+        },
+        {
+          "index": 17,
+          "name": "train_EA",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24994723498821259,
+            0.2499939352273941,
+            0.2500571310520172
+          ]
+        },
+        {
+          "index": 18,
+          "name": "train_EB",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24995432794094086,
+            0.24998486042022705,
+            0.25000372529029846
+          ]
+        },
+        {
+          "index": 19,
+          "name": "train_EC",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24995215237140656,
+            0.24999473989009857,
+            0.25003185868263245
+          ]
+        },
+        {
+          "index": 20,
+          "name": "train_ED",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24996507167816162,
+            0.25000298023223877,
+            0.25008973479270935
+          ]
+        },
+        {
+          "index": 21,
+          "name": "train_EE",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.2498956024646759,
+            0.24998468160629272,
+            0.2500944435596466
+          ]
+        },
+        {
+          "index": 22,
+          "name": "train_FA",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24992479383945465,
+            0.25001293420791626,
+            0.25008726119995117
+          ]
+        },
+        {
+          "index": 23,
+          "name": "train_FB",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24993166327476501,
+            0.2499920278787613,
+            0.25013864040374756
+          ]
+        },
+        {
+          "index": 24,
+          "name": "train_FC",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.2499743103981018,
+            0.2500002384185791,
+            0.25008586049079895
+          ]
+        },
+        {
+          "index": 25,
+          "name": "train_FD",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24998357892036438,
+            0.24999380111694336,
+            0.250119686126709
+          ]
+        },
+        {
+          "index": 26,
+          "name": "train_FE",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24993175268173218,
+            0.24997954070568085,
+            0.25004148483276367
+          ]
+        },
+        {
+          "index": 27,
+          "name": "train_GA",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24994821846485138,
+            0.24999922513961792,
+            0.2500573396682739
+          ]
+        },
+        {
+          "index": 28,
+          "name": "train_GB",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24991416931152344,
+            0.24998259544372559,
+            0.2500678598880768
+          ]
+        },
+        {
+          "index": 29,
+          "name": "train_GC",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24996276199817657,
+            0.24999593198299408,
+            0.2500799000263214
+          ]
+        },
+        {
+          "index": 30,
+          "name": "train_GD",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24994486570358276,
+            0.2499992698431015,
+            0.2500704824924469
+          ]
+        },
+        {
+          "index": 31,
+          "name": "train_GE",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.25000011920928955,
+            0.25000232458114624,
+            0.25002995133399963
+          ]
+        },
+        {
+          "index": 32,
+          "name": "train_HA",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24989211559295654,
+            0.24999110400676727,
+            0.250088632106781
+          ]
+        },
+        {
+          "index": 33,
+          "name": "train_HB",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24993912875652313,
+            0.24998804926872253,
+            0.2501353621482849
+          ]
+        },
+        {
+          "index": 34,
+          "name": "train_HD",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.2499677836894989,
+            0.2500123977661133,
+            0.2500237226486206
+          ]
+        },
+        {
+          "index": 35,
+          "name": "train_HE",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24991144239902496,
+            0.25003135204315186,
+            0.25006982684135437
+          ]
+        },
+        {
+          "index": 36,
+          "name": "train_IA",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24996063113212585,
+            0.2499949336051941,
+            0.2500614821910858
+          ]
+        },
+        {
+          "index": 37,
+          "name": "train_IB",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24992145597934723,
+            0.24997536838054657,
+            0.25007379055023193
+          ]
+        },
+        {
+          "index": 38,
+          "name": "train_IC",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24991467595100403,
+            0.2500363290309906,
+            0.2500724494457245
+          ]
+        },
+        {
+          "index": 39,
+          "name": "train_ID",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24993273615837097,
+            0.24999508261680603,
+            0.25003689527511597
+          ]
+        },
+        {
+          "index": 40,
+          "name": "train_IE",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.2498811036348343,
+            0.2500142455101013,
+            0.25006285309791565
+          ]
+        },
+        {
+          "index": 41,
+          "name": "train_JA",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24993504583835602,
+            0.25005024671554565,
+            0.25006571412086487
+          ]
+        },
+        {
+          "index": 42,
+          "name": "train_JB",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24989882111549377,
+            0.2499752938747406,
+            0.2500559985637665
+          ]
+        },
+        {
+          "index": 43,
+          "name": "train_JC",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24994872510433197,
+            0.25,
+            0.25007835030555725
+          ]
+        },
+        {
+          "index": 44,
+          "name": "train_JD",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24991528689861298,
+            0.2500024139881134,
+            0.2500443160533905
+          ]
+        },
+        {
+          "index": 45,
+          "name": "train_JE",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24998310208320618,
+            0.25000762939453125,
+            0.2500443756580353
+          ]
+        },
+        {
+          "index": 46,
+          "name": "train_KB",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24992665648460388,
+            0.24996748566627502,
+            0.25008872151374817
+          ]
+        },
+        {
+          "index": 47,
+          "name": "train_KC",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24990536272525787,
+            0.24998973309993744,
+            0.2500406801700592
+          ]
+        },
+        {
+          "index": 48,
+          "name": "train_KD",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24994966387748718,
+            0.25000742077827454,
+            0.25000882148742676
+          ]
+        },
+        {
+          "index": 49,
+          "name": "train_LA",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24991461634635925,
+            0.24998968839645386,
+            0.25012609362602234
+          ]
+        },
+        {
+          "index": 50,
+          "name": "train_LB",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24996693432331085,
+            0.25000977516174316,
+            0.25011318922042847
+          ]
+        },
+        {
+          "index": 51,
+          "name": "train_LC",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.2499057501554489,
+            0.25,
+            0.25003769993782043
+          ]
+        },
+        {
+          "index": 52,
+          "name": "train_MA",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.2499646246433258,
+            0.25000429153442383,
+            0.25001442432403564
+          ]
+        },
+        {
+          "index": 53,
+          "name": "train_MB",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24997293949127197,
+            0.2499924749135971,
+            0.2500826418399811
+          ]
+        },
+        {
+          "index": 54,
+          "name": "train_MC",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24994568526744843,
+            0.24999961256980896,
+            0.2500731945037842
+          ]
+        },
+        {
+          "index": 55,
+          "name": "train_MD",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.2500285804271698,
+            0.25000518560409546,
+            0.24998432397842407
+          ]
+        },
+        {
+          "index": 56,
+          "name": "train_NA",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24992921948432922,
+            0.24998319149017334,
+            0.25006020069122314
+          ]
+        },
+        {
+          "index": 57,
+          "name": "train_NB",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24989654123783112,
+            0.24999864399433136,
+            0.25006765127182007
+          ]
+        },
+        {
+          "index": 58,
+          "name": "train_NC",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24994929134845734,
+            0.2500113546848297,
+            0.2500878572463989
+          ]
+        },
+        {
+          "index": 59,
+          "name": "train_ND",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.2499801367521286,
+            0.2500111758708954,
+            0.2500587999820709
+          ]
+        },
+        {
+          "index": 60,
+          "name": "train_NE",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24992726743221283,
+            0.2500075697898865,
+            0.2500898241996765
+          ]
+        },
+        {
+          "index": 61,
+          "name": "train_OA",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24997174739837646,
+            0.2499876320362091,
+            0.2500345706939697
+          ]
+        },
+        {
+          "index": 62,
+          "name": "train_OD",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            0.24992471933364868,
+            0.2500050961971283,
+            0.2500847578048706
+          ]
+        }
+      ]
+    },
+    {
+      "split": "val",
+      "count": 3,
+      "camera_tensors_exact_scaled": true,
+      "field_scene_box_exact": true,
+      "normalization_exact": true,
+      "rays": [
+        {
+          "index": 0,
+          "name": "eval_DC",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "index": 1,
+          "name": "eval_HC",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "index": 2,
+          "name": "eval_KA",
+          "origins_max": 0.0,
+          "directions_max": 0.0,
+          "pixel_area_ratio": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      ]
+    }
+  ],
+  "helper_sha256": "f55707092bb41463df286c9865d87f6a621ac77671449b391503a3b932711bc9",
+  "native_config_sha256": "60ba68b9b11b14b81113882f5c47d6adaabf7c51ed5486ec4d34f0d635dea9ba",
+  "proposed_transforms_sha256": "9c6c8eb43755b4b23c1b0db2673e8d1cf5c72610d7b370d6add1ef850becac0d",
+  "code_paths": [
+    "/fsx/tmp/marshawn_001660_hd/code_native",
+    "/fsx/tmp/marshawn_001660_hd/code_sfm/LookCloser/scripts"
+  ]
+}

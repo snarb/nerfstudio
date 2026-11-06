@@ -45,3 +45,12 @@ Reusable implementation: `scripts/run_marshawn_native_continuation.py` and `scri
 Root approved release SHA256 `ac0622978ea5d7fa7eb1c88cfd46a7c65266df0b27bebbb4e7bda92d7348c136`. Production launched on dev3 at2026-11-06 19:33:19 UTC under `/tmp/lookcloser_tuning_gpu_1000_0.lock`, controllerPID200934 and workerPID200939. Minute-level process/GPU checks are recorded in `supervision.jsonl`; active agent supervision continues through each gate.
 
 The first25k gate completed and resumed training. It improves common V1 PSNR to30.23476627, SSIM to.82883585, and LPIPS to.05343542, an absolute LPIPS gain.00103107 over20k. Both plateau counters reset and25k becomes selected. Secondary V2 scores are30.23694367/.82895168/.05325661. All three source/render pairs were inspected, including visible hair, hands and shoes; actor details remain, but substantial floor/mat and stationary bag geometry remain. This is an improved geometry-supervised auxiliary reference, not an artifact-free isolation result. Production AMP skips are tracked separately from attempted steps and actual Adam updates; the technical32-step probe's zero skips do not imply zero production skips.
+
+| Completed native gate | Common V1 PSNR | SSIM | LPIPS |
+|---|---:|---:|---:|
+| 20k original | 30.14773882 | .82752702 | .05446649 |
+| 25k | 30.23476627 | .82883585 | .05343542 |
+| 30k | 30.25604764 | .82944691 | .05295354 |
+| 35k | 30.26555670 | .83009688 | .05258375 |
+
+At35k the selector chooses35k; the two significant-record miss counters are1 and2, so continuation remains active. All three source/20k/previous/current hair, hand/contact and foot comparisons were inspected at30k and35k. Fine texture remains softer than source photographs, and floor/mat/bag remain; no obvious new loss of visible hair or shoe tips was seen. The CPU-only `scripts/review_marshawn_native_gate.py` creates these comparisons from completed immutable renders without changing the evaluator or training runtime.

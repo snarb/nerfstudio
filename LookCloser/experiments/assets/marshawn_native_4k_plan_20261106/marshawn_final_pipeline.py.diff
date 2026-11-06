@@ -1,0 +1,36 @@
+--- /fsx/tmp/marshawn_001660_hd/native_png_radialK4_COLD_R1_DEV3_STAGED/code/marshawn_final_pipeline.py
++++ /fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/native_4k_continuation_plan/adapter/code/marshawn_final_pipeline.py
+@@ -10,6 +10,7 @@
+ from marshawn_los_objective_frozen import FreeSpaceObjective
+ from marshawn_surface_band_objective import SurfaceBandObjective
+ from staged_native_hash import file_sha
++from marshawn_native_resolution_binding import validate_native_resolution_binding
+ 
+ 
+ class FinalNativePipeline(DynamicBatchPipeline):
+@@ -21,6 +22,9 @@
+             if Path(name).name!=name or file_sha(Path(__file__).parent/name)!=digest:
+                 raise ValueError('Frozen final helper changed: '+name)
+         data=Path(cfg.datamanager.dataparser.data)
++        geometry_transforms=Path(cfg.final_geometry_transforms)
++        resolution_binding=validate_native_resolution_binding(data/'transforms.json',geometry_transforms,
++            cfg.final_geometry_transforms_sha256,cfg.final_rgb_train_scale)
+         gate=json.loads(Path(cfg.final_color_gate).read_text())
+         if file_sha(cfg.final_color_gate)!=cfg.final_color_gate_sha256 or gate['approved']is not True:
+             raise ValueError('Scalar RGB gate mismatch')
+@@ -32,12 +36,13 @@
+         if contract['eval_rgb_used_to_fit_gains']is not False:raise ValueError('No eval RGB gain fitting allowed')
+         if file_sha(cfg.final_geometry_preparation)!=cfg.final_geometry_preparation_sha256:
+             raise ValueError('Original geometry provenance changed')
++        object.__setattr__(self,'_native_resolution_binding',resolution_binding)
+         variant=cfg.final_geometry_variant
+         if variant not in ('scene_tight','scene_medium','scene_loose'):raise ValueError('Explicit approved scene variant required')
+         bounds=self.model.scene_box.aabb.detach().cpu().numpy()
+-        free=FreeSpaceObjective(cfg.final_geometry_manifest,variant,bounds,data/'transforms.json',
++        free=FreeSpaceObjective(cfg.final_geometry_manifest,variant,bounds,geometry_transforms,
+             cfg.final_geometry_preparation,weight=.01,rays=128,samples=64,seed=42,device=self.device)
+-        band=SurfaceBandObjective(cfg.final_geometry_manifest,variant,bounds,data/'transforms.json',
++        band=SurfaceBandObjective(cfg.final_geometry_manifest,variant,bounds,geometry_transforms,
+             cfg.final_geometry_preparation,weight=.01,rays=128,samples=16,seed=42,device=self.device)
+         if free.receipt['archive_sha256']!=band.receipt['archive_sha256']:raise ValueError('Geometry archive/order mismatch')
+         if list(free.parameters())or list(band.parameters()):raise ValueError('Auxiliaries must have no parameters')
