@@ -9,6 +9,7 @@ from __future__ import annotations
 import argparse, hashlib, json, math, os, shlex, shutil, subprocess, sys, time, zipfile
 from pathlib import Path
 import fcntl
+from concurrent.futures import ThreadPoolExecutor
 
 
 def read(path, default=None):
@@ -200,15 +201,70 @@ def package(root,plan,report,candidates):
     atomic(downloads/'latest.json',receipt);return receipt
 
 
+
+ONLINE_PROBE = r"""
+import hashlib,json,pathlib,sys,time
+out={}
+for name,path in json.loads(sys.argv[1]).items():
+ p=pathlib.Path(path)
+ try:
+  raw=p.read_bytes();rows=json.loads(raw)
+  if not isinstance(rows,list):raise ValueError('Expected gate history list')
+  if rows:
+   latest=max(rows,key=lambda row:int(row['step']))
+   out[name]={'latest':latest,'source':str(p),'source_sha256':hashlib.sha256(raw).hexdigest(),'source_mtime':p.stat().st_mtime,'read_at':time.time()}
+ except FileNotFoundError:pass
+ except Exception as e:out[name]={'error':str(e)}
+print(json.dumps(out))
+"""
+
+
+def fetch_online_host(host, paths):
+    argv=[host['python'],'-c',ONLINE_PROBE,json.dumps(paths)]
+    if host.get('address'):argv=['ssh','-o','BatchMode=yes','-o','ConnectTimeout=8',host['address'],shlex.join(argv)]
+    result=subprocess.run(argv,capture_output=True,text=True,timeout=20)
+    if result.returncode:raise RuntimeError(result.stderr[-1000:])
+    return json.loads(result.stdout)
+
+
+def add_online(report, plan, state):
+    """Annotate only running rows. Ranking/package candidates were sealed before this."""
+    grouped={}
+    for name,item in state['jobs'].items():
+        if item['status'] not in ('running','dispatching','unknown','orphaned') or not item.get('host'):continue
+        host=item['host']
+        grouped.setdefault(host,{})[name]=str(Path(plan['hosts'][host]['root'])/'jobs'/name/'run/metrics.json')
+    observations={};errors={}
+    with ThreadPoolExecutor(max_workers=max(1,len(grouped))) as pool:
+        requests={host:pool.submit(fetch_online_host,plan['hosts'][host],paths) for host,paths in grouped.items()}
+        for host,future in requests.items():
+            try:observations.update(future.result())
+            except Exception as exc:errors[host]=str(exc)
+    for row in report['jobs']:
+        if row['scores'] is not None:
+            row.update(metric_step=row['step'],metric_source='completed_selected');continue
+        record=observations.get(row['name'])
+        if not record:continue
+        if record.get('error'):errors[row['name']]=record['error'];continue
+        try:
+            latest=record['latest'];values=scores({'selection':latest});step=int(latest['step'])
+            if step<0:raise ValueError('Negative online metric step')
+            row.update(scores=values,metric_step=step,metric_source='online_gate_provisional',online_source=record['source'],
+                       online_source_sha256=record['source_sha256'],online_source_mtime=record['source_mtime'])
+        except (KeyError,ValueError,TypeError) as exc:errors[row['name']]=str(exc)
+    report['online_errors']=errors
+    report['online_policy']='Latest complete gate per running job; display only, excluded from ranking and packaging'
+    return report
+
 def markdown(report):
     lines=['# Marshawn1660 tuning','',report['status'],'',
            'Controller alive: '+str(report.get('controller_alive','unknown'))+'; state age: '+str(round(report.get('controller_state_age_seconds',0)))+' seconds.','',
-           'Manual visual review: **pending**. Completed results only; no online checkpoint is promoted.','',
-           '| Job | State | Host/GPU | Step | PSNR | SSIM | Masked LPIPS | OOM evidence |','|---|---|---|---:|---:|---:|---:|---|']
+           'Manual visual review: **pending**. Online gates are provisional; only completed jobs enter selection and downloads.','',
+           '| Job | State | Host/GPU | Progress step | Metric step | Metric source | PSNR | SSIM | Masked LPIPS | OOM evidence |','|---|---|---|---:|---:|---|---:|---:|---:|---|']
     for row in report['jobs']:
         s=row['scores'] or {};values=['%.6f'%s[k] if k in s else '—' for k in ['psnr','ssim','lpips']]
         oom='yes' if row['oom_evidence'] is True else 'none in latest check' if row['oom_evidence'] is False else 'unknown'
-        lines.append('| '+ ' | '.join([row['name'],row['status'],str(row['host'])+'/'+str(row['gpu']),str(row['step']),*values,oom])+' |')
+        lines.append('| '+ ' | '.join([row['name'],row['status'],str(row['host'])+'/'+str(row['gpu']),str(row['step']),str(row.get('metric_step','—')),row.get('metric_source','—'),*values,oom])+' |')
     lines+=['','Primary numerical candidate: '+(report['primary']['name'] if report['primary'] else 'withheld / not available')+'.',
             'Raw best: '+(report['raw_best']['name'] if report['raw_best'] else 'not available')+'.',
             'Best passing actor regression guard: '+(report['best_guard_passing']['name'] if report['best_guard_passing'] else 'not available')+'.']
@@ -222,6 +278,7 @@ def markdown(report):
 def once(root,controller,*,do_package=True):
     root=Path(root);controller=Path(controller);plan=read(controller/'manifest.json');state=read(controller/'state.json')
     report,candidates=assemble(plan,state)
+    add_online(report,plan,state)
     control=read(controller/'controller.json',{})
     report['controller_alive']=alive(control.get('process'));report['controller_state_age_seconds']=max(0,time.time()-state.get('updated',0))
     if do_package:

@@ -101,3 +101,33 @@ def test_detached_watcher_can_restart(tmp_path):
     finally:
         record=m.read(root/'reporter/status.json',{}).get('process')
         if m.alive(record):os.kill(record['pid'],signal.SIGTERM)
+
+
+def test_online_batched_per_host_never_enters_ranking(monkeypatch):
+    plan={'hosts':{'local':{'root':'/local'},'remote':{'root':'/remote'}},'jobs':[dict(name=n,command=[]) for n in ['full_baseline_r0','a','b','c']]}
+    state={'jobs':{'full_baseline_r0':dict(status='complete',host='local',metrics=result()),
+                  'a':dict(status='running',host='remote'),'b':dict(status='running',host='remote'),'c':dict(status='running',host='local')}}
+    report,candidates=m.assemble(plan,state)
+    calls=[]
+    def fetch(host,paths):
+        calls.append((host['root'],paths))
+        return {n:dict(latest=dict(step=15188,metrics=dict(psnr=99,ssim=1,lpips=.00001)),source=p,source_sha256='a'*64,source_mtime=123) for n,p in paths.items()}
+    monkeypatch.setattr(m,'fetch_online_host',fetch)
+    m.add_online(report,plan,state)
+    assert len(calls)==2
+    assert len(next(paths for root,paths in calls if root=='/remote'))==2
+    assert report['raw_best']['name']=='full_baseline_r0'
+    assert set(candidates)=={'full_baseline_r0'}
+    a=next(r for r in report['jobs'] if r['name']=='a')
+    assert a['metric_source']=='online_gate_provisional' and a['metric_step']==15188
+    assert a['scores']['lpips']==.00001
+    assert 'online_gate_provisional' in m.markdown(report)
+
+
+def test_online_reads_latest_gate_and_isolates_missing(tmp_path):
+    path=tmp_path/'metrics.json'
+    m.atomic(path,[dict(step=30376,metrics=dict(psnr=2,ssim=.2,lpips=.2)),dict(step=15188,metrics=dict(psnr=1,ssim=.1,lpips=.3))])
+    values=m.fetch_online_host({'python':sys.executable},{'present':str(path),'absent':str(tmp_path/'absent.json')})
+    assert values['present']['latest']['step']==30376
+    assert values['present']['source_sha256']==m.sha(path)
+    assert 'absent' not in values
