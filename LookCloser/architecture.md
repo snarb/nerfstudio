@@ -2073,3 +2073,26 @@ softplus arms remain unchanged.
 `marshawn_semantic_admission.SemanticAdmissionModel` is a separately frozen experiment, not a model default. It maps a reviewed TRAIN-only semantic grid conservatively over whole LookCloser cells and gates the shared native density selector in fixed warmup, ARM and inference. Learned occupancy EMA/core remain separate; active traversal is native noncumulative halo intersected with fixed admission, including binary warmup. `marshawn_semantic_occupancy.py` exports schema2 core/EMA/admission/active evidence; skipped cells do not certify empty space. Actual native all-ones identity and warmup/ARM Adam-resume checks are documented in `experiments/marshawn_training_semantic_admission.md`.
 
 `export_occupancy_grid_viewer.py` exports aligned boolean XYZ layers into a standalone offline HTML inspector with three synchronized slices, exact cell coordinates, source hashes and downloadable review notes. It rejects frame/boundary mismatches and never mutates a grid; camera renders and ray evidence remain necessary for geometric validation.
+
+
+### Marshawn isolated semantic and resolution experiments
+
+The source-point density candidate retains the conservative traversal cover and
+native core/EMA/dilation rules, but tests the original float64 source-pad1 cells
+at each queried field position (closed-contact tolerance2e-7). The same selector
+is used by density, point queries and rendering. Outside support remains an
+experimental exclusion, not independently certified empty geometry. A separate
+bag-confidence candidate removes6522 verified false actor labels from RGB
+weights and recomputes the sampling expectation, preserving labels and pools.
+Both candidates bind source/checkpoint state and require held-out visual and
+ray-depth checks; neither changes defaults.
+
+Native HD/4K continuations alternate serial5000-attempt chunks from one100k
+checkpoint. Every chunk restores model, Adam, scheduler, AMP, RNG, cache order,
+dynamic ray count and occupancy state; its process exits before evaluation.
+Each resolution has an independent plateau tracker. Comparisons isolate
+resolution only at matching completed steps on the common FHD evaluation set.
+
+Frequency preprocessing optionally decays LR within each progressive level,
+resetting only LR at the next level while retaining Adam moments. The default
+remains constant LR; optional schedules are recorded in map metadata.
