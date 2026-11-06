@@ -1,0 +1,8 @@
+{
+  "reviewer": "root",
+  "reviewed_asset": "experiments/assets/marshawn_signed_floor_probe_20261106/source_and_models.jpg",
+  "sha256": "16200271fe59cafc08352c5741e418285bd4cd6b3978fadff3dd9ef1c45585f5",
+  "time": 1794009533.1815033,
+  "finding": "All3 source/model foot rows reviewed; lambda1 removes remote islands but near-shoe floor remains visibly.",
+  "physical_empty_claim": false
+}

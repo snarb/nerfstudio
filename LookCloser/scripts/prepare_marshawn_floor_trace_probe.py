@@ -32,6 +32,28 @@ def main(a):
     original.write_text(text)
     (proof/'trace_alpha_receipt_delta.json').write_text(json.dumps(dict(original=str(successful/original.name),original_sha256=prior,
         modified_sha256=sha(original),edits=edits,only_adds_original_renderer_accumulation_to_receipt=True),indent=2)+'\n')
+    base=helpers/'audit_marshawn_tuning_checkpoint.py';prior=sha(base);text=base.read_text()
+    before='    import probe_marshawn_occupancy as probe'
+    after='''    # Bind the receipt-instrumented helper explicitly; frozen source sys.path has priority above.
+    import importlib.util
+    probe_path = Path(__file__).resolve().parent / 'probe_marshawn_occupancy.py'
+    probe_spec = importlib.util.spec_from_file_location('probe_marshawn_occupancy', probe_path)
+    probe = importlib.util.module_from_spec(probe_spec)
+    sys.modules[probe_spec.name] = probe
+    probe_spec.loader.exec_module(probe)
+    assert Path(probe.__file__).resolve() == probe_path'''
+    assert text.count(before)==1;text=text.replace(before,after)
+    before_mkdir='    args.output.mkdir(parents=True, exist_ok=False)'
+    after_mkdir=before_mkdir+'''
+    import hashlib
+    import_binding = {str(Path(p).resolve()): hashlib.sha256(Path(p).read_bytes()).hexdigest()
+                      for p in [__file__, probe.__file__, Path(__file__).parent / 'audit_marshawn_semantic_checkpoint.py']}
+    (args.output / 'imported_helpers.json').write_text(json.dumps(import_binding, indent=2) + '\\n')
+    print('IMPORTED_HELPERS ' + json.dumps(import_binding), flush=True)'''
+    assert text.count(before_mkdir)==1;text=text.replace(before_mkdir,after_mkdir);base.write_text(text)
+    (proof/'explicit_helper_binding_delta.json').write_text(json.dumps(dict(original=str(successful/base.name),
+        original_sha256=prior,modified_sha256=sha(base),edits=[[before,after],[before_mkdir,after_mkdir]],
+        model_sampling_or_weight_changes=False),indent=2)+'\n')
     for name in ['marshawn_signed_height_bins.py','partition_marshawn_trace_heights.py','run_marshawn_floor_trace_probe.py',
                  'prepare_marshawn_floor_trace_probe.py','prepare_marshawn_floor_trace_queries.py','test_signed_height_bins.py']:
         shutil.copyfile(a.inputs/name,helpers/name)
@@ -77,7 +99,7 @@ def main(a):
         if p.is_file()and'__pycache__'not in str(p):bindings[str(p)]=sha(p)
     for p in [a.campaign/'data/ready.json',a.campaign/'data/transforms.json']:
         bindings[str(p)]=sha(p)
-    plan=dict(kind='READONLY_SMALL_NATIVE_WEIGHT_FOOT_PROBE',python=a.python,gpu=1,data=str(a.campaign/'data'),
+    plan=dict(kind='READONLY_SMALL_NATIVE_WEIGHT_FOOT_PROBE',python=a.python,gpu=a.gpu,data=str(a.campaign/'data'),
         helpers_source=str(successful),bound_files=bindings,source_trees=trees,models=models,queries=prepared,
         total_unique_rays=total,total_model_ray_pairs=total*len(models),optimizer_updates=0,
         allocator_cap_gib=8,max_process_mib=10000,max_seconds=3600,
@@ -94,4 +116,4 @@ def main(a):
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__)
     for name in ['root','campaign','inputs']:p.add_argument('--'+name,type=Path,required=True)
-    p.add_argument('--python',required=True);main(p.parse_args())
+    p.add_argument('--python',required=True);p.add_argument('--gpu',type=int,default=2);main(p.parse_args())

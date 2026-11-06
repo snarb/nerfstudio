@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "plan_sha256": "238201ad0586e5bdd14fcbfb80689d832d3d06b5d8684743b31ac2f0483478dc",
+  "optimizer_updates": 0,
+  "source_mutation": false,
+  "physical_geometry_certified": false,
+  "bounded_crop_release": false,
+  "peak_process_mib": 1758,
+  "elapsed_seconds": 159.3225739949994
+}

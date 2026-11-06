@@ -113,6 +113,10 @@ def main(root):
                 if rc:raise RuntimeError('Read-only trace failed: '+label)
                 check(label+'_cache_exit')
                 if processes(gpu):raise RuntimeError('Trace GPU resources remain after exit')
+                imported=json.loads((output/'imported_helpers.json').read_text())
+                expected={str((root/'helpers'/name).resolve()):sha(root/'helpers'/name) for name in
+                          ['probe_marshawn_occupancy.py','audit_marshawn_tuning_checkpoint.py','audit_marshawn_semantic_checkpoint.py']}
+                if imported!=expected:raise ValueError('Actual imported helper path/hash mismatch')
                 parity(output,model)
                 with (root/(label+'_partition.log')).open('w') as partition_log:
                     subprocess.run([plan['python'],str(root/'helpers/partition_marshawn_trace_heights.py'),
