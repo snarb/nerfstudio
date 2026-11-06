@@ -7,6 +7,28 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 from audit_marshawn_tuning_checkpoint import fixed_mask_pixels, ray_for_pixel, witness_membership, summarize_traces, actual_profiles
 
 
+def test_gpu_overlap_requires_explicit_opt_in(monkeypatch):
+    import audit_marshawn_tuning_checkpoint as audit
+    def query(command, **kwargs):
+        return '0, GPU-test\n' if '--query-gpu=index,uuid' in command else 'GPU-test, 123\n'
+    monkeypatch.setattr(audit.subprocess, 'check_output', query)
+    monkeypatch.setenv('CUDA_VISIBLE_DEVICES', 'original')
+    with pytest.raises(RuntimeError, match='occupied'):
+        audit.require_idle_gpu(0)
+    assert audit.os.environ['CUDA_VISIBLE_DEVICES'] == 'original'
+    assert audit.require_idle_gpu(0, allow_readonly_overlap=True) == 'GPU-test'
+
+
+def test_shirt_mass_retains_transmission_instead_of_conditioning_it_away(tmp_path):
+    from compare_marshawn_shirt_traces import masses
+    np.savez(tmp_path/'ray.npz', t_start=np.array([.09,.49]), t_end=np.array([.11,.51]),
+             weights=np.array([.25,.5]))
+    row = dict(profiles=dict(uniform2x=dict(trace='ray.npz')),
+               pixel=dict(witness_xyz=[0.,0.,.5]), origin=[0.,0.,0.], direction=[0.,0.,1.])
+    result, _, _, _ = masses(tmp_path, row, 'uniform2x')
+    assert result == pytest.approx([.25,.5,0.,.25])
+
+
 def test_fixed_queries_separate_boundaries_and_unknown_exterior():
     mask = np.zeros((100, 100), bool)
     mask[20:80, 35:65] = True

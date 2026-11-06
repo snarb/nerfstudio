@@ -3,7 +3,8 @@
 prepare: fixed semantic interior/boundary rays and train-only SfM witnesses.
 offline: authoritative exported-grid atlas, ray intervals, witness membership.
 trace: actual GPU core/halo/all-cells replay plus independent dense integration
-and nine subcell density probes in every cell. Requires an idle GPU; never
+and nine subcell density probes in every cell. Defaults to an idle GPU; an
+explicit authorized read-only overlap uses a strict memory cap. Never
 modifies checkpoint files, live training processes or production source.
 """
 from __future__ import annotations
@@ -204,23 +205,28 @@ def summarize_traces(trace_dir):
     return result
 
 
-def require_idle_gpu(index):
+def require_idle_gpu(index, allow_readonly_overlap=False):
     devices = subprocess.check_output(['nvidia-smi', '--query-gpu=index,uuid', '--format=csv,noheader'], text=True)
     by_index = {int(row.split(',')[0]): row.split(',')[1].strip() for row in devices.strip().splitlines()}
     uuid = by_index[index]
     processes = subprocess.check_output(['nvidia-smi', '--query-compute-apps=gpu_uuid,pid', '--format=csv,noheader'], text=True)
-    if any(row.split(',')[0].strip() == uuid for row in processes.strip().splitlines()):
+    if not allow_readonly_overlap and any(row.split(',')[0].strip() == uuid for row in processes.strip().splitlines()):
         raise RuntimeError('Audit GPU is occupied; do not contend with training')
     os.environ['CUDA_VISIBLE_DEVICES'] = uuid
     return uuid
 
 
 def trace(args):
-    gpu = require_idle_gpu(args.gpu)
+    overlap = bool(getattr(args, 'allow_readonly_overlap', False))
+    gpu = require_idle_gpu(args.gpu, overlap)
     # Use the exact production implementation, without editing its files.
     sys.path.insert(0, str(args.code_root))
     sys.path.insert(0, str(args.code_root / 'LookCloser' / 'scripts'))
     import torch
+    cap = float(getattr(args, 'memory_cap_gib', 10.))
+    if not 0 < cap <= 12:
+        raise ValueError('Read-only audit requires a positive memory cap at most12GiB')
+    torch.cuda.set_per_process_memory_fraction(min(.9, cap*2**30/torch.cuda.get_device_properties(0).total_memory))
     import probe_marshawn_occupancy as probe
     import nerfstudio.utils.eval_utils as eval_utils
     from nerfstudio.cameras.rays import RaySamples, Frustums
@@ -237,6 +243,12 @@ def trace(args):
     def setup(*a, **kw):
         cfg, pipeline, checkpoint, step = original_setup(*a, **kw)
         model = pipeline.model
+        actual_sh = bool(model.field.correct_sh_directions)
+        if actual_sh != bool(model.config.correct_sh_directions):
+            raise ValueError('Loaded field/config SH convention mismatch')
+        expected_sh = getattr(args, 'expected_sh', None)
+        if expected_sh is not None and actual_sh != (expected_sh == 'true'):
+            raise ValueError('Loaded field uses unexpected SH convention')
         # This non-tensor field attribute is not necessarily restored by a plain
         # render-only loader. Bind the reviewed ancestry explicitly, no callback.
         strength = 1. if step <= 75940 else .3
@@ -261,7 +273,9 @@ def trace(args):
         atomic_json(args.output / 'coordinate_chain.json', dict(camera_order=actual_names,
                     per_ray_errors=checks, tolerance=1e-6, queries_sha256=sha(args.queries),
                     prepared_data_transforms_sha256=sha(args.data / 'transforms.json'),
-                    feature_reweighting_strength=strength))
+                    feature_reweighting_strength=strength, correct_sh_directions=actual_sh,
+                    config_sha256=sha(args.config), source_root=str(args.code_root),
+                    field_source_sha256=sha(args.code_root/'nerfstudio/fields/lookcloser_field.py')))
         # CPU-side adapter precondition already validates hashes; compare live masks
         # before the density scan as well as in the old probe's replay.
         authoritative(model.occupancy_grid.binaries.cpu().numpy(), model.occupancy_grid.occs.cpu().numpy(),
@@ -283,7 +297,8 @@ def trace(args):
         if probe.digest_model(model) != before:
             raise ValueError('Density scan mutated model state')
         scan.update(checkpoint_sha256=sha(checkpoint), gpu_uuid=gpu, source_receipt_sha256=sha(args.receipt),
-                    feature_reweighting_strength=strength)
+                    feature_reweighting_strength=strength, correct_sh_directions=actual_sh,
+                    authorized_readonly_overlap=overlap, memory_cap_gib=cap, no_speed_claim=True)
         atomic_json(args.output / 'subcell_density.json', scan)
         return cfg, pipeline, checkpoint, step
 
@@ -315,6 +330,10 @@ if __name__ == '__main__':
     parser.add_argument('--code-root', type=Path)
     parser.add_argument('--gpu', type=int, default=0)
     parser.add_argument('--skip-wholegrid', action='store_true')
+    parser.add_argument('--allow-readonly-overlap', action='store_true',
+                        help='Only with explicit concurrent read-only authorization; no speed claims')
+    parser.add_argument('--memory-cap-gib', type=float, default=10.)
+    parser.add_argument('--expected-sh', choices=['true', 'false'])
     args = parser.parse_args()
     if args.mode == 'prepare':
         prepare(args.data, args.output, args.witnesses)
