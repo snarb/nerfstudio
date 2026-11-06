@@ -42,3 +42,17 @@ Root authorized the separate conditional policy `conditional_launch_policy.json`
 The policy binds24 artifacts, including source/spec/probe/resume receipts, the two-job plan and a separate reporter registry. The reporter includes the new `exp_geometry` source but has no geometry-approval receipts. Technical launch explicitly grants neither geometry approval nor model promotion. Five additional release-policy tests plus four saved-ray distribution tests passed.
 
 The authorized audit process preserves both actual15188 checkpoints, replays all103 predeclared rays through native/halo/dense8192+16384 paths and reports signed median-depth residuals and unconditional10–90% width. Its read-only overlap is capped at10GiB with producer health checks; an idle fallback requires the global GPU lock. A separate selected-parent audit waits for the real completed selection, preserves its own checkpoint/completion hashes, and sets FR from that checkpoint's step. Neither audit changes training or launch eligibility.
+
+## Matched15188 production result
+
+The conditional guards passed on the completed native-exp parent, and both cold arms dispatched under shared GPU locks. Their15188 checkpoints were protected before pruning. The automatic103-ray audit finished with unchanged checkpoint hashes, native/all-cell/single-halo profiles,8192/16384 convergence, signed depth medians and10–90% widths. Producer P progressed21776→23333 and PB remained healthy through18000; no optimizer or training callback ran in the auditor.
+
+| Arm | PSNR | SSIM | LPIPS | Old18 fitted band mass (%) | New66 fitted band mass (%) | Old8 reserved band (%) | New9 whole-patch reserved band (%) |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Native-exp parent |27.1029|.798674|.056944|86.56|90.37|97.59|82.41|
+| P expanded prefix.003 |26.6139|.794221|.061572|88.75|94.73|96.39|83.84|
+| PB prefix.003 +band.001 |26.8551|.795347|.059599|97.75|99.55|96.10|82.88|
+
+PB concentrates termination at fitted surfaces: new66 median signed depth residual+.000054, median10–90% width.00710. Whole-patch reserves do not show a corresponding improvement. Qualified HA5556 still has front bias−.2874 and width.3637 (parent−.3202/.3578; P−.3014/.3610). The5568 material annotation remains separate and all sealed queries stay unchanged.
+
+[Complete trace comparison](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/exp_geometry_matched15k/comparison.json), [signed depth/width results](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/exp_geometry_matched15k/depth_residuals.json), and [GT/parent/P/PB montage](/fsx/tmp/marshawn_001660_hd/tuning_20261106/exp_geometry_review_15188/GT_parent_P_PB.jpg) were reviewed. Full-objective fog and background sheets remain visible in all three evaluation cameras. Both15188 RGB metrics and reserved geometry prevent promotion; training continues under the unchanged mandatory106316→plateau rule.

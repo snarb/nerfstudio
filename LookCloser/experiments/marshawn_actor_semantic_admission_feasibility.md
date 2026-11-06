@@ -15,9 +15,9 @@ The mapper admits a whole LookCloser cell whenever any intersected semantic cell
 | Source admitted-cell centers retained |105,049/105,049|
 | Sealed witness XYZ and actual pixel-ray depth points retained |103/103 both tests|
 | Independently reviewed toe/sole anchors retained |2/2|
-| Existing ±.02 witness-band termination mass definitely excluded |0 across103 rays|
+| Existing native sample mass with midpoint in witness±.02 definitely excluded |0 across103 rays|
 
-Conservative whole-interval rejection bounds how much current termination mass lies fully outside admission. Mixed intervals are retained. These are existing weights, not a prediction of a rerender or retraining result.
+Conservative whole-interval rejection bounds how much current termination mass lies fully outside admission. Mixed intervals are retained. These are existing weights, not a prediction of a rerender or retraining result. Early/band group membership in this CPU screen uses native sample midpoints; full-interval rejection itself requires the whole segment cover to be excluded. The separate depth-comparison reports integrate interval fractions at band boundaries.
 
 | Diagnostic group | Existing early mass (%) | Definitely excluded early mass (%) |
 |---|---:|---:|
