@@ -1,0 +1,23 @@
+{
+  "time": 1794007873.6695967,
+  "reviewer": "native_reference",
+  "actual_images_viewed": [
+    "all_details.jpg",
+    "HC_hair.png",
+    "HC_hands_contact.png"
+  ],
+  "views": [
+    "DC",
+    "HC",
+    "KA"
+  ],
+  "regions": [
+    "hair",
+    "hands_contact",
+    "feet"
+  ],
+  "finding": "Matched source/native100k/HD105k/TRAIN4K105k comparison: all nine declared regions inspected, no obvious new hair/foot contour loss. TRAIN4K has modestly crisper fine texture in hair and clothing, consistent with improved FHD actor LPIPS, but detail remains softer than source. Floor/mat/bag and peripheral fragments remain; no actor-isolation claim.",
+  "provenance_sha256": "6d3eb9e7999eeaf8a61fe9bc720299a77a448ab5569f4e7d083e34d2e62b7bd4",
+  "primary_FHD": true,
+  "training_or_selection_changed": false
+}

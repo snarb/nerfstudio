@@ -1,0 +1,26 @@
+{
+  "HD": {
+    "step": 105000,
+    "metrics": {
+      "psnr": 30.414154975358258,
+      "ssim": 0.8351007203261057,
+      "lpips": 0.050159603357315063
+    },
+    "checkpoint": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/HD/chunks/step-000105000_attempt-1794006496735655583/step-000105000.ckpt",
+    "checkpoint_sha256": "f3c6fed4190de2d2ae719af4d130c99d3316ea33853d6f004b7ba4b71ea50434",
+    "evaluation": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/HD/evaluations/step-000105000_attempt-1794006976915102313/evaluation.json",
+    "evaluation_sha256": "7d84683a463a0d9a3caffccb48cc3a42e580d44c4185d942964e8c9be70bac48"
+  },
+  "TRAIN4K": {
+    "step": 105000,
+    "metrics": {
+      "psnr": 30.360914963541603,
+      "ssim": 0.8348201115926107,
+      "lpips": 0.048081972946723305
+    },
+    "checkpoint": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/TRAIN4K/chunks/step-000105000_attempt-1794007130695186978/step-000105000.ckpt",
+    "checkpoint_sha256": "a12fd196114e20cf9707af09271cb94a926c876790bc1ab00aec5952837600d2",
+    "evaluation": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/TRAIN4K/evaluations/step-000105000_attempt-1794007621551548848/evaluation.json",
+    "evaluation_sha256": "db142e3d8fb47e70222ea53c05f8822c8a58ee4f6df05dbd45e55ec5a9601432"
+  }
+}
