@@ -68,3 +68,48 @@ Artifacts are in
 Distortion regularizes sampled termination mass. It cannot by itself certify
 empty space or repair density hidden by false-empty occupancy cells; dense-grid
 and native-grid tracing remain separate checks.
+
+## Isolated fork prepared for review
+
+The candidate now exists at `tuning_20261106/late_distortion` with a separate
+`late_distortion_code` snapshot. All1485 original files remain byte-identical;
+only the explicit fork worker and technical sequence runner are added. The
+selected2.094GB parent checkpoint is copied and SHA-verified on silver, leaving
+the source run untouched. Six source-bound specs and both controller manifests
+are staged; all releases remain absent and no GPU fork test has run.
+
+Eleven CPU tests passed, including real Adam/scheduler moment continuation,
+individual pipeline/optimizer/scheduler/scaler/RNG mismatch rejection, cache
+ordering, refusal before importing training code without a release, and paired
+sampling comparison. The normalized config difference is exactly
+`pipeline.model.distortion_loss_mult:0.01→1`.
+
+The technical plan first creates two zero-update state proofs. It compares all
+serialized training state and reconstructs the current seeded63-camera cache,
+checking every cached RGB/validity row against its dataset source. **Historical
+cache IDs were not observed in checkpoint60752:** this proves mutual/current
+setup consistency, not independently witnessed historical bitwise sampling.
+The proofs explicitly retain `historical_cache_order_observed:false`.
+
+Both zero proofs must agree before either technical continuation executes.
+Each arm then runs32 attempts, saves, exits, resumes the full checkpoint, and
+runs another32. Actual Adam progress is required in both segments. Initial
+pre-update sampled rays must match between arms; later stream digests are
+recorded but legitimate adaptive/RNG divergence is reported rather than
+artificially prevented. No sampling policy is changed to force agreement.
+
+The separate4000-attempt diagnostic plan remains unreleased. Its endpoint is a
+visual/depth review gate with the original v1 metrics, not automatic promotion
+or a declaration that quality has saturated. Ordinary worker/resume code is
+unchanged; child resumes enforce their own source/spec/code lineage.
+
+After root releases the technical specs and allocates a suitable slot:
+
+```bash
+C=/fsx/tmp/marshawn_001660_hd/tuning_20261106
+"$C/python" "$C/transport_v2_code/LookCloser/scripts/marshawn_tuning_controller.py" launch --root "$C/late_distortion_technical_controller"
+```
+
+After both technical arms finish, the CPU pair auditor is
+`run_marshawn_late_distortion_technical.py --audit-pair CONTROL_SEQUENCE.json TREATMENT_SEQUENCE.json`.
+This command does not release or launch the4000-attempt pair.
