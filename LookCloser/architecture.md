@@ -2054,3 +2054,9 @@ and native occupancy dilation are distinct controls. All deletion/unknown decisi
 retain source provenance. Box-edge visibility must use the same gated render's depth,
 not a removed floor's depth. Separate SH-direction and prefix experiments use frozen
 snapshots and independent controllers without rewriting the primary tuning graph.
+
+`train_marshawn_sh_geometry.py` provides separate frozen SH-corrected geometry arms.
+It composes the existing native-softplus prefix with an optional FP32 opaque-band
+opacity objective through `marshawn_sh_geometry.py`; private band sampling leaves
+prefix/global RNG unchanged. Production checks the full source/spec/evidence
+inventory before launch, and checkpoints preserve both auxiliary sampling policies.
