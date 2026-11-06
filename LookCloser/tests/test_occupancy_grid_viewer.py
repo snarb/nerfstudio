@@ -56,3 +56,15 @@ def test_refuses_multiple_cascades(tmp_path):
              cascade_aabbs=np.zeros((2, 6)))
     with pytest.raises(ValueError, match='single cascade'):
         viewer.load_layers(spec)
+
+
+def test_landmark_coordinate_mapping_and_outside_flag(tmp_path):
+    _, spec = fixture_spec(tmp_path)
+    spec['landmarks'] = [
+        {'label': 'interior', 'xyz': [-.5, 6.5, 2.5]},
+        {'label': 'upper boundary', 'xyz': [1, 9, 6]},
+        {'label': 'outside', 'xyz': [1.001, 9, 6]}]
+    points = viewer.load_layers(spec)['landmarks']
+    assert points[0]['index'] == [1, 2, 3]
+    assert points[1]['index'] == [2, 4, 6]
+    assert points[2]['inside'] is False and points[2]['index'] is None

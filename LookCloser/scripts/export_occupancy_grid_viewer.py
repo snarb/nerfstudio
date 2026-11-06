@@ -46,9 +46,23 @@ def load_layers(spec):
                                bits=base64.b64encode(np.packbits(grid.ravel(order='C'), bitorder='big')).decode()))
     if not layers:
         raise ValueError('No layers')
+    if len({row['name'] for row in layers}) != len(layers):
+        raise ValueError('Layer names must be unique')
+    landmarks = []
+    for point in spec.get('landmarks', []):
+        xyz = np.asarray(point['xyz'], dtype=np.float64)
+        if xyz.shape != (3,) or not np.isfinite(xyz).all():
+            raise ValueError('Landmark requires three finite coordinates')
+        if point.get('coordinate_frame', spec['coordinate_frame']) != spec['coordinate_frame']:
+            raise ValueError('Landmark coordinate frame differs')
+        inside = bool(((xyz >= reference[1][0]) & (xyz <= reference[1][1])).all())
+        index = np.floor((xyz-reference[1][0])/(reference[1][1]-reference[1][0])*reference[0]).astype(int)
+        landmarks.append(dict(label=point['label'], xyz=xyz.tolist(), inside=inside,
+                              index=np.minimum(index, np.array(reference[0])-1).tolist() if inside else None,
+                              provenance=point.get('provenance', 'Unspecified; not ground truth')))
     return dict(title=spec.get('title', 'Occupancy grid inspector'),
                 coordinate_frame=spec['coordinate_frame'], shape=list(reference[0]),
-                bounds=reference[1].tolist(), layers=layers)
+                bounds=reference[1].tolist(), layers=layers, landmarks=landmarks)
 
 
 def main():

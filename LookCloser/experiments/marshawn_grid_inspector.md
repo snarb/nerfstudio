@@ -20,7 +20,9 @@ Initial artifact: [interactive inspector](/fsx/tmp/marshawn_001660_hd/tuning_202
 
 It compares actual actor-only exp step15188 occupancy (123,817 active cells) with the proposed conservative TRAIN support (131,911 admitted cells) on identical 128³ cell boundaries. The actual archive hash is `6c7558a912946833ab2b397595d62960e3354fa1234f0ecfb17320000aa75fca`. This comparison is hypothetical; it does not retroactively alter that checkpoint.
 
-Four CPU tests passed: unequal-axis XYZ bit addressing including final-byte padding, exact boundary mismatch rejection, frame mismatch rejection, and multiple-cascade rejection. Headless Chromium passed actual local-file loading, three synchronized slices, numeric coordinates, positive-Y-up click mapping, layer swapping, comparison toggling, and observation JSON download, with no page errors. Root visually inspected the screenshot. Test observations are explicitly marked as browser checks, not geometry findings.
+Five CPU tests passed: unequal-axis XYZ bit addressing including final-byte padding, exact boundary mismatch rejection, frame mismatch rejection, multiple-cascade rejection, and landmark mapping including outer boundaries and outside-box detection. Headless Chromium passed actual local-file loading, three synchronized slices, numeric coordinates, positive-Y-up click mapping, layer swapping, comparison toggling, observation JSON download, and landmark navigation, with no page errors. Root visually inspected the screenshots. Test observations are explicitly marked as browser checks, not geometry findings.
+
+The exported scene also contains39 unique triangulated TRAIN feature landmarks from the sealed103 camera-ray records. Selecting one navigates to its cell; provenance and material limitations remain available. Point5568 explicitly retains its braid/boundary ambiguity instead of being labeled verified opaque clothing. These sparse landmarks supplement visual navigation and do not certify the rest of the volume.
 
 ## Insights
 

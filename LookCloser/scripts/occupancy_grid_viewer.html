@@ -2,7 +2,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Occupancy grid inspector</title>
 <style>
-body{font:15px system-ui;background:#111722;color:#e8ecf3;margin:24px}h1{font-size:24px}
+body{font:15px system-ui;background:#111722;color:#e8ecf3;margin:24px}h1{font-size:24px}[hidden]{display:none!important}
 label{display:inline-block;margin:8px 18px 8px 0}select,button,input,textarea{background:#202c3d;color:inherit;padding:8px;border:1px solid #6d7d92;border-radius:4px}
 .views{display:flex;gap:20px;flex-wrap:wrap}.view{flex:1;min-width:240px;max-width:560px}canvas{width:100%;height:auto;image-rendering:pixelated;cursor:crosshair;border:1px solid #56647b}
 pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px}input[type=number]{width:72px}input[type=range]{width:180px}textarea{display:block;width:min(90%,760px);height:55px;margin:12px 0}.muted{color:#abb8ca}.legend span{margin-right:16px}
@@ -11,6 +11,7 @@ pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px}input[type=number
 <p class="muted">Click a cell to synchronize all three slices. Coordinates use the declared grid frame, without an additional camera/world transform. Occupied or admitted cells are model states, not verified physical geometry.</p>
 <label>Layer A <select id="a"></select></label><label>Layer B <select id="b"></select></label>
 <label><input id="compare" type="checkbox" checked> Compare A / B</label>
+<label id="landmarkLabel" hidden>Geometry landmark <select id="landmark"><option value="">Select a point</option></select></label><details><summary>Selected landmark coordinates and provenance</summary><pre id="landmarkInfo"></pre></details>
 <div class="legend"><span style="color:#59647a">■ Neither</span><span style="color:#3cbfe9">■ A only</span><span style="color:#f19b4b">■ B only</span><span style="color:#d8e3ea">■ Both</span></div>
 <div id="controls"></div><div class="views" id="views"></div><pre id="cell"></pre>
 <textarea id="note" placeholder="Observation for this voxel / slice"></textarea>
@@ -29,6 +30,9 @@ function info(){return {index_xyz:pos.slice(),cell_bounds:bounds(pos),coordinate
 byId('title').textContent=D.title;
 for(const id of ['a','b']) D.layers.forEach((l,i)=>{const option=document.createElement('option');option.value=i;option.textContent=l.name;byId(id).append(option);});
 byId('b').value=Math.min(1,D.layers.length-1);
+(D.landmarks||[]).forEach((point,i)=>{const option=document.createElement('option');option.value=i;option.textContent=point.label+(point.inside?'':' [OUTSIDE BOX]');byId('landmark').append(option);});
+if(D.landmarks&&D.landmarks.length)byId('landmarkLabel').hidden=false;
+byId('landmark').addEventListener('change',()=>{const value=byId('landmark').value;if(value===''){byId('landmarkInfo').textContent='';return;}const point=D.landmarks[Number(value)];byId('landmarkInfo').textContent=JSON.stringify(point,null,2);if(point.inside){point.index.forEach((v,i)=>pos[i]=v);draw();}});
 axes.forEach((axis,i)=>{const label=document.createElement('label');label.append(axis+' slice ');const range=document.createElement('input'),number=document.createElement('input');range.type='range';number.type='number';for(const input of [range,number]){input.min=0;input.max=D.shape[i]-1;input.step=1;input.value=pos[i];input.addEventListener('input',()=>{const v=Number(input.value);if(Number.isFinite(v)){pos[i]=Math.max(0,Math.min(D.shape[i]-1,Math.round(v)));draw();}});label.append(input);}byId('controls').append(label);controls.push([range,number]);});
 // Canvas columns increase along u; image rows decrease along v. The fixed axis is n.
 for(const [u,v,n] of [[0,1,2],[0,2,1],[1,2,0]]){
