@@ -54,9 +54,18 @@ The first25k gate completed and resumed training. It improves common V1 PSNR to3
 | 35k | 30.26555670 | .83009688 | .05258375 |
 | 40k | 30.23191134 | .83006018 | .05276731 |
 | 45k | 30.26456299 | .83072821 | .05218519 |
+| 50k | 30.28583841 | .83127596 | .05209290 |
+| 55k | 30.29889149 | .83168862 | .05193819 |
+| 60k | 30.29843570 | .83185537 | .05182371 |
 
 At35k the selector chooses35k; the two significant-record miss counters are1 and2, so continuation remains active. All three source/20k/previous/current hair, hand/contact and foot comparisons were inspected at30k and35k. Fine texture remains softer than source photographs, and floor/mat/bag remain; no obvious new loss of visible hair or shoe tips was seen. The CPU-only `scripts/review_marshawn_native_gate.py` creates these comparisons from completed immutable renders without changing the evaluator or training runtime.
 
 The40k gate regresses slightly, so35k remains selected. The40k detail review likewise finds no obvious new anatomical crop loss, but persistent fine-detail softness and nonactor floor. Training continues under the cumulative plateau rule; all HD checkpoints remain available as matched-step controls for any later resolution experiment.
 
 The45k gate improves the absolute LPIPS record to.05218519 and resets its significant-record patience counter. The35k checkpoint remains selected within the prescribed.001 LPIPS tie window because its PSNR is marginally higher. Three-view source/20k/40k/45k hair, hands/contact and feet review finds persistent floor/bag and soft fine detail, without obvious new visible hair or shoe loss.
+
+The50k gate becomes selected: PSNR30.28583841, SSIM.83127596, LPIPS.05209290. Three-view detail inspection finds only subtle changes from45k and no obvious new visible hair/shoe loss; floor/mat/bag remain. The cumulative stopping criterion still permits training, and the technical4K executor continues to wait without GPU allocation.
+
+The55k gate becomes selected with a small additional improvement. All three detail comparisons preserve visible hair and shoes at the inspected scale, while floor/mat/bag artifacts persist. The HD producer remains healthy and continues; the technical4K executor still waits for its completed trajectory.
+
+The60k gate lowers LPIPS to.05182371;55k remains selected within the.001 tie window because its PSNR is slightly higher. All three source/20k/55k/60k detail panels were inspected, with the same fine-detail and nonactor-artifact limitations. Both stopping signals have not exhausted patience, so HD continuation remains active.
