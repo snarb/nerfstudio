@@ -1,0 +1,76 @@
+{
+  "time": 1793994985.6546514,
+  "all_three_full_frames_reviewed": true,
+  "all_three_hair_hand_foot_regions_reviewed": true,
+  "source_comparison": "SOURCE | clip20k | partial pad1 | min2 pad1",
+  "findings": [
+    "Visible actor appearance effectively unchanged from partial pad1.",
+    "Substantial floor pads, stationary bag/contact material and disconnected foreground fragments remain."
+  ],
+  "promoted": false,
+  "no_further_blind_threshold_search": true,
+  "exterior_measurement_not_certified_nonactor_volume": true,
+  "reader_peak_observed_mib": 1606,
+  "producer_state_not_modified_by_reader": true,
+  "producer_training_continued_during_readonly_render": true,
+  "files": [
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/positive_support_min2/review/DC_feet.png",
+      "sha256": "98ca164cf92da58c086fe5e91c68c19ec8c90931c7d28ab511e07dba32fe9ccf"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/positive_support_min2/review/DC_full.png",
+      "sha256": "0769f55c1880a7700df34c8e934772d653f32ec33aac27929aea15a593af4416"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/positive_support_min2/review/DC_hair.png",
+      "sha256": "364bbfaafdcc349416d580d6e46bf5a5e80f4add5c3f25dae41765e0d261037f"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/positive_support_min2/review/DC_hands_contact.png",
+      "sha256": "b0a1a0403947e832c3a9525901de2358b0c5a2f38376c920f96f7e613891794a"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/positive_support_min2/review/HC_feet.png",
+      "sha256": "9144d06de790c0c22ba6ead9f5fbd14a3186b9779c78ab214ef04656246e2b42"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/positive_support_min2/review/HC_full.png",
+      "sha256": "662583687ee15c404a93078a80883cf8e656ffe7bba78913e6601c2de1b99979"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/positive_support_min2/review/HC_hair.png",
+      "sha256": "4376cbb3cba422faa320853fdfc2e92886c4ddf4d619725136e5d30a432c0b42"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/positive_support_min2/review/HC_hands_contact.png",
+      "sha256": "e6033dc02fa44292c27cf963418b73f242fc44c0845b1db6dd350c05bdb60ff3"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/positive_support_min2/review/KA_feet.png",
+      "sha256": "ddc6c817fe3919af4ad083b79dfe6e2c8db4a939ffdfd9655c169d5ad07e87ee"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/positive_support_min2/review/KA_full.png",
+      "sha256": "07472c7446f7a90ab9866d2565a1765fa283b1a90659587c9b03e69fc7f950cf"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/positive_support_min2/review/KA_hair.png",
+      "sha256": "a10d2ea21ea72283a0870cc880626ca543f5fd2ec745a81e5fe30be1a0785497"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/positive_support_min2/review/KA_hands_contact.png",
+      "sha256": "a45915431493afb1c1a04d991d3e8d5d0d72e5a01c43d9403230f28260e5c2c1"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/positive_support_min2/review/all_details.jpg",
+      "sha256": "2b5d035c07963911fcdd3d7de90daffdf80db9f8f66aba020cd72b428775fd83"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/positive_support_min2/review/support_counts.png",
+      "sha256": "63b6ba1922c0b992fa77e7ad09c7f862c1c58588013137d5dd793086ea99b17a"
+    }
+  ],
+  "metrics_sha256": "c7742281d3ec56378f0cf4b5b6c5e5c53d1915c073699de51a426680322d43c0",
+  "candidate_grid_sha256": "5088f2368e740bd9f5259fd50e03cb861768e00da29507d47308f4aaa9875176"
+}

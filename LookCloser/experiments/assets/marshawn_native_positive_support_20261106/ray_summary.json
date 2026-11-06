@@ -1,0 +1,114 @@
+{
+  "kind": "CPU_FULL_TRAIN_RAY_SUPPORT_THRESHOLD_DIAGNOSTIC_NO_GATE_APPLIED",
+  "kernel": {
+    "source_sha256": "ecf144a767e883c4932229d403835716d2fa9265c3c01aff75b4d43bf6c907b3",
+    "library_sha256": "5e8d7dab2d7735c93be2572d5fa20a8ebde3310105695b2b4d953001e31ac804",
+    "compile_command": [
+      "g++",
+      "-std=c++11",
+      "-O3",
+      "-shared",
+      "-fPIC",
+      "-fopenmp",
+      "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/code/marshawn_semantic_ray_support.cpp",
+      "-o",
+      "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/positive_support_audit128/ray_hypotheses/ray_support.so"
+    ]
+  },
+  "independent_plane_partition_crosscheck_rays": 306,
+  "grid_sha256": "e804d736dd766e8adf11df07e346a6317af87e0b106a94dfc524ab32f1690d71",
+  "counts_sha256": "78cf64df4068622699efcf64948323ca9968e1bf7b50e458eed5a356b199ea9b",
+  "actor_rays": 4657323,
+  "baseline_gate0_misses": 528,
+  "baseline_pad1_misses": 0,
+  "totals": {
+    "filtered_gate0_W64_overlap_min2": {
+      "misses": 528,
+      "black": 0,
+      "grey": 528
+    },
+    "filtered_gate0_W64_overlap_min3": {
+      "misses": 528,
+      "black": 0,
+      "grey": 528
+    },
+    "filtered_gate0_W64_overlap_no_unknown_footprint_min2": {
+      "misses": 528,
+      "black": 0,
+      "grey": 528
+    },
+    "filtered_gate0_W64_overlap_no_unknown_footprint_min3": {
+      "misses": 528,
+      "black": 0,
+      "grey": 528
+    },
+    "filtered_gate0_nominal_actor_overlap_min2": {
+      "misses": 528,
+      "black": 0,
+      "grey": 528
+    },
+    "filtered_gate0_nominal_actor_overlap_min3": {
+      "misses": 528,
+      "black": 0,
+      "grey": 528
+    },
+    "filtered_gate0_nominal_actor_overlap_no_unknown_footprint_min2": {
+      "misses": 528,
+      "black": 0,
+      "grey": 528
+    },
+    "filtered_gate0_nominal_actor_overlap_no_unknown_footprint_min3": {
+      "misses": 528,
+      "black": 0,
+      "grey": 528
+    },
+    "fresh_pad1_after_filter_W64_overlap_min2": {
+      "misses": 0,
+      "black": 0,
+      "grey": 0
+    },
+    "fresh_pad1_after_filter_W64_overlap_min3": {
+      "misses": 0,
+      "black": 0,
+      "grey": 0
+    },
+    "fresh_pad1_after_filter_W64_overlap_no_unknown_footprint_min2": {
+      "misses": 0,
+      "black": 0,
+      "grey": 0
+    },
+    "fresh_pad1_after_filter_W64_overlap_no_unknown_footprint_min3": {
+      "misses": 0,
+      "black": 0,
+      "grey": 0
+    },
+    "fresh_pad1_after_filter_nominal_actor_overlap_min2": {
+      "misses": 0,
+      "black": 0,
+      "grey": 0
+    },
+    "fresh_pad1_after_filter_nominal_actor_overlap_min3": {
+      "misses": 0,
+      "black": 0,
+      "grey": 0
+    },
+    "fresh_pad1_after_filter_nominal_actor_overlap_no_unknown_footprint_min2": {
+      "misses": 0,
+      "black": 0,
+      "grey": 0
+    },
+    "fresh_pad1_after_filter_nominal_actor_overlap_no_unknown_footprint_min3": {
+      "misses": 0,
+      "black": 0,
+      "grey": 0
+    }
+  },
+  "seconds": 8.136691315099597,
+  "no_field_GPU_or_eval_input": true,
+  "no_gate_exported_or_applied": true,
+  "definition": "Hypothetical gate0=existinggate0 AND supportcount>=k; hypotheticalpad1 is freshonecell dilationofthatfilteredgate0. Neighborhood maximum counts encode this exactly without applying or rendering a gate.",
+  "limitations": [
+    "Ray intersection is necessary, not proof of retained actor surfaces.",
+    "Counts encode source-mask overlaps and uncertainty, not physical empty/occupied labels."
+  ]
+}

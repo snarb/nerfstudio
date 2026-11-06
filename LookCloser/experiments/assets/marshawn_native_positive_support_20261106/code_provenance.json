@@ -1,0 +1,52 @@
+{
+  "files": [
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/positive_support_audit128/code/audit_marshawn_positive_support.py",
+      "sha256": "016f1588e9a16a4c96affc22af7c3750d47bc4b4b11d3890891c83a46d24fd21"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/positive_support_audit128/code/audit_marshawn_support_rays_cpu.py",
+      "sha256": "bd45d11c1583b409e7d242da4a8bd10d3b11c58c52fd52bd9ad5d4d2ec1ce57b"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/positive_support_audit128/code/marshawn_semantic_ray_support.cpp",
+      "sha256": "ecf144a767e883c4932229d403835716d2fa9265c3c01aff75b4d43bf6c907b3"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/positive_support_audit128/code/audit_marshawn_support_witnesses.py",
+      "sha256": "eb4f08d02694b058fc2f1719ea5a59efc59639f9d8e128dc8f3223e63a3c8af6"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/positive_support_audit128/code/build_marshawn_positive_support_candidate.py",
+      "sha256": "865b4a7908230a72aceb3dd13d3f8215413cb7bab32d2029717932d275663562"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/positive_support_audit128/code/run_marshawn_support_render_review.py",
+      "sha256": "5581e35a6c30b456970272956865c98586be3d879258a0ff06080a30029927e1"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/positive_support_audit128/code/score_marshawn_support_candidate.py",
+      "sha256": "302d1303df72e4011bec32731734720544469aacd0a795686cc38be7bc1e93d3"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/positive_support_audit128/code/review_marshawn_support_candidate.py",
+      "sha256": "09effd39cd0974ace2d4ec1dc3034c2a8a0c30dfff4a356bfaf4576886ed926d"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/positive_support_audit128/code/mask_visual_hull_aabb.py",
+      "sha256": "bf1339a8dd1c65e5fd0dda925edb6e69ed68a46b7566dbe5648a2ca4e15fb835"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/positive_support_audit128/code/build_marshawn_semantic_resolution.py",
+      "sha256": "265576858a2fc0691d05bd55c65e75219a2723ebf0a2ca78f2ebe059be47eec1"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/positive_support_audit128/code/marshawn_occupancy_audit.py",
+      "sha256": "16be2aef404ca514316682e46c9c62623274fd839a21d69d0f36baf98ab2e43f"
+    }
+  ],
+  "compiler": "g++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+  "query_sha256": "e11c111e4a41b02417e98ae2e0f4f5f6055883c070539b2334748974bb3c712c",
+  "executed_render_wrapper_sha256": "5581e35a6c30b456970272956865c98586be3d879258a0ff06080a30029927e1",
+  "current_wrapper_metadata_key_clarification_sha256": "7ba85fe3734c10bfa83b2332c30071d84bd313afb4d172005c32d9cf41d96933"
+}

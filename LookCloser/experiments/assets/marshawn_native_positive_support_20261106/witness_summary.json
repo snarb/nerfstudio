@@ -1,0 +1,1055 @@
+{
+  "kind": "TRAIN_WITNESS_DEPTH_SUPPORT_DIAGNOSTIC",
+  "queries": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/queries/clothing_103_predeclared.json",
+  "queries_sha256": "e11c111e4a41b02417e98ae2e0f4f5f6055883c070539b2334748974bb3c712c",
+  "counts_sha256": "78cf64df4068622699efcf64948323ca9968e1bf7b50e458eed5a356b199ea9b",
+  "records": 103,
+  "unique_witness_ids": 39,
+  "summaries": {
+    "original_gate0": {
+      "cells": 78056,
+      "witness_records_retained": 103,
+      "pixel_depth_records_retained": 103,
+      "minimum_band_fraction": 0.9186774660095709
+    },
+    "original_pad1": {
+      "cells": 105049,
+      "witness_records_retained": 103,
+      "pixel_depth_records_retained": 103,
+      "minimum_band_fraction": 0.9999999999999981
+    },
+    "W64_overlap_no_unknown_footprint_min2_gate0": {
+      "cells": 54080,
+      "witness_records_retained": 103,
+      "pixel_depth_records_retained": 103,
+      "minimum_band_fraction": 0.9186774660095709
+    },
+    "W64_overlap_no_unknown_footprint_min2_pad1": {
+      "cells": 77664,
+      "witness_records_retained": 103,
+      "pixel_depth_records_retained": 103,
+      "minimum_band_fraction": 0.9999999999999981
+    },
+    "W64_overlap_no_unknown_footprint_min3_gate0": {
+      "cells": 50919,
+      "witness_records_retained": 103,
+      "pixel_depth_records_retained": 103,
+      "minimum_band_fraction": 0.9186774660095709
+    },
+    "W64_overlap_no_unknown_footprint_min3_pad1": {
+      "cells": 73616,
+      "witness_records_retained": 103,
+      "pixel_depth_records_retained": 103,
+      "minimum_band_fraction": 0.9999999999999981
+    },
+    "nominal_actor_overlap_no_unknown_footprint_min2_gate0": {
+      "cells": 52640,
+      "witness_records_retained": 103,
+      "pixel_depth_records_retained": 103,
+      "minimum_band_fraction": 0.9186774660095709
+    },
+    "nominal_actor_overlap_no_unknown_footprint_min2_pad1": {
+      "cells": 75765,
+      "witness_records_retained": 103,
+      "pixel_depth_records_retained": 103,
+      "minimum_band_fraction": 0.9999999999999981
+    },
+    "nominal_actor_overlap_no_unknown_footprint_min3_gate0": {
+      "cells": 48352,
+      "witness_records_retained": 103,
+      "pixel_depth_records_retained": 103,
+      "minimum_band_fraction": 0.9186774660095709
+    },
+    "nominal_actor_overlap_no_unknown_footprint_min3_pad1": {
+      "cells": 70751,
+      "witness_records_retained": 103,
+      "pixel_depth_records_retained": 103,
+      "minimum_band_fraction": 0.9999999999999981
+    }
+  },
+  "anchors": [
+    {
+      "name": "toe_upper",
+      "label": "independent_TRAIN_toe_upper",
+      "xyz_floor": [
+        -0.11769208960984658,
+        0.15127923559030565,
+        0.014567836967476211
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 15,
+        "nominal_actor_overlap_no_unknown_footprint": 14
+      },
+      "retained": {
+        "original_gate0": true,
+        "original_pad1": true,
+        "W64_overlap_no_unknown_footprint_min2_gate0": true,
+        "W64_overlap_no_unknown_footprint_min2_pad1": true,
+        "W64_overlap_no_unknown_footprint_min3_gate0": true,
+        "W64_overlap_no_unknown_footprint_min3_pad1": true,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": true,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": true,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": true,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": true
+      }
+    },
+    {
+      "name": "sfm_5626",
+      "label": "mat_upper_rim",
+      "xyz_floor": [
+        -0.4223279927564999,
+        -0.08460688706931628,
+        0.02563634764440592
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 1,
+        "nominal_actor_overlap_no_unknown_footprint": 1
+      },
+      "retained": {
+        "original_gate0": false,
+        "original_pad1": false,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": false,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": false
+      }
+    },
+    {
+      "name": "sfm_940",
+      "label": "mat_top_material",
+      "xyz_floor": [
+        -0.30344306245723995,
+        0.09003320980556684,
+        0.031485118449195215
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 0,
+        "nominal_actor_overlap_no_unknown_footprint": 0
+      },
+      "retained": {
+        "original_gate0": true,
+        "original_pad1": true,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": false,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": false
+      }
+    },
+    {
+      "name": "sfm_5496",
+      "label": "mat_top_material",
+      "xyz_floor": [
+        -0.5391844793550808,
+        -0.036320310956291874,
+        0.01968379443313792
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 0,
+        "nominal_actor_overlap_no_unknown_footprint": 0
+      },
+      "retained": {
+        "original_gate0": false,
+        "original_pad1": false,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": false,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": false
+      }
+    },
+    {
+      "name": "sfm_4118",
+      "label": "mat_upper_rim",
+      "xyz_floor": [
+        -0.33781009567388315,
+        -0.04568845392553773,
+        0.02935751448839727
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 1,
+        "nominal_actor_overlap_no_unknown_footprint": 1
+      },
+      "retained": {
+        "original_gate0": true,
+        "original_pad1": true,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": false,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": false
+      }
+    },
+    {
+      "name": "sfm_7009",
+      "label": "mat_upper_rim",
+      "xyz_floor": [
+        -0.17077133229973523,
+        0.11623763067877506,
+        0.028845180158788314
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 2,
+        "nominal_actor_overlap_no_unknown_footprint": 0
+      },
+      "retained": {
+        "original_gate0": true,
+        "original_pad1": true,
+        "W64_overlap_no_unknown_footprint_min2_gate0": true,
+        "W64_overlap_no_unknown_footprint_min2_pad1": true,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": true,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": false
+      }
+    },
+    {
+      "name": "sfm_6856",
+      "label": "mat_upper_rim",
+      "xyz_floor": [
+        -0.17805773363973268,
+        -0.024897380104408496,
+        0.03126350207820677
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 1,
+        "nominal_actor_overlap_no_unknown_footprint": 1
+      },
+      "retained": {
+        "original_gate0": false,
+        "original_pad1": false,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": false,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": false
+      }
+    },
+    {
+      "name": "sfm_5112",
+      "label": "mat_upper_rim",
+      "xyz_floor": [
+        -0.5116212955765411,
+        -0.10705785451808687,
+        0.021905635536866336
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 0,
+        "nominal_actor_overlap_no_unknown_footprint": 0
+      },
+      "retained": {
+        "original_gate0": false,
+        "original_pad1": false,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": false,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": false
+      }
+    },
+    {
+      "name": "sfm_6251",
+      "label": "mat_side_panel",
+      "xyz_floor": [
+        -0.18513082248925897,
+        0.20667324716887567,
+        0.024463040149254017
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 7,
+        "nominal_actor_overlap_no_unknown_footprint": 5
+      },
+      "retained": {
+        "original_gate0": false,
+        "original_pad1": false,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": false,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": false
+      }
+    },
+    {
+      "name": "sfm_7985",
+      "label": "mat_handle",
+      "xyz_floor": [
+        -0.14783818327493978,
+        0.051938006626110075,
+        0.025417521063033632
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 0,
+        "nominal_actor_overlap_no_unknown_footprint": 0
+      },
+      "retained": {
+        "original_gate0": true,
+        "original_pad1": true,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": false,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": false
+      }
+    },
+    {
+      "name": "sfm_6478",
+      "label": "mat_handle",
+      "xyz_floor": [
+        -0.17290736476552615,
+        0.15859568442978886,
+        0.02775543980786982
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 4,
+        "nominal_actor_overlap_no_unknown_footprint": 2
+      },
+      "retained": {
+        "original_gate0": false,
+        "original_pad1": true,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": true,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": true,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": true,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": true
+      }
+    },
+    {
+      "name": "sfm_6560",
+      "label": "mat_side_seam_below_lip",
+      "xyz_floor": [
+        -0.46343042298614684,
+        -0.08803370308430784,
+        0.017044791775258167
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 0,
+        "nominal_actor_overlap_no_unknown_footprint": 0
+      },
+      "retained": {
+        "original_gate0": false,
+        "original_pad1": false,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": false,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": false
+      }
+    },
+    {
+      "name": "sfm_6862",
+      "label": "black_shoe_sole_material",
+      "xyz_floor": [
+        -0.11713805167004304,
+        0.14165073766903985,
+        0.005085417456200336
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 11,
+        "nominal_actor_overlap_no_unknown_footprint": 9
+      },
+      "retained": {
+        "original_gate0": true,
+        "original_pad1": true,
+        "W64_overlap_no_unknown_footprint_min2_gate0": true,
+        "W64_overlap_no_unknown_footprint_min2_pad1": true,
+        "W64_overlap_no_unknown_footprint_min3_gate0": true,
+        "W64_overlap_no_unknown_footprint_min3_pad1": true,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": true,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": true,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": true,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": true
+      }
+    },
+    {
+      "name": "sfm_7125",
+      "label": "mat_upper_rim",
+      "xyz_floor": [
+        -0.3689340785896198,
+        -0.0718926791793095,
+        0.023058907515681154
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 1,
+        "nominal_actor_overlap_no_unknown_footprint": 1
+      },
+      "retained": {
+        "original_gate0": false,
+        "original_pad1": false,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": false,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": false
+      }
+    },
+    {
+      "name": "sfm_5120",
+      "label": "mat_side_panel",
+      "xyz_floor": [
+        -0.21326923669408962,
+        -0.03953104587679009,
+        0.01832942991917999
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 1,
+        "nominal_actor_overlap_no_unknown_footprint": 1
+      },
+      "retained": {
+        "original_gate0": false,
+        "original_pad1": true,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": false,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": false
+      }
+    },
+    {
+      "name": "sfm_4802",
+      "label": "mat_upper_rim",
+      "xyz_floor": [
+        -0.28381828753088567,
+        -0.049565930733312495,
+        0.02856812636594383
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 1,
+        "nominal_actor_overlap_no_unknown_footprint": 1
+      },
+      "retained": {
+        "original_gate0": false,
+        "original_pad1": true,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": false,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": false
+      }
+    },
+    {
+      "name": "sfm_7952",
+      "label": "mat_upper_rim",
+      "xyz_floor": [
+        -0.1361327653459201,
+        -0.015568516842110448,
+        0.029242034906703462
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 1,
+        "nominal_actor_overlap_no_unknown_footprint": 1
+      },
+      "retained": {
+        "original_gate0": false,
+        "original_pad1": false,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": false,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": false
+      }
+    },
+    {
+      "name": "sfm_5627",
+      "label": "mat_upper_rim",
+      "xyz_floor": [
+        -0.3943359458231507,
+        -0.07952065855184946,
+        0.022729753946502507
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 1,
+        "nominal_actor_overlap_no_unknown_footprint": 1
+      },
+      "retained": {
+        "original_gate0": false,
+        "original_pad1": false,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": false,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": false
+      }
+    },
+    {
+      "name": "sfm_6301",
+      "label": "mat_handle",
+      "xyz_floor": [
+        -0.24055349923541483,
+        -0.04629143373287746,
+        0.028610796734542115
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 1,
+        "nominal_actor_overlap_no_unknown_footprint": 1
+      },
+      "retained": {
+        "original_gate0": true,
+        "original_pad1": true,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": false,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": false
+      }
+    },
+    {
+      "name": "sfm_2994",
+      "label": "mat_handle",
+      "xyz_floor": [
+        -0.17537715988985098,
+        0.18601672034578878,
+        0.02620981840994699
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 6,
+        "nominal_actor_overlap_no_unknown_footprint": 4
+      },
+      "retained": {
+        "original_gate0": false,
+        "original_pad1": false,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": false,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": false
+      }
+    },
+    {
+      "name": "sfm_6351",
+      "label": "mat_upper_rim",
+      "xyz_floor": [
+        -0.32000203367846464,
+        -0.06005035367245052,
+        0.024910282460803873
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 1,
+        "nominal_actor_overlap_no_unknown_footprint": 1
+      },
+      "retained": {
+        "original_gate0": false,
+        "original_pad1": false,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": false,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": false
+      }
+    },
+    {
+      "name": "sfm_5642",
+      "label": "mat_side_panel",
+      "xyz_floor": [
+        -0.19664035369914543,
+        -0.03197332602692454,
+        0.02090224421008574
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 1,
+        "nominal_actor_overlap_no_unknown_footprint": 1
+      },
+      "retained": {
+        "original_gate0": false,
+        "original_pad1": true,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": false,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": false
+      }
+    },
+    {
+      "name": "sfm_4794",
+      "label": "mat_upper_rim",
+      "xyz_floor": [
+        -0.43921994383722057,
+        -0.08903068855933843,
+        0.021051384482805385
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 0,
+        "nominal_actor_overlap_no_unknown_footprint": 0
+      },
+      "retained": {
+        "original_gate0": false,
+        "original_pad1": false,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": false,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": false
+      }
+    },
+    {
+      "name": "sfm_6769",
+      "label": "mat_lower_rim",
+      "xyz_floor": [
+        -0.1332457267847679,
+        -0.015566442181784938,
+        0.012375136211721538
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 1,
+        "nominal_actor_overlap_no_unknown_footprint": 1
+      },
+      "retained": {
+        "original_gate0": false,
+        "original_pad1": false,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": false,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": false
+      }
+    },
+    {
+      "name": "sfm_7859",
+      "label": "mat_upper_rim",
+      "xyz_floor": [
+        -0.22800562451943934,
+        -0.03581953568921466,
+        0.03117357948331015
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 1,
+        "nominal_actor_overlap_no_unknown_footprint": 1
+      },
+      "retained": {
+        "original_gate0": false,
+        "original_pad1": true,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": false,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": false
+      }
+    },
+    {
+      "name": "sfm_6461",
+      "label": "mat_side_panel",
+      "xyz_floor": [
+        -0.412072669277834,
+        -0.08374018984153093,
+        0.014237901495642857
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 1,
+        "nominal_actor_overlap_no_unknown_footprint": 1
+      },
+      "retained": {
+        "original_gate0": false,
+        "original_pad1": false,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": false,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": false
+      }
+    },
+    {
+      "name": "sfm_7003",
+      "label": "mat_side_panel",
+      "xyz_floor": [
+        -0.2584798670985811,
+        -0.047208785090147705,
+        0.019345561684792373
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 1,
+        "nominal_actor_overlap_no_unknown_footprint": 1
+      },
+      "retained": {
+        "original_gate0": true,
+        "original_pad1": true,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": false,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": false
+      }
+    },
+    {
+      "name": "sfm_214",
+      "label": "mat_upper_rim",
+      "xyz_floor": [
+        -0.2061186294090335,
+        -0.03453927628658135,
+        0.031214412503530575
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 1,
+        "nominal_actor_overlap_no_unknown_footprint": 1
+      },
+      "retained": {
+        "original_gate0": false,
+        "original_pad1": false,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": false,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": false
+      }
+    },
+    {
+      "name": "sfm_6146",
+      "label": "mat_upper_rim",
+      "xyz_floor": [
+        -0.4070056332513619,
+        -0.07983612793539481,
+        0.02561751544296012
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 1,
+        "nominal_actor_overlap_no_unknown_footprint": 1
+      },
+      "retained": {
+        "original_gate0": false,
+        "original_pad1": false,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": false,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": false
+      }
+    },
+    {
+      "name": "sfm_6942",
+      "label": "mat_side_panel",
+      "xyz_floor": [
+        -0.38572098230168933,
+        -0.07258483062016842,
+        0.01823455003054844
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 1,
+        "nominal_actor_overlap_no_unknown_footprint": 1
+      },
+      "retained": {
+        "original_gate0": false,
+        "original_pad1": false,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": false,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": false
+      }
+    },
+    {
+      "name": "sfm_1509",
+      "label": "mat_upper_rim",
+      "xyz_floor": [
+        -0.18450872996357354,
+        0.1993466561465082,
+        0.025657145514257795
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 7,
+        "nominal_actor_overlap_no_unknown_footprint": 6
+      },
+      "retained": {
+        "original_gate0": false,
+        "original_pad1": false,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": false,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": false
+      }
+    },
+    {
+      "name": "sfm_4870",
+      "label": "mat_upper_rim",
+      "xyz_floor": [
+        -0.17666717055244113,
+        0.15790227628932618,
+        0.02910230000175018
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 4,
+        "nominal_actor_overlap_no_unknown_footprint": 3
+      },
+      "retained": {
+        "original_gate0": false,
+        "original_pad1": false,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": false,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": false
+      }
+    },
+    {
+      "name": "sfm_5547",
+      "label": "mat_side_panel",
+      "xyz_floor": [
+        -0.17249819661019314,
+        0.15570365170090805,
+        0.02487192735633076
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 4,
+        "nominal_actor_overlap_no_unknown_footprint": 2
+      },
+      "retained": {
+        "original_gate0": false,
+        "original_pad1": true,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": true,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": true,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": true,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": true
+      }
+    },
+    {
+      "name": "sfm_5548",
+      "label": "mat_upper_rim",
+      "xyz_floor": [
+        -0.1721963240805301,
+        0.15733551044965388,
+        0.02856077650413702
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 4,
+        "nominal_actor_overlap_no_unknown_footprint": 3
+      },
+      "retained": {
+        "original_gate0": false,
+        "original_pad1": true,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": true,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": true,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": true,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": false
+      }
+    },
+    {
+      "name": "sfm_6250",
+      "label": "mat_side_panel",
+      "xyz_floor": [
+        -0.1726341324669347,
+        0.15589386640274078,
+        0.024380069614406086
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 4,
+        "nominal_actor_overlap_no_unknown_footprint": 2
+      },
+      "retained": {
+        "original_gate0": false,
+        "original_pad1": true,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": true,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": true,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": true,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": true
+      }
+    },
+    {
+      "name": "sfm_6568",
+      "label": "mat_handle",
+      "xyz_floor": [
+        -0.18140927700702122,
+        0.1929232688768112,
+        0.02780361979961235
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 6,
+        "nominal_actor_overlap_no_unknown_footprint": 4
+      },
+      "retained": {
+        "original_gate0": false,
+        "original_pad1": false,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": false,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": false
+      }
+    },
+    {
+      "name": "sfm_6861",
+      "label": "mat_handle",
+      "xyz_floor": [
+        -0.18033360619681055,
+        0.18603426320906563,
+        0.024070403661443612
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 6,
+        "nominal_actor_overlap_no_unknown_footprint": 4
+      },
+      "retained": {
+        "original_gate0": false,
+        "original_pad1": false,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": false,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": false
+      }
+    },
+    {
+      "name": "sfm_6923",
+      "label": "mat_upper_rim",
+      "xyz_floor": [
+        -0.16777740204450248,
+        0.11540610320759132,
+        0.027171711611619742
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 1,
+        "nominal_actor_overlap_no_unknown_footprint": 0
+      },
+      "retained": {
+        "original_gate0": true,
+        "original_pad1": true,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": true,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": true,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": false
+      }
+    },
+    {
+      "name": "sfm_8649",
+      "label": "mat_side_panel",
+      "xyz_floor": [
+        -0.16275511148042845,
+        0.11422007167905139,
+        0.02375340734200676
+      ],
+      "counts": {
+        "W64_overlap_no_unknown_footprint": 1,
+        "nominal_actor_overlap_no_unknown_footprint": 1
+      },
+      "retained": {
+        "original_gate0": true,
+        "original_pad1": true,
+        "W64_overlap_no_unknown_footprint_min2_gate0": false,
+        "W64_overlap_no_unknown_footprint_min2_pad1": true,
+        "W64_overlap_no_unknown_footprint_min3_gate0": false,
+        "W64_overlap_no_unknown_footprint_min3_pad1": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min2_pad1": true,
+        "nominal_actor_overlap_no_unknown_footprint_min3_gate0": false,
+        "nominal_actor_overlap_no_unknown_footprint_min3_pad1": false
+      }
+    }
+  ],
+  "no_field_GPU_or_eval_input": true,
+  "no_gate_exported_or_applied": true,
+  "limitations": [
+    "103 records include repeated views and two declared duplicates, not103 independent3D points.",
+    "Geometric band coverage is not field termination mass.",
+    "The +/- .02 diagnostic band is not a calibrated uncertainty interval.",
+    "Positive support with an UNKNOWN-free rectangle is a conservative semantic criterion, not physical visibility or empty-space truth."
+  ]
+}

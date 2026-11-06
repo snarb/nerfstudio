@@ -1,0 +1,27 @@
+{
+  "kind": "PROVISIONAL_SEMANTIC_TARGET_SUPPORT_RESTRICTION_NOT_FREE_SPACE",
+  "source_grid": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/semantic_grid.npz",
+  "source_grid_sha256": "e804d736dd766e8adf11df07e346a6317af87e0b106a94dfc524ab32f1690d71",
+  "counts_path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/positive_support_audit128/counts.npz",
+  "counts_sha256": "78cf64df4068622699efcf64948323ca9968e1bf7b50e458eed5a356b199ea9b",
+  "source_manifest_sha256": "7b73f0033d7ef1b917a2fdd32d34ec04d4cbfcfa0afbc5a3f54814a34b165ed4",
+  "support_key": "W64_overlap_no_unknown_footprint",
+  "minimum_views": 2,
+  "gate0_rule": "Original partial-occlusion W64 gate0 AND at least2 positive actor-support overlaps whose entire conservative projected cell rectangle is valid and UNKNOWN-free.",
+  "padding": "One fresh26-neighbor dilation from filtered gate0; original nativeR1 unchanged.",
+  "counts": {
+    "gate0": 54080,
+    "pad1": 77664,
+    "old_gate0": 78056,
+    "old_pad1": 105049
+  },
+  "grid_sha256": "5088f2368e740bd9f5259fd50e03cb861768e00da29507d47308f4aaa9875176",
+  "builder_sha256": "865b4a7908230a72aceb3dd13d3f8215413cb7bab32d2029717932d275663562",
+  "field_checkpoint_unchanged": true,
+  "no_eval_input": true,
+  "limitations": [
+    "A semantic-target restriction excludes insufficiently evidenced cells; it does not certify physical emptiness.",
+    "UNKNOWN coverage is partial and positive masks contain remaining boundary errors.",
+    "Preserved ray intersection and sparse clothing/toe depths cannot guarantee complete hair or hidden actor surfaces."
+  ]
+}
