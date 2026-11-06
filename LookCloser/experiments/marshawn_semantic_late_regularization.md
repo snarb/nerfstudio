@@ -36,4 +36,22 @@ A separate prepared generation extends only the two frozen v2 coefficient-admiss
 
 Manual final HC-black and KA-grey contact-sheet review confirms smaller exterior haze with coefficient1, while rough floor pieces and floating material above the hair remain. Better source-ray concentration therefore does not certify a clean full scene.
 
-The prepared.1 zero-only policy binds14 artifacts and1499 source files, independently verified on silver-sable. Actual CPU configuration differs only in distortion_loss_mult.01→.1; invalid coefficients and booleans remain rejected. The proposed idle-exclusive GPU5 gate has300-second deadline and12GiB process/10GiB allocator caps. It compares seven restored state hashes plus semantic support, cache, sampler, next-step, Adam and FR against the existing v2.01 zero receipt, then checks all three RGB/alpha renders and V1 numeric parity. Both zero and diagnostic releases are still pending; no GPU launch has occurred for.1.
+The prepared.1 zero-only policy binds14 artifacts and1499 source files, independently verified on silver-sable. Actual CPU configuration differs only in distortion_loss_mult.01→.1; invalid coefficients and booleans remain rejected. The proposed idle-exclusive GPU5 gate has300-second deadline and12GiB process/10GiB allocator caps. It compares seven restored state hashes plus semantic support, cache, sampler, next-step, Adam and FR against the existing v2.01 zero receipt, then checks all three RGB/alpha renders and V1 numeric parity. Both exact releases subsequently passed and the fresh4000-attempt diagnostic completed. The zero gate preserved all seven restored state hashes and numeric render parity; first and all4000 sampled-ray digests match the reused.01 control exactly.
+
+
+## Intermediate coefficient.1 result
+
+| Step | PSNR ↑ | SSIM ↑ | Masked LPIPS ↓ | Matched.01 LPIPS |
+|---|---:|---:|---:|---:|
+|30876|31.56782|.846190|.02770249|.02735551|
+|31376|31.58708|.847054|.02724845|.02705027|
+|32376|31.58424|.847884|.02768982|.02720328|
+|34376|31.55140|.847754|.02720261|.02673186|
+
+Final LPIPS worsens1.76%, while PSNR improves.03751dB and SSIM.003749. The delegated idle-exclusive final audit finished in179.9seconds with1760MiB peak process memory and zero updates. All206 clothing/24 DC convergence and native RGB checks pass. Native band mass improves81.887→84.759% old18,82.564→88.038% new66,84.984→87.213% old8 reserves and97.430→99.197% new9 patch reserves. Median10–90 widths improve.03169→.02782/.02302→.01937/.03483→.03012/.01491→.01195 respectively. Median absolute depth residual remains largely unchanged, including old8.000601→.000575 and new9.000816→.000840.
+
+Thus coefficient.1 produces a modest concentration gain with a smaller perceptual penalty than1. Neither setting certifies exact cloth geometry or a clean floor. A future cold coefficient.1 trajectory would be a separate controlled experiment; none is launched by this report.
+
+[Exact state/ray reuse proof](/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_late_lambda0p1_candidate_20261106/control_reuse_complete.json), [final source geometry](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_lambda0p1_geometry_34376/clothing103/report.md), [signed residuals](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_lambda0p1_geometry_34376/clothing103/depth_residuals.json), [four visual gates](/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_late_lambda0p1_visuals).
+
+Manual final.1 HC-black and KA-grey contacts show broad exterior haze and rough floor fragments still present, with no visually dramatic contour change. The modest source-ray improvement therefore remains a geometric diagnostic rather than clean-asset approval.

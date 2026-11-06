@@ -33,3 +33,12 @@ Successful Adam counters are16→32 (warmup) and15→30 (ARM), with exact sample
 ## Released cold production
 
 Root reviewed all six technical images and exact21-artifact/1497-source bindings, then issued releaseSHA `507e3c9361d4568c96ad68450711c9adcdfdd26ccee641a3bfcd633de584f5c7`. Controller1157701 launched supervisor1157992 and trainer1158631 on an idle globally locked silverGPU0. Original W64 confidence is retained; no bag correction is combined. Auditor1157702 preserves the first15188 checkpoint before paired103TRAIN+12DC replay; local watcher2094028 retains subsequent review artifacts. The same106316→plateau schedule applies. Technical approval explicitly leaves geometry_quality_approved=false until measured and visual gates.
+
+
+## First matched15188 gate
+
+Source-point PSNR31.28347/SSIM.843042/LPIPS.03135776 versus coarse-admission R0 PSNR31.41439/SSIM.841056/LPIPS.03117262. All206 clothing/24 DC convergence and native PNG checks pass. Native witness-band mass changes80.233→79.559% old18,83.946→86.687% new66,84.484→83.528% old8 reserves,95.948→95.631% new9 reserves. Median widths worsen for the first three groups, but new9 improves.01139→.004185; qualified HA5556 width improves.010305→.003752 and signed offset+.001155→−.000740.
+
+Manual inspection of both actors in all three views finds narrower exterior haze, especially HC, with visible hair/shoes retained. Near-foot and floor residual remains. Geometry is mixed, so there is no global quality promotion; training continues through the unchanged plateau schedule.
+
+[Matched source geometry](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_sourcepoint_matched15k/report.md), [personally inspected GT/coarse/source-point crops](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_sourcepoint_matched15k/GT_coarse_sourcepoint_15188_crops.jpg).
