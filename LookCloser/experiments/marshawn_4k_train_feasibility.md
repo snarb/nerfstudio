@@ -277,3 +277,15 @@ and both GPUs are RTXPRO6000Blackwell sm120. Twelve CPU tests passed. Runtime is
 estimated around20minutes, with actual measurement required. Its purpose is to
 test whether the remaining high dark-clothing censoring is still budget-limited
 before relaxing SSIM or authorizing all-camera fitting.
+
+The proposed16000 run now has a separate `_16000_residual` generation, preserving
+the plain preparation. A return-value wrapper retains the actual fitted2D model
+without changing training or random debug sampling. After fitting restores the
+original SSIM function, a bound helper renders five fixed source-declared ROIs
+(black shirt, black pants, hair, grey folds, shoe) at level15. It writes GT,
+prediction, signed float residuals and patchwise SSIM7 on the original8×8 grid;
+PNG residuals use a labeled8× visualization only. Before/after model-state and
+Python/NumPy/Torch CPU/CUDA RNG hashes must agree, and model train/eval flags are
+restored. CPU tests verify preservation and deliberate RNG-mutation rejection.
+This generation remains pending explicit root release; the actual residuals
+have not yet been measured.
