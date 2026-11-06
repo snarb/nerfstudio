@@ -2013,3 +2013,20 @@ IDs, then gathers pixels from those same cameras. The last patch covers residual
 image borders. Masked ragged batches and grouped training patches are rejected
 explicitly. Tests cover shuffled/subset camera IDs, mixed dimensions and borders.
 Dataset-specific background supervision and hull rendering remain on `chinise_girl`.
+
+
+## AABB review and scene-depth visibility
+
+`scripts/render_aabb_review.py` partitions a frozen packed-volumetric field by
+world-space AABB membership without changing normalization, grid or weights. It
+saves the interior on black, exterior diagnostics, raw float buffers and native
+compositor/immutability checks. Scene-specific boxes are JSON inputs; historical
+code roots, cameras and trace pixels are explicit CLI arguments.
+
+`scripts/aabb_visualization.py` supplies independent calibrated pinhole projection
+and perspective-correct, per-pixel depth testing of dashed edges. The renderer
+uses the first absolute opacity-0.5 crossing along each unit ray; hidden edges,
+including the bottom below the scene floor, are omitted by default. The generic
+overlay can consume other renderers' depth buffers; the field-partition adapter
+currently requires Nerfstudio's packed `VolumetricSampler`. See
+[the reusable review workflow](docs/aabb_review.md).

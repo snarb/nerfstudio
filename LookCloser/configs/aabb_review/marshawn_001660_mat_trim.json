@@ -1,0 +1,10 @@
+{
+  "aabb": [[-0.15, 0.07, -0.2], [0.15, 0.33, 0.26]],
+  "coordinate_system": "existing prepared Marshawn world, no additional pose normalization",
+  "frame": 1660,
+  "baseline_aabb": [[-0.2, 0.02, -0.2], [0.15, 0.33, 0.26]],
+  "changed_faces": ["xmin", "ymin"],
+  "purpose": "Remove the visible raised mat edge while retaining the two actors",
+  "margin_note": "Manually reviewed face override. The old automatic 0.02 minimum against the padded visual hull is not asserted for these two faces.",
+  "training_started": false
+}
