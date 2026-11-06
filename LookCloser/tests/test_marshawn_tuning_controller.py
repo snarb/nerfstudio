@@ -67,9 +67,10 @@ def test_dead_worker_receipt_never_restarts(tmp_path):
 def test_real_dispatcher_crash_resume_no_duplicate(tmp_path):
     # Fake driver only for CPU supervision test. No actual GPU is touched.
     bin_dir=tmp_path/'bin';bin_dir.mkdir();smi=bin_dir/'nvidia-smi'
-    smi.write_text('#!/bin/sh\ncase "$1" in --query-gpu=*) echo "0, GPU-test, CPU-fixture, 1000, 0";; esac\n');smi.chmod(0o755)
+    smi.write_text('#!/bin/sh\ncase "$1" in --query-gpu=*) echo "191, GPU-test, CPU-fixture, 1000, 0";; esac\n');smi.chmod(0o755)
     env=os.environ.copy();env['PATH']=str(bin_dir)+os.pathsep+env['PATH']
     p=plan(tmp_path);p['hosts']['local']['root']=str(tmp_path/'host');(tmp_path/'host').mkdir()
+    p['hosts']['local']['gpus']=[191]  # Never contend with a live training GPU lock.
     counter=tmp_path/'counter'
     p['jobs']=[{'name':'first','command':[sys.executable,'-c',f'import time;open({str(counter)!r},"a").write("first\\n");time.sleep(2)']},
         {'name':'second','dependencies':['first'],'command':[sys.executable,'-c',f'open({str(counter)!r},"a").write("second\\n")']}]
@@ -108,7 +109,7 @@ def test_skipped_barrier_and_dependency_metrics(tmp_path, monkeypatch):
             data={'jobs':{},'gpus':{'0':{'uuid':'fake','processes':[]}},'gpu_error':None,
                   'controller_sha256':m.hashlib.sha256(SCRIPT.read_bytes()).hexdigest()}
             return subprocess.CompletedProcess([],0,json.dumps(data),'')
-        launched.append(json.loads(m.base64.b64decode(args[-1])))
+        launched.append(json.loads(kw['input_text']))
         return subprocess.CompletedProcess([],0,'','')
     monkeypatch.setattr(m,'host_call',remote)
     m.tick(p,state,tmp_path)
@@ -127,3 +128,51 @@ def test_missing_receipt_after_ambiguous_launch_keeps_host_affinity(tmp_path,mon
     m.tick(p,state,tmp_path)
     assert started==[str(tmp_path/'remote')]
     assert state['jobs']['first']['host']=='remote'
+
+
+def test_large_spec_real_stdin_detach_and_dependency_file(tmp_path):
+    # Larger than both Linux's per-argument and per-environment-string limit.
+    text = ('quotes\" newline\n unicode Ж $() `ticks` ' * 12000)
+    dependency = {'control': {'payload': text}}
+    destination = tmp_path / 'result.json'
+    task_script = SCRIPT.with_name('marshawn_tuning_task.py')
+    code = ('import sys,json,os;sys.path.insert(0,'+repr(str(task_script.parent))+');'
+            'from marshawn_tuning_task import read_dependencies;'
+            'assert "TUNING_DEPENDENCIES_JSON" not in os.environ;'
+            'open('+repr(str(destination))+',"w").write(json.dumps(read_dependencies()))')
+    job = {'name':'large','gpu':None,'command':[sys.executable,'-c',code],
+           'env':{'TUNING_DEPENDENCIES_JSON':json.dumps(dependency)},'poll_seconds':.01}
+    root=tmp_path/'host';host={'python':sys.executable,'controller':str(SCRIPT),'address':None}
+    args=['_start','--root',str(root),'--spec-stdin','--spec-sha256',m.digest(job)]
+    first=m.host_call(host,args,input_text=json.dumps(job));assert first.returncode==0,first.stderr
+    wait_for(lambda: m.read(root/'jobs/large/receipt.json',{}).get('status') in m.TERMINAL)
+    assert m.read(root/'jobs/large/receipt.json')['status']=='complete'
+    assert json.loads(destination.read_text())==dependency
+    second=m.host_call(host,args,input_text=json.dumps(job));assert second.returncode==0
+    assert len(list((root/'jobs/large').glob('launch-spec-*.json')))==1
+
+
+def test_stdin_digest_rejection_before_claim(tmp_path):
+    host={'python':sys.executable,'controller':str(SCRIPT),'address':None}
+    result=m.host_call(host,['_start','--root',str(tmp_path),'--spec-stdin','--spec-sha256','wrong'],input_text='{"name":"never"}')
+    assert result.returncode!=0 and 'digest mismatch' in result.stderr
+    assert not (tmp_path/'jobs').exists()
+
+
+def test_ssh_payload_never_enters_argv(monkeypatch):
+    calls=[]
+    monkeypatch.setattr(m.subprocess,'run',lambda command,**kwargs:calls.append((command,kwargs)))
+    payload='x'*400000
+    m.host_call({'python':'/python path','controller':'/script path','address':'host'},['_start','--root','a quoted path'],input_text=payload)
+    command,kwargs=calls[0]
+    assert max(map(len,command))<1024
+    assert kwargs['input']==payload
+    assert "'/python path'" in command[-1]
+
+
+def test_dependency_file_tamper_rejected(tmp_path,monkeypatch):
+    sys.path.insert(0,str(SCRIPT.parent))
+    from marshawn_tuning_task import read_dependencies
+    path=tmp_path/'dependencies.json';path.write_text('{}')
+    monkeypatch.setenv('TUNING_DEPENDENCIES_FILE',str(path));monkeypatch.setenv('TUNING_DEPENDENCIES_SHA256','wrong')
+    with pytest.raises(ValueError,match='digest mismatch'):read_dependencies()

@@ -1,7 +1,16 @@
 """Resolve immutable DAG inputs, then run one cold configuration to saturation."""
-import argparse,copy,json,os,subprocess,sys
+import argparse,copy,hashlib,json,os,subprocess,sys
 from pathlib import Path
 from prepare_marshawn_tuning import write
+
+def read_dependencies():
+    path = os.environ.get('TUNING_DEPENDENCIES_FILE')
+    if path:
+        payload = Path(path).read_bytes()
+        if hashlib.sha256(payload).hexdigest() != os.environ.get('TUNING_DEPENDENCIES_SHA256'):
+            raise ValueError('Dependency payload digest mismatch')
+        return json.loads(payload)
+    return json.loads(os.environ.get('TUNING_DEPENDENCIES_JSON', '{}'))
 
 def score(result):
     selected=result['selection']
@@ -80,7 +89,7 @@ def fit_maps(source,output,threshold):
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('--task',required=True);p.add_argument('--data',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
-    task=json.loads(a.task);deps=json.loads(os.environ.get('TUNING_DEPENDENCIES_JSON','{}'));a.output.mkdir(parents=True,exist_ok=True)
+    task=json.loads(a.task);deps=read_dependencies();a.output.mkdir(parents=True,exist_ok=True)
     spec=resolve(task,deps,a.data,a.output)
     if task.get('select_only'):
         write(a.output/'complete.json',winner(list(deps.values())));return

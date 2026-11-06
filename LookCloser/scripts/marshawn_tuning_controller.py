@@ -118,11 +118,11 @@ def probe(root):
             'controller_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
 
 
-def host_call(host, argv, *, timeout=25):
+def host_call(host, argv, *, timeout=25, input_text=None):
     command = [host['python'], host['controller']] + argv
     if host.get('address'):
         command = ['ssh', '-o', 'BatchMode=yes', '-o', 'ConnectTimeout=8', host['address'], shlex.join(command)]
-    return subprocess.run(command, capture_output=True, text=True, timeout=timeout)
+    return subprocess.run(command, capture_output=True, text=True, timeout=timeout, input=input_text)
 
 
 def materialize(job, host, gpu):
@@ -159,6 +159,14 @@ def worker(root, spec):
             'gpu':gpu, 'gpu_uuid':device['uuid'] if device else None, 'started':time.time()}
     atomic(directory/'spec.json',spec); atomic(receipt_path,data)
     env = os.environ.copy(); env.update(spec.get('env',{}))
+    # Linux limits each argv/environment string to 128KiB. Dependency histories
+    # grow across DAG barriers, so they must never enter execve's environment.
+    if 'TUNING_DEPENDENCIES_JSON' in env:
+        dependencies = json.loads(env.pop('TUNING_DEPENDENCIES_JSON'))
+        dependency_file = directory / 'dependencies.json'
+        atomic(dependency_file, dependencies)
+        env['TUNING_DEPENDENCIES_FILE'] = str(dependency_file.resolve())
+        env['TUNING_DEPENDENCIES_SHA256'] = hashlib.sha256(dependency_file.read_bytes()).hexdigest()
     if device: env.update(CUDA_VISIBLE_DEVICES=device['uuid'], CUDA_DEVICE_ORDER='PCI_BUS_ID')
     try:
         with (directory/'worker.log').open('ab') as output:
@@ -195,9 +203,12 @@ def worker(root, spec):
 def start_worker(root, spec):
     root = Path(root); directory = root/'jobs'/spec['name']; directory.mkdir(parents=True,exist_ok=True)
     if (directory/'receipt.json').exists(): return
-    payload = base64.b64encode(json.dumps(spec).encode()).decode()
+    payload_path = directory / ('launch-spec-' + digest(spec) + '.json')
+    if payload_path.exists() and read(payload_path) != spec:
+        raise ValueError('Immutable launch specification changed')
+    if not payload_path.exists(): atomic(payload_path, spec)
     with (directory/'supervisor.log').open('ab') as stream:
-        subprocess.Popen([sys.executable,str(Path(__file__).resolve()),'_worker','--root',str(root),'--spec64',payload],
+        subprocess.Popen([sys.executable,str(Path(__file__).resolve()),'_worker','--root',str(root),'--spec-file',str(payload_path.resolve()),'--spec-sha256',digest(spec)],
                          stdin=subprocess.DEVNULL,stdout=stream,stderr=subprocess.STDOUT,start_new_session=True)
 
 
@@ -262,9 +273,8 @@ def tick(plan, state, root):
                 spec['env']['TUNING_DEPENDENCIES_JSON']=json.dumps({name:jobs[name].get('metrics') for name in job.get('dependencies',[])},sort_keys=True)
                 item.update(status='dispatching',host=key,gpu=gpu,spec_sha256=digest(spec),dispatched=time.time())
                 atomic(Path(root)/'state.json',state)  # intent BEFORE SSH side effect
-                payload=base64.b64encode(json.dumps(spec).encode()).decode()
                 try:
-                    r=host_call(host,['_start','--root',host['root'],'--spec64',payload])
+                    r=host_call(host,['_start','--root',host['root'],'--spec-stdin','--spec-sha256',digest(spec)], input_text=json.dumps(spec))
                     if r.returncode: item.update(status='unknown',error=r.stderr[-1000:])
                 except (OSError,subprocess.SubprocessError) as exc: item.update(status='unknown',error=str(exc))
                 reserved.add((key,gpu)); break
@@ -301,10 +311,17 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('action',choices=['prepare','dry-run','launch','resume','status','report','_dispatch','_probe','_start','_worker'])
     parser.add_argument('--root',type=Path,required=True); parser.add_argument('--manifest',type=Path); parser.add_argument('--spec64')
+    parser.add_argument('--spec-file',type=Path); parser.add_argument('--spec-stdin',action='store_true'); parser.add_argument('--spec-sha256')
     args=parser.parse_args()
     if args.action=='_probe': print(json.dumps(probe(args.root))); return 0
     if args.action in ('_start','_worker'):
-        spec=json.loads(base64.b64decode(args.spec64))
+        if sum(bool(x) for x in (args.spec64,args.spec_file,args.spec_stdin)) != 1:
+            raise ValueError('Exactly one specification input is required')
+        spec=json.load(sys.stdin) if args.spec_stdin else read(args.spec_file) if args.spec_file else json.loads(base64.b64decode(args.spec64))
+        if (args.spec_stdin or args.spec_file) and not args.spec_sha256:
+            raise ValueError('File/stdin specifications require a digest')
+        if args.spec_sha256 and digest(spec) != args.spec_sha256:
+            raise ValueError('Specification digest mismatch')
         return worker(args.root,spec) if args.action=='_worker' else start_worker(args.root,spec)
     if args.action=='_dispatch': return dispatch(args.root)
     if args.action=='dry-run':
