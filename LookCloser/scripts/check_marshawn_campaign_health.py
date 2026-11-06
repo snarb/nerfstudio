@@ -114,6 +114,24 @@ print(json.dumps(r))
             commands['remote_semantic_'+label] = ['ssh', '-o', 'BatchMode=yes', '-o', 'ConnectTimeout=8',
                 'ubuntu@silver-sable', shlex.join(['python3', '-c', candidate_code])]
     technical = args.root/'native_reference_4k_technical_v2'
+    semantic4k = args.root/'semantic_4k_technical_v1'
+    if (semantic4k/'root_release.json').exists():
+        technical_code = """import json,pathlib,time
+p=pathlib.Path('/home/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_4k_technical_v1/technical_supervision')
+r={}
+for name in ['supervisor.json','technical_complete.json','technical_failure.json']:
+ if (p/name).exists():r[name]=json.loads((p/name).read_text())
+if (p/'health.jsonl').exists():
+ with (p/'health.jsonl').open('rb') as f:
+  f.seek(max(0,(p/'health.jsonl').stat().st_size-65536));r['health']=json.loads(f.read().splitlines()[-1])
+ r['health_age_seconds']=time.time()-r['health']['time']
+for label,source in [('controller','supervisor.json'),('worker','health')]:
+ pid=r.get(source,{}).get('pid');r[label+'_alive']=pathlib.Path('/proc/'+str(pid)).exists() if pid else None
+print(json.dumps(r))
+"""
+        commands['remote_semantic4k_technical'] = [
+            'ssh', '-o', 'BatchMode=yes', '-o', 'ConnectTimeout=8', 'ubuntu@silver-sable',
+            shlex.join(['python3', '-c', technical_code])]
     if (technical/'launch.json').exists():
         pid = json.loads((technical/'launch.json').read_text())['pid']
         commands['dev3_4k_executor'] = ['ssh', '-o', 'BatchMode=yes', '-o', 'ConnectTimeout=8',
