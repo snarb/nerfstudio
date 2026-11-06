@@ -113,3 +113,14 @@ C=/fsx/tmp/marshawn_001660_hd/tuning_20261106
 After both technical arms finish, the CPU pair auditor is
 `run_marshawn_late_distortion_technical.py --audit-pair CONTROL_SEQUENCE.json TREATMENT_SEQUENCE.json`.
 This command does not release or launch the4000-attempt pair.
+
+Paired technical overlap is prepared separately at
+`/fsx/tmp/marshawn_001660_hd/tuning_20261106/late_distortion_overlap`.
+The frozen fork code and all six specs remain unchanged. The supervisor requires
+an exact policy release and four technical-only child releases before GPU work.
+It serializes two zero-state proofs and each arm's 32+32-attempt Adam/resume check
+on silver GPU2, preserving the producer's global lock. Limits are 900 seconds,
+10 GiB Torch allocator and 12 GiB candidate process memory; producer identity,
+progress age and OOM evidence are checked every five seconds. Failure terminates
+only its own process group. Nine CPU scope/release/state-gate tests pass. No GPU
+technical or 4000-attempt diagnostic launch is implied by this preparation.

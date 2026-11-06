@@ -341,3 +341,18 @@ SSIM counters and exact censor masks. It writes an experimental aggregate
 receipt and never creates READY, launches NeRF training or promotes a default.
 Watcher implementation: `scripts/watch_marshawn_frequency_admission.py`;
 auditor: `scripts/audit_marshawn_frequency_outputs.py`.
+
+The experimental fleet's AA4000 repeat produced 58.3366% censored patches,
+versus 45.2783% in the original GPU0 pilot. Both frozen results are retained;
+this material repeat variation is a temporal-stability concern, and neither
+map is promoted as a detail certificate. The separately approved 63-map
+experimental queue continues, with exact censor masks retained.
+
+Independent zero-update AA initialization probes on silver GPU0 and GPU7
+matched initial model parameters, Torch CPU/CUDA and NumPy RNG, decoded source,
+first sampled indices, dtypes and library hashes. Neither probe created an
+optimizer or performed a forward/update. Peak allocated memory was 373,601,792
+bytes each; both production workers remained healthy. Evidence lives in
+`/fsx/tmp/marshawn_001660_hd/tuning_20261106/frequency_initialization_audit`.
+These new probes do not establish the historical cause of the two fits'
+divergence: their initial hashes were not recorded at the time.
