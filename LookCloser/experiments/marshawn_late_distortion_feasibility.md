@@ -124,3 +124,16 @@ on silver GPU2, preserving the producer's global lock. Limits are 900 seconds,
 progress age and OOM evidence are checked every five seconds. Failure terminates
 only its own process group. Nine CPU scope/release/state-gate tests pass. No GPU
 technical or 4000-attempt diagnostic launch is implied by this preparation.
+
+The root-released technical gate passed in 220.73 seconds on silver GPU2.
+Peak candidate process memory was 6,990 MiB, within the 12 GiB cap. Both zero
+proofs matched restored pipeline, optimizer, scheduler, scaler, RNG and paired
+reconstructed cache. Each coefficient had actual Adam steps
+`60723 → 60755 → 60787` across the first 32 and resumed 32 attempts; final global
+step was 60816. Initial rays and both later sampled-stream digests matched;
+no sampling policy was changed to enforce this. Historical cache order remains
+unobserved, so this is controlled paired-fork evidence, not a claim of observed
+historical stream continuity. Producer PID487868 advanced 105377→110387 with no
+OOM, and all technical candidate GPU processes exited. Receipts and small
+state proofs are in `late_distortion_overlap/evidence` under the campaign root.
+The 4000-attempt diagnostic remains unreleased.
