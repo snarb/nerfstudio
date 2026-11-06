@@ -21,8 +21,3 @@ def test_three_views_and_actor_crops_keep_source_hashes(tmp_path,monkeypatch):
  assert len(list(gate.glob('*_contact.png')))==9
  receipt=json.loads((gate/'receipt.json').read_text());assert len(receipt['sources'])==12 and receipt['visual_review_passed'] is False
  assert 'validation_loss' not in (gate/'metrics_v1.json').read_text()
-EOF
-/fsx/tmp/marshawn_001660_hd/tuning_20261106/python -m pytest -q tests/test_marshawn_late_distortion_visuals.py
-python - <<'PY'
-import pathlib,json,hashlib,time
-C=pathlib.Path('/fsx/tmp/marshawn_001660_hd/tuning_20261106');r=C/'late_distortion';s=json.loads((C/'late_distortion_diagnostic_controller/state.json').read_text());(r/'diagnostic_launch_receipt.json').write_text(json.dumps(dict(time=time.time(),controller=json.loads((C/'late_distortion_diagnostic_controller/controller.json').read_text()),jobs={k:v['status'] for k,v in s['jobs'].items()},source_step=60752,technical_checkpoint_used=False,visual_watcher=json.loads((C/'late_distortion_visuals/watcher.json').read_text()),scope='4000attempt diagnostic only; reviewed continuation may follow',geometry_103='pending results/visual review; not automatically approved'),indent=2)+'\n');print({k:v['status'] for k,v in s['jobs'].items()})
