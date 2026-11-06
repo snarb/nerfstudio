@@ -27,6 +27,8 @@ The extra distortion1 arm runs on silver GPU7 through a separate durable control
 
 Independent source review also found a stationary floor bag incorrectly included in several grey-actor masks. TRAIN-only corrected labels are being prepared separately for the auxiliary semantic grid; main campaign inputs remain immutable. Held-out annotation review is separately versioned and cannot supply training/gate constraints. Current v1 scores retain this known annotation limitation.
 
+At approximately17:44UTC, silver's shared home filesystem exhausted the checkpoint reserve. Five workers stopped safely before replacing their last committed checkpoint; three were paused for relocation and then saved their live states. All4,853 campaign files were verified after copying to `/cache`, and the original `/home/.../marshawn_tuning_20261106` path now resolves there through a symlink. Original files/logs remain in a separate backup. All eight silver jobs resumed their full optimizer/scheduler/scaler/RNG state and advanced; the local control never stopped. The blocked dependency ledger was restored without recipe changes. [Recovery receipt](/fsx/tmp/marshawn_001660_hd/tuning_20261106/recovery_20261106/silver_recovery_complete.json). Reporter path checks now resolve storage aliases;9 tests pass.
+
 Prepared source masks were visually inspected in DC/HC/KA and AA/GE/NE. Intended actors remain visible; unrelated workers excluded, including foreground occlusion in GE. Data: `/fsx/tmp/marshawn_001660_hd/tuning_20261106/data`.
 
 ## Insights and constraints

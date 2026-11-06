@@ -131,3 +131,13 @@ def test_online_reads_latest_gate_and_isolates_missing(tmp_path):
     assert values['present']['latest']['step']==30376
     assert values['present']['source_sha256']==m.sha(path)
     assert 'absent' not in values
+
+
+def test_package_accepts_verified_storage_alias(tmp_path):
+    root,p,r,c,checkpoint=package_fixture(tmp_path)
+    original=Path(c['full_baseline_r0']['result']['config']['output'])
+    alias=root/'relocated_alias';alias.symlink_to(original,target_is_directory=True)
+    c['full_baseline_r0']['result']['config']['output']=str(alias)
+    m.atomic(original/'complete.json',c['full_baseline_r0']['result'])
+    receipt=m.package(root,p,r,c)
+    assert Path(receipt['zip']).is_file()

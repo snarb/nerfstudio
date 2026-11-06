@@ -129,9 +129,9 @@ def sha(path):
  return h.hexdigest()
 checkpoint=p/record['path']; actual=sha(checkpoint)
 assert record['retained'] and actual==record['sha256'], 'Selected checkpoint missing/changed'
-assert result['selected_step']==step and pathlib.Path(result['checkpoint'])==checkpoint,'Result/checkpoint mismatch'
+assert result['selected_step']==step and pathlib.Path(result['checkpoint']).resolve()==checkpoint.resolve(),'Result/checkpoint mismatch'
 folder=p/'renders'/('step-%09d'%step)
-assert pathlib.Path(result['render_directory'])==folder
+assert pathlib.Path(result['render_directory']).resolve()==folder.resolve()
 metrics=json.loads((folder/'metrics.json').read_text()); assert metrics['step']==step
 expected=['DC.png','HC.png','KA.png','DC_alpha.png','HC_alpha.png','KA_alpha.png','metrics.json']
 files={name:{'sha256':sha(folder/name),'bytes':(folder/name).stat().st_size} for name in expected}
