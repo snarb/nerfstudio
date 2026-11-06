@@ -57,6 +57,7 @@ The first25k gate completed and resumed training. It improves common V1 PSNR to3
 | 50k | 30.28583841 | .83127596 | .05209290 |
 | 55k | 30.29889149 | .83168862 | .05193819 |
 | 60k | 30.29843570 | .83185537 | .05182371 |
+| 65k | 30.31342179 | .83226023 | .05168275 |
 
 At35k the selector chooses35k; the two significant-record miss counters are1 and2, so continuation remains active. All three source/20k/previous/current hair, hand/contact and foot comparisons were inspected at30k and35k. Fine texture remains softer than source photographs, and floor/mat/bag remain; no obvious new loss of visible hair or shoe tips was seen. The CPU-only `scripts/review_marshawn_native_gate.py` creates these comparisons from completed immutable renders without changing the evaluator or training runtime.
 
@@ -69,3 +70,7 @@ The50k gate becomes selected: PSNR30.28583841, SSIM.83127596, LPIPS.05209290. Th
 The55k gate becomes selected with a small additional improvement. All three detail comparisons preserve visible hair and shoes at the inspected scale, while floor/mat/bag artifacts persist. The HD producer remains healthy and continues; the technical4K executor still waits for its completed trajectory.
 
 The60k gate lowers LPIPS to.05182371;55k remains selected within the.001 tie window because its PSNR is slightly higher. All three source/20k/55k/60k detail panels were inspected, with the same fine-detail and nonactor-artifact limitations. Both stopping signals have not exhausted patience, so HD continuation remains active.
+
+The65k gate becomes selected: PSNR30.31342179, SSIM.83226023, LPIPS.05168275. Three-view hair/hands/feet review finds no obvious new visible contour loss at the inspected scale. Nonactor floor/mat/bag and soft source detail remain; both stopping conditions have not yet exhausted patience.
+
+An immutable65k download snapshot is available under `native_reference_continuation_20000/downloads/`: `native_reference_000065000_snapshot_review.zip` (5,586,423bytes; SHA256 `a9ff0757e6efe3abfd3513b5dd6bf95d0300f220eaee63ed9749cc74d52fea14`) contains the original three full-HD inside renders, existing actor/detail comparisons, metrics, accepted box and provenance. The companion `_with_original_alpha.zip` (273,922,328bytes; SHA256 `62f65f3311ca2e188355c21221de2c16b8f3ba1eed414b8995bff007af74a0fc`) also includes unchanged float RGB/alpha partitions. Every copied file and each ZIP entry checksum was verified. Read-only archives and snapshot files preserve their bytes; the README explicitly identifies residual floor/mat/bag and geometry supervision. No checkpoint weights are included.
