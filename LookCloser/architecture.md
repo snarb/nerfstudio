@@ -2037,3 +2037,20 @@ Box JSON supports a proper rigid `world_to_box` transform. Frozen-field clipping
 
 ### Marshawn actor-quality tuning campaign
 The frame1660 tuning workflow freezes corrected Full-HD RGB, native-derived actor confidence and the accepted floor-frame box. `prepare_marshawn_tuning_campaign.py` snapshots runtime sources and creates a dependency graph; `marshawn_tuning_controller.py` owns durable per-GPU workers across hosts. `train_marshawn_tuning.py` retains the leader ancestry through106316 and continues until both frozen actor Charbonnier and masked LPIPS plateau. Full-state checkpoints retain sampling/plateau/RNG state; independent actual-GPU occupancy receipts support slice and ray audits. Metric and sampler adapters are campaign-local; canonical model defaults and unrelated campaigns are unchanged. See `experiments/marshawn_1660_leader_tuning.md` for the comparison protocol and limitations.
+
+The separate opt-in `train_marshawn_prefix.py` worker composes one reviewed TRAIN
+clothing-ray prefix optical-thickness term through native softplus density.
+`prepare_marshawn_prefix_candidate.py` seals original track membership, current
+floor coordinates and source review; `marshawn_softplus_prefix_candidate.py`
+keeps its private sampling deterministic by optimizer step and stores policy
+in the full-state checkpoint. No occupancy edit or positive depth band is
+implicit. Production requires an explicit release receipt following actual
+AMP and nonempty-Adam resume checks; the original campaign worker is unchanged.
+
+The historical native reference uses its original field normalization and geometry
+supervision. `render_marshawn_native_semantic_gate.py` applies a separate TRAIN-mask
+support grid in the accepted floor frame; mask padding, one-cell support padding
+and native occupancy dilation are distinct controls. All deletion/unknown decisions
+retain source provenance. Box-edge visibility must use the same gated render's depth,
+not a removed floor's depth. Separate SH-direction and prefix experiments use frozen
+snapshots and independent controllers without rewriting the primary tuning graph.
