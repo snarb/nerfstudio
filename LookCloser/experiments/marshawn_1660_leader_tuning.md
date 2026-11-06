@@ -10,7 +10,22 @@ Box remains `configs/aabb_review/marshawn_1660_1900_floor.json`: min[-.84,-.21,-
 Matrix: full RGB/soft actor objective × historical sampling/body80 × occupancy radius0/1 (8runs). Then actor width32 vs64nativepx; coarse step.003125/.0125 vs.00625; distortion ramp.01→1 only on geometry diagnostic trigger; finally SSIM frequency threshold.93/.97 vs.95, optional neighbours±.01 after≥3%LPIPS gain. Final control/candidate repeat seed43. At most18 training runs, each to plateau; one additional zero-update structural selector.
 
 ## Results
-Production campaign launched at approximately16:47UTC,2026-11-06. Local full_baseline_r0 is training; silver release waits for matched-environment qualification. No production quality result yet.42tests pass. Actual two-update full and actor/body80/halo1 technical smokes rendered all3validation views. Actual SIGTERM/checkpoint recovery resumed fromstep3 through99 and completed; these technical renders are excluded from quality selection. Remote CPU-only SSH/DAG smoke passed. Logs and receipts are under the campaign root.
+Production campaign launched at approximately16:47UTC,2026-11-06. All eight matrix arms are training on local GPU0 and silver-sable GPUs0–6. Silver passed source/data hashing, matched Torch2.7.1/TCNN qualification and a two-update numerical comparison.42tests pass. Actual two-update full and actor/body80/halo1 technical smokes rendered all3validation views. Actual SIGTERM/checkpoint recovery resumed fromstep3 through99 and completed; these technical renders are excluded from quality selection. Remote CPU-only SSH/DAG smoke passed. Logs and receipts are under the campaign root.
+
+Provisional gates inspected around17:40UTC (unfinished runs; these are not selected final checkpoints):
+
+| Variant | Step | Actor PSNR ↑ | Actor SSIM ↑ | Masked LPIPS ↓ |
+|---|---:|---:|---:|---:|
+| Full / body80 / radius0 |75940|24.6313|.750811|.078250|
+| Full / body80 / radius1 |60752|23.8364|.716098|.088802|
+| Actor / baseline / radius0 |91128|24.8913|.716686|.091607|
+| Extra distortion1 / full / body80 / radius0 |45564|21.4357|.608098|.129126|
+
+The extra distortion1 arm runs on silver GPU7 through a separate durable controller, leaving the original campaign manifest unchanged. Its early launch was triggered by the independently measured false foreground density, not by a validation-mask fit. Stronger distortion worsens HC/DC appearance, concentrating density into floating sheets; it is not promoted. All arms retain the required full leader trajectory and plateau rule.
+
+[Late HC/KA crop comparison](/fsx/tmp/marshawn_001660_hd/tuning_20261106/online_review_late/late_comparison.jpg) was visually inspected: the best current LookCloser arm retains fog, while actor-only variants retain blurred/ghosted boundaries. Better actor scores do not certify clean geometry. A separate [historical native reference](marshawn_native_reference_actor_metrics.md) is sharper, but includes additional SfM/MVS supervision and is not an architecture-only control. Its semantic-grid cleanup is an auxiliary experiment.
+
+Independent source review also found a stationary floor bag incorrectly included in several grey-actor masks. TRAIN-only corrected labels are being prepared separately for the auxiliary semantic grid; main campaign inputs remain immutable. Held-out annotation review is separately versioned and cannot supply training/gate constraints. Current v1 scores retain this known annotation limitation.
 
 Prepared source masks were visually inspected in DC/HC/KA and AA/GE/NE. Intended actors remain visible; unrelated workers excluded, including foreground occlusion in GE. Data: `/fsx/tmp/marshawn_001660_hd/tuning_20261106/data`.
 
@@ -20,4 +35,4 @@ Prepared source masks were visually inspected in DC/HC/KA and AA/GE/NE. Intended
 - Homogeneous historical FAS interprets dataset camera bucket indices as shuffled cache positions. Baseline preserves this exact behavior, including RNG, and computes the confidence normalizer for that actual proposal. Body80 uses explicit physical-camera mapping. This is a recorded baseline limitation, not a silent global sampler fix.
 - No density-derived or visibility-unknown cell is automatically certified free. Audits export actual GPU core/active/EMA, enforce exactly one halo, distinguish warmup and uncertain cells, and retain checkpoint/source hashes.
 - Workers retain latest, FR-boundary and the current LPIPS-tie Pareto checkpoint frontier; all metrics/renders and checkpoint hash inventory remain. Atomic checkpoint state contains optimizer/scheduler/scaler/RNG, sampling and plateau state.
-- silver-sable required a user-confirmed SSH host-key update. Environment is being matched to local Torch2.7.1+cu128 rather than silently comparing its existing2.9runtime. dev3's2.4runtime is not yet qualified for matched training.
+- silver-sable required a user-confirmed SSH host-key update. Its campaign environment now matches local Torch2.7.1+cu128 rather than using the pre-existing2.9runtime. dev3's2.4runtime is used only for the explicitly separate historical native render/audit path.
