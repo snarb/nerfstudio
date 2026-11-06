@@ -52,3 +52,17 @@ detached dispatcher. Shared GPU locks prevent collision with other campaigns.
 Cross-campaign reporting remains separate: the completed numerical winner,
 per-actor3% guard and manually reviewed geometry candidate are distinct. Running
 metrics are provisional and must not replace the completed-parent release gate.
+
+After the root reviewer supplies a concrete authorized release receipt:
+
+```bash
+C=/fsx/tmp/marshawn_001660_hd/tuning_20261106
+"$C/python" "$C/exp_followup/launch_reviewed.py" --release "$C/exp_followup/root_release.json"
+"$C/python" "$C/cross_campaign_report_exp_followup/report_marshawn_cross_campaign.py" launch --root "$C/cross_campaign_report_exp_followup"
+```
+
+The second command starts a separately prepared seven-source reporting generation,
+including the new queue. Its registry and frozen reporter are already saved; it
+does not mutate or replace the existing six-source report. Both commands remain
+unexecuted during this preparation. The release template must not be mistaken
+for a signed authorization.
