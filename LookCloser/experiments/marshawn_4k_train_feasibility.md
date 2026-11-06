@@ -319,3 +319,25 @@ details. This evidence does not isolate sensor noise as the cause. The frozen
 is a plausible next diagnostic, not a proven explanation. Relaxing the SSIM
 threshold would conceal the unresolved optimization question. All original
 sources, ordinary training jobs and full63-map release status remain unchanged.
+
+### Conditional experimental4000 fleet release
+
+Root subsequently approved the4000 recipe for a **63-camera experimental
+candidate**, not as a default or a certificate that all patches contain real
+detail. Every output retains its exact censored mask/counts; maximum-level
+fallback remains separate from patches that passed SSIM.95. A controlled3D
+comparison is required to judge utility. The16000 recipe is excluded.
+
+The released plan/hash inventory and63 source-bound releases are staged and
+verified on silver. A detached CPU admission watcher starts fitting only after
+all five exp follow-up jobs and both P/PB jobs have evidenced healthy initial
+dispatch or completed. Pending, failed, unknown, orphaned and stale heartbeat
+states block admission;13 tests cover these gates. It then uses the existing
+idle-GPU/shared-lock dispatcher without modifying any production controller.
+
+On completion, a separate CPU auditor rechecks all654 source-file hashes and
+all63 actual tensor shapes, finite values, histograms, source hashes, progressive
+SSIM counters and exact censor masks. It writes an experimental aggregate
+receipt and never creates READY, launches NeRF training or promotes a default.
+Watcher implementation: `scripts/watch_marshawn_frequency_admission.py`;
+auditor: `scripts/audit_marshawn_frequency_outputs.py`.
