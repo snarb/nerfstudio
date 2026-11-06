@@ -60,3 +60,20 @@ Root-released v2 technical supervisor1050165 completed **PASS** in292.94s, peak6
 Root then released the two fresh30376 diagnostic specs. Dispatcher2090776 uses exclusive idle-GPU global locks; no technical30440 state is reused. The four diagnostic gates are30876/31376/32376/34376. Metrics/visual outcome and geometry approval remain pending.
 
 Detached visual/archive watcher2091453, frozen at `C/semantic_late_visuals_v2/watcher.py` (SHA `87d9833127074dcb93e84a48f207f41c94b1bb696222f75695bc4fbed7a75324`), fetches all four paired gates. It validates checkpoint↔actual schema2 JSON/NPZ hashes, hardlinks each checkpoint/grid/config/spec/release/source inventory into `SC/independent_occupancy/semantic_late_pair_v2/{control001,treatment1}/step-*`, and records the saved effective distortion coefficient. It verifies PNG transfer hashes and creates all three GT/parent/control/treatment full/actor contact sheets plus unchanged V1 per-view/per-actor metrics. It cannot mark visual or geometry approval. Three CPU tests cover contact completeness, metric filtering, immutable artifact preservation and rejection of changed archives. Final34376 geometry replay is separately prepared by the occupancy agent; GPU admission remains separately reviewed.
+
+## Matched semantic diagnostic result: lambda1 is not the RGB winner
+
+Both fresh30376 branches completed4000 attempts and all four visual gates. Control made3998 successful Adam updates (30362→34360); treatment made3999 (→34361), with native AMP behavior unchanged. Initial ray digest and the complete4000-attempt ray-stream digest match exactly between arms; no common-random-number modification was introduced.
+
+| Attempts | Control PSNR | Control SSIM | Control LPIPS | Lambda1 PSNR | Lambda1 SSIM | Lambda1 LPIPS |
+|---:|---:|---:|---:|---:|---:|---:|
+|500|31.51833|.84391|.027356|31.62313|.84864|.028784|
+|1000|31.53298|.84450|.027050|31.71316|.84855|.028132|
+|2000|31.52584|.84441|.027203|31.65070|.84861|.028741|
+|4000|31.51389|.84400|.026732|31.70173|.84940|.029091|
+
+Treatment LPIPS is worse at every gate; final regression is8.82%. At4000, DC/HC/KA LPIPS change .032397→.037772, .024985→.025357, .022813→.024143. Black/grey change .028534→.032345 (+13.36%) and .024930→.025837 (+3.64%): both fail the3% guard **against the matched control**. This is separate from comparison against the earlier source30376 checkpoint.
+
+Manual review of all six actor contacts at500 and4000 found sharper silhouettes and less diffuse halo, but persistent floating floor/background clumps. Black garments can become smoother and lose fine contrast; local grey-garment changes do not establish a general detail gain. PSNR/SSIM improvement does not override the user's actor-LPIPS objective. No promotion or ideal-grid claim.
+
+Exact metrics, raw PNGs, nine GT/parent/control/treatment contacts and manual observations: `/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_late_visuals_v2/step-000034376/`. All four checkpoint gates and schema2 actual occupancy sidecars are preserved under `SC/independent_occupancy/semantic_late_pair_v2/`. The independent103 TRAIN +12 DC ray audit is a separate geometry gate;4000 attempts remain a diagnostic endpoint, not optimization completion. A smaller late coefficient is a new separately reviewed factor, not evidence that lambda1 won.
