@@ -104,6 +104,14 @@ print(json.dumps(r))
     semantic_root = '/home/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_actor_candidate_v2_20261106/controller'
     commands['remote_semantic_actor'] = ['ssh', '-o', 'BatchMode=yes', '-o', 'ConnectTimeout=8',
         'ubuntu@silver-sable', shlex.join(['python3', '-c', remote_code.replace(repr(remote_root), repr(semantic_root))])]
+    for label, generation in [('r1', 'semantic_actor_r1_prepared_20261106'),
+                              ('w32', 'semantic_actor_w32_prepared_20261106')]:
+        if (args.root/generation/'release.json').exists():
+            candidate_root = '/home/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/'+generation+'/controller'
+            candidate_code = remote_code.replace(repr(remote_root), repr(candidate_root))
+            candidate_code = candidate_code.replace("s=json.loads", "if not (p/'state.json').exists():\n print(json.dumps({'status':'released_controller_not_started'}));raise SystemExit(0)\ns=json.loads", 1)
+            commands['remote_semantic_'+label] = ['ssh', '-o', 'BatchMode=yes', '-o', 'ConnectTimeout=8',
+                'ubuntu@silver-sable', shlex.join(['python3', '-c', candidate_code])]
     technical = args.root/'native_reference_4k_technical_v2'
     if (technical/'launch.json').exists():
         pid = json.loads((technical/'launch.json').read_text())['pid']
