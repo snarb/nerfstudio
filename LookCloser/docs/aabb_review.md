@@ -78,3 +78,12 @@ Validation: `python -m pytest -q tests/test_aabb_visualization.py` checks perspe
 depth, opaque/unknown visibility, occluder gaps, near-plane clipping, camera/raster
 validation and packed opacity crossings. Actual GPU runs additionally exercise
 the native compositor and checkpoint immutability checks.
+# Floor-aligned boxes
+
+The box JSON may additionally contain `world_to_box`, a proper rigid 4×4
+transform. Bounds are then axis aligned in that declared frame. The reviewer
+transforms sample positions for membership and camera poses for visualization;
+the historical field, sampler, checkpoint, and camera rays remain unchanged.
+Distance depth remains valid because scaling and reflections are rejected.
+Omitting the transform preserves the original world-axis behavior. See
+`temporal_aabb_review.md` for the sampled-sequence workflow.

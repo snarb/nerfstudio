@@ -14,7 +14,8 @@ import shutil
 
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
-from aabb_visualization import overlay_depth_aware, validate_bounds
+from aabb_visualization import (overlay_depth_aware, validate_bounds,
+                                validate_rigid_frame, camera_in_box_frame)
 
 
 def sha(path):
@@ -67,7 +68,9 @@ def main(a):
     (a.output/'code').mkdir()
     shutil.copy2(__file__,a.output/'code'/Path(__file__).name)
     shutil.copy2(overlay_path,a.output/'code'/overlay_path.name)
-    bounds = validate_bounds(json.loads(a.box.read_text())['aabb'])
+    box_document = json.loads(a.box.read_text())
+    bounds = validate_bounds(box_document['aabb'])
+    world_to_box = validate_rigid_frame(box_document.get('world_to_box'))
 
     def configure(c):
         c.eval_checkpoint = a.checkpoint
@@ -88,6 +91,7 @@ def main(a):
         raise ValueError('Shared sample generation must not use opacity early termination')
     before = digest_model(model)
     box = torch.tensor(bounds, device=model.device, dtype=torch.float32)
+    frame = torch.tensor(world_to_box, device=model.device, dtype=torch.float32)
     names = ['full', 'inside', 'outside', 'inside_contribution', 'outside_contribution']
     ds = pipeline.datamanager.eval_dataset
     candidates=[i for i,p in enumerate(ds.image_filenames)
@@ -104,6 +108,7 @@ def main(a):
     c=dict(w=w,h=h,fl_x=float(camera.fx.item()),fl_y=float(camera.fy.item()),
            cx=float(camera.cx.item()),cy=float(camera.cy.item()),
            transform_matrix=camera.camera_to_worlds[0].cpu().tolist())
+    box_camera = camera_in_box_frame(c, world_to_box)
     rays = camera.generate_rays(0, keep_shape=True).flatten()
     buffers = {k: np.zeros((h*w,4),np.float32) for k in names}
     queries = json.loads(a.queries.read_text()) if a.queries else {}
@@ -123,7 +128,8 @@ def main(a):
                 alpha_thre=model.config.alpha_thre, cone_angle=model.config.cone_angle)
             values = model.field(samples)
             xyz = samples.frustums.get_positions()
-            inside = ((xyz>=box[0]) & (xyz<=box[1])).all(-1)
+            box_xyz = xyz @ frame[:3,:3].T + frame[:3,3]
+            inside = ((box_xyz>=box[0]) & (box_xyz<=box[1])).all(-1)
             sigma = values[FieldHeadNames.DENSITY][...,0]
             rgb = values[FieldHeadNames.RGB]
             starts,ends = samples.frustums.starts[...,0],samples.frustums.ends[...,0]
@@ -187,7 +193,7 @@ def main(a):
     except OSError: font=ImageFont.load_default()
     # Auto-frame the projected box, or use an explicit same-camera source crop.
     from aabb_visualization import edge_samples
-    lines=edge_samples(bounds,c)
+    lines=edge_samples(bounds,box_camera)
     if a.crop:
         crop=tuple(a.crop)
     elif lines:
@@ -205,23 +211,24 @@ def main(a):
             draw.text((i*pw+4,6),label,font=font,fill='white')
         contact.save(a.output/filename)
     tolerance=a.depth_tolerance if a.depth_tolerance is not None else float(model.config.render_step_size)
-    overlay,overlay_receipt=overlay_depth_aware(panels[1][1],bounds,c,surface_depth,
+    overlay,overlay_receipt=overlay_depth_aware(panels[1][1],bounds,box_camera,surface_depth,
         tolerance=tolerance,hidden=a.hidden_edges)
     overlay.save(a.output/(a.camera+'_box_visible.png'))
     # Expose the volume on black while testing visibility against the ORIGINAL
     # scene. Ground buried beneath the real floor stays occluded in this view too.
-    inside_overlay,_=overlay_depth_aware(panels[2][1],bounds,c,surface_depth,
+    inside_overlay,_=overlay_depth_aware(panels[2][1],bounds,box_camera,surface_depth,
         tolerance=tolerance,hidden=a.hidden_edges)
     inside_overlay.save(a.output/(a.camera+'_inside_box_visible.png'))
     receipt=dict(kind='ACTUAL_FIELD_AABB_PARTITION_NO_TRAINING',camera=a.camera,
-        aabb=bounds.tolist(),box_sha256=sha(a.box),checkpoint=str(actual),
+        aabb=bounds.tolist(),world_to_box=world_to_box.tolist(),
+        camera_box_frame=box_camera,box_sha256=sha(a.box),checkpoint=str(actual),
         checkpoint_sha256=a.checkpoint_sha256,step=step,source_helper_sha256=helper_sha,
         overlay_helper_sha256=overlay_sha,
         model_before_after_sha256=before,native_compositor_maxerror=max(parity),
         full_equals_inside_plus_outside_contributions_maxerror=split_error,
         samples=count,seconds=time.monotonic()-started,trace=trace,
         field_normalization_and_grid_unchanged=True,mask_or_source_compositing=False,updates=0,
-        rule='Native sample midpoint XYZ inside exact AABB; zero other density then reintegrate. '
+        rule='Native sample midpoint transformed by world_to_box, inside exact AABB; zero other density then reintegrate. '
              'Contribution maps retain ORIGINAL full-scene transmittance and sum to full RGB/alpha.',
         boundary_discretization_world=float(model.config.render_step_size)/2,
         camera_runtime=c,display_transform=a.display_transform,overlay=overlay_receipt,

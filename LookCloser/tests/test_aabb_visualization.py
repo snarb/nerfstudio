@@ -6,7 +6,8 @@ from PIL import Image
 import pytest
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
-from aabb_visualization import box_edges, edge_samples, overlay_depth_aware, depth_visibility
+from aabb_visualization import (box_edges, edge_samples, overlay_depth_aware, depth_visibility,
+                                validate_rigid_frame, camera_in_box_frame, camera_local)
 from render_aabb_review import first_opaque_depth
 
 
@@ -16,6 +17,26 @@ def camera():
 
 
 BOX=[[-.5,-.5,-3.],[.5,.5,-2.]]
+
+
+def test_floor_frame_preserves_projection_and_ray_distance():
+    angle=.14
+    T=np.array([[1,0,0,.2],[0,np.cos(angle),-np.sin(angle),-.1],
+                [0,np.sin(angle),np.cos(angle),.17],[0,0,0,1.]])
+    points,_=box_edges(BOX)
+    world=(points-T[:3,3])@T[:3,:3]
+    c=camera()
+    np.testing.assert_allclose(camera_local(world,c),
+        camera_local(points,camera_in_box_frame(c,T)),atol=1e-12)
+    # Transforming points for clipping and inverse-transforming corners agree.
+    np.testing.assert_allclose(world@T[:3,:3].T+T[:3,3],points,atol=1e-12)
+
+
+def test_nonrigid_box_frames_rejected():
+    for scale in [2.,-1.]:
+        T=np.eye(4);T[0,0]=scale
+        with pytest.raises(ValueError,match='rigid'):
+            validate_rigid_frame(T)
 
 
 def test_perspective_samples_have_actual_line_depth():

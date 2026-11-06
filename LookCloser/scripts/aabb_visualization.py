@@ -10,6 +10,25 @@ import numpy as np
 from PIL import Image, ImageDraw
 
 
+def validate_rigid_frame(world_to_box=None):
+    """A box may be axis aligned in a declared rigid frame (e.g. the floor)."""
+    frame = np.eye(4) if world_to_box is None else np.asarray(world_to_box,dtype=np.float64)
+    if (frame.shape != (4,4) or not np.isfinite(frame).all()
+            or not np.allclose(frame[3],[0,0,0,1],atol=1e-9)
+            or not np.allclose(frame[:3,:3].T @ frame[:3,:3],np.eye(3),atol=1e-6)
+            or not np.isclose(np.linalg.det(frame[:3,:3]),1,atol=1e-6)):
+        raise ValueError('world_to_box must be a proper rigid transform, without scale')
+    return frame
+
+
+def camera_in_box_frame(camera, world_to_box=None):
+    frame = validate_rigid_frame(world_to_box)
+    pose = np.asarray(camera['transform_matrix'],dtype=np.float64)
+    if pose.shape == (3,4):
+        pose = np.vstack([pose,[0,0,0,1]])
+    return dict(camera,transform_matrix=(frame @ pose).tolist())
+
+
 def validate_bounds(bounds):
     box = np.asarray(bounds, dtype=np.float64)
     if box.shape != (2, 3) or not np.isfinite(box).all() or (box[1] <= box[0]).any():

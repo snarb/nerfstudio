@@ -2030,3 +2030,7 @@ including the bottom below the scene floor, are omitted by default. The generic
 overlay can consume other renderers' depth buffers; the field-partition adapter
 currently requires Nerfstudio's packed `VolumetricSampler`. See
 [the reusable review workflow](docs/aabb_review.md).
+
+## Temporal floor-frame box review
+
+Box JSON supports a proper rigid `world_to_box` transform. Frozen-field clipping transforms sample positions, and overlays transform camera poses; field normalization remains fixed. Temporal source adapters preserve native masks and explicit actor IDs, carve per identity before union, qualify components with synchronized SIFT tracks, and save adjustable margins. Discarded silhouette aliases are unresolved, never occupancy free-space evidence. See `docs/temporal_aabb_review.md` and `experiments/marshawn_temporal_floor_box.md`.
