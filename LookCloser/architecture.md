@@ -2060,3 +2060,10 @@ It composes the existing native-softplus prefix with an optional FP32 opaque-ban
 opacity objective through `marshawn_sh_geometry.py`; private band sampling leaves
 prefix/global RNG unchanged. Production checks the full source/spec/evidence
 inventory before launch, and checkpoints preserve both auxiliary sampling policies.
+
+`train_marshawn_exp_geometry.py` is a separate opt-in extension of the frozen
+SH-corrected native `trunc_exp(h+1)` parent. It reuses the reviewed source and
+private sampling contracts, queries the actual field density and preserves its
+native backward. Prefix-only and prefix-plus-band runs require full AMP/Adam
+resume receipts and a hash-bound completed-parent release; defaults and running
+softplus arms remain unchanged.
