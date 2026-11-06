@@ -195,3 +195,46 @@ C=/fsx/tmp/marshawn_001660_hd/tuning_20261106
 
 The dispatcher uses the shared per-GPU flock and verifies the GPU is idle before
 starting. The pilot map alone cannot qualify a63-map dataset or create READY.
+
+### AA frequency pilot: actual outcome and longer-fit control
+
+The authorized 1000-update pilot has now completed (the earlier preparation
+status above is historical). Its actual SSIM counters, source-bound map and actor
+overlays are in `resolution_4k_AA_frequency/result`. Runtime was84.18seconds;
+peak allocated GPU memory was1.391GiB. Of121440 patches,96160 (79.183%)
+remained below SSIM.95 after the final level. Maximum-level assignments cover
+85.638%; the difference is patches that actually passed at level15.
+
+The original HD AA log at
+`frequency_radial_k4/next4_AA_EA_GA_NA/worker0.log` records final resolved=71.5%,
+therefore unresolved is approximately28.5%, with only0.1 percentage-point log
+precision. This is an observed fitting counter, not inferred from maximum-level
+map occupancy. Exact original per-patch censoring was not found.
+
+|4K cohort|Patches|Exact unresolved|Maximum level|
+|---|---:|---:|---:|
+|Actor interior (coverage≥90%)|4014|80.84%|85.40%|
+|Black actor interior|2766|87.96%|90.42%|
+|Grey actor interior|1248|65.06%|74.28%|
+|Actor boundary|494|47.57%|57.09%|
+|Outside actors|116932|79.26%|85.77%|
+
+Actual source/heatmap overlays were inspected. Large dark-clothing and floor
+regions are nearly uniformly maximum-level, as well as hair; this is not
+selective evidence of tiny detail. The source shows folds, lettering and hair,
+but sensor noise and insufficient fitting remain confounded. No claim is made
+that these masks are geometric truth. Full cohort statistics and source map
+hashes are in `result/cohort_analysis.json`.
+
+The next prepared control keeps source pixels, seed42, SSIM.95, architecture,
+patch8 and optimizer math fixed and changes only updates per level1000→4000.
+This restores approximately the samples-per-pixel budget lost when raster area
+quadrupled. `scripts/prepare_marshawn_4k_AA_long_fit.py` creates an independent
+frozen worker, exact three-site source diff, strict recipe, hash receipts and
+unauthorized release template. Six CPU tests passed, and eight staged remote
+hashes were verified. The new controller is prepared at
+`resolution_4k_AA_frequency_4000_controller`; it is **not launched** and its
+source-bound root release is absent. Expected fitting time is roughly5–6minutes,
+to be measured rather than assumed. Review should compare exact censoring,
+actor regions and visible detail before authorizing all63 maps. No threshold
+relaxation, READY creation or NeRF training is included.
