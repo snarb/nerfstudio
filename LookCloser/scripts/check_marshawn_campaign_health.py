@@ -4,6 +4,7 @@ import concurrent.futures
 import datetime
 import json
 from pathlib import Path
+import shlex
 import subprocess
 import time
 
@@ -81,6 +82,19 @@ def main():
                 'dev3_gpu': ['ssh', '-o', 'BatchMode=yes', '-o', 'ConnectTimeout=8', 'ubuntu@dev3']+query,
                 'dev3_native_processes': ['ssh', '-o', 'BatchMode=yes', '-o', 'ConnectTimeout=8', 'ubuntu@dev3',
                     'ps', '-p', '200934,200939', '-o', 'pid=,stat=,etime=,comm=']}
+    remote_root = '/home/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/sh_geometry_candidate_20261106/controller'
+    remote_code = """import json,pathlib,time
+p=pathlib.Path(REMOTE_ROOT)
+s=json.loads((p/'state.json').read_text())
+c=json.loads((p/'controller.json').read_text())
+r={'controller_pid':c['process']['pid'],'controller_alive':pathlib.Path('/proc/'+str(c['process']['pid'])).exists(),'jobs':{}}
+for n,j in s['jobs'].items():
+ q=j.get('latest_check',{})
+ r['jobs'][n]={'status':j.get('status'),'worker_alive':j.get('worker_alive',q.get('worker_alive')),'heartbeat_age_seconds':round(time.time()-j.get('heartbeat',time.time()),1),'oom':q.get('oom_evidence'),'step':max((v.get('step',-1) for v in q.get('progress',{}).values() if isinstance(v,dict)),default=None)}
+print(json.dumps(r))
+""".replace('REMOTE_ROOT', repr(remote_root))
+    commands['remote_geometry_ABC'] = ['ssh', '-o', 'BatchMode=yes', '-o', 'ConnectTimeout=8',
+        'ubuntu@silver-sable', shlex.join(['python3', '-c', remote_code])]
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
         futures = {pool.submit(command, cmd): key for key, cmd in commands.items()}
         for future, key in futures.items():
