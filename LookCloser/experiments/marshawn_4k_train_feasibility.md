@@ -289,3 +289,33 @@ Python/NumPy/Torch CPU/CUDA RNG hashes must agree, and model train/eval flags ar
 restored. CPU tests verify preservation and deliberate RNG-mutation rejection.
 This generation remains pending explicit root release; the actual residuals
 have not yet been measured.
+
+### AA16000 residual diagnostic: completed, recipe rejected
+
+Root authorized the residual generation. It completed1189.93seconds of fitting
+with1.391GiB peak allocation; actual model and Python/NumPy/Torch CPU/CUDA RNG
+hashes agreed before and after all five post-fit renders. Ten raw evidence
+artifact hashes were verified. The source-only fixed ROI montage was manually
+inspected in `resolution_4k_AA_frequency_16000_residual/result/residual_evidence/`.
+
+Increasing4000→16000 updates made exact unresolved **worse**,45.278%→81.727%.
+Actor interior censoring worsened56.33%→77.85%; black69.41%→88.25%; grey27.32%→
+54.81%. There were3180 failed→passed patches and47443 passed→failed. Consequently
+the larger budget is not a qualified frequency recipe and does not authorize
+the63-camera fit.
+
+|Fixed ROI|Mean SSIM8|Fraction passing.95|Mean absolute RGB residual|
+|---|---:|---:|---:|
+|Black shirt|0.89000|0.78%|0.01289|
+|Black pants|0.86393|0.39%|0.01463|
+|Hair|0.91540|35.16%|0.01392|
+|Grey folds|0.94884|54.30%|0.00941|
+|Shoe|0.92111|29.17%|0.01256|
+
+Predictions retain folds, hair and highlights but show discrepant colored fine
+texture on dark cloth. Residuals occur within smooth regions as well as on
+details. This evidence does not isolate sensor noise as the cause. The frozen
+2D fitter uses constant AdamLR0.01 without decay; an optimization/LR comparison
+is a plausible next diagnostic, not a proven explanation. Relaxing the SSIM
+threshold would conceal the unresolved optimization question. All original
+sources, ordinary training jobs and full63-map release status remain unchanged.
