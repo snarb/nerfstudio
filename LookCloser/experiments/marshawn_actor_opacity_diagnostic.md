@@ -39,3 +39,33 @@ interiors, preserve uncertain contours/hair, exclude known bag mislabels, and
 keep the original RGB targets and sampling. No opacity objective, alpha target,
 mask, checkpoint or grid was changed by this diagnostic. Its evidence motivates
 qualification work, not an automatic global opacity penalty or an ideal-grid claim.
+# Exterior opacity at the selected checkpoints
+
+The separate CPU helper `scripts/inspect_marshawn_exterior_opacity.py` reads
+the original scalar 16-bit alpha PNGs and frozen V1 masks. It measures Euclidean
+image-plane margins of 0, 3, 8, 16 and 32 HD pixels without loading a model,
+changing labels, or recomputing primary metrics. Checkpoint ages differ for W32:
+R0/W64 and R1/W64 use step 111316, while R0/W32 uses step 126316.
+
+Pixels with alpha above 0.1 beyond a 16-pixel margin:
+
+| Camera | R0/W64 | R1/W64 | R0/W32 |
+|---|---:|---:|---:|
+| DC | 185,261 | 235,474 | 212,542 |
+| HC | 107,305 | 123,294 | 110,803 |
+| KA | 74,830 | 85,273 | 72,158 |
+
+Root inspection of the HC opacity contact confirms a broad exterior around
+the actors and a disconnected floor component. W32 reduces integrated exterior
+alpha in all three views, but does not consistently reduce the area above 0.1.
+R1 increases both measures in all three views. These are diagnostics of saved
+renders, not independent nonactor labels or physical empty-space certificates;
+mask omissions, uncertain hair and occlusion still matter.
+
+[All measurements and source hashes](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_selected_exterior_opacity/receipt.json)
+and [HC opacity comparison](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_selected_exterior_opacity/HC_opacity.jpg).
+Good masked LPIPS alone cannot certify a clean isolated asset. A separate
+feasibility study should distinguish opacity constraints on qualified clear
+background from opaque clothing constraints; neither should treat uncertain
+hair or foreground occluders as an alpha target.
+
