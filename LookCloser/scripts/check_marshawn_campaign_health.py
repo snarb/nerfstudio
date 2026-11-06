@@ -77,11 +77,14 @@ def main():
         except (OSError, ValueError, KeyError) as error:
             result['controllers'][str(state_path.parent)] = {'error': str(error)}
     query = ['nvidia-smi', '--query-gpu=index,memory.used,utilization.gpu', '--format=csv,noheader']
+    native = args.root/'native_reference_continuation_20000'
+    launch = json.loads((native/'launch.json').read_text()) if (native/'launch.json').exists() else {}
+    native_pids = ','.join(str(launch[key]) for key in ('controller_pid', 'worker_pid') if key in launch) or '0'
     commands = {'local_gpu': query,
                 'silver_gpu': ['ssh', '-o', 'BatchMode=yes', '-o', 'ConnectTimeout=8', 'ubuntu@silver-sable']+query,
                 'dev3_gpu': ['ssh', '-o', 'BatchMode=yes', '-o', 'ConnectTimeout=8', 'ubuntu@dev3']+query,
                 'dev3_native_processes': ['ssh', '-o', 'BatchMode=yes', '-o', 'ConnectTimeout=8', 'ubuntu@dev3',
-                    'ps', '-p', '200934,200939', '-o', 'pid=,stat=,etime=,comm=']}
+                    'ps', '-p', native_pids, '-o', 'pid=,stat=,etime=,comm=']}
     remote_root = '/home/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/sh_geometry_candidate_20261106/controller'
     remote_code = """import json,pathlib,time
 p=pathlib.Path(REMOTE_ROOT)
