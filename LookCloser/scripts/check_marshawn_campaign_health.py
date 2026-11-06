@@ -128,6 +128,15 @@ print(json.dumps(r))
     if (native/'supervision.jsonl').exists():
         result['native_supervision'] = last_record(native/'supervision.jsonl')
         result['native_status'] = json.loads((native/'status.json').read_text())
+    if (native/'complete.json').exists():
+        complete = json.loads((native/'complete.json').read_text())
+        result['native_completion'] = {
+            'complete_receipt_present': True,
+            'status_file_may_describe_last_precompletion_phase': True,
+            'receipt': str(native/'complete.json'),
+            'final_step': complete.get('final_step', complete.get('step')),
+            'selected_step': complete.get('selected_step'),
+        }
     watcher = args.root/'exp_followup/conditional_release_checks.jsonl'
     if watcher.exists():
         result['conditional_followup'] = last_record(watcher)
@@ -137,6 +146,14 @@ print(json.dumps(r))
     for name in ['wait_health.jsonl', 'phase_health.jsonl']:
         if (technical/name).exists():
             result['native4k_'+name] = last_record(technical/name)
+    if (technical/'complete.json').exists():
+        complete = json.loads((technical/'complete.json').read_text())
+        result['native4k_technical_completion'] = {
+            'complete_receipt_present': True,
+            'receipt': str(technical/'complete.json'),
+            'passed': complete.get('passed'),
+            'production_authorized': False,
+        }
     with (args.root/'root_supervision.jsonl').open('a') as stream:
         stream.write(json.dumps(result)+'\n')
     print(json.dumps(result, indent=2))
