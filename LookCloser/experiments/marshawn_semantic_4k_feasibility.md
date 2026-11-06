@@ -128,3 +128,38 @@ After root reviews the selected ancestry and all63 maps, the concrete gates are:
   visual/geometry checks. Optional4K model views are supplementary matched-raster
   diagnostics under separate release. Keep temporal stability and hair/feet
   boundaries explicit; do not declare the map/support ideal from metrics alone.
+
+## CPU adapter implementation and actual checks
+
+Root authorized an isolated CPU implementation. Prepared generation:
+`/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_4k_adapter_proposal`.
+All1495 parent source files remain byte-identical; only standalone
+`marshawn_semantic_4k_derivation.py` is added. It validates the dual-source
+receipt and returns a proposed configuration without constructing a model or
+optimizer. The unchanged strict semantic loader still receives the originalHD
+geometry source. Ordinary training/resume and the semantic field/EMA/core/
+occupancy code are untouched; there is no production entrypoint release.
+
+The real CPU check verifies654 source hashes, all66 camera rows by identity,
+exact ordering within each split, all9 EVAL bytes/crops, native-mask lineage,
+and the original mapped128³ support SHA. The exporter changes only overall
+TRAIN/EVAL interleaving, so a naive positional zip of all66frames would be
+incorrect. The actual frozen parser confirms63TRAIN3840×2024 and3EVAL1920×1012,
+with identical poses/AABB and exactly scaledTRAIN intrinsics.
+
+The normalized real config differs in exactly two fields:
+`pipeline.datamanager.data` and `pipeline.datamanager.dataparser.data`.
+The entire model config, including `semantic_data` pointing toHD, is identical.
+Final CPU CLI/config checks hide CUDA devices and confirm CUDA was not
+initialized; no model or optimizer was instantiated. Ten tests reject changed
+pose/intrinsics/EVAL/splits/order/duplicate cameras, incomplete/unbound maps,
+source tampering, and attempts to write READY or overwrite either dataset.
+
+Adapter SHA `f7bdb5fe24e2caaa64836c3f27a2af69be570e05550046427f0f199ff874f380`;
+derivation receipt SHA
+`8e4286677c6f9ea188fa089dce3add4c8b492a361ce15414b91caa205a0eaa46`;
+config receipt SHA
+`454aca57fb0feb05069b6d15956c2210fe9c3ee524a67e113f7d5dc04c7a309b`.
+`source.diff`, `source_inventory.json`, `preparation.json` and CPU logs are
+retained. The full cache gate, all63-map qualification, READY construction,
+selected final R0/R1/W32 ancestry and GPU release remain pending.
