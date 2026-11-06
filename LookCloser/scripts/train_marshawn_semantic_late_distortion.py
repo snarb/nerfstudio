@@ -101,6 +101,41 @@ def verify_semantic_model(model, loaded, anchor):
                 learned_core_preserved=True,semantic_selector_installed=hasattr(model,'semantic_lookup'))
 
 
+def verify_numeric_render_parity(source, rendered, expected_hashes, expected_metrics, actual_metrics):
+    """Reviewed quantization-boundary gate; source bytes and full state remain exact."""
+    import math
+    import numpy as np
+    from PIL import Image
+    pixels={}
+    for camera in ('DC','HC','KA'):
+        for suffix in ('.png','_alpha.png'):
+            name=camera+suffix;original=Path(source)/name;replay=Path(rendered)/name
+            if sha(original)!=expected_hashes[name]:raise ValueError('Original render changed: '+name)
+            a,b=np.asarray(Image.open(original)),np.asarray(Image.open(replay))
+            dtype=np.dtype('uint16' if suffix=='_alpha.png' else 'uint8')
+            if a.shape!=b.shape or a.dtype!=dtype or b.dtype!=dtype:raise ValueError('Zero render raster/dtype changed: '+name)
+            delta=np.abs(a.astype(np.float64)-b.astype(np.float64));fraction=float(np.count_nonzero(delta)/delta.size)
+            limit=.001 if suffix=='_alpha.png' else 1e-5
+            if float(delta.max())>1 or fraction>limit:raise ValueError('Zero render numeric tolerance exceeded: '+name)
+            pixels[name]=dict(source_sha256=expected_hashes[name],replay_sha256=sha(replay),max_code_delta=float(delta.max()),mean_code_delta=float(delta.mean()),changed_values=int(np.count_nonzero(delta)),changed_fraction=fraction,changed_fraction_limit=limit)
+    differences={}
+    pairs=[('aggregate',expected_metrics['metrics'],actual_metrics['metrics'])]
+    for group,labels in [('by_view',{'DC','HC','KA'}),('by_actor',{'black','grey'})]:
+        if set(expected_metrics[group])!=labels or set(actual_metrics[group])!=labels:raise ValueError('Zero evaluation membership differs')
+        pairs.extend((group+'/'+label,expected_metrics[group][label],actual_metrics[group][label])for label in sorted(labels))
+    expected_records={(r['view'],r['actor']):r for r in expected_metrics['records']};actual_records={(r['view'],r['actor']):r for r in actual_metrics['records']}
+    required={(v,a)for v in ('DC','HC','KA')for a in ('black','grey')}
+    if set(expected_records)!=required or set(actual_records)!=required:raise ValueError('Six unchanged actor/view records required')
+    pairs.extend(('record/'+v+'/'+a,expected_records[v,a],actual_records[v,a])for v,a in sorted(required))
+    for label,a,b in pairs:
+        differences[label]={}
+        for key in ('psnr','ssim','lpips'):
+            before,after=float(a[key]),float(b[key]);delta=after-before
+            if not math.isfinite(before)or not math.isfinite(after)or abs(delta)>1e-5:raise ValueError('Zero V1 numeric metric tolerance exceeded: '+label+'/'+key)
+            differences[label][key]=delta
+    return dict(status='numeric_render_parity',source_bytes_exact=True,full_state_requirement='bitwise canonical hashes unchanged',RGB8_alpha16_max_code_delta=1,metric_absolute_tolerance=1e-5,pixels=pixels,metric_deltas=differences,bitwise_render_claim=False,cause_established=False)
+
+
 def run(spec_path, stop_after_attempts=None):
     spec_path = Path(spec_path).resolve(); spec = validate_spec(read(spec_path))
     release = read(spec['release'])
@@ -220,15 +255,9 @@ def run(spec_path, stop_after_attempts=None):
         zero_metrics = base.evaluate(trainer, ready, Path(parent_spec['data']), output, loaded['step'])
         verify_state_equality(loaded, actual_state())
         source_folder = Path(spec['parent_checkpoint']).parent/'renders'
-        render_hashes = {}
-        for camera in ('DC','HC','KA'):
-            for suffix in ('.png','_alpha.png'):
-                name = camera+suffix
-                expected, actual = sha(source_folder/name), sha(output/'renders'/f"step-{loaded['step']:09d}"/name)
-                if expected != spec['source_render_sha256'][name] or expected != actual: raise ValueError('Zero-update source render differs: '+name)
-                render_hashes[name] = actual
+        render_parity=verify_numeric_render_parity(source_folder,output/'renders'/f"step-{loaded['step']:09d}",spec['source_render_sha256'],anchor['source_eval'],zero_metrics)
         export_snapshot(model, checkpoint, loaded['step'], output/'grid', sources=anchor['source_hashes'])
-        atomic(output/'complete.json', {'status':'zero_update_state_equal','technical_smoke':True,'source_sha256':spec['parent_checkpoint_sha256'],'proof':proof,'zero_render_sha256':render_hashes,'zero_metrics':zero_metrics,'render_state_unchanged':True})
+        atomic(output/'complete.json', {'status':'zero_update_state_equal','technical_smoke':True,'source_sha256':spec['parent_checkpoint_sha256'],'proof':proof,'render_parity':render_parity,'zero_metrics':zero_metrics,'render_state_unchanged':True})
         trainer.shutdown(); return
     target = 30376+(64 if spec['mode'] == 'technical' else 4000)
     if loaded['step'] >= target: raise ValueError('Completed child cannot silently rerun')

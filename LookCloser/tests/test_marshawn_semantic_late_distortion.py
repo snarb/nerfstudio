@@ -104,3 +104,24 @@ def test_nonpersistent_support_and_actual_core_are_checked(monkeypatch,damage):
     if damage:
         with pytest.raises(ValueError):m.verify_semantic_model(model,{},anchor)
     else:assert m.verify_semantic_model(model,{},anchor)['learned_core_preserved']
+
+def test_numeric_render_gate_preserves_source_integrity_and_bounds(tmp_path):
+    import numpy as np,hashlib
+    from PIL import Image
+    m=module();source=tmp_path/'source';render=tmp_path/'render';source.mkdir();render.mkdir();hashes={}
+    for camera in ('DC','HC','KA'):
+        for suffix in ('.png','_alpha.png'):
+            name=camera+suffix;shape=(400,400)if suffix=='_alpha.png'else(400,400,3);dtype=np.uint16 if suffix=='_alpha.png'else np.uint8
+            a=np.zeros(shape,dtype=dtype);Image.fromarray(a).save(source/name);a.reshape(-1)[0]=1;Image.fromarray(a).save(render/name);hashes[name]=m.sha(source/name)
+    score={'psnr':31.,'ssim':.84,'lpips':.027}
+    expected={'metrics':score.copy(),'by_view':{v:score.copy()for v in ('DC','HC','KA')},'by_actor':{a:score.copy()for a in ('black','grey')},'records':[dict(view=v,actor=a,**score)for v in ('DC','HC','KA')for a in ('black','grey')]}
+    actual=copy.deepcopy(expected);actual['metrics']['lpips']+=2e-7
+    result=m.verify_numeric_render_parity(source,render,hashes,expected,actual);assert result['status']=='numeric_render_parity'and result['bitwise_render_claim']is False
+    actual['by_view']['KA']['lpips']+=2e-5
+    with pytest.raises(ValueError,match='metric tolerance'):m.verify_numeric_render_parity(source,render,hashes,expected,actual)
+    actual=copy.deepcopy(expected);a=np.zeros((400,400,3),np.uint8);a.reshape(-1)[:5]=1;Image.fromarray(a).save(render/'DC.png')
+    with pytest.raises(ValueError,match='numeric tolerance'):m.verify_numeric_render_parity(source,render,hashes,expected,actual)
+    a[:]=0;a[0,0,0]=2;Image.fromarray(a).save(render/'DC.png')
+    with pytest.raises(ValueError,match='numeric tolerance'):m.verify_numeric_render_parity(source,render,hashes,expected,actual)
+    a[:]=0;Image.fromarray(a).save(render/'DC.png');(source/'DC.png').write_bytes(b'changed')
+    with pytest.raises(ValueError,match='Original render changed'):m.verify_numeric_render_parity(source,render,hashes,expected,actual)
