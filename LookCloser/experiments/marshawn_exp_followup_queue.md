@@ -66,3 +66,23 @@ including the new queue. Its registry and frozen reporter are already saved; it
 does not mutate or replace the existing six-source report. Both commands remain
 unexecuted during this preparation. The release template must not be mistaken
 for a signed authorization.
+
+## Conditional launch authorized after matched-depth review
+
+Root reviewed the exact source/config differences, CPU checks, matched15188 RGB
+crops and native/halo/dense depth plots. A separate durable watcher
+`watch_marshawn_exp_followup_release.py` now waits for the unchanged exponential
+parent to finish106316 ancestry plus plateau. The five experiments may launch
+only if completed v1 LPIPS is≤.06 and neither actor regresses>3% relative to the
+fixed corrected-SH15188 reference. Parent configuration and reviewed artifacts
+are hash/config bound. No model/grid promotion is authorized by this policy.
+
+Policy: `<campaign>/exp_followup/conditional_launch_policy.json`.
+Watcher PID2058869; checks and launch receipts are in the same directory. The
+watcher supplies the exact final parent hash to the existing independent release
+verifier, then launches the prepared queue and separate seven-source reporter.
+A failed scientific condition writes a blocked receipt instead of relaxing it;
+transient SSH reads retry every60seconds. Five focused eligibility checks passed.
+This makes the reviewed next experiments durable without claiming their results
+in advance. The root continues supervising the active campaign through the
+user's minimum20-hour deadline.
