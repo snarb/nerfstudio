@@ -149,3 +149,49 @@ Receipts: `resolution_4k_pilots/complete.json`, `inspection.json` and per-camera
 `replay/*.json`. The6.82MB `four_camera_review.zip` contains review crops and
 provenance. Full63 export and any frequency pilot remain unauthorized until the
 root reviewer accepts these results.
+
+## Reviewed full63 source export and prepared AA frequency pilot
+
+Root's pilot `root_review.json` approved the CPU-only scope extension. The wrapper
+`scripts/build_marshawn_4k_train.py` verifies that review and every original helper
+hash, then delegates to the byte-identical pilot builder with the63 TRAIN camera
+names. Exactly two CPU workers were used; four-pilot artifacts remain unchanged.
+
+`resolution_4k_train63/complete.json` records63 successful exact FHD RGB/semantic/
+confidence/validity replays. An independent post-check verified504 semantic-array
+byte hashes. The four prior4K pilot images and semantic-array hashes also match
+the new generation. All EVAL files/crops/camera rows and the accepted box are
+unchanged. The inherited MC bag inclusion remains explicitly labeled a v1 mask
+error, with no geometric-GT claim or silent correction.
+
+The new `transforms.json` describes63 TRAIN4K and3 EVAL FHD images;
+`source_metadata.json` binds source hashes and per-camera crops. There is **no
+ready.json and no frequency-map directory**. Source completion does not authorize
+NeRF training or certify all source masks geometrically.
+
+A separate single-camera AA frequency.95 pilot is prepared in
+`resolution_4k_AA_frequency`, with controller root
+`resolution_4k_AA_frequency_controller`. Its exact AA image, source completion,
+metadata and receipt have been staged and hash-verified on silver. The worker
+preserves the16-level/1000-step/.95/patch8/hash23 recipe and records read-only
+per-level SSIM counts, exact final unresolved-patch mask, map histogram, time,
+memory and actor frequency overlays. This distinguishes censored maximum-level
+patches from patches that actually meet the final-level threshold.
+
+Nine CPU tests passed, including review gates, EVAL split exclusion, release
+refusal before CUDA imports and progressive censoring accounting. The frozen
+heatmap API was separately checked on CPU. No GPU fit has started, no GPU lock is
+held, and the release file remains absent. GPU0 belongs first to the separate
+exponential-geometry technical gates; root must explicitly release it afterward.
+
+After that release, root must create the staged worker's `root_release.json`
+from the unauthorized template with `frequency_fit_authorized:true`,
+`reviewer:"root"`, the exact spec hash and source-completion hash. Then:
+
+```bash
+C=/fsx/tmp/marshawn_001660_hd/tuning_20261106
+"$C/python" "$C/transport_v2_code/LookCloser/scripts/marshawn_tuning_controller.py" launch --root "$C/resolution_4k_AA_frequency_controller"
+```
+
+The dispatcher uses the shared per-GPU flock and verifies the GPU is idle before
+starting. The pilot map alone cannot qualify a63-map dataset or create READY.
