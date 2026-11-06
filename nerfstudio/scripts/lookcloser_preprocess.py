@@ -2,6 +2,7 @@
 
 import json
 import csv
+import math
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Tuple
@@ -810,6 +811,17 @@ class DebugBundle:
     ssim_by_level: Dict[int, torch.Tensor]
 
 
+def per_level_learning_rates(initial: float, final: float, steps: int) -> List[float]:
+    """Rates for one progressive level; Adam state is retained across levels."""
+    if not math.isfinite(initial) or not math.isfinite(final) or not 0 < final <= initial:
+        raise ValueError("Expected finite learning rates with 0 < final <= initial.")
+    if steps < 2:
+        raise ValueError("Per-level LR decay requires at least two updates per level.")
+    values = [initial * math.exp(math.log(final / initial) * j / (steps - 1)) for j in range(steps)]
+    values[0], values[-1] = initial, final
+    return values
+
+
 def train_progressive_and_estimate_frequency_map(
     image_tensor: torch.Tensor,
     steps: Optional[int],
@@ -828,6 +840,7 @@ def train_progressive_and_estimate_frequency_map(
     debug_levels: Optional[List[int]] = None,
     debug_patch_count: int = 24,
     debug_seed: int = 0,
+    lr_final_per_level: Optional[float] = None,
 ) -> Tuple[InstantNGP2D, torch.Tensor, torch.Tensor, DebugBundle]:
     """
     Trains 2D NGP progressively and assigns each patch the first level
@@ -952,8 +965,13 @@ def train_progressive_and_estimate_frequency_map(
     # levels. Full-level training followed by inference-only masking would not
     # measure the minimum level that can actually learn the patch.
     model.train()
+    level_rates = ([per_level_learning_rates(lr, lr_final_per_level, count) for count in per_level_steps]
+                   if lr_final_per_level is not None else None)
     for level in range(n_levels):
-        for _ in range(per_level_steps[level]):
+        for local_step in range(per_level_steps[level]):
+            if level_rates is not None:
+                for group in optimizer.param_groups:
+                    group["lr"] = level_rates[level][local_step]
             global_step += 1
 
             iy = torch.randint(0, h, (batch_size,), device=device)
@@ -1388,6 +1406,9 @@ class LookCloserPreprocessConfig:
     lr: float = 1e-2
     """Adam learning rate."""
 
+    lr_final_per_level: Optional[float] = None
+    """Optional exponential LR decay within each level; reset LR, retain Adam moments."""
+
     ssim_threshold: float = 0.97
     """Patch is assigned to the first level where SSIM >= threshold."""
 
@@ -1488,6 +1509,10 @@ class LookCloserPreprocessConfig:
             raise ValueError("train_batch_size must be > 0.")
         if self.n_levels < 2:
             raise ValueError("n_levels must be >= 2.")
+        if self.lr_final_per_level is not None:
+            minimum_steps = (self.train_steps_per_level if self.steps_per_image is None
+                             else self.steps_per_image // self.n_levels)
+            per_level_learning_rates(self.lr, self.lr_final_per_level, minimum_steps)
         if self.n_features <= 0:
             raise ValueError("n_features must be > 0.")
         if self.min_res <= 0:
@@ -1577,6 +1602,7 @@ class LookCloserPreprocessConfig:
             debug_levels=debug_levels if debug_out_dir is not None else None,
             debug_patch_count=self.debug_patch_count,
             debug_seed=self.debug_seed,
+            lr_final_per_level=self.lr_final_per_level,
         )
 
         if save_freq_path is not None:
@@ -1594,6 +1620,15 @@ class LookCloserPreprocessConfig:
                 n_features=self.n_features,
                 log2_hashmap_size=self.log2_hashmap_size,
             )
+            if self.lr_final_per_level is not None:
+                metadata_path = save_freq_path.with_suffix(".json")
+                metadata = json.loads(metadata_path.read_text())
+                metadata["per_level_lr_schedule"] = {
+                    "kind": "exponential", "initial": self.lr,
+                    "final": self.lr_final_per_level,
+                    "reset_LR_each_level": True, "retain_Adam_state": True,
+                }
+                metadata_path.write_text(json.dumps(metadata, indent=2) + "\n")
 
         if debug_out_dir is not None:
             save_debug_artifacts(

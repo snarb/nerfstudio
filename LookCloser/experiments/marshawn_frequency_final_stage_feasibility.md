@@ -2,8 +2,9 @@
 
 ## What was inspected
 
-Read-only proposal; no new fits, dataset edits, or changes to the approved
-63-camera experimental queue. Primary references are [the local paper](../Paper%20LookCloser.md)
+Scene experiments remain proposed; an optional schedule and synthetic technical
+check are implemented below. No new scene fits, dataset edits, or changes to the
+approved63-camera queue. Primary references are [the local paper](../Paper%20LookCloser.md)
 §4.1 and §7.3, and `nerfstudio/scripts/lookcloser_preprocess.py` lines813–1000.
 The inspected source SHA is
 `f1a3b3dbc2a72b4173c3e943ed4cd21f19526b97c7e9761e9f8150199c061855`,
@@ -58,6 +59,39 @@ excludes tail patches: height2024 is divisible by8, but patch16 would leave
 handling and downstream projection validation before any production map export.
 Thus A and threshold B are the cleaner first two one-factor comparisons.
 Physical-support experiments remain a separately documented later option.
+
+## Optional schedule implementation and technical check
+
+The preprocessing config now accepts `lr_final_per_level`; its default is
+`None`, retaining the original constant-LR path. Alternative A sets `.001`.
+The existing single Adam instance is retained across levels, and only each
+parameter group's LR changes before an update. Map metadata records the
+optional schedule. Threshold B already uses the existing `ssim_threshold`
+option; it must leave the new LR option unset. Neither option changes the
+currently frozen maps or production code copies.
+
+Ten CPU checks pass, including exact1000/4000-update endpoints, constant
+log-rate increments, and rejection of insufficient level budgets. Specializing
+the new fitter to the default `None` produces the original function's exact
+AST after removing dead schedule branches and renaming its unused loop index.
+Receipt: `tuning_20261106/frequency_lr_technical_v2/default_AST_proof.json`.
+
+An isolated synthetic64×64 CUDA test used one idle, exclusively locked silver
+GPU2, one-GiB allocator cap and120-second external timeout. The actual fitter
+completed in1.38seconds, peak tensor allocation610304bytes. All four fits
+retain identical initial parameters, random pixel streams and final RNG;
+every run has one Adam instance and state steps1…12. The decay fit reaches
+both endpoints on each of three four-update levels without resetting moments.
+
+The first probe's arbitrary1e-5 final-parameter parity assertion failed and is
+preserved under `frequency_lr_technical_v1/failed_probe.log`. The follow-up
+separately measured an unchanged-original repeat: its maximum parameter
+difference is `.0130891`, exactly the same maximum measured between original
+and default candidate in that probe. This demonstrates numerical variation in
+the original test; its underlying cause is unproven. Bitwise numerical
+equivalence is **not** certified, and this is not a scene-map quality test.
+The follow-up receipt explicitly records that limitation. No new scene fit,
+NeRF training recipe or frequency-map promotion follows from this probe.
 
 ## Evidence required
 
