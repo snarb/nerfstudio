@@ -356,3 +356,24 @@ bytes each; both production workers remained healthy. Evidence lives in
 `/fsx/tmp/marshawn_001660_hd/tuning_20261106/frequency_initialization_audit`.
 These new probes do not establish the historical cause of the two fits'
 divergence: their initial hashes were not recorded at the time.
+
+### GB admission repair, 2026-11-06 22:45 UTC
+
+GB had never fitted: a lost initial lock race left a pending dispatch intent
+pinned to GPU3, subsequently occupied by W32. Remote GB had no process, worker
+receipt, progress or output. Under root authorization, its worker lock was held
+while the unused intent was archived. A first SIGSTOP/disk-reset/SIGCONT attempt
+was ineffective: the dispatcher retains state in memory and rewrote the old
+intent. This failure is preserved; it was not a completed repair.
+
+The corrected procedure replaced **only** the verified dispatcher2069574 with
+2090000 using the exact same frozen controller and manifest. A60s independent
+watchdog and finally block ensured idempotent restart. Only GB's pending
+host/GPU/spec intent was reset; all other job dictionaries and active worker
+identities were preserved. GB subsequently started normally on GPU0,
+worker1068789, and reached actual frequency-fit progress. No active fit was
+interrupted and no recipe/source changed. Receipts:
+`C/frequency_GB_dispatcher_restart`, including `GB_dispatched.json` and the
+previous ineffective attempt record. Admission watcher2068926 remains active
+and recognizes the replacement controller through the durable controller
+receipt; final63-map aggregate still must pass before any downstream release.
