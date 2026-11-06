@@ -2,8 +2,8 @@
 
 ## What was inspected
 
-Read-only design for a later resolution factor. No dataset, masks, frequency
-maps, optimizer runs or GPU probes were created. Evidence inventory:
+The initial inspection was read-only: no dataset, masks, frequency maps,
+optimizer runs or GPU probes were created at that stage. Evidence inventory:
 `/fsx/tmp/marshawn_001660_hd/tuning_20261106/resolution_4k_design/feasibility.json`.
 
 The existing AA diagnostic in `resolution_feasibility_AA_v2` reconstructs the
@@ -114,3 +114,38 @@ after structural/resolution selection.
   evaluation hash/crop/camera and the box remain unchanged. A separate cold
   training arm must inherit the then-reviewed best structural recipe, not an
   obsolete original-DAG winner. No training release is granted by this design.
+
+## Subsequent authorized four-camera CPU pilot
+
+`scripts/build_marshawn_4k_pilots.py` implements only AA,NE,JA,MC with at most two
+CPU workers. Five unit tests passed. The isolated helper snapshot and CPU logs
+are in `resolution_4k_pilots_builder`; detached builder PID2058684 finished in
+about31seconds. Per-camera elapsed time was14–16seconds. No GPU, frequency fitting
+or training was used, and the other59 TRAIN cameras were not exported.
+
+Each pilot passed exact FHD RGB replay, all eight semantic-array comparisons,
+native W32/W64 replay, source veto and calibrated validity replay. An independent
+post-check matched all32 semantic-array byte hashes against the frozen dataset.
+All nine EVAL files, camera rows/crops and the accepted box remain unchanged.
+The four new TRAIN images are3840×2024; `pilot_transforms.json` explicitly names
+only these four TRAIN views and three unchanged EVAL views. There is no training
+`ready.json` or map directory.
+
+Actual-pixel hair, feet and contact review crops are under
+`resolution_4k_pilots/review/<camera>/`; their three panels show source RGB,
+contours and W64 confidence. Contours are cyan for the black actor, yellow for
+the grey actor, green for the filled sampling core and magenta for source veto.
+Hair scopes come from the reviewed native RAW tiles through the inverse lens
+mapping. Overview images are display thumbnails; anatomical crops retain scale1.
+
+All four overviews and hair scopes plus selected feet crops were visually
+inspected. No systematic contour remapping offset was seen. In MC's grey-foot
+scope, confidence/core includes a neighboring dark object or fabric: its
+anatomical/occlusion identity still needs root review. Exact FHD replay establishes
+that this is inherited source semantics, not a newly introduced4K mapping error.
+No source correction or automatic manual-review approval was made.
+
+Receipts: `resolution_4k_pilots/complete.json`, `inspection.json` and per-camera
+`replay/*.json`. The6.82MB `four_camera_review.zip` contains review crops and
+provenance. Full63 export and any frequency pilot remain unauthorized until the
+root reviewer accepts these results.
