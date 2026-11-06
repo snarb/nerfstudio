@@ -1,0 +1,7 @@
+{
+  "returncode": 0,
+  "python": "/home/ubuntu/anaconda3/envs/nerfstudio/bin/python",
+  "no_GPU_or_model_import": true,
+  "tests_sha256": "6746105b3f42c373bd0577f1252b9afd4cdb10581e9572b1ead0b4310244ea42",
+  "log_sha256": "0c916ffc1f7f165bffe1bd1b5900c4a50809f42d6a274121a110dd66f68cfbc9"
+}

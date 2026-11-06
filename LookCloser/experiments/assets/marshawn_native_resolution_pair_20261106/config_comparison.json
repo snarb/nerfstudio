@@ -1,0 +1,66 @@
+{
+  "differences": [
+    {
+      "key": ".experiment_name",
+      "HD": "native_resolution_pair_HD",
+      "TRAIN4K": "native_resolution_pair_TRAIN4K"
+    },
+    {
+      "key": ".output_dir",
+      "HD": [
+        "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/HD/run"
+      ],
+      "TRAIN4K": [
+        "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/TRAIN4K/run"
+      ]
+    },
+    {
+      "key": ".pipeline.datamanager.data",
+      "HD": [
+        "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/native_4k_continuation_plan/adapter/data_HD_identity"
+      ],
+      "TRAIN4K": [
+        "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/native_4k_continuation_plan/adapter/data_TRAIN4K"
+      ]
+    },
+    {
+      "key": ".pipeline.datamanager.dataparser.data",
+      "HD": [
+        "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/native_4k_continuation_plan/adapter/data_HD_identity"
+      ],
+      "TRAIN4K": [
+        "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/native_4k_continuation_plan/adapter/data_TRAIN4K"
+      ]
+    },
+    {
+      "key": ".pipeline.final_color_gate",
+      "HD": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/native_resolution_pair_plan_v1/HD_RGB_GATE_NOT_APPROVED.json",
+      "TRAIN4K": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/native_resolution_pair_plan_v1/TRAIN4K_RGB_GATE_NOT_APPROVED.json"
+    },
+    {
+      "key": ".pipeline.final_color_gate_sha256",
+      "HD": "f23ffb4f82e0a1da8dc119dc4800c119b23f723d0b2c7b6f6a674b081c547ac2",
+      "TRAIN4K": "f62ac6d867662fb59d4f30861f72fa2c7a29fa32a394ae9b4b4244529baebc43"
+    },
+    {
+      "key": ".pipeline.final_grid_artifact_dir",
+      "HD": [
+        "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/HD/grids"
+      ],
+      "TRAIN4K": [
+        "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/TRAIN4K/grids"
+      ]
+    },
+    {
+      "key": ".pipeline.final_rgb_train_scale",
+      "HD": "1",
+      "TRAIN4K": "2"
+    }
+  ],
+  "model_optimizer_scheduler_geometry_sampler_settings_identical": true,
+  "exact_source_step": 100000,
+  "LR_preserved": 0.0001,
+  "initial_dynamic_rays": 6825,
+  "attempted_updates_per_chunk": 5000,
+  "actual_Adam_updates_recorded_separately": true
+}

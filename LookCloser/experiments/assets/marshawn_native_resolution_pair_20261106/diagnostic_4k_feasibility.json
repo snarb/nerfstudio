@@ -1,0 +1,55 @@
+{
+  "kind": "FEASIBILITY_ONLY_NO_GPU_NO_TRAINING",
+  "diagnostic_sha256": "f83aa03d9c148e05014907034d94d0f77f4e3d3282fa8169d9bf562a3cadda29",
+  "native_descriptor_sha256": "3a0a16ad1738ba3750a88d1b06e0a85ce95a47a2a4405301bcd2866a447e1e98",
+  "cameras": [
+    {
+      "camera": "DC",
+      "floor_to_native_pose_max_abs": 1.1102230246251565e-16,
+      "intrinsic_size_ratios": {
+        "w": 2.0,
+        "h": 2.0,
+        "fl_x": 2.0,
+        "fl_y": 2.0,
+        "cx": 2.0,
+        "cy": 2.0
+      },
+      "RGB_sha256": "31236f0ed3d59dcb7ac09788238690cfd18c840f7743aa0f74c90be9d17fa002",
+      "valid_sha256": "650629bda6cfcdebd04a062f185e4908d110b9b89a6bf0c8914d21d5636cd6c7"
+    },
+    {
+      "camera": "HC",
+      "floor_to_native_pose_max_abs": 1.1102230246251565e-16,
+      "intrinsic_size_ratios": {
+        "w": 2.0,
+        "h": 2.0,
+        "fl_x": 2.0,
+        "fl_y": 2.0,
+        "cx": 2.0,
+        "cy": 2.0
+      },
+      "RGB_sha256": "f328152773d3f07126ea266aac7990cac95f4061b2072d444ff9949f767397e6",
+      "valid_sha256": "650629bda6cfcdebd04a062f185e4908d110b9b89a6bf0c8914d21d5636cd6c7"
+    },
+    {
+      "camera": "KA",
+      "floor_to_native_pose_max_abs": 1.1102230246251565e-16,
+      "intrinsic_size_ratios": {
+        "w": 2.0,
+        "h": 2.0,
+        "fl_x": 2.0,
+        "fl_y": 2.0,
+        "cx": 2.0,
+        "cy": 2.0
+      },
+      "RGB_sha256": "fee8733153e5f6db4e3ec18a42c786b8ab7ed2253d425ff73f805b814fd00836",
+      "valid_sha256": "650629bda6cfcdebd04a062f185e4908d110b9b89a6bf0c8914d21d5636cd6c7"
+    }
+  ],
+  "primary_FHD_score_unchanged": true,
+  "training_eligible": false,
+  "proposed_renderer": "Deepcopy original native EVAL camera; scale intrinsics/size by two. Keep native world pose and field AABB. Do not feed floor-frame poses into field.",
+  "pixel_center_note": "4K centers sample different subpixel positions; continuous coordinates map by x_HD=(x_4K+.5)/2-.5, likewise y. No claim of identical discrete rays.",
+  "visual_protocol": "Actual 4K GT | native100k | HD additional-step | TRAIN4K same additional-step; fixed actor/hair/hand/foot crops doubled from FHD. No upsampled predictions, no 4K selection/stop metric.",
+  "resources": "Four times pixels; approximately four times render work. Chunked field queries can keep query memory fixed, but full ray/output buffers grow fourfold. Resource probe required before actual rendering."
+}
