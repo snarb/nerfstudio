@@ -28,6 +28,8 @@ The exported scene also contains39 unique triangulated TRAIN feature landmarks f
 
 The inspector makes individual cells and all slices accessible for manual review. It supplements camera renders and ray traces; an occupied or admitted cell is not proof of physical geometry, and an excluded cell is not an independently verified empty-space certificate. The displayed actor-only checkpoint still has scattered false foreground occupancy; the new support is a separate training hypothesis being tested.
 
+A subsequent [matched15188 comparison](/fsx/tmp/marshawn_001660_hd/tuning_20261106/grid_inspector/semantic_15188/index.html) contains the original actor-only active grid (123,817 cells), the actual newly trained semantic-admission active grid (51,894), and its fixed mapped admission (131,911). These are identical native cell boundaries; the raw semantic source has slightly different float64 boundaries and is deliberately not overlaid. Chromium landmark navigation passed and root viewed the comparison. Newly trained geometry differs from a posthoc intersection: some cells appear where the old model lacked appropriate support. Lower cell count alone is not an accuracy metric; remaining halos/floor fragments are documented in the separate ray and render audits.
+
 Download and open locally:
 
 ```bash
