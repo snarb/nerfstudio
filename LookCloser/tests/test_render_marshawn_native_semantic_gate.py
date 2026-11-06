@@ -7,7 +7,7 @@ import torch
 
 SCRIPTS = Path(__file__).resolve().parents[1] / 'scripts'
 sys.path.insert(0, str(SCRIPTS))
-from render_marshawn_native_semantic_gate import first_opaque_depth
+from render_marshawn_native_semantic_gate import first_opaque_depth, semantic_voxel_indices
 
 
 def test_packed_current_density_depth_and_empty_ray():
@@ -39,3 +39,13 @@ if __name__ == "__main__":
     test_packed_current_density_depth_and_empty_ray()
     test_removed_foreground_depth_moves_to_retained_surface()
     print("2 packed depth regression checks passed")
+
+
+def test_semantic_resolution_lookup_preserves_floor_frame():
+    bounds=torch.tensor([[-.84,-.21,-.07],[.15,.42,.63]],dtype=torch.float64)
+    point=torch.tensor([[-.11713805167004304,.14165073766903985,.005085417456200336]],dtype=torch.float64)
+    old=semantic_voxel_indices(point,bounds,(128,128,128))
+    fine=semantic_voxel_indices(point,bounds,(256,256,256))
+    assert old.tolist()==[[93,71,13]]
+    assert torch.equal(fine//2,old)
+    assert semantic_voxel_indices(bounds,bounds,(256,256,256)).tolist()==[[0,0,0],[255,255,255]]

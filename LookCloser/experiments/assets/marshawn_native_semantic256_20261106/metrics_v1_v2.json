@@ -1,0 +1,2425 @@
+{
+  "receipt": {
+    "kind": "ALL_NATIVE_VARIANTS_FIXED_CROPS_V1_V2_EVALUATION_ONLY",
+    "v2_manifest": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/eval_annotation_v2_SOURCE_ONLY/eval_v2_manifest.json",
+    "v2_manifest_sha256": "f0694e386695f6f2f1512280b0b8b36890b2cc342457ed69db3d7419e257530e",
+    "v2_root_source_review_sha256": "c0169da12b4723361ee9d476e12ef5c2ec434feb3e8e8e198c511e5a0f247c6d",
+    "fixed_crops_source_sha256": "7c39466b7921b608bf82aa47419f04ee14d957d6c2328ac0a975eab7105e0e36",
+    "metric_helper_sha256": "2b48b0d0044b2ffdffbb7106cbe46eeb82ac5bf2b9096c014d807f7a61af0e6a",
+    "v2_no_gate_or_training_use": true,
+    "variant_sources": {
+      "native_clip20k": {
+        "group": "N256",
+        "buffer": "inside"
+      },
+      "occlusion_W64_128_gate0": {
+        "group": "N128",
+        "buffer": "semantic_gate0"
+      },
+      "occlusion_W64_128_pad1": {
+        "group": "N128",
+        "buffer": "semantic_gate_pad1"
+      },
+      "occlusion_W64_256_gate0": {
+        "group": "N256",
+        "buffer": "semantic_gate0"
+      },
+      "occlusion_W64_256_pad1": {
+        "group": "N256",
+        "buffer": "semantic_gate_pad1"
+      },
+      "occlusion_W64_256_pad2": {
+        "group": "N256",
+        "buffer": "semantic_gate_pad2"
+      }
+    },
+    "notes": [
+      "Same frozenv1crops andequalactor/view weighting; originalv1andSOURCE-onlyv2 evaluatedseparately.",
+      "Exact frozenW64 occlusion_v2TRAIN sourcearrays across128and256; no newlabelorrepairedcellinput.",
+      "Fresh256pad1 hashalfphysicalhaloof128pad1;256pad2matchesphysicalaxisextent.",
+      "All candidate/backgroundviews heldoutevaluationonly, no gatefit."
+    ]
+  },
+  "results": {
+    "v1": {
+      "native_clip20k": {
+        "metrics": {
+          "psnr": 30.14773887406859,
+          "ssim": 0.8275270462036133,
+          "lpips": 0.05446659090618292
+        },
+        "by_view": {
+          "DC": {
+            "psnr": 30.093009629535608,
+            "ssim": 0.8315634429454803,
+            "lpips": 0.0625031478703022
+          },
+          "HC": {
+            "psnr": 29.657741244401493,
+            "ssim": 0.8217253088951111,
+            "lpips": 0.054993145167827606
+          },
+          "KA": {
+            "psnr": 30.69246574826867,
+            "ssim": 0.8292923867702484,
+            "lpips": 0.04590347968041897
+          }
+        },
+        "by_actor": {
+          "black": {
+            "psnr": 29.27594572291497,
+            "ssim": 0.8135429620742798,
+            "lpips": 0.05471645419796308
+          },
+          "grey": {
+            "psnr": 31.01953202522222,
+            "ssim": 0.8415111303329468,
+            "lpips": 0.05421672761440277
+          }
+        },
+        "records": [
+          {
+            "view": "DC",
+            "actor": "black",
+            "psnr": 29.712416615955334,
+            "ssim": 0.8261839747428894,
+            "lpips": 0.05790996551513672,
+            "actor_pixels": 50554,
+            "crop_xyxy": [
+              742,
+              61,
+              1087,
+              630
+            ],
+            "crop_pixels": 196305,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "DC",
+            "actor": "grey",
+            "psnr": 30.473602643115886,
+            "ssim": 0.8369429111480713,
+            "lpips": 0.06709633022546768,
+            "actor_pixels": 32212,
+            "crop_xyxy": [
+              880,
+              224,
+              1118,
+              625
+            ],
+            "crop_pixels": 95438,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "HC",
+            "actor": "black",
+            "psnr": 28.53914559402376,
+            "ssim": 0.8031921982765198,
+            "lpips": 0.059453755617141724,
+            "actor_pixels": 39768,
+            "crop_xyxy": [
+              883,
+              191,
+              1210,
+              688
+            ],
+            "crop_pixels": 162519,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "HC",
+            "actor": "grey",
+            "psnr": 30.776336894779227,
+            "ssim": 0.8402584195137024,
+            "lpips": 0.05053253471851349,
+            "actor_pixels": 30426,
+            "crop_xyxy": [
+              945,
+              345,
+              1230,
+              747
+            ],
+            "crop_pixels": 114570,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "KA",
+            "actor": "black",
+            "psnr": 29.5762749587658,
+            "ssim": 0.8112527132034302,
+            "lpips": 0.046785641461610794,
+            "actor_pixels": 31759,
+            "crop_xyxy": [
+              935,
+              0,
+              1203,
+              470
+            ],
+            "crop_pixels": 125960,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "KA",
+            "actor": "grey",
+            "psnr": 31.80865653777154,
+            "ssim": 0.8473320603370667,
+            "lpips": 0.04502131789922714,
+            "actor_pixels": 29297,
+            "crop_xyxy": [
+              889,
+              163,
+              1154,
+              539
+            ],
+            "crop_pixels": 99640,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          }
+        ],
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "aggregation": "equal actors per camera, then equal cameras",
+        "opacity_edge_diagnostics": [
+          {
+            "view": "DC",
+            "actor": "black",
+            "eroded_pixels": 45559,
+            "below09_fraction": 0.00493865098004785,
+            "edge_RGB_rmse_vs_native": 0.0,
+            "edge_alpha_drop_gt01_pixels": 0,
+            "actor_alpha_drop_gt01_pixels": 0
+          },
+          {
+            "view": "DC",
+            "actor": "grey",
+            "eroded_pixels": 28743,
+            "below09_fraction": 0.0006610305117767804,
+            "edge_RGB_rmse_vs_native": 0.0,
+            "edge_alpha_drop_gt01_pixels": 0,
+            "actor_alpha_drop_gt01_pixels": 0
+          },
+          {
+            "view": "HC",
+            "actor": "black",
+            "eroded_pixels": 35296,
+            "below09_fraction": 0.009491160471441523,
+            "edge_RGB_rmse_vs_native": 0.0,
+            "edge_alpha_drop_gt01_pixels": 0,
+            "actor_alpha_drop_gt01_pixels": 0
+          },
+          {
+            "view": "HC",
+            "actor": "grey",
+            "eroded_pixels": 27480,
+            "below09_fraction": 0.0002183406113537118,
+            "edge_RGB_rmse_vs_native": 0.0,
+            "edge_alpha_drop_gt01_pixels": 0,
+            "actor_alpha_drop_gt01_pixels": 0
+          },
+          {
+            "view": "KA",
+            "actor": "black",
+            "eroded_pixels": 28831,
+            "below09_fraction": 0.007075717110055149,
+            "edge_RGB_rmse_vs_native": 0.0,
+            "edge_alpha_drop_gt01_pixels": 0,
+            "actor_alpha_drop_gt01_pixels": 0
+          },
+          {
+            "view": "KA",
+            "actor": "grey",
+            "eroded_pixels": 25770,
+            "below09_fraction": 0.0,
+            "edge_RGB_rmse_vs_native": 0.0,
+            "edge_alpha_drop_gt01_pixels": 0,
+            "actor_alpha_drop_gt01_pixels": 0
+          }
+        ]
+      },
+      "occlusion_W64_128_gate0": {
+        "metrics": {
+          "psnr": 28.90768855436025,
+          "ssim": 0.8187271455923716,
+          "lpips": 0.06468310641745727
+        },
+        "by_view": {
+          "DC": {
+            "psnr": 29.152456240828208,
+            "ssim": 0.8255881071090698,
+            "lpips": 0.06886319629848003
+          },
+          "HC": {
+            "psnr": 29.074774428206947,
+            "ssim": 0.8175618052482605,
+            "lpips": 0.06115352548658848
+          },
+          "KA": {
+            "psnr": 28.495834994045595,
+            "ssim": 0.8130315244197845,
+            "lpips": 0.06403259746730328
+          }
+        },
+        "by_actor": {
+          "black": {
+            "psnr": 28.78984258669328,
+            "ssim": 0.8100271026293436,
+            "lpips": 0.05928915242354075
+          },
+          "grey": {
+            "psnr": 29.025534522027225,
+            "ssim": 0.8274271885553995,
+            "lpips": 0.07007706041137378
+          }
+        },
+        "records": [
+          {
+            "view": "DC",
+            "actor": "black",
+            "psnr": 29.270493024004168,
+            "ssim": 0.8236297369003296,
+            "lpips": 0.06067148223519325,
+            "actor_pixels": 50554,
+            "crop_xyxy": [
+              742,
+              61,
+              1087,
+              630
+            ],
+            "crop_pixels": 196305,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "DC",
+            "actor": "grey",
+            "psnr": 29.034419457652252,
+            "ssim": 0.8275464773178101,
+            "lpips": 0.07705491036176682,
+            "actor_pixels": 32212,
+            "crop_xyxy": [
+              880,
+              224,
+              1118,
+              625
+            ],
+            "crop_pixels": 95438,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "HC",
+            "actor": "black",
+            "psnr": 28.179041111294815,
+            "ssim": 0.8003384470939636,
+            "lpips": 0.06340008974075317,
+            "actor_pixels": 39768,
+            "crop_xyxy": [
+              883,
+              191,
+              1210,
+              688
+            ],
+            "crop_pixels": 162519,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "HC",
+            "actor": "grey",
+            "psnr": 29.97050774511908,
+            "ssim": 0.8347851634025574,
+            "lpips": 0.05890696123242378,
+            "actor_pixels": 30426,
+            "crop_xyxy": [
+              945,
+              345,
+              1230,
+              747
+            ],
+            "crop_pixels": 114570,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "KA",
+            "actor": "black",
+            "psnr": 28.91999362478085,
+            "ssim": 0.8061131238937378,
+            "lpips": 0.05379588529467583,
+            "actor_pixels": 31759,
+            "crop_xyxy": [
+              935,
+              0,
+              1203,
+              470
+            ],
+            "crop_pixels": 125960,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "KA",
+            "actor": "grey",
+            "psnr": 28.071676363310342,
+            "ssim": 0.8199499249458313,
+            "lpips": 0.07426930963993073,
+            "actor_pixels": 29297,
+            "crop_xyxy": [
+              889,
+              163,
+              1154,
+              539
+            ],
+            "crop_pixels": 99640,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          }
+        ],
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "aggregation": "equal actors per camera, then equal cameras",
+        "opacity_edge_diagnostics": [
+          {
+            "view": "DC",
+            "actor": "black",
+            "eroded_pixels": 45559,
+            "below09_fraction": 0.0054215412980969735,
+            "edge_RGB_rmse_vs_native": 0.03533820062875748,
+            "edge_alpha_drop_gt01_pixels": 193,
+            "actor_alpha_drop_gt01_pixels": 214
+          },
+          {
+            "view": "DC",
+            "actor": "grey",
+            "eroded_pixels": 28743,
+            "below09_fraction": 0.0006610305117767804,
+            "edge_RGB_rmse_vs_native": 0.05905422568321228,
+            "edge_alpha_drop_gt01_pixels": 170,
+            "actor_alpha_drop_gt01_pixels": 170
+          },
+          {
+            "view": "HC",
+            "actor": "black",
+            "eroded_pixels": 35296,
+            "below09_fraction": 0.009491160471441523,
+            "edge_RGB_rmse_vs_native": 0.026947032660245895,
+            "edge_alpha_drop_gt01_pixels": 140,
+            "actor_alpha_drop_gt01_pixels": 140
+          },
+          {
+            "view": "HC",
+            "actor": "grey",
+            "eroded_pixels": 27480,
+            "below09_fraction": 0.00047307132459970886,
+            "edge_RGB_rmse_vs_native": 0.03804144635796547,
+            "edge_alpha_drop_gt01_pixels": 132,
+            "actor_alpha_drop_gt01_pixels": 141
+          },
+          {
+            "view": "KA",
+            "actor": "black",
+            "eroded_pixels": 28831,
+            "below09_fraction": 0.007179771773438313,
+            "edge_RGB_rmse_vs_native": 0.04377589374780655,
+            "edge_alpha_drop_gt01_pixels": 204,
+            "actor_alpha_drop_gt01_pixels": 207
+          },
+          {
+            "view": "KA",
+            "actor": "grey",
+            "eroded_pixels": 25770,
+            "below09_fraction": 0.010787737679472255,
+            "edge_RGB_rmse_vs_native": 0.07740785926580429,
+            "edge_alpha_drop_gt01_pixels": 750,
+            "actor_alpha_drop_gt01_pixels": 1028
+          }
+        ]
+      },
+      "occlusion_W64_128_pad1": {
+        "metrics": {
+          "psnr": 29.12825831897024,
+          "ssim": 0.8203387757142385,
+          "lpips": 0.06405193358659744
+        },
+        "by_view": {
+          "DC": {
+            "psnr": 29.216695556287824,
+            "ssim": 0.8259353041648865,
+            "lpips": 0.06860211119055748
+          },
+          "HC": {
+            "psnr": 29.200182032930073,
+            "ssim": 0.8183822333812714,
+            "lpips": 0.06017894670367241
+          },
+          "KA": {
+            "psnr": 28.967897367692824,
+            "ssim": 0.8166987895965576,
+            "lpips": 0.06337474286556244
+          }
+        },
+        "by_actor": {
+          "black": {
+            "psnr": 28.849353534098555,
+            "ssim": 0.81039031346639,
+            "lpips": 0.05923371513684591
+          },
+          "grey": {
+            "psnr": 29.407163103841928,
+            "ssim": 0.830287237962087,
+            "lpips": 0.06887015203634898
+          }
+        },
+        "records": [
+          {
+            "view": "DC",
+            "actor": "black",
+            "psnr": 29.34649834296893,
+            "ssim": 0.8240361213684082,
+            "lpips": 0.06065429002046585,
+            "actor_pixels": 50554,
+            "crop_xyxy": [
+              742,
+              61,
+              1087,
+              630
+            ],
+            "crop_pixels": 196305,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "DC",
+            "actor": "grey",
+            "psnr": 29.086892769606724,
+            "ssim": 0.8278344869613647,
+            "lpips": 0.07654993236064911,
+            "actor_pixels": 32212,
+            "crop_xyxy": [
+              880,
+              224,
+              1118,
+              625
+            ],
+            "crop_pixels": 95438,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "HC",
+            "actor": "black",
+            "psnr": 28.2092473365039,
+            "ssim": 0.8004299402236938,
+            "lpips": 0.063400499522686,
+            "actor_pixels": 39768,
+            "crop_xyxy": [
+              883,
+              191,
+              1210,
+              688
+            ],
+            "crop_pixels": 162519,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "HC",
+            "actor": "grey",
+            "psnr": 30.191116729356242,
+            "ssim": 0.8363345265388489,
+            "lpips": 0.056957393884658813,
+            "actor_pixels": 30426,
+            "crop_xyxy": [
+              945,
+              345,
+              1230,
+              747
+            ],
+            "crop_pixels": 114570,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "KA",
+            "actor": "black",
+            "psnr": 28.992314922822832,
+            "ssim": 0.8067048788070679,
+            "lpips": 0.053646355867385864,
+            "actor_pixels": 31759,
+            "crop_xyxy": [
+              935,
+              0,
+              1203,
+              470
+            ],
+            "crop_pixels": 125960,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "KA",
+            "actor": "grey",
+            "psnr": 28.943479812562817,
+            "ssim": 0.8266927003860474,
+            "lpips": 0.07310312986373901,
+            "actor_pixels": 29297,
+            "crop_xyxy": [
+              889,
+              163,
+              1154,
+              539
+            ],
+            "crop_pixels": 99640,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          }
+        ],
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "aggregation": "equal actors per camera, then equal cameras",
+        "opacity_edge_diagnostics": [
+          {
+            "view": "DC",
+            "actor": "black",
+            "eroded_pixels": 45559,
+            "below09_fraction": 0.005333743058451678,
+            "edge_RGB_rmse_vs_native": 0.03176858276128769,
+            "edge_alpha_drop_gt01_pixels": 154,
+            "actor_alpha_drop_gt01_pixels": 168
+          },
+          {
+            "view": "DC",
+            "actor": "grey",
+            "eroded_pixels": 28743,
+            "below09_fraction": 0.0006610305117767804,
+            "edge_RGB_rmse_vs_native": 0.05794307589530945,
+            "edge_alpha_drop_gt01_pixels": 160,
+            "actor_alpha_drop_gt01_pixels": 160
+          },
+          {
+            "view": "HC",
+            "actor": "black",
+            "eroded_pixels": 35296,
+            "below09_fraction": 0.009491160471441523,
+            "edge_RGB_rmse_vs_native": 0.025615032762289047,
+            "edge_alpha_drop_gt01_pixels": 128,
+            "actor_alpha_drop_gt01_pixels": 128
+          },
+          {
+            "view": "HC",
+            "actor": "grey",
+            "eroded_pixels": 27480,
+            "below09_fraction": 0.00047307132459970886,
+            "edge_RGB_rmse_vs_native": 0.03119511716067791,
+            "edge_alpha_drop_gt01_pixels": 93,
+            "actor_alpha_drop_gt01_pixels": 102
+          },
+          {
+            "view": "KA",
+            "actor": "black",
+            "eroded_pixels": 28831,
+            "below09_fraction": 0.007179771773438313,
+            "edge_RGB_rmse_vs_native": 0.04048755392432213,
+            "edge_alpha_drop_gt01_pixels": 189,
+            "actor_alpha_drop_gt01_pixels": 192
+          },
+          {
+            "view": "KA",
+            "actor": "grey",
+            "eroded_pixels": 25770,
+            "below09_fraction": 0.004501358168412883,
+            "edge_RGB_rmse_vs_native": 0.07087794691324234,
+            "edge_alpha_drop_gt01_pixels": 622,
+            "actor_alpha_drop_gt01_pixels": 738
+          }
+        ]
+      },
+      "occlusion_W64_256_gate0": {
+        "metrics": {
+          "psnr": 28.819308756526713,
+          "ssim": 0.8180684347947439,
+          "lpips": 0.06500091031193733
+        },
+        "by_view": {
+          "DC": {
+            "psnr": 29.142384254006927,
+            "ssim": 0.8255381882190704,
+            "lpips": 0.06895928084850311
+          },
+          "HC": {
+            "psnr": 29.056565336148182,
+            "ssim": 0.8174695670604706,
+            "lpips": 0.06131293810904026
+          },
+          "KA": {
+            "psnr": 28.25897667942503,
+            "ssim": 0.8111975491046906,
+            "lpips": 0.06473051197826862
+          }
+        },
+        "by_actor": {
+          "black": {
+            "psnr": 28.76660337091526,
+            "ssim": 0.8098859190940857,
+            "lpips": 0.05926446740825971
+          },
+          "grey": {
+            "psnr": 28.87201414213817,
+            "ssim": 0.826250950495402,
+            "lpips": 0.07073735321561496
+          }
+        },
+        "records": [
+          {
+            "view": "DC",
+            "actor": "black",
+            "psnr": 29.259585575557033,
+            "ssim": 0.8235986828804016,
+            "lpips": 0.060646697878837585,
+            "actor_pixels": 50554,
+            "crop_xyxy": [
+              742,
+              61,
+              1087,
+              630
+            ],
+            "crop_pixels": 196305,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "DC",
+            "actor": "grey",
+            "psnr": 29.025182932456826,
+            "ssim": 0.8274776935577393,
+            "lpips": 0.07727186381816864,
+            "actor_pixels": 32212,
+            "crop_xyxy": [
+              880,
+              224,
+              1118,
+              625
+            ],
+            "crop_pixels": 95438,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "HC",
+            "actor": "black",
+            "psnr": 28.170380011839345,
+            "ssim": 0.8003204464912415,
+            "lpips": 0.06338000297546387,
+            "actor_pixels": 39768,
+            "crop_xyxy": [
+              883,
+              191,
+              1210,
+              688
+            ],
+            "crop_pixels": 162519,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "HC",
+            "actor": "grey",
+            "psnr": 29.94275066045702,
+            "ssim": 0.8346186876296997,
+            "lpips": 0.05924587324261665,
+            "actor_pixels": 30426,
+            "crop_xyxy": [
+              945,
+              345,
+              1230,
+              747
+            ],
+            "crop_pixels": 114570,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "KA",
+            "actor": "black",
+            "psnr": 28.869844525349386,
+            "ssim": 0.805738627910614,
+            "lpips": 0.053766701370477676,
+            "actor_pixels": 31759,
+            "crop_xyxy": [
+              935,
+              0,
+              1203,
+              470
+            ],
+            "crop_pixels": 125960,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "KA",
+            "actor": "grey",
+            "psnr": 27.64810883350067,
+            "ssim": 0.8166564702987671,
+            "lpips": 0.07569432258605957,
+            "actor_pixels": 29297,
+            "crop_xyxy": [
+              889,
+              163,
+              1154,
+              539
+            ],
+            "crop_pixels": 99640,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          }
+        ],
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "aggregation": "equal actors per camera, then equal cameras",
+        "opacity_edge_diagnostics": [
+          {
+            "view": "DC",
+            "actor": "black",
+            "eroded_pixels": 45559,
+            "below09_fraction": 0.0054215412980969735,
+            "edge_RGB_rmse_vs_native": 0.03578949719667435,
+            "edge_alpha_drop_gt01_pixels": 203,
+            "actor_alpha_drop_gt01_pixels": 224
+          },
+          {
+            "view": "DC",
+            "actor": "grey",
+            "eroded_pixels": 28743,
+            "below09_fraction": 0.0006610305117767804,
+            "edge_RGB_rmse_vs_native": 0.05928073450922966,
+            "edge_alpha_drop_gt01_pixels": 175,
+            "actor_alpha_drop_gt01_pixels": 175
+          },
+          {
+            "view": "HC",
+            "actor": "black",
+            "eroded_pixels": 35296,
+            "below09_fraction": 0.009491160471441523,
+            "edge_RGB_rmse_vs_native": 0.02718903310596943,
+            "edge_alpha_drop_gt01_pixels": 142,
+            "actor_alpha_drop_gt01_pixels": 142
+          },
+          {
+            "view": "HC",
+            "actor": "grey",
+            "eroded_pixels": 27480,
+            "below09_fraction": 0.00047307132459970886,
+            "edge_RGB_rmse_vs_native": 0.03883608058094978,
+            "edge_alpha_drop_gt01_pixels": 138,
+            "actor_alpha_drop_gt01_pixels": 147
+          },
+          {
+            "view": "KA",
+            "actor": "black",
+            "eroded_pixels": 28831,
+            "below09_fraction": 0.007179771773438313,
+            "edge_RGB_rmse_vs_native": 0.04566463455557823,
+            "edge_alpha_drop_gt01_pixels": 210,
+            "actor_alpha_drop_gt01_pixels": 213
+          },
+          {
+            "view": "KA",
+            "actor": "grey",
+            "eroded_pixels": 25770,
+            "below09_fraction": 0.014163756305781917,
+            "edge_RGB_rmse_vs_native": 0.08066384494304657,
+            "edge_alpha_drop_gt01_pixels": 803,
+            "actor_alpha_drop_gt01_pixels": 1168
+          }
+        ]
+      },
+      "occlusion_W64_256_pad1": {
+        "metrics": {
+          "psnr": 28.926923127841178,
+          "ssim": 0.8189390500386556,
+          "lpips": 0.06469251091281573
+        },
+        "by_view": {
+          "DC": {
+            "psnr": 29.158594110211126,
+            "ssim": 0.8256193101406097,
+            "lpips": 0.06880775466561317
+          },
+          "HC": {
+            "psnr": 29.083413684650026,
+            "ssim": 0.8176114559173584,
+            "lpips": 0.06112070940434933
+          },
+          "KA": {
+            "psnr": 28.538761588662375,
+            "ssim": 0.8135863840579987,
+            "lpips": 0.06414906866848469
+          }
+        },
+        "by_actor": {
+          "black": {
+            "psnr": 28.795863344510792,
+            "ssim": 0.8100642760594686,
+            "lpips": 0.059293974190950394
+          },
+          "grey": {
+            "psnr": 29.057982911171564,
+            "ssim": 0.8278138240178426,
+            "lpips": 0.07009104763468106
+          }
+        },
+        "records": [
+          {
+            "view": "DC",
+            "actor": "black",
+            "psnr": 29.27144197585672,
+            "ssim": 0.8236366510391235,
+            "lpips": 0.060711294412612915,
+            "actor_pixels": 50554,
+            "crop_xyxy": [
+              742,
+              61,
+              1087,
+              630
+            ],
+            "crop_pixels": 196305,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "DC",
+            "actor": "grey",
+            "psnr": 29.045746244565528,
+            "ssim": 0.827601969242096,
+            "lpips": 0.07690421491861343,
+            "actor_pixels": 32212,
+            "crop_xyxy": [
+              880,
+              224,
+              1118,
+              625
+            ],
+            "crop_pixels": 95438,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "HC",
+            "actor": "black",
+            "psnr": 28.185825294274274,
+            "ssim": 0.8003580570220947,
+            "lpips": 0.06339540332555771,
+            "actor_pixels": 39768,
+            "crop_xyxy": [
+              883,
+              191,
+              1210,
+              688
+            ],
+            "crop_pixels": 162519,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "HC",
+            "actor": "grey",
+            "psnr": 29.981002075025778,
+            "ssim": 0.8348648548126221,
+            "lpips": 0.058846015483140945,
+            "actor_pixels": 30426,
+            "crop_xyxy": [
+              945,
+              345,
+              1230,
+              747
+            ],
+            "crop_pixels": 114570,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "KA",
+            "actor": "black",
+            "psnr": 28.93032276340137,
+            "ssim": 0.8061981201171875,
+            "lpips": 0.05377522483468056,
+            "actor_pixels": 31759,
+            "crop_xyxy": [
+              935,
+              0,
+              1203,
+              470
+            ],
+            "crop_pixels": 125960,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "KA",
+            "actor": "grey",
+            "psnr": 28.14720041392338,
+            "ssim": 0.8209746479988098,
+            "lpips": 0.07452291250228882,
+            "actor_pixels": 29297,
+            "crop_xyxy": [
+              889,
+              163,
+              1154,
+              539
+            ],
+            "crop_pixels": 99640,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          }
+        ],
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "aggregation": "equal actors per camera, then equal cameras",
+        "opacity_edge_diagnostics": [
+          {
+            "view": "DC",
+            "actor": "black",
+            "eroded_pixels": 45559,
+            "below09_fraction": 0.0054215412980969735,
+            "edge_RGB_rmse_vs_native": 0.03515880927443504,
+            "edge_alpha_drop_gt01_pixels": 189,
+            "actor_alpha_drop_gt01_pixels": 206
+          },
+          {
+            "view": "DC",
+            "actor": "grey",
+            "eroded_pixels": 28743,
+            "below09_fraction": 0.0006610305117767804,
+            "edge_RGB_rmse_vs_native": 0.05882582068443298,
+            "edge_alpha_drop_gt01_pixels": 170,
+            "actor_alpha_drop_gt01_pixels": 170
+          },
+          {
+            "view": "HC",
+            "actor": "black",
+            "eroded_pixels": 35296,
+            "below09_fraction": 0.009491160471441523,
+            "edge_RGB_rmse_vs_native": 0.02670787274837494,
+            "edge_alpha_drop_gt01_pixels": 137,
+            "actor_alpha_drop_gt01_pixels": 137
+          },
+          {
+            "view": "HC",
+            "actor": "grey",
+            "eroded_pixels": 27480,
+            "below09_fraction": 0.00047307132459970886,
+            "edge_RGB_rmse_vs_native": 0.03777211159467697,
+            "edge_alpha_drop_gt01_pixels": 131,
+            "actor_alpha_drop_gt01_pixels": 140
+          },
+          {
+            "view": "KA",
+            "actor": "black",
+            "eroded_pixels": 28831,
+            "below09_fraction": 0.007179771773438313,
+            "edge_RGB_rmse_vs_native": 0.04336146265268326,
+            "edge_alpha_drop_gt01_pixels": 202,
+            "actor_alpha_drop_gt01_pixels": 205
+          },
+          {
+            "view": "KA",
+            "actor": "grey",
+            "eroded_pixels": 25770,
+            "below09_fraction": 0.010089251067132324,
+            "edge_RGB_rmse_vs_native": 0.07667858153581619,
+            "edge_alpha_drop_gt01_pixels": 734,
+            "actor_alpha_drop_gt01_pixels": 994
+          }
+        ]
+      },
+      "occlusion_W64_256_pad2": {
+        "metrics": {
+          "psnr": 29.029823047976446,
+          "ssim": 0.8196939627329508,
+          "lpips": 0.06448045248786609
+        },
+        "by_view": {
+          "DC": {
+            "psnr": 29.18926279703144,
+            "ssim": 0.8257656693458557,
+            "lpips": 0.06866750679910183
+          },
+          "HC": {
+            "psnr": 29.12858440898961,
+            "ssim": 0.8179118037223816,
+            "lpips": 0.06079764664173126
+          },
+          "KA": {
+            "psnr": 28.771621937908293,
+            "ssim": 0.8154044151306152,
+            "lpips": 0.06397620402276516
+          }
+        },
+        "by_actor": {
+          "black": {
+            "psnr": 28.8219824637809,
+            "ssim": 0.810206949710846,
+            "lpips": 0.059309800465901695
+          },
+          "grey": {
+            "psnr": 29.23766363217199,
+            "ssim": 0.8291809757550558,
+            "lpips": 0.06965110450983047
+          }
+        },
+        "records": [
+          {
+            "view": "DC",
+            "actor": "black",
+            "psnr": 29.29770876897646,
+            "ssim": 0.8237268924713135,
+            "lpips": 0.06077704206109047,
+            "actor_pixels": 50554,
+            "crop_xyxy": [
+              742,
+              61,
+              1087,
+              630
+            ],
+            "crop_pixels": 196305,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "DC",
+            "actor": "grey",
+            "psnr": 29.080816825086423,
+            "ssim": 0.827804446220398,
+            "lpips": 0.07655797153711319,
+            "actor_pixels": 32212,
+            "crop_xyxy": [
+              880,
+              224,
+              1118,
+              625
+            ],
+            "crop_pixels": 95438,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "HC",
+            "actor": "black",
+            "psnr": 28.198443374747264,
+            "ssim": 0.8003824353218079,
+            "lpips": 0.06342357397079468,
+            "actor_pixels": 39768,
+            "crop_xyxy": [
+              883,
+              191,
+              1210,
+              688
+            ],
+            "crop_pixels": 162519,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "HC",
+            "actor": "grey",
+            "psnr": 30.05872544323196,
+            "ssim": 0.8354411721229553,
+            "lpips": 0.05817171931266785,
+            "actor_pixels": 30426,
+            "crop_xyxy": [
+              945,
+              345,
+              1230,
+              747
+            ],
+            "crop_pixels": 114570,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "KA",
+            "actor": "black",
+            "psnr": 28.96979524761898,
+            "ssim": 0.8065115213394165,
+            "lpips": 0.05372878536581993,
+            "actor_pixels": 31759,
+            "crop_xyxy": [
+              935,
+              0,
+              1203,
+              470
+            ],
+            "crop_pixels": 125960,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "KA",
+            "actor": "grey",
+            "psnr": 28.573448628197603,
+            "ssim": 0.824297308921814,
+            "lpips": 0.07422362267971039,
+            "actor_pixels": 29297,
+            "crop_xyxy": [
+              889,
+              163,
+              1154,
+              539
+            ],
+            "crop_pixels": 99640,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          }
+        ],
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "aggregation": "equal actors per camera, then equal cameras",
+        "opacity_edge_diagnostics": [
+          {
+            "view": "DC",
+            "actor": "black",
+            "eroded_pixels": 45559,
+            "below09_fraction": 0.005355692618363002,
+            "edge_RGB_rmse_vs_native": 0.033912211656570435,
+            "edge_alpha_drop_gt01_pixels": 170,
+            "actor_alpha_drop_gt01_pixels": 184
+          },
+          {
+            "view": "DC",
+            "actor": "grey",
+            "eroded_pixels": 28743,
+            "below09_fraction": 0.0006610305117767804,
+            "edge_RGB_rmse_vs_native": 0.058105506002902985,
+            "edge_alpha_drop_gt01_pixels": 166,
+            "actor_alpha_drop_gt01_pixels": 166
+          },
+          {
+            "view": "HC",
+            "actor": "black",
+            "eroded_pixels": 35296,
+            "below09_fraction": 0.009491160471441523,
+            "edge_RGB_rmse_vs_native": 0.026087414473295212,
+            "edge_alpha_drop_gt01_pixels": 132,
+            "actor_alpha_drop_gt01_pixels": 132
+          },
+          {
+            "view": "HC",
+            "actor": "grey",
+            "eroded_pixels": 27480,
+            "below09_fraction": 0.00047307132459970886,
+            "edge_RGB_rmse_vs_native": 0.03558677062392235,
+            "edge_alpha_drop_gt01_pixels": 114,
+            "actor_alpha_drop_gt01_pixels": 123
+          },
+          {
+            "view": "KA",
+            "actor": "black",
+            "eroded_pixels": 28831,
+            "below09_fraction": 0.007179771773438313,
+            "edge_RGB_rmse_vs_native": 0.041746802628040314,
+            "edge_alpha_drop_gt01_pixels": 199,
+            "actor_alpha_drop_gt01_pixels": 202
+          },
+          {
+            "view": "KA",
+            "actor": "grey",
+            "eroded_pixels": 25770,
+            "below09_fraction": 0.006713232440822662,
+            "edge_RGB_rmse_vs_native": 0.0736667737364769,
+            "edge_alpha_drop_gt01_pixels": 663,
+            "actor_alpha_drop_gt01_pixels": 836
+          }
+        ]
+      }
+    },
+    "v2": {
+      "native_clip20k": {
+        "metrics": {
+          "psnr": 30.149774865955767,
+          "ssim": 0.8276408612728119,
+          "lpips": 0.05428243304292361
+        },
+        "by_view": {
+          "DC": {
+            "psnr": 30.093009629535608,
+            "ssim": 0.8315634429454803,
+            "lpips": 0.0625031478703022
+          },
+          "HC": {
+            "psnr": 29.657741244401493,
+            "ssim": 0.8217253088951111,
+            "lpips": 0.054993145167827606
+          },
+          "KA": {
+            "psnr": 30.698573723930195,
+            "ssim": 0.8296338319778442,
+            "lpips": 0.04535100609064102
+          }
+        },
+        "by_actor": {
+          "black": {
+            "psnr": 29.27594572291497,
+            "ssim": 0.8135429620742798,
+            "lpips": 0.05471645419796308
+          },
+          "grey": {
+            "psnr": 31.02360400899657,
+            "ssim": 0.841738760471344,
+            "lpips": 0.05384841188788414
+          }
+        },
+        "records": [
+          {
+            "view": "DC",
+            "actor": "black",
+            "psnr": 29.712416615955334,
+            "ssim": 0.8261839747428894,
+            "lpips": 0.05790996551513672,
+            "actor_pixels": 50554,
+            "crop_xyxy": [
+              742,
+              61,
+              1087,
+              630
+            ],
+            "crop_pixels": 196305,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "DC",
+            "actor": "grey",
+            "psnr": 30.473602643115886,
+            "ssim": 0.8369429111480713,
+            "lpips": 0.06709633022546768,
+            "actor_pixels": 32212,
+            "crop_xyxy": [
+              880,
+              224,
+              1118,
+              625
+            ],
+            "crop_pixels": 95438,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "HC",
+            "actor": "black",
+            "psnr": 28.53914559402376,
+            "ssim": 0.8031921982765198,
+            "lpips": 0.059453755617141724,
+            "actor_pixels": 39768,
+            "crop_xyxy": [
+              883,
+              191,
+              1210,
+              688
+            ],
+            "crop_pixels": 162519,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "HC",
+            "actor": "grey",
+            "psnr": 30.776336894779227,
+            "ssim": 0.8402584195137024,
+            "lpips": 0.05053253471851349,
+            "actor_pixels": 30426,
+            "crop_xyxy": [
+              945,
+              345,
+              1230,
+              747
+            ],
+            "crop_pixels": 114570,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "KA",
+            "actor": "black",
+            "psnr": 29.5762749587658,
+            "ssim": 0.8112527132034302,
+            "lpips": 0.046785641461610794,
+            "actor_pixels": 31759,
+            "crop_xyxy": [
+              935,
+              0,
+              1203,
+              470
+            ],
+            "crop_pixels": 125960,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "KA",
+            "actor": "grey",
+            "psnr": 31.820872489094594,
+            "ssim": 0.8480149507522583,
+            "lpips": 0.04391637071967125,
+            "actor_pixels": 28963,
+            "crop_xyxy": [
+              889,
+              163,
+              1154,
+              539
+            ],
+            "crop_pixels": 99640,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          }
+        ],
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "aggregation": "equal actors per camera, then equal cameras",
+        "opacity_edge_diagnostics": [
+          {
+            "view": "DC",
+            "actor": "black",
+            "eroded_pixels": 45559,
+            "below09_fraction": 0.00493865098004785,
+            "edge_RGB_rmse_vs_native": 0.0,
+            "edge_alpha_drop_gt01_pixels": 0,
+            "actor_alpha_drop_gt01_pixels": 0
+          },
+          {
+            "view": "DC",
+            "actor": "grey",
+            "eroded_pixels": 28743,
+            "below09_fraction": 0.0006610305117767804,
+            "edge_RGB_rmse_vs_native": 0.0,
+            "edge_alpha_drop_gt01_pixels": 0,
+            "actor_alpha_drop_gt01_pixels": 0
+          },
+          {
+            "view": "HC",
+            "actor": "black",
+            "eroded_pixels": 35296,
+            "below09_fraction": 0.009491160471441523,
+            "edge_RGB_rmse_vs_native": 0.0,
+            "edge_alpha_drop_gt01_pixels": 0,
+            "actor_alpha_drop_gt01_pixels": 0
+          },
+          {
+            "view": "HC",
+            "actor": "grey",
+            "eroded_pixels": 27480,
+            "below09_fraction": 0.0002183406113537118,
+            "edge_RGB_rmse_vs_native": 0.0,
+            "edge_alpha_drop_gt01_pixels": 0,
+            "actor_alpha_drop_gt01_pixels": 0
+          },
+          {
+            "view": "KA",
+            "actor": "black",
+            "eroded_pixels": 28831,
+            "below09_fraction": 0.007075717110055149,
+            "edge_RGB_rmse_vs_native": 0.0,
+            "edge_alpha_drop_gt01_pixels": 0,
+            "actor_alpha_drop_gt01_pixels": 0
+          },
+          {
+            "view": "KA",
+            "actor": "grey",
+            "eroded_pixels": 25520,
+            "below09_fraction": 0.0,
+            "edge_RGB_rmse_vs_native": 0.0,
+            "edge_alpha_drop_gt01_pixels": 0,
+            "actor_alpha_drop_gt01_pixels": 0
+          }
+        ]
+      },
+      "occlusion_W64_128_gate0": {
+        "metrics": {
+          "psnr": 28.979416839904925,
+          "ssim": 0.8195425669352213,
+          "lpips": 0.06448853947222233
+        },
+        "by_view": {
+          "DC": {
+            "psnr": 29.152456240828208,
+            "ssim": 0.8255881071090698,
+            "lpips": 0.06886319629848003
+          },
+          "HC": {
+            "psnr": 29.074774428206947,
+            "ssim": 0.8175618052482605,
+            "lpips": 0.06115352548658848
+          },
+          "KA": {
+            "psnr": 28.71101985067962,
+            "ssim": 0.8154777884483337,
+            "lpips": 0.06344889663159847
+          }
+        },
+        "by_actor": {
+          "black": {
+            "psnr": 28.78984258669328,
+            "ssim": 0.8100271026293436,
+            "lpips": 0.05928915242354075
+          },
+          "grey": {
+            "psnr": 29.16899109311657,
+            "ssim": 0.829058031241099,
+            "lpips": 0.0696879265209039
+          }
+        },
+        "records": [
+          {
+            "view": "DC",
+            "actor": "black",
+            "psnr": 29.270493024004168,
+            "ssim": 0.8236297369003296,
+            "lpips": 0.06067148223519325,
+            "actor_pixels": 50554,
+            "crop_xyxy": [
+              742,
+              61,
+              1087,
+              630
+            ],
+            "crop_pixels": 196305,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "DC",
+            "actor": "grey",
+            "psnr": 29.034419457652252,
+            "ssim": 0.8275464773178101,
+            "lpips": 0.07705491036176682,
+            "actor_pixels": 32212,
+            "crop_xyxy": [
+              880,
+              224,
+              1118,
+              625
+            ],
+            "crop_pixels": 95438,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "HC",
+            "actor": "black",
+            "psnr": 28.179041111294815,
+            "ssim": 0.8003384470939636,
+            "lpips": 0.06340008974075317,
+            "actor_pixels": 39768,
+            "crop_xyxy": [
+              883,
+              191,
+              1210,
+              688
+            ],
+            "crop_pixels": 162519,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "HC",
+            "actor": "grey",
+            "psnr": 29.97050774511908,
+            "ssim": 0.8347851634025574,
+            "lpips": 0.05890696123242378,
+            "actor_pixels": 30426,
+            "crop_xyxy": [
+              945,
+              345,
+              1230,
+              747
+            ],
+            "crop_pixels": 114570,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "KA",
+            "actor": "black",
+            "psnr": 28.91999362478085,
+            "ssim": 0.8061131238937378,
+            "lpips": 0.05379588529467583,
+            "actor_pixels": 31759,
+            "crop_xyxy": [
+              935,
+              0,
+              1203,
+              470
+            ],
+            "crop_pixels": 125960,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "KA",
+            "actor": "grey",
+            "psnr": 28.502046076578385,
+            "ssim": 0.8248424530029297,
+            "lpips": 0.07310190796852112,
+            "actor_pixels": 28963,
+            "crop_xyxy": [
+              889,
+              163,
+              1154,
+              539
+            ],
+            "crop_pixels": 99640,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          }
+        ],
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "aggregation": "equal actors per camera, then equal cameras",
+        "opacity_edge_diagnostics": [
+          {
+            "view": "DC",
+            "actor": "black",
+            "eroded_pixels": 45559,
+            "below09_fraction": 0.0054215412980969735,
+            "edge_RGB_rmse_vs_native": 0.03533820062875748,
+            "edge_alpha_drop_gt01_pixels": 193,
+            "actor_alpha_drop_gt01_pixels": 214
+          },
+          {
+            "view": "DC",
+            "actor": "grey",
+            "eroded_pixels": 28743,
+            "below09_fraction": 0.0006610305117767804,
+            "edge_RGB_rmse_vs_native": 0.05905422568321228,
+            "edge_alpha_drop_gt01_pixels": 170,
+            "actor_alpha_drop_gt01_pixels": 170
+          },
+          {
+            "view": "HC",
+            "actor": "black",
+            "eroded_pixels": 35296,
+            "below09_fraction": 0.009491160471441523,
+            "edge_RGB_rmse_vs_native": 0.026947032660245895,
+            "edge_alpha_drop_gt01_pixels": 140,
+            "actor_alpha_drop_gt01_pixels": 140
+          },
+          {
+            "view": "HC",
+            "actor": "grey",
+            "eroded_pixels": 27480,
+            "below09_fraction": 0.00047307132459970886,
+            "edge_RGB_rmse_vs_native": 0.03804144635796547,
+            "edge_alpha_drop_gt01_pixels": 132,
+            "actor_alpha_drop_gt01_pixels": 141
+          },
+          {
+            "view": "KA",
+            "actor": "black",
+            "eroded_pixels": 28831,
+            "below09_fraction": 0.007179771773438313,
+            "edge_RGB_rmse_vs_native": 0.04377589374780655,
+            "edge_alpha_drop_gt01_pixels": 204,
+            "actor_alpha_drop_gt01_pixels": 207
+          },
+          {
+            "view": "KA",
+            "actor": "grey",
+            "eroded_pixels": 25520,
+            "below09_fraction": 0.007327586206896552,
+            "edge_RGB_rmse_vs_native": 0.0746065303683281,
+            "edge_alpha_drop_gt01_pixels": 662,
+            "actor_alpha_drop_gt01_pixels": 849
+          }
+        ]
+      },
+      "occlusion_W64_128_pad1": {
+        "metrics": {
+          "psnr": 29.178383789905187,
+          "ssim": 0.8207863171895345,
+          "lpips": 0.06378374993801117
+        },
+        "by_view": {
+          "DC": {
+            "psnr": 29.216695556287824,
+            "ssim": 0.8259353041648865,
+            "lpips": 0.06860211119055748
+          },
+          "HC": {
+            "psnr": 29.200182032930073,
+            "ssim": 0.8183822333812714,
+            "lpips": 0.06017894670367241
+          },
+          "KA": {
+            "psnr": 29.118273780497667,
+            "ssim": 0.8180414140224457,
+            "lpips": 0.06257019191980362
+          }
+        },
+        "by_actor": {
+          "black": {
+            "psnr": 28.849353534098555,
+            "ssim": 0.81039031346639,
+            "lpips": 0.05923371513684591
+          },
+          "grey": {
+            "psnr": 29.507414045711823,
+            "ssim": 0.8311823209126791,
+            "lpips": 0.06833378473917644
+          }
+        },
+        "records": [
+          {
+            "view": "DC",
+            "actor": "black",
+            "psnr": 29.34649834296893,
+            "ssim": 0.8240361213684082,
+            "lpips": 0.06065429002046585,
+            "actor_pixels": 50554,
+            "crop_xyxy": [
+              742,
+              61,
+              1087,
+              630
+            ],
+            "crop_pixels": 196305,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "DC",
+            "actor": "grey",
+            "psnr": 29.086892769606724,
+            "ssim": 0.8278344869613647,
+            "lpips": 0.07654993236064911,
+            "actor_pixels": 32212,
+            "crop_xyxy": [
+              880,
+              224,
+              1118,
+              625
+            ],
+            "crop_pixels": 95438,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "HC",
+            "actor": "black",
+            "psnr": 28.2092473365039,
+            "ssim": 0.8004299402236938,
+            "lpips": 0.063400499522686,
+            "actor_pixels": 39768,
+            "crop_xyxy": [
+              883,
+              191,
+              1210,
+              688
+            ],
+            "crop_pixels": 162519,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "HC",
+            "actor": "grey",
+            "psnr": 30.191116729356242,
+            "ssim": 0.8363345265388489,
+            "lpips": 0.056957393884658813,
+            "actor_pixels": 30426,
+            "crop_xyxy": [
+              945,
+              345,
+              1230,
+              747
+            ],
+            "crop_pixels": 114570,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "KA",
+            "actor": "black",
+            "psnr": 28.992314922822832,
+            "ssim": 0.8067048788070679,
+            "lpips": 0.053646355867385864,
+            "actor_pixels": 31759,
+            "crop_xyxy": [
+              935,
+              0,
+              1203,
+              470
+            ],
+            "crop_pixels": 125960,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "KA",
+            "actor": "grey",
+            "psnr": 29.2442326381725,
+            "ssim": 0.8293779492378235,
+            "lpips": 0.07149402797222137,
+            "actor_pixels": 28963,
+            "crop_xyxy": [
+              889,
+              163,
+              1154,
+              539
+            ],
+            "crop_pixels": 99640,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          }
+        ],
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "aggregation": "equal actors per camera, then equal cameras",
+        "opacity_edge_diagnostics": [
+          {
+            "view": "DC",
+            "actor": "black",
+            "eroded_pixels": 45559,
+            "below09_fraction": 0.005333743058451678,
+            "edge_RGB_rmse_vs_native": 0.03176858276128769,
+            "edge_alpha_drop_gt01_pixels": 154,
+            "actor_alpha_drop_gt01_pixels": 168
+          },
+          {
+            "view": "DC",
+            "actor": "grey",
+            "eroded_pixels": 28743,
+            "below09_fraction": 0.0006610305117767804,
+            "edge_RGB_rmse_vs_native": 0.05794307589530945,
+            "edge_alpha_drop_gt01_pixels": 160,
+            "actor_alpha_drop_gt01_pixels": 160
+          },
+          {
+            "view": "HC",
+            "actor": "black",
+            "eroded_pixels": 35296,
+            "below09_fraction": 0.009491160471441523,
+            "edge_RGB_rmse_vs_native": 0.025615032762289047,
+            "edge_alpha_drop_gt01_pixels": 128,
+            "actor_alpha_drop_gt01_pixels": 128
+          },
+          {
+            "view": "HC",
+            "actor": "grey",
+            "eroded_pixels": 27480,
+            "below09_fraction": 0.00047307132459970886,
+            "edge_RGB_rmse_vs_native": 0.03119511716067791,
+            "edge_alpha_drop_gt01_pixels": 93,
+            "actor_alpha_drop_gt01_pixels": 102
+          },
+          {
+            "view": "KA",
+            "actor": "black",
+            "eroded_pixels": 28831,
+            "below09_fraction": 0.007179771773438313,
+            "edge_RGB_rmse_vs_native": 0.04048755392432213,
+            "edge_alpha_drop_gt01_pixels": 189,
+            "actor_alpha_drop_gt01_pixels": 192
+          },
+          {
+            "view": "KA",
+            "actor": "grey",
+            "eroded_pixels": 25520,
+            "below09_fraction": 0.003996865203761755,
+            "edge_RGB_rmse_vs_native": 0.06692961603403091,
+            "edge_alpha_drop_gt01_pixels": 536,
+            "actor_alpha_drop_gt01_pixels": 638
+          }
+        ]
+      },
+      "occlusion_W64_256_gate0": {
+        "metrics": {
+          "psnr": 28.90594798465934,
+          "ssim": 0.8190465370814005,
+          "lpips": 0.06481176242232323
+        },
+        "by_view": {
+          "DC": {
+            "psnr": 29.142384254006927,
+            "ssim": 0.8255381882190704,
+            "lpips": 0.06895928084850311
+          },
+          "HC": {
+            "psnr": 29.056565336148182,
+            "ssim": 0.8174695670604706,
+            "lpips": 0.06131293810904026
+          },
+          "KA": {
+            "psnr": 28.518894363822916,
+            "ssim": 0.8141318559646606,
+            "lpips": 0.06416306830942631
+          }
+        },
+        "by_actor": {
+          "black": {
+            "psnr": 28.76660337091526,
+            "ssim": 0.8098859190940857,
+            "lpips": 0.05926446740825971
+          },
+          "grey": {
+            "psnr": 29.04529259840343,
+            "ssim": 0.8282071550687155,
+            "lpips": 0.07035905743638675
+          }
+        },
+        "records": [
+          {
+            "view": "DC",
+            "actor": "black",
+            "psnr": 29.259585575557033,
+            "ssim": 0.8235986828804016,
+            "lpips": 0.060646697878837585,
+            "actor_pixels": 50554,
+            "crop_xyxy": [
+              742,
+              61,
+              1087,
+              630
+            ],
+            "crop_pixels": 196305,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "DC",
+            "actor": "grey",
+            "psnr": 29.025182932456826,
+            "ssim": 0.8274776935577393,
+            "lpips": 0.07727186381816864,
+            "actor_pixels": 32212,
+            "crop_xyxy": [
+              880,
+              224,
+              1118,
+              625
+            ],
+            "crop_pixels": 95438,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "HC",
+            "actor": "black",
+            "psnr": 28.170380011839345,
+            "ssim": 0.8003204464912415,
+            "lpips": 0.06338000297546387,
+            "actor_pixels": 39768,
+            "crop_xyxy": [
+              883,
+              191,
+              1210,
+              688
+            ],
+            "crop_pixels": 162519,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "HC",
+            "actor": "grey",
+            "psnr": 29.94275066045702,
+            "ssim": 0.8346186876296997,
+            "lpips": 0.05924587324261665,
+            "actor_pixels": 30426,
+            "crop_xyxy": [
+              945,
+              345,
+              1230,
+              747
+            ],
+            "crop_pixels": 114570,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "KA",
+            "actor": "black",
+            "psnr": 28.869844525349386,
+            "ssim": 0.805738627910614,
+            "lpips": 0.053766701370477676,
+            "actor_pixels": 31759,
+            "crop_xyxy": [
+              935,
+              0,
+              1203,
+              470
+            ],
+            "crop_pixels": 125960,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "KA",
+            "actor": "grey",
+            "psnr": 28.167944202296447,
+            "ssim": 0.8225250840187073,
+            "lpips": 0.07455943524837494,
+            "actor_pixels": 28963,
+            "crop_xyxy": [
+              889,
+              163,
+              1154,
+              539
+            ],
+            "crop_pixels": 99640,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          }
+        ],
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "aggregation": "equal actors per camera, then equal cameras",
+        "opacity_edge_diagnostics": [
+          {
+            "view": "DC",
+            "actor": "black",
+            "eroded_pixels": 45559,
+            "below09_fraction": 0.0054215412980969735,
+            "edge_RGB_rmse_vs_native": 0.03578949719667435,
+            "edge_alpha_drop_gt01_pixels": 203,
+            "actor_alpha_drop_gt01_pixels": 224
+          },
+          {
+            "view": "DC",
+            "actor": "grey",
+            "eroded_pixels": 28743,
+            "below09_fraction": 0.0006610305117767804,
+            "edge_RGB_rmse_vs_native": 0.05928073450922966,
+            "edge_alpha_drop_gt01_pixels": 175,
+            "actor_alpha_drop_gt01_pixels": 175
+          },
+          {
+            "view": "HC",
+            "actor": "black",
+            "eroded_pixels": 35296,
+            "below09_fraction": 0.009491160471441523,
+            "edge_RGB_rmse_vs_native": 0.02718903310596943,
+            "edge_alpha_drop_gt01_pixels": 142,
+            "actor_alpha_drop_gt01_pixels": 142
+          },
+          {
+            "view": "HC",
+            "actor": "grey",
+            "eroded_pixels": 27480,
+            "below09_fraction": 0.00047307132459970886,
+            "edge_RGB_rmse_vs_native": 0.03883608058094978,
+            "edge_alpha_drop_gt01_pixels": 138,
+            "actor_alpha_drop_gt01_pixels": 147
+          },
+          {
+            "view": "KA",
+            "actor": "black",
+            "eroded_pixels": 28831,
+            "below09_fraction": 0.007179771773438313,
+            "edge_RGB_rmse_vs_native": 0.04566463455557823,
+            "edge_alpha_drop_gt01_pixels": 210,
+            "actor_alpha_drop_gt01_pixels": 213
+          },
+          {
+            "view": "KA",
+            "actor": "grey",
+            "eroded_pixels": 25520,
+            "below09_fraction": 0.00865987460815047,
+            "edge_RGB_rmse_vs_native": 0.07770123332738876,
+            "edge_alpha_drop_gt01_pixels": 705,
+            "actor_alpha_drop_gt01_pixels": 926
+          }
+        ]
+      },
+      "occlusion_W64_256_pad1": {
+        "metrics": {
+          "psnr": 28.99656432959317,
+          "ssim": 0.8196662068367004,
+          "lpips": 0.06442941849430402
+        },
+        "by_view": {
+          "DC": {
+            "psnr": 29.158594110211126,
+            "ssim": 0.8256193101406097,
+            "lpips": 0.06880775466561317
+          },
+          "HC": {
+            "psnr": 29.083413684650026,
+            "ssim": 0.8176114559173584,
+            "lpips": 0.06112070940434933
+          },
+          "KA": {
+            "psnr": 28.747685193918358,
+            "ssim": 0.8157678544521332,
+            "lpips": 0.06335979141294956
+          }
+        },
+        "by_actor": {
+          "black": {
+            "psnr": 28.795863344510792,
+            "ssim": 0.8100642760594686,
+            "lpips": 0.059293974190950394
+          },
+          "grey": {
+            "psnr": 29.197265314675548,
+            "ssim": 0.8292681376139323,
+            "lpips": 0.06956486279765765
+          }
+        },
+        "records": [
+          {
+            "view": "DC",
+            "actor": "black",
+            "psnr": 29.27144197585672,
+            "ssim": 0.8236366510391235,
+            "lpips": 0.060711294412612915,
+            "actor_pixels": 50554,
+            "crop_xyxy": [
+              742,
+              61,
+              1087,
+              630
+            ],
+            "crop_pixels": 196305,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "DC",
+            "actor": "grey",
+            "psnr": 29.045746244565528,
+            "ssim": 0.827601969242096,
+            "lpips": 0.07690421491861343,
+            "actor_pixels": 32212,
+            "crop_xyxy": [
+              880,
+              224,
+              1118,
+              625
+            ],
+            "crop_pixels": 95438,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "HC",
+            "actor": "black",
+            "psnr": 28.185825294274274,
+            "ssim": 0.8003580570220947,
+            "lpips": 0.06339540332555771,
+            "actor_pixels": 39768,
+            "crop_xyxy": [
+              883,
+              191,
+              1210,
+              688
+            ],
+            "crop_pixels": 162519,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "HC",
+            "actor": "grey",
+            "psnr": 29.981002075025778,
+            "ssim": 0.8348648548126221,
+            "lpips": 0.058846015483140945,
+            "actor_pixels": 30426,
+            "crop_xyxy": [
+              945,
+              345,
+              1230,
+              747
+            ],
+            "crop_pixels": 114570,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "KA",
+            "actor": "black",
+            "psnr": 28.93032276340137,
+            "ssim": 0.8061981201171875,
+            "lpips": 0.05377522483468056,
+            "actor_pixels": 31759,
+            "crop_xyxy": [
+              935,
+              0,
+              1203,
+              470
+            ],
+            "crop_pixels": 125960,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "KA",
+            "actor": "grey",
+            "psnr": 28.565047624435344,
+            "ssim": 0.8253375887870789,
+            "lpips": 0.07294435799121857,
+            "actor_pixels": 28963,
+            "crop_xyxy": [
+              889,
+              163,
+              1154,
+              539
+            ],
+            "crop_pixels": 99640,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          }
+        ],
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "aggregation": "equal actors per camera, then equal cameras",
+        "opacity_edge_diagnostics": [
+          {
+            "view": "DC",
+            "actor": "black",
+            "eroded_pixels": 45559,
+            "below09_fraction": 0.0054215412980969735,
+            "edge_RGB_rmse_vs_native": 0.03515880927443504,
+            "edge_alpha_drop_gt01_pixels": 189,
+            "actor_alpha_drop_gt01_pixels": 206
+          },
+          {
+            "view": "DC",
+            "actor": "grey",
+            "eroded_pixels": 28743,
+            "below09_fraction": 0.0006610305117767804,
+            "edge_RGB_rmse_vs_native": 0.05882582068443298,
+            "edge_alpha_drop_gt01_pixels": 170,
+            "actor_alpha_drop_gt01_pixels": 170
+          },
+          {
+            "view": "HC",
+            "actor": "black",
+            "eroded_pixels": 35296,
+            "below09_fraction": 0.009491160471441523,
+            "edge_RGB_rmse_vs_native": 0.02670787274837494,
+            "edge_alpha_drop_gt01_pixels": 137,
+            "actor_alpha_drop_gt01_pixels": 137
+          },
+          {
+            "view": "HC",
+            "actor": "grey",
+            "eroded_pixels": 27480,
+            "below09_fraction": 0.00047307132459970886,
+            "edge_RGB_rmse_vs_native": 0.03777211159467697,
+            "edge_alpha_drop_gt01_pixels": 131,
+            "actor_alpha_drop_gt01_pixels": 140
+          },
+          {
+            "view": "KA",
+            "actor": "black",
+            "eroded_pixels": 28831,
+            "below09_fraction": 0.007179771773438313,
+            "edge_RGB_rmse_vs_native": 0.04336146265268326,
+            "edge_alpha_drop_gt01_pixels": 202,
+            "actor_alpha_drop_gt01_pixels": 205
+          },
+          {
+            "view": "KA",
+            "actor": "grey",
+            "eroded_pixels": 25520,
+            "below09_fraction": 0.0066614420062695925,
+            "edge_RGB_rmse_vs_native": 0.07376182824373245,
+            "edge_alpha_drop_gt01_pixels": 649,
+            "actor_alpha_drop_gt01_pixels": 819
+          }
+        ]
+      },
+      "occlusion_W64_256_pad2": {
+        "metrics": {
+          "psnr": 29.087145732428183,
+          "ssim": 0.8202537596225739,
+          "lpips": 0.06411071742574374
+        },
+        "by_view": {
+          "DC": {
+            "psnr": 29.18926279703144,
+            "ssim": 0.8257656693458557,
+            "lpips": 0.06866750679910183
+          },
+          "HC": {
+            "psnr": 29.12858440898961,
+            "ssim": 0.8179118037223816,
+            "lpips": 0.06079764664173126
+          },
+          "KA": {
+            "psnr": 28.943589991263494,
+            "ssim": 0.8170838057994843,
+            "lpips": 0.06286699883639812
+          }
+        },
+        "by_actor": {
+          "black": {
+            "psnr": 28.8219824637809,
+            "ssim": 0.810206949710846,
+            "lpips": 0.059309800465901695
+          },
+          "grey": {
+            "psnr": 29.352309001075465,
+            "ssim": 0.8303005695343018,
+            "lpips": 0.06891163438558578
+          }
+        },
+        "records": [
+          {
+            "view": "DC",
+            "actor": "black",
+            "psnr": 29.29770876897646,
+            "ssim": 0.8237268924713135,
+            "lpips": 0.06077704206109047,
+            "actor_pixels": 50554,
+            "crop_xyxy": [
+              742,
+              61,
+              1087,
+              630
+            ],
+            "crop_pixels": 196305,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "DC",
+            "actor": "grey",
+            "psnr": 29.080816825086423,
+            "ssim": 0.827804446220398,
+            "lpips": 0.07655797153711319,
+            "actor_pixels": 32212,
+            "crop_xyxy": [
+              880,
+              224,
+              1118,
+              625
+            ],
+            "crop_pixels": 95438,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "HC",
+            "actor": "black",
+            "psnr": 28.198443374747264,
+            "ssim": 0.8003824353218079,
+            "lpips": 0.06342357397079468,
+            "actor_pixels": 39768,
+            "crop_xyxy": [
+              883,
+              191,
+              1210,
+              688
+            ],
+            "crop_pixels": 162519,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "HC",
+            "actor": "grey",
+            "psnr": 30.05872544323196,
+            "ssim": 0.8354411721229553,
+            "lpips": 0.05817171931266785,
+            "actor_pixels": 30426,
+            "crop_xyxy": [
+              945,
+              345,
+              1230,
+              747
+            ],
+            "crop_pixels": 114570,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "KA",
+            "actor": "black",
+            "psnr": 28.96979524761898,
+            "ssim": 0.8065115213394165,
+            "lpips": 0.05372878536581993,
+            "actor_pixels": 31759,
+            "crop_xyxy": [
+              935,
+              0,
+              1203,
+              470
+            ],
+            "crop_pixels": 125960,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "KA",
+            "actor": "grey",
+            "psnr": 28.91738473490801,
+            "ssim": 0.827656090259552,
+            "lpips": 0.07200521230697632,
+            "actor_pixels": 28963,
+            "crop_xyxy": [
+              889,
+              163,
+              1154,
+              539
+            ],
+            "crop_pixels": 99640,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          }
+        ],
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "aggregation": "equal actors per camera, then equal cameras",
+        "opacity_edge_diagnostics": [
+          {
+            "view": "DC",
+            "actor": "black",
+            "eroded_pixels": 45559,
+            "below09_fraction": 0.005355692618363002,
+            "edge_RGB_rmse_vs_native": 0.033912211656570435,
+            "edge_alpha_drop_gt01_pixels": 170,
+            "actor_alpha_drop_gt01_pixels": 184
+          },
+          {
+            "view": "DC",
+            "actor": "grey",
+            "eroded_pixels": 28743,
+            "below09_fraction": 0.0006610305117767804,
+            "edge_RGB_rmse_vs_native": 0.058105506002902985,
+            "edge_alpha_drop_gt01_pixels": 166,
+            "actor_alpha_drop_gt01_pixels": 166
+          },
+          {
+            "view": "HC",
+            "actor": "black",
+            "eroded_pixels": 35296,
+            "below09_fraction": 0.009491160471441523,
+            "edge_RGB_rmse_vs_native": 0.026087414473295212,
+            "edge_alpha_drop_gt01_pixels": 132,
+            "actor_alpha_drop_gt01_pixels": 132
+          },
+          {
+            "view": "HC",
+            "actor": "grey",
+            "eroded_pixels": 27480,
+            "below09_fraction": 0.00047307132459970886,
+            "edge_RGB_rmse_vs_native": 0.03558677062392235,
+            "edge_alpha_drop_gt01_pixels": 114,
+            "actor_alpha_drop_gt01_pixels": 123
+          },
+          {
+            "view": "KA",
+            "actor": "black",
+            "eroded_pixels": 28831,
+            "below09_fraction": 0.007179771773438313,
+            "edge_RGB_rmse_vs_native": 0.041746802628040314,
+            "edge_alpha_drop_gt01_pixels": 199,
+            "actor_alpha_drop_gt01_pixels": 202
+          },
+          {
+            "view": "KA",
+            "actor": "grey",
+            "eroded_pixels": 25520,
+            "below09_fraction": 0.00493730407523511,
+            "edge_RGB_rmse_vs_native": 0.07023857533931732,
+            "edge_alpha_drop_gt01_pixels": 580,
+            "actor_alpha_drop_gt01_pixels": 706
+          }
+        ]
+      }
+    }
+  }
+}

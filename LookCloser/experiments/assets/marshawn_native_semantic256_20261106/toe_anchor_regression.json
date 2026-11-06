@@ -1,0 +1,122 @@
+{
+  "kind": "INDEPENDENT_TRAIN_TOE_ANCHOR_RESOLUTION_REGRESSION",
+  "rows": [
+    {
+      "anchor": "upper_toe",
+      "resolution": 128,
+      "xyz_floor": [
+        -0.11769208960984658,
+        0.15127923559030565,
+        0.014567836967476211
+      ],
+      "index": [
+        93,
+        73,
+        15
+      ],
+      "cell_lower": [
+        -0.12070312500000002,
+        0.14929687500000002,
+        0.012031249999999993
+      ],
+      "cell_upper": [
+        -0.11296874999999995,
+        0.15421875,
+        0.017499999999999988
+      ],
+      "retained": {
+        "semantic_gate0": true,
+        "semantic_gate_pad1": true
+      }
+    },
+    {
+      "anchor": "upper_toe",
+      "resolution": 256,
+      "xyz_floor": [
+        -0.11769208960984658,
+        0.15127923559030565,
+        0.014567836967476211
+      ],
+      "index": [
+        186,
+        146,
+        30
+      ],
+      "cell_lower": [
+        -0.12070312500000002,
+        0.14929687500000002,
+        0.012031249999999993
+      ],
+      "cell_upper": [
+        -0.11683593749999999,
+        0.1517578125,
+        0.01476562499999999
+      ],
+      "retained": {
+        "semantic_gate0": true,
+        "semantic_gate_pad1": true,
+        "semantic_gate_pad2": true
+      }
+    },
+    {
+      "anchor": "sole6862",
+      "resolution": 128,
+      "xyz_floor": [
+        -0.11713805167004304,
+        0.14165073766903985,
+        0.005085417456200336
+      ],
+      "index": [
+        93,
+        71,
+        13
+      ],
+      "cell_lower": [
+        -0.12070312500000002,
+        0.13945312499999998,
+        0.0010937499999999906
+      ],
+      "cell_upper": [
+        -0.11296874999999995,
+        0.144375,
+        0.006562499999999985
+      ],
+      "retained": {
+        "semantic_gate0": true,
+        "semantic_gate_pad1": true
+      }
+    },
+    {
+      "anchor": "sole6862",
+      "resolution": 256,
+      "xyz_floor": [
+        -0.11713805167004304,
+        0.14165073766903985,
+        0.005085417456200336
+      ],
+      "index": [
+        186,
+        142,
+        27
+      ],
+      "cell_lower": [
+        -0.12070312500000002,
+        0.13945312499999998,
+        0.003828124999999988
+      ],
+      "cell_upper": [
+        -0.11683593749999999,
+        0.14191406250000002,
+        0.006562499999999985
+      ],
+      "retained": {
+        "semantic_gate0": true,
+        "semantic_gate_pad1": true,
+        "semantic_gate_pad2": true
+      }
+    }
+  ],
+  "all_measured_anchors_preserved_without_padding": true,
+  "nominal_floor_zero_z_cell_128": 12,
+  "note": "Sole6862 is128zcell13, while nominal floorz0 iscell12: they do not share the same128cell; pad1 reaches adjacent floorcell. Actual floor surface and localization uncertainty are separate, not assumed exact."
+}

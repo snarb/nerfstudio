@@ -39,6 +39,14 @@ def display_rgb(value, transform):
     return np.rint(np.clip(value,0,1)*255).astype(np.uint8)
 
 
+def semantic_voxel_indices(xyz, bounds, shape):
+    """Index a separate semantic grid; caller applies the accepted-box veto."""
+    import torch
+    resolution=torch.as_tensor(shape,device=xyz.device,dtype=xyz.dtype)
+    indices=torch.floor((xyz-bounds[0])/(bounds[1]-bounds[0])*resolution).long()
+    return torch.minimum(torch.maximum(indices,torch.zeros_like(indices)),resolution.long()-1)
+
+
 def first_opaque_depth(starts, ends, sigma, trans, alpha, ids, num_rays):
     """First absolute-opacity 0.5 crossing, interpolated inside its interval."""
     import torch
@@ -97,14 +105,16 @@ def main(a):
         if not np.array_equal(sem['aabb'],bounds) or not np.array_equal(sem['world_to_box'],world_to_box):
             raise ValueError('Semantic gate coordinates differ from accepted box')
         gate_arrays={name:sem[name].copy() for name in ['semantic_gate0','semantic_gate_pad1']}
+        if 'semantic_gate_pad2' in sem:
+            gate_arrays['semantic_gate_pad2']=sem['semantic_gate_pad2'].copy()
         if 'semantic_pad1_verified_shoe_witness' in sem:
             gate_arrays['semantic_pad1_verified_shoe_witness']=sem['semantic_pad1_verified_shoe_witness'].copy()
     with np.load(a.unprotected_semantic_grid,allow_pickle=False) as sem:
         if not np.array_equal(sem['aabb'],bounds) or not np.array_equal(sem['world_to_box'],world_to_box):
             raise ValueError('Reference gate coordinates differ from accepted box')
         gate_arrays.update({('raw_'+name):sem[name].copy() for name in ['semantic_gate0','semantic_gate_pad1']})
-    if any(v.dtype!=np.bool_ or v.shape!=(128,128,128) for v in gate_arrays.values()):
-        raise ValueError('Expected independent128cubed semantic admission gates')
+    if any(v.dtype!=np.bool_ or (v.ndim!=3 or len(set(v.shape))!=1 or v.shape[0] not in [128,256]) for v in gate_arrays.values()):
+        raise ValueError('Expected independent cubic128 or256 semantic admission gates')
     gates={name:torch.from_numpy(v).to(model.device) for name,v in gate_arrays.items()}
     admitted_samples={name:0 for name in ['inside',*gates]}
 
@@ -155,8 +165,11 @@ def main(a):
             xyz = samples.frustums.get_positions()
             box_xyz = xyz @ frame[:3,:3].T + frame[:3,3]
             inside = ((box_xyz>=box[0]) & (box_xyz<=box[1])).all(-1)
-            voxel=torch.floor((box_xyz-box[0])/(box[1]-box[0])*128).long().clamp(0,127)
-            semantic={name:inside & gate[voxel[:,0],voxel[:,1],voxel[:,2]] for name,gate in gates.items()}
+            indices={shape:semantic_voxel_indices(box_xyz,box,shape) for shape in {tuple(gate.shape) for gate in gates.values()}}
+            semantic={}
+            for name,gate in gates.items():
+                voxel=indices[tuple(gate.shape)]
+                semantic[name]=inside & gate[voxel[:,0],voxel[:,1],voxel[:,2]]
             admitted_samples['inside']+=int(inside.sum())
             for name,keep in semantic.items():admitted_samples[name]+=int(keep.sum())
             sigma = values[FieldHeadNames.DENSITY][...,0]
@@ -261,7 +274,8 @@ def main(a):
         novel_yaw_degrees=a.novel_yaw_degrees,virtual_focal_scale=a.virtual_focal_scale,
         preferred_semantic_pad1_box_overlay_depth='FIRST0.5opacity crossing of CURRENT SEMANTIC_PAD1 density, not the removed originalfullscene',
         original_native_R1_grid_and_hash_field_aabb_unchanged=True,
-        semantics='Independent128cubed semantic gate looked up at ORIGINAL native sample midpoints in floorbox coordinates. Original sample intervals/RGB/sigma/native grid unchanged; density zeroed only by the separate gate. semantic_gate_pad1 is semantic padding, NOT another native occupancy dilation.',
+        semantic_gate_shapes={name:list(gate.shape) for name,gate in gates.items()},
+        semantics='Dimension-driven independent semantic gate looked up at ORIGINAL native sample midpoints in floorbox coordinates. Original sample intervals/RGB/sigma/native grid unchanged; density zeroed only by the separate gate. semantic_gate_pad1 is semantic padding, NOT another native occupancy dilation.',
         aabb=bounds.tolist(),world_to_box=world_to_box.tolist(),
         camera_box_frame=box_camera,box_sha256=sha(a.box),checkpoint=str(actual),
         checkpoint_sha256=a.checkpoint_sha256,step=step,source_helper_sha256=helper_sha,

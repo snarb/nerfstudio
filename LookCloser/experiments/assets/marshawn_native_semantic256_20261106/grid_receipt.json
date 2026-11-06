@@ -1,0 +1,474 @@
+{
+  "kind": "CHUNKED_TRAIN_SEMANTIC_RESOLUTION_FACTOR",
+  "resolution": 256,
+  "source_manifest": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/support_manifest.json",
+  "source_manifest_sha256": "7b73f0033d7ef1b917a2fdd32d34ec04d4cbfcfa0afbc5a3f54814a34b165ed4",
+  "transforms_sha256": "64176bce20fcf0f08427a89b492003adcce6a0b513d9fffd6bbc583db172f01a",
+  "box_sha256": "292609eebe9939e7ce5f840a1b317d963d39ec738cafaad8500abf3a2cd0620f",
+  "builder_sha256": "265576858a2fc0691d05bd55c65e75219a2723ebf0a2ca78f2ebe059be47eec1",
+  "geometry_helper_sha256": "bf1339a8dd1c65e5fd0dda925edb6e69ed68a46b7566dbe5648a2ca4e15fb835",
+  "sources": [
+    {
+      "camera": "AA",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/AA.npz",
+      "source_sha256": "205ade1d948682dcaa37babca189cae5899f62b2483d0dd59116ce4e13e71a0f",
+      "classified_cells": 16777216,
+      "newly_rejected": 0
+    },
+    {
+      "camera": "AB",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/AB.npz",
+      "source_sha256": "559129bbd8f3696e89057503d384f0d0c6d30f1f302e675fa19706b7ef90badc",
+      "classified_cells": 16777216,
+      "newly_rejected": 6411325
+    },
+    {
+      "camera": "AC",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/AC.npz",
+      "source_sha256": "3dc9ddf5e36726532a993c7140ea78f31bda88f8ce7c1222c07f3caff175f213",
+      "classified_cells": 10365891,
+      "newly_rejected": 1184902
+    },
+    {
+      "camera": "AD",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/AD.npz",
+      "source_sha256": "625b4580743dee1f52b6e60c6406482227b6ec928e657c79c6952fd97a3872f0",
+      "classified_cells": 9180989,
+      "newly_rejected": 1054195
+    },
+    {
+      "camera": "BA",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/BA.npz",
+      "source_sha256": "e4128314170c2d52909c2ce22e77af1afa4c89e3e9838e5d49a3aa719b27b599",
+      "classified_cells": 8126794,
+      "newly_rejected": 853828
+    },
+    {
+      "camera": "BB",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/BB.npz",
+      "source_sha256": "b992972adaac5b5566b2a872b8e8ade830188cca46160348c6fdf3333f520ab6",
+      "classified_cells": 7272966,
+      "newly_rejected": 296061
+    },
+    {
+      "camera": "BC",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/BC.npz",
+      "source_sha256": "8e39cd4629959a314248b31473668bf37099b778bdbe04bf6d057845af015f87",
+      "classified_cells": 6976905,
+      "newly_rejected": 363816
+    },
+    {
+      "camera": "BD",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/BD.npz",
+      "source_sha256": "7084390f7a1b7c385134ea8a4195e2943d4350c8b992026cd261a2dc2d5ca15c",
+      "classified_cells": 6613089,
+      "newly_rejected": 348268
+    },
+    {
+      "camera": "CA",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/CA.npz",
+      "source_sha256": "e3b7df503b04fa52ad20a116fcd68569120504e90a22e6dc2a32e57899da7fd9",
+      "classified_cells": 6264821,
+      "newly_rejected": 625060
+    },
+    {
+      "camera": "CB",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/CB.npz",
+      "source_sha256": "37ce3cd04670da1c2843795c7c793cb38b45dabff9797f7c941612c9df772785",
+      "classified_cells": 5639761,
+      "newly_rejected": 114155
+    },
+    {
+      "camera": "CC",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/CC.npz",
+      "source_sha256": "20f7b63ae3ad60e2145bb4ff669001b5ca4859bda2d56b916ed95e704995d386",
+      "classified_cells": 5525606,
+      "newly_rejected": 444156
+    },
+    {
+      "camera": "CD",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/CD.npz",
+      "source_sha256": "d20a8376f476c2beb235a2bb3f4e388150c1ed08b0105fe002c324a60e0db229",
+      "classified_cells": 5081450,
+      "newly_rejected": 362783
+    },
+    {
+      "camera": "CE",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/CE.npz",
+      "source_sha256": "fd7e69ba3297e9d5a0c2eac13ce885fea9b7e04ceef8dfe36cedfcf80b618613",
+      "classified_cells": 4718667,
+      "newly_rejected": 0
+    },
+    {
+      "camera": "DA",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/DA.npz",
+      "source_sha256": "8917b2f14314a8f14dc908a7c115375154a5559265115e49d9b5fd4c71fe09f0",
+      "classified_cells": 4718667,
+      "newly_rejected": 182792
+    },
+    {
+      "camera": "DB",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/DB.npz",
+      "source_sha256": "9e2e2326ea6a667173c851db90a4756ca98f0d5962a5357c4a675849c0a697e3",
+      "classified_cells": 4535875,
+      "newly_rejected": 281919
+    },
+    {
+      "camera": "DD",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/DD.npz",
+      "source_sha256": "0fd31e901a0e4f6c822f6a07620a81d536436fda03aa7fae72d76f1afe96d14d",
+      "classified_cells": 4253956,
+      "newly_rejected": 138385
+    },
+    {
+      "camera": "DE",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/DE.npz",
+      "source_sha256": "463a57aa079001b7a05d689b4d90c8801fa2254ca496c0ddcd505299f9931ae8",
+      "classified_cells": 4115571,
+      "newly_rejected": 95476
+    },
+    {
+      "camera": "EA",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/EA.npz",
+      "source_sha256": "019f13a2b24f9f294da42be78a9707402c0a1ae73a76713284adeb8142b34d1d",
+      "classified_cells": 4020095,
+      "newly_rejected": 257014
+    },
+    {
+      "camera": "EB",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/EB.npz",
+      "source_sha256": "e2dad1e975120b04b136088d5eb64f7db549e033a48c2683da57431f9ce22311",
+      "classified_cells": 3763081,
+      "newly_rejected": 72269
+    },
+    {
+      "camera": "EC",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/EC.npz",
+      "source_sha256": "16c624b0aead4fa47ca7b01d11fc1f9c3587b50d97b82ebd805c3b7ba5b0b5d9",
+      "classified_cells": 3690812,
+      "newly_rejected": 24625
+    },
+    {
+      "camera": "ED",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/ED.npz",
+      "source_sha256": "d26c27a4e7463c8e0fba3e419d26623d58918598bbaf5e4284c131c79b5c6b99",
+      "classified_cells": 3666187,
+      "newly_rejected": 42847
+    },
+    {
+      "camera": "EE",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/EE.npz",
+      "source_sha256": "fa017f1067e4a752de7a58d45352c09d6807bff44970213bd27656211f115907",
+      "classified_cells": 3623340,
+      "newly_rejected": 174501
+    },
+    {
+      "camera": "FA",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/FA.npz",
+      "source_sha256": "a223c07f17097d8cfee715621dc4b8f218842b83e2ad14513cb26c69fccf2363",
+      "classified_cells": 3448839,
+      "newly_rejected": 217737
+    },
+    {
+      "camera": "FB",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/FB.npz",
+      "source_sha256": "c675152bbe49921f03107d6e802df938bedb555aba1b303e0adaeb9607881c14",
+      "classified_cells": 3231102,
+      "newly_rejected": 18005
+    },
+    {
+      "camera": "FC",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/FC.npz",
+      "source_sha256": "f6a0554dfbccef804f777f6eff7cfcc4204833440ff5b581241578f486f34f60",
+      "classified_cells": 3213097,
+      "newly_rejected": 66261
+    },
+    {
+      "camera": "FD",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/FD.npz",
+      "source_sha256": "ad32c26360ddfbfd61a18f8f997e5eb65a5aba41755891190f7829fddbf635a3",
+      "classified_cells": 3146836,
+      "newly_rejected": 59770
+    },
+    {
+      "camera": "FE",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/FE.npz",
+      "source_sha256": "6ace5d886f95c489822805d01cb4c2f46219e56ec2738f30160372b269f1fa26",
+      "classified_cells": 3087066,
+      "newly_rejected": 109216
+    },
+    {
+      "camera": "GA",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/GA.npz",
+      "source_sha256": "e91a3b74ef2e70e762497204adbaade9dbd15d0b7cd42672606d17d7e9224f2c",
+      "classified_cells": 2977850,
+      "newly_rejected": 277470
+    },
+    {
+      "camera": "GB",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/GB.npz",
+      "source_sha256": "f846d90610d0d2fa5cb25a04a65ac158f53317bd890a95c915a9ce259ffeb331",
+      "classified_cells": 2700380,
+      "newly_rejected": 86235
+    },
+    {
+      "camera": "GC",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/GC.npz",
+      "source_sha256": "861cc7c1b3c54a51e1f969d31d4b2fa112a88e3e17436656a104da50e943eacc",
+      "classified_cells": 2614145,
+      "newly_rejected": 221412
+    },
+    {
+      "camera": "GD",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/GD.npz",
+      "source_sha256": "210b148988bfe7130119e2f9c5f0c9dd90aad10cd076aab22b3c12adc08a5c10",
+      "classified_cells": 2392733,
+      "newly_rejected": 75828
+    },
+    {
+      "camera": "GE",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/GE.npz",
+      "source_sha256": "5822f0e2f618bfdbd233dfdf10805d5d068711205d437870355d6566c79deace",
+      "classified_cells": 2316905,
+      "newly_rejected": 330115
+    },
+    {
+      "camera": "HA",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/HA.npz",
+      "source_sha256": "3460690c353d6865755f297545b5c8be6ffe122b112beef06f5e598815494aa9",
+      "classified_cells": 1986790,
+      "newly_rejected": 176638
+    },
+    {
+      "camera": "HB",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/HB.npz",
+      "source_sha256": "cd0e77b52c72c660cfb0a554ca91ea6a0db874ebcb833240047f3088264b73ee",
+      "classified_cells": 1810152,
+      "newly_rejected": 136306
+    },
+    {
+      "camera": "HD",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/HD.npz",
+      "source_sha256": "944e7fb2f02adf8f56e5198972d79562e0d8c5d09f1e892d6d763d38db91eb46",
+      "classified_cells": 1673846,
+      "newly_rejected": 212758
+    },
+    {
+      "camera": "HE",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/HE.npz",
+      "source_sha256": "a702db184ea53b1abb41f8887533a27ff6089a260667ccbc5e6ab86c8f37371c",
+      "classified_cells": 1461088,
+      "newly_rejected": 230177
+    },
+    {
+      "camera": "IA",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/IA.npz",
+      "source_sha256": "91860247110bc205fa345ede9fe7dbbdb4f579bf6265ec762f826798d083fec5",
+      "classified_cells": 1230911,
+      "newly_rejected": 46858
+    },
+    {
+      "camera": "IB",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/IB.npz",
+      "source_sha256": "7250a9ba1db830ccce849d140e66a9aa569f526f622c7d1a3b045fcd3742481a",
+      "classified_cells": 1184053,
+      "newly_rejected": 79362
+    },
+    {
+      "camera": "IC",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/IC.npz",
+      "source_sha256": "20b7bb63c0fa8feda458870ce82b8a176d44da12243be75bfdfb34936a7c49a9",
+      "classified_cells": 1104691,
+      "newly_rejected": 76307
+    },
+    {
+      "camera": "ID",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/ID.npz",
+      "source_sha256": "efa26dae3004f8387a4ee8584b9dc477bc2f843619afbc13ddc1670025e3476d",
+      "classified_cells": 1028384,
+      "newly_rejected": 15731
+    },
+    {
+      "camera": "IE",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/IE.npz",
+      "source_sha256": "b1693f5e3786b394cbfc67757076cfd9c5c0a89def47402f170736877955be99",
+      "classified_cells": 1012653,
+      "newly_rejected": 161471
+    },
+    {
+      "camera": "JA",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/JA.npz",
+      "source_sha256": "8565cba2786e046ced3b2a4bfff0c65083d269367c90e368ca05a29feed2bc09",
+      "classified_cells": 851182,
+      "newly_rejected": 6486
+    },
+    {
+      "camera": "JB",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/JB.npz",
+      "source_sha256": "9618ccead710f37d248c187fc5565b1352a35411b9ddf8064f8e204646bb15a3",
+      "classified_cells": 844696,
+      "newly_rejected": 10934
+    },
+    {
+      "camera": "JC",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/JC.npz",
+      "source_sha256": "e69b907c96971fe1d71ea44002ecc59c9b0c312db59f9ff37a8e017467de31f5",
+      "classified_cells": 833762,
+      "newly_rejected": 21098
+    },
+    {
+      "camera": "JD",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/JD.npz",
+      "source_sha256": "3f0c91a0edfb315e3c3698eacbf6e74c3c8b8c2f0166255a3229f5def81d7f34",
+      "classified_cells": 812664,
+      "newly_rejected": 22834
+    },
+    {
+      "camera": "JE",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/JE.npz",
+      "source_sha256": "8e3ba9fe451f9f691cc44ee9c9bcbfebc15324b3d09cf23892a6ae77be118b42",
+      "classified_cells": 789830,
+      "newly_rejected": 0
+    },
+    {
+      "camera": "KB",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/KB.npz",
+      "source_sha256": "360870e715fd94e272003d50b9e5606488424b0be0f45e60d8460e85fe25345c",
+      "classified_cells": 789830,
+      "newly_rejected": 1786
+    },
+    {
+      "camera": "KC",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/KC.npz",
+      "source_sha256": "3d052130004022a3d305dcd03e0360754c675c57c3774cd89e6b4520f5d65a7c",
+      "classified_cells": 788044,
+      "newly_rejected": 60362
+    },
+    {
+      "camera": "KD",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/KD.npz",
+      "source_sha256": "ac112e4af5081d3e66481b8ce1fcc1f37c10320b32d698aed3889132a949ad74",
+      "classified_cells": 727682,
+      "newly_rejected": 20662
+    },
+    {
+      "camera": "LA",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/LA.npz",
+      "source_sha256": "9de9268515f42889bb74f890004b869faa38bc68a3418709757d240f8b98ec83",
+      "classified_cells": 707020,
+      "newly_rejected": 2014
+    },
+    {
+      "camera": "LB",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/LB.npz",
+      "source_sha256": "e5ddc6caeefc20ddaeef8756a63818e2d26a0cb6cd48d76e4e0e77b5b467f8c2",
+      "classified_cells": 705006,
+      "newly_rejected": 1645
+    },
+    {
+      "camera": "LC",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/LC.npz",
+      "source_sha256": "31c1dfb7711c7d7539d2a877e8222415b7b45a30c2d28dd8362ac59fa3580f89",
+      "classified_cells": 703361,
+      "newly_rejected": 2384
+    },
+    {
+      "camera": "MA",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/MA.npz",
+      "source_sha256": "856989c9cd748ae5b11b63934dbd8aa108cccf92bb2445cd9528a2a84d014b60",
+      "classified_cells": 700977,
+      "newly_rejected": 1696
+    },
+    {
+      "camera": "MB",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/MB.npz",
+      "source_sha256": "954a9b1c8486fea4c531ecdd527698b7e8c009a123156227950120c68f1b8bfe",
+      "classified_cells": 699281,
+      "newly_rejected": 1930
+    },
+    {
+      "camera": "MC",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/MC.npz",
+      "source_sha256": "114ed06e22e5339b829b65c7566d68a63609386d75d335a92e7f17c52bf96fbe",
+      "classified_cells": 697351,
+      "newly_rejected": 6320
+    },
+    {
+      "camera": "MD",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/MD.npz",
+      "source_sha256": "9baded348dda8e8ab13a71498b0bedfaa95b3d890976a4f1b7f9b0d70f9487af",
+      "classified_cells": 691031,
+      "newly_rejected": 75511
+    },
+    {
+      "camera": "NA",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/NA.npz",
+      "source_sha256": "ca50a228e7c7980a851ff060b0afef56bd2dea97300fb06d0dc316bbc14a817b",
+      "classified_cells": 615520,
+      "newly_rejected": 2047
+    },
+    {
+      "camera": "NB",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/NB.npz",
+      "source_sha256": "6ed5c0de99f6334e322e78276c98c3098cd5c287480bfe74f23c7dac867872d2",
+      "classified_cells": 613473,
+      "newly_rejected": 2553
+    },
+    {
+      "camera": "NC",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/NC.npz",
+      "source_sha256": "110951eb6e7f82cae5f3890fbf1ce418c8fdf635636a5f71232478026ca62b4f",
+      "classified_cells": 610920,
+      "newly_rejected": 3444
+    },
+    {
+      "camera": "ND",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/ND.npz",
+      "source_sha256": "1bb84f2ccbaeb746963c7a0080eeb6bd8365cdd324aa1ff62b45ce60eb3645b3",
+      "classified_cells": 607476,
+      "newly_rejected": 23618
+    },
+    {
+      "camera": "NE",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/NE.npz",
+      "source_sha256": "4c2c444d396efc8faccc1ef78fa383ad23e3d8b709beb6ff1b201b2f2a9b932d",
+      "classified_cells": 583858,
+      "newly_rejected": 0
+    },
+    {
+      "camera": "OA",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/OA.npz",
+      "source_sha256": "19564340aa2d1186ccb511282c4e2ee8a41296f88537bd97f8168c07c0e84622",
+      "classified_cells": 583858,
+      "newly_rejected": 4098
+    },
+    {
+      "camera": "OD",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/OD.npz",
+      "source_sha256": "04ce611572babf7b3d20ba57abb5cb6ebefa6b2dbc9459587dda5c5772da9878",
+      "classified_cells": 579760,
+      "newly_rejected": 16689
+    }
+  ],
+  "counts": {
+    "gate0": 563071,
+    "pad1": 671141,
+    "pad2": 777364,
+    "total": 16777216
+  },
+  "cell_extent": [
+    0.0038671875,
+    0.0024609375,
+    0.002734375
+  ],
+  "grid_sha256": "bc40a6db978c8129f1f5b3d22b79a6e6ef592360a7b1ac889760c3a460d3e3b1",
+  "seconds": 163.02337421104312,
+  "no_native_field_or_grid_loaded": true,
+  "no_eval_sources_used": true,
+  "mask_policy": "EXACT frozen W64 occlusion_v2 source arrays; reject only after2whole-cell clear TRAIN rectangles; UNKNOWN/veto preserved",
+  "padding": "Fresh noncumulative cube halos from gate0. At256 pad1 has half the physical extent of128pad1; optional256pad2 matches128pad1 axis extent.",
+  "limitations": [
+    "Partial occluder coverage remains partial; finer cells do not certify visibility.",
+    "Actor-ray intersection does not establish retained actor surface or physical correctness."
+  ]
+}

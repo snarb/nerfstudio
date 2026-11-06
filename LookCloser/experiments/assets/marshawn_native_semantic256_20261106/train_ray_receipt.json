@@ -1,0 +1,1914 @@
+{
+  "kind": "EXACT_FULL_TRAIN_RAY_GRID_INTERSECTION_NOT_SURFACE_CERTIFICATION",
+  "grid": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/semantic_resolution256/candidate256/semantic_grid.npz",
+  "grid_sha256": "bc40a6db978c8129f1f5b3d22b79a6e6ef592360a7b1ac889760c3a460d3e3b1",
+  "resolution": [
+    256,
+    256,
+    256
+  ],
+  "rows": [
+    {
+      "camera": "AA",
+      "actor_rays": 67852,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/AA.npz",
+      "semantic_sha256": "3f32135205312f9329fc30d0ef0491d8a0c6972f80dc5b73c37f6817d404435a"
+    },
+    {
+      "camera": "AB",
+      "actor_rays": 74685,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/AB.npz",
+      "semantic_sha256": "bb356b2b458eb1321fb11c2fb1dbfeb2b8bab8392ab77aa46c0f7a3e913f1bfc"
+    },
+    {
+      "camera": "AC",
+      "actor_rays": 81144,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/AC.npz",
+      "semantic_sha256": "19ea93d60d2472ce39b08fcef7a0e7515d133607cfea88d718d8e0996103e3a8"
+    },
+    {
+      "camera": "AD",
+      "actor_rays": 82766,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/AD.npz",
+      "semantic_sha256": "b2bd9d12d3f44d7d035545220b40518bdbb19a4c7b82391f4656aa570e1cae9f"
+    },
+    {
+      "camera": "BA",
+      "actor_rays": 69599,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/BA.npz",
+      "semantic_sha256": "8e94c32d04b64df4a93683547934a331de9dd941076c5b2dd4ac920a4ba1ca04"
+    },
+    {
+      "camera": "BB",
+      "actor_rays": 76142,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/BB.npz",
+      "semantic_sha256": "63e6578621f61989c99c25b1ee33f46d929e208f92dc83b70554ebe01e6ca6e5"
+    },
+    {
+      "camera": "BC",
+      "actor_rays": 83370,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/BC.npz",
+      "semantic_sha256": "52b45691881a843b21a58701814b38b72c84962c428436c858d9bd3d87f54510"
+    },
+    {
+      "camera": "BD",
+      "actor_rays": 86904,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/BD.npz",
+      "semantic_sha256": "4c8e1c6051ecc523a0d34f7b021dd458b8b49cd39788ebf0d8e745cdc54fe343"
+    },
+    {
+      "camera": "CA",
+      "actor_rays": 70016,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/CA.npz",
+      "semantic_sha256": "f47f30965b92f61533ba4324467f54daef823abd77c1e55f54bd7273ba099513"
+    },
+    {
+      "camera": "CB",
+      "actor_rays": 80566,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/CB.npz",
+      "semantic_sha256": "97081bfa648318f4f5404c6f107af0e796bbe53f10c9683ecd45dc658135f21a"
+    },
+    {
+      "camera": "CC",
+      "actor_rays": 84555,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/CC.npz",
+      "semantic_sha256": "0c5c94bfbd3d14ca2a151e3867c9deac81a640e76fd7d5fe569f3ddcb532f2b0"
+    },
+    {
+      "camera": "CD",
+      "actor_rays": 84635,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/CD.npz",
+      "semantic_sha256": "c823aa25c4716bd9a38b7eaaae90a1999aaf1d0c64627d96b3062fd068bcd80e"
+    },
+    {
+      "camera": "CE",
+      "actor_rays": 71205,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/CE.npz",
+      "semantic_sha256": "66f296dc35b2046f858a2850ad5d6810d6e483bc2b28c6ce065a34abca5e3ec2"
+    },
+    {
+      "camera": "DA",
+      "actor_rays": 68334,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/DA.npz",
+      "semantic_sha256": "df6323419cfba07d54ada4aa4e665123af1560db41686e7458edf8a93132abc2"
+    },
+    {
+      "camera": "DB",
+      "actor_rays": 73725,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/DB.npz",
+      "semantic_sha256": "029db0fc1bfb33f7355f72c87e118abb72321408a1fb2dcc27af03cd578174be"
+    },
+    {
+      "camera": "DD",
+      "actor_rays": 82176,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/DD.npz",
+      "semantic_sha256": "612344d0661df2f0f446267803953bc15f2d2670bb756c781f050eb8e64d1e23"
+    },
+    {
+      "camera": "DE",
+      "actor_rays": 83653,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/DE.npz",
+      "semantic_sha256": "424d121c88adbb991364036db8101d16a840d5386864ec8a355e4290a915bb81"
+    },
+    {
+      "camera": "EA",
+      "actor_rays": 66407,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/EA.npz",
+      "semantic_sha256": "1a38b46bb7f00e310a7bece42ed9f4a3475d93e4e5213c0f814d9700fea92a6b"
+    },
+    {
+      "camera": "EB",
+      "actor_rays": 72258,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/EB.npz",
+      "semantic_sha256": "3cb36f038d608cc3a6bc2e2dbb805a752a3fb9725e09241b7449a5ba0e4a4e0a"
+    },
+    {
+      "camera": "EC",
+      "actor_rays": 81275,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/EC.npz",
+      "semantic_sha256": "e71a5dd9018486fc8395861c7d18bec0a1d1990506a628e922ba50e17a5c609d"
+    },
+    {
+      "camera": "ED",
+      "actor_rays": 83292,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/ED.npz",
+      "semantic_sha256": "cb19901215a6415e346faace9c36f205e40d77062bfc6d91fc17dc4608094141"
+    },
+    {
+      "camera": "EE",
+      "actor_rays": 84708,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/EE.npz",
+      "semantic_sha256": "38669aa11f628ed5e6115b6728524f3c162d9f09dcddf048c37160abcdba44ea"
+    },
+    {
+      "camera": "FA",
+      "actor_rays": 63047,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/FA.npz",
+      "semantic_sha256": "d16eceea174748fd442c715faf0b4fdba7dfea553ec5137012ad6ae2809e933b"
+    },
+    {
+      "camera": "FB",
+      "actor_rays": 64772,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/FB.npz",
+      "semantic_sha256": "a95e0862503097a206c72fd3d3f45a2efadf1c3d929051bed3a6dd03ccbf5a86"
+    },
+    {
+      "camera": "FC",
+      "actor_rays": 72372,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/FC.npz",
+      "semantic_sha256": "497e9222aa54cffdba3a9dfdc104171033339102f518f366691342574852f2cb"
+    },
+    {
+      "camera": "FD",
+      "actor_rays": 75578,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/FD.npz",
+      "semantic_sha256": "f27bc612c11d68603689c497e3915627f231696cfc793e5aa06deac0ad872be7"
+    },
+    {
+      "camera": "FE",
+      "actor_rays": 71412,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/FE.npz",
+      "semantic_sha256": "8c99207a8c6e82667e9fd82f35b730349ea47258116ff474810e9352dad48f1e"
+    },
+    {
+      "camera": "GA",
+      "actor_rays": 62539,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/GA.npz",
+      "semantic_sha256": "dcecc5cbffa1fb945edb54b47bd8d83660e777d3bd4c5d28a442364771e25e52"
+    },
+    {
+      "camera": "GB",
+      "actor_rays": 69466,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/GB.npz",
+      "semantic_sha256": "c803df19243cbb1a6dfa10e77cedb954a2de85384ac1741fe9b4dff368b21f65"
+    },
+    {
+      "camera": "GC",
+      "actor_rays": 74472,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/GC.npz",
+      "semantic_sha256": "b770ee430799798dae21beafc3fdda8a66bb5d11f2f762cdd540aaf22747cf6a"
+    },
+    {
+      "camera": "GD",
+      "actor_rays": 72505,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/GD.npz",
+      "semantic_sha256": "eb68826a5d34559efdaab3a1bcd81b85fd623e5035adf01c96380a04bcbedc78"
+    },
+    {
+      "camera": "GE",
+      "actor_rays": 67168,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/GE.npz",
+      "semantic_sha256": "7203476b484161a9b96d094843456c00a4cd8be6533f5ff3dcfa28b7ecd986ea"
+    },
+    {
+      "camera": "HA",
+      "actor_rays": 58038,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/HA.npz",
+      "semantic_sha256": "c0c40fcf8d5bf6f2eccd298906a8a984256912967e7b4c4ab479cecf942bed17"
+    },
+    {
+      "camera": "HB",
+      "actor_rays": 57616,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/HB.npz",
+      "semantic_sha256": "3d2ff7597780ae6105fbc1c2606daffe4bc7a4fa8520ffa75341c612e510349e"
+    },
+    {
+      "camera": "HD",
+      "actor_rays": 67632,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/HD.npz",
+      "semantic_sha256": "02a778d5bf53e8e60616a44879d0a0fe34406503e25aa989b269fc4582504df9"
+    },
+    {
+      "camera": "HE",
+      "actor_rays": 73053,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/HE.npz",
+      "semantic_sha256": "98ad3a0cf89897f42eddb8251f71462c52eaf772a9ae8ab7ae5c535afb46923d"
+    },
+    {
+      "camera": "IA",
+      "actor_rays": 63126,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 310,
+        "semantic_gate_pad1": 187,
+        "semantic_gate_pad2": 84
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 310
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 187
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 84
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/corrected_v2/masks/IA.npz",
+      "semantic_sha256": "c6435d164a1ace355f133706aaa75a36340420dc22f6aced22349ece24c9a35c"
+    },
+    {
+      "camera": "IB",
+      "actor_rays": 68692,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/IB.npz",
+      "semantic_sha256": "3576120117f06d7a173be6b32a8230a2f943dd1c288eba3ad82ab9519eb83321"
+    },
+    {
+      "camera": "IC",
+      "actor_rays": 78494,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/IC.npz",
+      "semantic_sha256": "2ba07fd7b20cda5a7564d181a91ab3241daefe4ebce0cf8a63e9f81619bb36ad"
+    },
+    {
+      "camera": "ID",
+      "actor_rays": 76416,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/ID.npz",
+      "semantic_sha256": "d5a3f55018d43692800d8c79e6b54b7017668777064df1ac681d9143559c45ac"
+    },
+    {
+      "camera": "IE",
+      "actor_rays": 75547,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/IE.npz",
+      "semantic_sha256": "60128569a57e14eaccf562255d3a41aa4998e6fb009a8df8e72d29914c06a6a3"
+    },
+    {
+      "camera": "JA",
+      "actor_rays": 56699,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/JA.npz",
+      "semantic_sha256": "d1510cd71ece97924e5078b77ef8a0628fb7ff1dcb8b277818ccf943ef699b7e"
+    },
+    {
+      "camera": "JB",
+      "actor_rays": 64656,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/JB.npz",
+      "semantic_sha256": "c8b9c316ef5c87d46f14077e8779a74186ec7d688db355450074545775cca261"
+    },
+    {
+      "camera": "JC",
+      "actor_rays": 74139,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/JC.npz",
+      "semantic_sha256": "115dd9a33054ee7ffb9f795cb0ea69c99a903ecff2db49ded203d431d24fafba"
+    },
+    {
+      "camera": "JD",
+      "actor_rays": 73631,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/JD.npz",
+      "semantic_sha256": "a5db00b1b21f36e48bd6c233b92e2c6bbca481040e69772e247af130c1c207d2"
+    },
+    {
+      "camera": "JE",
+      "actor_rays": 72105,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/JE.npz",
+      "semantic_sha256": "4e43d2552a0c250cd0919b081e443a3357ec4cc3d8fb6ebde5a688425b80bec7"
+    },
+    {
+      "camera": "KB",
+      "actor_rays": 66837,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/KB.npz",
+      "semantic_sha256": "224e8bf6a36d37779fac7956cc9a8a14dc66f975ff95e0fef34f1dab2320cbb2"
+    },
+    {
+      "camera": "KC",
+      "actor_rays": 71633,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/KC.npz",
+      "semantic_sha256": "67e1f7f8e6813b4f29353e1ad400e8e70afd068b71235176db911e5e9cb2d10c"
+    },
+    {
+      "camera": "KD",
+      "actor_rays": 77169,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/KD.npz",
+      "semantic_sha256": "7dfee6b95b2e6b3810fba871604c6d68ecaa8bc3bfcf3942b3cb5d564559d150"
+    },
+    {
+      "camera": "LA",
+      "actor_rays": 61948,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 257,
+        "semantic_gate_pad1": 142,
+        "semantic_gate_pad2": 51
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 257
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 142
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 51
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/corrected_v2/masks/LA.npz",
+      "semantic_sha256": "de845e422e56a4d542201ed76d7b18ff59be4e99fade3945414f22cef7c85a4f"
+    },
+    {
+      "camera": "LB",
+      "actor_rays": 68713,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 265,
+        "semantic_gate_pad1": 141,
+        "semantic_gate_pad2": 48
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 265
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 141
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 48
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/corrected_v2/masks/LB.npz",
+      "semantic_sha256": "4c4cb7cd373cfc973fd675985f6592e23a39c4db3060a702c899ebcdfd3ea25a"
+    },
+    {
+      "camera": "LC",
+      "actor_rays": 80551,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/LC.npz",
+      "semantic_sha256": "9f45b4838bb927587684a0d4d212b915a464249a054a31b3880cdc040c2e38dc"
+    },
+    {
+      "camera": "MA",
+      "actor_rays": 63046,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 1,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 1
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/corrected_v2/masks/MA.npz",
+      "semantic_sha256": "f78b8d292611522ef9da294582866963a3293ac3ac46b0b06cbfbc120571cb7e"
+    },
+    {
+      "camera": "MB",
+      "actor_rays": 72476,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 33,
+        "semantic_gate_pad1": 20,
+        "semantic_gate_pad2": 7
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 33
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 20
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 7
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/corrected_v2/masks/MB.npz",
+      "semantic_sha256": "db7ab166408e439da52c433dc62a65e2c05b0714538a68348433b4369f20b375"
+    },
+    {
+      "camera": "MC",
+      "actor_rays": 88590,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 26,
+        "semantic_gate_pad1": 2,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 26
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 2
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/corrected_v2/masks/MC.npz",
+      "semantic_sha256": "de4d465dbc5ca571dc35da70c6a52dc312d0b8b782c33edc087cd30a16617b04"
+    },
+    {
+      "camera": "MD",
+      "actor_rays": 91284,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/MD.npz",
+      "semantic_sha256": "f5405cc5900a35934c3b62afdd23a1084fca36ea74b784a6797811c58bb50085"
+    },
+    {
+      "camera": "NA",
+      "actor_rays": 61886,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/corrected_v2/masks/NA.npz",
+      "semantic_sha256": "48a5f24fc4a0c01deb4b8b909811361b1fb1675f834075e79a2ce8122b0bec0b"
+    },
+    {
+      "camera": "NB",
+      "actor_rays": 76676,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 40,
+        "semantic_gate_pad1": 15,
+        "semantic_gate_pad2": 1
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 40
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 15
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 1
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/corrected_v2/masks/NB.npz",
+      "semantic_sha256": "cd05f56f7a679bcf45784cd55fd8edbb8278d4596fe36e89bfcd180cf84cfd0c"
+    },
+    {
+      "camera": "NC",
+      "actor_rays": 92566,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/NC.npz",
+      "semantic_sha256": "17202e93f620e65703795b2f9155cad7bd1f81201634f4ededb48de22b125f02"
+    },
+    {
+      "camera": "ND",
+      "actor_rays": 88682,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/corrected_v2/masks/ND.npz",
+      "semantic_sha256": "02626595ead2f04855a44a38baab364e3e76a03b92a61da82e9b3459f3c367b6"
+    },
+    {
+      "camera": "NE",
+      "actor_rays": 97686,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/NE.npz",
+      "semantic_sha256": "94744d92ce191bcf5b45921c6445c089a9e0e8584165d6bc366e8ed3c28bf14c"
+    },
+    {
+      "camera": "OA",
+      "actor_rays": 54567,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/OA.npz",
+      "semantic_sha256": "9dbfb1f20afa01c3818ec3b6593a5ebf85c3959defd58d574d37c98cf814f7a1"
+    },
+    {
+      "camera": "OD",
+      "actor_rays": 80571,
+      "miss_counts": {
+        "accepted_box": 0,
+        "semantic_gate0": 0,
+        "semantic_gate_pad1": 0,
+        "semantic_gate_pad2": 0
+      },
+      "miss_by_actor": {
+        "accepted_box": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate0": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad1": {
+          "black": 0,
+          "grey": 0
+        },
+        "semantic_gate_pad2": {
+          "black": 0,
+          "grey": 0
+        }
+      },
+      "semantic_source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/OD.npz",
+      "semantic_sha256": "334ebc4acf73df83c9aed50eec0e4e0520d135fe43b347697ef8439b6e7cda37"
+    }
+  ],
+  "total_actor_rays": 4657323,
+  "totals": {
+    "accepted_box": 0,
+    "semantic_gate0": 932,
+    "semantic_gate_pad1": 507,
+    "semantic_gate_pad2": 191
+  },
+  "no_eval_input": true,
+  "no_field_loaded": true,
+  "CPU_DDA_40_ray_crosscheck_passed": true,
+  "seconds": 6.4020895548164845,
+  "limitation": "One retained cell along a ray does not certify actor surface preservation, depth, or occupancy correctness."
+}

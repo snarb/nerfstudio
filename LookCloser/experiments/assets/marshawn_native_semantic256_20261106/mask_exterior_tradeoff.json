@@ -1,0 +1,78 @@
+{
+  "kind": "EVAL_ONLY_MASK_EXTERIOR_OPACITY_RESOLUTION_COMPARISON",
+  "rows": [
+    {
+      "camera": "HC",
+      "variant": "128_pad1",
+      "exterior_alpha_gt01_pixels": 85622,
+      "exterior_alpha_mass": 74999.57030883539
+    },
+    {
+      "camera": "HC",
+      "variant": "256_gate0",
+      "exterior_alpha_gt01_pixels": 59914,
+      "exterior_alpha_mass": 49227.445407263986
+    },
+    {
+      "camera": "HC",
+      "variant": "256_pad1",
+      "exterior_alpha_gt01_pixels": 70040,
+      "exterior_alpha_mass": 59200.52584954037
+    },
+    {
+      "camera": "HC",
+      "variant": "256_pad2",
+      "exterior_alpha_gt01_pixels": 79201,
+      "exterior_alpha_mass": 68660.88751385588
+    },
+    {
+      "camera": "DC",
+      "variant": "128_pad1",
+      "exterior_alpha_gt01_pixels": 177032,
+      "exterior_alpha_mass": 153309.58893402206
+    },
+    {
+      "camera": "DC",
+      "variant": "256_gate0",
+      "exterior_alpha_gt01_pixels": 124272,
+      "exterior_alpha_mass": 101920.70072735584
+    },
+    {
+      "camera": "DC",
+      "variant": "256_pad1",
+      "exterior_alpha_gt01_pixels": 144361,
+      "exterior_alpha_mass": 121673.76092616719
+    },
+    {
+      "camera": "DC",
+      "variant": "256_pad2",
+      "exterior_alpha_gt01_pixels": 164164,
+      "exterior_alpha_mass": 141056.33549761504
+    },
+    {
+      "camera": "KA",
+      "variant": "128_pad1",
+      "exterior_alpha_gt01_pixels": 57048,
+      "exterior_alpha_mass": 48099.741429557114
+    },
+    {
+      "camera": "KA",
+      "variant": "256_gate0",
+      "exterior_alpha_gt01_pixels": 37324,
+      "exterior_alpha_mass": 29886.67864622973
+    },
+    {
+      "camera": "KA",
+      "variant": "256_pad1",
+      "exterior_alpha_gt01_pixels": 44635,
+      "exterior_alpha_mass": 36579.91834191141
+    },
+    {
+      "camera": "KA",
+      "variant": "256_pad2",
+      "exterior_alpha_gt01_pixels": 51589,
+      "exterior_alpha_mass": 43212.365077314746
+    }
+  ],
+  "note": "Outside EVALv2 actorunion dilated3HDpixels; not certified nonactorvolume and neverinputtoTRAINgate. Same-file128reference and256candidate shareoriginalnative samplepositions andmodel."
+}
