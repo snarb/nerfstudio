@@ -1,0 +1,58 @@
+{
+  "source_step": 100000,
+  "inputs": [
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/images/eval_DC.png",
+      "sha256": "6cd7eb43aaeb89d8d746ee49bef90a65886bf428d520732bbe857d0f877122d3"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_reference_continuation_20000/evaluations/step-000100000_attempt-1794003734672002575/renders/DC/DC_inside.png",
+      "sha256": "1b1a38af12cadd182de7d8bacad068d3af7e5515e62ec10e894d3ee23dad4ecc"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_reference_4k_technical_v2/HD_identity_zero_FHD_evaluation/renders/DC/DC_inside.png",
+      "sha256": "83e23cfb90cc6fb4890436c82ad02f66f087681607e55faa29089cf2a27a74d0"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_reference_4k_technical_v2/TRAIN4K_zero_FHD_evaluation/renders/DC/DC_inside.png",
+      "sha256": "2bac5ea7bdf1ff582e510a0f466acf8728f11355665ed8a1ae3c73869e187f01"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/images/eval_HC.png",
+      "sha256": "ccc98134f03be9f5202e40122692f08628f5dc9601aef90b08da69dbe29e0405"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_reference_continuation_20000/evaluations/step-000100000_attempt-1794003734672002575/renders/HC/HC_inside.png",
+      "sha256": "1f5cf2c6b8417c43231aa6d8cf48e1173e9659841bc556bce1624eae8a9daf4f"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_reference_4k_technical_v2/HD_identity_zero_FHD_evaluation/renders/HC/HC_inside.png",
+      "sha256": "646af9c4b4064904ea03cd432d705fad3ef320975f8e07a2894e74c30013e19b"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_reference_4k_technical_v2/TRAIN4K_zero_FHD_evaluation/renders/HC/HC_inside.png",
+      "sha256": "13219e2fa6ecb3d9aaf91700279f897e1e8cbc8c079b8d3f544899fa02bfa2d7"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/images/eval_KA.png",
+      "sha256": "4fb9111b577846c0f39cf93cd221346f50a57234ad3552cb8ca0ce8b0edc4a05"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_reference_continuation_20000/evaluations/step-000100000_attempt-1794003734672002575/renders/KA/KA_inside.png",
+      "sha256": "0c98ac6001314c83046f77bd5f933f1d0a0b22e63be7f17caa8de2ad1f157377"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_reference_4k_technical_v2/HD_identity_zero_FHD_evaluation/renders/KA/KA_inside.png",
+      "sha256": "426f04e07e5753cea402097c633516ec506ea70176c50a467eb91ff53572a746"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_reference_4k_technical_v2/TRAIN4K_zero_FHD_evaluation/renders/KA/KA_inside.png",
+      "sha256": "dadc04073268446860975f3e67760ed37e0b11a52768f064cbc0563687a5aa1a"
+    }
+  ],
+  "region_sha256": "603991a50762581ce1f76912c2f6d8a7d768e77f3679f74787662db2e777a309",
+  "parity_sha256": "4d8123a634c5d7b219a25c188775d984f07ee20c4bccc249d300c65d24004efc",
+  "helper_sha256": "5ae644d994f96a9c86107d5a27595e190fdd20476121519ac4dc7bee81f70984",
+  "no_GPU_or_model_loaded": true,
+  "visual_inspection_pending": true
+}

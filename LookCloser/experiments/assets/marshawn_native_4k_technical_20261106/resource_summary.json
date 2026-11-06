@@ -1,0 +1,50 @@
+{
+  "phases": {
+    "HD_identity_zero_FHD_evaluation": {
+      "observed_max_process_VmHWM_GiB": 3.8407058715820312,
+      "observed_max_process_VmSwap_KiB": 0,
+      "observed_min_system_MemAvailable_GiB": 20.266563415527344,
+      "sampled_GPU_total_peak_MiB": 1594,
+      "process_samples": 74
+    },
+    "TRAIN4K_final_roundtrip": {
+      "observed_max_process_VmHWM_GiB": 13.825069427490234,
+      "observed_max_process_VmSwap_KiB": 0,
+      "observed_min_system_MemAvailable_GiB": 12.826278686523438,
+      "sampled_GPU_total_peak_MiB": 1154,
+      "process_samples": 65
+    },
+    "TRAIN4K_resume16": {
+      "observed_max_process_VmHWM_GiB": 13.791912078857422,
+      "observed_max_process_VmSwap_KiB": 0,
+      "observed_min_system_MemAvailable_GiB": 12.176448822021484,
+      "sampled_GPU_total_peak_MiB": 5562,
+      "process_samples": 40
+    },
+    "TRAIN4K_updates16": {
+      "observed_max_process_VmHWM_GiB": 13.851009368896484,
+      "observed_max_process_VmSwap_KiB": 0,
+      "observed_min_system_MemAvailable_GiB": 13.045822143554688,
+      "sampled_GPU_total_peak_MiB": 5566,
+      "process_samples": 40
+    },
+    "TRAIN4K_zero": {
+      "observed_max_process_VmHWM_GiB": 13.87942886352539,
+      "observed_max_process_VmSwap_KiB": 0,
+      "observed_min_system_MemAvailable_GiB": 12.2352294921875,
+      "sampled_GPU_total_peak_MiB": 1634,
+      "process_samples": 63
+    },
+    "TRAIN4K_zero_FHD_evaluation": {
+      "observed_max_process_VmHWM_GiB": 12.668529510498047,
+      "observed_max_process_VmSwap_KiB": 0,
+      "observed_min_system_MemAvailable_GiB": 13.636913299560547,
+      "sampled_GPU_total_peak_MiB": 1594,
+      "process_samples": 211
+    }
+  },
+  "process_interval_seconds": 1,
+  "GPU_interval_seconds": 10,
+  "limitations": "Observed /proc high-water and sampled GPU use; GPU peaks between samples may be missed. Observer began during HD-identity FHD eval, before all4K phases.",
+  "no_RAM_abort": true
+}

@@ -1,0 +1,24 @@
+{
+  "time": 1794004504.9534085,
+  "source_step": 100000,
+  "views": [
+    "DC",
+    "HC",
+    "KA"
+  ],
+  "regions": [
+    "hair",
+    "hands_contact",
+    "feet"
+  ],
+  "columns": [
+    "source RGB",
+    "selected native100k",
+    "HD adapter zero",
+    "4K TRAIN adapter zero"
+  ],
+  "contact_sheet_sha256": "54f1ac35bcd1d6ec202d197f98c2d9c4253380a64646cfb1276dc937613c3655",
+  "finding": "All three rendered columns visually agree in all inspected source-fixed detail regions; no new contour, color, crop or field-coordinate discrepancy seen.",
+  "scope": "Zero-update adapter parity only, not evidence of improved4K-trained quality. Existing source100k softness and nonactor floor/mat/bag persist.",
+  "production_authorized": false
+}

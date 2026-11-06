@@ -1,0 +1,173 @@
+{
+  "completed": 1794004789.6851423,
+  "source_step": 100000,
+  "source_checkpoint_sha256": "51e0e6b0b28e1dc4d7b2c940bef942efa95163349ebe939a16ffd7115f2fe39c",
+  "complete_sha256": "0eb5bcc9a6fcf6b2710fb8689eac9a96675b7bb4f3800de77fadcb767275c221",
+  "actual_Adam_updates": 32,
+  "attempts": 32,
+  "production_authorized": false,
+  "phase_results": {
+    "original_HD_reference": {
+      "source_step": 100000,
+      "final_step": 100000,
+      "initial_adam": 99957,
+      "final_adam": 99957,
+      "attempts": 0,
+      "actual_updates": 0,
+      "AMP_skips": 0,
+      "restored_domain_equality": {
+        "pipeline": true,
+        "optimizers": true,
+        "schedulers": true,
+        "scalers": true
+      },
+      "serialization_roundtrip": {
+        "pipeline": true,
+        "optimizers": true,
+        "schedulers": true,
+        "scalers": true,
+        "rng_state": true
+      },
+      "initial_pipeline_hash": "ec60251176dfe59f008f8cf13194dfe3cef9021af847952c5765318cef9937fd",
+      "final_pipeline_hash": "ec60251176dfe59f008f8cf13194dfe3cef9021af847952c5765318cef9937fd",
+      "output_checkpoint_sha256": "86b63fde02396d9e738a16eb18d95db6ca754ced1cfc3fca3a15d4b37c235151",
+      "output_runtime_sha256": "e437ef60e894ac48c0355ad7b890dbcaf37374e9dd3ddc26541e8e3c8fd27ccd",
+      "output_grid_sha256": "d96b8c87c83d72815d7d58451372b772c7a69ab2268dedf6c84922af322ca676"
+    },
+    "HD_identity_zero": {
+      "source_step": 100000,
+      "final_step": 100000,
+      "initial_adam": 99957,
+      "final_adam": 99957,
+      "attempts": 0,
+      "actual_updates": 0,
+      "AMP_skips": 0,
+      "restored_domain_equality": {
+        "pipeline": true,
+        "optimizers": true,
+        "schedulers": true,
+        "scalers": true
+      },
+      "serialization_roundtrip": {
+        "pipeline": true,
+        "optimizers": true,
+        "schedulers": true,
+        "scalers": true,
+        "rng_state": true
+      },
+      "initial_pipeline_hash": "ec60251176dfe59f008f8cf13194dfe3cef9021af847952c5765318cef9937fd",
+      "final_pipeline_hash": "ec60251176dfe59f008f8cf13194dfe3cef9021af847952c5765318cef9937fd",
+      "output_checkpoint_sha256": "86b63fde02396d9e738a16eb18d95db6ca754ced1cfc3fca3a15d4b37c235151",
+      "output_runtime_sha256": "e437ef60e894ac48c0355ad7b890dbcaf37374e9dd3ddc26541e8e3c8fd27ccd",
+      "output_grid_sha256": "d96b8c87c83d72815d7d58451372b772c7a69ab2268dedf6c84922af322ca676"
+    },
+    "TRAIN4K_zero": {
+      "source_step": 100000,
+      "final_step": 100000,
+      "initial_adam": 99957,
+      "final_adam": 99957,
+      "attempts": 0,
+      "actual_updates": 0,
+      "AMP_skips": 0,
+      "restored_domain_equality": {
+        "pipeline": true,
+        "optimizers": true,
+        "schedulers": true,
+        "scalers": true
+      },
+      "serialization_roundtrip": {
+        "pipeline": true,
+        "optimizers": true,
+        "schedulers": true,
+        "scalers": true,
+        "rng_state": true
+      },
+      "initial_pipeline_hash": "ec60251176dfe59f008f8cf13194dfe3cef9021af847952c5765318cef9937fd",
+      "final_pipeline_hash": "ec60251176dfe59f008f8cf13194dfe3cef9021af847952c5765318cef9937fd",
+      "output_checkpoint_sha256": "86b63fde02396d9e738a16eb18d95db6ca754ced1cfc3fca3a15d4b37c235151",
+      "output_runtime_sha256": "e437ef60e894ac48c0355ad7b890dbcaf37374e9dd3ddc26541e8e3c8fd27ccd",
+      "output_grid_sha256": "d96b8c87c83d72815d7d58451372b772c7a69ab2268dedf6c84922af322ca676"
+    },
+    "TRAIN4K_updates16": {
+      "source_step": 100000,
+      "final_step": 100016,
+      "initial_adam": 99957,
+      "final_adam": 99973,
+      "attempts": 16,
+      "actual_updates": 16,
+      "AMP_skips": 0,
+      "restored_domain_equality": {
+        "pipeline": true,
+        "optimizers": true,
+        "schedulers": true,
+        "scalers": true
+      },
+      "serialization_roundtrip": {
+        "pipeline": true,
+        "optimizers": true,
+        "schedulers": true,
+        "scalers": true,
+        "rng_state": true
+      },
+      "initial_pipeline_hash": "ec60251176dfe59f008f8cf13194dfe3cef9021af847952c5765318cef9937fd",
+      "final_pipeline_hash": "fe5b2dfd4b07544e0ef0d6f1d904ec417875dbbd6c2e05f41ee219bf8ce9af90",
+      "output_checkpoint_sha256": "3723cc8354e6caa8284bb53ad03edea656cc08f1b01ea31c0fa0dacfee6cec13",
+      "output_runtime_sha256": "c1d5ad63894ba1c8ede31a525cb2aa61dda2af95caae5695db18582f9e5bf8b9",
+      "output_grid_sha256": "6cfb42ec58df161abdefbb686d54b980665c55ac5cad4a7f8701502bdd2d4023"
+    },
+    "TRAIN4K_resume16": {
+      "source_step": 100016,
+      "final_step": 100032,
+      "initial_adam": 99973,
+      "final_adam": 99989,
+      "attempts": 16,
+      "actual_updates": 16,
+      "AMP_skips": 0,
+      "restored_domain_equality": {
+        "pipeline": true,
+        "optimizers": true,
+        "schedulers": true,
+        "scalers": true
+      },
+      "serialization_roundtrip": {
+        "pipeline": true,
+        "optimizers": true,
+        "schedulers": true,
+        "scalers": true,
+        "rng_state": true
+      },
+      "initial_pipeline_hash": "fe5b2dfd4b07544e0ef0d6f1d904ec417875dbbd6c2e05f41ee219bf8ce9af90",
+      "final_pipeline_hash": "f5e21e7b76d68be83c930413746a6f44bb1e29e1559bda5c7dcb0ce510deabcd",
+      "output_checkpoint_sha256": "8a654f808ce9d4810d551187694802b5ca39118291a4b48015f9724fefb41bc8",
+      "output_runtime_sha256": "ddea9f2c0bfee231994734f5d8c20d81b3afeaeb990ea09fc6ef4d898b47d581",
+      "output_grid_sha256": "fdb6f67685a1d03d6eabc1b7b423249cbe4fe94ae8c5f85693385aee470ef193"
+    },
+    "TRAIN4K_final_roundtrip": {
+      "source_step": 100032,
+      "final_step": 100032,
+      "initial_adam": 99989,
+      "final_adam": 99989,
+      "attempts": 0,
+      "actual_updates": 0,
+      "AMP_skips": 0,
+      "restored_domain_equality": {
+        "pipeline": true,
+        "optimizers": true,
+        "schedulers": true,
+        "scalers": true
+      },
+      "serialization_roundtrip": {
+        "pipeline": true,
+        "optimizers": true,
+        "schedulers": true,
+        "scalers": true,
+        "rng_state": true
+      },
+      "initial_pipeline_hash": "f5e21e7b76d68be83c930413746a6f44bb1e29e1559bda5c7dcb0ce510deabcd",
+      "final_pipeline_hash": "f5e21e7b76d68be83c930413746a6f44bb1e29e1559bda5c7dcb0ce510deabcd",
+      "output_checkpoint_sha256": "2b4686c86be7ef4e90b7ba9b7e1a2e5b3dff2eabc1ad556df0406132b3eea9e5",
+      "output_runtime_sha256": "ddea9f2c0bfee231994734f5d8c20d81b3afeaeb990ea09fc6ef4d898b47d581",
+      "output_grid_sha256": "fdb6f67685a1d03d6eabc1b7b423249cbe4fe94ae8c5f85693385aee470ef193"
+    }
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "HD_identity_zero_priors": {
+    "reference": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_reference_4k_technical_v2/original_HD_reference",
+    "candidate": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_reference_4k_technical_v2/HD_identity_zero",
+    "gradients": {
+      "free_gradient": {
+        "max_abs": 1.4551915228366852e-11,
+        "relative_L2": 0.00015037989942356944,
+        "passed": true
+      },
+      "band_gradient": {
+        "max_abs": 2.3283064365386963e-10,
+        "relative_L2": 0.0001223615399794653,
+        "passed": true
+      },
+      "MVS_gradient": {
+        "max_abs": 2.1827872842550278e-11,
+        "relative_L2": 0.0010105716064572334,
+        "passed": true
+      }
+    },
+    "values_close": true,
+    "limits": {
+      "value_rtol": 1e-05,
+      "value_atol": 1e-07,
+      "gradient_rtol": 0.0001,
+      "gradient_atol": 1e-06
+    }
+  },
+  "HD_identity_zero_FHD": {
+    "metrics_delta": {
+      "psnr": 0.0,
+      "ssim": 0.0,
+      "lpips": -9.313225746154785e-08
+    },
+    "views": [
+      {
+        "camera": "DC",
+        "PNG_max_code": 1,
+        "changed_RGB_values": 7,
+        "camera_samples_model_exact": true
+      },
+      {
+        "camera": "HC",
+        "PNG_max_code": 1,
+        "changed_RGB_values": 1,
+        "camera_samples_model_exact": true
+      },
+      {
+        "camera": "KA",
+        "PNG_max_code": 1,
+        "changed_RGB_values": 8,
+        "camera_samples_model_exact": true
+      }
+    ],
+    "limits": {
+      "PNG_max_code": 1,
+      "LPIPS_absolute": 1e-05,
+      "PSNR_absolute_dB": 0.001
+    }
+  },
+  "TRAIN4K_zero_priors": {
+    "reference": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_reference_4k_technical_v2/original_HD_reference",
+    "candidate": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_reference_4k_technical_v2/TRAIN4K_zero",
+    "gradients": {
+      "free_gradient": {
+        "max_abs": 7.275957614183426e-12,
+        "relative_L2": 0.00012549410166684538,
+        "passed": true
+      },
+      "band_gradient": {
+        "max_abs": 1.1641532182693481e-10,
+        "relative_L2": 0.00011526590242283419,
+        "passed": true
+      },
+      "MVS_gradient": {
+        "max_abs": 1.4551915228366852e-11,
+        "relative_L2": 0.000821549678221345,
+        "passed": true
+      }
+    },
+    "values_close": true,
+    "limits": {
+      "value_rtol": 1e-05,
+      "value_atol": 1e-07,
+      "gradient_rtol": 0.0001,
+      "gradient_atol": 1e-06
+    }
+  },
+  "TRAIN4K_zero_FHD": {
+    "metrics_delta": {
+      "psnr": 0.0,
+      "ssim": -2.9802322387695312e-08,
+      "lpips": 2.5456150375136044e-08
+    },
+    "views": [
+      {
+        "camera": "DC",
+        "PNG_max_code": 1,
+        "changed_RGB_values": 8,
+        "camera_samples_model_exact": true
+      },
+      {
+        "camera": "HC",
+        "PNG_max_code": 1,
+        "changed_RGB_values": 2,
+        "camera_samples_model_exact": true
+      },
+      {
+        "camera": "KA",
+        "PNG_max_code": 1,
+        "changed_RGB_values": 2,
+        "camera_samples_model_exact": true
+      }
+    ],
+    "limits": {
+      "PNG_max_code": 1,
+      "LPIPS_absolute": 1e-05,
+      "PSNR_absolute_dB": 0.001
+    }
+  }
+}
