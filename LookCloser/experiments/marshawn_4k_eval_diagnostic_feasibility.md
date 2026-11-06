@@ -87,3 +87,24 @@ it does not automatically supply a validated4K semantic metric protocol. Show
 GT and later model renders at matched4K pixels/crops; label them supplementary
 visual evidence and keep geometric-valid pixels explicit. No quality claim or
 model render is authorized by this feasibility document.
+
+## Authorized CPU export result
+
+Root subsequently authorized the isolated exporter. The frozen generationv1
+completed in16.08 seconds with2CPU workers. All three FHD uint8 RGB arrays replay
+byte-exactly, all three geometric-valid arrays match, and all9 original EVAL
+files plus original poses/crops/box/transforms/ready remain unchanged. The
+separate TRAIN63 4K source metadata/transforms also match their existing frozen
+completion hashes. Two CPU tests cover EVAL-only gain lookup and pixel-centre
+scaling; the real export supplies the required three-camera replay gate.
+
+Spec SHA `80e00ce2c4c8ecb07c3801fdf38a37e531c3f3279b2dd19b34b5a8bb9cc8f6e0`;
+render descriptor SHA `f83aa03d9c148e05014907034d94d0f77f4e3d3282fa8169d9bf562a3cadda29`.
+Original GT4K PNGs and geometric coverage are under `images/` and `valid/`.
+No model was rendered and no new semantic masks or metrics were generated.
+
+Visually inspected all three `review/{camera}_hair_detail.png` comparisons:
+GT4K preserves finer dreadlock boundaries, shirt markings and calibration-target
+edges than the enlarged FHD source; coloured fine noise is also more visible.
+These are source-image observations, not model-quality claims. Primary V1
+remains unchanged and the supplementary rendering protocol awaits its own review.
