@@ -1,0 +1,49 @@
+<!doctype html><html lang="en"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Occupancy grid inspector</title>
+<style>
+body{font:15px system-ui;background:#111722;color:#e8ecf3;margin:24px}h1{font-size:24px}
+label{display:inline-block;margin:8px 18px 8px 0}select,button,input,textarea{background:#202c3d;color:inherit;padding:8px;border:1px solid #6d7d92;border-radius:4px}
+.views{display:flex;gap:20px;flex-wrap:wrap}.view{flex:1;min-width:240px;max-width:560px}canvas{width:100%;height:auto;image-rendering:pixelated;cursor:crosshair;border:1px solid #56647b}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px}input[type=number]{width:72px}input[type=range]{width:180px}textarea{display:block;width:min(90%,760px);height:55px;margin:12px 0}.muted{color:#abb8ca}.legend span{margin-right:16px}
+</style>
+<h1 id="title"></h1>
+<p class="muted">Click a cell to synchronize all three slices. Coordinates use the declared grid frame, without an additional camera/world transform. Occupied or admitted cells are model states, not verified physical geometry.</p>
+<label>Layer A <select id="a"></select></label><label>Layer B <select id="b"></select></label>
+<label><input id="compare" type="checkbox" checked> Compare A / B</label>
+<div class="legend"><span style="color:#59647a">■ Neither</span><span style="color:#3cbfe9">■ A only</span><span style="color:#f19b4b">■ B only</span><span style="color:#d8e3ea">■ Both</span></div>
+<div id="controls"></div><div class="views" id="views"></div><pre id="cell"></pre>
+<textarea id="note" placeholder="Observation for this voxel / slice"></textarea>
+<button id="add">Record observation</button> <button id="save">Download observations JSON</button><span id="count"></span>
+<details><summary>Source files, hashes and coordinate frame</summary><pre id="sources"></pre></details>
+<script id="data" type="application/json">GRID_PAYLOAD</script>
+<script>
+'use strict';
+const D=JSON.parse(document.getElementById('data').textContent);
+const axes=['X','Y','Z'], pos=D.shape.map(n=>Math.floor(n/2)), notes=[];
+const grids=D.layers.map(l=>Uint8Array.from(atob(l.bits),c=>c.charCodeAt(0)));
+const byId=id=>document.getElementById(id), controls=[], panels=[];
+function state(layer,p){const i=(p[0]*D.shape[1]+p[1])*D.shape[2]+p[2];return (grids[layer][i>>3]>>(7-(i&7)))&1;}
+function bounds(p){return [0,1].map(edge=>p.map((v,i)=>D.bounds[0][i]+(v+edge)/D.shape[i]*(D.bounds[1][i]-D.bounds[0][i])));}
+function info(){return {index_xyz:pos.slice(),cell_bounds:bounds(pos),coordinate_frame:D.coordinate_frame,states:Object.fromEntries(D.layers.map((l,i)=>[l.name,Boolean(state(i,pos))]))};}
+byId('title').textContent=D.title;
+for(const id of ['a','b']) D.layers.forEach((l,i)=>{const option=document.createElement('option');option.value=i;option.textContent=l.name;byId(id).append(option);});
+byId('b').value=Math.min(1,D.layers.length-1);
+axes.forEach((axis,i)=>{const label=document.createElement('label');label.append(axis+' slice ');const range=document.createElement('input'),number=document.createElement('input');range.type='range';number.type='number';for(const input of [range,number]){input.min=0;input.max=D.shape[i]-1;input.step=1;input.value=pos[i];input.addEventListener('input',()=>{const v=Number(input.value);if(Number.isFinite(v)){pos[i]=Math.max(0,Math.min(D.shape[i]-1,Math.round(v)));draw();}});label.append(input);}byId('controls').append(label);controls.push([range,number]);});
+// Canvas columns increase along u; image rows decrease along v. The fixed axis is n.
+for(const [u,v,n] of [[0,1,2],[0,2,1],[1,2,0]]){
+ const wrap=document.createElement('section');wrap.className='view';const title=document.createElement('p'),canvas=document.createElement('canvas');canvas.width=D.shape[u];canvas.height=D.shape[v];wrap.append(title,canvas);byId('views').append(wrap);
+ canvas.addEventListener('click',event=>{const r=canvas.getBoundingClientRect();pos[u]=Math.max(0,Math.min(D.shape[u]-1,Math.floor((event.clientX-r.left)/r.width*D.shape[u])));pos[v]=D.shape[v]-1-Math.max(0,Math.min(D.shape[v]-1,Math.floor((event.clientY-r.top)/r.height*D.shape[v])));draw();});panels.push({u,v,n,title,canvas});
+}
+function draw(){
+ controls.forEach((pair,i)=>pair.forEach(input=>input.value=pos[i]));const a=Number(byId('a').value),b=Number(byId('b').value),compare=byId('compare').checked;
+ const colors=[[23,31,44],[60,191,233],[241,155,75],[216,227,234]];
+ for(const {u,v,n,title,canvas} of panels){title.textContent=axes[u]+' → / '+axes[v]+' ↑ ; '+axes[n]+' = '+pos[n];const ctx=canvas.getContext('2d'),im=ctx.createImageData(canvas.width,canvas.height),p=pos.slice();for(let row=0;row<canvas.height;row++)for(let col=0;col<canvas.width;col++){p[u]=col;p[v]=canvas.height-1-row;const s=state(a,p)+(compare?2*state(b,p):0),offset=4*(row*canvas.width+col);im.data.set([...colors[s],255],offset);}ctx.putImageData(im,0,0);ctx.strokeStyle='#ff426e';ctx.lineWidth=.6;ctx.beginPath();ctx.moveTo(pos[u]+.5,0);ctx.lineTo(pos[u]+.5,canvas.height);ctx.moveTo(0,canvas.height-pos[v]-.5);ctx.lineTo(canvas.width,canvas.height-pos[v]-.5);ctx.stroke();}
+ byId('cell').textContent=JSON.stringify(info(),null,2);
+}
+for(const id of ['a','b','compare'])byId(id).addEventListener('change',draw);
+const sources={...D,layers:D.layers.map(({bits,...rest})=>rest)};byId('sources').textContent=JSON.stringify(sources,null,2);
+byId('add').addEventListener('click',()=>{const text=byId('note').value.trim();if(!text)return;notes.push({...info(),text,utc:new Date().toISOString()});byId('note').value='';byId('count').textContent=' '+notes.length+' recorded';});
+byId('save').addEventListener('click',()=>{const url=URL.createObjectURL(new Blob([JSON.stringify({sources,notes},null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='occupancy_observations.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
+draw();
+</script></html>
