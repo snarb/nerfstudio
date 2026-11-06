@@ -17,18 +17,21 @@ def archive(branch,campaign,archive_name='semantic_actor_progress'):
         step=int(renders.name.split('-')[1]);dest=out/renders.name;receipt=dest/'archive_receipt.json'
         if receipt.exists():rows.append(json.loads(receipt.read_text()));continue
         grid=run/'occupancy'/f'{renders.name}_grid.json';cp=run/'checkpoints'/f'{renders.name}.ckpt'
-        if not all(p.exists()for p in [renders/'metrics.json',grid,cp]):continue
+        if not all(p.exists()for p in [renders/'metrics.json',grid]):continue
         if shutil.disk_usage(out).free<5*2**30:raise RuntimeError('Archive reserve below5GiB')
         dest.mkdir(exist_ok=True)
-        try:os.link(cp,dest/'checkpoint.ckpt')
-        except FileExistsError:pass
         record=json.loads(grid.read_text())
-        if sha(dest/'checkpoint.ckpt')!=record['checkpoint_sha256']:raise ValueError('Checkpoint differs from actual grid receipt')
+        # A dominated checkpoint can be pruned before the next poll. Preserve all
+        # surviving visual/grid evidence, without claiming its weights survived.
+        try:os.link(cp,dest/'checkpoint.ckpt')
+        except (FileExistsError,FileNotFoundError):pass
+        retained=(dest/'checkpoint.ckpt').exists()
+        if retained and sha(dest/'checkpoint.ckpt')!=record['checkpoint_sha256']:raise ValueError('Checkpoint differs from actual grid receipt')
         shutil.copy2(grid,dest/grid.name);shutil.copy2(grid.with_suffix('.npz'),dest/grid.with_suffix('.npz').name)
         if sha(dest/grid.with_suffix('.npz').name)!=record['grid_archive_sha256']:raise ValueError('Grid archive differs from receipt')
         shutil.copy2(run/'worker/lookcloser/frozen/config.yml',dest/'config.yml')
         shutil.copytree(renders,dest/'renders',dirs_exist_ok=True)
-        row=dict(step=step,checkpoint_sha256=record['checkpoint_sha256'],grid_sha256=record['grid_archive_sha256'],source_spec_sha256=sha(branch/'spec.json'),source_manifest_sha256=sha(branch/'source_manifest.json'),source_checkpoint=str(cp),archive=str(dest),immutable_hardlink=True,archived_at=time.time())
+        row=dict(step=step,checkpoint_sha256=record['checkpoint_sha256'],grid_sha256=record['grid_archive_sha256'],source_spec_sha256=sha(branch/'spec.json'),source_manifest_sha256=sha(branch/'source_manifest.json'),source_checkpoint=str(cp),archive=str(dest),immutable_hardlink=retained,checkpoint_retained=retained,checkpoint_unavailable_reason=None if retained else "pruned before archival poll; source hash remains in actual grid receipt",archived_at=time.time())
         write(receipt,row);rows.append(row)
     progress=json.loads((run/'progress.json').read_text());pid=int(progress['pid']);alive=Path(f'/proc/{pid}').exists()
     complete=(run/'complete.json').exists()
@@ -51,7 +54,7 @@ def watch(a):
                     subprocess.run(['rsync','-a','--exclude=checkpoint.ckpt',a.host+':'+row['archive']+'/',str(sub)+'/'],check=True,timeout=180,stdout=subprocess.DEVNULL)
                     npz=sub/f"step-{row['step']:09d}_grid.npz"
                     if sha(npz)!=row['grid_sha256']:raise ValueError('Fetched actual grid hash mismatch')
-                    write(sub/'fetch_complete.json',dict(time=time.time(),checkpoint_retained_remote=True,grid_sha256=row['grid_sha256']))
+                    write(sub/'fetch_complete.json',dict(time=time.time(),checkpoint_retained_remote=row.get("checkpoint_retained",True),grid_sha256=row['grid_sha256']))
             write(dest/'watcher_state.json',dict(pid=os.getpid(),**state))
             with(dest/'supervision.jsonl').open('a')as f:f.write(json.dumps(dict(time=time.time(),step=state['progress']['step'],producer_alive=state['producer_alive'],complete=state['complete'],archives=len(state['archives'])))+'\n')
             if state['complete']:return
