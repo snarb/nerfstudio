@@ -52,3 +52,9 @@ without distant high-Z blocks. A signed-Z ray-contribution diagnostic is being
 prepared before any possible floor restriction; no cells were changed.
 
 This is an exhaustive slice-page scan, **not** independent certification of every physical cell. Empty interior cells, imperfect silhouette boundaries, and occluded geometry still need ray evidence. No cells were removed based on component size or this visual scan.
+
+## Quarter-step distortion0.1 raw126316 grid
+
+Root scanned all384 actual core/active slices (six pages) for checkpoint `340e794e…d641`. Schema2 snapshot confirms32,046 core/active cells,131,911 admitted cells and zero active cells outside admission. The floor-region islands remain visible, especially Z slices0–25. Upper support changes coherently; no obvious global axis reversal or remote high-Z active block appears. There are2,539 active centers below fitted Z=0 and1,157 below−.01; these counts do not identify physical false occupancy without ray/source evidence. Finite EMA has maximum7.382e9, which is historical state rather than a current-density measurement. No grid was edited or certified ideal.
+
+Evidence: [manual review](assets/marshawn_grid_quarter_distortion_126316/root_manual_review.json), [numeric snapshot](assets/marshawn_grid_quarter_distortion_126316/numeric_receipt.json), [all-page receipt](assets/marshawn_grid_quarter_distortion_126316/receipt.json), [low-Z page](assets/marshawn_grid_quarter_distortion_126316/Z_000_063.png). Complete standalone inspector: `/fsx/tmp/marshawn_001660_hd/tuning_20261106/grid_inspector/quarter_distortion_126316/index.html`. Source snapshot and frozen AABB remain unchanged.

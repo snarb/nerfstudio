@@ -1,0 +1,39 @@
+{
+  "checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "snapshot_metadata_sha256": "5a5e0418434395b7d08cde8da923f14fd1f6301746912f6288cb58c31fc8bec9",
+  "grid_archive_sha256": "7db15fdda89f0661e767e53dd97ab34f3346550aa319d4363bdd6332b3cbac0f",
+  "actual_core_update_step": 126304,
+  "radius": 0,
+  "bounds": [
+    [
+      -0.8399999737739563,
+      -0.21000000834465027,
+      -0.06999999284744263
+    ],
+    [
+      0.15000003576278687,
+      0.41999998688697815,
+      0.6299999952316284
+    ]
+  ],
+  "core_equals_active": true,
+  "active_cells": 32046,
+  "admission_cells": 131911,
+  "active_outside_admission": 0,
+  "active_centers_below_floor0": 2539,
+  "active_centers_below_minus01": 1157,
+  "ema_finite": true,
+  "ema_minmax": [
+    0.0,
+    7381885952.0
+  ],
+  "active_ema_quantiles": [
+    0.010001850314438343,
+    0.022801540791988373,
+    0.12371471896767616,
+    2.039530634880066,
+    7381885952.0
+  ],
+  "source_frame": "accepted_floor_world; exact source world_to_box already applied once in dataset",
+  "geometry_certified": false
+}

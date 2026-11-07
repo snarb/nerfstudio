@@ -1,0 +1,21 @@
+{
+  "title": "Quarter step distortion0.1 actual126316 grid",
+  "coordinate_frame": "accepted_floor_world",
+  "layers": [
+    {
+      "name": "actual_active126316",
+      "archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_quarter_distortion_final_geometry/quarter_distortion_rawmin/grid.npz",
+      "key": "active"
+    },
+    {
+      "name": "actual_core126304",
+      "archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_quarter_distortion_final_geometry/quarter_distortion_rawmin/grid.npz",
+      "key": "core"
+    },
+    {
+      "name": "fixed_admission",
+      "archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_quarter_distortion_final_geometry/quarter_distortion_rawmin/grid.npz",
+      "key": "admission"
+    }
+  ]
+}

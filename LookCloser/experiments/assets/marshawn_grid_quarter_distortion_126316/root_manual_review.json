@@ -1,0 +1,29 @@
+{
+  "reviewer": "root",
+  "utc": "2026-11-07T04:17:23.819747+00:00",
+  "review_kind": "EXHAUSTIVE_ORTHOGONAL_PAGE_VISUAL_SCAN_NOT_CELL_GEOMETRY_CERTIFICATE",
+  "all_six_pages_personally_viewed": true,
+  "reviewed_slices": 384,
+  "source_checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "numeric_receipt_sha256": "12ab635cd9264225bb1a6e9f30998c68e6e039a1d36f4698897489094122da66",
+  "sweep_receipt_sha256": "97759fcee6e9d41e840e7e994c35a5ef311d98a4c5b17a3c53d87c60b763f688",
+  "page_sha256": {
+    "X_000_063.png": "bd3902e28c0b58252c48da35776dc17619eb05817db265f7cbbfd5e317d5430b",
+    "X_064_127.png": "b7a7100272beb55832ea0ab36342023562fbfe78a86f1d799d0acff9ced5a2b5",
+    "Y_000_063.png": "bd77f1c0e6ae29edab15ea4382c5613fb98127831d68a8ad6528218b5370740f",
+    "Y_064_127.png": "e5ae11d715fd0a44a3b15d224d9f5c1cbd0f71aaae30cd89fa185dc3e352d2bb",
+    "Z_000_063.png": "4205a1fbe53438ffa01934c62fdb4cffa55f55c411ea5975b106fd2f7d88ffd5",
+    "Z_064_127.png": "2f8a508404b8aa90928198c721e360fda3b7c542671020ebc76ece5a5cc211eb"
+  },
+  "findings": [
+    "No active red cells outside frozen mapped admission; actual core equals active at radius0.",
+    "Low sparse disconnected active islands persist in floor region, especially Z0..25 and distant low-X support. Cannot certify their physical identity from voxel views alone.",
+    "Upper body support varies coherently across adjacent slices; no obvious global axis reversal or remote high-Z active block.",
+    "Blue support is merely permitted; empty interior voxels can represent bounded radiance field surfaces. Neither blue nor inactive cells are ground-truth physical emptiness.",
+    "Below-floor centers 2539 (1157 below\u2212.01) are counts, not proof of invalid geometry: cells have extent and fitted floor has uncertainty.",
+    "EMA max7.381885952e9 is finite; historical EMA is not current sigma evidence. Further ray/source evidence needed before any filter."
+  ],
+  "grid_edited": false,
+  "physical_geometry_certified": false,
+  "remaining": "Actor silhouettes/hair/shoes source-and-ray correspondence plus false background density; continue optimization."
+}
