@@ -23,7 +23,7 @@ The treatment's own ZERO reference is the actual audited W32 `.002` render, not 
 
 ## Next gates
 
-Only CPU preparation is complete. No GPU job or training has been launched for this generation. The exact isolated ZERO phase requires separate root review, followed by actual 32+32 pause/resume verification and separate production release. Later RNG differences caused by different density are observed rather than forcibly reseeded.
+CPU preparation and the subsequently root-released ZERO phase are complete. No optimizer updates or training have been performed for this generation. Actual 32+32 pause/resume verification and production still require their separate phase releases. Later RNG differences caused by different density are observed rather than forcibly reseeded.
 
 Production, if released, starts both arms afresh from 126316, retains all evaluated checkpoints and uses gates +500/+1000/+2000/+4000, then the unchanged two-signal plateau tracker with anchor 130316 and patience four. There is no arbitrary hard iteration cap. Full three-view V1 renders and fixed core/boundary diagnostics accompany each evaluation; those diagnostics do not replace V1 selection. Both raw-minimum and historical-selector choices retain the required selector provenance.
 
@@ -39,3 +39,19 @@ Launch entry after exact ZERO authorization:
 The guardian preserves the previous 13 safety-core functions exactly, uses physical UUIDs and shared idle-exclusive GPU leases, limits ZERO/technical invocations to 900 seconds, and imposes no production deadline. All release templates remain false. Useful receipts are `CPU_readiness.json`, `CPU_binding_verification.json`, `external_guard_margin_v1/CPU_orchestration.json`, and each branch's `zero_references/*/reference.json`.
 
 Prepared guardian policy SHA: `40e492e11ebb6053cd793f1ca1f4b54f3525e0e26d3e5638121b61d88bf78700`. Exact ZERO request SHA: `80eae4d09e9b2c0553cffee04be73c800687e3872acbf331cb27f4362897fcbd`. [CPU receipts and exact requested release fields](assets/marshawn_sourceW32_continuation_20261107/ZERO_RELEASE_REQUEST.json) are archived with this report; these requested fields are not an authorization.
+
+
+## Actual ZERO result
+
+Root released only ZERO. The paired guardian 2164845 completed cleanly on idle, UUID-verified GPU0/1; both workers exited without OOM and no optimizer, frequency-grid or occupancy update occurred. Source seven-state hashes, cache associations, FR/LUT and RNG remained exact. Both arms reproduced original A before installing the bound selector, then reproduced their own A/W32 reference across all three full-FHD RGB/alpha views under the existing numeric replay tolerance (maximum one code value).
+
+| Own zero | PSNR | SSIM | LPIPS |
+|---|---:|---:|---:|
+| Original mapped | 31.639727 | .831264 | .018773363 |
+| W32 source + .002 | 31.287119 | .830187 | .020357501 |
+
+The actual W32 field probe admits 261 of 327 predeclared positions with bitwise-equal density and sets all 66 previously nonzero excluded positions to exactly zero. The control admits all 327 unchanged. The frozen CPU phase verifier passes; SHA `c5aa090754d181b1699792766cb11133d337dedc3d34d9a97c27ac9b13bed154`.
+
+I inspected the [three-view body comparison](assets/marshawn_sourceW32_continuation_20261107/zero/body_overview.jpg), all three hair/feet pages and the [grey-contour/head contexts](assets/marshawn_sourceW32_continuation_20261107/zero/contour9_context.png). W32 reproduces the expected cleanup; the HC grey-boundary deficit and residual halo/floor fragments remain. This is a technical replay pass, not quality promotion or a certificate of fine hair/foot preservation.
+
+The [technical request](assets/marshawn_sourceW32_continuation_20261107/zero/TECHNICAL_RELEASE_REQUEST.json) specifies fresh source Adam126262, 32 attempts before pause and another 32 after strict own checkpoint restoration, finite successful updates in both segments, unchanged control RGB gradient and actual captured grid checks. The required first-batch equality does not impose artificial later cross-arm RNG equality once density diverges. No technical or production authorization was created by this agent.

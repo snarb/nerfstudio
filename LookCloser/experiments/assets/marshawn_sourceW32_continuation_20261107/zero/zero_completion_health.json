@@ -1,0 +1,1776 @@
+{
+  "time": 1794031640.2162292,
+  "jobs": {
+    "sourceW32margin126316_zero_original_mapped": {
+      "status": "complete",
+      "worker": {
+        "pid": 3470667,
+        "start": "6012158",
+        "boot": "3cd2faca-15ef-4b7e-9767-20e0b80af902",
+        "state": "R"
+      },
+      "gpu_uuid": "GPU-6a8bbc85-5a77-8d62-ab18-560955f0dc65",
+      "oom": false,
+      "worker_alive": false,
+      "receipt": {
+        "name": "sourceW32margin126316_zero_original_mapped",
+        "status": "complete",
+        "spec_sha256": "72b8b09101b82c95b6e56d739d51500a3e40bed4a43d319bbb1bbfb84067f708",
+        "supervisor": {
+          "pid": 3470662,
+          "start": "6012141",
+          "boot": "3cd2faca-15ef-4b7e-9767-20e0b80af902",
+          "state": "R"
+        },
+        "worker": {
+          "pid": 3470667,
+          "start": "6012158",
+          "boot": "3cd2faca-15ef-4b7e-9767-20e0b80af902",
+          "state": "R"
+        },
+        "gpu": 0,
+        "gpu_uuid": "GPU-6a8bbc85-5a77-8d62-ab18-560955f0dc65",
+        "started": 1794031498.889055,
+        "heartbeat": 1794031559.1682937,
+        "latest_check": {
+          "time": 1794031559.1682937,
+          "worker_alive": false,
+          "worker_pid": 3470667,
+          "progress": {
+            "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/runs/zero_original_mapped/progress.json": null
+          },
+          "gpus": {
+            "0": {
+              "uuid": "GPU-6a8bbc85-5a77-8d62-ab18-560955f0dc65",
+              "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+              "total_mib": 97887,
+              "used_mib": 0,
+              "processes": []
+            },
+            "1": {
+              "uuid": "GPU-26c63492-0230-896f-208e-10e4eaca4c3c",
+              "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+              "total_mib": 97887,
+              "used_mib": 3913,
+              "processes": [
+                {
+                  "pid": 3470893,
+                  "name": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/python"
+                }
+              ]
+            },
+            "2": {
+              "uuid": "GPU-279718e7-9e60-e5f2-53aa-65ff7dd03f37",
+              "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+              "total_mib": 97887,
+              "used_mib": 0,
+              "processes": []
+            },
+            "3": {
+              "uuid": "GPU-c024b6e2-0def-f4fd-c18a-64b95975effd",
+              "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+              "total_mib": 97887,
+              "used_mib": 0,
+              "processes": []
+            },
+            "4": {
+              "uuid": "GPU-cb1a0b07-abd6-8e55-9669-ccbb2c45a560",
+              "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+              "total_mib": 97887,
+              "used_mib": 0,
+              "processes": []
+            },
+            "5": {
+              "uuid": "GPU-216eac5a-c2f3-4bc5-d4e8-1a6f9cbd9b9a",
+              "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+              "total_mib": 97887,
+              "used_mib": 0,
+              "processes": []
+            },
+            "6": {
+              "uuid": "GPU-a53fcf27-02c4-c737-9269-0623ec25a6d9",
+              "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+              "total_mib": 97887,
+              "used_mib": 0,
+              "processes": []
+            },
+            "7": {
+              "uuid": "GPU-9c2ea572-537d-66a7-6df3-41c3d8914d39",
+              "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+              "total_mib": 97887,
+              "used_mib": 0,
+              "processes": []
+            }
+          },
+          "oom_evidence": false,
+          "free_bytes": 11364164022272
+        },
+        "returncode": 0,
+        "finished": 1794031559.30556,
+        "metrics": {
+          "status": "zero_update_state_equal",
+          "passed": true,
+          "proof": {
+            "pipeline": "c83bc7dbb1504063c35f0a2b14ae3fb329ff27ed2eb6b3661eb89b4918d46636",
+            "optimizers": "73ee993c0dc56b34e6fc9dd799cf63cfcf1d19ca7f252568680f12663dc9583e",
+            "schedulers": "50cde065a272d13da9ef8522a84f2e50a7598437db28721153e3b8ae73447ec3",
+            "scalers": "90fa2bbdf25a1c8b016fbd745e22cb8c20431f24c3088693acf9b029248f30c7",
+            "rng_state": "7de999966deb5bc61d81ce39a81891b52df244e05881da2b15cfabe0235e5811",
+            "tuning_runtime": "6f988601c4ec813524a6d6e1bfeb056a7b8e03acfd66b8e8246f6d2f8f0b65a7",
+            "actual_occupancy_capture": "b8809cd17b7c7c8b1440ac33f419872ef5b3cf1fb4953fee20aec2ddbb02dbd4",
+            "semantic_support": {
+              "receipt": {
+                "manifest_sha256": "fce7fc24735cd62d5242ce719964c5d6d61291feef1cc1c536c12f2ce194b15e",
+                "source_grid_sha256": "e804d736dd766e8adf11df07e346a6317af87e0b106a94dfc524ab32f1690d71",
+                "mapped_bool_sha256": "d60baa9186a63f3769204b93cb46dcfd2ea16e3d41a72ca788934fe19bd2659f",
+                "identity_control": false
+              },
+              "mapped_sha256": "d60baa9186a63f3769204b93cb46dcfd2ea16e3d41a72ca788934fe19bd2659f",
+              "schema": 2,
+              "actual_core_and_active_equal": true,
+              "learned_core_preserved": true,
+              "semantic_selector_installed": true
+            },
+            "cache_ids": [
+              40,
+              7,
+              1,
+              47,
+              17,
+              15,
+              14,
+              8,
+              59,
+              6,
+              43,
+              54,
+              34,
+              5,
+              37,
+              27,
+              2,
+              60,
+              49,
+              13,
+              56,
+              32,
+              38,
+              45,
+              35,
+              12,
+              50,
+              26,
+              42,
+              28,
+              58,
+              0,
+              24,
+              25,
+              44,
+              22,
+              52,
+              10,
+              55,
+              4,
+              53,
+              29,
+              3,
+              46,
+              48,
+              20,
+              11,
+              16,
+              9,
+              23,
+              18,
+              31,
+              61,
+              30,
+              39,
+              51,
+              57,
+              62,
+              19,
+              33,
+              41,
+              21,
+              36
+            ],
+            "cache_sha256": "a80f6a908dd71cfbc3c75f60c6b8f71c9ebfaae3b24d3cfcc2f1ecdb5253ec56",
+            "cache_sources": [
+              {
+                "camera": 40,
+                "image": "30e8db2559ff11ffa0d48b4621823411f5a7e1ade44dc7cd0f9da7cd991fbd77",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 7,
+                "image": "f5ab74f9bb39504c57adbabf76430be4c3960b103b7e6e2549dfe4d351d85685",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 1,
+                "image": "def6aaf092fe90dea4d22f986816d0ad5ee203d89b2f06255b6cc053962db72f",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 47,
+                "image": "a107875d89ae19022a4e05fa94032adc0cf69d3dbaafc29a8bb9511b18b6bd06",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 17,
+                "image": "c98673fbb5d205eedd9df94de1a349673fff7af8e19d7dd642ed34e4e52f8db7",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 15,
+                "image": "c9029109c2152e1f2e8ce24dcb9e854898325ddb6ffec053852c46517593f922",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 14,
+                "image": "62952467baab74e809a136dd10259fb5b3ecc20fa480db987ac453addb4df55d",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 8,
+                "image": "e9297afc264afd34e7327dee5690c3e40435610de7e74e887a164995096e640b",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 59,
+                "image": "20cba807b90d29f07fcf5854bca275834ed0282eeb9f86aa3b3f200052303234",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 6,
+                "image": "653ec0933199fb6575543dd22fcdec495e938d2070fa8f6ce7c945d2f725d356",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 43,
+                "image": "ee7dc09ed30e04d2d49df1c6706ee9be5894cbcf302c7e40cbcb2b0c769ac518",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 54,
+                "image": "2e0d46036a8c88787097f738e8e769ce5b53032404cd02c7d5eef13bddb939d3",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 34,
+                "image": "e0952bedb62da84f6c79f3851d00446acccac8f59fa206ef5cebf7f4e44ea34c",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 5,
+                "image": "f83aafd17abda80cd96d4fe5f71f5ebd99a00ee060e8f13df8bba21cd74671ae",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 37,
+                "image": "8faf1dc7a220bbd4f34ab64f814e98afe39ea8f40f8fbe03c1a5c4f25e670d20",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 27,
+                "image": "1dbb463dcbe96ab1c26387d210ae45452eea4835f50d76bf9a19859567b6a784",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 2,
+                "image": "a5851a6e20837bc486fa13cfe79b70017af4ffa85724d04579bd00655f28be0f",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 60,
+                "image": "0942598addf71d849e1f276959193047166c52473f34889d56ac8156aa90dbc0",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 49,
+                "image": "8ea86acfa3ae94191d49001d0ee6154a3dff63f0ae5b84e7a7ad8ba8b9c4b455",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 13,
+                "image": "15f612171a5a6df98a5d7de8838fd9496301de6a267944b1447cbac7beae80a5",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 56,
+                "image": "4446ee44d4bdccbd7e9ea904e3aac8a1d84c9c759ed26cfc193d493e6a5a915c",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 32,
+                "image": "24ab11d2c3eb8c0636bd1a7fe2bfcd024440a018fd45e7683d932f2c7239ad38",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 38,
+                "image": "141148a8a307f653ce8821105d1c120fa0e416daed293169dbd172ad0174315b",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 45,
+                "image": "737322d026d23feea2ad48d207555bd3b18dd1d25a0161caf0889e74dcf84437",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 35,
+                "image": "a376f20eab16eb17d92defe6285043d7aff6c0a1d18bd144ef57f7f2083cf784",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 12,
+                "image": "612c4adf810f568f9fc6b199f15297fc64ccf76c76eae316bf8b9653b0979bd6",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 50,
+                "image": "1e1c6d2490208a924ea9c5299d37e1b8bd2be3fe022d8cff44d47bb07ce17f1d",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 26,
+                "image": "51d902e850ba8957e40ffae4fa5b282e0f47ec2e0036c4c9829609209b07d7bf",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 42,
+                "image": "e4a867be41f36bdb933afea36c56cad307bbab84ee81d0643fd5aef6b3279622",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 28,
+                "image": "dba1e57f83fd9c7261bb6dc243ce619e9cdfd071cb90165608f6be2e281f2e1c",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 58,
+                "image": "f870bacc6e9caf93f4652e47801916d4178696fb2c4f9446e8c1ef1ef0f87b65",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 0,
+                "image": "95d6ee674b789e55842b3f32687306c86ae2e66a10620ce6fd6fe0330a43d2cd",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 24,
+                "image": "0591eb872e1bab7e1ec92d651af6429f4cef1e749bb83cf533f03e2fa035064f",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 25,
+                "image": "d8334d0bc6f2c6df1e3b96b0b94052e31a0e891d6f7e2756cac0022ab7147d06",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 44,
+                "image": "203077499c013ac355e4494f915418fc96820ac2e8f9899aa2d853fdcdf5c7da",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 22,
+                "image": "fe3f9cf419ccb249671e3dd4af4012c56a3281ee67f2cb0becb9e64042d5746c",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 52,
+                "image": "17b7a4da9fc4d67af39c504723012d30228c0b1cbc71da489324c04b1d346e5e",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 10,
+                "image": "e54a21b794350de6c49d30b876ef3499dee38c9457c15437602469a184a85dd5",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 55,
+                "image": "08151b63861aea49492a8b17fa415c98383f6ef21275adfbd32a0b620e60e09c",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 4,
+                "image": "39b4556c53ec9eb10a2e657f39fc711e6bf968e1ffab853ecf7a1109806a0cd2",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 53,
+                "image": "9827c3eb220850bfdff5e40f644ca97401733674234cc15172853f57963b517d",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 29,
+                "image": "b1d725154b156212d5f98828074fd4b217e9a9f1866d44050fc97d5bf15439bd",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 3,
+                "image": "dc4601c6fe2eae6f71c2da3cb9e94de7e4dcd6fb9ba25dbcb2198956690876a3",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 46,
+                "image": "441a638c3f27c64d4d949a8ae9275901c359e0f4f047da8f129157865217a804",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 48,
+                "image": "3ffb5f0a45dfec128db276ef794cf2a27cf0d5c18add9de35db711d5f2c0bbc8",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 20,
+                "image": "071a3cbdba4d7c40cfe370d1f561cf9582898abc44b32a73c6046b9b3e5ebf62",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 11,
+                "image": "f9efbd782737ee15982c61afb436348ccfc1aba425362a7d9c71c59416e7392f",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 16,
+                "image": "c2c4f4a0c8c9eee657994030793536681051b877262a2f240d426f15816a36b9",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 9,
+                "image": "94bb3d9b98eddb2378aec516e297bec2ce94bc7467c46ff7d2c18b9abfb83914",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 23,
+                "image": "26de7371145590e485f9f4905a051a076d49ec6916f81bc0dbaf47cd959b5da5",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 18,
+                "image": "83eed3e0a63487e3058e81b7f216bb02acbe6eb02fb3eacfeb5350d3ad8d705f",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 31,
+                "image": "ae872e5ff172e8be623c461b13a662ff166481dea1538a81b2d0cc0634189d58",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 61,
+                "image": "f2b9c421ff2f0006ce811c6babad824a922bcbb301429038a5c19349a5a06652",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 30,
+                "image": "217c956843d4d19470e376fe64d40af22f4128cca0b3387daa3d078781919322",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 39,
+                "image": "aabe462e7a7a4c10d7d7b8f980a5e2b4833b54f96aae9536c3d05f9add05ba71",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 51,
+                "image": "9beedf2394c5aa01bf50536599909df0e37034c4a3b53a5509d554dea003907c",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 57,
+                "image": "4a2a5ad5b003239a7c6bde0aa6000d67457f28e87fc85cff05731b78f13ed332",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 62,
+                "image": "a5ecefef84fa9ada860911e8419c567a7ddeaa5091216b3f13de5ad8bf4e869c",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 19,
+                "image": "ceae62575302f08563168a6f8cbe594f291494b42139c625dfebfd67dbc9dec9",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 33,
+                "image": "c37b51d6e4781e7ef1aa95732deedd5022177cf813ed7a997905c141a7c44860",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 41,
+                "image": "62c302eb346476f79e01c7d4ddcb683a96ccba9380debb425a1aaedc3b9e5709",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 21,
+                "image": "c1a4e1b922f9ada6d1cbf02bf67d6bf132624e6cf853e68a329db1335bbd3dae",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 36,
+                "image": "55022b1d41390ff79b39994abee41f54ae8d28dcfc51a02f188c84d2c879b5e0",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              }
+            ],
+            "historical_cache_order_observed": false,
+            "cache_evidence": "Frozen seed42 full-cache reconstruction, exact RGB/mask association; child IDs/sources explicitly checkpointed",
+            "selector_state_sha256": "bfc377426f5537f3308db88b727339661ce40ef515019f4cb3a74099939f4f94",
+            "model_cache_sha256": "37603241a8674923ee5f2e98eaa0d2ad29c067df6a80959f21b24ddecaf49d9f",
+            "source_verified_before_selector": true,
+            "FR": 0.3,
+            "distortion": 0.1,
+            "mode": "zero",
+            "Adam": {
+              "fields": [
+                126262.0
+              ]
+            },
+            "next_step": 126317
+          },
+          "render_parity": {
+            "status": "numeric_render_parity",
+            "source_bytes_exact": true,
+            "full_state_requirement": "bitwise canonical hashes unchanged",
+            "RGB8_alpha16_max_code_delta": 1,
+            "metric_absolute_tolerance": 1e-05,
+            "pixels": {
+              "DC.png": {
+                "source_sha256": "82cc644a1b626bc0048dbb9c55b76c5d9d90447ad092359fc78910ca70a805fb",
+                "replay_sha256": "db3ae01e15a0ab512f9a71dfd0c1161a1ade52566ad68c6bf4570f7315b885ae",
+                "max_code_delta": 1.0,
+                "mean_code_delta": 3.431049626701801e-07,
+                "changed_values": 2,
+                "changed_fraction": 3.431049626701801e-07,
+                "changed_fraction_limit": 1e-05
+              },
+              "DC_alpha.png": {
+                "source_sha256": "68ff3f137847e0c5be6b03384459eb49805bbfd781e02e749d2efa5f9e45c4da",
+                "replay_sha256": "0f4a996957c7cae11e9e0db377e9feb9747945184910b3516bf1691a62d549e0",
+                "max_code_delta": 1.0,
+                "mean_code_delta": 0.0005311264822134387,
+                "changed_values": 1032,
+                "changed_fraction": 0.0005311264822134387,
+                "changed_fraction_limit": 0.001
+              },
+              "HC.png": {
+                "source_sha256": "d3e3805254d8cae86f201ec411985c6631757849d4223e0298770ba35fc1ff4c",
+                "replay_sha256": "ae9f9aac653d09b0d558334f3d270a8b133305b516648a95e9b045d159866bca",
+                "max_code_delta": 1.0,
+                "mean_code_delta": 1.5439723320158103e-06,
+                "changed_values": 9,
+                "changed_fraction": 1.5439723320158103e-06,
+                "changed_fraction_limit": 1e-05
+              },
+              "HC_alpha.png": {
+                "source_sha256": "9645ed19512338f06a2a1fe161aa8d82f9b2b5bda70f5a7fbe44e20627217d42",
+                "replay_sha256": "06b19aed8d55d58325b0314ec28f898beca140aaf7634309c59f99b9d3f39477",
+                "max_code_delta": 1.0,
+                "mean_code_delta": 0.00038908102766798417,
+                "changed_values": 756,
+                "changed_fraction": 0.00038908102766798417,
+                "changed_fraction_limit": 0.001
+              },
+              "KA.png": {
+                "source_sha256": "5df911db00d2ee0804b069b701b3b32330c5ea53c03554b9004eb43e0e449c5a",
+                "replay_sha256": "17e84975f7cf1162b7a51eb11232763f62cf20b377037e2818b2752dc52e7850",
+                "max_code_delta": 1.0,
+                "mean_code_delta": 8.577624066754502e-07,
+                "changed_values": 5,
+                "changed_fraction": 8.577624066754502e-07,
+                "changed_fraction_limit": 1e-05
+              },
+              "KA_alpha.png": {
+                "source_sha256": "3a019b7dba70a97a1bd0a8e64091b6bb3fed4def120e5a93e68d649d6f2f0469",
+                "replay_sha256": "55c44d3e38c72a8757b0b184eb88ac8f7d0c20f31d35c3bf981aa7c09e5c0d49",
+                "max_code_delta": 1.0,
+                "mean_code_delta": 0.0003247488471673254,
+                "changed_values": 631,
+                "changed_fraction": 0.0003247488471673254,
+                "changed_fraction_limit": 0.001
+              }
+            },
+            "metric_deltas": {
+              "aggregate": {
+                "psnr": 0.0,
+                "ssim": 2.9802322387695312e-08,
+                "lpips": 1.2045105298591485e-07
+              },
+              "by_view/DC": {
+                "psnr": 0.0,
+                "ssim": 5.960464477539063e-08,
+                "lpips": -1.1920928955078125e-07
+              },
+              "by_view/HC": {
+                "psnr": 0.0,
+                "ssim": 2.9802322387695312e-08,
+                "lpips": 2.942979335784912e-07
+              },
+              "by_view/KA": {
+                "psnr": 0.0,
+                "ssim": 0.0,
+                "lpips": 1.862645149230957e-07
+              },
+              "by_actor/black": {
+                "psnr": 0.0,
+                "ssim": 1.9868214962137642e-08,
+                "lpips": 4.3834249178337226e-07
+              },
+              "by_actor/grey": {
+                "psnr": 0.0,
+                "ssim": 3.973642981325298e-08,
+                "lpips": -1.9744038581848145e-07
+              },
+              "record/DC/black": {
+                "psnr": 0.0,
+                "ssim": 1.1920928955078125e-07,
+                "lpips": -5.21540641784668e-08
+              },
+              "record/DC/grey": {
+                "psnr": 0.0,
+                "ssim": 0.0,
+                "lpips": -1.862645149230957e-07
+              },
+              "record/HC/black": {
+                "psnr": 0.0,
+                "ssim": -5.960464477539063e-08,
+                "lpips": 5.513429641723633e-07
+              },
+              "record/HC/grey": {
+                "psnr": 0.0,
+                "ssim": 1.1920928955078125e-07,
+                "lpips": 3.725290298461914e-08
+              },
+              "record/KA/black": {
+                "psnr": 0.0,
+                "ssim": 0.0,
+                "lpips": 8.158385753631592e-07
+              },
+              "record/KA/grey": {
+                "psnr": 0.0,
+                "ssim": 0.0,
+                "lpips": -4.4330954551696777e-07
+              }
+            },
+            "bitwise_render_claim": false,
+            "cause_established": false
+          },
+          "selector_state": {
+            "binding": {
+              "schema_version": 1,
+              "arm": "original_mapped",
+              "manifest_sha256": "3b7632524656c4b6599936d7bc8093320c5db628ed1937118bb091e905d08f8d",
+              "source_grid_sha256": "a7e3d3703f9bb693c095bd5cd715f92b9ac048b3f96082dd95b39ac5db452328",
+              "geometric_Linf_margin": null,
+              "numerical_epsilon": 2e-07,
+              "outside_unknown": "original_numerical_epsilon",
+              "source_checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+              "helpers_sha256": {
+                "marshawn_source_point_admission.py": "aa288b24bdf84463c33d101a252c6945db40b0f3fffc833a32c782d4a62018b1",
+                "marshawn_source_margin_admission.py": "7f1b9c942f8611123ac4a9800c369e49fd09e360a4eaca13ccc95d2c919967b8",
+                "marshawn_readonly_point_selector.py": "9835b52f46ad880e5022bc560fa4679db7fb5d12601bae02ba71da4fc412f184"
+              }
+            },
+            "last_normalizer": null,
+            "last_counts": null
+          },
+          "render_state_unchanged": true,
+          "sourceA_verified_before_gate": true,
+          "own_branch_zero": {
+            "step": 126316,
+            "metrics": {
+              "psnr": 31.63972670843312,
+              "ssim": 0.8312640686829885,
+              "lpips": 0.01877336312706272,
+              "validation_loss": 0.022064595483243465
+            },
+            "by_view": {
+              "DC": {
+                "psnr": 31.928317784803568,
+                "ssim": 0.8286824226379395,
+                "lpips": 0.021489938721060753,
+                "validation_loss": 0.020745201967656612
+              },
+              "HC": {
+                "psnr": 31.601697059452533,
+                "ssim": 0.8320500552654266,
+                "lpips": 0.016353886108845472,
+                "validation_loss": 0.02247255202382803
+              },
+              "KA": {
+                "psnr": 31.38916528104327,
+                "ssim": 0.8330597281455994,
+                "lpips": 0.01847626455128193,
+                "validation_loss": 0.022976032458245754
+              }
+            },
+            "by_actor": {
+              "black": {
+                "psnr": 30.513517800400347,
+                "ssim": 0.7976165413856506,
+                "lpips": 0.020088914160927136,
+                "validation_loss": 0.023400044689575832
+              },
+              "grey": {
+                "psnr": 32.7659356164659,
+                "ssim": 0.8649115959803263,
+                "lpips": 0.0174578120931983,
+                "validation_loss": 0.0207291462769111
+              }
+            },
+            "records": [
+              {
+                "view": "DC",
+                "actor": "black",
+                "psnr": 30.882954748724583,
+                "ssim": 0.7967888116836548,
+                "lpips": 0.019904114305973053,
+                "validation_loss": 0.021752478554844856,
+                "actor_pixels": 50554,
+                "crop_xyxy": [
+                  742,
+                  61,
+                  1087,
+                  630
+                ],
+                "crop_pixels": 196305,
+                "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+                "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+                "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+              },
+              {
+                "view": "DC",
+                "actor": "grey",
+                "psnr": 32.97368082088256,
+                "ssim": 0.8605760335922241,
+                "lpips": 0.023075763136148453,
+                "validation_loss": 0.01973792538046837,
+                "actor_pixels": 32212,
+                "crop_xyxy": [
+                  880,
+                  224,
+                  1118,
+                  625
+                ],
+                "crop_pixels": 95438,
+                "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+                "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+                "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+              },
+              {
+                "view": "HC",
+                "actor": "black",
+                "psnr": 29.995297363722862,
+                "ssim": 0.79494309425354,
+                "lpips": 0.02196289226412773,
+                "validation_loss": 0.02431020699441433,
+                "actor_pixels": 39768,
+                "crop_xyxy": [
+                  883,
+                  191,
+                  1210,
+                  688
+                ],
+                "crop_pixels": 162519,
+                "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+                "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+                "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+              },
+              {
+                "view": "HC",
+                "actor": "grey",
+                "psnr": 33.208096755182204,
+                "ssim": 0.8691570162773132,
+                "lpips": 0.010744879953563213,
+                "validation_loss": 0.02063489705324173,
+                "actor_pixels": 30426,
+                "crop_xyxy": [
+                  945,
+                  345,
+                  1230,
+                  747
+                ],
+                "crop_pixels": 114570,
+                "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+                "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+                "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+              },
+              {
+                "view": "KA",
+                "actor": "black",
+                "psnr": 30.66230128875359,
+                "ssim": 0.8011177182197571,
+                "lpips": 0.018399735912680626,
+                "validation_loss": 0.024137448519468307,
+                "actor_pixels": 31759,
+                "crop_xyxy": [
+                  935,
+                  0,
+                  1203,
+                  470
+                ],
+                "crop_pixels": 125960,
+                "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+                "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+                "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+              },
+              {
+                "view": "KA",
+                "actor": "grey",
+                "psnr": 32.11602927333295,
+                "ssim": 0.8650017380714417,
+                "lpips": 0.018552793189883232,
+                "validation_loss": 0.0218146163970232,
+                "actor_pixels": 29297,
+                "crop_xyxy": [
+                  889,
+                  163,
+                  1154,
+                  539
+                ],
+                "crop_pixels": 99640,
+                "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+                "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+                "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+              }
+            ],
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "aggregation": "equal actors per camera, then equal cameras",
+            "opacity_diagnostics": [
+              {
+                "view": "DC",
+                "actor": "black",
+                "eroded_pixels": 45559,
+                "below09_fraction": 0.03187076099124213,
+                "trigger": true
+              },
+              {
+                "view": "DC",
+                "actor": "grey",
+                "eroded_pixels": 28743,
+                "below09_fraction": 0.0007654037504783774,
+                "trigger": false
+              },
+              {
+                "view": "HC",
+                "actor": "black",
+                "eroded_pixels": 35296,
+                "below09_fraction": 0.03955122393472348,
+                "trigger": true
+              },
+              {
+                "view": "HC",
+                "actor": "grey",
+                "eroded_pixels": 27480,
+                "below09_fraction": 0.0002183406113537118,
+                "trigger": false
+              },
+              {
+                "view": "KA",
+                "actor": "black",
+                "eroded_pixels": 28831,
+                "below09_fraction": 0.023308244597828726,
+                "trigger": true
+              },
+              {
+                "view": "KA",
+                "actor": "grey",
+                "eroded_pixels": 25770,
+                "below09_fraction": 0.009274350019402406,
+                "trigger": false
+              }
+            ],
+            "masked_lpips": 0.01877336312706272,
+            "psnr": 31.63972670843312,
+            "ssim": 0.8312640686829885,
+            "validation_loss": 0.022064595483243465
+          }
+        }
+      }
+    },
+    "sourceW32margin126316_zero_source_margin002": {
+      "status": "complete",
+      "worker": {
+        "pid": 3470893,
+        "start": "6012211",
+        "boot": "3cd2faca-15ef-4b7e-9767-20e0b80af902",
+        "state": "R"
+      },
+      "gpu_uuid": "GPU-26c63492-0230-896f-208e-10e4eaca4c3c",
+      "oom": false,
+      "worker_alive": false,
+      "receipt": {
+        "name": "sourceW32margin126316_zero_source_margin002",
+        "status": "complete",
+        "spec_sha256": "457ba85a855d8a3abf7a1937e49bbc31a327bc57ffa51fcf149fe3d5232981fb",
+        "supervisor": {
+          "pid": 3470888,
+          "start": "6012195",
+          "boot": "3cd2faca-15ef-4b7e-9767-20e0b80af902",
+          "state": "R"
+        },
+        "worker": {
+          "pid": 3470893,
+          "start": "6012211",
+          "boot": "3cd2faca-15ef-4b7e-9767-20e0b80af902",
+          "state": "R"
+        },
+        "gpu": 1,
+        "gpu_uuid": "GPU-26c63492-0230-896f-208e-10e4eaca4c3c",
+        "started": 1794031499.4208384,
+        "heartbeat": 1794031589.8953838,
+        "latest_check": {
+          "time": 1794031589.8953838,
+          "worker_alive": false,
+          "worker_pid": 3470893,
+          "progress": {
+            "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/runs/zero_source_margin002/progress.json": null
+          },
+          "gpus": {
+            "0": {
+              "uuid": "GPU-6a8bbc85-5a77-8d62-ab18-560955f0dc65",
+              "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+              "total_mib": 97887,
+              "used_mib": 0,
+              "processes": []
+            },
+            "1": {
+              "uuid": "GPU-26c63492-0230-896f-208e-10e4eaca4c3c",
+              "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+              "total_mib": 97887,
+              "used_mib": 0,
+              "processes": []
+            },
+            "2": {
+              "uuid": "GPU-279718e7-9e60-e5f2-53aa-65ff7dd03f37",
+              "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+              "total_mib": 97887,
+              "used_mib": 0,
+              "processes": []
+            },
+            "3": {
+              "uuid": "GPU-c024b6e2-0def-f4fd-c18a-64b95975effd",
+              "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+              "total_mib": 97887,
+              "used_mib": 0,
+              "processes": []
+            },
+            "4": {
+              "uuid": "GPU-cb1a0b07-abd6-8e55-9669-ccbb2c45a560",
+              "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+              "total_mib": 97887,
+              "used_mib": 0,
+              "processes": []
+            },
+            "5": {
+              "uuid": "GPU-216eac5a-c2f3-4bc5-d4e8-1a6f9cbd9b9a",
+              "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+              "total_mib": 97887,
+              "used_mib": 0,
+              "processes": []
+            },
+            "6": {
+              "uuid": "GPU-a53fcf27-02c4-c737-9269-0623ec25a6d9",
+              "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+              "total_mib": 97887,
+              "used_mib": 0,
+              "processes": []
+            },
+            "7": {
+              "uuid": "GPU-9c2ea572-537d-66a7-6df3-41c3d8914d39",
+              "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+              "total_mib": 97887,
+              "used_mib": 0,
+              "processes": []
+            }
+          },
+          "oom_evidence": false,
+          "free_bytes": 11364164591616
+        },
+        "returncode": 0,
+        "finished": 1794031590.0375037,
+        "metrics": {
+          "status": "zero_update_state_equal",
+          "passed": true,
+          "proof": {
+            "pipeline": "c83bc7dbb1504063c35f0a2b14ae3fb329ff27ed2eb6b3661eb89b4918d46636",
+            "optimizers": "73ee993c0dc56b34e6fc9dd799cf63cfcf1d19ca7f252568680f12663dc9583e",
+            "schedulers": "50cde065a272d13da9ef8522a84f2e50a7598437db28721153e3b8ae73447ec3",
+            "scalers": "90fa2bbdf25a1c8b016fbd745e22cb8c20431f24c3088693acf9b029248f30c7",
+            "rng_state": "7de999966deb5bc61d81ce39a81891b52df244e05881da2b15cfabe0235e5811",
+            "tuning_runtime": "6f988601c4ec813524a6d6e1bfeb056a7b8e03acfd66b8e8246f6d2f8f0b65a7",
+            "actual_occupancy_capture": "b8809cd17b7c7c8b1440ac33f419872ef5b3cf1fb4953fee20aec2ddbb02dbd4",
+            "semantic_support": {
+              "receipt": {
+                "manifest_sha256": "fce7fc24735cd62d5242ce719964c5d6d61291feef1cc1c536c12f2ce194b15e",
+                "source_grid_sha256": "e804d736dd766e8adf11df07e346a6317af87e0b106a94dfc524ab32f1690d71",
+                "mapped_bool_sha256": "d60baa9186a63f3769204b93cb46dcfd2ea16e3d41a72ca788934fe19bd2659f",
+                "identity_control": false
+              },
+              "mapped_sha256": "d60baa9186a63f3769204b93cb46dcfd2ea16e3d41a72ca788934fe19bd2659f",
+              "schema": 2,
+              "actual_core_and_active_equal": true,
+              "learned_core_preserved": true,
+              "semantic_selector_installed": true
+            },
+            "cache_ids": [
+              40,
+              7,
+              1,
+              47,
+              17,
+              15,
+              14,
+              8,
+              59,
+              6,
+              43,
+              54,
+              34,
+              5,
+              37,
+              27,
+              2,
+              60,
+              49,
+              13,
+              56,
+              32,
+              38,
+              45,
+              35,
+              12,
+              50,
+              26,
+              42,
+              28,
+              58,
+              0,
+              24,
+              25,
+              44,
+              22,
+              52,
+              10,
+              55,
+              4,
+              53,
+              29,
+              3,
+              46,
+              48,
+              20,
+              11,
+              16,
+              9,
+              23,
+              18,
+              31,
+              61,
+              30,
+              39,
+              51,
+              57,
+              62,
+              19,
+              33,
+              41,
+              21,
+              36
+            ],
+            "cache_sha256": "a80f6a908dd71cfbc3c75f60c6b8f71c9ebfaae3b24d3cfcc2f1ecdb5253ec56",
+            "cache_sources": [
+              {
+                "camera": 40,
+                "image": "30e8db2559ff11ffa0d48b4621823411f5a7e1ade44dc7cd0f9da7cd991fbd77",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 7,
+                "image": "f5ab74f9bb39504c57adbabf76430be4c3960b103b7e6e2549dfe4d351d85685",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 1,
+                "image": "def6aaf092fe90dea4d22f986816d0ad5ee203d89b2f06255b6cc053962db72f",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 47,
+                "image": "a107875d89ae19022a4e05fa94032adc0cf69d3dbaafc29a8bb9511b18b6bd06",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 17,
+                "image": "c98673fbb5d205eedd9df94de1a349673fff7af8e19d7dd642ed34e4e52f8db7",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 15,
+                "image": "c9029109c2152e1f2e8ce24dcb9e854898325ddb6ffec053852c46517593f922",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 14,
+                "image": "62952467baab74e809a136dd10259fb5b3ecc20fa480db987ac453addb4df55d",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 8,
+                "image": "e9297afc264afd34e7327dee5690c3e40435610de7e74e887a164995096e640b",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 59,
+                "image": "20cba807b90d29f07fcf5854bca275834ed0282eeb9f86aa3b3f200052303234",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 6,
+                "image": "653ec0933199fb6575543dd22fcdec495e938d2070fa8f6ce7c945d2f725d356",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 43,
+                "image": "ee7dc09ed30e04d2d49df1c6706ee9be5894cbcf302c7e40cbcb2b0c769ac518",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 54,
+                "image": "2e0d46036a8c88787097f738e8e769ce5b53032404cd02c7d5eef13bddb939d3",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 34,
+                "image": "e0952bedb62da84f6c79f3851d00446acccac8f59fa206ef5cebf7f4e44ea34c",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 5,
+                "image": "f83aafd17abda80cd96d4fe5f71f5ebd99a00ee060e8f13df8bba21cd74671ae",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 37,
+                "image": "8faf1dc7a220bbd4f34ab64f814e98afe39ea8f40f8fbe03c1a5c4f25e670d20",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 27,
+                "image": "1dbb463dcbe96ab1c26387d210ae45452eea4835f50d76bf9a19859567b6a784",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 2,
+                "image": "a5851a6e20837bc486fa13cfe79b70017af4ffa85724d04579bd00655f28be0f",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 60,
+                "image": "0942598addf71d849e1f276959193047166c52473f34889d56ac8156aa90dbc0",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 49,
+                "image": "8ea86acfa3ae94191d49001d0ee6154a3dff63f0ae5b84e7a7ad8ba8b9c4b455",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 13,
+                "image": "15f612171a5a6df98a5d7de8838fd9496301de6a267944b1447cbac7beae80a5",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 56,
+                "image": "4446ee44d4bdccbd7e9ea904e3aac8a1d84c9c759ed26cfc193d493e6a5a915c",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 32,
+                "image": "24ab11d2c3eb8c0636bd1a7fe2bfcd024440a018fd45e7683d932f2c7239ad38",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 38,
+                "image": "141148a8a307f653ce8821105d1c120fa0e416daed293169dbd172ad0174315b",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 45,
+                "image": "737322d026d23feea2ad48d207555bd3b18dd1d25a0161caf0889e74dcf84437",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 35,
+                "image": "a376f20eab16eb17d92defe6285043d7aff6c0a1d18bd144ef57f7f2083cf784",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 12,
+                "image": "612c4adf810f568f9fc6b199f15297fc64ccf76c76eae316bf8b9653b0979bd6",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 50,
+                "image": "1e1c6d2490208a924ea9c5299d37e1b8bd2be3fe022d8cff44d47bb07ce17f1d",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 26,
+                "image": "51d902e850ba8957e40ffae4fa5b282e0f47ec2e0036c4c9829609209b07d7bf",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 42,
+                "image": "e4a867be41f36bdb933afea36c56cad307bbab84ee81d0643fd5aef6b3279622",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 28,
+                "image": "dba1e57f83fd9c7261bb6dc243ce619e9cdfd071cb90165608f6be2e281f2e1c",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 58,
+                "image": "f870bacc6e9caf93f4652e47801916d4178696fb2c4f9446e8c1ef1ef0f87b65",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 0,
+                "image": "95d6ee674b789e55842b3f32687306c86ae2e66a10620ce6fd6fe0330a43d2cd",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 24,
+                "image": "0591eb872e1bab7e1ec92d651af6429f4cef1e749bb83cf533f03e2fa035064f",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 25,
+                "image": "d8334d0bc6f2c6df1e3b96b0b94052e31a0e891d6f7e2756cac0022ab7147d06",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 44,
+                "image": "203077499c013ac355e4494f915418fc96820ac2e8f9899aa2d853fdcdf5c7da",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 22,
+                "image": "fe3f9cf419ccb249671e3dd4af4012c56a3281ee67f2cb0becb9e64042d5746c",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 52,
+                "image": "17b7a4da9fc4d67af39c504723012d30228c0b1cbc71da489324c04b1d346e5e",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 10,
+                "image": "e54a21b794350de6c49d30b876ef3499dee38c9457c15437602469a184a85dd5",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 55,
+                "image": "08151b63861aea49492a8b17fa415c98383f6ef21275adfbd32a0b620e60e09c",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 4,
+                "image": "39b4556c53ec9eb10a2e657f39fc711e6bf968e1ffab853ecf7a1109806a0cd2",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 53,
+                "image": "9827c3eb220850bfdff5e40f644ca97401733674234cc15172853f57963b517d",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 29,
+                "image": "b1d725154b156212d5f98828074fd4b217e9a9f1866d44050fc97d5bf15439bd",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 3,
+                "image": "dc4601c6fe2eae6f71c2da3cb9e94de7e4dcd6fb9ba25dbcb2198956690876a3",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 46,
+                "image": "441a638c3f27c64d4d949a8ae9275901c359e0f4f047da8f129157865217a804",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 48,
+                "image": "3ffb5f0a45dfec128db276ef794cf2a27cf0d5c18add9de35db711d5f2c0bbc8",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 20,
+                "image": "071a3cbdba4d7c40cfe370d1f561cf9582898abc44b32a73c6046b9b3e5ebf62",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 11,
+                "image": "f9efbd782737ee15982c61afb436348ccfc1aba425362a7d9c71c59416e7392f",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 16,
+                "image": "c2c4f4a0c8c9eee657994030793536681051b877262a2f240d426f15816a36b9",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 9,
+                "image": "94bb3d9b98eddb2378aec516e297bec2ce94bc7467c46ff7d2c18b9abfb83914",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 23,
+                "image": "26de7371145590e485f9f4905a051a076d49ec6916f81bc0dbaf47cd959b5da5",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 18,
+                "image": "83eed3e0a63487e3058e81b7f216bb02acbe6eb02fb3eacfeb5350d3ad8d705f",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 31,
+                "image": "ae872e5ff172e8be623c461b13a662ff166481dea1538a81b2d0cc0634189d58",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 61,
+                "image": "f2b9c421ff2f0006ce811c6babad824a922bcbb301429038a5c19349a5a06652",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 30,
+                "image": "217c956843d4d19470e376fe64d40af22f4128cca0b3387daa3d078781919322",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 39,
+                "image": "aabe462e7a7a4c10d7d7b8f980a5e2b4833b54f96aae9536c3d05f9add05ba71",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 51,
+                "image": "9beedf2394c5aa01bf50536599909df0e37034c4a3b53a5509d554dea003907c",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 57,
+                "image": "4a2a5ad5b003239a7c6bde0aa6000d67457f28e87fc85cff05731b78f13ed332",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 62,
+                "image": "a5ecefef84fa9ada860911e8419c567a7ddeaa5091216b3f13de5ad8bf4e869c",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 19,
+                "image": "ceae62575302f08563168a6f8cbe594f291494b42139c625dfebfd67dbc9dec9",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 33,
+                "image": "c37b51d6e4781e7ef1aa95732deedd5022177cf813ed7a997905c141a7c44860",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 41,
+                "image": "62c302eb346476f79e01c7d4ddcb683a96ccba9380debb425a1aaedc3b9e5709",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 21,
+                "image": "c1a4e1b922f9ada6d1cbf02bf67d6bf132624e6cf853e68a329db1335bbd3dae",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              },
+              {
+                "camera": 36,
+                "image": "55022b1d41390ff79b39994abee41f54ae8d28dcfc51a02f188c84d2c879b5e0",
+                "mask": "7d29aface539ac757dc664501241b98fddf78069c53e83e01418c5ab103a9715"
+              }
+            ],
+            "historical_cache_order_observed": false,
+            "cache_evidence": "Frozen seed42 full-cache reconstruction, exact RGB/mask association; child IDs/sources explicitly checkpointed",
+            "selector_state_sha256": "a385bbbe642c790dfef458e74db4bba68e94043038210adfcc2fe3b9fe0f5b36",
+            "model_cache_sha256": "37603241a8674923ee5f2e98eaa0d2ad29c067df6a80959f21b24ddecaf49d9f",
+            "source_verified_before_selector": true,
+            "FR": 0.3,
+            "distortion": 0.1,
+            "mode": "zero",
+            "Adam": {
+              "fields": [
+                126262.0
+              ]
+            },
+            "next_step": 126317
+          },
+          "render_parity": {
+            "status": "numeric_render_parity",
+            "source_bytes_exact": true,
+            "full_state_requirement": "bitwise canonical hashes unchanged",
+            "RGB8_alpha16_max_code_delta": 1,
+            "metric_absolute_tolerance": 1e-05,
+            "pixels": {
+              "DC.png": {
+                "source_sha256": "aee7c022032e07bea7aaf206d0702c017300d1f3dfd010e48816504c0488978d",
+                "replay_sha256": "9f44656c4d843a9a209e9a1f21b176913fb7bbad1a2538ff6929c34fae89f6d7",
+                "max_code_delta": 1.0,
+                "mean_code_delta": 8.577624066754502e-07,
+                "changed_values": 5,
+                "changed_fraction": 8.577624066754502e-07,
+                "changed_fraction_limit": 1e-05
+              },
+              "DC_alpha.png": {
+                "source_sha256": "85a9bcef67ac48bdadb11a3edb3d9d558490d391a8131784901846d5b1b02547",
+                "replay_sha256": "904ca16ac1a7e25bd729bf89d390cb05a11e8e2b7ff6e56309e56b696b2158a0",
+                "max_code_delta": 1.0,
+                "mean_code_delta": 0.00041224061264822135,
+                "changed_values": 801,
+                "changed_fraction": 0.00041224061264822135,
+                "changed_fraction_limit": 0.001
+              },
+              "HC.png": {
+                "source_sha256": "67631d4879e37cfc024422098390b963ef2c92ef7dc77e61dfdbb08fdc1dc099",
+                "replay_sha256": "55f8fae59c21564f7b82c15182668142a029fd439c9fcbb7d39398d913ae1ce3",
+                "max_code_delta": 1.0,
+                "mean_code_delta": 8.577624066754502e-07,
+                "changed_values": 5,
+                "changed_fraction": 8.577624066754502e-07,
+                "changed_fraction_limit": 1e-05
+              },
+              "HC_alpha.png": {
+                "source_sha256": "576a39b550044a21ddabfc840fe42e26f7a100671332b9b8222befbc1b64386a",
+                "replay_sha256": "a8092928fce6d412e86722488894727dce7da87587dc267a001c1e06ef5c7721",
+                "max_code_delta": 1.0,
+                "mean_code_delta": 0.0002923254281949934,
+                "changed_values": 568,
+                "changed_fraction": 0.0002923254281949934,
+                "changed_fraction_limit": 0.001
+              },
+              "KA.png": {
+                "source_sha256": "801f86f77decbec78ef40f2fad81c499e3ab452fb99d772ba0a65bcc9869a1bf",
+                "replay_sha256": "387b1e346f39a46e81fdab88e5d01e0ddee1e508fdf8aaa4449cbc38c53cf74a",
+                "max_code_delta": 1.0,
+                "mean_code_delta": 8.577624066754502e-07,
+                "changed_values": 5,
+                "changed_fraction": 8.577624066754502e-07,
+                "changed_fraction_limit": 1e-05
+              },
+              "KA_alpha.png": {
+                "source_sha256": "fd36aaf5006bc5d91948c81c76abc38540398fc9e80d495b2fbdb17601703f10",
+                "replay_sha256": "043917d5948d945b8bf537007beb61b711bee84370ea89b2e84c4c0f578daa9b",
+                "max_code_delta": 1.0,
+                "mean_code_delta": 0.00023468379446640316,
+                "changed_values": 456,
+                "changed_fraction": 0.00023468379446640316,
+                "changed_fraction_limit": 0.001
+              }
+            },
+            "metric_deltas": {
+              "aggregate": {
+                "psnr": -6.042398581485031e-09,
+                "ssim": 3.973642981325298e-08,
+                "lpips": -2.3764247695373664e-07
+              },
+              "by_view/DC": {
+                "psnr": -2.5129563852033243e-07,
+                "ssim": 5.960464477539063e-08,
+                "lpips": 2.2724270820617676e-07
+              },
+              "by_view/HC": {
+                "psnr": 2.3316844277587734e-07,
+                "ssim": 0.0,
+                "lpips": -2.0442530512809753e-07
+              },
+              "by_view/KA": {
+                "psnr": 0.0,
+                "ssim": 5.960464477539063e-08,
+                "lpips": -7.35744833946228e-07
+              },
+              "by_actor/black": {
+                "psnr": 0.0,
+                "ssim": 0.0,
+                "lpips": -2.7939677238464355e-07
+              },
+              "by_actor/grey": {
+                "psnr": -1.2084800715683741e-08,
+                "ssim": 7.947285962650597e-08,
+                "lpips": -1.958881815297686e-07
+              },
+              "record/DC/black": {
+                "psnr": 0.0,
+                "ssim": 0.0,
+                "lpips": 2.0489096641540527e-07
+              },
+              "record/DC/grey": {
+                "psnr": -5.025912841460922e-07,
+                "ssim": 1.1920928955078125e-07,
+                "lpips": 2.4959444999694824e-07
+              },
+              "record/HC/black": {
+                "psnr": 0.0,
+                "ssim": 0.0,
+                "lpips": -3.46451997756958e-07
+              },
+              "record/HC/grey": {
+                "psnr": 4.663368855517547e-07,
+                "ssim": 0.0,
+                "lpips": -6.239861249923706e-08
+              },
+              "record/KA/black": {
+                "psnr": 0.0,
+                "ssim": 0.0,
+                "lpips": -6.966292858123779e-07
+              },
+              "record/KA/grey": {
+                "psnr": 0.0,
+                "ssim": 1.1920928955078125e-07,
+                "lpips": -7.748603820800781e-07
+              }
+            },
+            "bitwise_render_claim": false,
+            "cause_established": false
+          },
+          "selector_state": {
+            "binding": {
+              "schema_version": 1,
+              "arm": "source_margin002",
+              "manifest_sha256": "3b7632524656c4b6599936d7bc8093320c5db628ed1937118bb091e905d08f8d",
+              "source_grid_sha256": "a7e3d3703f9bb693c095bd5cd715f92b9ac048b3f96082dd95b39ac5db452328",
+              "geometric_Linf_margin": 0.002,
+              "numerical_epsilon": 2e-07,
+              "outside_unknown": "original_numerical_epsilon",
+              "source_checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+              "helpers_sha256": {
+                "marshawn_source_point_admission.py": "aa288b24bdf84463c33d101a252c6945db40b0f3fffc833a32c782d4a62018b1",
+                "marshawn_source_margin_admission.py": "7f1b9c942f8611123ac4a9800c369e49fd09e360a4eaca13ccc95d2c919967b8",
+                "marshawn_readonly_point_selector.py": "9835b52f46ad880e5022bc560fa4679db7fb5d12601bae02ba71da4fc412f184"
+              }
+            },
+            "last_normalizer": null,
+            "last_counts": null
+          },
+          "render_state_unchanged": true,
+          "sourceA_verified_before_gate": true,
+          "own_branch_zero": {
+            "step": 126316,
+            "metrics": {
+              "psnr": 31.287119383527486,
+              "ssim": 0.8301867842674255,
+              "lpips": 0.02035750091696779,
+              "validation_loss": 0.022335358274479706
+            },
+            "by_view": {
+              "DC": {
+                "psnr": 31.948638835684207,
+                "ssim": 0.8288757801055908,
+                "lpips": 0.021611451171338558,
+                "validation_loss": 0.02067352645099163
+              },
+              "HC": {
+                "psnr": 31.39367241374812,
+                "ssim": 0.8319299519062042,
+                "lpips": 0.017748265992850065,
+                "validation_loss": 0.02255520410835743
+              },
+              "KA": {
+                "psnr": 30.51904690115013,
+                "ssim": 0.8297546207904816,
+                "lpips": 0.021712785586714745,
+                "validation_loss": 0.02377734426409006
+              }
+            },
+            "by_actor": {
+              "black": {
+                "psnr": 30.683325043036103,
+                "ssim": 0.7995057304700216,
+                "lpips": 0.02003542147576809,
+                "validation_loss": 0.023190233235557873
+              },
+              "grey": {
+                "psnr": 31.89091372401887,
+                "ssim": 0.8608678380648295,
+                "lpips": 0.020679580358167488,
+                "validation_loss": 0.02148048331340154
+              }
+            },
+            "records": [
+              {
+                "view": "DC",
+                "actor": "black",
+                "psnr": 30.912772974564792,
+                "ssim": 0.797166109085083,
+                "lpips": 0.020352767780423164,
+                "validation_loss": 0.021635493263602257,
+                "actor_pixels": 50554,
+                "crop_xyxy": [
+                  742,
+                  61,
+                  1087,
+                  630
+                ],
+                "crop_pixels": 196305,
+                "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+                "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+                "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+              },
+              {
+                "view": "DC",
+                "actor": "grey",
+                "psnr": 32.98450469680362,
+                "ssim": 0.8605854511260986,
+                "lpips": 0.022870134562253952,
+                "validation_loss": 0.019711559638381004,
+                "actor_pixels": 32212,
+                "crop_xyxy": [
+                  880,
+                  224,
+                  1118,
+                  625
+                ],
+                "crop_pixels": 95438,
+                "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+                "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+                "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+              },
+              {
+                "view": "HC",
+                "actor": "black",
+                "psnr": 30.12799150086604,
+                "ssim": 0.796865701675415,
+                "lpips": 0.02172473445534706,
+                "validation_loss": 0.02416287362575531,
+                "actor_pixels": 39768,
+                "crop_xyxy": [
+                  883,
+                  191,
+                  1210,
+                  688
+                ],
+                "crop_pixels": 162519,
+                "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+                "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+                "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+              },
+              {
+                "view": "HC",
+                "actor": "grey",
+                "psnr": 32.659353326630196,
+                "ssim": 0.8669942021369934,
+                "lpips": 0.01377179753035307,
+                "validation_loss": 0.02094753459095955,
+                "actor_pixels": 30426,
+                "crop_xyxy": [
+                  945,
+                  345,
+                  1230,
+                  747
+                ],
+                "crop_pixels": 114570,
+                "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+                "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+                "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+              },
+              {
+                "view": "KA",
+                "actor": "black",
+                "psnr": 31.009210653677467,
+                "ssim": 0.8044853806495667,
+                "lpips": 0.018028762191534042,
+                "validation_loss": 0.023772332817316055,
+                "actor_pixels": 31759,
+                "crop_xyxy": [
+                  935,
+                  0,
+                  1203,
+                  470
+                ],
+                "crop_pixels": 125960,
+                "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+                "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+                "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+              },
+              {
+                "view": "KA",
+                "actor": "grey",
+                "psnr": 30.028883148622793,
+                "ssim": 0.8550238609313965,
+                "lpips": 0.025396808981895447,
+                "validation_loss": 0.023782355710864067,
+                "actor_pixels": 29297,
+                "crop_xyxy": [
+                  889,
+                  163,
+                  1154,
+                  539
+                ],
+                "crop_pixels": 99640,
+                "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+                "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+                "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+              }
+            ],
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "aggregation": "equal actors per camera, then equal cameras",
+            "opacity_diagnostics": [
+              {
+                "view": "DC",
+                "actor": "black",
+                "eroded_pixels": 45559,
+                "below09_fraction": 0.03503149761847275,
+                "trigger": true
+              },
+              {
+                "view": "DC",
+                "actor": "grey",
+                "eroded_pixels": 28743,
+                "below09_fraction": 0.0007654037504783774,
+                "trigger": false
+              },
+              {
+                "view": "HC",
+                "actor": "black",
+                "eroded_pixels": 35296,
+                "below09_fraction": 0.04074116047144152,
+                "trigger": true
+              },
+              {
+                "view": "HC",
+                "actor": "grey",
+                "eroded_pixels": 27480,
+                "below09_fraction": 0.0002911208151382824,
+                "trigger": false
+              },
+              {
+                "view": "KA",
+                "actor": "black",
+                "eroded_pixels": 28831,
+                "below09_fraction": 0.023793833026950158,
+                "trigger": true
+              },
+              {
+                "view": "KA",
+                "actor": "grey",
+                "eroded_pixels": 25770,
+                "below09_fraction": 0.013620488940628638,
+                "trigger": true
+              }
+            ],
+            "masked_lpips": 0.02035750091696779,
+            "psnr": 31.287119383527486,
+            "ssim": 0.8301867842674255,
+            "validation_loss": 0.022335358274479706
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "reviewer_requested": "root",
+  "phase_requested": "technical32_plus32_only",
+  "actual_authorizations_written": false,
+  "zero_verification_sha256": "c5aa090754d181b1699792766cb11133d337dedc3d34d9a97c27ac9b13bed154",
+  "zero_summary_sha256": "be947fdcffc761030c542377e927a65f4557e983c5d0970736ecc060a5e0bad2",
+  "guardian_completion_sha256": "22239a94476e05cadadfeb5ec1a01d06dc0e7026362c21ab1d8f4e996dae4356",
+  "policy_sha256": "40e492e11ebb6053cd793f1ca1f4b54f3525e0e26d3e5638121b61d88bf78700",
+  "requirements": [
+    "Fresh parent126316/source7 exact before gate, actualAdam126262.",
+    "Each arm32 attempts pause/checkpoint126348 then fresh32 resume126380; at least one successful finite Adam update before and after.",
+    "Strict own seven-state/cache/FR-LUT/sampler/selector restore, ownA/W32 initial scores; first main batch equal. Later density-dependent RNG divergence observed, never reseeded to force equality.",
+    "Original W64 control gradient unchanged, actual captured native occupancy/schema2 and finite outputs.",
+    "No production launch; technical weights excluded from later fresh production."
+  ],
+  "requested_receipts": {
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_sourceW32_margin_continuation_v1/specs/technical_original_mapped/root_release.json": {
+      "exact_fields_if_root_approves": {
+        "reviewer": "root",
+        "technical_authorized": true,
+        "production_authorized": false,
+        "spec_sha256": "3bb8b02b26e9e1f45ae97b93b95f6f5fe109de417b76acc12f41adb98f375926",
+        "margin_manifest_sha256": "3b7632524656c4b6599936d7bc8093320c5db628ed1937118bb091e905d08f8d",
+        "zero_reference_sha256": "00aaa217e8be5b3f548ec022549cf2290077e165b6aab5bfb8d8107a166a78cd"
+      },
+      "template_sha256": "83782b29b7d5333df2a8d7d6660681b8e44de7728a8fd8d7f41c0e6ad540a79d"
+    },
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_sourceW32_margin_continuation_v1/specs/technical_source_margin002/root_release.json": {
+      "exact_fields_if_root_approves": {
+        "reviewer": "root",
+        "technical_authorized": true,
+        "production_authorized": false,
+        "spec_sha256": "c1beb665d80f5deaa0d3f52116d921acc79265fb30eab1b3063610775cd9ce25",
+        "margin_manifest_sha256": "3b7632524656c4b6599936d7bc8093320c5db628ed1937118bb091e905d08f8d",
+        "zero_reference_sha256": "9ebaed68b4c1d4e796e1037c1dc55a8700121cc3c9cb0b61e8c6efdf34cc9557"
+      },
+      "template_sha256": "d18a5d613520db729867faacf774091d09619802de3ff6eac6995b037da153a3"
+    },
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_sourceW32_margin_continuation_v1/external_guard_margin_v1/technical_guard_release.json": {
+      "exact_fields_if_root_approves": {
+        "reviewer": "root",
+        "external_guard_authorized": true,
+        "policy_sha256": "40e492e11ebb6053cd793f1ca1f4b54f3525e0e26d3e5638121b61d88bf78700",
+        "authorized_phases": [
+          "technical"
+        ],
+        "protocol_sha256": "8015125c62964de4ec4999fec5116b96c7fc1e15da4b8b38ab40acc507883b65",
+        "CPU_readiness_sha256": "6da14f9150e9ffd2bfb4c2a625e80040205494a5ecf3721aa0846e25f84e47d8",
+        "zero_verification_sha256": "c5aa090754d181b1699792766cb11133d337dedc3d34d9a97c27ac9b13bed154"
+      },
+      "template_sha256": "a356cb2fd3d06e107bc069720e689117d380448015ff4d852663dea789cef815"
+    }
+  },
+  "launch_after_exact_review": [
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/python",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_sourceW32_margin_continuation_v1/external_guard_margin_v1/guardian.py",
+    "launch",
+    "--policy",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_sourceW32_margin_continuation_v1/external_guard_margin_v1/policy.json",
+    "--phase",
+    "technical"
+  ]
+}

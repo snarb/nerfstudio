@@ -1,0 +1,110 @@
+{
+  "passed": true,
+  "optimizer_updates": 0,
+  "guardian_PID": 2164845,
+  "controller_PID": 2164850,
+  "GPU_indices": [
+    0,
+    1
+  ],
+  "source_state_preserved": true,
+  "source7_exact_both": true,
+  "actual_FR": 0.3,
+  "distortion": 0.1,
+  "zero_verification_sha256": "c5aa090754d181b1699792766cb11133d337dedc3d34d9a97c27ac9b13bed154",
+  "arms": {
+    "original_mapped": {
+      "psnr": 31.63972670843312,
+      "ssim": 0.8312640686829885,
+      "lpips": 0.01877336312706272,
+      "density": {
+        "passed": true,
+        "positions_sha256": "aade4485c7f844f50c5a5a2ff55190e5b9ddf61ec422de8fcbfa2390c667c600",
+        "points": 327,
+        "admitted": 327,
+        "excluded": 0,
+        "excluded_previously_nonzero": 0,
+        "admitted_density_bitwise_equal": true,
+        "excluded_density_exact_zero": true,
+        "global_RNG_unchanged": true
+      },
+      "numeric_parity_pass": true,
+      "max_RGB_changed_fraction": 1.5439723320158103e-06,
+      "max_alpha_changed_fraction": 0.0005311264822134387,
+      "max_code_delta": 1.0,
+      "physical_GPU": {
+        "CUDA_VISIBLE_DEVICES": "GPU-6a8bbc85-5a77-8d62-ab18-560955f0dc65",
+        "expected_physical_uuid": "GPU-6a8bbc85-5a77-8d62-ab18-560955f0dc65",
+        "visible_device_count": 1,
+        "logical_current_device": 0,
+        "actual_physical_uuid": "GPU-6a8bbc85-5a77-8d62-ab18-560955f0dc65",
+        "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+        "allocator_cap_GiB": 10,
+        "lease": {
+          "CUDA_VISIBLE_DEVICES": "GPU-6a8bbc85-5a77-8d62-ab18-560955f0dc65",
+          "expected_physical_uuid": "GPU-6a8bbc85-5a77-8d62-ab18-560955f0dc65",
+          "lease_receipt": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/remote_queue/jobs/sourceW32margin126316_zero_original_mapped/receipt.json",
+          "supervisor": {
+            "pid": 3470662,
+            "start": "6012141",
+            "boot": "3cd2faca-15ef-4b7e-9767-20e0b80af902",
+            "state": "R"
+          },
+          "leased_gpu_index": 0
+        }
+      }
+    },
+    "source_margin002": {
+      "psnr": 31.287119383527486,
+      "ssim": 0.8301867842674255,
+      "lpips": 0.02035750091696779,
+      "density": {
+        "passed": true,
+        "positions_sha256": "aade4485c7f844f50c5a5a2ff55190e5b9ddf61ec422de8fcbfa2390c667c600",
+        "points": 327,
+        "admitted": 261,
+        "excluded": 66,
+        "excluded_previously_nonzero": 66,
+        "admitted_density_bitwise_equal": true,
+        "excluded_density_exact_zero": true,
+        "global_RNG_unchanged": true
+      },
+      "numeric_parity_pass": true,
+      "max_RGB_changed_fraction": 8.577624066754502e-07,
+      "max_alpha_changed_fraction": 0.00041224061264822135,
+      "max_code_delta": 1.0,
+      "physical_GPU": {
+        "CUDA_VISIBLE_DEVICES": "GPU-26c63492-0230-896f-208e-10e4eaca4c3c",
+        "expected_physical_uuid": "GPU-26c63492-0230-896f-208e-10e4eaca4c3c",
+        "visible_device_count": 1,
+        "logical_current_device": 0,
+        "actual_physical_uuid": "GPU-26c63492-0230-896f-208e-10e4eaca4c3c",
+        "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+        "allocator_cap_GiB": 10,
+        "lease": {
+          "CUDA_VISIBLE_DEVICES": "GPU-26c63492-0230-896f-208e-10e4eaca4c3c",
+          "expected_physical_uuid": "GPU-26c63492-0230-896f-208e-10e4eaca4c3c",
+          "lease_receipt": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/remote_queue/jobs/sourceW32margin126316_zero_source_margin002/receipt.json",
+          "supervisor": {
+            "pid": 3470888,
+            "start": "6012195",
+            "boot": "3cd2faca-15ef-4b7e-9767-20e0b80af902",
+            "state": "R"
+          },
+          "leased_gpu_index": 1
+        }
+      }
+    }
+  },
+  "visual_review": {
+    "viewed": [
+      "body_overview.jpg",
+      "DC_hair_feet.jpg",
+      "HC_hair_feet.jpg",
+      "KA_hair_feet.jpg",
+      "contour9_context.png"
+    ],
+    "finding": "Expected W32 removes broad head/interleg/floor overhang while residual halos remain. HC gray contour deficit remains, no quality promotion. Gross hair/shoes present; no fine-boundary certificate.",
+    "source_geometry_training_started": false
+  }
+}

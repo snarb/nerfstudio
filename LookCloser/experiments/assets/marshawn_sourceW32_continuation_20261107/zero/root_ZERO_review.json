@@ -1,0 +1,18 @@
+{
+  "reviewer": "root",
+  "time_UTC": "2026-11-07T06:04:15.237173+00:00",
+  "only_ZERO_authorized": true,
+  "binding_checks_local": 10644,
+  "binding_checks_remote": 10651,
+  "science1506_matches_qualified_MG": true,
+  "guardian13_core_AST_functions_identical": true,
+  "actual10GiB_allocator_call_verified": true,
+  "source_grid_W32_RGB_W64": true,
+  "source_checkpoint": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "releases": {
+    "specs/zero_original_mapped/root_release.json": "85af6c13102fef9794ef1d3c61b47a88b29f039a4a964dfcf841f63a43bde30b",
+    "specs/zero_source_margin002/root_release.json": "c2e651df2195b8449949e92119895c65e41e90f68a8645b88c1cc758ea9d1920",
+    "external_guard_margin_v1/zero_guard_release.json": "eeb35dd635c0e189a0389e5dfa8b029de9352c1d5b40ae548a3cd0e929f82c42"
+  },
+  "future_technical_and_production_authorized": false
+}
