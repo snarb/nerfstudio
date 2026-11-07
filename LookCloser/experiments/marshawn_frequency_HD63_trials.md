@@ -18,7 +18,7 @@ Generation3 copies each qualified admission source directory. Its semantic_grid.
 
 The actual frozen `load_support` now passes for the parent and both derived datasets; all2097152 mapped cells compare exactly equal. Source-grid SHA256 remains `e804d736dd766e8adf11df07e346a6317af87e0b106a94dfc524ab32f1690d71`; mapped boolean SHA256 remains `d60baa9186a63f3769204b93cb46dcfd2ea16e3d41a72ca788934fe19bd2659f`. Configuration comparison additionally normalizes only the proved-equivalent semantic manifest path/hash. Both normalized configs have SHA256 `17723ecbd12275b1f790d978aaf514803d5421db7b2ca35270b7a26b97e1a2d1`.
 
-Current `CPU_complete.json` SHA256 is `7d7a58c7ecabfdc61910bf959c401ea1c47bef133ad0dbdafc2e306e01dd3af9`; factory SHA256 is `9bd5e734cb952147cb71ee7774362c3e0702aec6e3796f7f8646b822f13ab424`. All1495 science files remain unchanged. No generation3 GPU worker has launched.
+Current `CPU_complete.json` SHA256 is `7d7a58c7ecabfdc61910bf959c401ea1c47bef133ad0dbdafc2e306e01dd3af9`; factory SHA256 is `9bd5e734cb952147cb71ee7774362c3e0702aec6e3796f7f8646b822f13ab424`. All1495 science files remain unchanged. Root independently rechecked2305 bindings on each host and the actual loader/config proofs, then released and launched generation3. Root review SHA256 is `e17ed54f772a1a49f3cd48c71f653b5278da6b3148c2653a741592d3767c6cdf`; controller2148145, decay worker2782320/GPU4 and.93 worker2782549/GPU7. Both passed physical UUID checks and reached the training loop. `manual_supervision.jsonl` records continuing health checks; no restart or sampler reset was performed.
 
 The unchanged loop has mandatory end106316 followed by its existing automatic plateau rule, no fixed iteration ceiling, and the original FR switch75941→.3. It saves the LPIPS.001-tie/PSNR frontier and resume state under the established checkpoint policy. A map change starts cold, including frequency-grid warmup; technical and older trained checkpoints are not ancestors.
 
@@ -32,8 +32,20 @@ python3 /fsx/tmp/marshawn_001660_hd/tuning_20261106/transport_v2_code/LookCloser
 
 Root-release templates live separately under each arm. Their four inherited mechanism-proof flags are explicitly attributed to the unchanged reviewed quarter.1 parent, not new GPU tests. Root release must additionally bind the new policy, factory, exact spec and CPU proof. Hourly process/progress/GPU/OOM supervision and each required three-view visual gate remain mandatory after launch.
 
+## First matched15188 gate
+
+Both arms passed cold warmup4096 and all four Adam counters reached1998 in the saved attempt2000 checkpoint. Peak Torch allocation was approximately3.48GiB; no OOM or source/runtime changes occurred. Two durable CPU watchers preserve evaluated checkpoints remotely and fetch actual grids, metrics and renders to `C/independent_occupancy/frequency_HD63_{lr_decay,threshold093}_progress`.
+
+| Map recipe | PSNR | SSIM | LPIPS |
+|---|---:|---:|---:|
+| Frozen baseline .95/constant .01 | 32.09120 | .854067 | .02219093 |
+| .95/per-level LR decay | 31.98976 | .854178 | .02291078 |
+| .93/constant .01 | 32.04205 | .851926 | .02239882 |
+
+At this early matched gate neither new map improves actor LPIPS. All three source/actor panels and nine hair/hand/feet panels were visually reviewed: no gross new actor cuts, but substantial head/body halos and floor/mat/bag fragments remain in every arm. This is not a complete sole-opacity certificate. [Actor comparison](/fsx/tmp/marshawn_001660_hd/tuning_20261106/frequency_HD63_trials_v3/reviews/step-000015188/all_actors.jpg) and [details](/fsx/tmp/marshawn_001660_hd/tuning_20261106/frequency_HD63_trials_v3/reviews/step-000015188/all_details.jpg); visual receipt SHA256 `1656a661ad5b788c090490155139c46b672c27d9275c1fdbe38398386f35bb10`. Both trials continue under the unchanged stopping protocol.
+
 ## Insights and limits
 
-The source/map review supports a controlled experiment, not a predicted improvement. SSIM.93 coarsens actor map levels, while decay varies across materials and views. The legacy baseline is not a newly repeated fitter seed/runtime control. No new NeRF quality, geometry, footprint cleanup or convergence claim is made before the trials.
+The source/map review supports a controlled experiment, not a predicted improvement. SSIM.93 coarsens actor map levels, while decay varies across materials and views. The legacy baseline is not a newly repeated fitter seed/runtime control. The first matched gate supplies early NeRF measurements, not a terminal map selection or geometry/cleanup promotion.
 
 Reusable [assembler](../scripts/assemble_marshawn_HD_frequency_variants.py), [trial preparer](../scripts/prepare_marshawn_HD_frequency_trials.py), and [external exact-spec factory](../scripts/train_marshawn_HD_frequency_variant.py).
