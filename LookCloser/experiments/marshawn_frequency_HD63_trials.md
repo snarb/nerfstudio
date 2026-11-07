@@ -71,3 +71,19 @@ Root explicitly takes continuing hourly and visual supervision of both HD jobs a
 The source/map review supports a controlled experiment, not a predicted improvement. SSIM.93 coarsens actor map levels, while decay varies across materials and views. The legacy baseline is not a newly repeated fitter seed/runtime control. The first matched gate supplies early NeRF measurements, not a terminal map selection or geometry/cleanup promotion.
 
 Reusable [assembler](../scripts/assemble_marshawn_HD_frequency_variants.py), [trial preparer](../scripts/prepare_marshawn_HD_frequency_trials.py), and [external exact-spec factory](../scripts/train_marshawn_HD_frequency_variant.py).
+
+
+## Root matched60752/75940 visual review (2026-11-07)
+
+| Step | Map recipe | PSNR | SSIM | LPIPS |
+|---:|---|---:|---:|---:|
+|60752|Frozen baseline|31.81075|.837931|.01947274|
+|60752|LR decay|31.77474|.838615|.01955246|
+|60752|SSIM .93|31.77512|.838227|.01935167|
+|75940|Frozen baseline|31.71675|.835111|.01927048|
+|75940|LR decay|31.66889|.835472|.01953631|
+|75940|SSIM .93|31.71362|.835290|.01916049|
+
+Root manually inspected all three actor views and nine hair/contact/feet crops at each gate. The .93 map modestly improves matched-step actor LPIPS; LR decay does not. All variants retain substantial floor, bag, between-leg and silhouette artifacts. No quality or geometry promotion; both continue to their original minimum106316 and subsequent plateau protocol.
+
+[60752 actors](/fsx/tmp/marshawn_001660_hd/tuning_20261106/frequency_HD63_trials_v3/reviews/step-000060752/all_actors.jpg), [60752 details](/fsx/tmp/marshawn_001660_hd/tuning_20261106/frequency_HD63_trials_v3/reviews/step-000060752/all_details.jpg), [75940 actors](/fsx/tmp/marshawn_001660_hd/tuning_20261106/frequency_HD63_trials_v3/reviews/step-000075940/all_actors.jpg), [75940 details](/fsx/tmp/marshawn_001660_hd/tuning_20261106/frequency_HD63_trials_v3/reviews/step-000075940/all_details.jpg). Each directory contains a hash-bound root_manual_review.json.

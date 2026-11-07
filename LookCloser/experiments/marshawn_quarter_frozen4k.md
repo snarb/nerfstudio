@@ -38,3 +38,19 @@ All3 actor and9 hair/hand/feet panels were reviewed. The new4K recipe is visibly
 This removes the structural-recipe mismatch from the HD-versus4K comparison while preserving the declared input bundle. Existing4K maps remain highly censored and legacy projection remains unchanged; higher pixel resolution does not guarantee finer learned detail. Required later gates are actual first Adam/warmup health,15188 three-view source/actor/detail comparisons, primary FHD PSNR/SSIM/LPIPS, and the unchanged stopping/frontier policy. No quality or geometry promotion follows from CPU feasibility.
 
 Reusable [preparer](../scripts/prepare_marshawn_quarter_4k.py) and [external factory](../scripts/train_marshawn_quarter_4k.py).
+
+
+## Root matched30376/45564 visual review (2026-11-07)
+
+| Step | Recipe | PSNR | SSIM | LPIPS |
+|---:|---|---:|---:|---:|
+|30376|HD quarter / distortion .1|32.01860|.847094|.02053743|
+|30376|Old4K coarse / distortion .01|31.46806|.843863|.02720744|
+|30376|New4K quarter / distortion .1|31.63265|.845332|.02180955|
+|45564|HD quarter / distortion .1|31.87417|.842044|.02000830|
+|45564|Old4K coarse / distortion .01|31.51175|.845015|.02515922|
+|45564|New4K quarter / distortion .1|31.60984|.839385|.02101009|
+
+Root manually inspected all three actor views and nine detail crops at each gate. The new structural recipe substantially improves over old4K, but remains below matched-step HD on actor LPIPS. Both4K variants contain considerable unwanted geometry; no clean asset or resolution advantage is established. RGB, frozen maps and confidence footprints change together against HD, so this is not resolution-only causality. Training continues to minimum106316 and subsequent original plateau protocol.
+
+[30376 actors](/fsx/tmp/marshawn_001660_hd/tuning_20261106/quarter_frozen4k_candidate_v1/reviews/step-000030376/all_actors.jpg), [30376 details](/fsx/tmp/marshawn_001660_hd/tuning_20261106/quarter_frozen4k_candidate_v1/reviews/step-000030376/all_details.jpg), [45564 actors](/fsx/tmp/marshawn_001660_hd/tuning_20261106/quarter_frozen4k_candidate_v1/reviews/step-000045564/all_actors.jpg), [45564 details](/fsx/tmp/marshawn_001660_hd/tuning_20261106/quarter_frozen4k_candidate_v1/reviews/step-000045564/all_details.jpg). Each directory contains a hash-bound root_manual_review.json.
