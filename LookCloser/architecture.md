@@ -2096,3 +2096,28 @@ resolution only at matching completed steps on the common FHD evaluation set.
 Frequency preprocessing optionally decays LR within each progressive level,
 resetting only LR at the next level while retaining Adam moments. The default
 remains constant LR; optional schedules are recorded in map metadata.
+
+
+### Marshawn focused frequency and clear-ray experiments
+
+The isolated focused worker attaches the existing frequency-update sampling
+hook: 60% actor core, 20% protective band and 20% original uniform pixels,
+retaining all2048 camera IDs and the ordinary training-ray sampler. Its private
+RNG and source binding are saved in ordinary full-state checkpoints. Scratch
+proofs verify original global CPU/CUDA RNG and the next main batch; improved
+frequency coverage alone does not certify correct surface depth.
+
+`QualifiedClearTau` adds an external density integral only along explicitly
+reviewed TRAIN background rays. It uses64 private-RNG rays and512 stratified
+samples through fixed semantic density support, independently of learned
+occupancy skipping and renderer termination. Auxiliary state is checkpointed;
+matched control computes the same auxiliary workload with zero coefficient.
+Targets bind source images, masks, camera/AABB geometry and manual review.
+They are conditional local constraints, not general empty-space labels.
+
+Coarse-step and distortion candidates remain separate configuration factors;
+combined factors are labelled explicitly. Experimental frequency-map queues
+retain immutable RGB/poses and compare per-level LR decay against a lower SSIM
+threshold. Fitted maps require separate source-bound assembly and3D validation
+before use. Every fork retains actual core/EMA/admission/active snapshots and
+model/Adam/scheduler/AMP/global and private RNG state for restart and review.
