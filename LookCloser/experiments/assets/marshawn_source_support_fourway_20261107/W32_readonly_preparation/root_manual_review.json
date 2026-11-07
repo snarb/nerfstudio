@@ -1,0 +1,19 @@
+{
+  "reviewer": "root",
+  "diagnostic_semantic_review": true,
+  "source_review_sha256": "304907b6937a6d77ad0d1991dfb01250568c763c448e83ee987eefda2889f330",
+  "all_four_pages_personally_viewed": true,
+  "observations": {
+    "IA": 65,
+    "LA": 18,
+    "LB": 7,
+    "MC": 1
+  },
+  "conclusion": "Visible distal bag tip/floor, not apparently part of the actors;89 originalgrey labels are false positives.",
+  "not_optical_alpha_GT": true,
+  "no_frozen_labels_changed": true,
+  "no_whole_ray_negative_authorization": true,
+  "occluder_is_not_empty_behind": true,
+  "does_not_certify_tighter_geometry": true,
+  "authorization": "Prepare separate read-only original126316 mapped/W64pad1+.002/W32pad1+.002 comparison; no GPU launch or training authorization."
+}

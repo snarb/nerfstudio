@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "CPU_only": true,
+  "no_GPU": true,
+  "source_files": 1495,
+  "helpers": 8,
+  "artifacts": 23,
+  "querygroups": 3,
+  "policy_sha256": "c63ffb131d84e9cdf44cb6c7867ba24a73f0573b7729f5b12c2d609c3b1c690d",
+  "seconds": 1.177971363067627
+}
