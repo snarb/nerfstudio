@@ -1,0 +1,47 @@
+{
+  "reviewer": "root",
+  "time": 1794016367.2528665,
+  "manifest_sha256": "210530689eb51556755be92086260aa3590e26cee3a1d3922ba178ce9b9b6854",
+  "checked_files": 1543,
+  "reviewed_local_helpers_exact": {
+    "code/LookCloser/scripts/marshawn_focused_clothing_geometry.py": "eb4fcb1f9cd7a6ddeedc5753a6e1a6898802de9d421914d62c4d820a831125bd",
+    "code/LookCloser/scripts/marshawn_focused_clothing_factory.py": "46d5eab97a18a224dfdcc6fee7b4334574db25d57810848ec5df5b4510606c6a",
+    "code/LookCloser/scripts/train_marshawn_focused_clothing_geometry.py": "347c4db6512de768ea330fa11ddeeb16c04bd5525ac6992c9f290b66044a01c8",
+    "run_marshawn_focused_geometry_phase.py": "64ab7e28fa76b8c79250ad94e236eba7c2e68d9d51f4913cef17ff7677e2b3d2",
+    "verify_marshawn_focused_geometry_phase.py": "8e8f84446933429decf43adbdb96840d9dc9e06237343823c5652814f8d2b47a"
+  },
+  "local_CPU_tests_passed": 7,
+  "reviewed_intervals": {
+    "prefix_samples": 512,
+    "band_samples": 256,
+    "reserved_ids_excluded": [
+      63,
+      64,
+      71,
+      72,
+      2219,
+      5556,
+      5568
+    ]
+  },
+  "technical_updates_authorized": false,
+  "production_authorized": false,
+  "zero_releases": [
+    {
+      "file": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/focused_clothing_geometry_candidate_v4/releases/zero_control.json",
+      "sha256": "587621802627f66d6ad06566533d2ca0d8f6edbe545bb3d6ac4a4fca727ccc24"
+    },
+    {
+      "file": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/focused_clothing_geometry_candidate_v4/releases/zero_old_prefix.json",
+      "sha256": "3def32588276385c227ef6c674c494d248030cd26e05d54cc0fb889c13a3b048"
+    },
+    {
+      "file": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/focused_clothing_geometry_candidate_v4/releases/zero_closer_prefix.json",
+      "sha256": "9cd160d6e75aa13615bb061dc574d91087f359d0e1dd4748dd642f1852e1b026"
+    },
+    {
+      "file": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/focused_clothing_geometry_candidate_v4/releases/zero_closer_prefix_band.json",
+      "sha256": "89bc188e1ef397a0c43c08b677db5e4ec0c6d56968732d650c29f38da74fe739"
+    }
+  ]
+}

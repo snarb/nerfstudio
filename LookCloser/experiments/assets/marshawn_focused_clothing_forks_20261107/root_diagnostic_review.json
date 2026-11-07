@@ -1,0 +1,41 @@
+{
+  "reviewer": "root",
+  "time": 1794017849.4841702,
+  "source_manifest_bindings_verified": 1543,
+  "policy_bindings_verified": 20,
+  "zero_verified_independently": true,
+  "technical_summary_verified_independently": true,
+  "Adam_steps": [
+    15180,
+    15356,
+    15372
+  ],
+  "actual_technical_updates": 192,
+  "technical_skips": 0,
+  "four_distinct_pipeline_and_optimizer_states": true,
+  "all_main_and_private_chains_equal": true,
+  "actual_focus_refresh": 15360,
+  "technical_checkpoints_excluded_from_production": true,
+  "external_transport_phase_only_extension_checked": true,
+  "technical_verification_sha256": "746670d363e5e5b961bd5e4b8516af9fd431420bb89957bf8465824d93318e8a",
+  "diagnostic_releases": [
+    {
+      "file": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/focused_clothing_geometry_candidate_v4/releases/diagnostic_control.json",
+      "sha256": "2ecfc45f4beeddcb7d7aa4887d3e4b4b099d43f1e681ef9c80acce3ea58b75de"
+    },
+    {
+      "file": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/focused_clothing_geometry_candidate_v4/releases/diagnostic_old_prefix.json",
+      "sha256": "6b00f6074125625e4269aec656a6004a60ede47f0e16cd89ab6fdcb27ebdc660"
+    },
+    {
+      "file": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/focused_clothing_geometry_candidate_v4/releases/diagnostic_closer_prefix.json",
+      "sha256": "ab51143e7e5283def24291b6a44465d972e98786a5d6517c620de1187f1ba267"
+    },
+    {
+      "file": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/focused_clothing_geometry_candidate_v4/releases/diagnostic_closer_prefix_band.json",
+      "sha256": "1b5e04c591b1b1da5f269a6b50f75d1c99f9cd4450c5563fbf8acc118c76a4c3"
+    }
+  ],
+  "final_geometry_review_pending": true,
+  "quality_or_grid_promotion": false
+}

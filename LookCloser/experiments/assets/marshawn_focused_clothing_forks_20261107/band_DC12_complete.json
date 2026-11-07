@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "elapsed_seconds": 30.76192331314087,
+  "peak_GPU_MiB": 1758,
+  "plan_sha256": "8a3ae8fe05603c507377c0d148a2ff79bd239ff62ee218be9d21e8133353e591",
+  "source_reverified": true,
+  "no_optimizer_updates": true,
+  "receipts": {
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/focused_clothing_geometry_candidate_v4/final_native_v3/closer_prefix_band_DC12/policy.json": "ef0b70f9cdeb336a2ffe513802ba2eae52063e7ce683111fbd6644d973046f2a"
+  }
+}

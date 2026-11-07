@@ -20,6 +20,8 @@ Production launched on dev3 after root verified all 387 bound files. Release SHA
 | HD unmatched continuation 130k | 30.456276 | 0.836584 | 0.049357 |
 | HD unmatched continuation 135k | 30.429219 | 0.836376 | 0.049588 |
 | HD unmatched continuation 140k | 30.457763 | 0.836619 | 0.049384 |
+| HD unmatched continuation 145k | 30.440371 | 0.836886 | 0.049260 |
+| HD unmatched continuation 150k | 30.486077 | 0.837237 | 0.049059 |
 
 At the first matched gate, both arms completed5,000 attempts and4,998 actual Adam updates, with two AMP skips each. TRAIN4K reduces FHD actor LPIPS by4.14% relative to matched HD; PSNR is0.05324dB lower. The all-three-view hair/hand/foot review shows modestly crisper fine texture and stable visible contours, but source detail remains sharper and floor/mat/bag fragments persist. This is an early resolution result, not a plateau or actor-isolation result. The next HD chunk restored its actual105k checkpoint, RNG and runtime exactly, confirming real production restart beyond the zero-update preflight.
 
@@ -54,3 +56,8 @@ After launch, the supervising agent must inspect each useful 5k gate and remain 
 The proposed visual comparison is actual 4K GT, native100k, matched additional-step HD, and matched additional-step TRAIN4K, using fixed FHD actor/hair/hand/foot regions doubled in coordinates. Predictions must be rendered at 4K, not upsampled from FHD. This adds approximately four times the pixels and render work; full-ray/output buffers also grow fourfold even if query chunks remain fixed. A resource probe and separate rendering authorization are needed. No 4K diagnostic metric enters stopping or checkpoint selection. No 4K EVAL rendering has been launched by this preparation.
 
 Reusable code: [controller](../scripts/run_marshawn_native_resolution_pair.py), [chunk worker](../scripts/run_marshawn_native_resolution_chunk.py), [stager](../scripts/prepare_marshawn_native_resolution_pair.py), [CPU tests](../tests/test_native_resolution_pair.py), [diagnostic camera audit](../scripts/audit_marshawn_native_4k_diagnostic.py). Prior evidence: [technical gate](marshawn_native_4k_technical.md), [completed HD continuation](marshawn_native_continuation.md).
+
+
+HD-only continuation gates155k and160k were reviewed in all three hair/hand/foot contacts. Metrics respectively: PSNR30.48459/30.49213, SSIM0.837449/0.837762, actor LPIPS0.048899/0.048910. Actor contours remain visually consistent at contact scale, with modest detail changes; source fine texture remains softer and floor/mat/bag persists. These later HD checkpoints are not step-matched to terminal TRAIN4K125k. HD continues because its cumulative stopping condition has not been met. Reviews: `O/reviews/HD_155000` and `O/reviews/HD_160000`; the single actual4K visual probe remains queued for controller/cache/GPU exit.
+
+HD165k/170k primaryV1 metrics are PSNR30.52634/30.52937, SSIM0.838022/0.838192 and actor LPIPS0.048689/0.048637. All three fixed detail contacts were reviewed: modest fine-detail changes, stable visible contours, persistent floor/mat/bag. The healthy controller has started175k; the4K resource probe remains queued.

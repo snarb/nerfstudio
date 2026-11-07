@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "elapsed_seconds": 139.81291794776917,
+  "peak_GPU_MiB": 3070,
+  "plan_sha256": "4fd59c8d3a1f7400991f22cc1f028fd23adfcb9779010306180efc9a0c15405c",
+  "source_reverified": true,
+  "no_optimizer_updates": true,
+  "receipts": {
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/focused_clothing_geometry_candidate_v4/final_dense_v1/control/policy.json": "a899d513e5f0043d8affe403e50045fe9c594b17dadbc0e8202625798432cc82",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/focused_clothing_geometry_candidate_v4/final_dense_v1/old_prefix/policy.json": "a068fb5af7e8e11ebd93226ab3677148ef85f94b1febf3b59e83bda2036e0c4f",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/focused_clothing_geometry_candidate_v4/final_dense_v1/closer_prefix/policy.json": "c61da0ef21a428c9f4404b3e23ea97f5ecc2ba44d317b53eee46ef44f90f7619",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/focused_clothing_geometry_candidate_v4/final_dense_v1/closer_prefix_band/policy.json": "0a9c66bf973ac9ad14a1e7d32286bb5cb4a31389e6e5af2071134c717d744f24"
+  }
+}

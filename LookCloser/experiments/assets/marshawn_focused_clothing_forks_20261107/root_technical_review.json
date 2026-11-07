@@ -1,0 +1,36 @@
+{
+  "reviewer": "root",
+  "time": 1794017110.7482235,
+  "independent_zero_check": true,
+  "zero_verification_sha256": "3de729bec5f4c126b8c3f1f7a7f69bdc80052a152c2d6c48bce128e1e8bf89fa",
+  "exact_seven_hashes_all_four_arms": true,
+  "all_three_FHD_quantized_replay_policy_pass": true,
+  "geometry_draws_zero": true,
+  "source1543_and_policy20_bindings_rechecked": true,
+  "external_transport_hashes": {
+    "bridge.py": "b44be6db8dd8ff208c81857fc4cc26296349cf1b58c6354c966bac48e2e9d565",
+    "watchdog.py": "0547daaba5bdf910f1a7c2e6713e2a3e1c67457cf431b84ba420f388317ca5ce",
+    "resource_guard.py": "661d36faf6527d25eb050e7a55593ad933e31650e3f62e003b1c7217aced77fa",
+    "resource_guard.diff": "f9532c9b5c910db1a190de00bd12c8f80f3809fe19ca32445d48065486697af9"
+  },
+  "external_transport_review_sha256": "eb00f219aebe97074b1772ed9ef197b5c784c7ff942d5999ff52de24894d609f",
+  "technical_releases": [
+    {
+      "file": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/focused_clothing_geometry_candidate_v4/releases/technical_control.json",
+      "sha256": "22ae38d4097c9437532df3b5b80476b3dec2674fc92405e0a7fecd32c52f88b9"
+    },
+    {
+      "file": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/focused_clothing_geometry_candidate_v4/releases/technical_old_prefix.json",
+      "sha256": "7b77706077a1d1389827d62cd09cb18870c570e0fa10d588bcf3f25e8b2703ea"
+    },
+    {
+      "file": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/focused_clothing_geometry_candidate_v4/releases/technical_closer_prefix.json",
+      "sha256": "7049f01831e5a034f8f9047884710f09b27a0b2b82ec67be2aecd28f0b6b3670"
+    },
+    {
+      "file": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/focused_clothing_geometry_candidate_v4/releases/technical_closer_prefix_band.json",
+      "sha256": "2fbde010a24c6f97d673dd05bb60cc31bee7ed12a7d3e14a64b34736d4033a76"
+    }
+  ],
+  "production_authorized": false
+}

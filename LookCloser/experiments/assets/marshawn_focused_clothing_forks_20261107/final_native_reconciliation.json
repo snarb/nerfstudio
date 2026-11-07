@@ -1,0 +1,60 @@
+{
+  "passed_numeric_policy_v3": true,
+  "phases": {
+    "control_clothing103": {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/focused_clothing_geometry_candidate_v4/final_native_v2/control_clothing103/probe_complete.json",
+      "sha256": "0742c3ec7c0458fd77cd9fd9cf40c9e8c7b965fae9dc62d2cdd45b0cb89654bc",
+      "rays": 103,
+      "native_cap_hits": 0
+    },
+    "control_DC12": {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/focused_clothing_geometry_candidate_v4/final_native_v2/control_DC12/probe_complete.json",
+      "sha256": "de7505ce9bd67b6be678ae859e6a277162038e1863207a8e259844b2606689c4",
+      "rays": 12,
+      "native_cap_hits": 0
+    },
+    "old_prefix_clothing103": {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/focused_clothing_geometry_candidate_v4/final_native_v2/old_prefix_clothing103/probe_complete.json",
+      "sha256": "de5e9900cea189b6ceac32737f271ea13cb35e229dc96b0284680842e78b5645",
+      "rays": 103,
+      "native_cap_hits": 0
+    },
+    "old_prefix_DC12": {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/focused_clothing_geometry_candidate_v4/final_native_v2/old_prefix_DC12/probe_complete.json",
+      "sha256": "96cc9d6663f15daaad1c79c64292a706501a2a2f2425e9569e070ad460e14d80",
+      "rays": 12,
+      "native_cap_hits": 0
+    },
+    "closer_prefix_clothing103": {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/focused_clothing_geometry_candidate_v4/final_native_v2/closer_prefix_clothing103/probe_complete.json",
+      "sha256": "71408f584d560439afde07af43ff7f18cdfec02f9b921ecf9557924e2ce89a1c",
+      "rays": 103,
+      "native_cap_hits": 0
+    },
+    "closer_prefix_DC12": {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/focused_clothing_geometry_candidate_v4/final_native_v2/closer_prefix_DC12/probe_complete.json",
+      "sha256": "3b20dbc2a18f2157a3852a0a40fa9c424a88c83db44250162b1057abf7b9452a",
+      "rays": 12,
+      "native_cap_hits": 0
+    },
+    "closer_prefix_band_clothing103": {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/focused_clothing_geometry_candidate_v4/final_native_v2/closer_prefix_band_clothing103/numeric_policy_v3_addendum.json",
+      "sha256": "86d4039985989288fbe6297d450180c6d8a6bff65cee8877693ee0d697a9b7d8",
+      "rays": 103,
+      "native_cap_hits": 0
+    },
+    "closer_prefix_band_DC12": {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/focused_clothing_geometry_candidate_v4/final_native_v3/closer_prefix_band_DC12/probe_complete.json",
+      "sha256": "ef0b70f9cdeb336a2ffe513802ba2eae52063e7ce683111fbd6644d973046f2a",
+      "rays": 12,
+      "native_cap_hits": 0
+    }
+  },
+  "total_rays": 460,
+  "native_cap_hits": 0,
+  "original_v2_strict_gate_failure_preserved": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/focused_clothing_geometry_candidate_v4/final_native_v2/failure.json",
+  "v3_scope": "Saved band103 compositor explanation + bandDC12 only; six passing phases not rerun",
+  "no_optimizer_updates": true,
+  "no_model_grid_or_source_mutation": true,
+  "no_geometric_promotion": true
+}
