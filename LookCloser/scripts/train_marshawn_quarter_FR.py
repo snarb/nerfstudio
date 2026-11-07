@@ -147,8 +147,12 @@ def run(spec_path, stop_after_attempts=None):
         if sha(path) != digest: raise ValueError('Frozen source changed: '+path)
     for key in ('parent_checkpoint', 'parent_spec', 'anchor_audit'):
         if sha(spec[key]) != spec[key+'_sha256']: raise ValueError('Parent changed: '+key)
+    from marshawn_gpu_isolation import require_environment, verify_cuda
+    expected_uuid = os.environ.get("EXPECTED_GPU_UUID", "")
+    require_environment(expected_uuid)
     import numpy as np
     import torch
+    gpu_identity = verify_cuda(expected_uuid, torch)
     import train_marshawn_semantic_admission as base
     from marshawn_quarter_FR_factory import build_config, validate_anchor, verify_FR_runtime
     from marshawn_semantic_admission import SemanticAdmissionModel
@@ -162,7 +166,7 @@ def run(spec_path, stop_after_attempts=None):
     from nerfstudio.utils import writer
     import inspect
     frozen_paths = {Path(p).resolve() for p in spec['frozen_source_hashes']}
-    for obj in (base, LookCloserModel, SemanticAdmissionModel, LookCloserPipeline, install_sampling, install_capture_hook, build_config, _capture_rng_state):
+    for obj in (base, LookCloserModel, SemanticAdmissionModel, LookCloserPipeline, install_sampling, install_capture_hook, build_config, _capture_rng_state, require_environment, verify_cuda):
         if Path(inspect.getfile(obj)).resolve() not in frozen_paths:
             raise ValueError('Imported runtime escaped the frozen fork snapshot')
     parent_spec = read(spec['parent_spec']); anchor = read(spec['anchor_audit'])
@@ -174,6 +178,7 @@ def run(spec_path, stop_after_attempts=None):
     if stop_after_attempts is not None and (spec['mode'] != 'technical' or not 1 <= stop_after_attempts <= 32):
         raise ValueError('Partial invocation applies only to <=32 technical attempts')
     output = Path(spec['output']).resolve(); output.mkdir(parents=True, exist_ok=True)
+    atomic(output / ('gpu_identity_'+str(os.getpid())+'.json'), gpu_identity)
     if output == Path(parent_spec['output']).resolve() or output in Path(spec['parent_checkpoint']).resolve().parents:
         raise ValueError('Source output cannot be reused')
     lock = (output/'worker.lock').open('a+'); fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)

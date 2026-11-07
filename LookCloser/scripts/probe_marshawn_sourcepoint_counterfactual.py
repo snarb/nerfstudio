@@ -79,11 +79,14 @@ def verify_density_restriction(first,changed,queries,lookup,device):
 
 
 def main(a):
- os.environ['CUDA_VISIBLE_DEVICES']=str(a.gpu)
  policy=json.loads((a.root/'policy.json').read_text());arm=next(x for x in policy['models']if x['name']==a.arm)
  archive=Path(arm['archive']);branch=Path(arm['branch']);helpers=a.root/'helpers';out=a.root/a.arm;out.mkdir(exist_ok=True)
  sys.path[:0]=[str(helpers),str(branch/'code'),str(branch/'code/LookCloser/scripts')]
+ isolation=absolute('_qualified_gpu_isolation',helpers/'marshawn_gpu_isolation.py')
+ expected_uuid=os.environ.get('EXPECTED_GPU_UUID','')
+ isolation.require_environment(expected_uuid)
  import torch,numpy as np
+ write(out/'gpu_identity.json',isolation.verify_cuda(expected_uuid,torch))
  torch.set_num_threads(2);torch.cuda.set_per_process_memory_fraction(policy['allocator_cap_gib']*2**30/torch.cuda.get_device_properties(0).total_memory)
  probe=absolute('probe_marshawn_occupancy',helpers/'probe_marshawn_occupancy.py')
  late=absolute('_qualified_tree_digest',helpers/'train_marshawn_semantic_late_distortion.py')
@@ -94,7 +97,7 @@ def main(a):
  from nerfstudio.engine.trainer import _capture_rng_state,_restore_rng_state
  from marshawn_occupancy_audit import dilate_one
  import train_marshawn_tuning as training
- bindings={m.__name__:dict(path=str(Path(m.__file__).resolve()),sha256=sha(m.__file__))for m in [probe,late,semantic,training,selector,point_module]}
+ bindings={m.__name__:dict(path=str(Path(m.__file__).resolve()),sha256=sha(m.__file__))for m in [probe,late,semantic,training,selector,point_module,isolation]}
  for name in ['probe_marshawn_occupancy.py','train_marshawn_semantic_late_distortion.py']:
   if sha(helpers/name)!=policy['helpers_sha256'][name]:raise ValueError('Helper hash differs')
  write(out/'import_binding.json',bindings)

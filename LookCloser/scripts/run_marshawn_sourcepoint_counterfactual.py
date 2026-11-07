@@ -45,7 +45,7 @@ def main(root):
   try:
    uuid=subprocess.check_output(['nvidia-smi','--id='+str(gpu),'--query-gpu=uuid','--format=csv,noheader'],text=True).strip()
    with(dest/'probe.log').open('w')as log:
-    child=subprocess.Popen([policy['python'],str(root/'helpers/probe_marshawn_sourcepoint_counterfactual.py'),'--root',str(root),'--arm',arm['name'],'--gpu',str(gpu)],stdout=log,stderr=subprocess.STDOUT,start_new_session=True,env=dict(os.environ,OMP_NUM_THREADS='2',OPENBLAS_NUM_THREADS='2',PYTHONUNBUFFERED='1'))
+    child=subprocess.Popen([policy['python'],str(root/'helpers/probe_marshawn_sourcepoint_counterfactual.py'),'--root',str(root),'--arm',arm['name'],'--gpu',str(gpu)],stdout=log,stderr=subprocess.STDOUT,start_new_session=True,env=dict(os.environ,CUDA_VISIBLE_DEVICES=uuid,EXPECTED_GPU_UUID=uuid,OMP_NUM_THREADS='2',OPENBLAS_NUM_THREADS='2',PYTHONUNBUFFERED='1'))
     while child.poll()is None:
      active=rows(gpu);mib=sum(x['mib']for x in active)
      if any(x['pid']!=child.pid for x in active)or mib>policy['max_process_mib']or time.monotonic()-start>policy['max_seconds_per_state']:raise RuntimeError('Exclusive resource guard failed')

@@ -33,7 +33,7 @@ def main(root):
  start=time.monotonic();child=None;checks=[]
  def interrupted(signum,frame):raise RuntimeError('Interrupted '+str(signum))
  signal.signal(signal.SIGTERM,interrupted);signal.signal(signal.SIGINT,interrupted)
- env=dict(os.environ,CUDA_VISIBLE_DEVICES=str(gpu),PYTHONPATH=str(root/'code')+':'+str(root/'code/LookCloser/scripts'),OMP_NUM_THREADS='2',OPENBLAS_NUM_THREADS='2',PYTHONUNBUFFERED='1')
+ env=dict(os.environ,CUDA_VISIBLE_DEVICES=gpu_uuid,EXPECTED_GPU_UUID=gpu_uuid,PYTHONPATH=str(root/'code')+':'+str(root/'code/LookCloser/scripts'),OMP_NUM_THREADS='2',OPENBLAS_NUM_THREADS='2',PYTHONUNBUFFERED='1')
  def run(label,command):
   nonlocal child
   with(root/(label+'.log')).open('w')as log:
