@@ -1,0 +1,4505 @@
+{
+  "records": [
+    {
+      "camera": 0,
+      "camera_name": "AA",
+      "x": 1017,
+      "y": 190,
+      "witness_id": 60,
+      "semantic": "train_observed_black_actor_shirt_lettering",
+      "witness_xyz": [
+        0.0008696795548505639,
+        0.22668226422871596,
+        0.3038648668929449
+      ],
+      "diagnostic_group": "old_prefix_supervised",
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "query_witness_depth": 1.0895619970775938,
+      "point_to_pixel_ray_distance": 0.0002940191252990625
+    },
+    {
+      "camera": 1,
+      "camera_name": "AB",
+      "x": 826,
+      "y": 223,
+      "witness_id": 60,
+      "semantic": "train_observed_black_actor_shirt_lettering",
+      "witness_xyz": [
+        0.0008696795548505639,
+        0.22668226422871596,
+        0.3038648668929449
+      ],
+      "diagnostic_group": "old_prefix_supervised",
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "query_witness_depth": 1.0348400853725768,
+      "point_to_pixel_ray_distance": 0.00031223419983935193
+    },
+    {
+      "camera": 0,
+      "camera_name": "AA",
+      "x": 1026,
+      "y": 182,
+      "witness_id": 63,
+      "semantic": "train_observed_black_actor_shirt_lettering",
+      "witness_xyz": [
+        0.0033921703166225753,
+        0.22011027916159304,
+        0.3102938174337018
+      ],
+      "diagnostic_group": "old_local_reserved",
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "query_witness_depth": 1.0880248862443607,
+      "point_to_pixel_ray_distance": 0.00047896000930623597
+    },
+    {
+      "camera": 1,
+      "camera_name": "AB",
+      "x": 835,
+      "y": 214,
+      "witness_id": 63,
+      "semantic": "train_observed_black_actor_shirt_lettering",
+      "witness_xyz": [
+        0.0033921703166225753,
+        0.22011027916159304,
+        0.3102938174337018
+      ],
+      "diagnostic_group": "old_local_reserved",
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "query_witness_depth": 1.0348224768616374,
+      "point_to_pixel_ray_distance": 0.00030636598569656523
+    },
+    {
+      "camera": 0,
+      "camera_name": "AA",
+      "x": 1026,
+      "y": 181,
+      "witness_id": 64,
+      "semantic": "train_observed_black_actor_shirt_lettering",
+      "witness_xyz": [
+        0.004605947025176257,
+        0.2204063479471757,
+        0.30995666718317383
+      ],
+      "diagnostic_group": "old_local_reserved",
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "query_witness_depth": 1.0893117299062955,
+      "point_to_pixel_ray_distance": 0.0004718615635738061
+    },
+    {
+      "camera": 1,
+      "camera_name": "AB",
+      "x": 834,
+      "y": 214,
+      "witness_id": 64,
+      "semantic": "train_observed_black_actor_shirt_lettering",
+      "witness_xyz": [
+        0.004605947025176257,
+        0.2204063479471757,
+        0.30995666718317383
+      ],
+      "diagnostic_group": "old_local_reserved",
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "query_witness_depth": 1.0361106284518415,
+      "point_to_pixel_ray_distance": 0.000346910009908352
+    },
+    {
+      "camera": 0,
+      "camera_name": "AA",
+      "x": 1027,
+      "y": 186,
+      "witness_id": 65,
+      "semantic": "train_observed_black_actor_shirt_lettering",
+      "witness_xyz": [
+        0.0002018578937742913,
+        0.2185693960726769,
+        0.3077499050355646
+      ],
+      "diagnostic_group": "old_prefix_supervised",
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "query_witness_depth": 1.0857174818245887,
+      "point_to_pixel_ray_distance": 0.00037187991500482374
+    },
+    {
+      "camera": 1,
+      "camera_name": "AB",
+      "x": 836,
+      "y": 218,
+      "witness_id": 65,
+      "semantic": "train_observed_black_actor_shirt_lettering",
+      "witness_xyz": [
+        0.0002018578937742913,
+        0.2185693960726769,
+        0.3077499050355646
+      ],
+      "diagnostic_group": "old_prefix_supervised",
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "query_witness_depth": 1.0321156832174387,
+      "point_to_pixel_ray_distance": 0.00025431951499112876
+    },
+    {
+      "camera": 0,
+      "camera_name": "AA",
+      "x": 1027,
+      "y": 186,
+      "witness_id": 66,
+      "semantic": "train_observed_black_actor_shirt_lettering",
+      "witness_xyz": [
+        0.00043104639790869127,
+        0.21858322401110955,
+        0.3076757059272025
+      ],
+      "diagnostic_group": "duplicate_excluded",
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "query_witness_depth": 1.0859548970803965,
+      "point_to_pixel_ray_distance": 0.00039090772517679385
+    },
+    {
+      "camera": 1,
+      "camera_name": "AB",
+      "x": 836,
+      "y": 218,
+      "witness_id": 66,
+      "semantic": "train_observed_black_actor_shirt_lettering",
+      "witness_xyz": [
+        0.00043104639790869127,
+        0.21858322401110955,
+        0.3076757059272025
+      ],
+      "diagnostic_group": "duplicate_excluded",
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "query_witness_depth": 1.0323553939490844,
+      "point_to_pixel_ray_distance": 0.00028072123037429744
+    },
+    {
+      "camera": 0,
+      "camera_name": "AA",
+      "x": 1031,
+      "y": 188,
+      "witness_id": 68,
+      "semantic": "train_observed_black_actor_shirt_lettering",
+      "witness_xyz": [
+        -0.003040116316898865,
+        0.21492540135903698,
+        0.30840572656369847
+      ],
+      "diagnostic_group": "old_prefix_supervised",
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "query_witness_depth": 1.0817432075405755,
+      "point_to_pixel_ray_distance": 0.00036086141324794126
+    },
+    {
+      "camera": 1,
+      "camera_name": "AB",
+      "x": 840,
+      "y": 219,
+      "witness_id": 68,
+      "semantic": "train_observed_black_actor_shirt_lettering",
+      "witness_xyz": [
+        -0.003040116316898865,
+        0.21492540135903698,
+        0.30840572656369847
+      ],
+      "diagnostic_group": "old_prefix_supervised",
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "query_witness_depth": 1.0283325451565954,
+      "point_to_pixel_ray_distance": 0.0004441291239736024
+    },
+    {
+      "camera": 0,
+      "camera_name": "AA",
+      "x": 1033,
+      "y": 187,
+      "witness_id": 70,
+      "semantic": "train_observed_black_actor_shirt_lettering",
+      "witness_xyz": [
+        -0.004100312208259419,
+        0.21267091008259345,
+        0.30977906103807806
+      ],
+      "diagnostic_group": "old_prefix_supervised",
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "query_witness_depth": 1.0797915509522995,
+      "point_to_pixel_ray_distance": 0.000414275247493171
+    },
+    {
+      "camera": 1,
+      "camera_name": "AB",
+      "x": 843,
+      "y": 217,
+      "witness_id": 70,
+      "semantic": "train_observed_black_actor_shirt_lettering",
+      "witness_xyz": [
+        -0.004100312208259419,
+        0.21267091008259345,
+        0.30977906103807806
+      ],
+      "diagnostic_group": "old_prefix_supervised",
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "query_witness_depth": 1.0266844427402808,
+      "point_to_pixel_ray_distance": 0.00019935933067966903
+    },
+    {
+      "camera": 0,
+      "camera_name": "AA",
+      "x": 1035,
+      "y": 181,
+      "witness_id": 71,
+      "semantic": "train_observed_black_actor_shirt_lettering",
+      "witness_xyz": [
+        0.0005300034475106781,
+        0.21267714487273204,
+        0.3125109881542926
+      ],
+      "diagnostic_group": "old_local_reserved",
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "query_witness_depth": 1.0830003055538233,
+      "point_to_pixel_ray_distance": 9.348463080193512e-05
+    },
+    {
+      "camera": 1,
+      "camera_name": "AB",
+      "x": 844,
+      "y": 212,
+      "witness_id": 71,
+      "semantic": "train_observed_black_actor_shirt_lettering",
+      "witness_xyz": [
+        0.0005300034475106781,
+        0.21267714487273204,
+        0.3125109881542926
+      ],
+      "diagnostic_group": "old_local_reserved",
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "query_witness_depth": 1.0305242299844666,
+      "point_to_pixel_ray_distance": 1.9881788647295843e-05
+    },
+    {
+      "camera": 0,
+      "camera_name": "AA",
+      "x": 1035,
+      "y": 181,
+      "witness_id": 72,
+      "semantic": "train_observed_black_actor_shirt_lettering",
+      "witness_xyz": [
+        0.000235548984937866,
+        0.21258084517609754,
+        0.3124663602788734
+      ],
+      "diagnostic_group": "old_local_reserved",
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "query_witness_depth": 1.0827283958663032,
+      "point_to_pixel_ray_distance": 0.00023205130982195335
+    },
+    {
+      "camera": 1,
+      "camera_name": "AB",
+      "x": 844,
+      "y": 212,
+      "witness_id": 72,
+      "semantic": "train_observed_black_actor_shirt_lettering",
+      "witness_xyz": [
+        0.000235548984937866,
+        0.21258084517609754,
+        0.3124663602788734
+      ],
+      "diagnostic_group": "old_local_reserved",
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "query_witness_depth": 1.030237285227392,
+      "point_to_pixel_ray_distance": 0.0001275869492165494
+    },
+    {
+      "camera": 0,
+      "camera_name": "AA",
+      "x": 1046,
+      "y": 176,
+      "witness_id": 75,
+      "semantic": "train_observed_black_actor_shirt_lettering",
+      "witness_xyz": [
+        0.004054430991587729,
+        0.20462232330025554,
+        0.3162399530686476
+      ],
+      "diagnostic_group": "old_prefix_supervised",
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "query_witness_depth": 1.0831523783063592,
+      "point_to_pixel_ray_distance": 0.00022966977524559417
+    },
+    {
+      "camera": 1,
+      "camera_name": "AB",
+      "x": 855,
+      "y": 206,
+      "witness_id": 75,
+      "semantic": "train_observed_black_actor_shirt_lettering",
+      "witness_xyz": [
+        0.004054430991587729,
+        0.20462232330025554,
+        0.3162399530686476
+      ],
+      "diagnostic_group": "old_prefix_supervised",
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "query_witness_depth": 1.032025002281161,
+      "point_to_pixel_ray_distance": 0.0002615171230583622
+    },
+    {
+      "camera": 0,
+      "camera_name": "AA",
+      "x": 1020,
+      "y": 185,
+      "witness_id": 267,
+      "semantic": "train_observed_black_actor_shirt_lettering",
+      "witness_xyz": [
+        0.0038971950441098685,
+        0.2254995161537607,
+        0.3067942124247629
+      ],
+      "diagnostic_group": "old_prefix_supervised",
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "query_witness_depth": 1.090958376322335,
+      "point_to_pixel_ray_distance": 0.0001411325220259106
+    },
+    {
+      "camera": 4,
+      "camera_name": "BA",
+      "x": 1030,
+      "y": 115,
+      "witness_id": 267,
+      "semantic": "train_observed_black_actor_shirt_lettering",
+      "witness_xyz": [
+        0.0038971950441098685,
+        0.2254995161537607,
+        0.3067942124247629
+      ],
+      "diagnostic_group": "old_prefix_supervised",
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "query_witness_depth": 1.0972025309642592,
+      "point_to_pixel_ray_distance": 0.0001739570817220127
+    },
+    {
+      "camera": 0,
+      "camera_name": "AA",
+      "x": 1038,
+      "y": 175,
+      "witness_id": 268,
+      "semantic": "train_observed_black_actor_shirt_lettering",
+      "witness_xyz": [
+        0.005783771830396294,
+        0.21196119006989592,
+        0.315958942431143
+      ],
+      "diagnostic_group": "old_prefix_supervised",
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "query_witness_depth": 1.086381835334099,
+      "point_to_pixel_ray_distance": 0.0004983453953350747
+    },
+    {
+      "camera": 4,
+      "camera_name": "BA",
+      "x": 1047,
+      "y": 106,
+      "witness_id": 268,
+      "semantic": "train_observed_black_actor_shirt_lettering",
+      "witness_xyz": [
+        0.005783771830396294,
+        0.21196119006989592,
+        0.315958942431143
+      ],
+      "diagnostic_group": "old_prefix_supervised",
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "query_witness_depth": 1.0897377186439492,
+      "point_to_pixel_ray_distance": 0.00035105642998312884
+    },
+    {
+      "camera": 1,
+      "camera_name": "AB",
+      "x": 829,
+      "y": 221,
+      "witness_id": 420,
+      "semantic": "train_observed_black_actor_shirt_lettering",
+      "witness_xyz": [
+        0.001864009651621157,
+        0.2242507320748939,
+        0.30483627037430555
+      ],
+      "diagnostic_group": "old_prefix_supervised",
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "query_witness_depth": 1.0352092927945165,
+      "point_to_pixel_ray_distance": 0.0003530077042200228
+    },
+    {
+      "camera": 2,
+      "camera_name": "AC",
+      "x": 693,
+      "y": 371,
+      "witness_id": 420,
+      "semantic": "train_observed_black_actor_shirt_lettering",
+      "witness_xyz": [
+        0.001864009651621157,
+        0.2242507320748939,
+        0.30483627037430555
+      ],
+      "diagnostic_group": "old_prefix_supervised",
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "query_witness_depth": 1.024877342304915,
+      "point_to_pixel_ray_distance": 0.00026637798250941767
+    },
+    {
+      "camera": 2,
+      "camera_name": "AC",
+      "x": 708,
+      "y": 353,
+      "witness_id": 593,
+      "semantic": "train_observed_black_actor_shirt_lettering",
+      "witness_xyz": [
+        0.009170445700965521,
+        0.2140729287762318,
+        0.31789843079182434
+      ],
+      "diagnostic_group": "old_prefix_supervised",
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "query_witness_depth": 1.0278699570138192,
+      "point_to_pixel_ray_distance": 0.0003230863625167993
+    },
+    {
+      "camera": 3,
+      "camera_name": "AD",
+      "x": 630,
+      "y": 319,
+      "witness_id": 593,
+      "semantic": "train_observed_black_actor_shirt_lettering",
+      "witness_xyz": [
+        0.009170445700965521,
+        0.2140729287762318,
+        0.31789843079182434
+      ],
+      "diagnostic_group": "old_prefix_supervised",
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "query_witness_depth": 1.020987043779007,
+      "point_to_pixel_ray_distance": 0.0002993794773768046
+    },
+    {
+      "camera": 52,
+      "camera_name": "MA",
+      "x": 1276,
+      "y": 421,
+      "witness_id": 7961,
+      "witness_xyz": [
+        0.022109971804298093,
+        0.23227202201566105,
+        0.17034505808643552
+      ],
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1276.80224609375,
+        421.4457092285156
+      ],
+      "projected_uv": [
+        1276.974584205735,
+        420.92199321137537
+      ],
+      "query_witness_depth": 1.1053296398199417,
+      "point_to_pixel_ray_distance": 0.0005821241047310604
+    },
+    {
+      "camera": 60,
+      "camera_name": "NE",
+      "x": 1410,
+      "y": 619,
+      "witness_id": 7961,
+      "witness_xyz": [
+        0.022109971804298093,
+        0.23227202201566105,
+        0.17034505808643552
+      ],
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1410.343017578125,
+        619.0418701171875
+      ],
+      "projected_uv": [
+        1410.5108666492622,
+        619.013412189013
+      ],
+      "query_witness_depth": 0.9495738660173338,
+      "point_to_pixel_ray_distance": 0.00032265212232634956
+    },
+    {
+      "camera": 61,
+      "camera_name": "OA",
+      "x": 1187,
+      "y": 552,
+      "witness_id": 7961,
+      "witness_xyz": [
+        0.022109971804298093,
+        0.23227202201566105,
+        0.17034505808643552
+      ],
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1187.5035400390625,
+        552.5737915039062
+      ],
+      "projected_uv": [
+        1187.3699824866283,
+        552.1900540825513
+      ],
+      "query_witness_depth": 1.1304007431535665,
+      "point_to_pixel_ray_distance": 0.00027528170205366704
+    },
+    {
+      "camera": 52,
+      "camera_name": "MA",
+      "x": 1273,
+      "y": 421,
+      "witness_id": 8394,
+      "witness_xyz": [
+        0.023147127110276968,
+        0.22909381085309516,
+        0.17011762992179832
+      ],
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1273.206298828125,
+        421.5356140136719
+      ],
+      "projected_uv": [
+        1273.0001720029231,
+        421.3657471526559
+      ],
+      "query_witness_depth": 1.1040157856433253,
+      "point_to_pixel_ray_distance": 0.0004015675878826194
+    },
+    {
+      "camera": 62,
+      "camera_name": "OD",
+      "x": 1289,
+      "y": 631,
+      "witness_id": 8394,
+      "witness_xyz": [
+        0.023147127110276968,
+        0.22909381085309516,
+        0.17011762992179832
+      ],
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1289.54638671875,
+        631.542236328125
+      ],
+      "projected_uv": [
+        1289.2523981924855,
+        631.5607095351944
+      ],
+      "query_witness_depth": 1.002228284172664,
+      "point_to_pixel_ray_distance": 0.00017896347897261412
+    },
+    {
+      "camera": 61,
+      "camera_name": "OA",
+      "x": 1183,
+      "y": 551,
+      "witness_id": 8394,
+      "witness_xyz": [
+        0.023147127110276968,
+        0.22909381085309516,
+        0.17011762992179832
+      ],
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1183.1820068359375,
+        551.9180908203125
+      ],
+      "projected_uv": [
+        1183.2443432379123,
+        552.037075107162
+      ],
+      "query_witness_depth": 1.1305848723840357,
+      "point_to_pixel_ray_distance": 0.0004890732195674051
+    },
+    {
+      "camera": 54,
+      "camera_name": "MC",
+      "x": 1451,
+      "y": 504,
+      "witness_id": 8502,
+      "witness_xyz": [
+        0.018039637502495834,
+        0.23407793394125798,
+        0.1782099814903873
+      ],
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1451.3251953125,
+        504.6271057128906
+      ],
+      "projected_uv": [
+        1451.602617227098,
+        504.72106931866716
+      ],
+      "query_witness_depth": 0.9954032825147339,
+      "point_to_pixel_ray_distance": 0.00016725795932164334
+    },
+    {
+      "camera": 60,
+      "camera_name": "NE",
+      "x": 1412,
+      "y": 607,
+      "witness_id": 8502,
+      "witness_xyz": [
+        0.018039637502495834,
+        0.23407793394125798,
+        0.1782099814903873
+      ],
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1412.98046875,
+        607.62451171875
+      ],
+      "projected_uv": [
+        1412.7668642337453,
+        607.662928381413
+      ],
+      "query_witness_depth": 0.9542889905463202,
+      "point_to_pixel_ray_distance": 0.00019854422393541447
+    },
+    {
+      "camera": 58,
+      "camera_name": "NC",
+      "x": 1504,
+      "y": 512,
+      "witness_id": 8502,
+      "witness_xyz": [
+        0.018039637502495834,
+        0.23407793394125798,
+        0.1782099814903873
+      ],
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1504.510986328125,
+        512.6231689453125
+      ],
+      "projected_uv": [
+        1504.690398166184,
+        512.6576089853637
+      ],
+      "query_witness_depth": 0.9787866468657817,
+      "point_to_pixel_ray_distance": 0.0001586335926157996
+    },
+    {
+      "camera": 59,
+      "camera_name": "ND",
+      "x": 1396,
+      "y": 565,
+      "witness_id": 9020,
+      "witness_xyz": [
+        0.020621200761533176,
+        0.22502301169449906,
+        0.17861140797919087
+      ],
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1396.1368408203125,
+        565.8193969726562
+      ],
+      "projected_uv": [
+        1395.9808136727534,
+        565.8645622208235
+      ],
+      "query_witness_depth": 0.9797603558603613,
+      "point_to_pixel_ray_distance": 0.0004261947462796482
+    },
+    {
+      "camera": 61,
+      "camera_name": "OA",
+      "x": 1180,
+      "y": 540,
+      "witness_id": 9020,
+      "witness_xyz": [
+        0.020621200761533176,
+        0.22502301169449906,
+        0.17861140797919087
+      ],
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1180.5391845703125,
+        540.4234008789062
+      ],
+      "projected_uv": [
+        1180.4876435009971,
+        540.5071373513528
+      ],
+      "query_witness_depth": 1.130059046773148,
+      "point_to_pixel_ray_distance": 1.1627009734396925e-05
+    },
+    {
+      "camera": 62,
+      "camera_name": "OD",
+      "x": 1284,
+      "y": 619,
+      "witness_id": 9020,
+      "witness_xyz": [
+        0.020621200761533176,
+        0.22502301169449906,
+        0.17861140797919087
+      ],
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1284.5789794921875,
+        619.4500732421875
+      ],
+      "projected_uv": [
+        1284.775534076622,
+        619.3143577085416
+      ],
+      "query_witness_depth": 1.0052502075328953,
+      "point_to_pixel_ray_distance": 0.00023706672951658115
+    },
+    {
+      "camera": 56,
+      "camera_name": "NA",
+      "x": 1279,
+      "y": 499,
+      "witness_id": 8679,
+      "witness_xyz": [
+        0.022625176440740996,
+        0.22353554081594293,
+        0.17249678519849848
+      ],
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1279.51220703125,
+        499.1224670410156
+      ],
+      "projected_uv": [
+        1279.5606723191224,
+        499.0385960891395
+      ],
+      "query_witness_depth": 1.08266060906799,
+      "point_to_pixel_ray_distance": 0.0003615254795602846
+    },
+    {
+      "camera": 62,
+      "camera_name": "OD",
+      "x": 1281,
+      "y": 627,
+      "witness_id": 8679,
+      "witness_xyz": [
+        0.022625176440740996,
+        0.22353554081594293,
+        0.17249678519849848
+      ],
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1281.9801025390625,
+        627.9273681640625
+      ],
+      "projected_uv": [
+        1281.8524076019244,
+        627.8412266612607
+      ],
+      "query_witness_depth": 1.004110015863505,
+      "point_to_pixel_ray_distance": 0.0003443581508219287
+    },
+    {
+      "camera": 61,
+      "camera_name": "OA",
+      "x": 1177,
+      "y": 547,
+      "witness_id": 8679,
+      "witness_xyz": [
+        0.022625176440740996,
+        0.22353554081594293,
+        0.17249678519849848
+      ],
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1177.348388671875,
+        547.7645263671875
+      ],
+      "projected_uv": [
+        1177.352075775459,
+        547.6480169390992
+      ],
+      "query_witness_depth": 1.131610070775547,
+      "point_to_pixel_ray_distance": 0.000171684508655521
+    },
+    {
+      "camera": 52,
+      "camera_name": "MA",
+      "x": 1278,
+      "y": 417,
+      "witness_id": 8173,
+      "witness_xyz": [
+        0.02030727320646716,
+        0.23358569358853853,
+        0.17231039406018114
+      ],
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1278.926513671875,
+        417.8919372558594
+      ],
+      "projected_uv": [
+        1278.9338212998466,
+        417.84480087583614
+      ],
+      "query_witness_depth": 1.1061777131895734,
+      "point_to_pixel_ray_distance": 0.00043526060554407715
+    },
+    {
+      "camera": 60,
+      "camera_name": "NE",
+      "x": 1412,
+      "y": 616,
+      "witness_id": 8173,
+      "witness_xyz": [
+        0.02030727320646716,
+        0.23358569358853853,
+        0.17231039406018114
+      ],
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1412.565673828125,
+        616.0623779296875
+      ],
+      "projected_uv": [
+        1412.554215852676,
+        616.1770345270173
+      ],
+      "query_witness_depth": 0.9514489322698932,
+      "point_to_pixel_ray_distance": 0.0002179567213563505
+    },
+    {
+      "camera": 61,
+      "camera_name": "OA",
+      "x": 1189,
+      "y": 549,
+      "witness_id": 8173,
+      "witness_xyz": [
+        0.02030727320646716,
+        0.23358569358853853,
+        0.17231039406018114
+      ],
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1189.862548828125,
+        549.6011962890625
+      ],
+      "projected_uv": [
+        1189.866258468671,
+        549.566594680562
+      ],
+      "query_witness_depth": 1.1306221154009153,
+      "point_to_pixel_ray_distance": 0.0003012979881708474
+    },
+    {
+      "camera": 32,
+      "camera_name": "HA",
+      "x": 985,
+      "y": 184,
+      "witness_id": 5568,
+      "witness_xyz": [
+        0.03672717261833824,
+        0.14934789318624633,
+        0.2866106969522056
+      ],
+      "actor": "black",
+      "region": "black_sleeve_RESERVED",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_whole_patch_reserved",
+      "detected_uv": [
+        985.0216064453125,
+        184.3019561767578
+      ],
+      "projected_uv": [
+        985.0676087185448,
+        184.185400049672
+      ],
+      "query_witness_depth": 1.1032799061308625,
+      "point_to_pixel_ray_distance": 0.00042045931736147676
+    },
+    {
+      "camera": 40,
+      "camera_name": "IE",
+      "x": 947,
+      "y": 480,
+      "witness_id": 5568,
+      "witness_xyz": [
+        0.03672717261833824,
+        0.14934789318624633,
+        0.2866106969522056
+      ],
+      "actor": "black",
+      "region": "black_sleeve_RESERVED",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_whole_patch_reserved",
+      "detected_uv": [
+        947.6265258789062,
+        480.39093017578125
+      ],
+      "projected_uv": [
+        947.7528341117536,
+        480.4748946614756
+      ],
+      "query_witness_depth": 0.995053765857882,
+      "point_to_pixel_ray_distance": 0.00018691318182727506
+    },
+    {
+      "camera": 42,
+      "camera_name": "JB",
+      "x": 1042,
+      "y": 237,
+      "witness_id": 5568,
+      "witness_xyz": [
+        0.03672717261833824,
+        0.14934789318624633,
+        0.2866106969522056
+      ],
+      "actor": "black",
+      "region": "black_sleeve_RESERVED",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_whole_patch_reserved",
+      "detected_uv": [
+        1042.08056640625,
+        237.7236328125
+      ],
+      "projected_uv": [
+        1042.1111421422145,
+        237.8524102490715
+      ],
+      "query_witness_depth": 1.0333988702442056,
+      "point_to_pixel_ray_distance": 0.00038562168406333267
+    },
+    {
+      "camera": 10,
+      "camera_name": "CC",
+      "x": 1033,
+      "y": 706,
+      "witness_id": 2219,
+      "witness_xyz": [
+        0.015771973761341224,
+        0.07230050832599699,
+        0.11577100358457344
+      ],
+      "actor": "grey",
+      "region": "grey_trouser_RESERVED",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_whole_patch_reserved",
+      "detected_uv": [
+        1033.447509765625,
+        706.5390625
+      ],
+      "projected_uv": [
+        1033.2430404742522,
+        706.6726800565868
+      ],
+      "query_witness_depth": 0.9838042234103967,
+      "point_to_pixel_ray_distance": 0.0002218999982955329
+    },
+    {
+      "camera": 16,
+      "camera_name": "DE",
+      "x": 990,
+      "y": 790,
+      "witness_id": 2219,
+      "witness_xyz": [
+        0.015771973761341224,
+        0.07230050832599699,
+        0.11577100358457344
+      ],
+      "actor": "grey",
+      "region": "grey_trouser_RESERVED",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_whole_patch_reserved",
+      "detected_uv": [
+        990.5610961914062,
+        790.0482788085938
+      ],
+      "projected_uv": [
+        990.758890709268,
+        789.9274219886443
+      ],
+      "query_witness_depth": 0.921887717857039,
+      "point_to_pixel_ray_distance": 0.00041220378051407496
+    },
+    {
+      "camera": 15,
+      "camera_name": "DD",
+      "x": 894,
+      "y": 741,
+      "witness_id": 2219,
+      "witness_xyz": [
+        0.015771973761341224,
+        0.07230050832599699,
+        0.11577100358457344
+      ],
+      "actor": "grey",
+      "region": "grey_trouser_RESERVED",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_whole_patch_reserved",
+      "detected_uv": [
+        894.3430786132812,
+        741.7239990234375
+      ],
+      "projected_uv": [
+        894.3700346743815,
+        741.7133208799589
+      ],
+      "query_witness_depth": 0.975702027432253,
+      "point_to_pixel_ray_distance": 0.00017448820441049215
+    },
+    {
+      "camera": 32,
+      "camera_name": "HA",
+      "x": 912,
+      "y": 341,
+      "witness_id": 5556,
+      "witness_xyz": [
+        -0.010338151921484235,
+        0.0916200769426343,
+        0.17014480820280295
+      ],
+      "actor": "grey",
+      "region": "grey_trouser_RESERVED",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_whole_patch_reserved",
+      "detected_uv": [
+        912.4584350585938,
+        341.6361389160156
+      ],
+      "projected_uv": [
+        912.3190146510428,
+        341.57448808720903
+      ],
+      "query_witness_depth": 1.1149441016589017,
+      "point_to_pixel_ray_distance": 0.00015973821954449078
+    },
+    {
+      "camera": 45,
+      "camera_name": "JE",
+      "x": 1165,
+      "y": 610,
+      "witness_id": 5556,
+      "witness_xyz": [
+        -0.010338151921484235,
+        0.0916200769426343,
+        0.17014480820280295
+      ],
+      "actor": "grey",
+      "region": "grey_trouser_RESERVED",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_whole_patch_reserved",
+      "detected_uv": [
+        1165.8623046875,
+        610.3262939453125
+      ],
+      "projected_uv": [
+        1165.454805614592,
+        610.4855955774287
+      ],
+      "query_witness_depth": 0.9725800436848174,
+      "point_to_pixel_ray_distance": 3.314008067879953e-05
+    },
+    {
+      "camera": 41,
+      "camera_name": "JA",
+      "x": 802,
+      "y": 328,
+      "witness_id": 5556,
+      "witness_xyz": [
+        -0.010338151921484235,
+        0.0916200769426343,
+        0.17014480820280295
+      ],
+      "actor": "grey",
+      "region": "grey_trouser_RESERVED",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_whole_patch_reserved",
+      "detected_uv": [
+        802.2966918945312,
+        328.6482238769531
+      ],
+      "projected_uv": [
+        802.8603547828955,
+        328.3272669776411
+      ],
+      "query_witness_depth": 1.1183821078885867,
+      "point_to_pixel_ray_distance": 0.00032413160549357603
+    },
+    {
+      "camera": 17,
+      "camera_name": "EA",
+      "x": 1046,
+      "y": 216,
+      "witness_id": 2579,
+      "witness_xyz": [
+        0.05006167042077632,
+        0.12379613387963256,
+        0.22177670680971712
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_shoulder",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1046.0081787109375,
+        216.95761108398438
+      ],
+      "projected_uv": [
+        1046.0144393149951,
+        216.97553944681266
+      ],
+      "query_witness_depth": 1.097115717254999,
+      "point_to_pixel_ray_distance": 0.0005266581246532483
+    },
+    {
+      "camera": 27,
+      "camera_name": "GA",
+      "x": 1043,
+      "y": 300,
+      "witness_id": 2579,
+      "witness_xyz": [
+        0.05006167042077632,
+        0.12379613387963256,
+        0.22177670680971712
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_shoulder",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1043.2154541015625,
+        300.63470458984375
+      ],
+      "projected_uv": [
+        1043.28632371716,
+        300.45710195974476
+      ],
+      "query_witness_depth": 1.0761895023846606,
+      "point_to_pixel_ray_distance": 0.00017082715810079713
+    },
+    {
+      "camera": 22,
+      "camera_name": "FA",
+      "x": 1037,
+      "y": 195,
+      "witness_id": 2579,
+      "witness_xyz": [
+        0.05006167042077632,
+        0.12379613387963256,
+        0.22177670680971712
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_shoulder",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1037.2166748046875,
+        195.21688842773438
+      ],
+      "projected_uv": [
+        1037.2008836267992,
+        194.99661181857948
+      ],
+      "query_witness_depth": 1.0988592927286025,
+      "point_to_pixel_ray_distance": 0.00045591708753648107
+    },
+    {
+      "camera": 4,
+      "camera_name": "BA",
+      "x": 1083,
+      "y": 312,
+      "witness_id": 943,
+      "witness_xyz": [
+        -0.04748479476901636,
+        0.14193113859874065,
+        0.18306957904719334
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_lowerback",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1083.0703125,
+        312.6604919433594
+      ],
+      "projected_uv": [
+        1082.7326978844178,
+        312.9536041220417
+      ],
+      "query_witness_depth": 1.074803105544429,
+      "point_to_pixel_ray_distance": 0.0006873568236672336
+    },
+    {
+      "camera": 10,
+      "camera_name": "CC",
+      "x": 901,
+      "y": 615,
+      "witness_id": 943,
+      "witness_xyz": [
+        -0.04748479476901636,
+        0.14193113859874065,
+        0.18306957904719334
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_lowerback",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        901.3981323242188,
+        615.75537109375
+      ],
+      "projected_uv": [
+        901.7423201056595,
+        615.4234999492407
+      ],
+      "query_witness_depth": 0.9630549517579459,
+      "point_to_pixel_ray_distance": 0.00017947875565924924
+    },
+    {
+      "camera": 8,
+      "camera_name": "CA",
+      "x": 1039,
+      "y": 411,
+      "witness_id": 943,
+      "witness_xyz": [
+        -0.04748479476901636,
+        0.14193113859874065,
+        0.18306957904719334
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_lowerback",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1039.12451171875,
+        411.1372375488281
+      ],
+      "projected_uv": [
+        1039.2463192433313,
+        411.13803990104174
+      ],
+      "query_witness_depth": 1.0678098620479552,
+      "point_to_pixel_ray_distance": 0.00034649880122497785
+    },
+    {
+      "camera": 47,
+      "camera_name": "KC",
+      "x": 988,
+      "y": 523,
+      "witness_id": 7784,
+      "witness_xyz": [
+        0.05421361122079301,
+        0.2066839629520527,
+        0.16133183499311482
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_forearm",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        988.9340209960938,
+        523.22705078125
+      ],
+      "projected_uv": [
+        989.1490488404057,
+        523.3933271915143
+      ],
+      "query_witness_depth": 1.0060502172490045,
+      "point_to_pixel_ray_distance": 0.0004890641062661694
+    },
+    {
+      "camera": 51,
+      "camera_name": "LC",
+      "x": 1315,
+      "y": 557,
+      "witness_id": 7784,
+      "witness_xyz": [
+        0.05421361122079301,
+        0.2066839629520527,
+        0.16133183499311482
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_forearm",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1315.647705078125,
+        557.8715209960938
+      ],
+      "projected_uv": [
+        1315.8308464359122,
+        557.7241508571052
+      ],
+      "query_witness_depth": 0.9888349893205293,
+      "point_to_pixel_ray_distance": 0.0002746054854253417
+    },
+    {
+      "camera": 50,
+      "camera_name": "LB",
+      "x": 1092,
+      "y": 373,
+      "witness_id": 7784,
+      "witness_xyz": [
+        0.05421361122079301,
+        0.2066839629520527,
+        0.16133183499311482
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_forearm",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1092.677001953125,
+        373.8144836425781
+      ],
+      "projected_uv": [
+        1092.3229253134584,
+        373.78394849413763
+      ],
+      "query_witness_depth": 1.053455710462085,
+      "point_to_pixel_ray_distance": 0.00025533522211927814
+    },
+    {
+      "camera": 40,
+      "camera_name": "IE",
+      "x": 928,
+      "y": 676,
+      "witness_id": 6820,
+      "witness_xyz": [
+        0.024705562763170742,
+        0.13810501642829112,
+        0.14305659355144146
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_elbow_hem",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        928.7783203125,
+        676.4005737304688
+      ],
+      "projected_uv": [
+        928.8607185557297,
+        676.4012237383313
+      ],
+      "query_witness_depth": 0.9711456131578465,
+      "point_to_pixel_ray_distance": 0.0002660134352074922
+    },
+    {
+      "camera": 48,
+      "camera_name": "KD",
+      "x": 1208,
+      "y": 651,
+      "witness_id": 6820,
+      "witness_xyz": [
+        0.024705562763170742,
+        0.13810501642829112,
+        0.14305659355144146
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_elbow_hem",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1208.937255859375,
+        651.216796875
+      ],
+      "projected_uv": [
+        1208.9861865710247,
+        651.2570296151492
+      ],
+      "query_witness_depth": 0.9797089428860108,
+      "point_to_pixel_ray_distance": 0.0003823870123136758
+    },
+    {
+      "camera": 44,
+      "camera_name": "JD",
+      "x": 1101,
+      "y": 602,
+      "witness_id": 6820,
+      "witness_xyz": [
+        0.024705562763170742,
+        0.13810501642829112,
+        0.14305659355144146
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_elbow_hem",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1101.66455078125,
+        602.011962890625
+      ],
+      "projected_uv": [
+        1101.5571531190212,
+        601.9584140399455
+      ],
+      "query_witness_depth": 1.0049466715613162,
+      "point_to_pixel_ray_distance": 0.00040055515030583964
+    },
+    {
+      "camera": 4,
+      "camera_name": "BA",
+      "x": 1102,
+      "y": 249,
+      "witness_id": 981,
+      "witness_xyz": [
+        0.002338411871796856,
+        0.15234805136222104,
+        0.21422075245329206
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_upperback",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1102.8306884765625,
+        249.1568603515625
+      ],
+      "projected_uv": [
+        1102.9048147032977,
+        249.11765780115996
+      ],
+      "query_witness_depth": 1.1044078665591979,
+      "point_to_pixel_ray_distance": 0.0004333190555430291
+    },
+    {
+      "camera": 14,
+      "camera_name": "DB",
+      "x": 1123,
+      "y": 314,
+      "witness_id": 981,
+      "witness_xyz": [
+        0.002338411871796856,
+        0.15234805136222104,
+        0.21422075245329206
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_upperback",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1123.413330078125,
+        314.46612548828125
+      ],
+      "projected_uv": [
+        1123.0984137416679,
+        314.52167075798377
+      ],
+      "query_witness_depth": 1.0766488407271817,
+      "point_to_pixel_ray_distance": 0.00031119305791921454
+    },
+    {
+      "camera": 9,
+      "camera_name": "CB",
+      "x": 947,
+      "y": 317,
+      "witness_id": 981,
+      "witness_xyz": [
+        0.002338411871796856,
+        0.15234805136222104,
+        0.21422075245329206
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_upperback",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        947.5611572265625,
+        317.4136047363281
+      ],
+      "projected_uv": [
+        947.1573932897352,
+        317.3927729577134
+      ],
+      "query_witness_depth": 1.0319108009741467,
+      "point_to_pixel_ray_distance": 0.0002692897873776771
+    },
+    {
+      "camera": 46,
+      "camera_name": "KB",
+      "x": 950,
+      "y": 364,
+      "witness_id": 7588,
+      "witness_xyz": [
+        0.05813400855465947,
+        0.09678941533495118,
+        0.17886954194470994
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_elbow",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        950.2675170898438,
+        364.05340576171875
+      ],
+      "projected_uv": [
+        950.2307860582666,
+        363.899413334781
+      ],
+      "query_witness_depth": 0.9818628134193796,
+      "point_to_pixel_ray_distance": 0.0004723540575258694
+    },
+    {
+      "camera": 49,
+      "camera_name": "LA",
+      "x": 911,
+      "y": 376,
+      "witness_id": 7588,
+      "witness_xyz": [
+        0.05813400855465947,
+        0.09678941533495118,
+        0.17886954194470994
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_elbow",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        911.0802612304688,
+        376.1311950683594
+      ],
+      "projected_uv": [
+        911.442800152025,
+        376.4067116631405
+      ],
+      "query_witness_depth": 1.0499600978007113,
+      "point_to_pixel_ray_distance": 8.372694361903957e-05
+    },
+    {
+      "camera": 50,
+      "camera_name": "LB",
+      "x": 962,
+      "y": 374,
+      "witness_id": 7588,
+      "witness_xyz": [
+        0.05813400855465947,
+        0.09678941533495118,
+        0.17886954194470994
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_elbow",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        962.7127685546875,
+        374.5806579589844
+      ],
+      "projected_uv": [
+        962.346051412529,
+        374.45218897978276
+      ],
+      "query_witness_depth": 0.9996162389837624,
+      "point_to_pixel_ray_distance": 0.00011817826925319997
+    },
+    {
+      "camera": 17,
+      "camera_name": "EA",
+      "x": 1017,
+      "y": 269,
+      "witness_id": 3000,
+      "witness_xyz": [
+        0.020707159980057902,
+        0.10893764267859658,
+        0.18811554892814347
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_back_seam",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1017.61865234375,
+        269.62957763671875
+      ],
+      "projected_uv": [
+        1017.6260920344471,
+        269.6150462695075
+      ],
+      "query_witness_depth": 1.088953126125337,
+      "point_to_pixel_ray_distance": 0.00013437153628254213
+    },
+    {
+      "camera": 22,
+      "camera_name": "FA",
+      "x": 1002,
+      "y": 244,
+      "witness_id": 3000,
+      "witness_xyz": [
+        0.020707159980057902,
+        0.10893764267859658,
+        0.18811554892814347
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_back_seam",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1002.9325561523438,
+        244.845703125
+      ],
+      "projected_uv": [
+        1002.8734107136006,
+        244.8096286403628
+      ],
+      "query_witness_depth": 1.0956524569607955,
+      "point_to_pixel_ray_distance": 0.0003830302921386224
+    },
+    {
+      "camera": 23,
+      "camera_name": "FB",
+      "x": 812,
+      "y": 140,
+      "witness_id": 3000,
+      "witness_xyz": [
+        0.020707159980057902,
+        0.10893764267859658,
+        0.18811554892814347
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_back_seam",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        812.98974609375,
+        140.933837890625
+      ],
+      "projected_uv": [
+        813.0505537075595,
+        140.98004586169395
+      ],
+      "query_witness_depth": 1.0144864594886296,
+      "point_to_pixel_ray_distance": 0.0005076107686218749
+    },
+    {
+      "camera": 4,
+      "camera_name": "BA",
+      "x": 1129,
+      "y": 312,
+      "witness_id": 946,
+      "witness_xyz": [
+        -0.03645483458798961,
+        0.10724052325657887,
+        0.18938225788996593
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_lowerback",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1129.9534912109375,
+        312.1076354980469
+      ],
+      "projected_uv": [
+        1129.9496528981922,
+        312.43392891796015
+      ],
+      "query_witness_depth": 1.0686659348930683,
+      "point_to_pixel_ray_distance": 0.000347561326339256
+    },
+    {
+      "camera": 28,
+      "camera_name": "GB",
+      "x": 936,
+      "y": 297,
+      "witness_id": 946,
+      "witness_xyz": [
+        -0.03645483458798961,
+        0.10724052325657887,
+        0.18938225788996593
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_lowerback",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        936.5905151367188,
+        297.2562561035156
+      ],
+      "projected_uv": [
+        936.5573698452883,
+        297.747794471057
+      ],
+      "query_witness_depth": 1.031519689025517,
+      "point_to_pixel_ray_distance": 0.00018845116174981595
+    },
+    {
+      "camera": 18,
+      "camera_name": "EB",
+      "x": 914,
+      "y": 384,
+      "witness_id": 946,
+      "witness_xyz": [
+        -0.03645483458798961,
+        0.10724052325657887,
+        0.18938225788996593
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_lowerback",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        914.8347778320312,
+        384.3372497558594
+      ],
+      "projected_uv": [
+        914.8010658158629,
+        384.1468315989216
+      ],
+      "query_witness_depth": 1.0110937148552819,
+      "point_to_pixel_ray_distance": 0.0003442946750634282
+    },
+    {
+      "camera": 58,
+      "camera_name": "NC",
+      "x": 1459,
+      "y": 495,
+      "witness_id": 8931,
+      "witness_xyz": [
+        0.050099223580369404,
+        0.20796286250973542,
+        0.19307919806293836
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_shoulder",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1459.4844970703125,
+        495.4293518066406
+      ],
+      "projected_uv": [
+        1459.1946158099795,
+        495.75231156977327
+      ],
+      "query_witness_depth": 0.9469663546916811,
+      "point_to_pixel_ray_distance": 0.00025018751584266364
+    },
+    {
+      "camera": 60,
+      "camera_name": "NE",
+      "x": 1363,
+      "y": 583,
+      "witness_id": 8931,
+      "witness_xyz": [
+        0.050099223580369404,
+        0.20796286250973542,
+        0.19307919806293836
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_shoulder",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1363.586181640625,
+        583.0670166015625
+      ],
+      "projected_uv": [
+        1363.7878267777626,
+        583.4042701365147
+      ],
+      "query_witness_depth": 0.9270745404517423,
+      "point_to_pixel_ray_distance": 0.00019229289953324
+    },
+    {
+      "camera": 59,
+      "camera_name": "ND",
+      "x": 1370,
+      "y": 546,
+      "witness_id": 8931,
+      "witness_xyz": [
+        0.050099223580369404,
+        0.20796286250973542,
+        0.19307919806293836
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_shoulder",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1370.068603515625,
+        546.6552124023438
+      ],
+      "projected_uv": [
+        1370.180767467182,
+        545.97487639976
+      ],
+      "query_witness_depth": 0.9496011586613751,
+      "point_to_pixel_ray_distance": 0.00040723598517034514
+    },
+    {
+      "camera": 42,
+      "camera_name": "JB",
+      "x": 974,
+      "y": 413,
+      "witness_id": 7015,
+      "witness_xyz": [
+        0.00819894913633912,
+        0.10724870645917653,
+        0.15088976967184814
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_elbow_hem",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        974.5615844726562,
+        413.1683044433594
+      ],
+      "projected_uv": [
+        974.6254783897879,
+        413.20134382976573
+      ],
+      "query_witness_depth": 1.061447686380163,
+      "point_to_pixel_ray_distance": 0.0002525650995557542
+    },
+    {
+      "camera": 48,
+      "camera_name": "KD",
+      "x": 1159,
+      "y": 640,
+      "witness_id": 7015,
+      "witness_xyz": [
+        0.00819894913633912,
+        0.10724870645917653,
+        0.15088976967184814
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_elbow_hem",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1159.2396240234375,
+        640.2037353515625
+      ],
+      "projected_uv": [
+        1159.2248772180576,
+        640.3003607124247
+      ],
+      "query_witness_depth": 0.9746642722739757,
+      "point_to_pixel_ray_distance": 0.00023744511025590792
+    },
+    {
+      "camera": 43,
+      "camera_name": "JC",
+      "x": 1204,
+      "y": 551,
+      "witness_id": 7015,
+      "witness_xyz": [
+        0.00819894913633912,
+        0.10724870645917653,
+        0.15088976967184814
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_elbow_hem",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1204.5562744140625,
+        551.2410888671875
+      ],
+      "projected_uv": [
+        1204.5057848195947,
+        551.1114695582654
+      ],
+      "query_witness_depth": 1.0141405951038336,
+      "point_to_pixel_ray_distance": 0.0002865229722154922
+    },
+    {
+      "camera": 54,
+      "camera_name": "MC",
+      "x": 1300,
+      "y": 515,
+      "witness_id": 8492,
+      "witness_xyz": [
+        0.043716256929227024,
+        0.13253374002413573,
+        0.16734681439750346
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_front",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1300.56884765625,
+        515.6365356445312
+      ],
+      "projected_uv": [
+        1300.8369545780145,
+        516.1184282608351
+      ],
+      "query_witness_depth": 0.9623484776355469,
+      "point_to_pixel_ray_distance": 0.0004833695290807744
+    },
+    {
+      "camera": 60,
+      "camera_name": "NE",
+      "x": 1253,
+      "y": 632,
+      "witness_id": 8492,
+      "witness_xyz": [
+        0.043716256929227024,
+        0.13253374002413573,
+        0.16734681439750346
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_front",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1253.68408203125,
+        632.2128295898438
+      ],
+      "projected_uv": [
+        1253.913437292525,
+        632.1743412120372
+      ],
+      "query_witness_depth": 0.9421609625440427,
+      "point_to_pixel_ray_distance": 0.0003545239030945469
+    },
+    {
+      "camera": 59,
+      "camera_name": "ND",
+      "x": 1255,
+      "y": 578,
+      "witness_id": 8492,
+      "witness_xyz": [
+        0.043716256929227024,
+        0.13253374002413573,
+        0.16734681439750346
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_front",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1255.746826171875,
+        578.043701171875
+      ],
+      "projected_uv": [
+        1255.6048335974233,
+        578.0278183681678
+      ],
+      "query_witness_depth": 0.9614951940323825,
+      "point_to_pixel_ray_distance": 0.00033635028012882407
+    },
+    {
+      "camera": 8,
+      "camera_name": "CA",
+      "x": 1076,
+      "y": 329,
+      "witness_id": 1521,
+      "witness_xyz": [
+        0.024982792306984622,
+        0.16668661907083723,
+        0.21986023498194587
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_upperback",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1076.262939453125,
+        329.3643798828125
+      ],
+      "projected_uv": [
+        1076.3222556552219,
+        329.1258468075421
+      ],
+      "query_witness_depth": 1.1140409142926595,
+      "point_to_pixel_ray_distance": 0.0003351602002243258
+    },
+    {
+      "camera": 14,
+      "camera_name": "DB",
+      "x": 1132,
+      "y": 298,
+      "witness_id": 1521,
+      "witness_xyz": [
+        0.024982792306984622,
+        0.16668661907083723,
+        0.21986023498194587
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_upperback",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1132.9078369140625,
+        298.30401611328125
+      ],
+      "projected_uv": [
+        1132.6947411549363,
+        298.3718052740189
+      ],
+      "query_witness_depth": 1.0998557530422173,
+      "point_to_pixel_ray_distance": 0.00018217470425554072
+    },
+    {
+      "camera": 9,
+      "camera_name": "CB",
+      "x": 948,
+      "y": 298,
+      "witness_id": 1521,
+      "witness_xyz": [
+        0.024982792306984622,
+        0.16668661907083723,
+        0.21986023498194587
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_upperback",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        948.4366455078125,
+        298.61334228515625
+      ],
+      "projected_uv": [
+        948.5905481364637,
+        298.76160525304726
+      ],
+      "query_witness_depth": 1.0554206992568869,
+      "point_to_pixel_ray_distance": 0.00021024170602792244
+    },
+    {
+      "camera": 31,
+      "camera_name": "GE",
+      "x": 980,
+      "y": 628,
+      "witness_id": 5452,
+      "witness_xyz": [
+        0.03320039245629506,
+        0.08855680760978785,
+        0.1784360805401353
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_elbow",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        980.8917846679688,
+        628.8455200195312
+      ],
+      "projected_uv": [
+        981.0438971505336,
+        629.1120564463708
+      ],
+      "query_witness_depth": 0.9277680338703632,
+      "point_to_pixel_ray_distance": 0.000559375442469682
+    },
+    {
+      "camera": 40,
+      "camera_name": "IE",
+      "x": 902,
+      "y": 620,
+      "witness_id": 5452,
+      "witness_xyz": [
+        0.03320039245629506,
+        0.08855680760978785,
+        0.1784360805401353
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_elbow",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        902.1076049804688,
+        620.3779907226562
+      ],
+      "projected_uv": [
+        902.2566185084133,
+        620.1240708503426
+      ],
+      "query_witness_depth": 0.9275386319781016,
+      "point_to_pixel_ray_distance": 0.0003057929754718307
+    },
+    {
+      "camera": 35,
+      "camera_name": "HE",
+      "x": 1074,
+      "y": 641,
+      "witness_id": 5452,
+      "witness_xyz": [
+        0.03320039245629506,
+        0.08855680760978785,
+        0.1784360805401353
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_elbow",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1074.7723388671875,
+        641.6802368164062
+      ],
+      "projected_uv": [
+        1074.4673741622935,
+        641.6777324878941
+      ],
+      "query_witness_depth": 0.9496104239866685,
+      "point_to_pixel_ray_distance": 0.00012551900467138333
+    },
+    {
+      "camera": 0,
+      "camera_name": "AA",
+      "x": 1161,
+      "y": 341,
+      "witness_id": 352,
+      "witness_xyz": [
+        -0.004278784031095029,
+        0.10359905891638849,
+        0.19130163173550915
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_lowerback",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1161.698974609375,
+        341.8389892578125
+      ],
+      "projected_uv": [
+        1162.4419602513287,
+        341.87659460617544
+      ],
+      "query_witness_depth": 1.110670902971533,
+      "point_to_pixel_ray_distance": 0.0008106619326935004
+    },
+    {
+      "camera": 2,
+      "camera_name": "AC",
+      "x": 857,
+      "y": 524,
+      "witness_id": 352,
+      "witness_xyz": [
+        -0.004278784031095029,
+        0.10359905891638849,
+        0.19130163173550915
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_lowerback",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        857.2377319335938,
+        524.9186401367188
+      ],
+      "projected_uv": [
+        857.1253902775509,
+        525.6804886361954
+      ],
+      "query_witness_depth": 1.0092556939914505,
+      "point_to_pixel_ray_distance": 0.000920069276013621
+    },
+    {
+      "camera": 5,
+      "camera_name": "BB",
+      "x": 838,
+      "y": 300,
+      "witness_id": 352,
+      "witness_xyz": [
+        -0.004278784031095029,
+        0.10359905891638849,
+        0.19130163173550915
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_lowerback",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        838.6004638671875,
+        300.3904724121094
+      ],
+      "projected_uv": [
+        837.9830205449592,
+        299.64780140988876
+      ],
+      "query_witness_depth": 1.0492766080917026,
+      "point_to_pixel_ray_distance": 0.0007478157318445249
+    },
+    {
+      "camera": 4,
+      "camera_name": "BA",
+      "x": 1125,
+      "y": 260,
+      "witness_id": 815,
+      "witness_xyz": [
+        -0.0016211677987717163,
+        0.13042705102269034,
+        0.21232862884082582
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_upperback",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1125.5440673828125,
+        260.56292724609375
+      ],
+      "projected_uv": [
+        1125.4443155964443,
+        260.44735293167275
+      ],
+      "query_witness_depth": 1.0942926731708993,
+      "point_to_pixel_ray_distance": 6.0229690578568256e-05
+    },
+    {
+      "camera": 8,
+      "camera_name": "CA",
+      "x": 1089,
+      "y": 362,
+      "witness_id": 815,
+      "witness_xyz": [
+        -0.0016211677987717163,
+        0.13042705102269034,
+        0.21232862884082582
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_upperback",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1089.3858642578125,
+        362.297607421875
+      ],
+      "projected_uv": [
+        1089.3758957532827,
+        362.3202604243024
+      ],
+      "query_witness_depth": 1.078388381279681,
+      "point_to_pixel_ray_distance": 0.00017188658621200252
+    },
+    {
+      "camera": 5,
+      "camera_name": "BB",
+      "x": 805,
+      "y": 267,
+      "witness_id": 815,
+      "witness_xyz": [
+        -0.0016211677987717163,
+        0.13042705102269034,
+        0.21232862884082582
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_upperback",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        805.2962036132812,
+        267.6794128417969
+      ],
+      "projected_uv": [
+        805.4176899352635,
+        267.75938580355563
+      ],
+      "query_witness_depth": 1.0522070361208986,
+      "point_to_pixel_ray_distance": 0.00020493879583096953
+    },
+    {
+      "camera": 10,
+      "camera_name": "CC",
+      "x": 1006,
+      "y": 576,
+      "witness_id": 2047,
+      "witness_xyz": [
+        0.03506142662460719,
+        0.11308596691000601,
+        0.20257032238583905
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_back_shoulder_seam",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1006.7234497070312,
+        576.6195068359375
+      ],
+      "projected_uv": [
+        1006.6466376794372,
+        576.5931662268345
+      ],
+      "query_witness_depth": 1.0017513140905963,
+      "point_to_pixel_ray_distance": 0.0001280098907046695
+    },
+    {
+      "camera": 12,
+      "camera_name": "CE",
+      "x": 1142,
+      "y": 838,
+      "witness_id": 2047,
+      "witness_xyz": [
+        0.03506142662460719,
+        0.11308596691000601,
+        0.20257032238583905
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_back_shoulder_seam",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        1142.771240234375,
+        838.7452392578125
+      ],
+      "projected_uv": [
+        1142.7874686413586,
+        838.5000582310038
+      ],
+      "query_witness_depth": 0.9882827162013003,
+      "point_to_pixel_ray_distance": 0.00020020669683573525
+    },
+    {
+      "camera": 15,
+      "camera_name": "DD",
+      "x": 877,
+      "y": 615,
+      "witness_id": 2047,
+      "witness_xyz": [
+        0.03506142662460719,
+        0.11308596691000601,
+        0.20257032238583905
+      ],
+      "actor": "grey",
+      "region": "grey_jacket_back_shoulder_seam",
+      "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+      "diagnostic_group": "new_prefix_supervised",
+      "detected_uv": [
+        877.6680297851562,
+        615.2711181640625
+      ],
+      "projected_uv": [
+        877.8447965307026,
+        615.6594098408034
+      ],
+      "query_witness_depth": 1.0100513396278263,
+      "point_to_pixel_ray_distance": 0.0002814604445812291
+    },
+    {
+      "camera_name": "ID",
+      "x": 880,
+      "y": 693,
+      "region": "toe_upper",
+      "actor": "black",
+      "witness_xyz": [
+        -0.11769208960984658,
+        0.15127923559030565,
+        0.014567836967476211
+      ],
+      "witness_id": "three_view_upper_toe",
+      "source_coordinate": [
+        879.7936946756498,
+        693.0452434064795
+      ],
+      "source_coordinate_contract": "array pixel center; nearest integer index",
+      "camera": 39,
+      "query_id": 0,
+      "accepted_AABB_interval": [
+        0.6524841552961345,
+        1.4079936540061158
+      ],
+      "query_witness_depth": 1.085782336258176,
+      "point_to_pixel_ray_distance": 7.939157348690407e-05
+    },
+    {
+      "camera_name": "HE",
+      "x": 914,
+      "y": 876,
+      "region": "toe_upper",
+      "actor": "black",
+      "witness_xyz": [
+        -0.11769208960984658,
+        0.15127923559030565,
+        0.014567836967476211
+      ],
+      "witness_id": "three_view_upper_toe",
+      "source_coordinate": [
+        914.0323425110798,
+        876.4060424338626
+      ],
+      "source_coordinate_contract": "array pixel center; nearest integer index",
+      "camera": 35,
+      "query_id": 1,
+      "accepted_AABB_interval": [
+        0.6622164848492895,
+        1.352805572260079
+      ],
+      "query_witness_depth": 1.058204252683741,
+      "point_to_pixel_ray_distance": 0.00042363173505266635
+    },
+    {
+      "camera_name": "IC",
+      "x": 1049,
+      "y": 645,
+      "region": "toe_upper",
+      "actor": "black",
+      "witness_xyz": [
+        -0.11769208960984658,
+        0.15127923559030565,
+        0.014567836967476211
+      ],
+      "witness_id": "three_view_upper_toe",
+      "source_coordinate": [
+        1049.3875902481218,
+        645.382407783706
+      ],
+      "source_coordinate_contract": "array pixel center; nearest integer index",
+      "camera": 38,
+      "query_id": 2,
+      "accepted_AABB_interval": [
+        0.6497945088823056,
+        1.3804347143465294
+      ],
+      "query_witness_depth": 1.1260090126734823,
+      "point_to_pixel_ray_distance": 0.0001989631266320196
+    },
+    {
+      "camera_name": "JA",
+      "x": 776,
+      "y": 430,
+      "region": "sole6862",
+      "actor": "black",
+      "witness_xyz": [
+        -0.11713805167004304,
+        0.14165073766903985,
+        0.005085417456200336
+      ],
+      "witness_id": 6862,
+      "source_coordinate": [
+        776.6044311523438,
+        430.82171630859375
+      ],
+      "source_coordinate_contract": "COLMAP half-center UV; floor to integer pixel index",
+      "camera": 41,
+      "query_id": 3,
+      "accepted_AABB_interval": [
+        0.8877230906393374,
+        1.4412915253026655
+      ],
+      "query_witness_depth": 1.2989509176048883,
+      "point_to_pixel_ray_distance": 4.120039364139508e-05
+    },
+    {
+      "camera_name": "JB",
+      "x": 893,
+      "y": 519,
+      "region": "sole6862",
+      "actor": "black",
+      "witness_xyz": [
+        -0.11713805167004304,
+        0.14165073766903985,
+        0.005085417456200336
+      ],
+      "witness_id": 6862,
+      "source_coordinate": [
+        893.465087890625,
+        519.1986694335938
+      ],
+      "source_coordinate_contract": "COLMAP half-center UV; floor to integer pixel index",
+      "camera": 42,
+      "query_id": 4,
+      "accepted_AABB_interval": [
+        0.7997775342363077,
+        1.3930396922445143
+      ],
+      "query_witness_depth": 1.2214704932655394,
+      "point_to_pixel_ray_distance": 0.0001546022361946945
+    },
+    {
+      "camera_name": "KB",
+      "x": 875,
+      "y": 478,
+      "region": "sole6862",
+      "actor": "black",
+      "witness_xyz": [
+        -0.11713805167004304,
+        0.14165073766903985,
+        0.005085417456200336
+      ],
+      "witness_id": 6862,
+      "source_coordinate": [
+        875.58447265625,
+        478.4267883300781
+      ],
+      "source_coordinate_contract": "COLMAP half-center UV; floor to integer pixel index",
+      "camera": 46,
+      "query_id": 5,
+      "accepted_AABB_interval": [
+        0.853968843570787,
+        1.378105007805065
+      ],
+      "query_witness_depth": 1.2075520093035295,
+      "point_to_pixel_ray_distance": 7.093552585205763e-05
+    }
+  ],
+  "observations": 109,
+  "unique_XYZ": 41,
+  "probability_reference_FP64": [
+    0.9998357634898055,
+    0.9998357634898055,
+    0.9999038655478245,
+    0.9999038655478245,
+    0.9999109467638859,
+    0.9999109467638859,
+    0.9998944815995459,
+    0.9998944815995459,
+    0.999895947744923,
+    0.999895947744923,
+    0.9998937901995751,
+    0.9998937901995751,
+    0.9999103687303277,
+    0.9999103687303277,
+    0.9998842435131139,
+    0.9998842435131139,
+    0.9998854679435518,
+    0.9998854679435518,
+    0.9998069307019701,
+    0.9998069307019701,
+    0.9998038273084485,
+    0.9998038273084485,
+    0.9998820489245597,
+    0.9998820489245597,
+    0.9998567637813721,
+    0.9998567637813721,
+    0.9998709612908134,
+    0.9998709612908134,
+    0.9998856927446179,
+    0.9998856927446179,
+    0.9998856927446179,
+    0.9998980911347761,
+    0.9998980911347761,
+    0.9998980911347761,
+    0.9999171122434486,
+    0.9999171122434486,
+    0.9999171122434486,
+    0.9998954849116077,
+    0.9998954849116077,
+    0.9998954849116077,
+    0.9998373970087674,
+    0.9998373970087674,
+    0.9998373970087674,
+    0.9998478693920356,
+    0.9998478693920356,
+    0.9998478693920356,
+    0.9999434251817805,
+    0.9999434251817805,
+    0.9999434251817805,
+    0.9999480579427487,
+    0.9999480579427487,
+    0.9999480579427487,
+    0.9999517408746852,
+    0.9999517408746852,
+    0.9999517408746852,
+    0.999960365549546,
+    0.999960365549546,
+    0.999960365549546,
+    0.9999295964817572,
+    0.9999295964817572,
+    0.9999295964817572,
+    0.9999398657126121,
+    0.9999398657126121,
+    0.9999398657126121,
+    0.999830156071875,
+    0.999830156071875,
+    0.999830156071875,
+    0.9999455590485319,
+    0.9999455590485319,
+    0.9999455590485319,
+    0.9999432427580158,
+    0.9999432427580158,
+    0.9999432427580158,
+    0.9999434765819909,
+    0.9999434765819909,
+    0.9999434765819909,
+    0.9999678772175697,
+    0.9999678772175697,
+    0.9999678772175697,
+    0.9998887707026958,
+    0.9998887707026958,
+    0.9998887707026958,
+    0.9999203755675675,
+    0.9999203755675675,
+    0.9999203755675675,
+    0.9996965502563364,
+    0.9996965502563364,
+    0.9996965502563364,
+    0.9999390000284267,
+    0.9999390000284267,
+    0.9999390000284267,
+    0.9999608595082001,
+    0.9999608595082001,
+    0.9999608595082001,
+    0.9999567469945483,
+    0.9999567469945483,
+    0.9999567469945483,
+    0.9999428169616147,
+    0.9999428169616147,
+    0.9999428169616147,
+    0.9999435773746247,
+    0.9999435773746247,
+    0.9999435773746247,
+    0.999940696018284,
+    0.999940696018284,
+    0.999940696018284,
+    0.9926663306039233,
+    0.9926663306039233,
+    0.9926663306039233
+  ],
+  "interpolated_logit_reference_FP64": [
+    8.714038783687036,
+    8.714038783687036,
+    9.249666663773104,
+    9.249666663773104,
+    9.326187151270355,
+    9.326187151270355,
+    9.156519684400918,
+    9.156519684400918,
+    9.170513274677834,
+    9.170513274677834,
+    9.149987955254367,
+    9.149987955254367,
+    9.319716671700721,
+    9.319716671700721,
+    9.063906061167813,
+    9.063906061167813,
+    9.074541266558358,
+    9.074541266558358,
+    8.552268288417048,
+    8.552268288417048,
+    8.536319015376609,
+    8.536319015376609,
+    9.045122676354302,
+    9.045122676354302,
+    8.850872165559856,
+    8.850872165559856,
+    8.955269080365904,
+    8.955269080365904,
+    9.076506198729646,
+    9.076506198729646,
+    9.076506198729646,
+    9.191329708209288,
+    9.191329708209288,
+    9.191329708209288,
+    9.397940304906399,
+    9.397940304906399,
+    9.397940304906399,
+    9.16607458990349,
+    9.16607458990349,
+    9.16607458990349,
+    8.724036348542306,
+    8.724036348542306,
+    8.724036348542306,
+    8.79061900096822,
+    8.79061900096822,
+    8.79061900096822,
+    9.779890003121976,
+    9.779890003121976,
+    9.779890003121976,
+    9.865329800880168,
+    9.865329800880168,
+    9.865329800880168,
+    9.938877362073391,
+    9.938877362073391,
+    9.938877362073391,
+    10.1357722217075,
+    10.1357722217075,
+    10.1357722217075,
+    9.56119691501224,
+    9.56119691501224,
+    9.56119691501224,
+    9.71887023738198,
+    9.71887023738198,
+    9.71887023738198,
+    8.680460754098204,
+    8.680460754098204,
+    8.680460754098204,
+    9.818339460528621,
+    9.818339460528621,
+    9.818339460528621,
+    9.7766705388372,
+    9.7766705388372,
+    9.7766705388372,
+    9.78079900263004,
+    9.78079900263004,
+    9.78079900263004,
+    10.345912923237812,
+    10.345912923237812,
+    10.345912923237812,
+    9.103805510398498,
+    9.103805510398498,
+    9.103805510398498,
+    9.438109944501747,
+    9.438109944501747,
+    9.438109944501747,
+    8.099991054628733,
+    8.099991054628733,
+    8.099991054628733,
+    9.704576157969054,
+    9.704576157969054,
+    9.704576157969054,
+    10.148313889668332,
+    10.148313889668332,
+    10.148313889668332,
+    10.048400582844467,
+    10.048400582844467,
+    10.048400582844467,
+    9.769196050605908,
+    9.769196050605908,
+    9.769196050605908,
+    9.782583896550008,
+    9.782583896550008,
+    9.782583896550008,
+    9.732774803179991,
+    9.732774803179991,
+    9.732774803179991,
+    4.907918595652459,
+    4.907918595652459,
+    4.907918595652459
+  ],
+  "inside_semantic_bounds": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "selected_by_reference": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "near_threshold_arithmetic_guard": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+  ],
+  "per_cascade": [
+    {
+      "level": 0,
+      "native_cell_indices": [
+        [
+          108,
+          88,
+          68
+        ],
+        [
+          108,
+          88,
+          68
+        ],
+        [
+          109,
+          87,
+          69
+        ],
+        [
+          109,
+          87,
+          69
+        ],
+        [
+          109,
+          87,
+          69
+        ],
+        [
+          109,
+          87,
+          69
+        ],
+        [
+          108,
+          87,
+          69
+        ],
+        [
+          108,
+          87,
+          69
+        ],
+        [
+          108,
+          87,
+          69
+        ],
+        [
+          108,
+          87,
+          69
+        ],
+        [
+          108,
+          86,
+          69
+        ],
+        [
+          108,
+          86,
+          69
+        ],
+        [
+          108,
+          85,
+          69
+        ],
+        [
+          108,
+          85,
+          69
+        ],
+        [
+          108,
+          85,
+          69
+        ],
+        [
+          108,
+          85,
+          69
+        ],
+        [
+          108,
+          85,
+          69
+        ],
+        [
+          108,
+          85,
+          69
+        ],
+        [
+          109,
+          84,
+          70
+        ],
+        [
+          109,
+          84,
+          70
+        ],
+        [
+          109,
+          88,
+          68
+        ],
+        [
+          109,
+          88,
+          68
+        ],
+        [
+          109,
+          85,
+          70
+        ],
+        [
+          109,
+          85,
+          70
+        ],
+        [
+          108,
+          88,
+          68
+        ],
+        [
+          108,
+          88,
+          68
+        ],
+        [
+          109,
+          86,
+          70
+        ],
+        [
+          109,
+          86,
+          70
+        ],
+        [
+          111,
+          89,
+          43
+        ],
+        [
+          111,
+          89,
+          43
+        ],
+        [
+          111,
+          89,
+          43
+        ],
+        [
+          111,
+          89,
+          43
+        ],
+        [
+          111,
+          89,
+          43
+        ],
+        [
+          111,
+          89,
+          43
+        ],
+        [
+          110,
+          90,
+          45
+        ],
+        [
+          110,
+          90,
+          45
+        ],
+        [
+          110,
+          90,
+          45
+        ],
+        [
+          111,
+          88,
+          45
+        ],
+        [
+          111,
+          88,
+          45
+        ],
+        [
+          111,
+          88,
+          45
+        ],
+        [
+          111,
+          88,
+          44
+        ],
+        [
+          111,
+          88,
+          44
+        ],
+        [
+          111,
+          88,
+          44
+        ],
+        [
+          111,
+          90,
+          44
+        ],
+        [
+          111,
+          90,
+          44
+        ],
+        [
+          111,
+          90,
+          44
+        ],
+        [
+          113,
+          73,
+          65
+        ],
+        [
+          113,
+          73,
+          65
+        ],
+        [
+          113,
+          73,
+          65
+        ],
+        [
+          110,
+          57,
+          33
+        ],
+        [
+          110,
+          57,
+          33
+        ],
+        [
+          110,
+          57,
+          33
+        ],
+        [
+          107,
+          61,
+          43
+        ],
+        [
+          107,
+          61,
+          43
+        ],
+        [
+          107,
+          61,
+          43
+        ],
+        [
+          115,
+          67,
+          53
+        ],
+        [
+          115,
+          67,
+          53
+        ],
+        [
+          115,
+          67,
+          53
+        ],
+        [
+          102,
+          71,
+          46
+        ],
+        [
+          102,
+          71,
+          46
+        ],
+        [
+          102,
+          71,
+          46
+        ],
+        [
+          115,
+          84,
+          42
+        ],
+        [
+          115,
+          84,
+          42
+        ],
+        [
+          115,
+          84,
+          42
+        ],
+        [
+          111,
+          70,
+          38
+        ],
+        [
+          111,
+          70,
+          38
+        ],
+        [
+          111,
+          70,
+          38
+        ],
+        [
+          108,
+          73,
+          51
+        ],
+        [
+          108,
+          73,
+          51
+        ],
+        [
+          108,
+          73,
+          51
+        ],
+        [
+          116,
+          62,
+          45
+        ],
+        [
+          116,
+          62,
+          45
+        ],
+        [
+          116,
+          62,
+          45
+        ],
+        [
+          111,
+          64,
+          47
+        ],
+        [
+          111,
+          64,
+          47
+        ],
+        [
+          111,
+          64,
+          47
+        ],
+        [
+          103,
+          64,
+          47
+        ],
+        [
+          103,
+          64,
+          47
+        ],
+        [
+          103,
+          64,
+          47
+        ],
+        [
+          115,
+          84,
+          48
+        ],
+        [
+          115,
+          84,
+          48
+        ],
+        [
+          115,
+          84,
+          48
+        ],
+        [
+          109,
+          64,
+          40
+        ],
+        [
+          109,
+          64,
+          40
+        ],
+        [
+          109,
+          64,
+          40
+        ],
+        [
+          114,
+          69,
+          43
+        ],
+        [
+          114,
+          69,
+          43
+        ],
+        [
+          114,
+          69,
+          43
+        ],
+        [
+          111,
+          76,
+          53
+        ],
+        [
+          111,
+          76,
+          53
+        ],
+        [
+          111,
+          76,
+          53
+        ],
+        [
+          112,
+          60,
+          45
+        ],
+        [
+          112,
+          60,
+          45
+        ],
+        [
+          112,
+          60,
+          45
+        ],
+        [
+          108,
+          63,
+          47
+        ],
+        [
+          108,
+          63,
+          47
+        ],
+        [
+          108,
+          63,
+          47
+        ],
+        [
+          108,
+          69,
+          51
+        ],
+        [
+          108,
+          69,
+          51
+        ],
+        [
+          108,
+          69,
+          51
+        ],
+        [
+          113,
+          65,
+          49
+        ],
+        [
+          113,
+          65,
+          49
+        ],
+        [
+          113,
+          65,
+          49
+        ],
+        [
+          93,
+          73,
+          15
+        ],
+        [
+          93,
+          73,
+          15
+        ],
+        [
+          93,
+          73,
+          15
+        ],
+        [
+          93,
+          71,
+          13
+        ],
+        [
+          93,
+          71,
+          13
+        ],
+        [
+          93,
+          71,
+          13
+        ]
+      ],
+      "inside_native_bounds": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "classifications": {
+        "active_r0": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "active_r1": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "alternative_filter_then_dilate_r1": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "original_active": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "original_admission": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "semantic_envelope": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    }
+  ],
+  "diagnostic_only": true,
+  "labels_or_targets_changed": false,
+  "physical_geometry_certified": false
+}

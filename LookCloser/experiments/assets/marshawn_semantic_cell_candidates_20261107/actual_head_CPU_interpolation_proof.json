@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "CPU_only": true,
+  "native_model_loaded": false,
+  "head_module_instantiated": false,
+  "CUDA_started": false,
+  "RNG_unchanged": true,
+  "actual_head_logits_grid_sample_FP32": [
+    {
+      "prior": "prior099_fresh2064",
+      "head_sha256": "f2eb8982169728556fe956fdfaac313f47a52d2aeb628ff0f0cbb122dae8a341",
+      "observations": 109,
+      "max_CPU_FP32_vs_FP64_probability_abs_error": 1.457017321238041e-07,
+      "actual_minimum": 0.9926661849021912,
+      "threshold_classifications_equal": true
+    },
+    {
+      "prior": "prior001_fresh2064",
+      "head_sha256": "bdb2cc0d8138e4c22c61b4d411227b272b95ceac9e8295d474eecc4a84aa98bc",
+      "observations": 109,
+      "max_CPU_FP32_vs_FP64_probability_abs_error": 2.749952256575483e-06,
+      "actual_minimum": 0.5110673904418945,
+      "threshold_classifications_equal": true
+    }
+  ],
+  "not_a_GPU_arithmetic_certificate": true
+}

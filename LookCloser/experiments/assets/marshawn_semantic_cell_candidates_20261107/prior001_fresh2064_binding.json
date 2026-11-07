@@ -1,0 +1,54 @@
+{
+  "schema": "LC_SEMANTIC_CELL_CPU_V1",
+  "ready": true,
+  "files": {
+    "head": {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_head_archives/recovery1_20261107_v1/runs/prior001_fresh2064/head.pt",
+      "sha256": "bdb2cc0d8138e4c22c61b4d411227b272b95ceac9e8295d474eecc4a84aa98bc"
+    },
+    "completion": {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_head_archives/recovery1_20261107_v1/runs/prior001_fresh2064/complete.json",
+      "sha256": "956054a566bc1fe20b823bdf5d10a986239890251249d03e011ecad0cb4b0786"
+    },
+    "spec": {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_head_archives/recovery1_20261107_v1/specs/prior001_fresh2064.json",
+      "sha256": "71daf7050fd45aaa580714533a3d11ac80168ebe3e2ab04984dfaf7055984f16"
+    },
+    "contract": {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_head_archives/recovery1_20261107_v1/head_input_contract.json",
+      "sha256": "d8fcdb5a26fdac3b3e5bf6997bd7fac07bad97ed7aa641d0be726d4bab0b9279"
+    },
+    "capture": {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_capture_plan_v4/capture/complete.json",
+      "sha256": "fb8b875d8c7f3676c3dfbd187b4c76c3ee40ec8a3b62a940fdf33bb97d99073d"
+    },
+    "labels": {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_head_archives/recovery1_20261107_v1/label_qualification.json",
+      "sha256": "b6dbb292c46637d471592c2e4e6f03053dc061c4b927ee8f2817f30d559104b7"
+    },
+    "adapter": {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_head_archives/recovery1_20261107_v1/capture_adapter_receipt.json",
+      "sha256": "ffade75fa094e412a1d9d7f4ef2307ed6b389fe707f01bc858b256f078c5061b"
+    },
+    "alias_equivalence": {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_head_archives/recovery1_20261107_v1/canonical_equivalence.json",
+      "sha256": "e0519e6ef5ef8309605003efc0c5a0da109549054e721df374265c41996bea39"
+    },
+    "grid_json": {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_quarter_distortion_final_geometry/quarter_distortion_rawmin/grid.json",
+      "sha256": "5a5e0418434395b7d08cde8da923f14fd1f6301746912f6288cb58c31fc8bec9"
+    },
+    "grid_npz": {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_quarter_distortion_final_geometry/quarter_distortion_rawmin/grid.npz",
+      "sha256": "7db15fdda89f0661e767e53dd97ab34f3346550aa319d4363bdd6332b3cbac0f"
+    },
+    "clothing103": {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/quarter_distortion_sourcepoint_counterfactual_v1/queries/clothing103.json",
+      "sha256": "e11c111e4a41b02417e98ae2e0f4f5f6055883c070539b2334748974bb3c712c"
+    },
+    "shoe6": {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/quarter_distortion_sourcepoint_counterfactual_v1/queries/shoe6.json",
+      "sha256": "b8dc52856872bd3f9f26bc1eee3e94110e992bf69ebc60009b68718589f57dde"
+    }
+  }
+}

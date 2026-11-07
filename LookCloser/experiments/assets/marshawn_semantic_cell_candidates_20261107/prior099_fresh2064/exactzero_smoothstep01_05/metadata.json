@@ -1,0 +1,112 @@
+{
+  "schema": "LC_SEMANTIC_CELL_CANDIDATE_V1",
+  "candidate_sha256": "62b05b89d90dfb754de5f5b66c3f81af79dbffdefb389158af75accaf88f4d62",
+  "binding_sha256": "5f505614a45571408d416c4e308f1f6d20e003dcbf928bf29389676ec934c573",
+  "inputs": {
+    "head": "f2eb8982169728556fe956fdfaac313f47a52d2aeb628ff0f0cbb122dae8a341",
+    "completion": "7228f428c0f94b4d13e0c4c47cfcecc6d5b93c727a78153d2b0fee0c6a8ae167",
+    "spec": "afae30c7dde1255d5273d184107e4a769a9aca6eb33407ba0708d405428de7a4",
+    "contract": "d8fcdb5a26fdac3b3e5bf6997bd7fac07bad97ed7aa641d0be726d4bab0b9279",
+    "capture": "fb8b875d8c7f3676c3dfbd187b4c76c3ee40ec8a3b62a940fdf33bb97d99073d",
+    "labels": "b6dbb292c46637d471592c2e4e6f03053dc061c4b927ee8f2817f30d559104b7",
+    "adapter": "ffade75fa094e412a1d9d7f4ef2307ed6b389fe707f01bc858b256f078c5061b",
+    "alias_equivalence": "e0519e6ef5ef8309605003efc0c5a0da109549054e721df374265c41996bea39",
+    "grid_json": "5a5e0418434395b7d08cde8da923f14fd1f6301746912f6288cb58c31fc8bec9",
+    "grid_npz": "7db15fdda89f0661e767e53dd97ab34f3346550aa319d4363bdd6332b3cbac0f",
+    "clothing103": "e11c111e4a41b02417e98ae2e0f4f5f6055883c070539b2334748974bb3c712c",
+    "shoe6": "b8dc52856872bd3f9f26bc1eee3e94110e992bf69ebc60009b68718589f57dde"
+  },
+  "source_checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "source_pipeline_digest": "c83bc7dbb1504063c35f0a2b14ae3fb329ff27ed2eb6b3661eb89b4918d46636",
+  "head_sha256": "f2eb8982169728556fe956fdfaac313f47a52d2aeb628ff0f0cbb122dae8a341",
+  "source_grid_sha256": "7db15fdda89f0661e767e53dd97ab34f3346550aa319d4363bdd6332b3cbac0f",
+  "selector": "exactzero_smoothstep01_05",
+  "initial_probability": 0.99,
+  "head_iteration": 2064,
+  "head_digest": "628dd1e9688800d148d498bf301bc6dfe9d3748c674f7057c251af0850e5e315",
+  "coordinate_guard": 2e-07,
+  "numerical_logit_guard": 1e-05,
+  "node_contract": {
+    "storage": "XYZ",
+    "grid_sample_coordinates": "ZYX",
+    "interpolation": "trilinear_LOGIT_then_sigmoid",
+    "align_corners": true,
+    "padding_mode": "border",
+    "resolution": [
+      128,
+      128,
+      128
+    ],
+    "bounds": [
+      [
+        -0.8399999737739563,
+        -0.20999999344348907,
+        -0.07000000029802322
+      ],
+      [
+        0.15000000596046448,
+        0.41999998688697815,
+        0.6299999952316284
+      ]
+    ],
+    "world_to_box": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "outside_probability": 0,
+    "threshold_equality": "inactive"
+  },
+  "composition": {
+    "primary": "active_R = fresh_dilate(source_core,R) & original_admission & semantic_envelope",
+    "alternative": "fresh_dilate(source_core & original_admission & semantic_envelope,1) & original_admission & semantic_envelope"
+  },
+  "counts": {
+    "active_r0": 31056,
+    "active_r1": 63203,
+    "alternative_filter_then_dilate_r1": 63199,
+    "original_active": 32046,
+    "source_core": 32046,
+    "original_admission": 131911,
+    "semantic_envelope": 2096083
+  },
+  "r1_new_vs_original": 32147,
+  "alternative_r1_xor_primary": 4,
+  "witnesses_sha256": "eaca3198d5e85863b5c9de745fcd9c53846a5809a6ef912aa3d3dc9a52492ee6",
+  "source_masks_and_records_unchanged": true,
+  "implementation_sha256": {
+    "export_marshawn_semantic_cell_candidates_cpu.py": "74a4583450c13bc6eb38d3b1cdeb25da8cc8638afd7b0977a99ec6be2e0046a0",
+    "marshawn_semantic_node_cell_bridge.py": "e72ec5a32d41a9511742d90a8e61d124e86f13c15e20849413804a841dd829d0"
+  },
+  "CPU_only": true,
+  "phi_installed_or_changed": false,
+  "runtime_integration_authorized": false,
+  "prerequisites_for_future_replay": [
+    "Install exactly bound physical density selector separately; this array loader never changes phi.",
+    "Actual CUDA interpolation/threshold support checks, all109 witness probabilities, native/dense/full-render coverage.",
+    "Native source core may omit raw sigma; semantic support does not repair false base cells.",
+    "FreshR1 exposes potentially untrained/skipped sigma and changes stepping phase; independently inspect it.",
+    "Support certificate is for chosen semantic gate only, not physical free space or complete actor/hair/feet coverage."
+  ]
+}

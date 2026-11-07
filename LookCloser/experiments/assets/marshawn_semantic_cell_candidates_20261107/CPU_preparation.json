@@ -1,0 +1,29 @@
+{
+  "CPU_only": true,
+  "actual_head_available_at_preparation": false,
+  "source_grid_sha256": "7db15fdda89f0661e767e53dd97ab34f3346550aa319d4363bdd6332b3cbac0f",
+  "source_grid_metadata_sha256": "5a5e0418434395b7d08cde8da923f14fd1f6301746912f6288cb58c31fc8bec9",
+  "source_checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "source_pipeline_digest": "c83bc7dbb1504063c35f0a2b14ae3fb329ff27ed2eb6b3661eb89b4918d46636",
+  "capture_sha256": "fb8b875d8c7f3676c3dfbd187b4c76c3ee40ec8a3b62a940fdf33bb97d99073d",
+  "source_baseline_counts": {
+    "active_r0": 32046,
+    "active_r1": 64268,
+    "alternative_filter_then_dilate_r1": 64268,
+    "original_active": 32046,
+    "source_core": 32046,
+    "original_admission": 131911
+  },
+  "source109_actual_R0_active": 109,
+  "source109_fresh_R1_active": 109,
+  "source_observations": 109,
+  "unique_points": 41,
+  "candidate_outputs_written": false,
+  "no_model_loaded": true,
+  "CUDA_started": false,
+  "implementation_sha256": {
+    "export_marshawn_semantic_cell_candidates_cpu.py": "74a4583450c13bc6eb38d3b1cdeb25da8cc8638afd7b0977a99ec6be2e0046a0",
+    "render_marshawn_semantic_cell_slices_cpu.py": "3abaeb739e9a2b435556be09c34521639685370b1ab41a50717537a9e7f7c340",
+    "marshawn_semantic_node_cell_bridge.py": "e72ec5a32d41a9511742d90a8e61d124e86f13c15e20849413804a841dd829d0"
+  }
+}

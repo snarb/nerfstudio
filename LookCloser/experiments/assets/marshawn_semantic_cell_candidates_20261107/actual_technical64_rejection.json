@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "source_head_sha256": "83f91b7c7cf852681d7df1756389fb59264a471064d5db97411039e215afeb0a",
+  "reason": "Only completed fresh2064 heads are candidates, not technical weights",
+  "CUDA_started": false,
+  "RNG_unchanged": true
+}
