@@ -1,5 +1,7 @@
 # Corrected ARM continuation preparation
 
+**Final result:** Corrected1024 warm training produced no quality or visible geometry improvement over unchanged source126316. Both branches reached natural plateau; every reported checkpoint selector retains the source at PSNR31.639727, SSIM.831264, LPIPS.01877312. Source, code and common training-stream closure pass; no checkpoint is promoted. [Final CPU verification](assets/marshawn_corrected_arm_warm_20261107/production_verification_v1.json), [compact final summary](assets/marshawn_corrected_arm_warm_20261107/production_final_summary.json).
+
 ## What was tested
 
 CPU-only audit of an untested native sampler factor on quarter-step+.1 source126316: `corrected_arm_allocator=False→True`, keeping `max_steps_per_ray=1024`, actual distortion.1, FR.3, originalR0/W64/body80, frozen TRAIN63 maps, camera transforms and color unchanged. The local paper's Adaptive Ray Marching section motivates frequency-dependent integration; it does not specify this implementation's rounding/capping algorithm.
@@ -105,4 +107,23 @@ All three full FHD RGB/alpha renders and the fixed original nine hair/hands-cont
 
 [Fixed nine detail comparisons at4000](assets/marshawn_corrected_arm_warm_20261107/production4000_all_details.jpg). All committed early manifests, full renders and individual guard PNGs remain in [the retained visual gates](/fsx/tmp/marshawn_001660_hd/tuning_20261106/corrected_arm_warm_candidate_v1/external_guard_corrected_ARM_v1/visual_gates_v1).
 
-Training continues under the unchanged validation plateau rule, with its new130316 anchor and5000-step interval. Latest recorded10:12:36 health is133365/133259, both expected workers and guardians alive, sampled GPU memory8086/7964MiB and no OOM/tracebacks. This is an interim result; no quality promotion or stopping-rule change is made.
+The early gates continued under the unchanged validation plateau rule, with its new130316 anchor and5000-step interval. At10:12:36 both expected workers and guardians remained alive at133365/133259, sampled GPU memory8086/7964MiB and no OOM/tracebacks. No quality promotion or stopping-rule change was made.
+
+## Natural terminal result
+
+|Actual evaluated field|Warm attempts|PSNR|SSIM|LPIPS|
+|---|---:|---:|---:|---:|
+|Unchanged source126316|0|31.639727|.831264|.01877312|
+|Legacy1024 at150316|24000|31.575576|.830046|.01889728|
+|Corrected1024 at150316, matched step|24000|31.577410|.830112|.01887845|
+|Corrected1024 at155316, own terminal|29000|31.577419|.829857|.01881533|
+
+Corrected continued an additional5000 steps because the unchanged criterion had an earlier qualifying improvement. Neither trial was capped. Actual Adam updates are23989/28987 with11/13 AMP skips. At common150316, global RNG, sampler state, entire main-ray index chain and attempted-update count are all exactly equal across arms; streams were observed, never forced equal. All63 original confidence hashes/normalizers, explicit cache associations, FR.3, distortion.1 and fixed admission/cascade/resolution pass the remote CPU audit. Original checkpointSHA340e794…cd641 and all1495 scientific files plus helpers remain exact.
+
+The final CPU proofSHA is`457c5800172242943e616f921dbe31bafb7b2f2638779bb2f3da56bbf1be0696`. Highest PSNR, the LPIPS tie-break within.07dB, raw LPIPS and the inherited selector all retain source126316. Its already proven three FHD RGB/alpha renders are saved with exact hashes under [selected_reference](/fsx/tmp/marshawn_001660_hd/tuning_20261106/corrected_arm_warm_candidate_v1/selected_reference); this reuses the unchanged winning reference and creates no new quality promotion.
+
+Both actual workers return0. Local and remote guardians, controller and retention watcher finish successfully and exit. Sampled GPU memory peaks8131/8137MiB; no OOM or tracebacks occur. All16legacy and19corrected checkpoints remain remotely preserved, totaling73,365,516,663 bytes; none is transferred to olive. [Checkpoint inventory](assets/marshawn_corrected_arm_warm_20261107/production_checkpoint_inventory.json) and [supervision log](assets/marshawn_corrected_arm_warm_20261107/manual_production_supervision.jsonl) retain the evidence.
+
+![Own natural terminals, actual steps labeled](assets/marshawn_corrected_arm_warm_20261107/terminal_all_actors.jpg)
+
+[Nine fixed terminal guards](assets/marshawn_corrected_arm_warm_20261107/terminal_all_details.jpg), [source/step/ROI provenance](assets/marshawn_corrected_arm_warm_20261107/terminal_provenance.json). Final three-body and nine-detail inspection retains hair, hands and shoes; exterior head/floor clouds persist without an obvious geometry gain. The common24000 comparison is retained separately, so unequal natural terminal lengths are explicit. This warm continuation is negative; a cold corrected-allocator trial remains untested.

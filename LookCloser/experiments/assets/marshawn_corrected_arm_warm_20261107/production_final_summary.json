@@ -1,0 +1,58 @@
+{
+  "passed": true,
+  "time_utc": "2026-11-07T10:31:09.021562+00:00",
+  "CPU_verification_sha256": "457c5800172242943e616f921dbe31bafb7b2f2638779bb2f3da56bbf1be0696",
+  "source_checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "source7_exact_before_policy": true,
+  "all1495_and_helpers_unchanged": true,
+  "common_step": 150316,
+  "observed_common_stream_equality": {
+    "global_RNG": true,
+    "sampler": true,
+    "indices_chain": true,
+    "attempts": true
+  },
+  "arms": {
+    "legacy1024": {
+      "returncode": 0,
+      "wall_seconds": 1115.7082657814026,
+      "sampled_peak_memory_MiB": 8131,
+      "OOM": false,
+      "traceback": false,
+      "final_step": 150316,
+      "attempts": 24000,
+      "terminal_metrics": {
+        "psnr": 31.575576199274934,
+        "ssim": 0.8300464848677317,
+        "lpips": 0.01889727994178732
+      },
+      "selected_reference_step": 126316,
+      "raw_min_step": 126316,
+      "final_checkpoint_sha256": "5e91b477866c0fe2d22ce56396f5b7be6b9d7a67aea16a71c7c5d19219aeefd9"
+    },
+    "corrected1024": {
+      "returncode": 0,
+      "wall_seconds": 1356.8692288398743,
+      "sampled_peak_memory_MiB": 8137,
+      "OOM": false,
+      "traceback": false,
+      "final_step": 155316,
+      "attempts": 29000,
+      "terminal_metrics": {
+        "psnr": 31.57741930712477,
+        "ssim": 0.8298568228880564,
+        "lpips": 0.018815328522274893
+      },
+      "selected_reference_step": 126316,
+      "raw_min_step": 126316,
+      "final_checkpoint_sha256": "15e19ca0940ef35c8064fffa64591f7c85613289531303a4c475fe601e046a2d"
+    }
+  },
+  "all_expected_checkpoints_preserved": true,
+  "local_and_remote_guardian_passed": true,
+  "guard_events": [],
+  "guard_terminations": {},
+  "checkpoints_transferred_to_olive": false,
+  "quality_promotion": false,
+  "conclusion": "No continuation beats unchanged source126316; all reported checkpoint selectors retain source. Warm corrected1024 is not a measured geometry/quality improvement here; cold corrected training remains untested."
+}

@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "arms": {
+    "legacy1024": {
+      "checkpoint_count": 16,
+      "all_expected_checkpoints_preserved": true,
+      "checkpoint_bytes": 33538513488,
+      "source_parent_retained": true
+    },
+    "corrected1024": {
+      "checkpoint_count": 19,
+      "all_expected_checkpoints_preserved": true,
+      "checkpoint_bytes": 39827003175,
+      "source_parent_retained": true
+    }
+  },
+  "checkpoints_copied_locally": false
+}

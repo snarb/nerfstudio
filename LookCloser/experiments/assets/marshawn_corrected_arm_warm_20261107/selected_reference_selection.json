@@ -1,0 +1,28 @@
+{
+  "unchanged_existing_reference": true,
+  "new_quality_promotion": false,
+  "step": 126316,
+  "checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "selectors": [
+    "highest_PSNR",
+    "PSNR_within_0.07dB_then_LPIPS",
+    "raw_LPIPS",
+    "historical"
+  ],
+  "metric_domain": "unchanged fixed V1 equal actors per camera then equal cameras",
+  "source_checkpoint_local": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_capture_plan_v2/local_source/checkpoint.ckpt",
+  "renders_sha256": {
+    "DC_alpha.png": "1058061cc1de9489ef000c0f9702b51c0ab08eb388de65fb58e496efde099e59",
+    "DC.png": "a7b4d90a165e19fc9513d1fd0767c08c157868342edd35582e5e0984af608229",
+    "KA.png": "f99c87f01f09abd10e4d532b025d398025e3174c9d4d698543ce8e1cd266a579",
+    "metrics.json": "a0356da49e40d82e7264308cd829077d78312edb438296c5753fd9ae2f8dca9e",
+    "HC_alpha.png": "20690cb8ee90d43b65c789cf705c9a740f9669a8af214a74d71eb5deb2ebe2d0",
+    "HC.png": "d74f1af772668738b18cf44f5dc74b4e3b9f6b39ee5d8aa04233ec87fe0e7326",
+    "KA_alpha.png": "d9ed58adece05fe7e5637aa10085b2ac476d385525bc7b40ee32415be834c6ab"
+  },
+  "original_render_reused": true,
+  "source_replay_zero_verified": true,
+  "CUDA_job_launched_for_export": false,
+  "source_checkpoint_remote": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_quarter_distortion_final_geometry/quarter_distortion_rawmin/checkpoint.ckpt",
+  "source_pipeline_sha256": "c83bc7dbb1504063c35f0a2b14ae3fb329ff27ed2eb6b3661eb89b4918d46636"
+}
