@@ -1,0 +1,81 @@
+{
+  "analysis_sha256": "498b132c7d586b71e21b9f3763149aa487a887bdb8112a0eea40ed3918bb0e2d",
+  "phases": [
+    {
+      "step": 0,
+      "outside_Eq_weight": {
+        "original": 0.029921168217805515,
+        "bag6522": 0.029920546510364025,
+        "delta2": 0.018781004514673794,
+        "delta4": 0.024420021275467486
+      },
+      "outside_fraction_of_normalized_RGB_objective": {
+        "original": 0.04366179650974472,
+        "bag6522": 0.04371901460180124,
+        "delta2": 0.027896308169488924,
+        "delta4": 0.03597091596702949
+      }
+    },
+    {
+      "step": 4096,
+      "outside_Eq_weight": {
+        "original": 0.029921168217805515,
+        "bag6522": 0.029920546510364025,
+        "delta2": 0.018781004514673794,
+        "delta4": 0.024420021275467486
+      },
+      "outside_fraction_of_normalized_RGB_objective": {
+        "original": 0.04366179650974472,
+        "bag6522": 0.04371901460180124,
+        "delta2": 0.027896308169488924,
+        "delta4": 0.03597091596702949
+      }
+    },
+    {
+      "step": 6144,
+      "outside_Eq_weight": {
+        "original": 0.027425279611802487,
+        "bag6522": 0.027424790176638417,
+        "delta2": 0.016877907698143884,
+        "delta4": 0.022167251784251135
+      },
+      "outside_fraction_of_normalized_RGB_objective": {
+        "original": 0.03990243284137408,
+        "bag6522": 0.03994980314952594,
+        "delta2": 0.024969743958629578,
+        "delta4": 0.032540341619065154
+      }
+    },
+    {
+      "step": 8192,
+      "outside_Eq_weight": {
+        "original": 0.024933045308297267,
+        "bag6522": 0.02493268795174696,
+        "delta2": 0.014977597260554728,
+        "delta4": 0.019917780637824265
+      },
+      "outside_fraction_of_normalized_RGB_objective": {
+        "original": 0.03617049749383666,
+        "bag6522": 0.036209031975080276,
+        "delta2": 0.022070623462229044,
+        "delta4": 0.029138239036232177
+      }
+    },
+    {
+      "step": 111316,
+      "outside_Eq_weight": {
+        "original": 0.024933045308297267,
+        "bag6522": 0.02493268795174696,
+        "delta2": 0.014977597260554728,
+        "delta4": 0.019917780637824265
+      },
+      "outside_fraction_of_normalized_RGB_objective": {
+        "original": 0.03617049749383666,
+        "bag6522": 0.036209031975080276,
+        "delta2": 0.022070623462229044,
+        "delta4": 0.029138239036232177
+      }
+    }
+  ],
+  "meaning": "Expected weighted RGB contribution of outside original RAW union under unchanged body80 proposal; not an opacity or empty-space label."
+}

@@ -1,0 +1,155 @@
+{
+  "passed": true,
+  "CPU_only": true,
+  "actual63camera_frozen_adapter": true,
+  "source_sampling_sha256": "6b175a5a30bd6f67001fe3e006738002d4e3a7fe85d2f619e0d0d04c39288aa6",
+  "source_correction_sha256": "9c0967714e70d0038efdbe2ca6b3cc946ea731116fb5bc291f13577103fba551",
+  "pools_labels_FAS_source_weights_unchanged_sha256": "ce686efdbc9c407a4b8f66df7edf6a187a65610f222c6ed726406a21b9cbe1a2",
+  "confidence_installation_RNG_unchanged": true,
+  "phases": [
+    {
+      "variant": "original",
+      "step": 0,
+      "normalizer": 0.6852940238299061,
+      "same_indices_and_RNG": true,
+      "RGB_gradient_exact_single_weight_and_analytic_normalizer": true
+    },
+    {
+      "variant": "original",
+      "step": 4096,
+      "normalizer": 0.6852940238299061,
+      "same_indices_and_RNG": true,
+      "RGB_gradient_exact_single_weight_and_analytic_normalizer": true
+    },
+    {
+      "variant": "original",
+      "step": 6144,
+      "normalizer": 0.6873084586302651,
+      "same_indices_and_RNG": true,
+      "RGB_gradient_exact_single_weight_and_analytic_normalizer": true
+    },
+    {
+      "variant": "original",
+      "step": 8192,
+      "normalizer": 0.6893199440385296,
+      "same_indices_and_RNG": true,
+      "RGB_gradient_exact_single_weight_and_analytic_normalizer": true
+    },
+    {
+      "variant": "original",
+      "step": 111316,
+      "normalizer": 0.6893199440385296,
+      "same_indices_and_RNG": true,
+      "RGB_gradient_exact_single_weight_and_analytic_normalizer": true
+    },
+    {
+      "variant": "bag6522",
+      "step": 0,
+      "normalizer": 0.6843829117120876,
+      "same_indices_and_RNG": true,
+      "RGB_gradient_exact_single_weight_and_analytic_normalizer": true
+    },
+    {
+      "variant": "bag6522",
+      "step": 4096,
+      "normalizer": 0.6843829117120876,
+      "same_indices_and_RNG": true,
+      "RGB_gradient_exact_single_weight_and_analytic_normalizer": true
+    },
+    {
+      "variant": "bag6522",
+      "step": 6144,
+      "normalizer": 0.6864812343127614,
+      "same_indices_and_RNG": true,
+      "RGB_gradient_exact_single_weight_and_analytic_normalizer": true
+    },
+    {
+      "variant": "bag6522",
+      "step": 8192,
+      "normalizer": 0.6885764846987926,
+      "same_indices_and_RNG": true,
+      "RGB_gradient_exact_single_weight_and_analytic_normalizer": true
+    },
+    {
+      "variant": "bag6522",
+      "step": 111316,
+      "normalizer": 0.6885764846987926,
+      "same_indices_and_RNG": true,
+      "RGB_gradient_exact_single_weight_and_analytic_normalizer": true
+    },
+    {
+      "variant": "delta2",
+      "step": 0,
+      "normalizer": 0.6732433697163974,
+      "same_indices_and_RNG": true,
+      "RGB_gradient_exact_single_weight_and_analytic_normalizer": true
+    },
+    {
+      "variant": "delta2",
+      "step": 4096,
+      "normalizer": 0.6732433697163974,
+      "same_indices_and_RNG": true,
+      "RGB_gradient_exact_single_weight_and_analytic_normalizer": true
+    },
+    {
+      "variant": "delta2",
+      "step": 6144,
+      "normalizer": 0.6759343518342668,
+      "same_indices_and_RNG": true,
+      "RGB_gradient_exact_single_weight_and_analytic_normalizer": true
+    },
+    {
+      "variant": "delta2",
+      "step": 8192,
+      "normalizer": 0.6786213940076005,
+      "same_indices_and_RNG": true,
+      "RGB_gradient_exact_single_weight_and_analytic_normalizer": true
+    },
+    {
+      "variant": "delta2",
+      "step": 111316,
+      "normalizer": 0.6786213940076005,
+      "same_indices_and_RNG": true,
+      "RGB_gradient_exact_single_weight_and_analytic_normalizer": true
+    },
+    {
+      "variant": "delta4",
+      "step": 0,
+      "normalizer": 0.6788823864771913,
+      "same_indices_and_RNG": true,
+      "RGB_gradient_exact_single_weight_and_analytic_normalizer": true
+    },
+    {
+      "variant": "delta4",
+      "step": 4096,
+      "normalizer": 0.6788823864771913,
+      "same_indices_and_RNG": true,
+      "RGB_gradient_exact_single_weight_and_analytic_normalizer": true
+    },
+    {
+      "variant": "delta4",
+      "step": 6144,
+      "normalizer": 0.6812236959203742,
+      "same_indices_and_RNG": true,
+      "RGB_gradient_exact_single_weight_and_analytic_normalizer": true
+    },
+    {
+      "variant": "delta4",
+      "step": 8192,
+      "normalizer": 0.6835615773848701,
+      "same_indices_and_RNG": true,
+      "RGB_gradient_exact_single_weight_and_analytic_normalizer": true
+    },
+    {
+      "variant": "delta4",
+      "step": 111316,
+      "normalizer": 0.6835615773848701,
+      "same_indices_and_RNG": true,
+      "RGB_gradient_exact_single_weight_and_analytic_normalizer": true
+    }
+  ],
+  "analysis_sha256": "498b132c7d586b71e21b9f3763149aa487a887bdb8112a0eea40ed3918bb0e2d",
+  "model_optimizer_or_GPU_created": false,
+  "training_started": false,
+  "limitation": "Proposal feasibility only. A production/resume policy binding is not installed by this audit."
+}

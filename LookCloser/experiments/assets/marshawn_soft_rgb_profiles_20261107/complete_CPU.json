@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "train_cameras": 63,
+  "profile_treatments": 4,
+  "actual_CPU_phases": 20,
+  "source_raw_and_semantic_rechecked": 126,
+  "RGB_ignore6874_proposal_only": true,
+  "source_or_recipe_modified": false,
+  "GPU_used": false,
+  "training_started": false,
+  "files": {
+    "summary.json": "4a8cce93ba7d0626081aaa62c02489ea7be92a155a4cfc0b3042859356758284",
+    "analysis.json": "498b132c7d586b71e21b9f3763149aa487a887bdb8112a0eea40ed3918bb0e2d",
+    "actual_adapter_CPU.json": "c1d25171c1e15daaea14d81f462f9259fb8fbd5723666073597c33ed5e04d0a4",
+    "sampled_outside_weight.json": "3ebafee222c13ff491dc2cf1ef97c010a51ca769888ee99f57101b1cb63b21a1",
+    "bag_interior_review_v2/review.json": "d035752cd0e243f18c26ec466bb656f81d1cbc4965240b412afd9216e67cfc3f"
+  }
+}

@@ -1,0 +1,299 @@
+{
+  "kind": "PROPOSED_RGB_IGNORE_ALL_EXISTING_QUALIFIED_BAG_INTERIOR_NOT_APPLIED",
+  "qualification_sha256": "5e904fe04a4647a6312496017ae928e24f0077340f93ba016beacebd942d15d7",
+  "manual_review_receipt_sha256": "57e32b094b57d752681a7a6d87a6aa9ca87d8eb42c2088ce83c0011f80bb1f7d",
+  "original_policy": "Manual native RAW bag interiors;2nativepixel erosion then calibrated area-remap coverage>=.99. Preserve entire sneaker/contact uncertainty.",
+  "uncertainty_policy": "16nativepixel shell around reviewed interior is UNKNOWN, not measuredfree; conservative polygons do not claim full bag silhouette.",
+  "existing_pixels": 6522,
+  "proposed_pixels": 6874,
+  "extra_positive_pixels": 352,
+  "extra_weight_sum": 233.9182539731264,
+  "rows": [
+    {
+      "camera": "MA",
+      "original_raw_source_sha256": "63cb37d1b588a8c284a54cb36a98a452218e4e82b887a84630b2d08914af6b9b",
+      "original_semantic_sha256": "f1d22efddcef8804ac07a7745ad2d8ad88970f01a6702d72f87427213b15b27c",
+      "exclusion_sha256": "2b9503333a562e4ed99afac4f2e6edc683f57095daff29a5fc7d9922dc20dc0b",
+      "shell_sha256": "2d9dad93975b0be604555dbb9364cc6e496f4e90a05628cf6065b944ba3b3abc",
+      "reconstructed_RAW_erode2_area99_mismatch": 5,
+      "replay_difference_extra_overlap": 0,
+      "OpenCV_version": "5.0.0",
+      "authoritative_existing_mask_used": true,
+      "qualified_interior_pixels": 1388,
+      "old_grey_only_pixels": 1388,
+      "extra_positive_pixels": 0,
+      "extra_weight_sum": 0.0,
+      "extra_weight_minmax": null,
+      "extra_overlaps": {
+        "black": 0,
+        "grey": 0,
+        "nominal": 0,
+        "core": 0,
+        "band": 0
+      },
+      "extra_unknown_shell_overlap": 0,
+      "extra_inside_original_RAW_levelset": 0,
+      "known109_controls_intersections": [],
+      "diagnostic_pixels": [],
+      "source_page": "MA_interior_review.jpg",
+      "source_page_sha256": "432ce04b9609dcee7892c823e4d162974d162aecd7f6b42152af4487709f6f3a"
+    },
+    {
+      "camera": "MB",
+      "original_raw_source_sha256": "dddd8a18c722fc2d624bbe358c6274a131d67742f42cefaeaaad51c6bf72dd73",
+      "original_semantic_sha256": "fbdd7d3c6293363ff846c81c3b2c6d414a9b9a14561629e376cb829a25207281",
+      "exclusion_sha256": "cee7c20b6216ed2a077c707bd4f80016c5739808d557ff28f58643894a371ee7",
+      "shell_sha256": "4a66f8d6962fc08ef8e803fe16d8b3ad0df708cd9274966ab07292f0794fa1dd",
+      "reconstructed_RAW_erode2_area99_mismatch": 0,
+      "replay_difference_extra_overlap": 0,
+      "OpenCV_version": "5.0.0",
+      "authoritative_existing_mask_used": true,
+      "qualified_interior_pixels": 1229,
+      "old_grey_only_pixels": 1229,
+      "extra_positive_pixels": 0,
+      "extra_weight_sum": 0.0,
+      "extra_weight_minmax": null,
+      "extra_overlaps": {
+        "black": 0,
+        "grey": 0,
+        "nominal": 0,
+        "core": 0,
+        "band": 0
+      },
+      "extra_unknown_shell_overlap": 0,
+      "extra_inside_original_RAW_levelset": 0,
+      "known109_controls_intersections": [],
+      "diagnostic_pixels": [
+        {
+          "label": "peak_shell",
+          "pixel": [
+            1046,
+            652
+          ],
+          "raw_array_index": [
+            4464.079402011016,
+            2784.004222908451
+          ],
+          "raw_evidence_local": [
+            193.0794020110161,
+            111.00422290845108
+          ],
+          "qualified_interior": false,
+          "protected_shell": true,
+          "main_grey": true,
+          "original_W64": 1.0,
+          "existing6522_W64": 1.0,
+          "proposed6874_W64": 1.0,
+          "distance_HD": 0.0
+        }
+      ],
+      "source_page": "MB_interior_review.jpg",
+      "source_page_sha256": "78c2f61b73e0d719867a06fd832a030c4208029a2af4a099864596d67fbd429a"
+    },
+    {
+      "camera": "MC",
+      "original_raw_source_sha256": "b360e7ed32d166d62e9e2eef8a09b513b8f5dae217a7119418c0c3f5e1c530a0",
+      "original_semantic_sha256": "e37e1f03a07890a281760af92e3ac3e29a2495d2fe3f15b8151df27befb2f0c5",
+      "exclusion_sha256": "504d57576ea23e605d2505468db6520fba72566fd837dc8982bedb955cc2a880",
+      "shell_sha256": "e54bbcb89a6e82bcaec9071a20c212b680fed8f2d3869db77bfe332bf01626a0",
+      "reconstructed_RAW_erode2_area99_mismatch": 0,
+      "replay_difference_extra_overlap": 0,
+      "OpenCV_version": "5.0.0",
+      "authoritative_existing_mask_used": true,
+      "qualified_interior_pixels": 1185,
+      "old_grey_only_pixels": 1057,
+      "extra_positive_pixels": 128,
+      "extra_weight_sum": 97.199805945158,
+      "extra_weight_minmax": [
+        0.44076523184776306,
+        0.9659441113471985
+      ],
+      "extra_overlaps": {
+        "black": 0,
+        "grey": 0,
+        "nominal": 0,
+        "core": 128,
+        "band": 0
+      },
+      "extra_unknown_shell_overlap": 0,
+      "extra_inside_original_RAW_levelset": 0,
+      "known109_controls_intersections": [],
+      "diagnostic_pixels": [],
+      "source_page": "MC_interior_review.jpg",
+      "source_page_sha256": "03269f14b09637dd947d6268f3718850f22125de86e02961f7eab0b72f7187d4"
+    },
+    {
+      "camera": "NA",
+      "original_raw_source_sha256": "95432fdee403be18ffa03a5c791bdb91a0e60f9b7a822b34780a2e30f422e551",
+      "original_semantic_sha256": "10c900b1733951172dbfd13c1ecdc672937a54e313ca8e5b2025e8269602356a",
+      "exclusion_sha256": "f5fd400f605c601d30ac3a9558d8f003bfed021987c5df4571386b2cc99da39a",
+      "shell_sha256": "a66770b6ea2d2607c98f088a52973c331eb9a05055ed1271636d88b79bf67092",
+      "reconstructed_RAW_erode2_area99_mismatch": 2,
+      "replay_difference_extra_overlap": 0,
+      "OpenCV_version": "5.0.0",
+      "authoritative_existing_mask_used": true,
+      "qualified_interior_pixels": 1154,
+      "old_grey_only_pixels": 930,
+      "extra_positive_pixels": 224,
+      "extra_weight_sum": 136.7184480279684,
+      "extra_weight_minmax": [
+        0.23114019632339478,
+        0.9605556130409241
+      ],
+      "extra_overlaps": {
+        "black": 0,
+        "grey": 0,
+        "nominal": 0,
+        "core": 224,
+        "band": 0
+      },
+      "extra_unknown_shell_overlap": 0,
+      "extra_inside_original_RAW_levelset": 4,
+      "known109_controls_intersections": [],
+      "diagnostic_pixels": [
+        {
+          "label": "q50",
+          "pixel": [
+            1037,
+            641
+          ],
+          "raw_array_index": [
+            4425.776650751314,
+            2737.2099250872266
+          ],
+          "raw_evidence_local": [
+            231.77665075131426,
+            141.20992508722657
+          ],
+          "qualified_interior": true,
+          "protected_shell": false,
+          "main_grey": false,
+          "original_W64": 0.9449941515922546,
+          "existing6522_W64": 0.9449941515922546,
+          "proposed6874_W64": 0.0,
+          "distance_HD": 0.27191248536109924
+        },
+        {
+          "label": "peak_shell",
+          "pixel": [
+            1035,
+            637
+          ],
+          "raw_array_index": [
+            4417.274687647711,
+            2720.193655297045
+          ],
+          "raw_evidence_local": [
+            223.2746876477113,
+            124.1936552970451
+          ],
+          "qualified_interior": false,
+          "protected_shell": true,
+          "main_grey": true,
+          "original_W64": 0.9998358488082886,
+          "existing6522_W64": 0.9998358488082886,
+          "proposed6874_W64": 0.9998358488082886,
+          "distance_HD": 0.0
+        }
+      ],
+      "source_page": "NA_interior_review.jpg",
+      "source_page_sha256": "53f5f9f0ace38f02f2ff5528a7fc3305708d6a07d9a091a4a372e8252401df3e"
+    },
+    {
+      "camera": "NB",
+      "original_raw_source_sha256": "0bc3f4b548d924af9eeb4b3201e9ea21e16379660158e44edd6d91e4bfd3e832",
+      "original_semantic_sha256": "80b759366b9f19a6df902c3b4f5dbf527b76b0eacba95c9836b2c9c390f8beae",
+      "exclusion_sha256": "77da07d3ee691d7f85127c8169fbc6e2ba6784a8d04572c321a604673aacb792",
+      "shell_sha256": "bbf8ca49514c988f90ac4321c353cc9038f011bead87c2562af914c3a5bccc4f",
+      "reconstructed_RAW_erode2_area99_mismatch": 1,
+      "replay_difference_extra_overlap": 0,
+      "OpenCV_version": "5.0.0",
+      "authoritative_existing_mask_used": true,
+      "qualified_interior_pixels": 1141,
+      "old_grey_only_pixels": 1141,
+      "extra_positive_pixels": 0,
+      "extra_weight_sum": 0.0,
+      "extra_weight_minmax": null,
+      "extra_overlaps": {
+        "black": 0,
+        "grey": 0,
+        "nominal": 0,
+        "core": 0,
+        "band": 0
+      },
+      "extra_unknown_shell_overlap": 0,
+      "extra_inside_original_RAW_levelset": 0,
+      "known109_controls_intersections": [],
+      "diagnostic_pixels": [],
+      "source_page": "NB_interior_review.jpg",
+      "source_page_sha256": "84edd4c3a316c3f7f28f2850a54e2d4d2d153f6635e39dc0e46e8a7bb7764c3c"
+    },
+    {
+      "camera": "ND",
+      "original_raw_source_sha256": "dbecee3f23eacfb5547074e80f2bd47c635435515c4dd819b8debd2faf4357a1",
+      "original_semantic_sha256": "898644d3a02269ffcee93e914d464267ba644b4c720a469e105203ff81aca2d2",
+      "exclusion_sha256": "a8f447ab88b6897ba3d1602f1049ea93f3c7174339e40c98b0076f3e3c61c1a3",
+      "shell_sha256": "85e3f28a9465150bb89e8f7a21fda27cf17f074fcd2f637abdafa1f6a7872003",
+      "reconstructed_RAW_erode2_area99_mismatch": 0,
+      "replay_difference_extra_overlap": 0,
+      "OpenCV_version": "5.0.0",
+      "authoritative_existing_mask_used": true,
+      "qualified_interior_pixels": 777,
+      "old_grey_only_pixels": 777,
+      "extra_positive_pixels": 0,
+      "extra_weight_sum": 0.0,
+      "extra_weight_minmax": null,
+      "extra_overlaps": {
+        "black": 0,
+        "grey": 0,
+        "nominal": 0,
+        "core": 0,
+        "band": 0
+      },
+      "extra_unknown_shell_overlap": 0,
+      "extra_inside_original_RAW_levelset": 0,
+      "known109_controls_intersections": [],
+      "diagnostic_pixels": [],
+      "source_page": "ND_interior_review.jpg",
+      "source_page_sha256": "ba7c2fff0e1a30d5ce206971777845a053e8433d9a21447d343b02111e66ec82"
+    }
+  ],
+  "normalizers": [
+    {
+      "step": 0,
+      "old6522_normalizer": 0.684382911712088,
+      "proposed6874_normalizer": 0.6843492348693015,
+      "additional_expected_weight_removed": 3.3676842786434236e-05
+    },
+    {
+      "step": 4096,
+      "old6522_normalizer": 0.684382911712088,
+      "proposed6874_normalizer": 0.6843492348693015,
+      "additional_expected_weight_removed": 3.3676842786434236e-05
+    },
+    {
+      "step": 6144,
+      "old6522_normalizer": 0.6864812343127615,
+      "proposed6874_normalizer": 0.6864558842060021,
+      "additional_expected_weight_removed": 2.535010675941418e-05
+    },
+    {
+      "step": 8192,
+      "old6522_normalizer": 0.6885764846987927,
+      "proposed6874_normalizer": 0.6885594491366461,
+      "additional_expected_weight_removed": 1.703556214660562e-05
+    },
+    {
+      "step": 111316,
+      "old6522_normalizer": 0.6885764846987927,
+      "proposed6874_normalizer": 0.6885594491366461,
+      "additional_expected_weight_removed": 1.703556214660562e-05
+    }
+  ],
+  "controls109_sha256": "7ae3924cabfe203adaf1be8f07d9d0e5593d1a0d6899125de5d9ed3a27ecdf12",
+  "polygon_or_shell_expanded": false,
+  "source_weights_modified": false,
+  "admission_or_alpha_targets_changed": false,
+  "qualification_class_independent": true,
+  "conclusion": "Existing qualification labels visible nonactor INTERIOR independently of main grey class. Removing the grey filter covers352 existing positive RGB pixels without changing polygons or protected shells. No physical-empty/whole-ray-negative implication."
+}
