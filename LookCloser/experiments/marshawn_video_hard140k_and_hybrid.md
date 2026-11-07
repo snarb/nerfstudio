@@ -100,7 +100,43 @@ is still clearer. No final recipe change is justified by one patch.
 
 On this actual native cache the replay's baseline PNG matched the historical
 24-donor hybrid byte-for-byte; see `real_native_cached_replay_parity.json`.
-Full eight-patch selection, visual review and temporal checks remain pending.
+The full eight-patch sweep subsequently completed (16 variants each).
+
+| Common variant, mean over eight patch/scale records | PSNR | SSIM | Spatial LPIPS |
+| --- | ---: | ---: | ---: |
+| LookCloser | 28.97795 | 0.625870 | 0.471636 |
+| Existing detail sigma8 / gain1 / 16 donors | 28.55423 | 0.606737 | 0.416033 |
+| Detail sigma4 / gain.75 / 16 donors | 28.77568 | 0.616199 | 0.410062 |
+
+The common candidate improves LPIPS by 1.44% over the existing hybrid and
+13.05% over LookCloser, while PSNR/SSIM remain worse than LookCloser. These
+are equally weighted close-up records; three HC patches appear twice for
+the paired pixel-scale test. They are not eight independent cameras or
+whole-body metrics. Clothing drives much of the candidate's gain; several
+individual face patches prefer gain1 or multiband transfer. Increasing the
+donor count beyond eight did not change the measured baseline patches.
+Keep 16 donors until full-image/novel-view checks establish a safe reduction.
+Focal-based scale admits more transfer and improves the three matched HC
+patches, but requires full-image/temporal review before production use.
+
+`scripts/refine_marshawn_hybrid_warps.py` additionally tested bounded
+Farneback image alignment using only frozen neural RGB as its reference.
+Original admission/score/support remain exact, excessive or unhelpful shifts
+retain the original donor, and GT never enters prediction. Synthetic shift,
+identity, empty-support and maximum-displacement checks passed. Two search
+radii, .75 and 1.5 reference-HD pixels, were evaluated on all eight contexts.
+Their best common LPIPS values were 0.410077 and 0.410074, versus 0.410062
+without alignment. This alignment experiment did not improve the objective
+and is excluded from the production candidate. It neither changes geometry
+nor trains the NeRF.
+
+Root inspected the native three-region HC comparison. Detail changes are
+subtle; the real photographs remain clearer. Full 4K V4 camera record2 was
+also rendered from the completed 1670 model with unchanged weights and
+native rays. Both actors fit the framing, but floor fragments and a shell
+around the hair remain visible in the frozen neural result. Hybrid transfer
+alone is not a demonstrated remedy for that geometry. No temporal quality
+claim or final renderer promotion has been made.
 
 ## Insights
 
