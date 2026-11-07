@@ -318,3 +318,14 @@ and physical GPU leases taking precedence. Initial watchdog2305310 packed all66
 dual-host variants and observed the first three current-camera jobs complete.
 Source/input proof is
 `SOURCE/operations/sam3_assist/v5/frame001685/pinned_identity_CPU_qualification.json`.
+
+The first reaper deployment exposed an operational namespace bug: CPU identity
+sidecars in the request-root JSON glob were parsed as GPU requests, triggering
+`KeyError: host_gpus` and a broker restart loop. No scientific process was
+signalled. Controls moved into the `completion_reaper/` subdirectory. BrokerV12
+validates request shape/host/GPU slots, ignores malformed/non-request JSON and
+records it instead of crashing; three negative CPU cases passed while a valid
+request still reserved its slot. V12 watchdog/controller2307894/2307901 restored
+fresh scheduling. DEV3 resumed a map at100%; the isolated1685 observer reached
+28 collected views with seven genuine native workers/dispatches. Brief empty
+GPU slots during the fault were a scheduler defect, not successful computation.
