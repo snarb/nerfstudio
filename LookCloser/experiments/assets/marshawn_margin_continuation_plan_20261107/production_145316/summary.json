@@ -1,0 +1,200 @@
+{
+  "step": 145316,
+  "attempts": 19000,
+  "primary_metrics": {
+    "original_mapped": {
+      "psnr": 31.60112642004086,
+      "ssim": 0.830418219168981,
+      "lpips": 0.018839429908742506
+    },
+    "source_margin002": {
+      "psnr": 31.58178740603181,
+      "ssim": 0.8304258485635122,
+      "lpips": 0.01920707228903969
+    }
+  },
+  "per_view": {
+    "original_mapped": {
+      "DC": {
+        "psnr": 31.889421586881397,
+        "ssim": 0.8276546597480774,
+        "lpips": 0.021745341829955578
+      },
+      "HC": {
+        "psnr": 31.53099542765347,
+        "ssim": 0.8312492370605469,
+        "lpips": 0.016402744222432375
+      },
+      "KA": {
+        "psnr": 31.38296224558772,
+        "ssim": 0.8323507606983185,
+        "lpips": 0.01837020367383957
+      }
+    },
+    "source_margin002": {
+      "DC": {
+        "psnr": 31.940238859184092,
+        "ssim": 0.8278053998947144,
+        "lpips": 0.02165354508906603
+      },
+      "HC": {
+        "psnr": 31.562648952168352,
+        "ssim": 0.8314644396305084,
+        "lpips": 0.016212271992117167
+      },
+      "KA": {
+        "psnr": 31.242474406743,
+        "ssim": 0.8320077061653137,
+        "lpips": 0.01975539978593588
+      }
+    }
+  },
+  "per_actor": {
+    "original_mapped": {
+      "black": {
+        "psnr": 30.496690647693796,
+        "ssim": 0.7969287832578024,
+        "lpips": 0.020151593411962192
+      },
+      "grey": {
+        "psnr": 32.70556219238793,
+        "ssim": 0.8639076550801595,
+        "lpips": 0.017527266405522823
+      }
+    },
+    "source_margin002": {
+      "black": {
+        "psnr": 30.6035552363019,
+        "ssim": 0.7975636720657349,
+        "lpips": 0.020060107111930847
+      },
+      "grey": {
+        "psnr": 32.56001957576173,
+        "ssim": 0.8632880250612894,
+        "lpips": 0.018354037466148537
+      }
+    }
+  },
+  "fixed_region_diagnostics": {
+    "original_mapped": {
+      "whole_PNG_control": {
+        "psnr": 31.593004046202932,
+        "ssim": 0.8298629721005758,
+        "lpips": 0.018830585448692243
+      },
+      "core_gt8px": {
+        "psnr": 32.682894943375,
+        "ssim": 0.8413507839043936,
+        "lpips": 0.009890123270452023
+      },
+      "boundary_le8px": {
+        "psnr": 29.78450745305764,
+        "ssim": 0.9377991457780203,
+        "lpips": 0.006572299326459567
+      }
+    },
+    "source_margin002": {
+      "whole_PNG_control": {
+        "psnr": 31.572812943139468,
+        "ssim": 0.829861044883728,
+        "lpips": 0.019187404463688534
+      },
+      "core_gt8px": {
+        "psnr": 32.710425478292564,
+        "ssim": 0.8413965702056885,
+        "lpips": 0.00982333750774463
+      },
+      "boundary_le8px": {
+        "psnr": 29.69777179309185,
+        "ssim": 0.9377354184786478,
+        "lpips": 0.006802844038854043
+      }
+    }
+  },
+  "exterior16": [
+    {
+      "camera": "DC",
+      "arm": "original_mapped",
+      "euclidean_margin_HD_pixels": 16,
+      "exterior_pixels": 1822256,
+      "alpha_sum": 59316.09451438162,
+      "alpha_mean": 0.032550911899525435,
+      "above01_pixels": 117882,
+      "above05_pixels": 45033,
+      "above09_pixels": 26931
+    },
+    {
+      "camera": "DC",
+      "arm": "source_margin002",
+      "euclidean_margin_HD_pixels": 16,
+      "exterior_pixels": 1822256,
+      "alpha_sum": 47346.691004806584,
+      "alpha_mean": 0.025982458559503485,
+      "above01_pixels": 99314,
+      "above05_pixels": 34552,
+      "above09_pixels": 19274
+    },
+    {
+      "camera": "HC",
+      "arm": "original_mapped",
+      "euclidean_margin_HD_pixels": 16,
+      "exterior_pixels": 1842633,
+      "alpha_sum": 44685.20706492713,
+      "alpha_mean": 0.0242507363457222,
+      "above01_pixels": 79560,
+      "above05_pixels": 38044,
+      "above09_pixels": 22366
+    },
+    {
+      "camera": "HC",
+      "arm": "source_margin002",
+      "euclidean_margin_HD_pixels": 16,
+      "exterior_pixels": 1842633,
+      "alpha_sum": 33487.07412832838,
+      "alpha_mean": 0.018173490938417133,
+      "above01_pixels": 62949,
+      "above05_pixels": 27533,
+      "above09_pixels": 15294
+    },
+    {
+      "camera": "KA",
+      "arm": "original_mapped",
+      "euclidean_margin_HD_pixels": 16,
+      "exterior_pixels": 1850536,
+      "alpha_sum": 28174.143648432124,
+      "alpha_mean": 0.015224855743650555,
+      "above01_pixels": 54919,
+      "above05_pixels": 22480,
+      "above09_pixels": 10757
+    },
+    {
+      "camera": "KA",
+      "arm": "source_margin002",
+      "euclidean_margin_HD_pixels": 16,
+      "exterior_pixels": 1850536,
+      "alpha_sum": 21713.87118333714,
+      "alpha_mean": 0.011733828027845523,
+      "above01_pixels": 44945,
+      "above05_pixels": 16600,
+      "above09_pixels": 7176
+    }
+  ],
+  "inputs_sha256": {
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/images/eval_DC.png": "6cd7eb43aaeb89d8d746ee49bef90a65886bf428d520732bbe857d0f877122d3",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_margin_continuation_candidate_v1/zero_references/original_mapped/renders/DC.png": "dbc63525e10168c246395239f43804066d0f645066cd2e7f61893634b4aaddce",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_margin_continuation_candidate_v1/review_archives/original_mapped/step-000145316/renders/DC.png": "c9334fd391b79551487c00d857e9fbd7ccd4d6e2c5f216f6a9a176fb3de00c03",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_margin_continuation_candidate_v1/review_archives/source_margin002/step-000145316/renders/DC.png": "bad2697f81599be0775e23bdc98d542f8a355fe9bc9f73f65cf04fd093d4dfb0",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/images/eval_HC.png": "ccc98134f03be9f5202e40122692f08628f5dc9601aef90b08da69dbe29e0405",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_margin_continuation_candidate_v1/zero_references/original_mapped/renders/HC.png": "86b95bdabf7c046359d01924a369fd5e3d1ef374ae8b1ce15dd688a202b377bf",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_margin_continuation_candidate_v1/review_archives/original_mapped/step-000145316/renders/HC.png": "804d0d28ebaefed628d51f7b3107c68a7adf32ebb44f9fa7db7cebf46344ff36",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_margin_continuation_candidate_v1/review_archives/source_margin002/step-000145316/renders/HC.png": "f2e19b7480e88600353a9d8e8157216739793b3f1beb1d2f5b69a67dc743ccf6",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/images/eval_KA.png": "4fb9111b577846c0f39cf93cd221346f50a57234ad3552cb8ca0ce8b0edc4a05",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_margin_continuation_candidate_v1/zero_references/original_mapped/renders/KA.png": "3b40261ad9f4ca5ae5d9a6e84e65129c1cae86c0257833842c5e17d807bb91f3",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_margin_continuation_candidate_v1/review_archives/original_mapped/step-000145316/renders/KA.png": "db1572266ddd57a1c34dbc827de3c3f6bb58907b211ada530e43e95f03a1093e",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_margin_continuation_candidate_v1/review_archives/source_margin002/step-000145316/renders/KA.png": "332cec205688e8e968fca9359ff7181cda8c490806d9e1b32423727b04e9d4e9"
+  },
+  "CPU_saved_images_only": true,
+  "manual_visual_review_pending": false,
+  "quality_promoted": false,
+  "manual_review": "Viewed full three-view bodies and all three head/feet pages. Gross hair and all shoe silhouettes persist; thin individual strands/AA boundaries not certified. Outer head and some behind-leg artifacts decrease; broad contiguous halos, floor sheets and bag fragments remain. No clean-asset promotion."
+}

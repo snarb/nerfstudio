@@ -62,3 +62,31 @@ Root released the exact two-arm ZERO phase. Both completed with no optimizer upd
 These are expected counterfactual starting points, not adapted-model results. All six [body contacts](assets/marshawn_margin_continuation_plan_20261107/zero/zero_body_overview.jpg) were inspected: broad actor halos and floor fragments remain. Both worker processes exited; independent watchdogs passed and physicalGPU5/6 leases were released, with no OOM. CPU zero verifier SHA `147437609c02f80f7e5ba1eacf021068bfd60be1b81e7954a588d500b8d6f8b0`. [Proof summary](assets/marshawn_margin_continuation_plan_20261107/zero/zero_phase_summary.json).
 
 The exact32+32 technical release request is `C/semantic_margin_continuation_candidate_v1/TECHNICAL_RELEASE_REQUEST.json`; it remains separate from production permission. Later cross-arm RNG equality is not assumed once field density diverges; exact own resume and first-source-batch equality are required.
+
+
+## Actual32+32 technical gate
+
+Both branches passed64 attempts in two separate processes: Adam126262→126294→126326, with32 successful updates in each segment and no skipped updates. CPU verification matched each paused checkpoint to its own resumed seven states, cache associations, nonpersistent FR LUT, selector binding and private sampling state. Actual ARM captures advanced beyond the source and EMA remained finite. The unchanged control RGB gradient comparison was exactly zero at both segment starts. FullFHD outputs at32 and64 were finite; all six [technical64 body crops](assets/marshawn_margin_continuation_plan_20261107/technical/technical64_body_overview.jpg) were inspected.
+
+First batch indices matched across arms. In this measured64-step interval the later ray/RNG digests also happened to match; equality after density divergence remains an observation, not an enforced requirement. Both external guardians passed with no OOM; GPU5/6 leases were released. Technical verifier SHA `5aa4fd10bb59cfc9ee00c2ef6abe53509d647fbac5d76f0dd23cf14daa8bb7ed`.
+
+The exact fresh-parent production request is `C/semantic_margin_continuation_candidate_v1/PRODUCTION_RELEASE_REQUEST.json`. Production is not launched by this technical report; its own releases must bind the passing technical proof. The initial broad halos remain and this test does not establish a clean asset or superior trained quality.
+
+
+## Released continuation, measured through145316
+
+Root released both fresh-parent production arms; the actual guardian PID was2151011, workers2948021/2948245 on physical GPU5/6. An independent CPU archive watcher retains every evaluated checkpoint with its exact selector/spec/grid binding, fetches all renders and records worker/supervisor/OOM health. Original frequency callback126976 ran in both arms; before-grid and global RNG chains matched, while density-dependent updated positions/grid contents legitimately diverged. No checkpoint from technical training entered production.
+
+| Step | Control LPIPS | Source+.002 LPIPS | Control PSNR | Source+.002 PSNR |
+|---|---:|---:|---:|---:|
+|126816|.018897865|.019265962|31.608874|31.533852|
+|127316|.018911622|.019347420|31.636680|31.525720|
+|128316|.018948238|.019388867|31.623968|31.557946|
+|130316|.018892418|.019273568|31.621214|31.566233|
+|145316|.018839430|.019207072|31.601126|31.581787|
+
+At145316 fixed interior>8px diagnostic LPIPS improves .00989012→.00982334, while boundary≤8px worsens .00657230→.00680284. Actor LPIPS: black .02015159→.02006011, grey .01752727→.01835404. These fixed region diagnostics do not replace V1 or alter stopping.
+
+Exterior16px alpha>.1 counts reduce DC117882→99314, HC79560→62949, KA54919→44945. Inspected all three [full body contacts](assets/marshawn_margin_continuation_plan_20261107/production_145316/body_overview.jpg) and [DC](assets/marshawn_margin_continuation_plan_20261107/production_145316/DC_hair_feet.jpg), [HC](assets/marshawn_margin_continuation_plan_20261107/production_145316/HC_hair_feet.jpg), [KA](assets/marshawn_margin_continuation_plan_20261107/production_145316/KA_hair_feet.jpg) head/feet pages. Gross hair and shoe silhouettes persist; thin strands/AA boundaries are not certified. Outer-head and behind-leg patches decrease, but broad attached halos, floor sheets and bag fragments remain. This is partial cleanup with grey-boundary cost, not a clean asset promotion.
+
+Control naturally completed150316 after24,000 attempts, actual Adam150252; terminal LPIPS .018877307. Treatment remained active at this report checkpoint, under its own unchanged plateau rule. Final child replay must install its explicit checkpoint selector; ordinary semantic evaluation alone is invalid.

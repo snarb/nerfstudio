@@ -1,0 +1,57 @@
+{
+  "status": "PRODUCTION_REVIEW_PENDING_NO_RELEASE_WRITTEN",
+  "technical_verification_sha256": "5aa4fd10bb59cfc9ee00c2ef6abe53509d647fbac5d76f0dd23cf14daa8bb7ed",
+  "guard_template": {
+    "reviewer": "root",
+    "external_guard_authorized": false,
+    "policy_sha256": "930881d66b1239a9db3f1748c3494448faff125f485274ffb2cd9d1e36b34626",
+    "authorized_phases": [
+      "production"
+    ],
+    "protocol_sha256": "659842196fa0351e48a5bf847433e582de48d08666b5486250f783126d2a083e",
+    "CPU_readiness_sha256": "5c11e1bf4d58beeee4e65be13475cd0d700948d06c0e7e937aba47a0a1d9bdc7",
+    "technical_verification_sha256": "5aa4fd10bb59cfc9ee00c2ef6abe53509d647fbac5d76f0dd23cf14daa8bb7ed"
+  },
+  "worker_templates": {
+    "original_mapped": {
+      "reviewer": "root",
+      "technical_authorized": false,
+      "production_authorized": false,
+      "spec_sha256": "7653f329cc6d1a43a8c4e1aa7eda6b1e9d94573a5fe80bc5d17499501e198d04",
+      "margin_manifest_sha256": "ee335069afd93eeb4f44129be7135571997575abfea20bd8de475a0c365fc9d5",
+      "zero_reference_sha256": "39e6b28bd8a0796f885bc6a030d2154151ecbb8e00f9cf54417e7547de95d8f5"
+    },
+    "source_margin002": {
+      "reviewer": "root",
+      "technical_authorized": false,
+      "production_authorized": false,
+      "spec_sha256": "96853dffe07fd0d8ff124c8ba0437b7ad877c6ea518ec1487450760b3d988fa8",
+      "margin_manifest_sha256": "ee335069afd93eeb4f44129be7135571997575abfea20bd8de475a0c365fc9d5",
+      "zero_reference_sha256": "f9a07a1642e84d1aced9f95471d7e9f3df92a92fb2b89c7f7406da7a86b3828a"
+    }
+  },
+  "required_fresh_source": 126316,
+  "source_actual_Adam": 126262,
+  "early_gates": [
+    126816,
+    127316,
+    128316,
+    130316
+  ],
+  "actual_original_frequency_refresh_expected": 126976,
+  "plateau_anchor": 130316,
+  "arbitrary_cap": null,
+  "stopping": "Original two-signal criterion every5000 after+4000. PNG whole/core/boundary onlydiagnostic.",
+  "own_zero_evaluation": true,
+  "raw_selector_terminal_preserved": true,
+  "zero_source_or_child_replay_explicit": true,
+  "launch": [
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/python",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_margin_continuation_candidate_v1/external_guard_margin_v1/guardian.py",
+    "launch",
+    "--policy",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_margin_continuation_candidate_v1/external_guard_margin_v1/policy.json",
+    "--phase",
+    "production"
+  ]
+}

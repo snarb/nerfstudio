@@ -1,0 +1,71 @@
+{
+  "time": 1794027014.0001454,
+  "arms": {
+    "original_mapped": {
+      "job_status": "complete",
+      "worker": {
+        "pid": 2909125,
+        "start": "5547575",
+        "boot": "3cd2faca-15ef-4b7e-9767-20e0b80af902",
+        "state": "R"
+      },
+      "gpu": 5,
+      "source_Adam": 126262,
+      "final_Adam": {
+        "fields": [
+          126326.0
+        ]
+      },
+      "successful_updates": 64,
+      "source_RGB_control_checks": [
+        {
+          "step": 126317,
+          "source_W64_exact": true,
+          "source_main_batch_sha256": "5b793df49ac8ed849871f3d21c5f555c6cfa4009628f2361dfee31851e568154",
+          "source_original_RGB_gradient_max_error": 0.0,
+          "actual_distortion": 0.1,
+          "actual_FR": 0.3,
+          "extra_field_queries": 0,
+          "extra_optimizer_updates": 0
+        },
+        {
+          "step": 126349,
+          "source_W64_exact": true,
+          "source_main_batch_sha256": "8f954a9db0a59c638aea7930acdb766dc281a05a1bd8c00d3fd2fdb46db78ebb",
+          "source_original_RGB_gradient_max_error": 0.0,
+          "actual_distortion": 0.1,
+          "actual_FR": 0.3,
+          "extra_field_queries": 0,
+          "extra_optimizer_updates": 0
+        }
+      ],
+      "passed": true,
+      "oom_evidence": false
+    },
+    "source_margin002": {
+      "job_status": "complete",
+      "worker": {
+        "pid": 2909355,
+        "start": "5547635",
+        "boot": "3cd2faca-15ef-4b7e-9767-20e0b80af902",
+        "state": "R"
+      },
+      "gpu": 6,
+      "source_Adam": 126262,
+      "final_Adam": {
+        "fields": [
+          126326.0
+        ]
+      },
+      "successful_updates": 64,
+      "source_RGB_control_checks": [],
+      "passed": true,
+      "oom_evidence": false
+    }
+  },
+  "lease_free": {
+    "5": true,
+    "6": true
+  },
+  "GPU_apps": "GPU-6a8bbc85-5a77-8d62-ab18-560955f0dc65, 2764982, 8084 MiB\nGPU-26c63492-0230-896f-208e-10e4eaca4c3c, 2765206, 8098 MiB\nGPU-279718e7-9e60-e5f2-53aa-65ff7dd03f37, 2765431, 8036 MiB\nGPU-c024b6e2-0def-f4fd-c18a-64b95975effd, 2765655, 8146 MiB\nGPU-cb1a0b07-abd6-8e55-9669-ccbb2c45a560, 2782320, 7948 MiB\nGPU-9c2ea572-537d-66a7-6df3-41c3d8914d39, 2782549, 7948 MiB\n"
+}
