@@ -1,0 +1,13 @@
+{
+  "base_guardian_sha256": "25111363d3634811c8443d84a08da25392c3971a1af06bdeb375f38c710bbcd1",
+  "base_policy_sha256": "c641b20b8c0dd913e8c94d60c84044d657709b1fdc64baf40d83c9114db3c127",
+  "base_guard_release_sha256": "8f153569bfee09d6e0cefc5c67be074b8ea29054a8399b25b303d3619192e0dc",
+  "original_diagnostic_plan_sha256": "0f6a922eafe430c8ca10c59a1fb558365b2a94895c369759d8331cf351b217ab",
+  "source_bindings": 1573,
+  "scientific_specs_changed": false,
+  "diagnostic_worker_sha256": "b0534e105352cf78c76c9abbea93e28bcb3012d6f39765c595dea1d14ab2d4d7",
+  "technical_verification_sha256": "08d4055a816311e4642f80d65e43c5e16175fe9d14a3315fffe9864ac0464309",
+  "original_parent_checkpoint_sha256": "81a226cdc96a437b221d9891ab8eac5bb9aa4ca5e5179ee03f92ceb16002c9a9",
+  "full_checkpoints_retained_remotely": true,
+  "pruning": false
+}

@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "new_tests": 9,
+  "prior_guard_core_tests_not_repeated": true,
+  "unchanged_guard_functions": [
+    "identity",
+    "same",
+    "authorized_worker",
+    "event",
+    "fail",
+    "check_limits",
+    "bounded_error",
+    "clear_errors",
+    "phase_status",
+    "signal_due",
+    "final_record",
+    "ssh_script"
+  ],
+  "comparison": "AST exact excluding line offsets",
+  "GPU_used": false,
+  "direct_packaged_replay_passed": true
+}

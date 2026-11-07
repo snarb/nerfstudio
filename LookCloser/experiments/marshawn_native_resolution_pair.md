@@ -63,3 +63,9 @@ HD-only continuation gates155k and160k were reviewed in all three hair/hand/foot
 HD165k/170k primaryV1 metrics are PSNR30.52634/30.52937, SSIM0.838022/0.838192 and actor LPIPS0.048689/0.048637. All three fixed detail contacts were reviewed: modest fine-detail changes, stable visible contours, persistent floor/mat/bag. The healthy controller has started175k; the4K resource probe remains queued.
 
 HD175k/180k primary V1 metrics are PSNR30.50687/30.50513, SSIM0.838084/0.838317 and actor LPIPS0.048527/0.048384. Both all-three-view detail sheets were inspected: stable visible hair/hand/shoe contours at contact scale, persistent soft fine detail and substantial floor/mat/bag. Reviews are hash-bound in `O/reviews/HD_175000/visual_review.json` and `O/reviews/HD_180000/visual_review.json`. HD185k is active; the actual4K resource probe remains queued for terminal state and full cache/process exit.
+
+HD185k: PSNR30.53492, SSIM0.838712, actor LPIPS0.048309. All nine source/native100k/185k detail rows were reviewed; visible contours remain stable at contact scale, fine texture changes modestly, and floor/mat/bag remains prominent. `O/reviews/HD_185000/visual_review.json` binds the sheet. The healthy controller proceeds to190k under unchanged stopping rules.
+
+HD190k: PSNR30.56882, SSIM0.839111, actor LPIPS0.047971. The three-view detail review finds stable visible contours and modestly sharper cloth relative100k; the source remains finer and floor/mat/bag remains. Review: `O/reviews/HD_190000/visual_review.json`. This is an unmatched HD suffix; the controlled HD/4K comparison remains125k.
+
+HD195k: PSNR30.54089, SSIM0.839089, actor LPIPS0.047975. All three detail contacts remain visually consistent at this scale; source texture is still finer and substantial floor/mat/bag persists. Review receipt: `O/reviews/HD_195000/visual_review.json`. HD200k remains active.

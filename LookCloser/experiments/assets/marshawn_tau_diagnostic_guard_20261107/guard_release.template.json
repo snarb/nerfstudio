@@ -1,0 +1,10 @@
+{
+  "reviewer": "root",
+  "external_guard_authorized": false,
+  "policy_sha256": "1a488a0776f4c46fff846de8e3eb6269e13ad80cf9b331b9a8b11dbd3792be21",
+  "authorized_phases": [
+    "diagnostic"
+  ],
+  "technical_verification_sha256": "08d4055a816311e4642f80d65e43c5e16175fe9d14a3315fffe9864ac0464309",
+  "phase_releases_also_required": true
+}
