@@ -1,0 +1,5815 @@
+{
+  "CPU_only": true,
+  "no_new_labels": true,
+  "no_model": true,
+  "all91_pixels_present": true,
+  "pages": [
+    {
+      "camera": "IA",
+      "cluster": 1,
+      "pixels": [
+        [
+          1027,
+          567
+        ],
+        [
+          1027,
+          568
+        ],
+        [
+          1028,
+          568
+        ],
+        [
+          1027,
+          569
+        ],
+        [
+          1028,
+          569
+        ],
+        [
+          1027,
+          570
+        ],
+        [
+          1028,
+          570
+        ],
+        [
+          1026,
+          571
+        ],
+        [
+          1027,
+          571
+        ],
+        [
+          1028,
+          571
+        ],
+        [
+          1029,
+          571
+        ],
+        [
+          1025,
+          572
+        ],
+        [
+          1026,
+          572
+        ],
+        [
+          1027,
+          572
+        ],
+        [
+          1028,
+          572
+        ],
+        [
+          1029,
+          572
+        ],
+        [
+          1024,
+          573
+        ],
+        [
+          1025,
+          573
+        ],
+        [
+          1026,
+          573
+        ],
+        [
+          1027,
+          573
+        ],
+        [
+          1028,
+          573
+        ],
+        [
+          1029,
+          573
+        ],
+        [
+          1023,
+          574
+        ],
+        [
+          1024,
+          574
+        ],
+        [
+          1025,
+          574
+        ],
+        [
+          1026,
+          574
+        ],
+        [
+          1027,
+          574
+        ],
+        [
+          1028,
+          574
+        ],
+        [
+          1022,
+          575
+        ],
+        [
+          1023,
+          575
+        ],
+        [
+          1024,
+          575
+        ],
+        [
+          1025,
+          575
+        ],
+        [
+          1026,
+          575
+        ],
+        [
+          1027,
+          575
+        ],
+        [
+          1021,
+          576
+        ],
+        [
+          1022,
+          576
+        ],
+        [
+          1023,
+          576
+        ],
+        [
+          1024,
+          576
+        ],
+        [
+          1025,
+          576
+        ],
+        [
+          1026,
+          576
+        ],
+        [
+          1020,
+          577
+        ],
+        [
+          1021,
+          577
+        ],
+        [
+          1022,
+          577
+        ],
+        [
+          1023,
+          577
+        ],
+        [
+          1024,
+          577
+        ],
+        [
+          1025,
+          577
+        ],
+        [
+          1019,
+          578
+        ],
+        [
+          1020,
+          578
+        ],
+        [
+          1021,
+          578
+        ],
+        [
+          1022,
+          578
+        ],
+        [
+          1023,
+          578
+        ],
+        [
+          1024,
+          578
+        ],
+        [
+          1025,
+          578
+        ],
+        [
+          1019,
+          579
+        ],
+        [
+          1020,
+          579
+        ],
+        [
+          1021,
+          579
+        ],
+        [
+          1022,
+          579
+        ],
+        [
+          1023,
+          579
+        ],
+        [
+          1024,
+          579
+        ],
+        [
+          1020,
+          580
+        ],
+        [
+          1021,
+          580
+        ],
+        [
+          1022,
+          580
+        ],
+        [
+          1023,
+          580
+        ],
+        [
+          1021,
+          581
+        ],
+        [
+          1022,
+          581
+        ]
+      ],
+      "page": "IA_cluster01.png",
+      "page_sha256": "eceada2a1cae0af64fa60ce31a0cadf0ba462a6d1b2a56b263dee5049c57f53e"
+    },
+    {
+      "camera": "LA",
+      "cluster": 1,
+      "pixels": [
+        [
+          890,
+          581
+        ],
+        [
+          891,
+          581
+        ],
+        [
+          886,
+          582
+        ],
+        [
+          887,
+          582
+        ],
+        [
+          888,
+          582
+        ],
+        [
+          889,
+          582
+        ],
+        [
+          890,
+          582
+        ],
+        [
+          891,
+          582
+        ],
+        [
+          884,
+          583
+        ],
+        [
+          885,
+          583
+        ],
+        [
+          886,
+          583
+        ],
+        [
+          887,
+          583
+        ],
+        [
+          888,
+          583
+        ],
+        [
+          889,
+          583
+        ],
+        [
+          890,
+          583
+        ],
+        [
+          885,
+          584
+        ],
+        [
+          886,
+          584
+        ],
+        [
+          887,
+          584
+        ]
+      ],
+      "page": "LA_cluster01.png",
+      "page_sha256": "21f256bf53b914fae12d367f78667955d2ab5e1f25334c4b3642c2dcfebb8590"
+    },
+    {
+      "camera": "LB",
+      "cluster": 1,
+      "pixels": [
+        [
+          940,
+          605
+        ],
+        [
+          936,
+          606
+        ],
+        [
+          937,
+          606
+        ],
+        [
+          938,
+          606
+        ],
+        [
+          939,
+          606
+        ],
+        [
+          934,
+          607
+        ],
+        [
+          935,
+          607
+        ]
+      ],
+      "page": "LB_cluster01.png",
+      "page_sha256": "295996fb2387198a35d76772b86d71b039bb98f849488cfe4faf8c0a80122133"
+    },
+    {
+      "camera": "MC",
+      "cluster": 1,
+      "pixels": [
+        [
+          1172,
+          748
+        ]
+      ],
+      "page": "MC_cluster01.png",
+      "page_sha256": "43a164d4aeffc1277ee821cfe313e22b662d08daddf2ace97214cb12ff96529d"
+    }
+  ],
+  "records": [
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1027,
+        567
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4383.3284749511295,
+        2421.864298985862
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4381.198632035762,
+          2419.733333708833
+        ],
+        [
+          4385.460607125896,
+          2419.7310289956035
+        ],
+        [
+          4385.458270644922,
+          2423.995217341559
+        ],
+        [
+          4381.196326553839,
+          2423.9975537313385
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 0.538591206073761,
+        "nominal": 0.538591206073761,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 0.9628546833992004,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 0.538591206073761,
+        "W64": 0.9628546833992004,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1027,
+        568
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4383.326138128472,
+        2426.128456396837
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4381.196326553839,
+          2423.9975537313385
+        ],
+        [
+          4385.458270644922,
+          2423.995217341559
+        ],
+        [
+          4385.45590227745,
+          2428.2593117293954
+        ],
+        [
+          4381.193989599688,
+          2428.2616797896144
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 0.9837573766708374,
+        "nominal": 0.9837573766708374,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 0.9988106489181519,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 0.9837573766708374,
+        "W64": 0.9988106489181519,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1028,
+        568
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4387.588018809738,
+        2426.126088468087
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4385.458270644922,
+          2423.995217341559
+        ],
+        [
+          4389.720118912889,
+          2423.9928497544274
+        ],
+        [
+          4389.717719138298,
+          2428.2569120577264
+        ],
+        [
+          4385.45590227745,
+          2428.2593117293954
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": false,
+        "nominal": false,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 0.508586049079895,
+        "nominal": 0.508586049079895,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 0.9617443084716797,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 0.508586049079895,
+        "W64": 0.9617443084716797,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1027,
+        569
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4383.323769629507,
+        2430.392519224454
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4381.193989599688,
+          2428.2616797896144
+        ],
+        [
+          4385.45590227745,
+          2428.2593117293954
+        ],
+        [
+          4385.453502029686,
+          2432.5233109149317
+        ],
+        [
+          4381.191621179423,
+          2432.525710639382
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 0.9999254941940308,
+        "nominal": 0.9999254941940308,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 0.9999961256980896,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 0.9999254941940308,
+        "W64": 0.9999961256980896,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1028,
+        569
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4387.585618693466,
+        2430.390119421317
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4385.45590227745,
+          2428.2593117293954
+        ],
+        [
+          4389.717719138298,
+          2428.2569120577264
+        ],
+        [
+          4389.715287069336,
+          2432.5208791650252
+        ],
+        [
+          4385.453502029686,
+          2432.5233109149317
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 0.9184598922729492,
+        "nominal": 0.9184598922729492,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 0.9954866170883179,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 0.9184598922729492,
+        "W64": 0.9954866170883179,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1027,
+        570
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4383.321369460445,
+        2434.6564862247124
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4381.191621179423,
+          2432.525710639382
+        ],
+        [
+          4385.453502029686,
+          2432.5233109149317
+        ],
+        [
+          4385.451069907936,
+          2436.7872136544474
+        ],
+        [
+          4381.189221299257,
+          2436.7896450368225
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1028,
+        570
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4387.583186493014,
+        2434.654054553493
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4385.453502029686,
+          2432.5233109149317
+        ],
+        [
+          4389.715287069336,
+          2432.5208791650252
+        ],
+        [
+          4389.712822712401,
+          2436.784749832704
+        ],
+        [
+          4385.451069907936,
+          2436.7872136544474
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 0.9978490471839905,
+        "nominal": 0.9978490471839905,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 0.9998894333839417,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 0.9978490471839905,
+        "W64": 0.9998894333839417,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1026,
+        571
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4379.057057859665,
+        2438.922787037447
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4376.927278127016,
+          2436.792043973428
+        ],
+        [
+          4381.189221299257,
+          2436.7896450368225
+        ],
+        [
+          4381.186789965499,
+          2441.0534817385837
+        ],
+        [
+          4376.924879455237,
+          2441.0559119127925
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1027,
+        571
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4383.318937627591,
+        2438.920356154075
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4381.189221299257,
+          2436.7896450368225
+        ],
+        [
+          4385.451069907936,
+          2436.7872136544474
+        ],
+        [
+          4385.448605918603,
+          2441.05101870469
+        ],
+        [
+          4381.186789965499,
+          2441.0534817385837
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1028,
+        571
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4387.580722214782,
+        2438.9178926211766
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4385.451069907936,
+          2436.7872136544474
+        ],
+        [
+          4389.712822712401,
+          2436.784749832704
+        ],
+        [
+          4389.710326073993,
+          2441.04852281761
+        ],
+        [
+          4385.448605918603,
+          2441.05101870469
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1029,
+        571
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4391.842410380881,
+        2438.9153964452507
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4389.712822712401,
+          2436.784749832704
+        ],
+        [
+          4393.974478472499,
+          2436.7822535780883
+        ],
+        [
+          4393.971949191609,
+          2441.04599408394
+        ],
+        [
+          4389.710326073993,
+          2441.04852281761
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 0.6536884307861328,
+        "nominal": 0.6536884307861328,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 0.9768126606941223,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 0.6536884307861328,
+        "W64": 0.9768126606941223,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1025,
+        572
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4374.792686399565,
+        2443.18901934909
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4372.662875628859,
+          2441.0583092209126
+        ],
+        [
+          4376.924879455237,
+          2441.0559119127925
+        ],
+        [
+          4376.922449750268,
+          2445.3196809071937
+        ],
+        [
+          4372.660479006267,
+          2445.322109032593
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1026,
+        572
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4379.054627235202,
+        2443.1865900942053
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4376.924879455237,
+          2441.0559119127925
+        ],
+        [
+          4381.186789965499,
+          2441.0534817385837
+        ],
+        [
+          4381.184327184559,
+          2445.317219501789
+        ],
+        [
+          4376.922449750268,
+          2445.3196809071937
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1027,
+        572
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4383.316474137356,
+        2443.1841277694757
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4381.186789965499,
+          2441.0534817385837
+        ],
+        [
+          4385.448605918603,
+          2441.05101870469
+        ],
+        [
+          4385.446110068192,
+          2445.3147248228797
+        ],
+        [
+          4381.184327184559,
+          2445.317219501789
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1028,
+        572
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4387.578225865273,
+        2443.181632381401
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4385.448605918603,
+          2441.05101870469
+        ],
+        [
+          4389.710326073993,
+          2441.04852281761
+        ],
+        [
+          4389.70779716071,
+          2445.312196877064
+        ],
+        [
+          4385.446110068192,
+          2445.3147248228797
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1029,
+        572
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4391.8398811786965,
+        2443.1791039365785
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4389.710326073993,
+          2441.04852281761
+        ],
+        [
+          4393.971949191609,
+          2441.04599408394
+        ],
+        [
+          4393.969387222149,
+          2445.309635671037
+        ],
+        [
+          4389.70779716071,
+          2445.312196877064
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 0.8773887157440186,
+        "nominal": 0.8773887157440186,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 0.9935899972915649,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 0.8773887157440186,
+        "W64": 0.9935899972915649,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1024,
+        573
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4370.528257588984,
+        2447.455180649581
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4368.398416193985,
+          2445.3245038715845
+        ],
+        [
+          4372.660479006267,
+          2445.322109032593
+        ],
+        [
+          4372.658051770888,
+          2449.585808650411
+        ],
+        [
+          4368.396022461377,
+          2449.5882338863603
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1025,
+        573
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4374.790257824292,
+        2447.4527538638276
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4372.660479006267,
+          2445.322109032593
+        ],
+        [
+          4376.922449750268,
+          2445.3196809071937
+        ],
+        [
+          4376.919989018519,
+          2449.5833497141393
+        ],
+        [
+          4372.658051770888,
+          2449.585808650411
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1026,
+        573
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4379.052165373757,
+        2447.4502935879095
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4376.922449750268,
+          2445.3196809071937
+        ],
+        [
+          4381.184327184559,
+          2445.317219501789
+        ],
+        [
+          4381.181832962941,
+          2449.580857084044
+        ],
+        [
+          4376.919989018519,
+          2449.5833497141393
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1027,
+        573
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4383.313978996241,
+        2447.4477998283264
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4381.184327184559,
+          2445.317219501789
+        ],
+        [
+          4385.446110068192,
+          2445.3147248228797
+        ],
+        [
+          4385.443582363305,
+          2449.5783307667225
+        ],
+        [
+          4381.181832962941,
+          2449.580857084044
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1028,
+        573
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4387.575697451089,
+        2447.445272591677
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4385.446110068192,
+          2445.3147248228797
+        ],
+        [
+          4389.70779716071,
+          2445.312196877064
+        ],
+        [
+          4389.7052359792515,
+          2449.575770768871
+        ],
+        [
+          4385.443582363305,
+          2449.5783307667225
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1029,
+        573
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4391.837319498139,
+        2447.442711884658
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4389.70779716071,
+          2445.312196877064
+        ],
+        [
+          4393.969387222149,
+          2445.309635671037
+        ],
+        [
+          4393.966792570916,
+          2449.5731770972848
+        ],
+        [
+          4389.7052359792515,
+          2449.575770768871
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 0.9963866472244263,
+        "nominal": 0.9963866472244263,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 0.999815821647644,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 0.9963866472244263,
+        "W64": 0.999815821647644,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1023,
+        574
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4366.2637739371285,
+        2451.7212684292617
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4364.133902331788,
+          2449.590625415589
+        ],
+        [
+          4368.396022461377,
+          2449.5882338863603
+        ],
+        [
+          4368.393598536375,
+          2453.8518624587723
+        ],
+        [
+          4364.131512329944,
+          2453.8542839646466
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1024,
+        574
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4370.525831903696,
+        2451.718844953273
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4368.396022461377,
+          2449.5882338863603
+        ],
+        [
+          4372.658051770888,
+          2449.585808650411
+        ],
+        [
+          4372.655593929126,
+          2453.8494068322684
+        ],
+        [
+          4368.393598536375,
+          2453.8518624587723
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1025,
+        574
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4374.787798432437,
+        2451.7163875668075
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4372.658051770888,
+          2449.585808650411
+        ],
+        [
+          4376.919989018519,
+          2449.5833497141393
+        ],
+        [
+          4376.917497266494,
+          2453.8469170916273
+        ],
+        [
+          4372.655593929126,
+          2453.8494068322684
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1026,
+        574
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4379.049672281836,
+        2451.7138962763597
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4376.919989018519,
+          2449.5833497141393
+        ],
+        [
+          4381.181832962941,
+          2449.580857084044
+        ],
+        [
+          4381.17930730725,
+          2453.844393243443
+        ],
+        [
+          4376.917497266494,
+          2453.8469170916273
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1027,
+        574
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4383.311452210852,
+        2451.711371088527
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4381.181832962941,
+          2449.580857084044
+        ],
+        [
+          4385.443582363305,
+          2449.5783307667225
+        ],
+        [
+          4385.441022810645,
+          2453.84183529441
+        ],
+        [
+          4381.17930730725,
+          2453.844393243443
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1028,
+        574
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4387.57313697893,
+        2451.708812010004
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4385.443582363305,
+          2449.5783307667225
+        ],
+        [
+          4389.7052359792515,
+          2449.575770768871
+        ],
+        [
+          4389.702642536419,
+          2453.839243251323
+        ],
+        [
+          4385.441022810645,
+          2453.84183529441
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1022,
+        575
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4361.999237953546,
+        2455.9872801789024
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4359.869336552003,
+          2453.856671343498
+        ],
+        [
+          4364.131512329944,
+          2453.8542839646466
+        ],
+        [
+          4364.12909255609,
+          2458.1178398232487
+        ],
+        [
+          4359.8669511216785,
+          2458.120256758448
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1023,
+        575
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4366.261351982606,
+        2455.984860853293
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4364.131512329944,
+          2453.8542839646466
+        ],
+        [
+          4368.393598536375,
+          2453.8518624587723
+        ],
+        [
+          4368.391144425382,
+          2458.1153883471256
+        ],
+        [
+          4364.12909255609,
+          2458.1178398232487
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1024,
+        575
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4370.523375822222,
+        2455.982407196904
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4368.393598536375,
+          2453.8518624587723
+        ],
+        [
+          4372.655593929126,
+          2453.8494068322684
+        ],
+        [
+          4372.653105487484,
+          2458.1129023365643
+        ],
+        [
+          4368.391144425382,
+          2458.1153883471256
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1025,
+        575
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4374.785308230506,
+        2455.9799192162263
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4372.655593929126,
+          2453.8494068322684
+        ],
+        [
+          4376.917497266494,
+          2453.8469170916273
+        ],
+        [
+          4376.914974500795,
+          2458.110381798152
+        ],
+        [
+          4372.653105487484,
+          2458.1129023365643
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1026,
+        575
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4379.047147966043,
+        2455.97739691785
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4376.917497266494,
+          2453.8469170916273
+        ],
+        [
+          4381.17930730725,
+          2453.844393243443
+        ],
+        [
+          4381.176750224187,
+          2458.107826738578
+        ],
+        [
+          4376.914974500795,
+          2458.110381798152
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1027,
+        575
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4383.308893787891,
+        2455.974840308467
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4381.17930730725,
+          2453.844393243443
+        ],
+        [
+          4385.441022810645,
+          2453.84183529441
+        ],
+        [
+          4385.438431417014,
+          2458.105237164633
+        ],
+        [
+          4381.176750224187,
+          2458.107826738578
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1021,
+        576
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4357.7346521480995,
+        2460.253213389732
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4355.604721364674,
+          2458.1226391463415
+        ],
+        [
+          4359.8669511216785,
+          2458.120256758448
+        ],
+        [
+          4359.86453633971,
+          2462.383738235271
+        ],
+        [
+          4355.6023413465855,
+          2462.3861497592347
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1022,
+        576
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4361.996820570545,
+        2460.250799055083
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4359.8669511216785,
+          2458.120256758448
+        ],
+        [
+          4364.12909255609,
+          2458.1178398232487
+        ],
+        [
+          4364.126643016621,
+          2462.381291750111
+        ],
+        [
+          4359.86453633971,
+          2462.383738235271
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1023,
+        576
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4366.258900052282,
+        2460.2483499693712
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4364.12909255609,
+          2458.1178398232487
+        ],
+        [
+          4368.391144425382,
+          2458.1153883471256
+        ],
+        [
+          4368.388660134891,
+          2462.3788103102283
+        ],
+        [
+          4364.126643016621,
+          2462.381291750111
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1024,
+        576
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4370.520889351061,
+        2460.245866139077
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4368.391144425382,
+          2458.1153883471256
+        ],
+        [
+          4372.653105487484,
+          2458.1129023365643
+        ],
+        [
+          4372.650586452558,
+          2462.376293922202
+        ],
+        [
+          4368.388660134891,
+          2462.3788103102283
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1025,
+        576
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4374.782787225097,
+        2460.243347570782
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4372.653105487484,
+          2458.1129023365643
+        ],
+        [
+          4376.914974500795,
+          2458.110381798152
+        ],
+        [
+          4376.91242072812,
+          2462.373742592712
+        ],
+        [
+          4372.650586452558,
+          2462.376293922202
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1026,
+        576
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4379.044592433075,
+        2460.2407942711734
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4376.914974500795,
+          2458.110381798152
+        ],
+        [
+          4381.176750224187,
+          2458.107826738578
+        ],
+        [
+          4381.174161720553,
+          2462.3711563285433
+        ],
+        [
+          4376.91242072812,
+          2462.373742592712
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1020,
+        577
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4353.4700190309295,
+        2464.5190655534684
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4351.340059280124,
+          2462.3885263156317
+        ],
+        [
+          4355.6023413465855,
+          2462.3861497592347
+        ],
+        [
+          4355.5999323971955,
+          2466.6495551867624
+        ],
+        [
+          4351.337685514938,
+          2466.6519604589794
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1021,
+        577
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4357.732240177337,
+        2464.516657050318
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4355.6023413465855,
+          2462.3861497592347
+        ],
+        [
+          4359.86453633971,
+          2462.383738235271
+        ],
+        [
+          4359.862092212481,
+          2466.6471145331025
+        ],
+        [
+          4355.5999323971955,
+          2466.6495551867624
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1022,
+        577
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4361.994373632109,
+        2464.514213375844
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4359.86453633971,
+          2462.383738235271
+        ],
+        [
+          4364.126643016621,
+          2462.381291750111
+        ],
+        [
+          4364.12416371802,
+          2466.6446385044605
+        ],
+        [
+          4359.862092212481,
+          2466.6471145331025
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1023,
+        577
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4366.256418152648,
+        2464.5117345365143
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4364.126643016621,
+          2462.381291750111
+        ],
+        [
+          4368.388660134891,
+          2462.3788103102283
+        ],
+        [
+          4368.386145671494,
+          2466.642127107401
+        ],
+        [
+          4364.12416371802,
+          2466.6446385044605
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1024,
+        577
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4370.518372496807,
+        2464.509220538901
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4368.388660134891,
+          2462.3788103102283
+        ],
+        [
+          4372.650586452558,
+          2462.376293922202
+        ],
+        [
+          4372.6480368310395,
+          2466.639580348595
+        ],
+        [
+          4368.386145671494,
+          2466.642127107401
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1025,
+        577
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4374.780235422906,
+        2464.50667138968
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4372.650586452558,
+          2462.376293922202
+        ],
+        [
+          4376.91242072812,
+          2462.373742592712
+        ],
+        [
+          4376.909835955263,
+          2466.6369982348165
+        ],
+        [
+          4372.6480368310395,
+          2466.639580348595
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1019,
+        578
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4349.205341112433,
+        2468.7848341623467
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4347.075352808925,
+          2466.654330343398
+        ],
+        [
+          4351.337685514938,
+          2466.6519604589794
+        ],
+        [
+          4351.335283238765,
+          2470.915288170166
+        ],
+        [
+          4347.072986137249,
+          2470.917686350186
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 0.9850230813026428,
+        "nominal": 0.9850230813026428,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 0.9991899132728577,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 0.9850230813026428,
+        "W64": 0.9991899132728577,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1020,
+        578
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4353.467613313072,
+        2468.782432331176
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4351.337685514938,
+          2466.6519604589794
+        ],
+        [
+          4355.5999323971955,
+          2466.6495551867624
+        ],
+        [
+          4355.5974945228745,
+          2470.912854188489
+        ],
+        [
+          4351.335283238765,
+          2470.915288170166
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 0.9997338056564331,
+        "nominal": 0.9997338056564331,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 0.9999864101409912,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 0.9997338056564331,
+        "W64": 0.9999864101409912,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1021,
+        578
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4357.7297990714815,
+        2468.7799949084515
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4355.5999323971955,
+          2466.6495551867624
+        ],
+        [
+          4359.862092212481,
+          2466.6471145331025
+        ],
+        [
+          4359.859618746464,
+          2470.910384411598
+        ],
+        [
+          4355.5974945228745,
+          2470.912854188489
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1022,
+        578
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4361.991897144718,
+        2468.777521900625
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4359.862092212481,
+          2466.6471145331025
+        ],
+        [
+          4364.12416371802,
+          2466.6446385044605
+        ],
+        [
+          4364.1216546668675,
+          2470.907878846044
+        ],
+        [
+          4359.859618746464,
+          2470.910384411598
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1023,
+        578
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4366.253906290285,
+        2468.7750133142536
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4364.12416371802,
+          2466.6446385044605
+        ],
+        [
+          4368.386145671494,
+          2466.642127107401
+        ],
+        [
+          4368.38360104187,
+          2470.9053374984815
+        ],
+        [
+          4364.1216546668675,
+          2470.907878846044
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1024,
+        578
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4370.515825266146,
+        2468.7724691560024
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4368.386145671494,
+          2466.642127107401
+        ],
+        [
+          4372.6480368310395,
+          2466.639580348595
+        ],
+        [
+          4372.645456629715,
+          2470.9027603756754
+        ],
+        [
+          4368.38360104187,
+          2470.9053374984815
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1025,
+        578
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4374.777652830723,
+        2468.76988943264
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4372.6480368310395,
+          2466.639580348595
+        ],
+        [
+          4376.909835955263,
+          2466.6369982348165
+        ],
+        [
+          4376.907220189115,
+          2470.9001474844945
+        ],
+        [
+          4372.645456629715,
+          2470.9027603756754
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1019,
+        579
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4349.2029424880875,
+        2473.048122390373
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4347.072986137249,
+          2470.917686350186
+        ],
+        [
+          4351.335283238765,
+          2470.915288170166
+        ],
+        [
+          4351.3328524579565,
+          2475.1785082091947
+        ],
+        [
+          4347.0705913748625,
+          2475.1809346784744
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": false,
+        "nominal": false,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 0.5305821895599365,
+        "nominal": 0.5305821895599365,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 0.9625709056854248,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 0.5305821895599365,
+        "W64": 0.9625709056854248,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1020,
+        579
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4353.465178880436,
+        2473.045692059847
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4351.335283238765,
+          2470.915288170166
+        ],
+        [
+          4355.5974945228745,
+          2470.912854188489
+        ],
+        [
+          4355.595027730078,
+          2475.1760455245053
+        ],
+        [
+          4351.3328524579565,
+          2475.1785082091947
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 0.985817015171051,
+        "nominal": 0.985817015171051,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 0.9989367127418518,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 0.985817015171051,
+        "W64": 0.9989367127418518,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1021,
+        579
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4357.727328836999,
+        2473.043225724005
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4355.5974945228745,
+          2470.912854188489
+        ],
+        [
+          4359.859618746464,
+          2470.910384411598
+        ],
+        [
+          4359.857115948223,
+          2475.173546630938
+        ],
+        [
+          4355.595027730078,
+          2475.1760455245053
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1022,
+        579
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4361.989391114941,
+        2473.0407233893875
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4359.859618746464,
+          2470.910384411598
+        ],
+        [
+          4364.1216546668675,
+          2470.907878846044
+        ],
+        [
+          4364.119115869831,
+          2475.1710115351316
+        ],
+        [
+          4359.857115948223,
+          2475.173546630938
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1023,
+        579
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4366.251364471872,
+        2473.0381850626436
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4364.1216546668675,
+          2470.907878846044
+        ],
+        [
+          4368.38360104187,
+          2470.9053374984815
+        ],
+        [
+          4368.381026252795,
+          2475.168440243835
+        ],
+        [
+          4364.119115869831,
+          2475.1710115351316
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1024,
+        579
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4370.51324766586,
+        2473.035610750528
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4368.38360104187,
+          2470.9053374984815
+        ],
+        [
+          4372.645456629715,
+          2470.9027603756754
+        ],
+        [
+          4372.642845855466,
+          2475.165832763903
+        ],
+        [
+          4368.381026252795,
+          2475.168440243835
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1020,
+        580
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4353.462715739469,
+        2477.308843499793
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4351.3328524579565,
+          2475.1785082091947
+        ],
+        [
+          4355.595027730078,
+          2475.1760455245053
+        ],
+        [
+          4355.592532025355,
+          2479.439127955435
+        ],
+        [
+          4351.330393178952,
+          2479.441619336601
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 0.7966922521591187,
+        "nominal": 0.7966922521591187,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 0.9855603575706482,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 0.7966922521591187,
+        "W64": 0.9855603575706482,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1021,
+        580
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4357.724829480446,
+        2477.3063482573793
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4355.595027730078,
+          2475.1760455245053
+        ],
+        [
+          4359.857115948223,
+          2475.173546630938
+        ],
+        [
+          4359.854583824412,
+          2479.436599951835
+        ],
+        [
+          4355.592532025355,
+          2479.439127955435
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 0.9944114089012146,
+        "nominal": 0.9944114089012146,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 0.999661386013031,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 0.9944114089012146,
+        "W64": 0.999661386013031,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1022,
+        580
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4361.986855549441,
+        2477.3038166026245
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4359.857115948223,
+          2475.173546630938
+        ],
+        [
+          4364.119115869831,
+          2475.1710115351316
+        ],
+        [
+          4364.116547333672,
+          2479.4340353325297
+        ],
+        [
+          4359.854583824412,
+          2479.436599951835
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 0.9999999403953552,
+        "nominal": 0.9999999403953552,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 0.9999999403953552,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 0.9999999403953552,
+        "W64": 0.9999999403953552,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1023,
+        580
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4366.248792704176,
+        2477.301248542267
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4364.119115869831,
+          2475.1710115351316
+        ],
+        [
+          4368.381026252795,
+          2475.168440243835
+        ],
+        [
+          4368.378421311138,
+          2479.4314341043582
+        ],
+        [
+          4364.116547333672,
+          2479.4340353325297
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 0.9999999403953552,
+        "nominal": 0.9999999403953552,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 0.9999999403953552,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 0.9999999403953552,
+        "W64": 0.9999999403953552,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1021,
+        581
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4357.722301008465,
+        2481.5693612695127
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4355.592532025355,
+          2479.439127955435
+        ],
+        [
+          4359.854583824412,
+          2479.436599951835
+        ],
+        [
+          4359.852022381776,
+          2483.6995431355444
+        ],
+        [
+          4355.59000741534,
+          2483.702100242443
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 0.7201436161994934,
+        "nominal": 0.7201436161994934,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 0.9806143045425415,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 0.7201436161994934,
+        "W64": 0.9806143045425415,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "IA",
+      "HD_pixel": [
+        1022,
+        581
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4361.984290454972,
+        2481.5668003013634
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4359.854583824412,
+          2479.436599951835
+        ],
+        [
+          4364.116547333672,
+          2479.4340353325297
+        ],
+        [
+          4364.113949065246,
+          2483.6969489995836
+        ],
+        [
+          4359.852022381776,
+          2483.6995431355444
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 0.9918602705001831,
+        "nominal": 0.9918602705001831,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 0.9994825720787048,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 0.9918602705001831,
+        "W64": 0.9994825720787048,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "LA",
+      "HD_pixel": [
+        890,
+        581
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        3799.1506451874534,
+        2481.5638558142596
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          3797.018350304919,
+          2479.431087025609
+        ],
+        [
+          3801.2803929893594,
+          2479.4336471092247
+        ],
+        [
+          3801.2829504653623,
+          2483.6966022754705
+        ],
+        [
+          3797.020944299292,
+          2483.6940136330963
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "LA",
+      "HD_pixel": [
+        891,
+        581
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        3803.4127125338346,
+        2481.566411927798
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          3801.2803929893594,
+          2479.4336471092247
+        ],
+        [
+          3805.542521115779,
+          2479.4361708920615
+        ],
+        [
+          3805.5450420658963,
+          2483.699154213282
+        ],
+        [
+          3801.2829504653623,
+          2483.6966022754705
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 0.9735997915267944,
+        "nominal": 0.9735997915267944,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 0.9971581101417542,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 0.9735997915267944,
+        "W64": 0.9971581101417542,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "LA",
+      "HD_pixel": [
+        886,
+        582
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        3782.1059851992395,
+        2485.816034821264
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          3779.9737982082993,
+          2483.683292171935
+        ],
+        [
+          3784.235450523464,
+          2483.686027555304
+        ],
+        [
+          3784.2381840099506,
+          2487.9487555583178
+        ],
+        [
+          3779.9765685854863,
+          2487.945990010131
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "LA",
+      "HD_pixel": [
+        887,
+        582
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        3786.3676644080506,
+        2485.8187668515193
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          3784.235450523464,
+          2483.686027555304
+        ],
+        [
+          3788.4971931172895,
+          2483.688726265232
+        ],
+        [
+          3788.4998897050195,
+          2487.951484029798
+        ],
+        [
+          3784.2381840099506,
+          2487.9487555583178
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "LA",
+      "HD_pixel": [
+        888,
+        582
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        3790.6294332864613,
+        2485.8214620026747
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          3788.4971931172895,
+          2483.688726265232
+        ],
+        [
+          3792.759024779498,
+          2483.6913882937747
+        ],
+        [
+          3792.7616844605245,
+          2487.954175416523
+        ],
+        [
+          3788.4998897050195,
+          2487.951484029798
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "LA",
+      "HD_pixel": [
+        889,
+        582
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        3794.8912906239875,
+        2485.8241202667887
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          3792.759024779498,
+          2483.6913882937747
+        ],
+        [
+          3797.020944299292,
+          2483.6940136330963
+        ],
+        [
+          3797.0235670657794,
+          2487.9568297105534
+        ],
+        [
+          3792.7616844605245,
+          2487.954175416523
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "LA",
+      "HD_pixel": [
+        890,
+        582
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        3799.153235209631,
+        2485.826741636029
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          3797.020944299292,
+          2483.6940136330963
+        ],
+        [
+          3801.2829504653623,
+          2483.6966022754705
+        ],
+        [
+          3801.2855363095846,
+          2487.9594469040626
+        ],
+        [
+          3797.0235670657794,
+          2487.9568297105534
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 0.9951231479644775,
+        "nominal": 0.9951231479644775,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 0.9997314810752869,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 0.9951231479644775,
+        "W64": 0.9997314810752869,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "LA",
+      "HD_pixel": [
+        891,
+        582
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        3803.415265831884,
+        2485.829326102674
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          3801.2829504653623,
+          2483.6966022754705
+        ],
+        [
+          3805.5450420658963,
+          2483.699154213282
+        ],
+        [
+          3805.547590980238,
+          2487.962026989333
+        ],
+        [
+          3801.2855363095846,
+          2487.9594469040626
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 0.818162739276886,
+        "nominal": 0.818162739276886,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 0.9873297214508057,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 0.818162739276886,
+        "W64": 0.9873297214508057,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "LA",
+      "HD_pixel": [
+        884,
+        583
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        3773.585741820347,
+        2490.0730562939993
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          3771.453613386405,
+          2487.940347716394
+        ],
+        [
+          3775.7150446412684,
+          2487.9431873933995
+        ],
+        [
+          3775.717882682749,
+          2492.2057429632932
+        ],
+        [
+          3771.4564887052984,
+          2492.2028723236504
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 0.6645991206169128,
+        "nominal": 0.6645991206169128,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 0.9760006070137024,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 0.6645991206169128,
+        "W64": 0.9760006070137024,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "LA",
+      "HD_pixel": [
+        885,
+        583
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        3777.847200980577,
+        2490.0758928235477
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          3775.7150446412684,
+          2487.9431873933995
+        ],
+        [
+          3779.9765685854863,
+          2487.945990010131
+        ],
+        [
+          3779.979369341169,
+          2492.208576139722
+        ],
+        [
+          3775.717882682749,
+          2492.2057429632932
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "LA",
+      "HD_pixel": [
+        886,
+        583
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        3782.108752221524,
+        2490.078692087162
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          3779.9765685854863,
+          2487.945990010131
+        ],
+        [
+          3784.2381840099506,
+          2487.9487555583178
+        ],
+        [
+          3784.2409474715614,
+          2492.211371844557
+        ],
+        [
+          3779.979369341169,
+          2492.208576139722
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "LA",
+      "HD_pixel": [
+        887,
+        583
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        3786.370394333866,
+        2490.0814540765714
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          3784.2381840099506,
+          2487.9487555583178
+        ],
+        [
+          3788.4998897050195,
+          2487.951484029798
+        ],
+        [
+          3788.502615864396,
+          2492.2141300695316
+        ],
+        [
+          3784.2409474715614,
+          2492.211371844557
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "LA",
+      "HD_pixel": [
+        888,
+        583
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        3790.632126107754,
+        2490.084178783619
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          3788.4998897050195,
+          2487.951484029798
+        ],
+        [
+          3792.7616844605245,
+          2487.954175416523
+        ],
+        [
+          3792.764373309616,
+          2492.216850806492
+        ],
+        [
+          3788.502615864396,
+          2492.2141300695316
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "LA",
+      "HD_pixel": [
+        889,
+        583
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        3794.893946332815,
+        2490.0868662002586
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          3792.7616844605245,
+          2487.954175416523
+        ],
+        [
+          3797.0235670657794,
+          2487.9568297105534
+        ],
+        [
+          3797.0262185966476,
+          2492.2195340473963
+        ],
+        [
+          3792.764373309616,
+          2492.216850806492
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 0.9981040954589844,
+        "nominal": 0.9981040954589844,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 0.9999033808708191,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 0.9981040954589844,
+        "W64": 0.9999033808708191,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "LA",
+      "HD_pixel": [
+        890,
+        583
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        3799.1558537981614,
+        2490.089516318556
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          3797.0235670657794,
+          2487.9568297105534
+        ],
+        [
+          3801.2855363095846,
+          2487.9594469040626
+        ],
+        [
+          3801.2881505144032,
+          2492.222179784315
+        ],
+        [
+          3797.0262185966476,
+          2492.2195340473963
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 0.9156752228736877,
+        "nominal": 0.9156752228736877,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 0.9942635893821716,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 0.9156752228736877,
+        "W64": 0.9942635893821716,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "LA",
+      "HD_pixel": [
+        885,
+        584
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        3777.8500356671507,
+        2494.3384074178057
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          3775.717882682749,
+          2492.2057429632932
+        ],
+        [
+          3779.979369341169,
+          2492.208576139722
+        ],
+        [
+          3779.9822004670646,
+          2496.471049351095
+        ],
+        [
+          3775.720751497596,
+          2496.4681856233574
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 0.7249603271484375,
+        "nominal": 0.7249603271484375,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 0.9817061424255371,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 0.7249603271484375,
+        "W64": 0.9817061424255371,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "LA",
+      "HD_pixel": [
+        886,
+        584
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        3782.1115494165306,
+        2494.341237035453
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          3779.979369341169,
+          2492.208576139722
+        ],
+        [
+          3784.2409474715614,
+          2492.211371844557
+        ],
+        [
+          3784.2437409001245,
+          2496.4738752043036
+        ],
+        [
+          3779.9822004670646,
+          2496.471049351095
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "LA",
+      "HD_pixel": [
+        887,
+        584
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        3786.373154029035,
+        2494.344028975851
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          3784.2409474715614,
+          2492.211371844557
+        ],
+        [
+          3788.502615864396,
+          2492.2141300695316
+        ],
+        [
+          3788.505371587359,
+          2496.47666317461
+        ],
+        [
+          3784.2437409001245,
+          2496.4738752043036
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "LB",
+      "HD_pixel": [
+        940,
+        605
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4012.3361594736693,
+        2584.031485911041
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4010.2035863434726,
+          2581.899844868903
+        ],
+        [
+          4014.4680367378232,
+          2581.9005426448703
+        ],
+        [
+          4014.4687190268583,
+          2586.1630893739084
+        ],
+        [
+          4010.204309790473,
+          2586.1623846652747
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 0.719957172870636,
+        "nominal": 0.719957172870636,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 0.9812604188919067,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 0.719957172870636,
+        "W64": 0.9812604188919067,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "LB",
+      "HD_pixel": [
+        936,
+        606
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        3995.2794931961,
+        2588.2908030925455
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          3993.1469019192637,
+          2586.1591532131374
+        ],
+        [
+          3997.411217059969,
+          2586.1600229627024
+        ],
+        [
+          3997.412072337294,
+          2590.4224158064835
+        ],
+        [
+          3993.14779874991,
+          2590.4215375006615
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "LB",
+      "HD_pixel": [
+        937,
+        606
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        3999.5438004509924,
+        2588.291656391635
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          3997.411217059969,
+          2586.1600229627024
+        ],
+        [
+          4001.675557573978,
+          2586.160851456688
+        ],
+        [
+          4001.676371294689,
+          2590.4232524501804
+        ],
+        [
+          3997.412072337294,
+          2590.4224158064835
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "LB",
+      "HD_pixel": [
+        938,
+        606
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4003.808132461193,
+        2588.29246823023
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4001.675557573978,
+          2586.160851456688
+        ],
+        [
+          4005.9399222284715,
+          2586.1616386918968
+        ],
+        [
+          4005.9406943894196,
+          2590.4240474285234
+        ],
+        [
+          4001.676371294689,
+          2590.4232524501804
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 1.0,
+        "W64": 1.0,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "LB",
+      "HD_pixel": [
+        939,
+        606
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4008.072487993874,
+        2588.293238605189
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4005.9399222284715,
+          2586.1616386918968
+        ],
+        [
+          4010.204309790473,
+          2586.1623846652747
+        ],
+        [
+          4010.205040388653,
+          2590.4248007384267
+        ],
+        [
+          4005.9406943894196,
+          2590.4240474285234
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 0.9263509511947632,
+        "nominal": 0.9263509511947632,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 0.9962461590766907,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 0.9263509511947632,
+        "W64": 0.9962461590766907,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "LB",
+      "HD_pixel": [
+        934,
+        607
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        3986.751921731909,
+        2592.551280510873
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          3984.6193326150587,
+          2590.4196559162756
+        ],
+        [
+          3988.883551765051,
+          2590.420617536087
+        ],
+        [
+          3988.8844993310486,
+          2594.6828679443306
+        ],
+        [
+          3984.620322134695,
+          2594.681896958942
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 0.6103108525276184,
+        "nominal": 0.6103108525276184,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 0.9716914892196655,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 0.6103108525276184,
+        "W64": 0.9716914892196655,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "LB",
+      "HD_pixel": [
+        935,
+        607
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        3991.0161340265445,
+        2592.552225885174
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          3988.883551765051,
+          2590.420617536087
+        ],
+        [
+          3993.14779874991,
+          2590.4215375006615
+        ],
+        [
+          3993.1487043586553,
+          2594.683796868149
+        ],
+        [
+          3988.8844993310486,
+          2594.6828679443306
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 0.9857584834098816,
+        "nominal": 0.9857584834098816,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 0.9992741346359253,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 0.9857584834098816,
+        "W64": 0.9992741346359253,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    },
+    {
+      "camera": "MC",
+      "HD_pixel": [
+        1172,
+        748
+      ],
+      "cluster": 1,
+      "RAW_center": [
+        4997.12304789317,
+        3188.8173299092723
+      ],
+      "RAW_geometric_pixel_corners": [
+        [
+          4995.021764648809,
+          3186.718361115226
+        ],
+        [
+          4999.2464287366165,
+          3186.696276987421
+        ],
+        [
+          4999.224199054808,
+          3190.916160177714
+        ],
+        [
+          4994.99963094204,
+          3190.9383250944024
+        ]
+      ],
+      "RAW_nearest": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "addhair": false,
+        "source_ineligible": false
+      },
+      "RAW_calibrated_AREA_coverage": {
+        "black": 0.0,
+        "grey": 0.5672664046287537,
+        "nominal": 0.5672664046287537,
+        "addhair": 0.0,
+        "source_ineligible": 0.0
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 0.9574751257896423,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "original_HD": {
+        "nominal_coverage": 0.5672664046287537,
+        "W64": 0.9574751257896423,
+        "source_ineligible": 0.0
+      },
+      "corrected_UNKNOWN": false,
+      "corrected_W32_support": true
+    }
+  ],
+  "source_hashes": {
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/manifest.json": "1f7f28751aac5ae7486ff8392606cf6c09bd2118eef934dbf64c1171d96aabc3",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/request.json": "692ddf98d2334c710d0ac9e6481ffba7c99b70a899db882e33d117c4b729bca8",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/source_support_fourway_CPU_v3/W32_semantic_gate_pad1_positives.json": "2245036db4ba5eb4a30b6489aaf2899be2f630dce0d259185b3cd2379f2866dd",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/transforms.json": "64176bce20fcf0f08427a89b492003adcce6a0b513d9fffd6bbc583db172f01a",
+    "/fsx/oregon/gta_marshawn_2_1_prep_20261028/root/Marshawn_2_1/golden/rig/images.txt": "74cc5ca92ecd254729dd74876c3086e78e12ec959ca1729ce0c19aa507961ebc",
+    "/fsx/oregon/gta_marshawn_2_1_prep_20261028/root/Marshawn_2_1/golden/rig/cameras.txt": "6710f5563ea3831c6e53ea95894b4d166a33d2e15c3d2a26a38490acb2a9e893",
+    "/home/pavlo/repos/nerfstudio/LookCloser/scripts/review_marshawn_W32_missed_pixels_cpu.py": "df4fe18f85d14290f893443956ae7447dd23c8dbe50cde17df903c314a1d8807",
+    "/home/pavlo/repos/nerfstudio/LookCloser/scripts/marshawn_actor_coordinates.py": "d4d6be06068b7cd2957375fbd2d857d4c8d75675b464dc8b4f900c31ab78b9f0",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/IA.npz": "8200b3e54029caefccd905f5ba32271e27a473fefaf0f733b02aa1aef089d6e2",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/archives/IA.npz": "1a0731a614fa0005d80b828ba24bf6e4deeb2b456764b482ab3bc4864bfce886",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/IA_RAW_native_crop.png": "6023c9a8b6697e9cc7e4db2c1ad237cdb12804981dea9717ff32429abe34ca8b",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/IA.npz": "ff2014fcf6842cd519827a7aa384c1d97603858fd332b0ef317acccdb97af080",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W32/archives/IA.npz": "24d07befad1af1b1ad41240666a205d0da04fda75dff44b6f8de3455e8d98ee4",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/images/train_IA.png": "71a656a2c532229e11a15875266ad2429bf53ab2bfc63b4a3a16ffcbf10a0860",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/LA.npz": "be739065acb4134f65a9cf2d14bc2b62edb77f4cfb68c2321c471f51c9890107",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/archives/LA.npz": "eb4a3a665e4dd0792b86e692b7b2a2256846216dfed5a4edef3c8b0704f1e929",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/LA_RAW_native_crop.png": "1b7bff3fc30e518a45bcf1510c5bf3576b97b728bc137afb94007224e58e23bf",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/LA.npz": "1ac24bd1a6fc89306ea316d9835a9ba13725e9fecbcfaa67af0ede4da1feffff",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W32/archives/LA.npz": "92f4ce85dc86b0232986355429a189cde518acb13ce1cb47ec7319c0ce8239a1",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/images/train_LA.png": "e8f69c4fff64c514e92b2f938720fbd6265d6745f04d1278cf5e890141599060",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/LB.npz": "a35779c95a6b5348404db351563bc948f63abb35429ea4ecd9ee459bdb7486dc",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/archives/LB.npz": "90fb654186470152ef872db98efb75fd4e15172f881f390cae4bacf584849057",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/LB_RAW_native_crop.png": "f33c83f99a62222f498ef3108bdc117de5323463af78664381141811f1aa3e71",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/LB.npz": "298eb134186a22fd36304af3849055934283a5dcd8ed6c25a84db93620dad02b",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W32/archives/LB.npz": "1551f69321c0a84ae688c64fef1e2cf68038834a041a7752fb4aeaabd17b7975",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/images/train_LB.png": "645db40ad154f823910bac2f9c26ee29e997bc53041b82751b1932059ffa8108",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/MC.npz": "c552321cbed9b93096f4fd27d4ca774e1c78be7a1d7f14b7a82b3779f2657258",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/archives/MC.npz": "704799409573d6258004e4134dcb84b304d5793819cfa3b32e746fb248b6d2e2",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/MC_RAW_native_crop.png": "b360e7ed32d166d62e9e2eef8a09b513b8f5dae217a7119418c0c3f5e1c530a0",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/MC.npz": "e37e1f03a07890a281760af92e3ac3e29a2495d2fe3f15b8151df27befb2f0c5",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W32/archives/MC.npz": "1c244c17c89c10019e6103a44a15ab0bd733ba1fd73f6bc54889fbc330f0f2f0",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/images/train_MC.png": "d53acd79f0b2bc4f3fb2d5ba885e41d0749bc079ca70697fc03c70d5be056fe4"
+  },
+  "limitations": [
+    "Original existing segmentation classes are evidence, not new labels or optical alpha GT.",
+    "RAW polygon shows geometric mapped cell; actual semantic coverage uses exact AREA prefilter and OpenCV linear remap.",
+    "UNKNOWN is source ambiguity, never a physical-free-space assertion.",
+    "Parent source remains fixed126316; no training or grid mutation."
+  ]
+}

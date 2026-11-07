@@ -22,3 +22,12 @@ Provenance: all63 support archives were rehashed; W32 support is a subset of W64
 Validation: three CPU tests cover parallel/face rays, analytic-interval/point-lookup equality, monotone buffer growth and outside-UNKNOWN distinction. CUDA remained uninitialized. Initial v1 stopped only because saved trace arrays had not yet been fetched; v2 completed; v3 additionally binds the existing ray-audit checkpoint/pose/query identity. No model query or label mutation occurred.
 
 [Full source/hash report](assets/marshawn_source_support_fourway_20261107/report.json), [saved-position integrals](assets/marshawn_source_support_fourway_20261107/saved_sample_mass.json). Source artifacts: `/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/source_support_fourway_CPU_v3`.
+
+
+## All91 remaining W32/pad1+.002 rays: existing source review
+
+All91 pixels are present in four connected clusters, with no omitted pixels: [IA65](assets/marshawn_source_support_fourway_20261107/missed91/IA_cluster01.png), [LA18](assets/marshawn_source_support_fourway_20261107/missed91/LA_cluster01.png), [LB7](assets/marshawn_source_support_fourway_20261107/missed91/LB_cluster01.png), [MC1](assets/marshawn_source_support_fourway_20261107/missed91/MC_cluster01.png). Pages pair HD context, corrected UNKNOWN, native RAW photographs and original black/grey/added-hair masks; every red footprint maps the same calibrated HD pixel. Semantic coverage uses the actual AREA-prefilter plus calibrated remap, separately from the geometric footprint outline.
+
+All four pages were visually inspected. The missed clusters lie on tips/edges of a separate dark floor object consistent with the previously inspected bag region, not on visible actor hair. This observation is not a new label or permission to carve. At nearest RAW centers89/91 pixels are original grey+nominal, two are outside nominal; none are black or added hair. All91 exact HD pixels are outside the current corrected UNKNOWN, though UNKNOWN surrounds the previously reviewed interior. This explains why unchanged positive masks can conflict with a tighter volume; root source qualification remains required before changing any contract.
+
+[All91 exact coordinates, original/current classes, calibrated RAW coverages and source/pose hashes](assets/marshawn_source_support_fourway_20261107/missed91/review.json). No model, GPU, relabeling, grid change, training change or V1 modification was used.
