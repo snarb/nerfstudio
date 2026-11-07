@@ -1,0 +1,314 @@
+{
+  "status": "USER_CANCELLED",
+  "scientific_failure": false,
+  "reason": "Explicit user STOP ALL immediately; supersedes earlier run-to-plateau permission and minimum-duration request.",
+  "utc": "2026-11-07T12:00:36.020143+00:00",
+  "no_restart": true,
+  "optimization_stopped": true,
+  "all_own_background_processes_terminal": true,
+  "all8_Silver_GPUs_0_MiB": true,
+  "GPU_compute_apps_empty": true,
+  "source_comparison_checkpoint_340e_unchanged": true,
+  "quality_promoted": false,
+  "final_plateau_comparison_incomplete": true,
+  "relaunchers_stopped_first": [
+    {
+      "pid": 2216273,
+      "target": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/hash24_cold_matched_candidate_v1/continuation_two23_v1/retainer.py",
+      "signal": "SIGTERM"
+    },
+    {
+      "pid": 2218613,
+      "target": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/hash24_cold_matched_candidate_v1/continuation_hash24_v1/retainer.py",
+      "signal": "SIGTERM"
+    },
+    {
+      "pid": 2218733,
+      "target": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/hash24_cold_matched_candidate_v1_helpers/review_hash24_20k.py",
+      "signal": "SIGTERM"
+    }
+  ],
+  "workers": [
+    {
+      "arm": "control23",
+      "PID": 645723,
+      "signals": [
+        {
+          "signal": "SIGTERM",
+          "time": 1794052593.0182467
+        }
+      ],
+      "worker_alive_after": false,
+      "OOM_evidence": false,
+      "last_saved_checkpoint": {
+        "checkpoint": "checkpoints/step-000052000.ckpt",
+        "checkpoint_sha256": "f4b256c934c58745bdcee064cd53a5ab3b3e437b2562f3e73a9a7e95180d7f82",
+        "step": 52000,
+        "terminal": false
+      }
+    },
+    {
+      "arm": "corrected23",
+      "PID": 646389,
+      "signals": [
+        {
+          "signal": "SIGTERM",
+          "time": 1794052593.0184176
+        }
+      ],
+      "worker_alive_after": false,
+      "OOM_evidence": false,
+      "last_saved_checkpoint": {
+        "checkpoint": "checkpoints/step-000052180.ckpt",
+        "checkpoint_sha256": "f05ff0fc0da6ea08e5d1ea3dbc23d4e5c37736b36779b2ebbb3d334da05345a4",
+        "step": 52180,
+        "terminal": false
+      }
+    },
+    {
+      "arm": "hash24",
+      "PID": 733082,
+      "signals": [
+        {
+          "signal": "SIGTERM",
+          "time": 1794052593.0185742
+        }
+      ],
+      "worker_alive_after": false,
+      "OOM_evidence": false,
+      "last_saved_checkpoint": {
+        "checkpoint": "checkpoints/step-000017652.ckpt",
+        "checkpoint_sha256": "aec4f641a25232dd764acab73cd903c42b8138d8e0c9f0c30bdff75c32a831a9",
+        "step": 17652,
+        "terminal": false
+      }
+    }
+  ],
+  "remote_terminal_PID_inventory": [
+    {
+      "arm": "control23",
+      "role": "supervisor",
+      "expected": {
+        "pid": 645508,
+        "start": "7997045",
+        "boot": "3cd2faca-15ef-4b7e-9767-20e0b80af902",
+        "state": "R"
+      },
+      "terminal_state": {
+        "actual_state": "absent",
+        "alive": false
+      }
+    },
+    {
+      "arm": "control23",
+      "role": "worker",
+      "expected": {
+        "pid": 645723,
+        "start": "7997063",
+        "boot": "3cd2faca-15ef-4b7e-9767-20e0b80af902",
+        "state": "R"
+      },
+      "terminal_state": {
+        "actual_state": "absent",
+        "alive": false
+      }
+    },
+    {
+      "arm": "control23",
+      "role": "remote_guardian",
+      "expected": {
+        "pid": 643990,
+        "start": "7996846",
+        "boot": "3cd2faca-15ef-4b7e-9767-20e0b80af902",
+        "state": "R",
+        "argv": [
+          "python3",
+          "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/hash24_cold_matched_candidate_v1/continuation_two23_v1/control23/external_guard_hash24_v1/guardian.py",
+          "remote",
+          "--policy",
+          "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/hash24_cold_matched_candidate_v1/continuation_two23_v1/control23/external_guard_hash24_v1/policy.json",
+          "--phase",
+          "production",
+          "--instance",
+          "231f0c2a-139c-4cdd-956b-363c7f94b508"
+        ]
+      },
+      "terminal_state": {
+        "actual_state": "absent",
+        "alive": false
+      }
+    },
+    {
+      "arm": "corrected23",
+      "role": "supervisor",
+      "expected": {
+        "pid": 646384,
+        "start": "7997210",
+        "boot": "3cd2faca-15ef-4b7e-9767-20e0b80af902",
+        "state": "R"
+      },
+      "terminal_state": {
+        "actual_state": "absent",
+        "alive": false
+      }
+    },
+    {
+      "arm": "corrected23",
+      "role": "worker",
+      "expected": {
+        "pid": 646389,
+        "start": "7997228",
+        "boot": "3cd2faca-15ef-4b7e-9767-20e0b80af902",
+        "state": "R"
+      },
+      "terminal_state": {
+        "actual_state": "absent",
+        "alive": false
+      }
+    },
+    {
+      "arm": "corrected23",
+      "role": "remote_guardian",
+      "expected": {
+        "pid": 645289,
+        "start": "7997014",
+        "boot": "3cd2faca-15ef-4b7e-9767-20e0b80af902",
+        "state": "R",
+        "argv": [
+          "python3",
+          "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/hash24_cold_matched_candidate_v1/continuation_two23_v1/corrected23/external_guard_hash24_v1/guardian.py",
+          "remote",
+          "--policy",
+          "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/hash24_cold_matched_candidate_v1/continuation_two23_v1/corrected23/external_guard_hash24_v1/policy.json",
+          "--phase",
+          "production",
+          "--instance",
+          "a1131c74-fbd8-48d8-b4f8-331984d4969c"
+        ]
+      },
+      "terminal_state": {
+        "actual_state": "absent",
+        "alive": false
+      }
+    },
+    {
+      "arm": "hash24",
+      "role": "supervisor",
+      "expected": {
+        "pid": 733077,
+        "start": "8030859",
+        "boot": "3cd2faca-15ef-4b7e-9767-20e0b80af902",
+        "state": "R"
+      },
+      "terminal_state": {
+        "actual_state": "absent",
+        "alive": false
+      }
+    },
+    {
+      "arm": "hash24",
+      "role": "worker",
+      "expected": {
+        "pid": 733082,
+        "start": "8030877",
+        "boot": "3cd2faca-15ef-4b7e-9767-20e0b80af902",
+        "state": "R"
+      },
+      "terminal_state": {
+        "actual_state": "absent",
+        "alive": false
+      }
+    },
+    {
+      "arm": "hash24",
+      "role": "remote_guardian",
+      "expected": {
+        "pid": 731772,
+        "start": "8030661",
+        "boot": "3cd2faca-15ef-4b7e-9767-20e0b80af902",
+        "state": "R",
+        "argv": [
+          "python3",
+          "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/hash24_cold_matched_candidate_v1/production_hash24_v1/external_guard_hash24_v1/guardian.py",
+          "remote",
+          "--policy",
+          "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/hash24_cold_matched_candidate_v1/production_hash24_v1/external_guard_hash24_v1/policy.json",
+          "--phase",
+          "production",
+          "--instance",
+          "123507be-7407-4930-9f3a-a81ae482e3c7"
+        ]
+      },
+      "terminal_state": {
+        "actual_state": "absent",
+        "alive": false
+      }
+    }
+  ],
+  "local_namespace_cleanup_remaining": [],
+  "remote_namespace_cleanup_remaining": [],
+  "cases": {
+    "control23": {
+      "last_saved_checkpoint": {
+        "checkpoint": "checkpoints/step-000052000.ckpt",
+        "checkpoint_sha256": "f4b256c934c58745bdcee064cd53a5ab3b3e437b2562f3e73a9a7e95180d7f82",
+        "step": 52000,
+        "terminal": false
+      },
+      "checkpoint_exists": true,
+      "checkpoint_bytes": 2096124150,
+      "latest_eval_step": 50000,
+      "latest_eval_metrics": {
+        "psnr": 31.663084256735146,
+        "ssim": 0.8392666776974996,
+        "lpips": 0.020251076978941757
+      },
+      "at_plateau": false,
+      "quality_promoted": false
+    },
+    "corrected23": {
+      "last_saved_checkpoint": {
+        "checkpoint": "checkpoints/step-000052180.ckpt",
+        "checkpoint_sha256": "f05ff0fc0da6ea08e5d1ea3dbc23d4e5c37736b36779b2ebbb3d334da05345a4",
+        "step": 52180,
+        "terminal": false
+      },
+      "checkpoint_exists": true,
+      "checkpoint_bytes": 2096124150,
+      "latest_eval_step": 50000,
+      "latest_eval_metrics": {
+        "psnr": 31.668245271420318,
+        "ssim": 0.8396715223789215,
+        "lpips": 0.020068525957564514
+      },
+      "at_plateau": false,
+      "quality_promoted": false
+    },
+    "hash24": {
+      "last_saved_checkpoint": {
+        "checkpoint": "checkpoints/step-000017652.ckpt",
+        "checkpoint_sha256": "aec4f641a25232dd764acab73cd903c42b8138d8e0c9f0c30bdff75c32a831a9",
+        "step": 17652,
+        "terminal": false
+      },
+      "checkpoint_exists": true,
+      "checkpoint_bytes": 3908046326,
+      "latest_eval_step": 15188,
+      "latest_eval_metrics": {
+        "psnr": 32.01204553384199,
+        "ssim": 0.8519318997859955,
+        "lpips": 0.023212918856491644
+      },
+      "at_plateau": false,
+      "quality_promoted": false
+    }
+  },
+  "raw_receipts_sha256": {
+    "CPU_relaunchers_stopped.json": "6eb446dfe653c82b69e46456922d0d71bfc58cfaa779019713a18e82ac461def",
+    "remote_controllers_guards_stopped.json": "e51136dce51242ce0bb8f12482138b7cc316adf628657998d8fa027f1da5b99b",
+    "workers_stopped.json": "4006cc95dbd38e3db973bc63e16c8e08348e8bbf3ae531ba992e998d57485ab8",
+    "terminal_remote_inventory.json": "9faada5ee027a7e398e5f38695a1c86e24c99fe45116d6e319cde7879dcf4b09",
+    "local_controllers_guards_stopped.json": "0d87f605f891837a5a2a9d6b1afa15c099bf6c9f5b0d9d18bb5bbde9c32742b0"
+  },
+  "guard_log_interpretation": "SIGTERM/143 or guard abort after explicit user stop is cancellation, not a scientific failure. Original earlier hash24 ZERO tolerance failure remains independently recorded."
+}
