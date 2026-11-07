@@ -185,3 +185,84 @@ exclusive source ownership remain unchanged. No RAW, mask, checkpoint or
 qualified evidence was deleted. New decoder watchdog2288279 adopts completed
 source receipts; the previous decoder CPU owners retired at a completed-frame
 boundary. FSX had227GiB free at the all66 handoff check.
+
+### Frame1675 positive-ray gate caught missing flying braid tips
+
+Frame1675 did not dispatch. The actual source-bound witness sampled918 actor
+rays and found55 failures; all55 are the black actor's topmost mask pixel.
+The HC failure at HD(1142,246) is visible flying hair. An exact whole-cell
+scan of this ray found a point inside the existing floor-aligned AABB,
+(0.0552054,0.1734067,0.3377088), with58 camera foreground supports and five
+clear contradictions: AB/AC/AD/BC/BD. Thus the proposed AABB was not the cause.
+
+Visual patches show genuine braid tips above those five masks. Their complete
+projected-cell rectangles have zero W64 support, zero source/geometry UNKNOWN
+and100% valid coverage. Native distances from the projected braid point to the
+nominal actor exceed the64px confidence band (AB196.8px, AC181.4px, BC217.6px,
+BD127.2px). The cell classifier correctly followed incorrect known-background
+source labels. Increasing voxel dilation or relaxing the witness would hide
+this source defect.
+
+Evidence lives in `SOURCE/operations/witness1675_diagnostic/`:
+`HC_hair_clearing_cameras.png`, `HC_ray_trace.json/.npz`,
+`failed_pixel_anatomy.json` and `five_clear_camera_exact_margins.json`.
+The advancedV3 CPU transaction was quiesced and its old V53 source-release,
+ready/prepared/control/grid proofs archived before any proposed correction.
+No C1675 model or assignment existed. Five isolated current native hair
+canaries were launched for source review; no AABB or field parameter changed.
+
+The independent future map drift audit rehashed all4554 staged RGB files across
+69 future frames against their own-frame source receipts/specs and checked602
+cached map metadata records. All passed; no cross-frame image/cache reuse or
+preprocessing drift was found. The evidence is
+`SOURCE/operations/frequency10/source_RGB_drift_audit.json`.
+
+### Dense source-admission and learned-grid checks
+
+The read-only `marshawn_admission_contour_audit.py` traverses every nominal HD
+actor contour pixel center with exact voxel DDA. An independent exhaustive
+occupied-cell slab-intersection oracle agrees on1000 random rays; axis-parallel
+full/empty/outside cases also pass. Frozen whole-cell mapping is audited
+separately from base/padded source grids and actual runtime core/active grids.
+Every result binds source RGB/semantics/transforms, grid snapshot and helper
+hashes; failed coordinates and image overlays are retained. It changes no
+training source, mask, model, grid or publication policy.
+
+| Frame/grid | Contour rays | Failed |
+|---|---:|---:|
+|1675 old source base|162757|6238|
+|1675 old source pad1|162757|4701|
+|1675 old source mapped|162757|2867|
+|1670 source base|168805|302|
+|1670 source pad1/mapped/runtime admission|168805|0|
+|1670 selected139999 runtime core/active(radius0)|168805|3|
+|1670 readonly fresh runtime+1 intersect same admission|168805|0|
+
+All old1675 failures belong to the black actor; grey has none. The old seven-ray
+witness was necessary and caught the top braid defect, but was not a complete
+edge check. These dense results must be rerun after the source correction.
+
+The three1670 runtime misses are ND black contour pixels(1313,535),
+(1314,536),(1315,536), on an inner coat edge above the grey actor's head.
+Actual native RAW centers are approximately(5596.0,2284.6),(5600.2,2288.8),
+(5604.4,2288.8). Native masks label all three black with UNKNOWN/veto false.
+Saved runtime EMA peaks at0.00936276 along each ray; occupied-core minimum is
+0.01000443. Original active grids intersect no cell along those rays; one fresh
+runtime halo clipped to the same admission restores20/22/23 cells. Source
+admission retains34 cells per ray. This is a small actual learned-grid case,
+not a source-admission failure. Source/GT/alpha review is still required before
+asserting a physical silhouette defect or selecting a rendering policy.
+
+The runtime+1 count follows a checked superset proof: all original active cells
+are admitted and retained in+1; all three original failed rays independently
+intersect+1. Thus all168805 original contour rays pass+1 without changing the
+checkpoint. Evidence is under `C/operations/contour_runtime_001670/`, including
+`ND_three_ray_proof.json`, native/HD RGB and label patches, exact per-ray cell/
+EMA arrays, and `runtime_R1_dense_corollary.json`. No field query or training
+parameter change was made by this diagnostic.
+
+ROOT-selected five native hair canary contours additionally use converged
+OPENCV lens inversion with a forward-polynomial roundtrip below2e-12 native
+pixels. NN archive/spec/receipt, source photograph, checkpoint, calibration and
+ROOT selection hashes are bound. They remain NN proposals rather than certified
+anatomical truth; the weak AD candidate is explicitly geometry-UNKNOWN-only.
