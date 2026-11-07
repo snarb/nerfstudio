@@ -44,7 +44,8 @@ def main():
               'type': 'root_fleet_health_check', 'controllers': {}}
     states = (set(args.root.glob('*/state.json'))
               | set(args.root.glob('*/*/state.json'))
-              | set(args.root.glob('*/*/*/state.json')))
+              | set(args.root.glob('*/*/*/state.json'))
+              | set(args.root.glob('*/*/*/*/state.json')))
     for state_path in sorted(states):
         controller = state_path.parent / 'controller.json'
         # Production controller roots only, not frozen code or worker state.
