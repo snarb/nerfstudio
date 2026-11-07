@@ -143,8 +143,14 @@ def run(manifest_path, output, device):
     results = []
     for target in manifest['targets']:
         directory = Path(target['directory'])
+        if sha(directory / 'target.npz') != target['target_sha256']:
+            raise ValueError('Bound neural target/GT/mask bundle changed')
         with np.load(directory / 'target.npz') as z:
             base, truth, actor = [z[k].copy() for k in ['rgb', 'gt', 'actor']]
+        if base.shape != truth.shape or actor.shape != base.shape[:2] or base.shape[-1] != 3:
+            raise ValueError('Target RGB, GT and actor mask rasters differ')
+        if not all(np.isfinite(a).all() for a in [base, truth, actor]) or np.any((actor < 0) | (actor > 1)):
+            raise ValueError('Invalid target values or actor weights')
         donors = []
         for item in target['donors']:
             if item['camera'] == target['camera']:
@@ -158,6 +164,9 @@ def run(manifest_path, output, device):
         if scale <= 0 or 'parent_target_wh' not in target:
             raise ValueError('Explicit parent pixel scale required; never infer from crop width')
         region = target['evaluation_xyxy']
+        x0, y0, x1, y1 = region
+        if not (0 <= x0 < x1 <= base.shape[1] and 0 <= y0 < y1 <= base.shape[0]):
+            raise ValueError('Metric region is outside the unresized crop')
         destination = output / target['name']
         save(destination / 'lookcloser.png', base)
         save(destination / 'GT.png', truth)
