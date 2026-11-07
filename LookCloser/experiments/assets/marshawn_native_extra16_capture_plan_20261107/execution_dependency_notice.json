@@ -1,0 +1,14 @@
+{
+  "kind": "PENDING_PORTABLE_EXECUTION_DEPENDENCY",
+  "capture_manifest_sha256": "9205c0953dab3bc7b3710e1b750dc95b32f26f540df26daa1cd42061b20c721a",
+  "authorization": false,
+  "old_manifest49e1_status": "Preserved source provenance only: v1 failed before model on tagged YAML paths; not qualified for execution.",
+  "latest_candidate": {
+    "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_source_silver_parity_pathfix_v2/source_execution_manifest.json",
+    "sha256": "eb288285135cfc9d2e7de0edc46f0fdef2a6dd9b146ad44f146be99ee37e4ffc",
+    "status": "CPU alias/authorizer checked by owner; root review and actual all3sourceFHD RGB/alpha parity pending."
+  },
+  "required_before_capture": "New root release must bind exact final portable manifest and successful source parity receipt plus this16querymanifest; never execute the unqualified alias solely from CPU provenance.",
+  "rays_or_labels_changed": false,
+  "root_release": false
+}

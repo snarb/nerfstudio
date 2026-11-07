@@ -1,0 +1,7 @@
+{
+  "authorization": false,
+  "capture_authorized": false,
+  "fitting_authorized": false,
+  "manifest_sha256": "9205c0953dab3bc7b3710e1b750dc95b32f26f540df26daa1cd42061b20c721a",
+  "reason": "CPU proposal only; source parity and per-ray observability pending."
+}

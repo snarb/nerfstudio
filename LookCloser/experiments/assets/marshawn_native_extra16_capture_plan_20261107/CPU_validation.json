@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "CPU_only": true,
+  "CUDA_initialized": false,
+  "ray_count": 16,
+  "camera_counts": {
+    "MD": 7,
+    "FD": 5,
+    "MC": 4
+  },
+  "all_current_fit_weights_zero": true,
+  "proposed_future_nonzero_weights": 15,
+  "FD_fit_excluded": true,
+  "all_original63_query_archives_rehashed_unchanged": true,
+  "max_independent_floor_direction_error": 1.063678461976636e-07,
+  "source_references6_rehashed": true,
+  "release_false": true,
+  "manifest_sha256": "9205c0953dab3bc7b3710e1b750dc95b32f26f540df26daa1cd42061b20c721a",
+  "archives": {
+    "MD": "10b4b02cbf6bfebe10d2ccb06a6ea910278d40cd71e7c4c5847c3c79c4b6c25b",
+    "FD": "bff770b9a30867e4e61919ce8a3bd051a7bf040785396ba37171f8aaa5d67a77",
+    "MC": "4877574b9121b27da23de1b9d2b390ffa3026171cfdd3df637867db6943ae85f"
+  }
+}
