@@ -73,3 +73,20 @@ Launch plans, release templates and identity-bound900-second technical guards
 are prepared. No root release files exist. Diagnostic launching is explicitly
 blocked until technical proofs and a dedicated artifact-supervision generation
 are reviewed; no READY or scientific production approval is implied.
+
+External guardian correction is prepared separately in `external_guard_v2`.
+The original1500 scientific files, nine specs, plans and original policy remain
+unchanged. V2 persists violations and signal intents, escalates TERM→KILL after
+25 seconds only for the same PID/start/boot/full command, and never reports a
+phase as passed after any violation or skipped/unknown arm. Dispatcher and SSH
+supervision run locally fromC; remote watchdog only monitors/terminates its own
+phase workers. Bounded supervision errors stop the local dispatcher. A90-second
+heartbeat expiry independently latches remote failure; if stop acknowledgement
+is unavailable, remote cleanup continues as a failed reaper rather than letting
+future phase workers run unguarded. No healthy producer is signalled.
+
+V2 has its own policy-bound review template and no authorization file. CPU
+tests exercise a real child ignoring TERM, exact escalation and unrelated
+process survival, stale/reused identities and commands, persisted failure,
+bounded errors, and rejection of direct local-supervisor invocation on silver.
+No GPU or training launch is part of this correction.
