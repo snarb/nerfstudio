@@ -1,0 +1,32 @@
+{
+  "CPU_only": true,
+  "step": 150316,
+  "controls_sha256": "7ae3924cabfe203adaf1be8f07d9d0e5593d1a0d6899125de5d9ed3a27ecdf12",
+  "rows": {
+    "control": {
+      "core_cells": 31871,
+      "active_cells": 31871,
+      "admission_cells": 131911,
+      "known109_active": 109,
+      "inactive_query_ids": [],
+      "archive_sha256": "1993c1c3980ce99a60736a023db8522ffa803889735bd5cc7574971e26143cb8"
+    },
+    "tau001": {
+      "core_cells": 31889,
+      "active_cells": 31889,
+      "admission_cells": 131911,
+      "known109_active": 109,
+      "inactive_query_ids": [],
+      "archive_sha256": "08383e80d853c7c1ce4a575c499d3f57508524c59c707c81e379285545abd019"
+    },
+    "tau01": {
+      "core_cells": 31464,
+      "active_cells": 31464,
+      "admission_cells": 131911,
+      "known109_active": 109,
+      "inactive_query_ids": [],
+      "archive_sha256": "72ad0484eaf102bf34269ae8baddf2b6021068bec0dbdb4604611e302c83cec8"
+    }
+  },
+  "limitation": "Sparse known-point cell lookup only; no guarantee of full actor/hair geometry or physical empty-space truth."
+}

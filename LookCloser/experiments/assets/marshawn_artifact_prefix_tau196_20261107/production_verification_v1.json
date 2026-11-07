@@ -1,0 +1,190 @@
+{
+  "passed": true,
+  "CPU_only": true,
+  "helper_sha256": "8d928787ebfc045c757ebc669533e87836d302f5e902621571ac0901b10cef1c",
+  "anchor_checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "technical_verification_sha256": "158e807e9e93aa2d1bccab9ccefd2a378227ec82f963c3b02346ab04d237b1ce",
+  "confidence_manifest_sha256": "3cf40266675fa5b1d345f425b5a202f98f16e2d3998448ca7148daf7259a16ea",
+  "reports": {
+    "control": {
+      "auxiliary_draws": 29000,
+      "coefficient": 0.0,
+      "private_ids_chain": "cbe0705c097d6c736d89815b9d2ffdbfb1e1000ebfc5016c95149f51bafbdecd",
+      "private_jitter_chain": "fcae16894da5a89f9e299b1a76f519a4a691727897e42f56cfdc9ecacd9198ed",
+      "private_generator": "5fca62b04a770289f31010ae22cf4de2d971e6bfddb8d902ebcdadd5e3162c2c",
+      "final_step": 155316,
+      "attempts": 29000,
+      "actual_Adam_updates": {
+        "fields": 28986.0
+      },
+      "AMP_skips": {
+        "fields": 14.0
+      },
+      "source_seven_states_exact_before_policy": true,
+      "actual_FR": 0.3,
+      "actual_distortion_live_asserted_every_iteration": 0.1,
+      "confidence_manifest_and_all63_weight_hashes_exact": true,
+      "checkpoint_normalizer_error": 1.1102230246251565e-16,
+      "analytical_LUT_unchanged": true,
+      "original_mapped_admission_cascade_and_resolution_exact": true,
+      "explicit_cache_ids_and_source_associations_preserved": true,
+      "plateau": {
+        "schema_version": 1,
+        "anchor_step": 130316,
+        "interval": 5000,
+        "patience": 4,
+        "loss_relative_delta": 0.001,
+        "lpips_absolute_delta": 0.001,
+        "last_step": 155316,
+        "last_loss": 0.022172382411857445,
+        "last_lpips": 0.01884063519537449,
+        "significant_loss": 0.022092845911780994,
+        "significant_lpips": 0.018892969470471144,
+        "loss_misses": 4,
+        "lpips_misses": 5,
+        "stopped": true
+      },
+      "final_checkpoint_sha256": "c77c9df5b090001733e1825b681d660ce75e794afde040285d23019f7965e80b",
+      "raw_min_step": 126316,
+      "historical_selector_step": 126316,
+      "best_metrics": {
+        "psnr": 31.63972670843312,
+        "ssim": 0.831264058748881,
+        "lpips": 0.018773120517532032
+      }
+    },
+    "tau001": {
+      "auxiliary_draws": 24000,
+      "coefficient": 0.001,
+      "private_ids_chain": "df2ac4b40d7fb9911f084a573863fe3f8db8bb8c7eb1cc7a477d9dc123a8fbba",
+      "private_jitter_chain": "3b8297fda1ef4a0adae25beda1589064cc7d6b78e1e3a9a30737612b1d840d13",
+      "private_generator": "d7dc6521c12a38db79f694165dae31088a18f722f718b11b6bc2c770a659c18a",
+      "final_step": 150316,
+      "attempts": 24000,
+      "actual_Adam_updates": {
+        "fields": 23990.0
+      },
+      "AMP_skips": {
+        "fields": 10.0
+      },
+      "source_seven_states_exact_before_policy": true,
+      "actual_FR": 0.3,
+      "actual_distortion_live_asserted_every_iteration": 0.1,
+      "confidence_manifest_and_all63_weight_hashes_exact": true,
+      "checkpoint_normalizer_error": 1.1102230246251565e-16,
+      "analytical_LUT_unchanged": true,
+      "original_mapped_admission_cascade_and_resolution_exact": true,
+      "explicit_cache_ids_and_source_associations_preserved": true,
+      "plateau": {
+        "schema_version": 1,
+        "anchor_step": 130316,
+        "interval": 5000,
+        "patience": 4,
+        "loss_relative_delta": 0.001,
+        "lpips_absolute_delta": 0.001,
+        "last_step": 150316,
+        "last_loss": 0.022176593852539856,
+        "last_lpips": 0.018863834130267303,
+        "significant_loss": 0.02210974631210168,
+        "significant_lpips": 0.01885584866007169,
+        "loss_misses": 4,
+        "lpips_misses": 4,
+        "stopped": true
+      },
+      "final_checkpoint_sha256": "10fb2a57fbc4d1be0beede988c210af6ce8384693d79d4641b773502cc6a275f",
+      "raw_min_step": 126316,
+      "historical_selector_step": 127316,
+      "best_metrics": {
+        "psnr": 31.63972670843312,
+        "ssim": 0.831264058748881,
+        "lpips": 0.018773120517532032
+      }
+    },
+    "tau01": {
+      "auxiliary_draws": 24000,
+      "coefficient": 0.01,
+      "private_ids_chain": "df2ac4b40d7fb9911f084a573863fe3f8db8bb8c7eb1cc7a477d9dc123a8fbba",
+      "private_jitter_chain": "3b8297fda1ef4a0adae25beda1589064cc7d6b78e1e3a9a30737612b1d840d13",
+      "private_generator": "d7dc6521c12a38db79f694165dae31088a18f722f718b11b6bc2c770a659c18a",
+      "final_step": 150316,
+      "attempts": 24000,
+      "actual_Adam_updates": {
+        "fields": 23990.0
+      },
+      "AMP_skips": {
+        "fields": 10.0
+      },
+      "source_seven_states_exact_before_policy": true,
+      "actual_FR": 0.3,
+      "actual_distortion_live_asserted_every_iteration": 0.1,
+      "confidence_manifest_and_all63_weight_hashes_exact": true,
+      "checkpoint_normalizer_error": 1.1102230246251565e-16,
+      "analytical_LUT_unchanged": true,
+      "original_mapped_admission_cascade_and_resolution_exact": true,
+      "explicit_cache_ids_and_source_associations_preserved": true,
+      "plateau": {
+        "schema_version": 1,
+        "anchor_step": 130316,
+        "interval": 5000,
+        "patience": 4,
+        "loss_relative_delta": 0.001,
+        "lpips_absolute_delta": 0.001,
+        "last_step": 150316,
+        "last_loss": 0.02213833884646495,
+        "last_lpips": 0.01886338011051218,
+        "significant_loss": 0.022088275911907356,
+        "significant_lpips": 0.01893655365953843,
+        "loss_misses": 4,
+        "lpips_misses": 4,
+        "stopped": true
+      },
+      "final_checkpoint_sha256": "9848a5840caf1109cf70b838c8e70b2db42b0afc1a9623e325439404e239a569",
+      "raw_min_step": 126316,
+      "historical_selector_step": 127316,
+      "best_metrics": {
+        "psnr": 31.63972670843312,
+        "ssim": 0.831264058748881,
+        "lpips": 0.018773120517532032
+      }
+    }
+  },
+  "last_common_checkpoint_stream_proof": {
+    "control": {
+      "step": 150316,
+      "global_RNG": "8e561aeec9882e0d0e31e29d95e4572d351714391a3910add14101e783894846",
+      "sampler": "fded5c757c65e42dea5fad50f4c1a40e5549162bb34cba9efb8cc4da330af2a2",
+      "indices_chain": "d49a09c13153841e40c6b6b088b3aa8dbbefefe64eac369693ccc7658c01fba1",
+      "attempts": 24000,
+      "private_generator": "d7dc6521c12a38db79f694165dae31088a18f722f718b11b6bc2c770a659c18a",
+      "private_ids_chain": "df2ac4b40d7fb9911f084a573863fe3f8db8bb8c7eb1cc7a477d9dc123a8fbba",
+      "private_jitter_chain": "3b8297fda1ef4a0adae25beda1589064cc7d6b78e1e3a9a30737612b1d840d13",
+      "private_draws": 24000
+    },
+    "tau001": {
+      "step": 150316,
+      "global_RNG": "8e561aeec9882e0d0e31e29d95e4572d351714391a3910add14101e783894846",
+      "sampler": "fded5c757c65e42dea5fad50f4c1a40e5549162bb34cba9efb8cc4da330af2a2",
+      "indices_chain": "d49a09c13153841e40c6b6b088b3aa8dbbefefe64eac369693ccc7658c01fba1",
+      "attempts": 24000,
+      "private_generator": "d7dc6521c12a38db79f694165dae31088a18f722f718b11b6bc2c770a659c18a",
+      "private_ids_chain": "df2ac4b40d7fb9911f084a573863fe3f8db8bb8c7eb1cc7a477d9dc123a8fbba",
+      "private_jitter_chain": "3b8297fda1ef4a0adae25beda1589064cc7d6b78e1e3a9a30737612b1d840d13",
+      "private_draws": 24000
+    },
+    "tau01": {
+      "step": 150316,
+      "global_RNG": "8e561aeec9882e0d0e31e29d95e4572d351714391a3910add14101e783894846",
+      "sampler": "fded5c757c65e42dea5fad50f4c1a40e5549162bb34cba9efb8cc4da330af2a2",
+      "indices_chain": "d49a09c13153841e40c6b6b088b3aa8dbbefefe64eac369693ccc7658c01fba1",
+      "attempts": 24000,
+      "private_generator": "d7dc6521c12a38db79f694165dae31088a18f722f718b11b6bc2c770a659c18a",
+      "private_ids_chain": "df2ac4b40d7fb9911f084a573863fe3f8db8bb8c7eb1cc7a477d9dc123a8fbba",
+      "private_jitter_chain": "3b8297fda1ef4a0adae25beda1589064cc7d6b78e1e3a9a30737612b1d840d13",
+      "private_draws": 24000
+    }
+  },
+  "full_private_stream_replayed_from_seed73011": true,
+  "main_global_streams_observed_not_forced_equal": true,
+  "quality_promotion": false,
+  "limitation": "Serialized final-state audit, not another model-loader replay. Source loader/cache replay was independently proven by zero and actual32+32. Exterior opacity remains diagnostic, not empty-space truth."
+}
