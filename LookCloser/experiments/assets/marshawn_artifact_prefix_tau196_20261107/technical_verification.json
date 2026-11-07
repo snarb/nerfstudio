@@ -1,0 +1,81 @@
+{
+  "passed": true,
+  "phase": "technical",
+  "arms": {
+    "control": {
+      "private_generator": "ab5831690a40f8754d92a9ed09621752171f668ce9f8aa717dc0f6e471c473ee",
+      "private_ids_chain": "fe937e0d2648ac560bc74985afbdb04edd0d0611235aba8c6aad3eb351ef02b5",
+      "private_jitter_chain": "9d7472c70290624de2ed637e73fda23f768f708ee0ee534a3a8cababa960b331",
+      "private_draws": 64,
+      "private_resume_exact": true,
+      "source_seven_states_exact": true,
+      "first32_indices": "0c1358e4363757f7098dde6b884338b51e4a79dbdc7099e15393e2ec576f641e",
+      "resume32_indices": "beed0f672318e56b1cd6d908e4abac8960b8a556f97552df7a9571fae72cafa5",
+      "first32_global_RNG": "909bebfaf18d8b725907dea26072986d4bc5ea1bc9022f6858769d51ba64245a",
+      "final_global_RNG": "5b8883954bb65b31f67005c2ca1ef45027d784b0a9a75baae46185ac1f0bb0a3",
+      "final_sampler": "e98fee325970c36ef0a74f40f3dd34c4eaf194ee70714a40731b80f37cde39d1",
+      "first_Adam": {
+        "fields": [
+          126294.0
+        ]
+      },
+      "final_Adam": {
+        "fields": [
+          126326.0
+        ]
+      },
+      "confidence_and_cache_restored_exact": true
+    },
+    "tau001": {
+      "private_generator": "ab5831690a40f8754d92a9ed09621752171f668ce9f8aa717dc0f6e471c473ee",
+      "private_ids_chain": "fe937e0d2648ac560bc74985afbdb04edd0d0611235aba8c6aad3eb351ef02b5",
+      "private_jitter_chain": "9d7472c70290624de2ed637e73fda23f768f708ee0ee534a3a8cababa960b331",
+      "private_draws": 64,
+      "private_resume_exact": true,
+      "source_seven_states_exact": true,
+      "first32_indices": "0c1358e4363757f7098dde6b884338b51e4a79dbdc7099e15393e2ec576f641e",
+      "resume32_indices": "beed0f672318e56b1cd6d908e4abac8960b8a556f97552df7a9571fae72cafa5",
+      "first32_global_RNG": "909bebfaf18d8b725907dea26072986d4bc5ea1bc9022f6858769d51ba64245a",
+      "final_global_RNG": "5b8883954bb65b31f67005c2ca1ef45027d784b0a9a75baae46185ac1f0bb0a3",
+      "final_sampler": "e98fee325970c36ef0a74f40f3dd34c4eaf194ee70714a40731b80f37cde39d1",
+      "first_Adam": {
+        "fields": [
+          126292.0
+        ]
+      },
+      "final_Adam": {
+        "fields": [
+          126324.0
+        ]
+      },
+      "confidence_and_cache_restored_exact": true
+    },
+    "tau01": {
+      "private_generator": "ab5831690a40f8754d92a9ed09621752171f668ce9f8aa717dc0f6e471c473ee",
+      "private_ids_chain": "fe937e0d2648ac560bc74985afbdb04edd0d0611235aba8c6aad3eb351ef02b5",
+      "private_jitter_chain": "9d7472c70290624de2ed637e73fda23f768f708ee0ee534a3a8cababa960b331",
+      "private_draws": 64,
+      "private_resume_exact": true,
+      "source_seven_states_exact": true,
+      "first32_indices": "0c1358e4363757f7098dde6b884338b51e4a79dbdc7099e15393e2ec576f641e",
+      "resume32_indices": "beed0f672318e56b1cd6d908e4abac8960b8a556f97552df7a9571fae72cafa5",
+      "first32_global_RNG": "909bebfaf18d8b725907dea26072986d4bc5ea1bc9022f6858769d51ba64245a",
+      "final_global_RNG": "5b8883954bb65b31f67005c2ca1ef45027d784b0a9a75baae46185ac1f0bb0a3",
+      "final_sampler": "e98fee325970c36ef0a74f40f3dd34c4eaf194ee70714a40731b80f37cde39d1",
+      "first_Adam": {
+        "fields": [
+          126288.0
+        ]
+      },
+      "final_Adam": {
+        "fields": [
+          126320.0
+        ]
+      },
+      "confidence_and_cache_restored_exact": true
+    }
+  },
+  "CPU_only": true,
+  "technical_checkpoints_excluded_from_production": true,
+  "main_global_streams_observed_not_forced_equal": true
+}

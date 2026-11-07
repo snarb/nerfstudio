@@ -1,0 +1,29 @@
+{
+  "CPU_only": true,
+  "kind": "SPARSE109_ACTOR_WITNESS_ACTUAL_GRID_LOOKUP",
+  "controls_sha256": "7ae3924cabfe203adaf1be8f07d9d0e5593d1a0d6899125de5d9ed3a27ecdf12",
+  "step": 130316,
+  "rows": {
+    "source126316": {
+      "active_count": 109,
+      "admission_count": 109,
+      "inactive": []
+    },
+    "control": {
+      "active_count": 109,
+      "admission_count": 109,
+      "inactive": []
+    },
+    "tau001": {
+      "active_count": 109,
+      "admission_count": 109,
+      "inactive": []
+    },
+    "tau01": {
+      "active_count": 109,
+      "admission_count": 109,
+      "inactive": []
+    }
+  },
+  "limitation": "Sparse point occupancy lookup, not complete actor/hair or ray-transmittance protection. No model/field query or new labels."
+}

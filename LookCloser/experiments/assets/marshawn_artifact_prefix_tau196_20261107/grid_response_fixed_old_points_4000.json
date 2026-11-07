@@ -1,0 +1,1673 @@
+{
+  "kind": "ACTUAL_SCHEMA2_GRID_RESPONSE_AT_FIXED_OLD_DIAGNOSTIC_COORDINATES_CPU_ONLY",
+  "points_source_checkpoint_sha256": "542e97f59ec1fd41452b0a04fde6bd832e0b430773d1989eef2ec062ef3f1a34",
+  "base_current_source_checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "step": 130316,
+  "rows": {
+    "source126316": {
+      "archive_sha256": "7db15fdda89f0661e767e53dd97ab34f3346550aa319d4363bdd6332b3cbac0f",
+      "core_cells": 32046,
+      "active_cells": 32046,
+      "admission_cells": 131911,
+      "old_diagnostic_coordinate_lookups": [
+        {
+          "label": "head1_peak",
+          "xyz": [
+            -0.06620985269546509,
+            0.22096574306488037,
+            0.35677221417427063
+          ],
+          "cell": [
+            100,
+            87,
+            78
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 75.07395935058594
+        },
+        {
+          "label": "head1_q50",
+          "xyz": [
+            -0.06620985269546509,
+            0.22096574306488037,
+            0.35677221417427063
+          ],
+          "cell": [
+            100,
+            87,
+            78
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 75.07395935058594
+        },
+        {
+          "label": "head2_peak",
+          "xyz": [
+            0.05369657278060913,
+            0.13339143991470337,
+            0.3534201979637146
+          ],
+          "cell": [
+            115,
+            69,
+            77
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.00042263572686351836
+        },
+        {
+          "label": "head2_q50",
+          "xyz": [
+            0.0980786681175232,
+            0.1861509084701538,
+            0.350236713886261
+          ],
+          "cell": [
+            121,
+            80,
+            76
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.006778887938708067
+        },
+        {
+          "label": "head3_peak",
+          "xyz": [
+            -0.0472378134727478,
+            0.24917882680892944,
+            0.2802398204803467
+          ],
+          "cell": [
+            102,
+            93,
+            64
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.0033660971093922853
+        },
+        {
+          "label": "head3_q50",
+          "xyz": [
+            -0.04398012161254883,
+            0.254464328289032,
+            0.27952420711517334
+          ],
+          "cell": [
+            102,
+            94,
+            63
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.19852375984191895
+        },
+        {
+          "label": "torso1_peak",
+          "xyz": [
+            -0.09121745824813843,
+            0.2610624432563782,
+            0.20608776807785034
+          ],
+          "cell": [
+            96,
+            95,
+            50
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.0007064341334626079
+        },
+        {
+          "label": "torso1_q50",
+          "xyz": [
+            -0.0947381854057312,
+            0.254763662815094,
+            0.2074517458677292
+          ],
+          "cell": [
+            96,
+            94,
+            50
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.001096155378036201
+        },
+        {
+          "label": "torso2_peak",
+          "xyz": [
+            0.0599406361579895,
+            0.08852946758270264,
+            0.18559370934963226
+          ],
+          "cell": [
+            116,
+            60,
+            46
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.07928390055894852
+        },
+        {
+          "label": "torso2_q50",
+          "xyz": [
+            0.05767965316772461,
+            0.08602344989776611,
+            0.18633738160133362
+          ],
+          "cell": [
+            116,
+            60,
+            46
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.07928390055894852
+        },
+        {
+          "label": "torso3_peak",
+          "xyz": [
+            -0.10356637835502625,
+            0.22335100173950195,
+            0.14639878273010254
+          ],
+          "cell": [
+            95,
+            88,
+            39
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.2877790033817291
+        },
+        {
+          "label": "torso3_q50",
+          "xyz": [
+            -0.10206934809684753,
+            0.22598135471343994,
+            0.14562073349952698
+          ],
+          "cell": [
+            95,
+            88,
+            39
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.2877790033817291
+        },
+        {
+          "label": "feet1_peak",
+          "xyz": [
+            -0.14951106905937195,
+            0.20820200443267822,
+            0.028742969036102295
+          ],
+          "cell": [
+            89,
+            84,
+            18
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.07076304405927658
+        },
+        {
+          "label": "feet1_q50",
+          "xyz": [
+            -0.15033075213432312,
+            0.20664000511169434,
+            0.029431849718093872
+          ],
+          "cell": [
+            89,
+            84,
+            18
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.07076304405927658
+        },
+        {
+          "label": "feet2_peak",
+          "xyz": [
+            -0.09517073631286621,
+            0.14145410060882568,
+            0.03334277868270874
+          ],
+          "cell": [
+            96,
+            71,
+            18
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.0028473695274442434
+        },
+        {
+          "label": "feet2_q50",
+          "xyz": [
+            -0.09517073631286621,
+            0.14145410060882568,
+            0.03334277868270874
+          ],
+          "cell": [
+            96,
+            71,
+            18
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.0028473695274442434
+        },
+        {
+          "label": "feet3_peak",
+          "xyz": [
+            0.04800224304199219,
+            0.04263097047805786,
+            0.007921785116195679
+          ],
+          "cell": [
+            114,
+            51,
+            14
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.005977076478302479
+        },
+        {
+          "label": "feet3_q50",
+          "xyz": [
+            0.050570785999298096,
+            0.045346617698669434,
+            0.0063468217849731445
+          ],
+          "cell": [
+            115,
+            51,
+            13
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 1.1893779039382935
+        },
+        {
+          "label": "remote1_peak",
+          "xyz": [
+            -0.38662368059158325,
+            -0.01962149143218994,
+            0.05546581745147705
+          ],
+          "cell": [
+            58,
+            38,
+            22
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.03242780268192291
+        },
+        {
+          "label": "remote1_q50",
+          "xyz": [
+            -0.3888670802116394,
+            -0.02635735273361206,
+            0.05924665927886963
+          ],
+          "cell": [
+            58,
+            37,
+            23
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.0036318267229944468
+        },
+        {
+          "label": "remote2_peak",
+          "xyz": [
+            -0.4519367814064026,
+            0.2407887578010559,
+            -0.05525165796279907
+          ],
+          "cell": [
+            50,
+            91,
+            2
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.0027970329392701387
+        },
+        {
+          "label": "remote2_q50",
+          "xyz": [
+            -0.4515745937824249,
+            0.243066668510437,
+            -0.05643784999847412
+          ],
+          "cell": [
+            50,
+            92,
+            2
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.0017566652968525887
+        },
+        {
+          "label": "remote3_peak",
+          "xyz": [
+            -0.37215906381607056,
+            -0.04253041744232178,
+            -0.011270880699157715
+          ],
+          "cell": [
+            60,
+            34,
+            10
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.055480435490608215
+        },
+        {
+          "label": "remote3_q50",
+          "xyz": [
+            -0.37215906381607056,
+            -0.04253041744232178,
+            -0.011270880699157715
+          ],
+          "cell": [
+            60,
+            34,
+            10
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.055480435490608215
+        }
+      ]
+    },
+    "control": {
+      "archive_sha256": "5fe61debe9efc63210d891b06a9b10e76f8433efeef7938ffafaef85d51e245c",
+      "core_cells": 31988,
+      "active_cells": 31988,
+      "admission_cells": 131911,
+      "old_diagnostic_coordinate_lookups": [
+        {
+          "label": "head1_peak",
+          "xyz": [
+            -0.06620985269546509,
+            0.22096574306488037,
+            0.35677221417427063
+          ],
+          "cell": [
+            100,
+            87,
+            78
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 60.898223876953125
+        },
+        {
+          "label": "head1_q50",
+          "xyz": [
+            -0.06620985269546509,
+            0.22096574306488037,
+            0.35677221417427063
+          ],
+          "cell": [
+            100,
+            87,
+            78
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 60.898223876953125
+        },
+        {
+          "label": "head2_peak",
+          "xyz": [
+            0.05369657278060913,
+            0.13339143991470337,
+            0.3534201979637146
+          ],
+          "cell": [
+            115,
+            69,
+            77
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.00032824493246152997
+        },
+        {
+          "label": "head2_q50",
+          "xyz": [
+            0.0980786681175232,
+            0.1861509084701538,
+            0.350236713886261
+          ],
+          "cell": [
+            121,
+            80,
+            76
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.00615991186350584
+        },
+        {
+          "label": "head3_peak",
+          "xyz": [
+            -0.0472378134727478,
+            0.24917882680892944,
+            0.2802398204803467
+          ],
+          "cell": [
+            102,
+            93,
+            64
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.0016457198653370142
+        },
+        {
+          "label": "head3_q50",
+          "xyz": [
+            -0.04398012161254883,
+            0.254464328289032,
+            0.27952420711517334
+          ],
+          "cell": [
+            102,
+            94,
+            63
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.16696478426456451
+        },
+        {
+          "label": "torso1_peak",
+          "xyz": [
+            -0.09121745824813843,
+            0.2610624432563782,
+            0.20608776807785034
+          ],
+          "cell": [
+            96,
+            95,
+            50
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.000546163646504283
+        },
+        {
+          "label": "torso1_q50",
+          "xyz": [
+            -0.0947381854057312,
+            0.254763662815094,
+            0.2074517458677292
+          ],
+          "cell": [
+            96,
+            94,
+            50
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.0011589848436415195
+        },
+        {
+          "label": "torso2_peak",
+          "xyz": [
+            0.0599406361579895,
+            0.08852946758270264,
+            0.18559370934963226
+          ],
+          "cell": [
+            116,
+            60,
+            46
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.08649545907974243
+        },
+        {
+          "label": "torso2_q50",
+          "xyz": [
+            0.05767965316772461,
+            0.08602344989776611,
+            0.18633738160133362
+          ],
+          "cell": [
+            116,
+            60,
+            46
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.08649545907974243
+        },
+        {
+          "label": "torso3_peak",
+          "xyz": [
+            -0.10356637835502625,
+            0.22335100173950195,
+            0.14639878273010254
+          ],
+          "cell": [
+            95,
+            88,
+            39
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 1.588841199874878
+        },
+        {
+          "label": "torso3_q50",
+          "xyz": [
+            -0.10206934809684753,
+            0.22598135471343994,
+            0.14562073349952698
+          ],
+          "cell": [
+            95,
+            88,
+            39
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 1.588841199874878
+        },
+        {
+          "label": "feet1_peak",
+          "xyz": [
+            -0.14951106905937195,
+            0.20820200443267822,
+            0.028742969036102295
+          ],
+          "cell": [
+            89,
+            84,
+            18
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.07894939184188843
+        },
+        {
+          "label": "feet1_q50",
+          "xyz": [
+            -0.15033075213432312,
+            0.20664000511169434,
+            0.029431849718093872
+          ],
+          "cell": [
+            89,
+            84,
+            18
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.07894939184188843
+        },
+        {
+          "label": "feet2_peak",
+          "xyz": [
+            -0.09517073631286621,
+            0.14145410060882568,
+            0.03334277868270874
+          ],
+          "cell": [
+            96,
+            71,
+            18
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.0031814794056117535
+        },
+        {
+          "label": "feet2_q50",
+          "xyz": [
+            -0.09517073631286621,
+            0.14145410060882568,
+            0.03334277868270874
+          ],
+          "cell": [
+            96,
+            71,
+            18
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.0031814794056117535
+        },
+        {
+          "label": "feet3_peak",
+          "xyz": [
+            0.04800224304199219,
+            0.04263097047805786,
+            0.007921785116195679
+          ],
+          "cell": [
+            114,
+            51,
+            14
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.0055009061470627785
+        },
+        {
+          "label": "feet3_q50",
+          "xyz": [
+            0.050570785999298096,
+            0.045346617698669434,
+            0.0063468217849731445
+          ],
+          "cell": [
+            115,
+            51,
+            13
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 1.7715730667114258
+        },
+        {
+          "label": "remote1_peak",
+          "xyz": [
+            -0.38662368059158325,
+            -0.01962149143218994,
+            0.05546581745147705
+          ],
+          "cell": [
+            58,
+            38,
+            22
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.052457161247730255
+        },
+        {
+          "label": "remote1_q50",
+          "xyz": [
+            -0.3888670802116394,
+            -0.02635735273361206,
+            0.05924665927886963
+          ],
+          "cell": [
+            58,
+            37,
+            23
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.00739618856459856
+        },
+        {
+          "label": "remote2_peak",
+          "xyz": [
+            -0.4519367814064026,
+            0.2407887578010559,
+            -0.05525165796279907
+          ],
+          "cell": [
+            50,
+            91,
+            2
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.004742324352264404
+        },
+        {
+          "label": "remote2_q50",
+          "xyz": [
+            -0.4515745937824249,
+            0.243066668510437,
+            -0.05643784999847412
+          ],
+          "cell": [
+            50,
+            92,
+            2
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.003432498313486576
+        },
+        {
+          "label": "remote3_peak",
+          "xyz": [
+            -0.37215906381607056,
+            -0.04253041744232178,
+            -0.011270880699157715
+          ],
+          "cell": [
+            60,
+            34,
+            10
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.07315900176763535
+        },
+        {
+          "label": "remote3_q50",
+          "xyz": [
+            -0.37215906381607056,
+            -0.04253041744232178,
+            -0.011270880699157715
+          ],
+          "cell": [
+            60,
+            34,
+            10
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.07315900176763535
+        }
+      ]
+    },
+    "tau001": {
+      "archive_sha256": "b4fd20cc8c722c11d38ce71a24a4cf56a52ee215c876929ca512bc57a21a31f4",
+      "core_cells": 31832,
+      "active_cells": 31832,
+      "admission_cells": 131911,
+      "old_diagnostic_coordinate_lookups": [
+        {
+          "label": "head1_peak",
+          "xyz": [
+            -0.06620985269546509,
+            0.22096574306488037,
+            0.35677221417427063
+          ],
+          "cell": [
+            100,
+            87,
+            78
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.048305656760931015
+        },
+        {
+          "label": "head1_q50",
+          "xyz": [
+            -0.06620985269546509,
+            0.22096574306488037,
+            0.35677221417427063
+          ],
+          "cell": [
+            100,
+            87,
+            78
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.048305656760931015
+        },
+        {
+          "label": "head2_peak",
+          "xyz": [
+            0.05369657278060913,
+            0.13339143991470337,
+            0.3534201979637146
+          ],
+          "cell": [
+            115,
+            69,
+            77
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.0002098712866427377
+        },
+        {
+          "label": "head2_q50",
+          "xyz": [
+            0.0980786681175232,
+            0.1861509084701538,
+            0.350236713886261
+          ],
+          "cell": [
+            121,
+            80,
+            76
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.006349245086312294
+        },
+        {
+          "label": "head3_peak",
+          "xyz": [
+            -0.0472378134727478,
+            0.24917882680892944,
+            0.2802398204803467
+          ],
+          "cell": [
+            102,
+            93,
+            64
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.00019039178732782602
+        },
+        {
+          "label": "head3_q50",
+          "xyz": [
+            -0.04398012161254883,
+            0.254464328289032,
+            0.27952420711517334
+          ],
+          "cell": [
+            102,
+            94,
+            63
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.005364779382944107
+        },
+        {
+          "label": "torso1_peak",
+          "xyz": [
+            -0.09121745824813843,
+            0.2610624432563782,
+            0.20608776807785034
+          ],
+          "cell": [
+            96,
+            95,
+            50
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 6.931307871127501e-05
+        },
+        {
+          "label": "torso1_q50",
+          "xyz": [
+            -0.0947381854057312,
+            0.254763662815094,
+            0.2074517458677292
+          ],
+          "cell": [
+            96,
+            94,
+            50
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 5.890025931876153e-05
+        },
+        {
+          "label": "torso2_peak",
+          "xyz": [
+            0.0599406361579895,
+            0.08852946758270264,
+            0.18559370934963226
+          ],
+          "cell": [
+            116,
+            60,
+            46
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.0543464757502079
+        },
+        {
+          "label": "torso2_q50",
+          "xyz": [
+            0.05767965316772461,
+            0.08602344989776611,
+            0.18633738160133362
+          ],
+          "cell": [
+            116,
+            60,
+            46
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.0543464757502079
+        },
+        {
+          "label": "torso3_peak",
+          "xyz": [
+            -0.10356637835502625,
+            0.22335100173950195,
+            0.14639878273010254
+          ],
+          "cell": [
+            95,
+            88,
+            39
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.0026825545355677605
+        },
+        {
+          "label": "torso3_q50",
+          "xyz": [
+            -0.10206934809684753,
+            0.22598135471343994,
+            0.14562073349952698
+          ],
+          "cell": [
+            95,
+            88,
+            39
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.0026825545355677605
+        },
+        {
+          "label": "feet1_peak",
+          "xyz": [
+            -0.14951106905937195,
+            0.20820200443267822,
+            0.028742969036102295
+          ],
+          "cell": [
+            89,
+            84,
+            18
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.14019380509853363
+        },
+        {
+          "label": "feet1_q50",
+          "xyz": [
+            -0.15033075213432312,
+            0.20664000511169434,
+            0.029431849718093872
+          ],
+          "cell": [
+            89,
+            84,
+            18
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.14019380509853363
+        },
+        {
+          "label": "feet2_peak",
+          "xyz": [
+            -0.09517073631286621,
+            0.14145410060882568,
+            0.03334277868270874
+          ],
+          "cell": [
+            96,
+            71,
+            18
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.0031706246081739664
+        },
+        {
+          "label": "feet2_q50",
+          "xyz": [
+            -0.09517073631286621,
+            0.14145410060882568,
+            0.03334277868270874
+          ],
+          "cell": [
+            96,
+            71,
+            18
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.0031706246081739664
+        },
+        {
+          "label": "feet3_peak",
+          "xyz": [
+            0.04800224304199219,
+            0.04263097047805786,
+            0.007921785116195679
+          ],
+          "cell": [
+            114,
+            51,
+            14
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.00480689899995923
+        },
+        {
+          "label": "feet3_q50",
+          "xyz": [
+            0.050570785999298096,
+            0.045346617698669434,
+            0.0063468217849731445
+          ],
+          "cell": [
+            115,
+            51,
+            13
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 1.0147274732589722
+        },
+        {
+          "label": "remote1_peak",
+          "xyz": [
+            -0.38662368059158325,
+            -0.01962149143218994,
+            0.05546581745147705
+          ],
+          "cell": [
+            58,
+            38,
+            22
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.0490114688873291
+        },
+        {
+          "label": "remote1_q50",
+          "xyz": [
+            -0.3888670802116394,
+            -0.02635735273361206,
+            0.05924665927886963
+          ],
+          "cell": [
+            58,
+            37,
+            23
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.007345802150666714
+        },
+        {
+          "label": "remote2_peak",
+          "xyz": [
+            -0.4519367814064026,
+            0.2407887578010559,
+            -0.05525165796279907
+          ],
+          "cell": [
+            50,
+            91,
+            2
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.004656280390918255
+        },
+        {
+          "label": "remote2_q50",
+          "xyz": [
+            -0.4515745937824249,
+            0.243066668510437,
+            -0.05643784999847412
+          ],
+          "cell": [
+            50,
+            92,
+            2
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.0027460905257612467
+        },
+        {
+          "label": "remote3_peak",
+          "xyz": [
+            -0.37215906381607056,
+            -0.04253041744232178,
+            -0.011270880699157715
+          ],
+          "cell": [
+            60,
+            34,
+            10
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.07160399109125137
+        },
+        {
+          "label": "remote3_q50",
+          "xyz": [
+            -0.37215906381607056,
+            -0.04253041744232178,
+            -0.011270880699157715
+          ],
+          "cell": [
+            60,
+            34,
+            10
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.07160399109125137
+        }
+      ]
+    },
+    "tau01": {
+      "archive_sha256": "0a258c0c4e430c29e0769cd86374165660d4359eda22dc470244ee44d34ab022",
+      "core_cells": 30564,
+      "active_cells": 30564,
+      "admission_cells": 131911,
+      "old_diagnostic_coordinate_lookups": [
+        {
+          "label": "head1_peak",
+          "xyz": [
+            -0.06620985269546509,
+            0.22096574306488037,
+            0.35677221417427063
+          ],
+          "cell": [
+            100,
+            87,
+            78
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.004485752899199724
+        },
+        {
+          "label": "head1_q50",
+          "xyz": [
+            -0.06620985269546509,
+            0.22096574306488037,
+            0.35677221417427063
+          ],
+          "cell": [
+            100,
+            87,
+            78
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.004485752899199724
+        },
+        {
+          "label": "head2_peak",
+          "xyz": [
+            0.05369657278060913,
+            0.13339143991470337,
+            0.3534201979637146
+          ],
+          "cell": [
+            115,
+            69,
+            77
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 2.04954958462622e-05
+        },
+        {
+          "label": "head2_q50",
+          "xyz": [
+            0.0980786681175232,
+            0.1861509084701538,
+            0.350236713886261
+          ],
+          "cell": [
+            121,
+            80,
+            76
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.006291958969086409
+        },
+        {
+          "label": "head3_peak",
+          "xyz": [
+            -0.0472378134727478,
+            0.24917882680892944,
+            0.2802398204803467
+          ],
+          "cell": [
+            102,
+            93,
+            64
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.00019039178732782602
+        },
+        {
+          "label": "head3_q50",
+          "xyz": [
+            -0.04398012161254883,
+            0.254464328289032,
+            0.27952420711517334
+          ],
+          "cell": [
+            102,
+            94,
+            63
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.000740772404242307
+        },
+        {
+          "label": "torso1_peak",
+          "xyz": [
+            -0.09121745824813843,
+            0.2610624432563782,
+            0.20608776807785034
+          ],
+          "cell": [
+            96,
+            95,
+            50
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 3.995703809778206e-05
+        },
+        {
+          "label": "torso1_q50",
+          "xyz": [
+            -0.0947381854057312,
+            0.254763662815094,
+            0.2074517458677292
+          ],
+          "cell": [
+            96,
+            94,
+            50
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 5.890025931876153e-05
+        },
+        {
+          "label": "torso2_peak",
+          "xyz": [
+            0.0599406361579895,
+            0.08852946758270264,
+            0.18559370934963226
+          ],
+          "cell": [
+            116,
+            60,
+            46
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.10795602947473526
+        },
+        {
+          "label": "torso2_q50",
+          "xyz": [
+            0.05767965316772461,
+            0.08602344989776611,
+            0.18633738160133362
+          ],
+          "cell": [
+            116,
+            60,
+            46
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.10795602947473526
+        },
+        {
+          "label": "torso3_peak",
+          "xyz": [
+            -0.10356637835502625,
+            0.22335100173950195,
+            0.14639878273010254
+          ],
+          "cell": [
+            95,
+            88,
+            39
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.0009206662653014064
+        },
+        {
+          "label": "torso3_q50",
+          "xyz": [
+            -0.10206934809684753,
+            0.22598135471343994,
+            0.14562073349952698
+          ],
+          "cell": [
+            95,
+            88,
+            39
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.0009206662653014064
+        },
+        {
+          "label": "feet1_peak",
+          "xyz": [
+            -0.14951106905937195,
+            0.20820200443267822,
+            0.028742969036102295
+          ],
+          "cell": [
+            89,
+            84,
+            18
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.1479983776807785
+        },
+        {
+          "label": "feet1_q50",
+          "xyz": [
+            -0.15033075213432312,
+            0.20664000511169434,
+            0.029431849718093872
+          ],
+          "cell": [
+            89,
+            84,
+            18
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.1479983776807785
+        },
+        {
+          "label": "feet2_peak",
+          "xyz": [
+            -0.09517073631286621,
+            0.14145410060882568,
+            0.03334277868270874
+          ],
+          "cell": [
+            96,
+            71,
+            18
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.003261990612372756
+        },
+        {
+          "label": "feet2_q50",
+          "xyz": [
+            -0.09517073631286621,
+            0.14145410060882568,
+            0.03334277868270874
+          ],
+          "cell": [
+            96,
+            71,
+            18
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.003261990612372756
+        },
+        {
+          "label": "feet3_peak",
+          "xyz": [
+            0.04800224304199219,
+            0.04263097047805786,
+            0.007921785116195679
+          ],
+          "cell": [
+            114,
+            51,
+            14
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.0065479883924126625
+        },
+        {
+          "label": "feet3_q50",
+          "xyz": [
+            0.050570785999298096,
+            0.045346617698669434,
+            0.0063468217849731445
+          ],
+          "cell": [
+            115,
+            51,
+            13
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.8310122489929199
+        },
+        {
+          "label": "remote1_peak",
+          "xyz": [
+            -0.38662368059158325,
+            -0.01962149143218994,
+            0.05546581745147705
+          ],
+          "cell": [
+            58,
+            38,
+            22
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.057335015386343
+        },
+        {
+          "label": "remote1_q50",
+          "xyz": [
+            -0.3888670802116394,
+            -0.02635735273361206,
+            0.05924665927886963
+          ],
+          "cell": [
+            58,
+            37,
+            23
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.007126751355826855
+        },
+        {
+          "label": "remote2_peak",
+          "xyz": [
+            -0.4519367814064026,
+            0.2407887578010559,
+            -0.05525165796279907
+          ],
+          "cell": [
+            50,
+            91,
+            2
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.0012289813021197915
+        },
+        {
+          "label": "remote2_q50",
+          "xyz": [
+            -0.4515745937824249,
+            0.243066668510437,
+            -0.05643784999847412
+          ],
+          "cell": [
+            50,
+            92,
+            2
+          ],
+          "core": false,
+          "active": false,
+          "admission": true,
+          "EMA_internal_score": 0.0005950970225967467
+        },
+        {
+          "label": "remote3_peak",
+          "xyz": [
+            -0.37215906381607056,
+            -0.04253041744232178,
+            -0.011270880699157715
+          ],
+          "cell": [
+            60,
+            34,
+            10
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.06953664869070053
+        },
+        {
+          "label": "remote3_q50",
+          "xyz": [
+            -0.37215906381607056,
+            -0.04253041744232178,
+            -0.011270880699157715
+          ],
+          "cell": [
+            60,
+            34,
+            10
+          ],
+          "core": true,
+          "active": true,
+          "admission": true,
+          "EMA_internal_score": 0.06953664869070053
+        }
+      ]
+    }
+  },
+  "limitation": "Coordinates are old111316 native termination samples, not newly measured130316 surfaces or actor truth. EMA is internal occupancy score, not physical alpha. Skipped cells are not certified globally free."
+}

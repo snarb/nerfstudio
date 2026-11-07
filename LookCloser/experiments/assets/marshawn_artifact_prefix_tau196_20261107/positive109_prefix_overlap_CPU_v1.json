@@ -1,0 +1,8 @@
+{
+  "CPU_only": true,
+  "controls_sha256": "7ae3924cabfe203adaf1be8f07d9d0e5593d1a0d6899125de5d9ed3a27ecdf12",
+  "points_with_witness_XYZ": 109,
+  "selected196_sha256": "ff6fd24f1443844bc2bbe089b5c0bf35b1331562d26d9380c366d60c7de4a250",
+  "observed_projected_overlap": [],
+  "limitation": "These109 sparse source witnesses do not certify all real actor geometry or unsegmented hair. No inferred negative labels added."
+}

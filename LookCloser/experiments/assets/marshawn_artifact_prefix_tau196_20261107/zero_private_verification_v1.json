@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "CPU_only": true,
+  "arms": {
+    "control": {
+      "draws": 0,
+      "source_private_seed73011_state_exact": true,
+      "private_state_sha256": "e3ffcff72b25f8dee76ac062f917941ebc3d67ec39bb16e28766f727c2b4114c",
+      "allocator10GiB_actual_call_recorded": true,
+      "physical_UUID": "GPU-6a8bbc85-5a77-8d62-ab18-560955f0dc65"
+    },
+    "tau001": {
+      "draws": 0,
+      "source_private_seed73011_state_exact": true,
+      "private_state_sha256": "ec6a8273caa8a91dae8ff9946fb3311378888074a7aebb3c0bdb0ecba0053f3b",
+      "allocator10GiB_actual_call_recorded": true,
+      "physical_UUID": "GPU-26c63492-0230-896f-208e-10e4eaca4c3c"
+    },
+    "tau01": {
+      "draws": 0,
+      "source_private_seed73011_state_exact": true,
+      "private_state_sha256": "de310dae50c01db80a9f09369b680c9becb17a55facf586ce048660ca58a9183",
+      "allocator10GiB_actual_call_recorded": true,
+      "physical_UUID": "GPU-279718e7-9e60-e5f2-53aa-65ff7dd03f37"
+    }
+  },
+  "method": "Reconstruct exact frozen196 private helper on CPU at seed73011 with0draws; compare actual GPU-worker before/after hashes. No model loaded."
+}

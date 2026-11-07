@@ -1,0 +1,68 @@
+{
+  "step": 130316,
+  "metrics": {
+    "parent126316": {
+      "psnr": 31.63972670843312,
+      "ssim": 0.831264058748881,
+      "lpips": 0.018773120517532032
+    },
+    "control": {
+      "psnr": 31.6072027953075,
+      "ssim": 0.8309052983919779,
+      "lpips": 0.018892969470471144
+    },
+    "tau001": {
+      "psnr": 31.62117783979569,
+      "ssim": 0.8310111363728842,
+      "lpips": 0.01885584866007169
+    },
+    "tau01": {
+      "psnr": 31.64051777638288,
+      "ssim": 0.8314993977546692,
+      "lpips": 0.01893655365953843
+    }
+  },
+  "outside16_alpha_above01_pixels": {
+    "parent126316": {
+      "DC": 118260,
+      "HC": 79892,
+      "KA": 54994
+    },
+    "control": {
+      "DC": 118232,
+      "HC": 79758,
+      "KA": 54998
+    },
+    "tau001": {
+      "DC": 115820,
+      "HC": 78667,
+      "KA": 54724
+    },
+    "tau01": {
+      "DC": 101149,
+      "HC": 74913,
+      "KA": 52194
+    }
+  },
+  "input_sha256": {
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/ready.json": "7c39466b7921b608bf82aa47419f04ee14d957d6c2328ac0a975eab7105e0e36",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/DC.npz": "4fff114ca0b8c87121dab73d20367cb0e872d7bb61dbe9f8b08b3ef4c714802e",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/artifact_prefix196_continuation_candidate_v1/anchor/renders/DC_alpha.png": "1058061cc1de9489ef000c0f9702b51c0ab08eb388de65fb58e496efde099e59",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/artifact_prefix196_continuation_candidate_v1/external_guard_prefix196_v1/visual_gates_v1/retained_gates/control/step-000130316/renders/step-000130316/DC_alpha.png": "7878a1fdbe012d3178ef2e7bb339a45cb66a59a9b0d27f805d22ba681aab757d",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/artifact_prefix196_continuation_candidate_v1/external_guard_prefix196_v1/visual_gates_v1/retained_gates/tau001/step-000130316/renders/step-000130316/DC_alpha.png": "df5ce0459358d34e0acfcaac6e382febdfbfc149ab2934535ae4a3dfb74688e4",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/artifact_prefix196_continuation_candidate_v1/external_guard_prefix196_v1/visual_gates_v1/retained_gates/tau01/step-000130316/renders/step-000130316/DC_alpha.png": "c334f5d70cf08424707db3ac33cae06cd5fc7f2e4e9add821d9d42852825b205",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/HC.npz": "8fcf0345d72a2c33a23441dee4ae531af2522222a29aee15c9e20bd7e7674476",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/artifact_prefix196_continuation_candidate_v1/anchor/renders/HC_alpha.png": "20690cb8ee90d43b65c789cf705c9a740f9669a8af214a74d71eb5deb2ebe2d0",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/artifact_prefix196_continuation_candidate_v1/external_guard_prefix196_v1/visual_gates_v1/retained_gates/control/step-000130316/renders/step-000130316/HC_alpha.png": "9f677f575889722cf435d5097d78cd77512128b74441ddf09fe47af9b08a81e2",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/artifact_prefix196_continuation_candidate_v1/external_guard_prefix196_v1/visual_gates_v1/retained_gates/tau001/step-000130316/renders/step-000130316/HC_alpha.png": "15dbbfdc8a82a98e46b5935344f6fcbe6f39dad5ea1a722d973db5b944df9404",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/artifact_prefix196_continuation_candidate_v1/external_guard_prefix196_v1/visual_gates_v1/retained_gates/tau01/step-000130316/renders/step-000130316/HC_alpha.png": "fa44eb2fc98218af5b4fd70a811ae314505203680536ec219da8a2b151ff97e2",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/KA.npz": "70960075b6bb88ab45345fc93efdbf8c74314563a649a791643a48453b9f37da",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/artifact_prefix196_continuation_candidate_v1/anchor/renders/KA_alpha.png": "d9ed58adece05fe7e5637aa10085b2ac476d385525bc7b40ee32415be834c6ab",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/artifact_prefix196_continuation_candidate_v1/external_guard_prefix196_v1/visual_gates_v1/retained_gates/control/step-000130316/renders/step-000130316/KA_alpha.png": "293af90ebfe9eee40deee5f4329ea53ec344214deff0d8637f02c3874880abbb",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/artifact_prefix196_continuation_candidate_v1/external_guard_prefix196_v1/visual_gates_v1/retained_gates/tau001/step-000130316/renders/step-000130316/KA_alpha.png": "6da30154a4b3e16c0a79c1cf471600ba01dbcc5f5a40968f935ac497f4e3cdf4",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/artifact_prefix196_continuation_candidate_v1/external_guard_prefix196_v1/visual_gates_v1/retained_gates/tau01/step-000130316/renders/step-000130316/KA_alpha.png": "ebf76359c109a2e3cb99705be2cfdb5925bad9620f2a83194c12f63717b012c5"
+  },
+  "definition": "Exact original V1 black|grey union; scipy Euclidean distance >16HD px; scalar PNG16 alpha >.1",
+  "limitation": "Mask-exterior opacity is diagnostic, not nonactor/free-space truth. No new labels or metric changes.",
+  "GPU_used": false
+}
