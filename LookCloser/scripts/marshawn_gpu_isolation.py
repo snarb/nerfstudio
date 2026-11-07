@@ -23,3 +23,15 @@ def verify_cuda(expected_uuid,torch_module):
  if not actual.startswith('GPU-'):actual='GPU-'+actual
  if actual.lower()!=expected_uuid.lower():raise RuntimeError('CUDA properties physical UUID differs from acquired lease')
  return dict(**proof,visible_device_count=count,logical_current_device=current,actual_physical_uuid=actual,name=properties.name)
+
+def require_controller_lease(receipt_path):
+ """Bind a worker's UUID to its actual supervising global-lock owner."""
+ import json
+ from pathlib import Path
+ receipt=json.loads(Path(receipt_path).read_text());parent=os.getppid();expected=receipt.get('supervisor')or{}
+ if expected.get('pid')!=parent:raise RuntimeError('GPU lease supervisor is not this worker parent')
+ stat=Path(f'/proc/{parent}/stat').read_text().split(') ',1)[1].split();boot=Path('/proc/sys/kernel/random/boot_id').read_text().strip()
+ if stat[19]!=str(expected.get('start'))or boot!=expected.get('boot')or stat[0]=='Z':raise RuntimeError('GPU lease supervisor identity differs')
+ worker=receipt.get('worker')
+ if worker and worker.get('pid')!=os.getpid():raise RuntimeError('GPU lease belongs to another worker')
+ proof=require_environment(receipt.get('gpu_uuid',''));return dict(**proof,lease_receipt=str(Path(receipt_path).resolve()),supervisor=expected,leased_gpu_index=receipt['gpu'])

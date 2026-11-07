@@ -19,3 +19,11 @@ def test_child_environment_is_exact_single_uuid(monkeypatch):
  monkeypatch.setenv('CUDA_VISIBLE_DEVICES','0,1,2')
  assert m.child_environment(UUID)['CUDA_VISIBLE_DEVICES']==UUID
  with pytest.raises(ValueError):m.child_environment('4')
+
+def test_controller_lease_binds_actual_parent_identity_and_worker(tmp_path,monkeypatch):
+ import json,os
+ monkeypatch.setenv('CUDA_VISIBLE_DEVICES',UUID);parent=os.getppid();fields=Path(f'/proc/{parent}/stat').read_text().split(') ',1)[1].split();receipt=dict(supervisor=dict(pid=parent,start=fields[19],boot=Path('/proc/sys/kernel/random/boot_id').read_text().strip()),worker=dict(pid=os.getpid()),gpu=4,gpu_uuid=UUID);path=tmp_path/'receipt.json';path.write_text(json.dumps(receipt));assert m.require_controller_lease(path)['leased_gpu_index']==4
+ receipt['worker']['pid']=os.getpid()+1;path.write_text(json.dumps(receipt))
+ with pytest.raises(RuntimeError):m.require_controller_lease(path)
+ receipt['worker']=None;receipt['supervisor']['start']='0';path.write_text(json.dumps(receipt))
+ with pytest.raises(RuntimeError):m.require_controller_lease(path)
