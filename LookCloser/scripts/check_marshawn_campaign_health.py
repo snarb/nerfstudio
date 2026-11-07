@@ -108,7 +108,8 @@ print(json.dumps(r))
                               ('w32', 'semantic_actor_w32_prepared_20261106'),
                               ('sourcepoint', 'semantic_sourcepoint_candidate_20261106'),
                               ('cold_lambda01', 'semantic_cold_lambda01_candidate_20261106'),
-                              ('cold_halfstep', 'semantic_cold_halfstep_candidate_20261107')]:
+                              ('cold_halfstep', 'semantic_cold_halfstep_candidate_20261107'),
+                              ('frequency_focus', 'semantic_frequency_focus_candidate_20261107')]:
         if (args.root/generation/'release.json').exists():
             candidate_root = '/home/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/'+generation+'/controller'
             candidate_code = remote_code.replace(repr(remote_root), repr(candidate_root))
