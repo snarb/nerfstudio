@@ -1,0 +1,33 @@
+{
+  "CPU_only": true,
+  "CUDA_started": false,
+  "optimizer_created": false,
+  "controllers_started": false,
+  "exact2064_packet_history": true,
+  "packet_reference_sha256": "59db0dc30464a8238bd470b9a31218522043dbff9a240bf73ec601e57685a6e6",
+  "usable_train_camera_count": 60,
+  "baseline_label_sha256": "44e7734ed93a2c10742de6dc55886978d7c2097ee62779915dada93feda94df4",
+  "all_authorizations_false": {
+    "LC_resolution_technical_head_authorized": false,
+    "LC_resolution_first2064_head_authorized": false,
+    "LC_resolution_controller_technical_authorized": false,
+    "LC_resolution_controller_first2064_authorized": false,
+    "LC_physical_render_authorized": false,
+    "production_after_visualgate": false
+  },
+  "source_head_math_exactly_sealed": true,
+  "old_worker_unchanged_sha256": "6f6bca9b69c97f0375d943a37f208a17407fcb64f046e920556e101382ed149d",
+  "baseline128_unchanged_spec_sha256": "ccfdd894d29d06ef17b8dffd8fa66b7db06b4a8383d7691246632d8fff7fba93",
+  "prepared_namespace": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_resolution256_fourUNK_plan_v1",
+  "prepared_metadata_sha256": {
+    "CPU_readiness.json": "179e4e51c958eb6f9abe07061f597608e714db5fb68254936dfe0cfd89f12703",
+    "controllers/first2064_after_root_technical_gate.json": "c64962dc900a77ed2fce2d6817fcc523dfddf78962b47baa61beac0362cda5aa",
+    "controllers/technical.json": "7175c3aee6f14b2e9294902c175ab371bf81c3836e82ebfb06532c1af01868a0",
+    "root_review_TEMPLATE.json": "b53ce6871a01a41f03c6b1a294724ae494dbb8ae5a9d64d810004faea15a19cb",
+    "specs/prior001_fresh2064.json": "fdb03a3b3610d28bbf583cfe186472d99d0771f93b334fb365b75ec02d7675ba",
+    "specs/technical32.json": "5558a3d9635b5ca1f094f8840074d9d6e800d0e0c232396dbac3c51df914c2a3",
+    "specs/technical64.json": "3415ddd6be7cbd5a41369e5d5653e1f97c55f12bb593aa5a9c1eb4239a3eaa5b",
+    "specs/technical_resume32.json": "be0f2846328b568679dc77fe48129c699f9842e54953e7c119f29a566137030f"
+  },
+  "physical_renderer_unchanged_sha256": "576889ae80fc2a65bd05ce3ba4cb627656af2750e3562a2b05374f2d7aef0501"
+}

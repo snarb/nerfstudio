@@ -1,0 +1,20 @@
+--- render_marshawn_LC_semantic_physical.py
++++ render_marshawn_LC_semantic_physical.py
+@@ -11,6 +11,7 @@
+ import signal
+ import time
+ from prepare_marshawn_frozen_semantic_cpu import sha, write
++from marshawn_LC_semantic_resolution_contract import physical_node_resolution
+ 
+ 
+ def authorize(path, spec):
+@@ -74,7 +75,8 @@
+                 trained['spec_sha256'] != spec['head_training_spec_sha256'] or not trained['world_to_box_is_identity']):
+             raise ValueError('Head must be separately fitted on this exact LC visibility and prior')
+         initial_probability=trained['initial_probability']
+-        head=FrozenActorGrid(m['bounds'],np.eye(4),resolution=128,initial_probability=initial_probability).cuda()
++        resolution=physical_node_resolution(trained,completion,dict(spec,expected_head_bounds=m['bounds']))
++        head=FrozenActorGrid(m['bounds'],np.eye(4),resolution=resolution,initial_probability=initial_probability).cuda()
+         head.load_state_dict(trained['head'],strict=True);assert_exact_restoration(head,trained['head'])
+         head.eval();head.requires_grad_(False);head_digest=tensor_digest(head)
+         if not torch.equal(head.world_to_box,torch.eye(4,device=model.device)):raise ValueError('Floor transform must be identity')

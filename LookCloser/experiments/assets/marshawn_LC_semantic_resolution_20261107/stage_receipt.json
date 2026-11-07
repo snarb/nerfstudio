@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "CPU_only": true,
+  "GPU_or_controller_started": false,
+  "host": "ubuntu@silver-sable",
+  "remote_root": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/frozen_LC_semantic_resolution256_fourUNK_plan_v1",
+  "files_verified": 235,
+  "source_files_reused": 216,
+  "new_files_uploaded": 19,
+  "bytes_uploaded": 152099,
+  "root_template_sha256": "b53ce6871a01a41f03c6b1a294724ae494dbb8ae5a9d64d810004faea15a19cb",
+  "worker_sha256": "8e9e62d86b5cde6bfb7b08839ee0fe6dcec71530e1283f91670efe1535c85102",
+  "helper_sha256": "1c8855e65e21e1d466adf9cb205d79681e476c26e6c6651f544c1c214f919af5",
+  "technical_DAG_sha256": "7175c3aee6f14b2e9294902c175ab371bf81c3836e82ebfb06532c1af01868a0",
+  "first2064_DAG_sha256": "c64962dc900a77ed2fce2d6817fcc523dfddf78962b47baa61beac0362cda5aa",
+  "specs_sha256": {
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/frozen_LC_semantic_resolution256_fourUNK_plan_v1/specs/technical32.json": "5558a3d9635b5ca1f094f8840074d9d6e800d0e0c232396dbac3c51df914c2a3",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/frozen_LC_semantic_resolution256_fourUNK_plan_v1/specs/technical_resume32.json": "be0f2846328b568679dc77fe48129c699f9842e54953e7c119f29a566137030f",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/frozen_LC_semantic_resolution256_fourUNK_plan_v1/specs/technical64.json": "3415ddd6be7cbd5a41369e5d5653e1f97c55f12bb593aa5a9c1eb4239a3eaa5b",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/frozen_LC_semantic_resolution256_fourUNK_plan_v1/specs/prior001_fresh2064.json": "fdb03a3b3610d28bbf583cfe186472d99d0771f93b334fb365b75ec02d7675ba"
+  },
+  "runtime_leaves_verified": {
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/frozen_native_semantic_head_technical_plan_v1/IA_two_query_UNKNOWN_qualification.json": "16831859dda2031529c586d51086409480d89f15cf469302be29a25fc0001310",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/native_actor_bag_projection_review_CPU_v1/root_LA_two_UNKNOWN_qualification.json": "e3dc58f2bb6293c1551dc3da76286224e34a92bba97bbe70b00d1c0f241cc687",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/frozen_native_semantic_head_technical_plan_v1/label_qualification.json": "944d88dbbfd24a0021c1166dbfe1fa949047b8d929b9b0cad65e6c84f07ff4f0"
+  },
+  "remote_CPU_proof_sha256": "81bc0fb609a4c0e079eeb5db41b607243e67d881f8f39a30104f6a79af0edd8b",
+  "all_permissions_false": true,
+  "active_FOUR_UNKNOWN128_job_preempted_or_modified": false,
+  "new_outputs_created": false
+}

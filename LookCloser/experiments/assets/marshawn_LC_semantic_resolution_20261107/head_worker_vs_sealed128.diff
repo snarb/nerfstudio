@@ -1,0 +1,94 @@
+--- sealed128/probe_marshawn_LC_frozen_semantic_head.py
++++ probe_marshawn_LC_semantic_resolution_head.py
+@@ -1,4 +1,4 @@
+-"""Independent direct-LC head fit over sealed native visibility; dry-run by default.
++"""Opt-in independent128/256 FOUR-UNKNOWN direct-LC head; dry-run by default.
+ 
+ Native RGB/density are not instantiated or optimized. CUDA grid_sample backward
+ uses atomics: restoration must be exact, subsequent independent trajectories
+@@ -12,21 +12,25 @@
+ import signal
+ import time
+ from prepare_marshawn_frozen_semantic_cpu import sha, write
++from marshawn_LC_semantic_resolution_contract import (validate_spec, validate_qualification,
++    checkpoint_metadata, validate_resume, validate_matched_baseline)
+ 
+ 
+ def run(path, execute):
+     spec = json.loads(path.read_text())
+-    if (spec['seed'], spec['grid_resolution'], spec['learning_rate']) != (42,128,.03) or spec['world_to_box'] != [[1.,0.,0.,0.],[0.,1.,0.,0.],[0.,0.,1.,0.],[0.,0.,0.,1.]]:
+-        raise ValueError('Unreviewed LC grid/optimizer/frame contract')
++    resolution = validate_spec(spec)
++    baseline = json.loads(Path(spec['matched_four_UNKNOWN128_spec']).read_text())
++    validate_matched_baseline(spec, baseline)
+     if not execute:
+         print(json.dumps(dict(spec_sha256=sha(path), phase=spec['phase'], updates=spec['updates'],
+             native_updates=0, CUDA_started=False, optimizer_created=False,
+-            initial_probability=float(spec.get('initial_probability', .99)), fresh_head_and_Adam=not bool(spec.get('resume')),
+-            label_qualification='PENDING_ROOT_REVIEW', capacity_policy=spec['capacity_policy'])))
++            initial_probability=spec['initial_probability'], grid_resolution=resolution, qualified_UNKNOWN_count=4,
++            fresh_head_and_Adam=not bool(spec.get('resume')),
++            label_qualification='FOUR_ROOT_REVIEWED_UNKNOWN_REQUIRED', capacity_policy=spec['capacity_policy'])))
+         return
+     release = json.loads(Path(spec['root_release']).read_text())
+     authorization_key = spec.get('authorization_key', 'technical_head_authorized')
+-    if authorization_key not in ['technical_head_authorized', 'first_physical_head_authorized', 'prior_counterexperiment_head_authorized', 'LC_technical_head_authorized', 'LC_first2064_head_authorized']:
++    if authorization_key not in ['LC_resolution_technical_head_authorized', 'LC_resolution_first2064_head_authorized']:
+         raise ValueError('Unrecognized bounded semantic phase')
+     if release.get('reviewer') != 'root' or release.get(authorization_key) is not True or release.get('spec_sha256', {}).get(str(path)) != sha(path):
+         raise ValueError('Exact root head-technical release required')
+@@ -66,6 +70,7 @@
+         raise ValueError('Frozen native capture provenance differs')
+     if labels['capture_receipt_sha256'] != sha(spec['capture_receipt']):
+         raise ValueError('Label qualification belongs to another native cache')
++    validate_qualification(labels)
+     overrides = {}
+     for r in labels['unknown_queries']:
+         if r['label_weight'] != 0 or sha(r['qualification']) != r['qualification_sha256']:
+@@ -96,7 +101,7 @@
+     if observed_overrides != overrides.keys():
+         raise ValueError('Every qualification must match exactly one actual query')
+     initial_probability = float(spec.get('initial_probability', .99))
+-    head = FrozenActorGrid(m['bounds'], m['native_world_to_box'], resolution=128, initial_probability=initial_probability).cuda()
++    head = FrozenActorGrid(m['bounds'], m['native_world_to_box'], resolution=resolution, initial_probability=initial_probability).cuda()
+     optimizer = torch.optim.Adam([head.logits], lr=.03)
+     sampler = np.random.default_rng(42)
+     def rng():
+@@ -112,6 +117,7 @@
+     initial_iteration = 0; history = []; restoration = None
+     if spec.get('resume'):
+         parent = torch.load(spec['resume'], map_location='cpu', weights_only=False)
++        validate_resume(parent, spec, m['bounds'])
+         if parent.get('source_kind') != m['source_kind'] or parent.get('LC_capture_receipt_sha256') != m['LC_capture_receipt_sha256'] or not parent.get('world_to_box_is_identity'):
+             raise ValueError('Resume requires this direct-LC capture/frame; NGP heads cannot transfer')
+         if parent['model_digest'] != capture['model_digest'] or parent['label_qualification_sha256'] != sha(spec['label_qualification']):
+@@ -131,12 +137,13 @@
+             raise ValueError('Resume must start from the exact reviewed parent iteration')
+     write(output/'initial_state.json', dict(phase=spec['phase'], restoration=restoration, initial_iteration=initial_iteration,
+         initial_Adam_count=adam_count(), native_optimizer_created=False, source_model_loaded=False,
+-        initial_probability=initial_probability, initial_seed=42, grid_resolution=128,
+-        qualified_unknown_queries=len(observed_overrides), health=capture_health(torch, lease['expected_physical_uuid'])))
++        initial_probability=initial_probability, initial_seed=42, grid_resolution=resolution,
++        qualified_unknown_queries=len(observed_overrides), resolution_experiment_family=spec['resolution_experiment_family'], health=capture_health(torch, lease['expected_physical_uuid'])))
+     def save(iteration, name):
+         state = dict(head=head.state_dict(), head_digest=tensor_digest(head), optimizer=optimizer.state_dict(),
+             rng=rng(), iteration=iteration, model_digest=capture['model_digest'], camera_history=history,
+             label_qualification_sha256=sha(spec['label_qualification']), spec_sha256=sha(path))
++        state.update(checkpoint_metadata(spec))
+         state['initial_probability'] = initial_probability
+         state['source_kind'] = m['source_kind']
+         state['LC_capture_receipt_sha256'] = m['LC_capture_receipt_sha256']
+@@ -190,7 +197,12 @@
+         checkpoint=str(checkpoint), checkpoint_sha256=sha(checkpoint), restoration=restoration,
+         native_model_not_loaded_or_optimized=True, native_checkpoint_and_caches_unchanged=True,
+         source_RGB_targets_loaded=False, records=rows, camera_history=history,
+-        initial_probability=initial_probability, initial_seed=42, grid_resolution=128,
++        initial_probability=initial_probability, initial_seed=42, grid_resolution=resolution,
++        qualified_UNKNOWN_count=len(observed_overrides),
++        resolution_experiment_family=spec['resolution_experiment_family'], learning_rate=.03,
++        source_manifest_sha256=sha(spec['manifest']), capture_adapter_sha256=sha(spec['capture_receipt']),
++        packet_history_reference_sha256=sha(spec['packet_history_reference']),
++        matched_four_UNKNOWN128_spec_sha256=sha(spec['matched_four_UNKNOWN128_spec']),
+         camera_history_reference_sha256=trajectory_reference_sha256,
+         source_kind=m['source_kind'], LC_capture_receipt_sha256=m['LC_capture_receipt_sha256'], world_to_box_is_identity=True,
+         explicit_prior_caveat='Unobserved initialclass probability is an experimental prior, not semantic certainty or measured physicalemptiness.',

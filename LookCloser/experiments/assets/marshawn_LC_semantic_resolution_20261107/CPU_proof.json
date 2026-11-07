@@ -1,0 +1,40 @@
+{
+  "timestamp_UTC": "2026-11-07T08:45:09.995365+00:00",
+  "python": "3.11.16",
+  "torch": "2.7.1+cu128",
+  "exit_code": 0,
+  "counts": {
+    "passed": 36
+  },
+  "elapsed_seconds": 13.232662894297391,
+  "CPU_process_peak_RSS_bytes": 1993154560,
+  "CUDA_VISIBLE_DEVICES": "",
+  "CUDA_initialized": false,
+  "pytest_args": [
+    "-q",
+    "-o",
+    "addopts=",
+    "tests/test_marshawn_LC_semantic_resolution.py",
+    "tests/test_marshawn_frozen_semantic_head.py",
+    "tests/test_marshawn_LC_frozen_semantics.py"
+  ],
+  "synthetic_tests_actual_resolutions": [
+    128,
+    256
+  ],
+  "actual_CPU_Adam_resume_updates": "32+32 vs64 at BOTH128 and256",
+  "native_model_loaded": false,
+  "native_cache_fit_or_export_started": false,
+  "GPU_or_controller_started": false,
+  "files": {
+    "scripts/marshawn_LC_semantic_resolution_contract.py": "1c8855e65e21e1d466adf9cb205d79681e476c26e6c6651f544c1c214f919af5",
+    "scripts/probe_marshawn_LC_semantic_resolution_head.py": "8e9e62d86b5cde6bfb7b08839ee0fe6dcec71530e1283f91670efe1535c85102",
+    "scripts/prepare_marshawn_LC_semantic_resolution_cpu.py": "ed71a6e6c491d628f86876cfaa711b069f5de2619a7be92d5017a457085501bb",
+    "tests/test_marshawn_LC_semantic_resolution.py": "77606dabf845ba8b37ec00ff92738e44ce6d59126ff3f529b9a29dc528e65680",
+    "experiments/marshawn_LC_semantic_resolution.md": "59538c987fd9814de5c412aa41124fdac67e182aa21df2c71427f6fb010f74e3",
+    "experiments/assets/marshawn_LC_semantic_resolution_20261107/head_worker_vs_sealed128.diff": "6d77abbc2d2317ed7ad084366bce7cb65c39a6178db6595c1334eef287d69baf",
+    "experiments/assets/marshawn_LC_semantic_resolution_20261107/physical_constructor_PROPOSAL_ONLY.diff": "d26424720dfa48a19be5258ada1932f54b1ee17c75040bb312382f43a829afba",
+    "experiments/assets/marshawn_LC_semantic_resolution_20261107/CPU_bundle_review.json": "0c2892051a2bc72c0b97e11c625792ab3fd0d45b00f34b5789d9c8d8eaa5242a"
+  },
+  "documentation_digest_refreshed_after_CPU_staging": true
+}

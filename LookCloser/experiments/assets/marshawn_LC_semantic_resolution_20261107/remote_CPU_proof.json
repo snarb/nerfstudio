@@ -1,0 +1,174 @@
+{
+  "passed": true,
+  "CPU_only": true,
+  "CUDA_VISIBLE_DEVICES": "",
+  "CUDA_initialized": false,
+  "torch_version": "2.7.1+cu128",
+  "cuda_library_version": "12.8",
+  "python_executable": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/python",
+  "python_realpath": "/home/ubuntu/lookcloser/envs/marshawn_leader/bin/python3.11",
+  "imports": {
+    "compare_marshawn_frozen_semantic_roundtrip_cpu": {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/frozen_LC_semantic_resolution256_fourUNK_plan_v1/code/compare_marshawn_frozen_semantic_roundtrip_cpu.py",
+      "sha256": "8aeab2a6494e7102ebb31c2cb30d0abff57713ca5b9d99de727bb54cdf38c447"
+    },
+    "marshawn_LC_semantic_resolution_contract": {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/frozen_LC_semantic_resolution256_fourUNK_plan_v1/code/marshawn_LC_semantic_resolution_contract.py",
+      "sha256": "1c8855e65e21e1d466adf9cb205d79681e476c26e6c6651f544c1c214f919af5"
+    },
+    "marshawn_frozen_semantic_head": {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/frozen_LC_semantic_resolution256_fourUNK_plan_v1/code/marshawn_frozen_semantic_head.py",
+      "sha256": "85f51158fabaff8664be52d56fcdb80f3d9368c6c1529d4c5327b51c543dbb78"
+    },
+    "marshawn_frozen_semantic_selectors": {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/frozen_LC_semantic_resolution256_fourUNK_plan_v1/code/marshawn_frozen_semantic_selectors.py",
+      "sha256": "0a645046ddbf4c8cfd23a2a46a967eef6f1a2463a1e5cf5cdb67e1e182fb18d3"
+    },
+    "marshawn_gpu_isolation": {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/frozen_LC_semantic_resolution256_fourUNK_plan_v1/code/marshawn_gpu_isolation.py",
+      "sha256": "42a2155aefdeae4ceeca441a28c417450ef49dee41b3a6cae6beb767dc53069b"
+    },
+    "prepare_marshawn_frozen_semantic_cpu": {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/frozen_LC_semantic_resolution256_fourUNK_plan_v1/code/prepare_marshawn_frozen_semantic_cpu.py",
+      "sha256": "eb564bcd46901d3d8165288f0f1ca05432fca50531cec3f561883c3ebee5f9bf"
+    },
+    "probe_marshawn_LC_frozen_semantic_head": {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/frozen_LC_semantic_resolution256_fourUNK_plan_v1/code/probe_marshawn_LC_frozen_semantic_head.py",
+      "sha256": "6f6bca9b69c97f0375d943a37f208a17407fcb64f046e920556e101382ed149d"
+    },
+    "probe_marshawn_LC_semantic_resolution_head": {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/frozen_LC_semantic_resolution256_fourUNK_plan_v1/code/probe_marshawn_LC_semantic_resolution_head.py",
+      "sha256": "8e9e62d86b5cde6bfb7b08839ee0fe6dcec71530e1283f91670efe1535c85102"
+    },
+    "run_marshawn_frozen_semantic_probe": {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/frozen_LC_semantic_resolution256_fourUNK_plan_v1/code/run_marshawn_frozen_semantic_probe.py",
+      "sha256": "c87eeb331293cad661fb98527bb3360af0dcdb5db1d3cf5e260c434e2d583bf1"
+    }
+  },
+  "qualified_runtime_leaves": {
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/frozen_native_semantic_head_technical_plan_v1/IA_two_query_UNKNOWN_qualification.json": "16831859dda2031529c586d51086409480d89f15cf469302be29a25fc0001310",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/native_actor_bag_projection_review_CPU_v1/root_LA_two_UNKNOWN_qualification.json": "e3dc58f2bb6293c1551dc3da76286224e34a92bba97bbe70b00d1c0f241cc687",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/frozen_native_semantic_head_technical_plan_v1/label_qualification.json": "944d88dbbfd24a0021c1166dbfe1fa949047b8d929b9b0cad65e6c84f07ff4f0"
+  },
+  "packet_history": [
+    {
+      "spec": "prior001_fresh2064.json",
+      "packet_reference_sha256": "59db0dc30464a8238bd470b9a31218522043dbff9a240bf73ec601e57685a6e6",
+      "exact2064": true
+    },
+    {
+      "spec": "technical32.json",
+      "packet_reference_sha256": "59db0dc30464a8238bd470b9a31218522043dbff9a240bf73ec601e57685a6e6",
+      "exact2064": true
+    },
+    {
+      "spec": "technical64.json",
+      "packet_reference_sha256": "59db0dc30464a8238bd470b9a31218522043dbff9a240bf73ec601e57685a6e6",
+      "exact2064": true
+    },
+    {
+      "spec": "technical_resume32.json",
+      "packet_reference_sha256": "59db0dc30464a8238bd470b9a31218522043dbff9a240bf73ec601e57685a6e6",
+      "exact2064": true
+    }
+  ],
+  "dry_runs": [
+    {
+      "spec_sha256": "fdb03a3b3610d28bbf583cfe186472d99d0771f93b334fb365b75ec02d7675ba",
+      "phase": "direct_LC_resolution256_four_UNKNOWN_prior001_fresh2064",
+      "updates": 2064,
+      "native_updates": 0,
+      "CUDA_started": false,
+      "optimizer_created": false,
+      "initial_probability": 0.01,
+      "grid_resolution": 256,
+      "qualified_UNKNOWN_count": 4,
+      "fresh_head_and_Adam": true,
+      "label_qualification": "FOUR_ROOT_REVIEWED_UNKNOWN_REQUIRED",
+      "capacity_policy": "KEEP_GENUINE_LABELS_AND_REPORT_IRREDUCIBLE_BOUND"
+    },
+    {
+      "spec_sha256": "5558a3d9635b5ca1f094f8840074d9d6e800d0e0c232396dbac3c51df914c2a3",
+      "phase": "direct_LC_resolution256_four_UNKNOWN_technical32",
+      "updates": 32,
+      "native_updates": 0,
+      "CUDA_started": false,
+      "optimizer_created": false,
+      "initial_probability": 0.01,
+      "grid_resolution": 256,
+      "qualified_UNKNOWN_count": 4,
+      "fresh_head_and_Adam": true,
+      "label_qualification": "FOUR_ROOT_REVIEWED_UNKNOWN_REQUIRED",
+      "capacity_policy": "KEEP_GENUINE_LABELS_AND_REPORT_IRREDUCIBLE_BOUND"
+    },
+    {
+      "spec_sha256": "3415ddd6be7cbd5a41369e5d5653e1f97c55f12bb593aa5a9c1eb4239a3eaa5b",
+      "phase": "direct_LC_resolution256_four_UNKNOWN_technical64",
+      "updates": 64,
+      "native_updates": 0,
+      "CUDA_started": false,
+      "optimizer_created": false,
+      "initial_probability": 0.01,
+      "grid_resolution": 256,
+      "qualified_UNKNOWN_count": 4,
+      "fresh_head_and_Adam": true,
+      "label_qualification": "FOUR_ROOT_REVIEWED_UNKNOWN_REQUIRED",
+      "capacity_policy": "KEEP_GENUINE_LABELS_AND_REPORT_IRREDUCIBLE_BOUND"
+    },
+    {
+      "spec_sha256": "be0f2846328b568679dc77fe48129c699f9842e54953e7c119f29a566137030f",
+      "phase": "direct_LC_resolution256_four_UNKNOWN_technical_resume32",
+      "updates": 32,
+      "native_updates": 0,
+      "CUDA_started": false,
+      "optimizer_created": false,
+      "initial_probability": 0.01,
+      "grid_resolution": 256,
+      "qualified_UNKNOWN_count": 4,
+      "fresh_head_and_Adam": false,
+      "label_qualification": "FOUR_ROOT_REVIEWED_UNKNOWN_REQUIRED",
+      "capacity_policy": "KEEP_GENUINE_LABELS_AND_REPORT_IRREDUCIBLE_BOUND"
+    }
+  ],
+  "controller_imports": [
+    {
+      "plan": "first2064_after_root_technical_gate.json",
+      "sha256": "c64962dc900a77ed2fce2d6817fcc523dfddf78962b47baa61beac0362cda5aa",
+      "controller_sha256": "2e7a1be53794882ffc3c0a6a82fff3cc24070b36fbf7593e65771772e0dadf39",
+      "python": "/home/ubuntu/lookcloser/envs/marshawn_leader/bin/python3.11",
+      "GPU_indices": [
+        1
+      ],
+      "jobs": [
+        "LC_resolution256_four_UNKNOWN_prior001_fresh2064"
+      ]
+    },
+    {
+      "plan": "technical.json",
+      "sha256": "7175c3aee6f14b2e9294902c175ab371bf81c3836e82ebfb06532c1af01868a0",
+      "controller_sha256": "2e7a1be53794882ffc3c0a6a82fff3cc24070b36fbf7593e65771772e0dadf39",
+      "python": "/home/ubuntu/lookcloser/envs/marshawn_leader/bin/python3.11",
+      "GPU_indices": [
+        1
+      ],
+      "jobs": [
+        "LC_resolution256_four_UNKNOWN_technical32",
+        "LC_resolution256_four_UNKNOWN_technical_resume32",
+        "LC_resolution256_four_UNKNOWN_technical64"
+      ]
+    }
+  ],
+  "permissions": {
+    "LC_resolution_technical_head_authorized": false,
+    "LC_resolution_first2064_head_authorized": false,
+    "LC_resolution_controller_technical_authorized": false,
+    "LC_resolution_controller_first2064_authorized": false,
+    "LC_physical_render_authorized": false,
+    "production_after_visualgate": false
+  },
+  "head_nativefit_render_export_started": false,
+  "controller_or_worker_started": false,
+  "root_actual_release_created": false,
+  "new_runs_or_queue_or_outputs": false,
+  "all_bound_source_inputs_verified": 225
+}
