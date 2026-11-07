@@ -1,0 +1,210 @@
+{
+  "passed": true,
+  "CPU_only": true,
+  "helper_sha256": "20e259088eae5a29eb879cf118b126adaa7f0f9f2e362c473d863f9503060236",
+  "anchor_checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "technical_verification_sha256": "7e3b4f7cb93723c406d1b3889267840c696b6781be9391357e61da469bc21cef",
+  "confidence_manifest_sha256": "e96bb88ebd34406141924d4bc610d47543d8785926ae3fae946dab152090c8b1",
+  "reports": {
+    "original": {
+      "final_step": 150316,
+      "attempts": 24000,
+      "actual_Adam_updates": {
+        "fields": 23990.0
+      },
+      "AMP_skips": {
+        "fields": 10.0
+      },
+      "source_seven_states_exact_before_policy": true,
+      "actual_FR": 0.3,
+      "actual_distortion_live_asserted_every_iteration": 0.1,
+      "confidence_manifest_and_all63_weight_hashes_exact": true,
+      "checkpoint_normalizer_error": 1.1102230246251565e-16,
+      "analytical_LUT_unchanged": true,
+      "original_mapped_admission_cascade_and_resolution_exact": true,
+      "explicit_cache_ids_and_source_associations_preserved": true,
+      "plateau": {
+        "schema_version": 1,
+        "anchor_step": 130316,
+        "interval": 5000,
+        "patience": 4,
+        "loss_relative_delta": 0.001,
+        "lpips_absolute_delta": 0.001,
+        "last_step": 150316,
+        "last_loss": 0.02216832401851813,
+        "last_lpips": 0.0188640421256423,
+        "significant_loss": 0.022109702229499817,
+        "significant_lpips": 0.018884674180299044,
+        "loss_misses": 4,
+        "lpips_misses": 4,
+        "stopped": true
+      },
+      "final_checkpoint_sha256": "0e59f07bb6dc2485c324bb419fa7c9db7326bc06572414d1a43b78585da1b91e",
+      "raw_min_step": 126316,
+      "historical_selector_step": 126316,
+      "best_metrics": {
+        "psnr": 31.63972670843312,
+        "ssim": 0.831264058748881,
+        "lpips": 0.018773120517532032
+      }
+    },
+    "bag6874": {
+      "final_step": 155316,
+      "attempts": 29000,
+      "actual_Adam_updates": {
+        "fields": 28987.0
+      },
+      "AMP_skips": {
+        "fields": 13.0
+      },
+      "source_seven_states_exact_before_policy": true,
+      "actual_FR": 0.3,
+      "actual_distortion_live_asserted_every_iteration": 0.1,
+      "confidence_manifest_and_all63_weight_hashes_exact": true,
+      "checkpoint_normalizer_error": 1.1102230246251565e-16,
+      "analytical_LUT_unchanged": true,
+      "original_mapped_admission_cascade_and_resolution_exact": true,
+      "explicit_cache_ids_and_source_associations_preserved": true,
+      "plateau": {
+        "schema_version": 1,
+        "anchor_step": 130316,
+        "interval": 5000,
+        "patience": 4,
+        "loss_relative_delta": 0.001,
+        "lpips_absolute_delta": 0.001,
+        "last_step": 155316,
+        "last_loss": 0.022167204568783443,
+        "last_lpips": 0.018840592975417774,
+        "significant_loss": 0.022101540118455887,
+        "significant_lpips": 0.01891968057801326,
+        "loss_misses": 4,
+        "lpips_misses": 5,
+        "stopped": true
+      },
+      "final_checkpoint_sha256": "4488a4039cef35d91ae3488eb5a25c252351e3f23b07b0bc91733b4f142881e1",
+      "raw_min_step": 126316,
+      "historical_selector_step": 126316,
+      "best_metrics": {
+        "psnr": 31.63972670843312,
+        "ssim": 0.831264058748881,
+        "lpips": 0.018773120517532032
+      }
+    },
+    "bag6874_delta2": {
+      "final_step": 155316,
+      "attempts": 29000,
+      "actual_Adam_updates": {
+        "fields": 28988.0
+      },
+      "AMP_skips": {
+        "fields": 12.0
+      },
+      "source_seven_states_exact_before_policy": true,
+      "actual_FR": 0.3,
+      "actual_distortion_live_asserted_every_iteration": 0.1,
+      "confidence_manifest_and_all63_weight_hashes_exact": true,
+      "checkpoint_normalizer_error": 1.1102230246251565e-16,
+      "analytical_LUT_unchanged": true,
+      "original_mapped_admission_cascade_and_resolution_exact": true,
+      "explicit_cache_ids_and_source_associations_preserved": true,
+      "plateau": {
+        "schema_version": 1,
+        "anchor_step": 130316,
+        "interval": 5000,
+        "patience": 4,
+        "loss_relative_delta": 0.001,
+        "lpips_absolute_delta": 0.001,
+        "last_step": 155316,
+        "last_loss": 0.022135598585009575,
+        "last_lpips": 0.018751426755140226,
+        "significant_loss": 0.022062452820440132,
+        "significant_lpips": 0.018837663034598034,
+        "loss_misses": 4,
+        "lpips_misses": 5,
+        "stopped": true
+      },
+      "final_checkpoint_sha256": "cf6e8b8f255edba06c7a1442cff565e2b897b9f729b5e8081a4de38b04c16916",
+      "raw_min_step": 155316,
+      "historical_selector_step": 126316,
+      "best_metrics": {
+        "psnr": 31.6007458698253,
+        "ssim": 0.8302589456240336,
+        "lpips": 0.018751426755140226
+      }
+    },
+    "bag6874_delta4": {
+      "final_step": 150316,
+      "attempts": 24000,
+      "actual_Adam_updates": {
+        "fields": 23989.0
+      },
+      "AMP_skips": {
+        "fields": 11.0
+      },
+      "source_seven_states_exact_before_policy": true,
+      "actual_FR": 0.3,
+      "actual_distortion_live_asserted_every_iteration": 0.1,
+      "confidence_manifest_and_all63_weight_hashes_exact": true,
+      "checkpoint_normalizer_error": 2.220446049250313e-16,
+      "analytical_LUT_unchanged": true,
+      "original_mapped_admission_cascade_and_resolution_exact": true,
+      "explicit_cache_ids_and_source_associations_preserved": true,
+      "plateau": {
+        "schema_version": 1,
+        "anchor_step": 130316,
+        "interval": 5000,
+        "patience": 4,
+        "loss_relative_delta": 0.001,
+        "lpips_absolute_delta": 0.001,
+        "last_step": 150316,
+        "last_loss": 0.022143504892786343,
+        "last_lpips": 0.018854989825437467,
+        "significant_loss": 0.022097214125096798,
+        "significant_lpips": 0.018879393736521404,
+        "loss_misses": 4,
+        "lpips_misses": 4,
+        "stopped": true
+      },
+      "final_checkpoint_sha256": "9f7fc2c1d6614ad92554a86d511d64d5d4c6d7d1a5a1c92f7b85a44236473598",
+      "raw_min_step": 126316,
+      "historical_selector_step": 126316,
+      "best_metrics": {
+        "psnr": 31.63972670843312,
+        "ssim": 0.831264058748881,
+        "lpips": 0.018773120517532032
+      }
+    }
+  },
+  "last_common_checkpoint_stream_proof": {
+    "original": {
+      "step": 150316,
+      "global_RNG": "8e561aeec9882e0d0e31e29d95e4572d351714391a3910add14101e783894846",
+      "sampler": "fded5c757c65e42dea5fad50f4c1a40e5549162bb34cba9efb8cc4da330af2a2",
+      "indices_chain": "d49a09c13153841e40c6b6b088b3aa8dbbefefe64eac369693ccc7658c01fba1",
+      "attempts": 24000
+    },
+    "bag6874": {
+      "step": 150316,
+      "global_RNG": "8e561aeec9882e0d0e31e29d95e4572d351714391a3910add14101e783894846",
+      "sampler": "fded5c757c65e42dea5fad50f4c1a40e5549162bb34cba9efb8cc4da330af2a2",
+      "indices_chain": "d49a09c13153841e40c6b6b088b3aa8dbbefefe64eac369693ccc7658c01fba1",
+      "attempts": 24000
+    },
+    "bag6874_delta2": {
+      "step": 150316,
+      "global_RNG": "8e561aeec9882e0d0e31e29d95e4572d351714391a3910add14101e783894846",
+      "sampler": "fded5c757c65e42dea5fad50f4c1a40e5549162bb34cba9efb8cc4da330af2a2",
+      "indices_chain": "d49a09c13153841e40c6b6b088b3aa8dbbefefe64eac369693ccc7658c01fba1",
+      "attempts": 24000
+    },
+    "bag6874_delta4": {
+      "step": 150316,
+      "global_RNG": "8e561aeec9882e0d0e31e29d95e4572d351714391a3910add14101e783894846",
+      "sampler": "fded5c757c65e42dea5fad50f4c1a40e5549162bb34cba9efb8cc4da330af2a2",
+      "indices_chain": "d49a09c13153841e40c6b6b088b3aa8dbbefefe64eac369693ccc7658c01fba1",
+      "attempts": 24000
+    }
+  },
+  "quality_promotion": false,
+  "limitation": "Serialized final-state audit, not another model-loader replay. Source loader/cache replay was independently proven by zero and actual32+32. Exterior opacity remains diagnostic, not empty-space truth."
+}
