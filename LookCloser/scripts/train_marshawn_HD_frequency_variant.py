@@ -69,6 +69,16 @@ def main(a):
         assert sha(parent_path) == policy['parent_spec_sha256']
         parent = json.loads(parent_path.read_text())
         original_validate(parent)
+        import numpy as np
+        from marshawn_semantic_admission import load_support
+        bounds = np.asarray(ready['aabb'], dtype=np.float32)
+        parent_gate = parent['semantic_admission']
+        derived_gate = spec['semantic_admission']
+        parent_mask, parent_receipt = load_support(parent_gate['manifest'], parent_gate['manifest_sha256'], parent['data'], bounds, (128, 128, 128))
+        derived_mask, derived_receipt = load_support(derived_gate['manifest'], derived_gate['manifest_sha256'], spec['data'], bounds, (128, 128, 128))
+        assert np.array_equal(parent_mask, derived_mask)
+        assert parent_receipt['source_grid_sha256'] == derived_receipt['source_grid_sha256']
+        assert parent_receipt['mapped_bool_sha256'] == derived_receipt['mapped_bool_sha256']
         before = base.build_config(parent)
         after = base.build_config(spec)
         def normalized(config, source):
@@ -77,10 +87,14 @@ def main(a):
             assert config.pipeline.datamanager.data == Path(source['data'])
             assert config.pipeline.datamanager.dataparser.data == Path(source['data'])
             assert config.pipeline.model.semantic_data == source['data']
+            assert config.pipeline.model.semantic_manifest == source['semantic_admission']['manifest']
+            assert config.pipeline.model.semantic_manifest_sha256 == source['semantic_admission']['manifest_sha256']
             config.output_dir = Path('<OUTPUT>')
             config.pipeline.datamanager.data = Path('<DATA>')
             config.pipeline.datamanager.dataparser.data = Path('<DATA>')
             config.pipeline.model.semantic_data = '<DATA>'
+            config.pipeline.model.semantic_manifest = '<EQUIVALENT_ADMISSION_MANIFEST>'
+            config.pipeline.model.semantic_manifest_sha256 = '<EQUIVALENT_ADMISSION_MANIFEST_SHA>'
             return yaml.dump(config)
         left, right = normalized(before, parent), normalized(after, spec)
         if left != right:
@@ -92,7 +106,10 @@ def main(a):
             factory_sha256=sha(__file__), policy_sha256=sha(a.policy), spec_sha256=sha(spec_path),
             ready_sha256=sha(Path(spec['data']) / 'ready.json'), science_files_verified=1495,
             normalized_config_equal=True, normalized_config_sha256=hashlib.sha256(right.encode()).hexdigest(),
-            only_config_differences=['data paths', 'output paths'], seed=42, cold_checkpoint=None,
+            only_config_differences=['data paths', 'output paths', 'derived semantic manifest path/hash; all mapped cells identical'], seed=42, cold_checkpoint=None,
+            actual_load_support_parent_and_variant_passed=True, mapped_cells_compared=int(parent_mask.size),
+            mapped_bool_sha256=derived_receipt['mapped_bool_sha256'], source_grid_sha256=derived_receipt['source_grid_sha256'],
+            all_mapped_cells_equal=True,
             frequency_threshold=spec['frequency_threshold'], mandatory_end=106316, iteration_limit=None,
             plateau=base.PlateauTracker().to_dict(),
             FR_switch=after.pipeline.feature_reweighting_switch_step,

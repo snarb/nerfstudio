@@ -8,11 +8,17 @@ Only map inputs change. Their effects propagate through the existing FAS ray pro
 
 ## Prepared results
 
-Package: `C/frequency_HD63_trials_v2`, mirrored under the silver campaign root. `C=/fsx/tmp/marshawn_001660_hd/tuning_20261106`. Policy SHA256 is `21dced3de3b420abb68cb27471597a1d4f0afc3a5534a9f66d70be407af256d1`. All2285 remote source/data/script bindings pass. The two isolated datasets and six source/map reviews are documented in [the map activation report](marshawn_frequency_HD63_activation.md).
+Current package: `C/frequency_HD63_trials_v3`, mirrored under the silver campaign root. `C=/fsx/tmp/marshawn_001660_hd/tuning_20261106`. Policy SHA256 is `08af9a3cceebe7c5a977e62417643b283575b1cf6cceaf8c1f054e3fe081897e`. All2305 remote source/data/script bindings pass. The two isolated datasets and six source/map reviews are documented in [the map activation report](marshawn_frequency_HD63_activation.md). Earlier generations remain preserved.
 
 CPU dry-runs compare the actual inherited and proposed runtime configurations after explicitly normalizing only four path fields: output directory, datamanager data, dataparser data and model semantic data. The first generation's comparison failed because string substitution did not normalize PyYAML's component-list representation of pathlib paths. Its logs and package remain in `frequency_HD63_trials_v1`. Generation2 fixes only this CPU comparison; no scientific differences were tolerated and no GPU update occurred.
 
-Both actual CPU dry-runs now pass. Their normalized configuration SHA256 is identical: `2b53babd3590de563d5ad581313892177baca66ca26b519712648768c0d31ec6`. `CPU_complete.json` SHA256 `3998499ea2a3a495f2187af754612fbceb5445d3e087ccb30584056c09e19568` binds the two proofs, policy, source-map root review and all2285 staged bindings. The factory hash is `b81944ad40c854e2670741f2c6d18d2e4787a57fe1531845b46ee70f87661d0c`. Both confirm no CUDA initialization, no loaded checkpoint and seed42; no NeRF training has launched.
+Generation2 passed configuration-only CPU checks and was root-released/launched. Both workers passed physical UUID/lease validation but stopped during model construction, before the first training iteration: the inherited admission receipt binds the entire old ready.json, so its strict dataset identity rejected the new map inventory. No progress, latest checkpoint or Adam update was produced; no OOM occurred. `frequency_HD63_trials_v2/startup_failure.json` and original logs/releases preserve this failure. Configuration equality alone did not cover the loader contract.
+
+Generation3 copies each qualified admission source directory. Its semantic_grid.npz and all prior qualified artifacts remain byte-identical except grid_receipt.json, whose only changed field is source_ready_sha256. The derived manifest updates that receipt hash and binds an explicit lineage record with old/new ready hashes, original manifest, map assembly and unchanged nonfrequency inputs. No geometry, camera, mask, support or mapping is recomputed.
+
+The actual frozen `load_support` now passes for the parent and both derived datasets; all2097152 mapped cells compare exactly equal. Source-grid SHA256 remains `e804d736dd766e8adf11df07e346a6317af87e0b106a94dfc524ab32f1690d71`; mapped boolean SHA256 remains `d60baa9186a63f3769204b93cb46dcfd2ea16e3d41a72ca788934fe19bd2659f`. Configuration comparison additionally normalizes only the proved-equivalent semantic manifest path/hash. Both normalized configs have SHA256 `17723ecbd12275b1f790d978aaf514803d5421db7b2ca35270b7a26b97e1a2d1`.
+
+Current `CPU_complete.json` SHA256 is `7d7a58c7ecabfdc61910bf959c401ea1c47bef133ad0dbdafc2e306e01dd3af9`; factory SHA256 is `9bd5e734cb952147cb71ee7774362c3e0702aec6e3796f7f8646b822f13ab424`. All1495 science files remain unchanged. No generation3 GPU worker has launched.
 
 The unchanged loop has mandatory end106316 followed by its existing automatic plateau rule, no fixed iteration ceiling, and the original FR switch75941→.3. It saves the LPIPS.001-tie/PSNR frontier and resume state under the established checkpoint policy. A map change starts cold, including frequency-grid warmup; technical and older trained checkpoints are not ancestors.
 
@@ -21,7 +27,7 @@ The existing local-origin transport controller dispatches to silver GPUs4/7 usin
 After exact per-arm root releases, the existing launch entry is:
 
 ```bash
-python3 /fsx/tmp/marshawn_001660_hd/tuning_20261106/transport_v2_code/LookCloser/scripts/marshawn_tuning_controller.py launch --root /fsx/tmp/marshawn_001660_hd/tuning_20261106/frequency_HD63_trials_v2/controller --manifest /fsx/tmp/marshawn_001660_hd/tuning_20261106/frequency_HD63_trials_v2/controller_plan.json
+python3 /fsx/tmp/marshawn_001660_hd/tuning_20261106/transport_v2_code/LookCloser/scripts/marshawn_tuning_controller.py launch --root /fsx/tmp/marshawn_001660_hd/tuning_20261106/frequency_HD63_trials_v3/controller --manifest /fsx/tmp/marshawn_001660_hd/tuning_20261106/frequency_HD63_trials_v3/controller_plan.json
 ```
 
 Root-release templates live separately under each arm. Their four inherited mechanism-proof flags are explicitly attributed to the unchanged reviewed quarter.1 parent, not new GPU tests. Root release must additionally bind the new policy, factory, exact spec and CPU proof. Hourly process/progress/GPU/OOM supervision and each required three-view visual gate remain mandatory after launch.

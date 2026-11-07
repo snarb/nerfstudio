@@ -38,6 +38,8 @@ def main(a):
         factory_sha256=sha(factory), isolation_sha256=sha(isolation),
         parent_spec=str(remote_recipe / 'spec.json'), parent_spec_sha256=sha(a.recipe / 'spec.json'),
         parent_release=str(remote_recipe / 'release.json'), parent_release_sha256=sha(a.recipe / 'release.json'),
+        parent_semantic_manifest=parent['semantic_admission']['manifest'],
+        parent_semantic_manifest_sha256=parent['semantic_admission']['manifest_sha256'],
         assembly_sha256=sha(a.assembly / 'assembly.json'), arms={},
         cold_seed=42, no_iteration_ceiling=True, mandatory_end=106316, training_authorized=False)
     jobs = []
@@ -45,10 +47,43 @@ def main(a):
         root = a.output / variant;root.mkdir()
         (root / 'code').symlink_to('../code', target_is_directory=True)
         shutil.copy2(a.recipe / 'source_manifest.json', root / 'source_manifest.json')
+        source = root / 'source'
+        shutil.copytree(a.recipe / 'source', source)
+        original_manifest = json.loads((source / 'manifest.json').read_text())
+        original_receipt = json.loads((source / 'grid_receipt.json').read_text())
+        data = a.assembly / variant / 'data'
+        data_ready = json.loads((data / 'ready.json').read_text())
+        original_data = a.assembly.parent / 'data'
+        original_ready = json.loads((original_data / 'ready.json').read_text())
+        assert original_receipt['source_ready_sha256'] == sha(original_data / 'ready.json')
+        assert data_ready['frequency_parent_ready_sha256'] == sha(original_data / 'ready.json')
+        nonfrequency = {n:h for n,h in original_ready['inventory']['files'].items() if not n.startswith('lookcloser_frequencies/')}
+        assert all(data_ready['inventory']['files'][n] == h and sha(data / n) == h for n,h in nonfrequency.items())
+        derivation = dict(kind='frequency_map_only_dataset_binding', parent_manifest_sha256=sha(a.recipe / 'source/manifest.json'),
+            parent_grid_receipt_sha256=sha(a.recipe / 'source/grid_receipt.json'),
+            old_ready_sha256=original_receipt['source_ready_sha256'], new_ready_sha256=sha(data / 'ready.json'),
+            assembly_sha256=sha(a.assembly / 'assembly.json'), variant=variant,
+            unchanged_nonfrequency_files_sha256=nonfrequency,
+            source_grid_sha256=original_receipt['grid_sha256'], mapped_bool_sha256=original_manifest['mapped_bool_sha256'],
+            qualification_or_grid_recomputed=False, changed_grid_receipt_fields=['source_ready_sha256'])
+        write(source / 'map_dataset_derivation.json', derivation)
+        receipt = copy.deepcopy(original_receipt)
+        receipt['source_ready_sha256'] = sha(data / 'ready.json')
+        write(source / 'grid_receipt.json', receipt)
+        derived = copy.deepcopy(original_manifest)
+        derived['files_sha256']['grid_receipt.json'] = sha(source / 'grid_receipt.json')
+        derived['files_sha256']['map_dataset_derivation.json'] = sha(source / 'map_dataset_derivation.json')
+        derived['frequency_map_dataset_derivation'] = derivation
+        write(source / 'manifest.json', derived)
+        for n,h in original_manifest['files_sha256'].items():
+            if n != 'grid_receipt.json':
+                assert sha(source / n) == h
         spec = copy.deepcopy(parent)
         spec['data'] = str(remote_assembly / variant / 'data')
         spec['output'] = str(remote / variant / 'run')
         spec['frequency_threshold'] = .95 if variant == 'lr_decay' else .93
+        spec['semantic_admission']['manifest'] = str(remote / variant / 'source/manifest.json')
+        spec['semantic_admission']['manifest_sha256'] = sha(source / 'manifest.json')
         spec['semantic_admission']['release_receipt'] = str(remote / variant / 'root_release.json')
         write(root / 'spec.json', spec)
         policy['arms'][variant] = dict(spec=str(remote / variant / 'spec.json'), spec_sha256=sha(root / 'spec.json'),
@@ -90,6 +125,8 @@ def main(a):
             source_hashes[str(remote_assembly / variant / 'data' / n)] = h
         for p in (data / 'lookcloser_frequencies').glob('*_censored.npy'):
             source_hashes[str(remote_assembly / variant / 'data/lookcloser_frequencies' / p.name)] = sha(p)
+        for p in (a.output / variant / 'source').rglob('*'):
+            if p.is_file():source_hashes[str(remote / variant / 'source' / p.relative_to(a.output / variant / 'source'))] = sha(p)
     source_hashes[str(remote_assembly / 'assembly.json')] = sha(a.assembly / 'assembly.json')
     source_hashes[str(remote_recipe / 'release.json')] = sha(a.recipe / 'release.json')
     source_hashes[str(remote_recipe / 'spec.json')] = sha(a.recipe / 'spec.json')
