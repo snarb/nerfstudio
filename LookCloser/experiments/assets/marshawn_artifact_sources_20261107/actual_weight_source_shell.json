@@ -1,0 +1,77 @@
+{
+  "rows": [
+    {
+      "label": "head1",
+      "alpha": 1.0,
+      "weight_outside_source_pad1": 1.0,
+      "weight_outside_gate0": 1.0
+    },
+    {
+      "label": "head2",
+      "alpha": 0.16737167537212372,
+      "weight_outside_source_pad1": 0.05316720902919769,
+      "weight_outside_gate0": 0.15545660257339478
+    },
+    {
+      "label": "head3",
+      "alpha": 0.6354248523712158,
+      "weight_outside_source_pad1": 0.3054618835449219,
+      "weight_outside_gate0": 0.6354248523712158
+    },
+    {
+      "label": "torso1",
+      "alpha": 0.7049484252929688,
+      "weight_outside_source_pad1": 0.20262984931468964,
+      "weight_outside_gate0": 0.7049484252929688
+    },
+    {
+      "label": "torso2",
+      "alpha": 0.4046337604522705,
+      "weight_outside_source_pad1": 0.0,
+      "weight_outside_gate0": 0.0
+    },
+    {
+      "label": "torso3",
+      "alpha": 0.5551376342773438,
+      "weight_outside_source_pad1": 0.2161877304315567,
+      "weight_outside_gate0": 0.5551376342773438
+    },
+    {
+      "label": "feet1",
+      "alpha": 0.683837890625,
+      "weight_outside_source_pad1": 0.03753998875617981,
+      "weight_outside_gate0": 0.24122892320156097
+    },
+    {
+      "label": "feet2",
+      "alpha": 0.23423446714878082,
+      "weight_outside_source_pad1": 0.06273743510246277,
+      "weight_outside_gate0": 0.23423446714878082
+    },
+    {
+      "label": "feet3",
+      "alpha": 0.8467023372650146,
+      "weight_outside_source_pad1": 0.1693476140499115,
+      "weight_outside_gate0": 0.8361662030220032
+    },
+    {
+      "label": "remote1",
+      "alpha": 0.5460863709449768,
+      "weight_outside_source_pad1": 0.47626668214797974,
+      "weight_outside_gate0": 0.5460173487663269
+    },
+    {
+      "label": "remote2",
+      "alpha": 0.30687394738197327,
+      "weight_outside_source_pad1": 0.30687394738197327,
+      "weight_outside_gate0": 0.30687394738197327
+    },
+    {
+      "label": "remote3",
+      "alpha": 0.9853533506393433,
+      "weight_outside_source_pad1": 0.964862585067749,
+      "weight_outside_gate0": 0.9830827116966248
+    }
+  ],
+  "limitation": "Original actual-weight accounting only; not a rerender or physical-empty certificate."
+}

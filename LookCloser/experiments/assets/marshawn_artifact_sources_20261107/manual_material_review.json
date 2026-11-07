@@ -1,0 +1,154 @@
+{
+  "kind": "MANUAL_TRAIN_SOURCE_MATERIAL_REVIEW_NOT_LABELS",
+  "coverage_sha256": "348173998cc53074659f2abd7e06ffbe4fe74d462d5c68e84f8b6eb677a8004a",
+  "actual_checkpoint_sha256": "542e97f59ec1fd41452b0a04fde6bd832e0b430773d1989eef2ec062ef3f1a34",
+  "rows": [
+    {
+      "label": "head1_q50",
+      "xyz": [
+        -0.06620985269546509,
+        0.22096574306488037,
+        0.35677221417427063
+      ],
+      "source_material_review": "AA/AB show background immediately outside hair; AC/AD show rig/wall; MD projects to observed crown.",
+      "interpretation_and_constraint_limit": "Broad soft RGB band plus mapped-cell shell; point itself is outside sourcePad1. BA exposed-floor prefix is a proposal only.",
+      "page": "head1_q50.jpg",
+      "page_sha256": "e01be0344389a6dcd14653754c08eda35745bcabcb8787d2cc54b0435605444c"
+    },
+    {
+      "label": "head2_q50",
+      "xyz": [
+        0.0980786681175232,
+        0.1861509084701538,
+        0.350236713886261
+      ],
+      "source_material_review": "AA/BA/JA show exposed background or floor outside crown; AD/LA project into hair.",
+      "interpretation_and_constraint_limit": "Mixed hair-boundary evidence; no claim that changing admission preserves every strand. JA floor prefix requires independent first-surface review.",
+      "page": "head2_q50.jpg",
+      "page_sha256": "d63d902163617d92b15f91cca767afd3e33b1e9209d430e00dd751f7a4b28419"
+    },
+    {
+      "label": "head3_q50",
+      "xyz": [
+        -0.04398012161254883,
+        0.254464328289032,
+        0.27952420711517334
+      ],
+      "source_material_review": "AA/AB/BA show exposed floor outside black torso; FE/GC project onto actual clothing.",
+      "interpretation_and_constraint_limit": "A projected actor core in opposing views is not depth or visibility proof for this XYZ. BA prefix proposal crosses actual sample.",
+      "page": "head3_q50.jpg",
+      "page_sha256": "25dc798374e44f8d47d4dabca4d320d349aad5c5dcbb685eb4b1fff14ca61a49"
+    },
+    {
+      "label": "torso1_q50",
+      "xyz": [
+        -0.0947381854057312,
+        0.254763662815094,
+        0.2074517458677292
+      ],
+      "source_material_review": "AA/AB show exposed floor outside black hip; AC/AD show floor/rig outside silhouette; GC/GE project to actual cloth.",
+      "interpretation_and_constraint_limit": "Positive and zero-weight TRAIN rays coexist; AA floor-prefix proposal crosses actual sample.",
+      "page": "torso1_q50.jpg",
+      "page_sha256": "7bdb2795f4d90fc14b125d1c2fe01fb8a2dcb3671b2ac88f75a9423649d2850d"
+    },
+    {
+      "label": "torso2_q50",
+      "xyz": [
+        0.05767965316772461,
+        0.08602344989776611,
+        0.18633738160133362
+      ],
+      "source_material_review": "AA/AB/AC/AD/EA red projections land on floor/background outside grey arm; FE/GB project onto arm.",
+      "interpretation_and_constraint_limit": "All current masks support this point; broad soft RGB bands are positively weighted background. Needs new independent TRAIN silhouette/background qualification, not merely more current-mask-clear targets.",
+      "page": "torso2_q50.jpg",
+      "page_sha256": "b504df2585c514cb9a916a8f8577b821de012995b285a6ad5548b8f87da72d11"
+    },
+    {
+      "label": "torso3_q50",
+      "xyz": [
+        -0.10206934809684753,
+        0.22598135471343994,
+        0.14562073349952698
+      ],
+      "source_material_review": "AA/BA/AC show exposed floor beside black thigh; other views project onto real actor clothing.",
+      "interpretation_and_constraint_limit": "BA floor-prefix proposal crosses actual sample; padding accounts for admission.",
+      "page": "torso3_q50.jpg",
+      "page_sha256": "50c2d0cf832f21131a5eedcaad2bf6c9d4ba76564d023306cdcaa89c2313ff0f"
+    },
+    {
+      "label": "feet1_q50",
+      "xyz": [
+        -0.15033075213432312,
+        0.20664000511169434,
+        0.029431849718093872
+      ],
+      "source_material_review": "BD/CB/AA/AB project to exposed yellow floor/sheet next to black shoe; many views see crew/actor occlusion.",
+      "interpretation_and_constraint_limit": "Near-contact geometry and local floor/sheet height are uncertain. No free-space or surface exclusion proposed.",
+      "page": "feet1_q50.jpg",
+      "page_sha256": "5e340b4ba534f756b02c983f151503aa1180ae4704ad5047470f6cb3b908973e"
+    },
+    {
+      "label": "feet2_q50",
+      "xyz": [
+        -0.09517073631286621,
+        0.14145410060882568,
+        0.03334277868270874
+      ],
+      "source_material_review": "AA/AB/BA/BC project into cast-shadow/floor between shoes; BD/HE overlap real shoes.",
+      "interpretation_and_constraint_limit": "Near-floor ambiguity; global plane cannot assign a hard local depth. No free-space label proposed.",
+      "page": "feet2_q50.jpg",
+      "page_sha256": "61a2e68cdffb26e2fb196c8267da410b002b5c3a7be616318a720eae500e518d"
+    },
+    {
+      "label": "feet3_q50",
+      "xyz": [
+        0.050570785999298096,
+        0.045346617698669434,
+        0.0063468217849731445
+      ],
+      "source_material_review": "AA/AB/EA/EB/BD/MA/MB show the separate black bag or cloth immediately beside grey shoe.",
+      "interpretation_and_constraint_limit": "Known nonactor appearance, not physically empty. Main W64 strong positives disagree with original confidence in six TRAIN views; auxiliary UNKNOWN does not repair main RGB.",
+      "page": "feet3_q50.jpg",
+      "page_sha256": "8288cf713e7c6e5c43c7c0a5d792292cc13a1431f6e0dbc107546ba7470aa21a"
+    },
+    {
+      "label": "remote1_q50",
+      "xyz": [
+        -0.3888670802116394,
+        -0.02635735273361206,
+        0.05924665927886963
+      ],
+      "source_material_review": "GC/GE red projection lies on thick grey mat despite corrected clear flag; AA/AB/AC mat and OA/NE actor/crew are UNKNOWN.",
+      "interpretation_and_constraint_limit": "Likely physical mat-associated or occluded content; no first-surface depth certificate. Whole-ray clear carving invalid.",
+      "page": "remote1_q50.jpg",
+      "page_sha256": "49b6c982da91207f614d90939d10174632a438a5dee14f7e97a5b5c5ef7315a9"
+    },
+    {
+      "label": "remote2_q50",
+      "xyz": [
+        -0.4515745937824249,
+        0.243066668510437,
+        -0.05643784999847412
+      ],
+      "source_material_review": "AA floor/sheet, BB/BA/CA crew, LA/LB actual actors, MC/MD shoes or legs obscure the deep point.",
+      "interpretation_and_constraint_limit": "Below fitted plane, but lack of source visibility makes physical-empty inference invalid. Source-correct clear flag alone is insufficient.",
+      "page": "remote2_q50.jpg",
+      "page_sha256": "5dd588c94f672a8884397def7fe899bedff8f2359df636068304d2d1cb92a23b"
+    },
+    {
+      "label": "remote3_q50",
+      "xyz": [
+        -0.37215906381607056,
+        -0.04253041744232178,
+        -0.011270880699157715
+      ],
+      "source_material_review": "IE red projection is crew trousers; KC is mat side/edge despite corrected clear flag; AA/AB/BA mat, NE crew leg, NC mat are UNKNOWN.",
+      "interpretation_and_constraint_limit": "No reviewed unobstructed ray reaches this below-plane XYZ. Do not use IE/KC mask negatives as whole-ray free labels.",
+      "page": "remote3_q50.jpg",
+      "page_sha256": "38ae0f83b6c2fd2457e98d714be1378b5b9b274bf0b4f0e2d7fb6e4fa48f0362"
+    }
+  ],
+  "EVAL_used_only_to_locate_diagnostic_rays": true,
+  "training_labels_generated": false,
+  "production_modified": false
+}

@@ -1,0 +1,332 @@
+{
+  "kind": "CPU_SOURCE_REVIEW_PROPOSALS_ONLY",
+  "EVAL_enters_labels": false,
+  "production_changed": false,
+  "training_labels_generated": false,
+  "rows": [
+    {
+      "artifact": "head1_q50",
+      "camera": "BA",
+      "box_xyxy_exclusive": [
+        990,
+        76,
+        997,
+        83
+      ],
+      "source_material": "visually reviewed exposed floor/background beside actor; see crop",
+      "point_xyz": [
+        -0.06620985269546509,
+        0.22096574306488037,
+        0.35677221417427063
+      ],
+      "projected_uv": [
+        993.1377571523865,
+        79.38697593371086
+      ],
+      "origin": [
+        -0.9041768908226021,
+        -0.24489370322300816,
+        0.7042676051910423
+      ],
+      "direction": [
+        0.8218130578987524,
+        0.456584166224641,
+        -0.34081402116117687
+      ],
+      "AABB_near": 0.2179124114025808,
+      "AABB_far": 1.2827453648862284,
+      "plane_z0_t": 2.0664279092496076,
+      "empirical_guard_z": 0.025,
+      "candidate_prefix_end": 1.2827453648862284,
+      "point_depth": 1.0197876024302528,
+      "point_centerline_perpendicular": 0.00027090714315966975,
+      "point_before_prefix_end": 0.2629577624559756,
+      "W64_minmax": [
+        0.0,
+        0.0
+      ],
+      "pixels": 49,
+      "valid": 49,
+      "UNKNOWN": 0,
+      "qualified_support": 0,
+      "W64_positive": 0,
+      "status": "PROPOSAL_ONLY_NOT_LABELS_NOT_RELEASED",
+      "limitations": [
+        "Source appearance alone does not prove the depth/visibility of every first surface.",
+        "Floor Z=.025 stop is an empirical guard (global maxLOO.0127875 + margin), not a calibrated bound or local floor depth.",
+        "Any mat/crew/rig intersection before endpoint invalidates this prefix.",
+        "torso2 needs independent TRAIN manual actor-negative review and RGB-weight conflict correction before use."
+      ]
+    },
+    {
+      "artifact": "head2_q50",
+      "camera": "JA",
+      "box_xyxy_exclusive": [
+        974,
+        102,
+        981,
+        109
+      ],
+      "source_material": "visually reviewed exposed floor/background beside actor; see crop",
+      "point_xyz": [
+        0.0980786681175232,
+        0.1861509084701538,
+        0.350236713886261
+      ],
+      "projected_uv": [
+        977.2714850383029,
+        105.56639248176856
+      ],
+      "origin": [
+        0.7267421236732244,
+        -0.5692408645083586,
+        0.6904852041940731
+      ],
+      "direction": [
+        -0.6043674090852346,
+        0.7264513726664775,
+        -0.3271214422605024
+      ],
+      "AABB_near": 0.954290577227148,
+      "AABB_far": 1.3617440915243901,
+      "plane_z0_t": 2.1107916357381638,
+      "empirical_guard_z": 0.025,
+      "candidate_prefix_end": 1.3617440915243901,
+      "point_depth": 1.0400016710784243,
+      "point_centerline_perpendicular": 0.00017420013154522128,
+      "point_before_prefix_end": 0.3217424204459658,
+      "W64_minmax": [
+        0.0,
+        0.0
+      ],
+      "pixels": 49,
+      "valid": 49,
+      "UNKNOWN": 0,
+      "qualified_support": 0,
+      "W64_positive": 0,
+      "status": "PROPOSAL_ONLY_NOT_LABELS_NOT_RELEASED",
+      "limitations": [
+        "Source appearance alone does not prove the depth/visibility of every first surface.",
+        "Floor Z=.025 stop is an empirical guard (global maxLOO.0127875 + margin), not a calibrated bound or local floor depth.",
+        "Any mat/crew/rig intersection before endpoint invalidates this prefix.",
+        "torso2 needs independent TRAIN manual actor-negative review and RGB-weight conflict correction before use."
+      ]
+    },
+    {
+      "artifact": "head3_q50",
+      "camera": "BA",
+      "box_xyxy_exclusive": [
+        962,
+        157,
+        969,
+        164
+      ],
+      "source_material": "visually reviewed exposed floor/background beside actor; see crop",
+      "point_xyz": [
+        -0.04398012161254883,
+        0.254464328289032,
+        0.27952420711517334
+      ],
+      "projected_uv": [
+        965.4075082006667,
+        160.41206361417125
+      ],
+      "origin": [
+        -0.9041768908226021,
+        -0.24489370322300816,
+        0.7042676051910423
+      ],
+      "direction": [
+        0.7953671532173237,
+        0.46164470577640787,
+        -0.3927788909954098
+      ],
+      "AABB_near": 0.18908247590095206,
+      "AABB_far": 1.3253965625288553,
+      "plane_z0_t": 1.7930383259808955,
+      "empirical_guard_z": 0.025,
+      "candidate_prefix_end": 1.3253965625288553,
+      "point_depth": 1.081528487921663,
+      "point_centerline_perpendicular": 9.704592028564503e-05,
+      "point_before_prefix_end": 0.2438680746071924,
+      "W64_minmax": [
+        0.0,
+        0.0
+      ],
+      "pixels": 49,
+      "valid": 49,
+      "UNKNOWN": 0,
+      "qualified_support": 0,
+      "W64_positive": 0,
+      "status": "PROPOSAL_ONLY_NOT_LABELS_NOT_RELEASED",
+      "limitations": [
+        "Source appearance alone does not prove the depth/visibility of every first surface.",
+        "Floor Z=.025 stop is an empirical guard (global maxLOO.0127875 + margin), not a calibrated bound or local floor depth.",
+        "Any mat/crew/rig intersection before endpoint invalidates this prefix.",
+        "torso2 needs independent TRAIN manual actor-negative review and RGB-weight conflict correction before use."
+      ]
+    },
+    {
+      "artifact": "torso1_q50",
+      "camera": "AA",
+      "box_xyxy_exclusive": [
+        946,
+        348,
+        953,
+        355
+      ],
+      "source_material": "visually reviewed exposed floor/background beside actor; see crop",
+      "point_xyz": [
+        -0.0947381854057312,
+        0.254763662815094,
+        0.2074517458677292
+      ],
+      "projected_uv": [
+        949.1190835383702,
+        351.1153129694439
+      ],
+      "origin": [
+        -0.9820536281202366,
+        -0.021684737331605322,
+        0.7030152592113817
+      ],
+      "direction": [
+        0.8424091595516991,
+        0.26216996045470725,
+        -0.4707586640079787
+      ],
+      "AABB_near": 0.16862782949301333,
+      "AABB_far": 1.3438287265569098,
+      "plane_z0_t": 1.4933665866624743,
+      "empirical_guard_z": 0.025,
+      "candidate_prefix_end": 1.3438287265569098,
+      "point_depth": 1.0532499399613555,
+      "point_centerline_perpendicular": 0.0004153940460326482,
+      "point_before_prefix_end": 0.29057878659555425,
+      "W64_minmax": [
+        0.0,
+        0.0
+      ],
+      "pixels": 49,
+      "valid": 49,
+      "UNKNOWN": 0,
+      "qualified_support": 0,
+      "W64_positive": 0,
+      "status": "PROPOSAL_ONLY_NOT_LABELS_NOT_RELEASED",
+      "limitations": [
+        "Source appearance alone does not prove the depth/visibility of every first surface.",
+        "Floor Z=.025 stop is an empirical guard (global maxLOO.0127875 + margin), not a calibrated bound or local floor depth.",
+        "Any mat/crew/rig intersection before endpoint invalidates this prefix.",
+        "torso2 needs independent TRAIN manual actor-negative review and RGB-weight conflict correction before use."
+      ]
+    },
+    {
+      "artifact": "torso2_q50",
+      "camera": "AA",
+      "box_xyxy_exclusive": [
+        1192,
+        313,
+        1199,
+        320
+      ],
+      "source_material": "visually reviewed exposed floor/background beside actor; see crop",
+      "point_xyz": [
+        0.05767965316772461,
+        0.08602344989776611,
+        0.18633738160133362
+      ],
+      "projected_uv": [
+        1195.2675851357358,
+        316.52780138534973
+      ],
+      "origin": [
+        -0.9820536281202366,
+        -0.021684737331605322,
+        0.7030152592113817
+      ],
+      "direction": [
+        0.8917252174002359,
+        0.0922128260426198,
+        -0.44308343612206424
+      ],
+      "AABB_near": 0.16478896130810655,
+      "AABB_far": 1.2695094924203911,
+      "plane_z0_t": 1.586643060648535,
+      "empirical_guard_z": 0.025,
+      "candidate_prefix_end": 1.2695094924203911,
+      "point_depth": 1.1660198720068313,
+      "point_centerline_perpendicular": 0.00019264180348005464,
+      "point_before_prefix_end": 0.1034896204135598,
+      "W64_minmax": [
+        0.014836353249847889,
+        0.47923043370246887
+      ],
+      "pixels": 49,
+      "valid": 49,
+      "UNKNOWN": 0,
+      "qualified_support": 49,
+      "W64_positive": 49,
+      "status": "PROPOSAL_ONLY_NOT_LABELS_NOT_RELEASED",
+      "limitations": [
+        "Source appearance alone does not prove the depth/visibility of every first surface.",
+        "Floor Z=.025 stop is an empirical guard (global maxLOO.0127875 + margin), not a calibrated bound or local floor depth.",
+        "Any mat/crew/rig intersection before endpoint invalidates this prefix.",
+        "torso2 needs independent TRAIN manual actor-negative review and RGB-weight conflict correction before use."
+      ]
+    },
+    {
+      "artifact": "torso3_q50",
+      "camera": "BA",
+      "box_xyxy_exclusive": [
+        949,
+        350,
+        956,
+        357
+      ],
+      "source_material": "visually reviewed exposed floor/background beside actor; see crop",
+      "point_xyz": [
+        -0.10206934809684753,
+        0.22598135471343994,
+        0.14562073349952698
+      ],
+      "projected_uv": [
+        952.9755904770697,
+        353.1222622481188
+      ],
+      "origin": [
+        -0.9041768908226021,
+        -0.24489370322300816,
+        0.7042676051910423
+      ],
+      "direction": [
+        0.7389833581341609,
+        0.4342109348257191,
+        -0.5151353807287301
+      ],
+      "AABB_near": 0.14417104312652815,
+      "AABB_far": 1.4265231810960735,
+      "plane_z0_t": 1.367150523023207,
+      "empirical_guard_z": 0.025,
+      "candidate_prefix_end": 1.3186195912812753,
+      "point_depth": 1.0849819935426406,
+      "point_centerline_perpendicular": 0.00048085668907989,
+      "point_before_prefix_end": 0.23363759773863468,
+      "W64_minmax": [
+        0.0,
+        0.0
+      ],
+      "pixels": 49,
+      "valid": 49,
+      "UNKNOWN": 0,
+      "qualified_support": 0,
+      "W64_positive": 0,
+      "status": "PROPOSAL_ONLY_NOT_LABELS_NOT_RELEASED",
+      "limitations": [
+        "Source appearance alone does not prove the depth/visibility of every first surface.",
+        "Floor Z=.025 stop is an empirical guard (global maxLOO.0127875 + margin), not a calibrated bound or local floor depth.",
+        "Any mat/crew/rig intersection before endpoint invalidates this prefix.",
+        "torso2 needs independent TRAIN manual actor-negative review and RGB-weight conflict correction before use."
+      ]
+    }
+  ]
+}
