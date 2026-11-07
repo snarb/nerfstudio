@@ -97,7 +97,11 @@ def main(policy_path):
     reference=sum(float(main[i].double().square().sum())for i in ids if main[i]is not None)**.5
     dot=sum(float((grads[i].double()*main[i].double()).sum())for i in ids if grads[i]is not None and main[i]is not None)
     record[tag]=dict(unscaled_gradient_L2=norm,main_reference_L2=reference,cosine_to_main=dot/(norm*reference)if norm*reference else None,coefficient_ratios={str(v):v*norm/reference for v in(.0001,.0003,.001,.003,.01)}if reference else None)
-  for kind,left,right,counts in [('old_prefix',near,old_far,[128,256,512]),('closer_prefix',near,closer_far,[128,256,512]),('band',band_near,band_far,[16,64])]:
+  quadrature_plan=policy.get('quadrature_plan',{'old_prefix':[128,256,512],'closer_prefix':[128,256,512],'band':[16,64]})
+  assert quadrature_plan in ({'old_prefix':[128,256,512],'closer_prefix':[128,256,512],'band':[16,64]}, {'band':[64,128,256]}), 'Only explicitly reviewed quadrature scopes'
+  for kind,(left,right) in {'old_prefix':(near,old_far),'closer_prefix':(near,closer_far),'band':(band_near,band_far)}.items():
+   if kind not in quadrature_plan:continue
+   counts=quadrature_plan[kind]
    records={};previous=None;pending=list(counts)
    while pending:
     n=pending.pop(0);t=midpoint_distances(left,right,n);positions=(o[:,None,:]+d[:,None,:]*t[...,None]).reshape(-1,3);zeros=torch.zeros((len(positions),1),device=model.device);rs=RaySamples(frustums=Frustums(origins=positions,directions=torch.zeros_like(positions),starts=zeros,ends=zeros,pixel_area=torch.ones_like(zeros)))
@@ -122,7 +126,7 @@ def main(policy_path):
  if focus is not None:assert focus.state_dict()==loaded['tuning_runtime']['frequency_focus_state']
  final=helpers.verify_state_equality(loaded,state());assert final==initial and sampler.state_dict()==saved_sampler and helpers.tree_digest(cache)==cache_before and all(p.grad is None for p in params)
  report.update(passed=True,seconds=time.time()-started,initial_fullstate_hashes=initial,final_fullstate_hashes=final,cache_hash_before_after=cache_before,historical_cache_order_observed=False,seed42_current_cache_reconstruction=True,sampler_restored=True,main_rng_restored=True,params_optimizer_scaler_core_unchanged=True,actual_Adam_updates=0,FR=1.,source_step=15188,source_family=policy['name'],focus_private_state_unchanged=focus is not None,max_projected_ray_direction_error=max(ray_errors),autocast_enabled=trainer.mixed_precision,autocast_dtype=str(torch.get_autocast_dtype('cuda')),parent_GradScaler_scale=parent_scale,gradient_handling='autograd.grad(loss*fixedscale), then float32divide. Read-only backwardscale halves ifnonfinite; actualGradScaler/optimizer state neverupdated.',no_native_alpha_equivalence_assumed=True,no_field_or_grid_updates=True,peak_allocated_bytes=torch.cuda.max_memory_allocated(),checkpoint_sha256=sha(checkpoint),policy_sha256=sha(policy_path))
- (R/'probe_complete.json').write_text(json.dumps(report,indent=2,allow_nan=False)+'\n');trainer.shutdown();print(json.dumps(dict(passed=True,seconds=report['seconds'],main_gradient_norm=report['main_reference']['unscaled_gradient_L2'],old_prefix_tau512=report['quadrature']['old_prefix']['512']['value'],closer_prefix_tau512=report['quadrature']['closer_prefix']['512']['value'])),flush=True)
+ (R/'probe_complete.json').write_text(json.dumps(report,indent=2,allow_nan=False)+'\n');trainer.shutdown();print(json.dumps(dict(passed=True,seconds=report['seconds'],main_gradient_norm=report['main_reference']['unscaled_gradient_L2'],quadrature_kinds=list(report['quadrature']))),flush=True)
 
 if __name__=='__main__':
  p=argparse.ArgumentParser();p.add_argument('--policy',type=Path,required=True);main(p.parse_args().policy)

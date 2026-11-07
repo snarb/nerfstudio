@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "elapsed_seconds": 90.87031888961792,
+  "peak_GPU_MiB": 7856,
+  "plan_sha256": "2b000797a69f7156b65ee1a102875e43120e6c5d58ed2a6217a1e03499c5f1bf",
+  "source_reverified": true,
+  "no_optimizer_updates": true,
+  "receipts": {
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_clothing_band_convergence_v2/R0_baseline/policy.json": "a1d95b96a57cbd509a9045120405333c9eb380aec79c55a5b03b46a907148d92",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_clothing_band_convergence_v2/frequency_focus/policy.json": "c4f8c2d00fbe97f71ccfd884caaebd69b8d2da9f6b55e875d6f15e5d449de817"
+  }
+}

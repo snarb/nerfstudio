@@ -48,3 +48,15 @@ The closer prefix ends 0.009271–0.011316 before the unchanged band. It provide
 The [completion receipt](assets/marshawn_semantic_clothing_transfer_20261107/complete.json) SHA256 is `e25bf11eeae9e2602b3b9c5386baea9ff2c401e806b19011f798ec1f809ff25f`. [Parent probe](assets/marshawn_semantic_clothing_transfer_20261107/R0_baseline_probe.json) and [focused probe](assets/marshawn_semantic_clothing_transfer_20261107/frequency_focus_probe.json) retain per-ray τ, convergence, gradient scales and complete restoration proofs. All 32 evidence files are hash-verified in `/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/semantic_clothing_transfer_v1`; the accompanying archive SHA256 is `0685aff08d67c21cbdf97e253ff779123d49f729cbc3b51d23af011f7e2162c6`.
 
 `SC=/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106`. Code: [CPU audit](../scripts/audit_marshawn_semantic_clothing_transfer_cpu.py), [native gradient probe](../scripts/probe_marshawn_semantic_clothing_transfer.py), [bounded supervisor](../scripts/run_marshawn_semantic_clothing_transfer_probe.py).
+
+
+**Band integration follow-up.** A separate immutable read-only generation repeated the same84 projected rays and exact4096 main-batch indices at64/128/256 band samples. Both models pass every ray at both successive comparisons using the declared5% relative or0.05 absolute tolerance. This does not reuse the inadequate16-sample setting.
+
+| Model | Maximum relative change64→128 | Maximum relative change128→256 | Geometry-gradient norm change128→256 | Band.001 / main geometry norm at256 | Gradient cosine to main |
+|---|---:|---:|---:|---:|---:|
+| R0@15188 |1.26%|1.18%|0.053%|17.57%|−0.3686|
+| Focus@15188 |3.43%|1.86%|0.226%|3.765%|−0.4267|
+
+A cautious common proposed setting is256 band samples. The negative gradient cosine persists; integration stability does not establish a favorable image-quality effect. This remains one-batch gradient evidence, and does not establish convergence throughout future optimization. Both model/optimizer/scheduler/scaler/RNG/runtime/core states are restored exactly, including private focus state; actual Adam updates are zero. The source camera/ray and uncertainty contracts are unchanged.
+
+The follow-up finished in90.87s with peak sampled GPU allocation7856MiB. [Completion](assets/marshawn_semantic_clothing_transfer_20261107/band_convergence_v2/complete.json) SHA256 `63acbebf9bb9cebf9724ed185163f3b32a0b74be9df6b7c6af7e5a342367848c`; [bound plan](assets/marshawn_semantic_clothing_transfer_20261107/band_convergence_v2/plan.json) SHA256 `2b000797a69f7156b65ee1a102875e43120e6c5d58ed2a6217a1e03499c5f1bf`. Full per-ray integration/gradient records: [R0](assets/marshawn_semantic_clothing_transfer_20261107/band_convergence_v2/R0_baseline.json), [focus](assets/marshawn_semantic_clothing_transfer_20261107/band_convergence_v2/frequency_focus.json). Source generation is `SC/independent_occupancy/semantic_clothing_band_convergence_v2`; original probe remains unchanged.
