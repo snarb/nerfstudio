@@ -1,0 +1,11 @@
+{
+  "reviewer": "root",
+  "external_guard_authorized": false,
+  "policy_sha256": "754f5273e0c1d94fd783e7154e9f34725e2fc3e07873cf4947f4fd6e43d9a460",
+  "authorized_phases": [
+    "zero"
+  ],
+  "CPU_readiness_sha256": "29e2036ec0604132c618de2cb288f43109bb6bc57de75334ba16eed93617093d",
+  "checkpoint_staging_receipt_sha256": "b7c288befa72d6be565b89b43353d5922ecdcfe1d9f2d3904fff10ad2f37c467",
+  "remote_staging_verification_sha256": "b7c288befa72d6be565b89b43353d5922ecdcfe1d9f2d3904fff10ad2f37c467"
+}

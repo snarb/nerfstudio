@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "CPU_only": true,
+  "prepared_bindings_count": 16,
+  "policy_sha256": "754f5273e0c1d94fd783e7154e9f34725e2fc3e07873cf4947f4fd6e43d9a460",
+  "guardian_sha256": "0e5c98d6e650d37c4d16f96624d33dd1770d02eb0e83e93007bf7976dd30762a",
+  "actual_physical_UUIDs": {
+    "3": "GPU-c024b6e2-0def-f4fd-c18a-64b95975effd",
+    "4": "GPU-cb1a0b07-abd6-8e55-9669-ccbb2c45a560"
+  },
+  "no_root_releases": true,
+  "no_GPU_jobs_started": true
+}

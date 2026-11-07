@@ -1,0 +1,71 @@
+{
+  "passed": true,
+  "CPU_only": true,
+  "CUDA_initialized": false,
+  "checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "source": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_quarter_distortion_final_geometry/quarter_distortion_rawmin/checkpoint.ckpt",
+  "target": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/corrected_arm_warm_candidate_v1/anchor/checkpoint.ckpt",
+  "source_size_bytes": 2096119926,
+  "hardlinked": true,
+  "source_seven_state_hashes": {
+    "actual_occupancy_capture": "b8809cd17b7c7c8b1440ac33f419872ef5b3cf1fb4953fee20aec2ddbb02dbd4",
+    "optimizers": "73ee993c0dc56b34e6fc9dd799cf63cfcf1d19ca7f252568680f12663dc9583e",
+    "pipeline": "c83bc7dbb1504063c35f0a2b14ae3fb329ff27ed2eb6b3661eb89b4918d46636",
+    "rng_state": "7de999966deb5bc61d81ce39a81891b52df244e05881da2b15cfabe0235e5811",
+    "scalers": "90fa2bbdf25a1c8b016fbd745e22cb8c20431f24c3088693acf9b029248f30c7",
+    "schedulers": "50cde065a272d13da9ef8522a84f2e50a7598437db28721153e3b8ae73447ec3",
+    "tuning_runtime": "6f988601c4ec813524a6d6e1bfeb056a7b8e03acfd66b8e8246f6d2f8f0b65a7"
+  },
+  "original1495_source_exact": true,
+  "total_scientific_and_helper_files": 1506,
+  "anchor_evidence_all_actual_remote_hashes_exact": true,
+  "GPU_snapshot": {
+    "0": {
+      "uuid": "GPU-6a8bbc85-5a77-8d62-ab18-560955f0dc65",
+      "memory_used_MiB": 0,
+      "memory_total_MiB": 97887
+    },
+    "1": {
+      "uuid": "GPU-26c63492-0230-896f-208e-10e4eaca4c3c",
+      "memory_used_MiB": 0,
+      "memory_total_MiB": 97887
+    },
+    "2": {
+      "uuid": "GPU-279718e7-9e60-e5f2-53aa-65ff7dd03f37",
+      "memory_used_MiB": 0,
+      "memory_total_MiB": 97887
+    },
+    "3": {
+      "uuid": "GPU-c024b6e2-0def-f4fd-c18a-64b95975effd",
+      "memory_used_MiB": 0,
+      "memory_total_MiB": 97887
+    },
+    "4": {
+      "uuid": "GPU-cb1a0b07-abd6-8e55-9669-ccbb2c45a560",
+      "memory_used_MiB": 0,
+      "memory_total_MiB": 97887
+    },
+    "5": {
+      "uuid": "GPU-216eac5a-c2f3-4bc5-d4e8-1a6f9cbd9b9a",
+      "memory_used_MiB": 0,
+      "memory_total_MiB": 97887
+    },
+    "6": {
+      "uuid": "GPU-a53fcf27-02c4-c737-9269-0623ec25a6d9",
+      "memory_used_MiB": 0,
+      "memory_total_MiB": 97887
+    },
+    "7": {
+      "uuid": "GPU-9c2ea572-537d-66a7-6df3-41c3d8914d39",
+      "memory_used_MiB": 0,
+      "memory_total_MiB": 97887
+    }
+  },
+  "approved_UUIDs": {
+    "3": "GPU-c024b6e2-0def-f4fd-c18a-64b95975effd",
+    "4": "GPU-cb1a0b07-abd6-8e55-9669-ccbb2c45a560"
+  },
+  "physical_GPU_lease_acquired": false,
+  "GPU_started": false,
+  "source_checkpoint_hash_after_audit": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641"
+}

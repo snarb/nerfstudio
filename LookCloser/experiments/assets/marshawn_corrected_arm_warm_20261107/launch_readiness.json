@@ -1,0 +1,30 @@
+{
+  "CPU_prepared": true,
+  "READY": false,
+  "zero_authorized": false,
+  "technical_authorized": false,
+  "production_authorized": false,
+  "policy_sha256": "754f5273e0c1d94fd783e7154e9f34725e2fc3e07873cf4947f4fd6e43d9a460",
+  "guardian_sha256": "0e5c98d6e650d37c4d16f96624d33dd1770d02eb0e83e93007bf7976dd30762a",
+  "remote_guardian_staging_sha256": "f7bd73310fc594c7d44409dc26da21221a0450a4549625ccebfa45db7c7d51d3",
+  "source_checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "zero_launch_command": [
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/python",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/corrected_arm_warm_candidate_v1/external_guard_corrected_ARM_v1/guardian.py",
+    "launch",
+    "--policy",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/corrected_arm_warm_candidate_v1/external_guard_corrected_ARM_v1/policy.json",
+    "--phase",
+    "zero"
+  ],
+  "root_required_files": [
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/corrected_arm_warm_candidate_v1/external_guard_corrected_ARM_v1/zero_guard_release.json",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/corrected_arm_warm_candidate_v1/specs/zero_legacy1024/root_release.json",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/corrected_arm_warm_candidate_v1/specs/zero_corrected1024/root_release.json"
+  ],
+  "worker_allocator_GiB": 10,
+  "process_cap_MiB": 32768,
+  "mandatory_health_interval_seconds": 3600,
+  "source_staging": "Actual remote checkpoint+seven-state+1495+anchor proof passed",
+  "GPU_started": false
+}

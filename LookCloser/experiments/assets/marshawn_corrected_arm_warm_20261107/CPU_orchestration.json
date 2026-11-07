@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "original1495_science_unchanged": true,
+  "science_worker_sha256": "de70ae2ee9fb99bc65ac6789cdc0fa5757ba86aaa7841be1d73993007f10ed0c",
+  "unchanged_guard_core_functions": [
+    "identity",
+    "same",
+    "authorized_worker",
+    "event",
+    "fail",
+    "bounded_error",
+    "clear_errors",
+    "phase_status",
+    "signal_due",
+    "final_record",
+    "ssh_script"
+  ],
+  "local_origin_check": true,
+  "remote_guardian_only": true,
+  "plans_have_explicit_remote_address": true,
+  "job_commands_and_specs_unchanged": true,
+  "approved_GPU_UUIDs": {
+    "3": "GPU-c024b6e2-0def-f4fd-c18a-64b95975effd",
+    "4": "GPU-cb1a0b07-abd6-8e55-9669-ccbb2c45a560"
+  },
+  "root_receipts": {
+    "CPU_readiness.json": "29e2036ec0604132c618de2cb288f43109bb6bc57de75334ba16eed93617093d",
+    "checkpoint_staging_receipt.json": "b7c288befa72d6be565b89b43353d5922ecdcfe1d9f2d3904fff10ad2f37c467",
+    "remote_staging_verification.json": "b7c288befa72d6be565b89b43353d5922ecdcfe1d9f2d3904fff10ad2f37c467"
+  },
+  "old_proofs_overwritten": false,
+  "GPU_started": false
+}
