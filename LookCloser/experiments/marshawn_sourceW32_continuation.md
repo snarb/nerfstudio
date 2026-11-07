@@ -23,7 +23,7 @@ The treatment's own ZERO reference is the actual audited W32 `.002` render, not 
 
 ## Next gates
 
-CPU preparation, root-released ZERO and root-released 32+32 technical validation are complete. Both technical branches performed 64 successful updates; no production continuation has been launched. Production still requires its separate phase release. Later RNG differences caused by different density are observed rather than forcibly reseeded.
+CPU preparation, root-released ZERO and root-released 32+32 technical validation are complete. Both technical branches performed 64 successful updates. Root subsequently released the fresh production pair; it is running under guardian2167218 and artifact watcher2167221. Later RNG differences caused by different density are observed rather than forcibly reseeded.
 
 Production, if released, starts both arms afresh from 126316, retains all evaluated checkpoints and uses gates +500/+1000/+2000/+4000, then the unchanged two-signal plateau tracker with anchor 130316 and patience four. There is no arbitrary hard iteration cap. Full three-view V1 renders and fixed core/boundary diagnostics accompany each evaluation; those diagnostics do not replace V1 selection. Both raw-minimum and historical-selector choices retain the required selector provenance.
 
@@ -66,3 +66,23 @@ Both actual pipelines changed from source and between the two technical checkpoi
 The [full three-view technical contact](assets/marshawn_sourceW32_continuation_20261107/technical/body_overview.jpg) and [contour contexts](assets/marshawn_sourceW32_continuation_20261107/technical/contour9_context.png) were inspected. These are integration checks, not a quality comparison after sufficient adaptation. Cleanup and the grey HC contour deficit persist. All four workers exited, no OOM occurred, and both guardians finished successfully. One initial SSH255 supervision poll recovered automatically; the event is preserved, with no worker termination or scientific restart.
 
 [Actual proof and production request](assets/marshawn_sourceW32_continuation_20261107/technical/PRODUCTION_RELEASE_REQUEST.json) bind fresh original126316 for both production arms, explicitly exclude technical weights, preserve the original plateau criterion and require the next visual/geometry gates. The prepared read-only artifact watcher changes only the isolated job prefix from the qualified MG watcher; it has not been launched. No production authorization has been written by this agent.
+
+
+## Fresh production: first +4000 review
+
+The root-released pair starts from original126316, not technical weights. Both workers have idle physical UUID leases and healthy process/GPU/OOM checks. Every evaluated checkpoint is retained with its actual schema2 grid and explicit selector bindings; full renders and fixed-region diagnostics are fetched and hash-verified automatically. The actual original frequency refresh126976 ran in both arms.
+
+| Additional attempts | Control LPIPS | W32 LPIPS | Control PSNR | W32 PSNR |
+|---:|---:|---:|---:|---:|
+| 500 | .01887690 | .02008692 | 31.60743 | 31.29701 |
+| 1000 | .01888655 | .02008502 | 31.63750 | 31.31995 |
+| 2000 | .01896344 | .02000583 | 31.62548 | 31.33179 |
+| 4000 | .01891910 | .01971950 | 31.60441 | 31.36190 |
+
+At +4000 SSIM is `.830930` control versus `.830153` W32. W32 LPIPS improves 3.13% from its own zero but remains 4.23% worse than matched control. Black-actor LPIPS is slightly better (`.020090` vs `.020234`), while grey is worse (`.019349` vs `.017604`). These early results do not change either trajectory or stopping rule.
+
+I inspected the [three-view contact](assets/marshawn_sourceW32_continuation_20261107/production_first4000/body_overview.jpg), all hair/feet pages and [contour contexts](assets/marshawn_sourceW32_continuation_20261107/production_first4000/contour9_context.png). The fixed HC contour alpha recovers `.41927 → .51095`; KA `.54447 → .64781`. These are predicted opacities, not alpha-one targets. The queried DC head-halo alpha stays zero. Gross hair and shoes remain, but residual floor/background fragments persist.
+
+The fixed 16px exterior-opacity diagnostic shows partial regrowth after adaptation: W32 alpha>.1 counts increase from zero `77245/46665/32621` to `84649/50512/35387` in DC/HC/KA. They remain below matched control `118442/79837/55042`. Mask-exterior opacity is not certified nonactor geometry.
+
+All four gates pass actual saved core/active/admission/finite-EMA consistency, with all 109 sparse witness observations in active cells and admitted by the fixed W32 point selector. These are only 41 unique points and cannot certify all hair, contours or foot volume. No CPU-reconstructed occupancy is used. [Receipts](assets/marshawn_sourceW32_continuation_20261107/production_first4000/summary.json) preserve that limitation. Both production runs continue naturally to their own plateau; no quality promotion is made.

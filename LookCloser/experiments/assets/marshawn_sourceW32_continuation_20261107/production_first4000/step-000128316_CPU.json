@@ -1,0 +1,1109 @@
+{
+  "step": 128316,
+  "CPU_only": true,
+  "no_model_loaded": true,
+  "inputs": {
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/quarter_distortion_sourcepoint_counterfactual_v1/queries/clothing103.json": "e11c111e4a41b02417e98ae2e0f4f5f6055883c070539b2334748974bb3c712c",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/quarter_distortion_sourcepoint_counterfactual_v1/queries/shoe6.json": "b8dc52856872bd3f9f26bc1eee3e94110e992bf69ebc60009b68718589f57dde"
+  },
+  "source_grid_sha256": "a7e3d3703f9bb693c095bd5cd715f92b9ac048b3f96082dd95b39ac5db452328",
+  "fixed_W32_point_admission_retained": 109,
+  "sparse_unique_points": 41,
+  "arms": {
+    "original_mapped": {
+      "metrics": {
+        "psnr": 31.62547819589028,
+        "ssim": 0.8311902781327566,
+        "lpips": 0.018963438148299854
+      },
+      "own_zero_metrics": {
+        "psnr": 31.63972670843312,
+        "ssim": 0.8312640686829885,
+        "lpips": 0.01877336312706272
+      },
+      "own_zero_delta": {
+        "psnr": -0.014248512542838654,
+        "ssim": -7.37905502319336e-05,
+        "lpips": 0.00019007502123713493
+      },
+      "by_actor": {
+        "black": {
+          "psnr": 30.51397052349785,
+          "ssim": 0.7975104053815206,
+          "lpips": 0.02030545783539613
+        },
+        "grey": {
+          "psnr": 32.73698586828271,
+          "ssim": 0.8648701508839926,
+          "lpips": 0.017621418461203575
+        }
+      },
+      "by_view": {
+        "DC": {
+          "psnr": 31.888136433132395,
+          "ssim": 0.8285541832447052,
+          "lpips": 0.02184280939400196
+        },
+        "HC": {
+          "psnr": 31.599711981686802,
+          "ssim": 0.8320172727108002,
+          "lpips": 0.016419910825788975
+        },
+        "KA": {
+          "psnr": 31.388586172851642,
+          "ssim": 0.8329993784427643,
+          "lpips": 0.018627594225108624
+        }
+      },
+      "native_grid": {
+        "core_cells": 32012,
+        "active_cells": 32012,
+        "admission_cells": 131911,
+        "outside_admission": 0,
+        "EMA_finite": true,
+        "EMA_max": 13251981312.0,
+        "actual_capture_step": 128304,
+        "witness_cell_active_count": 109,
+        "witness_cell_inactive": [],
+        "authority": "actual GPU core before postprocess",
+        "checkpoint_sha256": "563c841bb6ee9ca219a64693079aaa17959bc838619d570d65964f0c2c993bb1"
+      },
+      "own_runtime_selector_required": true,
+      "region_diagnostics": {
+        "kind": "PNG_FIXED_CORE_BOUNDARY_CPU_DIAGNOSTIC_NOT_V1_SELECTION",
+        "records": [
+          {
+            "camera": "DC",
+            "actor": "black",
+            "region": "whole_PNG_control",
+            "psnr": 30.879794236587884,
+            "ssim": 0.7959414720535278,
+            "lpips": 0.02003924548625946,
+            "pixels": 50554,
+            "crop_xyxy": [
+              742,
+              61,
+              1087,
+              630
+            ],
+            "mask_sha256": "4f7f7e2179b39fa28a46bf10ec2c0901ed12e33b46dd842a201f48b9f2ded269"
+          },
+          {
+            "camera": "DC",
+            "actor": "black",
+            "region": "core_gt8px",
+            "psnr": 32.502793597212765,
+            "ssim": 0.801777184009552,
+            "lpips": 0.011802087537944317,
+            "pixels": 37205,
+            "crop_xyxy": [
+              742,
+              61,
+              1087,
+              630
+            ],
+            "mask_sha256": "eb694541978cb7a577993533523679d88cd70cd23c6060cf8e8cdade36485d26"
+          },
+          {
+            "camera": "DC",
+            "actor": "black",
+            "region": "boundary_le8px",
+            "psnr": 28.163509920844547,
+            "ssim": 0.9376471042633057,
+            "lpips": 0.005680906120687723,
+            "pixels": 13349,
+            "crop_xyxy": [
+              742,
+              61,
+              1087,
+              630
+            ],
+            "mask_sha256": "2cf42234b2b4fb708b33bf1136733d23ef99866df82960ca68aab52967f1b2cf"
+          },
+          {
+            "camera": "DC",
+            "actor": "grey",
+            "region": "whole_PNG_control",
+            "psnr": 32.87768660954677,
+            "ssim": 0.8598528504371643,
+            "lpips": 0.02340039424598217,
+            "pixels": 32212,
+            "crop_xyxy": [
+              880,
+              224,
+              1118,
+              625
+            ],
+            "mask_sha256": "442975317c710c0ff344a2f9fe91694fad652d023c7d2eed1622f881e38df890"
+          },
+          {
+            "camera": "DC",
+            "actor": "grey",
+            "region": "core_gt8px",
+            "psnr": 34.26307400441183,
+            "ssim": 0.8733264803886414,
+            "lpips": 0.011699776165187359,
+            "pixels": 22685,
+            "crop_xyxy": [
+              880,
+              224,
+              1118,
+              625
+            ],
+            "mask_sha256": "f878281ec47830094ccfe26ac75a36e602b6ddf3a26b7f83aa8281448531c6a8"
+          },
+          {
+            "camera": "DC",
+            "actor": "grey",
+            "region": "boundary_le8px",
+            "psnr": 30.701953890178846,
+            "ssim": 0.9455817937850952,
+            "lpips": 0.010042108595371246,
+            "pixels": 9527,
+            "crop_xyxy": [
+              880,
+              224,
+              1118,
+              625
+            ],
+            "mask_sha256": "0b36544d5be919e2a08023fdefa4958716442bba4d38b58150da9732aac2a4a5"
+          },
+          {
+            "camera": "HC",
+            "actor": "black",
+            "region": "whole_PNG_control",
+            "psnr": 29.985845766139015,
+            "ssim": 0.7943057417869568,
+            "lpips": 0.022034961730241776,
+            "pixels": 39768,
+            "crop_xyxy": [
+              883,
+              191,
+              1210,
+              688
+            ],
+            "mask_sha256": "eef86f6f6272ef7037b5d7f1388581720cff644a58784d3ab78086c310c8108c"
+          },
+          {
+            "camera": "HC",
+            "actor": "black",
+            "region": "core_gt8px",
+            "psnr": 31.79285247704502,
+            "ssim": 0.8146713972091675,
+            "lpips": 0.008802576921880245,
+            "pixels": 27458,
+            "crop_xyxy": [
+              883,
+              191,
+              1210,
+              688
+            ],
+            "mask_sha256": "eb50be9be12a0adf3e1ca12368a24caafd98b3c4df33421331be51f1313a77ec"
+          },
+          {
+            "camera": "HC",
+            "actor": "black",
+            "region": "boundary_le8px",
+            "psnr": 27.532659049728522,
+            "ssim": 0.9231787919998169,
+            "lpips": 0.0072907037101686,
+            "pixels": 12310,
+            "crop_xyxy": [
+              883,
+              191,
+              1210,
+              688
+            ],
+            "mask_sha256": "ac711872b25c66e5e9a65f4aced0d4ed1e769e81cb9be91babd6d6e9c7560f78"
+          },
+          {
+            "camera": "HC",
+            "actor": "grey",
+            "region": "whole_PNG_control",
+            "psnr": 33.19561552491021,
+            "ssim": 0.8686057925224304,
+            "lpips": 0.010704705491662025,
+            "pixels": 30426,
+            "crop_xyxy": [
+              945,
+              345,
+              1230,
+              747
+            ],
+            "mask_sha256": "902e0f96798dd5cf8150ebd27c82626f684159f3d2d64bc9843b3ea7584a2a3e"
+          },
+          {
+            "camera": "HC",
+            "actor": "grey",
+            "region": "core_gt8px",
+            "psnr": 33.469217473381,
+            "ssim": 0.8691592812538147,
+            "lpips": 0.006686336826533079,
+            "pixels": 22109,
+            "crop_xyxy": [
+              945,
+              345,
+              1230,
+              747
+            ],
+            "mask_sha256": "e8c9c7bb00b6315f3bc2adbc9aedfffe44645258e17fed93221c3151b61f6d3f"
+          },
+          {
+            "camera": "HC",
+            "actor": "grey",
+            "region": "boundary_le8px",
+            "psnr": 32.54242035840112,
+            "ssim": 0.9491866827011108,
+            "lpips": 0.0043846555054187775,
+            "pixels": 8317,
+            "crop_xyxy": [
+              945,
+              345,
+              1230,
+              747
+            ],
+            "mask_sha256": "58c26dfb35110e7102ce50df06b1e0fa28a6f29030ff0f1db2176d1f83d942e1"
+          },
+          {
+            "camera": "KA",
+            "actor": "black",
+            "region": "whole_PNG_control",
+            "psnr": 30.65466056301989,
+            "ssim": 0.8004195094108582,
+            "lpips": 0.018694590777158737,
+            "pixels": 31759,
+            "crop_xyxy": [
+              935,
+              0,
+              1203,
+              470
+            ],
+            "mask_sha256": "77dc5ce5a8c159eaec3a4b6748f8d6b22e33995c9272ae01bf79d5aee41f6376"
+          },
+          {
+            "camera": "KA",
+            "actor": "black",
+            "region": "core_gt8px",
+            "psnr": 31.59849430754152,
+            "ssim": 0.8132023215293884,
+            "lpips": 0.010035132057964802,
+            "pixels": 23635,
+            "crop_xyxy": [
+              935,
+              0,
+              1203,
+              470
+            ],
+            "mask_sha256": "4ef06c90f4bc6ea2244948c159b1cfc7bbfaa753368d83b4db5d2e781d461110"
+          },
+          {
+            "camera": "KA",
+            "actor": "black",
+            "region": "boundary_le8px",
+            "psnr": 28.70043663199425,
+            "ssim": 0.9344890713691711,
+            "lpips": 0.004231678321957588,
+            "pixels": 8124,
+            "crop_xyxy": [
+              935,
+              0,
+              1203,
+              470
+            ],
+            "mask_sha256": "72bb4aa72b6a3de8ad8b02f37eae4dc95b42b94da63ceaf5bac622c9b092e46d"
+          },
+          {
+            "camera": "KA",
+            "actor": "grey",
+            "region": "whole_PNG_control",
+            "psnr": 32.10672458664518,
+            "ssim": 0.8645082116127014,
+            "lpips": 0.018576204776763916,
+            "pixels": 29297,
+            "crop_xyxy": [
+              889,
+              163,
+              1154,
+              539
+            ],
+            "mask_sha256": "838cf50b169ac01277e489c88977c60d11c5ff299a4bfebb4854a48598cc2ccf"
+          },
+          {
+            "camera": "KA",
+            "actor": "grey",
+            "region": "core_gt8px",
+            "psnr": 32.57262282214703,
+            "ssim": 0.8802508115768433,
+            "lpips": 0.01061238907277584,
+            "pixels": 19797,
+            "crop_xyxy": [
+              889,
+              163,
+              1154,
+              539
+            ],
+            "mask_sha256": "5551c67dc4f0136583e7e4757b6cfbf88316e0fc2cb1a96662b434f33eac5eca"
+          },
+          {
+            "camera": "KA",
+            "actor": "grey",
+            "region": "boundary_le8px",
+            "psnr": 31.27176783602113,
+            "ssim": 0.9387515187263489,
+            "lpips": 0.007832100614905357,
+            "pixels": 9500,
+            "crop_xyxy": [
+              889,
+              163,
+              1154,
+              539
+            ],
+            "mask_sha256": "35f3cce376a175b7936d44e29cb44174c12e42ead563c9643c4f4e7067d2c7f7"
+          }
+        ],
+        "aggregate": {
+          "whole_PNG_control": {
+            "psnr": 31.616721214474826,
+            "ssim": 0.8306055963039398,
+            "lpips": 0.01890835041801135
+          },
+          "core_gt8px": {
+            "psnr": 32.69984244695653,
+            "ssim": 0.8420645793279012,
+            "lpips": 0.00993971643038094
+          },
+          "boundary_le8px": {
+            "psnr": 29.818791281194734,
+            "ssim": 0.9381391604741415,
+            "lpips": 0.006577025478084882
+          }
+        },
+        "inputs_sha256": {
+          "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/runs/production_original_mapped/renders/step-000128316/DC.png": "72d9a4207623a28844e43cd86338a639d26aafac40d382e094a3e7fcb0c413b3",
+          "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/data/images/eval_DC.png": "6cd7eb43aaeb89d8d746ee49bef90a65886bf428d520732bbe857d0f877122d3",
+          "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/data/semantics/DC.npz": "4fff114ca0b8c87121dab73d20367cb0e872d7bb61dbe9f8b08b3ef4c714802e",
+          "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/runs/production_original_mapped/renders/step-000128316/HC.png": "b91c50bc66937c632f2413d4120d39fd8e694c4c216ec5181f847cd4d66b1de5",
+          "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/data/images/eval_HC.png": "ccc98134f03be9f5202e40122692f08628f5dc9601aef90b08da69dbe29e0405",
+          "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/data/semantics/HC.npz": "8fcf0345d72a2c33a23441dee4ae531af2522222a29aee15c9e20bd7e7674476",
+          "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/runs/production_original_mapped/renders/step-000128316/KA.png": "bf2ffcfa77d7d428f9c07cc129fb16efd6ad53b11008076451c92a4bfea189ab",
+          "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/data/images/eval_KA.png": "4fb9111b577846c0f39cf93cd221346f50a57234ad3552cb8ca0ce8b0edc4a05",
+          "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/data/semantics/KA.npz": "70960075b6bb88ab45345fc93efdbf8c74314563a649a791643a48453b9f37da"
+        },
+        "helper_sha256": "30b35c57d1318c3f83c766b156c2e102d2571801ea6a0bced2873e65c5b5974d",
+        "region_helper_sha256": "a9c605f38dc2577f765b783721e2d043a27d97db6f10f9d32bdd5c4df7a3ae40",
+        "CUDA_initialized": false,
+        "leaderboard_unchanged": true,
+        "limitation": "Samefixedoriginalcrop, Alex/noresize/exterior.5. Boundaryneutralexterior changesabsolutecontext; onlycomparearmswithinregion. PNGquantizationnotfloatV1."
+      }
+    },
+    "source_margin002": {
+      "metrics": {
+        "psnr": 31.33178696495038,
+        "ssim": 0.8301749924818674,
+        "lpips": 0.02000582916662097
+      },
+      "own_zero_metrics": {
+        "psnr": 31.287119383527486,
+        "ssim": 0.8301867842674255,
+        "lpips": 0.02035750091696779
+      },
+      "own_zero_delta": {
+        "psnr": 0.04466758142289251,
+        "ssim": -1.1791785558101786e-05,
+        "lpips": -0.0003516717503468207
+      },
+      "by_actor": {
+        "black": {
+          "psnr": 30.674390032357405,
+          "ssim": 0.7992141048113505,
+          "lpips": 0.02020757645368576
+        },
+        "grey": {
+          "psnr": 31.989183897543352,
+          "ssim": 0.8611358801523844,
+          "lpips": 0.01980408187955618
+        }
+      },
+      "by_view": {
+        "DC": {
+          "psnr": 31.94785018362952,
+          "ssim": 0.8288771510124207,
+          "lpips": 0.021869591437280178
+        },
+        "HC": {
+          "psnr": 31.47760363203504,
+          "ssim": 0.8318731188774109,
+          "lpips": 0.017010511364787817
+        },
+        "KA": {
+          "psnr": 30.569907079186564,
+          "ssim": 0.8297747075557709,
+          "lpips": 0.021137384697794914
+        }
+      },
+      "native_grid": {
+        "core_cells": 29190,
+        "active_cells": 29190,
+        "admission_cells": 131911,
+        "outside_admission": 0,
+        "EMA_finite": true,
+        "EMA_max": 123970527232.0,
+        "actual_capture_step": 128304,
+        "witness_cell_active_count": 109,
+        "witness_cell_inactive": [],
+        "authority": "actual GPU core before postprocess",
+        "checkpoint_sha256": "0bf3764c23861b8724dfcf8e8c90c55b62dfbcf9b639c504041e3fb8a116108f"
+      },
+      "own_runtime_selector_required": true,
+      "region_diagnostics": {
+        "kind": "PNG_FIXED_CORE_BOUNDARY_CPU_DIAGNOSTIC_NOT_V1_SELECTION",
+        "records": [
+          {
+            "camera": "DC",
+            "actor": "black",
+            "region": "whole_PNG_control",
+            "psnr": 31.039919930440618,
+            "ssim": 0.7969561219215393,
+            "lpips": 0.02019449695944786,
+            "pixels": 50554,
+            "crop_xyxy": [
+              742,
+              61,
+              1087,
+              630
+            ],
+            "mask_sha256": "4f7f7e2179b39fa28a46bf10ec2c0901ed12e33b46dd842a201f48b9f2ded269"
+          },
+          {
+            "camera": "DC",
+            "actor": "black",
+            "region": "core_gt8px",
+            "psnr": 32.557340459050785,
+            "ssim": 0.8023647665977478,
+            "lpips": 0.011373236775398254,
+            "pixels": 37205,
+            "crop_xyxy": [
+              742,
+              61,
+              1087,
+              630
+            ],
+            "mask_sha256": "eb694541978cb7a577993533523679d88cd70cd23c6060cf8e8cdade36485d26"
+          },
+          {
+            "camera": "DC",
+            "actor": "black",
+            "region": "boundary_le8px",
+            "psnr": 28.434715169846633,
+            "ssim": 0.93923020362854,
+            "lpips": 0.00548125896602869,
+            "pixels": 13349,
+            "crop_xyxy": [
+              742,
+              61,
+              1087,
+              630
+            ],
+            "mask_sha256": "2cf42234b2b4fb708b33bf1136733d23ef99866df82960ca68aab52967f1b2cf"
+          },
+          {
+            "camera": "DC",
+            "actor": "grey",
+            "region": "whole_PNG_control",
+            "psnr": 32.83685054200825,
+            "ssim": 0.8596031665802002,
+            "lpips": 0.02332109585404396,
+            "pixels": 32212,
+            "crop_xyxy": [
+              880,
+              224,
+              1118,
+              625
+            ],
+            "mask_sha256": "442975317c710c0ff344a2f9fe91694fad652d023c7d2eed1622f881e38df890"
+          },
+          {
+            "camera": "DC",
+            "actor": "grey",
+            "region": "core_gt8px",
+            "psnr": 34.30590180816505,
+            "ssim": 0.8734484910964966,
+            "lpips": 0.011668724939227104,
+            "pixels": 22685,
+            "crop_xyxy": [
+              880,
+              224,
+              1118,
+              625
+            ],
+            "mask_sha256": "f878281ec47830094ccfe26ac75a36e602b6ddf3a26b7f83aa8281448531c6a8"
+          },
+          {
+            "camera": "DC",
+            "actor": "grey",
+            "region": "boundary_le8px",
+            "psnr": 30.57507391005332,
+            "ssim": 0.9449537992477417,
+            "lpips": 0.00991935282945633,
+            "pixels": 9527,
+            "crop_xyxy": [
+              880,
+              224,
+              1118,
+              625
+            ],
+            "mask_sha256": "0b36544d5be919e2a08023fdefa4958716442bba4d38b58150da9732aac2a4a5"
+          },
+          {
+            "camera": "HC",
+            "actor": "black",
+            "region": "whole_PNG_control",
+            "psnr": 30.031024357787985,
+            "ssim": 0.7954341769218445,
+            "lpips": 0.022014573216438293,
+            "pixels": 39768,
+            "crop_xyxy": [
+              883,
+              191,
+              1210,
+              688
+            ],
+            "mask_sha256": "eef86f6f6272ef7037b5d7f1388581720cff644a58784d3ab78086c310c8108c"
+          },
+          {
+            "camera": "HC",
+            "actor": "black",
+            "region": "core_gt8px",
+            "psnr": 31.807395015514565,
+            "ssim": 0.814991295337677,
+            "lpips": 0.008850261569023132,
+            "pixels": 27458,
+            "crop_xyxy": [
+              883,
+              191,
+              1210,
+              688
+            ],
+            "mask_sha256": "eb50be9be12a0adf3e1ca12368a24caafd98b3c4df33421331be51f1313a77ec"
+          },
+          {
+            "camera": "HC",
+            "actor": "black",
+            "region": "boundary_le8px",
+            "psnr": 27.603627847763363,
+            "ssim": 0.9252116680145264,
+            "lpips": 0.007183204870671034,
+            "pixels": 12310,
+            "crop_xyxy": [
+              883,
+              191,
+              1210,
+              688
+            ],
+            "mask_sha256": "ac711872b25c66e5e9a65f4aced0d4ed1e769e81cb9be91babd6d6e9c7560f78"
+          },
+          {
+            "camera": "HC",
+            "actor": "grey",
+            "region": "whole_PNG_control",
+            "psnr": 32.90620247188369,
+            "ssim": 0.867304265499115,
+            "lpips": 0.012028319761157036,
+            "pixels": 30426,
+            "crop_xyxy": [
+              945,
+              345,
+              1230,
+              747
+            ],
+            "mask_sha256": "902e0f96798dd5cf8150ebd27c82626f684159f3d2d64bc9843b3ea7584a2a3e"
+          },
+          {
+            "camera": "HC",
+            "actor": "grey",
+            "region": "core_gt8px",
+            "psnr": 33.45591214537498,
+            "ssim": 0.8689596056938171,
+            "lpips": 0.006740691605955362,
+            "pixels": 22109,
+            "crop_xyxy": [
+              945,
+              345,
+              1230,
+              747
+            ],
+            "mask_sha256": "e8c9c7bb00b6315f3bc2adbc9aedfffe44645258e17fed93221c3151b61f6d3f"
+          },
+          {
+            "camera": "HC",
+            "actor": "grey",
+            "region": "boundary_le8px",
+            "psnr": 31.71347935982655,
+            "ssim": 0.9455795884132385,
+            "lpips": 0.004946625791490078,
+            "pixels": 8317,
+            "crop_xyxy": [
+              945,
+              345,
+              1230,
+              747
+            ],
+            "mask_sha256": "58c26dfb35110e7102ce50df06b1e0fa28a6f29030ff0f1db2176d1f83d942e1"
+          },
+          {
+            "camera": "KA",
+            "actor": "black",
+            "region": "whole_PNG_control",
+            "psnr": 30.932123490799167,
+            "ssim": 0.8036961555480957,
+            "lpips": 0.018305184319615364,
+            "pixels": 31759,
+            "crop_xyxy": [
+              935,
+              0,
+              1203,
+              470
+            ],
+            "mask_sha256": "77dc5ce5a8c159eaec3a4b6748f8d6b22e33995c9272ae01bf79d5aee41f6376"
+          },
+          {
+            "camera": "KA",
+            "actor": "black",
+            "region": "core_gt8px",
+            "psnr": 31.63629428212308,
+            "ssim": 0.8136187791824341,
+            "lpips": 0.0099865160882473,
+            "pixels": 23635,
+            "crop_xyxy": [
+              935,
+              0,
+              1203,
+              470
+            ],
+            "mask_sha256": "4ef06c90f4bc6ea2244948c159b1cfc7bbfaa753368d83b4db5d2e781d461110"
+          },
+          {
+            "camera": "KA",
+            "actor": "black",
+            "region": "boundary_le8px",
+            "psnr": 29.362218193864745,
+            "ssim": 0.940766453742981,
+            "lpips": 0.0039956094697117805,
+            "pixels": 8124,
+            "crop_xyxy": [
+              935,
+              0,
+              1203,
+              470
+            ],
+            "mask_sha256": "72bb4aa72b6a3de8ad8b02f37eae4dc95b42b94da63ceaf5bac622c9b092e46d"
+          },
+          {
+            "camera": "KA",
+            "actor": "grey",
+            "region": "whole_PNG_control",
+            "psnr": 30.195058017610297,
+            "ssim": 0.8548784852027893,
+            "lpips": 0.02404005266726017,
+            "pixels": 29297,
+            "crop_xyxy": [
+              889,
+              163,
+              1154,
+              539
+            ],
+            "mask_sha256": "838cf50b169ac01277e489c88977c60d11c5ff299a4bfebb4854a48598cc2ccf"
+          },
+          {
+            "camera": "KA",
+            "actor": "grey",
+            "region": "core_gt8px",
+            "psnr": 32.321513207468385,
+            "ssim": 0.8790250420570374,
+            "lpips": 0.011764941737055779,
+            "pixels": 19797,
+            "crop_xyxy": [
+              889,
+              163,
+              1154,
+              539
+            ],
+            "mask_sha256": "5551c67dc4f0136583e7e4757b6cfbf88316e0fc2cb1a96662b434f33eac5eca"
+          },
+          {
+            "camera": "KA",
+            "actor": "grey",
+            "region": "boundary_le8px",
+            "psnr": 27.626007046525885,
+            "ssim": 0.9198207855224609,
+            "lpips": 0.012384990230202675,
+            "pixels": 9500,
+            "crop_xyxy": [
+              889,
+              163,
+              1154,
+              539
+            ],
+            "mask_sha256": "35f3cce376a175b7936d44e29cb44174c12e42ead563c9643c4f4e7067d2c7f7"
+          }
+        ],
+        "aggregate": {
+          "whole_PNG_control": {
+            "psnr": 31.323529801755,
+            "ssim": 0.8296453952789307,
+            "lpips": 0.019983953796327114
+          },
+          "core_gt8px": {
+            "psnr": 32.68072615294948,
+            "ssim": 0.8420679966608683,
+            "lpips": 0.010064062119151155
+          },
+          "boundary_le8px": {
+            "psnr": 29.219186921313412,
+            "ssim": 0.9359270830949148,
+            "lpips": 0.0073185070262600975
+          }
+        },
+        "inputs_sha256": {
+          "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/runs/production_source_margin002/renders/step-000128316/DC.png": "8604f9d0e6a7a7ae9cee5a835612a6ca6ae9d1f5a0336767cae7195b991bfd90",
+          "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/data/images/eval_DC.png": "6cd7eb43aaeb89d8d746ee49bef90a65886bf428d520732bbe857d0f877122d3",
+          "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/data/semantics/DC.npz": "4fff114ca0b8c87121dab73d20367cb0e872d7bb61dbe9f8b08b3ef4c714802e",
+          "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/runs/production_source_margin002/renders/step-000128316/HC.png": "0d6ab07e5c9839d6ec6990fa12133791c7a122db94193e6ab66a2e66db7e5f4d",
+          "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/data/images/eval_HC.png": "ccc98134f03be9f5202e40122692f08628f5dc9601aef90b08da69dbe29e0405",
+          "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/data/semantics/HC.npz": "8fcf0345d72a2c33a23441dee4ae531af2522222a29aee15c9e20bd7e7674476",
+          "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/runs/production_source_margin002/renders/step-000128316/KA.png": "2c8641e13ce7d1697a37154b69177279e3b44782a4661fe5ad93e4e99a3c6556",
+          "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/data/images/eval_KA.png": "4fb9111b577846c0f39cf93cd221346f50a57234ad3552cb8ca0ce8b0edc4a05",
+          "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/data/semantics/KA.npz": "70960075b6bb88ab45345fc93efdbf8c74314563a649a791643a48453b9f37da"
+        },
+        "helper_sha256": "30b35c57d1318c3f83c766b156c2e102d2571801ea6a0bced2873e65c5b5974d",
+        "region_helper_sha256": "a9c605f38dc2577f765b783721e2d043a27d97db6f10f9d32bdd5c4df7a3ae40",
+        "CUDA_initialized": false,
+        "leaderboard_unchanged": true,
+        "limitation": "Samefixedoriginalcrop, Alex/noresize/exterior.5. Boundaryneutralexterior changesabsolutecontext; onlycomparearmswithinregion. PNGquantizationnotfloatV1."
+      }
+    }
+  },
+  "contours": {
+    "KA": {
+      "center": [
+        1028,
+        331
+      ],
+      "neighbors": "x-1,x,x+1",
+      "values": {
+        "original_mapped": {
+          "alpha": [
+            0.8849164568551156,
+            0.9663538567177844,
+            0.9929045548180362
+          ],
+          "RGB": [
+            [
+              0.4196078431372549,
+              0.3568627450980392,
+              0.3137254901960784
+            ],
+            [
+              0.396078431372549,
+              0.3607843137254902,
+              0.3333333333333333
+            ],
+            [
+              0.4666666666666667,
+              0.403921568627451,
+              0.3568627450980392
+            ]
+          ]
+        },
+        "source_margin002": {
+          "alpha": [
+            0.42330052643625543,
+            0.6063630121309224,
+            0.6831769283588922
+          ],
+          "RGB": [
+            [
+              0.2235294117647059,
+              0.17254901960784313,
+              0.1450980392156863
+            ],
+            [
+              0.26666666666666666,
+              0.25882352941176473,
+              0.24313725490196078
+            ],
+            [
+              0.3686274509803922,
+              0.33725490196078434,
+              0.32941176470588235
+            ]
+          ]
+        },
+        "sourceA": {
+          "alpha": [
+            0.8858930342565041,
+            0.9668421454184787,
+            0.9928435187304494
+          ],
+          "RGB": [
+            [
+              0.4196078431372549,
+              0.35294117647058826,
+              0.30980392156862746
+            ],
+            [
+              0.396078431372549,
+              0.3607843137254902,
+              0.33725490196078434
+            ],
+            [
+              0.4666666666666667,
+              0.403921568627451,
+              0.3568627450980392
+            ]
+          ]
+        },
+        "sourceW32zero": {
+          "alpha": [
+            0.3698176546883345,
+            0.5444724193179217,
+            0.6114595254444191
+          ],
+          "RGB": [
+            [
+              0.15294117647058825,
+              0.11372549019607843,
+              0.09411764705882353
+            ],
+            [
+              0.18823529411764706,
+              0.18823529411764706,
+              0.1803921568627451
+            ],
+            [
+              0.25882352941176473,
+              0.23529411764705882,
+              0.23529411764705882
+            ]
+          ]
+        }
+      }
+    },
+    "HC": {
+      "center": [
+        1052,
+        576
+      ],
+      "neighbors": "x-1,x,x+1",
+      "values": {
+        "original_mapped": {
+          "alpha": [
+            0.6479591058213169,
+            0.6974746318760967,
+            0.7995574883649958
+          ],
+          "RGB": [
+            [
+              0.3333333333333333,
+              0.27058823529411763,
+              0.2196078431372549
+            ],
+            [
+              0.3333333333333333,
+              0.26666666666666666,
+              0.23529411764705882
+            ],
+            [
+              0.32941176470588235,
+              0.2784313725490196,
+              0.27058823529411763
+            ]
+          ]
+        },
+        "source_margin002": {
+          "alpha": [
+            0.24841687647821775,
+            0.4404974441138323,
+            0.639505607690547
+          ],
+          "RGB": [
+            [
+              0.043137254901960784,
+              0.054901960784313725,
+              0.058823529411764705
+            ],
+            [
+              0.11372549019607843,
+              0.09803921568627451,
+              0.09803921568627451
+            ],
+            [
+              0.16862745098039217,
+              0.1568627450980392,
+              0.17647058823529413
+            ]
+          ]
+        },
+        "sourceA": {
+          "alpha": [
+            0.6521553368429084,
+            0.701380941481651,
+            0.8013733119707027
+          ],
+          "RGB": [
+            [
+              0.3333333333333333,
+              0.2784313725490196,
+              0.2235294117647059
+            ],
+            [
+              0.33725490196078434,
+              0.27058823529411763,
+              0.23921568627450981
+            ],
+            [
+              0.32941176470588235,
+              0.2823529411764706,
+              0.27058823529411763
+            ]
+          ]
+        },
+        "sourceW32zero": {
+          "alpha": [
+            0.25102616922255283,
+            0.4192721446555276,
+            0.6188448920424201
+          ],
+          "RGB": [
+            [
+              0.043137254901960784,
+              0.050980392156862744,
+              0.054901960784313725
+            ],
+            [
+              0.10980392156862745,
+              0.09019607843137255,
+              0.09019607843137255
+            ],
+            [
+              0.16470588235294117,
+              0.14901960784313725,
+              0.16862745098039217
+            ]
+          ]
+        }
+      }
+    },
+    "DC": {
+      "center": [
+        850,
+        85
+      ],
+      "neighbors": "x-1,x,x+1",
+      "values": {
+        "original_mapped": {
+          "alpha": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "RGB": [
+            [
+              0.32941176470588235,
+              0.2901960784313726,
+              0.19215686274509805
+            ],
+            [
+              0.34901960784313724,
+              0.30196078431372547,
+              0.2
+            ],
+            [
+              0.3137254901960784,
+              0.27058823529411763,
+              0.2235294117647059
+            ]
+          ]
+        },
+        "source_margin002": {
+          "alpha": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "RGB": [
+            [
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0
+            ]
+          ]
+        },
+        "sourceA": {
+          "alpha": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "RGB": [
+            [
+              0.3333333333333333,
+              0.29411764705882354,
+              0.19215686274509805
+            ],
+            [
+              0.35294117647058826,
+              0.3058823529411765,
+              0.20392156862745098
+            ],
+            [
+              0.3137254901960784,
+              0.27058823529411763,
+              0.22745098039215686
+            ]
+          ]
+        },
+        "sourceW32zero": {
+          "alpha": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "RGB": [
+            [
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "limitations": [
+    "109 observations are 41 unique points, not whole-hair/feet coverage.",
+    "Inactive native witness cells are diagnostic; recovered feature uncertainty and native ray traversal must be examined before calling geometry missing.",
+    "Neither high EMA nor admitted density certifies a physical surface; skipped space is UNKNOWN.",
+    "Alpha is predicted opacity, not compared to alpha-one ground truth. V1 unchanged."
+  ]
+}

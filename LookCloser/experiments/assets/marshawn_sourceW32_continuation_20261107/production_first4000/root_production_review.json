@@ -1,0 +1,18 @@
+{
+  "reviewer": "root",
+  "utc": "2026-11-07T06:20:07.387498+00:00",
+  "technical_verification_sha256": "6c635c8e23da2bf4a517bce08275585a52f01c07b14282510d70d1bb4e5cb3c0",
+  "binding_inputs_verified_local": 6,
+  "binding_inputs_verified_remote": 10,
+  "source7_selector_cache_LUT_resume": true,
+  "actual_successful_Adam_each_arm": 64,
+  "fresh_source126316_verified": true,
+  "no_hard_iteration_cap": true,
+  "root_visual_review": "Prior exactW32readonly all3body/12hairfeet/contours viewed; grayboundary deficit retained as experiment objective, no target deletion. Technical contacts reviewed by occupancy agent. First500/1000/2000/4000 production visual gates and policy-aware child replay required.",
+  "new_best_or_ideal_grid_claim": false,
+  "releases_sha256": {
+    "specs/production_original_mapped/root_release.json": "0c5aab5081ebf8ca0b059832b89ac811734974c8d533cc71e720e85d09a8c89d",
+    "specs/production_source_margin002/root_release.json": "df6d811d440cb3264910dc10aa79687f151c3a191485e8b3ea16842220adc6a7",
+    "external_guard_margin_v1/production_guard_release.json": "a7ad38b68e37f3485a6b85c338e28d784ec2c319adf01552c403706475d25025"
+  }
+}

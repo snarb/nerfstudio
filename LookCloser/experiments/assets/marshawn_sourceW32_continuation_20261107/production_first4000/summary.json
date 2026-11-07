@@ -1,0 +1,177 @@
+{
+  "time": 1794032893.4204218,
+  "production_running": true,
+  "guardian_pid": 2167218,
+  "watcher_pid": 2167221,
+  "rows": [
+    {
+      "step": 126816,
+      "attempts": 500,
+      "metrics": {
+        "original_mapped": {
+          "psnr": 31.607430197884067,
+          "ssim": 0.8311817348003387,
+          "lpips": 0.01887689670547843
+        },
+        "source_margin002": {
+          "psnr": 31.297007337680498,
+          "ssim": 0.8297416667143503,
+          "lpips": 0.02008691942319274
+        }
+      },
+      "witness_counts": {
+        "original_mapped": 109,
+        "source_margin002": 109
+      },
+      "contour_alpha": {
+        "KA": {
+          "original_mapped": 0.9684901197833219,
+          "source_margin002": 0.5836728465705349,
+          "sourceA": 0.9668421454184787,
+          "sourceW32zero": 0.5444724193179217
+        },
+        "HC": {
+          "original_mapped": 0.7063859006637675,
+          "source_margin002": 0.43978027008468756,
+          "sourceA": 0.701380941481651,
+          "sourceW32zero": 0.4192721446555276
+        },
+        "DC": {
+          "original_mapped": 1.0,
+          "source_margin002": 0.0,
+          "sourceA": 1.0,
+          "sourceW32zero": 0.0
+        }
+      }
+    },
+    {
+      "step": 127316,
+      "attempts": 1000,
+      "metrics": {
+        "original_mapped": {
+          "psnr": 31.63750362258507,
+          "ssim": 0.8312178353468577,
+          "lpips": 0.018886547225217026
+        },
+        "source_margin002": {
+          "psnr": 31.31994761985766,
+          "ssim": 0.8298338850339254,
+          "lpips": 0.02008502185344696
+        }
+      },
+      "witness_counts": {
+        "original_mapped": 109,
+        "source_margin002": 109
+      },
+      "contour_alpha": {
+        "KA": {
+          "original_mapped": 0.9692225528343633,
+          "source_margin002": 0.5936217288471809,
+          "sourceA": 0.9668421454184787,
+          "sourceW32zero": 0.5444724193179217
+        },
+        "HC": {
+          "original_mapped": 0.703746089875639,
+          "source_margin002": 0.4426184481574731,
+          "sourceA": 0.701380941481651,
+          "sourceW32zero": 0.4192721446555276
+        },
+        "DC": {
+          "original_mapped": 1.0,
+          "source_margin002": 0.0,
+          "sourceA": 1.0,
+          "sourceW32zero": 0.0
+        }
+      }
+    },
+    {
+      "step": 128316,
+      "attempts": 2000,
+      "metrics": {
+        "original_mapped": {
+          "psnr": 31.62547819589028,
+          "ssim": 0.8311902781327566,
+          "lpips": 0.018963438148299854
+        },
+        "source_margin002": {
+          "psnr": 31.33178696495038,
+          "ssim": 0.8301749924818674,
+          "lpips": 0.02000582916662097
+        }
+      },
+      "witness_counts": {
+        "original_mapped": 109,
+        "source_margin002": 109
+      },
+      "contour_alpha": {
+        "KA": {
+          "original_mapped": 0.9663538567177844,
+          "source_margin002": 0.6063630121309224,
+          "sourceA": 0.9668421454184787,
+          "sourceW32zero": 0.5444724193179217
+        },
+        "HC": {
+          "original_mapped": 0.6974746318760967,
+          "source_margin002": 0.4404974441138323,
+          "sourceA": 0.701380941481651,
+          "sourceW32zero": 0.4192721446555276
+        },
+        "DC": {
+          "original_mapped": 1.0,
+          "source_margin002": 0.0,
+          "sourceA": 1.0,
+          "sourceW32zero": 0.0
+        }
+      }
+    },
+    {
+      "step": 130316,
+      "attempts": 4000,
+      "metrics": {
+        "original_mapped": {
+          "psnr": 31.60441164209408,
+          "ssim": 0.8309304217497507,
+          "lpips": 0.018919097414861124
+        },
+        "source_margin002": {
+          "psnr": 31.361904567039677,
+          "ssim": 0.8301533758640289,
+          "lpips": 0.0197194991633296
+        }
+      },
+      "witness_counts": {
+        "original_mapped": 109,
+        "source_margin002": 109
+      },
+      "contour_alpha": {
+        "KA": {
+          "original_mapped": 0.9668879224841688,
+          "source_margin002": 0.6478065156023499,
+          "sourceA": 0.9668421454184787,
+          "sourceW32zero": 0.5444724193179217
+        },
+        "HC": {
+          "original_mapped": 0.7005416952773327,
+          "source_margin002": 0.5109483482108796,
+          "sourceA": 0.701380941481651,
+          "sourceW32zero": 0.4192721446555276
+        },
+        "DC": {
+          "original_mapped": 1.0,
+          "source_margin002": 0.0,
+          "sourceA": 1.0,
+          "sourceW32zero": 0.0
+        }
+      }
+    }
+  ],
+  "manual_review": {
+    "full3views_first500_1000_4000": true,
+    "contours_all4gates": true,
+    "all12hair_feet_at4000": true,
+    "findings": "Partial grey contour opacity recovery, queriedheadhalo remains0. Gross shoes/hair retained in inspected views; residual coloredhalo/floor persists and exterioropacity regrows withinallowedvolume. No qualitypromotion."
+  },
+  "original_frequency126976_observed_both": true,
+  "checkpoint_retention": "All evaluated checkpoints hardlinked+actualschema2+selectorbound spec; no pruning",
+  "proof_scope": "109 sparse positions remainallowed and actualnativecells active; not a whole geometry/contour certificate."
+}
