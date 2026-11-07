@@ -42,3 +42,22 @@ Separate generation `C/independent_occupancy/source_mask_W32_counterfactual_v1` 
 The controller requires an idle physical UUID under the shared exclusive lease, bounded8GiB allocator/10GiB process/900s; termination cleans only its child. Source A parity, known W64 B full-render/native9 parity, actual admitted/excluded density identity, seven serialized states, pipeline, RNG/LUT and restored native arrays are checked. Original1495 science files are unchanged. Five CPU tests passed (three geometric, two exact-release fail-closed); all1495source,8helpers and23 artifacts were independently rehashed on silver without CUDA. Final policy SHA `c63ffb131d84e9cdf44cb6c7867ba24a73f0573b7729f5b12c2d609c3b1c690d`.
 
 [Prepared policy](assets/marshawn_source_support_fourway_20261107/W32_readonly_preparation/policy.json), [CPU binding](assets/marshawn_source_support_fourway_20261107/W32_readonly_preparation/CPU_binding.json). `release.template.json` remains false; no controller or GPU query was launched. The separate final CHILD continuation replay policy122848 remains unchanged.
+
+
+## Actual same-checkpoint W32 read-only result
+
+Root released exact policy `c63ffb…c690d`; controller3358323 ran only read-only queries on exclusively leased physicalGPU6. All four phases passed in274.30s, peak2,592MiB: source A parity, knownW64 full-render/native9 parity, actual pointwise density restriction, restored native arrays, pipeline/seven serialized states/RNG/nonpersistent LUT unchanged. No optimizer, frequency, occupancy or producer update occurred; the controller exited and released its lease.
+
+| Same source126316 | PSNR | SSIM | V1 LPIPS | Grey LPIPS | Exterior16 alpha>.1 DC / HC / KA |
+|---|---:|---:|---:|---:|---|
+| Original mapped A |31.639727|.831264|.018773243|.017458010|118260 /79892 /54994|
+| SourceW64pad1+.002 |31.563286|.831244|.019213602|.018545552|90210 /57893 /42068|
+| SourceW32pad1+.002 |31.287119|.830187|.020357739|.020679776|77245 /46665 /32621|
+
+All three body, hair/feet and contour pages were inspected. W32 visibly reduces head/background and between-leg/floor fragments beyond W64; gross body and shoe silhouettes persist. Fine strands and full contour coverage are not certified. Root independently viewed the same pages and confirmed the unresolved HC grey-boundary deficit; no promotion.
+
+On103 declared TRAIN clothing rays, mean native witness±.02 mass is96.1209→96.3174→96.5478%; pre-witness mass1.5333→1.3192→1.0858%. This decrease is mostly black-actor rays. All54grey clothing witness distributions are unchanged, bandmass98.5134%; their mean signed t50 residual+.000846 and10–90width.008384 are unchanged. New whole-patch reserves retain99.9605% bandmass. All103 dense8192/16384 comparisons pass (worstRGB~.00143, opacity~.000535), no native cap hits. Existing109 sparse-point admission remains retained; this is inherited exact source-cell lookup evidence, not new whole-silhouette certification. Dense skipped-space density is not physical occupancy truth.
+
+AtKA1028,331, native alpha A/W64/W32=.966838/.565945/.544478; existing RAW nominal coverage=.591855 is segmentation coverage, not optical alphaGT. AtHC1052,576 alpha=.701376/.581684/.419268 versus existing nominal coverage=.850081: this unresolved deficit becomes larger underW32, despite unchanged interior clothing witnesses. No alpha1 prior or contour-label deletion follows. Three head-halo raysDC849–851,85 become exactly zero under both source gates. Broad attached artifacts still remain in the full images.
+
+[Actual CPU geometry table and all124 ray results](assets/marshawn_source_support_fourway_20261107/W32_readonly_actual/CPU_comparison.json), [full body contacts](assets/marshawn_source_support_fourway_20261107/W32_readonly_actual/body_overview.jpg), [contour contexts](assets/marshawn_source_support_fourway_20261107/W32_readonly_actual/contour9_context.png), [restoration proof](assets/marshawn_source_support_fourway_20261107/W32_readonly_actual/field_restore_proof.json). Full RGB/alpha and native arrays are under `C/independent_occupancy/source_mask_W32_counterfactual_v1`; dense arrays remain preserved on silver at the same relative path and each has a hash in the comparison. This is inference-only evidence, not trained W32 quality.

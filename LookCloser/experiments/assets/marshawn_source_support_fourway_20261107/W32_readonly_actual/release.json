@@ -1,0 +1,9 @@
+{
+  "approved_readonly": true,
+  "reviewer": "root",
+  "policy_sha256": "c63ffb131d84e9cdf44cb6c7867ba24a73f0573b7729f5b12c2d609c3b1c690d",
+  "training_authorized": false,
+  "quality_promoted": false,
+  "time_UTC": "2026-11-07T05:42:54.802738+00:00",
+  "root_review": "Root inspected worker/controller and independently verified exact policy/helpers/source artifacts on both hosts. Local checkpoints absent by design; all three checkpoint hashes verified on silver-sable. Readonly inference only, no source mask edits or training release."
+}

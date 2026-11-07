@@ -1,0 +1,21 @@
+{
+  "source_hashes": {
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/images/eval_DC.png": "6cd7eb43aaeb89d8d746ee49bef90a65886bf428d520732bbe857d0f877122d3",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/source_mask_W32_counterfactual_v1/quarter_distortion_raw126316/native_A/renders/step-000126316/DC.png": "82cc644a1b626bc0048dbb9c55b76c5d9d90447ad092359fc78910ca70a805fb",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/margin_continuation_final_geometry_v1/original_mapped/renders/step-000150316/DC.png": "334fc353292931841e621ac56fccbce539b70531808c35f27ffd7c271f257c0e",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/margin_continuation_final_geometry_v1/source_margin002/renders/step-000155316/DC.png": "5ef108d5871169431a20b12b89e5a45fdc198d4c0b06b6a4db41881a9866aba3",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/images/eval_HC.png": "ccc98134f03be9f5202e40122692f08628f5dc9601aef90b08da69dbe29e0405",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/source_mask_W32_counterfactual_v1/quarter_distortion_raw126316/native_A/renders/step-000126316/HC.png": "d3e3805254d8cae86f201ec411985c6631757849d4223e0298770ba35fc1ff4c",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/margin_continuation_final_geometry_v1/original_mapped/renders/step-000150316/HC.png": "b9f822ddec5a1e3bb2e5d8ebd0f0a0f370e856726a6080e834664505e5fedd4e",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/margin_continuation_final_geometry_v1/source_margin002/renders/step-000155316/HC.png": "ba30f9e60d7455551ce7321f31b005caf3b76659b35bbfc32eb41f47f6aba717",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/images/eval_KA.png": "4fb9111b577846c0f39cf93cd221346f50a57234ad3552cb8ca0ce8b0edc4a05",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/source_mask_W32_counterfactual_v1/quarter_distortion_raw126316/native_A/renders/step-000126316/KA.png": "5df911db00d2ee0804b069b701b3b32330c5ea53c03554b9004eb43e0e449c5a",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/margin_continuation_final_geometry_v1/original_mapped/renders/step-000150316/KA.png": "444c84ecfd07b7ad879e65f1c8d8481e891f827be8f62615e042c77e3603544d",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/margin_continuation_final_geometry_v1/source_margin002/renders/step-000155316/KA.png": "ff76218abd8c6e941a20c989cd0d5de5e8f90aec6f34eff0e6972b8889500cd7"
+  },
+  "manual_review_pending": false,
+  "no_labels_changed": true,
+  "no_GPU": true,
+  "manual_review": "Viewed all3 body and all3 hair/feet pages plus9contour contexts. Strict child replay agrees with savedproduction images. Broad attached floor/halo/bag remains. Adaptation partly restores contour opacity but does not establish cleangeometry. Unequal naturalterminal ages explicit. No quality promotion.",
+  "quality_promoted": false
+}

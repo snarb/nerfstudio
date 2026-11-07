@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "local_native_arrays": 248,
+  "dense_arrays_retained_remote_and_hash_bound": true,
+  "full_FHD_local": true,
+  "model_query": false
+}

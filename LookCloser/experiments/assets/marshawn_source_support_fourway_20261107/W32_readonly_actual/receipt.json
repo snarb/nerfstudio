@@ -1,0 +1,21 @@
+{
+  "source_hashes": {
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/images/eval_DC.png": "6cd7eb43aaeb89d8d746ee49bef90a65886bf428d520732bbe857d0f877122d3",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/source_mask_W32_counterfactual_v1/quarter_distortion_raw126316/native_A/renders/step-000126316/DC.png": "82cc644a1b626bc0048dbb9c55b76c5d9d90447ad092359fc78910ca70a805fb",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/source_mask_W32_counterfactual_v1/quarter_distortion_raw126316/source_W64/renders/step-000126316/DC.png": "2548a05c17c0c95dfe518b0e779a84c581bceed5fd3ce5756ddd862f8a8375d2",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/source_mask_W32_counterfactual_v1/quarter_distortion_raw126316/source_W32/renders/step-000126316/DC.png": "aee7c022032e07bea7aaf206d0702c017300d1f3dfd010e48816504c0488978d",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/images/eval_HC.png": "ccc98134f03be9f5202e40122692f08628f5dc9601aef90b08da69dbe29e0405",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/source_mask_W32_counterfactual_v1/quarter_distortion_raw126316/native_A/renders/step-000126316/HC.png": "d3e3805254d8cae86f201ec411985c6631757849d4223e0298770ba35fc1ff4c",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/source_mask_W32_counterfactual_v1/quarter_distortion_raw126316/source_W64/renders/step-000126316/HC.png": "8e8e58a6191437304054fba74db179bb9271c9c3e1312f8a2cbd9c511cd8c7e1",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/source_mask_W32_counterfactual_v1/quarter_distortion_raw126316/source_W32/renders/step-000126316/HC.png": "67631d4879e37cfc024422098390b963ef2c92ef7dc77e61dfdbb08fdc1dc099",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/images/eval_KA.png": "4fb9111b577846c0f39cf93cd221346f50a57234ad3552cb8ca0ce8b0edc4a05",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/source_mask_W32_counterfactual_v1/quarter_distortion_raw126316/native_A/renders/step-000126316/KA.png": "5df911db00d2ee0804b069b701b3b32330c5ea53c03554b9004eb43e0e449c5a",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/source_mask_W32_counterfactual_v1/quarter_distortion_raw126316/source_W64/renders/step-000126316/KA.png": "84805d186abb2e8e79dab26ba049bb00ae974286041749f3dc22f4148c08eaa7",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/source_mask_W32_counterfactual_v1/quarter_distortion_raw126316/source_W32/renders/step-000126316/KA.png": "801f86f77decbec78ef40f2fad81c499e3ab452fb99d772ba0a65bcc9869a1bf"
+  },
+  "manual_review_pending": false,
+  "no_labels_changed": true,
+  "no_GPU": true,
+  "manual_review": "Viewed all3 body and all3 hair/feet pages plus9contour contexts. W32 visibly reduces distant head/floor/between-leg colored artifacts beyond W64. Gross actor bodies/hair/shoes persist; fine strands and full contour coverage not certified. HC gray-contour opacity drops further, an unresolved cost requiring source analysis before training. No quality promotion.",
+  "quality_promoted": false
+}

@@ -1,0 +1,8 @@
+{
+  "elapsed_seconds": 274.30333481600246,
+  "peak_mib": 2592,
+  "gpu": 6,
+  "gpu_uuid": "GPU-a53fcf27-02c4-c737-9269-0623ec25a6d9",
+  "exclusive_global_lease": true,
+  "optimizer_updates": 0
+}

@@ -1,0 +1,91 @@
+{
+  "release": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/margin_continuation_final_geometry_v1/release.json",
+  "python": "/home/ubuntu/lookcloser/envs/marshawn_leader/bin/python",
+  "code": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_margin_continuation_candidate_v1/code",
+  "helpers": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/margin_continuation_final_geometry_v1/helpers",
+  "source_manifest": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_margin_continuation_candidate_v1/source_manifest.json",
+  "models": {
+    "original_mapped": {
+      "archive": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_margin_continuation_candidate_v1/review_archives/original_mapped/step-000150316",
+      "step": 150316,
+      "output": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/margin_continuation_final_geometry_v1/original_mapped",
+      "files_sha256": {
+        "grid.json": "2b812695e3058bb84b8e30ff2d1e2ca79771e05a11f60bf24f6609aa303aa19e",
+        "grid.npz": "7778e46c9f8033bc1c678ef8f8c36b7378869fd75a2cc1a22adc4730587a91cb",
+        "region_diagnostics.json": "630f8ef2312164d6ecf846d414694a1c7e8fdd2261cb9ba0872adf4c078deeaf",
+        "spec.json": "7653f329cc6d1a43a8c4e1aa7eda6b1e9d94573a5fe80bc5d17499501e198d04",
+        "root_release.json": "b16f6061c100c8b9c8347cf39be8d46bdf7f7b4cbea848a8b4a36bf0d5eaa870",
+        "source_manifest.json": "cd39d754c2a751ff017f79f9c750e39487fca26b68860b8653aea7f950184a82",
+        "margin_manifest.json": "ee335069afd93eeb4f44129be7135571997575abfea20bd8de475a0c365fc9d5",
+        "config.yml": "7b878a589b4872f13fb0a958dc461e335673ebc35a2e8bf094fec5cb5089458e",
+        "renders/DC.png": "87cba54b10abc1f08a4a4b6ea5bf2acc56d62c720a645c2409e12365b6b6faa5",
+        "renders/DC_alpha.png": "7b5ed95510f75cecb7431ee558e6c4bf4f293ac79a865ca21df42c161aa9c71d",
+        "renders/HC.png": "7640036ec5ad85e8ec8e23591bc072f99eb084dd30bd101b4fd00edc25b449c3",
+        "renders/HC_alpha.png": "f74fdc13d9eb66a5a0bcd46e77d449dc22fb84d055de6c76efa3353e34e68aa4",
+        "renders/KA.png": "fb1758e1d71f35ccf2779f2c611afe48c05dfcaf80fd4b2704150f9d94883153",
+        "renders/KA_alpha.png": "9be960474984707639dbbec0bad47064d0d86687c99627ca14d2009703440635",
+        "renders/metrics.json": "492f0faef59ea62da90d9ff33e98e73304b5f6a9a5ac55e237ffb1bd533dcbc0",
+        "checkpoint.ckpt": "c9418490adea4f447cbfa2520f5ba401e5277a18e3b7185fb98966d1348d9680"
+      },
+      "selection": "control terminal; original selected/raw remains parent126316"
+    },
+    "source_margin002": {
+      "archive": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_margin_continuation_candidate_v1/review_archives/source_margin002/step-000155316",
+      "step": 155316,
+      "output": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/margin_continuation_final_geometry_v1/source_margin002",
+      "files_sha256": {
+        "grid.json": "f585c75a11f7d377b60609ca36195a25739da979a3cd1021058f7b90dca1522b",
+        "grid.npz": "dd50bd8add38b3440824b5a0de4beda62edad9e29b6c6a467e41c0c6267fcbfb",
+        "region_diagnostics.json": "180e176e3acaf5fc4cf0e67ab2a0717c977ed6de2558d8f1f2a12af7b64ddbbd",
+        "spec.json": "96853dffe07fd0d8ff124c8ba0437b7ad877c6ea518ec1487450760b3d988fa8",
+        "root_release.json": "622fb0c454c12b4517e557369246bc010d25823b280f701285d0e80074918495",
+        "source_manifest.json": "cd39d754c2a751ff017f79f9c750e39487fca26b68860b8653aea7f950184a82",
+        "margin_manifest.json": "ee335069afd93eeb4f44129be7135571997575abfea20bd8de475a0c365fc9d5",
+        "config.yml": "48e4d2b52e55dc38ef69a05bf70acb8a3a9b8dbba1b98333a1515959adfca105",
+        "renders/DC.png": "0a49b108c2dba5cd4d81fa29a894b447387ead29d5ed77bc22bddbe204bb7666",
+        "renders/DC_alpha.png": "3123969e003a74ec6b5fc32dfb2288b434e0f04b444e8f3f16276ddc708d5ee2",
+        "renders/HC.png": "256f188b433f163d89beb609045847e8eeecff7de7836be497c4abb69dce0d7e",
+        "renders/HC_alpha.png": "d55c97e1b5772265510492c235582c0c4bb6255f21957e39e8063f2cf3ef6bd0",
+        "renders/KA.png": "34a2ff041fedb6b9d89fc33b4adc3624ff1bc10d7a35f2dfa0498d0d069ad403",
+        "renders/KA_alpha.png": "eaff66e583c8a84c8bff0abda0cff4436ef0c98307020063d00ce420ee819867",
+        "renders/metrics.json": "279d56e562a821cfc70e2d73ba7ee89f46a642c1b18a94bf11f2d0e1384caba6",
+        "checkpoint.ckpt": "be0f337ae0d8fba484121976f49daaa5ac1c25bd240ef3de7b08f76750dbf64e"
+      },
+      "selection": "treatment terminal and raw-LPIPS minimum; established selector145316 retained separately"
+    }
+  },
+  "queries": {
+    "clothing103": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/margin_continuation_final_geometry_v1/queries/clothing103.json",
+    "DC12": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/margin_continuation_final_geometry_v1/queries/DC12.json",
+    "contour9": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/margin_continuation_final_geometry_v1/queries/contour9.json"
+  },
+  "files_sha256": {
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/margin_continuation_final_geometry_v1/queries/clothing103.json": "e11c111e4a41b02417e98ae2e0f4f5f6055883c070539b2334748974bb3c712c",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/margin_continuation_final_geometry_v1/queries/contour9.json": "f260de5cc3b560955f432597297e346ceae8579879168ba28e05178ed9f6dce3",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/margin_continuation_final_geometry_v1/queries/DC12.json": "08caff3fbdb24a811745761b3fa685c33fd8655be6342203cf851f4fcf1b6d00",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/margin_continuation_final_geometry_v1/helpers/audit_marshawn_margin_checkpoint.py": "3ce2c6c576f1ed14adb785c84fbe43e51e2b963416d038dad4f6bf78081840ec",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/margin_continuation_final_geometry_v1/helpers/train_marshawn_semantic_late_distortion.py": "9ef0c76c1470187b2172bd5ebf3df7bef4b1a7b3e5d26dcb29b17d46ee8a1be3",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/margin_continuation_final_geometry_v1/helpers/run_marshawn_margin_checkpoint_audit.py": "cd86655dd638f3e8cd2db26d9f8e7e764a8d2c709d58bf75b2175c77dd8db231",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/margin_continuation_final_geometry_v1/helpers/probe_marshawn_occupancy.py": "daa03035152887bee2d2823bdf0cd66e8c1593a3ec198030dc1a09b405f2ff91",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/margin_continuation_final_geometry_v1/helpers/marshawn_gpu_isolation.py": "42a2155aefdeae4ceeca441a28c417450ef49dee41b3a6cae6beb767dc53069b",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_margin_continuation_candidate_v1/code/LookCloser/scripts/marshawn_margin_continuation_policy.py": "a040b0d33fa1eb7a802370e7c587e25450b89d4b8efeb8c2bc7b730bd72a4422",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_margin_continuation_candidate_v1/code/LookCloser/scripts/marshawn_semantic_occupancy.py": "3dee86b78aa1f57067450ff39f6bb8e5bdae0e0f4aa475be0230d204b4a90d4b",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_margin_continuation_candidate_v1/code/LookCloser/scripts/train_marshawn_semantic_admission.py": "fc3aae19781c84e2d21ee138b07015e6ea392b159719c274337895ad66cc189f",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_margin_continuation_candidate_v1/source_manifest.json": "cd39d754c2a751ff017f79f9c750e39487fca26b68860b8653aea7f950184a82"
+  },
+  "gpus": [
+    5,
+    6,
+    0,
+    1,
+    2,
+    3,
+    4,
+    7
+  ],
+  "allocator_cap_gib": 8,
+  "max_process_mib": 10240,
+  "max_seconds_per_state": 900,
+  "scope": "No optimizer/callback/frequency/occupancy updates. Replay actual child selector+FR.3+LUT and require full3FHD numeric parity before103TRAIN+12DC+9contour native/8192/16384 traces. Serial idle-exclusive physical UUID lease. No EVAL labels used for training. Unequal terminal ages explicit; original source126316 existing trace remains comparator. No quality promotion.",
+  "source_policy": "Original mapped versus unchanged W64 SourcePad1 geometric+.002 and epsilon2e-7/outsideUNKNOWN; actual child selector mandatory; no source masks changed."
+}

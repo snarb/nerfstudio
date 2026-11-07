@@ -1,0 +1,117 @@
+{
+  "python": "/home/ubuntu/lookcloser/envs/marshawn_leader/bin/python",
+  "data": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/data",
+  "models": [
+    {
+      "name": "quarter_distortion_raw126316",
+      "step": 126316,
+      "archive": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_quarter_distortion_final_geometry/quarter_distortion_rawmin",
+      "branch": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_quarter_distortion_candidate_20261107",
+      "files_sha256": {
+        "checkpoint.ckpt": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+        "grid.json": "5a5e0418434395b7d08cde8da923f14fd1f6301746912f6288cb58c31fc8bec9",
+        "grid.npz": "7db15fdda89f0661e767e53dd97ab34f3346550aa319d4363bdd6332b3cbac0f",
+        "config.yml": "21b961b55eda60f8f81132dc9d3cd398a208e3f31c664ded874b9ff9b68e33c3",
+        "source_manifest.json": "ad32a034c492314162fac8d966be2215c834393a1bb984beb05f1eed8f9c43b3",
+        "spec.json": "54e55e212bb7c1d27c12c9428cef8cd6b99ccdefa9ca3fbef776ba01d828aaa8",
+        "gate_metrics.json": "a0356da49e40d82e7264308cd829077d78312edb438296c5753fd9ae2f8dca9e"
+      },
+      "coarse_step": 0.0015625,
+      "FR": 0.3,
+      "reference_renders": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_quarter_distortion_final_geometry/quarter_distortion_rawmin/renders",
+      "reference_renders_sha256": {
+        "KA_alpha.png": "d9ed58adece05fe7e5637aa10085b2ac476d385525bc7b40ee32415be834c6ab",
+        "HC.png": "d74f1af772668738b18cf44f5dc74b4e3b9f6b39ee5d8aa04233ec87fe0e7326",
+        "DC_alpha.png": "1058061cc1de9489ef000c0f9702b51c0ab08eb388de65fb58e496efde099e59",
+        "KA.png": "f99c87f01f09abd10e4d532b025d398025e3174c9d4d698543ce8e1cd266a579",
+        "DC.png": "a7b4d90a165e19fc9513d1fd0767c08c157868342edd35582e5e0984af608229",
+        "HC_alpha.png": "20690cb8ee90d43b65c789cf705c9a740f9669a8af214a74d71eb5deb2ebe2d0",
+        "metrics.json": "a0356da49e40d82e7264308cd829077d78312edb438296c5753fd9ae2f8dca9e"
+      }
+    }
+  ],
+  "gpus": [
+    5,
+    6,
+    0,
+    1,
+    2,
+    3,
+    4,
+    7
+  ],
+  "allocator_cap_gib": 8,
+  "max_process_mib": 10240,
+  "max_seconds_per_state": 900,
+  "helpers_sha256": {
+    "marshawn_gpu_isolation.py": "42a2155aefdeae4ceeca441a28c417450ef49dee41b3a6cae6beb767dc53069b",
+    "marshawn_source_point_admission.py": "aa288b24bdf84463c33d101a252c6945db40b0f3fffc833a32c782d4a62018b1",
+    "marshawn_readonly_point_selector.py": "9835b52f46ad880e5022bc560fa4679db7fb5d12601bae02ba71da4fc412f184",
+    "probe_marshawn_occupancy.py": "daa03035152887bee2d2823bdf0cd66e8c1593a3ec198030dc1a09b405f2ff91",
+    "run_marshawn_source_W32.py": "8b8bde90cc13883f5983bbefd53078eb90914985d8dea3099262fc78ce7aba4e",
+    "marshawn_source_margin_admission.py": "7f1b9c942f8611123ac4a9800c369e49fd09e360a4eaca13ccc95d2c919967b8",
+    "train_marshawn_semantic_late_distortion.py": "9ef0c76c1470187b2172bd5ebf3df7bef4b1a7b3e5d26dcb29b17d46ee8a1be3",
+    "probe_marshawn_source_W32.py": "4aa8aecf7b53c07aa26e73e6fe6a34b92cc6ed4a96d9a8cc51597a265de09ab7"
+  },
+  "queries": {
+    "clothing103": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/source_mask_W32_counterfactual_v1/queries/clothing103.json",
+    "DC12": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/source_mask_W32_counterfactual_v1/queries/DC12.json",
+    "contour9": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/source_mask_W32_counterfactual_v1/queries/contour9.json"
+  },
+  "queries_sha256": {
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/source_mask_W32_counterfactual_v1/queries/clothing103.json": "e11c111e4a41b02417e98ae2e0f4f5f6055883c070539b2334748974bb3c712c",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/source_mask_W32_counterfactual_v1/queries/DC12.json": "08caff3fbdb24a811745761b3fa685c33fd8655be6342203cf851f4fcf1b6d00",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/source_mask_W32_counterfactual_v1/queries/contour9.json": "f260de5cc3b560955f432597297e346ceae8579879168ba28e05178ed9f6dce3"
+  },
+  "source_grid": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/source_mask_W32_counterfactual_v1/sources/W64.npz",
+  "source_grid_sha256": "e804d736dd766e8adf11df07e346a6317af87e0b106a94dfc524ab32f1690d71",
+  "scope": "READONLY original126316 same field A/originalmapped, W64SourcePad1+.002 knownB, W32SourcePad1+.002, restoredA. Full3FHD each plus103TRAIN+12DCposthoc+9contour rays native/8192/16384. No91bagwhole-ray negatives or labels; no training/core/EMA/traversal/frequency change. OriginalphysicalUUIDexclusive8/10GiB900s, seven serialized states/pipeline/RNG/LUT/actualnative arrays restored. W32 is geometry support width, not RGB-loss width; sourcepad1 is not nativeoccupancyR1.",
+  "GPU_identity": "Controller sets exact leased UUID in CUDA_VISIBLE_DEVICES and EXPECTED_GPU_UUID before Torch; worker requiresdevice_count1/current0 andnormalizedproperties.UUID identity, records gpu_identity.json before model load.",
+  "numerical_epsilon": 2e-07,
+  "inherited_identity_receipt": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/quarter_distortion_sourcepoint_counterfactual_v1/quarter_distortion_raw126316/complete.json",
+  "inherited_identity_receipt_sha256": "63be71cb17a988c98345ca96bfcba62aed0193746ccf8bae823593a44bede409",
+  "artifacts_sha256": {
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/source_mask_W32_counterfactual_v1/sources/W64.npz": "e804d736dd766e8adf11df07e346a6317af87e0b106a94dfc524ab32f1690d71",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/source_mask_W32_counterfactual_v1/sources/W32.npz": "a7e3d3703f9bb693c095bd5cd715f92b9ac048b3f96082dd95b39ac5db452328",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/source_mask_W32_counterfactual_v1/fourway_CPU.json": "cad40fa91cc8a42925febb2ebbc70070b89e56e80fd2afb305200c2d32640258",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/source_mask_W32_counterfactual_v1/missed91_source_review.json": "304907b6937a6d77ad0d1991dfb01250568c763c448e83ee987eefda2889f330",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/source_mask_W32_counterfactual_v1/root_manual_review.json": "df9163726ef1a19fea2c7f7ecb5b92d583fb80aefc86f26686d2779f84ce44f1",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/quarter_distortion_sourcepoint_counterfactual_v1/quarter_distortion_raw126316/complete.json": "63be71cb17a988c98345ca96bfcba62aed0193746ccf8bae823593a44bede409",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/quarter_distortion_source_margin_v1/quarter_distortion_raw126316/complete.json": "ae82db8f53c7841bed443c7be9b2d26717327169a960c88a7fb1a64a404f761e",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/quarter_distortion_source_margin_v1/quarter_distortion_raw126316/margin002/renders/step-000126316/metrics.json": "32e08e052c2a60506a250cce9264e5f6529d8235adc753033506cf7091bf9ed1",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/quarter_distortion_source_margin_v1/quarter_distortion_raw126316/margin002/renders/step-000126316/HC_alpha.png": "2738b01c7edfb62fa3dbaf9c96e9587c9e196a1a119f0ad25a8da34cc2da8386",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/quarter_distortion_source_margin_v1/quarter_distortion_raw126316/margin002/renders/step-000126316/DC_alpha.png": "8ac6198567d92eee7d6d84d819acf0abe92033d81c071ed06f5fd40d3141e5d7",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/quarter_distortion_source_margin_v1/quarter_distortion_raw126316/margin002/renders/step-000126316/DC.png": "5752d266a44b14d0a0e4f9dd34a7606d12fa651898ca90191a20195e5a97647c",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/quarter_distortion_source_margin_v1/quarter_distortion_raw126316/margin002/renders/step-000126316/KA.png": "6e80ac839ae9a119d3fe5e603a1f29a79996300fe8b7f5f27807f0571ab5ad90",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/quarter_distortion_source_margin_v1/quarter_distortion_raw126316/margin002/renders/step-000126316/HC.png": "51785e2ad17e6d230165f5f05c78ec4ab1d58f6240b02954066d754710245e0b",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/quarter_distortion_source_margin_v1/quarter_distortion_raw126316/margin002/renders/step-000126316/KA_alpha.png": "a51612b9ddb1d79288841c57ec284c66c3c50370dfe1d80a3a98024cc7ae00ef",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/quarter_distortion_source_margin_v1/quarter_distortion_raw126316/margin002/contour9_trace/rays/pixel0003_native.npz": "bbbb4d4399fc62a17ff5d8d834f6520922245c6a24478f9b7d1c65cd39d847a8",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/quarter_distortion_source_margin_v1/quarter_distortion_raw126316/margin002/contour9_trace/rays/pixel0008_native.npz": "86da5c13ad5092b4c3db1b777be995ea71c6536f4b41a1c56954fe98d11a03ba",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/quarter_distortion_source_margin_v1/quarter_distortion_raw126316/margin002/contour9_trace/rays/pixel0004_native.npz": "768a9561598d8d8c6a4f66828a203a87b79d7cea00f05d85e44a2c634499c85d",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/quarter_distortion_source_margin_v1/quarter_distortion_raw126316/margin002/contour9_trace/rays/pixel0001_native.npz": "d693216aa65361bccf37a052d9df5ca2f996f10a530dee064033d7c473d5d977",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/quarter_distortion_source_margin_v1/quarter_distortion_raw126316/margin002/contour9_trace/rays/pixel0006_native.npz": "dee2f99c2f64440e16199edd73cfd7baaac218c1a16149ca318e6d7bbdc20160",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/quarter_distortion_source_margin_v1/quarter_distortion_raw126316/margin002/contour9_trace/rays/pixel0007_native.npz": "089472226729e25e05bcb557467d43cccedc5443041a03d6c90c9373a1061b47",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/quarter_distortion_source_margin_v1/quarter_distortion_raw126316/margin002/contour9_trace/rays/pixel0000_native.npz": "a90c343ea7513de0dd280412ad65f7354ec7510f858f5594eff81307e8775115",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/quarter_distortion_source_margin_v1/quarter_distortion_raw126316/margin002/contour9_trace/rays/pixel0005_native.npz": "294eecf34eb6e3be38a504826f3301d3fe96a10d19f3d4726b2e4bb6b894b79e",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/quarter_distortion_source_margin_v1/quarter_distortion_raw126316/margin002/contour9_trace/rays/pixel0002_native.npz": "07c8cf80c14a9d42cd75c342c4c43bd6d67eacd8ff26784c526ec7a7c421e179"
+  },
+  "source_masks": {
+    "W64": {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/source_mask_W32_counterfactual_v1/sources/W64.npz",
+      "sha256": "e804d736dd766e8adf11df07e346a6317af87e0b106a94dfc524ab32f1690d71"
+    },
+    "W32": {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/source_mask_W32_counterfactual_v1/sources/W32.npz",
+      "sha256": "a7e3d3703f9bb693c095bd5cd715f92b9ac048b3f96082dd95b39ac5db452328"
+    }
+  },
+  "known_W64_phase": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/quarter_distortion_source_margin_v1/quarter_distortion_raw126316/margin002",
+  "known_W64_reference_renders": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/quarter_distortion_source_margin_v1/quarter_distortion_raw126316/margin002/renders/step-000126316",
+  "geometric_Linf_margin": 0.002,
+  "source_widths": [
+    "W64",
+    "W32"
+  ],
+  "source_key": "semantic_gate_pad1",
+  "positive_evidence": "109/109 sparse XYZ and depth positions retained. All91 inherited positive-ray misses manually reviewed as distal bagtip/floor; no labels changed, no behind-occluder free-space claim, no global safety certificate."
+}

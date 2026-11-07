@@ -104,3 +104,21 @@ Both arms completed without OOM or external interruption; workers and supervisor
 These terminal ages differ by5,000 attempts; matched earlier gates are above. Treatment raw-min LPIPS improves its own zero .019213951 slightly, but remains worse than original source .018773120. Terminal core diagnostic .00985981→.00976953 improves, boundary .00662900→.00683791 worsens; black .02020757→.02005504 improves, grey .01754704→.01828077 worsens. Exterior16 alpha>.1 decreases DC117526→100244, HC79581→63445, KA54835→45188. All [terminal body contacts](assets/marshawn_margin_continuation_plan_20261107/terminal/body_overview.jpg) and three head/feet pages were inspected. Broad attached halos/floor and bag remain, despite partial cleanup. No clean asset or global quality promotion follows. [Terminal metrics and visual assessment](assets/marshawn_margin_continuation_plan_20261107/terminal/summary.json), [process completion](assets/marshawn_margin_continuation_plan_20261107/terminal/terminal_health.json).
 
 A separate source-policy-aware read-only child replay is prepared at `C/independent_occupancy/margin_continuation_final_geometry_v1`, pending exact root resource review. It preserves original126316 evidence, loads each child selector explicitly, and checks FHD parity before geometry queries; no replay GPU was launched by this report.
+
+
+## Actual final-child geometry replay
+
+Root released policy122848; controller3358324 completed two serial idle-exclusive GPU5 replays,81.39/81.31s and2,594MiB peak. The strict child selector was installed, actual FR.3/LUT restored, full3FHD outputs matched saved child renders, and pipeline/core/EMA/seven serialized states/RNG remained unchanged. No optimizer, frequency or occupancy update; controller exited and lease released.
+
+| Native clothing diagnostics | Control150316 | Margin155316 |
+|---|---:|---:|
+| All103 before /±.02band /after /transmission (%) |1.5910 /96.1579 /1.6452 /.6059|1.4010 /96.4043 /1.6428 /.5520|
+| Grey54 ±.02band (%) |98.5403|98.5391|
+| Black49 ±.02band (%) |93.5323|94.0516|
+| New patch reserves9 ±.02band (%) |99.9690|99.9690|
+| Mean signed t50−witness |+.00088294|+.00088441|
+| Mean unconditional10–90width |.0139070|.0134220|
+
+All103 dense convergence tests pass; native cap hits0. The paired natural terminal ages differ; comparison is diagnostic, not a matched-step causal estimate. AtHC1052,576 treatment alpha=.836832 versus control.699964, recovering the zero-gate deficit; atKA1028,331 treatment=.752529 versus control.968112. No optical alpha target was supplied. Three declared head-halo rays remain zero under treatment versus alpha1 control. Whole-image halos/floor/bag remain, as independently inspected in all3body and all3hair/feet pages. No clean asset or global promotion.
+
+[All source-bound ray metrics](assets/marshawn_source_support_fourway_20261107/margin_final_geometry/CPU_comparison.json), [body comparison](assets/marshawn_source_support_fourway_20261107/margin_final_geometry/body_overview.jpg), [contour comparison](assets/marshawn_source_support_fourway_20261107/margin_final_geometry/contour9_context.png). The original126316 source trace remains separately preserved. Sparse109 support admission is unchanged by these weights; it does not prove full hair/foot geometry.

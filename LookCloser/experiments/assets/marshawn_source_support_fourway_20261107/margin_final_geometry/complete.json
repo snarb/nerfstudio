@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "models": [
+    "original_mapped",
+    "source_margin002"
+  ],
+  "optimizer_updates": 0,
+  "quality_promotion": false
+}
