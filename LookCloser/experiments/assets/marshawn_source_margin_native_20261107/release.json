@@ -1,0 +1,11 @@
+{
+  "reviewer": "root",
+  "approved_readonly": true,
+  "policy_sha256": "f2048f496461a3da34e950c488312b9a0583f441cf79ea2285afbeb55fa85f58",
+  "time": 1794022888.3113484,
+  "no_optimizer_updates": true,
+  "quality_promotion": false,
+  "scope": "Actual3FHD A,margin.001,.002,restoredA; nine declared rays and their dense refs only; geometricmargin distinct from2e-7 numeric tolerance. Sourceweight/core/EMA/frequency fixed, idlephysicalUUIDlease8/10GiB900s.",
+  "inherited_identity_verified": true,
+  "helper_diffs_reviewed": true
+}

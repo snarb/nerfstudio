@@ -1,0 +1,1046 @@
+[
+  {
+    "query": {
+      "camera_name": "KA",
+      "camera": 2,
+      "x": 1027,
+      "y": 331,
+      "label": "grey_inner_knee_contour",
+      "diagnostic_only": true
+    },
+    "phases": {
+      "native_A": {
+        "native": {
+          "opacity": 0.8858910918387176,
+          "integrated_foreground_rgb": [
+            0.4183023345424193,
+            0.3544603308605178,
+            0.3115818845731071
+          ],
+          "model_rgb": [
+            0.41830140352249146,
+            0.3544595539569855,
+            0.31158119440078735
+          ],
+          "samples": 248
+        },
+        "uniform2x": {
+          "opacity": 0.9027171934739648,
+          "integrated_foreground_rgb": [
+            0.44616692280181763,
+            0.37173671457355534,
+            0.3254317280227024
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      },
+      "margin0_queries_only": {
+        "native": {
+          "opacity": 0.36982155423307667,
+          "integrated_foreground_rgb": [
+            0.1540093086080873,
+            0.11419878385643736,
+            0.09606277226066545
+          ],
+          "model_rgb": [
+            0.15400880575180054,
+            0.11419840157032013,
+            0.09606247395277023
+          ],
+          "samples": 248
+        },
+        "uniform2x": {
+          "opacity": 0.4250594268915338,
+          "integrated_foreground_rgb": [
+            0.19371779315502757,
+            0.1440999163215216,
+            0.1248536388593974
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      },
+      "margin001": {
+        "native": {
+          "opacity": 0.37214272159797646,
+          "integrated_foreground_rgb": [
+            0.15633047597298705,
+            0.11651995122133715,
+            0.09838125741917503
+          ],
+          "model_rgb": [
+            0.1563299149274826,
+            0.11651952564716339,
+            0.09838094562292099
+          ],
+          "samples": 248
+        },
+        "uniform2x": {
+          "opacity": 0.4315296718973714,
+          "integrated_foreground_rgb": [
+            0.199811323089066,
+            0.15023022700033886,
+            0.1308613719806269
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      },
+      "margin002": {
+        "native": {
+          "opacity": 0.3828121105319332,
+          "integrated_foreground_rgb": [
+            0.1669998649069438,
+            0.1271893401552939,
+            0.10905064635313177
+          ],
+          "model_rgb": [
+            0.16699934005737305,
+            0.12718895077705383,
+            0.10905030369758606
+          ],
+          "samples": 248
+        },
+        "uniform2x": {
+          "opacity": 0.4401706362744048,
+          "integrated_foreground_rgb": [
+            0.2082584519226912,
+            0.15869082053409458,
+            0.1391753037909412
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      }
+    }
+  },
+  {
+    "query": {
+      "camera_name": "KA",
+      "camera": 2,
+      "x": 1028,
+      "y": 331,
+      "label": "grey_inner_knee_contour",
+      "diagnostic_only": true
+    },
+    "phases": {
+      "native_A": {
+        "native": {
+          "opacity": 0.9668393614738977,
+          "integrated_foreground_rgb": [
+            0.3966786060734363,
+            0.3615930200561815,
+            0.3355753945222648
+          ],
+          "model_rgb": [
+            0.3966779112815857,
+            0.36159247159957886,
+            0.3355748653411865
+          ],
+          "samples": 234
+        },
+        "uniform2x": {
+          "opacity": 0.9692371072797574,
+          "integrated_foreground_rgb": [
+            0.422895914366605,
+            0.38662108695122227,
+            0.3533996872298032
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      },
+      "margin0_queries_only": {
+        "native": {
+          "opacity": 0.5444797184013125,
+          "integrated_foreground_rgb": [
+            0.18791365877861116,
+            0.18817133372573533,
+            0.18132107913824763
+          ],
+          "model_rgb": [
+            0.18791316449642181,
+            0.18817095458507538,
+            0.18132083117961884
+          ],
+          "samples": 234
+        },
+        "uniform2x": {
+          "opacity": 0.5695169264570027,
+          "integrated_foreground_rgb": [
+            0.2178336094302902,
+            0.20775992218726722,
+            0.20024900514518892
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      },
+      "margin001": {
+        "native": {
+          "opacity": 0.5575730358183133,
+          "integrated_foreground_rgb": [
+            0.20100697619561192,
+            0.20126465114273612,
+            0.1944143965552484
+          ],
+          "model_rgb": [
+            0.20100639760494232,
+            0.20126423239707947,
+            0.19441412389278412
+          ],
+          "samples": 234
+        },
+        "uniform2x": {
+          "opacity": 0.5834767598791238,
+          "integrated_foreground_rgb": [
+            0.2316116315518222,
+            0.22154207991645208,
+            0.21353187998618747
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      },
+      "margin002": {
+        "native": {
+          "opacity": 0.5659458722041405,
+          "integrated_foreground_rgb": [
+            0.2093798125814392,
+            0.2096374875285634,
+            0.20271150879259683
+          ],
+          "model_rgb": [
+            0.20937925577163696,
+            0.20963703095912933,
+            0.20271120965480804
+          ],
+          "samples": 234
+        },
+        "uniform2x": {
+          "opacity": 0.6005368559441937,
+          "integrated_foreground_rgb": [
+            0.24852198888513066,
+            0.23843635152803186,
+            0.23027755899963734
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      }
+    }
+  },
+  {
+    "query": {
+      "camera_name": "KA",
+      "camera": 2,
+      "x": 1029,
+      "y": 331,
+      "label": "grey_inner_knee_contour",
+      "diagnostic_only": true
+    },
+    "phases": {
+      "native_A": {
+        "native": {
+          "opacity": 0.9928471914712611,
+          "integrated_foreground_rgb": [
+            0.46521188394063423,
+            0.40310705345952436,
+            0.35773749863443954
+          ],
+          "model_rgb": [
+            0.46521157026290894,
+            0.4031069278717041,
+            0.35773730278015137
+          ],
+          "samples": 232
+        },
+        "uniform2x": {
+          "opacity": 0.9945023031620247,
+          "integrated_foreground_rgb": [
+            0.447786138378539,
+            0.39594301269680887,
+            0.3632177994698645
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      },
+      "margin0_queries_only": {
+        "native": {
+          "opacity": 0.61146740719346,
+          "integrated_foreground_rgb": [
+            0.25952475338070013,
+            0.2341672890592302,
+            0.2334742623075371
+          ],
+          "model_rgb": [
+            0.25952449440956116,
+            0.2341671884059906,
+            0.23347412049770355
+          ],
+          "samples": 232
+        },
+        "uniform2x": {
+          "opacity": 0.6332817825919217,
+          "integrated_foreground_rgb": [
+            0.25712074077016084,
+            0.2322021639888742,
+            0.22991378282312958
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      },
+      "margin001": {
+        "native": {
+          "opacity": 0.6197526819898309,
+          "integrated_foreground_rgb": [
+            0.26781002817707106,
+            0.2424525638556011,
+            0.241759537103908
+          ],
+          "model_rgb": [
+            0.26780974864959717,
+            0.2424524426460266,
+            0.24175937473773956
+          ],
+          "samples": 232
+        },
+        "uniform2x": {
+          "opacity": 0.64529765516619,
+          "integrated_foreground_rgb": [
+            0.26888359351566393,
+            0.24397594743776266,
+            0.24170735224114395
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      },
+      "margin002": {
+        "native": {
+          "opacity": 0.6283025040555551,
+          "integrated_foreground_rgb": [
+            0.2763598502427952,
+            0.25100238592132523,
+            0.2502984512941996
+          ],
+          "model_rgb": [
+            0.27635958790779114,
+            0.2510022521018982,
+            0.25029823184013367
+          ],
+          "samples": 232
+        },
+        "uniform2x": {
+          "opacity": 0.6669079184568629,
+          "integrated_foreground_rgb": [
+            0.2901326926575963,
+            0.2652059082548339,
+            0.2626050417226308
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      }
+    }
+  },
+  {
+    "query": {
+      "camera_name": "HC",
+      "camera": 1,
+      "x": 1051,
+      "y": 576,
+      "label": "grey_inner_leg_contour",
+      "diagnostic_only": true
+    },
+    "phases": {
+      "native_A": {
+        "native": {
+          "opacity": 0.6521548689112628,
+          "integrated_foreground_rgb": [
+            0.3323182517285198,
+            0.2767194501278094,
+            0.22256953553501396
+          ],
+          "model_rgb": [
+            0.3323180079460144,
+            0.27671948075294495,
+            0.22256937623023987
+          ],
+          "samples": 63
+        },
+        "uniform2x": {
+          "opacity": 0.664968228778055,
+          "integrated_foreground_rgb": [
+            0.3495926417362729,
+            0.29227157471321147,
+            0.24107475300898343
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      },
+      "margin0_queries_only": {
+        "native": {
+          "opacity": 0.22569895976450505,
+          "integrated_foreground_rgb": [
+            0.038249017576127586,
+            0.04890021235047266,
+            0.05416079244357471
+          ],
+          "model_rgb": [
+            0.03824886679649353,
+            0.04890023544430733,
+            0.054160602390766144
+          ],
+          "samples": 63
+        },
+        "uniform2x": {
+          "opacity": 0.270093268277342,
+          "integrated_foreground_rgb": [
+            0.06929917947858433,
+            0.06738677056754801,
+            0.06523646434762777
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      },
+      "margin001": {
+        "native": {
+          "opacity": 0.25102478317385035,
+          "integrated_foreground_rgb": [
+            0.04321562227971372,
+            0.049760024514787234,
+            0.056631398786541186
+          ],
+          "model_rgb": [
+            0.043215472251176834,
+            0.04976005107164383,
+            0.05663120746612549
+          ],
+          "samples": 63
+        },
+        "uniform2x": {
+          "opacity": 0.28760064753475084,
+          "integrated_foreground_rgb": [
+            0.08188862417725648,
+            0.07709307684429977,
+            0.07626736983448165
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      },
+      "margin002": {
+        "native": {
+          "opacity": 0.3399136513623938,
+          "integrated_foreground_rgb": [
+            0.122087641520154,
+            0.12167565464745062,
+            0.11430493460613796
+          ],
+          "model_rgb": [
+            0.1220875009894371,
+            0.12167567014694214,
+            0.11430475115776062
+          ],
+          "samples": 63
+        },
+        "uniform2x": {
+          "opacity": 0.37743603388875824,
+          "integrated_foreground_rgb": [
+            0.1658182310796629,
+            0.15644858593426264,
+            0.14986122494899853
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      }
+    }
+  },
+  {
+    "query": {
+      "camera_name": "HC",
+      "camera": 1,
+      "x": 1052,
+      "y": 576,
+      "label": "grey_inner_leg_contour",
+      "diagnostic_only": true
+    },
+    "phases": {
+      "native_A": {
+        "native": {
+          "opacity": 0.7013771506194704,
+          "integrated_foreground_rgb": [
+            0.33529844599105396,
+            0.2700837871917903,
+            0.2375677833641997
+          ],
+          "model_rgb": [
+            0.3352983295917511,
+            0.2700837254524231,
+            0.23756733536720276
+          ],
+          "samples": 93
+        },
+        "uniform2x": {
+          "opacity": 0.698318486966661,
+          "integrated_foreground_rgb": [
+            0.33357914570024705,
+            0.2788356617624783,
+            0.24477722127514426
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      },
+      "margin0_queries_only": {
+        "native": {
+          "opacity": 0.41926892400306653,
+          "integrated_foreground_rgb": [
+            0.10850079428825889,
+            0.09192876212135632,
+            0.09206784991376843
+          ],
+          "model_rgb": [
+            0.1085006594657898,
+            0.09192869067192078,
+            0.0920674204826355
+          ],
+          "samples": 93
+        },
+        "uniform2x": {
+          "opacity": 0.43700398383433303,
+          "integrated_foreground_rgb": [
+            0.11605935324458992,
+            0.10986993676357266,
+            0.10593888904229375
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      },
+      "margin001": {
+        "native": {
+          "opacity": 0.46537618969167105,
+          "integrated_foreground_rgb": [
+            0.15460805997686344,
+            0.13666777788461568,
+            0.12998411316865993
+          ],
+          "model_rgb": [
+            0.15460795164108276,
+            0.13666771352291107,
+            0.12998367846012115
+          ],
+          "samples": 93
+        },
+        "uniform2x": {
+          "opacity": 0.4817970332127874,
+          "integrated_foreground_rgb": [
+            0.16026227461968456,
+            0.15254558773952978,
+            0.14521673919897626
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      },
+      "margin002": {
+        "native": {
+          "opacity": 0.5816846463033469,
+          "integrated_foreground_rgb": [
+            0.23507770399580852,
+            0.2092759555507992,
+            0.20293290929406507
+          ],
+          "model_rgb": [
+            0.23507757484912872,
+            0.20927587151527405,
+            0.2029324769973755
+          ],
+          "samples": 93
+        },
+        "uniform2x": {
+          "opacity": 0.5779294653208406,
+          "integrated_foreground_rgb": [
+            0.2351102315792662,
+            0.218262131802684,
+            0.2032594581518813
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      }
+    }
+  },
+  {
+    "query": {
+      "camera_name": "HC",
+      "camera": 1,
+      "x": 1053,
+      "y": 576,
+      "label": "grey_inner_leg_contour",
+      "diagnostic_only": true
+    },
+    "phases": {
+      "native_A": {
+        "native": {
+          "opacity": 0.8013745016702964,
+          "integrated_foreground_rgb": [
+            0.3297070377508581,
+            0.28148033928108923,
+            0.2711828664318829
+          ],
+          "model_rgb": [
+            0.3297067880630493,
+            0.2814801037311554,
+            0.27118241786956787
+          ],
+          "samples": 123
+        },
+        "uniform2x": {
+          "opacity": 0.8394433114285249,
+          "integrated_foreground_rgb": [
+            0.3013937869328364,
+            0.26314201464988357,
+            0.2546489184576712
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      },
+      "margin0_queries_only": {
+        "native": {
+          "opacity": 0.6418645885041311,
+          "integrated_foreground_rgb": [
+            0.18602931554692653,
+            0.1726801953071948,
+            0.19046088691548793
+          ],
+          "model_rgb": [
+            0.18602918088436127,
+            0.17268006503582,
+            0.1904604434967041
+          ],
+          "samples": 123
+        },
+        "uniform2x": {
+          "opacity": 0.7163310648529343,
+          "integrated_foreground_rgb": [
+            0.1961674667644642,
+            0.17987082495625714,
+            0.18300213968008827
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      },
+      "margin001": {
+        "native": {
+          "opacity": 0.7106853654877794,
+          "integrated_foreground_rgb": [
+            0.25302687488194636,
+            0.22938897892418209,
+            0.23713560645603554
+          ],
+          "model_rgb": [
+            0.25302672386169434,
+            0.22938886284828186,
+            0.2371351718902588
+          ],
+          "samples": 123
+        },
+        "uniform2x": {
+          "opacity": 0.7625087358494015,
+          "integrated_foreground_rgb": [
+            0.2408364680962194,
+            0.21694630719481442,
+            0.2156029239369527
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      },
+      "margin002": {
+        "native": {
+          "opacity": 0.7510191159519467,
+          "integrated_foreground_rgb": [
+            0.28466628589107745,
+            0.2571925837560459,
+            0.261119740075837
+          ],
+          "model_rgb": [
+            0.28466612100601196,
+            0.25719237327575684,
+            0.2611193358898163
+          ],
+          "samples": 123
+        },
+        "uniform2x": {
+          "opacity": 0.8022887346201069,
+          "integrated_foreground_rgb": [
+            0.2712908201913875,
+            0.2442575362345744,
+            0.24124208654013915
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      }
+    }
+  },
+  {
+    "query": {
+      "camera_name": "DC",
+      "camera": 0,
+      "x": 849,
+      "y": 85,
+      "label": "head_halo",
+      "diagnostic_only": true
+    },
+    "phases": {
+      "native_A": {
+        "native": {
+          "opacity": 1.0,
+          "integrated_foreground_rgb": [
+            0.3313841048163279,
+            0.29431377489687627,
+            0.19100186208870945
+          ],
+          "model_rgb": [
+            0.3313840627670288,
+            0.2943137586116791,
+            0.19100186228752136
+          ],
+          "samples": 97
+        },
+        "uniform2x": {
+          "opacity": 1.0,
+          "integrated_foreground_rgb": [
+            0.33009913707026894,
+            0.2983585619296218,
+            0.20802088375914712
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      },
+      "margin0_queries_only": {
+        "native": {
+          "opacity": 0.0,
+          "integrated_foreground_rgb": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "model_rgb": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "samples": 97
+        },
+        "uniform2x": {
+          "opacity": 0.0,
+          "integrated_foreground_rgb": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      },
+      "margin001": {
+        "native": {
+          "opacity": 0.0,
+          "integrated_foreground_rgb": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "model_rgb": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "samples": 97
+        },
+        "uniform2x": {
+          "opacity": 0.0,
+          "integrated_foreground_rgb": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      },
+      "margin002": {
+        "native": {
+          "opacity": 0.0,
+          "integrated_foreground_rgb": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "model_rgb": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "samples": 97
+        },
+        "uniform2x": {
+          "opacity": 0.0,
+          "integrated_foreground_rgb": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      }
+    }
+  },
+  {
+    "query": {
+      "camera_name": "DC",
+      "camera": 0,
+      "x": 850,
+      "y": 85,
+      "label": "head_halo",
+      "diagnostic_only": true
+    },
+    "phases": {
+      "native_A": {
+        "native": {
+          "opacity": 0.9999999999999999,
+          "integrated_foreground_rgb": [
+            0.35427913891758467,
+            0.3060627934671692,
+            0.2051950617081687
+          ],
+          "model_rgb": [
+            0.35427913069725037,
+            0.30606281757354736,
+            0.20519505441188812
+          ],
+          "samples": 113
+        },
+        "uniform2x": {
+          "opacity": 1.0,
+          "integrated_foreground_rgb": [
+            0.34475568844852333,
+            0.2885470068057653,
+            0.24668579978666716
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      },
+      "margin0_queries_only": {
+        "native": {
+          "opacity": 0.0,
+          "integrated_foreground_rgb": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "model_rgb": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "samples": 113
+        },
+        "uniform2x": {
+          "opacity": 0.0,
+          "integrated_foreground_rgb": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      },
+      "margin001": {
+        "native": {
+          "opacity": 0.0,
+          "integrated_foreground_rgb": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "model_rgb": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "samples": 113
+        },
+        "uniform2x": {
+          "opacity": 0.0,
+          "integrated_foreground_rgb": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      },
+      "margin002": {
+        "native": {
+          "opacity": 0.0,
+          "integrated_foreground_rgb": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "model_rgb": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "samples": 113
+        },
+        "uniform2x": {
+          "opacity": 0.0,
+          "integrated_foreground_rgb": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      }
+    }
+  },
+  {
+    "query": {
+      "camera_name": "DC",
+      "camera": 0,
+      "x": 851,
+      "y": 85,
+      "label": "head_halo",
+      "diagnostic_only": true
+    },
+    "phases": {
+      "native_A": {
+        "native": {
+          "opacity": 1.0,
+          "integrated_foreground_rgb": [
+            0.3152068131227178,
+            0.2707233248442869,
+            0.2266958595642376
+          ],
+          "model_rgb": [
+            0.31520676612854004,
+            0.27072328329086304,
+            0.22669583559036255
+          ],
+          "samples": 145
+        },
+        "uniform2x": {
+          "opacity": 1.0,
+          "integrated_foreground_rgb": [
+            0.33395677795933615,
+            0.29450976551252384,
+            0.2743457645270619
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      },
+      "margin0_queries_only": {
+        "native": {
+          "opacity": 0.0,
+          "integrated_foreground_rgb": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "model_rgb": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "samples": 145
+        },
+        "uniform2x": {
+          "opacity": 0.0,
+          "integrated_foreground_rgb": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      },
+      "margin001": {
+        "native": {
+          "opacity": 0.0,
+          "integrated_foreground_rgb": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "model_rgb": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "samples": 145
+        },
+        "uniform2x": {
+          "opacity": 0.0,
+          "integrated_foreground_rgb": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      },
+      "margin002": {
+        "native": {
+          "opacity": 0.0,
+          "integrated_foreground_rgb": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "model_rgb": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "samples": 145
+        },
+        "uniform2x": {
+          "opacity": 0.0,
+          "integrated_foreground_rgb": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "model_rgb": null,
+          "samples": 16384
+        }
+      }
+    }
+  }
+]
