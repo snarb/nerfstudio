@@ -1,0 +1,92 @@
+{
+  "kind": "CPU_PROPOSED_MARGIN_CONTINUATION_SPEC_NOT_EXECUTABLE",
+  "parent_step": 126316,
+  "parent_checkpoint": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_quarter_distortion_final_geometry/quarter_distortion_rawmin/checkpoint.ckpt",
+  "parent_checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "parent_science": {
+    "objective": "actor",
+    "sampling": "body80",
+    "width": 64,
+    "radius": 0,
+    "coarse_step": 0.0015625,
+    "distortion_final": 0.1,
+    "seed": 42,
+    "frequency_threshold": 0.95,
+    "correct_sh_directions": true,
+    "density_activation": "trunc_exp",
+    "frequency_projection_mode": "legacy",
+    "lr_decay_steps": 200000,
+    "followup_variant": "actor"
+  },
+  "actual_source_FR": 0.3,
+  "source_fullstate_hashes": {
+    "actual_occupancy_capture": "b8809cd17b7c7c8b1440ac33f419872ef5b3cf1fb4953fee20aec2ddbb02dbd4",
+    "optimizers": "73ee993c0dc56b34e6fc9dd799cf63cfcf1d19ca7f252568680f12663dc9583e",
+    "pipeline": "c83bc7dbb1504063c35f0a2b14ae3fb329ff27ed2eb6b3661eb89b4918d46636",
+    "rng_state": "7de999966deb5bc61d81ce39a81891b52df244e05881da2b15cfabe0235e5811",
+    "scalers": "90fa2bbdf25a1c8b016fbd745e22cb8c20431f24c3088693acf9b029248f30c7",
+    "schedulers": "50cde065a272d13da9ef8522a84f2e50a7598437db28721153e3b8ae73447ec3",
+    "tuning_runtime": "6f988601c4ec813524a6d6e1bfeb056a7b8e03acfd66b8e8246f6d2f8f0b65a7"
+  },
+  "source_Adam": {
+    "fields": [
+      126262.0
+    ]
+  },
+  "source_original1495_manifest_sha256": "ad32a034c492314162fac8d966be2215c834393a1bb984beb05f1eed8f9c43b3",
+  "original_science_files": 1495,
+  "original_science_modified": false,
+  "stopping": {
+    "minimum_attempts": 4000,
+    "anchor_step": 130316,
+    "interval": 5000,
+    "patience": 4,
+    "loss_relative_delta": 0.001,
+    "lpips_absolute_delta": 0.001,
+    "early_visual_attempts": [
+      500,
+      1000,
+      2000,
+      4000
+    ],
+    "hard_iteration_limit": null
+  },
+  "technical_attempts": 64,
+  "technical_pause_after": 32,
+  "source_grid": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/quarter_distortion_source_margin_v1/source_grid.npz",
+  "source_grid_sha256": "e804d736dd766e8adf11df07e346a6317af87e0b106a94dfc524ab32f1690d71",
+  "selector_helpers_sha256": {
+    "marshawn_source_point_admission.py": "aa288b24bdf84463c33d101a252c6945db40b0f3fffc833a32c782d4a62018b1",
+    "marshawn_source_margin_admission.py": "7f1b9c942f8611123ac4a9800c369e49fd09e360a4eaca13ccc95d2c919967b8",
+    "marshawn_readonly_point_selector.py": "9835b52f46ad880e5022bc560fa4679db7fb5d12601bae02ba71da4fc412f184"
+  },
+  "sampler": "Unmodified original install_sampling; NO ConfidencePolicy/weight replacement/proposal recalculation",
+  "expected_first_native_ARM_update": 126320,
+  "expected_first_frequency_refresh": 126976,
+  "source_before_selector_verify": true,
+  "all_gpu_phases_authorized": false,
+  "runtime_worker_implementation_status": "PENDING_SEPARATE_ROOT_PLAN_REVIEW",
+  "orchestration": "Do not reuse superseded RGB phase_runner/plans; await current external transport guardian and bind exactcode/specpolicy.",
+  "arm": "original_mapped",
+  "output": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_margin_continuation_candidate_v1/runs/original_mapped",
+  "selector": {
+    "kind": "original_mapped",
+    "geometric_Linf_margin": null,
+    "numerical_epsilon": 2e-07,
+    "outside_domain": "UNKNOWN admitted at numericalepsilon only",
+    "coarse_traversal": "unchanged131911 wholecellcover/nativeR0; no forcedpointgate AND onlearnedcore orEMA"
+  },
+  "zero_reference": {
+    "path": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/quarter_distortion_source_margin_v1/quarter_distortion_raw126316/native_A/renders/step-000126316",
+    "kind": "samebranchzeroquality; originalA remainsseparatecrossarmreference",
+    "files_sha256": {
+      "KA_alpha.png": "fb63c4ec43b9ee4ff5709882bb8028aa38ca695035574883c271fe8d6afca9a5",
+      "DC.png": "dbc63525e10168c246395239f43804066d0f645066cd2e7f61893634b4aaddce",
+      "HC.png": "86b95bdabf7c046359d01924a369fd5e3d1ef374ae8b1ce15dd688a202b377bf",
+      "KA.png": "3b40261ad9f4ca5ae5d9a6e84e65129c1cae86c0257833842c5e17d807bb91f3",
+      "DC_alpha.png": "0135615ab16a48f442f5a9ed48c793c992a157e77e2d7ca6bc1f6e016ea30b2a",
+      "metrics.json": "15884de2671f68e2dbbbff865abc6ad907b70ff1a8d7bffb903eff49dceb7dfb",
+      "HC_alpha.png": "be5520dbd755428366c512fd4bc7701f30bf902f863d956274f4dffee2943430"
+    }
+  }
+}

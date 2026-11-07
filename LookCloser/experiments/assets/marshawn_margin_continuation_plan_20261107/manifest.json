@@ -1,0 +1,17 @@
+{
+  "files_sha256": {
+    "protocol.json": "659842196fa0351e48a5bf847433e582de48d08666b5486250f783126d2a083e",
+    "contracts/inherited_RGB_CPU_readiness.json": "0652697701abe9527ad067aba11a40f5c4ed1921215b28ab4e2b511af2f2e312",
+    "contracts/inherited_anchor_audit.json": "17eeff46a530d6feb0eb1421a9a64698cc4aa792602672151a6bbdcba00c0595",
+    "contracts/common_parent_spec.json": "54e55e212bb7c1d27c12c9428cef8cd6b99ccdefa9ca3fbef776ba01d828aaa8",
+    "contracts/marshawn_readonly_point_selector.py": "9835b52f46ad880e5022bc560fa4679db7fb5d12601bae02ba71da4fc412f184",
+    "contracts/inherited_margin_readonly_proof.json": "ae82db8f53c7841bed443c7be9b2d26717327169a960c88a7fb1a64a404f761e",
+    "contracts/marshawn_source_point_admission.py": "aa288b24bdf84463c33d101a252c6945db40b0f3fffc833a32c782d4a62018b1",
+    "contracts/marshawn_source_margin_admission.py": "7f1b9c942f8611123ac4a9800c369e49fd09e360a4eaca13ccc95d2c919967b8",
+    "specs/original_mapped.json": "c378f7c6d267da6b27b087ac474ac85a7e5214f0ec61619427e3f35ee66d6c58",
+    "specs/source_margin002.json": "76804a0cc9421e200effb1897b75f2bd1e050ea608842bf0fa462d1e7a843ac2"
+  },
+  "GPU_started": false,
+  "training_authorized": false,
+  "execution_ready": false
+}
