@@ -2121,3 +2121,15 @@ retain immutable RGB/poses and compare per-level LR decay against a lower SSIM
 threshold. Fitted maps require separate source-bound assembly and3D validation
 before use. Every fork retains actual core/EMA/admission/active snapshots and
 model/Adam/scheduler/AMP/global and private RNG state for restart and review.
+
+
+The focused-clothing fork adds a separate camera-balanced private stream over
+31 source-reviewed opaque-clothing points and84 projected TRAIN observations.
+Reserved geometry stays excluded. It compares the historical free prefix, a
+closer prefix and an optional positive optical-depth band while retaining the
+original main rays and focused frequency runtime. Prefix512 and band256
+quadrature use the shared semantic density selector without learned occupancy
+skipping. All arms consume the private packets; the zero-coefficient control
+skips auxiliary density queries. These are soft sparse priors, not hard grid
+carves or global geometry certificates. Technical restart crosses an actual
+frequency refresh; production ancestry starts again from the original anchor.
