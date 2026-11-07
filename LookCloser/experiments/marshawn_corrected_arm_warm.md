@@ -86,3 +86,23 @@ All four worker invocations return0. Local and remote guardians finish `passed=t
 The actual technical verifierSHA is`3769af075338bfb41677535139639d7db871d26e9e3a8e5dbca9a78beea27998`; compact closureSHA is`20a114db59a88f4859332c683af08c4936492bc54a302a105349f4f01a33bbfe`. This proves actual update/resume integration, not quality. No production job is launched by this gate; separate root acceptance/release is required before the original500/1000/2000/4000 visual gates and unchanged plateau continuation.
 
 [Actual technical verification](assets/marshawn_corrected_arm_warm_20261107/technical_verification.json), [checkpoint/state/gradient/resource closure](assets/marshawn_corrected_arm_warm_20261107/technical_review_summary.json), [technical supervision](assets/marshawn_corrected_arm_warm_20261107/manual_technical_supervision.jsonl).
+
+## Production early visual gates
+
+Root accepted technical and separately released production. Both arms start fresh from the same126316 checkpoint, preserving all settings except their declared allocator flag. Local guardian2203762/controller2203782 supervise workers103047 and103269 on the boundGPU3/4 UUIDs. The read-only CPU retention watcher2203856 hashes checkpoint/grid metadata remotely and copies images, small grid archives and receipts with compressed rsync. Checkpoints stay on silver and are never pruned.
+
+|Warm attempts|Legacy PSNR|Legacy SSIM|Legacy LPIPS|Corrected PSNR|Corrected SSIM|Corrected LPIPS|
+|---|---:|---:|---:|---:|---:|---:|
+|Source0|31.639727|.831264|.01877312|31.639727|.831264|.01877312|
+|500|31.619498|.831217|.01888467|31.616714|.831244|.01887406|
+|1000|31.627347|.831128|.01891657|31.637712|.831184|.01889892|
+|2000|31.627780|.831191|.01895582|31.614452|.831042|.01895685|
+|4000|31.607869|.830914|.01889948|31.600055|.830978|.01893746|
+
+All three full FHD RGB/alpha renders and the fixed original nine hair/hands-contact/feet comparisons are retained at each gate. Root personally inspected the500 gate: bodies, hair, hands and shoes remain stable, while head/floor clouds persist; no promotion. The4000 actor comparison also shows no obvious broad geometry improvement. Source LPIPS remains lower than every early continuation. At4000 corrected exterior-opacity counts are118333/79795/54995 versus source118260/79892/54994; these small mask-exterior changes are diagnostic, not empty-space truth.
+
+![Source, legacy and corrected at4000, all three actor views](assets/marshawn_corrected_arm_warm_20261107/production4000_all_actors.jpg)
+
+[Fixed nine detail comparisons at4000](assets/marshawn_corrected_arm_warm_20261107/production4000_all_details.jpg). All committed early manifests, full renders and individual guard PNGs remain in [the retained visual gates](/fsx/tmp/marshawn_001660_hd/tuning_20261106/corrected_arm_warm_candidate_v1/external_guard_corrected_ARM_v1/visual_gates_v1).
+
+Training continues under the unchanged validation plateau rule, with its new130316 anchor and5000-step interval. Latest recorded10:12:36 health is133365/133259, both expected workers and guardians alive, sampled GPU memory8086/7964MiB and no OOM/tracebacks. This is an interim result; no quality promotion or stopping-rule change is made.
