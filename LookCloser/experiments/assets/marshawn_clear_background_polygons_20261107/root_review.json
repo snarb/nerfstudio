@@ -1,0 +1,53 @@
+{
+  "reviewer": "root",
+  "time": "2026-11-07T00:53:36.226429+00:00",
+  "proposal_sha256": "b2dc3905295399307b6143960e453b91044d3a6339c91b0aadfbe78cace0a2cb",
+  "approved_for_experimental_targets": true,
+  "rows": [
+    {
+      "camera": "AA",
+      "pixels": 1872,
+      "min_interval_z": 0.17449516104307605,
+      "minimum_floor_after_far": 0.4306338806790946
+    },
+    {
+      "camera": "BA",
+      "pixels": 2689,
+      "min_interval_z": 0.12370830154458723,
+      "minimum_floor_after_far": 0.2929680922637561
+    },
+    {
+      "camera": "HA",
+      "pixels": 2808,
+      "min_interval_z": 0.20122161517533027,
+      "minimum_floor_after_far": 0.5631563656304666
+    }
+  ],
+  "total_pixels": 7369,
+  "source_images_viewed": "All3 fullsource overlays and unmarked/marked zoom pairs",
+  "finding": "Visible floor in each eligible polygon; no actor, equipment or foreground person inside retained subset at reviewed resolution. Rejected actor-margin pixels remain excluded.",
+  "inputs_sha256": {
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/clear_background_polygon_proposal_v1/proposal.json": "b2dc3905295399307b6143960e453b91044d3a6339c91b0aadfbe78cace0a2cb",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/images/train_AA.png": "fccdebd270b584e690bcafa7a7b82e15d27b0001889bef741d548cf42ccab4c8",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/negative_tau_candidate_v1/source_archives/AA.npz": "205ade1d948682dcaa37babca189cae5899f62b2483d0dd59116ce4e13e71a0f",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/AA.npz": "3f32135205312f9329fc30d0ef0491d8a0c6972f80dc5b73c37f6817d404435a",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/clear_background_polygon_proposal_v1/AA_source_zoom.png": "59537c52781558849df4732f9672b5d2281f0b37fde6ac41a1f997f2a723e781",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/clear_background_polygon_proposal_v1/AA_full_source_overlay.png": "d27aa13d530decd78c734164cb1b959e4541d6d7b7700880f685958189178174",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/clear_background_polygon_proposal_v1/AA_proposed_pixels.npz": "77ceb19dba7d7432aa9385dc03a7f849167385c6890e7a0f9e33d020ac0a407f",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/images/train_BA.png": "be895585cae857d0b0a78d8578c8a61b5cbd2c6894134380bb0e411678d3e4b7",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/negative_tau_candidate_v1/source_archives/BA.npz": "e4128314170c2d52909c2ce22e77af1afa4c89e3e9838e5d49a3aa719b27b599",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/BA.npz": "8e94c32d04b64df4a93683547934a331de9dd941076c5b2dd4ac920a4ba1ca04",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/clear_background_polygon_proposal_v1/BA_source_zoom.png": "96c5300f91014c4a8c231af1291b342d9911d30bc425856c385e613fbc63bd11",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/clear_background_polygon_proposal_v1/BA_full_source_overlay.png": "75072750c73a0f55082f6a2b74e032bb6f3c72fe906c9af09f63eb67e8e95f39",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/clear_background_polygon_proposal_v1/BA_proposed_pixels.npz": "e3cce4f512ded3ec6f5117cfe2cd7e1899e0bfc8db9cf0468cae8b14eda0d507",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/images/train_HA.png": "e73715c25be0da5692175514ad2ab3bf086b938a87f754f2dcb6770114851b53",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/negative_tau_candidate_v1/source_archives/HA.npz": "3460690c353d6865755f297545b5c8be6ffe122b112beef06f5e598815494aa9",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/HA.npz": "c0c40fcf8d5bf6f2eccd298906a8a984256912967e7b4c4ab479cecf942bed17",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/clear_background_polygon_proposal_v1/HA_source_zoom.png": "a61386151f29398e6d8e42eaeee21433b709feb0c99cb7d655283ec49d168c0c",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/clear_background_polygon_proposal_v1/HA_full_source_overlay.png": "7b92cc5e46ee65a9b4a1f6cdf5682be9b0a7e55ef41437c6f42378d4444b3ad9",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/clear_background_polygon_proposal_v1/HA_proposed_pixels.npz": "b5b3021a51c9fb95fc0196bf24529f9998ceb7392e1ef48ca6a583676a24360a"
+  },
+  "conditional_geometry": "Existing accepted floor frame, entire target AABBsegment z>.10, floor intersection afterfar. No independent depth for every pixel; not a globalemptyspace certificate.",
+  "original_masks_and_targets_unchanged": true,
+  "training_recipe_promoted": false
+}
