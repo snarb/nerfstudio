@@ -1,0 +1,532 @@
+{
+  "passed": true,
+  "phase": "zero",
+  "arms": {
+    "original": {
+      "source_seven_states_exact": true,
+      "render_parity": {
+        "status": "numeric_render_parity",
+        "source_bytes_exact": true,
+        "full_state_requirement": "bitwise canonical hashes unchanged",
+        "RGB8_alpha16_max_code_delta": 1,
+        "metric_absolute_tolerance": 1e-05,
+        "pixels": {
+          "DC.png": {
+            "source_sha256": "a7b4d90a165e19fc9513d1fd0767c08c157868342edd35582e5e0984af608229",
+            "replay_sha256": "dcc3003c3ef81b633a9f1eaa4ed66a35744e3569d6bab1465f6ff234408e79cc",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 3.431049626701801e-07,
+            "changed_values": 2,
+            "changed_fraction": 3.431049626701801e-07,
+            "changed_fraction_limit": 1e-05
+          },
+          "DC_alpha.png": {
+            "source_sha256": "1058061cc1de9489ef000c0f9702b51c0ab08eb388de65fb58e496efde099e59",
+            "replay_sha256": "849d1e607b7900ac5e1bbfb056fa969601b8a3ca153500dd7fe75b22d4c7f05a",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 0.0005403903162055336,
+            "changed_values": 1050,
+            "changed_fraction": 0.0005403903162055336,
+            "changed_fraction_limit": 0.001
+          },
+          "HC.png": {
+            "source_sha256": "d74f1af772668738b18cf44f5dc74b4e3b9f6b39ee5d8aa04233ec87fe0e7326",
+            "replay_sha256": "7a57968fc31b84d4c58f288098c641c65c5ffe54718631ac0c5b92245cb23101",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 8.577624066754502e-07,
+            "changed_values": 5,
+            "changed_fraction": 8.577624066754502e-07,
+            "changed_fraction_limit": 1e-05
+          },
+          "HC_alpha.png": {
+            "source_sha256": "20690cb8ee90d43b65c789cf705c9a740f9669a8af214a74d71eb5deb2ebe2d0",
+            "replay_sha256": "9d25a18957d8039fc2e8c6642dba93cdb07027b096dbf866baaa3d57be11447f",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 0.0004076086956521739,
+            "changed_values": 792,
+            "changed_fraction": 0.0004076086956521739,
+            "changed_fraction_limit": 0.001
+          },
+          "KA.png": {
+            "source_sha256": "f99c87f01f09abd10e4d532b025d398025e3174c9d4d698543ce8e1cd266a579",
+            "replay_sha256": "5cdddc86184b3dcfc78d263fc91a412e35514eb623f6f4907d1be14fe00a8a3b",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 1.2008673693456302e-06,
+            "changed_values": 7,
+            "changed_fraction": 1.2008673693456302e-06,
+            "changed_fraction_limit": 1e-05
+          },
+          "KA_alpha.png": {
+            "source_sha256": "d9ed58adece05fe7e5637aa10085b2ac476d385525bc7b40ee32415be834c6ab",
+            "replay_sha256": "9875bf3400e406cba311dc3f1046522db36ad1284e7f2664b8bd17bdb4e0b0e2",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 0.00030725049407114626,
+            "changed_values": 597,
+            "changed_fraction": 0.00030725049407114626,
+            "changed_fraction_limit": 0.001
+          }
+        },
+        "metric_deltas": {
+          "aggregate": {
+            "psnr": 0.0,
+            "ssim": 2.9802322387695312e-08,
+            "lpips": -7.65236715487283e-08
+          },
+          "by_view/DC": {
+            "psnr": 0.0,
+            "ssim": 1.4901161193847656e-07,
+            "lpips": 1.30385160446167e-08
+          },
+          "by_view/HC": {
+            "psnr": 0.0,
+            "ssim": -2.9802322387695312e-08,
+            "lpips": -1.0663643479347229e-07
+          },
+          "by_view/KA": {
+            "psnr": 0.0,
+            "ssim": -2.9802322387695312e-08,
+            "lpips": -1.3597309589385986e-07
+          },
+          "by_actor/black": {
+            "psnr": 0.0,
+            "ssim": 0.0,
+            "lpips": 2.66979138068002e-08
+          },
+          "by_actor/grey": {
+            "psnr": 0.0,
+            "ssim": 5.960464477539063e-08,
+            "lpips": -1.7974525690078735e-07
+          },
+          "record/DC/black": {
+            "psnr": 0.0,
+            "ssim": 1.1920928955078125e-07,
+            "lpips": 3.7439167499542236e-07
+          },
+          "record/DC/grey": {
+            "psnr": 0.0,
+            "ssim": 1.7881393432617188e-07,
+            "lpips": -3.4831464290618896e-07
+          },
+          "record/HC/black": {
+            "psnr": 0.0,
+            "ssim": -5.960464477539063e-08,
+            "lpips": -1.6391277313232422e-07
+          },
+          "record/HC/grey": {
+            "psnr": 0.0,
+            "ssim": 0.0,
+            "lpips": -4.936009645462036e-08
+          },
+          "record/KA/black": {
+            "psnr": 0.0,
+            "ssim": -5.960464477539063e-08,
+            "lpips": -1.30385160446167e-07
+          },
+          "record/KA/grey": {
+            "psnr": 0.0,
+            "ssim": 0.0,
+            "lpips": -1.4156103134155273e-07
+          }
+        },
+        "bitwise_render_claim": false,
+        "cause_established": false
+      },
+      "cache_sha256": "a80f6a908dd71cfbc3c75f60c6b8f71c9ebfaae3b24d3cfcc2f1ecdb5253ec56"
+    },
+    "bag6874": {
+      "source_seven_states_exact": true,
+      "render_parity": {
+        "status": "numeric_render_parity",
+        "source_bytes_exact": true,
+        "full_state_requirement": "bitwise canonical hashes unchanged",
+        "RGB8_alpha16_max_code_delta": 1,
+        "metric_absolute_tolerance": 1e-05,
+        "pixels": {
+          "DC.png": {
+            "source_sha256": "a7b4d90a165e19fc9513d1fd0767c08c157868342edd35582e5e0984af608229",
+            "replay_sha256": "4b88ce3666b7c2b9fcae29c5e819780002bf155685956a38d8de171513bd6cea",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 6.862099253403602e-07,
+            "changed_values": 4,
+            "changed_fraction": 6.862099253403602e-07,
+            "changed_fraction_limit": 1e-05
+          },
+          "DC_alpha.png": {
+            "source_sha256": "1058061cc1de9489ef000c0f9702b51c0ab08eb388de65fb58e496efde099e59",
+            "replay_sha256": "221ae87749f48b7cbdfdc8687f5bf4204b5db7ca0f38fe36a71852594a935500",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 0.0005470808629776021,
+            "changed_values": 1063,
+            "changed_fraction": 0.0005470808629776021,
+            "changed_fraction_limit": 0.001
+          },
+          "HC.png": {
+            "source_sha256": "d74f1af772668738b18cf44f5dc74b4e3b9f6b39ee5d8aa04233ec87fe0e7326",
+            "replay_sha256": "78841fd3b8b50a52e6ea15c7698d194a7b143cbd7580a126a5950127fe5cf1f7",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 6.862099253403602e-07,
+            "changed_values": 4,
+            "changed_fraction": 6.862099253403602e-07,
+            "changed_fraction_limit": 1e-05
+          },
+          "HC_alpha.png": {
+            "source_sha256": "20690cb8ee90d43b65c789cf705c9a740f9669a8af214a74d71eb5deb2ebe2d0",
+            "replay_sha256": "9e541bd8069bd588ef7fe88ff501c42142fb808a9e41c4e4ef9f3d0050e6b8bc",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 0.00041275527009222663,
+            "changed_values": 802,
+            "changed_fraction": 0.00041275527009222663,
+            "changed_fraction_limit": 0.001
+          },
+          "KA.png": {
+            "source_sha256": "f99c87f01f09abd10e4d532b025d398025e3174c9d4d698543ce8e1cd266a579",
+            "replay_sha256": "148d7281bfb4202af9ee21176e025b74ccaa0f293688cc33417668587cab5d14",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 1.2008673693456302e-06,
+            "changed_values": 7,
+            "changed_fraction": 1.2008673693456302e-06,
+            "changed_fraction_limit": 1e-05
+          },
+          "KA_alpha.png": {
+            "source_sha256": "d9ed58adece05fe7e5637aa10085b2ac476d385525bc7b40ee32415be834c6ab",
+            "replay_sha256": "fe8d1bc52dcf4c66238fdacd45a217d8cdf449a33bf2389a8718a96ef1330fb4",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 0.0003082798089591568,
+            "changed_values": 599,
+            "changed_fraction": 0.0003082798089591568,
+            "changed_fraction_limit": 0.001
+          }
+        },
+        "metric_deltas": {
+          "aggregate": {
+            "psnr": 9.814617385472957e-08,
+            "ssim": 9.934107536579972e-09,
+            "lpips": 1.5087425708770752e-07
+          },
+          "by_view/DC": {
+            "psnr": 0.0,
+            "ssim": 5.960464477539063e-08,
+            "lpips": 2.766028046607971e-07
+          },
+          "by_view/HC": {
+            "psnr": 0.0,
+            "ssim": -8.940696716308594e-08,
+            "lpips": 1.862645149230957e-07
+          },
+          "by_view/KA": {
+            "psnr": 2.9443851445876135e-07,
+            "ssim": 5.960464477539063e-08,
+            "lpips": -1.0244548320770264e-08
+          },
+          "by_actor/black": {
+            "psnr": 1.962923370513181e-07,
+            "ssim": 1.9868214962137642e-08,
+            "lpips": 1.5522042911414458e-08
+          },
+          "by_actor/grey": {
+            "psnr": 0.0,
+            "ssim": 0.0,
+            "lpips": 2.8622647126747003e-07
+          },
+          "record/DC/black": {
+            "psnr": 0.0,
+            "ssim": 1.1920928955078125e-07,
+            "lpips": -1.3969838619232178e-07
+          },
+          "record/DC/grey": {
+            "psnr": 0.0,
+            "ssim": 0.0,
+            "lpips": 6.92903995513916e-07
+          },
+          "record/HC/black": {
+            "psnr": 0.0,
+            "ssim": -5.960464477539063e-08,
+            "lpips": 3.2223761081695557e-07
+          },
+          "record/HC/grey": {
+            "psnr": 0.0,
+            "ssim": -1.1920928955078125e-07,
+            "lpips": 5.029141902923584e-08
+          },
+          "record/KA/black": {
+            "psnr": 5.88877025364809e-07,
+            "ssim": 0.0,
+            "lpips": -1.3597309589385986e-07
+          },
+          "record/KA/grey": {
+            "psnr": 0.0,
+            "ssim": 1.1920928955078125e-07,
+            "lpips": 1.1548399925231934e-07
+          }
+        },
+        "bitwise_render_claim": false,
+        "cause_established": false
+      },
+      "cache_sha256": "a80f6a908dd71cfbc3c75f60c6b8f71c9ebfaae3b24d3cfcc2f1ecdb5253ec56"
+    },
+    "bag6874_delta2": {
+      "source_seven_states_exact": true,
+      "render_parity": {
+        "status": "numeric_render_parity",
+        "source_bytes_exact": true,
+        "full_state_requirement": "bitwise canonical hashes unchanged",
+        "RGB8_alpha16_max_code_delta": 1,
+        "metric_absolute_tolerance": 1e-05,
+        "pixels": {
+          "DC.png": {
+            "source_sha256": "a7b4d90a165e19fc9513d1fd0767c08c157868342edd35582e5e0984af608229",
+            "replay_sha256": "990eb7bbd804121376baf1c5ebc1a3de03019abd9cc8cfbeee6e8a7b703efa27",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 8.577624066754502e-07,
+            "changed_values": 5,
+            "changed_fraction": 8.577624066754502e-07,
+            "changed_fraction_limit": 1e-05
+          },
+          "DC_alpha.png": {
+            "source_sha256": "1058061cc1de9489ef000c0f9702b51c0ab08eb388de65fb58e496efde099e59",
+            "replay_sha256": "b43178332a3d05f808512979a15e032cf6113b12218cedbbb568261a627ca21b",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 0.0005367877140974967,
+            "changed_values": 1043,
+            "changed_fraction": 0.0005367877140974967,
+            "changed_fraction_limit": 0.001
+          },
+          "HC.png": {
+            "source_sha256": "d74f1af772668738b18cf44f5dc74b4e3b9f6b39ee5d8aa04233ec87fe0e7326",
+            "replay_sha256": "89e081f822b047f6766242d81ac55e130c6d6f239cac3ac4289a027a6d53d390",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 1.02931488801054e-06,
+            "changed_values": 6,
+            "changed_fraction": 1.02931488801054e-06,
+            "changed_fraction_limit": 1e-05
+          },
+          "HC_alpha.png": {
+            "source_sha256": "20690cb8ee90d43b65c789cf705c9a740f9669a8af214a74d71eb5deb2ebe2d0",
+            "replay_sha256": "e9833ec684d43203292386965315a86b0190300f414afd31c531c52caf2426b7",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 0.0003973155467720685,
+            "changed_values": 772,
+            "changed_fraction": 0.0003973155467720685,
+            "changed_fraction_limit": 0.001
+          },
+          "KA.png": {
+            "source_sha256": "f99c87f01f09abd10e4d532b025d398025e3174c9d4d698543ce8e1cd266a579",
+            "replay_sha256": "899d534cbbf93e387e1acbb603b94c4fd61aadd6ea986afdf2fc91f11ab3c810",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 8.577624066754502e-07,
+            "changed_values": 5,
+            "changed_fraction": 8.577624066754502e-07,
+            "changed_fraction_limit": 1e-05
+          },
+          "KA_alpha.png": {
+            "source_sha256": "d9ed58adece05fe7e5637aa10085b2ac476d385525bc7b40ee32415be834c6ab",
+            "replay_sha256": "21497c8254ada803e410e132589666f7fcfeb97b425bba2663aecb98e308c9e9",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 0.0003211462450592885,
+            "changed_values": 624,
+            "changed_fraction": 0.0003211462450592885,
+            "changed_fraction_limit": 0.001
+          }
+        },
+        "metric_deltas": {
+          "aggregate": {
+            "psnr": -1.358037948762103e-07,
+            "ssim": 1.9868214962137642e-08,
+            "lpips": 2.317441006489951e-07
+          },
+          "by_view/DC": {
+            "psnr": -1.5489233007315306e-07,
+            "ssim": 5.960464477539063e-08,
+            "lpips": 1.4808028936386108e-07
+          },
+          "by_view/HC": {
+            "psnr": -2.525190652136189e-07,
+            "ssim": 0.0,
+            "lpips": 4.903413355350494e-07
+          },
+          "by_view/KA": {
+            "psnr": 0.0,
+            "ssim": 0.0,
+            "lpips": 5.681067705154419e-08
+          },
+          "by_actor/black": {
+            "psnr": -2.7160759685784797e-07,
+            "ssim": 1.9868214962137642e-08,
+            "lpips": 2.644956111907959e-07
+          },
+          "by_actor/grey": {
+            "psnr": 0.0,
+            "ssim": 1.9868214962137642e-08,
+            "lpips": 1.9899259011066373e-07
+          },
+          "record/DC/black": {
+            "psnr": -3.097846636990198e-07,
+            "ssim": 1.1920928955078125e-07,
+            "lpips": 2.514570951461792e-07
+          },
+          "record/DC/grey": {
+            "psnr": 0.0,
+            "ssim": 0.0,
+            "lpips": 4.470348358154297e-08
+          },
+          "record/HC/black": {
+            "psnr": -5.050381268745241e-07,
+            "ssim": -5.960464477539063e-08,
+            "lpips": 1.5459954738616943e-07
+          },
+          "record/HC/grey": {
+            "psnr": 0.0,
+            "ssim": 5.960464477539063e-08,
+            "lpips": 8.260831236839294e-07
+          },
+          "record/KA/black": {
+            "psnr": 0.0,
+            "ssim": 0.0,
+            "lpips": 3.8743019104003906e-07
+          },
+          "record/KA/grey": {
+            "psnr": 0.0,
+            "ssim": 0.0,
+            "lpips": -2.738088369369507e-07
+          }
+        },
+        "bitwise_render_claim": false,
+        "cause_established": false
+      },
+      "cache_sha256": "a80f6a908dd71cfbc3c75f60c6b8f71c9ebfaae3b24d3cfcc2f1ecdb5253ec56"
+    },
+    "bag6874_delta4": {
+      "source_seven_states_exact": true,
+      "render_parity": {
+        "status": "numeric_render_parity",
+        "source_bytes_exact": true,
+        "full_state_requirement": "bitwise canonical hashes unchanged",
+        "RGB8_alpha16_max_code_delta": 1,
+        "metric_absolute_tolerance": 1e-05,
+        "pixels": {
+          "DC.png": {
+            "source_sha256": "a7b4d90a165e19fc9513d1fd0767c08c157868342edd35582e5e0984af608229",
+            "replay_sha256": "933b23f4cffedd9aae4703bc6204c29bff0d68730cfef4bd8a882fbd73d07cad",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 6.862099253403602e-07,
+            "changed_values": 4,
+            "changed_fraction": 6.862099253403602e-07,
+            "changed_fraction_limit": 1e-05
+          },
+          "DC_alpha.png": {
+            "source_sha256": "1058061cc1de9489ef000c0f9702b51c0ab08eb388de65fb58e496efde099e59",
+            "replay_sha256": "26427882efbf24ec82d4dbc017d656db78d91e30beb5965f96f1a94f5557529d",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 0.0005465662055335968,
+            "changed_values": 1062,
+            "changed_fraction": 0.0005465662055335968,
+            "changed_fraction_limit": 0.001
+          },
+          "HC.png": {
+            "source_sha256": "d74f1af772668738b18cf44f5dc74b4e3b9f6b39ee5d8aa04233ec87fe0e7326",
+            "replay_sha256": "d483492d2bf3303e96fc199aa88deb7c899fed6a49e0a9031169a35c4f135178",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 1.3724198506807203e-06,
+            "changed_values": 8,
+            "changed_fraction": 1.3724198506807203e-06,
+            "changed_fraction_limit": 1e-05
+          },
+          "HC_alpha.png": {
+            "source_sha256": "20690cb8ee90d43b65c789cf705c9a740f9669a8af214a74d71eb5deb2ebe2d0",
+            "replay_sha256": "ca35ea248b22aa85a14242d4de9256bdc91f66db027e61f55c9896671581bb14",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 0.00042047513175230564,
+            "changed_values": 817,
+            "changed_fraction": 0.00042047513175230564,
+            "changed_fraction_limit": 0.001
+          },
+          "KA.png": {
+            "source_sha256": "f99c87f01f09abd10e4d532b025d398025e3174c9d4d698543ce8e1cd266a579",
+            "replay_sha256": "e26d3cafc8de43f689a284d7d2cef39a7b6b8b144cd667fe9fae4a1acfbe6d60",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 8.577624066754502e-07,
+            "changed_values": 5,
+            "changed_fraction": 8.577624066754502e-07,
+            "changed_fraction_limit": 1e-05
+          },
+          "KA_alpha.png": {
+            "source_sha256": "d9ed58adece05fe7e5637aa10085b2ac476d385525bc7b40ee32415be834c6ab",
+            "replay_sha256": "0004c75d86a5f46dd76c1cdc474e4ae077fccff57905fdffbabf826a867bf635",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 0.0003298954216073781,
+            "changed_values": 641,
+            "changed_fraction": 0.0003298954216073781,
+            "changed_fraction_limit": 0.001
+          }
+        },
+        "metric_deltas": {
+          "aggregate": {
+            "psnr": 9.814617385472957e-08,
+            "ssim": -1.986821485111534e-08,
+            "lpips": 1.856436332055289e-07
+          },
+          "by_view/DC": {
+            "psnr": 0.0,
+            "ssim": -2.9802322387695312e-08,
+            "lpips": 3.380700945854187e-07
+          },
+          "by_view/HC": {
+            "psnr": 0.0,
+            "ssim": 0.0,
+            "lpips": 2.4493783712387085e-07
+          },
+          "by_view/KA": {
+            "psnr": 2.9443851445876135e-07,
+            "ssim": -2.9802322387695312e-08,
+            "lpips": -2.60770320892334e-08
+          },
+          "by_actor/black": {
+            "psnr": 1.962923370513181e-07,
+            "ssim": -1.986821485111534e-08,
+            "lpips": 1.9806126753604825e-07
+          },
+          "by_actor/grey": {
+            "psnr": 0.0,
+            "ssim": -1.986821485111534e-08,
+            "lpips": 1.73225998878479e-07
+          },
+          "record/DC/black": {
+            "psnr": 0.0,
+            "ssim": 0.0,
+            "lpips": 1.8998980522155762e-07
+          },
+          "record/DC/grey": {
+            "psnr": 0.0,
+            "ssim": -5.960464477539063e-08,
+            "lpips": 4.861503839492798e-07
+          },
+          "record/HC/black": {
+            "psnr": 0.0,
+            "ssim": -5.960464477539063e-08,
+            "lpips": 1.9371509552001953e-07
+          },
+          "record/HC/grey": {
+            "psnr": 0.0,
+            "ssim": 5.960464477539063e-08,
+            "lpips": 2.9616057872772217e-07
+          },
+          "record/KA/black": {
+            "psnr": 5.88877025364809e-07,
+            "ssim": 0.0,
+            "lpips": 2.1047890186309814e-07
+          },
+          "record/KA/grey": {
+            "psnr": 0.0,
+            "ssim": -5.960464477539063e-08,
+            "lpips": -2.6263296604156494e-07
+          }
+        },
+        "bitwise_render_claim": false,
+        "cause_established": false
+      },
+      "cache_sha256": "a80f6a908dd71cfbc3c75f60c6b8f71c9ebfaae3b24d3cfcc2f1ecdb5253ec56"
+    }
+  },
+  "CPU_only": true,
+  "technical_checkpoints_excluded_from_production": true
+}

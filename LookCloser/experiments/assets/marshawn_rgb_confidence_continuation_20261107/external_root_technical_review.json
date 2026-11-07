@@ -1,0 +1,10 @@
+{
+  "reviewer": "root",
+  "utc": "2026-11-07T04:29:12.468665+00:00",
+  "source_zero_proof_sha256": "3585a1efdb6bfbddc0808955c9f7236159fef064249293e3794205826e65017f",
+  "source7state": true,
+  "parity_all24RGB_alpha_pass": true,
+  "technical_attempts_per_arm": 64,
+  "production_authorized": false,
+  "external_policy_sha256": "04b32ec5c32209d906dd52cda07f7f4f539e74e07eb90dac05a43c33fa83b6d8"
+}

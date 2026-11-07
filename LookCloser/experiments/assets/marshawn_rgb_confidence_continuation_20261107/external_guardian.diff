@@ -1,0 +1,179 @@
+--- proven_tau_v3_guardian
++++ external_guard_rgb_v1/guardian.py
+@@ -45,8 +45,10 @@
+     reasons=[]
+     if memory>policy['process_cap_MiB']:reasons.append('memory_limit')
+     if any(u!=expected_uuid for u in physical_uuids):reasons.append('physical_GPU_mismatch')
+-    if age>policy['deadline_seconds_per_invocation']:reasons.append('deadline')
++    deadline=policy['deadline_seconds_per_invocation']
++    if deadline is not None and age>deadline:reasons.append('deadline')
+     return reasons
++
+ def bounded_error(state,error,now,policy):
+     state['consecutive_errors']=state.get('consecutive_errors',0)+1
+     state.setdefault('first_error_time',now)
+@@ -96,27 +98,27 @@
+ 
+ def require_phase_proof(policy,root,phase,release):
+     if phase not in release.get('authorized_phases',[]) or phase not in policy['phase_plans']:
+-        raise ValueError('Phase not authorized by exact guard release')
+-    if phase=='diagnostic':
+-        expected=policy['technical_verification_sha256']
+-        if release.get('technical_verification_sha256')!=expected:
+-            raise ValueError('Root must bind exact technical verification')
+-        proof=Path(root)/policy['technical_verification_relative']
+-        if sha(proof)!=expected or read(proof).get('passed') is not True:
+-            raise ValueError('Exact passing technical verification required before diagnostic dispatch')
+-        if policy['deadline_seconds_per_invocation']!=3600 or policy['process_cap_MiB']!=16384 or policy['worker_allocator_GiB']!=10:
+-            raise ValueError('Diagnostic resource limits changed')
++        raise ValueError('Phase not authorized by exact external guard release')
++    for name,digest in policy['root_receipts'].items():
++        if sha(Path(root)/name)!=digest or release.get(name.removesuffix('.json')+'_sha256')!=digest:
++            raise ValueError('Exact root source/CPU receipt required')
++    if phase in ('technical','production'):
++        name='zero_verification.json' if phase=='technical' else 'technical_verification.json'
++        path=Path(root)/name;expected=release.get(name.removesuffix('.json')+'_sha256')
++        if not expected or sha(path)!=expected or read(path).get('passed') is not True:
++            raise ValueError('Exact passing predecessor phase proof required')
++
+ 
+ 
+ def require_local_origin(policy,path):
+-    expected=Path(policy['local_root'])/'external_guard_v3/policy.json'
++    expected=Path(policy['local_root'])/'external_guard_rgb_v1/policy.json'
+     if Path(path).resolve()!=expected.resolve() or str(Path(path).resolve()).startswith(policy['remote_root']):
+         raise ValueError('Launch locally from C; silver self-SSH is unsupported')
+     if not Path(policy['local_python']).exists():raise ValueError('Local C/python is unavailable')
+ 
+ 
+ def remote_guard(policy_path,phase,instance):
+-    policy=verify_policy(policy_path);root=Path(policy['remote_root']);out=root/'external_guard_v3'/phase
++    policy=verify_policy(policy_path);policy=dict(policy,deadline_seconds_per_invocation=policy['phase_deadlines'][phase]);root=Path(policy['remote_root']);out=root/'external_guard_rgb_v1'/phase
+     if sha(phase_plan_path(root,policy,phase))!=policy['prepared_bindings'][policy['phase_plans'][phase]]:
+         raise ValueError('Remote phase plan changed')
+     out.mkdir(parents=True,exist_ok=True);lock=(out/'lock').open('a+');fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+@@ -145,6 +147,7 @@
+                 receipt=Path(plan['hosts']['silver']['root'])/'jobs'/name/'receipt.json'
+                 if not receipt.exists():continue
+                 r=read(receipt);w=r.get('worker')
++                if r.get('gpu_uuid') and (r.get('gpu') not in policy['approved_gpu_indices'] or r['gpu_uuid']!=policy['approved_gpu_UUIDs'].get(str(r['gpu']))):fail(state,'unapproved_GPU_lease',job=name)
+                 if not w:continue
+                 spec=job['command'][job['command'].index('--spec')+1]
+                 actual=identity(w['pid'])
+@@ -198,13 +201,13 @@
+     # Structured JSON is embedded as a Python string, never as shell command text.
+     request=dict(root=policy['remote_root'],phase=phase,instance=instance,abort=abort,finished=finished,launch=launch,dispatcher_stopped=dispatcher_stopped)
+     code="""import json,pathlib,time,os,subprocess
+-r=json.loads(REQUEST);root=pathlib.Path(r['root']);out=root/'external_guard_v3'/r['phase'];out.mkdir(parents=True,exist_ok=True)
++r=json.loads(REQUEST);root=pathlib.Path(r['root']);out=root/'external_guard_rgb_v1'/r['phase'];out.mkdir(parents=True,exist_ok=True)
+ for name in ['launch','state','done']:
+  old=out/(name+'.json')
+  if old.exists() and json.loads(old.read_text()).get('instance')!=r['instance']:raise RuntimeError('Never overwrite previous guard-instance evidence')
+ p=out/'heartbeat.json';t=p.with_suffix('.tmp');t.write_text(json.dumps(dict(instance=r['instance'],time=time.time(),abort=r['abort'],finished=r['finished'],dispatcher_stopped=r['dispatcher_stopped'])));os.replace(t,p)
+ if r['launch']:
+- log=open(out/'guardian.log','ab');subprocess.Popen(['python3',str(root/'external_guard_v3/guardian.py'),'remote','--policy',str(root/'external_guard_v3/policy.json'),'--phase',r['phase'],'--instance',r['instance']],stdin=subprocess.DEVNULL,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
++ log=open(out/'guardian.log','ab');subprocess.Popen(['python3',str(root/'external_guard_rgb_v1/guardian.py'),'remote','--policy',str(root/'external_guard_rgb_v1/policy.json'),'--phase',r['phase'],'--instance',r['instance']],stdin=subprocess.DEVNULL,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
+ result={}
+ for name in ['launch','state','done']:
+  p=out/(name+'.json')
+@@ -221,36 +224,36 @@
+ def stop_own_controller(state,policy,phase,now):
+     expected=state.get('controller')
+     if not expected:return
+-    actual=identity(expected['pid']);controller=policy['controller_path'];root=str(Path(policy['local_root'])/'external_guard_v3'/(phase+'_controller'))
++    actual=identity(expected['pid']);controller=policy['controller_path'];root=str(Path(policy['local_root'])/'external_guard_rgb_v1'/(phase+'_controller'))
+     # Same guarded escalation primitive; controller argv must include its own exact state root.
+     signal_due(state,'local_controller',expected,controller,root,now,policy)
+ 
+ 
+ def local_guard(policy_path,phase):
+     import uuid
+-    policy=verify_policy(policy_path);require_local_origin(policy,policy_path);root=Path(policy['local_root']);out=root/'external_guard_v3'/phase
++    policy=verify_policy(policy_path);require_local_origin(policy,policy_path);root=Path(policy['local_root']);out=root/'external_guard_rgb_v1'/phase
+     if sha(policy['controller_path'])!=policy['controller_sha256']:raise ValueError('Frozen dispatcher source changed')
+     out.mkdir(parents=True,exist_ok=True);lock=(out/'local.lock').open('a+');fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+-    release=read(root/'external_guard_v3/guard_release.json')
++    release=read(root/'external_guard_rgb_v1'/(phase+'_guard_release.json'))
+     if release.get('reviewer')!='root' or release.get('external_guard_authorized') is not True or release.get('policy_sha256')!=sha(policy_path):
+         raise ValueError('Exact v3 external guardian review required')
+     require_phase_proof(policy,root,phase,release)
+     for rel,h in policy['prepared_bindings'].items():
+         if sha(root/rel)!=h:raise ValueError('Prepared external/scientific artifact changed: '+rel)
+-    for arm in ['control','old7369','seven10481']:
++    for arm in ['original', 'bag6874', 'bag6874_delta2', 'bag6874_delta4']:
+         spec=root/'specs'/f'{phase}_{arm}'/'spec.json';release=read(spec.parent/'root_release.json')
+-        if release.get('reviewer')!='root' or release.get('diagnostic_authorized' if phase=='diagnostic' else 'technical_authorized') is not True or release.get('spec_sha256')!=sha(spec):
++        if release.get('reviewer')!='root' or release.get('production_authorized' if phase=='production' else 'technical_authorized') is not True or release.get('spec_sha256')!=sha(spec):
+             raise ValueError('Exact root phase release required')
+-    if phase=='technical' and not read(root/'zero_summary.json').get('passed'):raise ValueError('Zero proof required first')
+-    if phase=='diagnostic':
++    if phase=='technical' and not read(root/'zero_verification.json').get('passed'):raise ValueError('Zero proof required first')
++    if phase=='production':
+         fresh_script="import json,pathlib\nr=pathlib.Path("+repr(policy['remote_root'])+")\n"
+-        fresh_script+="for arm in ['control','old7369','seven10481']:\n s=json.loads((r/'specs'/('diagnostic_'+arm)/'spec.json').read_text())\n assert not pathlib.Path(s['output']).exists(),s['output']\n assert not (r/'remote_queue/jobs'/('quarter91128_tau_diagnostic_'+arm)).exists(),arm\n"
++        fresh_script+="for arm in ['original', 'bag6874', 'bag6874_delta2', 'bag6874_delta4']:\n s=json.loads((r/'specs'/('production_'+arm)/'spec.json').read_text())\n assert not pathlib.Path(s['output']).exists(),s['output']\n assert not (r/'remote_queue/jobs'/('rgb126316_production_'+arm)).exists(),arm\n"
+         ssh_script(policy,fresh_script)
+-    prior_controller=root/'external_guard_v3'/(phase+'_controller')/'controller.json'
++    prior_controller=root/'external_guard_rgb_v1'/(phase+'_controller')/'controller.json'
+     if prior_controller.exists():
+         prior=read(prior_controller).get('process')
+         if prior and same(prior,identity(prior['pid'])):raise ValueError('Existing dispatcher must not be adopted or interrupted')
+-    prior_state=root/'external_guard_v3'/(phase+'_controller')/'state.json'
++    prior_state=root/'external_guard_rgb_v1'/(phase+'_controller')/'state.json'
+     if prior_state.exists() and any(j['status']!='pending' for j in read(prior_state)['jobs'].values()):
+         raise ValueError('Prior dispatched phase requires separate explicit recovery, not fresh guardian launch')
+     instance=str(uuid.uuid4());state=dict(instance=instance,phase=phase,started=time.time(),failed=False,events=[])
+@@ -267,12 +270,12 @@
+                 break
+             time.sleep(1)
+         else:raise RuntimeError('Remote guardian startup not acknowledged')
+-        controller_record=root/'external_guard_v3'/(phase+'_controller')/'controller.json'
++        controller_record=root/'external_guard_rgb_v1'/(phase+'_controller')/'controller.json'
+         if controller_record.exists():
+             old=read(controller_record).get('process')
+             if old and same(old,identity(old['pid'])):raise RuntimeError('Refuse to adopt a pre-existing dispatcher')
+         launch_attempted=True
+-        launch_result=subprocess.run([policy['local_python'],policy['controller_path'],'launch','--root',str(root/'external_guard_v3'/(phase+'_controller')),'--manifest',str(phase_plan_path(root,policy,phase))],check=True,capture_output=True,text=True,timeout=20)
++        launch_result=subprocess.run([policy['local_python'],policy['controller_path'],'launch','--root',str(root/'external_guard_rgb_v1'/(phase+'_controller')),'--manifest',str(phase_plan_path(root,policy,phase))],check=True,capture_output=True,text=True,timeout=20)
+         started_dispatcher=True
+         # Frozen controller PID identity, not a process-group kill.
+         pid=json.loads(launch_result.stdout)['controller_pid']
+@@ -284,17 +287,17 @@
+         if launch_attempted and not state.get('controller'):
+             # A launch RPC can time out after creating the dispatcher. Recover only
+             # the previously absent exact state-root identity, never another queue.
+-            record=root/'external_guard_v3'/(phase+'_controller')/'controller.json'
++            record=root/'external_guard_rgb_v1'/(phase+'_controller')/'controller.json'
+             if record.exists():
+                 candidate=read(record).get('process');actual=identity(candidate['pid']) if candidate else None
+-                if candidate and authorized_worker(candidate,actual,policy['controller_path'],str(root/'external_guard_v3'/(phase+'_controller'))):
++                if candidate and authorized_worker(candidate,actual,policy['controller_path'],str(root/'external_guard_rgb_v1'/(phase+'_controller'))):
+                     state['controller']=actual;started_dispatcher=True
+     while True:
+         now=time.time()
+         if stop:fail(state,stop[0])
+         try:
+             if started_dispatcher and not finished:
+-                cs=read(root/'external_guard_v3'/(phase+'_controller')/'state.json');statuses=[j['status'] for j in cs['jobs'].values()]
++                cs=read(root/'external_guard_rgb_v1'/(phase+'_controller')/'state.json');statuses=[j['status'] for j in cs['jobs'].values()]
+                 finished,jobs_failed=phase_status(statuses)
+                 if jobs_failed:fail(state,'controller_job_failure',statuses=statuses)
+                 if not finished and not same(state['controller'],identity(state['controller']['pid'])):fail(state,'controller_died_before_terminal')
+@@ -330,7 +333,7 @@
+ 
+ def launch(policy_path,phase):
+     policy=verify_policy(policy_path);require_local_origin(policy,policy_path)
+-    out=Path(policy['local_root'])/'external_guard_v3'/phase;out.mkdir(parents=True,exist_ok=True)
++    out=Path(policy['local_root'])/'external_guard_rgb_v1'/phase;out.mkdir(parents=True,exist_ok=True)
+     previous=out/'local_launch.json'
+     if (out/'local_done.json').exists():raise ValueError('Terminal guard evidence is immutable; prepare a new reviewed generation to retry')
+     if previous.exists() and same(read(previous)['identity'],identity(read(previous)['identity']['pid'])):
+@@ -341,7 +344,7 @@
+ 
+ 
+ if __name__=='__main__':
+-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('command',choices=['launch','local','remote']);p.add_argument('--policy',type=Path,required=True);p.add_argument('--phase',choices=['zero','technical','diagnostic'],required=True);p.add_argument('--instance')
++    p=argparse.ArgumentParser(description=__doc__);p.add_argument('command',choices=['launch','local','remote']);p.add_argument('--policy',type=Path,required=True);p.add_argument('--phase',choices=['zero','technical','production'],required=True);p.add_argument('--instance')
+     a=p.parse_args()
+     if a.command=='remote':remote_guard(a.policy,a.phase,a.instance)
+     elif a.command=='local':local_guard(a.policy,a.phase)

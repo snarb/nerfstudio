@@ -1,0 +1,30 @@
+{
+  "updated": 1794026348.092625,
+  "canonical_launch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/rgb_confidence_continuation_candidate_v1/external_guard_rgb_v1/guardian.py",
+  "launch_origin": "LOCAL_OLIVE_ONLY",
+  "superseded": [
+    "phase_runner.py",
+    "phase_policy.json"
+  ],
+  "source_qualification": {
+    "status": "ROOT_PASS",
+    "sha256": "85b8f1ee6e09780063fa4955a06355bc100c099ebbcbd67f697751b01f5f62f4"
+  },
+  "zero": {
+    "status": "PASS",
+    "proof_sha256": "3585a1efdb6bfbddc0808955c9f7236159fef064249293e3794205826e65017f"
+  },
+  "technical": {
+    "status": "PASS_ACTUAL_32_PLUS32_64_ADAM_UPDATES_EACH",
+    "proof_sha256": "7e3b4f7cb93723c406d1b3889267840c696b6781be9391357e61da469bc21cef"
+  },
+  "production": {
+    "status": "ROOT_RELEASED_RUNNING",
+    "entry": "external_guard_rgb_v1/guardian.py --phase production",
+    "fresh_source_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+    "anchor": 130316,
+    "no_hard_cap": true,
+    "root_review_sha256": "c85c9f676059bc317f843b07d83a6445b3d364213a0ad5cf5bea9de93278e178"
+  },
+  "old_CPU_proofs_preserved": true
+}

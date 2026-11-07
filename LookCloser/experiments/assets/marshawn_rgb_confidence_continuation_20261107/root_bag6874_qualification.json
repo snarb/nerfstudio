@@ -1,0 +1,34 @@
+{
+  "reviewer": "root",
+  "utc": "2026-11-07T04:14:05.111552+00:00",
+  "kind": "ROOT_SOURCE_QUALIFICATION_EXISTING6874_RGB_IGNORE_ONLY",
+  "qualified6874_source_reviewed": true,
+  "review_json_sha256": "d035752cd0e243f18c26ec466bb656f81d1cbc4965240b412afd9216e67cfc3f",
+  "qualification_sha256": "5e904fe04a4647a6312496017ae928e24f0077340f93ba016beacebd942d15d7",
+  "previous_manual_receipt_sha256": "57e32b094b57d752681a7a6d87a6aa9ca87d8eb42c2088ce83c0011f80bb1f7d",
+  "reviewed_source_pages": {
+    "MA": "432ce04b9609dcee7892c823e4d162974d162aecd7f6b42152af4487709f6f3a",
+    "MB": "78c2f61b73e0d719867a06fd832a030c4208029a2af4a099864596d67fbd429a",
+    "MC": "03269f14b09637dd947d6268f3718850f22125de86e02961f7eab0b72f7187d4",
+    "NA": "53f5f9f0ace38f02f2ff5528a7fc3305708d6a07d9a091a4a372e8252401df3e",
+    "NB": "84edd4c3a316c3f7f28f2850a54e2d4d2d153f6635e39dc0e46e8a7bb7764c3c",
+    "ND": "ba7c2fff0e1a30d5ce206971777845a053e8433d9a21447d343b02111e66ec82"
+  },
+  "native_pages_personally_inspected": [
+    "MA",
+    "MB",
+    "MC",
+    "NA",
+    "NB",
+    "ND"
+  ],
+  "extra352_native_pages_reinspected": [
+    "MC",
+    "NA"
+  ],
+  "pixels": 6874,
+  "additional_pixels": 352,
+  "interpretation": "Visible nonactor cloth-bag INTERIOR. RGB weight zero only. Source masks are authoritative; no rerasterization, polygon expansion, shell relabel, physical-empty/alpha target, or whole-ray negative. Protected sneaker/contact UNKNOWN shell remains unchanged.",
+  "training_release": false,
+  "confidence_manifest_sha256": "e96bb88ebd34406141924d4bc610d47543d8785926ae3fae946dab152090c8b1"
+}

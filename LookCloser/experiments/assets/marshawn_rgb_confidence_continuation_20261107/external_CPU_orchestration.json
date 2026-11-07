@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "science1503_unchanged": true,
+  "science_worker_sha256": "62d091e337a23944df2a1408d3b013cf1d0ce51929ae60097494bca4261b16cb",
+  "unchanged_guard_core_functions": [
+    "identity",
+    "same",
+    "authorized_worker",
+    "event",
+    "fail",
+    "bounded_error",
+    "clear_errors",
+    "phase_status",
+    "signal_due",
+    "final_record",
+    "ssh_script"
+  ],
+  "local_origin_check": true,
+  "remote_guardian_only": true,
+  "plans_have_explicit_remote_address": true,
+  "job_commands_and_specs_unchanged": true,
+  "approved_GPU_UUIDs": {
+    "0": "GPU-6a8bbc85-5a77-8d62-ab18-560955f0dc65",
+    "1": "GPU-26c63492-0230-896f-208e-10e4eaca4c3c",
+    "2": "GPU-279718e7-9e60-e5f2-53aa-65ff7dd03f37",
+    "3": "GPU-c024b6e2-0def-f4fd-c18a-64b95975effd",
+    "5": "GPU-216eac5a-c2f3-4bc5-d4e8-1a6f9cbd9b9a",
+    "6": "GPU-a53fcf27-02c4-c737-9269-0623ec25a6d9"
+  },
+  "root_receipts": {
+    "root_bag6874_qualification.json": "85b8f1ee6e09780063fa4955a06355bc100c099ebbcbd67f697751b01f5f62f4",
+    "root_independent_CPU_review.json": "f0c5495c7d5ec7cb7194064a40c1879b75ab0e01ea9aa9a8f254f584e94a05f1"
+  },
+  "old_proofs_overwritten": false,
+  "GPU_started": false
+}

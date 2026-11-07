@@ -1,0 +1,16 @@
+{
+  "reviewer": "root",
+  "utc": "2026-11-07T04:34:49.175663+00:00",
+  "phase": "freshparent_production4arms",
+  "technical_verification_sha256": "7e3b4f7cb93723c406d1b3889267840c696b6781be9391357e61da469bc21cef",
+  "actual_Adam_updates_per_arm": 64,
+  "actualsourceRGBgradienterror": 0,
+  "strict_resume7states": true,
+  "cacheLUTconfidence_restored": true,
+  "cross_arm_main_packets_and_RNG_equal": true,
+  "production_source126316": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "technical_states_not_production_ancestors": true,
+  "production_iteration_or_wall_cap": null,
+  "earliest_plateau_step": 150316,
+  "minimum_campaign_endUTC": "2026-11-07T14:30:16.699466Z"
+}

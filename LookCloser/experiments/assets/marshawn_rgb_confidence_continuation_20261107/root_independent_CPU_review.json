@@ -1,0 +1,16 @@
+{
+  "reviewer": "root",
+  "kind": "INDEPENDENT_CPU_BYTE_AUDIT",
+  "code_files": 1503,
+  "original_unchanged1495": true,
+  "confidence_archives": 63,
+  "confidence_manifest_sha256": "e96bb88ebd34406141924d4bc610d47543d8785926ae3fae946dab152090c8b1",
+  "CPU_readiness_sha256": "0652697701abe9527ad067aba11a40f5c4ed1921215b28ab4e2b511af2f2e312",
+  "root_6874_qualification_sha256": "85b8f1ee6e09780063fa4955a06355bc100c099ebbcbd67f697751b01f5f62f4",
+  "seconds": 11.011336326599121,
+  "scientific_worker_reviewed": true,
+  "source_scalars_distortion": 0.1,
+  "source_FR": 0.3,
+  "gate_selector": "original_mapped",
+  "pending": "orchestration selfSSH repair; no GPU release yet"
+}

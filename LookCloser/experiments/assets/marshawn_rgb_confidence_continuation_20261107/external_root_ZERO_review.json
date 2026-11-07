@@ -1,0 +1,20 @@
+{
+  "reviewer": "root",
+  "utc": "2026-11-07T04:25:39.022039+00:00",
+  "phase": "zero_only",
+  "policy_sha256": "04b32ec5c32209d906dd52cda07f7f4f539e74e07eb90dac05a43c33fa83b6d8",
+  "unchanged_AST_functions": 11,
+  "local_and_remote_bound_files_verified": 22,
+  "root_source_review_sha256": "f0c5495c7d5ec7cb7194064a40c1879b75ab0e01ea9aa9a8f254f584e94a05f1",
+  "bag6874_review_sha256": "85b8f1ee6e09780063fa4955a06355bc100c099ebbcbd67f697751b01f5f62f4",
+  "resource_check_unit_cases": 4,
+  "science_worker_unchanged": true,
+  "optimizer_updates_authorized": false,
+  "releases": {
+    "specs/zero_original/root_release.json": "52fcda72962b6354720871eb2724d6e500e860fd1798f74c2c8c99aa30260827",
+    "specs/zero_bag6874/root_release.json": "82ad5c093aad69fc3ff2a109cce6d78de2b9afa6e6b1e9121999a08a2df901ae",
+    "specs/zero_bag6874_delta2/root_release.json": "9ab104df145b0be91a3ea4c224bbca64af27cdc58b70f6a99953499686132812",
+    "specs/zero_bag6874_delta4/root_release.json": "54bfa631d6778489b45ab516c6f8fa6a47ea288dc1ad6b83059ee78acf01ee68",
+    "external_guard_rgb_v1/zero_guard_release.json": "28c5af2b89c0da87b4290e011e68933ef40818cd23e205b9063524d1127275cc"
+  }
+}

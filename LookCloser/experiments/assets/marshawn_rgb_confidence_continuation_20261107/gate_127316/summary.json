@@ -1,0 +1,81 @@
+{
+  "step": 127316,
+  "metrics": {
+    "parent126316": {
+      "psnr": 31.63972670843312,
+      "ssim": 0.831264058748881,
+      "lpips": 0.018773120517532032
+    },
+    "original": {
+      "psnr": 31.632496294343582,
+      "ssim": 0.8311722377936045,
+      "lpips": 0.018902246219416458
+    },
+    "bag6874": {
+      "psnr": 31.62864345225869,
+      "ssim": 0.831137349208196,
+      "lpips": 0.01890343629444639
+    },
+    "bag6874_delta2": {
+      "psnr": 31.639581008962093,
+      "ssim": 0.8312930266062418,
+      "lpips": 0.018887643081446488
+    },
+    "bag6874_delta4": {
+      "psnr": 31.63489716640626,
+      "ssim": 0.83119468887647,
+      "lpips": 0.018893427525957424
+    }
+  },
+  "outside16_alpha_above01_pixels": {
+    "parent126316": {
+      "DC": 118260,
+      "HC": 79892,
+      "KA": 54994
+    },
+    "original": {
+      "DC": 118138,
+      "HC": 79908,
+      "KA": 55079
+    },
+    "bag6874": {
+      "DC": 118198,
+      "HC": 79953,
+      "KA": 55088
+    },
+    "bag6874_delta2": {
+      "DC": 116016,
+      "HC": 78866,
+      "KA": 54474
+    },
+    "bag6874_delta4": {
+      "DC": 117312,
+      "HC": 79509,
+      "KA": 54802
+    }
+  },
+  "input_sha256": {
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/ready.json": "7c39466b7921b608bf82aa47419f04ee14d957d6c2328ac0a975eab7105e0e36",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/DC.npz": "4fff114ca0b8c87121dab73d20367cb0e872d7bb61dbe9f8b08b3ef4c714802e",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/rgb_confidence_continuation_candidate_v1/anchor/renders/DC_alpha.png": "1058061cc1de9489ef000c0f9702b51c0ab08eb388de65fb58e496efde099e59",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/rgb_confidence_continuation_candidate_v1/external_guard_rgb_v1/visual_gates_v1/retained_gates/original/step-000127316/renders/step-000127316/DC_alpha.png": "c9fe4b4c7f96aa54a415244197fe4ab01cb012befad8a546033c077814ec7855",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/rgb_confidence_continuation_candidate_v1/external_guard_rgb_v1/visual_gates_v1/retained_gates/bag6874/step-000127316/renders/step-000127316/DC_alpha.png": "c5ec62b506a5534da73f5216697cf0010a59e1c8ac20547192df581ead8364d5",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/rgb_confidence_continuation_candidate_v1/external_guard_rgb_v1/visual_gates_v1/retained_gates/bag6874_delta2/step-000127316/renders/step-000127316/DC_alpha.png": "6173dbd9c66a2b884a80dc7a19760e5bf73f6e9840b291a851e513349c218121",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/rgb_confidence_continuation_candidate_v1/external_guard_rgb_v1/visual_gates_v1/retained_gates/bag6874_delta4/step-000127316/renders/step-000127316/DC_alpha.png": "a44a355f0ac7d7d1106f6bda062f5b43ce6820d0ae51e641d9fd4b6456151674",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/HC.npz": "8fcf0345d72a2c33a23441dee4ae531af2522222a29aee15c9e20bd7e7674476",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/rgb_confidence_continuation_candidate_v1/anchor/renders/HC_alpha.png": "20690cb8ee90d43b65c789cf705c9a740f9669a8af214a74d71eb5deb2ebe2d0",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/rgb_confidence_continuation_candidate_v1/external_guard_rgb_v1/visual_gates_v1/retained_gates/original/step-000127316/renders/step-000127316/HC_alpha.png": "41a6c9124be890dee834f74971c8b5eb69a9ca5b190857c24c46460dd9afd5cd",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/rgb_confidence_continuation_candidate_v1/external_guard_rgb_v1/visual_gates_v1/retained_gates/bag6874/step-000127316/renders/step-000127316/HC_alpha.png": "7e77a26851ff485f969c50e944838cf6ae884b907f47c82d392bca2da46e0353",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/rgb_confidence_continuation_candidate_v1/external_guard_rgb_v1/visual_gates_v1/retained_gates/bag6874_delta2/step-000127316/renders/step-000127316/HC_alpha.png": "036ac53338a25c73bd2db1bb0925b09542ec0447b9ea49c85bc56c9f0697c10d",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/rgb_confidence_continuation_candidate_v1/external_guard_rgb_v1/visual_gates_v1/retained_gates/bag6874_delta4/step-000127316/renders/step-000127316/HC_alpha.png": "d37a5f8aa98e99a73eb1a11998bc624e9e65f8cfb3ffb474b57bfeb776f9034c",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/KA.npz": "70960075b6bb88ab45345fc93efdbf8c74314563a649a791643a48453b9f37da",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/rgb_confidence_continuation_candidate_v1/anchor/renders/KA_alpha.png": "d9ed58adece05fe7e5637aa10085b2ac476d385525bc7b40ee32415be834c6ab",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/rgb_confidence_continuation_candidate_v1/external_guard_rgb_v1/visual_gates_v1/retained_gates/original/step-000127316/renders/step-000127316/KA_alpha.png": "93e0fd147d4e0f6fb1d142a2af09153d2afa96899eb3e085f7308b92fcc75957",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/rgb_confidence_continuation_candidate_v1/external_guard_rgb_v1/visual_gates_v1/retained_gates/bag6874/step-000127316/renders/step-000127316/KA_alpha.png": "77408972129ca5c219665d4a659c3c58c3928f7510832f4490824bc80d56820d",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/rgb_confidence_continuation_candidate_v1/external_guard_rgb_v1/visual_gates_v1/retained_gates/bag6874_delta2/step-000127316/renders/step-000127316/KA_alpha.png": "703002331fd143b193aecec1de9c0fb6ae011559d99e7577906db7b8d82e759e",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/rgb_confidence_continuation_candidate_v1/external_guard_rgb_v1/visual_gates_v1/retained_gates/bag6874_delta4/step-000127316/renders/step-000127316/KA_alpha.png": "6e728be953b91f3fe57ee00d6b1c0a247150f516797e3492c1369bcc3e0eca55"
+  },
+  "definition": "Exact original V1 black|grey union; scipy Euclidean distance >16HD px; scalar PNG16 alpha >.1",
+  "limitation": "Mask-exterior opacity is diagnostic, not nonactor/free-space truth. No new labels or metric changes.",
+  "GPU_used": false
+}
