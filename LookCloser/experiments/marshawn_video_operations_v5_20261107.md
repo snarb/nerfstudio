@@ -291,3 +291,30 @@ scientific spec digest, and the migrated ledger places1735/AC before1740/AA.
 Evidence: `SOURCE/operations/frequency10/v10_to_v11_handoff.json` and
 `v11_spec_and_order_qualification.json`. Source1675 remained held for its
 corrected source and dense-grid review throughout the CPU handoff.
+
+### Independent native-demand retirement and1685 observer overlap
+
+A source-bound completion reaper now independently retires only completed NN
+GPU requests. It verifies the exact immutable plan digest and actual job states;
+all66 factories additionally require their matching collected/replay completion
+marker. Pending/unknown work is left reserved. No GPU process is signalled.
+This prevents a CPU owner crash after inference from holding GPUs through later
+source review. Actual completed61-view/five-view plans qualified the reaper's
+proof path. Watchdog2306186 supervises worker2306192; evidence/logs are under
+`SOURCE/operations/native10_requests/`.
+
+ROOT authorized an observer-only1685 native batch while1675 source correction
+continues. Its identity inputs are explicitly pinned to the latest qualified
+1670, excluding ownership-uncertain pixels before canonical512×270 reduction.
+All66 actual blobs matched the independently recomputed canonical inputs
+bitwise. It never reads mutating1675 or unqualified1680 references, and writes
+only isolated review outputs. It does not install live masks, prepare DATA,
+publish source markers or start a field.
+
+CPU packing and RAW streaming precede the GPU request; inference starts only
+once at least eight camera bundles are actually remote-SHA-qualified. The same
+qualified V6.2 streaming/dynamic-pool runtime runs unchanged with field claims
+and physical GPU leases taking precedence. Initial watchdog2305310 packed all66
+dual-host variants and observed the first three current-camera jobs complete.
+Source/input proof is
+`SOURCE/operations/sam3_assist/v5/frame001685/pinned_identity_CPU_qualification.json`.
