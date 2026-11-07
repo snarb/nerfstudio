@@ -91,6 +91,10 @@ def configurations():
                  for s, g in [(4., 1.), (12., 1.), (8., .75), (8., 1.25), (4., .75), (12., .75)]]
     variants += [dict(count=n, sigma=8., gain=1., ambiguity=False) for n in [8, 24]]
     variants += [dict(count=16, sigma=8., gain=g, ambiguity=True) for g in [1., .75]]
+    for item in variants:
+        item['mode'] = 'detail'
+    variants += [dict(count=16, sigma=8., gain=g, ambiguity=False, mode='direct') for g in [.5, .75, 1.]]
+    variants += [dict(count=16, sigma=8., gain=g, ambiguity=False, mode='multiband') for g in [.75, 1.]]
     return variants
 
 
@@ -174,9 +178,9 @@ def run(manifest_path, output, device):
         for config in configurations():
             if config['count'] > len(donors):
                 continue
-            name = 'detail_s{sigma:g}_g{gain:g}_n{count}_a{a}'.format(**config, a=int(config['ambiguity']))
+            name = '{mode}_s{sigma:g}_g{gain:g}_n{count}_a{a}'.format(**config, a=int(config['ambiguity']))
             texture, labels, confidence = pick(base, donors, config['count'], scale, config['ambiguity'])
-            rgb, weight = merge_details(base, texture, labels, confidence, 'detail', config['sigma'] * scale, config['gain'])
+            rgb, weight = merge_details(base, texture, labels, confidence, config['mode'], config['sigma'] * scale, config['gain'])
             if not np.array_equal(rgb[weight == 0], base[weight == 0]):
                 raise AssertionError('Neural fallback changed')
             save(destination / (name + '.png'), rgb)

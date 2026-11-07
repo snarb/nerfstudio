@@ -44,8 +44,9 @@ camera excluded from all transfer donors. Target RGB is used only for
 measurement. Source geometry and the neural model are frozen.
 
 `scripts/tune_marshawn_hybrid_cache.py` replays qualified donor warps to compare
-11 small variants: detail sigma 4/8/12, gain .75/1/1.25, 8/16/24 donors, and an
-optional confidence reduction near ambiguous donor-score ties. It retains
+16 small variants: detail sigma 4/8/12, gain .75/1/1.25, 8/16/24 donors, an
+optional confidence reduction near ambiguous donor-score ties, and direct /
+multiband transfer controls. It retains
 single-source texture selection and exact neural fallback. It never deletes
 actor support or transfers colors from a different instant. Native crop
 coordinates retain their parent target's pixel scale rather than deriving it
@@ -57,6 +58,49 @@ historical algorithm bit-for-bit in six checks spanning pixel scales 1, 2 and
 `operations/hybrid_tuning/cached_replay_qualification.json`. This is algorithm
 qualification only; real-image quality selection and temporal validation are
 still pending.
+
+The actual capped 1670 checkpoint was copied unchanged for a private local
+render-only harness. Five data/checkpoint path bindings changed in memory;
+the original YAML and checkpoint remained untouched. Loaded pipeline tensor
+state matched exactly. Its automatic FR was .3. Native HC output differed
+from the selected archived image by at most one 8-bit code, affecting
+0.000001887 of channel entries. Setting the bookkeeping step explicitly
+produced a maximum float difference of 0.000003159; that extra override was
+discarded, preserving original loader behavior. Inference uses adaptive
+marching independently of the training warmup condition.
+
+Eight native 768-square contexts were cached with 384-square metric cores:
+HC black face, shirt and grey face at pixel scales 2 and 4.2667, and IC black
+and grey faces at scale 4.2667. The first scale follows delivery width; the
+second follows actual native focal length. Geometry is shared and every
+target excludes its own camera from all 24 donors. Actor metric weights are
+the current black-or-grey semantic mask looked up at native coordinates;
+this HD-derived metric support is not a newly inferred native mask. RAW RGB
+is sampled at native resolution without an HD intermediate. Model tensor
+state and checkpoint SHA were unchanged after all geometry work. Receipts:
+`operations/hybrid_tuning/native_HC_parity.json`, `manifest.json`, and
+`geometry_complete.json`. The GPU lease was released after geometry; the
+remaining sweep runs on CPU while local GPU work resumes.
+
+Initial one-patch results (HC black face, pixel scale 2; provisional):
+
+| Variant | Actor PSNR | Actor SSIM | Actor spatial LPIPS |
+| --- | ---: | ---: | ---: |
+| LookCloser | 27.92344 | 0.571092 | 0.551203 |
+| Existing detail sigma8 / gain1 / 16 donors | 27.79847 | 0.565546 | 0.508786 |
+| Detail sigma4 / gain.75 / 16 donors | 27.87412 | 0.568930 | 0.506886 |
+
+The hybrid improves this patch's LPIPS by about 8% relative to LookCloser;
+the tuning improvement over the existing hybrid is only about 0.37%.
+These are native close-up patch metrics, not the much smaller in-sample HD
+whole-actor monitoring number above. PSNR and SSIM do not improve. Root
+visually inspected the actual GT / neural / baseline hybrid / candidate
+384-square comparison; detail gains are subtle and the native photograph
+is still clearer. No final recipe change is justified by one patch.
+
+On this actual native cache the replay's baseline PNG matched the historical
+24-donor hybrid byte-for-byte; see `real_native_cached_replay_parity.json`.
+Full eight-patch selection, visual review and temporal checks remain pending.
 
 ## Insights
 
