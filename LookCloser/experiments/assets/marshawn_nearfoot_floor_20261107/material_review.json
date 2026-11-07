@@ -1,0 +1,3888 @@
+{
+  "reviewer": "native_reference",
+  "time": 1794009641.5293107,
+  "records": [
+    {
+      "source_point_id": 6307,
+      "xyz_floor": [
+        -0.1385791791599443,
+        0.1518716225039487,
+        0.005831773195246137
+      ],
+      "nearest_anchor_XY_distance": 0.02089548831995222,
+      "label": "floor_shadow_or_shoe_contact_uncertain",
+      "note": "Visible floor/shadow or immediate shoe-contact feature; SIFTcenter may encode nearby shoe/shadow silhouette. Do not use as hardfloor-depth truth.",
+      "localized_floor_material_candidate": false,
+      "triangulation": {
+        "observations": [
+          {
+            "camera": "IA",
+            "keypoint_index": 929,
+            "detected_uv": [
+              864.6392211914062,
+              447.82318115234375
+            ],
+            "fitted_error_hd_px": 0.5751408215353437
+          },
+          {
+            "camera": "IC",
+            "keypoint_index": 2512,
+            "detected_uv": [
+              1030.6346435546875,
+              649.6746215820312
+            ],
+            "fitted_error_hd_px": 0.8368542563124821
+          },
+          {
+            "camera": "JB",
+            "keypoint_index": 1446,
+            "detected_uv": [
+              884.0512084960938,
+              508.7535400390625
+            ],
+            "fitted_error_hd_px": 0.8219951252850367
+          }
+        ],
+        "original_xyz_max_abs": 5.551115123125783e-17,
+        "xyz_original": [
+          -0.14315720318252242,
+          0.1725298991895345,
+          -0.13970642535652292
+        ],
+        "fit_error_max_hd_px": 0.8368542563124821,
+        "connected_original_ratio_edges": [
+          [
+            [
+              "IA",
+              929
+            ],
+            [
+              "JB",
+              1446
+            ]
+          ],
+          [
+            [
+              "IC",
+              2512
+            ],
+            [
+              "JB",
+              1446
+            ]
+          ]
+        ],
+        "leave_one_source_view_out": [],
+        "limitation": "Existing rig and descriptor-selected TRAIN graph; fit residuals are not independent calibration uncertainty"
+      },
+      "reviewed_three_RAW_TRAIN_views": [
+        {
+          "camera": "IA",
+          "detected_uv_COLMAP": [
+            864.6392211914062,
+            447.82318115234375
+          ],
+          "raw_array_xy": [
+            3688.791800054766,
+            1911.236497007197
+          ],
+          "crop_xyxy": [
+            3433,
+            1655,
+            3945,
+            2167
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/mat_geometry_TRAIN/review/native_patches/p6307_IA.png",
+          "native_patch_sha256": "eb514dddbcf0d9fa4343cd1475d9a03a55aec922b4a0b9cc837f51e85a199320",
+          "fitted_error_HD": 0.5751408215353437,
+          "raw_source": {
+            "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/IA/IA.000408.tif",
+            "raw_sha256": "86af807c2dbcf8bb613bc0ae67e395f18c62debf2f4ff29d6d630bdeca797bea",
+            "original_display_request_image_sha256": "6023c9a8b6697e9cc7e4db2c1ad237cdb12804981dea9717ff32429abe34ca8b"
+          }
+        },
+        {
+          "camera": "IC",
+          "detected_uv_COLMAP": [
+            1030.6346435546875,
+            649.6746215820312
+          ],
+          "raw_array_xy": [
+            4396.5624248650565,
+            2772.0142536415983
+          ],
+          "crop_xyxy": [
+            4141,
+            2516,
+            4653,
+            3028
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/mat_geometry_TRAIN/review/native_patches/p6307_IC.png",
+          "native_patch_sha256": "942ffaee955101de6d54fbaf697189647b4222eeb3d5c79a7ebec85c055a0d92",
+          "fitted_error_HD": 0.8368542563124821,
+          "raw_source": {
+            "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/IC/IC.000408.tif",
+            "raw_sha256": "b5ea4949c070b897ba2353bc6ddfc6bcf34b8e0faa8003f7d963ef334dd6462f",
+            "original_display_request_image_sha256": "05b56ba8b727f805747e5042111da19fbd11fb97104864c32c4e038d937c573d"
+          }
+        },
+        {
+          "camera": "JB",
+          "detected_uv_COLMAP": [
+            884.0512084960938,
+            508.7535400390625
+          ],
+          "raw_array_xy": [
+            3771.58291422875,
+            2171.2425140775044
+          ],
+          "crop_xyxy": [
+            3516,
+            1915,
+            4028,
+            2427
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/mat_geometry_TRAIN/review/native_patches/p6307_JB.png",
+          "native_patch_sha256": "bb805fd0ebd247d8983c9c1fc47a428290876631d0ccc8c7509262aa24d6c2b5",
+          "fitted_error_HD": 0.8219951252850367,
+          "raw_source": {
+            "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/JB/JB.000408.tif",
+            "raw_sha256": "c7558b42c78e972c18fbabbc2d221dd553fc3940f020ec104daa9b1c0d91455a",
+            "original_display_request_image_sha256": "665f280734504c39e01cd94196611507c7c5dae74202590e5a562e8df98c3611"
+          }
+        }
+      ],
+      "triplet": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/exact_markers/p6307_RAW_triplet.jpg",
+      "triplet_sha256": "a8a0fe78ba025dc4f731aff5d8ae4f68db949e9e0efa33082b1e95d2de8dfbb7",
+      "fit_max_HD_px": 0.8368542563124821,
+      "all_observation_count": 3,
+      "max_leave_one_view_out_XYZ_shift": null,
+      "plane_or_emptyspace_certificate": false
+    },
+    {
+      "source_point_id": 6308,
+      "xyz_floor": [
+        -0.1385791791599443,
+        0.1518716225039487,
+        0.005831773195246137
+      ],
+      "nearest_anchor_XY_distance": 0.02089548831995222,
+      "label": "floor_shadow_or_shoe_contact_uncertain",
+      "note": "Visible floor/shadow or immediate shoe-contact feature; SIFTcenter may encode nearby shoe/shadow silhouette. Do not use as hardfloor-depth truth.",
+      "localized_floor_material_candidate": false,
+      "triangulation": {
+        "observations": [
+          {
+            "camera": "IA",
+            "keypoint_index": 929,
+            "detected_uv": [
+              864.6392211914062,
+              447.82318115234375
+            ],
+            "fitted_error_hd_px": 0.5751408215353437
+          },
+          {
+            "camera": "IC",
+            "keypoint_index": 2512,
+            "detected_uv": [
+              1030.6346435546875,
+              649.6746215820312
+            ],
+            "fitted_error_hd_px": 0.8368542563124821
+          },
+          {
+            "camera": "JB",
+            "keypoint_index": 1446,
+            "detected_uv": [
+              884.0512084960938,
+              508.7535400390625
+            ],
+            "fitted_error_hd_px": 0.8219951252850367
+          }
+        ],
+        "original_xyz_max_abs": 5.551115123125783e-17,
+        "xyz_original": [
+          -0.14315720318252242,
+          0.1725298991895345,
+          -0.13970642535652292
+        ],
+        "fit_error_max_hd_px": 0.8368542563124821,
+        "connected_original_ratio_edges": [
+          [
+            [
+              "IA",
+              929
+            ],
+            [
+              "JB",
+              1446
+            ]
+          ],
+          [
+            [
+              "IC",
+              2512
+            ],
+            [
+              "JB",
+              1446
+            ]
+          ]
+        ],
+        "leave_one_source_view_out": [],
+        "limitation": "Existing rig and descriptor-selected TRAIN graph; fit residuals are not independent calibration uncertainty"
+      },
+      "reviewed_three_RAW_TRAIN_views": [
+        {
+          "camera": "IA",
+          "detected_uv_COLMAP": [
+            864.6392211914062,
+            447.82318115234375
+          ],
+          "raw_array_xy": [
+            3688.791800054766,
+            1911.236497007197
+          ],
+          "crop_xyxy": [
+            3433,
+            1655,
+            3945,
+            2167
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/mat_geometry_TRAIN/review_round2/native_patches/p6308_IA.png",
+          "native_patch_sha256": "eb514dddbcf0d9fa4343cd1475d9a03a55aec922b4a0b9cc837f51e85a199320",
+          "fitted_error_HD": 0.5751408215353437,
+          "raw_source": {
+            "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/IA/IA.000408.tif",
+            "raw_sha256": "86af807c2dbcf8bb613bc0ae67e395f18c62debf2f4ff29d6d630bdeca797bea",
+            "original_display_request_image_sha256": "6023c9a8b6697e9cc7e4db2c1ad237cdb12804981dea9717ff32429abe34ca8b"
+          }
+        },
+        {
+          "camera": "IC",
+          "detected_uv_COLMAP": [
+            1030.6346435546875,
+            649.6746215820312
+          ],
+          "raw_array_xy": [
+            4396.5624248650565,
+            2772.0142536415983
+          ],
+          "crop_xyxy": [
+            4141,
+            2516,
+            4653,
+            3028
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/mat_geometry_TRAIN/review_round2/native_patches/p6308_IC.png",
+          "native_patch_sha256": "942ffaee955101de6d54fbaf697189647b4222eeb3d5c79a7ebec85c055a0d92",
+          "fitted_error_HD": 0.8368542563124821,
+          "raw_source": {
+            "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/IC/IC.000408.tif",
+            "raw_sha256": "b5ea4949c070b897ba2353bc6ddfc6bcf34b8e0faa8003f7d963ef334dd6462f",
+            "original_display_request_image_sha256": "05b56ba8b727f805747e5042111da19fbd11fb97104864c32c4e038d937c573d"
+          }
+        },
+        {
+          "camera": "JB",
+          "detected_uv_COLMAP": [
+            884.0512084960938,
+            508.7535400390625
+          ],
+          "raw_array_xy": [
+            3771.58291422875,
+            2171.2425140775044
+          ],
+          "crop_xyxy": [
+            3516,
+            1915,
+            4028,
+            2427
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/mat_geometry_TRAIN/review_round2/native_patches/p6308_JB.png",
+          "native_patch_sha256": "bb805fd0ebd247d8983c9c1fc47a428290876631d0ccc8c7509262aa24d6c2b5",
+          "fitted_error_HD": 0.8219951252850367,
+          "raw_source": {
+            "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/JB/JB.000408.tif",
+            "raw_sha256": "c7558b42c78e972c18fbabbc2d221dd553fc3940f020ec104daa9b1c0d91455a",
+            "original_display_request_image_sha256": "665f280734504c39e01cd94196611507c7c5dae74202590e5a562e8df98c3611"
+          }
+        }
+      ],
+      "triplet": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/exact_markers/p6308_RAW_triplet.jpg",
+      "triplet_sha256": "818ef54b67c8c4b15431c02c1803ebbe6cf164f2e5f668666f151aa40c9c8d0c",
+      "fit_max_HD_px": 0.8368542563124821,
+      "all_observation_count": 3,
+      "max_leave_one_view_out_XYZ_shift": null,
+      "plane_or_emptyspace_certificate": false
+    },
+    {
+      "source_point_id": 6860,
+      "xyz_floor": [
+        -0.1576916679024461,
+        0.13676409653676186,
+        0.004637216581614562
+      ],
+      "nearest_anchor_XY_distance": 0.04084697113716854,
+      "label": "mat_shadow_contact_uncertain",
+      "note": "Dark mat contact/shadow, ambiguous material at center; no hardfloor depth.",
+      "localized_floor_material_candidate": false,
+      "triangulation": {
+        "observations": [
+          {
+            "camera": "JA",
+            "keypoint_index": 759,
+            "detected_uv": [
+              743.3427124023438,
+              419.1451721191406
+            ],
+            "fitted_error_hd_px": 0.3505700074171837
+          },
+          {
+            "camera": "JB",
+            "keypoint_index": 1390,
+            "detected_uv": [
+              858.3380737304688,
+              508.23095703125
+            ],
+            "fitted_error_hd_px": 0.4044233132581272
+          },
+          {
+            "camera": "KB",
+            "keypoint_index": 1368,
+            "detected_uv": [
+              846.3487548828125,
+              465.0741882324219
+            ],
+            "fitted_error_hd_px": 0.34729282061706185
+          }
+        ],
+        "original_xyz_max_abs": 2.7755575615628914e-16,
+        "xyz_original": [
+          -0.1622955982880151,
+          0.1576534678402256,
+          -0.14242030733258712
+        ],
+        "fit_error_max_hd_px": 0.4044233132581272,
+        "connected_original_ratio_edges": [
+          [
+            [
+              "JA",
+              759
+            ],
+            [
+              "JB",
+              1390
+            ]
+          ],
+          [
+            [
+              "JA",
+              759
+            ],
+            [
+              "KB",
+              1368
+            ]
+          ]
+        ],
+        "leave_one_source_view_out": [],
+        "limitation": "Existing rig and descriptor-selected TRAIN graph; fit residuals are not independent calibration uncertainty"
+      },
+      "reviewed_three_RAW_TRAIN_views": [
+        {
+          "camera": "JA",
+          "detected_uv_COLMAP": [
+            743.3427124023438,
+            419.1451721191406
+          ],
+          "raw_array_xy": [
+            3173.6699447284036,
+            1789.7196344049153
+          ],
+          "crop_xyxy": [
+            2918,
+            1534,
+            3430,
+            2046
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/mat_geometry_TRAIN/review/native_patches/p6860_JA.png",
+          "native_patch_sha256": "16bf3616761b3d87e173e153e852ac355f018ba6fa69ad60f4c550ba0bb98826",
+          "fitted_error_HD": 0.3505700074171837,
+          "raw_source": {
+            "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/JA/JA.000408.tif",
+            "raw_sha256": "8e40a1f4cda5172a565e7881d5ff9f9e47c0e9114705083e7131170eb4810a9a",
+            "original_display_request_image_sha256": "194737a8282998a791fdf116d26146f44b6a774f928717a5bab6506104e34258"
+          }
+        },
+        {
+          "camera": "KB",
+          "detected_uv_COLMAP": [
+            846.3487548828125,
+            465.0741882324219
+          ],
+          "raw_array_xy": [
+            3610.9858296492507,
+            1984.910229418922
+          ],
+          "crop_xyxy": [
+            3355,
+            1729,
+            3867,
+            2241
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/mat_geometry_TRAIN/review/native_patches/p6860_KB.png",
+          "native_patch_sha256": "c2f34e64b2f6248c5e84398eef05d4abffa7664df11a9ac5bb2bdaece57a0fa5",
+          "fitted_error_HD": 0.34729282061706185,
+          "raw_source": {
+            "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/KB/KB.000408.tif",
+            "raw_sha256": "762ac0414806771273a480701bfe56e02bea8ebdcc05ec75635f6b4520e97526",
+            "original_display_request_image_sha256": "44507f9efb7de348b89043c86f155806d9c5ed14ed0791d8c29651f8edaffc5e"
+          }
+        },
+        {
+          "camera": "JB",
+          "detected_uv_COLMAP": [
+            858.3380737304688,
+            508.23095703125
+          ],
+          "raw_array_xy": [
+            3662.032516955748,
+            2169.0042749355425
+          ],
+          "crop_xyxy": [
+            3406,
+            1913,
+            3918,
+            2425
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/mat_geometry_TRAIN/review/native_patches/p6860_JB.png",
+          "native_patch_sha256": "5bb4493600116c440c51e0bd57eaa44063affc9955b80a0edabcf99d3d4eb843",
+          "fitted_error_HD": 0.4044233132581272,
+          "raw_source": {
+            "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/JB/JB.000408.tif",
+            "raw_sha256": "c7558b42c78e972c18fbabbc2d221dd553fc3940f020ec104daa9b1c0d91455a",
+            "original_display_request_image_sha256": "665f280734504c39e01cd94196611507c7c5dae74202590e5a562e8df98c3611"
+          }
+        }
+      ],
+      "triplet": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/exact_markers/p6860_RAW_triplet.jpg",
+      "triplet_sha256": "cc51f222afb355371d1dff701614b2c80278d1133630148cf60df7300dbc8997",
+      "fit_max_HD_px": 0.4044233132581272,
+      "all_observation_count": 3,
+      "max_leave_one_view_out_XYZ_shift": null,
+      "plane_or_emptyspace_certificate": false
+    },
+    {
+      "source_point_id": 7712,
+      "xyz_floor": [
+        -0.12316559728780954,
+        0.1827480220451548,
+        0.0077393147941107465
+      ],
+      "nearest_anchor_XY_distance": 0.031941255567707764,
+      "label": "floor_shadow_or_shoe_contact_uncertain",
+      "note": "Visible floor/shadow or immediate shoe-contact feature; SIFTcenter may encode nearby shoe/shadow silhouette. Do not use as hardfloor-depth truth.",
+      "localized_floor_material_candidate": false,
+      "triangulation": {
+        "observations": [
+          {
+            "camera": "KC",
+            "keypoint_index": 2013,
+            "detected_uv": [
+              852.2037963867188,
+              664.1749877929688
+            ],
+            "fitted_error_hd_px": 0.4470463204557172
+          },
+          {
+            "camera": "LA",
+            "keypoint_index": 1378,
+            "detected_uv": [
+              945.3208618164062,
+              430.57025146484375
+            ],
+            "fitted_error_hd_px": 0.548255079676002
+          },
+          {
+            "camera": "LB",
+            "keypoint_index": 1941,
+            "detected_uv": [
+              974.1986694335938,
+              471.48272705078125
+            ],
+            "fitted_error_hd_px": 0.6925479774376363
+          },
+          {
+            "camera": "LC",
+            "keypoint_index": 3724,
+            "detected_uv": [
+              1197.6929931640625,
+              681.591796875
+            ],
+            "fitted_error_hd_px": 0.8536959473849091
+          }
+        ],
+        "original_xyz_max_abs": 8.326672684688674e-17,
+        "xyz_original": [
+          -0.127696360077421,
+          0.20291670796937716,
+          -0.1340342606581641
+        ],
+        "fit_error_max_hd_px": 0.8536959473849091,
+        "connected_original_ratio_edges": [
+          [
+            [
+              "KC",
+              2013
+            ],
+            [
+              "LB",
+              1941
+            ]
+          ],
+          [
+            [
+              "LA",
+              1378
+            ],
+            [
+              "LB",
+              1941
+            ]
+          ],
+          [
+            [
+              "LB",
+              1941
+            ],
+            [
+              "LC",
+              3724
+            ]
+          ],
+          [
+            [
+              "LA",
+              1378
+            ],
+            [
+              "LC",
+              3724
+            ]
+          ]
+        ],
+        "leave_one_source_view_out": [
+          {
+            "camera": "KC",
+            "heldout_raw_feature_error_hd_px": 1.0689845898909467,
+            "xyz_shift_world": 0.0023144326372547823,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "LA",
+            "heldout_raw_feature_error_hd_px": 0.7460352479476879,
+            "xyz_shift_world": 0.0004893279496682745,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "LB",
+            "heldout_raw_feature_error_hd_px": 0.9255463613395682,
+            "xyz_shift_world": 0.0002491292940420835,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "LC",
+            "heldout_raw_feature_error_hd_px": 1.3899399227721032,
+            "xyz_shift_world": 0.0019435254205084358,
+            "positive_heldout_depth": true
+          }
+        ],
+        "limitation": "Existing rig and descriptor-selected TRAIN graph; fit residuals are not independent calibration uncertainty"
+      },
+      "reviewed_three_RAW_TRAIN_views": [
+        {
+          "camera": "KC",
+          "detected_uv_COLMAP": [
+            852.2037963867188,
+            664.1749877929688
+          ],
+          "raw_array_xy": [
+            3636.450489383932,
+            2833.3608221295385
+          ],
+          "crop_xyxy": [
+            3380,
+            2577,
+            3892,
+            3089
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/mat_geometry_TRAIN/review/native_patches/p7712_KC.png",
+          "native_patch_sha256": "7567a15a46a0f33caccbd86dbc0c7ed8f3f8246df08aabda0b3404d40f3a56ca",
+          "fitted_error_HD": 0.4470463204557172,
+          "raw_source": {
+            "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/KC/KC.000408.tif",
+            "raw_sha256": "363f71c2a4e406bf92954fe20866afee082b40bde7552b43a855087b31641de3",
+            "original_display_request_image_sha256": "69f84828861f7f86355c7576b4e9d7344ba8a3d438ef86444b5e45236d627d8b"
+          }
+        },
+        {
+          "camera": "LA",
+          "detected_uv_COLMAP": [
+            945.3208618164062,
+            430.57025146484375
+          ],
+          "raw_array_xy": [
+            4032.881450357445,
+            1837.549050904565
+          ],
+          "crop_xyxy": [
+            3777,
+            1582,
+            4289,
+            2094
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/mat_geometry_TRAIN/review/native_patches/p7712_LA.png",
+          "native_patch_sha256": "25bac61bb9cafb43f2c9f487719f9f1404b46190e20435e98d7636cfd08615d5",
+          "fitted_error_HD": 0.548255079676002,
+          "raw_source": {
+            "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/LA/LA.000408.tif",
+            "raw_sha256": "7ad7bb21d30aae65ac57512e5a0adf417d6bc07e98b76e2d9f3162ed45668c55",
+            "original_display_request_image_sha256": "1b7bff3fc30e518a45bcf1510c5bf3576b97b728bc137afb94007224e58e23bf"
+          }
+        },
+        {
+          "camera": "LC",
+          "detected_uv_COLMAP": [
+            1197.6929931640625,
+            681.591796875
+          ],
+          "raw_array_xy": [
+            5105.949707840705,
+            2905.9580896935695
+          ],
+          "crop_xyxy": [
+            4850,
+            2650,
+            5362,
+            3162
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/mat_geometry_TRAIN/review/native_patches/p7712_LC.png",
+          "native_patch_sha256": "5939b6589dbec6169355bd2da5c5530438bcb43d4ccc07216dec413b9b06134b",
+          "fitted_error_HD": 0.8536959473849091,
+          "raw_source": {
+            "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/LC/LC.000408.tif",
+            "raw_sha256": "fe771902f0cdddcbe67a48f94a6851e4a4b901b868f1992e06fc8fce1d4a9abe",
+            "original_display_request_image_sha256": "f831a21269efbd7538f848a92f3c351030a332901fc820304806b32dfd884b12"
+          }
+        }
+      ],
+      "triplet": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/exact_markers/p7712_RAW_triplet.jpg",
+      "triplet_sha256": "64d85b0e74b489cabc744255f085a02f5878eb24e74dfea7695a77de48972894",
+      "fit_max_HD_px": 0.8536959473849091,
+      "all_observation_count": 4,
+      "max_leave_one_view_out_XYZ_shift": 0.0023144326372547823,
+      "plane_or_emptyspace_certificate": false
+    },
+    {
+      "source_point_id": 6153,
+      "xyz_floor": [
+        -0.17439034485538726,
+        0.1728532167106743,
+        0.0050304488298776595
+      ],
+      "nearest_anchor_XY_distance": 0.06066406522209434,
+      "label": "mat_lower_edge_contact_uncertain",
+      "note": "Marker lies at lower thickmat/edge strip and its darkcontact region; do not relabel as clearfloor.",
+      "localized_floor_material_candidate": false,
+      "triangulation": {
+        "observations": [
+          {
+            "camera": "IA",
+            "keypoint_index": 909,
+            "detected_uv": [
+              846.6033935546875,
+              427.87164306640625
+            ],
+            "fitted_error_hd_px": 0.24112626487694158
+          },
+          {
+            "camera": "IB",
+            "keypoint_index": 1387,
+            "detected_uv": [
+              859.9451293945312,
+              493.8432922363281
+            ],
+            "fitted_error_hd_px": 0.28311981533507624
+          },
+          {
+            "camera": "IC",
+            "keypoint_index": 2404,
+            "detected_uv": [
+              1012.1769409179688,
+              635.0536499023438
+            ],
+            "fitted_error_hd_px": 0.19898850861421105
+          }
+        ],
+        "original_xyz_max_abs": 1.1102230246251565e-16,
+        "xyz_original": [
+          -0.17897677971002568,
+          0.19328842904421054,
+          -0.13664858619731776
+        ],
+        "fit_error_max_hd_px": 0.28311981533507624,
+        "connected_original_ratio_edges": [
+          [
+            [
+              "IA",
+              909
+            ],
+            [
+              "IB",
+              1387
+            ]
+          ],
+          [
+            [
+              "IB",
+              1387
+            ],
+            [
+              "IC",
+              2404
+            ]
+          ]
+        ],
+        "leave_one_source_view_out": [],
+        "limitation": "Existing rig and descriptor-selected TRAIN graph; fit residuals are not independent calibration uncertainty"
+      },
+      "reviewed_three_RAW_TRAIN_views": [
+        {
+          "camera": "IA",
+          "detected_uv_COLMAP": [
+            846.6033935546875,
+            427.87164306640625
+          ],
+          "raw_array_xy": [
+            3611.996268263639,
+            1826.1815093893629
+          ],
+          "crop_xyxy": [
+            3356,
+            1570,
+            3868,
+            2082
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/mat_geometry_TRAIN/review/native_patches/p6153_IA.png",
+          "native_patch_sha256": "ed8e9c42ed8546b62b22e6a4bdf7bdade8b2163b880ad76fa5803750d31b3b44",
+          "fitted_error_HD": 0.24112626487694158,
+          "raw_source": {
+            "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/IA/IA.000408.tif",
+            "raw_sha256": "86af807c2dbcf8bb613bc0ae67e395f18c62debf2f4ff29d6d630bdeca797bea",
+            "original_display_request_image_sha256": "6023c9a8b6697e9cc7e4db2c1ad237cdb12804981dea9717ff32429abe34ca8b"
+          }
+        },
+        {
+          "camera": "IC",
+          "detected_uv_COLMAP": [
+            1012.1769409179688,
+            635.0536499023438
+          ],
+          "raw_array_xy": [
+            4317.956242251479,
+            2709.8455876464886
+          ],
+          "crop_xyxy": [
+            4062,
+            2454,
+            4574,
+            2966
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/mat_geometry_TRAIN/review/native_patches/p6153_IC.png",
+          "native_patch_sha256": "fbe5ae539600d7ee4eb1eee3a003d9f7d7aa5ba30b7dfd27c90105d625af5bc1",
+          "fitted_error_HD": 0.19898850861421105,
+          "raw_source": {
+            "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/IC/IC.000408.tif",
+            "raw_sha256": "b5ea4949c070b897ba2353bc6ddfc6bcf34b8e0faa8003f7d963ef334dd6462f",
+            "original_display_request_image_sha256": "05b56ba8b727f805747e5042111da19fbd11fb97104864c32c4e038d937c573d"
+          }
+        },
+        {
+          "camera": "IB",
+          "detected_uv_COLMAP": [
+            859.9451293945312,
+            493.8432922363281
+          ],
+          "raw_array_xy": [
+            3668.818809720454,
+            2107.6231786990634
+          ],
+          "crop_xyxy": [
+            3413,
+            1852,
+            3925,
+            2364
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/mat_geometry_TRAIN/review/native_patches/p6153_IB.png",
+          "native_patch_sha256": "06e11c5aebbfe51ba3eac55c0ff7a8a2d50dffd6d0600824d38b221ea7e97dc2",
+          "fitted_error_HD": 0.28311981533507624,
+          "raw_source": {
+            "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/IB/IB.000408.tif",
+            "raw_sha256": "54ad21a5737ede45b078d753dae2c329fa7f82fc789f12040cb5a55e4c100237",
+            "original_display_request_image_sha256": "5d70b00614917171da98f98169dd032485e62dd1051103c81c5c71841cec40f1"
+          }
+        }
+      ],
+      "triplet": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/exact_markers/p6153_RAW_triplet.jpg",
+      "triplet_sha256": "cc04879088972f53b60eb015c5dd7e8d323af0c258ce6629aed4ea830a002132",
+      "fit_max_HD_px": 0.28311981533507624,
+      "all_observation_count": 3,
+      "max_leave_one_view_out_XYZ_shift": null,
+      "plane_or_emptyspace_certificate": false
+    },
+    {
+      "source_point_id": 7866,
+      "xyz_floor": [
+        -0.10987125842784855,
+        0.038905442282511374,
+        0.005117122001180779
+      ],
+      "nearest_anchor_XY_distance": 0.10300195147709452,
+      "label": "floor_shadow_or_shoe_contact_uncertain",
+      "note": "Visible floor/shadow or immediate shoe-contact feature; SIFTcenter may encode nearby shoe/shadow silhouette. Do not use as hardfloor-depth truth.",
+      "localized_floor_material_candidate": false,
+      "triangulation": {
+        "observations": [
+          {
+            "camera": "LA",
+            "keypoint_index": 1166,
+            "detected_uv": [
+              802.3280639648438,
+              467.477783203125
+            ],
+            "fitted_error_hd_px": 0.20898012285749706
+          },
+          {
+            "camera": "LB",
+            "keypoint_index": 1674,
+            "detected_uv": [
+              828.9824829101562,
+              507.1776428222656
+            ],
+            "fitted_error_hd_px": 0.6019016289651523
+          },
+          {
+            "camera": "LC",
+            "keypoint_index": 3272,
+            "detected_uv": [
+              1035.293701171875,
+              694.3344116210938
+            ],
+            "fitted_error_hd_px": 0.3643123026079493
+          },
+          {
+            "camera": "MB",
+            "keypoint_index": 2544,
+            "detected_uv": [
+              1033.0133056640625,
+              566.622802734375
+            ],
+            "fitted_error_hd_px": 0.6611540685403264
+          }
+        ],
+        "original_xyz_max_abs": 2.636779683484747e-16,
+        "xyz_original": [
+          -0.11448043878233481,
+          0.06082525537389042,
+          -0.1566099470744358
+        ],
+        "fit_error_max_hd_px": 0.6611540685403264,
+        "connected_original_ratio_edges": [
+          [
+            [
+              "LA",
+              1166
+            ],
+            [
+              "LB",
+              1674
+            ]
+          ],
+          [
+            [
+              "LA",
+              1166
+            ],
+            [
+              "LC",
+              3272
+            ]
+          ],
+          [
+            [
+              "LA",
+              1166
+            ],
+            [
+              "MB",
+              2544
+            ]
+          ],
+          [
+            [
+              "LB",
+              1674
+            ],
+            [
+              "LC",
+              3272
+            ]
+          ],
+          [
+            [
+              "LC",
+              3272
+            ],
+            [
+              "MB",
+              2544
+            ]
+          ]
+        ],
+        "leave_one_source_view_out": [
+          {
+            "camera": "LA",
+            "heldout_raw_feature_error_hd_px": 0.45869571125282693,
+            "xyz_shift_world": 0.0011146472556221438,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "LB",
+            "heldout_raw_feature_error_hd_px": 0.8260635242688436,
+            "xyz_shift_world": 0.0005629769152299191,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "LC",
+            "heldout_raw_feature_error_hd_px": 0.6927052738962425,
+            "xyz_shift_world": 0.0013523058579533375,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "MB",
+            "heldout_raw_feature_error_hd_px": 1.0250718402918895,
+            "xyz_shift_world": 0.0015144280414215526,
+            "positive_heldout_depth": true
+          }
+        ],
+        "limitation": "Existing rig and descriptor-selected TRAIN graph; fit residuals are not independent calibration uncertainty"
+      },
+      "reviewed_three_RAW_TRAIN_views": [
+        {
+          "camera": "LA",
+          "detected_uv_COLMAP": [
+            802.3280639648438,
+            467.477783203125
+          ],
+          "raw_array_xy": [
+            3423.5912855935912,
+            1995.1813479839843
+          ],
+          "crop_xyxy": [
+            3168,
+            1739,
+            3680,
+            2251
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/mat_geometry_TRAIN/review/native_patches/p7866_LA.png",
+          "native_patch_sha256": "7502e3e213633c69f5d1561d417ec18a896d616c9332c1352e3f9dc28723f161",
+          "fitted_error_HD": 0.20898012285749706,
+          "raw_source": {
+            "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/LA/LA.000408.tif",
+            "raw_sha256": "7ad7bb21d30aae65ac57512e5a0adf417d6bc07e98b76e2d9f3162ed45668c55",
+            "original_display_request_image_sha256": "1b7bff3fc30e518a45bcf1510c5bf3576b97b728bc137afb94007224e58e23bf"
+          }
+        },
+        {
+          "camera": "LC",
+          "detected_uv_COLMAP": [
+            1035.293701171875,
+            694.3344116210938
+          ],
+          "raw_array_xy": [
+            4416.240107247486,
+            2961.75530178974
+          ],
+          "crop_xyxy": [
+            4160,
+            2706,
+            4672,
+            3218
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/mat_geometry_TRAIN/review/native_patches/p7866_LC.png",
+          "native_patch_sha256": "08a263365e0cbb0934669a2299c5265e74b94d797d004f49bac44ca09e0f2779",
+          "fitted_error_HD": 0.3643123026079493,
+          "raw_source": {
+            "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/LC/LC.000408.tif",
+            "raw_sha256": "fe771902f0cdddcbe67a48f94a6851e4a4b901b868f1992e06fc8fce1d4a9abe",
+            "original_display_request_image_sha256": "f831a21269efbd7538f848a92f3c351030a332901fc820304806b32dfd884b12"
+          }
+        },
+        {
+          "camera": "MB",
+          "detected_uv_COLMAP": [
+            1033.0133056640625,
+            566.622802734375
+          ],
+          "raw_array_xy": [
+            4406.901324939841,
+            2418.175992524584
+          ],
+          "crop_xyxy": [
+            4151,
+            2162,
+            4663,
+            2674
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/mat_geometry_TRAIN/review/native_patches/p7866_MB.png",
+          "native_patch_sha256": "6867247a8a57b07eadaa5e519fb1abc29a33d17cc97023785a4b65c60dacae74",
+          "fitted_error_HD": 0.6611540685403264,
+          "raw_source": {
+            "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/MB/MB.000408.tif",
+            "raw_sha256": "1dc435918b34176f7a9407a3af9ca55cbc92552cbede292d5bce5478533ac140",
+            "original_display_request_image_sha256": "dddd8a18c722fc2d624bbe358c6274a131d67742f42cefaeaaad51c6bf72dd73"
+          }
+        }
+      ],
+      "triplet": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/exact_markers/p7866_RAW_triplet.jpg",
+      "triplet_sha256": "d6ceaa0e3f88b1789acb14a840683e555b19a520e35d94f83824eb9b7e02a462",
+      "fit_max_HD_px": 0.6611540685403264,
+      "all_observation_count": 4,
+      "max_leave_one_view_out_XYZ_shift": 0.0015144280414215526,
+      "plane_or_emptyspace_certificate": false
+    },
+    {
+      "source_point_id": 1015,
+      "xyz_floor": [
+        -0.03663701955008099,
+        0.03988817424218929,
+        0.004190835728792086
+      ],
+      "nearest_anchor_XY_distance": 0.12975374941628065,
+      "label": "floor_shadow_or_shoe_contact_uncertain",
+      "note": "Visible floor/shadow or immediate shoe-contact feature; SIFTcenter may encode nearby shoe/shadow silhouette. Do not use as hardfloor-depth truth.",
+      "localized_floor_material_candidate": false,
+      "triangulation": {
+        "observations": [
+          {
+            "camera": "BB",
+            "keypoint_index": 1439,
+            "detected_uv": [
+              899.0408935546875,
+              545.1577758789062
+            ],
+            "fitted_error_hd_px": 0.41555518665455676
+          },
+          {
+            "camera": "BC",
+            "keypoint_index": 2483,
+            "detected_uv": [
+              941.9183349609375,
+              782.294677734375
+            ],
+            "fitted_error_hd_px": 0.6831790152663193
+          },
+          {
+            "camera": "CA",
+            "keypoint_index": 2618,
+            "detected_uv": [
+              1139.622802734375,
+              639.3919067382812
+            ],
+            "fitted_error_hd_px": 0.2750127772024143
+          },
+          {
+            "camera": "CB",
+            "keypoint_index": 2340,
+            "detected_uv": [
+              1035.2315673828125,
+              624.1190185546875
+            ],
+            "fitted_error_hd_px": 0.10712594983076007
+          },
+          {
+            "camera": "CC",
+            "keypoint_index": 2904,
+            "detected_uv": [
+              1022.4846801757812,
+              890.2008666992188
+            ],
+            "fitted_error_hd_px": 0.2432657983037468
+          },
+          {
+            "camera": "DA",
+            "keypoint_index": 888,
+            "detected_uv": [
+              1091.180419921875,
+              472.8382873535156
+            ],
+            "fitted_error_hd_px": 0.13829604680688073
+          },
+          {
+            "camera": "DB",
+            "keypoint_index": 2710,
+            "detected_uv": [
+              1156.9022216796875,
+              622.7006225585938
+            ],
+            "fitted_error_hd_px": 0.2682631245091668
+          },
+          {
+            "camera": "EB",
+            "keypoint_index": 2102,
+            "detected_uv": [
+              950.675048828125,
+              640.8434448242188
+            ],
+            "fitted_error_hd_px": 0.6437497729076511
+          }
+        ],
+        "original_xyz_max_abs": 1.249000902703301e-16,
+        "xyz_original": [
+          -0.04130063451405544,
+          0.06220389705189915,
+          -0.15941941441699167
+        ],
+        "fit_error_max_hd_px": 0.6831790152663193,
+        "connected_original_ratio_edges": [
+          [
+            [
+              "BB",
+              1439
+            ],
+            [
+              "BC",
+              2483
+            ]
+          ],
+          [
+            [
+              "BC",
+              2483
+            ],
+            [
+              "CB",
+              2340
+            ]
+          ],
+          [
+            [
+              "CA",
+              2618
+            ],
+            [
+              "CB",
+              2340
+            ]
+          ],
+          [
+            [
+              "CB",
+              2340
+            ],
+            [
+              "DB",
+              2710
+            ]
+          ],
+          [
+            [
+              "CA",
+              2618
+            ],
+            [
+              "DA",
+              888
+            ]
+          ],
+          [
+            [
+              "CA",
+              2618
+            ],
+            [
+              "DB",
+              2710
+            ]
+          ],
+          [
+            [
+              "DA",
+              888
+            ],
+            [
+              "EB",
+              2102
+            ]
+          ],
+          [
+            [
+              "CC",
+              2904
+            ],
+            [
+              "DB",
+              2710
+            ]
+          ]
+        ],
+        "leave_one_source_view_out": [
+          {
+            "camera": "BB",
+            "heldout_raw_feature_error_hd_px": 0.5834445158720707,
+            "xyz_shift_world": 0.0003204207322855026,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "BC",
+            "heldout_raw_feature_error_hd_px": 0.7828569268640565,
+            "xyz_shift_world": 7.172679403591548e-05,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "CA",
+            "heldout_raw_feature_error_hd_px": 0.3232167967971183,
+            "xyz_shift_world": 7.171305864886571e-05,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "CB",
+            "heldout_raw_feature_error_hd_px": 0.12547422475410164,
+            "xyz_shift_world": 2.3898131364850354e-05,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "CC",
+            "heldout_raw_feature_error_hd_px": 0.28764974284601713,
+            "xyz_shift_world": 5.539845422913059e-05,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "DA",
+            "heldout_raw_feature_error_hd_px": 0.17515917940515813,
+            "xyz_shift_world": 6.917586226448079e-05,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "DB",
+            "heldout_raw_feature_error_hd_px": 0.31861490830010586,
+            "xyz_shift_world": 7.18185240938057e-05,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "EB",
+            "heldout_raw_feature_error_hd_px": 0.8835833163805302,
+            "xyz_shift_world": 0.00044420216157708774,
+            "positive_heldout_depth": true
+          }
+        ],
+        "limitation": "Existing rig and descriptor-selected TRAIN graph; fit residuals are not independent calibration uncertainty"
+      },
+      "reviewed_three_RAW_TRAIN_views": [
+        {
+          "camera": "BC",
+          "detected_uv_COLMAP": [
+            941.9183349609375,
+            782.294677734375
+          ],
+          "raw_array_xy": [
+            4018.810764776964,
+            3334.407789713887
+          ],
+          "crop_xyxy": [
+            3763,
+            3078,
+            4275,
+            3590
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/mat_geometry_TRAIN/review/native_patches/p1015_BC.png",
+          "native_patch_sha256": "391ba5082c29e61ebe26dd98d78c01d455784b36103054f124b81422f287dd7a",
+          "fitted_error_HD": 0.6831790152663193,
+          "raw_source": {
+            "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/BC/BC.000408.tif",
+            "raw_sha256": "ef60a80692cfaaa62851381fd287e3c247ce066fd9f8d64a37addf5e9a24834a",
+            "original_display_request_image_sha256": "31635ed107415a5266b0740976f77092451cd2ec36d1aba69b5b7f42e54ce839"
+          }
+        },
+        {
+          "camera": "EB",
+          "detected_uv_COLMAP": [
+            950.675048828125,
+            640.8434448242188
+          ],
+          "raw_array_xy": [
+            4055.785893782136,
+            2734.344633102489
+          ],
+          "crop_xyxy": [
+            3800,
+            2478,
+            4312,
+            2990
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/mat_geometry_TRAIN/review/native_patches/p1015_EB.png",
+          "native_patch_sha256": "9d11e6f250b4fcbeb7fdd38f7bfc457b1cbf49f69f1bd4dde55ed0846e55cf10",
+          "fitted_error_HD": 0.6437497729076511,
+          "raw_source": {
+            "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/EB/EB.000408.tif",
+            "raw_sha256": "215779d54619b01ac713ccbcd4d066151faff8c37b6628253e9cfc9c565e1676",
+            "original_display_request_image_sha256": "66195dcf8eb8bf7188486fbd544fd98c14858a8ba110017d415ea5ab20b8947f"
+          }
+        },
+        {
+          "camera": "CA",
+          "detected_uv_COLMAP": [
+            1139.622802734375,
+            639.3919067382812
+          ],
+          "raw_array_xy": [
+            4859.585051950722,
+            2727.0665643898005
+          ],
+          "crop_xyxy": [
+            4604,
+            2471,
+            5116,
+            2983
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/mat_geometry_TRAIN/review/native_patches/p1015_CA.png",
+          "native_patch_sha256": "2b97fec29468f8bb0118a26e7b68d66460becdcf9237f6334d61b4b9bf17d757",
+          "fitted_error_HD": 0.2750127772024143,
+          "raw_source": {
+            "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/CA/CA.000408.tif",
+            "raw_sha256": "54f4c13a06ce31136d52f80076f027d137cce304b11913e1316bd6288525b650",
+            "original_display_request_image_sha256": "b8710f9ffeaa28283e4758d2ecfec97f1a49ea3efdf5cd4f7ccf637c98b695a7"
+          }
+        }
+      ],
+      "triplet": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/exact_markers/p1015_RAW_triplet.jpg",
+      "triplet_sha256": "367dd60c0ae0d00440deef3aef0b59b01a0d332b27877610a3db48373bd88bd9",
+      "fit_max_HD_px": 0.6831790152663193,
+      "all_observation_count": 8,
+      "max_leave_one_view_out_XYZ_shift": 0.00044420216157708774,
+      "plane_or_emptyspace_certificate": false
+    },
+    {
+      "source_point_id": 6863,
+      "xyz_floor": [
+        -0.011100640538966401,
+        0.04291526244949359,
+        0.004444240184562409
+      ],
+      "nearest_anchor_XY_distance": 0.14488832467183332,
+      "label": "floor_panel_seam_junction",
+      "note": "Visible seam junction/edge in JB/LB/KB. SIFTcenter lies by seam-shadow boundary; retain localization uncertainty. Root independently reviewed.",
+      "localized_floor_material_candidate": true,
+      "triangulation": {
+        "observations": [
+          {
+            "camera": "JA",
+            "keypoint_index": 815,
+            "detected_uv": [
+              778.9446411132812,
+              520.597900390625
+            ],
+            "fitted_error_hd_px": 0.5739452804238636
+          },
+          {
+            "camera": "JB",
+            "keypoint_index": 1506,
+            "detected_uv": [
+              901.7868041992188,
+              599.1025390625
+            ],
+            "fitted_error_hd_px": 0.5654113535390441
+          },
+          {
+            "camera": "JC",
+            "keypoint_index": 3077,
+            "detected_uv": [
+              1118.0250244140625,
+              748.7335205078125
+            ],
+            "fitted_error_hd_px": 0.790965258084079
+          },
+          {
+            "camera": "KB",
+            "keypoint_index": 1369,
+            "detected_uv": [
+              846.5208740234375,
+              559.5555419921875
+            ],
+            "fitted_error_hd_px": 0.47731244806528117
+          },
+          {
+            "camera": "KC",
+            "keypoint_index": 1743,
+            "detected_uv": [
+              760.61767578125,
+              743.1864624023438
+            ],
+            "fitted_error_hd_px": 0.796380976788559
+          },
+          {
+            "camera": "LB",
+            "keypoint_index": 1727,
+            "detected_uv": [
+              870.9215698242188,
+              556.7257690429688
+            ],
+            "fitted_error_hd_px": 0.5330274117524044
+          }
+        ],
+        "original_xyz_max_abs": 6.938893903907228e-17,
+        "xyz_original": [
+          -0.015767139109852363,
+          0.06526541703269759,
+          -0.15946228262211853
+        ],
+        "fit_error_max_hd_px": 0.796380976788559,
+        "connected_original_ratio_edges": [
+          [
+            [
+              "JA",
+              815
+            ],
+            [
+              "JB",
+              1506
+            ]
+          ],
+          [
+            [
+              "JA",
+              815
+            ],
+            [
+              "JC",
+              3077
+            ]
+          ],
+          [
+            [
+              "JA",
+              815
+            ],
+            [
+              "KB",
+              1369
+            ]
+          ],
+          [
+            [
+              "JB",
+              1506
+            ],
+            [
+              "JC",
+              3077
+            ]
+          ],
+          [
+            [
+              "JC",
+              3077
+            ],
+            [
+              "KB",
+              1369
+            ]
+          ],
+          [
+            [
+              "KB",
+              1369
+            ],
+            [
+              "LB",
+              1727
+            ]
+          ],
+          [
+            [
+              "KC",
+              1743
+            ],
+            [
+              "LB",
+              1727
+            ]
+          ]
+        ],
+        "leave_one_source_view_out": [
+          {
+            "camera": "JA",
+            "heldout_raw_feature_error_hd_px": 0.8485690076338085,
+            "xyz_shift_world": 0.0007163991408742506,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "JB",
+            "heldout_raw_feature_error_hd_px": 0.8366179616606789,
+            "xyz_shift_world": 0.0006732347076122471,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "JC",
+            "heldout_raw_feature_error_hd_px": 0.959186824517345,
+            "xyz_shift_world": 0.0001288510324913929,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "KB",
+            "heldout_raw_feature_error_hd_px": 0.573814234556084,
+            "xyz_shift_world": 7.672078123077507e-05,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "KC",
+            "heldout_raw_feature_error_hd_px": 1.1384982378231634,
+            "xyz_shift_world": 0.0007814234763897359,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "LB",
+            "heldout_raw_feature_error_hd_px": 0.9494757169486631,
+            "xyz_shift_world": 0.0010065958745091438,
+            "positive_heldout_depth": true
+          }
+        ],
+        "limitation": "Existing rig and descriptor-selected TRAIN graph; fit residuals are not independent calibration uncertainty"
+      },
+      "reviewed_three_RAW_TRAIN_views": [
+        {
+          "camera": "JB",
+          "detected_uv_COLMAP": [
+            901.7868041992188,
+            599.1025390625
+          ],
+          "raw_array_xy": [
+            3847.3270851443854,
+            2556.635349233935
+          ],
+          "crop_xyxy": [
+            3591,
+            2301,
+            4103,
+            2813
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/mat_geometry_TRAIN/review/native_patches/p6863_JB.png",
+          "native_patch_sha256": "76f7d76854f013b17f5af280cf95056bfa3e06099ba222bbe1b2a6ec5f5b6fd0",
+          "fitted_error_HD": 0.5654113535390441,
+          "raw_source": {
+            "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/JB/JB.000408.tif",
+            "raw_sha256": "c7558b42c78e972c18fbabbc2d221dd553fc3940f020ec104daa9b1c0d91455a",
+            "original_display_request_image_sha256": "665f280734504c39e01cd94196611507c7c5dae74202590e5a562e8df98c3611"
+          }
+        },
+        {
+          "camera": "LB",
+          "detected_uv_COLMAP": [
+            870.9215698242188,
+            556.7257690429688
+          ],
+          "raw_array_xy": [
+            3715.6126104808227,
+            2375.930368781072
+          ],
+          "crop_xyxy": [
+            3460,
+            2120,
+            3972,
+            2632
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/mat_geometry_TRAIN/review/native_patches/p6863_LB.png",
+          "native_patch_sha256": "562103ac1fc64a4ed08fa175c22338e1be2f4ce5f8d7302d806105fc786db625",
+          "fitted_error_HD": 0.5330274117524044,
+          "raw_source": {
+            "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/LB/LB.000408.tif",
+            "raw_sha256": "91ab8de7c809236ef1a72a8089fd4f0567278ded9c88b427f2de9f0255101ffe",
+            "original_display_request_image_sha256": "f33c83f99a62222f498ef3108bdc117de5323463af78664381141811f1aa3e71"
+          }
+        },
+        {
+          "camera": "KB",
+          "detected_uv_COLMAP": [
+            846.5208740234375,
+            559.5555419921875
+          ],
+          "raw_array_xy": [
+            3611.7784703909215,
+            2387.8925170017433
+          ],
+          "crop_xyxy": [
+            3356,
+            2132,
+            3868,
+            2644
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/mat_geometry_TRAIN/review/native_patches/p6863_KB.png",
+          "native_patch_sha256": "4ae19e37b98d638ba589ceedcb1fe46c2d9dc17ac9f470537d7bdc9b24e59765",
+          "fitted_error_HD": 0.47731244806528117,
+          "raw_source": {
+            "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/KB/KB.000408.tif",
+            "raw_sha256": "762ac0414806771273a480701bfe56e02bea8ebdcc05ec75635f6b4520e97526",
+            "original_display_request_image_sha256": "44507f9efb7de348b89043c86f155806d9c5ed14ed0791d8c29651f8edaffc5e"
+          }
+        }
+      ],
+      "triplet": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/exact_markers/p6863_RAW_triplet.jpg",
+      "triplet_sha256": "d78e159f86c79778cd5136d74cf4aca1b7657169be778227a264590c3753d003",
+      "fit_max_HD_px": 0.796380976788559,
+      "all_observation_count": 6,
+      "max_leave_one_view_out_XYZ_shift": 0.0010065958745091438,
+      "plane_or_emptyspace_certificate": false
+    },
+    {
+      "source_point_id": 5511,
+      "xyz_floor": [
+        -0.11134935213588439,
+        -0.003235529365555429,
+        0.0010667091178797883
+      ],
+      "nearest_anchor_XY_distance": 0.14500186004847299,
+      "label": "floor_panel_physical_scratch",
+      "note": "Visible pale scratch/crease on exposed panel in HA/HB/IB; strongest localized texture candidate. Physical panel height only at observed feature, not wholepanel.",
+      "localized_floor_material_candidate": true,
+      "triangulation": {
+        "observations": [
+          {
+            "camera": "HA",
+            "keypoint_index": 723,
+            "detected_uv": [
+              773.4286499023438,
+              556.4849853515625
+            ],
+            "fitted_error_hd_px": 0.6510947183168401
+          },
+          {
+            "camera": "HB",
+            "keypoint_index": 581,
+            "detected_uv": [
+              855.7664184570312,
+              425.7192687988281
+            ],
+            "fitted_error_hd_px": 0.528006118259507
+          },
+          {
+            "camera": "IB",
+            "keypoint_index": 1334,
+            "detected_uv": [
+              810.485107421875,
+              600.1369018554688
+            ],
+            "fitted_error_hd_px": 0.4714935921130158
+          }
+        ],
+        "original_xyz_max_abs": 4.510281037539698e-16,
+        "xyz_original": [
+          -0.11607107498736578,
+          0.019624159710569834,
+          -0.1663254856381628
+        ],
+        "fit_error_max_hd_px": 0.6510947183168401,
+        "connected_original_ratio_edges": [
+          [
+            [
+              "HA",
+              723
+            ],
+            [
+              "HB",
+              581
+            ]
+          ],
+          [
+            [
+              "HA",
+              723
+            ],
+            [
+              "IB",
+              1334
+            ]
+          ]
+        ],
+        "leave_one_source_view_out": [],
+        "limitation": "Existing rig and descriptor-selected TRAIN graph; fit residuals are not independent calibration uncertainty"
+      },
+      "reviewed_three_RAW_TRAIN_views": [
+        {
+          "camera": "HA",
+          "detected_uv_COLMAP": [
+            773.4286499023438,
+            556.4849853515625
+          ],
+          "raw_array_xy": [
+            3300.9460551585453,
+            2374.523428404079
+          ],
+          "crop_xyxy": [
+            3045,
+            2119,
+            3557,
+            2631
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/mat_geometry_TRAIN/review/native_patches/p5511_HA.png",
+          "native_patch_sha256": "2b5f0a43250a065966f9892000af0597feb697da3bba729f0f2fadf85431057e",
+          "fitted_error_HD": 0.6510947183168401,
+          "raw_source": {
+            "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/HA/HA.000408.tif",
+            "raw_sha256": "4c08198f0c6a0c4fc40b0b71d2fdd003eb4c2295a98924a5fc357731605d564b",
+            "original_display_request_image_sha256": "94d73b5b577d0577beb36c9ff48cabd47d675381c68bed7290e7db195c3ee0da"
+          }
+        },
+        {
+          "camera": "IB",
+          "detected_uv_COLMAP": [
+            810.485107421875,
+            600.1369018554688
+          ],
+          "raw_array_xy": [
+            3458.6010614460547,
+            2560.6736978758818
+          ],
+          "crop_xyxy": [
+            3203,
+            2305,
+            3715,
+            2817
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/mat_geometry_TRAIN/review/native_patches/p5511_IB.png",
+          "native_patch_sha256": "0d75a05b843be1943c6da818c2083ead3ece1fd0387d2710fa3469f4957b3766",
+          "fitted_error_HD": 0.4714935921130158,
+          "raw_source": {
+            "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/IB/IB.000408.tif",
+            "raw_sha256": "54ad21a5737ede45b078d753dae2c329fa7f82fc789f12040cb5a55e4c100237",
+            "original_display_request_image_sha256": "5d70b00614917171da98f98169dd032485e62dd1051103c81c5c71841cec40f1"
+          }
+        },
+        {
+          "camera": "HB",
+          "detected_uv_COLMAP": [
+            855.7664184570312,
+            425.7192687988281
+          ],
+          "raw_array_xy": [
+            3651.0711542770096,
+            1817.0300439237467
+          ],
+          "crop_xyxy": [
+            3395,
+            1561,
+            3907,
+            2073
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/mat_geometry_TRAIN/review/native_patches/p5511_HB.png",
+          "native_patch_sha256": "4fd59910bf6e5f744eedb74a3c7063683d25a11af326151406a2dd338145e65a",
+          "fitted_error_HD": 0.528006118259507,
+          "raw_source": {
+            "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/HB/HB.000408.tif",
+            "raw_sha256": "3467ff199bd9c3321c173ecdfddc6504e332088cdd878caf9ed9280381659bf1",
+            "original_display_request_image_sha256": "617aaa1745e9dc0bfdd6aa878fb6ebe589226c36c282beb6ce8f27549997e20f"
+          }
+        }
+      ],
+      "triplet": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/exact_markers/p5511_RAW_triplet.jpg",
+      "triplet_sha256": "fba41609b5742e33b480379bf5c83369b4614f483104a279b799841b84edbf19",
+      "fit_max_HD_px": 0.6510947183168401,
+      "all_observation_count": 3,
+      "max_leave_one_view_out_XYZ_shift": null,
+      "plane_or_emptyspace_certificate": false
+    },
+    {
+      "source_point_id": 3729,
+      "xyz_floor": [
+        -0.11834884489686082,
+        0.1434775751855413,
+        0.010163766027369348
+      ],
+      "nearest_anchor_XY_distance": 0.0021916558921977205,
+      "label": "black_actor_shoe_toe",
+      "note": "Actor blackshoe toe/rim in GA/FB/FA, notfloor.",
+      "localized_floor_material_candidate": false,
+      "triangulation": {
+        "observations": [
+          {
+            "camera": "FA",
+            "keypoint_index": 680,
+            "detected_uv": [
+              836.0142211914062,
+              419.0208435058594
+            ],
+            "fitted_error_hd_px": 0.15661828487480703
+          },
+          {
+            "camera": "FB",
+            "keypoint_index": 377,
+            "detected_uv": [
+              644.3450927734375,
+              373.06793212890625
+            ],
+            "fitted_error_hd_px": 0.277371664880493
+          },
+          {
+            "camera": "GA",
+            "keypoint_index": 753,
+            "detected_uv": [
+              843.2776489257812,
+              493.9946594238281
+            ],
+            "fitted_error_hd_px": 0.10821718634988818
+          }
+        ],
+        "original_xyz_max_abs": 2.220446049250313e-16,
+        "xyz_original": [
+          -0.122813776953101,
+          0.163700877397908,
+          -0.13712069526071133
+        ],
+        "fit_error_max_hd_px": 0.277371664880493,
+        "connected_original_ratio_edges": [
+          [
+            [
+              "FA",
+              680
+            ],
+            [
+              "FB",
+              377
+            ]
+          ],
+          [
+            [
+              "FA",
+              680
+            ],
+            [
+              "GA",
+              753
+            ]
+          ]
+        ],
+        "leave_one_source_view_out": [],
+        "limitation": "Existing rig and descriptor-selected TRAIN graph; fit residuals are not independent calibration uncertainty"
+      },
+      "reviewed_three_RAW_TRAIN_views": [
+        {
+          "camera": "GA",
+          "keypoint_index": 753,
+          "detected_uv": [
+            843.2776489257812,
+            493.9946594238281
+          ],
+          "fitted_error_hd_px": 0.10821718634988818,
+          "raw_array_xy": [
+            3597.850972764003,
+            2108.251226220562
+          ],
+          "native_crop_xyxy": [
+            3342,
+            1852,
+            3854,
+            2364
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/native_patches/p3729_GA.png",
+          "native_patch_sha256": "ada8eb5452ba2d35cb6c2b141012fdae4eda8de13efc4cfb2bda0b8824dcc7cc",
+          "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/GA/GA.000408.tif",
+          "raw_sha256": "63314cdea84271c03a0c0927bad8e9b42afb5ce3a206ca1a232635d1cd9b8c7d"
+        },
+        {
+          "camera": "FB",
+          "keypoint_index": 377,
+          "detected_uv": [
+            644.3450927734375,
+            373.06793212890625
+          ],
+          "fitted_error_hd_px": 0.277371664880493,
+          "raw_array_xy": [
+            2756.325736472704,
+            1595.1161542906848
+          ],
+          "native_crop_xyxy": [
+            2500,
+            1339,
+            3012,
+            1851
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/native_patches/p3729_FB.png",
+          "native_patch_sha256": "8bb45c9756be20928b4b4e1f379a2d71cfce4d84a10d85783cf026ba4cb0f07e",
+          "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/FB/FB.000408.tif",
+          "raw_sha256": "49905a866a3e846a3fa72fc1794c9765880079f358f0d356f69025a28afafc09"
+        },
+        {
+          "camera": "FA",
+          "keypoint_index": 680,
+          "detected_uv": [
+            836.0142211914062,
+            419.0208435058594
+          ],
+          "fitted_error_hd_px": 0.15661828487480703,
+          "raw_array_xy": [
+            3567.042844759494,
+            1788.510883370211
+          ],
+          "native_crop_xyxy": [
+            3311,
+            1533,
+            3823,
+            2045
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/native_patches/p3729_FA.png",
+          "native_patch_sha256": "a279e89a60f5068c93b6fd947e80892ae5d332d4da02e5885f6ccc0c59b258b0",
+          "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/FA/FA.000408.tif",
+          "raw_sha256": "018fe9ea3813d09191c0e467d56dbd21b88d6b07a45c9f3a79965f5e11708e0e"
+        }
+      ],
+      "triplet": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/p3729_RAW_triplet.jpg",
+      "triplet_sha256": "428766a2da7619ff5bad944fc4d276171fe9c2dbcefae3c29b7f86f051207052",
+      "fit_max_HD_px": 0.277371664880493,
+      "all_observation_count": 3,
+      "max_leave_one_view_out_XYZ_shift": null,
+      "plane_or_emptyspace_certificate": false
+    },
+    {
+      "source_point_id": 1515,
+      "xyz_floor": [
+        -0.06462071724273952,
+        0.1361535982727381,
+        0.004695058927449841
+      ],
+      "nearest_anchor_XY_distance": 0.0528042513145638,
+      "label": "floor_shadow_or_shoe_contact_uncertain",
+      "note": "Visible floor/shadow or immediate shoe-contact feature; SIFTcenter may encode nearby shoe/shadow silhouette. Do not use as hardfloor-depth truth.",
+      "localized_floor_material_candidate": false,
+      "triangulation": {
+        "observations": [
+          {
+            "camera": "CA",
+            "keypoint_index": 2217,
+            "detected_uv": [
+              1028.597900390625,
+              605.369384765625
+            ],
+            "fitted_error_hd_px": 0.19088613583686076
+          },
+          {
+            "camera": "CB",
+            "keypoint_index": 1978,
+            "detected_uv": [
+              910.9255981445312,
+              600.267333984375
+            ],
+            "fitted_error_hd_px": 0.11479393069916245
+          },
+          {
+            "camera": "CC",
+            "keypoint_index": 2514,
+            "detected_uv": [
+              891.5032348632812,
+              864.486083984375
+            ],
+            "fitted_error_hd_px": 0.3556869398194854
+          },
+          {
+            "camera": "DB",
+            "keypoint_index": 2337,
+            "detected_uv": [
+              1049.87744140625,
+              578.7067260742188
+            ],
+            "fitted_error_hd_px": 0.4823190224398968
+          }
+        ],
+        "original_xyz_max_abs": 2.498001805406602e-16,
+        "xyz_original": [
+          -0.06925933514932318,
+          0.15739516514162233,
+          -0.14502125551984613
+        ],
+        "fit_error_max_hd_px": 0.4823190224398968,
+        "connected_original_ratio_edges": [
+          [
+            [
+              "CA",
+              2217
+            ],
+            [
+              "CB",
+              1978
+            ]
+          ],
+          [
+            [
+              "CA",
+              2217
+            ],
+            [
+              "DB",
+              2337
+            ]
+          ],
+          [
+            [
+              "CB",
+              1978
+            ],
+            [
+              "DB",
+              2337
+            ]
+          ],
+          [
+            [
+              "CB",
+              1978
+            ],
+            [
+              "CC",
+              2514
+            ]
+          ],
+          [
+            [
+              "CC",
+              2514
+            ],
+            [
+              "DB",
+              2337
+            ]
+          ]
+        ],
+        "leave_one_source_view_out": [
+          {
+            "camera": "CA",
+            "heldout_raw_feature_error_hd_px": 0.3968834256682193,
+            "xyz_shift_world": 0.0008092757522786478,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "CB",
+            "heldout_raw_feature_error_hd_px": 0.206265710057706,
+            "xyz_shift_world": 0.0003226026556614473,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "CC",
+            "heldout_raw_feature_error_hd_px": 0.5763509406004534,
+            "xyz_shift_world": 0.0007132845421087342,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "DB",
+            "heldout_raw_feature_error_hd_px": 0.6618436014155139,
+            "xyz_shift_world": 0.00041701035610445847,
+            "positive_heldout_depth": true
+          }
+        ],
+        "limitation": "Existing rig and descriptor-selected TRAIN graph; fit residuals are not independent calibration uncertainty"
+      },
+      "reviewed_three_RAW_TRAIN_views": [
+        {
+          "camera": "CB",
+          "keypoint_index": 1978,
+          "detected_uv": [
+            910.9255981445312,
+            600.267333984375
+          ],
+          "fitted_error_hd_px": 0.11479393069916245,
+          "raw_array_xy": [
+            3886.2112456268414,
+            2561.658932207973
+          ],
+          "native_crop_xyxy": [
+            3630,
+            2306,
+            4142,
+            2818
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/native_patches/p1515_CB.png",
+          "native_patch_sha256": "9d6a50628eac6e0c6e9fd18c824ce27468af65ee458909d9f5ace40e4a5d500b",
+          "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/CB/CB.000408.tif",
+          "raw_sha256": "67489de8da014710569738324a75e7a31fd182ee7781c4a959fe0646f0db938e"
+        },
+        {
+          "camera": "DB",
+          "keypoint_index": 2337,
+          "detected_uv": [
+            1049.87744140625,
+            578.7067260742188
+          ],
+          "fitted_error_hd_px": 0.4823190224398968,
+          "raw_array_xy": [
+            4478.722608928337,
+            2469.616005501683
+          ],
+          "native_crop_xyxy": [
+            4223,
+            2214,
+            4735,
+            2726
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/native_patches/p1515_DB.png",
+          "native_patch_sha256": "ca009745898c4dca51ce8110164f4e5053dc095c9761f3a27cf61d3b47f84b3e",
+          "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/DB/DB.000408.tif",
+          "raw_sha256": "3b993c2500a7875890c2af65d0b08c785aa3e29cbf5c5d9095264fe17690787f"
+        },
+        {
+          "camera": "CA",
+          "keypoint_index": 2217,
+          "detected_uv": [
+            1028.597900390625,
+            605.369384765625
+          ],
+          "fitted_error_hd_px": 0.19088613583686076,
+          "raw_array_xy": [
+            4387.86668461049,
+            2583.205296317175
+          ],
+          "native_crop_xyxy": [
+            4132,
+            2327,
+            4644,
+            2839
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/native_patches/p1515_CA.png",
+          "native_patch_sha256": "27fcf6098c039863ebf68d1d55a6225ce8a3b4aa900625392f948d572296a59e",
+          "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/CA/CA.000408.tif",
+          "raw_sha256": "54f4c13a06ce31136d52f80076f027d137cce304b11913e1316bd6288525b650"
+        }
+      ],
+      "triplet": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/p1515_RAW_triplet.jpg",
+      "triplet_sha256": "9ae43d7c3f4d1835fc787fea92d3cb4ea0a96d3eb4d7bb59fac75abf423aa2c9",
+      "fit_max_HD_px": 0.4823190224398968,
+      "all_observation_count": 4,
+      "max_leave_one_view_out_XYZ_shift": 0.0008092757522786478,
+      "plane_or_emptyspace_certificate": false
+    },
+    {
+      "source_point_id": 941,
+      "xyz_floor": [
+        -0.04312981941992678,
+        0.1568169656992543,
+        0.004657933135034431
+      ],
+      "nearest_anchor_XY_distance": 0.0747676306340796,
+      "label": "floor_shadow_or_shoe_contact_uncertain",
+      "note": "Visible floor/shadow or immediate shoe-contact feature; SIFTcenter may encode nearby shoe/shadow silhouette. Do not use as hardfloor-depth truth.",
+      "localized_floor_material_candidate": false,
+      "triangulation": {
+        "observations": [
+          {
+            "camera": "BA",
+            "keypoint_index": 1435,
+            "detected_uv": [
+              1052.1392822265625,
+              487.2040100097656
+            ],
+            "fitted_error_hd_px": 0.11572382905612227
+          },
+          {
+            "camera": "CA",
+            "keypoint_index": 2213,
+            "detected_uv": [
+              1027.3699951171875,
+              584.2213134765625
+            ],
+            "fitted_error_hd_px": 0.19034051179073253
+          },
+          {
+            "camera": "CB",
+            "keypoint_index": 1956,
+            "detected_uv": [
+              905.4921264648438,
+              581.1659545898438
+            ],
+            "fitted_error_hd_px": 0.14210563085744413
+          },
+          {
+            "camera": "CC",
+            "keypoint_index": 2512,
+            "detected_uv": [
+              891.4889526367188,
+              847.8178100585938
+            ],
+            "fitted_error_hd_px": 0.07466610936454592
+          },
+          {
+            "camera": "CD",
+            "keypoint_index": 2821,
+            "detected_uv": [
+              967.783935546875,
+              912.2179565429688
+            ],
+            "fitted_error_hd_px": 0.2641316810218577
+          },
+          {
+            "camera": "DB",
+            "keypoint_index": 2359,
+            "detected_uv": [
+              1053.5648193359375,
+              562.0908813476562
+            ],
+            "fitted_error_hd_px": 0.056895952728197634
+          }
+        ],
+        "original_xyz_max_abs": 1.1102230246251565e-16,
+        "xyz_original": [
+          -0.04777785683183744,
+          0.17795247517817875,
+          -0.14283541144614215
+        ],
+        "fit_error_max_hd_px": 0.2641316810218577,
+        "connected_original_ratio_edges": [
+          [
+            [
+              "BA",
+              1435
+            ],
+            [
+              "CA",
+              2213
+            ]
+          ],
+          [
+            [
+              "BA",
+              1435
+            ],
+            [
+              "CB",
+              1956
+            ]
+          ],
+          [
+            [
+              "CA",
+              2213
+            ],
+            [
+              "CB",
+              1956
+            ]
+          ],
+          [
+            [
+              "CA",
+              2213
+            ],
+            [
+              "DB",
+              2359
+            ]
+          ],
+          [
+            [
+              "CB",
+              1956
+            ],
+            [
+              "DB",
+              2359
+            ]
+          ],
+          [
+            [
+              "CB",
+              1956
+            ],
+            [
+              "CC",
+              2512
+            ]
+          ],
+          [
+            [
+              "CC",
+              2512
+            ],
+            [
+              "CD",
+              2821
+            ]
+          ]
+        ],
+        "leave_one_source_view_out": [
+          {
+            "camera": "BA",
+            "heldout_raw_feature_error_hd_px": 0.14420480525554574,
+            "xyz_shift_world": 6.150556461331746e-05,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "CA",
+            "heldout_raw_feature_error_hd_px": 0.22995901936959431,
+            "xyz_shift_world": 4.460052148748237e-05,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "CB",
+            "heldout_raw_feature_error_hd_px": 0.17068889135162557,
+            "xyz_shift_world": 2.289049851915467e-05,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "CC",
+            "heldout_raw_feature_error_hd_px": 0.09019915333126026,
+            "xyz_shift_world": 1.315156851793313e-05,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "CD",
+            "heldout_raw_feature_error_hd_px": 0.3180539079007141,
+            "xyz_shift_world": 4.2537443873667154e-05,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "DB",
+            "heldout_raw_feature_error_hd_px": 0.0730098134122483,
+            "xyz_shift_world": 3.563966013445159e-05,
+            "positive_heldout_depth": true
+          }
+        ],
+        "limitation": "Existing rig and descriptor-selected TRAIN graph; fit residuals are not independent calibration uncertainty"
+      },
+      "reviewed_three_RAW_TRAIN_views": [
+        {
+          "camera": "DB",
+          "keypoint_index": 2359,
+          "detected_uv": [
+            1053.5648193359375,
+            562.0908813476562
+          ],
+          "fitted_error_hd_px": 0.056895952728197634,
+          "raw_array_xy": [
+            4494.480398458074,
+            2398.762769863063
+          ],
+          "native_crop_xyxy": [
+            4238,
+            2143,
+            4750,
+            2655
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/native_patches/p941_DB.png",
+          "native_patch_sha256": "ac1acdf36ed256062802ca1e0f8e3c95ad6eae40199a252965c85ce1ebf00e8b",
+          "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/DB/DB.000408.tif",
+          "raw_sha256": "3b993c2500a7875890c2af65d0b08c785aa3e29cbf5c5d9095264fe17690787f"
+        },
+        {
+          "camera": "BA",
+          "keypoint_index": 1435,
+          "detected_uv": [
+            1052.1392822265625,
+            487.2040100097656
+          ],
+          "fitted_error_hd_px": 0.11572382905612227,
+          "raw_array_xy": [
+            4488.484850843394,
+            2079.2549012141044
+          ],
+          "native_crop_xyxy": [
+            4232,
+            1823,
+            4744,
+            2335
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/native_patches/p941_BA.png",
+          "native_patch_sha256": "940da3bd5f1532dd25f6de6dd667d478ca3f7108a37ebe52385218004cba96be",
+          "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/BA/BA.000408.tif",
+          "raw_sha256": "f45905aa1f564f3e42e8a363cc9a40b717cadaecb4d27d6ac9d3f4bcb8243a6c"
+        },
+        {
+          "camera": "CD",
+          "keypoint_index": 2821,
+          "detected_uv": [
+            967.783935546875,
+            912.2179565429688
+          ],
+          "fitted_error_hd_px": 0.2641316810218577,
+          "raw_array_xy": [
+            4128.398811178752,
+            3879.10769858135
+          ],
+          "native_crop_xyxy": [
+            3872,
+            3623,
+            4384,
+            4135
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/native_patches/p941_CD.png",
+          "native_patch_sha256": "06daa89376b4ea16b8b80a248dcfb47da01c83067a2a6d71aba3ff273e219238",
+          "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/CD/CD.000408.tif",
+          "raw_sha256": "add8e3e5c95a455dcbc963d8d05bdb9cdcf3982312c613b7446a3ab504f3714e"
+        }
+      ],
+      "triplet": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/p941_RAW_triplet.jpg",
+      "triplet_sha256": "c17c7c80ee641fe11ca4074460fece7960c570c718240ab566905423463d5670",
+      "fit_max_HD_px": 0.2641316810218577,
+      "all_observation_count": 6,
+      "max_leave_one_view_out_XYZ_shift": 6.150556461331746e-05,
+      "plane_or_emptyspace_certificate": false
+    },
+    {
+      "source_point_id": 3407,
+      "xyz_floor": [
+        -0.015405066867020109,
+        0.16237710230133948,
+        0.0059006288188794
+      ],
+      "nearest_anchor_XY_distance": 0.10288730566560372,
+      "label": "floor_shadow_or_shoe_contact_uncertain",
+      "note": "Visible floor/shadow or immediate shoe-contact feature; SIFTcenter may encode nearby shoe/shadow silhouette. Do not use as hardfloor-depth truth.",
+      "localized_floor_material_candidate": false,
+      "triangulation": {
+        "observations": [
+          {
+            "camera": "EC",
+            "keypoint_index": 1747,
+            "detected_uv": [
+              742.967041015625,
+              754.3922119140625
+            ],
+            "fitted_error_hd_px": 0.6050198996375168
+          },
+          {
+            "camera": "FA",
+            "keypoint_index": 769,
+            "detected_uv": [
+              948.6045532226562,
+              401.69964599609375
+            ],
+            "fitted_error_hd_px": 0.5302796538575794
+          },
+          {
+            "camera": "FB",
+            "keypoint_index": 460,
+            "detected_uv": [
+              765.6112060546875,
+              342.1207275390625
+            ],
+            "fitted_error_hd_px": 0.07365742048783683
+          }
+        ],
+        "original_xyz_max_abs": 3.3306690738754696e-16,
+        "xyz_original": [
+          -0.020029212768092056,
+          0.18339689830730288,
+          -0.1416138038450594
+        ],
+        "fit_error_max_hd_px": 0.6050198996375168,
+        "connected_original_ratio_edges": [
+          [
+            [
+              "EC",
+              1747
+            ],
+            [
+              "FB",
+              460
+            ]
+          ],
+          [
+            [
+              "FA",
+              769
+            ],
+            [
+              "FB",
+              460
+            ]
+          ]
+        ],
+        "leave_one_source_view_out": [],
+        "limitation": "Existing rig and descriptor-selected TRAIN graph; fit residuals are not independent calibration uncertainty"
+      },
+      "reviewed_three_RAW_TRAIN_views": [
+        {
+          "camera": "FB",
+          "keypoint_index": 460,
+          "detected_uv": [
+            765.6112060546875,
+            342.1207275390625
+          ],
+          "fitted_error_hd_px": 0.07365742048783683,
+          "raw_array_xy": [
+            3268.703339830114,
+            1462.0446853821704
+          ],
+          "native_crop_xyxy": [
+            3013,
+            1206,
+            3525,
+            1718
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/native_patches/p3407_FB.png",
+          "native_patch_sha256": "765aa2027392017339f8673559ba07d9abaa97b04bbd37b046b9c2bd3180f65f",
+          "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/FB/FB.000408.tif",
+          "raw_sha256": "49905a866a3e846a3fa72fc1794c9765880079f358f0d356f69025a28afafc09"
+        },
+        {
+          "camera": "EC",
+          "keypoint_index": 1747,
+          "detected_uv": [
+            742.967041015625,
+            754.3922119140625
+          ],
+          "fitted_error_hd_px": 0.6050198996375168,
+          "raw_array_xy": [
+            3175.42044866184,
+            3212.926243762696
+          ],
+          "native_crop_xyxy": [
+            2919,
+            2957,
+            3431,
+            3469
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/native_patches/p3407_EC.png",
+          "native_patch_sha256": "8f093b5bfef007404f6bad8912c88c404d558030950c09e534fe4629a29eff8e",
+          "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/EC/EC.000408.tif",
+          "raw_sha256": "dbb8ca0aec0b876c492b2f18bd6f278eb61295bbe09da443c670f728e6b988cb"
+        },
+        {
+          "camera": "FA",
+          "keypoint_index": 769,
+          "detected_uv": [
+            948.6045532226562,
+            401.69964599609375
+          ],
+          "fitted_error_hd_px": 0.5302796538575794,
+          "raw_array_xy": [
+            4046.90275665795,
+            1714.4032271452895
+          ],
+          "native_crop_xyxy": [
+            3791,
+            1458,
+            4303,
+            1970
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/native_patches/p3407_FA.png",
+          "native_patch_sha256": "0d0b36a37dd1ba303fc6d2dd99824f95c12af9879465f0b00bda44239ab51ab3",
+          "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/FA/FA.000408.tif",
+          "raw_sha256": "018fe9ea3813d09191c0e467d56dbd21b88d6b07a45c9f3a79965f5e11708e0e"
+        }
+      ],
+      "triplet": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/p3407_RAW_triplet.jpg",
+      "triplet_sha256": "c425e82485f196ae05d1f44a8b3398086c7844a030041f9332cdb1d0b0d3adce",
+      "fit_max_HD_px": 0.6050198996375168,
+      "all_observation_count": 3,
+      "max_leave_one_view_out_XYZ_shift": null,
+      "plane_or_emptyspace_certificate": false
+    },
+    {
+      "source_point_id": 1516,
+      "xyz_floor": [
+        -0.014903766452690538,
+        0.16133417237687744,
+        0.004045917900674129
+      ],
+      "nearest_anchor_XY_distance": 0.10327894815131444,
+      "label": "floor_shadow_or_shoe_contact_uncertain",
+      "note": "Visible floor/shadow or immediate shoe-contact feature; SIFTcenter may encode nearby shoe/shadow silhouette. Do not use as hardfloor-depth truth.",
+      "localized_floor_material_candidate": false,
+      "triangulation": {
+        "observations": [
+          {
+            "camera": "CA",
+            "keypoint_index": 2294,
+            "detected_uv": [
+              1045.1866455078125,
+              569.1304321289062
+            ],
+            "fitted_error_hd_px": 0.4475959950212981
+          },
+          {
+            "camera": "CB",
+            "keypoint_index": 1995,
+            "detected_uv": [
+              921.8374633789062,
+              565.3453979492188
+            ],
+            "fitted_error_hd_px": 0.6718093111060566
+          },
+          {
+            "camera": "CC",
+            "keypoint_index": 2568,
+            "detected_uv": [
+              912.1192626953125,
+              836.0722045898438
+            ],
+            "fitted_error_hd_px": 0.6974423339983488
+          },
+          {
+            "camera": "DA",
+            "keypoint_index": 733,
+            "detected_uv": [
+              1028.7587890625,
+              389.2921142578125
+            ],
+            "fitted_error_hd_px": 0.4085091008547146
+          },
+          {
+            "camera": "DB",
+            "keypoint_index": 2425,
+            "detected_uv": [
+              1075.667236328125,
+              552.2611083984375
+            ],
+            "fitted_error_hd_px": 0.12530425856648397
+          }
+        ],
+        "original_xyz_max_abs": 5.551115123125783e-17,
+        "xyz_original": [
+          -0.019579905846425123,
+          0.18261838412011916,
+          -0.14360653977170676
+        ],
+        "fit_error_max_hd_px": 0.6974423339983488,
+        "connected_original_ratio_edges": [
+          [
+            [
+              "CA",
+              2294
+            ],
+            [
+              "CB",
+              1995
+            ]
+          ],
+          [
+            [
+              "CA",
+              2294
+            ],
+            [
+              "DA",
+              733
+            ]
+          ],
+          [
+            [
+              "CA",
+              2294
+            ],
+            [
+              "DB",
+              2425
+            ]
+          ],
+          [
+            [
+              "CB",
+              1995
+            ],
+            [
+              "DB",
+              2425
+            ]
+          ],
+          [
+            [
+              "CB",
+              1995
+            ],
+            [
+              "CC",
+              2568
+            ]
+          ],
+          [
+            [
+              "DA",
+              733
+            ],
+            [
+              "DB",
+              2425
+            ]
+          ]
+        ],
+        "leave_one_source_view_out": [
+          {
+            "camera": "CA",
+            "heldout_raw_feature_error_hd_px": 0.6503365468205676,
+            "xyz_shift_world": 0.0007249232294090185,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "CB",
+            "heldout_raw_feature_error_hd_px": 0.9551143145572649,
+            "xyz_shift_world": 0.000940528528398992,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "CC",
+            "heldout_raw_feature_error_hd_px": 0.9277719281496043,
+            "xyz_shift_world": 0.0006145363850328756,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "DA",
+            "heldout_raw_feature_error_hd_px": 0.8037840186696541,
+            "xyz_shift_world": 0.0014216573019323068,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "DB",
+            "heldout_raw_feature_error_hd_px": 0.15669696765416938,
+            "xyz_shift_world": 3.146909587053287e-05,
+            "positive_heldout_depth": true
+          }
+        ],
+        "limitation": "Existing rig and descriptor-selected TRAIN graph; fit residuals are not independent calibration uncertainty"
+      },
+      "reviewed_three_RAW_TRAIN_views": [
+        {
+          "camera": "DB",
+          "keypoint_index": 2425,
+          "detected_uv": [
+            1075.667236328125,
+            552.2611083984375
+          ],
+          "fitted_error_hd_px": 0.12530425856648397,
+          "raw_array_xy": [
+            4588.655088710281,
+            2356.787342673552
+          ],
+          "native_crop_xyxy": [
+            4333,
+            2101,
+            4845,
+            2613
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/native_patches/p1516_DB.png",
+          "native_patch_sha256": "42e894da2f7c3a2494ca41a0d08a1d1ae7a8b0cf67eb1f4833d879812426387e",
+          "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/DB/DB.000408.tif",
+          "raw_sha256": "3b993c2500a7875890c2af65d0b08c785aa3e29cbf5c5d9095264fe17690787f"
+        },
+        {
+          "camera": "CB",
+          "keypoint_index": 1995,
+          "detected_uv": [
+            921.8374633789062,
+            565.3453979492188
+          ],
+          "fitted_error_hd_px": 0.6718093111060566,
+          "raw_array_xy": [
+            3932.7030205994547,
+            2412.7614555164155
+          ],
+          "native_crop_xyxy": [
+            3677,
+            2157,
+            4189,
+            2669
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/native_patches/p1516_CB.png",
+          "native_patch_sha256": "d68db962887d2ef4f8e49ec69180235a01efea4f312e175da3e42611bde7c194",
+          "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/CB/CB.000408.tif",
+          "raw_sha256": "67489de8da014710569738324a75e7a31fd182ee7781c4a959fe0646f0db938e"
+        },
+        {
+          "camera": "DA",
+          "keypoint_index": 733,
+          "detected_uv": [
+            1028.7587890625,
+            389.2921142578125
+          ],
+          "fitted_error_hd_px": 0.4085091008547146,
+          "raw_array_xy": [
+            4388.67405672752,
+            1661.59046082653
+          ],
+          "native_crop_xyxy": [
+            4133,
+            1406,
+            4645,
+            1918
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/native_patches/p1516_DA.png",
+          "native_patch_sha256": "f8bd7644ae0c0097da66706d2fadd893e0aa746dc6e483b9c27ac8b811c621dd",
+          "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/DA/DA.000408.tif",
+          "raw_sha256": "fc81b3860d00f2432f844e45495ff42495d125c3914258837ca77717b802938d"
+        }
+      ],
+      "triplet": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/p1516_RAW_triplet.jpg",
+      "triplet_sha256": "c58d555c2577cc3866c416909531f80d1a584c88d0d3a08fa87478546bc0857f",
+      "fit_max_HD_px": 0.6974423339983488,
+      "all_observation_count": 5,
+      "max_leave_one_view_out_XYZ_shift": 0.0014216573019323068,
+      "plane_or_emptyspace_certificate": false
+    },
+    {
+      "source_point_id": 4022,
+      "xyz_floor": [
+        -0.01446077298371209,
+        0.15986519596673965,
+        0.007467421816066466
+      ],
+      "nearest_anchor_XY_distance": 0.10358775723004589,
+      "label": "floor_shadow_or_shoe_contact_uncertain",
+      "note": "Visible floor/shadow or immediate shoe-contact feature; SIFTcenter may encode nearby shoe/shadow silhouette. Do not use as hardfloor-depth truth.",
+      "localized_floor_material_candidate": false,
+      "triangulation": {
+        "observations": [
+          {
+            "camera": "FC",
+            "keypoint_index": 2272,
+            "detected_uv": [
+              891.9429321289062,
+              728.3338012695312
+            ],
+            "fitted_error_hd_px": 0.421602847867795
+          },
+          {
+            "camera": "FD",
+            "keypoint_index": 2569,
+            "detected_uv": [
+              836.5482788085938,
+              841.2377319335938
+            ],
+            "fitted_error_hd_px": 0.1961547225892761
+          },
+          {
+            "camera": "GB",
+            "keypoint_index": 1398,
+            "detected_uv": [
+              957.7335815429688,
+              480.46380615234375
+            ],
+            "fitted_error_hd_px": 0.22283356874391547
+          }
+        ],
+        "original_xyz_max_abs": 5.551115123125783e-17,
+        "xyz_original": [
+          -0.019041530163726596,
+          0.18069851287700095,
+          -0.1404308398513315
+        ],
+        "fit_error_max_hd_px": 0.421602847867795,
+        "connected_original_ratio_edges": [
+          [
+            [
+              "FC",
+              2272
+            ],
+            [
+              "FD",
+              2569
+            ]
+          ],
+          [
+            [
+              "FC",
+              2272
+            ],
+            [
+              "GB",
+              1398
+            ]
+          ]
+        ],
+        "leave_one_source_view_out": [],
+        "limitation": "Existing rig and descriptor-selected TRAIN graph; fit residuals are not independent calibration uncertainty"
+      },
+      "reviewed_three_RAW_TRAIN_views": [
+        {
+          "camera": "FD",
+          "keypoint_index": 2569,
+          "detected_uv": [
+            836.5482788085938,
+            841.2377319335938
+          ],
+          "fitted_error_hd_px": 0.1961547225892761,
+          "raw_array_xy": [
+            3572.3261567995237,
+            3580.529463828738
+          ],
+          "native_crop_xyxy": [
+            3316,
+            3325,
+            3828,
+            3837
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/native_patches/p4022_FD.png",
+          "native_patch_sha256": "8ddcba336a3cd9ed110ba9604e343a2c69dee8621a8b6e732b881b782e3dbc08",
+          "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/FD/FD.000408.tif",
+          "raw_sha256": "4e6fec38d582dbbd289784e96f241efb9c86ced17e93bd8030429183a791bcc2"
+        },
+        {
+          "camera": "GB",
+          "keypoint_index": 1398,
+          "detected_uv": [
+            957.7335815429688,
+            480.46380615234375
+          ],
+          "fitted_error_hd_px": 0.22283356874391547,
+          "raw_array_xy": [
+            4085.8298752371447,
+            2050.490333857127
+          ],
+          "native_crop_xyxy": [
+            3830,
+            1794,
+            4342,
+            2306
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/native_patches/p4022_GB.png",
+          "native_patch_sha256": "b48604457a12342ed705c7e7f15f003efd97b59e879695bd534a78da8dbd6534",
+          "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/GB/GB.000408.tif",
+          "raw_sha256": "630a2de15f0a042596f0b356bbd2d940912a22a1c261ce891fb8d925056f9c20"
+        },
+        {
+          "camera": "FC",
+          "keypoint_index": 2272,
+          "detected_uv": [
+            891.9429321289062,
+            728.3338012695312
+          ],
+          "fitted_error_hd_px": 0.421602847867795,
+          "raw_array_xy": [
+            3806.2131528523655,
+            3105.5620836284616
+          ],
+          "native_crop_xyxy": [
+            3550,
+            2850,
+            4062,
+            3362
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/native_patches/p4022_FC.png",
+          "native_patch_sha256": "b93979c008fc5180e23dd3e70dfe9f1713cb317e73fe6330294b041b5a63ff73",
+          "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/FC/FC.000408.tif",
+          "raw_sha256": "85ab4a1cf713c2bf9a5b83314f43696a3125f2523dc3ab364e3fa3b22fea1400"
+        }
+      ],
+      "triplet": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/p4022_RAW_triplet.jpg",
+      "triplet_sha256": "6b190bad9dc521d65309f9a4410d54082319b9efe61120761471a950b49ad98c",
+      "fit_max_HD_px": 0.421602847867795,
+      "all_observation_count": 3,
+      "max_leave_one_view_out_XYZ_shift": null,
+      "plane_or_emptyspace_certificate": false
+    },
+    {
+      "source_point_id": 2996,
+      "xyz_floor": [
+        -0.016410060952259418,
+        0.17235966399599736,
+        0.017290688085565414
+      ],
+      "nearest_anchor_XY_distance": 0.10345256783069139,
+      "label": "grey_actor_shoe_heel",
+      "note": "Actor greyshoe heel in FB/GD/GB, notfloor.",
+      "localized_floor_material_candidate": false,
+      "triangulation": {
+        "observations": [
+          {
+            "camera": "EA",
+            "keypoint_index": 891,
+            "detected_uv": [
+              940.2365112304688,
+              414.6837463378906
+            ],
+            "fitted_error_hd_px": 0.48307761995287235
+          },
+          {
+            "camera": "FA",
+            "keypoint_index": 765,
+            "detected_uv": [
+              945.6431884765625,
+              385.3653869628906
+            ],
+            "fitted_error_hd_px": 0.5291221656681875
+          },
+          {
+            "camera": "FB",
+            "keypoint_index": 454,
+            "detected_uv": [
+              759.6709594726562,
+              324.2934265136719
+            ],
+            "fitted_error_hd_px": 0.31989632756319536
+          },
+          {
+            "camera": "FC",
+            "keypoint_index": 2253,
+            "detected_uv": [
+              887.73779296875,
+              710.7841796875
+            ],
+            "fitted_error_hd_px": 0.3752042864045481
+          },
+          {
+            "camera": "GB",
+            "keypoint_index": 1391,
+            "detected_uv": [
+              955.8427124023438,
+              463.7381591796875
+            ],
+            "fitted_error_hd_px": 0.4085775817790021
+          },
+          {
+            "camera": "GC",
+            "keypoint_index": 2012,
+            "detected_uv": [
+              942.75341796875,
+              638.5283203125
+            ],
+            "fitted_error_hd_px": 0.6042615810329603
+          },
+          {
+            "camera": "GD",
+            "keypoint_index": 2562,
+            "detected_uv": [
+              892.0911254882812,
+              688.3038940429688
+            ],
+            "fitted_error_hd_px": 0.4889649187656628
+          }
+        ],
+        "original_xyz_max_abs": 4.163336342344337e-16,
+        "xyz_original": [
+          -0.020715715787511774,
+          0.19173013068237413,
+          -0.1289456961337623
+        ],
+        "fit_error_max_hd_px": 0.6042615810329603,
+        "connected_original_ratio_edges": [
+          [
+            [
+              "EA",
+              891
+            ],
+            [
+              "FA",
+              765
+            ]
+          ],
+          [
+            [
+              "EA",
+              891
+            ],
+            [
+              "FB",
+              454
+            ]
+          ],
+          [
+            [
+              "FA",
+              765
+            ],
+            [
+              "FB",
+              454
+            ]
+          ],
+          [
+            [
+              "FA",
+              765
+            ],
+            [
+              "GB",
+              1391
+            ]
+          ],
+          [
+            [
+              "FC",
+              2253
+            ],
+            [
+              "GB",
+              1391
+            ]
+          ],
+          [
+            [
+              "GB",
+              1391
+            ],
+            [
+              "GC",
+              2012
+            ]
+          ],
+          [
+            [
+              "FC",
+              2253
+            ],
+            [
+              "GD",
+              2562
+            ]
+          ],
+          [
+            [
+              "GC",
+              2012
+            ],
+            [
+              "GD",
+              2562
+            ]
+          ]
+        ],
+        "leave_one_source_view_out": [
+          {
+            "camera": "EA",
+            "heldout_raw_feature_error_hd_px": 0.9031199237988483,
+            "xyz_shift_world": 0.0009508557549884137,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "FA",
+            "heldout_raw_feature_error_hd_px": 0.6869843002987145,
+            "xyz_shift_world": 0.0003836945649592444,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "FB",
+            "heldout_raw_feature_error_hd_px": 0.3872285490421998,
+            "xyz_shift_world": 0.00011199017620292099,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "FC",
+            "heldout_raw_feature_error_hd_px": 0.4568749412090857,
+            "xyz_shift_world": 0.0001454214044322158,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "GB",
+            "heldout_raw_feature_error_hd_px": 0.4785574866634628,
+            "xyz_shift_world": 6.033615643013084e-05,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "GC",
+            "heldout_raw_feature_error_hd_px": 0.7412738798797808,
+            "xyz_shift_world": 0.00026930335460225905,
+            "positive_heldout_depth": true
+          },
+          {
+            "camera": "GD",
+            "heldout_raw_feature_error_hd_px": 0.7747103288008085,
+            "xyz_shift_world": 0.0006003826985732622,
+            "positive_heldout_depth": true
+          }
+        ],
+        "limitation": "Existing rig and descriptor-selected TRAIN graph; fit residuals are not independent calibration uncertainty"
+      },
+      "reviewed_three_RAW_TRAIN_views": [
+        {
+          "camera": "FB",
+          "keypoint_index": 454,
+          "detected_uv": [
+            759.6709594726562,
+            324.2934265136719
+          ],
+          "fitted_error_hd_px": 0.31989632756319536,
+          "raw_array_xy": [
+            3243.781772403074,
+            1386.4829136879484
+          ],
+          "native_crop_xyxy": [
+            2988,
+            1130,
+            3500,
+            1642
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/native_patches/p2996_FB.png",
+          "native_patch_sha256": "a07f27a5c52b0a927df23fe29291331572ab5e00f44d8dfe9953bd6637f57491",
+          "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/FB/FB.000408.tif",
+          "raw_sha256": "49905a866a3e846a3fa72fc1794c9765880079f358f0d356f69025a28afafc09"
+        },
+        {
+          "camera": "GD",
+          "keypoint_index": 2562,
+          "detected_uv": [
+            892.0911254882812,
+            688.3038940429688
+          ],
+          "fitted_error_hd_px": 0.4889649187656628,
+          "raw_array_xy": [
+            3806.3862483351268,
+            2936.228278891405
+          ],
+          "native_crop_xyxy": [
+            3550,
+            2680,
+            4062,
+            3192
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/native_patches/p2996_GD.png",
+          "native_patch_sha256": "80f01bbec5aeb4443c0fb49f984aa979563e31aef701c4dceaec08b846f19910",
+          "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/GD/GD.000408.tif",
+          "raw_sha256": "3aa6ce55b4a004058b1a73b652358104fb0326cf801e328c18298f1a8e63b22a"
+        },
+        {
+          "camera": "GB",
+          "keypoint_index": 1391,
+          "detected_uv": [
+            955.8427124023438,
+            463.7381591796875
+          ],
+          "fitted_error_hd_px": 0.4085775817790021,
+          "raw_array_xy": [
+            4077.762659158901,
+            1979.0960967475608
+          ],
+          "native_crop_xyxy": [
+            3822,
+            1723,
+            4334,
+            2235
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/native_patches/p2996_GB.png",
+          "native_patch_sha256": "80d8d6f0dfd9714d847c83aec3da0b674b9e7549c222e12fb07073c874b1da97",
+          "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/GB/GB.000408.tif",
+          "raw_sha256": "630a2de15f0a042596f0b356bbd2d940912a22a1c261ce891fb8d925056f9c20"
+        }
+      ],
+      "triplet": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/p2996_RAW_triplet.jpg",
+      "triplet_sha256": "40c7bc5a77b268a245f82a804f697b18eb413c18de9adb50d5778ac2598b6919",
+      "fit_max_HD_px": 0.6042615810329603,
+      "all_observation_count": 7,
+      "max_leave_one_view_out_XYZ_shift": 0.0009508557549884137,
+      "plane_or_emptyspace_certificate": false
+    },
+    {
+      "source_point_id": 348,
+      "xyz_floor": [
+        -0.012113804451718063,
+        0.16503417791653116,
+        0.013207486351500208
+      ],
+      "nearest_anchor_XY_distance": 0.10647052519513976,
+      "label": "grey_actor_shoe_heel",
+      "note": "Actor greyshoe rearheel in BB/AA/BC, notfloor.",
+      "localized_floor_material_candidate": false,
+      "triangulation": {
+        "observations": [
+          {
+            "camera": "AA",
+            "keypoint_index": 2019,
+            "detected_uv": [
+              1075.9605712890625,
+              517.105224609375
+            ],
+            "fitted_error_hd_px": 0.4588256712543208
+          },
+          {
+            "camera": "BB",
+            "keypoint_index": 1170,
+            "detected_uv": [
+              760.0169677734375,
+              498.46209716796875
+            ],
+            "fitted_error_hd_px": 0.16288434330737808
+          },
+          {
+            "camera": "BC",
+            "keypoint_index": 1811,
+            "detected_uv": [
+              800.5855712890625,
+              734.313232421875
+            ],
+            "fitted_error_hd_px": 0.6122124884613874
+          }
+        ],
+        "original_xyz_max_abs": 4.579669976578771e-16,
+        "xyz_original": [
+          -0.016535169826586607,
+          0.1850458829608871,
+          -0.1341067978074701
+        ],
+        "fit_error_max_hd_px": 0.6122124884613874,
+        "connected_original_ratio_edges": [
+          [
+            [
+              "AA",
+              2019
+            ],
+            [
+              "BB",
+              1170
+            ]
+          ],
+          [
+            [
+              "BB",
+              1170
+            ],
+            [
+              "BC",
+              1811
+            ]
+          ]
+        ],
+        "leave_one_source_view_out": [],
+        "limitation": "Existing rig and descriptor-selected TRAIN graph; fit residuals are not independent calibration uncertainty"
+      },
+      "reviewed_three_RAW_TRAIN_views": [
+        {
+          "camera": "BB",
+          "keypoint_index": 1170,
+          "detected_uv": [
+            760.0169677734375,
+            498.46209716796875
+          ],
+          "fitted_error_hd_px": 0.16288434330737808,
+          "raw_array_xy": [
+            3244.0648720031218,
+            2127.30706740276
+          ],
+          "native_crop_xyxy": [
+            2988,
+            1871,
+            3500,
+            2383
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/native_patches/p348_BB.png",
+          "native_patch_sha256": "54b3300e117b467c09f2b7aebdf57cfbc466961ea4580be19d948f943fd5db98",
+          "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/BB/BB.000408.tif",
+          "raw_sha256": "8f99692f97bc499ba41bff64fbccc5ec2dc071b082fa17f90691aecea45a68b2"
+        },
+        {
+          "camera": "AA",
+          "keypoint_index": 2019,
+          "detected_uv": [
+            1075.9605712890625,
+            517.105224609375
+          ],
+          "fitted_error_hd_px": 0.4588256712543208,
+          "raw_array_xy": [
+            4589.8233755191995,
+            2206.827394969252
+          ],
+          "native_crop_xyxy": [
+            4334,
+            1951,
+            4846,
+            2463
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/native_patches/p348_AA.png",
+          "native_patch_sha256": "c9e78a464a45a6fb82d3b29d905569690985f6a14640e73a2f55dc2e1adf2b17",
+          "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/AA/AA.000408.tif",
+          "raw_sha256": "ee8108578890db53c6567bda12086927f931d71147794c381306ddb6b08f9443"
+        },
+        {
+          "camera": "BC",
+          "keypoint_index": 1811,
+          "detected_uv": [
+            800.5855712890625,
+            734.313232421875
+          ],
+          "fitted_error_hd_px": 0.6122124884613874,
+          "raw_array_xy": [
+            3418.1764485376934,
+            3130.203730903942
+          ],
+          "native_crop_xyxy": [
+            3162,
+            2874,
+            3674,
+            3386
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/native_patches/p348_BC.png",
+          "native_patch_sha256": "0fee0b062376a3551727da72f0c878e94083cfc0794f73ec8acdb43b097c5a81",
+          "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/BC/BC.000408.tif",
+          "raw_sha256": "ef60a80692cfaaa62851381fd287e3c247ce066fd9f8d64a37addf5e9a24834a"
+        }
+      ],
+      "triplet": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/p348_RAW_triplet.jpg",
+      "triplet_sha256": "45bb7856f1d3a177380dcc79918443149acbcd48d06680f99aa534b056022e25",
+      "fit_max_HD_px": 0.6122124884613874,
+      "all_observation_count": 3,
+      "max_leave_one_view_out_XYZ_shift": null,
+      "plane_or_emptyspace_certificate": false
+    },
+    {
+      "source_point_id": 6865,
+      "xyz_floor": [
+        -0.008156867148537833,
+        0.16042703205938788,
+        0.005992505243114177
+      ],
+      "nearest_anchor_XY_distance": 0.10991654625163651,
+      "label": "floor_shadow_or_shoe_contact_uncertain",
+      "note": "Visible floor/shadow or immediate shoe-contact feature; SIFTcenter may encode nearby shoe/shadow silhouette. Do not use as hardfloor-depth truth.",
+      "localized_floor_material_candidate": false,
+      "triangulation": {
+        "observations": [
+          {
+            "camera": "JA",
+            "keypoint_index": 964,
+            "detected_uv": [
+              874.57177734375,
+              460.4541015625
+            ],
+            "fitted_error_hd_px": 0.5516449823819549
+          },
+          {
+            "camera": "JB",
+            "keypoint_index": 1826,
+            "detected_uv": [
+              999.4703979492188,
+              548.4371948242188
+            ],
+            "fitted_error_hd_px": 0.3343510225333914
+          },
+          {
+            "camera": "KB",
+            "keypoint_index": 1566,
+            "detected_uv": [
+              965.8968505859375,
+              517.3207397460938
+            ],
+            "fitted_error_hd_px": 0.6496782076764679
+          }
+        ],
+        "original_xyz_max_abs": 5.724587470723463e-17,
+        "xyz_original": [
+          -0.01278127435252622,
+          0.18148011400718111,
+          -0.14198922501634934
+        ],
+        "fit_error_max_hd_px": 0.6496782076764679,
+        "connected_original_ratio_edges": [
+          [
+            [
+              "JA",
+              964
+            ],
+            [
+              "JB",
+              1826
+            ]
+          ],
+          [
+            [
+              "JA",
+              964
+            ],
+            [
+              "KB",
+              1566
+            ]
+          ]
+        ],
+        "leave_one_source_view_out": [],
+        "limitation": "Existing rig and descriptor-selected TRAIN graph; fit residuals are not independent calibration uncertainty"
+      },
+      "reviewed_three_RAW_TRAIN_views": [
+        {
+          "camera": "JB",
+          "keypoint_index": 1826,
+          "detected_uv": [
+            999.4703979492188,
+            548.4371948242188
+          ],
+          "fitted_error_hd_px": 0.3343510225333914,
+          "raw_array_xy": [
+            4263.888997975715,
+            2340.6231258196067
+          ],
+          "native_crop_xyxy": [
+            4008,
+            2085,
+            4520,
+            2597
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/native_patches/p6865_JB.png",
+          "native_patch_sha256": "a6f06c515c798a04dd213e1465e6c0c8d48abbd9f565c39d818f9f9803c5fbd0",
+          "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/JB/JB.000408.tif",
+          "raw_sha256": "c7558b42c78e972c18fbabbc2d221dd553fc3940f020ec104daa9b1c0d91455a"
+        },
+        {
+          "camera": "KB",
+          "keypoint_index": 1566,
+          "detected_uv": [
+            965.8968505859375,
+            517.3207397460938
+          ],
+          "fitted_error_hd_px": 0.6496782076764679,
+          "raw_array_xy": [
+            4120.65993220172,
+            2207.8249606996355
+          ],
+          "native_crop_xyxy": [
+            3865,
+            1952,
+            4377,
+            2464
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/native_patches/p6865_KB.png",
+          "native_patch_sha256": "afceb37161730ef117e1f57f66ea52e3b0dc24259aca30e014398e2a10ff7bd1",
+          "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/KB/KB.000408.tif",
+          "raw_sha256": "762ac0414806771273a480701bfe56e02bea8ebdcc05ec75635f6b4520e97526"
+        },
+        {
+          "camera": "JA",
+          "keypoint_index": 964,
+          "detected_uv": [
+            874.57177734375,
+            460.4541015625
+          ],
+          "fitted_error_hd_px": 0.5516449823819549,
+          "raw_array_xy": [
+            3731.192054132178,
+            1965.164398433289
+          ],
+          "native_crop_xyxy": [
+            3475,
+            1709,
+            3987,
+            2221
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/native_patches/p6865_JA.png",
+          "native_patch_sha256": "385e8d3e972dbc5c66fed8bc3912e67ac617702c5c29cf9cc7058b5863e7988d",
+          "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/JA/JA.000408.tif",
+          "raw_sha256": "8e40a1f4cda5172a565e7881d5ff9f9e47c0e9114705083e7131170eb4810a9a"
+        }
+      ],
+      "triplet": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/p6865_RAW_triplet.jpg",
+      "triplet_sha256": "8ae9396122416b5373eae1fee89bd4024943ed1f27adfea021c75ec71792002e",
+      "fit_max_HD_px": 0.6496782076764679,
+      "all_observation_count": 3,
+      "max_leave_one_view_out_XYZ_shift": null,
+      "plane_or_emptyspace_certificate": false
+    },
+    {
+      "source_point_id": 6864,
+      "xyz_floor": [
+        -0.0017226700766591557,
+        0.15261040156625175,
+        0.0031264655061589153
+      ],
+      "nearest_anchor_XY_distance": 0.11593457008626143,
+      "label": "floor_shadow_or_shoe_contact_uncertain",
+      "note": "Visible floor/shadow or immediate shoe-contact feature; SIFTcenter may encode nearby shoe/shadow silhouette. Do not use as hardfloor-depth truth.",
+      "localized_floor_material_candidate": false,
+      "triangulation": {
+        "observations": [
+          {
+            "camera": "JA",
+            "keypoint_index": 959,
+            "detected_uv": [
+              873.4697265625,
+              469.789794921875
+            ],
+            "fitted_error_hd_px": 0.2622778589658368
+          },
+          {
+            "camera": "JB",
+            "keypoint_index": 1825,
+            "detected_uv": [
+              999.3943481445312,
+              556.85791015625
+            ],
+            "fitted_error_hd_px": 0.24014198840749182
+          },
+          {
+            "camera": "KB",
+            "keypoint_index": 1555,
+            "detected_uv": [
+              963.64794921875,
+              525.340576171875
+            ],
+            "fitted_error_hd_px": 0.18860712584402867
+          }
+        ],
+        "original_xyz_max_abs": 2.7755575615628914e-17,
+        "xyz_original": [
+          -0.006429629106259913,
+          0.1741515679926486,
+          -0.1460711123222738
+        ],
+        "fit_error_max_hd_px": 0.2622778589658368,
+        "connected_original_ratio_edges": [
+          [
+            [
+              "JA",
+              959
+            ],
+            [
+              "JB",
+              1825
+            ]
+          ],
+          [
+            [
+              "JA",
+              959
+            ],
+            [
+              "KB",
+              1555
+            ]
+          ]
+        ],
+        "leave_one_source_view_out": [],
+        "limitation": "Existing rig and descriptor-selected TRAIN graph; fit residuals are not independent calibration uncertainty"
+      },
+      "reviewed_three_RAW_TRAIN_views": [
+        {
+          "camera": "KB",
+          "keypoint_index": 1555,
+          "detected_uv": [
+            963.64794921875,
+            525.340576171875
+          ],
+          "fitted_error_hd_px": 0.18860712584402867,
+          "raw_array_xy": [
+            4111.064845684519,
+            2242.057682501892
+          ],
+          "native_crop_xyxy": [
+            3855,
+            1986,
+            4367,
+            2498
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/native_patches/p6864_KB.png",
+          "native_patch_sha256": "0977cef1398a57bdc21132418000c9041db02adade9c6644e92034b8a79024d1",
+          "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/KB/KB.000408.tif",
+          "raw_sha256": "762ac0414806771273a480701bfe56e02bea8ebdcc05ec75635f6b4520e97526"
+        },
+        {
+          "camera": "JB",
+          "keypoint_index": 1825,
+          "detected_uv": [
+            999.3943481445312,
+            556.85791015625
+          ],
+          "fitted_error_hd_px": 0.24014198840749182,
+          "raw_array_xy": [
+            4263.5589373461435,
+            2376.5533291243464
+          ],
+          "native_crop_xyxy": [
+            4008,
+            2121,
+            4520,
+            2633
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/native_patches/p6864_JB.png",
+          "native_patch_sha256": "2a68178b1f9e7983e2d4dd326a2f549e5c62fc0d22f15fe7103b5496f5a28c56",
+          "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/JB/JB.000408.tif",
+          "raw_sha256": "c7558b42c78e972c18fbabbc2d221dd553fc3940f020ec104daa9b1c0d91455a"
+        },
+        {
+          "camera": "JA",
+          "keypoint_index": 959,
+          "detected_uv": [
+            873.4697265625,
+            469.789794921875
+          ],
+          "fitted_error_hd_px": 0.2622778589658368,
+          "raw_array_xy": [
+            3726.482330238157,
+            2004.9933047798588
+          ],
+          "native_crop_xyxy": [
+            3470,
+            1749,
+            3982,
+            2261
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/native_patches/p6864_JA.png",
+          "native_patch_sha256": "368847cf8097491b14d372cc7747bfd65f6f0cd68c18755c40fc2cc0402949b9",
+          "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/JA/JA.000408.tif",
+          "raw_sha256": "8e40a1f4cda5172a565e7881d5ff9f9e47c0e9114705083e7131170eb4810a9a"
+        }
+      ],
+      "triplet": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/p6864_RAW_triplet.jpg",
+      "triplet_sha256": "750cb98ca6c843d9a7ae864192e206426d9f1120e459ab331633471e34d6b708",
+      "fit_max_HD_px": 0.2622778589658368,
+      "all_observation_count": 3,
+      "max_leave_one_view_out_XYZ_shift": null,
+      "plane_or_emptyspace_certificate": false
+    },
+    {
+      "source_point_id": 6873,
+      "xyz_floor": [
+        0.07028983200945803,
+        0.16924089894310798,
+        -0.002417850452621967
+      ],
+      "nearest_anchor_XY_distance": 0.18883808992384396,
+      "label": "floor_appearance_low_texture_uncertain",
+      "note": "Exposed floorpanel in KB/JB/JA, fittedZ negative-.002418; weak/no uniquely recognizable centertexture at displayedscale, retain localization uncertainty.",
+      "localized_floor_material_candidate": false,
+      "triangulation": {
+        "observations": [
+          {
+            "camera": "JA",
+            "keypoint_index": 1140,
+            "detected_uv": [
+              946.1087036132812,
+              494.8709716796875
+            ],
+            "fitted_error_hd_px": 0.29876707730750385
+          },
+          {
+            "camera": "JB",
+            "keypoint_index": 2084,
+            "detected_uv": [
+              1078.022705078125,
+              582.734375
+            ],
+            "fitted_error_hd_px": 0.3900328320229121
+          },
+          {
+            "camera": "KB",
+            "keypoint_index": 1817,
+            "detected_uv": [
+              1033.9599609375,
+              559.0079345703125
+            ],
+            "fitted_error_hd_px": 0.09913448387123275
+          }
+        ],
+        "original_xyz_max_abs": 3.608224830031759e-16,
+        "xyz_original": [
+          0.0653999436028918,
+          0.1916565770846211,
+          -0.15128652028963918
+        ],
+        "fit_error_max_hd_px": 0.3900328320229121,
+        "connected_original_ratio_edges": [
+          [
+            [
+              "JA",
+              1140
+            ],
+            [
+              "JB",
+              2084
+            ]
+          ],
+          [
+            [
+              "JA",
+              1140
+            ],
+            [
+              "KB",
+              1817
+            ]
+          ]
+        ],
+        "leave_one_source_view_out": [],
+        "limitation": "Existing rig and descriptor-selected TRAIN graph; fit residuals are not independent calibration uncertainty"
+      },
+      "reviewed_three_RAW_TRAIN_views": [
+        {
+          "camera": "KB",
+          "keypoint_index": 1817,
+          "detected_uv": [
+            1033.9599609375,
+            559.0079345703125
+          ],
+          "fitted_error_hd_px": 0.09913448387123275,
+          "raw_array_xy": [
+            4410.961228456675,
+            2385.683917861425
+          ],
+          "native_crop_xyxy": [
+            4155,
+            2130,
+            4667,
+            2642
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/native_patches/p6873_KB.png",
+          "native_patch_sha256": "ca1d675fbd0af11d3c45d3f7824d060a01a3a4ac8998dc40222e518b8813cab6",
+          "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/KB/KB.000408.tif",
+          "raw_sha256": "762ac0414806771273a480701bfe56e02bea8ebdcc05ec75635f6b4520e97526"
+        },
+        {
+          "camera": "JB",
+          "keypoint_index": 2084,
+          "detected_uv": [
+            1078.022705078125,
+            582.734375
+          ],
+          "fitted_error_hd_px": 0.3900328320229121,
+          "raw_array_xy": [
+            4598.654097271612,
+            2486.7414726251773
+          ],
+          "native_crop_xyxy": [
+            4343,
+            2231,
+            4855,
+            2743
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/native_patches/p6873_JB.png",
+          "native_patch_sha256": "be1cd53f1a8b163f6012bf9e5bd68a7b611b08ff62eca17e0b9a2b370f6c6b92",
+          "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/JB/JB.000408.tif",
+          "raw_sha256": "c7558b42c78e972c18fbabbc2d221dd553fc3940f020ec104daa9b1c0d91455a"
+        },
+        {
+          "camera": "JA",
+          "keypoint_index": 1140,
+          "detected_uv": [
+            946.1087036132812,
+            494.8709716796875
+          ],
+          "fitted_error_hd_px": 0.29876707730750385,
+          "raw_array_xy": [
+            4036.231834434449,
+            2111.9933847401676
+          ],
+          "native_crop_xyxy": [
+            3780,
+            1856,
+            4292,
+            2368
+          ],
+          "native_patch": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/native_patches/p6873_JA.png",
+          "native_patch_sha256": "b14b04dbe85f521ad4bc95feb9df45e15527e40a64b427d5d513bc4da1798c57",
+          "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/JA/JA.000408.tif",
+          "raw_sha256": "8e40a1f4cda5172a565e7881d5ff9f9e47c0e9114705083e7131170eb4810a9a"
+        }
+      ],
+      "triplet": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/p6873_RAW_triplet.jpg",
+      "triplet_sha256": "eb092a724178256d02edfdc3a45fea41e0f9b687a0d9079dd96735412bf752c3",
+      "fit_max_HD_px": 0.3900328320229121,
+      "all_observation_count": 3,
+      "max_leave_one_view_out_XYZ_shift": null,
+      "plane_or_emptyspace_certificate": false
+    }
+  ],
+  "source_bindings": {
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/exact_markers/manifest.json": "96b86b03378c1e982a7086d1490b4a0805ace0159b2429e727462e218275173b",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/new_raw_review/manifest.json": "822b4531e98ad32e32f814376438ec9b3bb7cecafa778da8c7996decaa2c4b16",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/recovered_candidates/candidates.json": "37a9b88a36a21ee561af1b01c098347c679277aee2e07d8efc65138f9ccc4305"
+  },
+  "search": "All9022existingTRAIN SfM points;79nearfootcandidates exactgraphrecovered.20distinctpointIDs inspected in3RAWviews each;6307/6308 shareexactXYZ/UV and are duplicateorientation evidence.",
+  "strongest_local_floor_candidates": [
+    5511,
+    6863
+  ],
+  "no_new_EVAL_geometry": true,
+  "no_plane_fit": true,
+  "no_carving_or_training_change": true,
+  "nearest_unambiguous_floor_material_distance": 0.14488832467183332,
+  "limitation": "Two localized panel features cannot fit a floorplane. Fixedcalibration SIFTresidual/LOO do not bound rigbias or paneldeformation. Contact/shadowpoints keptuncertain. No assertion of nofloor where featuretracks absent.",
+  "duplicate6307_6308_native_patches_byte_identical": true
+}

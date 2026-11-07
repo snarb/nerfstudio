@@ -1,0 +1,153 @@
+{
+  "records": [
+    {
+      "source_point_id": 6863,
+      "xyz_floor": [
+        -0.011100640538966401,
+        0.04291526244949359,
+        0.004444240184562409
+      ],
+      "sigma_HD_pixel_assumed": 0.5,
+      "covariance_floor": [
+        [
+          5.288358604046923e-07,
+          -3.23537572989167e-07,
+          3.1177540835888666e-07
+        ],
+        [
+          -3.2353757298916696e-07,
+          2.346600571140288e-07,
+          -2.0091786794686168e-07
+        ],
+        [
+          3.1177540835888666e-07,
+          -2.0091786794686168e-07,
+          2.1943169034971371e-07
+        ]
+      ],
+      "three_sigma_Z": 0.0014053060923327073,
+      "three_sigma_major_axis": 0.002894023469325502,
+      "all_source_observations": [
+        {
+          "camera": "JA",
+          "keypoint_index": 815,
+          "detected_uv": [
+            778.9446411132812,
+            520.597900390625
+          ],
+          "fitted_error_hd_px": 0.5739452804238636
+        },
+        {
+          "camera": "JB",
+          "keypoint_index": 1506,
+          "detected_uv": [
+            901.7868041992188,
+            599.1025390625
+          ],
+          "fitted_error_hd_px": 0.5654113535390441
+        },
+        {
+          "camera": "JC",
+          "keypoint_index": 3077,
+          "detected_uv": [
+            1118.0250244140625,
+            748.7335205078125
+          ],
+          "fitted_error_hd_px": 0.790965258084079
+        },
+        {
+          "camera": "KB",
+          "keypoint_index": 1369,
+          "detected_uv": [
+            846.5208740234375,
+            559.5555419921875
+          ],
+          "fitted_error_hd_px": 0.47731244806528117
+        },
+        {
+          "camera": "KC",
+          "keypoint_index": 1743,
+          "detected_uv": [
+            760.61767578125,
+            743.1864624023438
+          ],
+          "fitted_error_hd_px": 0.796380976788559
+        },
+        {
+          "camera": "LB",
+          "keypoint_index": 1727,
+          "detected_uv": [
+            870.9215698242188,
+            556.7257690429688
+          ],
+          "fitted_error_hd_px": 0.5330274117524044
+        }
+      ]
+    },
+    {
+      "source_point_id": 5511,
+      "xyz_floor": [
+        -0.11134935213588439,
+        -0.003235529365555429,
+        0.0010667091178797883
+      ],
+      "sigma_HD_pixel_assumed": 0.5,
+      "covariance_floor": [
+        [
+          8.40799876438517e-07,
+          -1.5216515654657603e-06,
+          1.0811010215420756e-06
+        ],
+        [
+          -1.5216515654657603e-06,
+          2.996794620005451e-06,
+          -2.091089048705962e-06
+        ],
+        [
+          1.0811010215420756e-06,
+          -2.091089048705962e-06,
+          1.5400920725285311e-06
+        ]
+      ],
+      "three_sigma_Z": 0.0037230133833706237,
+      "three_sigma_major_axis": 0.00688660719463382,
+      "all_source_observations": [
+        {
+          "camera": "HA",
+          "keypoint_index": 723,
+          "detected_uv": [
+            773.4286499023438,
+            556.4849853515625
+          ],
+          "fitted_error_hd_px": 0.6510947183168401
+        },
+        {
+          "camera": "HB",
+          "keypoint_index": 581,
+          "detected_uv": [
+            855.7664184570312,
+            425.7192687988281
+          ],
+          "fitted_error_hd_px": 0.528006118259507
+        },
+        {
+          "camera": "IB",
+          "keypoint_index": 1334,
+          "detected_uv": [
+            810.485107421875,
+            600.1369018554688
+          ],
+          "fitted_error_hd_px": 0.4714935921130158
+        }
+      ]
+    }
+  ],
+  "source_bindings": {
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/material_review.json": "f326259b295b7bab14b59009b8b9901f00730ee3d32e7155f8f1b5c986c5f659",
+    "/fsx/tmp/marshawn_001660_hd/data/transforms.json": "79893ade1ef2fbab92b9f1e0891bcb925be9ae4abc8d79a21238c209c5fb4406",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/code/marshawn_1660_1900_floor.json": "292609eebe9939e7ce5f840a1b317d963d39ec738cafaad8500abf3a2cd0620f",
+    "/tmp/audit_marshawn_floor_candidate_localization.py": "b73763520cbf2c1602968809875ff997dc67b1b0aecb347f6b1a0fbb51373d2f",
+    "/tmp/audit_marshawn_geometry.py": "e676216c3524e1cf78b4d02577d77836bce1e2f8c959126b0dab44c24a121e47"
+  },
+  "limitation": "Linearized fixed-camera independent0.5HDpixel localization assumption only; excludes calibration bias, shadow/feature-center bias and panel deformation; not a physical safety band or a plane fit."
+}
