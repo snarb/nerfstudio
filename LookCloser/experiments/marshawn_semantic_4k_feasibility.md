@@ -197,3 +197,16 @@ A new experimental data-ready receipt exists **only in this new generation**, af
 Prepared production: originalR0/W64/body80/sourcepad1/coarse.00625/lambda.01, seed42; cold full106316 ancestry then unchanged plateau. First15188 V1 metrics/renders/schema2 plus independent103TRAIN/12DC audit. Physical TRAIN audit coordinates must map continuously as `2*(HD+.5)-.5` and reproduce original ray origins/directions; DC remains FHD. Separate durable controller uses any idle silverGPU under shared locks; released launcher starts the unchanged remote checkpoint archiver/local fetch watcher and idempotent dispatcher. No controller or watcher has been launched by preparation.
 
 Prepared contractSHA `180978cd020989f1da1be6e7c8aed4ca7c1d6a3de75cb8ded06ef061e7711fd7`; controller planSHA `950f74969291baf7aa1efc80843ef7de555c029420d58a81ba094cff6e1121b6`; launch planSHA `e3df8c9e432a89ac6818384cbd4c9d3b3d9db0fc21428ca0f624cd95b49fbf83`; READY SHA `9eb1e43d470fdc51396fc28ac7f97b28f6f1e94c03f8c2da4ac9c02f00eab912`. Execution still requires the exact root production release; the existing template is false.
+
+## Released cold run and first15188 gate, 2026-11-07
+
+Root independently verified14 bindings +1502 code +654 source +189 map artifacts and released exact production root receipt SHA `547fc55d7cefdc290a2809d6f9cb3833602057f35093538e49798f790ecbae25`. This supersedes the preparation-only status above. Idempotent launcher started dispatcher2102689, archive/fetch watcher2102686 and silverGPU1 trainer1301297. Separate read-only health watcher2103046 checks process identity, progress, GPU memory and OOM evidence every60s; durable receipts are in `C/semantic_4k_production_health_v1`. It neither changes nor stops training.
+
+| Same V1 FHD evaluation at15188 | PSNR | SSIM | Masked LPIPS |
+|---|---:|---:|---:|
+| Original HD R0/W64 |31.414393|.84105578|.0311726214|
+| Experimental4K+4000maps R0/W64 |31.293130|.83676706|.0300620813|
+
+Black LPIPS .0319978644→.0301002562; grey .0303473783→.0300239064. DC .0364644583→.0344707016; HC .0289360508→.0276536494; KA .0281173550→.0280618928. Early average LPIPS improves3.56%, while PSNR/SSIM decline. This is not completed-model selection or pure-resolution causality.
+
+Root and fleet agents viewed all three actual GT/HD/4K contacts at `C/semantic_4k_review_15188/{DC,HC,KA}_GT_HD_4K.png`; image hashes and observations are bound in `visual_review.json`. Gross pose/hair/shoes remain; some clothing/hair details improve. Wide exterior haze and interleg/floor clumps persist in all three. No geometry or quality promotion. First15188 checkpoint, config, actual schema2 grid and renders are protected by the archive watcher at `independent_occupancy/semantic_4k_original_r0/step-000015188`; independent physical103TRAIN+12DC ray audit remains a separate gate.
