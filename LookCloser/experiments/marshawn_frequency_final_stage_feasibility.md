@@ -174,3 +174,28 @@ structural recipe selection, including the observed repeat variability.
 [Source-bound report and map comparisons](/fsx/tmp/marshawn_001660_hd/tuning_20261106/frequency_HD_variants_pilot_v1/review/report.json),
 [AA black overlay](/fsx/tmp/marshawn_001660_hd/tuning_20261106/frequency_HD_variants_pilot_v1/review/AA_black_levels.jpg),
 [MA grey overlay](/fsx/tmp/marshawn_001660_hd/tuning_20261106/frequency_HD_variants_pilot_v1/review/MA_grey_levels.jpg).
+
+## Prepared full map queues
+
+`prepare_marshawn_frequency_variants.py` prepares both independent alternatives
+for all63 TRAIN cameras, with one source-bound fit per camera/factor. Separate
+HD1000 and4K4000 generations contain126 jobs each; neither full queue has been
+launched. All252 specs passed CPU validation on silver, including original
+source hashes and TRAIN filename membership. EVAL camera IDs, unsupported
+budgets and unknown factor names were rejected before importing Torch.
+
+The generalized fitter retains the previously exercised fit mathematics and
+SSIM/censor observations. It supports a fleet-owned physical GPU lease and
+verifies the actual parent supervisor PID/start/boot receipt before Torch,
+then the physical UUID/logical device. Standalone mode takes the same global
+GPU lock directly. Each fit keeps a4GiB Torch allocator cap. A single actual
+AA4K/LR-decay fit is testing this factory path separately from all full queues;
+controller2111316, worker1536449, physicalGPU6,2524MiB at level2. This fit is
+an isolated preprocessing check, not a new NeRF run or map promotion.
+
+Generations are `frequency_variants_HD63_prepared_v1` and
+`frequency_variants_4K63_prepared_v1`; the single runtime check is
+`frequency_factory4K_AA_decay_probe_v1`, all under the campaign root. Runtime
+completion and source/visual review remain required. Queue choice and subsequent
+dataset assembly must use the chosen structural recipe/resolution; do not mix
+new frequency maps into running models.
