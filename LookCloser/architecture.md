@@ -2145,3 +2145,14 @@ A separate fork tracker uses the original fixed-actor validation criterion,
 neither opacity labels nor full-ray empty-space constraints. GPU proof and
 production releases remain separate from CPU preparation.
 
+
+The opt-in196-prefix continuation reuses the native FP32 optical-thickness
+integral on four manually qualified TRAIN7x7 patches, with individually bounded
+prefixes above empirical floor-frameZ.025. Control0/.001/.01 forks retain
+originalRGBW64, native field/admission/sampling and the126316 seven-state source.
+All arms consume identical privateCPU73011 packets64x512; control skips its
+auxiliary density query. Full-cache/LUT/normalizer/private-state resume precedes
+separately released zero,32+32 and fresh-parent plateau gates. The worker enforces
+a10GiB Torch allocator limit after physicalUUID validation; an external process
+guard remains separate. These conditional soft prefixes do not define hard cells,
+full-ray emptiness or alphaGT; the uncertain JA rig-edge patch is excluded.
