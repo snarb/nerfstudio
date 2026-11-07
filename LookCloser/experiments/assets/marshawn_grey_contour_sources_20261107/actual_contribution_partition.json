@@ -1,0 +1,72 @@
+[
+  {
+    "query": {
+      "camera_name": "KA",
+      "camera": 2,
+      "x": 1028,
+      "y": 331,
+      "label": "grey_inner_knee_contour",
+      "diagnostic_only": true
+    },
+    "removed_actual_A_weight": 0.41337462671799585,
+    "retained_actual_A_weight": 0.5534632257913472,
+    "removed_weight_fraction_behind_retained_median": 1.0,
+    "removed_RGB_contribution": [
+      0.1997799179001447,
+      0.16443665564793264,
+      0.14527506668224532
+    ],
+    "retained_RGB_contribution": [
+      0.19689793830253444,
+      0.19715574053033613,
+      0.19029980450284106
+    ],
+    "additive_actual_RGB": [
+      0.39667785620267915,
+      0.36159239617826877,
+      0.3355748711850864
+    ],
+    "source_model_RGB": [
+      0.3966779112815857,
+      0.36159247159957886,
+      0.3355748653411865
+    ],
+    "retained_conditional_median_t": 1.1651740074157715,
+    "partition_not_reintegration": true
+  },
+  {
+    "query": {
+      "camera_name": "HC",
+      "camera": 1,
+      "x": 1052,
+      "y": 576,
+      "label": "grey_inner_leg_contour",
+      "diagnostic_only": true
+    },
+    "removed_actual_A_weight": 0.11969250999391079,
+    "retained_actual_A_weight": 0.5816839557201092,
+    "removed_weight_fraction_behind_retained_median": 1.0,
+    "removed_RGB_contribution": [
+      0.10022075611186665,
+      0.060807845201225064,
+      0.034634880056728434
+    ],
+    "retained_RGB_contribution": [
+      0.23507758591467576,
+      0.20927589777832636,
+      0.20293247353954838
+    ],
+    "additive_actual_RGB": [
+      0.3352983420265424,
+      0.2700837429795514,
+      0.23756735359627681
+    ],
+    "source_model_RGB": [
+      0.3352983295917511,
+      0.2700837254524231,
+      0.23756733536720276
+    ],
+    "retained_conditional_median_t": 1.0032544136047363,
+    "partition_not_reintegration": true
+  }
+]
