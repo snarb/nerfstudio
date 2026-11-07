@@ -69,3 +69,20 @@ All three FHD RGB/alpha comparisons pass the existing source parity policy; rend
 ![Source and both OLD-flag ZERO replays](assets/marshawn_corrected_arm_warm_20261107/zero_source_compare.jpg)
 
 [Actual ZERO verification](assets/marshawn_corrected_arm_warm_20261107/zero_verification.json), [compact process/resource/source summary](assets/marshawn_corrected_arm_warm_20261107/zero_review_summary.json), [supervision log](assets/marshawn_corrected_arm_warm_20261107/manual_zero_supervision.jsonl).
+
+## Actual technical32+32 result
+
+After accepting ZERO, root separately released technical only. Local guardian2203309/controller2203313 ran both first32 segments and their separate resume32 children. Both arms reached126380 with64 successful Adam updates, preserving the original schedule: Adam126262→126294→126326. The actual corrected flag is now exercised; child lineage binds its flag and cap1024. Initial source seven trees and child-start seven trees, global RNG, sampler/cache associations, confidence normalizer and nonpersistent LUT restore exactly. Both32-step packet-stream digests match across the two arms for both segments.
+
+|Actual technical arm|Successful updates|First packet packed samples|Largest recorded per-ray count|Sampled process memory peak|
+|---|---:|---:|---:|---:|
+|Legacy1024|64|985035|1024|8464MiB|
+|Corrected1024|64|985050|1024|8440MiB|
+
+All64 successful combined gradients are finite in both arms. At both first/resumed reference steps, original W64 RGB gradient error is0, packed distortion value error is0, and packed distortion gradient error is at most9.10e−13. FR.3 and distortion.1 remain unchanged; no extra field queries or optimizer updates are used for these reference checks. Both source and corrected training packets reach the cap; the earlier zero-saturation115-ray diagnosis cannot describe this different source training distribution.
+
+All four worker invocations return0. Local and remote guardians finish `passed=true`, without events, terminations, OOM or tracebacks. Memory maxima combine preserved5-second guardian observations and queue device snapshots; these are sampled maxima, not instrumented allocator peaks. The source checkpoint rehash still matches340e794…cd641. Byte hashes for all four technical checkpoints and final seven-state hashes are recorded remotely. No2GB checkpoint was transferred to olive.
+
+The actual technical verifierSHA is`3769af075338bfb41677535139639d7db871d26e9e3a8e5dbca9a78beea27998`; compact closureSHA is`20a114db59a88f4859332c683af08c4936492bc54a302a105349f4f01a33bbfe`. This proves actual update/resume integration, not quality. No production job is launched by this gate; separate root acceptance/release is required before the original500/1000/2000/4000 visual gates and unchanged plateau continuation.
+
+[Actual technical verification](assets/marshawn_corrected_arm_warm_20261107/technical_verification.json), [checkpoint/state/gradient/resource closure](assets/marshawn_corrected_arm_warm_20261107/technical_review_summary.json), [technical supervision](assets/marshawn_corrected_arm_warm_20261107/manual_technical_supervision.jsonl).

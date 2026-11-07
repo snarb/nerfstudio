@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "phase": "technical",
+  "arms": {
+    "legacy1024": {
+      "source_seven_states_exact": true,
+      "child_seven_states_exact": true,
+      "effective_sampler": {
+        "corrected_arm_allocator": false,
+        "max_steps_per_ray": 1024
+      },
+      "first_Adam": {
+        "fields": [
+          126294.0
+        ]
+      },
+      "final_Adam": {
+        "fields": [
+          126326.0
+        ]
+      },
+      "first32_indices": "0c1358e4363757f7098dde6b884338b51e4a79dbdc7099e15393e2ec576f641e",
+      "resume32_indices": "beed0f672318e56b1cd6d908e4abac8960b8a556f97552df7a9571fae72cafa5"
+    },
+    "corrected1024": {
+      "source_seven_states_exact": true,
+      "child_seven_states_exact": true,
+      "effective_sampler": {
+        "corrected_arm_allocator": true,
+        "max_steps_per_ray": 1024
+      },
+      "first_Adam": {
+        "fields": [
+          126294.0
+        ]
+      },
+      "final_Adam": {
+        "fields": [
+          126326.0
+        ]
+      },
+      "first32_indices": "0c1358e4363757f7098dde6b884338b51e4a79dbdc7099e15393e2ec576f641e",
+      "resume32_indices": "beed0f672318e56b1cd6d908e4abac8960b8a556f97552df7a9571fae72cafa5"
+    }
+  },
+  "GPU_quality_approved": false,
+  "production_authorized": false
+}
