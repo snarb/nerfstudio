@@ -140,6 +140,42 @@ claim or final renderer promotion has been made.
 
 ## Insights
 
+### Production decision, 2026-11-07 22:48 UTC
+
+The provisional selection above has now passed a matched full-resolution
+review on the independently trained 1660, 1665 and 1670 models. The selected
+export uses 16 donors, detail sigma 4, gain .75 and the smooth fixed-anchor
+reference-focal scale along IC–JC–KC–LC–MC. Geometry remains each model's
+native saved R0. The experimental weak-grid guard and IC direct-pose fade
+are excluded. This changes rendering parameters only; training stays HD
+1920×1012, and delivery rendering is 3840×2024.
+
+Root visually inspected the full-frame contact and native face/foot crops:
+both actors and their feet remain visible, with subtle texture changes.
+Floor fragments and the silhouette shell persist and vary between cold
+models; the profile is not a demonstrated geometry or temporal-flicker fix.
+The matched comparison is recorded in
+`operations/video_fleet10/private_profile_v1/matched_first3/finite_profile_matrix_complete.json`
+under the capped campaign.
+
+The production profile SHA256 is
+`2bd9bca54f43bb5da2920a5f95124677ee2754762bb8ad5551163d9dbf06eb81`.
+The active export hook SHA256 is
+`390ef99d70780ff6f3a39ed18bd72fc2edf792c47c204c29fdae82a75df5fe4d`.
+Its durable wrapper preserves source/model bindings and recovers GPU and
+CPU launch intents after coordinator failure. Actual first-frame neural
+and hybrid outputs match the qualified profile pixel-for-pixel. The frozen
+2020 GT endpoints at output records 72 and 119 also passed an actual native
+crop/shift check. See the
+[video export report](marshawn_video_path_1660_24fps.md) for transport,
+failure-injection checks and final-video requirements.
+
+An intermediate download is available at
+`/fsx/tmp/marshawn_video_1660_2015_24fps_140k_20261107/review/Marshawn1660_hybrid_tuned_140k_4K.png`.
+This is one 140,000-iteration HD-trained model rendered at native 4K,
+not the completed 72-model video. Full-sequence temporal inspection remains
+required after training and assembly.
+
 The iteration limit now has direct pre-gradient enforcement and terminal
 accounting. Retaining the previous LR schedule preserves the chosen recipe
 under the shorter user-selected duration.
