@@ -1,0 +1,50 @@
+{
+  "timestamp_UTC": "2026-11-07T07:35:28.944915+00:00",
+  "python": "3.11.16",
+  "torch": "2.7.1+cu128",
+  "pytest_args": [
+    "-q",
+    "-o",
+    "addopts=",
+    "tests/test_marshawn_semantic_residual_head.py",
+    "tests/test_marshawn_frozen_semantic_head.py"
+  ],
+  "exit_code": 0,
+  "counts": {
+    "passed": 25
+  },
+  "CUDA_VISIBLE_DEVICES": "",
+  "CUDA_initialized": false,
+  "largest_test_residual_resolution": 9,
+  "scope": "CPU synthetic contracts only; no model/headfit/physical render/export or GPU launch",
+  "source_capture_receipt_sha256": "fb8b875d8c7f3676c3dfbd187b4c76c3ee40ec8a3b62a940fdf33bb97d99073d",
+  "files": {
+    "scripts/marshawn_semantic_residual_head.py": "486ca6e2a7d3c63bf9f5a52e761015b67be656ef29950177259498faeb29b883",
+    "tests/test_marshawn_semantic_residual_head.py": "47736f9fa9bb1f06262e0dbe55a98e807acd869031a5119f70c3478532df6c30",
+    "scripts/marshawn_frozen_semantic_head.py": "85f51158fabaff8664be52d56fcdb80f3d9368c6c1529d4c5327b51c543dbb78",
+    "tests/test_marshawn_frozen_semantic_head.py": "e24e1ecad78093351576bd046d9cdca31d32a0204584ff060091b1dbf46679cc"
+  },
+  "analytic_memory": {
+    "128": {
+      "nodes": 2097152,
+      "grid_bytes": 8388608,
+      "frozen_coarse_bytes": 8388608,
+      "hierarchical_inference_bytes": 16777216,
+      "hierarchical_Adam_minimum_bytes": 41943040
+    },
+    "256": {
+      "nodes": 16777216,
+      "grid_bytes": 67108864,
+      "frozen_coarse_bytes": 8388608,
+      "hierarchical_inference_bytes": 75497472,
+      "hierarchical_Adam_minimum_bytes": 276824064
+    },
+    "512": {
+      "nodes": 134217728,
+      "grid_bytes": 536870912,
+      "frozen_coarse_bytes": 8388608,
+      "hierarchical_inference_bytes": 545259520,
+      "hierarchical_Adam_minimum_bytes": 2155872256
+    }
+  }
+}
