@@ -78,3 +78,10 @@ operations/sam3_assist/v5/frameFRAME/native_inputs_ready.json
 The shared V5 recipe remains disabled for future frames until the root records
 the full66 source-review release in `operations/sam3_assist/v5/full_release.json`.
 This is the current internal review gate; it does not require another user action.
+
+The next factory qualification is restricted to frame1680. Its versioned
+`marshawn_mask_assist_entry1680_v5.py` requires the root-reviewed1675 semantic
+and W64 gate, checks the released semantic/prepared/visual hashes and rejects
+other frames. The original V5 release remains unchanged. Missing gate,
+out-of-scope frame and changed-prepared-input regressions pass; a fresh1680
+factory run is still pending this source-review gate.
