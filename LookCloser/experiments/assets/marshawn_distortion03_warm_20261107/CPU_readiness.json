@@ -1,0 +1,116 @@
+{
+  "passed": true,
+  "CPU_only": true,
+  "manifest_sha256": "3fe4e610d4bf641f44fb962cdec4d620d7db8ad7247451eb6ee49172353bc95d",
+  "source_sampling_sha256": "6b175a5a30bd6f67001fe3e006738002d4e3a7fe85d2f619e0d0d04c39288aa6",
+  "source_structure_sha256": "ce686efdbc9c407a4b8f66df7edf6a187a65610f222c6ed726406a21b9cbe1a2",
+  "config_differences_from_common_actual_resume": {
+    "zero_control01": {
+      ".output_dir": {
+        "before": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/distortion03_warm_continuation_candidate_v1/reference_output",
+        "after": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/distortion03_warm_continuation_candidate_v1/runs/zero_control01"
+      }
+    },
+    "zero_distortion03": {
+      ".output_dir": {
+        "before": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/distortion03_warm_continuation_candidate_v1/reference_output",
+        "after": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/distortion03_warm_continuation_candidate_v1/runs/zero_distortion03"
+      },
+      ".pipeline.model.distortion_loss_mult": {
+        "before": 0.1,
+        "after": 0.3
+      }
+    },
+    "technical_control01": {
+      ".output_dir": {
+        "before": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/distortion03_warm_continuation_candidate_v1/reference_output",
+        "after": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/distortion03_warm_continuation_candidate_v1/runs/technical_control01"
+      }
+    },
+    "technical_distortion03": {
+      ".output_dir": {
+        "before": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/distortion03_warm_continuation_candidate_v1/reference_output",
+        "after": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/distortion03_warm_continuation_candidate_v1/runs/technical_distortion03"
+      },
+      ".pipeline.model.distortion_loss_mult": {
+        "before": 0.1,
+        "after": 0.3
+      }
+    },
+    "production_control01": {
+      ".output_dir": {
+        "before": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/distortion03_warm_continuation_candidate_v1/reference_output",
+        "after": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/distortion03_warm_continuation_candidate_v1/runs/production_control01"
+      }
+    },
+    "production_distortion03": {
+      ".output_dir": {
+        "before": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/distortion03_warm_continuation_candidate_v1/reference_output",
+        "after": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/distortion03_warm_continuation_candidate_v1/runs/production_distortion03"
+      },
+      ".pipeline.model.distortion_loss_mult": {
+        "before": 0.1,
+        "after": 0.3
+      }
+    }
+  },
+  "actual_resume_vs_historical_initial_config": {
+    ".output_dir": {
+      "before": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_quarter_distortion_candidate_20261107/run",
+      "after": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/distortion03_warm_continuation_candidate_v1/reference_output"
+    },
+    ".load_checkpoint": {
+      "before": null,
+      "after": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/distortion03_warm_continuation_candidate_v1/anchor/checkpoint.ckpt"
+    },
+    ".pipeline.model.distortion_loss_mult": {
+      "before": 0.01,
+      "after": 0.1
+    }
+  },
+  "actual_common_distortion": 0.1,
+  "restored_FR_expected": 0.3,
+  "policies": {
+    "control01": {
+      "normalizer": 0.6893199440385297,
+      "confidence_state_sha256": "a6ecf18df6ae0f707adbfa7edf12533d50506d9ff27aa07f4f2a2ace5848dbd9",
+      "same_packet_and_RNG": true,
+      "installation_RNG_unchanged": true,
+      "fresh_adapter_profile_and_normalizer_roundtrip_exact": true,
+      "tampered_source_and_normalizer_rejected": true
+    },
+    "distortion03": {
+      "normalizer": 0.6893199440385297,
+      "confidence_state_sha256": "a6ecf18df6ae0f707adbfa7edf12533d50506d9ff27aa07f4f2a2ace5848dbd9",
+      "same_packet_and_RNG": true,
+      "installation_RNG_unchanged": true,
+      "fresh_adapter_profile_and_normalizer_roundtrip_exact": true,
+      "tampered_source_and_normalizer_rejected": true
+    }
+  },
+  "separate_tracker": {
+    "schema_version": 1,
+    "anchor_step": 130316,
+    "interval": 5000,
+    "patience": 4,
+    "loss_relative_delta": 0.001,
+    "lpips_absolute_delta": 0.001,
+    "last_step": 150316,
+    "last_loss": 0.1,
+    "last_lpips": 0.02,
+    "significant_loss": 0.1,
+    "significant_lpips": 0.02,
+    "loss_misses": 4,
+    "lpips_misses": 4,
+    "stopped": true
+  },
+  "minimum_no_improvement_attempts": 24000,
+  "zero_FHD_and_full_model_loader_gates": "PENDING_NOT_RUN",
+  "technical_actual_Adam_32_plus32": "PENDING_NOT_RUN",
+  "new_labels_or_RGB_changes": false,
+  "effective_distortion_factors": {
+    "control01": 0.1,
+    "distortion03": 0.3
+  },
+  "GPU_or_training_started": false
+}

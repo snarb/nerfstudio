@@ -1,0 +1,36 @@
+{
+  "CPU_only": true,
+  "source_checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "remote_root": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/distortion03_warm_continuation_candidate_v1",
+  "local_root": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/distortion03_warm_continuation_candidate_v1",
+  "source_checkpoint_remote": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_quarter_distortion_final_geometry/quarter_distortion_rawmin/checkpoint.ckpt",
+  "source_seven_state_proof_upstream": "17eeff46a530d6feb0eb1421a9a64698cc4aa792602672151a6bbdcba00c0595",
+  "science_factors": {
+    "control01": 0.1,
+    "distortion03": 0.3
+  },
+  "only_scientific_change": "Native original packed distortion multiplier .1 to .3 AFTER actual .1 source seven-state/cache/RNG baseline verification",
+  "native_packed_FP64_prefix_unchanged": true,
+  "FR": 0.3,
+  "coarse_step": 0.0015625,
+  "no_RGB_profile_pointgate_or_prefix_tau": true,
+  "stopping": {
+    "minimum_attempts": 4000,
+    "anchor_step": 130316,
+    "interval": 5000,
+    "patience": 4,
+    "loss_relative_delta": 0.001,
+    "lpips_absolute_delta": 0.001,
+    "early_visual_attempts": [
+      500,
+      1000,
+      2000,
+      4000
+    ],
+    "hard_iteration_limit": null
+  },
+  "main_RGB": "exact originalW64 and original proposal expected normalizer",
+  "density_selector": "original_mapped",
+  "GPU_started": false,
+  "releases_created": false
+}

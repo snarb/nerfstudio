@@ -1,0 +1,29 @@
+{
+  "CPU_readiness": "PASS_REAL63_CONFIG_PACKED_FACTOR",
+  "source_checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "source_actual_distortion": 0.1,
+  "source_FR": 0.3,
+  "effective_distortion_factors": {
+    "control01": 0.1,
+    "distortion03": 0.3
+  },
+  "source7_before_loss_scalar_change": true,
+  "original1495_unchanged": true,
+  "total_frozen_science_files": 1502,
+  "CPU_readiness_sha256": "989b2bd5534be7df773ebe71f09dfe8790893b95e6f758db095652af36359bb5",
+  "CPU_packed_factor_sha256": "db38180312e3cbddf8c56914fb7e48231ff1f497734f58333ccf7184268e96b1",
+  "CPU_pack_info_metadata_shim_explicit": true,
+  "actual_native_CUDA_gradient_factor": "PENDING_ACTUAL32_PLUS32",
+  "zero": "NOT_RUN",
+  "technical": "NOT_RUN",
+  "production": "NOT_RELEASED",
+  "original_RGB_W64_body80_FAS_pools_RNG_poses_field_FR_native_admission_LR_unchanged": true,
+  "no_RGB_profile_pointgate_prefix_tau": true,
+  "worker_allocator10GiB_enforced": true,
+  "source_manifest_sha256": "ee001c500bfbaf6aee4250b2bb1f8a1c721008326feecfde9cd8c4616be929b1",
+  "worker_sha256": "14899c68886add23114f3e4da6a7a48fff5950f792004867575797db3917c0a2",
+  "policy_sha256": "3d0191a376be091fc17be7de39bb38705f7afe95e314bedbc2614c6b04578448",
+  "canonical_entry": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/distortion03_warm_continuation_candidate_v1/external_guard_distortion03_v1/guardian.py",
+  "launch_origin": "LOCAL_OLIVE_ONLY",
+  "no_actual_releases_or_GPU_jobs": true
+}

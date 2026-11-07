@@ -1,0 +1,7 @@
+{
+  "sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "source": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_quarter_distortion_final_geometry/quarter_distortion_rawmin/checkpoint.ckpt",
+  "destination": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/distortion03_warm_continuation_candidate_v1/anchor/checkpoint.ckpt",
+  "same_inode": true,
+  "GPU_used": false
+}

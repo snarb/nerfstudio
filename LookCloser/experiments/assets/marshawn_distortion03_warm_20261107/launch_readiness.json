@@ -1,0 +1,26 @@
+{
+  "status": "CPU_READY_ROOT_REVIEW_REQUIRED",
+  "source_manifest_sha256": "ee001c500bfbaf6aee4250b2bb1f8a1c721008326feecfde9cd8c4616be929b1",
+  "worker_sha256": "14899c68886add23114f3e4da6a7a48fff5950f792004867575797db3917c0a2",
+  "policy_sha256": "3d0191a376be091fc17be7de39bb38705f7afe95e314bedbc2614c6b04578448",
+  "CPU_readiness_sha256": "989b2bd5534be7df773ebe71f09dfe8790893b95e6f758db095652af36359bb5",
+  "CPU_packed_factor_sha256": "db38180312e3cbddf8c56914fb7e48231ff1f497734f58333ccf7184268e96b1",
+  "guardian_sha256": "dce8af587857b78bb0bff2d28ac6499833457114c25e03dbf72719f6b3aa5e66",
+  "zero_guard_template": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/distortion03_warm_continuation_candidate_v1/external_guard_distortion03_v1/zero_guard_release.template.json",
+  "zero_worker_templates": {
+    "control01": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/distortion03_warm_continuation_candidate_v1/specs/zero_control01/root_release.template.json",
+    "distortion03": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/distortion03_warm_continuation_candidate_v1/specs/zero_distortion03/root_release.template.json"
+  },
+  "exact_review_only_fields": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/distortion03_warm_continuation_candidate_v1/external_guard_distortion03_v1/root_release_requirements_NOT_AUTHORIZATION.json",
+  "local_ZERO_argv": [
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/python",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/distortion03_warm_continuation_candidate_v1/external_guard_distortion03_v1/guardian.py",
+    "launch",
+    "--policy",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/distortion03_warm_continuation_candidate_v1/external_guard_distortion03_v1/policy.json",
+    "--phase",
+    "zero"
+  ],
+  "CPU_scope": "Actual63 original adapter/pools/FAS/normalizer/RNG/fresh roundtrip;6 effective configs only scalar.1\u2192.3/output; unmodified native FP64 packed arithmetic factor3 value+gradient on CPU with explicit CSR metadata shim; CUDA kernel/value/gradient/AMP/full-loader remain separate actual32+32 gate",
+  "GPU_or_release_created": false
+}

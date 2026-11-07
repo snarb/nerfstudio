@@ -1,0 +1,7 @@
+{
+  "CPU_test_only_change": true,
+  "original1495_and_worker_unchanged": true,
+  "reason": "Installed nerfacc.pack_info supports CUDA tensors only; CPU metadata shim uses exact bincount CSR starts/counts, restores original API. Native FP64 packed arithmetic source remains unchanged.",
+  "GPU_initialized": false,
+  "actual_native_CUDA_value_gradient_factor_check": "PENDING_ACTUAL32_PLUS32"
+}

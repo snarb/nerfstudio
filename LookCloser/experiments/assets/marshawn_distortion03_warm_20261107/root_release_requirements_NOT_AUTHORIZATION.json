@@ -1,0 +1,76 @@
+{
+  "zero": {
+    "guard_release": {
+      "reviewer": "root",
+      "external_guard_authorized": true,
+      "policy_sha256": "3d0191a376be091fc17be7de39bb38705f7afe95e314bedbc2614c6b04578448",
+      "authorized_phases": [
+        "zero"
+      ]
+    },
+    "worker_releases": {
+      "/fsx/tmp/marshawn_001660_hd/tuning_20261106/distortion03_warm_continuation_candidate_v1/specs/zero_control01/root_release.json": {
+        "reviewer": "root",
+        "technical_authorized": true,
+        "production_authorized": false,
+        "spec_sha256": "8a8bc78a0dbcf35f61a2192b2dfe03bd0c48065aabca85c9681046537fea7d1b"
+      },
+      "/fsx/tmp/marshawn_001660_hd/tuning_20261106/distortion03_warm_continuation_candidate_v1/specs/zero_distortion03/root_release.json": {
+        "reviewer": "root",
+        "technical_authorized": true,
+        "production_authorized": false,
+        "spec_sha256": "e8bdb98aec4c32ef6c1959b1fdbf2d35c77205bc81d619aff70fa3b3167d47a2"
+      }
+    }
+  },
+  "technical": {
+    "guard_release": {
+      "reviewer": "root",
+      "external_guard_authorized": true,
+      "policy_sha256": "3d0191a376be091fc17be7de39bb38705f7afe95e314bedbc2614c6b04578448",
+      "authorized_phases": [
+        "technical"
+      ],
+      "zero_verification_sha256": "BIND_PASSING_PREDECESSOR_PROOF"
+    },
+    "worker_releases": {
+      "/fsx/tmp/marshawn_001660_hd/tuning_20261106/distortion03_warm_continuation_candidate_v1/specs/technical_control01/root_release.json": {
+        "reviewer": "root",
+        "technical_authorized": true,
+        "production_authorized": false,
+        "spec_sha256": "f655b113ea41c869af2842b936f691dbb77345b4893fafb6223ab3f1a37fcb51"
+      },
+      "/fsx/tmp/marshawn_001660_hd/tuning_20261106/distortion03_warm_continuation_candidate_v1/specs/technical_distortion03/root_release.json": {
+        "reviewer": "root",
+        "technical_authorized": true,
+        "production_authorized": false,
+        "spec_sha256": "16554c786393ed37e73a6fb92db986799ebcbf1a29da32ee737ac3678f5f1572"
+      }
+    }
+  },
+  "production": {
+    "guard_release": {
+      "reviewer": "root",
+      "external_guard_authorized": true,
+      "policy_sha256": "3d0191a376be091fc17be7de39bb38705f7afe95e314bedbc2614c6b04578448",
+      "authorized_phases": [
+        "production"
+      ],
+      "technical_verification_sha256": "BIND_PASSING_PREDECESSOR_PROOF"
+    },
+    "worker_releases": {
+      "/fsx/tmp/marshawn_001660_hd/tuning_20261106/distortion03_warm_continuation_candidate_v1/specs/production_control01/root_release.json": {
+        "reviewer": "root",
+        "technical_authorized": false,
+        "production_authorized": true,
+        "spec_sha256": "1879917049ef142c83c96b24a6a31606982913d17a1a8804abc50b77b6f93725"
+      },
+      "/fsx/tmp/marshawn_001660_hd/tuning_20261106/distortion03_warm_continuation_candidate_v1/specs/production_distortion03/root_release.json": {
+        "reviewer": "root",
+        "technical_authorized": false,
+        "production_authorized": true,
+        "spec_sha256": "680e2517438f0c963f35a45f4cf2a18af8157c5024a39bafed821fe07e28ae1a"
+      }
+    }
+  }
+}

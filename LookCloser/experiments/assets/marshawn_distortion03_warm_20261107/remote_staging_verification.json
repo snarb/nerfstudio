@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "source_files_verified": 1502,
+  "original1495_unchanged": true,
+  "prepared_bindings_verified": 17,
+  "actual_import_paths_and_SHA_exact": {
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/distortion03_warm_continuation_candidate_v1/code/LookCloser/scripts/marshawn_distortion_warm_factory.py": "a6b9d865e7497227c13b84b6917feb8dc692a2ee0b53ef6f91050cdd4b5d6a4f",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/distortion03_warm_continuation_candidate_v1/code/LookCloser/scripts/marshawn_distortion_warm_rgb.py": "a30037f77f6c40a19c59a37e7e89ef1ca2aca20a8ba0320043bf94de76fc2412",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/distortion03_warm_continuation_candidate_v1/code/LookCloser/scripts/train_marshawn_distortion_warm.py": "14899c68886add23114f3e4da6a7a48fff5950f792004867575797db3917c0a2",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/distortion03_warm_continuation_candidate_v1/code/nerfstudio/models/lookcloser.py": "23cb0830e83f87164f6d87f372d522d0ec70afc6a020280ac30c4f21e54e6927"
+  },
+  "CUDA_initialized": false,
+  "actual_source_baseline_before_scalar_change": true,
+  "CPU_pack_info_metadata_shim_explicit": true,
+  "actual_CUDA_packed_gradient_factor": "PENDING32_PLUS32",
+  "no_actual_GPU_or_releases": true
+}

@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "native_original_packed_function_used": true,
+  "CPU_pack_info_metadata_adapter_used": true,
+  "native_CUDA_pack_info_not_tested_on_CPU": true,
+  "pack_info_adapter_restored_before_exit": true,
+  "source_weight_dtype": "float32",
+  "native_FP64_prefix_arithmetic_unchanged": true,
+  "source_coefficient": 0.1,
+  "treatment_coefficient": 0.3,
+  "expected_factor": 3,
+  "gradient_max_error": 1.4210854715202004e-14,
+  "CUDA_initialized": false,
+  "no_sigma_clamp_or_precision_override": true
+}
