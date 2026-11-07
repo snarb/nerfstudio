@@ -1,0 +1,16 @@
+{
+  "shoe6": {
+    "count": 6,
+    "min_gated_alpha": 0.9111503958702087,
+    "max_RGB_change": 0.012500017881393433,
+    "max_abs_alpha_change": 0.013108372688293457,
+    "measured_XYZ_retained": 6
+  },
+  "clothing103": {
+    "count": 103,
+    "min_gated_alpha": 0.7503088116645813,
+    "max_RGB_change": 6.490945816040039e-05,
+    "max_abs_alpha_change": 6.55055046081543e-05,
+    "measured_XYZ_retained": 103
+  }
+}

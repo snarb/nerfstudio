@@ -1,0 +1,4900 @@
+{
+  "passed": true,
+  "checkpoint_sha256": "ec682be7c8205e9c4a27caf9cef7b0fcfab8fe09389e7bb2c59e1aee04057b8f",
+  "step": 111316,
+  "feature_reweighting_strength": 0.3,
+  "cut": -0.02,
+  "rule": "Additional shared density selector retains queried sample positions with floor Z>=\u2212.02. Original coordinates/hash normalization/core/field weights unchanged.",
+  "empirical_prior_not_emptyspace_certificate": true,
+  "source_state_sha256": "a30fa51f101106b0e64a9e2638c469b79137e86220461fb1455481fd3c26cc68",
+  "frozen_state_unchanged": true,
+  "accepted_bounds": {
+    "model.scene_aabb": [
+      [
+        -0.8399999737739563,
+        -0.20999999344348907,
+        -0.07000000029802322
+      ],
+      [
+        0.15000000596046448,
+        0.41999998688697815,
+        0.6299999952316284
+      ]
+    ],
+    "model.scene_box.aabb": [
+      [
+        -0.8399999737739563,
+        -0.20999999344348907,
+        -0.07000000029802322
+      ],
+      [
+        0.15000000596046448,
+        0.41999998688697815,
+        0.6299999952316284
+      ]
+    ],
+    "occupancy.aabbs[0]": [
+      [
+        -0.8399999737739563,
+        -0.21000000834465027,
+        -0.06999999284744263
+      ],
+      [
+        0.15000003576278687,
+        0.41999998688697815,
+        0.6299999952316284
+      ]
+    ],
+    "field.aabb": [
+      [
+        -0.8399999737739563,
+        -0.20999999344348907,
+        -0.07000000029802322
+      ],
+      [
+        0.15000000596046448,
+        0.41999998688697815,
+        0.6299999952316284
+      ]
+    ],
+    "collider.scene_box.aabb": [
+      [
+        -0.8399999737739563,
+        -0.20999999344348907,
+        -0.07000000029802322
+      ],
+      [
+        0.15000000596046448,
+        0.41999998688697815,
+        0.6299999952316284
+      ]
+    ]
+  },
+  "actual_worker": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/floor_point_gate_minus002_v1/helpers/marshawn_floor_point_gate_worker.py",
+  "actual_worker_sha256": "5e084fb0ea8bb413c5b8abe9f5f7cd29cb6f0e652c0383a038d56c07ddd1b168",
+  "normalizer_restored_RGBA_error": 2.980232238769531e-07,
+  "crop_metrics": [
+    {
+      "camera": "DC",
+      "pixels": 74550,
+      "max_float_PNG_byte_error": 0.5000127553939819,
+      "mean_float_PNG_byte_error": 0.21959621137928653,
+      "gated_max_RGB_change": 0.4729294776916504,
+      "mean_abs_RGB_change": 0.0013454119907692075,
+      "RGB_changed_over_one_byte": 2930,
+      "original_alpha_sum": 52093.96824535314,
+      "gated_alpha_sum": 51723.76125373534
+    },
+    {
+      "camera": "HC",
+      "pixels": 84958,
+      "max_float_PNG_byte_error": 0.5000591278076172,
+      "mean_float_PNG_byte_error": 0.1798145369164965,
+      "gated_max_RGB_change": 0.7878725528717041,
+      "mean_abs_RGB_change": 0.009935123845934868,
+      "RGB_changed_over_one_byte": 6872,
+      "original_alpha_sum": 49582.5371593209,
+      "gated_alpha_sum": 47919.080288004305
+    },
+    {
+      "camera": "KA",
+      "pixels": 78624,
+      "max_float_PNG_byte_error": 0.5000295042991638,
+      "mean_float_PNG_byte_error": 0.139138340166448,
+      "gated_max_RGB_change": 0.9376625418663025,
+      "mean_abs_RGB_change": 0.011646226048469543,
+      "RGB_changed_over_one_byte": 8046,
+      "original_alpha_sum": 35990.030295234,
+      "gated_alpha_sum": 34676.39593365142
+    }
+  ],
+  "TRAIN_controls": [
+    {
+      "pixel": {
+        "camera_name": "ID",
+        "x": 880,
+        "y": 693,
+        "region": "toe_upper",
+        "actor": "black",
+        "witness_xyz": [
+          -0.11769208960984658,
+          0.15127923559030565,
+          0.014567836967476211
+        ],
+        "witness_id": "three_view_upper_toe",
+        "source_coordinate": [
+          879.7936946756498,
+          693.0452434064795
+        ],
+        "source_coordinate_contract": "array pixel center; nearest integer index",
+        "camera": 39,
+        "query_id": 0,
+        "accepted_AABB_interval": [
+          0.6524841552961345,
+          1.4079936540061158
+        ],
+        "query_witness_depth": 1.085782336258176,
+        "point_to_pixel_ray_distance": 7.939157348690407e-05,
+        "source_group": "shoe6",
+        "original_query_id": 0
+      },
+      "original_RGBA": [
+        0.11832599341869354,
+        0.12588094174861908,
+        0.09594118595123291,
+        0.9585930109024048
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.11832600831985474,
+        0.1258809119462967,
+        0.09594116359949112,
+        0.9585926532745361
+      ],
+      "max_abs_RGB_change": 2.9802322387695312e-08,
+      "alpha_change": -3.5762786865234375e-07
+    },
+    {
+      "pixel": {
+        "camera_name": "HE",
+        "x": 914,
+        "y": 876,
+        "region": "toe_upper",
+        "actor": "black",
+        "witness_xyz": [
+          -0.11769208960984658,
+          0.15127923559030565,
+          0.014567836967476211
+        ],
+        "witness_id": "three_view_upper_toe",
+        "source_coordinate": [
+          914.0323425110798,
+          876.4060424338626
+        ],
+        "source_coordinate_contract": "array pixel center; nearest integer index",
+        "camera": 35,
+        "query_id": 1,
+        "accepted_AABB_interval": [
+          0.6622164848492895,
+          1.352805572260079
+        ],
+        "query_witness_depth": 1.058204252683741,
+        "point_to_pixel_ray_distance": 0.00042363173505266635,
+        "source_group": "shoe6",
+        "original_query_id": 1
+      },
+      "original_RGBA": [
+        0.14722996950149536,
+        0.12327542901039124,
+        0.12250526994466782,
+        0.9707446694374084
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.14722996950149536,
+        0.12327538430690765,
+        0.12250523269176483,
+        0.970744788646698
+      ],
+      "max_abs_RGB_change": 4.470348358154297e-08,
+      "alpha_change": 1.1920928955078125e-07
+    },
+    {
+      "pixel": {
+        "camera_name": "IC",
+        "x": 1049,
+        "y": 645,
+        "region": "toe_upper",
+        "actor": "black",
+        "witness_xyz": [
+          -0.11769208960984658,
+          0.15127923559030565,
+          0.014567836967476211
+        ],
+        "witness_id": "three_view_upper_toe",
+        "source_coordinate": [
+          1049.3875902481218,
+          645.382407783706
+        ],
+        "source_coordinate_contract": "array pixel center; nearest integer index",
+        "camera": 38,
+        "query_id": 2,
+        "accepted_AABB_interval": [
+          0.6497945088823056,
+          1.3804347143465294
+        ],
+        "query_witness_depth": 1.1260090126734823,
+        "point_to_pixel_ray_distance": 0.0001989631266320196,
+        "source_group": "shoe6",
+        "original_query_id": 2
+      },
+      "original_RGBA": [
+        0.1297745406627655,
+        0.13928364217281342,
+        0.1457274705171585,
+        0.9605907201766968
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.1297745555639267,
+        0.13928362727165222,
+        0.14572738111019135,
+        0.9605908393859863
+      ],
+      "max_abs_RGB_change": 8.940696716308594e-08,
+      "alpha_change": 1.1920928955078125e-07
+    },
+    {
+      "pixel": {
+        "camera_name": "JA",
+        "x": 776,
+        "y": 430,
+        "region": "sole6862",
+        "actor": "black",
+        "witness_xyz": [
+          -0.11713805167004304,
+          0.14165073766903985,
+          0.005085417456200336
+        ],
+        "witness_id": 6862,
+        "source_coordinate": [
+          776.6044311523438,
+          430.82171630859375
+        ],
+        "source_coordinate_contract": "COLMAP half-center UV; floor to integer pixel index",
+        "camera": 41,
+        "query_id": 3,
+        "accepted_AABB_interval": [
+          0.8877230906393374,
+          1.4412915253026655
+        ],
+        "query_witness_depth": 1.2989509176048883,
+        "point_to_pixel_ray_distance": 4.120039364139508e-05,
+        "source_group": "shoe6",
+        "original_query_id": 3
+      },
+      "original_RGBA": [
+        0.25657644867897034,
+        0.24478526413440704,
+        0.2375260591506958,
+        0.946323573589325
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.2516573667526245,
+        0.2412203699350357,
+        0.23737454414367676,
+        0.9402917623519897
+      ],
+      "max_abs_RGB_change": 0.004919081926345825,
+      "alpha_change": -0.006031811237335205
+    },
+    {
+      "pixel": {
+        "camera_name": "JB",
+        "x": 893,
+        "y": 519,
+        "region": "sole6862",
+        "actor": "black",
+        "witness_xyz": [
+          -0.11713805167004304,
+          0.14165073766903985,
+          0.005085417456200336
+        ],
+        "witness_id": 6862,
+        "source_coordinate": [
+          893.465087890625,
+          519.1986694335938
+        ],
+        "source_coordinate_contract": "COLMAP half-center UV; floor to integer pixel index",
+        "camera": 42,
+        "query_id": 4,
+        "accepted_AABB_interval": [
+          0.7997775342363077,
+          1.3930396922445143
+        ],
+        "query_witness_depth": 1.2214704932655394,
+        "point_to_pixel_ray_distance": 0.0001546022361946945,
+        "source_group": "shoe6",
+        "original_query_id": 4
+      },
+      "original_RGBA": [
+        0.28358060121536255,
+        0.25195804238319397,
+        0.23745909333229065,
+        0.9242587685585022
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.2710805833339691,
+        0.24693366885185242,
+        0.23702691495418549,
+        0.9111503958702087
+      ],
+      "max_abs_RGB_change": 0.012500017881393433,
+      "alpha_change": -0.013108372688293457
+    },
+    {
+      "pixel": {
+        "camera_name": "KB",
+        "x": 875,
+        "y": 478,
+        "region": "sole6862",
+        "actor": "black",
+        "witness_xyz": [
+          -0.11713805167004304,
+          0.14165073766903985,
+          0.005085417456200336
+        ],
+        "witness_id": 6862,
+        "source_coordinate": [
+          875.58447265625,
+          478.4267883300781
+        ],
+        "source_coordinate_contract": "COLMAP half-center UV; floor to integer pixel index",
+        "camera": 46,
+        "query_id": 5,
+        "accepted_AABB_interval": [
+          0.853968843570787,
+          1.378105007805065
+        ],
+        "query_witness_depth": 1.2075520093035295,
+        "point_to_pixel_ray_distance": 7.093552585205763e-05,
+        "source_group": "shoe6",
+        "original_query_id": 5
+      },
+      "original_RGBA": [
+        0.20731480419635773,
+        0.2433474361896515,
+        0.23243969678878784,
+        0.9675600528717041
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.20614638924598694,
+        0.24191080033779144,
+        0.23092634975910187,
+        0.9611571431159973
+      ],
+      "max_abs_RGB_change": 0.0015133470296859741,
+      "alpha_change": -0.006402909755706787
+    },
+    {
+      "pixel": {
+        "camera": 0,
+        "camera_name": "AA",
+        "x": 1017,
+        "y": 190,
+        "witness_id": 60,
+        "semantic": "train_observed_black_actor_shirt_lettering",
+        "witness_xyz": [
+          0.0008696795548505639,
+          0.22668226422871596,
+          0.3038648668929449
+        ],
+        "diagnostic_group": "old_prefix_supervised",
+        "actor": "black",
+        "region": "original_upper_back_lettering",
+        "query_witness_depth": 1.0895619970775938,
+        "point_to_pixel_ray_distance": 0.0002940191252990625,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 6
+      },
+      "original_RGBA": [
+        0.7883424162864685,
+        0.7411038875579834,
+        0.6902605295181274,
+        0.9860005378723145
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.7883424162864685,
+        0.7411041855812073,
+        0.690260648727417,
+        0.9860004186630249
+      ],
+      "max_abs_RGB_change": 2.980232238769531e-07,
+      "alpha_change": -1.1920928955078125e-07
+    },
+    {
+      "pixel": {
+        "camera": 1,
+        "camera_name": "AB",
+        "x": 826,
+        "y": 223,
+        "witness_id": 60,
+        "semantic": "train_observed_black_actor_shirt_lettering",
+        "witness_xyz": [
+          0.0008696795548505639,
+          0.22668226422871596,
+          0.3038648668929449
+        ],
+        "diagnostic_group": "old_prefix_supervised",
+        "actor": "black",
+        "region": "original_upper_back_lettering",
+        "query_witness_depth": 1.0348400853725768,
+        "point_to_pixel_ray_distance": 0.00031223419983935193,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 7
+      },
+      "original_RGBA": [
+        0.7365530729293823,
+        0.6812878251075745,
+        0.6015275120735168,
+        0.9880312085151672
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.7365528345108032,
+        0.6812877655029297,
+        0.6015274524688721,
+        0.9880308508872986
+      ],
+      "max_abs_RGB_change": 2.384185791015625e-07,
+      "alpha_change": -3.5762786865234375e-07
+    },
+    {
+      "pixel": {
+        "camera": 0,
+        "camera_name": "AA",
+        "x": 1026,
+        "y": 182,
+        "witness_id": 63,
+        "semantic": "train_observed_black_actor_shirt_lettering",
+        "witness_xyz": [
+          0.0033921703166225753,
+          0.22011027916159304,
+          0.3102938174337018
+        ],
+        "diagnostic_group": "old_local_reserved",
+        "actor": "black",
+        "region": "original_upper_back_lettering",
+        "query_witness_depth": 1.0880248862443607,
+        "point_to_pixel_ray_distance": 0.00047896000930623597,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 8
+      },
+      "original_RGBA": [
+        0.8025230765342712,
+        0.7533459067344666,
+        0.7168236970901489,
+        0.9837794303894043
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.8025231957435608,
+        0.7533457279205322,
+        0.7168236970901489,
+        0.9837794303894043
+      ],
+      "max_abs_RGB_change": 1.7881393432617188e-07,
+      "alpha_change": 0.0
+    },
+    {
+      "pixel": {
+        "camera": 1,
+        "camera_name": "AB",
+        "x": 835,
+        "y": 214,
+        "witness_id": 63,
+        "semantic": "train_observed_black_actor_shirt_lettering",
+        "witness_xyz": [
+          0.0033921703166225753,
+          0.22011027916159304,
+          0.3102938174337018
+        ],
+        "diagnostic_group": "old_local_reserved",
+        "actor": "black",
+        "region": "original_upper_back_lettering",
+        "query_witness_depth": 1.0348224768616374,
+        "point_to_pixel_ray_distance": 0.00030636598569656523,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 9
+      },
+      "original_RGBA": [
+        0.8206539154052734,
+        0.7527421712875366,
+        0.6922492980957031,
+        0.9777306318283081
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.8206539154052734,
+        0.7527422308921814,
+        0.6922494769096375,
+        0.9777308702468872
+      ],
+      "max_abs_RGB_change": 1.7881393432617188e-07,
+      "alpha_change": 2.384185791015625e-07
+    },
+    {
+      "pixel": {
+        "camera": 0,
+        "camera_name": "AA",
+        "x": 1026,
+        "y": 181,
+        "witness_id": 64,
+        "semantic": "train_observed_black_actor_shirt_lettering",
+        "witness_xyz": [
+          0.004605947025176257,
+          0.2204063479471757,
+          0.30995666718317383
+        ],
+        "diagnostic_group": "old_local_reserved",
+        "actor": "black",
+        "region": "original_upper_back_lettering",
+        "query_witness_depth": 1.0893117299062955,
+        "point_to_pixel_ray_distance": 0.0004718615635738061,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 10
+      },
+      "original_RGBA": [
+        0.8245890736579895,
+        0.773364782333374,
+        0.7373591065406799,
+        0.9875258207321167
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.824589192867279,
+        0.7733645439147949,
+        0.7373596429824829,
+        0.9875258207321167
+      ],
+      "max_abs_RGB_change": 5.364418029785156e-07,
+      "alpha_change": 0.0
+    },
+    {
+      "pixel": {
+        "camera": 1,
+        "camera_name": "AB",
+        "x": 834,
+        "y": 214,
+        "witness_id": 64,
+        "semantic": "train_observed_black_actor_shirt_lettering",
+        "witness_xyz": [
+          0.004605947025176257,
+          0.2204063479471757,
+          0.30995666718317383
+        ],
+        "diagnostic_group": "old_local_reserved",
+        "actor": "black",
+        "region": "original_upper_back_lettering",
+        "query_witness_depth": 1.0361106284518415,
+        "point_to_pixel_ray_distance": 0.000346910009908352,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 11
+      },
+      "original_RGBA": [
+        0.8230345845222473,
+        0.7512254118919373,
+        0.7005749344825745,
+        0.9764355421066284
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.8230346441268921,
+        0.751225471496582,
+        0.7005749940872192,
+        0.9764355421066284
+      ],
+      "max_abs_RGB_change": 5.960464477539063e-08,
+      "alpha_change": 0.0
+    },
+    {
+      "pixel": {
+        "camera": 0,
+        "camera_name": "AA",
+        "x": 1027,
+        "y": 186,
+        "witness_id": 65,
+        "semantic": "train_observed_black_actor_shirt_lettering",
+        "witness_xyz": [
+          0.0002018578937742913,
+          0.2185693960726769,
+          0.3077499050355646
+        ],
+        "diagnostic_group": "old_prefix_supervised",
+        "actor": "black",
+        "region": "original_upper_back_lettering",
+        "query_witness_depth": 1.0857174818245887,
+        "point_to_pixel_ray_distance": 0.00037187991500482374,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 12
+      },
+      "original_RGBA": [
+        0.30130699276924133,
+        0.2802322208881378,
+        0.20150938630104065,
+        0.9903339147567749
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.3013070523738861,
+        0.28023213148117065,
+        0.20150941610336304,
+        0.990334153175354
+      ],
+      "max_abs_RGB_change": 8.940696716308594e-08,
+      "alpha_change": 2.384185791015625e-07
+    },
+    {
+      "pixel": {
+        "camera": 1,
+        "camera_name": "AB",
+        "x": 836,
+        "y": 218,
+        "witness_id": 65,
+        "semantic": "train_observed_black_actor_shirt_lettering",
+        "witness_xyz": [
+          0.0002018578937742913,
+          0.2185693960726769,
+          0.3077499050355646
+        ],
+        "diagnostic_group": "old_prefix_supervised",
+        "actor": "black",
+        "region": "original_upper_back_lettering",
+        "query_witness_depth": 1.0321156832174387,
+        "point_to_pixel_ray_distance": 0.00025431951499112876,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 13
+      },
+      "original_RGBA": [
+        0.3349500298500061,
+        0.27595770359039307,
+        0.18639494478702545,
+        0.9805739521980286
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.33494994044303894,
+        0.2759578227996826,
+        0.18639494478702545,
+        0.9805741906166077
+      ],
+      "max_abs_RGB_change": 1.1920928955078125e-07,
+      "alpha_change": 2.384185791015625e-07
+    },
+    {
+      "pixel": {
+        "camera": 0,
+        "camera_name": "AA",
+        "x": 1027,
+        "y": 186,
+        "witness_id": 66,
+        "semantic": "train_observed_black_actor_shirt_lettering",
+        "witness_xyz": [
+          0.00043104639790869127,
+          0.21858322401110955,
+          0.3076757059272025
+        ],
+        "diagnostic_group": "duplicate_excluded",
+        "actor": "black",
+        "region": "original_upper_back_lettering",
+        "query_witness_depth": 1.0859548970803965,
+        "point_to_pixel_ray_distance": 0.00039090772517679385,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 14
+      },
+      "original_RGBA": [
+        0.30130699276924133,
+        0.2802322506904602,
+        0.20150941610336304,
+        0.990334153175354
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.3013070821762085,
+        0.28023219108581543,
+        0.20150941610336304,
+        0.9903340935707092
+      ],
+      "max_abs_RGB_change": 8.940696716308594e-08,
+      "alpha_change": -5.960464477539063e-08
+    },
+    {
+      "pixel": {
+        "camera": 1,
+        "camera_name": "AB",
+        "x": 836,
+        "y": 218,
+        "witness_id": 66,
+        "semantic": "train_observed_black_actor_shirt_lettering",
+        "witness_xyz": [
+          0.00043104639790869127,
+          0.21858322401110955,
+          0.3076757059272025
+        ],
+        "diagnostic_group": "duplicate_excluded",
+        "actor": "black",
+        "region": "original_upper_back_lettering",
+        "query_witness_depth": 1.0323553939490844,
+        "point_to_pixel_ray_distance": 0.00028072123037429744,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 15
+      },
+      "original_RGBA": [
+        0.33494997024536133,
+        0.2759578227996826,
+        0.18639498949050903,
+        0.9805741906166077
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.33494988083839417,
+        0.27595770359039307,
+        0.18639497458934784,
+        0.9805741310119629
+      ],
+      "max_abs_RGB_change": 1.1920928955078125e-07,
+      "alpha_change": -5.960464477539063e-08
+    },
+    {
+      "pixel": {
+        "camera": 0,
+        "camera_name": "AA",
+        "x": 1031,
+        "y": 188,
+        "witness_id": 68,
+        "semantic": "train_observed_black_actor_shirt_lettering",
+        "witness_xyz": [
+          -0.003040116316898865,
+          0.21492540135903698,
+          0.30840572656369847
+        ],
+        "diagnostic_group": "old_prefix_supervised",
+        "actor": "black",
+        "region": "original_upper_back_lettering",
+        "query_witness_depth": 1.0817432075405755,
+        "point_to_pixel_ray_distance": 0.00036086141324794126,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 16
+      },
+      "original_RGBA": [
+        0.8081650137901306,
+        0.7604154944419861,
+        0.70937579870224,
+        0.998466432094574
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.8081650137901306,
+        0.7604157328605652,
+        0.7093759179115295,
+        0.9984664916992188
+      ],
+      "max_abs_RGB_change": 2.384185791015625e-07,
+      "alpha_change": 5.960464477539063e-08
+    },
+    {
+      "pixel": {
+        "camera": 1,
+        "camera_name": "AB",
+        "x": 840,
+        "y": 219,
+        "witness_id": 68,
+        "semantic": "train_observed_black_actor_shirt_lettering",
+        "witness_xyz": [
+          -0.003040116316898865,
+          0.21492540135903698,
+          0.30840572656369847
+        ],
+        "diagnostic_group": "old_prefix_supervised",
+        "actor": "black",
+        "region": "original_upper_back_lettering",
+        "query_witness_depth": 1.0283325451565954,
+        "point_to_pixel_ray_distance": 0.0004441291239736024,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 17
+      },
+      "original_RGBA": [
+        0.8481094241142273,
+        0.7733772993087769,
+        0.7127531170845032,
+        0.9921039938926697
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.8481093049049377,
+        0.7733774781227112,
+        0.7127532958984375,
+        0.992104172706604
+      ],
+      "max_abs_RGB_change": 1.7881393432617188e-07,
+      "alpha_change": 1.7881393432617188e-07
+    },
+    {
+      "pixel": {
+        "camera": 0,
+        "camera_name": "AA",
+        "x": 1033,
+        "y": 187,
+        "witness_id": 70,
+        "semantic": "train_observed_black_actor_shirt_lettering",
+        "witness_xyz": [
+          -0.004100312208259419,
+          0.21267091008259345,
+          0.30977906103807806
+        ],
+        "diagnostic_group": "old_prefix_supervised",
+        "actor": "black",
+        "region": "original_upper_back_lettering",
+        "query_witness_depth": 1.0797915509522995,
+        "point_to_pixel_ray_distance": 0.000414275247493171,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 18
+      },
+      "original_RGBA": [
+        0.8187114596366882,
+        0.7580142021179199,
+        0.7140398025512695,
+        0.9976332783699036
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.8187111616134644,
+        0.7580142021179199,
+        0.7140399217605591,
+        0.9976332187652588
+      ],
+      "max_abs_RGB_change": 2.980232238769531e-07,
+      "alpha_change": -5.960464477539063e-08
+    },
+    {
+      "pixel": {
+        "camera": 1,
+        "camera_name": "AB",
+        "x": 843,
+        "y": 217,
+        "witness_id": 70,
+        "semantic": "train_observed_black_actor_shirt_lettering",
+        "witness_xyz": [
+          -0.004100312208259419,
+          0.21267091008259345,
+          0.30977906103807806
+        ],
+        "diagnostic_group": "old_prefix_supervised",
+        "actor": "black",
+        "region": "original_upper_back_lettering",
+        "query_witness_depth": 1.0266844427402808,
+        "point_to_pixel_ray_distance": 0.00019935933067966903,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 19
+      },
+      "original_RGBA": [
+        0.8172121047973633,
+        0.7152080535888672,
+        0.6303632855415344,
+        0.9808815121650696
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.8172120451927185,
+        0.715208113193512,
+        0.6303631663322449,
+        0.9808815717697144
+      ],
+      "max_abs_RGB_change": 1.1920928955078125e-07,
+      "alpha_change": 5.960464477539063e-08
+    },
+    {
+      "pixel": {
+        "camera": 0,
+        "camera_name": "AA",
+        "x": 1035,
+        "y": 181,
+        "witness_id": 71,
+        "semantic": "train_observed_black_actor_shirt_lettering",
+        "witness_xyz": [
+          0.0005300034475106781,
+          0.21267714487273204,
+          0.3125109881542926
+        ],
+        "diagnostic_group": "old_local_reserved",
+        "actor": "black",
+        "region": "original_upper_back_lettering",
+        "query_witness_depth": 1.0830003055538233,
+        "point_to_pixel_ray_distance": 9.348463080193512e-05,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 20
+      },
+      "original_RGBA": [
+        0.8612878322601318,
+        0.784763753414154,
+        0.7436319589614868,
+        0.9936550855636597
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.8612877130508423,
+        0.784763753414154,
+        0.7436321377754211,
+        0.9936550855636597
+      ],
+      "max_abs_RGB_change": 1.7881393432617188e-07,
+      "alpha_change": 0.0
+    },
+    {
+      "pixel": {
+        "camera": 1,
+        "camera_name": "AB",
+        "x": 844,
+        "y": 212,
+        "witness_id": 71,
+        "semantic": "train_observed_black_actor_shirt_lettering",
+        "witness_xyz": [
+          0.0005300034475106781,
+          0.21267714487273204,
+          0.3125109881542926
+        ],
+        "diagnostic_group": "old_local_reserved",
+        "actor": "black",
+        "region": "original_upper_back_lettering",
+        "query_witness_depth": 1.0305242299844666,
+        "point_to_pixel_ray_distance": 1.9881788647295843e-05,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 21
+      },
+      "original_RGBA": [
+        0.8770998120307922,
+        0.8105335235595703,
+        0.7408538460731506,
+        0.9891700744628906
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.877099871635437,
+        0.8105334639549255,
+        0.7408538460731506,
+        0.9891699552536011
+      ],
+      "max_abs_RGB_change": 5.960464477539063e-08,
+      "alpha_change": -1.1920928955078125e-07
+    },
+    {
+      "pixel": {
+        "camera": 0,
+        "camera_name": "AA",
+        "x": 1035,
+        "y": 181,
+        "witness_id": 72,
+        "semantic": "train_observed_black_actor_shirt_lettering",
+        "witness_xyz": [
+          0.000235548984937866,
+          0.21258084517609754,
+          0.3124663602788734
+        ],
+        "diagnostic_group": "old_local_reserved",
+        "actor": "black",
+        "region": "original_upper_back_lettering",
+        "query_witness_depth": 1.0827283958663032,
+        "point_to_pixel_ray_distance": 0.00023205130982195335,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 22
+      },
+      "original_RGBA": [
+        0.8612877726554871,
+        0.784763753414154,
+        0.7436319589614868,
+        0.9936551451683044
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.8612878322601318,
+        0.784763514995575,
+        0.7436321973800659,
+        0.9936550855636597
+      ],
+      "max_abs_RGB_change": 2.384185791015625e-07,
+      "alpha_change": -5.960464477539063e-08
+    },
+    {
+      "pixel": {
+        "camera": 1,
+        "camera_name": "AB",
+        "x": 844,
+        "y": 212,
+        "witness_id": 72,
+        "semantic": "train_observed_black_actor_shirt_lettering",
+        "witness_xyz": [
+          0.000235548984937866,
+          0.21258084517609754,
+          0.3124663602788734
+        ],
+        "diagnostic_group": "old_local_reserved",
+        "actor": "black",
+        "region": "original_upper_back_lettering",
+        "query_witness_depth": 1.030237285227392,
+        "point_to_pixel_ray_distance": 0.0001275869492165494,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 23
+      },
+      "original_RGBA": [
+        0.8771000504493713,
+        0.8105334639549255,
+        0.7408538460731506,
+        0.9891698360443115
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.8771001100540161,
+        0.8105334639549255,
+        0.7408537864685059,
+        0.9891700744628906
+      ],
+      "max_abs_RGB_change": 5.960464477539063e-08,
+      "alpha_change": 2.384185791015625e-07
+    },
+    {
+      "pixel": {
+        "camera": 0,
+        "camera_name": "AA",
+        "x": 1046,
+        "y": 176,
+        "witness_id": 75,
+        "semantic": "train_observed_black_actor_shirt_lettering",
+        "witness_xyz": [
+          0.004054430991587729,
+          0.20462232330025554,
+          0.3162399530686476
+        ],
+        "diagnostic_group": "old_prefix_supervised",
+        "actor": "black",
+        "region": "original_upper_back_lettering",
+        "query_witness_depth": 1.0831523783063592,
+        "point_to_pixel_ray_distance": 0.00022966977524559417,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 24
+      },
+      "original_RGBA": [
+        0.8680666089057922,
+        0.7986881136894226,
+        0.7175821661949158,
+        0.9976915121078491
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.868066668510437,
+        0.7986882328987122,
+        0.7175822854042053,
+        0.9976912140846252
+      ],
+      "max_abs_RGB_change": 1.1920928955078125e-07,
+      "alpha_change": -2.980232238769531e-07
+    },
+    {
+      "pixel": {
+        "camera": 1,
+        "camera_name": "AB",
+        "x": 855,
+        "y": 206,
+        "witness_id": 75,
+        "semantic": "train_observed_black_actor_shirt_lettering",
+        "witness_xyz": [
+          0.004054430991587729,
+          0.20462232330025554,
+          0.3162399530686476
+        ],
+        "diagnostic_group": "old_prefix_supervised",
+        "actor": "black",
+        "region": "original_upper_back_lettering",
+        "query_witness_depth": 1.032025002281161,
+        "point_to_pixel_ray_distance": 0.0002615171230583622,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 25
+      },
+      "original_RGBA": [
+        0.8827332854270935,
+        0.8165768980979919,
+        0.7209848761558533,
+        0.9987962245941162
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.8827332854270935,
+        0.8165771961212158,
+        0.720984935760498,
+        0.9987959861755371
+      ],
+      "max_abs_RGB_change": 2.980232238769531e-07,
+      "alpha_change": -2.384185791015625e-07
+    },
+    {
+      "pixel": {
+        "camera": 0,
+        "camera_name": "AA",
+        "x": 1020,
+        "y": 185,
+        "witness_id": 267,
+        "semantic": "train_observed_black_actor_shirt_lettering",
+        "witness_xyz": [
+          0.0038971950441098685,
+          0.2254995161537607,
+          0.3067942124247629
+        ],
+        "diagnostic_group": "old_prefix_supervised",
+        "actor": "black",
+        "region": "original_upper_back_lettering",
+        "query_witness_depth": 1.090958376322335,
+        "point_to_pixel_ray_distance": 0.0001411325220259106,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 26
+      },
+      "original_RGBA": [
+        0.8352532386779785,
+        0.776695728302002,
+        0.7299201488494873,
+        0.9748247861862183
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.8352532386779785,
+        0.776695728302002,
+        0.7299201488494873,
+        0.9748247861862183
+      ],
+      "max_abs_RGB_change": 0.0,
+      "alpha_change": 0.0
+    },
+    {
+      "pixel": {
+        "camera": 4,
+        "camera_name": "BA",
+        "x": 1030,
+        "y": 115,
+        "witness_id": 267,
+        "semantic": "train_observed_black_actor_shirt_lettering",
+        "witness_xyz": [
+          0.0038971950441098685,
+          0.2254995161537607,
+          0.3067942124247629
+        ],
+        "diagnostic_group": "old_prefix_supervised",
+        "actor": "black",
+        "region": "original_upper_back_lettering",
+        "query_witness_depth": 1.0972025309642592,
+        "point_to_pixel_ray_distance": 0.0001739570817220127,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 27
+      },
+      "original_RGBA": [
+        0.8379796147346497,
+        0.7794821858406067,
+        0.724173367023468,
+        0.9889242053031921
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.8379797339439392,
+        0.7794821858406067,
+        0.7241734266281128,
+        0.9889240860939026
+      ],
+      "max_abs_RGB_change": 1.1920928955078125e-07,
+      "alpha_change": -1.1920928955078125e-07
+    },
+    {
+      "pixel": {
+        "camera": 0,
+        "camera_name": "AA",
+        "x": 1038,
+        "y": 175,
+        "witness_id": 268,
+        "semantic": "train_observed_black_actor_shirt_lettering",
+        "witness_xyz": [
+          0.005783771830396294,
+          0.21196119006989592,
+          0.315958942431143
+        ],
+        "diagnostic_group": "old_prefix_supervised",
+        "actor": "black",
+        "region": "original_upper_back_lettering",
+        "query_witness_depth": 1.086381835334099,
+        "point_to_pixel_ray_distance": 0.0004983453953350747,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 28
+      },
+      "original_RGBA": [
+        0.7171909213066101,
+        0.652110755443573,
+        0.6017221808433533,
+        0.9836187362670898
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.7171909809112549,
+        0.6521105170249939,
+        0.6017221808433533,
+        0.9836186766624451
+      ],
+      "max_abs_RGB_change": 2.384185791015625e-07,
+      "alpha_change": -5.960464477539063e-08
+    },
+    {
+      "pixel": {
+        "camera": 4,
+        "camera_name": "BA",
+        "x": 1047,
+        "y": 106,
+        "witness_id": 268,
+        "semantic": "train_observed_black_actor_shirt_lettering",
+        "witness_xyz": [
+          0.005783771830396294,
+          0.21196119006989592,
+          0.315958942431143
+        ],
+        "diagnostic_group": "old_prefix_supervised",
+        "actor": "black",
+        "region": "original_upper_back_lettering",
+        "query_witness_depth": 1.0897377186439492,
+        "point_to_pixel_ray_distance": 0.00035105642998312884,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 29
+      },
+      "original_RGBA": [
+        0.8148650527000427,
+        0.7342936396598816,
+        0.6806719303131104,
+        0.9982339143753052
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.8148650527000427,
+        0.7342931628227234,
+        0.6806719899177551,
+        0.9982339143753052
+      ],
+      "max_abs_RGB_change": 4.76837158203125e-07,
+      "alpha_change": 0.0
+    },
+    {
+      "pixel": {
+        "camera": 1,
+        "camera_name": "AB",
+        "x": 829,
+        "y": 221,
+        "witness_id": 420,
+        "semantic": "train_observed_black_actor_shirt_lettering",
+        "witness_xyz": [
+          0.001864009651621157,
+          0.2242507320748939,
+          0.30483627037430555
+        ],
+        "diagnostic_group": "old_prefix_supervised",
+        "actor": "black",
+        "region": "original_upper_back_lettering",
+        "query_witness_depth": 1.0352092927945165,
+        "point_to_pixel_ray_distance": 0.0003530077042200228,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 30
+      },
+      "original_RGBA": [
+        0.33882880210876465,
+        0.2592372000217438,
+        0.17575445771217346,
+        0.968683123588562
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.3388287127017975,
+        0.2592371702194214,
+        0.17575445771217346,
+        0.9686830639839172
+      ],
+      "max_abs_RGB_change": 8.940696716308594e-08,
+      "alpha_change": -5.960464477539063e-08
+    },
+    {
+      "pixel": {
+        "camera": 2,
+        "camera_name": "AC",
+        "x": 693,
+        "y": 371,
+        "witness_id": 420,
+        "semantic": "train_observed_black_actor_shirt_lettering",
+        "witness_xyz": [
+          0.001864009651621157,
+          0.2242507320748939,
+          0.30483627037430555
+        ],
+        "diagnostic_group": "old_prefix_supervised",
+        "actor": "black",
+        "region": "original_upper_back_lettering",
+        "query_witness_depth": 1.024877342304915,
+        "point_to_pixel_ray_distance": 0.00026637798250941767,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 31
+      },
+      "original_RGBA": [
+        0.440817654132843,
+        0.3524034023284912,
+        0.2778545320034027,
+        0.9872483611106873
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.44081783294677734,
+        0.3524034321308136,
+        0.2778545916080475,
+        0.9872481822967529
+      ],
+      "max_abs_RGB_change": 1.7881393432617188e-07,
+      "alpha_change": -1.7881393432617188e-07
+    },
+    {
+      "pixel": {
+        "camera": 2,
+        "camera_name": "AC",
+        "x": 708,
+        "y": 353,
+        "witness_id": 593,
+        "semantic": "train_observed_black_actor_shirt_lettering",
+        "witness_xyz": [
+          0.009170445700965521,
+          0.2140729287762318,
+          0.31789843079182434
+        ],
+        "diagnostic_group": "old_prefix_supervised",
+        "actor": "black",
+        "region": "original_upper_back_lettering",
+        "query_witness_depth": 1.0278699570138192,
+        "point_to_pixel_ray_distance": 0.0003230863625167993,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 32
+      },
+      "original_RGBA": [
+        0.3131182789802551,
+        0.23299098014831543,
+        0.1903255134820938,
+        0.9967532753944397
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.3131183087825775,
+        0.23299084603786469,
+        0.19032539427280426,
+        0.9967532753944397
+      ],
+      "max_abs_RGB_change": 1.341104507446289e-07,
+      "alpha_change": 0.0
+    },
+    {
+      "pixel": {
+        "camera": 3,
+        "camera_name": "AD",
+        "x": 630,
+        "y": 319,
+        "witness_id": 593,
+        "semantic": "train_observed_black_actor_shirt_lettering",
+        "witness_xyz": [
+          0.009170445700965521,
+          0.2140729287762318,
+          0.31789843079182434
+        ],
+        "diagnostic_group": "old_prefix_supervised",
+        "actor": "black",
+        "region": "original_upper_back_lettering",
+        "query_witness_depth": 1.020987043779007,
+        "point_to_pixel_ray_distance": 0.0002993794773768046,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 33
+      },
+      "original_RGBA": [
+        0.30691206455230713,
+        0.2628149688243866,
+        0.1971871554851532,
+        0.998812198638916
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.30691206455230713,
+        0.2628149390220642,
+        0.19718721508979797,
+        0.9988122582435608
+      ],
+      "max_abs_RGB_change": 5.960464477539063e-08,
+      "alpha_change": 5.960464477539063e-08
+    },
+    {
+      "pixel": {
+        "camera": 52,
+        "camera_name": "MA",
+        "x": 1276,
+        "y": 421,
+        "witness_id": 7961,
+        "witness_xyz": [
+          0.022109971804298093,
+          0.23227202201566105,
+          0.17034505808643552
+        ],
+        "actor": "black",
+        "region": "black_trouser_lettering",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1276.80224609375,
+          421.4457092285156
+        ],
+        "projected_uv": [
+          1276.974584205735,
+          420.92199321137537
+        ],
+        "query_witness_depth": 1.1053296398199417,
+        "point_to_pixel_ray_distance": 0.0005821241047310604,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 34
+      },
+      "original_RGBA": [
+        0.2610049545764923,
+        0.1945810168981552,
+        0.08024690300226212,
+        0.9722010493278503
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.2610049545764923,
+        0.1945810317993164,
+        0.08024691045284271,
+        0.9722009897232056
+      ],
+      "max_abs_RGB_change": 1.4901161193847656e-08,
+      "alpha_change": -5.960464477539063e-08
+    },
+    {
+      "pixel": {
+        "camera": 60,
+        "camera_name": "NE",
+        "x": 1410,
+        "y": 619,
+        "witness_id": 7961,
+        "witness_xyz": [
+          0.022109971804298093,
+          0.23227202201566105,
+          0.17034505808643552
+        ],
+        "actor": "black",
+        "region": "black_trouser_lettering",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1410.343017578125,
+          619.0418701171875
+        ],
+        "projected_uv": [
+          1410.5108666492622,
+          619.013412189013
+        ],
+        "query_witness_depth": 0.9495738660173338,
+        "point_to_pixel_ray_distance": 0.00032265212232634956,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 35
+      },
+      "original_RGBA": [
+        0.27293625473976135,
+        0.2045738846063614,
+        0.15615643560886383,
+        0.9814885854721069
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.27293631434440613,
+        0.2045738846063614,
+        0.15615646541118622,
+        0.9814887642860413
+      ],
+      "max_abs_RGB_change": 5.960464477539063e-08,
+      "alpha_change": 1.7881393432617188e-07
+    },
+    {
+      "pixel": {
+        "camera": 61,
+        "camera_name": "OA",
+        "x": 1187,
+        "y": 552,
+        "witness_id": 7961,
+        "witness_xyz": [
+          0.022109971804298093,
+          0.23227202201566105,
+          0.17034505808643552
+        ],
+        "actor": "black",
+        "region": "black_trouser_lettering",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1187.5035400390625,
+          552.5737915039062
+        ],
+        "projected_uv": [
+          1187.3699824866283,
+          552.1900540825513
+        ],
+        "query_witness_depth": 1.1304007431535665,
+        "point_to_pixel_ray_distance": 0.00027528170205366704,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 36
+      },
+      "original_RGBA": [
+        0.2679542899131775,
+        0.1878579705953598,
+        0.12997189164161682,
+        0.9999948740005493
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.26795417070388794,
+        0.18785788118839264,
+        0.12997190654277802,
+        0.9999949932098389
+      ],
+      "max_abs_RGB_change": 1.1920928955078125e-07,
+      "alpha_change": 1.1920928955078125e-07
+    },
+    {
+      "pixel": {
+        "camera": 52,
+        "camera_name": "MA",
+        "x": 1273,
+        "y": 421,
+        "witness_id": 8394,
+        "witness_xyz": [
+          0.023147127110276968,
+          0.22909381085309516,
+          0.17011762992179832
+        ],
+        "actor": "black",
+        "region": "black_trouser_lettering",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1273.206298828125,
+          421.5356140136719
+        ],
+        "projected_uv": [
+          1273.0001720029231,
+          421.3657471526559
+        ],
+        "query_witness_depth": 1.1040157856433253,
+        "point_to_pixel_ray_distance": 0.0004015675878826194,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 37
+      },
+      "original_RGBA": [
+        0.2592143714427948,
+        0.18883675336837769,
+        0.055671580135822296,
+        0.933843731880188
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.2592143714427948,
+        0.1888367384672165,
+        0.055671580135822296,
+        0.9338440895080566
+      ],
+      "max_abs_RGB_change": 1.4901161193847656e-08,
+      "alpha_change": 3.5762786865234375e-07
+    },
+    {
+      "pixel": {
+        "camera": 62,
+        "camera_name": "OD",
+        "x": 1289,
+        "y": 631,
+        "witness_id": 8394,
+        "witness_xyz": [
+          0.023147127110276968,
+          0.22909381085309516,
+          0.17011762992179832
+        ],
+        "actor": "black",
+        "region": "black_trouser_lettering",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1289.54638671875,
+          631.542236328125
+        ],
+        "projected_uv": [
+          1289.2523981924855,
+          631.5607095351944
+        ],
+        "query_witness_depth": 1.002228284172664,
+        "point_to_pixel_ray_distance": 0.00017896347897261412,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 38
+      },
+      "original_RGBA": [
+        0.30113667249679565,
+        0.20192602276802063,
+        0.1056191697716713,
+        0.9853101372718811
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.3011365532875061,
+        0.2019260972738266,
+        0.1056191697716713,
+        0.9853102564811707
+      ],
+      "max_abs_RGB_change": 1.1920928955078125e-07,
+      "alpha_change": 1.1920928955078125e-07
+    },
+    {
+      "pixel": {
+        "camera": 61,
+        "camera_name": "OA",
+        "x": 1183,
+        "y": 551,
+        "witness_id": 8394,
+        "witness_xyz": [
+          0.023147127110276968,
+          0.22909381085309516,
+          0.17011762992179832
+        ],
+        "actor": "black",
+        "region": "black_trouser_lettering",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1183.1820068359375,
+          551.9180908203125
+        ],
+        "projected_uv": [
+          1183.2443432379123,
+          552.037075107162
+        ],
+        "query_witness_depth": 1.1305848723840357,
+        "point_to_pixel_ray_distance": 0.0004890732195674051,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 39
+      },
+      "original_RGBA": [
+        0.3094758987426758,
+        0.19935011863708496,
+        0.13845054805278778,
+        0.9999986886978149
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.30947574973106384,
+        0.19935011863708496,
+        0.1384505033493042,
+        0.9999985694885254
+      ],
+      "max_abs_RGB_change": 1.4901161193847656e-07,
+      "alpha_change": -1.1920928955078125e-07
+    },
+    {
+      "pixel": {
+        "camera": 54,
+        "camera_name": "MC",
+        "x": 1451,
+        "y": 504,
+        "witness_id": 8502,
+        "witness_xyz": [
+          0.018039637502495834,
+          0.23407793394125798,
+          0.1782099814903873
+        ],
+        "actor": "black",
+        "region": "black_trouser_lettering",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1451.3251953125,
+          504.6271057128906
+        ],
+        "projected_uv": [
+          1451.602617227098,
+          504.72106931866716
+        ],
+        "query_witness_depth": 0.9954032825147339,
+        "point_to_pixel_ray_distance": 0.00016725795932164334,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 40
+      },
+      "original_RGBA": [
+        0.24200376868247986,
+        0.1900213658809662,
+        0.13358275592327118,
+        0.750308632850647
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.24200381338596344,
+        0.19002139568328857,
+        0.1335827112197876,
+        0.7503088116645813
+      ],
+      "max_abs_RGB_change": 4.470348358154297e-08,
+      "alpha_change": 1.7881393432617188e-07
+    },
+    {
+      "pixel": {
+        "camera": 60,
+        "camera_name": "NE",
+        "x": 1412,
+        "y": 607,
+        "witness_id": 8502,
+        "witness_xyz": [
+          0.018039637502495834,
+          0.23407793394125798,
+          0.1782099814903873
+        ],
+        "actor": "black",
+        "region": "black_trouser_lettering",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1412.98046875,
+          607.62451171875
+        ],
+        "projected_uv": [
+          1412.7668642337453,
+          607.662928381413
+        ],
+        "query_witness_depth": 0.9542889905463202,
+        "point_to_pixel_ray_distance": 0.00019854422393541447,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 41
+      },
+      "original_RGBA": [
+        0.3134511709213257,
+        0.22287479043006897,
+        0.1667206883430481,
+        0.8550294637680054
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.31345120072364807,
+        0.22287479043006897,
+        0.16672073304653168,
+        0.8550294637680054
+      ],
+      "max_abs_RGB_change": 4.470348358154297e-08,
+      "alpha_change": 0.0
+    },
+    {
+      "pixel": {
+        "camera": 58,
+        "camera_name": "NC",
+        "x": 1504,
+        "y": 512,
+        "witness_id": 8502,
+        "witness_xyz": [
+          0.018039637502495834,
+          0.23407793394125798,
+          0.1782099814903873
+        ],
+        "actor": "black",
+        "region": "black_trouser_lettering",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1504.510986328125,
+          512.6231689453125
+        ],
+        "projected_uv": [
+          1504.690398166184,
+          512.6576089853637
+        ],
+        "query_witness_depth": 0.9787866468657817,
+        "point_to_pixel_ray_distance": 0.0001586335926157996,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 42
+      },
+      "original_RGBA": [
+        0.26480257511138916,
+        0.215534046292305,
+        0.09418761730194092,
+        0.8083858489990234
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.26480257511138916,
+        0.21553407609462738,
+        0.09418756514787674,
+        0.8083857297897339
+      ],
+      "max_abs_RGB_change": 5.21540641784668e-08,
+      "alpha_change": -1.1920928955078125e-07
+    },
+    {
+      "pixel": {
+        "camera": 59,
+        "camera_name": "ND",
+        "x": 1396,
+        "y": 565,
+        "witness_id": 9020,
+        "witness_xyz": [
+          0.020621200761533176,
+          0.22502301169449906,
+          0.17861140797919087
+        ],
+        "actor": "black",
+        "region": "black_trouser_lettering",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1396.1368408203125,
+          565.8193969726562
+        ],
+        "projected_uv": [
+          1395.9808136727534,
+          565.8645622208235
+        ],
+        "query_witness_depth": 0.9797603558603613,
+        "point_to_pixel_ray_distance": 0.0004261947462796482,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 43
+      },
+      "original_RGBA": [
+        0.25788068771362305,
+        0.1786564439535141,
+        0.10122925788164139,
+        0.910784900188446
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.25788068771362305,
+        0.1786564439535141,
+        0.10122925788164139,
+        0.910784900188446
+      ],
+      "max_abs_RGB_change": 0.0,
+      "alpha_change": 0.0
+    },
+    {
+      "pixel": {
+        "camera": 61,
+        "camera_name": "OA",
+        "x": 1180,
+        "y": 540,
+        "witness_id": 9020,
+        "witness_xyz": [
+          0.020621200761533176,
+          0.22502301169449906,
+          0.17861140797919087
+        ],
+        "actor": "black",
+        "region": "black_trouser_lettering",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1180.5391845703125,
+          540.4234008789062
+        ],
+        "projected_uv": [
+          1180.4876435009971,
+          540.5071373513528
+        ],
+        "query_witness_depth": 1.130059046773148,
+        "point_to_pixel_ray_distance": 1.1627009734396925e-05,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 44
+      },
+      "original_RGBA": [
+        0.23560115694999695,
+        0.1813526302576065,
+        0.09390769153833389,
+        0.999999463558197
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.23560114204883575,
+        0.18135258555412292,
+        0.0939076766371727,
+        0.999999463558197
+      ],
+      "max_abs_RGB_change": 4.470348358154297e-08,
+      "alpha_change": 0.0
+    },
+    {
+      "pixel": {
+        "camera": 62,
+        "camera_name": "OD",
+        "x": 1284,
+        "y": 619,
+        "witness_id": 9020,
+        "witness_xyz": [
+          0.020621200761533176,
+          0.22502301169449906,
+          0.17861140797919087
+        ],
+        "actor": "black",
+        "region": "black_trouser_lettering",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1284.5789794921875,
+          619.4500732421875
+        ],
+        "projected_uv": [
+          1284.775534076622,
+          619.3143577085416
+        ],
+        "query_witness_depth": 1.0052502075328953,
+        "point_to_pixel_ray_distance": 0.00023706672951658115,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 45
+      },
+      "original_RGBA": [
+        0.280525267124176,
+        0.2010035514831543,
+        0.10909560322761536,
+        0.9913707971572876
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.280525267124176,
+        0.2010035514831543,
+        0.10909560322761536,
+        0.9913708567619324
+      ],
+      "max_abs_RGB_change": 0.0,
+      "alpha_change": 5.960464477539063e-08
+    },
+    {
+      "pixel": {
+        "camera": 56,
+        "camera_name": "NA",
+        "x": 1279,
+        "y": 499,
+        "witness_id": 8679,
+        "witness_xyz": [
+          0.022625176440740996,
+          0.22353554081594293,
+          0.17249678519849848
+        ],
+        "actor": "black",
+        "region": "black_trouser_lettering",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1279.51220703125,
+          499.1224670410156
+        ],
+        "projected_uv": [
+          1279.5606723191224,
+          499.0385960891395
+        ],
+        "query_witness_depth": 1.08266060906799,
+        "point_to_pixel_ray_distance": 0.0003615254795602846,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 46
+      },
+      "original_RGBA": [
+        0.7942572236061096,
+        0.6567751169204712,
+        0.401984304189682,
+        0.9973823428153992
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.7941923141479492,
+        0.6567553281784058,
+        0.40198424458503723,
+        0.997316837310791
+      ],
+      "max_abs_RGB_change": 6.490945816040039e-05,
+      "alpha_change": -6.55055046081543e-05
+    },
+    {
+      "pixel": {
+        "camera": 62,
+        "camera_name": "OD",
+        "x": 1281,
+        "y": 627,
+        "witness_id": 8679,
+        "witness_xyz": [
+          0.022625176440740996,
+          0.22353554081594293,
+          0.17249678519849848
+        ],
+        "actor": "black",
+        "region": "black_trouser_lettering",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1281.9801025390625,
+          627.9273681640625
+        ],
+        "projected_uv": [
+          1281.8524076019244,
+          627.8412266612607
+        ],
+        "query_witness_depth": 1.004110015863505,
+        "point_to_pixel_ray_distance": 0.0003443581508219287,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 47
+      },
+      "original_RGBA": [
+        0.7634949684143066,
+        0.6134600043296814,
+        0.4118841290473938,
+        0.9948095679283142
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.7634947896003723,
+        0.6134603023529053,
+        0.4118844270706177,
+        0.9948095679283142
+      ],
+      "max_abs_RGB_change": 2.980232238769531e-07,
+      "alpha_change": 0.0
+    },
+    {
+      "pixel": {
+        "camera": 61,
+        "camera_name": "OA",
+        "x": 1177,
+        "y": 547,
+        "witness_id": 8679,
+        "witness_xyz": [
+          0.022625176440740996,
+          0.22353554081594293,
+          0.17249678519849848
+        ],
+        "actor": "black",
+        "region": "black_trouser_lettering",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1177.348388671875,
+          547.7645263671875
+        ],
+        "projected_uv": [
+          1177.352075775459,
+          547.6480169390992
+        ],
+        "query_witness_depth": 1.131610070775547,
+        "point_to_pixel_ray_distance": 0.000171684508655521,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 48
+      },
+      "original_RGBA": [
+        0.806843638420105,
+        0.6257421970367432,
+        0.3858599066734314,
+        0.9999997615814209
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.8068435788154602,
+        0.6257423162460327,
+        0.38585981726646423,
+        0.9999999403953552
+      ],
+      "max_abs_RGB_change": 1.1920928955078125e-07,
+      "alpha_change": 1.7881393432617188e-07
+    },
+    {
+      "pixel": {
+        "camera": 52,
+        "camera_name": "MA",
+        "x": 1278,
+        "y": 417,
+        "witness_id": 8173,
+        "witness_xyz": [
+          0.02030727320646716,
+          0.23358569358853853,
+          0.17231039406018114
+        ],
+        "actor": "black",
+        "region": "black_trouser_lettering",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1278.926513671875,
+          417.8919372558594
+        ],
+        "projected_uv": [
+          1278.9338212998466,
+          417.84480087583614
+        ],
+        "query_witness_depth": 1.1061777131895734,
+        "point_to_pixel_ray_distance": 0.00043526060554407715,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 49
+      },
+      "original_RGBA": [
+        0.8278486132621765,
+        0.7176502346992493,
+        0.5542339086532593,
+        0.9833593368530273
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.8278486132621765,
+        0.7176502346992493,
+        0.5542340278625488,
+        0.9833593964576721
+      ],
+      "max_abs_RGB_change": 1.1920928955078125e-07,
+      "alpha_change": 5.960464477539063e-08
+    },
+    {
+      "pixel": {
+        "camera": 60,
+        "camera_name": "NE",
+        "x": 1412,
+        "y": 616,
+        "witness_id": 8173,
+        "witness_xyz": [
+          0.02030727320646716,
+          0.23358569358853853,
+          0.17231039406018114
+        ],
+        "actor": "black",
+        "region": "black_trouser_lettering",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1412.565673828125,
+          616.0623779296875
+        ],
+        "projected_uv": [
+          1412.554215852676,
+          616.1770345270173
+        ],
+        "query_witness_depth": 0.9514489322698932,
+        "point_to_pixel_ray_distance": 0.0002179567213563505,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 50
+      },
+      "original_RGBA": [
+        0.7998251914978027,
+        0.6880533695220947,
+        0.5271620154380798,
+        0.9768070578575134
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.799825131893158,
+        0.6880531311035156,
+        0.5271620750427246,
+        0.9768070578575134
+      ],
+      "max_abs_RGB_change": 2.384185791015625e-07,
+      "alpha_change": 0.0
+    },
+    {
+      "pixel": {
+        "camera": 61,
+        "camera_name": "OA",
+        "x": 1189,
+        "y": 549,
+        "witness_id": 8173,
+        "witness_xyz": [
+          0.02030727320646716,
+          0.23358569358853853,
+          0.17231039406018114
+        ],
+        "actor": "black",
+        "region": "black_trouser_lettering",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1189.862548828125,
+          549.6011962890625
+        ],
+        "projected_uv": [
+          1189.866258468671,
+          549.566594680562
+        ],
+        "query_witness_depth": 1.1306221154009153,
+        "point_to_pixel_ray_distance": 0.0003012979881708474,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 51
+      },
+      "original_RGBA": [
+        0.8417488932609558,
+        0.7109977602958679,
+        0.5382734537124634,
+        0.999998927116394
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.8417491912841797,
+        0.7109980583190918,
+        0.5382733941078186,
+        0.9999989867210388
+      ],
+      "max_abs_RGB_change": 2.980232238769531e-07,
+      "alpha_change": 5.960464477539063e-08
+    },
+    {
+      "pixel": {
+        "camera": 32,
+        "camera_name": "HA",
+        "x": 985,
+        "y": 184,
+        "witness_id": 5568,
+        "witness_xyz": [
+          0.03672717261833824,
+          0.14934789318624633,
+          0.2866106969522056
+        ],
+        "actor": "black",
+        "region": "black_sleeve_RESERVED",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_whole_patch_reserved",
+        "detected_uv": [
+          985.0216064453125,
+          184.3019561767578
+        ],
+        "projected_uv": [
+          985.0676087185448,
+          184.185400049672
+        ],
+        "query_witness_depth": 1.1032799061308625,
+        "point_to_pixel_ray_distance": 0.00042045931736147676,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 52
+      },
+      "original_RGBA": [
+        0.2990032732486725,
+        0.2358904629945755,
+        0.1735980361700058,
+        0.9988989233970642
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.2990032434463501,
+        0.23589041829109192,
+        0.1735980063676834,
+        0.9988989233970642
+      ],
+      "max_abs_RGB_change": 4.470348358154297e-08,
+      "alpha_change": 0.0
+    },
+    {
+      "pixel": {
+        "camera": 40,
+        "camera_name": "IE",
+        "x": 947,
+        "y": 480,
+        "witness_id": 5568,
+        "witness_xyz": [
+          0.03672717261833824,
+          0.14934789318624633,
+          0.2866106969522056
+        ],
+        "actor": "black",
+        "region": "black_sleeve_RESERVED",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_whole_patch_reserved",
+        "detected_uv": [
+          947.6265258789062,
+          480.39093017578125
+        ],
+        "projected_uv": [
+          947.7528341117536,
+          480.4748946614756
+        ],
+        "query_witness_depth": 0.995053765857882,
+        "point_to_pixel_ray_distance": 0.00018691318182727506,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 53
+      },
+      "original_RGBA": [
+        0.33938300609588623,
+        0.2507743239402771,
+        0.211126908659935,
+        0.999867856502533
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.33938297629356384,
+        0.25077441334724426,
+        0.211126908659935,
+        0.999867856502533
+      ],
+      "max_abs_RGB_change": 8.940696716308594e-08,
+      "alpha_change": 0.0
+    },
+    {
+      "pixel": {
+        "camera": 42,
+        "camera_name": "JB",
+        "x": 1042,
+        "y": 237,
+        "witness_id": 5568,
+        "witness_xyz": [
+          0.03672717261833824,
+          0.14934789318624633,
+          0.2866106969522056
+        ],
+        "actor": "black",
+        "region": "black_sleeve_RESERVED",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_whole_patch_reserved",
+        "detected_uv": [
+          1042.08056640625,
+          237.7236328125
+        ],
+        "projected_uv": [
+          1042.1111421422145,
+          237.8524102490715
+        ],
+        "query_witness_depth": 1.0333988702442056,
+        "point_to_pixel_ray_distance": 0.00038562168406333267,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 54
+      },
+      "original_RGBA": [
+        0.28963008522987366,
+        0.23531068861484528,
+        0.12431735545396805,
+        0.9993181228637695
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.2896302044391632,
+        0.2353106439113617,
+        0.12431737035512924,
+        0.9993183016777039
+      ],
+      "max_abs_RGB_change": 1.1920928955078125e-07,
+      "alpha_change": 1.7881393432617188e-07
+    },
+    {
+      "pixel": {
+        "camera": 10,
+        "camera_name": "CC",
+        "x": 1033,
+        "y": 706,
+        "witness_id": 2219,
+        "witness_xyz": [
+          0.015771973761341224,
+          0.07230050832599699,
+          0.11577100358457344
+        ],
+        "actor": "grey",
+        "region": "grey_trouser_RESERVED",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_whole_patch_reserved",
+        "detected_uv": [
+          1033.447509765625,
+          706.5390625
+        ],
+        "projected_uv": [
+          1033.2430404742522,
+          706.6726800565868
+        ],
+        "query_witness_depth": 0.9838042234103967,
+        "point_to_pixel_ray_distance": 0.0002218999982955329,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 55
+      },
+      "original_RGBA": [
+        0.13052955269813538,
+        0.1367703229188919,
+        0.1222793310880661,
+        0.9999990463256836
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.130529522895813,
+        0.1367703378200531,
+        0.12227931618690491,
+        0.9999992251396179
+      ],
+      "max_abs_RGB_change": 2.9802322387695312e-08,
+      "alpha_change": 1.7881393432617188e-07
+    },
+    {
+      "pixel": {
+        "camera": 16,
+        "camera_name": "DE",
+        "x": 990,
+        "y": 790,
+        "witness_id": 2219,
+        "witness_xyz": [
+          0.015771973761341224,
+          0.07230050832599699,
+          0.11577100358457344
+        ],
+        "actor": "grey",
+        "region": "grey_trouser_RESERVED",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_whole_patch_reserved",
+        "detected_uv": [
+          990.5610961914062,
+          790.0482788085938
+        ],
+        "projected_uv": [
+          990.758890709268,
+          789.9274219886443
+        ],
+        "query_witness_depth": 0.921887717857039,
+        "point_to_pixel_ray_distance": 0.00041220378051407496,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 56
+      },
+      "original_RGBA": [
+        0.16214123368263245,
+        0.1578412652015686,
+        0.10186086595058441,
+        0.9999995827674866
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.16214120388031006,
+        0.15784123539924622,
+        0.10186084359884262,
+        0.9999991655349731
+      ],
+      "max_abs_RGB_change": 2.9802322387695312e-08,
+      "alpha_change": -4.172325134277344e-07
+    },
+    {
+      "pixel": {
+        "camera": 15,
+        "camera_name": "DD",
+        "x": 894,
+        "y": 741,
+        "witness_id": 2219,
+        "witness_xyz": [
+          0.015771973761341224,
+          0.07230050832599699,
+          0.11577100358457344
+        ],
+        "actor": "grey",
+        "region": "grey_trouser_RESERVED",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_whole_patch_reserved",
+        "detected_uv": [
+          894.3430786132812,
+          741.7239990234375
+        ],
+        "projected_uv": [
+          894.3700346743815,
+          741.7133208799589
+        ],
+        "query_witness_depth": 0.975702027432253,
+        "point_to_pixel_ray_distance": 0.00017448820441049215,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 57
+      },
+      "original_RGBA": [
+        0.11819060146808624,
+        0.14589595794677734,
+        0.11021319776773453,
+        0.9999983906745911
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.11819059401750565,
+        0.14589595794677734,
+        0.11021319776773453,
+        0.9999984502792358
+      ],
+      "max_abs_RGB_change": 7.450580596923828e-09,
+      "alpha_change": 5.960464477539063e-08
+    },
+    {
+      "pixel": {
+        "camera": 32,
+        "camera_name": "HA",
+        "x": 912,
+        "y": 341,
+        "witness_id": 5556,
+        "witness_xyz": [
+          -0.010338151921484235,
+          0.0916200769426343,
+          0.17014480820280295
+        ],
+        "actor": "grey",
+        "region": "grey_trouser_RESERVED",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_whole_patch_reserved",
+        "detected_uv": [
+          912.4584350585938,
+          341.6361389160156
+        ],
+        "projected_uv": [
+          912.3190146510428,
+          341.57448808720903
+        ],
+        "query_witness_depth": 1.1149441016589017,
+        "point_to_pixel_ray_distance": 0.00015973821954449078,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 58
+      },
+      "original_RGBA": [
+        0.20048148930072784,
+        0.1991117000579834,
+        0.1886093020439148,
+        0.9999905824661255
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.20048147439956665,
+        0.1991117149591446,
+        0.188609316945076,
+        0.9999903440475464
+      ],
+      "max_abs_RGB_change": 1.4901161193847656e-08,
+      "alpha_change": -2.384185791015625e-07
+    },
+    {
+      "pixel": {
+        "camera": 45,
+        "camera_name": "JE",
+        "x": 1165,
+        "y": 610,
+        "witness_id": 5556,
+        "witness_xyz": [
+          -0.010338151921484235,
+          0.0916200769426343,
+          0.17014480820280295
+        ],
+        "actor": "grey",
+        "region": "grey_trouser_RESERVED",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_whole_patch_reserved",
+        "detected_uv": [
+          1165.8623046875,
+          610.3262939453125
+        ],
+        "projected_uv": [
+          1165.454805614592,
+          610.4855955774287
+        ],
+        "query_witness_depth": 0.9725800436848174,
+        "point_to_pixel_ray_distance": 3.314008067879953e-05,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 59
+      },
+      "original_RGBA": [
+        0.194391131401062,
+        0.21052105724811554,
+        0.21427810192108154,
+        0.9999994039535522
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.1943911463022232,
+        0.21052102744579315,
+        0.21427816152572632,
+        0.9999993443489075
+      ],
+      "max_abs_RGB_change": 5.960464477539063e-08,
+      "alpha_change": -5.960464477539063e-08
+    },
+    {
+      "pixel": {
+        "camera": 41,
+        "camera_name": "JA",
+        "x": 802,
+        "y": 328,
+        "witness_id": 5556,
+        "witness_xyz": [
+          -0.010338151921484235,
+          0.0916200769426343,
+          0.17014480820280295
+        ],
+        "actor": "grey",
+        "region": "grey_trouser_RESERVED",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_whole_patch_reserved",
+        "detected_uv": [
+          802.2966918945312,
+          328.6482238769531
+        ],
+        "projected_uv": [
+          802.8603547828955,
+          328.3272669776411
+        ],
+        "query_witness_depth": 1.1183821078885867,
+        "point_to_pixel_ray_distance": 0.00032413160549357603,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 60
+      },
+      "original_RGBA": [
+        0.2266084998846054,
+        0.22801771759986877,
+        0.2200808972120285,
+        0.9999994039535522
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.2266084849834442,
+        0.22801773250102997,
+        0.2200809121131897,
+        0.9999994039535522
+      ],
+      "max_abs_RGB_change": 1.4901161193847656e-08,
+      "alpha_change": 0.0
+    },
+    {
+      "pixel": {
+        "camera": 17,
+        "camera_name": "EA",
+        "x": 1046,
+        "y": 216,
+        "witness_id": 2579,
+        "witness_xyz": [
+          0.05006167042077632,
+          0.12379613387963256,
+          0.22177670680971712
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_shoulder",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1046.0081787109375,
+          216.95761108398438
+        ],
+        "projected_uv": [
+          1046.0144393149951,
+          216.97553944681266
+        ],
+        "query_witness_depth": 1.097115717254999,
+        "point_to_pixel_ray_distance": 0.0005266581246532483,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 61
+      },
+      "original_RGBA": [
+        0.6489651799201965,
+        0.49902093410491943,
+        0.3023669719696045,
+        0.9999994039535522
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.6489652991294861,
+        0.4990209639072418,
+        0.3023669421672821,
+        0.9999991059303284
+      ],
+      "max_abs_RGB_change": 1.1920928955078125e-07,
+      "alpha_change": -2.980232238769531e-07
+    },
+    {
+      "pixel": {
+        "camera": 27,
+        "camera_name": "GA",
+        "x": 1043,
+        "y": 300,
+        "witness_id": 2579,
+        "witness_xyz": [
+          0.05006167042077632,
+          0.12379613387963256,
+          0.22177670680971712
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_shoulder",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1043.2154541015625,
+          300.63470458984375
+        ],
+        "projected_uv": [
+          1043.28632371716,
+          300.45710195974476
+        ],
+        "query_witness_depth": 1.0761895023846606,
+        "point_to_pixel_ray_distance": 0.00017082715810079713,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 62
+      },
+      "original_RGBA": [
+        0.6583015322685242,
+        0.4928317070007324,
+        0.29059794545173645,
+        0.9999982714653015
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.6583013534545898,
+        0.49283185601234436,
+        0.2905980050563812,
+        0.9999983310699463
+      ],
+      "max_abs_RGB_change": 1.7881393432617188e-07,
+      "alpha_change": 5.960464477539063e-08
+    },
+    {
+      "pixel": {
+        "camera": 22,
+        "camera_name": "FA",
+        "x": 1037,
+        "y": 195,
+        "witness_id": 2579,
+        "witness_xyz": [
+          0.05006167042077632,
+          0.12379613387963256,
+          0.22177670680971712
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_shoulder",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1037.2166748046875,
+          195.21688842773438
+        ],
+        "projected_uv": [
+          1037.2008836267992,
+          194.99661181857948
+        ],
+        "query_witness_depth": 1.0988592927286025,
+        "point_to_pixel_ray_distance": 0.00045591708753648107,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 63
+      },
+      "original_RGBA": [
+        0.6623128056526184,
+        0.5126150250434875,
+        0.2978873550891876,
+        1.000000238418579
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.662312924861908,
+        0.5126152634620667,
+        0.29788729548454285,
+        1.000000238418579
+      ],
+      "max_abs_RGB_change": 2.384185791015625e-07,
+      "alpha_change": 0.0
+    },
+    {
+      "pixel": {
+        "camera": 4,
+        "camera_name": "BA",
+        "x": 1083,
+        "y": 312,
+        "witness_id": 943,
+        "witness_xyz": [
+          -0.04748479476901636,
+          0.14193113859874065,
+          0.18306957904719334
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_lowerback",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1083.0703125,
+          312.6604919433594
+        ],
+        "projected_uv": [
+          1082.7326978844178,
+          312.9536041220417
+        ],
+        "query_witness_depth": 1.074803105544429,
+        "point_to_pixel_ray_distance": 0.0006873568236672336,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 64
+      },
+      "original_RGBA": [
+        0.4213430881500244,
+        0.3861978352069855,
+        0.31382250785827637,
+        0.9999985098838806
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.421343058347702,
+        0.3861978352069855,
+        0.31382250785827637,
+        0.9999985098838806
+      ],
+      "max_abs_RGB_change": 2.9802322387695312e-08,
+      "alpha_change": 0.0
+    },
+    {
+      "pixel": {
+        "camera": 10,
+        "camera_name": "CC",
+        "x": 901,
+        "y": 615,
+        "witness_id": 943,
+        "witness_xyz": [
+          -0.04748479476901636,
+          0.14193113859874065,
+          0.18306957904719334
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_lowerback",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          901.3981323242188,
+          615.75537109375
+        ],
+        "projected_uv": [
+          901.7423201056595,
+          615.4234999492407
+        ],
+        "query_witness_depth": 0.9630549517579459,
+        "point_to_pixel_ray_distance": 0.00017947875565924924,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 65
+      },
+      "original_RGBA": [
+        0.42935362458229065,
+        0.3944801390171051,
+        0.3080286383628845,
+        0.9999993443489075
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.42935362458229065,
+        0.3944801688194275,
+        0.3080286383628845,
+        0.9999993443489075
+      ],
+      "max_abs_RGB_change": 2.9802322387695312e-08,
+      "alpha_change": 0.0
+    },
+    {
+      "pixel": {
+        "camera": 8,
+        "camera_name": "CA",
+        "x": 1039,
+        "y": 411,
+        "witness_id": 943,
+        "witness_xyz": [
+          -0.04748479476901636,
+          0.14193113859874065,
+          0.18306957904719334
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_lowerback",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1039.12451171875,
+          411.1372375488281
+        ],
+        "projected_uv": [
+          1039.2463192433313,
+          411.13803990104174
+        ],
+        "query_witness_depth": 1.0678098620479552,
+        "point_to_pixel_ray_distance": 0.00034649880122497785,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 66
+      },
+      "original_RGBA": [
+        0.414977103471756,
+        0.38853707909584045,
+        0.31883206963539124,
+        0.9998583197593689
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.41497716307640076,
+        0.38853713870048523,
+        0.3188320994377136,
+        0.9998582005500793
+      ],
+      "max_abs_RGB_change": 5.960464477539063e-08,
+      "alpha_change": -1.1920928955078125e-07
+    },
+    {
+      "pixel": {
+        "camera": 47,
+        "camera_name": "KC",
+        "x": 988,
+        "y": 523,
+        "witness_id": 7784,
+        "witness_xyz": [
+          0.05421361122079301,
+          0.2066839629520527,
+          0.16133183499311482
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_forearm",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          988.9340209960938,
+          523.22705078125
+        ],
+        "projected_uv": [
+          989.1490488404057,
+          523.3933271915143
+        ],
+        "query_witness_depth": 1.0060502172490045,
+        "point_to_pixel_ray_distance": 0.0004890641062661694,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 67
+      },
+      "original_RGBA": [
+        0.4397890567779541,
+        0.3802597224712372,
+        0.26461973786354065,
+        0.999555766582489
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.4397890567779541,
+        0.3802597224712372,
+        0.26461973786354065,
+        0.999555766582489
+      ],
+      "max_abs_RGB_change": 0.0,
+      "alpha_change": 0.0
+    },
+    {
+      "pixel": {
+        "camera": 51,
+        "camera_name": "LC",
+        "x": 1315,
+        "y": 557,
+        "witness_id": 7784,
+        "witness_xyz": [
+          0.05421361122079301,
+          0.2066839629520527,
+          0.16133183499311482
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_forearm",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1315.647705078125,
+          557.8715209960938
+        ],
+        "projected_uv": [
+          1315.8308464359122,
+          557.7241508571052
+        ],
+        "query_witness_depth": 0.9888349893205293,
+        "point_to_pixel_ray_distance": 0.0002746054854253417,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 68
+      },
+      "original_RGBA": [
+        0.4140630066394806,
+        0.3620080351829529,
+        0.26611679792404175,
+        0.994774580001831
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.4140630066394806,
+        0.36200806498527527,
+        0.2661167085170746,
+        0.994774580001831
+      ],
+      "max_abs_RGB_change": 8.940696716308594e-08,
+      "alpha_change": 0.0
+    },
+    {
+      "pixel": {
+        "camera": 50,
+        "camera_name": "LB",
+        "x": 1092,
+        "y": 373,
+        "witness_id": 7784,
+        "witness_xyz": [
+          0.05421361122079301,
+          0.2066839629520527,
+          0.16133183499311482
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_forearm",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1092.677001953125,
+          373.8144836425781
+        ],
+        "projected_uv": [
+          1092.3229253134584,
+          373.78394849413763
+        ],
+        "query_witness_depth": 1.053455710462085,
+        "point_to_pixel_ray_distance": 0.00025533522211927814,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 69
+      },
+      "original_RGBA": [
+        0.4166744351387024,
+        0.35711345076560974,
+        0.2971065938472748,
+        0.9999019503593445
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.41667440533638,
+        0.35711339116096497,
+        0.2971065640449524,
+        0.9999019503593445
+      ],
+      "max_abs_RGB_change": 5.960464477539063e-08,
+      "alpha_change": 0.0
+    },
+    {
+      "pixel": {
+        "camera": 40,
+        "camera_name": "IE",
+        "x": 928,
+        "y": 676,
+        "witness_id": 6820,
+        "witness_xyz": [
+          0.024705562763170742,
+          0.13810501642829112,
+          0.14305659355144146
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_elbow_hem",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          928.7783203125,
+          676.4005737304688
+        ],
+        "projected_uv": [
+          928.8607185557297,
+          676.4012237383313
+        ],
+        "query_witness_depth": 0.9711456131578465,
+        "point_to_pixel_ray_distance": 0.0002660134352074922,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 70
+      },
+      "original_RGBA": [
+        0.15109246969223022,
+        0.1692695915699005,
+        0.14224858582019806,
+        0.9973855018615723
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.15109245479106903,
+        0.1692696511745453,
+        0.14224858582019806,
+        0.9973853826522827
+      ],
+      "max_abs_RGB_change": 5.960464477539063e-08,
+      "alpha_change": -1.1920928955078125e-07
+    },
+    {
+      "pixel": {
+        "camera": 48,
+        "camera_name": "KD",
+        "x": 1208,
+        "y": 651,
+        "witness_id": 6820,
+        "witness_xyz": [
+          0.024705562763170742,
+          0.13810501642829112,
+          0.14305659355144146
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_elbow_hem",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1208.937255859375,
+          651.216796875
+        ],
+        "projected_uv": [
+          1208.9861865710247,
+          651.2570296151492
+        ],
+        "query_witness_depth": 0.9797089428860108,
+        "point_to_pixel_ray_distance": 0.0003823870123136758,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 71
+      },
+      "original_RGBA": [
+        0.20168553292751312,
+        0.18287929892539978,
+        0.15847279131412506,
+        0.9999976754188538
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.20168553292751312,
+        0.18287929892539978,
+        0.15847279131412506,
+        0.9999974370002747
+      ],
+      "max_abs_RGB_change": 0.0,
+      "alpha_change": -2.384185791015625e-07
+    },
+    {
+      "pixel": {
+        "camera": 44,
+        "camera_name": "JD",
+        "x": 1101,
+        "y": 602,
+        "witness_id": 6820,
+        "witness_xyz": [
+          0.024705562763170742,
+          0.13810501642829112,
+          0.14305659355144146
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_elbow_hem",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1101.66455078125,
+          602.011962890625
+        ],
+        "projected_uv": [
+          1101.5571531190212,
+          601.9584140399455
+        ],
+        "query_witness_depth": 1.0049466715613162,
+        "point_to_pixel_ray_distance": 0.00040055515030583964,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 72
+      },
+      "original_RGBA": [
+        0.1860627681016922,
+        0.1985837072134018,
+        0.1548125147819519,
+        0.9999735355377197
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.1860627830028534,
+        0.1985836774110794,
+        0.15481247007846832,
+        0.9999735355377197
+      ],
+      "max_abs_RGB_change": 4.470348358154297e-08,
+      "alpha_change": 0.0
+    },
+    {
+      "pixel": {
+        "camera": 4,
+        "camera_name": "BA",
+        "x": 1102,
+        "y": 249,
+        "witness_id": 981,
+        "witness_xyz": [
+          0.002338411871796856,
+          0.15234805136222104,
+          0.21422075245329206
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_upperback",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1102.8306884765625,
+          249.1568603515625
+        ],
+        "projected_uv": [
+          1102.9048147032977,
+          249.11765780115996
+        ],
+        "query_witness_depth": 1.1044078665591979,
+        "point_to_pixel_ray_distance": 0.0004333190555430291,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 73
+      },
+      "original_RGBA": [
+        0.39522111415863037,
+        0.32362014055252075,
+        0.22300118207931519,
+        0.9990562200546265
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.39522111415863037,
+        0.32362014055252075,
+        0.22300121188163757,
+        0.9990561604499817
+      ],
+      "max_abs_RGB_change": 2.9802322387695312e-08,
+      "alpha_change": -5.960464477539063e-08
+    },
+    {
+      "pixel": {
+        "camera": 14,
+        "camera_name": "DB",
+        "x": 1123,
+        "y": 314,
+        "witness_id": 981,
+        "witness_xyz": [
+          0.002338411871796856,
+          0.15234805136222104,
+          0.21422075245329206
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_upperback",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1123.413330078125,
+          314.46612548828125
+        ],
+        "projected_uv": [
+          1123.0984137416679,
+          314.52167075798377
+        ],
+        "query_witness_depth": 1.0766488407271817,
+        "point_to_pixel_ray_distance": 0.00031119305791921454,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 74
+      },
+      "original_RGBA": [
+        0.3794519603252411,
+        0.3131038546562195,
+        0.20752465724945068,
+        0.9913488030433655
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.3794519007205963,
+        0.3131038546562195,
+        0.20752467215061188,
+        0.9913491010665894
+      ],
+      "max_abs_RGB_change": 5.960464477539063e-08,
+      "alpha_change": 2.980232238769531e-07
+    },
+    {
+      "pixel": {
+        "camera": 9,
+        "camera_name": "CB",
+        "x": 947,
+        "y": 317,
+        "witness_id": 981,
+        "witness_xyz": [
+          0.002338411871796856,
+          0.15234805136222104,
+          0.21422075245329206
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_upperback",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          947.5611572265625,
+          317.4136047363281
+        ],
+        "projected_uv": [
+          947.1573932897352,
+          317.3927729577134
+        ],
+        "query_witness_depth": 1.0319108009741467,
+        "point_to_pixel_ray_distance": 0.0002692897873776771,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 75
+      },
+      "original_RGBA": [
+        0.38730645179748535,
+        0.32204338908195496,
+        0.21344999969005585,
+        0.9896606206893921
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.3873065114021301,
+        0.32204341888427734,
+        0.21345001459121704,
+        0.989660382270813
+      ],
+      "max_abs_RGB_change": 5.960464477539063e-08,
+      "alpha_change": -2.384185791015625e-07
+    },
+    {
+      "pixel": {
+        "camera": 46,
+        "camera_name": "KB",
+        "x": 950,
+        "y": 364,
+        "witness_id": 7588,
+        "witness_xyz": [
+          0.05813400855465947,
+          0.09678941533495118,
+          0.17886954194470994
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_elbow",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          950.2675170898438,
+          364.05340576171875
+        ],
+        "projected_uv": [
+          950.2307860582666,
+          363.899413334781
+        ],
+        "query_witness_depth": 0.9818628134193796,
+        "point_to_pixel_ray_distance": 0.0004723540575258694,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 76
+      },
+      "original_RGBA": [
+        0.3889283239841461,
+        0.33608683943748474,
+        0.25964826345443726,
+        0.9999982118606567
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.38892829418182373,
+        0.3360868990421295,
+        0.2596483528614044,
+        0.9999982714653015
+      ],
+      "max_abs_RGB_change": 8.940696716308594e-08,
+      "alpha_change": 5.960464477539063e-08
+    },
+    {
+      "pixel": {
+        "camera": 49,
+        "camera_name": "LA",
+        "x": 911,
+        "y": 376,
+        "witness_id": 7588,
+        "witness_xyz": [
+          0.05813400855465947,
+          0.09678941533495118,
+          0.17886954194470994
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_elbow",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          911.0802612304688,
+          376.1311950683594
+        ],
+        "projected_uv": [
+          911.442800152025,
+          376.4067116631405
+        ],
+        "query_witness_depth": 1.0499600978007113,
+        "point_to_pixel_ray_distance": 8.372694361903957e-05,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 77
+      },
+      "original_RGBA": [
+        0.3666786849498749,
+        0.3332509994506836,
+        0.25478649139404297,
+        0.9999975562095642
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.3666785657405853,
+        0.3332509398460388,
+        0.2547864317893982,
+        0.9999974370002747
+      ],
+      "max_abs_RGB_change": 1.1920928955078125e-07,
+      "alpha_change": -1.1920928955078125e-07
+    },
+    {
+      "pixel": {
+        "camera": 50,
+        "camera_name": "LB",
+        "x": 962,
+        "y": 374,
+        "witness_id": 7588,
+        "witness_xyz": [
+          0.05813400855465947,
+          0.09678941533495118,
+          0.17886954194470994
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_elbow",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          962.7127685546875,
+          374.5806579589844
+        ],
+        "projected_uv": [
+          962.346051412529,
+          374.45218897978276
+        ],
+        "query_witness_depth": 0.9996162389837624,
+        "point_to_pixel_ray_distance": 0.00011817826925319997,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 78
+      },
+      "original_RGBA": [
+        0.3248859643936157,
+        0.316442608833313,
+        0.2567591667175293,
+        0.9999992251396179
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.3248858153820038,
+        0.3164425194263458,
+        0.2567591965198517,
+        0.9999992251396179
+      ],
+      "max_abs_RGB_change": 1.4901161193847656e-07,
+      "alpha_change": 0.0
+    },
+    {
+      "pixel": {
+        "camera": 17,
+        "camera_name": "EA",
+        "x": 1017,
+        "y": 269,
+        "witness_id": 3000,
+        "witness_xyz": [
+          0.020707159980057902,
+          0.10893764267859658,
+          0.18811554892814347
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_back_seam",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1017.61865234375,
+          269.62957763671875
+        ],
+        "projected_uv": [
+          1017.6260920344471,
+          269.6150462695075
+        ],
+        "query_witness_depth": 1.088953126125337,
+        "point_to_pixel_ray_distance": 0.00013437153628254213,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 79
+      },
+      "original_RGBA": [
+        0.2033800482749939,
+        0.1956074833869934,
+        0.13494588434696198,
+        0.9999900460243225
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.20338000357151031,
+        0.19560739398002625,
+        0.13494588434696198,
+        0.9999902248382568
+      ],
+      "max_abs_RGB_change": 8.940696716308594e-08,
+      "alpha_change": 1.7881393432617188e-07
+    },
+    {
+      "pixel": {
+        "camera": 22,
+        "camera_name": "FA",
+        "x": 1002,
+        "y": 244,
+        "witness_id": 3000,
+        "witness_xyz": [
+          0.020707159980057902,
+          0.10893764267859658,
+          0.18811554892814347
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_back_seam",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1002.9325561523438,
+          244.845703125
+        ],
+        "projected_uv": [
+          1002.8734107136006,
+          244.8096286403628
+        ],
+        "query_witness_depth": 1.0956524569607955,
+        "point_to_pixel_ray_distance": 0.0003830302921386224,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 80
+      },
+      "original_RGBA": [
+        0.1636618673801422,
+        0.17556384205818176,
+        0.139174684882164,
+        0.9995027780532837
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.16366200149059296,
+        0.17556381225585938,
+        0.13917480409145355,
+        0.9995027184486389
+      ],
+      "max_abs_RGB_change": 1.341104507446289e-07,
+      "alpha_change": -5.960464477539063e-08
+    },
+    {
+      "pixel": {
+        "camera": 23,
+        "camera_name": "FB",
+        "x": 812,
+        "y": 140,
+        "witness_id": 3000,
+        "witness_xyz": [
+          0.020707159980057902,
+          0.10893764267859658,
+          0.18811554892814347
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_back_seam",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          812.98974609375,
+          140.933837890625
+        ],
+        "projected_uv": [
+          813.0505537075595,
+          140.98004586169395
+        ],
+        "query_witness_depth": 1.0144864594886296,
+        "point_to_pixel_ray_distance": 0.0005076107686218749,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 81
+      },
+      "original_RGBA": [
+        0.2205415666103363,
+        0.21266022324562073,
+        0.14584098756313324,
+        0.9999987483024597
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.22054141759872437,
+        0.21266019344329834,
+        0.14584095776081085,
+        0.9999988675117493
+      ],
+      "max_abs_RGB_change": 1.4901161193847656e-07,
+      "alpha_change": 1.1920928955078125e-07
+    },
+    {
+      "pixel": {
+        "camera": 4,
+        "camera_name": "BA",
+        "x": 1129,
+        "y": 312,
+        "witness_id": 946,
+        "witness_xyz": [
+          -0.03645483458798961,
+          0.10724052325657887,
+          0.18938225788996593
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_lowerback",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1129.9534912109375,
+          312.1076354980469
+        ],
+        "projected_uv": [
+          1129.9496528981922,
+          312.43392891796015
+        ],
+        "query_witness_depth": 1.0686659348930683,
+        "point_to_pixel_ray_distance": 0.000347561326339256,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 82
+      },
+      "original_RGBA": [
+        0.3563401401042938,
+        0.339374840259552,
+        0.26396772265434265,
+        0.9977408051490784
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.3563402593135834,
+        0.3393748104572296,
+        0.26396775245666504,
+        0.9977410435676575
+      ],
+      "max_abs_RGB_change": 1.1920928955078125e-07,
+      "alpha_change": 2.384185791015625e-07
+    },
+    {
+      "pixel": {
+        "camera": 28,
+        "camera_name": "GB",
+        "x": 936,
+        "y": 297,
+        "witness_id": 946,
+        "witness_xyz": [
+          -0.03645483458798961,
+          0.10724052325657887,
+          0.18938225788996593
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_lowerback",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          936.5905151367188,
+          297.2562561035156
+        ],
+        "projected_uv": [
+          936.5573698452883,
+          297.747794471057
+        ],
+        "query_witness_depth": 1.031519689025517,
+        "point_to_pixel_ray_distance": 0.00018845116174981595,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 83
+      },
+      "original_RGBA": [
+        0.33551934361457825,
+        0.32352545857429504,
+        0.24847649037837982,
+        0.999418318271637
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.335519403219223,
+        0.323525607585907,
+        0.24847647547721863,
+        0.9994182586669922
+      ],
+      "max_abs_RGB_change": 1.4901161193847656e-07,
+      "alpha_change": -5.960464477539063e-08
+    },
+    {
+      "pixel": {
+        "camera": 18,
+        "camera_name": "EB",
+        "x": 914,
+        "y": 384,
+        "witness_id": 946,
+        "witness_xyz": [
+          -0.03645483458798961,
+          0.10724052325657887,
+          0.18938225788996593
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_lowerback",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          914.8347778320312,
+          384.3372497558594
+        ],
+        "projected_uv": [
+          914.8010658158629,
+          384.1468315989216
+        ],
+        "query_witness_depth": 1.0110937148552819,
+        "point_to_pixel_ray_distance": 0.0003442946750634282,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 84
+      },
+      "original_RGBA": [
+        0.3283500671386719,
+        0.31285205483436584,
+        0.25253811478614807,
+        0.99998939037323
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.32835009694099426,
+        0.3128522038459778,
+        0.25253820419311523,
+        0.9999890923500061
+      ],
+      "max_abs_RGB_change": 1.4901161193847656e-07,
+      "alpha_change": -2.980232238769531e-07
+    },
+    {
+      "pixel": {
+        "camera": 58,
+        "camera_name": "NC",
+        "x": 1459,
+        "y": 495,
+        "witness_id": 8931,
+        "witness_xyz": [
+          0.050099223580369404,
+          0.20796286250973542,
+          0.19307919806293836
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_shoulder",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1459.4844970703125,
+          495.4293518066406
+        ],
+        "projected_uv": [
+          1459.1946158099795,
+          495.75231156977327
+        ],
+        "query_witness_depth": 0.9469663546916811,
+        "point_to_pixel_ray_distance": 0.00025018751584266364,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 85
+      },
+      "original_RGBA": [
+        0.5603818297386169,
+        0.4269704222679138,
+        0.2284204512834549,
+        0.9996948838233948
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.5603820085525513,
+        0.42697030305862427,
+        0.22842051088809967,
+        0.9996950626373291
+      ],
+      "max_abs_RGB_change": 1.7881393432617188e-07,
+      "alpha_change": 1.7881393432617188e-07
+    },
+    {
+      "pixel": {
+        "camera": 60,
+        "camera_name": "NE",
+        "x": 1363,
+        "y": 583,
+        "witness_id": 8931,
+        "witness_xyz": [
+          0.050099223580369404,
+          0.20796286250973542,
+          0.19307919806293836
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_shoulder",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1363.586181640625,
+          583.0670166015625
+        ],
+        "projected_uv": [
+          1363.7878267777626,
+          583.4042701365147
+        ],
+        "query_witness_depth": 0.9270745404517423,
+        "point_to_pixel_ray_distance": 0.00019229289953324,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 86
+      },
+      "original_RGBA": [
+        0.5104517340660095,
+        0.3888900876045227,
+        0.23310405015945435,
+        0.999647319316864
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.5104517936706543,
+        0.3888900876045227,
+        0.23310405015945435,
+        0.9996472001075745
+      ],
+      "max_abs_RGB_change": 5.960464477539063e-08,
+      "alpha_change": -1.1920928955078125e-07
+    },
+    {
+      "pixel": {
+        "camera": 59,
+        "camera_name": "ND",
+        "x": 1370,
+        "y": 546,
+        "witness_id": 8931,
+        "witness_xyz": [
+          0.050099223580369404,
+          0.20796286250973542,
+          0.19307919806293836
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_shoulder",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1370.068603515625,
+          546.6552124023438
+        ],
+        "projected_uv": [
+          1370.180767467182,
+          545.97487639976
+        ],
+        "query_witness_depth": 0.9496011586613751,
+        "point_to_pixel_ray_distance": 0.00040723598517034514,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 87
+      },
+      "original_RGBA": [
+        0.554709792137146,
+        0.4249323606491089,
+        0.2700333595275879,
+        0.9998503923416138
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.5547096133232117,
+        0.4249322712421417,
+        0.27003347873687744,
+        0.9998503923416138
+      ],
+      "max_abs_RGB_change": 1.7881393432617188e-07,
+      "alpha_change": 0.0
+    },
+    {
+      "pixel": {
+        "camera": 42,
+        "camera_name": "JB",
+        "x": 974,
+        "y": 413,
+        "witness_id": 7015,
+        "witness_xyz": [
+          0.00819894913633912,
+          0.10724870645917653,
+          0.15088976967184814
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_elbow_hem",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          974.5615844726562,
+          413.1683044433594
+        ],
+        "projected_uv": [
+          974.6254783897879,
+          413.20134382976573
+        ],
+        "query_witness_depth": 1.061447686380163,
+        "point_to_pixel_ray_distance": 0.0002525650995557542,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 88
+      },
+      "original_RGBA": [
+        0.20015113055706024,
+        0.21028810739517212,
+        0.14734041690826416,
+        0.999565839767456
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.20015116035938263,
+        0.21028807759284973,
+        0.14734044671058655,
+        0.9995658993721008
+      ],
+      "max_abs_RGB_change": 2.9802322387695312e-08,
+      "alpha_change": 5.960464477539063e-08
+    },
+    {
+      "pixel": {
+        "camera": 48,
+        "camera_name": "KD",
+        "x": 1159,
+        "y": 640,
+        "witness_id": 7015,
+        "witness_xyz": [
+          0.00819894913633912,
+          0.10724870645917653,
+          0.15088976967184814
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_elbow_hem",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1159.2396240234375,
+          640.2037353515625
+        ],
+        "projected_uv": [
+          1159.2248772180576,
+          640.3003607124247
+        ],
+        "query_witness_depth": 0.9746642722739757,
+        "point_to_pixel_ray_distance": 0.00023744511025590792,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 89
+      },
+      "original_RGBA": [
+        0.18150441348552704,
+        0.16450713574886322,
+        0.1318572759628296,
+        0.9999991655349731
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.18150441348552704,
+        0.16450703144073486,
+        0.1318572610616684,
+        0.9999990463256836
+      ],
+      "max_abs_RGB_change": 1.043081283569336e-07,
+      "alpha_change": -1.1920928955078125e-07
+    },
+    {
+      "pixel": {
+        "camera": 43,
+        "camera_name": "JC",
+        "x": 1204,
+        "y": 551,
+        "witness_id": 7015,
+        "witness_xyz": [
+          0.00819894913633912,
+          0.10724870645917653,
+          0.15088976967184814
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_elbow_hem",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1204.5562744140625,
+          551.2410888671875
+        ],
+        "projected_uv": [
+          1204.5057848195947,
+          551.1114695582654
+        ],
+        "query_witness_depth": 1.0141405951038336,
+        "point_to_pixel_ray_distance": 0.0002865229722154922,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 90
+      },
+      "original_RGBA": [
+        0.1896495372056961,
+        0.18199189007282257,
+        0.1374622881412506,
+        0.9999998211860657
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.1896495521068573,
+        0.18199189007282257,
+        0.1374623328447342,
+        0.9999997615814209
+      ],
+      "max_abs_RGB_change": 4.470348358154297e-08,
+      "alpha_change": -5.960464477539063e-08
+    },
+    {
+      "pixel": {
+        "camera": 54,
+        "camera_name": "MC",
+        "x": 1300,
+        "y": 515,
+        "witness_id": 8492,
+        "witness_xyz": [
+          0.043716256929227024,
+          0.13253374002413573,
+          0.16734681439750346
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_front",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1300.56884765625,
+          515.6365356445312
+        ],
+        "projected_uv": [
+          1300.8369545780145,
+          516.1184282608351
+        ],
+        "query_witness_depth": 0.9623484776355469,
+        "point_to_pixel_ray_distance": 0.0004833695290807744,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 91
+      },
+      "original_RGBA": [
+        0.07547479122877121,
+        0.0876626968383789,
+        0.0632159635424614,
+        0.9999035000801086
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.07547476887702942,
+        0.0876627042889595,
+        0.0632159486413002,
+        0.9999032020568848
+      ],
+      "max_abs_RGB_change": 2.2351741790771484e-08,
+      "alpha_change": -2.980232238769531e-07
+    },
+    {
+      "pixel": {
+        "camera": 60,
+        "camera_name": "NE",
+        "x": 1253,
+        "y": 632,
+        "witness_id": 8492,
+        "witness_xyz": [
+          0.043716256929227024,
+          0.13253374002413573,
+          0.16734681439750346
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_front",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1253.68408203125,
+          632.2128295898438
+        ],
+        "projected_uv": [
+          1253.913437292525,
+          632.1743412120372
+        ],
+        "query_witness_depth": 0.9421609625440427,
+        "point_to_pixel_ray_distance": 0.0003545239030945469,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 92
+      },
+      "original_RGBA": [
+        0.14511147141456604,
+        0.1345241367816925,
+        0.10243499279022217,
+        0.9998509287834167
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.145111545920372,
+        0.1345241218805313,
+        0.10243501514196396,
+        0.9998511075973511
+      ],
+      "max_abs_RGB_change": 7.450580596923828e-08,
+      "alpha_change": 1.7881393432617188e-07
+    },
+    {
+      "pixel": {
+        "camera": 59,
+        "camera_name": "ND",
+        "x": 1255,
+        "y": 578,
+        "witness_id": 8492,
+        "witness_xyz": [
+          0.043716256929227024,
+          0.13253374002413573,
+          0.16734681439750346
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_front",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1255.746826171875,
+          578.043701171875
+        ],
+        "projected_uv": [
+          1255.6048335974233,
+          578.0278183681678
+        ],
+        "query_witness_depth": 0.9614951940323825,
+        "point_to_pixel_ray_distance": 0.00033635028012882407,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 93
+      },
+      "original_RGBA": [
+        0.08559718728065491,
+        0.10413341224193573,
+        0.08193720877170563,
+        0.9997351765632629
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.08559718728065491,
+        0.10413341224193573,
+        0.08193720877170563,
+        0.999735414981842
+      ],
+      "max_abs_RGB_change": 0.0,
+      "alpha_change": 2.384185791015625e-07
+    },
+    {
+      "pixel": {
+        "camera": 8,
+        "camera_name": "CA",
+        "x": 1076,
+        "y": 329,
+        "witness_id": 1521,
+        "witness_xyz": [
+          0.024982792306984622,
+          0.16668661907083723,
+          0.21986023498194587
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_upperback",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1076.262939453125,
+          329.3643798828125
+        ],
+        "projected_uv": [
+          1076.3222556552219,
+          329.1258468075421
+        ],
+        "query_witness_depth": 1.1140409142926595,
+        "point_to_pixel_ray_distance": 0.0003351602002243258,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 94
+      },
+      "original_RGBA": [
+        0.25051939487457275,
+        0.24219439923763275,
+        0.18999280035495758,
+        0.943069338798523
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.25051942467689514,
+        0.24219444394111633,
+        0.18999284505844116,
+        0.9430691003799438
+      ],
+      "max_abs_RGB_change": 4.470348358154297e-08,
+      "alpha_change": -2.384185791015625e-07
+    },
+    {
+      "pixel": {
+        "camera": 14,
+        "camera_name": "DB",
+        "x": 1132,
+        "y": 298,
+        "witness_id": 1521,
+        "witness_xyz": [
+          0.024982792306984622,
+          0.16668661907083723,
+          0.21986023498194587
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_upperback",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1132.9078369140625,
+          298.30401611328125
+        ],
+        "projected_uv": [
+          1132.6947411549363,
+          298.3718052740189
+        ],
+        "query_witness_depth": 1.0998557530422173,
+        "point_to_pixel_ray_distance": 0.00018217470425554072,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 95
+      },
+      "original_RGBA": [
+        0.2943580150604248,
+        0.2640759348869324,
+        0.21803008019924164,
+        0.995055615901947
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.2943580150604248,
+        0.2640759348869324,
+        0.21803008019924164,
+        0.995055615901947
+      ],
+      "max_abs_RGB_change": 0.0,
+      "alpha_change": 0.0
+    },
+    {
+      "pixel": {
+        "camera": 9,
+        "camera_name": "CB",
+        "x": 948,
+        "y": 298,
+        "witness_id": 1521,
+        "witness_xyz": [
+          0.024982792306984622,
+          0.16668661907083723,
+          0.21986023498194587
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_upperback",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          948.4366455078125,
+          298.61334228515625
+        ],
+        "projected_uv": [
+          948.5905481364637,
+          298.76160525304726
+        ],
+        "query_witness_depth": 1.0554206992568869,
+        "point_to_pixel_ray_distance": 0.00021024170602792244,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 96
+      },
+      "original_RGBA": [
+        0.30058297514915466,
+        0.2663070559501648,
+        0.1948644071817398,
+        0.9995608329772949
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.30058297514915466,
+        0.2663070559501648,
+        0.1948644071817398,
+        0.9995608329772949
+      ],
+      "max_abs_RGB_change": 0.0,
+      "alpha_change": 0.0
+    },
+    {
+      "pixel": {
+        "camera": 31,
+        "camera_name": "GE",
+        "x": 980,
+        "y": 628,
+        "witness_id": 5452,
+        "witness_xyz": [
+          0.03320039245629506,
+          0.08855680760978785,
+          0.1784360805401353
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_elbow",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          980.8917846679688,
+          628.8455200195312
+        ],
+        "projected_uv": [
+          981.0438971505336,
+          629.1120564463708
+        ],
+        "query_witness_depth": 0.9277680338703632,
+        "point_to_pixel_ray_distance": 0.000559375442469682,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 97
+      },
+      "original_RGBA": [
+        0.46026545763015747,
+        0.4419387876987457,
+        0.364167720079422,
+        0.9999997019767761
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.4602656662464142,
+        0.4419388175010681,
+        0.3641677498817444,
+        0.9999998211860657
+      ],
+      "max_abs_RGB_change": 2.086162567138672e-07,
+      "alpha_change": 1.1920928955078125e-07
+    },
+    {
+      "pixel": {
+        "camera": 40,
+        "camera_name": "IE",
+        "x": 902,
+        "y": 620,
+        "witness_id": 5452,
+        "witness_xyz": [
+          0.03320039245629506,
+          0.08855680760978785,
+          0.1784360805401353
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_elbow",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          902.1076049804688,
+          620.3779907226562
+        ],
+        "projected_uv": [
+          902.2566185084133,
+          620.1240708503426
+        ],
+        "query_witness_depth": 0.9275386319781016,
+        "point_to_pixel_ray_distance": 0.0003057929754718307,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 98
+      },
+      "original_RGBA": [
+        0.5288447141647339,
+        0.4777332544326782,
+        0.4160116910934448,
+        1.0000007152557373
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.5288450121879578,
+        0.4777332544326782,
+        0.41601184010505676,
+        1.0000003576278687
+      ],
+      "max_abs_RGB_change": 2.980232238769531e-07,
+      "alpha_change": -3.5762786865234375e-07
+    },
+    {
+      "pixel": {
+        "camera": 35,
+        "camera_name": "HE",
+        "x": 1074,
+        "y": 641,
+        "witness_id": 5452,
+        "witness_xyz": [
+          0.03320039245629506,
+          0.08855680760978785,
+          0.1784360805401353
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_elbow",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1074.7723388671875,
+          641.6802368164062
+        ],
+        "projected_uv": [
+          1074.4673741622935,
+          641.6777324878941
+        ],
+        "query_witness_depth": 0.9496104239866685,
+        "point_to_pixel_ray_distance": 0.00012551900467138333,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 99
+      },
+      "original_RGBA": [
+        0.49444764852523804,
+        0.4696226119995117,
+        0.40127140283584595,
+        1.000000238418579
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.49444758892059326,
+        0.4696226716041565,
+        0.40127116441726685,
+        1.0000003576278687
+      ],
+      "max_abs_RGB_change": 2.384185791015625e-07,
+      "alpha_change": 1.1920928955078125e-07
+    },
+    {
+      "pixel": {
+        "camera": 0,
+        "camera_name": "AA",
+        "x": 1161,
+        "y": 341,
+        "witness_id": 352,
+        "witness_xyz": [
+          -0.004278784031095029,
+          0.10359905891638849,
+          0.19130163173550915
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_lowerback",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1161.698974609375,
+          341.8389892578125
+        ],
+        "projected_uv": [
+          1162.4419602513287,
+          341.87659460617544
+        ],
+        "query_witness_depth": 1.110670902971533,
+        "point_to_pixel_ray_distance": 0.0008106619326935004,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 100
+      },
+      "original_RGBA": [
+        0.5224500298500061,
+        0.4987749457359314,
+        0.452138215303421,
+        0.999999463558197
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.5224500298500061,
+        0.49877485632896423,
+        0.452138215303421,
+        0.9999994039535522
+      ],
+      "max_abs_RGB_change": 8.940696716308594e-08,
+      "alpha_change": -5.960464477539063e-08
+    },
+    {
+      "pixel": {
+        "camera": 2,
+        "camera_name": "AC",
+        "x": 857,
+        "y": 524,
+        "witness_id": 352,
+        "witness_xyz": [
+          -0.004278784031095029,
+          0.10359905891638849,
+          0.19130163173550915
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_lowerback",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          857.2377319335938,
+          524.9186401367188
+        ],
+        "projected_uv": [
+          857.1253902775509,
+          525.6804886361954
+        ],
+        "query_witness_depth": 1.0092556939914505,
+        "point_to_pixel_ray_distance": 0.000920069276013621,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 101
+      },
+      "original_RGBA": [
+        0.5867443084716797,
+        0.5431326627731323,
+        0.45803987979888916,
+        1.000000238418579
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.5867441296577454,
+        0.5431327223777771,
+        0.45803987979888916,
+        1.0000001192092896
+      ],
+      "max_abs_RGB_change": 1.7881393432617188e-07,
+      "alpha_change": -1.1920928955078125e-07
+    },
+    {
+      "pixel": {
+        "camera": 5,
+        "camera_name": "BB",
+        "x": 838,
+        "y": 300,
+        "witness_id": 352,
+        "witness_xyz": [
+          -0.004278784031095029,
+          0.10359905891638849,
+          0.19130163173550915
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_lowerback",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          838.6004638671875,
+          300.3904724121094
+        ],
+        "projected_uv": [
+          837.9830205449592,
+          299.64780140988876
+        ],
+        "query_witness_depth": 1.0492766080917026,
+        "point_to_pixel_ray_distance": 0.0007478157318445249,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 102
+      },
+      "original_RGBA": [
+        0.5266309976577759,
+        0.4970446825027466,
+        0.42161208391189575,
+        0.9999991655349731
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.5266313552856445,
+        0.4970446228981018,
+        0.4216122329235077,
+        0.9999989867210388
+      ],
+      "max_abs_RGB_change": 3.5762786865234375e-07,
+      "alpha_change": -1.7881393432617188e-07
+    },
+    {
+      "pixel": {
+        "camera": 4,
+        "camera_name": "BA",
+        "x": 1125,
+        "y": 260,
+        "witness_id": 815,
+        "witness_xyz": [
+          -0.0016211677987717163,
+          0.13042705102269034,
+          0.21232862884082582
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_upperback",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1125.5440673828125,
+          260.56292724609375
+        ],
+        "projected_uv": [
+          1125.4443155964443,
+          260.44735293167275
+        ],
+        "query_witness_depth": 1.0942926731708993,
+        "point_to_pixel_ray_distance": 6.0229690578568256e-05,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 103
+      },
+      "original_RGBA": [
+        0.6607478260993958,
+        0.501830518245697,
+        0.30383026599884033,
+        0.9999998211860657
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.6607478260993958,
+        0.501830518245697,
+        0.3038303256034851,
+        1.0000005960464478
+      ],
+      "max_abs_RGB_change": 5.960464477539063e-08,
+      "alpha_change": 7.748603820800781e-07
+    },
+    {
+      "pixel": {
+        "camera": 8,
+        "camera_name": "CA",
+        "x": 1089,
+        "y": 362,
+        "witness_id": 815,
+        "witness_xyz": [
+          -0.0016211677987717163,
+          0.13042705102269034,
+          0.21232862884082582
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_upperback",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1089.3858642578125,
+          362.297607421875
+        ],
+        "projected_uv": [
+          1089.3758957532827,
+          362.3202604243024
+        ],
+        "query_witness_depth": 1.078388381279681,
+        "point_to_pixel_ray_distance": 0.00017188658621200252,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 104
+      },
+      "original_RGBA": [
+        0.6937734484672546,
+        0.5131174325942993,
+        0.30358490347862244,
+        0.9984522461891174
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.6937735080718994,
+        0.5131174325942993,
+        0.30358490347862244,
+        0.9984522461891174
+      ],
+      "max_abs_RGB_change": 5.960464477539063e-08,
+      "alpha_change": 0.0
+    },
+    {
+      "pixel": {
+        "camera": 5,
+        "camera_name": "BB",
+        "x": 805,
+        "y": 267,
+        "witness_id": 815,
+        "witness_xyz": [
+          -0.0016211677987717163,
+          0.13042705102269034,
+          0.21232862884082582
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_upperback",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          805.2962036132812,
+          267.6794128417969
+        ],
+        "projected_uv": [
+          805.4176899352635,
+          267.75938580355563
+        ],
+        "query_witness_depth": 1.0522070361208986,
+        "point_to_pixel_ray_distance": 0.00020493879583096953,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 105
+      },
+      "original_RGBA": [
+        0.633023738861084,
+        0.484715074300766,
+        0.3129502832889557,
+        0.9905709028244019
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.6330239176750183,
+        0.4847150146961212,
+        0.31295040249824524,
+        0.9905709028244019
+      ],
+      "max_abs_RGB_change": 1.7881393432617188e-07,
+      "alpha_change": 0.0
+    },
+    {
+      "pixel": {
+        "camera": 10,
+        "camera_name": "CC",
+        "x": 1006,
+        "y": 576,
+        "witness_id": 2047,
+        "witness_xyz": [
+          0.03506142662460719,
+          0.11308596691000601,
+          0.20257032238583905
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_back_shoulder_seam",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1006.7234497070312,
+          576.6195068359375
+        ],
+        "projected_uv": [
+          1006.6466376794372,
+          576.5931662268345
+        ],
+        "query_witness_depth": 1.0017513140905963,
+        "point_to_pixel_ray_distance": 0.0001280098907046695,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 106
+      },
+      "original_RGBA": [
+        0.2575682997703552,
+        0.21144936978816986,
+        0.17301924526691437,
+        0.9999979734420776
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.2575683891773224,
+        0.21144938468933105,
+        0.1730191856622696,
+        0.9999980330467224
+      ],
+      "max_abs_RGB_change": 8.940696716308594e-08,
+      "alpha_change": 5.960464477539063e-08
+    },
+    {
+      "pixel": {
+        "camera": 12,
+        "camera_name": "CE",
+        "x": 1142,
+        "y": 838,
+        "witness_id": 2047,
+        "witness_xyz": [
+          0.03506142662460719,
+          0.11308596691000601,
+          0.20257032238583905
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_back_shoulder_seam",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          1142.771240234375,
+          838.7452392578125
+        ],
+        "projected_uv": [
+          1142.7874686413586,
+          838.5000582310038
+        ],
+        "query_witness_depth": 0.9882827162013003,
+        "point_to_pixel_ray_distance": 0.00020020669683573525,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 107
+      },
+      "original_RGBA": [
+        0.27242106199264526,
+        0.2238582819700241,
+        0.15436942875385284,
+        0.9999737739562988
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.27242106199264526,
+        0.2238583266735077,
+        0.15436941385269165,
+        0.9999737739562988
+      ],
+      "max_abs_RGB_change": 4.470348358154297e-08,
+      "alpha_change": 0.0
+    },
+    {
+      "pixel": {
+        "camera": 15,
+        "camera_name": "DD",
+        "x": 877,
+        "y": 615,
+        "witness_id": 2047,
+        "witness_xyz": [
+          0.03506142662460719,
+          0.11308596691000601,
+          0.20257032238583905
+        ],
+        "actor": "grey",
+        "region": "grey_jacket_back_shoulder_seam",
+        "semantic": "manually_reviewed_opaque_clothing_original_TRAIN_feature",
+        "diagnostic_group": "new_prefix_supervised",
+        "detected_uv": [
+          877.6680297851562,
+          615.2711181640625
+        ],
+        "projected_uv": [
+          877.8447965307026,
+          615.6594098408034
+        ],
+        "query_witness_depth": 1.0100513396278263,
+        "point_to_pixel_ray_distance": 0.0002814604445812291,
+        "source_group": "clothing103",
+        "original_query_id": null,
+        "query_id": 108
+      },
+      "original_RGBA": [
+        0.28214505314826965,
+        0.22793345153331757,
+        0.1854424774646759,
+        0.9999995231628418
+      ],
+      "measured_point_retained": true,
+      "gated_RGBA": [
+        0.28214505314826965,
+        0.22793340682983398,
+        0.1854424774646759,
+        0.999999463558197
+      ],
+      "max_abs_RGB_change": 4.470348358154297e-08,
+      "alpha_change": -5.960464477539063e-08
+    }
+  ],
+  "measured_witnesses_retained": 109,
+  "elapsed_seconds": 6.39507672599575,
+  "limitation": "Gate changes density seen by adaptive refinement and recomputes transmittance. Sample-center gate is not exact interval-plane clipping.109observations include103declaredclothing rays (not103independentpoints) plus6shoe rays;hairpoint5568 retains mixed-opacity interpretation."
+}

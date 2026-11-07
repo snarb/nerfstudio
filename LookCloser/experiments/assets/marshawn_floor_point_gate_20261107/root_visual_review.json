@@ -1,0 +1,11 @@
+{
+  "reviewer": "root",
+  "time": 1794010488.1243622,
+  "asset_sha256": "7b2af03f4c5b4cf4cd4a7506649535aa1678fb356cad480ebae47eafd75d5fd1",
+  "findings": [
+    "RemoteHC/KA fragment removal confirmed; negligibleDCchange, mostnearfootfloor unremoved",
+    "No obvious grossshoecontour cut at overviewresolution; solealpha/RGBchanges precludecompletefootcertificate",
+    "No promotion asfinalfix"
+  ],
+  "empirical_prior_not_emptyspace_certificate": true
+}

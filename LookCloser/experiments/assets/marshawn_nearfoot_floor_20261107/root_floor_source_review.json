@@ -1,0 +1,12 @@
+{
+  "reviewer": "root",
+  "time": 1794010295.7024775,
+  "assets": {
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/exact_markers/p5511_RAW_triplet.jpg": "fba41609b5742e33b480379bf5c83369b4614f483104a279b799841b84edbf19",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/nearfoot_floor_search_v1/exact_markers/p6863_RAW_triplet.jpg": "d78e159f86c79778cd5136d74cf4aca1b7657169be778227a264590c3753d003"
+  },
+  "findings": {
+    "5511": "Consistent pale scratch/crease on panel in3views, exactmarked feature floorassociated; retain localization/surfaceoffsetuncertainty",
+    "6863": "Floor-panel seam/edge rather than actor or thickmat/bag; seam-shadowboundary localizationuncertainty, no wholepanelheight claim"
+  }
+}

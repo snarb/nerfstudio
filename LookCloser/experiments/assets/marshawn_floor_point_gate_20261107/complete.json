@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "plan_sha256": "db89608e9f0d53240664f7cce77afd91eb2109ae5d187f7b5f91b11bbd32a62b",
+  "source_mutation": false,
+  "optimizer_updates": 0,
+  "empirical_prior_not_emptyspace_certificate": true,
+  "diagnostic_sha256": "79b35af563824bbb45632b945ede43b932586c95698cd542c7ff311b6680143b",
+  "peak_process_mib": 1796,
+  "elapsed_seconds": 28.85798610599886
+}
