@@ -1,0 +1,47 @@
+{
+  "utc": "2026-11-07T09:48:41.004414+00:00",
+  "reviewer": "root",
+  "all3body_and9fixed_detail_patches_personally_viewed": true,
+  "source_unchanged": {
+    "pipeline": true,
+    "LUT": true,
+    "RNG": true,
+    "admission": true,
+    "normalization_method": true,
+    "FR": true,
+    "seven_serialized_states": true,
+    "source_checkpoint": true
+  },
+  "decision": "REJECT256candidate",
+  "reason": "FixedV1LPIPSregressesvsFOUR_UNKNOWN128 atboththresholds; morefragmentedankle/solefringes, remainsinterlegcloud. Sparsepoint6862below.5.",
+  "no_head_or_grid_quality_promotion": true,
+  "source_and_historical_leader_preserved": true,
+  "head_sha256": "befa50aa2b178938fc2e918b8d78d3e59c7c39699d63ccc45663fb5851ce9d21",
+  "render_complete_sha256": "40cc08e1e0da413a84be28ed1ebfe0210122fa1889f6d7328e4656c013a7fee8",
+  "metrics": {
+    "psnr": 30.603789263082387,
+    "ssim": 0.8264052172501882,
+    "lpips": 0.02410644944757223
+  },
+  "actual_jobs": {
+    "resolution256_render": {
+      "status": "complete",
+      "worker_pid": 2198735,
+      "pid_present_now": false,
+      "OOM": false
+    },
+    "resolution256_metrics": {
+      "status": "complete",
+      "worker_pid": 2200659,
+      "pid_present_now": false,
+      "OOM": false
+    },
+    "resolution256_TRAIN": {
+      "status": "complete",
+      "worker_pid": 2200783,
+      "pid_present_now": false,
+      "OOM": false
+    }
+  },
+  "GPU_current": ""
+}

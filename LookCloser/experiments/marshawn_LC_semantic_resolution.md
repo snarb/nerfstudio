@@ -1,5 +1,7 @@
 # Independent semantic node-resolution experiment
 
+Current decision: reject the independently initialized256³ candidate. Actual three-view physical rendering worsens fixedV1 metrics and adds visible shoe/contour defects relative to the matched FOUR-UNKNOWN128 head. Native source field and historical leader remain unchanged.
+
 ## What was tested
 
 Preparation and actual bounded GPU testing of a separate [128/256 worker](../scripts/probe_marshawn_LC_semantic_resolution_head.py), copied from the sealed head worker SHA `6f6bca9b69c97f0375d943a37f208a17407fcb64f046e920556e101382ed149d`. The existing worker, `FrozenActorGrid`, original capture, model, labels, boxes and renderer are unchanged. The class function remains sigmoid of trilinear XYZ logits, with Z/Y/X sampling coordinates, `align_corners=True`, inclusive accepted bounds and the identity floor transform. Native visibility weights and the existing conditional class objective are unchanged.
@@ -51,6 +53,24 @@ After root accepted this numeric/resource gate, release SHA `7a3e76ca310a409ee6e
 The three0.5 crossings are the same physical black sole witness6862 observed from JA/JB/KB. They are one unique point, not three independent geometry failures. The result flags a shoe-preservation risk at0.5. All109 remain above0.1, but that sparse set contains only41 distinct positions and does not certify complete hair/feet or physical empty space. The bag sample remains above both fixed thresholds; finer resolution alone has not removed that contact attachment. Full physical render/geometry review is still required before any quality promotion.
 
 The [CPU physical materializer](../scripts/prepare_marshawn_LC_resolution256_physical_cpu.py) then prepared `/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_resolution256_physical_plan_v1`. [Actual CPU validation](assets/marshawn_LC_semantic_resolution_20261107/actual256_physical_CPU_validation.json) verifies358 bound inputs, three worker/controller dry-runs and the strict constructor against actual saved256 tensor, completion and spec metadata. The two runtime changes are guarded head construction in rendering and TRAIN-distribution audit; the existing tested helper supplies resolution validation. Source field, colour, density, occupancy, interval sampling, native weights, independent transmittance reference, thresholds and physical selectors are unchanged. The three-job DAG is physical render → fixed V1 metrics → TRAIN audit. Its SHA is `a9c322c581cc2be47b4b975fb048abd3bd71b004ee74b41eab0e7462adc5af00`; false release template SHA is `33f21bcb36b4cf8fd832603c40626eec4612b783046bfb9fd1831136f098289c`. This CPU preparation starts no GPU and grants no physical release. Matched128 physical outputs will be compared after both candidates complete.
+
+## Completed physical render and manual gate
+
+Root released the separate three-job physical DAG under SHA `a1a02e5c18748429d81be9518000d66343969e6a20012636dd2c9a73a725fff7`. Rendering, fixedV1 metrics and TRAIN distributions all completed0 with no OOM. Source RGB/alpha parity, all source-state invariance checks and the frozen head passed. No native/head optimizer was instantiated by these jobs.
+
+| Matched FOUR-UNKNOWN physical render | PSNR | SSIM | LPIPS |
+|---|---:|---:|---:|
+|128, hard≥.1|30.871656|.828192|.02218011|
+|256, hard≥.1|30.603789|.826405|.02410645|
+|128, hard≥.5|30.715023|.827015|.02334148|
+|256, hard≥.5|30.116665|.823707|.02796840|
+|256, smooth[.1,.5]|30.382882|.825273|.02587011|
+
+The complete unchanged-domain PSNR/SSIM/LPIPS records are in the [128 result](/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_LA_two_UNKNOWN_physical_plan_v1/prior001/visual_gate/metrics.json) and [256 result](/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_resolution256_physical_plan_v1/prior001/visual_gate/metrics.json).
+
+Root personally inspected all three unmasked body guards and nine fixed hair/contact/feet patches. The256 candidate retains major body texture but introduces more fragmented, comb-like ankle/sole fringes; hard≥.5 has the previously flagged sole risk. Floor/interleg fragments persist. [DC details](/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_resolution256_physical_plan_v1/early_DC_CPU/all_fixed_details.jpg), [HC details](/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_resolution256_physical_plan_v1/early_HC_CPU/all_fixed_details.jpg), [KA details](/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_resolution256_physical_plan_v1/early_KA_CPU/all_fixed_details.jpg).
+
+TRAIN conditional posterior classification improves on some observed samples, including the native-hit negative fraction≥.5 falling to.003888, while physical EVAL quality worsens. This illustrates why classifier fit alone cannot select the final actor field. All original136 cohort identities and four reviewed UNKNOWN rows remain; no hard-query filtering, source mask edit or threshold reselection occurred. Neither the256 head nor its occupancy support is promoted.
 
 ## Insights and required gates
 
