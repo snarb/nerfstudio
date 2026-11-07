@@ -1,0 +1,2610 @@
+{
+  "kind": "EXACT_RETAINED_LC_CONTACT_SAMPLE_TRAIN_SOURCE_DIAGNOSTIC",
+  "trace": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_physical_plan_v3/prior001/renders/DC_trace_1097_572.npz",
+  "trace_sha256": "71ff6f7207d2ccaf803d373bc7e414dc9d8f5fa8e1a5f65aadf5c592f4c379ea",
+  "selection": "np.argmax(hard_theta05_selected_weight), no XYZ rounding",
+  "selected_trace_index": 22,
+  "exact_XYZ_floor": [
+    0.057945191860198975,
+    0.05855029821395874,
+    0.01855337619781494
+  ],
+  "XYZ_float32_uint32_bits": [
+    1030576112,
+    1030738544,
+    1016593728
+  ],
+  "native_weight": 0.06967972218990326,
+  "hard_theta05_selected_weight": 0.06971238553524017,
+  "classifier_p": 0.9567703008651733,
+  "native_sigma": 1242.648193359375,
+  "native_rgb_float16": [
+    0.267578125,
+    0.1805419921875,
+    0.2381591796875
+  ],
+  "already_floor_coordinates": true,
+  "second_world_to_floor_transform_applied": false,
+  "DC_pose_only_reprojection": {
+    "COLMAP_uv": [
+      1097.500005952076,
+      572.5000348253838
+    ],
+    "expected_COLMAP_center": [
+      1097.5,
+      572.5
+    ],
+    "max_error_HD_pixels": 3.4825383750103356e-05,
+    "EVAL_RGB_or_mask_read": false
+  },
+  "all63_TRAIN_projections": [
+    {
+      "camera": "AA",
+      "projected_COLMAP_uv": [
+        1208.8463921182338,
+        487.6977585234576
+      ],
+      "nearest_HD_pixel": [
+        1208,
+        487
+      ],
+      "camera_forward_depth": 1.2271121248394645,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        5153.604076892161,
+        2081.4466625791497
+      ]
+    },
+    {
+      "camera": "AB",
+      "projected_COLMAP_uv": [
+        1038.9182976459106,
+        539.8969290433984
+      ],
+      "nearest_HD_pixel": [
+        1038,
+        539
+      ],
+      "camera_forward_depth": 1.1739945036663715,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4432.071226985356,
+        2304.1378645830564
+      ]
+    },
+    {
+      "camera": "AC",
+      "projected_COLMAP_uv": [
+        929.7731579370773,
+        718.4140963486977
+      ],
+      "nearest_HD_pixel": [
+        929,
+        718
+      ],
+      "camera_forward_depth": 1.0969991794230376,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        3966.8929004613724,
+        3063.864491625753
+      ]
+    },
+    {
+      "camera": "AD",
+      "projected_COLMAP_uv": [
+        844.0080792442429,
+        711.7679948594144
+      ],
+      "nearest_HD_pixel": [
+        844,
+        711
+      ],
+      "camera_forward_depth": 1.061979530850972,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        3602.179980494107,
+        3035.072520799925
+      ]
+    },
+    {
+      "camera": "BA",
+      "projected_COLMAP_uv": [
+        1205.3061607230554,
+        454.3415591287445
+      ],
+      "nearest_HD_pixel": [
+        1205,
+        454
+      ],
+      "camera_forward_depth": 1.1995911080273842,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        5139.127228860264,
+        1939.3438822165258
+      ]
+    },
+    {
+      "camera": "BB",
+      "projected_COLMAP_uv": [
+        906.2488201687299,
+        474.93429261894704
+      ],
+      "nearest_HD_pixel": [
+        906,
+        474
+      ],
+      "camera_forward_depth": 1.1616361314813082,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        3866.212157373797,
+        2026.9055682983612
+      ]
+    },
+    {
+      "camera": "BC",
+      "projected_COLMAP_uv": [
+        963.4333716928611,
+        715.9105940180339
+      ],
+      "nearest_HD_pixel": [
+        963,
+        715
+      ],
+      "camera_forward_depth": 1.05910522702079,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4110.2134156171805,
+        3053.543532689054
+      ]
+    },
+    {
+      "camera": "BD",
+      "projected_COLMAP_uv": [
+        768.0730929068503,
+        853.9055540375082
+      ],
+      "nearest_HD_pixel": [
+        768,
+        853
+      ],
+      "camera_forward_depth": 1.011570442268392,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        3282.561355041629,
+        3633.2465658867336
+      ]
+    },
+    {
+      "camera": "CA",
+      "projected_COLMAP_uv": [
+        1191.5719642185445,
+        566.0438903303027
+      ],
+      "nearest_HD_pixel": [
+        1191,
+        566
+      ],
+      "camera_forward_depth": 1.165979311878486,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        5080.343478502969,
+        2414.7673243497043
+      ]
+    },
+    {
+      "camera": "CB",
+      "projected_COLMAP_uv": [
+        1076.5569324238948,
+        551.6461766909212
+      ],
+      "nearest_HD_pixel": [
+        1076,
+        551
+      ],
+      "camera_forward_depth": 1.107010731221789,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4592.323715003974,
+        2354.1514503775497
+      ]
+    },
+    {
+      "camera": "CC",
+      "projected_COLMAP_uv": [
+        1080.822765523326,
+        823.966648382964
+      ],
+      "nearest_HD_pixel": [
+        1080,
+        823
+      ],
+      "camera_forward_depth": 1.0088835216183047,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4608.002232058086,
+        3508.315542689231
+      ]
+    },
+    {
+      "camera": "CD",
+      "projected_COLMAP_uv": [
+        1162.1005873429365,
+        886.0840574601234
+      ],
+      "nearest_HD_pixel": [
+        1162,
+        886
+      ],
+      "camera_forward_depth": 0.9727794284739353,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4949.984906409571,
+        3766.978916222087
+      ]
+    },
+    {
+      "camera": "CE",
+      "projected_COLMAP_uv": [
+        1246.3744916739092,
+        1128.2652996337379
+      ],
+      "nearest_HD_pixel": [
+        1246,
+        1128
+      ],
+      "camera_forward_depth": 0.8665561825556893,
+      "inside_raster": false,
+      "projected_RAW_center": null
+    },
+    {
+      "camera": "DA",
+      "projected_COLMAP_uv": [
+        1168.4171198692513,
+        413.8419672299708
+      ],
+      "nearest_HD_pixel": [
+        1168,
+        413
+      ],
+      "camera_forward_depth": 1.1580777570772411,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4982.699670436978,
+        1766.8439567925593
+      ]
+    },
+    {
+      "camera": "DB",
+      "projected_COLMAP_uv": [
+        1226.8140361786845,
+        565.7697097510112
+      ],
+      "nearest_HD_pixel": [
+        1226,
+        565
+      ],
+      "camera_forward_depth": 1.109020874530385,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        5229.9577117107565,
+        2413.543601689652
+      ]
+    },
+    {
+      "camera": "DD",
+      "projected_COLMAP_uv": [
+        943.7438427706064,
+        874.6042077381132
+      ],
+      "nearest_HD_pixel": [
+        943,
+        874
+      ],
+      "camera_forward_depth": 0.9787841250883537,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4026.4572061103604,
+        3722.224343982686
+      ]
+    },
+    {
+      "camera": "DE",
+      "projected_COLMAP_uv": [
+        1048.3068893156872,
+        943.0415879883935
+      ],
+      "nearest_HD_pixel": [
+        1048,
+        943
+      ],
+      "camera_forward_depth": 0.8944176142736092,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4468.910533681924,
+        4007.742978506283
+      ]
+    },
+    {
+      "camera": "EA",
+      "projected_COLMAP_uv": [
+        1071.567781781923,
+        467.8714232502999
+      ],
+      "nearest_HD_pixel": [
+        1071,
+        467
+      ],
+      "camera_forward_depth": 1.151957889184903,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4571.216185511499,
+        1996.8012280088867
+      ]
+    },
+    {
+      "camera": "EB",
+      "projected_COLMAP_uv": [
+        1042.754997487839,
+        586.4631391381569
+      ],
+      "nearest_HD_pixel": [
+        1042,
+        586
+      ],
+      "camera_forward_depth": 1.0867545002158812,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4448.333382082108,
+        2502.651149317844
+      ]
+    },
+    {
+      "camera": "EC",
+      "projected_COLMAP_uv": [
+        890.4838163877305,
+        769.473905837084
+      ],
+      "nearest_HD_pixel": [
+        890,
+        769
+      ],
+      "camera_forward_depth": 0.9849342548098337,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        3800.3805469085855,
+        3279.0876899462855
+      ]
+    },
+    {
+      "camera": "ED",
+      "projected_COLMAP_uv": [
+        816.8334943104429,
+        748.5647172297679
+      ],
+      "nearest_HD_pixel": [
+        816,
+        748
+      ],
+      "camera_forward_depth": 0.9539533593627799,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        3487.1786030587214,
+        3190.528121695859
+      ]
+    },
+    {
+      "camera": "EE",
+      "projected_COLMAP_uv": [
+        876.2657508573034,
+        956.3359231892748
+      ],
+      "nearest_HD_pixel": [
+        876,
+        956
+      ],
+      "camera_forward_depth": 0.8721433713939873,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        3742.857051573099,
+        4061.8290552454273
+      ]
+    },
+    {
+      "camera": "FA",
+      "projected_COLMAP_uv": [
+        1051.9313964971725,
+        450.2346353792599
+      ],
+      "nearest_HD_pixel": [
+        1051,
+        450
+      ],
+      "camera_forward_depth": 1.1468825550178472,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4487.561265060768,
+        1921.5248609574749
+      ]
+    },
+    {
+      "camera": "FB",
+      "projected_COLMAP_uv": [
+        894.2046797473591,
+        368.9692833994061
+      ],
+      "nearest_HD_pixel": [
+        894,
+        368
+      ],
+      "camera_forward_depth": 1.0467688630771155,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        3815.0829258326307,
+        1575.1576221940954
+      ]
+    },
+    {
+      "camera": "FC",
+      "projected_COLMAP_uv": [
+        1009.9644410233946,
+        757.1231935113592
+      ],
+      "nearest_HD_pixel": [
+        1009,
+        757
+      ],
+      "camera_forward_depth": 0.9812112889771276,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4308.219097284662,
+        3227.6633883244176
+      ]
+    },
+    {
+      "camera": "FD",
+      "projected_COLMAP_uv": [
+        971.2460338796285,
+        849.9059696219101
+      ],
+      "nearest_HD_pixel": [
+        971,
+        849
+      ],
+      "camera_forward_depth": 0.9396622725246119,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4143.211854349209,
+        3617.941679161436
+      ]
+    },
+    {
+      "camera": "FE",
+      "projected_COLMAP_uv": [
+        880.0600650128497,
+        959.2154271957061
+      ],
+      "nearest_HD_pixel": [
+        880,
+        959
+      ],
+      "camera_forward_depth": 0.8691545940350599,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        3758.0597258965704,
+        4072.91146652944
+      ]
+    },
+    {
+      "camera": "GA",
+      "projected_COLMAP_uv": [
+        1036.2866769379964,
+        557.467066199531
+      ],
+      "nearest_HD_pixel": [
+        1036,
+        557
+      ],
+      "camera_forward_depth": 1.1248766718650978,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4420.861665185933,
+        2379.0854441540173
+      ]
+    },
+    {
+      "camera": "GB",
+      "projected_COLMAP_uv": [
+        1050.218449666537,
+        531.6516748460775
+      ],
+      "nearest_HD_pixel": [
+        1050,
+        531
+      ],
+      "camera_forward_depth": 1.060805758692589,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4480.2536805012605,
+        2268.9290526356785
+      ]
+    },
+    {
+      "camera": "GC",
+      "projected_COLMAP_uv": [
+        1030.0601514101893,
+        695.8788608716557
+      ],
+      "nearest_HD_pixel": [
+        1030,
+        695
+      ],
+      "camera_forward_depth": 0.9616818993783857,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4393.796462398588,
+        2968.3488684432896
+      ]
+    },
+    {
+      "camera": "GD",
+      "projected_COLMAP_uv": [
+        998.210301845705,
+        714.9588098786006
+      ],
+      "nearest_HD_pixel": [
+        998,
+        714
+      ],
+      "camera_forward_depth": 0.943710640185088,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4258.270700430725,
+        3049.572395475956
+      ]
+    },
+    {
+      "camera": "GE",
+      "projected_COLMAP_uv": [
+        1014.4755305775774,
+        874.0593443957484
+      ],
+      "nearest_HD_pixel": [
+        1014,
+        874
+      ],
+      "camera_forward_depth": 0.8616873672406331,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4326.395194475796,
+        3720.0145408719864
+      ]
+    },
+    {
+      "camera": "HA",
+      "projected_COLMAP_uv": [
+        984.3915184393481,
+        527.1574880742342
+      ],
+      "nearest_HD_pixel": [
+        984,
+        527
+      ],
+      "camera_forward_depth": 1.1507885749456044,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4199.562085427815,
+        2249.8073021747887
+      ]
+    },
+    {
+      "camera": "HB",
+      "projected_COLMAP_uv": [
+        1082.3753496045254,
+        390.0137587569072
+      ],
+      "nearest_HD_pixel": [
+        1082,
+        390
+      ],
+      "camera_forward_depth": 1.0739963496283378,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4616.864610644378,
+        1665.040056294225
+      ]
+    },
+    {
+      "camera": "HD",
+      "projected_COLMAP_uv": [
+        1062.6339164224119,
+        746.7013452205671
+      ],
+      "nearest_HD_pixel": [
+        1062,
+        746
+      ],
+      "camera_forward_depth": 0.9551771968128834,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4532.130893091154,
+        3183.319261146518
+      ]
+    },
+    {
+      "camera": "HE",
+      "projected_COLMAP_uv": [
+        1105.4143182283342,
+        882.5412319388304
+      ],
+      "nearest_HD_pixel": [
+        1105,
+        882
+      ],
+      "camera_forward_depth": 0.8724614846895166,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4710.910898870511,
+        3753.140874487649
+      ]
+    },
+    {
+      "camera": "IA",
+      "projected_COLMAP_uv": [
+        995.5115595165986,
+        559.6024950485405
+      ],
+      "nearest_HD_pixel": [
+        995,
+        559
+      ],
+      "camera_forward_depth": 1.1062652677414557,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4246.963014703402,
+        2388.236931255838
+      ]
+    },
+    {
+      "camera": "IB",
+      "projected_COLMAP_uv": [
+        1040.2221217704723,
+        601.2532383176673
+      ],
+      "nearest_HD_pixel": [
+        1040,
+        601
+      ],
+      "camera_forward_depth": 1.0331047468925014,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4437.50313671277,
+        2565.7684661997127
+      ]
+    },
+    {
+      "camera": "IC",
+      "projected_COLMAP_uv": [
+        1171.2375210411737,
+        731.7927168392697
+      ],
+      "nearest_HD_pixel": [
+        1171,
+        731
+      ],
+      "camera_forward_depth": 0.9371284170989747,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4993.0411560846605,
+        3118.9728251590896
+      ]
+    },
+    {
+      "camera": "ID",
+      "projected_COLMAP_uv": [
+        1029.7195125461267,
+        747.3726710837991
+      ],
+      "nearest_HD_pixel": [
+        1029,
+        747
+      ],
+      "camera_forward_depth": 0.9086864462110245,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4392.218836656889,
+        3186.5217785171953
+      ]
+    },
+    {
+      "camera": "IE",
+      "projected_COLMAP_uv": [
+        913.821458619585,
+        865.0688653894999
+      ],
+      "nearest_HD_pixel": [
+        913,
+        865
+      ],
+      "camera_forward_depth": 0.8551877233389825,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        3899.840681727655,
+        3681.9959333349816
+      ]
+    },
+    {
+      "camera": "JA",
+      "projected_COLMAP_uv": [
+        847.7524553183467,
+        528.4202662358229
+      ],
+      "nearest_HD_pixel": [
+        847,
+        528
+      ],
+      "camera_forward_depth": 1.1330342581272466,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        3616.9238982335705,
+        2255.132702073982
+      ]
+    },
+    {
+      "camera": "JB",
+      "projected_COLMAP_uv": [
+        980.0422827732948,
+        604.8683301801497
+      ],
+      "nearest_HD_pixel": [
+        980,
+        604
+      ],
+      "camera_forward_depth": 1.0529212529398595,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4180.989852678214,
+        2581.3046863879567
+      ]
+    },
+    {
+      "camera": "JC",
+      "projected_COLMAP_uv": [
+        1198.2712789946952,
+        755.8449620285148
+      ],
+      "nearest_HD_pixel": [
+        1198,
+        755
+      ],
+      "camera_forward_depth": 0.9577281950826495,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        5106.514461051454,
+        3219.960741123415
+      ]
+    },
+    {
+      "camera": "JD",
+      "projected_COLMAP_uv": [
+        1067.489069869534,
+        796.7791476153375
+      ],
+      "nearest_HD_pixel": [
+        1067,
+        796
+      ],
+      "camera_forward_depth": 0.920931204500482,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4552.330394952348,
+        3395.2532529131586
+      ]
+    },
+    {
+      "camera": "JE",
+      "projected_COLMAP_uv": [
+        1208.2085809294363,
+        836.7753348310039
+      ],
+      "nearest_HD_pixel": [
+        1208,
+        836
+      ],
+      "camera_forward_depth": 0.8581253306474375,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        5146.528932565394,
+        3559.823856765116
+      ]
+    },
+    {
+      "camera": "KB",
+      "projected_COLMAP_uv": [
+        911.8155834590538,
+        572.4419601557969
+      ],
+      "nearest_HD_pixel": [
+        911,
+        572
+      ],
+      "camera_forward_depth": 1.029976696712823,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        3890.0091184103653,
+        2443.0007285791344
+      ]
+    },
+    {
+      "camera": "KC",
+      "projected_COLMAP_uv": [
+        822.2316209459731,
+        750.398106756286
+      ],
+      "nearest_HD_pixel": [
+        822,
+        750
+      ],
+      "camera_forward_depth": 0.9534762187808379,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        3510.0327971007987,
+        3198.4934955185327
+      ]
+    },
+    {
+      "camera": "KD",
+      "projected_COLMAP_uv": [
+        1141.6622206290374,
+        850.2345957453867
+      ],
+      "nearest_HD_pixel": [
+        1141,
+        850
+      ],
+      "camera_forward_depth": 0.8930059311604461,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4864.775410569299,
+        3617.584231518177
+      ]
+    },
+    {
+      "camera": "LA",
+      "projected_COLMAP_uv": [
+        872.81055853969,
+        553.6303524972052
+      ],
+      "nearest_HD_pixel": [
+        872,
+        553
+      ],
+      "camera_forward_depth": 1.1257485857257001,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        3723.6965340149054,
+        2362.683530332535
+      ]
+    },
+    {
+      "camera": "LB",
+      "projected_COLMAP_uv": [
+        918.2259794888297,
+        575.4376874940392
+      ],
+      "nearest_HD_pixel": [
+        918,
+        575
+      ],
+      "camera_forward_depth": 1.0527525696753903,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        3917.316257134277,
+        2455.8213575822483
+      ]
+    },
+    {
+      "camera": "LC",
+      "projected_COLMAP_uv": [
+        1103.4259279017442,
+        755.9283827451009
+      ],
+      "nearest_HD_pixel": [
+        1103,
+        755
+      ],
+      "camera_forward_depth": 0.9638588027934535,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4705.30902546043,
+        3222.024784513041
+      ]
+    },
+    {
+      "camera": "MA",
+      "projected_COLMAP_uv": [
+        1037.170951692561,
+        574.6272676995179
+      ],
+      "nearest_HD_pixel": [
+        1037,
+        574
+      ],
+      "camera_forward_depth": 1.1381986179551191,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4424.581111675603,
+        2452.2971048572776
+      ]
+    },
+    {
+      "camera": "MB",
+      "projected_COLMAP_uv": [
+        1068.5700820218517,
+        648.4064210251038
+      ],
+      "nearest_HD_pixel": [
+        1068,
+        648
+      ],
+      "camera_forward_depth": 1.0547746876597783,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4558.051767210793,
+        2766.467565646316
+      ]
+    },
+    {
+      "camera": "MC",
+      "projected_COLMAP_uv": [
+        1175.7009794977337,
+        712.4120306774196
+      ],
+      "nearest_HD_pixel": [
+        1175,
+        712
+      ],
+      "camera_forward_depth": 0.9695304684169685,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        5011.402186535563,
+        3036.281930783553
+      ]
+    },
+    {
+      "camera": "MD",
+      "projected_COLMAP_uv": [
+        1169.8040725525602,
+        989.46877398676
+      ],
+      "nearest_HD_pixel": [
+        1169,
+        989
+      ],
+      "camera_forward_depth": 0.8896644476106758,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4979.948302484727,
+        4196.497237520326
+      ]
+    },
+    {
+      "camera": "NA",
+      "projected_COLMAP_uv": [
+        1051.0452378894524,
+        638.1984635552728
+      ],
+      "nearest_HD_pixel": [
+        1051,
+        638
+      ],
+      "camera_forward_depth": 1.1493205224350307,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4483.475582677528,
+        2723.096389750278
+      ]
+    },
+    {
+      "camera": "NB",
+      "projected_COLMAP_uv": [
+        1134.7560860199505,
+        600.4123760803302
+      ],
+      "nearest_HD_pixel": [
+        1134,
+        600
+      ],
+      "camera_forward_depth": 1.0617595583110577,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4839.88690781007,
+        2561.78626379919
+      ]
+    },
+    {
+      "camera": "NC",
+      "projected_COLMAP_uv": [
+        1218.330583604766,
+        706.8558584551515
+      ],
+      "nearest_HD_pixel": [
+        1218,
+        706
+      ],
+      "camera_forward_depth": 0.9885629997462845,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        5191.768447120495,
+        3012.213357460121
+      ]
+    },
+    {
+      "camera": "ND",
+      "projected_COLMAP_uv": [
+        1140.087740860765,
+        784.9092629145482
+      ],
+      "nearest_HD_pixel": [
+        1140,
+        784
+      ],
+      "camera_forward_depth": 0.9511380166654702,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4860.291037304185,
+        3343.7965200998533
+      ]
+    },
+    {
+      "camera": "NE",
+      "projected_COLMAP_uv": [
+        1156.2333917265523,
+        860.9813355109545
+      ],
+      "nearest_HD_pixel": [
+        1156,
+        860
+      ],
+      "camera_forward_depth": 0.9027306436007296,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4926.370662095401,
+        3662.902700010476
+      ]
+    },
+    {
+      "camera": "OA",
+      "projected_COLMAP_uv": [
+        980.5461478402241,
+        671.1619812409725
+      ],
+      "nearest_HD_pixel": [
+        980,
+        671
+      ],
+      "camera_forward_depth": 1.2311292406790355,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4183.00217697206,
+        2863.4690451671568
+      ]
+    },
+    {
+      "camera": "OD",
+      "projected_COLMAP_uv": [
+        1050.7448172041827,
+        823.6789586667667
+      ],
+      "nearest_HD_pixel": [
+        1050,
+        823
+      ],
+      "camera_forward_depth": 1.0206951284012198,
+      "inside_raster": true,
+      "projected_RAW_center": [
+        4480.517521902809,
+        3507.546882992935
+      ]
+    }
+  ],
+  "ranked_clear_source_views": [
+    "DD",
+    "CC",
+    "FD"
+  ],
+  "source_qualified_records": [
+    {
+      "camera": "DD",
+      "rank_clear_bag": 1,
+      "split": "TRAIN",
+      "qualification": "visible_nonactor_knitted_bag_pixel",
+      "confidence": 0.98,
+      "projected_COLMAP_uv": [
+        943.7438427706064,
+        874.6042077381132
+      ],
+      "nearest_HD_pixel": [
+        943,
+        874
+      ],
+      "projected_RAW_center": [
+        4026.4572061103604,
+        3722.224343982686
+      ],
+      "nearest_HD_pixel_RAW_center": [
+        4025.4236427463097,
+        3721.7878488408555
+      ],
+      "nearest_HD_pixel_RAW_corners": [
+        [
+          4023.3038165287385,
+          3719.694473639351
+        ],
+        [
+          4027.5418615013186,
+          3719.696078795259
+        ],
+        [
+          4027.5433996248444,
+          3723.8810850317413
+        ],
+        [
+          4023.3055012674968,
+          3723.879476711495
+        ]
+      ],
+      "native_patch_RAW_xyxy": [
+        3866,
+        3562,
+        4187,
+        3883
+      ],
+      "camera_forward_depth": 0.9787841250883537,
+      "point_visibility": "UNKNOWN; visible source pixel class does not locate the surface or prove this XYZ is visible",
+      "current_HD": {
+        "black": 0.0,
+        "grey": 0.0,
+        "nominal": 0.0,
+        "W64": 0.0019224374555051327,
+        "core": 0.0,
+        "band": 1.0
+      },
+      "current_UNKNOWN": false,
+      "RAW_nearest_at_HDcenter": {
+        "black": false,
+        "grey": false,
+        "nominal": false,
+        "source_ineligible": false
+      },
+      "exact_existing_query_matches": [],
+      "nearest_existing_query": {
+        "index": 833,
+        "HD_pixel": [
+          951,
+          872
+        ],
+        "distance_to_continuous_projection_HD_pixels": 8.036520713107754,
+        "semantic_target": 0.0,
+        "category": "near_qualified_clear"
+      },
+      "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/DD/DD.000408.tif",
+      "raw_source_sha256": "14a91b40f7cf150504fa2991faacc8aba8714bed5daf9c9063c119bf4664c462",
+      "native_crop_source": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/DD_RAW_native_crop.png",
+      "native_crop_source_sha256": "8c3acb71de72df67903bbd8fcec4d6f85a53bf7788aa4e7a0b2545aff45f1eb9",
+      "native_crop_RAW_xyxy": [
+        1389,
+        759,
+        5400,
+        4320
+      ],
+      "raw_archive": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/DD.npz",
+      "raw_archive_sha256": "0ff34cb7fcb8a488f560300ead00483aa69c8c95fc761968c2752c94bb2c91fc",
+      "source_native_raster": [
+        8192,
+        4320
+      ],
+      "native_TIFF_canonical_display_replay_max_code_error": 0,
+      "RAW_to_HD_inverse_max_error": 1.0231815394945443e-09,
+      "camera_row": {
+        "file_path": "images/train_DD.png",
+        "mask_path": "masks/DD.png",
+        "physical_camera": "DD",
+        "w": 1920,
+        "h": 1012,
+        "fl_x": 1356.1034727372785,
+        "fl_y": 1353.7929106234626,
+        "cx": 960.0,
+        "cy": 506.0,
+        "k1": 0.0,
+        "k2": 0.0,
+        "p1": 0.0,
+        "p2": 0.0,
+        "transform_matrix": [
+          [
+            0.6649758309193442,
+            -0.05228026294046936,
+            -0.7450328952370225,
+            -0.6774114529192506
+          ],
+          [
+            -0.7459630601462661,
+            0.0025140691500691315,
+            -0.6659825742780877,
+            -0.6013852564150011
+          ],
+          [
+            0.03669080974881471,
+            0.9986292893268198,
+            -0.037327321915860426,
+            0.24858178681482013
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "raw_OpenCV_K": [
+        [
+          5786.041483679055,
+          0.0,
+          4095.5
+        ],
+        [
+          0.0,
+          5779.036930724663,
+          2159.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "distortion": [
+        -0.09087605900540367,
+        0.047222746713227744,
+        -0.00044002582729956585,
+        -0.00034748929664805414
+      ],
+      "page": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_bag_projection_review_CPU_v1/DD_qualified_projection_native.png",
+      "page_sha256": "403a4c6487f11f82c1b353ee4338fdfd0e6976afc88d5c974b872eff2b4910de",
+      "new_label_proposed": false
+    },
+    {
+      "camera": "CC",
+      "rank_clear_bag": 2,
+      "split": "TRAIN",
+      "qualification": "visible_nonactor_knitted_bag_pixel",
+      "confidence": 0.98,
+      "projected_COLMAP_uv": [
+        1080.822765523326,
+        823.966648382964
+      ],
+      "nearest_HD_pixel": [
+        1080,
+        823
+      ],
+      "projected_RAW_center": [
+        4608.002232058086,
+        3508.315542689231
+      ],
+      "nearest_HD_pixel_RAW_center": [
+        4606.642336436925,
+        3506.3610532215644
+      ],
+      "nearest_HD_pixel_RAW_corners": [
+        [
+          4604.532149686029,
+          3504.269124109779
+        ],
+        [
+          4608.767969206768,
+          3504.2536983252535
+        ],
+        [
+          4608.752413487873,
+          3508.4528341041687
+        ],
+        [
+          4604.51672417724,
+          3508.4683003554755
+        ]
+      ],
+      "native_patch_RAW_xyxy": [
+        4448,
+        3348,
+        4769,
+        3669
+      ],
+      "camera_forward_depth": 1.0088835216183047,
+      "point_visibility": "UNKNOWN; visible source pixel class does not locate the surface or prove this XYZ is visible",
+      "current_HD": {
+        "black": 0.0,
+        "grey": 0.0,
+        "nominal": 0.0,
+        "W64": 0.0012760359095409513,
+        "core": 0.0,
+        "band": 1.0
+      },
+      "current_UNKNOWN": false,
+      "RAW_nearest_at_HDcenter": {
+        "black": false,
+        "grey": false,
+        "nominal": false,
+        "source_ineligible": false
+      },
+      "exact_existing_query_matches": [],
+      "nearest_existing_query": {
+        "index": 796,
+        "HD_pixel": [
+          1085,
+          817
+        ],
+        "distance_to_continuous_projection_HD_pixels": 7.980856073046143,
+        "semantic_target": 0.0,
+        "category": "near_qualified_clear"
+      },
+      "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/CC/CC.000408.tif",
+      "raw_source_sha256": "d16f1d986307d786b9500c317ae9bf23c7f8df837e0eeb274021644ff66c6768",
+      "native_crop_source": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/CC_RAW_native_crop.png",
+      "native_crop_source_sha256": "84494ebf83bc1bd2264e8d9e986c5fb74953ef9376ec6aa7bc079e26636c0929",
+      "native_crop_RAW_xyxy": [
+        1829,
+        914,
+        5881,
+        4320
+      ],
+      "raw_archive": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/CC.npz",
+      "raw_archive_sha256": "53f0b1efdf16e98b70e28b15282c4b3bc2b66447edea5755e7327dc7c91e0ec5",
+      "source_native_raster": [
+        8192,
+        4320
+      ],
+      "native_TIFF_canonical_display_replay_max_code_error": 0,
+      "RAW_to_HD_inverse_max_error": 5.235278877080418e-10,
+      "camera_row": {
+        "file_path": "images/train_CC.png",
+        "mask_path": "masks/CC.png",
+        "physical_camera": "CC",
+        "w": 1920,
+        "h": 1012,
+        "fl_x": 1355.3892260572359,
+        "fl_y": 1353.1025824165897,
+        "cx": 960.0,
+        "cy": 506.0,
+        "k1": 0.0,
+        "k2": 0.0,
+        "p1": 0.0,
+        "p2": 0.0,
+        "transform_matrix": [
+          [
+            0.6494863844554644,
+            0.10824023942029753,
+            -0.7526297326278588,
+            -0.7341202895449314
+          ],
+          [
+            -0.7603607382649964,
+            0.09814060887602187,
+            -0.6420436454300853,
+            -0.49754734412060614
+          ],
+          [
+            0.004368619178752822,
+            0.9892686431187534,
+            0.1460426427345738,
+            0.4000346448318024
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "raw_OpenCV_K": [
+        [
+          5782.99403117754,
+          0.0,
+          4095.5
+        ],
+        [
+          0.0,
+          5776.090075138011,
+          2159.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "distortion": [
+        -0.09103595069183368,
+        0.046732943285966,
+        -0.001013329420930358,
+        0.000230922799968312
+      ],
+      "page": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_bag_projection_review_CPU_v1/CC_qualified_projection_native.png",
+      "page_sha256": "9475b7b99e5f5b063444070c8f1b79c90d486e1e0f5bb6139fb458e0eb3b7e67",
+      "new_label_proposed": false
+    },
+    {
+      "camera": "FD",
+      "rank_clear_bag": 3,
+      "split": "TRAIN",
+      "qualification": "visible_nonactor_knitted_bag_pixel",
+      "confidence": 0.98,
+      "projected_COLMAP_uv": [
+        971.2460338796285,
+        849.9059696219101
+      ],
+      "nearest_HD_pixel": [
+        971,
+        849
+      ],
+      "projected_RAW_center": [
+        4143.211854349209,
+        3617.941679161436
+      ],
+      "nearest_HD_pixel_RAW_center": [
+        4144.28924742813,
+        3616.240137193649
+      ],
+      "nearest_HD_pixel_RAW_corners": [
+        [
+          4142.169964029599,
+          3614.145564411822
+        ],
+        [
+          4146.410002737455,
+          3614.1440948886016
+        ],
+        [
+          4146.408455417407,
+          3618.334570137427
+        ],
+        [
+          4142.168559761967,
+          3618.3360430553403
+        ]
+      ],
+      "native_patch_RAW_xyxy": [
+        3983,
+        3458,
+        4304,
+        3779
+      ],
+      "camera_forward_depth": 0.9396622725246119,
+      "point_visibility": "UNKNOWN; visible source pixel class does not locate the surface or prove this XYZ is visible",
+      "current_HD": {
+        "black": 0.0,
+        "grey": 0.0,
+        "nominal": 0.0,
+        "W64": 0.05553189292550087,
+        "core": 0.0,
+        "band": 1.0
+      },
+      "current_UNKNOWN": false,
+      "RAW_nearest_at_HDcenter": {
+        "black": false,
+        "grey": false,
+        "nominal": false,
+        "source_ineligible": false
+      },
+      "exact_existing_query_matches": [],
+      "nearest_existing_query": {
+        "index": 636,
+        "HD_pixel": [
+          982,
+          848
+        ],
+        "distance_to_continuous_projection_HD_pixels": 11.34145070157269,
+        "semantic_target": 0.0,
+        "category": "near_qualified_clear"
+      },
+      "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/FD/FD.000408.tif",
+      "raw_source_sha256": "4e6fec38d582dbbd289784e96f241efb9c86ced17e93bd8030429183a791bcc2",
+      "native_crop_source": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/FD_RAW_native_crop.png",
+      "native_crop_source_sha256": "96941eb05f6fd3a311c090673b9dff1cc3f2fa129b54e8b45d814ec50bb02e0c",
+      "native_crop_RAW_xyxy": [
+        1927,
+        790,
+        5810,
+        4320
+      ],
+      "raw_archive": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/FD.npz",
+      "raw_archive_sha256": "403c29595870116a9288b7fdf6319b8cd829865df19acd00bd6d11c2802d1b44",
+      "source_native_raster": [
+        8192,
+        4320
+      ],
+      "native_TIFF_canonical_display_replay_max_code_error": 0,
+      "RAW_to_HD_inverse_max_error": 7.644302968401462e-10,
+      "camera_row": {
+        "file_path": "images/train_FD.png",
+        "mask_path": "masks/FD.png",
+        "physical_camera": "FD",
+        "w": 1920,
+        "h": 1012,
+        "fl_x": 1354.517161456622,
+        "fl_y": 1352.0828351219711,
+        "cx": 960.0,
+        "cy": 506.0,
+        "k1": 0.0,
+        "k2": 0.0,
+        "p1": 0.0,
+        "p2": 0.0,
+        "transform_matrix": [
+          [
+            0.950336966785648,
+            0.0006987807738369489,
+            -0.3112222179477973,
+            -0.24174573548818792
+          ],
+          [
+            -0.3111949946656125,
+            -0.011276456126746215,
+            -0.9502791710633538,
+            -0.8346584916702554
+          ],
+          [
+            -0.004173511383540204,
+            0.9999361675312977,
+            -0.010498941373786014,
+            0.247710863186433
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "raw_OpenCV_K": [
+        [
+          5779.273222214921,
+          0.0,
+          4095.5
+        ],
+        [
+          0.0,
+          5771.737003682723,
+          2159.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "distortion": [
+        -0.09085460470981212,
+        0.04703799847940806,
+        -0.0011321780663415882,
+        7.807218403119882e-05
+      ],
+      "page": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_bag_projection_review_CPU_v1/FD_qualified_projection_native.png",
+      "page_sha256": "80dadd215f00f2416a3995cfc7aec1bfeb34e9b7f77c488c919170ca7929b523",
+      "new_label_proposed": false
+    },
+    {
+      "camera": "IA",
+      "rank_clear_bag": null,
+      "split": "TRAIN",
+      "qualification": "UNKNOWN_shoe_bag_contact_ambiguity",
+      "confidence": 0.7,
+      "projected_COLMAP_uv": [
+        995.5115595165986,
+        559.6024950485405
+      ],
+      "nearest_HD_pixel": [
+        995,
+        559
+      ],
+      "projected_RAW_center": [
+        4246.963014703402,
+        2388.236931255838
+      ],
+      "nearest_HD_pixel_RAW_center": [
+        4246.913838938937,
+        2387.7997308529953
+      ],
+      "nearest_HD_pixel_RAW_corners": [
+        [
+          4244.782110266304,
+          2385.667445244002
+        ],
+        [
+          4249.046728431518,
+          2385.6662754156655
+        ],
+        [
+          4249.045535278348,
+          2389.9319794353946
+        ],
+        [
+          4244.7809449235765,
+          2389.933167666062
+        ]
+      ],
+      "native_patch_RAW_xyxy": [
+        4087,
+        2228,
+        4408,
+        2549
+      ],
+      "camera_forward_depth": 1.1062652677414557,
+      "point_visibility": "UNKNOWN; visible source pixel class does not locate the surface or prove this XYZ is visible",
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "current_UNKNOWN": false,
+      "RAW_nearest_at_HDcenter": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "source_ineligible": false
+      },
+      "exact_existing_query_matches": [],
+      "nearest_existing_query": {
+        "index": 406,
+        "HD_pixel": [
+          980,
+          557
+        ],
+        "distance_to_continuous_projection_HD_pixels": 15.158080503464783,
+        "semantic_target": 1.0,
+        "category": "actor_interior"
+      },
+      "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/IA/IA.000408.tif",
+      "raw_source_sha256": "86af807c2dbcf8bb613bc0ae67e395f18c62debf2f4ff29d6d630bdeca797bea",
+      "native_crop_source": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/IA_RAW_native_crop.png",
+      "native_crop_source_sha256": "6023c9a8b6697e9cc7e4db2c1ad237cdb12804981dea9717ff32429abe34ca8b",
+      "native_crop_RAW_xyxy": [
+        2417,
+        0,
+        6292,
+        3588
+      ],
+      "raw_archive": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/IA.npz",
+      "raw_archive_sha256": "8200b3e54029caefccd905f5ba32271e27a473fefaf0f733b02aa1aef089d6e2",
+      "source_native_raster": [
+        8192,
+        4320
+      ],
+      "native_TIFF_canonical_display_replay_max_code_error": 0,
+      "RAW_to_HD_inverse_max_error": 0.0,
+      "camera_row": {
+        "file_path": "images/train_IA.png",
+        "mask_path": "masks/IA.png",
+        "physical_camera": "IA",
+        "w": 1920,
+        "h": 1012,
+        "fl_x": 1359.8987590989366,
+        "fl_y": 1359.4370101102693,
+        "cx": 960.0,
+        "cy": 506.0,
+        "k1": 0.0,
+        "k2": 0.0,
+        "p1": 0.0,
+        "p2": 0.0,
+        "transform_matrix": [
+          [
+            0.8475286441026996,
+            -0.3168751743139912,
+            0.42577619242056197,
+            0.49066079282835057
+          ],
+          [
+            0.530564786741197,
+            0.4846546658791296,
+            -0.6954213469659742,
+            -0.704956711066099
+          ],
+          [
+            0.014007355514290803,
+            0.815291386788899,
+            0.5788815169050557,
+            0.6941081875512074
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "raw_OpenCV_K": [
+        [
+          5802.234705488796,
+          0.0,
+          4095.5
+        ],
+        [
+          0.0,
+          5803.130319838304,
+          2159.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "distortion": [
+        -0.09104633016933483,
+        0.04870246480387024,
+        -0.0008611441928645987,
+        -0.0005679989997686244
+      ],
+      "page": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_bag_projection_review_CPU_v1/IA_qualified_projection_native.png",
+      "page_sha256": "f5fdfbcc2d86a6dd46937d092124f07bb78f1d922f51f691533e7e4d3c29393c",
+      "new_label_proposed": false
+    },
+    {
+      "camera": "LA",
+      "rank_clear_bag": null,
+      "split": "TRAIN",
+      "qualification": "UNKNOWN_shoe_bag_contact_ambiguity",
+      "confidence": 0.7,
+      "projected_COLMAP_uv": [
+        872.81055853969,
+        553.6303524972052
+      ],
+      "nearest_HD_pixel": [
+        872,
+        553
+      ],
+      "projected_RAW_center": [
+        3723.6965340149054,
+        2362.683530332535
+      ],
+      "nearest_HD_pixel_RAW_center": [
+        3722.3729059675943,
+        2362.1268918913415
+      ],
+      "nearest_HD_pixel_RAW_corners": [
+        [
+          3720.2412350002583,
+          2359.993296540376
+        ],
+        [
+          3724.502387655046,
+          2359.9955026298894
+        ],
+        [
+          3724.504600406233,
+          2364.2604800574622
+        ],
+        [
+          3720.2434728249264,
+          2364.258237942113
+        ]
+      ],
+      "native_patch_RAW_xyxy": [
+        3564,
+        2203,
+        3885,
+        2524
+      ],
+      "camera_forward_depth": 1.1257485857257001,
+      "point_visibility": "UNKNOWN; visible source pixel class does not locate the surface or prove this XYZ is visible",
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "current_UNKNOWN": false,
+      "RAW_nearest_at_HDcenter": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "source_ineligible": false
+      },
+      "exact_existing_query_matches": [],
+      "nearest_existing_query": {
+        "index": 450,
+        "HD_pixel": [
+          871,
+          558
+        ],
+        "distance_to_continuous_projection_HD_pixels": 5.0429188460087255,
+        "semantic_target": 1.0,
+        "category": "actor_interior"
+      },
+      "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/LA/LA.000408.tif",
+      "raw_source_sha256": "7ad7bb21d30aae65ac57512e5a0adf417d6bc07e98b76e2d9f3162ed45668c55",
+      "native_crop_source": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/LA_RAW_native_crop.png",
+      "native_crop_source_sha256": "1b7bff3fc30e518a45bcf1510c5bf3576b97b728bc137afb94007224e58e23bf",
+      "native_crop_RAW_xyxy": [
+        2751,
+        0,
+        6065,
+        3664
+      ],
+      "raw_archive": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/LA.npz",
+      "raw_archive_sha256": "be739065acb4134f65a9cf2d14bc2b62edb77f4cfb68c2321c471f51c9890107",
+      "source_native_raster": [
+        8192,
+        4320
+      ],
+      "native_TIFF_canonical_display_replay_max_code_error": 0,
+      "RAW_to_HD_inverse_max_error": 0.0,
+      "camera_row": {
+        "file_path": "images/train_LA.png",
+        "mask_path": "masks/LA.png",
+        "physical_camera": "LA",
+        "w": 1920,
+        "h": 1012,
+        "fl_x": 1359.1848489949093,
+        "fl_y": 1358.4872027907245,
+        "cx": 960.0,
+        "cy": 506.0,
+        "k1": 0.0,
+        "k2": 0.0,
+        "p1": 0.0,
+        "p2": 0.0,
+        "transform_matrix": [
+          [
+            0.3297802189487618,
+            -0.5352460907597629,
+            0.7776609805828516,
+            0.936084737013674
+          ],
+          [
+            0.9440248954061271,
+            0.1938409553841419,
+            -0.26691334716080034,
+            -0.16610340424583236
+          ],
+          [
+            -0.007878263882569791,
+            0.8221540435642872,
+            0.569210535241774,
+            0.6912230310467473
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "raw_OpenCV_K": [
+        [
+          5799.188689044947,
+          0.0,
+          4095.5
+        ],
+        [
+          0.0,
+          5799.075806379377,
+          2159.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "distortion": [
+        -0.08900524005742097,
+        0.048033873441438564,
+        -0.0009254113738765276,
+        5.378405157315501e-05
+      ],
+      "page": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_bag_projection_review_CPU_v1/LA_qualified_projection_native.png",
+      "page_sha256": "310f08e12dde41cfb470d2325cc407b19c8efb40c4c6907f1726efc6225ae6ba",
+      "new_label_proposed": false
+    },
+    {
+      "camera": "LB",
+      "rank_clear_bag": null,
+      "split": "TRAIN",
+      "qualification": "UNKNOWN_shoe_bag_contact_ambiguity",
+      "confidence": 0.7,
+      "projected_COLMAP_uv": [
+        918.2259794888297,
+        575.4376874940392
+      ],
+      "nearest_HD_pixel": [
+        918,
+        575
+      ],
+      "projected_RAW_center": [
+        3917.316257134277,
+        2455.8213575822483
+      ],
+      "nearest_HD_pixel_RAW_center": [
+        3918.4849459019474,
+        2456.08745687597
+      ],
+      "nearest_HD_pixel_RAW_corners": [
+        [
+          3916.3520245713457,
+          2453.9541659264705
+        ],
+        [
+          3920.616755576793,
+          2453.955283051445
+        ],
+        [
+          3920.6178689206536,
+          2458.2207270382614
+        ],
+        [
+          3916.3531667171305,
+          2458.2195938904847
+        ]
+      ],
+      "native_patch_RAW_xyxy": [
+        3757,
+        2296,
+        4078,
+        2617
+      ],
+      "camera_forward_depth": 1.0527525696753903,
+      "point_visibility": "UNKNOWN; visible source pixel class does not locate the surface or prove this XYZ is visible",
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 1.0,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "current_UNKNOWN": false,
+      "RAW_nearest_at_HDcenter": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "source_ineligible": false
+      },
+      "exact_existing_query_matches": [],
+      "nearest_existing_query": {
+        "index": 175,
+        "HD_pixel": [
+          915,
+          575
+        ],
+        "distance_to_continuous_projection_HD_pixels": 2.7266915890726096,
+        "semantic_target": 1.0,
+        "category": "actor_interior"
+      },
+      "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/LB/LB.000408.tif",
+      "raw_source_sha256": "91ab8de7c809236ef1a72a8089fd4f0567278ded9c88b427f2de9f0255101ffe",
+      "native_crop_source": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/LB_RAW_native_crop.png",
+      "native_crop_source_sha256": "f33c83f99a62222f498ef3108bdc117de5323463af78664381141811f1aa3e71",
+      "native_crop_RAW_xyxy": [
+        2799,
+        0,
+        6392,
+        3741
+      ],
+      "raw_archive": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/LB.npz",
+      "raw_archive_sha256": "a35779c95a6b5348404db351563bc948f63abb35429ea4ecd9ee459bdb7486dc",
+      "source_native_raster": [
+        8192,
+        4320
+      ],
+      "native_TIFF_canonical_display_replay_max_code_error": 0,
+      "RAW_to_HD_inverse_max_error": 0.0,
+      "camera_row": {
+        "file_path": "images/train_LB.png",
+        "mask_path": "masks/LB.png",
+        "physical_camera": "LB",
+        "w": 1920,
+        "h": 1012,
+        "fl_x": 1357.0856725886606,
+        "fl_y": 1355.1805744610224,
+        "cx": 960.0,
+        "cy": 506.0,
+        "k1": 0.0,
+        "k2": 0.0,
+        "p1": 0.0,
+        "p2": 0.0,
+        "transform_matrix": [
+          [
+            0.38523162253332605,
+            -0.4046435727398523,
+            0.8293733879194298,
+            0.9217267930297843
+          ],
+          [
+            0.9227878697131161,
+            0.17640521163817988,
+            -0.3425548228836487,
+            -0.2626556708326924
+          ],
+          [
+            -0.007693220837185044,
+            0.8972986109635775,
+            0.4413570099917462,
+            0.5313456004771748
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "raw_OpenCV_K": [
+        [
+          5790.232203044952,
+          0.0,
+          4095.5
+        ],
+        [
+          0.0,
+          5784.960555011479,
+          2159.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "distortion": [
+        -0.08933150596427279,
+        0.047039412580658656,
+        -1.8929272214972183e-05,
+        -0.00015948351095356616
+      ],
+      "page": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_bag_projection_review_CPU_v1/LB_qualified_projection_native.png",
+      "page_sha256": "1d24f0e317b80995bbcc131666d2880ac539f66d4c91a2cce59420205e99cb33",
+      "new_label_proposed": false
+    },
+    {
+      "camera": "MA",
+      "rank_clear_bag": null,
+      "split": "TRAIN",
+      "qualification": "UNKNOWN_shoe_bag_contact_ambiguity",
+      "confidence": 0.7,
+      "projected_COLMAP_uv": [
+        1037.170951692561,
+        574.6272676995179
+      ],
+      "nearest_HD_pixel": [
+        1037,
+        574
+      ],
+      "projected_RAW_center": [
+        4424.581111675603,
+        2452.2971048572776
+      ],
+      "nearest_HD_pixel_RAW_center": [
+        4425.983727206847,
+        2451.753624998182
+      ],
+      "nearest_HD_pixel_RAW_corners": [
+        [
+          4423.853956274271,
+          2449.62246018521
+        ],
+        [
+          4428.115725787328,
+          2449.620220485992
+        ],
+        [
+          4428.113451392616,
+          2453.884745331184
+        ],
+        [
+          4423.851709933415,
+          2453.887017672312
+        ]
+      ],
+      "native_patch_RAW_xyxy": [
+        4265,
+        2292,
+        4586,
+        2613
+      ],
+      "camera_forward_depth": 1.1381986179551191,
+      "point_visibility": "UNKNOWN; visible source pixel class does not locate the surface or prove this XYZ is visible",
+      "current_HD": {
+        "black": 0.0,
+        "grey": 1.0,
+        "nominal": 1.0,
+        "W64": 0.9999735355377197,
+        "core": 1.0,
+        "band": 0.0
+      },
+      "current_UNKNOWN": false,
+      "RAW_nearest_at_HDcenter": {
+        "black": false,
+        "grey": true,
+        "nominal": true,
+        "source_ineligible": false
+      },
+      "exact_existing_query_matches": [],
+      "nearest_existing_query": {
+        "index": 171,
+        "HD_pixel": [
+          1039,
+          574
+        ],
+        "distance_to_continuous_projection_HD_pixels": 2.332522901436403,
+        "semantic_target": 1.0,
+        "category": "actor_interior"
+      },
+      "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/MA/MA.000408.tif",
+      "raw_source_sha256": "cdbd6ae87b4e140bed90609402b67de50b45d377041b38623ed1a86bae8ba22b",
+      "native_crop_source": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/MA_RAW_native_crop.png",
+      "native_crop_source_sha256": "63cb37d1b588a8c284a54cb36a98a452218e4e82b887a84630b2d08914af6b9b",
+      "native_crop_RAW_xyxy": [
+        3505,
+        0,
+        6941,
+        3960
+      ],
+      "raw_archive": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/MA.npz",
+      "raw_archive_sha256": "96760eabe162a4cefa4275b7fff17dd36f68cb2a1a9624ab1598243849204cde",
+      "source_native_raster": [
+        8192,
+        4320
+      ],
+      "native_TIFF_canonical_display_replay_max_code_error": 0,
+      "RAW_to_HD_inverse_max_error": 0.0,
+      "camera_row": {
+        "file_path": "images/train_MA.png",
+        "mask_path": "masks/MA.png",
+        "physical_camera": "MA",
+        "w": 1920,
+        "h": 1012,
+        "fl_x": 1355.598702833899,
+        "fl_y": 1353.959955627339,
+        "cx": 960.0,
+        "cy": 506.0,
+        "k1": 0.0,
+        "k2": 0.0,
+        "p1": 0.0,
+        "p2": 0.0,
+        "transform_matrix": [
+          [
+            -0.10860716315895864,
+            -0.5479391897383902,
+            0.829437895030551,
+            0.9774362048425792
+          ],
+          [
+            0.9918055962886636,
+            -0.11619456806903623,
+            0.05310778749888109,
+            0.04803020844358654
+          ],
+          [
+            0.0672763365620968,
+            0.8284090781030138,
+            0.5560686270388073,
+            0.6949026756400424
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "raw_OpenCV_K": [
+        [
+          5783.88779875797,
+          0.0,
+          4095.5
+        ],
+        [
+          0.0,
+          5779.750008211566,
+          2159.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "distortion": [
+        -0.0888069375230722,
+        0.04683153531442727,
+        -1.6869853716592608e-05,
+        -0.00016440845619494846
+      ],
+      "page": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_bag_projection_review_CPU_v1/MA_qualified_projection_native.png",
+      "page_sha256": "a8e51cf47331644242e5f63501719b488ce88764e36d67a638e7f9e54ba5a7a0",
+      "new_label_proposed": false
+    }
+  ],
+  "pages": [
+    {
+      "camera": "DD",
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_bag_projection_review_CPU_v1/DD_qualified_projection_native.png",
+      "sha256": "403a4c6487f11f82c1b353ee4338fdfd0e6976afc88d5c974b872eff2b4910de",
+      "native_no_resize": true
+    },
+    {
+      "camera": "CC",
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_bag_projection_review_CPU_v1/CC_qualified_projection_native.png",
+      "sha256": "9475b7b99e5f5b063444070c8f1b79c90d486e1e0f5bb6139fb458e0eb3b7e67",
+      "native_no_resize": true
+    },
+    {
+      "camera": "FD",
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_bag_projection_review_CPU_v1/FD_qualified_projection_native.png",
+      "sha256": "80dadd215f00f2416a3995cfc7aec1bfeb34e9b7f77c488c919170ca7929b523",
+      "native_no_resize": true
+    },
+    {
+      "camera": "IA",
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_bag_projection_review_CPU_v1/IA_qualified_projection_native.png",
+      "sha256": "f5fdfbcc2d86a6dd46937d092124f07bb78f1d922f51f691533e7e4d3c29393c",
+      "native_no_resize": true
+    },
+    {
+      "camera": "LA",
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_bag_projection_review_CPU_v1/LA_qualified_projection_native.png",
+      "sha256": "310f08e12dde41cfb470d2325cc407b19c8efb40c4c6907f1726efc6225ae6ba",
+      "native_no_resize": true
+    },
+    {
+      "camera": "LB",
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_bag_projection_review_CPU_v1/LB_qualified_projection_native.png",
+      "sha256": "1d24f0e317b80995bbcc131666d2880ac539f66d4c91a2cce59420205e99cb33",
+      "native_no_resize": true
+    },
+    {
+      "camera": "MA",
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_bag_projection_review_CPU_v1/MA_qualified_projection_native.png",
+      "sha256": "a8e51cf47331644242e5f63501719b488ce88764e36d67a638e7f9e54ba5a7a0",
+      "native_no_resize": true
+    }
+  ],
+  "inputs_sha256": {
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_physical_plan_v3/prior001/renders/DC_trace_1097_572.npz": "71ff6f7207d2ccaf803d373bc7e414dc9d8f5fa8e1a5f65aadf5c592f4c379ea",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/transforms.json": "64176bce20fcf0f08427a89b492003adcce6a0b513d9fffd6bbc583db172f01a",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/request.json": "692ddf98d2334c710d0ac9e6481ffba7c99b70a899db882e33d117c4b729bca8",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/manifest.json": "1f7f28751aac5ae7486ff8392606cf6c09bd2118eef934dbf64c1171d96aabc3",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_native_semantic_CPU_v2/manifest.json": "1562bcfaf5ec5da00a840da210962ef136d521fbca0d1beb5bf30d4a9aeb30ba",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_native_semantic_head_technical_plan_v1/label_qualification.json": "944d88dbbfd24a0021c1166dbfe1fa949047b8d929b9b0cad65e6c84f07ff4f0",
+    "/fsx/oregon/gta_marshawn_2_1_prep_20261028/root/Marshawn_2_1/golden/rig/images.txt": "74cc5ca92ecd254729dd74876c3086e78e12ec959ca1729ce0c19aa507961ebc",
+    "/fsx/oregon/gta_marshawn_2_1_prep_20261028/root/Marshawn_2_1/golden/rig/cameras.txt": "6710f5563ea3831c6e53ea95894b4d166a33d2e15c3d2a26a38490acb2a9e893",
+    "/fsx/oregon/gta_marshawn_2_1/six_sec_20261019/code/engine_gta_pv_export/ca4d/ca4d/pq.py": "87e424399143ccffb8c2ba993d5d119b85f51f37d8904209777a6b386814d175",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_bag_projection_review_CPU_v1/build_review.py": "98b515ee68cf838d0aa617f5b08c219f5b162f1533a476beb78d2d4112b655a1",
+    "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/DD/DD.000408.tif": "14a91b40f7cf150504fa2991faacc8aba8714bed5daf9c9063c119bf4664c462",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/DD_RAW_native_crop.png": "8c3acb71de72df67903bbd8fcec4d6f85a53bf7788aa4e7a0b2545aff45f1eb9",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/DD.npz": "0ff34cb7fcb8a488f560300ead00483aa69c8c95fc761968c2752c94bb2c91fc",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/DD.npz": "612344d0661df2f0f446267803953bc15f2d2670bb756c781f050eb8e64d1e23",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/DD.npz": "0fd31e901a0e4f6c822f6a07620a81d536436fda03aa7fae72d76f1afe96d14d",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_native_semantic_CPU_v2/queries/DD.npz": "ae1e3c105374bd2d1aaf7595a1c0a3622e6ce226db1ba9036365d1df78c6f8d0",
+    "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/CC/CC.000408.tif": "d16f1d986307d786b9500c317ae9bf23c7f8df837e0eeb274021644ff66c6768",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/CC_RAW_native_crop.png": "84494ebf83bc1bd2264e8d9e986c5fb74953ef9376ec6aa7bc079e26636c0929",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/CC.npz": "53f0b1efdf16e98b70e28b15282c4b3bc2b66447edea5755e7327dc7c91e0ec5",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/CC.npz": "0c5c94bfbd3d14ca2a151e3867c9deac81a640e76fd7d5fe569f3ddcb532f2b0",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/CC.npz": "20f7b63ae3ad60e2145bb4ff669001b5ca4859bda2d56b916ed95e704995d386",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_native_semantic_CPU_v2/queries/CC.npz": "cac6f77d7615698c0f28f7846102359dffd2fd4b673833cf8a7ec3671c01220b",
+    "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/FD/FD.000408.tif": "4e6fec38d582dbbd289784e96f241efb9c86ced17e93bd8030429183a791bcc2",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/FD_RAW_native_crop.png": "96941eb05f6fd3a311c090673b9dff1cc3f2fa129b54e8b45d814ec50bb02e0c",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/FD.npz": "403c29595870116a9288b7fdf6319b8cd829865df19acd00bd6d11c2802d1b44",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/FD.npz": "f27bc612c11d68603689c497e3915627f231696cfc793e5aa06deac0ad872be7",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/FD.npz": "ad32c26360ddfbfd61a18f8f997e5eb65a5aba41755891190f7829fddbf635a3",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_native_semantic_CPU_v2/queries/FD.npz": "b4ded3c07fcb0c8c3954c82e5e6515877a0a9c525345a8646dbbc38f387cb9f7",
+    "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/IA/IA.000408.tif": "86af807c2dbcf8bb613bc0ae67e395f18c62debf2f4ff29d6d630bdeca797bea",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/IA_RAW_native_crop.png": "6023c9a8b6697e9cc7e4db2c1ad237cdb12804981dea9717ff32429abe34ca8b",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/IA.npz": "8200b3e54029caefccd905f5ba32271e27a473fefaf0f733b02aa1aef089d6e2",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/IA.npz": "ff2014fcf6842cd519827a7aa384c1d97603858fd332b0ef317acccdb97af080",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/IA.npz": "91860247110bc205fa345ede9fe7dbbdb4f579bf6265ec762f826798d083fec5",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_native_semantic_CPU_v2/queries/IA.npz": "1965308011c8a133d70cf66862cfc532a85b93c4c0585d5b294085754511d5e0",
+    "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/LA/LA.000408.tif": "7ad7bb21d30aae65ac57512e5a0adf417d6bc07e98b76e2d9f3162ed45668c55",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/LA_RAW_native_crop.png": "1b7bff3fc30e518a45bcf1510c5bf3576b97b728bc137afb94007224e58e23bf",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/LA.npz": "be739065acb4134f65a9cf2d14bc2b62edb77f4cfb68c2321c471f51c9890107",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/LA.npz": "1ac24bd1a6fc89306ea316d9835a9ba13725e9fecbcfaa67af0ede4da1feffff",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/LA.npz": "9de9268515f42889bb74f890004b869faa38bc68a3418709757d240f8b98ec83",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_native_semantic_CPU_v2/queries/LA.npz": "9344a1d98e7af0e3e452df93bc0408fe56d3afb8aac6c30c7fad8a693b712f1a",
+    "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/LB/LB.000408.tif": "91ab8de7c809236ef1a72a8089fd4f0567278ded9c88b427f2de9f0255101ffe",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/LB_RAW_native_crop.png": "f33c83f99a62222f498ef3108bdc117de5323463af78664381141811f1aa3e71",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/LB.npz": "a35779c95a6b5348404db351563bc948f63abb35429ea4ecd9ee459bdb7486dc",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/LB.npz": "298eb134186a22fd36304af3849055934283a5dcd8ed6c25a84db93620dad02b",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/LB.npz": "e5ddc6caeefc20ddaeef8756a63818e2d26a0cb6cd48d76e4e0e77b5b467f8c2",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_native_semantic_CPU_v2/queries/LB.npz": "18bf1d86e730770e83a73d3e51ce623e247e3fc6ee84ce425b57963de58df8f4",
+    "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/MA/MA.000408.tif": "cdbd6ae87b4e140bed90609402b67de50b45d377041b38623ed1a86bae8ba22b",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/MA_RAW_native_crop.png": "63cb37d1b588a8c284a54cb36a98a452218e4e82b887a84630b2d08914af6b9b",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/MA.npz": "96760eabe162a4cefa4275b7fff17dd36f68cb2a1a9624ab1598243849204cde",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/MA.npz": "f1d22efddcef8804ac07a7745ad2d8ad88970f01a6702d72f87427213b15b27c",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/MA.npz": "856989c9cd748ae5b11b63934dbd8aa108cccf92bb2445cd9528a2a84d014b60",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_native_semantic_CPU_v2/queries/MA.npz": "663c336252282e06b23018cc7b5bba1702a09826ce070c079fb2a2ffb92ae893",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_actual_DCpoint_support_CPU_v1/actual_point_support.json": "7eb847ce0986518ac9d2dbad5813c370bf8bd985464a0bf2a22b3f6609c5dcf1",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_bag_projection_review_CPU_v1/bind_actual_query_sources.py": "4095f201e98e7b7a5bf5f941464a86456f9367d37344cb6224376365d3205fb8"
+  },
+  "CPU_only": true,
+  "GPU_or_model_query": false,
+  "EVAL_sample_used_for_posthoc_diagnostic_only": true,
+  "EVAL_labels_used_for_fitting": false,
+  "new_labels_or_query_proposals": false,
+  "existing_masks_queries_overrides_unchanged": true,
+  "limitations": [
+    "A source photograph classifies visible pixel material; it cannot establish XYZ visibility, the bag surface depth, or hidden space.",
+    "Projection center and nearest HD sampled query center are distinct; neither is automatically a fitted query or sample contributor.",
+    "Nearpoint actual LC shared-node query support is audited separately by semantic_actor_isolation; no whole-ray line traversal used here.",
+    "IA/LA/LB/MA shoe/bag contacts remain UNKNOWN pending source review; existing two IA overrides preserved.",
+    "No negative opacity, whole-ray empty, free-space, behind-occluder label, grid edit, or fitting usage follows."
+  ],
+  "actual_LC_query_source_review": [
+    {
+      "camera": "LA",
+      "global_query_id": 54594,
+      "local_query_index": 450,
+      "HD_pixel": [
+        871,
+        558
+      ],
+      "RAW_center": [
+        3718.123527227585,
+        2383.4482997003856
+      ],
+      "RAW_cell_corners": [
+        [
+          3715.9918718194335,
+          2381.314814921133
+        ],
+        [
+          3720.252786503201,
+          2381.31722795288
+        ],
+        [
+          3720.2552054858984,
+          2385.5817754533396
+        ],
+        [
+          3715.9943178900508,
+          2385.579326023573
+        ]
+      ],
+      "original_nominal_AREA_then_remap_coverage": 1.0,
+      "existing_semantic_target": 1.0,
+      "existing_label_weight": 1.0,
+      "source_observation": "Red actual-query footprints appear on textured knitted bag below the grey shoe toe; lowerLA54411 has greater separation. Root manual qualification pending.",
+      "provisional_visible_pixel_interpretation": "nonactor_knitted_bag_candidate_pending_root",
+      "actual_LC_shared_node_support": {
+        "camera": "LA",
+        "camera_ray_index": 450,
+        "global_query_id": 54594,
+        "pixel_xy": [
+          871,
+          558
+        ],
+        "semantic_target": 1.0,
+        "category": "actor_interior",
+        "native_alpha": 0.9999993443489075,
+        "current_Qactor_over_native_alpha": 0.30164268612861633,
+        "actual_point_shared_node_native_visibility_exposure": 0.16102875876272096,
+        "current_expected_objective_projected_logit_gradient": -1.52816238768549e-06,
+        "nearest_shared_node_sample_distance_with_nativew_gt1e_minus8": 0.004172845743596554
+      },
+      "native_TIFF_canonical_patch_replay_max_code_error": 0,
+      "source_native_patch_RAW_xyxy": [
+        3524,
+        2163,
+        3925,
+        2564
+      ],
+      "page": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_bag_projection_review_CPU_v1/LA_actual_shared_node_queries_native.png",
+      "page_sha256": "8ddb7bef981f644abbb9ceb55953901110fc9105009028481a056f72ce9e2527",
+      "no_label_change": true
+    },
+    {
+      "camera": "LA",
+      "global_query_id": 54411,
+      "local_query_index": 267,
+      "HD_pixel": [
+        875,
+        564
+      ],
+      "RAW_center": [
+        3735.1825635377654,
+        2409.044321276761
+      ],
+      "RAW_cell_corners": [
+        [
+          3733.0507280407714,
+          2406.910970101817
+        ],
+        [
+          3737.3119009929296,
+          2406.9134841887335
+        ],
+        [
+          3737.314419030395,
+          2411.177660149708
+        ],
+        [
+          3733.053275617404,
+          2411.1751113211735
+        ]
+      ],
+      "original_nominal_AREA_then_remap_coverage": 1.0,
+      "existing_semantic_target": 1.0,
+      "existing_label_weight": 1.0,
+      "source_observation": "Red actual-query footprints appear on textured knitted bag below the grey shoe toe; lowerLA54411 has greater separation. Root manual qualification pending.",
+      "provisional_visible_pixel_interpretation": "nonactor_knitted_bag_candidate_pending_root",
+      "actual_LC_shared_node_support": {
+        "camera": "LA",
+        "camera_ray_index": 267,
+        "global_query_id": 54411,
+        "pixel_xy": [
+          875,
+          564
+        ],
+        "semantic_target": 1.0,
+        "category": "actor_interior",
+        "native_alpha": 0.9999997615814209,
+        "current_Qactor_over_native_alpha": 0.03310716152191162,
+        "actual_point_shared_node_native_visibility_exposure": 0.02571397026812231,
+        "current_expected_objective_projected_logit_gradient": -3.5349712344258586e-07,
+        "nearest_shared_node_sample_distance_with_nativew_gt1e_minus8": 0.009561670944094658
+      },
+      "native_TIFF_canonical_patch_replay_max_code_error": 0,
+      "source_native_patch_RAW_xyxy": [
+        3524,
+        2163,
+        3925,
+        2564
+      ],
+      "page": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_bag_projection_review_CPU_v1/LA_actual_shared_node_queries_native.png",
+      "page_sha256": "8ddb7bef981f644abbb9ceb55953901110fc9105009028481a056f72ce9e2527",
+      "no_label_change": true
+    },
+    {
+      "camera": "MA",
+      "global_query_id": 57771,
+      "local_query_index": 171,
+      "HD_pixel": [
+        1039,
+        574
+      ],
+      "RAW_center": [
+        4434.507040415856,
+        2451.7490569656284
+      ],
+      "RAW_cell_corners": [
+        [
+          4432.377396515744,
+          2449.6179529931355
+        ],
+        [
+          4436.638967247532,
+          2449.6156577142237
+        ],
+        [
+          4436.636636768021,
+          2453.8801160609296
+        ],
+        [
+          4432.375094074781,
+          2453.8824447914913
+        ]
+      ],
+      "original_nominal_AREA_then_remap_coverage": 1.0,
+      "existing_semantic_target": 1.0,
+      "existing_label_weight": 1.0,
+      "source_observation": "Red actual-query footprint close to grey toe/bag interface; source class stays UNKNOWN.",
+      "provisional_visible_pixel_interpretation": "UNKNOWN_shoe_bag_contact_ambiguity",
+      "actual_LC_shared_node_support": {
+        "camera": "MA",
+        "camera_ray_index": 171,
+        "global_query_id": 57771,
+        "pixel_xy": [
+          1039,
+          574
+        ],
+        "semantic_target": 1.0,
+        "category": "actor_interior",
+        "native_alpha": 0.9991024136543274,
+        "current_Qactor_over_native_alpha": 0.8936800360679626,
+        "actual_point_shared_node_native_visibility_exposure": 0.23295472641397658,
+        "current_expected_objective_projected_logit_gradient": -2.5391697756608184e-07,
+        "nearest_shared_node_sample_distance_with_nativew_gt1e_minus8": 0.00195565284229815
+      },
+      "native_TIFF_canonical_patch_replay_max_code_error": 0,
+      "source_native_patch_RAW_xyxy": [
+        4225,
+        2252,
+        4626,
+        2653
+      ],
+      "page": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_bag_projection_review_CPU_v1/MA_actual_shared_node_queries_native.png",
+      "page_sha256": "58ffe5ba2c3e4a0f225530f0542b8222e371ba7e75cacf5a1af21eeec79cb00d",
+      "no_label_change": true
+    },
+    {
+      "camera": "LB",
+      "global_query_id": 55471,
+      "local_query_index": 175,
+      "HD_pixel": [
+        915,
+        575
+      ],
+      "RAW_center": [
+        3905.6910186578634,
+        2456.083952174652
+      ],
+      "RAW_cell_corners": [
+        [
+          3903.5581299690116,
+          2453.950643397189
+        ],
+        [
+          3907.822710535673,
+          2453.951846095127
+        ],
+        [
+          3907.8239102727357,
+          2458.217240785328
+        ],
+        [
+          3903.5593584952294,
+          2458.216020836502
+        ]
+      ],
+      "original_nominal_AREA_then_remap_coverage": 1.0,
+      "existing_semantic_target": 1.0,
+      "existing_label_weight": 1.0,
+      "source_observation": "Red actual-query footprint close to grey toe/bag interface; source class stays UNKNOWN.",
+      "provisional_visible_pixel_interpretation": "UNKNOWN_shoe_bag_contact_ambiguity",
+      "actual_LC_shared_node_support": {
+        "camera": "LB",
+        "camera_ray_index": 175,
+        "global_query_id": 55471,
+        "pixel_xy": [
+          915,
+          575
+        ],
+        "semantic_target": 1.0,
+        "category": "actor_interior",
+        "native_alpha": 0.9990522861480713,
+        "current_Qactor_over_native_alpha": 0.9645681381225586,
+        "actual_point_shared_node_native_visibility_exposure": 0.291619250780466,
+        "current_expected_objective_projected_logit_gradient": -1.62942547236015e-07,
+        "nearest_shared_node_sample_distance_with_nativew_gt1e_minus8": 0.0021144538186490536
+      },
+      "native_TIFF_canonical_patch_replay_max_code_error": 0,
+      "source_native_patch_RAW_xyxy": [
+        3717,
+        2256,
+        4118,
+        2657
+      ],
+      "page": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_bag_projection_review_CPU_v1/LB_actual_shared_node_queries_native.png",
+      "page_sha256": "82cd3f7db715c3cd02350858f7377cf04c72a8780fbd2592b8d15d8378c46bbc",
+      "no_label_change": true
+    }
+  ],
+  "actual_LC_support_audit": {
+    "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_actual_DCpoint_support_CPU_v1/actual_point_support.json",
+    "sha256": "7eb847ce0986518ac9d2dbad5813c370bf8bd985464a0bf2a22b3f6609c5dcf1",
+    "positive_query_count": 31,
+    "negative_query_count": 198,
+    "current_expected_objective_positive_projected_gradient": -2.5056875602415172e-06,
+    "current_expected_objective_negative_projected_gradient": 1.058708978456127e-06,
+    "current_expected_objective_net_projected_gradient": -1.4469785817853903e-06,
+    "interpretation": "Current fixed conditionalCE has net direction favoring higher actor logit at this point under a plain gradient step. It does not prove Adam or historical causality."
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "method": "Native grayscale normalizedcrosscorrelation of manually chosen visibleleftpouch and fixedrod/seam templates; local +/-20RAW search; descriptive registration, not segmentation or geometric supervision",
+  "records": [
+    {
+      "landmark": "left_knit_pouch",
+      "frame": 1660,
+      "template_RAW_xyxy": [
+        3575,
+        2420,
+        3635,
+        2480
+      ],
+      "matched_translation_RAW_pixels": [
+        0,
+        0
+      ],
+      "normalized_correlation": 0.9999984502792358
+    },
+    {
+      "landmark": "left_knit_pouch",
+      "frame": 1720,
+      "template_RAW_xyxy": [
+        3575,
+        2420,
+        3635,
+        2480
+      ],
+      "matched_translation_RAW_pixels": [
+        0,
+        0
+      ],
+      "normalized_correlation": 0.7548061609268188
+    },
+    {
+      "landmark": "left_knit_pouch",
+      "frame": 1780,
+      "template_RAW_xyxy": [
+        3575,
+        2420,
+        3635,
+        2480
+      ],
+      "matched_translation_RAW_pixels": [
+        2,
+        -2
+      ],
+      "normalized_correlation": 0.701840877532959
+    },
+    {
+      "landmark": "left_knit_pouch",
+      "frame": 1840,
+      "template_RAW_xyxy": [
+        3575,
+        2420,
+        3635,
+        2480
+      ],
+      "matched_translation_RAW_pixels": [
+        2,
+        -1
+      ],
+      "normalized_correlation": 0.7226232886314392
+    },
+    {
+      "landmark": "left_knit_pouch",
+      "frame": 1900,
+      "template_RAW_xyxy": [
+        3575,
+        2420,
+        3635,
+        2480
+      ],
+      "matched_translation_RAW_pixels": [
+        2,
+        -1
+      ],
+      "normalized_correlation": 0.7204346656799316
+    },
+    {
+      "landmark": "fixed_rod_floor_seam",
+      "frame": 1660,
+      "template_RAW_xyxy": [
+        3830,
+        2525,
+        3880,
+        2575
+      ],
+      "matched_translation_RAW_pixels": [
+        0,
+        0
+      ],
+      "normalized_correlation": 1.0
+    },
+    {
+      "landmark": "fixed_rod_floor_seam",
+      "frame": 1720,
+      "template_RAW_xyxy": [
+        3830,
+        2525,
+        3880,
+        2575
+      ],
+      "matched_translation_RAW_pixels": [
+        0,
+        1
+      ],
+      "normalized_correlation": 0.905784010887146
+    },
+    {
+      "landmark": "fixed_rod_floor_seam",
+      "frame": 1780,
+      "template_RAW_xyxy": [
+        3830,
+        2525,
+        3880,
+        2575
+      ],
+      "matched_translation_RAW_pixels": [
+        0,
+        0
+      ],
+      "normalized_correlation": 0.9462214112281799
+    },
+    {
+      "landmark": "fixed_rod_floor_seam",
+      "frame": 1840,
+      "template_RAW_xyxy": [
+        3830,
+        2525,
+        3880,
+        2575
+      ],
+      "matched_translation_RAW_pixels": [
+        0,
+        0
+      ],
+      "normalized_correlation": 0.9603816270828247
+    },
+    {
+      "landmark": "fixed_rod_floor_seam",
+      "frame": 1900,
+      "template_RAW_xyxy": [
+        3830,
+        2525,
+        3880,
+        2575
+      ],
+      "matched_translation_RAW_pixels": [
+        0,
+        0
+      ],
+      "normalized_correlation": 0.9426770806312561
+    }
+  ]
+}

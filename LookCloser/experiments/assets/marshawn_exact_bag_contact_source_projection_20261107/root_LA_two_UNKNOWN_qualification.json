@@ -1,0 +1,44 @@
+{
+  "reviewer": "root",
+  "root_review_complete": true,
+  "time_utc": "2026-11-07T08:32:18.784745+00:00",
+  "usage_status": "Only2additionalUNKNOWNconfidenceoverridesinNEWderivedcontrolledheadexperiment. Original69kqueries/caches/masks/baselineheadsimmutable.",
+  "source_query_manifest_sha256": "1562bcfaf5ec5da00a840da210962ef136d521fbca0d1beb5bf30d4a9aeb30ba",
+  "source_native_review_sha256": "cacc83d68f076495cab7cc4b94569dd553a1edc2a7465f8f7779ce9393fb06e3",
+  "manual_source_page": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_bag_projection_review_CPU_v1/LA_actual_shared_node_queries_native.png",
+  "manual_source_page_sha256": "8ddb7bef981f644abbb9ceb55953901110fc9105009028481a056f72ce9e2527",
+  "root_manually_viewed": true,
+  "unknown_queries": [
+    {
+      "camera": "LA",
+      "camera_ray_index": 267,
+      "global_query_index": 54411,
+      "pixel_xy": [
+        875,
+        564
+      ],
+      "semantic_target": 1,
+      "label_weight": 0
+    },
+    {
+      "camera": "LA",
+      "camera_ray_index": 450,
+      "global_query_index": 54594,
+      "pixel_xy": [
+        871,
+        558
+      ],
+      "semantic_target": 1,
+      "label_weight": 0
+    }
+  ],
+  "interpretation": "Bothnativequeryfootprints lieonknittedbagbelowgraytoe, notconfidentactorsurface. Preservepositive targetbutzeroitssemanticconfidence. NoalphaGT/physicalemptyspace/occludedbodynegative. MA/LBcontactambigqueriesunchanged.",
+  "existing_IA_UNKNOWN_preserved": [
+    40470,
+    40622
+  ],
+  "total_UNKNOWN_in_future_derived_fit": 4,
+  "no_new_EVAL_fit_labels": true,
+  "source_RGB_density_grid_AABB_frequency_unchanged": true,
+  "source_field_weights_unchanged": true
+}

@@ -1,0 +1,975 @@
+{
+  "kind": "TEMPORAL_SEPARATE_FLOOR_ITEM_IDENTITY_RECEIPT",
+  "conclusion": "Same knitted floor item remains beside fixed rigrod/floorseam while grey boot moves away; separate nonactor item, not footwear or cloth moving with actor.",
+  "root_manual_existing_temporal_pages": {
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/queries/HC_foot_temporal.png": "1cab6c7824067625377291a94c751a45cf284179a8051ab6ae5bbdd13bd6e4a0",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/bag_qualification_TRAIN/MC_TRAIN_temporal.png": "5bf6ce3e55a1193c707c925a9232f3f8ff4f16bd4121dcac382819e16e9b73a5"
+  },
+  "root_conclusion": "Root independently viewed both existing fiveframe pages: stationary knit item after greyboot movesaway1780/1840/1900; identityconcern resolved. Existing e3 qualification stays experimental confidence0, not negative.",
+  "agent_native_pages_viewed": {
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_knit_object_temporal_identity_CPU_v1/LA_temporal_native_overview.png": "821d63fb64c29d88c58d35497b18a01bf1ea8b3e454bb698787d904abf12bf6b",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_knit_object_temporal_identity_CPU_v1/MC_temporal_native_overview.png": "f65c0289af27455d489fbb47eb3673bc58096009b8ef9e28dbc019f10764672a",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_knit_object_temporal_identity_CPU_v1/MC_wide_temporal_context.png": "83926e4afcd0d86cf68a2662eae58c7b45aaee2667ec00db30b6e6b8a4d63b6a"
+  },
+  "agent_native_1to1_standalones_viewed": {
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_knit_object_temporal_identity_CPU_v1/LA_1660_native_fixed_RAW.png": "2a5846fdf3d965ebc30694404454e8d64829e3c8d87bea4d7767d64dbe2979a7",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_knit_object_temporal_identity_CPU_v1/LA_1780_native_fixed_RAW.png": "0918bb2b6cc43ab57d9e586d11c8c07a4be9d141fb38c27ffb09b8ebd8b5c45c",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_knit_object_temporal_identity_CPU_v1/LA_1900_native_fixed_RAW.png": "ff75e88772deb6ae439cb77e4783150a1660afcf964b9d1b7e23ff7cedab9eb0",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_knit_object_temporal_identity_CPU_v1/MC_1780_native_fixed_RAW.png": "d555d13c6d0ddbad706378b8a48d41573c5561d7ffcc546b9e2c40a9c4585f40"
+  },
+  "native_acquisition_manifest": {
+    "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_knit_object_temporal_identity_CPU_v1/review.json",
+    "sha256": "c7fa10ee14a16b1d745599399580d52d6109f1d231f01ed7c36f884620f75174"
+  },
+  "frames": [
+    1660,
+    1720,
+    1780,
+    1840,
+    1900
+  ],
+  "source_fps": 120,
+  "time_seconds": [
+    0,
+    0.5,
+    1,
+    1.5,
+    2
+  ],
+  "fixed_RAW_ROIs": {
+    "LA": [
+      3400,
+      2070,
+      4100,
+      2800
+    ],
+    "MC": [
+      4720,
+      2850,
+      5300,
+      3380
+    ]
+  },
+  "calibration_and_color": "Fixed native RAW array raster/crop and calibration; exact same vendorLog3G10/RWG\u2192positiveRec709float32\u2192gain4\u2192Reinhard+sRGB eachframe. ExistingMC HDcontext keeps frozen calibration/photometry.",
+  "landmark_tracking": {
+    "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_knit_object_temporal_identity_CPU_v1/local_template_landmarks.json",
+    "sha256": "06ea6dceb7c1a53214ff6251ef697ee5e5782fcdbc4c6f559c40862946b07962",
+    "description": "Native fixedLA visible leftpouch template moves atmost2RAWpixels in eitheraxis; fixedrod/seam template atmost1pixel. Greyboot is absent from item by1780 and remains separate thereafter. Local correlation is descriptive, not a geometric constraint.",
+    "records": [
+      {
+        "landmark": "left_knit_pouch",
+        "frame": 1660,
+        "template_RAW_xyxy": [
+          3575,
+          2420,
+          3635,
+          2480
+        ],
+        "matched_translation_RAW_pixels": [
+          0,
+          0
+        ],
+        "normalized_correlation": 0.9999984502792358
+      },
+      {
+        "landmark": "left_knit_pouch",
+        "frame": 1720,
+        "template_RAW_xyxy": [
+          3575,
+          2420,
+          3635,
+          2480
+        ],
+        "matched_translation_RAW_pixels": [
+          0,
+          0
+        ],
+        "normalized_correlation": 0.7548061609268188
+      },
+      {
+        "landmark": "left_knit_pouch",
+        "frame": 1780,
+        "template_RAW_xyxy": [
+          3575,
+          2420,
+          3635,
+          2480
+        ],
+        "matched_translation_RAW_pixels": [
+          2,
+          -2
+        ],
+        "normalized_correlation": 0.701840877532959
+      },
+      {
+        "landmark": "left_knit_pouch",
+        "frame": 1840,
+        "template_RAW_xyxy": [
+          3575,
+          2420,
+          3635,
+          2480
+        ],
+        "matched_translation_RAW_pixels": [
+          2,
+          -1
+        ],
+        "normalized_correlation": 0.7226232886314392
+      },
+      {
+        "landmark": "left_knit_pouch",
+        "frame": 1900,
+        "template_RAW_xyxy": [
+          3575,
+          2420,
+          3635,
+          2480
+        ],
+        "matched_translation_RAW_pixels": [
+          2,
+          -1
+        ],
+        "normalized_correlation": 0.7204346656799316
+      },
+      {
+        "landmark": "fixed_rod_floor_seam",
+        "frame": 1660,
+        "template_RAW_xyxy": [
+          3830,
+          2525,
+          3880,
+          2575
+        ],
+        "matched_translation_RAW_pixels": [
+          0,
+          0
+        ],
+        "normalized_correlation": 1.0
+      },
+      {
+        "landmark": "fixed_rod_floor_seam",
+        "frame": 1720,
+        "template_RAW_xyxy": [
+          3830,
+          2525,
+          3880,
+          2575
+        ],
+        "matched_translation_RAW_pixels": [
+          0,
+          1
+        ],
+        "normalized_correlation": 0.905784010887146
+      },
+      {
+        "landmark": "fixed_rod_floor_seam",
+        "frame": 1780,
+        "template_RAW_xyxy": [
+          3830,
+          2525,
+          3880,
+          2575
+        ],
+        "matched_translation_RAW_pixels": [
+          0,
+          0
+        ],
+        "normalized_correlation": 0.9462214112281799
+      },
+      {
+        "landmark": "fixed_rod_floor_seam",
+        "frame": 1840,
+        "template_RAW_xyxy": [
+          3830,
+          2525,
+          3880,
+          2575
+        ],
+        "matched_translation_RAW_pixels": [
+          0,
+          0
+        ],
+        "normalized_correlation": 0.9603816270828247
+      },
+      {
+        "landmark": "fixed_rod_floor_seam",
+        "frame": 1900,
+        "template_RAW_xyxy": [
+          3830,
+          2525,
+          3880,
+          2575
+        ],
+        "matched_translation_RAW_pixels": [
+          0,
+          0
+        ],
+        "normalized_correlation": 0.9426770806312561
+      }
+    ]
+  },
+  "immutable_prior_source_review_sha256": "cacc83d68f076495cab7cc4b94569dd553a1edc2a7465f8f7779ce9393fb06e3",
+  "immutable_root_experimental_qualification_sha256": "e3dc58f2bb6293c1551dc3da76286224e34a92bba97bbe70b00d1c0f241cc687",
+  "native_source_records": [
+    {
+      "camera": "LA",
+      "frame": 1660,
+      "local_TIFF_frame": 408,
+      "time_seconds": 0.0,
+      "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/LA/LA.000408.tif",
+      "raw_sha256": "7ad7bb21d30aae65ac57512e5a0adf417d6bc07e98b76e2d9f3162ed45668c55",
+      "native_source_raster": [
+        8192,
+        4320
+      ],
+      "fixed_RAW_crop_xyxy": [
+        3400,
+        2070,
+        4100,
+        2800
+      ],
+      "image": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_knit_object_temporal_identity_CPU_v1/LA_1660_native_fixed_RAW.png",
+      "image_sha256": "2a5846fdf3d965ebc30694404454e8d64829e3c8d87bea4d7767d64dbe2979a7",
+      "raw_OpenCV_K": [
+        [
+          5799.188689044947,
+          0.0,
+          4095.5
+        ],
+        [
+          0.0,
+          5799.075806379377,
+          2159.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "distortion": [
+        -0.08900524005742097,
+        0.048033873441438564,
+        -0.0009254113738765276,
+        5.378405157315501e-05
+      ],
+      "color": "Existing native-source display only: vendorLog3G10/RWG\u2192positiveRec709float32\u2192fixedgain4\u2192Reinhard+sRGB; identical transform for allframes; no exposurefit",
+      "coordinate_system": "Native lens-distorted fixed RAW array crop, unchanged camera and crop across time",
+      "native_no_resize": true
+    },
+    {
+      "camera": "LA",
+      "frame": 1720,
+      "local_TIFF_frame": 468,
+      "time_seconds": 0.5,
+      "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/LA/LA.000468.tif",
+      "raw_sha256": "8a110ca4a0dbf2b7a20dd04613f9aba958e632e9bec9f134ce651750737b05ee",
+      "native_source_raster": [
+        8192,
+        4320
+      ],
+      "fixed_RAW_crop_xyxy": [
+        3400,
+        2070,
+        4100,
+        2800
+      ],
+      "image": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_knit_object_temporal_identity_CPU_v1/LA_1720_native_fixed_RAW.png",
+      "image_sha256": "4067a53ec72c13f4a08cf96d92bd5b84b3f0cf2f1fd7832b6c6429cf22621aaa",
+      "raw_OpenCV_K": [
+        [
+          5799.188689044947,
+          0.0,
+          4095.5
+        ],
+        [
+          0.0,
+          5799.075806379377,
+          2159.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "distortion": [
+        -0.08900524005742097,
+        0.048033873441438564,
+        -0.0009254113738765276,
+        5.378405157315501e-05
+      ],
+      "color": "Existing native-source display only: vendorLog3G10/RWG\u2192positiveRec709float32\u2192fixedgain4\u2192Reinhard+sRGB; identical transform for allframes; no exposurefit",
+      "coordinate_system": "Native lens-distorted fixed RAW array crop, unchanged camera and crop across time",
+      "native_no_resize": true
+    },
+    {
+      "camera": "LA",
+      "frame": 1780,
+      "local_TIFF_frame": 528,
+      "time_seconds": 1.0,
+      "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/LA/LA.000528.tif",
+      "raw_sha256": "b819f1a280fd556b6da4d81d9cac058410c96b114313ff86c36bc509a2f2fdcf",
+      "native_source_raster": [
+        8192,
+        4320
+      ],
+      "fixed_RAW_crop_xyxy": [
+        3400,
+        2070,
+        4100,
+        2800
+      ],
+      "image": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_knit_object_temporal_identity_CPU_v1/LA_1780_native_fixed_RAW.png",
+      "image_sha256": "0918bb2b6cc43ab57d9e586d11c8c07a4be9d141fb38c27ffb09b8ebd8b5c45c",
+      "raw_OpenCV_K": [
+        [
+          5799.188689044947,
+          0.0,
+          4095.5
+        ],
+        [
+          0.0,
+          5799.075806379377,
+          2159.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "distortion": [
+        -0.08900524005742097,
+        0.048033873441438564,
+        -0.0009254113738765276,
+        5.378405157315501e-05
+      ],
+      "color": "Existing native-source display only: vendorLog3G10/RWG\u2192positiveRec709float32\u2192fixedgain4\u2192Reinhard+sRGB; identical transform for allframes; no exposurefit",
+      "coordinate_system": "Native lens-distorted fixed RAW array crop, unchanged camera and crop across time",
+      "native_no_resize": true
+    },
+    {
+      "camera": "LA",
+      "frame": 1840,
+      "local_TIFF_frame": 588,
+      "time_seconds": 1.5,
+      "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/LA/LA.000588.tif",
+      "raw_sha256": "7e6b9ba10d241eac3446236242538c7d3d6fc7551670ec99ec976756f8b08f9d",
+      "native_source_raster": [
+        8192,
+        4320
+      ],
+      "fixed_RAW_crop_xyxy": [
+        3400,
+        2070,
+        4100,
+        2800
+      ],
+      "image": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_knit_object_temporal_identity_CPU_v1/LA_1840_native_fixed_RAW.png",
+      "image_sha256": "643441475c9db1e02c2c8f36c55bb9ccc43199b79995caa76ded347465bfd361",
+      "raw_OpenCV_K": [
+        [
+          5799.188689044947,
+          0.0,
+          4095.5
+        ],
+        [
+          0.0,
+          5799.075806379377,
+          2159.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "distortion": [
+        -0.08900524005742097,
+        0.048033873441438564,
+        -0.0009254113738765276,
+        5.378405157315501e-05
+      ],
+      "color": "Existing native-source display only: vendorLog3G10/RWG\u2192positiveRec709float32\u2192fixedgain4\u2192Reinhard+sRGB; identical transform for allframes; no exposurefit",
+      "coordinate_system": "Native lens-distorted fixed RAW array crop, unchanged camera and crop across time",
+      "native_no_resize": true
+    },
+    {
+      "camera": "LA",
+      "frame": 1900,
+      "local_TIFF_frame": 648,
+      "time_seconds": 2.0,
+      "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/LA/LA.000648.tif",
+      "raw_sha256": "d9e645006b995253a598ea843284843055d98ae2f7cadb81b412cd504bc19921",
+      "native_source_raster": [
+        8192,
+        4320
+      ],
+      "fixed_RAW_crop_xyxy": [
+        3400,
+        2070,
+        4100,
+        2800
+      ],
+      "image": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_knit_object_temporal_identity_CPU_v1/LA_1900_native_fixed_RAW.png",
+      "image_sha256": "ff75e88772deb6ae439cb77e4783150a1660afcf964b9d1b7e23ff7cedab9eb0",
+      "raw_OpenCV_K": [
+        [
+          5799.188689044947,
+          0.0,
+          4095.5
+        ],
+        [
+          0.0,
+          5799.075806379377,
+          2159.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "distortion": [
+        -0.08900524005742097,
+        0.048033873441438564,
+        -0.0009254113738765276,
+        5.378405157315501e-05
+      ],
+      "color": "Existing native-source display only: vendorLog3G10/RWG\u2192positiveRec709float32\u2192fixedgain4\u2192Reinhard+sRGB; identical transform for allframes; no exposurefit",
+      "coordinate_system": "Native lens-distorted fixed RAW array crop, unchanged camera and crop across time",
+      "native_no_resize": true
+    },
+    {
+      "camera": "MC",
+      "frame": 1660,
+      "local_TIFF_frame": 408,
+      "time_seconds": 0.0,
+      "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/MC/MC.000408.tif",
+      "raw_sha256": "33d1e30556890c2bfa1a5ac8b8c2f2788e80071802ac2995f72220af587ce40e",
+      "native_source_raster": [
+        8192,
+        4320
+      ],
+      "fixed_RAW_crop_xyxy": [
+        4720,
+        2850,
+        5300,
+        3380
+      ],
+      "image": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_knit_object_temporal_identity_CPU_v1/MC_1660_native_fixed_RAW.png",
+      "image_sha256": "dad4d4a2e3991c690b3373390a59ab0cc60280b1795b2350cd81eb999b70ae29",
+      "raw_OpenCV_K": [
+        [
+          5763.472536371634,
+          0.0,
+          4095.5
+        ],
+        [
+          0.0,
+          5757.4620082790525,
+          2159.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "distortion": [
+        -0.08952907861192838,
+        0.045748732117712854,
+        -0.0008254248852583816,
+        -0.00045052583844687954
+      ],
+      "color": "Existing native-source display only: vendorLog3G10/RWG\u2192positiveRec709float32\u2192fixedgain4\u2192Reinhard+sRGB; identical transform for allframes; no exposurefit",
+      "coordinate_system": "Native lens-distorted fixed RAW array crop, unchanged camera and crop across time",
+      "native_no_resize": true
+    },
+    {
+      "camera": "MC",
+      "frame": 1720,
+      "local_TIFF_frame": 468,
+      "time_seconds": 0.5,
+      "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/MC/MC.000468.tif",
+      "raw_sha256": "eef42751564880599d0ffbf3066b850caf69e6b67530b3ee0568a2eb0e50e1d7",
+      "native_source_raster": [
+        8192,
+        4320
+      ],
+      "fixed_RAW_crop_xyxy": [
+        4720,
+        2850,
+        5300,
+        3380
+      ],
+      "image": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_knit_object_temporal_identity_CPU_v1/MC_1720_native_fixed_RAW.png",
+      "image_sha256": "9e760c434e0d6c7777b41b13082b5ae7613724f8638efa275035242316ba986f",
+      "raw_OpenCV_K": [
+        [
+          5763.472536371634,
+          0.0,
+          4095.5
+        ],
+        [
+          0.0,
+          5757.4620082790525,
+          2159.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "distortion": [
+        -0.08952907861192838,
+        0.045748732117712854,
+        -0.0008254248852583816,
+        -0.00045052583844687954
+      ],
+      "color": "Existing native-source display only: vendorLog3G10/RWG\u2192positiveRec709float32\u2192fixedgain4\u2192Reinhard+sRGB; identical transform for allframes; no exposurefit",
+      "coordinate_system": "Native lens-distorted fixed RAW array crop, unchanged camera and crop across time",
+      "native_no_resize": true
+    },
+    {
+      "camera": "MC",
+      "frame": 1780,
+      "local_TIFF_frame": 528,
+      "time_seconds": 1.0,
+      "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/MC/MC.000528.tif",
+      "raw_sha256": "bfa1a5b5c97eaf286679e1495a15d5d8fc112b87277f856e487a92362d5aa8dc",
+      "native_source_raster": [
+        8192,
+        4320
+      ],
+      "fixed_RAW_crop_xyxy": [
+        4720,
+        2850,
+        5300,
+        3380
+      ],
+      "image": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_knit_object_temporal_identity_CPU_v1/MC_1780_native_fixed_RAW.png",
+      "image_sha256": "d555d13c6d0ddbad706378b8a48d41573c5561d7ffcc546b9e2c40a9c4585f40",
+      "raw_OpenCV_K": [
+        [
+          5763.472536371634,
+          0.0,
+          4095.5
+        ],
+        [
+          0.0,
+          5757.4620082790525,
+          2159.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "distortion": [
+        -0.08952907861192838,
+        0.045748732117712854,
+        -0.0008254248852583816,
+        -0.00045052583844687954
+      ],
+      "color": "Existing native-source display only: vendorLog3G10/RWG\u2192positiveRec709float32\u2192fixedgain4\u2192Reinhard+sRGB; identical transform for allframes; no exposurefit",
+      "coordinate_system": "Native lens-distorted fixed RAW array crop, unchanged camera and crop across time",
+      "native_no_resize": true
+    },
+    {
+      "camera": "MC",
+      "frame": 1840,
+      "local_TIFF_frame": 588,
+      "time_seconds": 1.5,
+      "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/MC/MC.000588.tif",
+      "raw_sha256": "535b14a9f8db000edc50d6134df48fdca0bb09bc2c520adf4c15eaebab2dc9a0",
+      "native_source_raster": [
+        8192,
+        4320
+      ],
+      "fixed_RAW_crop_xyxy": [
+        4720,
+        2850,
+        5300,
+        3380
+      ],
+      "image": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_knit_object_temporal_identity_CPU_v1/MC_1840_native_fixed_RAW.png",
+      "image_sha256": "09ef6304a17260a4a2fe3f55f6b51f7995f93932b9ca94c0ca40779a357a7ab3",
+      "raw_OpenCV_K": [
+        [
+          5763.472536371634,
+          0.0,
+          4095.5
+        ],
+        [
+          0.0,
+          5757.4620082790525,
+          2159.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "distortion": [
+        -0.08952907861192838,
+        0.045748732117712854,
+        -0.0008254248852583816,
+        -0.00045052583844687954
+      ],
+      "color": "Existing native-source display only: vendorLog3G10/RWG\u2192positiveRec709float32\u2192fixedgain4\u2192Reinhard+sRGB; identical transform for allframes; no exposurefit",
+      "coordinate_system": "Native lens-distorted fixed RAW array crop, unchanged camera and crop across time",
+      "native_no_resize": true
+    },
+    {
+      "camera": "MC",
+      "frame": 1900,
+      "local_TIFF_frame": 648,
+      "time_seconds": 2.0,
+      "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/MC/MC.000648.tif",
+      "raw_sha256": "690f1d5d24dc6ec2926792af024a42337f603ea9c0ae2a71a5e4375e73d52c1b",
+      "native_source_raster": [
+        8192,
+        4320
+      ],
+      "fixed_RAW_crop_xyxy": [
+        4720,
+        2850,
+        5300,
+        3380
+      ],
+      "image": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_knit_object_temporal_identity_CPU_v1/MC_1900_native_fixed_RAW.png",
+      "image_sha256": "0536fef0b29bf60a3fe48500c863e55e2fda781f41582fc514fea13998282a60",
+      "raw_OpenCV_K": [
+        [
+          5763.472536371634,
+          0.0,
+          4095.5
+        ],
+        [
+          0.0,
+          5757.4620082790525,
+          2159.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "distortion": [
+        -0.08952907861192838,
+        0.045748732117712854,
+        -0.0008254248852583816,
+        -0.00045052583844687954
+      ],
+      "color": "Existing native-source display only: vendorLog3G10/RWG\u2192positiveRec709float32\u2192fixedgain4\u2192Reinhard+sRGB; identical transform for allframes; no exposurefit",
+      "coordinate_system": "Native lens-distorted fixed RAW array crop, unchanged camera and crop across time",
+      "native_no_resize": true
+    }
+  ],
+  "wide_context_records": [
+    {
+      "frame": 1660,
+      "receipt": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/temporal_2sec_floor_v1/sources/1660/MC/receipt.json",
+      "receipt_sha256": "fad96ef382a1be0808f443d86a54c69ad0c471fb2817a2d349e6ba4194d6f065",
+      "source": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/temporal_2sec_floor_v1/sources/1660/MC/source.png",
+      "source_sha256": "d53acd79f0b2bc4f3fb2d5ba885e41d0749bc079ca70697fc03c70d5be056fe4",
+      "fixed_HD_crop_xyxy": [
+        1000,
+        300,
+        1600,
+        890
+      ],
+      "source_camera_row": {
+        "file_path": "images/train_MC.png",
+        "mask_path": "masks/MC.png",
+        "physical_camera": "MC",
+        "w": 1920,
+        "h": 1012,
+        "fl_x": 1350.813875712102,
+        "fl_y": 1348.738785272778,
+        "cx": 960.0,
+        "cy": 506.0,
+        "k1": 0.0,
+        "k2": 0.0,
+        "p1": 0.0,
+        "p2": 0.0,
+        "transform_matrix": [
+          [
+            -0.20546215772628784,
+            -0.20100261270999908,
+            0.9578012824058533,
+            0.9842479825019836
+          ],
+          [
+            0.9629721641540527,
+            -0.21608127653598785,
+            0.16122493147850037,
+            0.054261092096567154
+          ],
+          [
+            0.17455625534057617,
+            0.9554616808891296,
+            0.23795641958713531,
+            0.20018194615840912
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "fixed_EV": -0.13408647349159067,
+      "transforms_sha256": "79893ade1ef2fbab92b9f1e0891bcb925be9ae4abc8d79a21238c209c5fb4406",
+      "photometry_sha256": "272478de1e9d563961d0553c8009c2d5972fdf628d407f40d90485d6e9af9355"
+    },
+    {
+      "frame": 1720,
+      "receipt": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/temporal_2sec_floor_v1/sources/1720/MC/receipt.json",
+      "receipt_sha256": "3b6c56ff693f2c70bd68c92796c1fe060eec6465f306dcd55f9ac1d0f607f1fc",
+      "source": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/temporal_2sec_floor_v1/sources/1720/MC/source.png",
+      "source_sha256": "82ec5a62df5ee6287de39810891587d61a6bdc784c72589f3a08147a0bf6ec14",
+      "fixed_HD_crop_xyxy": [
+        1000,
+        300,
+        1600,
+        890
+      ],
+      "source_camera_row": {
+        "file_path": "images/train_MC.png",
+        "mask_path": "masks/MC.png",
+        "physical_camera": "MC",
+        "w": 1920,
+        "h": 1012,
+        "fl_x": 1350.813875712102,
+        "fl_y": 1348.738785272778,
+        "cx": 960.0,
+        "cy": 506.0,
+        "k1": 0.0,
+        "k2": 0.0,
+        "p1": 0.0,
+        "p2": 0.0,
+        "transform_matrix": [
+          [
+            -0.20546215772628784,
+            -0.20100261270999908,
+            0.9578012824058533,
+            0.9842479825019836
+          ],
+          [
+            0.9629721641540527,
+            -0.21608127653598785,
+            0.16122493147850037,
+            0.054261092096567154
+          ],
+          [
+            0.17455625534057617,
+            0.9554616808891296,
+            0.23795641958713531,
+            0.20018194615840912
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "fixed_EV": -0.13408647349159067,
+      "transforms_sha256": "79893ade1ef2fbab92b9f1e0891bcb925be9ae4abc8d79a21238c209c5fb4406",
+      "photometry_sha256": "272478de1e9d563961d0553c8009c2d5972fdf628d407f40d90485d6e9af9355"
+    },
+    {
+      "frame": 1780,
+      "receipt": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/temporal_2sec_floor_v1/sources/1780/MC/receipt.json",
+      "receipt_sha256": "a8845d0012f6131b51be9b330623aafc6e8a0d25341d86326fc8bad94c87530d",
+      "source": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/temporal_2sec_floor_v1/sources/1780/MC/source.png",
+      "source_sha256": "17184ecf521725cdc2ef9a920538d442e3435f82f9e79c078f1b0359ef7964f1",
+      "fixed_HD_crop_xyxy": [
+        1000,
+        300,
+        1600,
+        890
+      ],
+      "source_camera_row": {
+        "file_path": "images/train_MC.png",
+        "mask_path": "masks/MC.png",
+        "physical_camera": "MC",
+        "w": 1920,
+        "h": 1012,
+        "fl_x": 1350.813875712102,
+        "fl_y": 1348.738785272778,
+        "cx": 960.0,
+        "cy": 506.0,
+        "k1": 0.0,
+        "k2": 0.0,
+        "p1": 0.0,
+        "p2": 0.0,
+        "transform_matrix": [
+          [
+            -0.20546215772628784,
+            -0.20100261270999908,
+            0.9578012824058533,
+            0.9842479825019836
+          ],
+          [
+            0.9629721641540527,
+            -0.21608127653598785,
+            0.16122493147850037,
+            0.054261092096567154
+          ],
+          [
+            0.17455625534057617,
+            0.9554616808891296,
+            0.23795641958713531,
+            0.20018194615840912
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "fixed_EV": -0.13408647349159067,
+      "transforms_sha256": "79893ade1ef2fbab92b9f1e0891bcb925be9ae4abc8d79a21238c209c5fb4406",
+      "photometry_sha256": "272478de1e9d563961d0553c8009c2d5972fdf628d407f40d90485d6e9af9355"
+    },
+    {
+      "frame": 1840,
+      "receipt": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/temporal_2sec_floor_v1/sources/1840/MC/receipt.json",
+      "receipt_sha256": "2277c9acece6e4416b9296682b6f40907a9993dd98e519bbc699bcf16a303bcb",
+      "source": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/temporal_2sec_floor_v1/sources/1840/MC/source.png",
+      "source_sha256": "298301551631c61e6b56cd6b3057fbb5942c9c3c8e2e202eab0ba18f432904a1",
+      "fixed_HD_crop_xyxy": [
+        1000,
+        300,
+        1600,
+        890
+      ],
+      "source_camera_row": {
+        "file_path": "images/train_MC.png",
+        "mask_path": "masks/MC.png",
+        "physical_camera": "MC",
+        "w": 1920,
+        "h": 1012,
+        "fl_x": 1350.813875712102,
+        "fl_y": 1348.738785272778,
+        "cx": 960.0,
+        "cy": 506.0,
+        "k1": 0.0,
+        "k2": 0.0,
+        "p1": 0.0,
+        "p2": 0.0,
+        "transform_matrix": [
+          [
+            -0.20546215772628784,
+            -0.20100261270999908,
+            0.9578012824058533,
+            0.9842479825019836
+          ],
+          [
+            0.9629721641540527,
+            -0.21608127653598785,
+            0.16122493147850037,
+            0.054261092096567154
+          ],
+          [
+            0.17455625534057617,
+            0.9554616808891296,
+            0.23795641958713531,
+            0.20018194615840912
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "fixed_EV": -0.13408647349159067,
+      "transforms_sha256": "79893ade1ef2fbab92b9f1e0891bcb925be9ae4abc8d79a21238c209c5fb4406",
+      "photometry_sha256": "272478de1e9d563961d0553c8009c2d5972fdf628d407f40d90485d6e9af9355"
+    },
+    {
+      "frame": 1900,
+      "receipt": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/temporal_2sec_floor_v1/sources/1900/MC/receipt.json",
+      "receipt_sha256": "a83e945a6e6fadb8f079d3ba2c751158f694f3f234421c52fd0de9a7163ee20f",
+      "source": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/temporal_2sec_floor_v1/sources/1900/MC/source.png",
+      "source_sha256": "3a89a27d326ad385d8188e4c5912daee407558f9db506b6225dc0d9638bbda02",
+      "fixed_HD_crop_xyxy": [
+        1000,
+        300,
+        1600,
+        890
+      ],
+      "source_camera_row": {
+        "file_path": "images/train_MC.png",
+        "mask_path": "masks/MC.png",
+        "physical_camera": "MC",
+        "w": 1920,
+        "h": 1012,
+        "fl_x": 1350.813875712102,
+        "fl_y": 1348.738785272778,
+        "cx": 960.0,
+        "cy": 506.0,
+        "k1": 0.0,
+        "k2": 0.0,
+        "p1": 0.0,
+        "p2": 0.0,
+        "transform_matrix": [
+          [
+            -0.20546215772628784,
+            -0.20100261270999908,
+            0.9578012824058533,
+            0.9842479825019836
+          ],
+          [
+            0.9629721641540527,
+            -0.21608127653598785,
+            0.16122493147850037,
+            0.054261092096567154
+          ],
+          [
+            0.17455625534057617,
+            0.9554616808891296,
+            0.23795641958713531,
+            0.20018194615840912
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "fixed_EV": -0.13408647349159067,
+      "transforms_sha256": "79893ade1ef2fbab92b9f1e0891bcb925be9ae4abc8d79a21238c209c5fb4406",
+      "photometry_sha256": "272478de1e9d563961d0553c8009c2d5972fdf628d407f40d90485d6e9af9355"
+    }
+  ],
+  "original_masks_queries_caches_heads_AABB_unchanged": true,
+  "no_new_labels_no_GPUTasks": true,
+  "limitations": [
+    "Identity of separate floor item does not certify shoe/contact boundaries, physical bag surface depth, opacity, density, or empty space.",
+    "MA/LB ambiguous query constraints stay unchanged; temporal proof authorizes no further annotation.",
+    "Existing experimental LA confidence-zero decision preserves positive targets and original data."
+  ],
+  "calibration_and_helper_sha256": {
+    "/fsx/oregon/gta_marshawn_2_1_prep_20261028/root/Marshawn_2_1/golden/rig/cameras.txt": "6710f5563ea3831c6e53ea95894b4d166a33d2e15c3d2a26a38490acb2a9e893",
+    "/fsx/oregon/gta_marshawn_2_1_prep_20261028/root/Marshawn_2_1/golden/rig/images.txt": "74cc5ca92ecd254729dd74876c3086e78e12ec959ca1729ce0c19aa507961ebc",
+    "/home/pavlo/repos/nerfstudio/LookCloser/scripts/marshawn_actor_coordinates.py": "d4d6be06068b7cd2957375fbd2d857d4c8d75675b464dc8b4f900c31ab78b9f0",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_bag_projection_review_CPU_v1/inspect_temporal_identity.py": "a2a50e9723a7d3baba32df3f3c0b99e45d470193a5580425f62c8204805add86"
+  }
+}

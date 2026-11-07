@@ -1,0 +1,43 @@
+{
+  "reviewer": "root",
+  "manual_source_pages": {
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_bag_projection_review_CPU_v1/LA_actual_shared_node_queries_native.png": "8ddb7bef981f644abbb9ceb55953901110fc9105009028481a056f72ce9e2527",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_bag_projection_review_CPU_v1/MA_actual_shared_node_queries_native.png": "58ffe5ba2c3e4a0f225530f0542b8222e371ba7e75cacf5a1af21eeec79cb00d",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_bag_projection_review_CPU_v1/LB_actual_shared_node_queries_native.png": "82cd3f7db715c3cd02350858f7377cf04c72a8780fbd2592b8d15d8378c46bbc"
+  },
+  "immutable_source_review": {
+    "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_bag_projection_review_CPU_v1/qualified_review.json",
+    "sha256": "cacc83d68f076495cab7cc4b94569dd553a1edc2a7465f8f7779ce9393fb06e3"
+  },
+  "root_qualification": {
+    "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_bag_projection_review_CPU_v1/root_LA_two_UNKNOWN_qualification.json",
+    "sha256": "e3dc58f2bb6293c1551dc3da76286224e34a92bba97bbe70b00d1c0f241cc687"
+  },
+  "qualified_only_for_new_derived_experimental_fit": [
+    {
+      "camera": "LA",
+      "global_query_id": 54411,
+      "local_query_id": 267,
+      "HD_pixel": [
+        875,
+        564
+      ],
+      "preserved_semantic_target": 1,
+      "derived_label_weight": 0
+    },
+    {
+      "camera": "LA",
+      "global_query_id": 54594,
+      "local_query_id": 450,
+      "HD_pixel": [
+        871,
+        558
+      ],
+      "preserved_semantic_target": 1,
+      "derived_label_weight": 0
+    }
+  ],
+  "root_observation": "Both LA actual-query footprints on knitted floor item below grey toe; source ambiguity zeroes confidence only in separately derived experiment. MA/LB contacts unchanged.",
+  "original_caches_targets_heads_IA_overrides_unchanged": true,
+  "no_negative_alpha_or_depth_targets": true
+}
