@@ -1,0 +1,104 @@
+{
+  "kind": "ROOT_QUALIFIED_1675_V53_OPERATIONS_SNAPSHOT",
+  "source_campaign": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107",
+  "files": [
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_union_resolution_v5.py",
+      "file": "marshawn_union_resolution_v5.py",
+      "sha256": "31e4d16836c581423bc14906be60e9a0934ebd932cea22545a5daac68d94e610"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_union_guard_v5.py",
+      "file": "marshawn_union_guard_v5.py",
+      "sha256": "89d5ba25d0b82340ab2465afdc4b354c8d6965ded2628517c7c25c9e82a25c97"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_union_guard_v53.py",
+      "file": "marshawn_union_guard_v53.py",
+      "sha256": "4a8bebcddc32170c21864a31219458eef999a857c4f1b152289479557409f63e"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_v5_input_install.py",
+      "file": "marshawn_v5_input_install.py",
+      "sha256": "55049406635e0c3a648a924cd5da429db28a15f2268e6cb5bda96a3430b74a61"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_identity_support_v5.py",
+      "file": "marshawn_identity_support_v5.py",
+      "sha256": "c6aba09d1c86358ee4de1f44da5ae9ffcefad0e855c97fc0035a78afe073694c"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_actor_conflict_v51.py",
+      "file": "marshawn_actor_conflict_v51.py",
+      "sha256": "bf6dcec5bbdff3c34162ad20978efacf0e6bec70e3949ce7f738cd2b931e0c53"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/actor_fragment_qualify_v5.py",
+      "file": "actor_fragment_qualify_v5.py",
+      "sha256": "1996a833498423d9a396e413f78a4ed98084dda3c59455cc1af1df440540bf91"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/crew_guard_plan_v53.py",
+      "file": "crew_guard_plan_v53.py",
+      "sha256": "c6299fbbc2f40099910c7306044707194cb148550f431a14f860b7cc30db85b1"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/crew_guard_autonomous_v53.py",
+      "file": "crew_guard_autonomous_v53.py",
+      "sha256": "0220ca7bad015a3339fac788a488c44ed640b84b0fd2d79e31c20ad16b022d80"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_semantic_ownership_v5.py",
+      "file": "marshawn_semantic_ownership_v5.py",
+      "sha256": "95457b9866a533e481927424829b66c1be1edf2544ff455866c008a83fd9a2d5"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_qualified_hair_apply_v5.py",
+      "file": "marshawn_qualified_hair_apply_v5.py",
+      "sha256": "98303f7b39fe8ca247b01c34b13df6b21ab44d13fc13823536b26ecaf28109f1"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_native_review.py",
+      "file": "marshawn_native_review.py",
+      "sha256": "45b6a4da0effb07f78ab59bb4741da7073b5286aba7338354e22ad551925433e"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/actor_fragment_policy_v53.json",
+      "file": "actor_fragment_policy_v53.json",
+      "sha256": "9a2af87e89f1dd3639c704361bf26326168fd703581243eab99fe36382da1523"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/code/marshawn_sam3_union_capture_v5.py",
+      "file": "marshawn_sam3_union_capture_v5.py",
+      "sha256": "33aed8be65c745720c1bc3cf1bfb9b5c48b38c2f5640f87f7577bd0a384bd3a0"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/code/marshawn_sam3_union_capture_v5_test.py",
+      "file": "marshawn_sam3_union_capture_v5_test.py",
+      "sha256": "4ac705af3658e3df9002ccc3e532ffb9169591fd413a6c9710d656c269cb24e2"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/code/marshawn_sam3_assist_v5.py",
+      "file": "marshawn_sam3_assist_v5.py",
+      "sha256": "1f597493b8c4696556b440969e457e71ad7b1f587004eb42ff30e1929833876b"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/union_v5_tests/guard_identity_regression_v53.json",
+      "file": "qualified_guard_regression_evidence.json",
+      "sha256": "35c57a84d308aa07c6b6b00020577288d8151ddc8ab5b8b4cdafd282afb99445"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/frames/001675/data/final_v5_source_QA.json",
+      "file": "final1675_source_QA_evidence.json",
+      "sha256": "cec6df66cb20e3371dda1710217c934f8c0a32111d3ea0f9e8ee24544f79ac70"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/v5_1675_final_visual_release.json",
+      "file": "ROOT1675_visual_release_evidence.json",
+      "sha256": "18507e1443a37d41a213003f55f5fad984204a7445703a735706a47d7190f863"
+    }
+  ],
+  "scientific_code_untouched": true,
+  "source_marker_sha256": "00bd5d3ec646dcf64a5e58832144619862bc7f6cd7572e1c8b27c95f07a44446",
+  "created": 1794073883.3602338
+}

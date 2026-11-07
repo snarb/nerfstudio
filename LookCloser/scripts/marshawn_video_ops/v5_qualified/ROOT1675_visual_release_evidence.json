@@ -1,0 +1,28 @@
+{
+  "kind": "ROOT_REVIEWED_V5_1675_NATIVE_SEMANTICS_RELEASE",
+  "authorized": true,
+  "frame": 1675,
+  "cameras": 66,
+  "native_semantic_ready_sha256": "00bd5d3ec646dcf64a5e58832144619862bc7f6cd7572e1c8b27c95f07a44446",
+  "prepared_ready_sha256": "3841afa3740654e949a4cc5751a233ee3eca43cb01bf00bd508d2b887bd13cc1",
+  "semantic_ready_sha256": "881c604978d9f5c25eedd7940c9d76059aa492a69d08848c569dcf5e170dd2e3",
+  "union_install_receipt_sha256": "a3e2fb8b5d448131103f594b49f07c2f03c4c7cc2f8ceb78038737a5660b4f6e",
+  "crew_guard_receipt_sha256": "2a3f445ea8701f092c4beb2c0ea488cbc38f470091b8a0a4f8500c2990b70568",
+  "source_QA_sha256": "cec6df66cb20e3371dda1710217c934f8c0a32111d3ea0f9e8ee24544f79ac70",
+  "visual_evidence": [
+    {
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/frames/001675/native_review/FINAL_V5_MC_NA_ND_HC_W64.jpg",
+      "sha256": "fe08ca7c0837002170b4cdf6f751645dc96dc29876f26cab39535b372e734263"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/frames/001675/native_review/FINAL_NA_hair_and_CREW_native1008.jpg",
+      "sha256": "4909fad6491e49a1d025386c19c930dedf7315e698c3879042f9c430054fc7ae"
+    }
+  ],
+  "root_review_evidence": "ROOTFINALVISUALAPPROVAL1675 message: personally reviewed both final images; MCcalf/bootcontinuous, NAactualbraidsforeground/workerfaceexcluded, NDoutside, HCfullfighters/feet, W64continuous; authorizes corrected marker and1680only canary.",
+  "future_scope": {
+    "canary_frame": 1680,
+    "continuous_authorized": false
+  },
+  "created": 1794073155.054257
+}
