@@ -1,0 +1,152 @@
+{
+  "passed": true,
+  "CPU_only": true,
+  "manifest_sha256": "e96bb88ebd34406141924d4bc610d47543d8785926ae3fae946dab152090c8b1",
+  "source_sampling_sha256": "6b175a5a30bd6f67001fe3e006738002d4e3a7fe85d2f619e0d0d04c39288aa6",
+  "source_structure_sha256": "ce686efdbc9c407a4b8f66df7edf6a187a65610f222c6ed726406a21b9cbe1a2",
+  "config_differences_from_common_actual_resume": {
+    "zero_original": {
+      ".output_dir": {
+        "before": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/rgb_confidence_continuation_candidate_v1/reference_output",
+        "after": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/rgb_confidence_continuation_candidate_v1/runs/zero_original"
+      }
+    },
+    "zero_bag6874": {
+      ".output_dir": {
+        "before": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/rgb_confidence_continuation_candidate_v1/reference_output",
+        "after": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/rgb_confidence_continuation_candidate_v1/runs/zero_bag6874"
+      }
+    },
+    "zero_bag6874_delta2": {
+      ".output_dir": {
+        "before": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/rgb_confidence_continuation_candidate_v1/reference_output",
+        "after": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/rgb_confidence_continuation_candidate_v1/runs/zero_bag6874_delta2"
+      }
+    },
+    "zero_bag6874_delta4": {
+      ".output_dir": {
+        "before": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/rgb_confidence_continuation_candidate_v1/reference_output",
+        "after": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/rgb_confidence_continuation_candidate_v1/runs/zero_bag6874_delta4"
+      }
+    },
+    "technical_original": {
+      ".output_dir": {
+        "before": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/rgb_confidence_continuation_candidate_v1/reference_output",
+        "after": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/rgb_confidence_continuation_candidate_v1/runs/technical_original"
+      }
+    },
+    "technical_bag6874": {
+      ".output_dir": {
+        "before": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/rgb_confidence_continuation_candidate_v1/reference_output",
+        "after": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/rgb_confidence_continuation_candidate_v1/runs/technical_bag6874"
+      }
+    },
+    "technical_bag6874_delta2": {
+      ".output_dir": {
+        "before": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/rgb_confidence_continuation_candidate_v1/reference_output",
+        "after": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/rgb_confidence_continuation_candidate_v1/runs/technical_bag6874_delta2"
+      }
+    },
+    "technical_bag6874_delta4": {
+      ".output_dir": {
+        "before": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/rgb_confidence_continuation_candidate_v1/reference_output",
+        "after": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/rgb_confidence_continuation_candidate_v1/runs/technical_bag6874_delta4"
+      }
+    },
+    "production_original": {
+      ".output_dir": {
+        "before": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/rgb_confidence_continuation_candidate_v1/reference_output",
+        "after": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/rgb_confidence_continuation_candidate_v1/runs/production_original"
+      }
+    },
+    "production_bag6874": {
+      ".output_dir": {
+        "before": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/rgb_confidence_continuation_candidate_v1/reference_output",
+        "after": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/rgb_confidence_continuation_candidate_v1/runs/production_bag6874"
+      }
+    },
+    "production_bag6874_delta2": {
+      ".output_dir": {
+        "before": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/rgb_confidence_continuation_candidate_v1/reference_output",
+        "after": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/rgb_confidence_continuation_candidate_v1/runs/production_bag6874_delta2"
+      }
+    },
+    "production_bag6874_delta4": {
+      ".output_dir": {
+        "before": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/rgb_confidence_continuation_candidate_v1/reference_output",
+        "after": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/rgb_confidence_continuation_candidate_v1/runs/production_bag6874_delta4"
+      }
+    }
+  },
+  "actual_resume_vs_historical_initial_config": {
+    ".pipeline.model.distortion_loss_mult": {
+      "before": 0.01,
+      "after": 0.1
+    },
+    ".load_checkpoint": {
+      "before": null,
+      "after": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/rgb_confidence_continuation_candidate_v1/anchor/checkpoint.ckpt"
+    },
+    ".output_dir": {
+      "before": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_quarter_distortion_candidate_20261107/run",
+      "after": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/rgb_confidence_continuation_candidate_v1/reference_output"
+    }
+  },
+  "actual_common_distortion": 0.1,
+  "restored_FR_expected": 0.3,
+  "policies": {
+    "original": {
+      "normalizer": 0.6893199440385297,
+      "confidence_state_sha256": "fabb1eeace6a4c746e092438fd079535a6fb1d5d9d73f343eacee100b5677d0f",
+      "same_packet_and_RNG": true,
+      "installation_RNG_unchanged": true,
+      "fresh_adapter_profile_and_normalizer_roundtrip_exact": true,
+      "tampered_source_and_normalizer_rejected": true
+    },
+    "bag6874": {
+      "normalizer": 0.6885594491366461,
+      "confidence_state_sha256": "bd380733d056e9754b1ab2a349b323752a0a69f035c79894af0a08ee1302adc4",
+      "same_packet_and_RNG": true,
+      "installation_RNG_unchanged": true,
+      "fresh_adapter_profile_and_normalizer_roundtrip_exact": true,
+      "tampered_source_and_normalizer_rejected": true
+    },
+    "bag6874_delta2": {
+      "normalizer": 0.6786086727925679,
+      "confidence_state_sha256": "439735d4d451586b017ece298beb8c51dbed0862a06aaa217206af2fb51f30f5",
+      "same_packet_and_RNG": true,
+      "installation_RNG_unchanged": true,
+      "fresh_adapter_profile_and_normalizer_roundtrip_exact": true,
+      "tampered_source_and_normalizer_rejected": true
+    },
+    "bag6874_delta4": {
+      "normalizer": 0.6835461178657145,
+      "confidence_state_sha256": "d10e2ab308abf07c5f3992183529c96fcc193195baefb38156665e03410c43f1",
+      "same_packet_and_RNG": true,
+      "installation_RNG_unchanged": true,
+      "fresh_adapter_profile_and_normalizer_roundtrip_exact": true,
+      "tampered_source_and_normalizer_rejected": true
+    }
+  },
+  "separate_tracker": {
+    "schema_version": 1,
+    "anchor_step": 130316,
+    "interval": 5000,
+    "patience": 4,
+    "loss_relative_delta": 0.001,
+    "lpips_absolute_delta": 0.001,
+    "last_step": 150316,
+    "last_loss": 0.1,
+    "last_lpips": 0.02,
+    "significant_loss": 0.1,
+    "significant_lpips": 0.02,
+    "loss_misses": 4,
+    "lpips_misses": 4,
+    "stopped": true
+  },
+  "minimum_no_improvement_attempts": 24000,
+  "zero_FHD_and_full_model_loader_gates": "PENDING_NOT_RUN",
+  "technical_actual_Adam_32_plus32": "PENDING_NOT_RUN",
+  "root_extra352_source_review": "PENDING",
+  "GPU_or_training_started": false
+}

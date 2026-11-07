@@ -1,0 +1,30 @@
+{
+  "files_sha256": {
+    "confidence/manifest.json": "e96bb88ebd34406141924d4bc610d47543d8785926ae3fae946dab152090c8b1",
+    "source_manifest.json": "1e94a454dbdbd7c685d8b30db95363e11760da4ed430b1f12dedfdd8e5998ca9",
+    "anchor_audit.json": "17eeff46a530d6feb0eb1421a9a64698cc4aa792602672151a6bbdcba00c0595",
+    "CPU_readiness.json": "0652697701abe9527ad067aba11a40f5c4ed1921215b28ab4e2b511af2f2e312",
+    "phase_policy.json": "07e081dd61a4e561ebc6458223d83f8be1b32df488876b3c576ff2df2fa6739f",
+    "phase_runner.py": "db48be9be2f78ad4d163aa903729d3b8abf6d1448d21893735e0e3dd6dd3cc70",
+    "zero_plan.json": "9ce002345bf4acc2ec705459b141b808162a5c5cefd4b52057eb4f91379e9994",
+    "technical_plan.json": "65911ff4417096de24d42b0453e2ca345059e26951d7905e9cc80b7ccaabf8e3",
+    "production_plan.json": "bcad31a78ce7a1f61374bee42c11843fe8707d7f798a8fcd9399a6e40d084310",
+    "specs/zero_original/spec.json": "294ca489db53edd5c776d473cbbee797a7863a47e2eba0e997ed3713d25298c2",
+    "specs/production_original/spec.json": "494fdc92e9f965f1152467daacb5f8c0f0bea012f5ec7e65f0aa628c03c4a5ad",
+    "specs/zero_bag6874_delta4/spec.json": "ec9ac049365e717935a4bf093ae644e152dd3511aefcba52934525f6ffd37f85",
+    "specs/production_bag6874_delta2/spec.json": "79416ef3a02c89014ae47c0becb109994592509e2e9d8817cbaf6457bd3d26f7",
+    "specs/production_bag6874/spec.json": "1a16f13b5c4ca32957935f4ff4aef155d0ead684a11940556d6859fac8c6788d",
+    "specs/technical_bag6874_delta2/spec.json": "21b5f026b8880c2c49cd414bfcc9aea2a850e5c2872683596c1615e62b54942a",
+    "specs/zero_bag6874/spec.json": "945337a8ace7a15b77ff7111025915ab66a11400bb262ec2db6f253238b7033f",
+    "specs/technical_bag6874_delta4/spec.json": "7ee1bc58bf75d4d5b0a3cb9572d7252952db1efe720ac82f6e52f309cc608887",
+    "specs/technical_original/spec.json": "8d03e3cbbc2bc78f42d488aec35ec18bc1bf3c88dac2c92e865306385911d0c3",
+    "specs/production_bag6874_delta4/spec.json": "481ed797a7f40ee0f2f896fe92119bf3dba2d7de13dcde9bca9a2aace5d1bca6",
+    "specs/zero_bag6874_delta2/spec.json": "3025e0b7b6022a9ac5879f4e9bd5ff1161668c605f9ba15a9ccc08865f01c015",
+    "specs/technical_bag6874/spec.json": "a7eb7f0db11474a9ada75d3fde1ab1bf19e719e0479092df8a1b15d3c91253a8"
+  },
+  "code_unchanged_original1495": true,
+  "actual_release_files": 0,
+  "GPU_launched": false,
+  "scientific_field_selector": "original_mapped",
+  "source_checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641"
+}

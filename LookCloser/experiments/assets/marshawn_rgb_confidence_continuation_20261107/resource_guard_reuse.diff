@@ -1,0 +1,39 @@
+--- existing_focused_phase_guard
++++ confidence_phase_guard
+@@ -18,12 +18,16 @@
+ 
+ 
+ def main(root, phase):
++    if not str(root.resolve()).startswith('/cache/ubuntu/lookcloser/'):
++        raise ValueError('Run reused phase guardian from remote SC; no local GPU/self-SSH ambiguity')
++    if not read(root/'CPU_readiness.json').get('passed'):
++        raise ValueError('CPU preparation gate required')
+     policy = read(root/'phase_policy.json')
+     for path,digest in policy['bindings_sha256'].items():
+         if sha(path) != digest: raise ValueError('Prepared phase artifact changed: '+path)
+     for arm in policy['arms']:
+-        spec_path = root/'specs'/(phase+'_'+arm+'.json'); spec=read(spec_path); release=read(spec['release'])
+-        auth = 'diagnostic_authorized' if phase=='diagnostic' else 'technical_authorized'
++        spec_path = root/'specs'/(phase+'_'+arm)/'spec.json'; spec=read(spec_path); release=read(spec['release'])
++        auth = 'production_authorized' if phase=='production' else 'technical_authorized'
+         if release.get('reviewer')!='root' or release.get(auth) is not True or release.get('spec_sha256')!=sha(spec_path):
+             raise ValueError('Exact phase/spec release required')
+     if phase!='zero':
+@@ -56,9 +60,9 @@
+                     own=[r for r in apps if r[1]==str(worker['pid'])];memory=sum(int(r[2])for r in own);age=time.time()-receipt['started']
+                     row.update(identity=identity,process_state=fields[0],memory_MiB=memory,seconds=age)
+                     limit=policy['max_seconds_per_worker'][phase]
+-                    bad=memory>16384 or any(r[0]!=receipt['gpu_uuid']for r in own) or age>limit
++                    bad=memory>16384 or any(r[0]!=receipt['gpu_uuid']for r in own) or (limit is not None and age>limit)
+                     if identity and fields[0]!='Z' and bad:
+-                        if 'train_marshawn_focused_clothing_geometry.py' not in command or str(root/'specs'/(phase+'_')) not in command:
++                        if 'train_marshawn_rgb_confidence.py' not in command or str(root/'specs'/(phase+'_')) not in command:
+                             raise RuntimeError('Refuse to signal unrelated process')
+                         if worker['pid'] not in term_sent:
+                             os.killpg(worker['pid'],signal.SIGTERM);term_sent[worker['pid']]=time.time();violations.append(row.copy())
+@@ -82,4 +86,4 @@
+ 
+ 
+ if __name__=='__main__':
+-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--root',type=Path,required=True);p.add_argument('--phase',choices=['zero','technical','diagnostic'],required=True);a=p.parse_args();main(a.root,a.phase)
++    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--root',type=Path,required=True);p.add_argument('--phase',choices=['zero','technical','production'],required=True);a=p.parse_args();main(a.root,a.phase)
