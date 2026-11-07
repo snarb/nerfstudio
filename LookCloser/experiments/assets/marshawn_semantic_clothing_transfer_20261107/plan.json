@@ -1,0 +1,76 @@
+{
+  "authorized_readonly": true,
+  "authorization": "Root message: bounded immutable R0/focused15188 projected84 old/closer prefix and band tau+gradient probe; no further approval loop",
+  "root": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_clothing_transfer_probe_v1",
+  "python": "/home/ubuntu/lookcloser/envs/marshawn_leader/bin/python",
+  "probe": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_clothing_transfer_probe_v1/probe.py",
+  "gpu": 6,
+  "gpu_uuid": "GPU-a53fcf27-02c4-c737-9269-0623ec25a6d9",
+  "allocator_GiB": 12,
+  "process_MiB": 16384,
+  "max_seconds": 900,
+  "policies": [
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_clothing_transfer_probe_v1/R0_baseline/policy.json",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_clothing_transfer_probe_v1/frequency_focus/policy.json"
+  ],
+  "sources": [
+    {
+      "source_manifest": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_frequency_focus_15188/R0_baseline/source_manifest.json",
+      "code_root": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_actor_candidate_v2_20261106/code"
+    },
+    {
+      "source_manifest": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_frequency_focus_15188/frequency_focus/source_manifest.json",
+      "code_root": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_frequency_focus_candidate_20261107/code"
+    }
+  ],
+  "inputs_sha256": {
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_clothing_transfer_probe_v1/probe.py": "10c88a86b436ff45b1ebd40d9fd74ea580db76b309878dc3f44e2c250eda05a9",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_clothing_transfer_probe_v1/supervise.py": "7c5ff75561a614b8420eb20458e6f44fe9744151adf1249790eab64f5472d0ea",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_clothing_transfer_probe_v1/R0_baseline/state_helpers.py": "9ef0c76c1470187b2172bd5ebf3df7bef4b1a7b3e5d26dcb29b17d46ee8a1be3",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_clothing_transfer_probe_v1/R0_baseline/marshawn_gpu_isolation.py": "35868976c0373c6e85967719d183822a5673a7bd786be55c1695ea070ad04908",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_frequency_focus_15188/R0_baseline/checkpoint.ckpt": "b8ff97f350e0ff4222466d871b2e20bd09783e92259b11d56dadd5d89211b7c2",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_frequency_focus_15188/R0_baseline/config.yml": "9942fbc287020f8cf6c0ab0204d96cd09c2d53e90fd671e00896dcefedf4e77c",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_frequency_focus_15188/R0_baseline/grid.npz": "87bd9809160864de1cd1b935808254fb71ed45dafac84409575b680c67dbbdd4",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_frequency_focus_15188/R0_baseline/grid.json": "c1fc7a957861f737fe7349d54ed13a831fbc825241dd2840729634946109f840",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_frequency_focus_15188/R0_baseline/spec.json": "a19d8f1329c574c399a8545927bcacad5f75e43bffb7d078fedc553938f470a0",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_frequency_focus_15188/R0_baseline/source_manifest.json": "f428fdc2527d189cec319001aced76f9de7b7a6caae5b5a1e8702106b5ab434c",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_clothing_transfer_CPU_v1/inputs/manifest.json": "fc82d69376184dc10e08a3c6020b019e7c86ee787a0ae339d46b811e3aeef97d",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_clothing_transfer_CPU_v1/inputs/prefixes.npz": "e747bcff3fa664ab9f688f8feb8ea9f16077fe54c6ae4ad9cbdb66e51ef47aca",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_clothing_transfer_CPU_v1/inputs/visibility_review.json": "e1ebf0a4c334aa6da337c443ee95e4fcbf5cc5831a4acf1924963082c4e2caf4",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_clothing_transfer_CPU_v1/inputs/old18_band_uncertainty.json": "dbd81121d21e0e65b8bb3221b3b97d5190afa56562a42d3d0b9f21f7ec150c3b",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_clothing_transfer_CPU_v1/inputs/clipped_band_source_consistency.json": "89815474f85b675bfc0978795a36ab1c5ddee41a3ad25f76d8b5235e7441e2ed",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_clothing_transfer_CPU_v1/result.json": "cf5ba33bcbb99ccc4419509bb89c86cae465b1b887cfab037e3ad09205961db9",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_clothing_transfer_probe_v1/R0_baseline/policy.json": "df44a6c53eb4fb28c3982326be5c1834d6ba36ec2bba99e6d8de59ded9f51adf",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_clothing_transfer_probe_v1/frequency_focus/state_helpers.py": "9ef0c76c1470187b2172bd5ebf3df7bef4b1a7b3e5d26dcb29b17d46ee8a1be3",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_clothing_transfer_probe_v1/frequency_focus/marshawn_gpu_isolation.py": "35868976c0373c6e85967719d183822a5673a7bd786be55c1695ea070ad04908",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_frequency_focus_15188/frequency_focus/checkpoint.ckpt": "a29f83e34be9406729d1a05c3dc40d52adceb934028b68fd147be29cfe4eb837",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_frequency_focus_15188/frequency_focus/config.yml": "3eeb6ce5954426e6c184bead87ed062f28ec8ec6cba87000f445fd0aa3166f21",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_frequency_focus_15188/frequency_focus/grid.npz": "6d354bd6cf05f50324d4b6859070d6a45b1a1259d69096968c98fdb2a84589fe",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_frequency_focus_15188/frequency_focus/grid.json": "5a4c505e0ca738e3208a72206b8135fcc76ec1fe06b8250c81bf66544b172ec4",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_frequency_focus_15188/frequency_focus/spec.json": "8764a4b78e8d051e6085cc640074bd437bc45db3f76eaf4456c12e81d459859b",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_frequency_focus_15188/frequency_focus/source_manifest.json": "16ea7ce63e6927af9bc3b36074445e3c3e9092ad1131be788d20a742df760f82",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_clothing_transfer_probe_v1/frequency_focus/policy.json": "8759589f569f2cb528af3a1add914b5c3209f99e69d9d03c99d644f573c9d6c0"
+  },
+  "scope": {
+    "TRAIN_projected_prior_rays": 84,
+    "original_body80_reference_rays_per_model": 4096,
+    "old_gap": "max(.01,.05d)",
+    "closer_gap": "max(.01,.02d)",
+    "band": "unchanged max(.005,.01d)",
+    "prefix_quadrature": [
+      128,
+      256,
+      512
+    ],
+    "extra1024": "when256to512 fails any ray5percent OR abs.05 convergence",
+    "band_quadrature": [
+      16,
+      64
+    ],
+    "no_optimizer_updates": true,
+    "no_new_annotations": true,
+    "no_reserves_or_EVAL_supervision": true,
+    "geometry_aggregation": "exact camera-balanced expectation over84, versus per-model original4096 body80 batch",
+    "no_new_field_or_occupancy_state": true
+  }
+}
