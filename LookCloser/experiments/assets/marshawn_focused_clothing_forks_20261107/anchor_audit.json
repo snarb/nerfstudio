@@ -1,0 +1,255 @@
+{
+  "anchor_status": "COMPLETED_FOCUSED15188",
+  "step": 15188,
+  "producer_continues": false,
+  "checkpoint_sha256": "a29f83e34be9406729d1a05c3dc40d52adceb934028b68fd147be29cfe4eb837",
+  "fullstate_hashes": {
+    "pipeline": "8c72ef0bd30a97826622bf8f736be79507d53461500ae4533a6dd7d35ea8fc0d",
+    "optimizers": "c765d50581aa8242e5eb163404c617955957b5402bdfb0d04da13808a527142f",
+    "schedulers": "879c49b761f86976dc97ca707c394588467b9998da3df719f080dfc7e8145a50",
+    "scalers": "39fba6e4ca28f58e47647c857a4acf230e83ef7dceebae4f3de8195a7d2c378f",
+    "rng_state": "f3fa2f5ce98d81bb443371645246bcf5fee28131125b7ac5bbb1074d5aba2ee2",
+    "tuning_runtime": "3002a91f3b17d6bcf53138e68728a3c1645c9510e3ce2ee36a8f49ea9bfd1935",
+    "actual_occupancy_capture": "9d1fd39012ee48177b7916f809c3f758fb9420c756737796ce4fe2e91167144e"
+  },
+  "FR": 1.0,
+  "frequency_switch_applied": false,
+  "focus_state_sha256": "17e7750090258a48bedd05a28f0fe8724130fb6583c20839915d23ded4519257",
+  "projected84_source_bound": true,
+  "semantic_grid_checks": {
+    "core_capture": true,
+    "active_capture": true,
+    "active_pipeline": true,
+    "EMA_pipeline": true,
+    "learned_core_pipeline": true
+  },
+  "semantic_capture_metadata": {
+    "step": 15184,
+    "radius": 0,
+    "binary_warmup": false,
+    "semantic_receipt": {
+      "manifest_sha256": "fce7fc24735cd62d5242ce719964c5d6d61291feef1cc1c536c12f2ce194b15e",
+      "source_grid_sha256": "e804d736dd766e8adf11df07e346a6317af87e0b106a94dfc524ab32f1690d71",
+      "mapped_bool_sha256": "d60baa9186a63f3769204b93cb46dcfd2ea16e3d41a72ca788934fe19bd2659f",
+      "identity_control": false
+    }
+  },
+  "source_hashes": {
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_frequency_focus_15188/frequency_focus/checkpoint.ckpt": "a29f83e34be9406729d1a05c3dc40d52adceb934028b68fd147be29cfe4eb837",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_frequency_focus_15188/frequency_focus/spec.json": "8764a4b78e8d051e6085cc640074bd437bc45db3f76eaf4456c12e81d459859b",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_frequency_focus_15188/frequency_focus/config.yml": "3eeb6ce5954426e6c184bead87ed062f28ec8ec6cba87000f445fd0aa3166f21",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_frequency_focus_15188/frequency_focus/grid.npz": "6d354bd6cf05f50324d4b6859070d6a45b1a1259d69096968c98fdb2a84589fe",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_frequency_focus_15188/frequency_focus/grid.json": "5a4c505e0ca738e3208a72206b8135fcc76ec1fe06b8250c81bf66544b172ec4",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_frequency_focus_15188/frequency_focus/gate_metrics.json": "9e9b1aff0de7f2286dc7425db96ba337fff31f61d4e398a37c5f97400a29f02e",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_frequency_focus_15188/frequency_focus/source_manifest.json": "16ea7ce63e6927af9bc3b36074445e3c3e9092ad1131be788d20a742df760f82"
+  },
+  "source_eval": {
+    "step": 15188,
+    "metrics": {
+      "psnr": 31.615911706952897,
+      "ssim": 0.8475531339645386,
+      "lpips": 0.024090994770328205,
+      "validation_loss": 0.022292296402156353
+    },
+    "by_view": {
+      "DC": {
+        "psnr": 31.735882266852315,
+        "ssim": 0.8472393751144409,
+        "lpips": 0.029702945612370968,
+        "validation_loss": 0.02134320419281721
+      },
+      "HC": {
+        "psnr": 32.18721180149277,
+        "ssim": 0.8477472364902496,
+        "lpips": 0.021181238815188408,
+        "validation_loss": 0.021128084510564804
+      },
+      "KA": {
+        "psnr": 30.924641052513593,
+        "ssim": 0.8476727902889252,
+        "lpips": 0.021388799883425236,
+        "validation_loss": 0.024405600503087044
+      }
+    },
+    "by_actor": {
+      "black": {
+        "psnr": 30.46722120588224,
+        "ssim": 0.8194658756256104,
+        "lpips": 0.026772238314151764,
+        "validation_loss": 0.02357669857641061
+      },
+      "grey": {
+        "psnr": 32.764602208023554,
+        "ssim": 0.8756403923034668,
+        "lpips": 0.021409751226504643,
+        "validation_loss": 0.021007894227902096
+      }
+    },
+    "records": [
+      {
+        "view": "DC",
+        "actor": "black",
+        "psnr": 30.956869988228156,
+        "ssim": 0.8255012631416321,
+        "lpips": 0.0287875197827816,
+        "validation_loss": 0.021878864616155624,
+        "actor_pixels": 50554,
+        "crop_xyxy": [
+          742,
+          61,
+          1087,
+          630
+        ],
+        "crop_pixels": 196305,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      },
+      {
+        "view": "DC",
+        "actor": "grey",
+        "psnr": 32.51489454547647,
+        "ssim": 0.8689774870872498,
+        "lpips": 0.030618371441960335,
+        "validation_loss": 0.020807543769478798,
+        "actor_pixels": 32212,
+        "crop_xyxy": [
+          880,
+          224,
+          1118,
+          625
+        ],
+        "crop_pixels": 95438,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      },
+      {
+        "view": "HC",
+        "actor": "black",
+        "psnr": 30.433255727888934,
+        "ssim": 0.8147150874137878,
+        "lpips": 0.028942309319972992,
+        "validation_loss": 0.022978322580456734,
+        "actor_pixels": 39768,
+        "crop_xyxy": [
+          883,
+          191,
+          1210,
+          688
+        ],
+        "crop_pixels": 162519,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      },
+      {
+        "view": "HC",
+        "actor": "grey",
+        "psnr": 33.94116787509661,
+        "ssim": 0.8807793855667114,
+        "lpips": 0.013420168310403824,
+        "validation_loss": 0.019277846440672874,
+        "actor_pixels": 30426,
+        "crop_xyxy": [
+          945,
+          345,
+          1230,
+          747
+        ],
+        "crop_pixels": 114570,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      },
+      {
+        "view": "KA",
+        "actor": "black",
+        "psnr": 30.011537901529625,
+        "ssim": 0.8181812763214111,
+        "lpips": 0.0225868858397007,
+        "validation_loss": 0.025872908532619476,
+        "actor_pixels": 31759,
+        "crop_xyxy": [
+          935,
+          0,
+          1203,
+          470
+        ],
+        "crop_pixels": 125960,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      },
+      {
+        "view": "KA",
+        "actor": "grey",
+        "psnr": 31.837744203497564,
+        "ssim": 0.8771643042564392,
+        "lpips": 0.020190713927149773,
+        "validation_loss": 0.02293829247355461,
+        "actor_pixels": 29297,
+        "crop_xyxy": [
+          889,
+          163,
+          1154,
+          539
+        ],
+        "crop_pixels": 99640,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      }
+    ],
+    "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+    "aggregation": "equal actors per camera, then equal cameras",
+    "opacity_diagnostics": [
+      {
+        "view": "DC",
+        "actor": "black",
+        "eroded_pixels": 45559,
+        "below09_fraction": 0.17656225992668848,
+        "trigger": true
+      },
+      {
+        "view": "DC",
+        "actor": "grey",
+        "eroded_pixels": 28743,
+        "below09_fraction": 0.0006262394322095815,
+        "trigger": false
+      },
+      {
+        "view": "HC",
+        "actor": "black",
+        "eroded_pixels": 35296,
+        "below09_fraction": 0.08910358114233907,
+        "trigger": true
+      },
+      {
+        "view": "HC",
+        "actor": "grey",
+        "eroded_pixels": 27480,
+        "below09_fraction": 0.0001091703056768559,
+        "trigger": false
+      },
+      {
+        "view": "KA",
+        "actor": "black",
+        "eroded_pixels": 28831,
+        "below09_fraction": 0.14453192743921472,
+        "trigger": true
+      },
+      {
+        "view": "KA",
+        "actor": "grey",
+        "eroded_pixels": 25770,
+        "below09_fraction": 0.009157935584012417,
+        "trigger": false
+      }
+    ],
+    "masked_lpips": 0.024090994770328205,
+    "psnr": 31.615911706952897,
+    "ssim": 0.8475531339645386,
+    "validation_loss": 0.022292296402156353
+  }
+}

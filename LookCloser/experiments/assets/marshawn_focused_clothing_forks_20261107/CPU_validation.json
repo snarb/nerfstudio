@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "no_CUDA_initialized": true,
+  "all4_configurations_identical_except_output": true,
+  "source7states_reverified": true,
+  "focus_private_source_sha256": "17e7750090258a48bedd05a28f0fe8724130fb6583c20839915d23ded4519257",
+  "semantic_grid_checks": {
+    "core_capture": true,
+    "active_capture": true,
+    "active_pipeline": true,
+    "EMA_pipeline": true,
+    "learned_core_pipeline": true
+  },
+  "technical_attempts": 192,
+  "technical_restart_after": 176,
+  "next_actual_focus_refresh": 15360,
+  "technical_final": 15380,
+  "production_first_step": 15189,
+  "production_final_step": 19188,
+  "production_gates": [
+    15688,
+    16188,
+    17188,
+    19188
+  ],
+  "no_GPU_training_launched": true,
+  "root_review_pending": true
+}

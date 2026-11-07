@@ -1,0 +1,12 @@
+[
+  {
+    "path": ".load_checkpoint",
+    "source": null,
+    "fork": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_frequency_focus_15188/frequency_focus/checkpoint.ckpt"
+  },
+  {
+    "path": ".output_dir",
+    "source": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_frequency_focus_candidate_20261107/run",
+    "fork": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/focused_clothing_geometry_candidate_v4/runs/control"
+  }
+]

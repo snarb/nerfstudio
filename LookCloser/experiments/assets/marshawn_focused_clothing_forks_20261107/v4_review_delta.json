@@ -1,0 +1,9 @@
+{
+  "source_generation": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/focused_clothing_geometry_candidate_v3",
+  "changes": [
+    "actual_state now hashes LIVE main sampler and LIVE focus runtime, rather than a potentially stale runtime copy",
+    "12GiB allocator guard applies to every phase",
+    "technical verifier explicitly checks actual pipeline weights changed and focused state preserved after restart"
+  ],
+  "no_GPU_or_training_started": true
+}

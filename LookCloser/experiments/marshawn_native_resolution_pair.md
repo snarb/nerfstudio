@@ -18,6 +18,8 @@ Production launched on dev3 after root verified all 387 bound files. Release SHA
 | HD continuation 125k | 30.440828 | 0.836028 | 0.049793 |
 | Actual TRAIN4K selected / terminal 125k | 30.393743 | 0.835658 | 0.047452 |
 | HD unmatched continuation 130k | 30.456276 | 0.836584 | 0.049357 |
+| HD unmatched continuation 135k | 30.429219 | 0.836376 | 0.049588 |
+| HD unmatched continuation 140k | 30.457763 | 0.836619 | 0.049384 |
 
 At the first matched gate, both arms completed5,000 attempts and4,998 actual Adam updates, with two AMP skips each. TRAIN4K reduces FHD actor LPIPS by4.14% relative to matched HD; PSNR is0.05324dB lower. The all-three-view hair/hand/foot review shows modestly crisper fine texture and stable visible contours, but source detail remains sharper and floor/mat/bag fragments persist. This is an early resolution result, not a plateau or actor-isolation result. The next HD chunk restored its actual105k checkpoint, RNG and runtime exactly, confirming real production restart beyond the zero-update preflight.
 
