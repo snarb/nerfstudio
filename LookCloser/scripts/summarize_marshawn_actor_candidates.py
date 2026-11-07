@@ -18,6 +18,7 @@ CANDIDATES = {
     'half-step': 'semantic_cold_halfstep_progress', 'quarter-step': 'semantic_cold_quarterstep_progress',
     'focused-frequency': 'semantic_frequency_focus_progress',
     'focused-frequency+distortion0.1': 'semantic_frequency_focus_distortion_progress',
+    'quarter-step+distortion0.1': 'semantic_quarter_distortion_progress',
     'TRAIN4K': 'semantic_4k_original_r0',
 }
 
