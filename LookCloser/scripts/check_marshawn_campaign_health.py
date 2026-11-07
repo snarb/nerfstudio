@@ -22,6 +22,19 @@ def command(args):
             'stderr': result.stderr.strip()[-500:]}
 
 
+def local_process_matches(identity):
+    """A reused PID is not evidence that the recorded controller is alive."""
+    try:
+        process = Path('/proc') / str(identity['pid'])
+        fields = (process / 'stat').read_text().split(') ', 1)[1].split()
+        return (fields[0] != 'Z'
+                and fields[19] == str(identity['start'])
+                and Path('/proc/sys/kernel/random/boot_id').read_text().strip()
+                == identity['boot'])
+    except (OSError, KeyError, IndexError):
+        return False
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', type=Path, required=True)
@@ -29,7 +42,9 @@ def main():
     now = time.time()
     result = {'utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),
               'type': 'root_fleet_health_check', 'controllers': {}}
-    states = set(args.root.glob('*/state.json')) | set(args.root.glob('*/*/state.json'))
+    states = (set(args.root.glob('*/state.json'))
+              | set(args.root.glob('*/*/state.json'))
+              | set(args.root.glob('*/*/*/state.json')))
     for state_path in sorted(states):
         controller = state_path.parent / 'controller.json'
         # Production controller roots only, not frozen code or worker state.
@@ -42,11 +57,13 @@ def main():
             meta = json.loads(controller.read_text())
             pid = meta['process']['pid']
             item = {'pid': pid, 'proc_present': Path(f'/proc/{pid}').exists(),
+                    'controller_identity_alive': local_process_matches(meta['process']),
                     'jobs': {}}
             checks = state_path.parent / 'checks.jsonl'
             if checks.exists():
                 snapshot = last_record(checks)
                 item['controller_check_age_seconds'] = round(time.time()-snapshot['time'], 1)
+                item['snapshot_fresh'] = item['controller_check_age_seconds'] <= 120
                 # A fresh host inventory also includes jobs owned by remote controllers.
                 for host, inventory in snapshot.get('hosts', {}).items():
                     active = {}
@@ -59,7 +76,8 @@ def main():
                             'step': max((p.get('step', -1) for p in latest.get('progress', {}).values()
                                          if isinstance(p, dict)), default=None)}
                     existing = result.setdefault('host_inventories', {}).get(host, {})
-                    if inventory.get('time', 0) > existing.get('time', 0):
+                    if (time.time()-inventory.get('time', 0) <= 120
+                            and inventory.get('time', 0) > existing.get('time', 0)):
                         result['host_inventories'][host] = {
                             'time': inventory.get('time'), 'active_jobs': active}
             for name, job in state['jobs'].items():
@@ -70,6 +88,7 @@ def main():
                 item['jobs'][name] = {
                     'status': job.get('status'), 'host': job.get('host'),
                     'worker_alive': job.get('worker_alive', latest.get('worker_alive')),
+                    'worker_alive_is_recorded_snapshot_not_live_probe': True,
                     'heartbeat_age_seconds': round(time.time()-job.get('heartbeat', now), 1),
                     'step': max((v.get('step', -1) for v in progress if isinstance(v, dict)), default=None),
                     'oom': latest.get('oom_evidence')}
