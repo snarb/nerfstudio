@@ -199,3 +199,19 @@ Generations are `frequency_variants_HD63_prepared_v1` and
 completion and source/visual review remain required. Queue choice and subsequent
 dataset assembly must use the chosen structural recipe/resolution; do not mix
 new frequency maps into running models.
+
+### Actual 4K factory check completed
+
+The isolated AA4K/LR-decay job completed64000 updates in303.65seconds, with
+per-level LR endpoints .01 and .001 and1424.49MiB peak Torch allocation.
+The recorded physical UUID matched the fleet lease; the original fitter
+process exited and its GPU was released. Actual4K raster and source bindings,
+SSIM counts and censor mask passed the same worker checks. The complete fit
+receipt is `frequency_factory4K_AA_decay_probe_v1/run/complete.json`.
+
+Its unresolved fraction is74.34%. This one-camera diagnostic does not support
+promoting LR decay or predict a3D quality gain. The previously measured
+constant-LR4K AA results themselves vary substantially; causal quality claims
+require the planned controlled3D comparison. Both full map queues remain
+prepared and unlaunched, and existing production maps remain the comparison
+baseline.
