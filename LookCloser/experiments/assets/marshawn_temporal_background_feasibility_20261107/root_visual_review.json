@@ -1,0 +1,14 @@
+{
+  "reviewer": "root",
+  "utc": "2026-11-07T04:22:25.580297+00:00",
+  "source_receipt_sha256": "d02de738fd98026a92bbb361c39fccd170dc961e2cec6789544a0478bac21024",
+  "all_four_TRAIN_contact_pages_personally_viewed": true,
+  "findings": {
+    "GA": "Frame1900 exposes much of original actor image footprint, but moving cast shadows remain a photometric confound.",
+    "HE": "Wall/printed-target background becomes visible; padded foreground mat is visibly moved/deformed during the action.",
+    "MC": "Crew, moving actors and mat deformation contaminate temporal background estimates.",
+    "NA": "Mat deformation, changing shadows and crew make unqualified temporal median unsuitable."
+  },
+  "conclusion": "Temporal observations may support a separately qualified local background-colour experiment; no whole-image known background, opacity GT, physical empty-space labels, or training change follows.",
+  "background_plate_authorized": false
+}

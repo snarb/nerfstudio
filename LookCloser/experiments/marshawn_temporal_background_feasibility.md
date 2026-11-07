@@ -1,0 +1,9 @@
+# Temporal background feasibility, TRAIN only
+
+What was tested: read-only fixed crops from GA/HE/MC/NA at1660/1720/1780/1840/1900, reusing prepared images with the frozen camera and photometric contract. Each1660 source is pixel-identical to the current training image. No EVAL images, new segmentation, background plate, model load or training.
+
+Results: root inspected all four five-frame pages. Later frames reveal much of the original actor footprint. HE reveals static wall/calibration boards. However, the thick mat is moved/deformed, plastic-floor folds and cast shadows change, and crew occlude some regions. A temporal median or one later frame cannot automatically become a known background target. No quality metrics were calculated because there is no model comparison or qualified new target.
+
+Insights: background-composited foreground training could eventually avoid inventing background density behind partial-coverage contours, but it requires a separate local photometric/visibility qualification. This feasibility scan does not release that experiment, provide optical alpha GT or certify empty rays. Existing RGB-confidence and source-gate comparisons remain the immediate experiments.
+
+[GA](assets/marshawn_temporal_background_feasibility_20261107/GA_temporal_sources.jpg), [HE](assets/marshawn_temporal_background_feasibility_20261107/HE_temporal_sources.jpg), [MC](assets/marshawn_temporal_background_feasibility_20261107/MC_temporal_sources.jpg), [NA](assets/marshawn_temporal_background_feasibility_20261107/NA_temporal_sources.jpg); [source bindings](assets/marshawn_temporal_background_feasibility_20261107/receipt.json), [manual review](assets/marshawn_temporal_background_feasibility_20261107/root_visual_review.json). Reusable CPU helper: `scripts/inspect_marshawn_temporal_background.py`.
