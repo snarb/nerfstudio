@@ -24,18 +24,34 @@ def temporary_binaries(pipeline, replacement, digest, source_assert):
         raise ValueError('Candidate exceeds unchanged original admission')
     state = pipeline.state_dict()
     keys = [k for k in state if k.endswith('occupancy_grid.binaries')]
-    if len(keys) != 1:
-        raise ValueError('Exactly one pipeline active occupancy buffer required')
-    binary_key = keys[0]
-    before = digest({k: v for k, v in state.items() if k != binary_key})
+    expected_keys = {'_model.occupancy_grid.binaries', '_model.adaptive_sampler.occupancy_grid.binaries'}
+    if set(keys) != expected_keys:
+        raise ValueError('Exact two registered source active-grid alias keys required')
+    def storage_identity(tensor):
+        return (tensor.device, tensor.dtype, tuple(tensor.shape), tuple(tensor.stride()), tensor.storage_offset(), tensor.untyped_storage().data_ptr())
+    expected_storage = storage_identity(original_tensor)
+    def assert_aliases(current):
+        if model.adaptive_sampler.occupancy_grid is not model.occupancy_grid:
+            raise ValueError('Native sampler grid must be the same registered grid object')
+        if any(storage_identity(current[k]) != expected_storage for k in expected_keys):
+            raise ValueError('Registered active-grid aliases must share exact source storage/layout')
+        if any(not torch.equal(current[k], original_tensor) for k in expected_keys):
+            raise ValueError('Registered active-grid alias values differ')
+    assert_aliases(state)
+    before = digest({k: v for k, v in state.items() if k not in expected_keys})
     source_assert()
     def assert_inside():
         if model.occupancy_grid.binaries is not original_tensor or not torch.equal(model.occupancy_grid.binaries, replacement):
             raise ValueError('Counterfactual binaries unexpectedly rebuilt/changed')
         if model.config.occupancy_eval_dilation_radius != 0 or getattr(model, '_eval_occupancy_backup', None) is not None:
             raise ValueError('Unexpected evaluation dilation/backup')
-        if digest({k: v for k, v in pipeline.state_dict().items() if k != binary_key}) != before:
+        current = pipeline.state_dict()
+        assert_aliases(current)
+        if digest({k: v for k, v in current.items() if k not in expected_keys}) != before:
             raise ValueError('Non-binary pipeline state changed')
+        return dict(registered_keys=sorted(expected_keys), same_grid_object=True, same_storage=True,
+            storage_pointer=original_tensor.untyped_storage().data_ptr(), storage_offset=original_tensor.storage_offset(),
+            shape=list(original_tensor.shape), stride=list(original_tensor.stride()), only_exact_alias_keys_excluded_from_state_digest=True)
     try:
         original_tensor.copy_(replacement)
         assert_inside()

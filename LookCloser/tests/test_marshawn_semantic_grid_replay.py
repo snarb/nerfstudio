@@ -23,9 +23,10 @@ class Pipe:
     def __init__(self):
         self.model=SimpleNamespace(training=False,config=SimpleNamespace(occupancy_eval_dilation_radius=0),_eval_occupancy_backup=None,
             occupancy_grid=SimpleNamespace(binaries=torch.ones((1,2,2,2),dtype=torch.bool)),semantic_admission=torch.ones((1,2,2,2),dtype=torch.bool))
+        self.model.adaptive_sampler=SimpleNamespace(occupancy_grid=self.model.occupancy_grid)
         self.ema=torch.arange(8,dtype=torch.float32);self.core=torch.ones((1,2,2,2),dtype=torch.bool);self.assertions=0
         self.original=digest(self.state_dict())
-    def state_dict(self):return{'_model.occupancy_grid.binaries':self.model.occupancy_grid.binaries,'EMA':self.ema,'core':self.core}
+    def state_dict(self):return{'_model.occupancy_grid.binaries':self.model.occupancy_grid.binaries,'_model.adaptive_sampler.occupancy_grid.binaries':self.model.adaptive_sampler.occupancy_grid.binaries,'EMA':self.ema,'core':self.core}
     def source_assert(self):
         self.assertions+=1
         assert bool(self.model.occupancy_grid.binaries.all()),'Original grid must be restored BEFORE source assertion'
@@ -131,3 +132,29 @@ def test_wrong_source_or_math_reject_before_cuda(tmp_path,key,value):
 def test_false_release_cannot_launch(tmp_path):
     p=base_plan();p['root_release']=str(tmp_path/'release.json');path=tmp_path/'plan.json';path.write_text(json.dumps(p));Path(p['root_release']).write_text(json.dumps(dict(reviewer='root',readonly_grid_comparison_authorized=False,plan_sha256=hashlib.sha256(path.read_bytes()).hexdigest())))
     with pytest.raises(ValueError,match='release'):validate(path,True)
+
+
+def test_independent_grid_alias_storage_rejected():
+    p=Pipe();p.model.adaptive_sampler.occupancy_grid=SimpleNamespace(binaries=p.core.clone())
+    with pytest.raises(ValueError,match='same registered grid object'):
+        with temporary_binaries(p,torch.zeros_like(p.core),digest,p.source_assert):pass
+
+
+def test_cloned_state_alias_rejected():
+    p=Pipe();original_state=p.state_dict
+    def cloned():
+        state=original_state();state['_model.adaptive_sampler.occupancy_grid.binaries']=state['_model.adaptive_sampler.occupancy_grid.binaries'].clone();return state
+    p.state_dict=cloned
+    with pytest.raises(ValueError,match='same source storage|exact source storage'):
+        with temporary_binaries(p,torch.zeros_like(p.core),digest,p.source_assert):pass
+
+
+def test_unrelated_grid_like_tensor_remains_protected():
+    p=Pipe();unrelated=torch.ones_like(p.core);original_state=p.state_dict
+    def extra():return dict(original_state(),unrelated_grid_like_tensor=unrelated)
+    p.state_dict=extra;p.original=digest(p.state_dict())
+    with pytest.raises(AssertionError):
+        with temporary_binaries(p,torch.zeros_like(p.core),digest,p.source_assert) as check:
+            unrelated.zero_()
+            with pytest.raises(ValueError,match='Non-binary'):check()
+    assert p.model.occupancy_grid.binaries.all()

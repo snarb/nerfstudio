@@ -156,6 +156,7 @@ def run(plan_path,execute=False):
         for phase,mask in phases.items():
             dest=out/phase;dest.mkdir();views=[];query_results=[]
             with helper.temporary_binaries(pipe,mask,late.tree_digest,source['assert_unchanged']) as assert_inside:
+                alias_proof=assert_inside();write(dest/'active_buffer_alias_proof.json',alias_proof)
                 for name in ['DC','HC','KA']:
                     camera=dataset.cameras[names.index(name):names.index(name)+1].to(model.device);rays=camera.generate_rays(0,keep_shape=True).flatten()
                     h,w=int(camera.height.item()),int(camera.width.item())
