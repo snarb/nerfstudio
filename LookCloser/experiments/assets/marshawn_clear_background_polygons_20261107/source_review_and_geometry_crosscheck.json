@@ -1,0 +1,14 @@
+{
+  "time": 1794012612.6301272,
+  "all243_original_ray_contracts_preserved": true,
+  "max_abs_geometry_error": {
+    "AA": 2.220446049250313e-16,
+    "BA": 4.440892098500626e-16,
+    "HA": 4.440892098500626e-16
+  },
+  "expected_hits_per4096_unchanged_body80_batch": 0.526134285968434,
+  "source_review": "All three original full HD sources and all three marked/unmarked zoom pairs inspected by native_reference",
+  "findings": "Polygons cover visible floor near upper-body outlines; actor RAW64 boundary pixels rejected explicitly; HA excludes cardboard above and cable below",
+  "training_eligible": false,
+  "root_review_pending": true
+}

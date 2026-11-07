@@ -1,0 +1,211 @@
+{
+  "kind": "TRAIN_ONLY_SOURCE_POLYGON_REVIEW_PROPOSAL",
+  "training_eligible": false,
+  "root_review_pending": true,
+  "no_source_or_accepted_targets_changed": true,
+  "no_GPU_or_model_used": true,
+  "original_243_targets_sha256": "7459a0bf273cd8b90504fa84834fbfb2bbd2d3b092ff9eac8812d21b3963bcf1",
+  "transforms_sha256": "64176bce20fcf0f08427a89b492003adcce6a0b513d9fffd6bbc583db172f01a",
+  "ready_sha256": "7c39466b7921b608bf82aa47419f04ee14d957d6c2328ac0a975eab7105e0e36",
+  "helper_sha256": "8b134e6307dad5b09a1c298662d6ac0fabb3483fcd9d1d21eb7c27a2c9ce68ca",
+  "AABB": [
+    [
+      -0.84,
+      -0.21,
+      -0.07
+    ],
+    [
+      0.15,
+      0.42,
+      0.63
+    ]
+  ],
+  "total_proposed_pixels": 7369,
+  "records": [
+    {
+      "camera": "AA",
+      "polygon_HD_integer_vertices": [
+        [
+          925,
+          205
+        ],
+        [
+          965,
+          205
+        ],
+        [
+          965,
+          250
+        ],
+        [
+          925,
+          250
+        ]
+      ],
+      "rasterization": "PIL integer polygon; ray centers x+.5,y+.5",
+      "drawn_pixels": 1886,
+      "proposed_pixels": 1872,
+      "added_beyond_accepted9x9": 1791,
+      "rejected_by_condition_nonexclusive": {
+        "source_valid": 0,
+        "train_valid": 0,
+        "outside_RAW64_support": 14,
+        "outside_UNKNOWN": 0,
+        "W64_zero": 14,
+        "positive_AABB_interval": 0,
+        "interval_z_above_point10": 0,
+        "floor_after_AABBfar": 0,
+        "finite_geometry": 0
+      },
+      "min_interval_floor_z": 0.17449516104307605,
+      "min_floor_after_far": 0.4306338806790946,
+      "min_interval_length": 1.0802128892258727,
+      "band_pixels": 742,
+      "source_RGB": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/images/train_AA.png",
+      "source_RGB_sha256": "fccdebd270b584e690bcafa7a7b82e15d27b0001889bef741d548cf42ccab4c8",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/negative_tau_candidate_v1/source_archives/AA.npz",
+      "source_archive_sha256": "205ade1d948682dcaa37babca189cae5899f62b2483d0dd59116ce4e13e71a0f",
+      "source_semantic": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/AA.npz",
+      "source_semantic_sha256": "3f32135205312f9329fc30d0ef0491d8a0c6972f80dc5b73c37f6817d404435a",
+      "proposal_archive_sha256": "77ceb19dba7d7432aa9385dc03a7f849167385c6890e7a0f9e33d020ac0a407f",
+      "crop_HD_xyxy": [
+        890,
+        170,
+        1001,
+        286
+      ]
+    },
+    {
+      "camera": "BA",
+      "polygon_HD_integer_vertices": [
+        [
+          915,
+          145
+        ],
+        [
+          963,
+          145
+        ],
+        [
+          963,
+          181
+        ],
+        [
+          945,
+          205
+        ],
+        [
+          915,
+          205
+        ]
+      ],
+      "rasterization": "PIL integer polygon; ray centers x+.5,y+.5",
+      "drawn_pixels": 2761,
+      "proposed_pixels": 2689,
+      "added_beyond_accepted9x9": 2608,
+      "rejected_by_condition_nonexclusive": {
+        "source_valid": 0,
+        "train_valid": 0,
+        "outside_RAW64_support": 72,
+        "outside_UNKNOWN": 0,
+        "W64_zero": 72,
+        "positive_AABB_interval": 0,
+        "interval_z_above_point10": 0,
+        "floor_after_AABBfar": 0,
+        "finite_geometry": 0
+      },
+      "min_interval_floor_z": 0.12370830154458723,
+      "min_floor_after_far": 0.2929680922637561,
+      "min_interval_length": 1.1273983950311839,
+      "band_pixels": 777,
+      "source_RGB": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/images/train_BA.png",
+      "source_RGB_sha256": "be895585cae857d0b0a78d8578c8a61b5cbd2c6894134380bb0e411678d3e4b7",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/negative_tau_candidate_v1/source_archives/BA.npz",
+      "source_archive_sha256": "e4128314170c2d52909c2ce22e77af1afa4c89e3e9838e5d49a3aa719b27b599",
+      "source_semantic": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/BA.npz",
+      "source_semantic_sha256": "8e94c32d04b64df4a93683547934a331de9dd941076c5b2dd4ac920a4ba1ca04",
+      "proposal_archive_sha256": "e3cce4f512ded3ec6f5117cfe2cd7e1899e0bfc8db9cf0468cae8b14eda0d507",
+      "crop_HD_xyxy": [
+        880,
+        110,
+        999,
+        241
+      ]
+    },
+    {
+      "camera": "HA",
+      "polygon_HD_integer_vertices": [
+        [
+          1063,
+          109
+        ],
+        [
+          1071,
+          109
+        ],
+        [
+          1071,
+          120
+        ],
+        [
+          1120,
+          120
+        ],
+        [
+          1120,
+          165
+        ],
+        [
+          1060,
+          165
+        ],
+        [
+          1060,
+          120
+        ],
+        [
+          1063,
+          120
+        ]
+      ],
+      "rasterization": "PIL integer polygon; ray centers x+.5,y+.5",
+      "drawn_pixels": 2905,
+      "proposed_pixels": 2808,
+      "added_beyond_accepted9x9": 2727,
+      "rejected_by_condition_nonexclusive": {
+        "source_valid": 0,
+        "train_valid": 0,
+        "outside_RAW64_support": 97,
+        "outside_UNKNOWN": 0,
+        "W64_zero": 97,
+        "positive_AABB_interval": 0,
+        "interval_z_above_point10": 0,
+        "floor_after_AABBfar": 0,
+        "finite_geometry": 0
+      },
+      "min_interval_floor_z": 0.20122161517533016,
+      "min_floor_after_far": 0.5631563656304663,
+      "min_interval_length": 0.3317998270228175,
+      "band_pixels": 845,
+      "source_RGB": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/images/train_HA.png",
+      "source_RGB_sha256": "e73715c25be0da5692175514ad2ab3bf086b938a87f754f2dcb6770114851b53",
+      "source_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/negative_tau_candidate_v1/source_archives/HA.npz",
+      "source_archive_sha256": "3460690c353d6865755f297545b5c8be6ffe122b112beef06f5e598815494aa9",
+      "source_semantic": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/HA.npz",
+      "source_semantic_sha256": "c0c40fcf8d5bf6f2eccd298906a8a984256912967e7b4c4ab479cecf942bed17",
+      "proposal_archive_sha256": "b5b3021a51c9fb95fc0196bf24529f9998ceb7392e1ef48ca6a583676a24360a",
+      "crop_HD_xyxy": [
+        1025,
+        74,
+        1156,
+        201
+      ]
+    }
+  ],
+  "limitations": [
+    "Conditional on approximate existing floor frame; no new independent depth measurement",
+    "Visible source floor only, no blanket clearance of source cache",
+    "All intervals retain minimum z>.10; no extension into shoe/floor contacts",
+    "Polygon interior and every additional pixel require root source review before use"
+  ]
+}
