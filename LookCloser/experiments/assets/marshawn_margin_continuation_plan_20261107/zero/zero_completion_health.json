@@ -1,0 +1,47 @@
+{
+  "time": 1794026690.3027072,
+  "source_no_optimizer_updates": true,
+  "arms": {
+    "original_mapped": {
+      "job_status": "complete",
+      "worker": {
+        "pid": 2852545,
+        "start": "5519352",
+        "boot": "3cd2faca-15ef-4b7e-9767-20e0b80af902",
+        "state": "R"
+      },
+      "gpu": 5,
+      "actual_uuid": "GPU-216eac5a-c2f3-4bc5-d4e8-1a6f9cbd9b9a",
+      "source_Adam": {
+        "fields": [
+          126262.0
+        ]
+      },
+      "passed": true,
+      "oom_evidence": false
+    },
+    "source_margin002": {
+      "job_status": "complete",
+      "worker": {
+        "pid": 2852772,
+        "start": "5519411",
+        "boot": "3cd2faca-15ef-4b7e-9767-20e0b80af902",
+        "state": "R"
+      },
+      "gpu": 6,
+      "actual_uuid": "GPU-a53fcf27-02c4-c737-9269-0623ec25a6d9",
+      "source_Adam": {
+        "fields": [
+          126262.0
+        ]
+      },
+      "passed": true,
+      "oom_evidence": false
+    }
+  },
+  "lease_free": {
+    "5": true,
+    "6": true
+  },
+  "GPU_apps": "GPU-6a8bbc85-5a77-8d62-ab18-560955f0dc65, 2764982, 8044 MiB\nGPU-26c63492-0230-896f-208e-10e4eaca4c3c, 2765206, 8048 MiB\nGPU-279718e7-9e60-e5f2-53aa-65ff7dd03f37, 2765431, 8010 MiB\nGPU-c024b6e2-0def-f4fd-c18a-64b95975effd, 2765655, 8046 MiB\nGPU-cb1a0b07-abd6-8e55-9669-ccbb2c45a560, 2782320, 7874 MiB\nGPU-9c2ea572-537d-66a7-6df3-41c3d8914d39, 2782549, 7874 MiB\n"
+}

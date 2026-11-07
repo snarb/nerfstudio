@@ -1,0 +1,49 @@
+{
+  "status": "TECHNICAL_REVIEW_PENDING_NO_RELEASE_WRITTEN",
+  "required_zero_verification_sha256": "147437609c02f80f7e5ba1eacf021068bfd60be1b81e7954a588d500b8d6f8b0",
+  "exact_guard_template": {
+    "reviewer": "root",
+    "external_guard_authorized": false,
+    "policy_sha256": "930881d66b1239a9db3f1748c3494448faff125f485274ffb2cd9d1e36b34626",
+    "authorized_phases": [
+      "technical"
+    ],
+    "protocol_sha256": "659842196fa0351e48a5bf847433e582de48d08666b5486250f783126d2a083e",
+    "CPU_readiness_sha256": "5c11e1bf4d58beeee4e65be13475cd0d700948d06c0e7e937aba47a0a1d9bdc7",
+    "zero_verification_sha256": "147437609c02f80f7e5ba1eacf021068bfd60be1b81e7954a588d500b8d6f8b0"
+  },
+  "exact_worker_templates": {
+    "original_mapped": {
+      "reviewer": "root",
+      "technical_authorized": false,
+      "production_authorized": false,
+      "spec_sha256": "5e65ceed79983c981d41b1785c1b6ea8219ab529b9ce85cecf76b5397aa07e58",
+      "margin_manifest_sha256": "ee335069afd93eeb4f44129be7135571997575abfea20bd8de475a0c365fc9d5",
+      "zero_reference_sha256": "39e6b28bd8a0796f885bc6a030d2154151ecbb8e00f9cf54417e7547de95d8f5"
+    },
+    "source_margin002": {
+      "reviewer": "root",
+      "technical_authorized": false,
+      "production_authorized": false,
+      "spec_sha256": "1303a37dc5641503bce6350b432108ad49de4cdbb4d4cb3389c5d0cfa33a6455",
+      "margin_manifest_sha256": "ee335069afd93eeb4f44129be7135571997575abfea20bd8de475a0c365fc9d5",
+      "zero_reference_sha256": "f9a07a1642e84d1aced9f95471d7e9f3df92a92fb2b89c7f7406da7a86b3828a"
+    }
+  },
+  "requirements": [
+    "Fresh original126316 in both arms, ownA/B.002 zero parity and exact seven states first.",
+    "32 attempted updates to126348, checkpoint and exit; fresh process resume32 to126380.",
+    "Actual Adam must increase before and after pause; finite fullFHD/combined gradients.",
+    "Exact own seven-state+selector/cache/LUT/private sampler resume; same first batch across arms, no forced later global RNG equality.",
+    "Actual native ARM capture fresh and EMA finite; retain all states/grids; no production reuse of technical weights."
+  ],
+  "launch": [
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/python",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_margin_continuation_candidate_v1/external_guard_margin_v1/guardian.py",
+    "launch",
+    "--policy",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_margin_continuation_candidate_v1/external_guard_margin_v1/policy.json",
+    "--phase",
+    "technical"
+  ]
+}

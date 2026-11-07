@@ -1,0 +1,701 @@
+{
+  "passed": true,
+  "phase": "zero",
+  "arms": {
+    "original_mapped": {
+      "source_seven_states_exact": true,
+      "own_zero_metrics": {
+        "step": 126316,
+        "metrics": {
+          "psnr": 31.63972679198983,
+          "ssim": 0.8312640885512034,
+          "lpips": 0.01877307922889789,
+          "validation_loss": 0.022064595483243465
+        },
+        "by_view": {
+          "DC": {
+            "psnr": 31.928318035473694,
+            "ssim": 0.8286824226379395,
+            "lpips": 0.021489804610610008,
+            "validation_loss": 0.020745201967656612
+          },
+          "HC": {
+            "psnr": 31.601697059452533,
+            "ssim": 0.8320501148700714,
+            "lpips": 0.01635366678237915,
+            "validation_loss": 0.02247255202382803
+          },
+          "KA": {
+            "psnr": 31.38916528104327,
+            "ssim": 0.8330597281455994,
+            "lpips": 0.01847576629370451,
+            "validation_loss": 0.022976032458245754
+          }
+        },
+        "by_actor": {
+          "black": {
+            "psnr": 30.513517800400347,
+            "ssim": 0.7976165612538656,
+            "lpips": 0.02008848264813423,
+            "validation_loss": 0.023400044689575832
+          },
+          "grey": {
+            "psnr": 32.765935783579316,
+            "ssim": 0.8649116158485413,
+            "lpips": 0.01745767580966155,
+            "validation_loss": 0.0207291462769111
+          }
+        },
+        "records": [
+          {
+            "view": "DC",
+            "actor": "black",
+            "psnr": 30.882954748724583,
+            "ssim": 0.7967888116836548,
+            "lpips": 0.019904186949133873,
+            "validation_loss": 0.021752478554844856,
+            "actor_pixels": 50554,
+            "crop_xyxy": [
+              742,
+              61,
+              1087,
+              630
+            ],
+            "crop_pixels": 196305,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "DC",
+            "actor": "grey",
+            "psnr": 32.9736813222228,
+            "ssim": 0.8605760335922241,
+            "lpips": 0.023075422272086143,
+            "validation_loss": 0.01973792538046837,
+            "actor_pixels": 32212,
+            "crop_xyxy": [
+              880,
+              224,
+              1118,
+              625
+            ],
+            "crop_pixels": 95438,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "HC",
+            "actor": "black",
+            "psnr": 29.995297363722862,
+            "ssim": 0.7949431538581848,
+            "lpips": 0.02196245640516281,
+            "validation_loss": 0.02431020699441433,
+            "actor_pixels": 39768,
+            "crop_xyxy": [
+              883,
+              191,
+              1210,
+              688
+            ],
+            "crop_pixels": 162519,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "HC",
+            "actor": "grey",
+            "psnr": 33.208096755182204,
+            "ssim": 0.869157075881958,
+            "lpips": 0.01074487715959549,
+            "validation_loss": 0.02063489705324173,
+            "actor_pixels": 30426,
+            "crop_xyxy": [
+              945,
+              345,
+              1230,
+              747
+            ],
+            "crop_pixels": 114570,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "KA",
+            "actor": "black",
+            "psnr": 30.66230128875359,
+            "ssim": 0.8011177182197571,
+            "lpips": 0.01839880459010601,
+            "validation_loss": 0.024137448519468307,
+            "actor_pixels": 31759,
+            "crop_xyxy": [
+              935,
+              0,
+              1203,
+              470
+            ],
+            "crop_pixels": 125960,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "KA",
+            "actor": "grey",
+            "psnr": 32.11602927333295,
+            "ssim": 0.8650017380714417,
+            "lpips": 0.01855272799730301,
+            "validation_loss": 0.0218146163970232,
+            "actor_pixels": 29297,
+            "crop_xyxy": [
+              889,
+              163,
+              1154,
+              539
+            ],
+            "crop_pixels": 99640,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          }
+        ],
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "aggregation": "equal actors per camera, then equal cameras",
+        "opacity_diagnostics": [
+          {
+            "view": "DC",
+            "actor": "black",
+            "eroded_pixels": 45559,
+            "below09_fraction": 0.03187076099124213,
+            "trigger": true
+          },
+          {
+            "view": "DC",
+            "actor": "grey",
+            "eroded_pixels": 28743,
+            "below09_fraction": 0.0007654037504783774,
+            "trigger": false
+          },
+          {
+            "view": "HC",
+            "actor": "black",
+            "eroded_pixels": 35296,
+            "below09_fraction": 0.03955122393472348,
+            "trigger": true
+          },
+          {
+            "view": "HC",
+            "actor": "grey",
+            "eroded_pixels": 27480,
+            "below09_fraction": 0.0002183406113537118,
+            "trigger": false
+          },
+          {
+            "view": "KA",
+            "actor": "black",
+            "eroded_pixels": 28831,
+            "below09_fraction": 0.023308244597828726,
+            "trigger": true
+          },
+          {
+            "view": "KA",
+            "actor": "grey",
+            "eroded_pixels": 25770,
+            "below09_fraction": 0.009274350019402406,
+            "trigger": false
+          }
+        ],
+        "masked_lpips": 0.01877307922889789,
+        "psnr": 31.63972679198983,
+        "ssim": 0.8312640885512034,
+        "validation_loss": 0.022064595483243465
+      },
+      "render_parity": {
+        "status": "numeric_render_parity",
+        "source_bytes_exact": true,
+        "full_state_requirement": "bitwise canonical hashes unchanged",
+        "RGB8_alpha16_max_code_delta": 1,
+        "metric_absolute_tolerance": 1e-05,
+        "pixels": {
+          "DC.png": {
+            "source_sha256": "dbc63525e10168c246395239f43804066d0f645066cd2e7f61893634b4aaddce",
+            "replay_sha256": "0b675c4fde88af2a4867f490f48c4c769fb6c6a0da90f5551c6d9accdc44c9db",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 5.1465744400527e-07,
+            "changed_values": 3,
+            "changed_fraction": 5.1465744400527e-07,
+            "changed_fraction_limit": 1e-05
+          },
+          "DC_alpha.png": {
+            "source_sha256": "0135615ab16a48f442f5a9ed48c793c992a157e77e2d7ca6bc1f6e016ea30b2a",
+            "replay_sha256": "5fe04a069bca6a1b0e62d9c9de43e9222266490f415fab47b9fef5dfa05b87c0",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 0.0005136281291172596,
+            "changed_values": 998,
+            "changed_fraction": 0.0005136281291172596,
+            "changed_fraction_limit": 0.001
+          },
+          "HC.png": {
+            "source_sha256": "86b95bdabf7c046359d01924a369fd5e3d1ef374ae8b1ce15dd688a202b377bf",
+            "replay_sha256": "bb8b55eb1277897e0ab0aaba7e1aa108d02cd260e12ec7c51ca7cbe3356f1989",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 1.02931488801054e-06,
+            "changed_values": 6,
+            "changed_fraction": 1.02931488801054e-06,
+            "changed_fraction_limit": 1e-05
+          },
+          "HC_alpha.png": {
+            "source_sha256": "be5520dbd755428366c512fd4bc7701f30bf902f863d956274f4dffee2943430",
+            "replay_sha256": "dcf615c9e76b9906101d96d2d631bdc19abcc5c41d0019b9b4ca371da8b5b837",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 0.00038856637022397894,
+            "changed_values": 755,
+            "changed_fraction": 0.00038856637022397894,
+            "changed_fraction_limit": 0.001
+          },
+          "KA.png": {
+            "source_sha256": "3b40261ad9f4ca5ae5d9a6e84e65129c1cae86c0257833842c5e17d807bb91f3",
+            "replay_sha256": "eea01b1f97a0bfd0e0b14f025171fba35dcaddb65f005f0e70904c9266fd76e1",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 1.02931488801054e-06,
+            "changed_values": 6,
+            "changed_fraction": 1.02931488801054e-06,
+            "changed_fraction_limit": 1e-05
+          },
+          "KA_alpha.png": {
+            "source_sha256": "fb63c4ec43b9ee4ff5709882bb8028aa38ca695035574883c271fe8d6afca9a5",
+            "replay_sha256": "5c06afe54c203350aca97e4832e1c2845fe4db3f857b7eb82b2e7f5b3277ccd9",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 0.0003185729578392622,
+            "changed_values": 619,
+            "changed_fraction": 0.0003185729578392622,
+            "changed_fraction_limit": 0.001
+          }
+        },
+        "metric_deltas": {
+          "aggregate": {
+            "psnr": 8.355670999549147e-08,
+            "ssim": 9.93410742555767e-09,
+            "lpips": -9.344269832206598e-08
+          },
+          "by_view/DC": {
+            "psnr": 2.5067012643376074e-07,
+            "ssim": 2.9802322387695312e-08,
+            "lpips": 4.814937710762024e-07
+          },
+          "by_view/HC": {
+            "psnr": 0.0,
+            "ssim": 0.0,
+            "lpips": -3.4924596548080444e-07
+          },
+          "by_view/KA": {
+            "psnr": 0.0,
+            "ssim": 0.0,
+            "lpips": -4.12575900554657e-07
+          },
+          "by_actor/black": {
+            "psnr": 0.0,
+            "ssim": 1.9868214962137642e-08,
+            "lpips": 8.692344028587984e-09
+          },
+          "by_actor/grey": {
+            "psnr": 1.671134128855556e-07,
+            "ssim": 0.0,
+            "lpips": -1.955777406692505e-07
+          },
+          "record/DC/black": {
+            "psnr": 0.0,
+            "ssim": 5.960464477539063e-08,
+            "lpips": 7.245689630508423e-07
+          },
+          "record/DC/grey": {
+            "psnr": 5.013402457620941e-07,
+            "ssim": 0.0,
+            "lpips": 2.384185791015625e-07
+          },
+          "record/HC/black": {
+            "psnr": 0.0,
+            "ssim": 0.0,
+            "lpips": -2.7939677238464355e-07
+          },
+          "record/HC/grey": {
+            "psnr": 0.0,
+            "ssim": 0.0,
+            "lpips": -4.1909515857696533e-07
+          },
+          "record/KA/black": {
+            "psnr": 0.0,
+            "ssim": 0.0,
+            "lpips": -4.1909515857696533e-07
+          },
+          "record/KA/grey": {
+            "psnr": 0.0,
+            "ssim": 0.0,
+            "lpips": -4.0605664253234863e-07
+          }
+        },
+        "bitwise_render_claim": false,
+        "cause_established": false
+      },
+      "cache_sha256": "a80f6a908dd71cfbc3c75f60c6b8f71c9ebfaae3b24d3cfcc2f1ecdb5253ec56"
+    },
+    "source_margin002": {
+      "source_seven_states_exact": true,
+      "own_zero_metrics": {
+        "step": 126316,
+        "metrics": {
+          "psnr": 31.563286268708612,
+          "ssim": 0.8312444488207499,
+          "lpips": 0.0192139510375758,
+          "validation_loss": 0.02211571888377269
+        },
+        "by_view": {
+          "DC": {
+            "psnr": 32.001495809765174,
+            "ssim": 0.8289093971252441,
+            "lpips": 0.02150694467127323,
+            "validation_loss": 0.02067288663238287
+          },
+          "HC": {
+            "psnr": 31.632050133738986,
+            "ssim": 0.8326881229877472,
+            "lpips": 0.016194371040910482,
+            "validation_loss": 0.022426731884479523
+          },
+          "KA": {
+            "psnr": 31.056312862621674,
+            "ssim": 0.8321358263492584,
+            "lpips": 0.01994053740054369,
+            "validation_loss": 0.02324753813445568
+          }
+        },
+        "by_actor": {
+          "black": {
+            "psnr": 30.662967497868678,
+            "ssim": 0.798833966255188,
+            "lpips": 0.019881833344697952,
+            "validation_loss": 0.02323857384423415
+          },
+          "grey": {
+            "psnr": 32.46360503954855,
+            "ssim": 0.8636549313863119,
+            "lpips": 0.01854606873045365,
+            "validation_loss": 0.020992863923311234
+          }
+        },
+        "records": [
+          {
+            "view": "DC",
+            "actor": "black",
+            "psnr": 31.007879355193992,
+            "ssim": 0.797185480594635,
+            "lpips": 0.019977383315563202,
+            "validation_loss": 0.02163197286427021,
+            "actor_pixels": 50554,
+            "crop_xyxy": [
+              742,
+              61,
+              1087,
+              630
+            ],
+            "crop_pixels": 196305,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "DC",
+            "actor": "grey",
+            "psnr": 32.995112264336356,
+            "ssim": 0.8606333136558533,
+            "lpips": 0.02303650602698326,
+            "validation_loss": 0.01971380040049553,
+            "actor_pixels": 32212,
+            "crop_xyxy": [
+              880,
+              224,
+              1118,
+              625
+            ],
+            "crop_pixels": 95438,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "HC",
+            "actor": "black",
+            "psnr": 30.11226860270778,
+            "ssim": 0.7963271737098694,
+            "lpips": 0.021481774747371674,
+            "validation_loss": 0.024170096963644028,
+            "actor_pixels": 39768,
+            "crop_xyxy": [
+              883,
+              191,
+              1210,
+              688
+            ],
+            "crop_pixels": 162519,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "HC",
+            "actor": "grey",
+            "psnr": 33.15183166477019,
+            "ssim": 0.869049072265625,
+            "lpips": 0.010906967334449291,
+            "validation_loss": 0.020683366805315018,
+            "actor_pixels": 30426,
+            "crop_xyxy": [
+              945,
+              345,
+              1230,
+              747
+            ],
+            "crop_pixels": 114570,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "KA",
+            "actor": "black",
+            "psnr": 30.868754535704262,
+            "ssim": 0.8029892444610596,
+            "lpips": 0.01818634197115898,
+            "validation_loss": 0.023913651704788208,
+            "actor_pixels": 31759,
+            "crop_xyxy": [
+              935,
+              0,
+              1203,
+              470
+            ],
+            "crop_pixels": 125960,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "KA",
+            "actor": "grey",
+            "psnr": 31.243871189539085,
+            "ssim": 0.8612824082374573,
+            "lpips": 0.021694732829928398,
+            "validation_loss": 0.022581424564123154,
+            "actor_pixels": 29297,
+            "crop_xyxy": [
+              889,
+              163,
+              1154,
+              539
+            ],
+            "crop_pixels": 99640,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          }
+        ],
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "aggregation": "equal actors per camera, then equal cameras",
+        "opacity_diagnostics": [
+          {
+            "view": "DC",
+            "actor": "black",
+            "eroded_pixels": 45559,
+            "below09_fraction": 0.033495028424680086,
+            "trigger": true
+          },
+          {
+            "view": "DC",
+            "actor": "grey",
+            "eroded_pixels": 28743,
+            "below09_fraction": 0.0007654037504783774,
+            "trigger": false
+          },
+          {
+            "view": "HC",
+            "actor": "black",
+            "eroded_pixels": 35296,
+            "below09_fraction": 0.040202855847688124,
+            "trigger": true
+          },
+          {
+            "view": "HC",
+            "actor": "grey",
+            "eroded_pixels": 27480,
+            "below09_fraction": 0.0002547307132459971,
+            "trigger": false
+          },
+          {
+            "view": "KA",
+            "actor": "black",
+            "eroded_pixels": 28831,
+            "below09_fraction": 0.023481669036800667,
+            "trigger": true
+          },
+          {
+            "view": "KA",
+            "actor": "grey",
+            "eroded_pixels": 25770,
+            "below09_fraction": 0.011369809856422197,
+            "trigger": true
+          }
+        ],
+        "masked_lpips": 0.0192139510375758,
+        "psnr": 31.563286268708612,
+        "ssim": 0.8312444488207499,
+        "validation_loss": 0.02211571888377269
+      },
+      "render_parity": {
+        "status": "numeric_render_parity",
+        "source_bytes_exact": true,
+        "full_state_requirement": "bitwise canonical hashes unchanged",
+        "RGB8_alpha16_max_code_delta": 1,
+        "metric_absolute_tolerance": 1e-05,
+        "pixels": {
+          "DC.png": {
+            "source_sha256": "5752d266a44b14d0a0e4f9dd34a7606d12fa651898ca90191a20195e5a97647c",
+            "replay_sha256": "af8dbf4720a664a99e57f034bd06a4c11a12e16ab481ed10c9c7083e8211a87c",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 3.431049626701801e-07,
+            "changed_values": 2,
+            "changed_fraction": 3.431049626701801e-07,
+            "changed_fraction_limit": 1e-05
+          },
+          "DC_alpha.png": {
+            "source_sha256": "8ac6198567d92eee7d6d84d819acf0abe92033d81c071ed06f5fd40d3141e5d7",
+            "replay_sha256": "60a7e2636a0128f2242d3dd7d4db00f1b2397debbba8fda0e702676101f4eca8",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 0.0004462080039525692,
+            "changed_values": 867,
+            "changed_fraction": 0.0004462080039525692,
+            "changed_fraction_limit": 0.001
+          },
+          "HC.png": {
+            "source_sha256": "51785e2ad17e6d230165f5f05c78ec4ab1d58f6240b02954066d754710245e0b",
+            "replay_sha256": "d0ad699d42f4d9f3e5532adea38d0d9833e0b543aebbd71a89c6318f428b914f",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 8.577624066754502e-07,
+            "changed_values": 5,
+            "changed_fraction": 8.577624066754502e-07,
+            "changed_fraction_limit": 1e-05
+          },
+          "HC_alpha.png": {
+            "source_sha256": "2738b01c7edfb62fa3dbaf9c96e9587c9e196a1a119f0ad25a8da34cc2da8386",
+            "replay_sha256": "5a9c4f40288c16a9df9a7cd9d7b494d5e7ce2e4b5dd38ce81277c15101b244ab",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 0.00036077486824769435,
+            "changed_values": 701,
+            "changed_fraction": 0.00036077486824769435,
+            "changed_fraction_limit": 0.001
+          },
+          "KA.png": {
+            "source_sha256": "6e80ac839ae9a119d3fe5e603a1f29a79996300fe8b7f5f27807f0571ab5ad90",
+            "replay_sha256": "12d9084b6146c9b448739d7df87d054167b7c0c818f23f10aae9776363f2de40",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 1.02931488801054e-06,
+            "changed_values": 6,
+            "changed_fraction": 1.02931488801054e-06,
+            "changed_fraction_limit": 1e-05
+          },
+          "KA_alpha.png": {
+            "source_sha256": "a51612b9ddb1d79288841c57ec284c66c3c50370dfe1d80a3a98024cc7ae00ef",
+            "replay_sha256": "32984517f61aaaa22a9b32ad3348db2718347e25f7c91958372e0b065470d13f",
+            "max_code_delta": 1.0,
+            "mean_code_delta": 0.00026196063899868246,
+            "changed_values": 509,
+            "changed_fraction": 0.00026196063899868246,
+            "changed_fraction_limit": 0.001
+          }
+        },
+        "metric_deltas": {
+          "aggregate": {
+            "psnr": 9.28519128251537e-09,
+            "ssim": 4.967053723881065e-08,
+            "lpips": 2.4586915969848633e-07
+          },
+          "by_view/DC": {
+            "psnr": 0.0,
+            "ssim": 8.940696716308594e-08,
+            "lpips": 5.224719643592834e-07
+          },
+          "by_view/HC": {
+            "psnr": 0.0,
+            "ssim": 8.940696716308594e-08,
+            "lpips": 4.1350722312927246e-07
+          },
+          "by_view/KA": {
+            "psnr": 2.7855570294832432e-08,
+            "ssim": -2.9802322387695312e-08,
+            "lpips": -1.9837170839309692e-07
+          },
+          "by_actor/black": {
+            "psnr": -2.0584896276432119e-07,
+            "ssim": 0.0,
+            "lpips": 7.326404253757413e-08
+          },
+          "by_actor/grey": {
+            "psnr": 2.2441934532935193e-07,
+            "ssim": 9.934107469966591e-08,
+            "lpips": 4.18474276862868e-07
+          },
+          "record/DC/black": {
+            "psnr": 0.0,
+            "ssim": 5.960464477539063e-08,
+            "lpips": -5.21540641784668e-08
+          },
+          "record/DC/grey": {
+            "psnr": 0.0,
+            "ssim": 1.1920928955078125e-07,
+            "lpips": 1.0970979928970337e-06
+          },
+          "record/HC/black": {
+            "psnr": 0.0,
+            "ssim": 0.0,
+            "lpips": 5.364418029785156e-07
+          },
+          "record/HC/grey": {
+            "psnr": 0.0,
+            "ssim": 1.7881393432617188e-07,
+            "lpips": 2.905726432800293e-07
+          },
+          "record/KA/black": {
+            "psnr": -6.175468882929636e-07,
+            "ssim": -5.960464477539063e-08,
+            "lpips": -2.644956111907959e-07
+          },
+          "record/KA/grey": {
+            "psnr": 6.732580288826284e-07,
+            "ssim": 0.0,
+            "lpips": -1.3224780559539795e-07
+          }
+        },
+        "bitwise_render_claim": false,
+        "cause_established": false
+      },
+      "cache_sha256": "a80f6a908dd71cfbc3c75f60c6b8f71c9ebfaae3b24d3cfcc2f1ecdb5253ec56"
+    }
+  },
+  "cross_arm": {
+    "first_batch_or_cache_equal": true,
+    "later_cross_arm_RNG_equality_required": false
+  },
+  "inputs_sha256": {
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_margin_continuation_candidate_v1/runs/zero_original_mapped/source_baseline_parity.json": "0090b869c6a75b9dd883e4c963f2a9a3d1242c3d247361a930e6772ff9438523",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_margin_continuation_candidate_v1/runs/zero_original_mapped/branch_zero_parity.json": "45c9ec9e37e86e6403ed1223d77641271ff5f8370c2414f03f443bc02eded1e5",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_margin_continuation_candidate_v1/runs/zero_original_mapped/density_gate_proof.json": "520657f02d28760747d540492fe632ee48a780ac63c0b67056379b68dafa4d45",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_margin_continuation_candidate_v1/runs/zero_source_margin002/source_baseline_parity.json": "03fce1f3313214b42f58ff166f4fceb4fff49e46f8229842d14cc3ea778a2ab6",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_margin_continuation_candidate_v1/runs/zero_source_margin002/branch_zero_parity.json": "d3140266c1480168ed4e4bfb4462143ea7aed7f62580de5087b9c7b8436942ca",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_margin_continuation_candidate_v1/runs/zero_source_margin002/density_gate_proof.json": "2ac8ea4692bfe78b6dec7910431dcfb5cf5f3fee023a1b60f62a13dba46dc619"
+  },
+  "CPU_only": true,
+  "technical_checkpoints_excluded_from_production": true,
+  "quality_promotion": false
+}

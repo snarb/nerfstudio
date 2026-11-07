@@ -48,3 +48,17 @@ Launch entry after exact review, from local olive:
 ```
 
 Technical and production phases require separately hash-bound predecessor verification and root releases. Technical weights cannot enter production. No scientific quality or clean-grid claim follows from CPU readiness.
+
+
+## Actual ZERO gate
+
+Root released the exact two-arm ZERO phase. Both completed with no optimizer updates, unchanged Adam126262 and exact seven serialized states. Both reproduced original A before installing their branch; own control A and treatment .002 then matched their separate references within the unchanged PNG/alpha one-code and metric≤1e−5 limits. Among327 declared native positions, treatment kept273 densities bitwise equal and set54 previously positive densities to exactly zero; installation/query preserved global RNG.
+
+| Own zero branch | PSNR | SSIM | LPIPS |
+|---|---:|---:|---:|
+| Original mapped |31.639727|.831264|.018773079|
+| Source margin .002 |31.563286|.831244|.019213951|
+
+These are expected counterfactual starting points, not adapted-model results. All six [body contacts](assets/marshawn_margin_continuation_plan_20261107/zero/zero_body_overview.jpg) were inspected: broad actor halos and floor fragments remain. Both worker processes exited; independent watchdogs passed and physicalGPU5/6 leases were released, with no OOM. CPU zero verifier SHA `147437609c02f80f7e5ba1eacf021068bfd60be1b81e7954a588d500b8d6f8b0`. [Proof summary](assets/marshawn_margin_continuation_plan_20261107/zero/zero_phase_summary.json).
+
+The exact32+32 technical release request is `C/semantic_margin_continuation_candidate_v1/TECHNICAL_RELEASE_REQUEST.json`; it remains separate from production permission. Later cross-arm RNG equality is not assumed once field density diverges; exact own resume and first-source-batch equality are required.

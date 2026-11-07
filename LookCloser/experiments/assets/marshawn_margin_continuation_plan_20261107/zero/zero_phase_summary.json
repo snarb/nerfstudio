@@ -1,0 +1,60 @@
+{
+  "passed": true,
+  "phase": "zero",
+  "zero_verification_sha256": "147437609c02f80f7e5ba1eacf021068bfd60be1b81e7954a588d500b8d6f8b0",
+  "guardian_complete_sha256": "116d2b27f198c77ae99b721541be6e3cd335300d4e28458b33f285dd1aeff061",
+  "health_receipt_sha256": "927ae0b3e330d3727cb0ad01a4e2327bb35bb8f8fa63a1920c23106d4ec0fb88",
+  "manual_contact": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_margin_continuation_candidate_v1/zero_body_overview.jpg",
+  "manual_contact_sha256": "b777b116cb47e31d40986a626d74185e847122b40bb7cda947398a80c4783f83",
+  "manual_review": "All six body views inspected. Matches existing A/.002 appearance; mapped head overhang reduced by .002, broad actor halo and near-floor fragments remain. No trained adaptation or quality promotion.",
+  "Adam_before_after": 126262,
+  "actual_optimizer_updates": 0,
+  "technical_pending": true,
+  "production_authorized": false,
+  "arms": {
+    "original_mapped": {
+      "metrics": {
+        "psnr": 31.63972679198983,
+        "ssim": 0.8312640885512034,
+        "lpips": 0.01877307922889789
+      },
+      "density": {
+        "passed": true,
+        "positions_sha256": "aade4485c7f844f50c5a5a2ff55190e5b9ddf61ec422de8fcbfa2390c667c600",
+        "points": 327,
+        "admitted": 327,
+        "excluded": 0,
+        "excluded_previously_nonzero": 0,
+        "admitted_density_bitwise_equal": true,
+        "excluded_density_exact_zero": true,
+        "global_RNG_unchanged": true
+      },
+      "max_RGB_code_delta": 1.0,
+      "max_alpha_code_delta": 1.0,
+      "max_absolute_metric_delta": 7.245689630508423e-07,
+      "sourceA_verified_before_gate": true
+    },
+    "source_margin002": {
+      "metrics": {
+        "psnr": 31.563286268708612,
+        "ssim": 0.8312444488207499,
+        "lpips": 0.0192139510375758
+      },
+      "density": {
+        "passed": true,
+        "positions_sha256": "aade4485c7f844f50c5a5a2ff55190e5b9ddf61ec422de8fcbfa2390c667c600",
+        "points": 327,
+        "admitted": 273,
+        "excluded": 54,
+        "excluded_previously_nonzero": 54,
+        "admitted_density_bitwise_equal": true,
+        "excluded_density_exact_zero": true,
+        "global_RNG_unchanged": true
+      },
+      "max_RGB_code_delta": 1.0,
+      "max_alpha_code_delta": 1.0,
+      "max_absolute_metric_delta": 1.0970979928970337e-06,
+      "sourceA_verified_before_gate": true
+    }
+  }
+}
