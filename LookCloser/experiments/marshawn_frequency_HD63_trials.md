@@ -54,6 +54,18 @@ At this early matched gate neither new map improves actor LPIPS. All three sourc
 
 All3 actor and9 detail rows were reviewed again. Garment structure and shoe shapes remain broadly comparable; there is no gross newly missing actor region at contact resolution, while strong halo and floor/mat/bag remnants persist. Decay differs from baseline by only−.00001395 LPIPS and has lower PSNR; this does not establish an improvement. [Actors](/fsx/tmp/marshawn_001660_hd/tuning_20261106/frequency_HD63_trials_v3/reviews/step-000030376/all_actors.jpg), [details](/fsx/tmp/marshawn_001660_hd/tuning_20261106/frequency_HD63_trials_v3/reviews/step-000030376/all_details.jpg), visual receipt SHA `ee4f5c11201882393668fee9c6fc961462267780a83bf09066f463d25670ff6a`. Both workers remain healthy and continue. Saved alpha16 diagnostics outside a16HD-pixel Euclidean mask margin show decay has+4.65%/+4.29%/+2.49% alpha>.1 pixels in DC/HC/KA; .93 changes−1.05%/+.11%/+1.79%. Thus no consistent exterior cleanup is measured. These fixed image-mask margins are not physical empty-space labels; full0/3/8/16/32-pixel diagnostics and input hashes are in the gate exterior/receipt.json.
 
+## Matched45564 gate and supervision handoff
+
+| Map recipe | PSNR | SSIM | LPIPS |
+|---|---:|---:|---:|
+| Frozen baseline | 31.87417 | .842044 | .02000830 |
+| LR decay | 31.79189 | .842471 | .02013569 |
+| SSIM.93 | 31.91158 | .841475 | .01974254 |
+
+All3 actor and9detail rows viewed; no gross newly missing actor region at sheet resolution, while halo and floor/mat/bag remain. The.93 improvement is.00026576, inside the declared.001 selection tie, and not a terminal result. Review directory `reviews/step-000045564`; visual receipt SHA `e1e1252ec99804f6e75542e5d0be3e047f41111b3594f13b2d00efe8025d4181`.
+
+Root explicitly takes continuing hourly and visual supervision of both HD jobs and the local4K job to free the agent slot. Live controllers, workers and CPU archive watchers remain untouched. `C/frequency_HD63_trials_v3/native_reference_supervision_handoff.json` freezes actual process/status/receipt paths, latest progress, next visual gates and commands; SHA `120fffd25acccc9693e1af79dcd11f6380529f56b74d13967d310a6c5ac7ed1c`. This transfers supervision without terminating experiments.
+
 ## Insights and limits
 
 The source/map review supports a controlled experiment, not a predicted improvement. SSIM.93 coarsens actor map levels, while decay varies across materials and views. The legacy baseline is not a newly repeated fitter seed/runtime control. The first matched gate supplies early NeRF measurements, not a terminal map selection or geometry/cleanup promotion.
