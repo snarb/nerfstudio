@@ -134,6 +134,14 @@ def freeze(root, base=BASE):
             if not (scripts/dependency).exists():
                 shutil.copy2(own/dependency,scripts/dependency);added.append(dependency)
             pending.append(dependency)
+    # The CPU ray audit compiles this source via Path(__file__).with_name(...).
+    # Python import closure alone does not cover its required native asset.
+    added_assets=[]
+    if 'audit_marshawn_support_rays_cpu.py' in visited:
+        asset='marshawn_semantic_ray_support.cpp'
+        if not (own/asset).is_file():raise FileNotFoundError('Missing CPU audit asset: '+asset)
+        if not (scripts/asset).exists():
+            shutil.copy2(own/asset,scripts/asset);added_assets.append(asset)
     recipe=json.loads((base/'spec.json').read_text())
     for key in ('data','output','semantic_admission'):recipe.pop(key)
     atomic(root/'recipe.json',recipe)
@@ -143,6 +151,7 @@ def freeze(root, base=BASE):
         train_ast_equal_after_enumerated_operational_reversal=True,
         evaluate_ast_equal_after_explicit_known_absence_skip_and_aggregation_reversal=True,
         local_import_closure=sorted(visited),additional_local_dependencies=sorted(added),
+        additional_local_assets=sorted(added_assets),
         changes=['63→66 training dataset guard','ALL66 in-sample monitor validation',
         'frame-local data-derived admission loader','campaign release verification',
         'read-only cold setup audit','retain raw actor LPIPS and PSNR07 output winners',

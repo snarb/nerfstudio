@@ -172,3 +172,53 @@ At launch no new frame model or final video had completed. The supplied TIFFs
 end at2020; actual GT2025–2255 for the requested extra2seconds remains missing.
 The export pipeline can publish two3second neural videos while waiting for
 those actual photographs. No synthetic continuation has been authorized.
+
+A subsequent CPU packaging check found that the manual ray-audit helper compiles
+`marshawn_semantic_ray_support.cpp` via its adjacent pathname, which Python
+import-closure inspection alone missed. The repository factory now includes and
+hashes that required source asset for future freezes. The running production
+package/model seal was left unchanged; this fix concerns the optional CPU audit
+package, not field training or checkpoint math.
+
+The first new-frame native review also found a partial crew merge in MC: the
+grey actor's global person instance included the bald helper's head. Correct
+identity selection and small contact sheets were insufficient to certify clean
+mattes. Frame1665 field dispatch was held before any training; fresh native1008
+interactive head/visible-shoulder masks with actor-negative prompts supply a
+reviewed current-frame crew veto. The original masks and correction receipts
+remain available. Add-only hair refinement cannot remove this false foreground.
+All current person candidates and persistent identity/UNKNOWN guards are being
+qualified before the rest of the input pipeline is released. Existing frame1660
+training uses the prior reviewed masks and continues independently.
+
+
+### Supervised continuation (2026-11-07 15:11 UTC)
+
+Frame1660 and1665 are training independently from cold state on silver. Both
+include ALL66 train cameras; DC/HC/KA scores are in-sample monitoring only.
+Frame1665 was released only after current-image crew correction, all66 fresh
+MAT/BAG visibility layers, final frequency inventory and the original admission
+loader passed. Its four shoe proxy cells and921 sampled positive boundary/core
+rays survived the conservative admission grid (zero failing sampled rays).
+This sampled evidence does not certify every physical surface cell.
+
+For frame1670, current-image all-person proposals recovered two omitted black
+actor lower-leg components in JE. Add-only repair preserved existing actor,
+crew-veto and UNKNOWN arrays. A95% current/prior same-actor upper-body anchor
+qualified these fragments and rejected the earlier MC crew merge. Independent
+geometry UNKNOWN and ambiguous people remain conservative; previous-frame
+identity proposals never initialize model weights or learned grids.
+
+The full native producer now runs under a durable watchdog. The CPU source
+service owns decoding1675–2015; the producer adopts its exact source receipts.
+Dev3 computes six reserved same-frame frequency maps, excluding those cameras
+from silver fitting. The previous late-push frequency helper was retired before
+activating the source-bound admission-safe dispatcher. Future dispatch must wait
+for the final identical LOCAL/silver ready hash, current MAT/BAG visibility,
+frozen admission loader and positive-source witnesses. No input mutation is
+permitted after dispatch.
+
+The optional CPU audit package fix passed306 independent synthetic ray/DDA
+crosschecks using the compiled source in the new factory snapshot; proof:
+`/fsx/tmp/marshawn_video_factory_native_asset_check_20261107/cpu_ray_test/verification.json`.
+The active1530-file production model snapshot remains unchanged.
