@@ -176,6 +176,14 @@ This is one 140,000-iteration HD-trained model rendered at native 4K,
 not the completed 72-model video. Full-sequence temporal inspection remains
 required after training and assembly.
 
+A read-only sequence check subsequently inspected all 4686 canonical source
+receipts across 71 prepared frames and 66 cameras. Every camera retained
+the same fixed EV, photometry-fit hash and calibration hash throughout the
+sequence; no frame-dependent exposure fit was found. Receipt:
+`operations/root_sequence_photometry_consistency.json` under the source
+campaign. This verifies configuration consistency, not absence of temporal
+artifacts in the independently learned fields.
+
 The iteration limit now has direct pre-gradient enforcement and terminal
 accounting. Retaining the previous LR schedule preserves the chosen recipe
 under the shorter user-selected duration.
