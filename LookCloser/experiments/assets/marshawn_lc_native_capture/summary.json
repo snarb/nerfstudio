@@ -1,0 +1,25 @@
+{
+  "capture_complete": true,
+  "rays": 69888,
+  "samples": 12993330,
+  "cap_hits": 92,
+  "cap_hit_positive": 91,
+  "cap_hit_negative": 1,
+  "source_pipeline_digest": "c83bc7dbb1504063c35f0a2b14ae3fb329ff27ed2eb6b3661eb89b4918d46636",
+  "source_CP_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "evidence_sha256": {
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_capture_plan_v4/manifest.json": "6ff72e5472c66cfaa3f7b9003ac68b9cac54e711bfdf4f1a1e2cb6f4937924de",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_capture_plan_v4/capture/complete.json": "fb8b875d8c7f3676c3dfbd187b4c76c3ee40ec8a3b62a940fdf33bb97d99073d",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_capture_plan_v4/CPU_cache_audit.json": "e746606b13b651d0ff306dda4e512fb54568c5aaeac7ceb384b1fd0d3dab70a1",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_capture_plan_v4/terminal_supervision.json": "b7fc26c79b78f5b5e18aecc7051e64583e09c011618ce7b1d7a5364661ef754e",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_head_silver_alias_v1/canonical_equivalence.json": "e0519e6ef5ef8309605003efc0c5a0da109549054e721df374265c41996bea39",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_head_silver_alias_v1/alias_stage_receipt.json": "9786ac1cf0c9075548087ef5f4723fd32936125fe31d187d87949d97c48fc517",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_head_silver_alias_v1/recovery1_CPU_execution_closure.json": "cbd9d4f8998c0b4b4b7dfa05f8efbb80401ed04b1aeef8be98c761af29e107ec",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_head_silver_alias_v1/controller_recovery1.json": "d04def8a76fbdf1746fac1295bc74e3cea5e4c99808e300cb2a0ca6a18c97340",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_head_silver_alias_v1/rootrelease_recovery_TEMPLATE.json": "9ff97eff82310b17fb788695dce6ed2e0bc431c7b491831602de9345dc88fcdd"
+  },
+  "remote_first_attempt_steps": 0,
+  "remote_first_attempt_head_created": false,
+  "remote_recovery_executable_closure_verified": true,
+  "physical_full_visibility_claim": false
+}
