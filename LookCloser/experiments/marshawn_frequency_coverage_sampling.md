@@ -54,3 +54,22 @@ Three CPU tests pass: original global RNG and uniform pixels are exact, private/
 Source inspection suggests CUDA RNG consumption can also remain identical: native nerfacc stratification draws one `rand_like(near_planes)` per input ray before traversal, while the fixed warmup marcher is deterministic. Keeping2048 rays therefore preserves the apparent draw shape, unlike8192. This is an inference from code, **not yet an actual GPU RNG proof**. Before integration, compare original versus focused single updates from identical selected-model/RNG state, assert CPU and CUDA post-update RNG byte equality, exact camera IDs and original-uniform coordinates, unchanged non-frequency tensors, finite depth/output and actor-admitted new-cell attribution. Record source `nerfacc` path/hash. No speculative manual RNG advancement or duplicate baseline render should hide a mismatch; if actual CUDA states differ, report it and revise the causal design explicitly.
 
 A viable isolated cold arm would retain originalR0/W64/.01distortion/.00625coarse/global2048/interval1024 and change only this frequency pixel proposal. It would first require actual warmup/ARM and private-state Adam pause/resume checks, plus full106316→unchanged plateau and matched15188 visual/geometry gates. Neither this proposal nor8192 is launched. Sparse reserves are diagnostic only, never sampling targets.
+
+## Actual focused2048 scratch proof
+
+The proposed hook was then tested only in an isolated restored selectedR0 process. Original2048, focused2048 and focused2048 resumed from a serialized private-state fixture all ran the actual frozen model/update under AMP. All non-frequency tensors, learned occupancy/core/EMA and original source weights stayed unchanged; each scratch frequency grid was restored. No optimizer or producer changes occurred.
+
+|Actual single-update result|Original2048|Focused2048|
+|---|---:|---:|
+|Projected depth inside frequency bounds|594|1739|
+|Projected depth admitted by actual field support|256|1636|
+|Admitted and rendered alpha>.1|231|1616|
+|New level15 cells|440|737|
+|Original native103 termination mass at level0|51.269%|47.093%|
+|Original native103 witness-band mass at level0|44.945%|40.140%|
+
+The projected admission/opacity counts are diagnostics, not newly added filters. Legacy depth/coordinates/map projection remains unchanged. The update makes meaningfully more use of the same ray budget than8192 uniform in this measured state.
+
+Actual global CPU **and CUDA** post-update RNG bytes agree with original. The unchanged actual body80 datamanager then emits identical next main-training batch indices, origins and directions, with identical resulting RNG states. Private auxiliary state serialization/restoration reproduces the focused grid, samples and next main batch exactly. Runtime import paths/hashes include the proposal, trace helper and actual nerfacc estimator. The bounded idle-exclusiveGPU7 proof took30.5s, peak2118MiB; allocator≈1.23GB. The device was released. [Proof](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/actor_frequency_actual_proof/complete.json), [full result](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/actor_frequency_actual_proof/results/complete.json).
+
+This validates the immediate update/RNG mechanism, not training quality or general future ray identity after learned fields diverge. No production hook is installed. An eventual cold arm still requires actual worker checkpoint binding and successful Adam pause/resume with the auxiliary generator state, source hash checks and unchanged body80/objective configuration.

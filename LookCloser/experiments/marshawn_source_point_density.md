@@ -42,3 +42,19 @@ Source-point PSNR31.28347/SSIM.843042/LPIPS.03135776 versus coarse-admission R0 
 Manual inspection of both actors in all three views finds narrower exterior haze, especially HC, with visible hair/shoes retained. Near-foot and floor residual remains. Geometry is mixed, so there is no global quality promotion; training continues through the unchanged plateau schedule.
 
 [Matched source geometry](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_sourcepoint_matched15k/report.md), [personally inspected GT/coarse/source-point crops](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_sourcepoint_matched15k/GT_coarse_sourcepoint_15188_crops.jpg).
+
+## Natural completion and final image review
+
+The isolated source-point arm stopped naturally at126316. Established selection remains91128: PSNR31.44280/SSIM.838677/LPIPS.02397407. The separately retained raw LPIPS minimum is terminal126316:31.33993/.834954/.02350594. This exposes gradual LPIPS improvement without changing the original selector or plateau. All three choices are protected with exact checkpoint/grid hashes in [final choices](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_sourcepoint_final_choices/complete.json).
+
+A CPU-only comparison of saved16-bit alpha uses the fixed original masks, margins0/3/8/16/32, with no new model query, labels or carving. At16px beyond the masks, alpha>.1 pixels are:
+
+|View|OriginalR0 selected111316|Point selected91128|Point terminal126316|
+|---|---:|---:|---:|
+|DC|185261|154641|153756|
+|HC|107305|81086|80699|
+|KA|74830|58580|58184|
+
+These checkpoint ages differ explicitly. Mask exterior is not certified free space. Three source/RGB actor comparisons were visually inspected: the source-point gate narrows some exterior haze, especiallyHC, but broad hair/torso halos and floor/bag/foreground components remain. The final primary LPIPS also trails originalR0. This is a useful support reduction, not a clean-geometry or overall-quality promotion. Final selected115-ray geometry has not yet been replayed; first15188 geometry findings must not be substituted for final evidence.
+
+[Exterior receipt](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_sourcepoint_final_exterior/receipt.json), [DC black actor](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_sourcepoint_final_exterior/DC_black_comparison.jpg), [HC grey actor](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_sourcepoint_final_exterior/HC_grey_comparison.jpg), [KA black actor](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_sourcepoint_final_exterior/KA_black_comparison.jpg).
