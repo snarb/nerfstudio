@@ -310,3 +310,29 @@ Final output directory is
 `/fsx/tmp/marshawn_video_1660_2015_24fps_140k_20261107/video/geometry_cpu_delivery_params_v2`.
 The movies are not yet complete. They will contain72 neural frames followed
 by48 native integer crops of paused source2020, with no GT image resize.
+
+A subsequent OPS-only crash audit fixed two launch windows: the route now
+reloads the authoritative `state.json` written before SSH dispatch, and CPU
+renders have a prelaunch intent/nonce plus an inherited execution lease. The
+child writes PID/start/boot before executing the unchanged shader; controller
+restarts adopt that same owner. Busy locks do not consume shader retry budget.
+Four injected coordinator crashes, actual inherited locks, capacity limits,
+cross-source rejection and a frozen-fleet ACK crash with a CPU receiver passed.
+A real completed SG1660 geometry artifact passed the orphan-adoption proof;
+wrong camera/frame requests were rejected. No GPU/model experiment was needed.
+
+The actual frozen GT CLI check found a missing metadata key:
+`one.py --cpu` also requires `source_visibility_adapter_sha256`. The outer
+spec adapter now binds the unchanged57734bb4… helper. Old qualification specs,
+receipts and PNG hardlinks were preserved; shader51239b1e…, GPU6603aa06… and
+profile2bd9bca5… remain byte-identical. In a separate new fixture, actual4K
+GT72/119 ran without a2020 model/DATA/geometry, shared native pixels matched
+exactly, and the neural metadata roundtrip matched the approved PNGs exactly.
+
+Final OPS release SHA:
+`fb5b920433f6f59a1e2ed16bd6b8ee79435060ec38c401e8b2ca9e734e529c3e`.
+The final fleet posthook SHA is now
+`390ef99d70780ff6f3a39ed18bd72fc2edf792c47c204c29fdae82a75df5fe4d`;
+the earlier parameter-only hook remains archived. The training plan and all
+model/source data are unchanged. Qualified sources and CPU tests are in
+[`durability`](../scripts/marshawn_video_export_geometry_cpu/durability/README.md).
