@@ -44,6 +44,16 @@ Both arms passed cold warmup4096 and all four Adam counters reached1998 in the s
 
 At this early matched gate neither new map improves actor LPIPS. All three source/actor panels and nine hair/hand/feet panels were visually reviewed: no gross new actor cuts, but substantial head/body halos and floor/mat/bag fragments remain in every arm. This is not a complete sole-opacity certificate. [Actor comparison](/fsx/tmp/marshawn_001660_hd/tuning_20261106/frequency_HD63_trials_v3/reviews/step-000015188/all_actors.jpg) and [details](/fsx/tmp/marshawn_001660_hd/tuning_20261106/frequency_HD63_trials_v3/reviews/step-000015188/all_details.jpg); visual receipt SHA256 `1656a661ad5b788c090490155139c46b672c27d9275c1fdbe38398386f35bb10`. Both trials continue under the unchanged stopping protocol.
 
+## Matched30376 gate
+
+| Map recipe | PSNR | SSIM | LPIPS |
+|---|---:|---:|---:|
+| Frozen baseline | 32.01860 | .847094 | .02053743 |
+| LR decay | 31.89553 | .846629 | .02052348 |
+| SSIM.93 | 31.92200 | .845573 | .02067298 |
+
+All3 actor and9 detail rows were reviewed again. Garment structure and shoe shapes remain broadly comparable; there is no gross newly missing actor region at contact resolution, while strong halo and floor/mat/bag remnants persist. Decay differs from baseline by only−.00001395 LPIPS and has lower PSNR; this does not establish an improvement. [Actors](/fsx/tmp/marshawn_001660_hd/tuning_20261106/frequency_HD63_trials_v3/reviews/step-000030376/all_actors.jpg), [details](/fsx/tmp/marshawn_001660_hd/tuning_20261106/frequency_HD63_trials_v3/reviews/step-000030376/all_details.jpg), visual receipt SHA `ee4f5c11201882393668fee9c6fc961462267780a83bf09066f463d25670ff6a`. Both workers remain healthy and continue. Saved alpha16 diagnostics outside a16HD-pixel Euclidean mask margin show decay has+4.65%/+4.29%/+2.49% alpha>.1 pixels in DC/HC/KA; .93 changes−1.05%/+.11%/+1.79%. Thus no consistent exterior cleanup is measured. These fixed image-mask margins are not physical empty-space labels; full0/3/8/16/32-pixel diagnostics and input hashes are in the gate exterior/receipt.json.
+
 ## Insights and limits
 
 The source/map review supports a controlled experiment, not a predicted improvement. SSIM.93 coarsens actor map levels, while decay varies across materials and views. The legacy baseline is not a newly repeated fitter seed/runtime control. The first matched gate supplies early NeRF measurements, not a terminal map selection or geometry/cleanup promotion.
