@@ -2156,3 +2156,5 @@ separately released zero,32+32 and fresh-parent plateau gates. The worker enforc
 a10GiB Torch allocator limit after physicalUUID validation; an external process
 guard remains separate. These conditional soft prefixes do not define hard cells,
 full-ray emptiness or alphaGT; the uncertain JA rig-edge patch is excluded.
+
+An opt-in frozen-field semantic path adds an independent 128³ actor class grid to full-scene NGP while preserving all 38 native model-state tensors. TRAIN-only native visibility weights supervise membership; unobserved regions retain an explicit p=.99 preservation prior without hidden-space certainty. Physical exports select 3D density and recompute transmittance over unchanged native occupied intervals, with opacity early termination disabled. Capture and 32+32/64 restoration are verified; the 2000-update, three-view physical visual gate is active. Native RGB, density and occupancy are never optimized by this path; optical-alpha labels and hidden support gates are not introduced.
