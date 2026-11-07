@@ -96,3 +96,17 @@ All3actor and9detail crops were manually inspected. No gross new limb/shoe loss 
 |116316|new4K_quarter01|31.29074|0.826119|0.02049429|
 
 All3actor and9detail crops were manually reviewed at each gate. New4K retains substantial unwanted floor/bag/silhouette geometry and remains below matched HD on actor LPIPS. No new resolution advantage or promotion. The original post106316 plateau protocol remains active; all per-gate root receipts and provenance are retained.
+
+
+## Terminal4K decision
+
+The new4K trial reached the original plateau at126316, without an artificial22k cap. Root inspected all3 actor views and9 details through terminal126316; the raw-best106316 and selector45564 renders had also been reviewed.
+
+| Ranking | Step | PSNR | SSIM | LPIPS |
+|---|---:|---:|---:|---:|
+|New4K raw best|106316|31.31533|.826771|.02036358|
+|New4K historical selector|45564|31.60984|.839385|.02101009|
+|New4K terminal|126316|31.27167|.824878|.02052030|
+|HD raw best / matched terminal|126316|31.63973|.831264|.01877312|
+
+Keep the HD structural recipe for now: this frozen4K RGB/map/confidence bundle does not improve the primary FHD actor metric and still contains substantial unwanted floor/bag/halo geometry. It does not isolate resolution alone or evaluate native4K heldout quality. The original plateau/provenance/checkpoint inventory and separate raw/selector rankings are preserved in `C/quarter_frozen4k_candidate_v1/root_final_summary.json`. [Terminal actors](/fsx/tmp/marshawn_001660_hd/tuning_20261106/quarter_frozen4k_candidate_v1/reviews/step-000126316/all_actors.jpg), [details](/fsx/tmp/marshawn_001660_hd/tuning_20261106/quarter_frozen4k_candidate_v1/reviews/step-000126316/all_details.jpg). The GPU is released for further actor-isolation experiments; the overall optimization remains active.
