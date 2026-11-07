@@ -1,0 +1,83 @@
+{
+  "campaign": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107",
+  "producer_V4_release_sha256": "e1064fff6acaa63c7e457545dc96225f829e97b6f9760ebdba631796ed8e9e21",
+  "native_V4_release_sha256": "4f1b2bd1d134134e6dba3b9198c1a9a7e51e0730e196c80de4c2cce42bf9f873",
+  "files": [
+    {
+      "repository": "scripts/marshawn_video_ops/marshawn_video_producer_v3.py",
+      "live_source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_video_producer_v3.py",
+      "sha256": "241cbce88feeeef2c6957b6765a44681144b182eabfbb1287598f11e708ff74e"
+    },
+    {
+      "repository": "scripts/marshawn_video_ops/producer_v3_watchdog.py",
+      "live_source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/producer_v3_watchdog.py",
+      "sha256": "4379d75c464f10a5eaad4f2abc79ea79732370e8de9b0dce477c7821025a3136"
+    },
+    {
+      "repository": "scripts/marshawn_video_ops/crew_guard_plan.py",
+      "live_source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/crew_guard_plan.py",
+      "sha256": "61b76130ba57042b5e5b65a29af6014f26f5fcaed3a4d52a0e6f332dbb6351a4"
+    },
+    {
+      "repository": "scripts/marshawn_video_ops/crew_guard_autonomous.py",
+      "live_source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/crew_guard_autonomous.py",
+      "sha256": "1a69198f34b3635b1277f845f86501ef48f2e56d4b6ebb5259620e2651cbafb6"
+    },
+    {
+      "repository": "scripts/marshawn_video_ops/crew_reference_advance.py",
+      "live_source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/crew_reference_advance.py",
+      "sha256": "46c7e078363bf0d4b1063f4d2ccc8357006b85ef2efa0fbec44d6b010dee1551"
+    },
+    {
+      "repository": "scripts/marshawn_video_ops/actor_fragment_qualify.py",
+      "live_source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/actor_fragment_qualify.py",
+      "sha256": "a3435eaba6f166b02f6e8ba475bfc657f253654a6eac58ae0f5cda8fa2d94446"
+    },
+    {
+      "repository": "scripts/marshawn_video_ops/actor_fragment_apply.py",
+      "live_source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/actor_fragment_apply.py",
+      "sha256": "79c4ab96d9c69f1d0e6053db72dc5b0d146cd0462b31c6a6e9c2277e3bd35b87"
+    },
+    {
+      "repository": "scripts/marshawn_video_ops/crew_guard_apply.py",
+      "live_source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/crew_guard_apply.py",
+      "sha256": "f63bbb4ccf77d4af0bf8c8d7285a64e212d223cc769214b236802b2586ac236f"
+    },
+    {
+      "repository": "scripts/marshawn_video_ops/crew_track_native.py",
+      "live_source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/crew_track_native.py",
+      "sha256": "6a1d4af02fcb43506c31e40ce8735750194f2bbd7ed272377e244da3b7d14e74"
+    },
+    {
+      "repository": "scripts/marshawn_video_ops/marshawn_native_review.py",
+      "live_source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_native_review.py",
+      "sha256": "45b6a4da0effb07f78ab59bb4741da7073b5286aba7338354e22ad551925433e"
+    },
+    {
+      "repository": "scripts/marshawn_video_ops/actor_fragment_policy.json",
+      "live_source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/actor_fragment_policy.json",
+      "sha256": "8dc73da729ee5fc1a0f913041266e6d91fc2cebb65047964daec1f211ef0a925"
+    },
+    {
+      "repository": "scripts/marshawn_video_ops/crew_guard_JE1670/qualifier_regression_suite.json",
+      "live_source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/crew_guard_JE1670/qualifier_regression_suite.json",
+      "sha256": "75d3417657d387bae9cacea729de2032136b39cccd8ed8aef87914eb7429bd75"
+    },
+    {
+      "repository": "scripts/marshawn_mask_assist_full_v4.py",
+      "live_source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/code/marshawn_mask_assist_full_v4.py",
+      "sha256": "c08cb4061d520a252f0c31311c9357257eba830efa4581b3b7d0c4b3f2e6604c"
+    },
+    {
+      "repository": "scripts/marshawn_sam3_assist_controller_v4.py",
+      "live_source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/code/marshawn_sam3_assist_controller_v4.py",
+      "sha256": "9cccddd09f5ca51f89203d7ed5e2b3d6a0f590984fa35c814d2b066b160c2306"
+    },
+    {
+      "repository": "scripts/marshawn_mask_v4_cpu_test.py",
+      "live_source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/code/marshawn_mask_v4_cpu_test.py",
+      "sha256": "d57eea29a9987743357ba04a24e478c429809b1dc55f0e4c10e4dcf49f3c08bb"
+    }
+  ],
+  "live_source_files_modified": false
+}

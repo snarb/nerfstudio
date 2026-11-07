@@ -1,0 +1,93 @@
+{
+  "status": "pass",
+  "source_bound_real_regressions": true,
+  "qualifier_sha256": "a3435eaba6f166b02f6e8ba475bfc657f253654a6eac58ae0f5cda8fa2d94446",
+  "guard_plan_sha256": "61b76130ba57042b5e5b65a29af6014f26f5fcaed3a4d52a0e6f332dbb6351a4",
+  "JE_positive": {
+    "frame": 1670,
+    "camera": "JE",
+    "instance": 10,
+    "actor": "black",
+    "anchor_coarse_pixels": 479,
+    "anchor_agreement": {
+      "black": {
+        "previous": 1.0,
+        "current": 1.0
+      },
+      "grey": {
+        "previous": 0.0,
+        "current": 0.0
+      }
+    },
+    "previous_person_instance": 13,
+    "previous_person_IoU": 0.6209243998566822,
+    "previous_person_role": "fighter_black",
+    "prior_actor_role": true,
+    "current_candidate_archive_sha256": "cb642212e3ed4283f4ee3931ed60508ee53df8def3eaebdb3b95067d7f608e9c",
+    "prior_actor_source_sha256": "ddaddbfbf54a452e3ce5a0b15ff8049bf19ade40b98c08506189ca2a32bf0f04",
+    "native_input_sha256": "ca8db9bbf4d72edbf04443074b8cd23b87b9f351393400354568e98f42e9b78f",
+    "status": "QUALIFIED_CURRENT_COMPONENT_AVAILABLE",
+    "components": [
+      {
+        "component": 1,
+        "pixels": 480327,
+        "new_visible_native_pixels": 6837,
+        "lower_body_fraction": 0.0,
+        "direct_same_actor_connection": true,
+        "connection_only_through_current_other_actor": false,
+        "independent_CREW_or_UNKNOWN_conflicts": [],
+        "crew_veto_pixels": 0,
+        "qualified": false,
+        "status": "UNKNOWN_COMPONENT"
+      },
+      {
+        "component": 3,
+        "pixels": 81540,
+        "new_visible_native_pixels": 66177,
+        "lower_body_fraction": 0.7490304709141274,
+        "direct_same_actor_connection": false,
+        "connection_only_through_current_other_actor": true,
+        "independent_CREW_or_UNKNOWN_conflicts": [],
+        "crew_veto_pixels": 0,
+        "qualified": true,
+        "status": "QUALIFIED_CURRENT_SAME_FIGHTER_LOWER_FRAGMENT"
+      },
+      {
+        "component": 4,
+        "pixels": 39760,
+        "new_visible_native_pixels": 38685,
+        "lower_body_fraction": 0.7795013850415512,
+        "direct_same_actor_connection": false,
+        "connection_only_through_current_other_actor": true,
+        "independent_CREW_or_UNKNOWN_conflicts": [],
+        "crew_veto_pixels": 0,
+        "qualified": true,
+        "status": "QUALIFIED_CURRENT_SAME_FIGHTER_LOWER_FRAGMENT"
+      }
+    ],
+    "policy": "No background-gap interpolation. All final added pixels must come from the same current NN component; preserve all existing actors/gray/veto/UNKNOWN. Independently tracked crew conflict cannot be waived."
+  },
+  "MC_crew_negative": {
+    "frame": 1665,
+    "camera": "MC",
+    "instance": 6,
+    "actor": null,
+    "anchor_coarse_pixels": 168,
+    "anchor_agreement": {
+      "black": {
+        "previous": 0.0,
+        "current": 0.0
+      },
+      "grey": {
+        "previous": 0.5119047619047619,
+        "current": 0.8154761904761905
+      }
+    },
+    "status": "UNKNOWN_ACTOR_IDENTITY",
+    "components": [],
+    "current_candidate_archive_sha256": "58eae34a30604a046afee42a3db25327c7c219a278fabbd29a53f01d0fa1b797",
+    "native_input_sha256": "2c7ada45969eb9009ade1d2d4437886eedd6d9270397320fd4d043e74068a9fb"
+  },
+  "source_full_context_sha256": "dd29de7b4be094dca5c53202dbeed98ecdff0c3f08af289ecb7ffdae7d2d9635",
+  "positive_components_manually_source_reviewed_by_root": true
+}

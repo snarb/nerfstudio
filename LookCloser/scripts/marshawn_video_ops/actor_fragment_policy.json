@@ -1,0 +1,28 @@
+{
+  "kind": "CURRENT_SAME_ACTOR_LOWER_FRAGMENT_RULE_V1",
+  "authorized": true,
+  "status": "ROOT approved initial actual-source JE lower-legs positive and MC bald-crew negative regressions; independent CREW/person UNKNOWN retains priority",
+  "conditions": {
+    "previous_and_current_same_actor_upper_anchor_coverage_minimum": 0.95,
+    "previous_person_must_already_be_actor_or_actor_fragment": true,
+    "component_top_fraction_of_person_height_minimum": 0.55,
+    "connection": "Direct current same-fighter, or current other-fighter occlusion bridge; no background-gap interpolation",
+    "independently_tracked_CREW_or_UNKNOWN_conflicts": "Prohibited",
+    "final_pixels": "Only fresh current-frame NN component, add-only into unlabeled pixels",
+    "preserve": [
+      "all existing black",
+      "all existing grey",
+      "qualified crew veto",
+      "independent UNKNOWN"
+    ],
+    "uncertain": "Block native_semantic_ready; never fabricate labels"
+  },
+  "initial_regressions": {
+    "JE1670_person10_components3_4": "Root full-source approved two black fighter legs; positive qualification",
+    "MC1665_person6_bald_crew": "Rejected as UNKNOWN_ACTOR_IDENTITY; previous gray head-anchor coverage 0.5119"
+  },
+  "regression_suite": "crew_guard_JE1670/qualifier_regression_suite.json",
+  "regression_suite_sha256": "75d3417657d387bae9cacea729de2032136b39cccd8ed8aef87914eb7429bd75",
+  "authorized_at": 1794063429.6512818,
+  "approval_evidence": "ROOTFINAL1670NATIVE/W64RELEASE message 2026-11-07; add-only current components, no independentCREW UNKNOWN waiver"
+}
