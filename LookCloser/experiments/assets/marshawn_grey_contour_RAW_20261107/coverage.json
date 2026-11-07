@@ -1,0 +1,361 @@
+{
+  "kind": "EXISTING_RAW_SEMANTIC_EDGE_COVERAGE_DIAGNOSTIC_NOT_ALPHA_GT",
+  "records": [
+    {
+      "camera": "KA",
+      "HD_pixel": [
+        1027,
+        331
+      ],
+      "HD_camera_center": [
+        1027.5,
+        331.5
+      ],
+      "RAW_array_center": [
+        4383.024770726573,
+        1415.8219009346203
+      ],
+      "RAW_nearest_index": [
+        4383,
+        1416
+      ],
+      "RAW_pixel_footprint_corners": [
+        [
+          4380.893526803184,
+          1413.6947936776853
+        ],
+        [
+          4385.151264055485,
+          1413.6995247243663
+        ],
+        [
+          4385.156022582094,
+          1417.9490645315364
+        ],
+        [
+          4380.8982155016165,
+          1417.94435980676
+        ]
+      ],
+      "RAW_nearest_grey": false,
+      "RAW_nearest_nominal": false,
+      "coverage": {
+        "nominal": 0.04512985423207283,
+        "grey": 0.04512985423207283,
+        "black": 0.0,
+        "source_ineligible": 0.0
+      },
+      "saved_original_nominal_coverage": 0.04512985423207283,
+      "original_W64": 0.8318060636520386,
+      "current_GTv1_grey": false,
+      "current_W64": 0.8318060636520386,
+      "current_core": false,
+      "recomputed_full_HD_coverage_max_error": 0.0
+    },
+    {
+      "camera": "KA",
+      "HD_pixel": [
+        1028,
+        331
+      ],
+      "HD_camera_center": [
+        1028.5,
+        331.5
+      ],
+      "RAW_array_center": [
+        4387.282502004461,
+        1415.8266536921112
+      ],
+      "RAW_nearest_index": [
+        4387,
+        1416
+      ],
+      "RAW_pixel_footprint_corners": [
+        [
+          4385.151264055485,
+          1413.6995247243663
+        ],
+        [
+          4389.408919141057,
+          1413.7043257010541
+        ],
+        [
+          4389.413747479757,
+          1417.9538387972775
+        ],
+        [
+          4385.156022582094,
+          1417.9490645315364
+        ]
+      ],
+      "RAW_nearest_grey": false,
+      "RAW_nearest_nominal": false,
+      "coverage": {
+        "nominal": 0.5918554067611694,
+        "grey": 0.5918554067611694,
+        "black": 0.0,
+        "source_ineligible": 0.0
+      },
+      "saved_original_nominal_coverage": 0.5918554067611694,
+      "original_W64": 0.9581021666526794,
+      "current_GTv1_grey": true,
+      "current_W64": 0.9581021666526794,
+      "current_core": true,
+      "recomputed_full_HD_coverage_max_error": 0.0
+    },
+    {
+      "camera": "KA",
+      "HD_pixel": [
+        1029,
+        331
+      ],
+      "HD_camera_center": [
+        1029.5,
+        331.5
+      ],
+      "RAW_array_center": [
+        4391.54015050684,
+        1415.8314761770562
+      ],
+      "RAW_nearest_index": [
+        4392,
+        1416
+      ],
+      "RAW_pixel_footprint_corners": [
+        [
+          4389.408919141057,
+          1413.7043257010541
+        ],
+        [
+          4393.66649085868,
+          1413.7091965915201
+        ],
+        [
+          4393.6713889931525,
+          1417.9586825878473
+        ],
+        [
+          4389.413747479757,
+          1417.9538387972775
+        ]
+      ],
+      "RAW_nearest_grey": true,
+      "RAW_nearest_nominal": true,
+      "coverage": {
+        "nominal": 0.9586297273635864,
+        "grey": 0.9586297273635864,
+        "black": 0.0,
+        "source_ineligible": 0.0
+      },
+      "saved_original_nominal_coverage": 0.9586297273635864,
+      "original_W64": 0.996690571308136,
+      "current_GTv1_grey": true,
+      "current_W64": 0.996690571308136,
+      "current_core": true,
+      "recomputed_full_HD_coverage_max_error": 0.0
+    },
+    {
+      "camera": "HC",
+      "HD_pixel": [
+        1051,
+        576
+      ],
+      "HD_camera_center": [
+        1051.5,
+        576.5
+      ],
+      "RAW_array_center": [
+        4485.684200222977,
+        2460.2414101042177
+      ],
+      "RAW_nearest_index": [
+        4486,
+        2460
+      ],
+      "RAW_pixel_footprint_corners": [
+        [
+          4483.554880427858,
+          2458.110910309687
+        ],
+        [
+          4487.81617388816,
+          2458.108246520422
+        ],
+        [
+          4487.8134702131465,
+          2462.3718608389886
+        ],
+        [
+          4483.552208805394,
+          2462.374558326736
+        ]
+      ],
+      "RAW_nearest_grey": false,
+      "RAW_nearest_nominal": false,
+      "coverage": {
+        "nominal": 0.23863562941551208,
+        "grey": 0.23863562941551208,
+        "black": 0.0,
+        "source_ineligible": 0.0
+      },
+      "saved_original_nominal_coverage": 0.23863562941551208,
+      "original_W64": 0.9212241172790527,
+      "current_GTv1_grey": false,
+      "current_W64": 0.9212241172790527,
+      "current_core": true,
+      "recomputed_full_HD_coverage_max_error": 0.0
+    },
+    {
+      "camera": "HC",
+      "HD_pixel": [
+        1052,
+        576
+      ],
+      "HD_camera_center": [
+        1052.5,
+        576.5
+      ],
+      "RAW_array_center": [
+        4489.94542689223,
+        2460.2387134812348
+      ],
+      "RAW_nearest_index": [
+        4490,
+        2460
+      ],
+      "RAW_pixel_footprint_corners": [
+        [
+          4487.81617388816,
+          2458.108246520422
+        ],
+        [
+          4492.077365409315,
+          2458.1055509698413
+        ],
+        [
+          4492.074629690905,
+          2462.3691311837943
+        ],
+        [
+          4487.8134702131465,
+          2462.3718608389886
+        ]
+      ],
+      "RAW_nearest_grey": true,
+      "RAW_nearest_nominal": true,
+      "coverage": {
+        "nominal": 0.850080668926239,
+        "grey": 0.850080668926239,
+        "black": 0.0,
+        "source_ineligible": 0.0
+      },
+      "saved_original_nominal_coverage": 0.850080668926239,
+      "original_W64": 0.989536702632904,
+      "current_GTv1_grey": true,
+      "current_W64": 0.989536702632904,
+      "current_core": true,
+      "recomputed_full_HD_coverage_max_error": 0.0
+    },
+    {
+      "camera": "HC",
+      "HD_pixel": [
+        1053,
+        576
+      ],
+      "HD_camera_center": [
+        1053.5,
+        576.5
+      ],
+      "RAW_array_center": [
+        4494.20655102053,
+        2460.2359848984347
+      ],
+      "RAW_nearest_index": [
+        4494,
+        2460
+      ],
+      "RAW_pixel_footprint_corners": [
+        [
+          4492.077365409315,
+          2458.1055509698413
+        ],
+        [
+          4496.338453778702,
+          2458.1028236670572
+        ],
+        [
+          4496.335686026149,
+          2462.366369370397
+        ],
+        [
+          4492.074629690905,
+          2462.3691311837943
+        ]
+      ],
+      "RAW_nearest_grey": true,
+      "RAW_nearest_nominal": true,
+      "coverage": {
+        "nominal": 0.9931216835975647,
+        "grey": 0.9931216835975647,
+        "black": 0.0,
+        "source_ineligible": 0.0
+      },
+      "saved_original_nominal_coverage": 0.9931216835975647,
+      "original_W64": 0.9996055364608765,
+      "current_GTv1_grey": true,
+      "current_W64": 0.9996055364608765,
+      "current_core": true,
+      "recomputed_full_HD_coverage_max_error": 0.0
+    }
+  ],
+  "source_bindings": {
+    "KA": {
+      "raw_archive": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/KA.npz",
+      "raw_archive_sha256": "bf0a643c25b516f227becabe6bc7c05afa0dfcfa538b600bdb2eecc19b704b5e",
+      "HD_archive": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/archives/KA.npz",
+      "HD_archive_sha256": "53ae116501e568ac99a07e8160c00450795814394ae09c516cf9b86abd777c9e",
+      "RAW_source_tiff": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/KA/KA.000408.tif",
+      "RAW_source_sha256_from_sealed_request": "13c10e2a40cd461a20879e6027d576fbd03cfe485f3b1e0f5b3769af11db912d",
+      "native_display_crop": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/KA_RAW_native_crop.png",
+      "native_display_crop_sha256": "b1e73bb599e5be8876c369d7742e71f7e56d466503d896bd5fe2ba7127c78ebf",
+      "crop_xyxy": [
+        2831,
+        0,
+        6461,
+        3306
+      ],
+      "current_semantics_sha256": "70960075b6bb88ab45345fc93efdbf8c74314563a649a791643a48453b9f37da"
+    },
+    "HC": {
+      "raw_archive": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/HC.npz",
+      "raw_archive_sha256": "6dd9c1f6e143d55085ccc42b5b7ac0b87895ac45a4fd88bc319fd0da8b39f7b3",
+      "HD_archive": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/archives/HC.npz",
+      "HD_archive_sha256": "fa5d5a9b228a2b20a0c61dc3f8778680a81fdc3aa011410e4fdd17d7b1ab9362",
+      "RAW_source_tiff": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/HC/HC.000408.tif",
+      "RAW_source_sha256_from_sealed_request": "f2c128c803786febb1d3cdc54e04b751cdb7cc265f8647250ca40af7725349d0",
+      "native_display_crop": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/HC_RAW_native_crop.png",
+      "native_display_crop_sha256": "5e299dd8f5cd73723936524bed78101ab716b2a4514b7bc69f9e77aaf37e07e8",
+      "crop_xyxy": [
+        2637,
+        185,
+        6340,
+        4008
+      ],
+      "current_semantics_sha256": "8fcf0345d72a2c33a23441dee4ae531af2522222a29aee15c9e20bd7e7674476"
+    }
+  },
+  "manifest_sha256": "1f7f28751aac5ae7486ff8392606cf6c09bd2118eef934dbf64c1171d96aabc3",
+  "RAW_request_sha256": "692ddf98d2334c710d0ac9e6481ffba7c99b70a899db882e33d117c4b729bca8",
+  "transforms_sha256": "64176bce20fcf0f08427a89b492003adcce6a0b513d9fffd6bbc583db172f01a",
+  "rig_sources_sha256": {
+    "/fsx/oregon/gta_marshawn_2_1_prep_20261028/root/Marshawn_2_1/golden/rig/images.txt": "74cc5ca92ecd254729dd74876c3086e78e12ec959ca1729ce0c19aa507961ebc",
+    "/fsx/oregon/gta_marshawn_2_1_prep_20261028/root/Marshawn_2_1/golden/rig/cameras.txt": "6710f5563ea3831c6e53ea95894b4d166a33d2e15c3d2a26a38490acb2a9e893"
+  },
+  "coordinate_helper_sha256": "d4d6be06068b7cd2957375fbd2d857d4c8d75675b464dc8b4f900c31ab78b9f0",
+  "helper_sha256": "a30295109ae7a1df3220fcf64399b71306b847a52740cfe9662b32accafa0793",
+  "no_new_segmentation": true,
+  "no_GPU": true,
+  "leaderboard_unchanged": true,
+  "coverage_policy": "Exact existing AREA-prefilter RAW8192x4320\u2192HD1920x1012 then one calibrated OpenCV linear remap; binary nominal segmentation is not calibrated optical alpha",
+  "limitation": "RAW boundary segmentation is imperfect. Coverage cannot be asserted as ground-truth opacity; center label does not determine area coverage."
+}
