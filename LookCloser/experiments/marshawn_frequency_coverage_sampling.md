@@ -113,3 +113,31 @@ CPU inspection of the saved focused native arrays finds0/115 rays at the1024 cap
 After the negative-tau final geometry gate finished, the delegated pure quarter-step cold arm launched on idle-exclusive silverGPU0, controller1647009/trainer1647024. Source1495SHA`b001cda438bd539135546722b1b8c7ddfda522421fbe4127e5005a2e4dce60f2`, specSHA`494618453601afcd061ba971395614fd846ea2e71c4723ceb21f0618347264da`, releaseSHA`789a26e5c1fa6a3545b17d515ee192c59515429b82df3d2ca5c4de9feaa24fee`. Only coarse.0015625 changes; original1024cap/legacyallocator/.01distortion/body80/W64/R0/maps/projection remain fixed. Actual config parity explicitly asserts cap/allocator. Technical warmupAdam16→32 and ARM15→30, exact RNG restore, six finite32-update views reviewed, peak7964MiB/143.2s. These are integration checks only.
 
 Production retains full106316→unchanged plateau, original selection and separate raw-min/terminal weights. A durable matched quarter/half15188 audit measures the actual trained native115-ray cap/tail behavior after tracing; those rays are not claimed to cover every training batch. No focus, distortion.1, bag or source-point factor is combined. [Exact release](/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_cold_quarterstep_candidate_20261107/release.json).
+
+## Matched15188 actual frequency contribution
+
+CPU lookup of the actual saved native termination weights confirms a substantial frequency coverage change. No model query or CUDA context was used. The original checkpoint grid, float32 bounds/indexing, and trace checkpoint hashes are checked.
+
+| Arm at15188 | Clothing termination at frequency0 | Clothing ±.02 band at frequency0 | DC12 termination at frequency0 |
+|---|---:|---:|---:|
+| Original R0 |89.97%|88.70%|90.20%|
+| Half step |85.85%|83.85%|88.66%|
+| Focused2048 |44.06%|36.19%|32.10%|
+
+These are descriptive partitions of different trained fields and sample locations, not a matched-location causal proof. Frequency0 is a stored minimum, not a free-space label. Better coverage accompanies better image detail but does not prevent the focused old-shirt early-mass regression. [Exact per-ray evidence](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/frequency_mass_matched15188/focus/report.json).
+
+## Quarter-step first15188 qualification
+
+Quarter PSNR/SSIM/LPIPS is31.69965/.845859/.02189069,12.9% lower LPIPS than half at the same step. DC black, HC grey and KA black source/quarter/half contacts were inspected: clothing detail improves, feet and hair remain visible, but the broad halo and floor residual remain.
+
+Native witness-band mass half→quarter is80.21→82.00% old18,84.12→84.35% new66,82.48→86.47% old8reserves,94.71→91.71% new9patchreserves. Old8 early mass improves13.37→9.83%, while new9 worsens1.35→2.93%. All206 clothing and24DC dense-convergence/native-PNG checks pass. This is mixed geometry, not a clean-asset promotion.
+
+The **quarter-trained** native115 rays have zero cap saturation, as do halo/all-cells profiles. Clothing mean157/max366 samples, DCmean118/max220, all below the unchanged1024 cap. Dense mass beyond the native final interval reaches.01795 clothing/.00357DC; this is not cap truncation. [Actual trained cap/tail](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_cold_quarterstep_15188/cold_quarterstep_sampling/report.json), [geometry](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_cold_quarterstep_15188/clothing103/comparison.json), [DC visual](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_cold_quarterstep_15188/DC_black_gate_comparison.jpg).
+
+## Predeclared focus × distortion interaction
+
+The focused arm improves detail but worsens old-shirt geometry; the independent cold distortion.1 arm improves local geometry. A fourth corner now tests their interaction explicitly. It retains the focused1497-file source except the exact validator coefficient.01→.1. Original coarse.00625/R0/W64/body80/maps/projection/allocator/LR remain unchanged. The existing distortion ramp4096..12288 and full106316→plateau continue. This is not combined with half/quarter-step, bag correction or source-point lookup.
+
+Actual technical32+32 tests pass with warmupAdam32→64 and ARM30→62. The actual1024/4096 frequency boundaries advance the private generator; ordinary checkpoints restore that nonempty state exactly. Six actual64-update views were inspected for finite coarse output only. Peak7828MiB,148.5s under one idle-exclusiveGPU5 lease. The CPU config proof forces CUDA invisible; an earlier import-only attempt failed closed when tcnn initialized a context, without constructing a model/optimizer. That attempt and the successful CPU rerun are recorded.
+
+Delegated releaseSHA`e742428ad88729822a058df329c8b30e310fcc177cfc4c3134dde3cb1dc9b3d8` binds35 artifacts and sourceSHA`0c94264ea3a66b8a009815cf9d4ccd9e3e14e637192f29453bd7eb272c62e975`. SpecSHA`65e3a9f98f229d14a126ef75724b2d29d58186b911bf17d95067ecd19e405aea`. Controller1727773, final-choice observer1727774, first15188 auditor1727775 and CPU interaction comparator1727776 are durable. Only the new corner needs GPU replay; the three already sealed15188 corners are reused for the four-way CPU comparison. Local evaluation/archive and visual-fetch watchers remain active. [Release](/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_frequency_focus_distortion_candidate_20261107/release.json).
