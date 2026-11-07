@@ -1,0 +1,31 @@
+{
+  "reviewer": "occupancy_implementation",
+  "viewed_files": {
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_grid_replay_v3/replay/semantic_r0/DC.png": "2e30bc8af6dec21f4c9e67d34d06686b8961e37e2982eb4fbd258fd6edc8bc8e",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_grid_replay_v3/replay/semantic_r0/HC.png": "44bd05c1608dce29cc37c8edcc6f566010ecd37ee0fd40440ab9861fbb2b6ca3",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_grid_replay_v3/replay/semantic_r0/KA.png": "4d4c3460de61de80819a834f8a1455bd386c1a5ad67f5ad98d37097f10591d07",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_grid_replay_v3/replay/semantic_r1/DC.png": "f429ba3c23d7ebdbc31da8404ef722b5bff283e8e2851c9d8dfc65a20e223d65",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_grid_replay_v3/replay/semantic_r1/HC.png": "95dc4273ca7dcf3a16b1dc6418793989161691dd871a36e40f7a59c7631eb849",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_grid_replay_v3/replay/semantic_r1/KA.png": "444ebff649ce78e3d5d647c62e3b17ecdd33dda09424c81bd383439e3b33db8e",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_grid_replay_v3/replay/visual_review/DC_hair.png": "9dcd3f053cabb76e0b7f6f3619e555142c35f822c2352291018f1f8fe39223a6",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_grid_replay_v3/replay/visual_review/DC_feet.png": "f36b4f3a77cc618f33084d326e3c5d07b915ad13c2d955c93342f6dfd9316cd7",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_grid_replay_v3/replay/visual_review/DC_body.png": "02fa56032db7c0e963b7174c8fb38413242f42cba8c85cc93bd8e6347a1afb41",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_grid_replay_v3/replay/visual_review/HC_hair.png": "fb2791375f7c27284c2ebac396e92eeab5f52697f585ce9ecb22ddc3aa64696f",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_grid_replay_v3/replay/visual_review/HC_feet.png": "9f2f175d22f90719b4f15624f9aaf9c19842893744f04f47133a3f06794f688d",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_grid_replay_v3/replay/visual_review/HC_body.png": "de65d7ac1708f14843c66386020861e37d3b629a8d173c22fbe99a394979fa43",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_grid_replay_v3/replay/visual_review/KA_hands_contact.png": "2431ae22a78f1a9262c3707f72ef2ed827ce9198c3cc7adf4f62455b9e936bd0",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_grid_replay_v3/replay/visual_review/HC_hands_contact.png": "367b78d02a0be6f053c21257c5d4c1da03829b60f50d0d8d476038dac5faf660",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_grid_replay_v3/replay/visual_review/DC_hands_contact.png": "29fbca2cbbb2275cb5adb9d1f2788afa738b26a6eb0b43ac11ba889a332e807d",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_grid_replay_v3/replay/visual_review/KA_body.png": "2eaef4ae865cef1d18469c8a371f3c2f3133d913b5f16e6a63e3610df5ae75cb",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_grid_replay_v3/replay/visual_review/KA_feet.png": "fed91a643f4bb501299f629be810603a72f8fba0640647e47c040c46c1fa456d",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_grid_replay_v3/replay/visual_review/KA_hair.png": "bd91f4d1389eb02ed130da4a12963d04d9e45469178af93f6a5226127a150745"
+  },
+  "observations": [
+    "All3 R0/R1 fullFHD plus12 GT/source/R0/R1 body,hair,hands,feet pages visually inspected.",
+    "No obvious new major body,hair or shoe deletion from R0/R1 relative to the fixed selected source. This is not complete contour certification.",
+    "Thin gray/beige external halos, interleg fragments, toe/shoe attachments and sparse distant specks persist in all variants.",
+    "R0 is visually indistinguishable on major structure; R1 changes are small and do not produce a clean isolated asset."
+  ],
+  "automatic_quality_promotion": false,
+  "root_review_message_received": true
+}

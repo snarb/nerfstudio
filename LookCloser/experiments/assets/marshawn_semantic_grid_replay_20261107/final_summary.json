@@ -1,0 +1,982 @@
+{
+  "source_checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "head_sha256": "bdb2cc0d8138e4c22c61b4d411227b272b95ceac9e8295d474eecc4a84aa98bc",
+  "head_label_regime": "two_reviewed_UNKNOWN_40470_40622",
+  "plan_sha256": "685b7970870d5b6e5a0a1539dcf57f0d9e01fc4306af8d3a82e7bd3d910c8f22",
+  "release_sha256": "2373ee800083cf34e2fb491c9a2724a61f5db55263e0e533ca48678c91a0c62d",
+  "completion_sha256": "4a3a8f7fc8a7879830673ac55ff31a19b484c29da685149cf6d1ca9bdd6adbb8",
+  "metrics_sha256": "b3644e9b1db25cb560c064e5cde87cdb388ae7addc9657d18a1db6d79f6e4ab2",
+  "source_immutable_checks": {
+    "pipeline": true,
+    "LUT": true,
+    "RNG": true,
+    "admission": true,
+    "normalization_method": true,
+    "FR": true,
+    "seven_serialized_states": true,
+    "source_checkpoint": true
+  },
+  "head_unchanged": true,
+  "elapsed_seconds": 711.744292974472,
+  "max_process_MiB": 2924,
+  "GPU_released": true,
+  "optimizer_updates": 0,
+  "grid_updates": 0,
+  "variants": {
+    "source_grid": {
+      "metrics": {
+        "metrics": {
+          "psnr": 30.887904060655742,
+          "ssim": 0.8283320466677347,
+          "lpips": 0.02216182028253873
+        },
+        "by_view": {
+          "DC": {
+            "psnr": 31.617177002451847,
+            "ssim": 0.8277202546596527,
+            "lpips": 0.023045871406793594
+          },
+          "HC": {
+            "psnr": 31.192857378031718,
+            "ssim": 0.8312912285327911,
+            "lpips": 0.019538932479918003
+          },
+          "KA": {
+            "psnr": 29.853677801483663,
+            "ssim": 0.8259846568107605,
+            "lpips": 0.023900656960904598
+          }
+        },
+        "by_actor": {
+          "black": {
+            "psnr": 30.49581395793746,
+            "ssim": 0.7990816036860148,
+            "lpips": 0.02110456737379233
+          },
+          "grey": {
+            "psnr": 31.279994163374027,
+            "ssim": 0.8575824896494547,
+            "lpips": 0.023219073191285133
+          }
+        },
+        "records": [
+          {
+            "view": "DC",
+            "actor": "black",
+            "psnr": 30.509134952717037,
+            "ssim": 0.7960027456283569,
+            "lpips": 0.022081853821873665,
+            "actor_pixels": 50554,
+            "crop_xyxy": [
+              742,
+              61,
+              1087,
+              630
+            ],
+            "crop_pixels": 196305,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "DC",
+            "actor": "grey",
+            "psnr": 32.72521905218666,
+            "ssim": 0.8594377636909485,
+            "lpips": 0.024009888991713524,
+            "actor_pixels": 32212,
+            "crop_xyxy": [
+              880,
+              224,
+              1118,
+              625
+            ],
+            "crop_pixels": 95438,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "HC",
+            "actor": "black",
+            "psnr": 30.01050236640751,
+            "ssim": 0.7969020009040833,
+            "lpips": 0.022666707634925842,
+            "actor_pixels": 39768,
+            "crop_xyxy": [
+              883,
+              191,
+              1210,
+              688
+            ],
+            "crop_pixels": 162519,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "HC",
+            "actor": "grey",
+            "psnr": 32.37521238965593,
+            "ssim": 0.865680456161499,
+            "lpips": 0.016411157324910164,
+            "actor_pixels": 30426,
+            "crop_xyxy": [
+              945,
+              345,
+              1230,
+              747
+            ],
+            "crop_pixels": 114570,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "KA",
+            "actor": "black",
+            "psnr": 30.967804554687838,
+            "ssim": 0.8043400645256042,
+            "lpips": 0.018565140664577484,
+            "actor_pixels": 31759,
+            "crop_xyxy": [
+              935,
+              0,
+              1203,
+              470
+            ],
+            "crop_pixels": 125960,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "KA",
+            "actor": "grey",
+            "psnr": 28.739551048279488,
+            "ssim": 0.8476292490959167,
+            "lpips": 0.029236173257231712,
+            "actor_pixels": 29297,
+            "crop_xyxy": [
+              889,
+              163,
+              1154,
+              539
+            ],
+            "crop_pixels": 99640,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          }
+        ],
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "aggregation": "equal actors per camera, then equal cameras"
+      },
+      "total_samples_3FHD": 124082045,
+      "views": [
+        {
+          "camera": "DC",
+          "cap_hit_pixels": 0,
+          "sample_count_max": 952,
+          "total_samples": 49933226,
+          "source_P3_parity": {
+            "selected": {
+              "float_max_error": 2.086162567138672e-06,
+              "RGB": {
+                "max_code_error": 1,
+                "changed_fraction": 1.2008673693456302e-06
+              },
+              "alpha": {
+                "max_code_error": 1,
+                "changed_fraction": 0.0002696805006587615
+              }
+            },
+            "native": {
+              "float_max_error": 2.86102294921875e-06,
+              "RGB": {
+                "max_code_error": 1,
+                "changed_fraction": 1.02931488801054e-06
+              },
+              "alpha": {
+                "max_code_error": 1,
+                "changed_fraction": 0.0005306118247694335
+              }
+            }
+          },
+          "native_reference_error": 2.205371856689453e-06,
+          "selected_reference_error": 1.0393402649633288e-07,
+          "selected_positive_sample_centers_outside_active_grid": 134277,
+          "archive_sha256": "35a2e961dee017df733b1966de3b3dc78271900668afe8eb38b92be5db3e0a23"
+        },
+        {
+          "camera": "HC",
+          "cap_hit_pixels": 0,
+          "sample_count_max": 860,
+          "total_samples": 39625376,
+          "source_P3_parity": {
+            "selected": {
+              "float_max_error": 1.9669532775878906e-06,
+              "RGB": {
+                "max_code_error": 1,
+                "changed_fraction": 6.862099253403602e-07
+              },
+              "alpha": {
+                "max_code_error": 1,
+                "changed_fraction": 0.00019556982872200263
+              }
+            },
+            "native": {
+              "float_max_error": 2.384185791015625e-06,
+              "RGB": {
+                "max_code_error": 1,
+                "changed_fraction": 1.2008673693456302e-06
+              },
+              "alpha": {
+                "max_code_error": 1,
+                "changed_fraction": 0.00039113965744400525
+              }
+            }
+          },
+          "native_reference_error": 2.562999725341797e-06,
+          "selected_reference_error": 9.207216153384046e-08,
+          "selected_positive_sample_centers_outside_active_grid": 112020,
+          "archive_sha256": "26eba8d9cab7d1e7abfaa202efe7e1303d36d63d3ed8e51b8dd04b2e88163549"
+        },
+        {
+          "camera": "KA",
+          "cap_hit_pixels": 630,
+          "sample_count_max": 1024,
+          "total_samples": 34523443,
+          "source_P3_parity": {
+            "selected": {
+              "float_max_error": 2.384185791015625e-06,
+              "RGB": {
+                "max_code_error": 1,
+                "changed_fraction": 5.1465744400527e-07
+              },
+              "alpha": {
+                "max_code_error": 1,
+                "changed_fraction": 0.0001549118906455863
+              }
+            },
+            "native": {
+              "float_max_error": 2.9206275939941406e-06,
+              "RGB": {
+                "max_code_error": 1,
+                "changed_fraction": 1.02931488801054e-06
+              },
+              "alpha": {
+                "max_code_error": 1,
+                "changed_fraction": 0.0002923254281949934
+              }
+            }
+          },
+          "native_reference_error": 1.7881393432617188e-06,
+          "selected_reference_error": 9.225714570071375e-08,
+          "selected_positive_sample_centers_outside_active_grid": 117585,
+          "archive_sha256": "b34692b04d2eaf402f5fcca124b50c480b30bf7a8e40df25fcc63f465650ecf9"
+        }
+      ],
+      "query_groups": {
+        "clothing103": {
+          "rays": 103,
+          "mean_dense_selected_mass_outside_grid": 0.012437546722301953,
+          "mean_dense_selected_mass_outside_native_intervals": 0.013616454622245023,
+          "mean_native_tail_omitted_selected_mass": 1.0525869927973224e-05,
+          "max_dense_RGB_convergence_error": 0.0014555007219314575,
+          "max_dense_opacity_convergence_error": 0.0005173874453987537
+        },
+        "shoe6": {
+          "rays": 6,
+          "mean_dense_selected_mass_outside_grid": 0.007830179335646411,
+          "mean_dense_selected_mass_outside_native_intervals": 0.007656271946975342,
+          "mean_native_tail_omitted_selected_mass": 0.0,
+          "max_dense_RGB_convergence_error": 0.0011826753616333008,
+          "max_dense_opacity_convergence_error": 0.00017553348584442574
+        },
+        "DC12": {
+          "rays": 12,
+          "mean_dense_selected_mass_outside_grid": 0.009869254931752447,
+          "mean_dense_selected_mass_outside_native_intervals": 0.011227588009575164,
+          "mean_native_tail_omitted_selected_mass": 1.7900474655372213e-07,
+          "max_dense_RGB_convergence_error": 0.001360774040222168,
+          "max_dense_opacity_convergence_error": 0.0009429643774012675
+        },
+        "contour9": {
+          "rays": 9,
+          "mean_dense_selected_mass_outside_grid": 0.014887144749732469,
+          "mean_dense_selected_mass_outside_native_intervals": 0.022172167852501288,
+          "mean_native_tail_omitted_selected_mass": 0.0,
+          "max_dense_RGB_convergence_error": 0.000522315502166748,
+          "max_dense_opacity_convergence_error": 0.0012209012436983357
+        }
+      },
+      "historical_witness_groups": {
+        "duplicate_excluded": {
+          "rays": 2,
+          "native_mean_before_band_after_escape": [
+            0.009682202980911825,
+            0.8897110867947049,
+            0.10060319678095003,
+            3.5134434332451114e-06
+          ],
+          "dense16384_mean_before_band_after_escape": [
+            0.017221376774273267,
+            0.8881300371904217,
+            0.09464010548320799,
+            8.48055209701215e-06
+          ]
+        },
+        "new_prefix_supervised": {
+          "rays": 66,
+          "native_mean_before_band_after_escape": [
+            0.0016319559337275816,
+            0.9746918325257591,
+            0.01375249891402149,
+            0.009923731274877126
+          ],
+          "dense16384_mean_before_band_after_escape": [
+            0.004160242442016592,
+            0.9727059184165652,
+            0.013234023156187087,
+            0.00989981905974408
+          ]
+        },
+        "new_whole_patch_reserved": {
+          "rays": 9,
+          "native_mean_before_band_after_escape": [
+            0.0,
+            0.9996054905380559,
+            0.00039360945489201653,
+            9.000070519589917e-07
+          ],
+          "dense16384_mean_before_band_after_escape": [
+            0.0002772232262360477,
+            0.9993251408480661,
+            0.00039236005550850065,
+            5.275870189367124e-06
+          ]
+        },
+        "old_local_reserved": {
+          "rays": 8,
+          "native_mean_before_band_after_escape": [
+            0.04431961152658914,
+            0.9393748960665107,
+            0.01629241377012663,
+            1.3087383419596588e-05
+          ],
+          "dense16384_mean_before_band_after_escape": [
+            0.05605341854933954,
+            0.9288871353683135,
+            0.015042020073067073,
+            1.7426009279897237e-05
+          ]
+        },
+        "old_prefix_supervised": {
+          "rays": 18,
+          "native_mean_before_band_after_escape": [
+            0.024536628381206863,
+            0.9453378974911983,
+            0.030100098059031896,
+            2.537606856292365e-05
+          ],
+          "dense16384_mean_before_band_after_escape": [
+            0.03370834445331323,
+            0.9370127010579381,
+            0.029252696432352558,
+            2.6258056396105063e-05
+          ]
+        }
+      },
+      "witness_group_note": "Names inherited from earlier prefix experiments; no new depth fitting in this replay. 5568 hair/chest caveat remains.",
+      "native_query_cap_hits": 0,
+      "max_native_query_count": 736
+    },
+    "semantic_r0": {
+      "metrics": {
+        "metrics": {
+          "psnr": 30.88791200960216,
+          "ssim": 0.8283323148886362,
+          "lpips": 0.022161973329881828
+        },
+        "by_view": {
+          "DC": {
+            "psnr": 31.617177239183533,
+            "ssim": 0.8277202546596527,
+            "lpips": 0.023045873269438744
+          },
+          "HC": {
+            "psnr": 31.192857378031718,
+            "ssim": 0.8312912285327911,
+            "lpips": 0.019538933411240578
+          },
+          "KA": {
+            "psnr": 29.853701411591224,
+            "ssim": 0.825985461473465,
+            "lpips": 0.02390111330896616
+          }
+        },
+        "by_actor": {
+          "black": {
+            "psnr": 30.49581469502965,
+            "ssim": 0.79908154408137,
+            "lpips": 0.021104731907447178
+          },
+          "grey": {
+            "psnr": 31.280009324174667,
+            "ssim": 0.8575830856959025,
+            "lpips": 0.023219214752316475
+          }
+        },
+        "records": [
+          {
+            "view": "DC",
+            "actor": "black",
+            "psnr": 30.509134952717037,
+            "ssim": 0.7960027456283569,
+            "lpips": 0.022081855684518814,
+            "actor_pixels": 50554,
+            "crop_xyxy": [
+              742,
+              61,
+              1087,
+              630
+            ],
+            "crop_pixels": 196305,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "DC",
+            "actor": "grey",
+            "psnr": 32.72521952565003,
+            "ssim": 0.8594377636909485,
+            "lpips": 0.024009890854358673,
+            "actor_pixels": 32212,
+            "crop_xyxy": [
+              880,
+              224,
+              1118,
+              625
+            ],
+            "crop_pixels": 95438,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "HC",
+            "actor": "black",
+            "psnr": 30.01050236640751,
+            "ssim": 0.7969020009040833,
+            "lpips": 0.02266670949757099,
+            "actor_pixels": 39768,
+            "crop_xyxy": [
+              883,
+              191,
+              1210,
+              688
+            ],
+            "crop_pixels": 162519,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "HC",
+            "actor": "grey",
+            "psnr": 32.37521238965593,
+            "ssim": 0.865680456161499,
+            "lpips": 0.016411157324910164,
+            "actor_pixels": 30426,
+            "crop_xyxy": [
+              945,
+              345,
+              1230,
+              747
+            ],
+            "crop_pixels": 114570,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "KA",
+            "actor": "black",
+            "psnr": 30.96780676596441,
+            "ssim": 0.8043398857116699,
+            "lpips": 0.018565630540251732,
+            "actor_pixels": 31759,
+            "crop_xyxy": [
+              935,
+              0,
+              1203,
+              470
+            ],
+            "crop_pixels": 125960,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "KA",
+            "actor": "grey",
+            "psnr": 28.739596057218037,
+            "ssim": 0.84763103723526,
+            "lpips": 0.029236596077680588,
+            "actor_pixels": 29297,
+            "crop_xyxy": [
+              889,
+              163,
+              1154,
+              539
+            ],
+            "crop_pixels": 99640,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          }
+        ],
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "aggregation": "equal actors per camera, then equal cameras"
+      },
+      "total_samples_3FHD": 81783120,
+      "views": [
+        {
+          "camera": "DC",
+          "cap_hit_pixels": 0,
+          "sample_count_max": 924,
+          "total_samples": 29867520,
+          "source_P3_parity": null,
+          "native_reference_error": 1.4901161193847656e-06,
+          "selected_reference_error": 1.0393402649633288e-07,
+          "selected_positive_sample_centers_outside_active_grid": 134277,
+          "archive_sha256": "aaf161953c8df60edc3bad9b187abc4f46a4827c96aee1fc1b305379a892c8e2"
+        },
+        {
+          "camera": "HC",
+          "cap_hit_pixels": 0,
+          "sample_count_max": 860,
+          "total_samples": 26801615,
+          "source_P3_parity": null,
+          "native_reference_error": 1.7881393432617188e-06,
+          "selected_reference_error": 9.207216153384046e-08,
+          "selected_positive_sample_centers_outside_active_grid": 112020,
+          "archive_sha256": "fb4531802930790e14bd41013c177bbfd2eb5a46282a7063e6d8e6b9e7aa42d9"
+        },
+        {
+          "camera": "KA",
+          "cap_hit_pixels": 436,
+          "sample_count_max": 1024,
+          "total_samples": 25113985,
+          "source_P3_parity": null,
+          "native_reference_error": 2.6226043701171875e-06,
+          "selected_reference_error": 9.225714570071375e-08,
+          "selected_positive_sample_centers_outside_active_grid": 117627,
+          "archive_sha256": "d678536f480c8ec9702368189f84ec9ee3cf72ad714bab1009405f6de3ebdfe2"
+        }
+      ],
+      "query_groups": {
+        "clothing103": {
+          "rays": 103,
+          "mean_dense_selected_mass_outside_grid": 0.012437546722301953,
+          "mean_dense_selected_mass_outside_native_intervals": 0.013616454622245023,
+          "mean_native_tail_omitted_selected_mass": 2.3509081684865467e-05,
+          "max_dense_RGB_convergence_error": 0.0014555007219314575,
+          "max_dense_opacity_convergence_error": 0.0005173874453987537
+        },
+        "shoe6": {
+          "rays": 6,
+          "mean_dense_selected_mass_outside_grid": 0.007830179335646411,
+          "mean_dense_selected_mass_outside_native_intervals": 0.007656271946975342,
+          "mean_native_tail_omitted_selected_mass": 0.0,
+          "max_dense_RGB_convergence_error": 0.0011826753616333008,
+          "max_dense_opacity_convergence_error": 0.00017553348584442574
+        },
+        "DC12": {
+          "rays": 12,
+          "mean_dense_selected_mass_outside_grid": 0.009869254931752447,
+          "mean_dense_selected_mass_outside_native_intervals": 0.011227588009575164,
+          "mean_native_tail_omitted_selected_mass": 1.7908961324767153e-07,
+          "max_dense_RGB_convergence_error": 0.001360774040222168,
+          "max_dense_opacity_convergence_error": 0.0009429643774012675
+        },
+        "contour9": {
+          "rays": 9,
+          "mean_dense_selected_mass_outside_grid": 0.014887144749732469,
+          "mean_dense_selected_mass_outside_native_intervals": 0.022172167852501288,
+          "mean_native_tail_omitted_selected_mass": 0.0,
+          "max_dense_RGB_convergence_error": 0.000522315502166748,
+          "max_dense_opacity_convergence_error": 0.0012209012436983357
+        }
+      },
+      "historical_witness_groups": {
+        "duplicate_excluded": {
+          "rays": 2,
+          "native_mean_before_band_after_escape": [
+            0.009682202980911825,
+            0.8897110867947049,
+            0.10060319678095003,
+            3.5134434332451114e-06
+          ],
+          "dense16384_mean_before_band_after_escape": [
+            0.017221376774273267,
+            0.8881300371904217,
+            0.09464010548320799,
+            8.48055209701215e-06
+          ]
+        },
+        "new_prefix_supervised": {
+          "rays": 66,
+          "native_mean_before_band_after_escape": [
+            0.0016319559337275816,
+            0.9746918325217103,
+            0.01375249890384431,
+            0.009923731289103106
+          ],
+          "dense16384_mean_before_band_after_escape": [
+            0.004160242442016592,
+            0.9727059184165652,
+            0.013234023156187087,
+            0.00989981905974408
+          ]
+        },
+        "new_whole_patch_reserved": {
+          "rays": 9,
+          "native_mean_before_band_after_escape": [
+            0.0,
+            0.9996054905380559,
+            0.00039360945489201653,
+            9.000070519589917e-07
+          ],
+          "dense16384_mean_before_band_after_escape": [
+            0.0002772232262360477,
+            0.9993251408480661,
+            0.00039236005550850065,
+            5.275870189367124e-06
+          ]
+        },
+        "old_local_reserved": {
+          "rays": 8,
+          "native_mean_before_band_after_escape": [
+            0.04431961152658914,
+            0.9393748960665107,
+            0.01629241377012663,
+            1.3087383419596588e-05
+          ],
+          "dense16384_mean_before_band_after_escape": [
+            0.05605341854933954,
+            0.9288871353683135,
+            0.015042020073067073,
+            1.7426009279897237e-05
+          ]
+        },
+        "old_prefix_supervised": {
+          "rays": 18,
+          "native_mean_before_band_after_escape": [
+            0.024536628381206863,
+            0.9453378974911983,
+            0.030100098059031896,
+            2.537606856292365e-05
+          ],
+          "dense16384_mean_before_band_after_escape": [
+            0.03370834445331323,
+            0.9370127010579381,
+            0.029252696432352558,
+            2.6258056396105063e-05
+          ]
+        }
+      },
+      "witness_group_note": "Names inherited from earlier prefix experiments; no new depth fitting in this replay. 5568 hair/chest caveat remains.",
+      "native_query_cap_hits": 0,
+      "max_native_query_count": 608
+    },
+    "semantic_r1": {
+      "metrics": {
+        "metrics": {
+          "psnr": 30.89506777917332,
+          "ssim": 0.8284546037515005,
+          "lpips": 0.02207324467599392
+        },
+        "by_view": {
+          "DC": {
+            "psnr": 31.596524118738824,
+            "ssim": 0.8279292285442352,
+            "lpips": 0.02302013896405697
+          },
+          "HC": {
+            "psnr": 31.246596690487234,
+            "ssim": 0.8314411342144012,
+            "lpips": 0.019326582551002502
+          },
+          "KA": {
+            "psnr": 29.842082528293908,
+            "ssim": 0.8259934484958649,
+            "lpips": 0.023873012512922287
+          }
+        },
+        "by_actor": {
+          "black": {
+            "psnr": 30.508686278221166,
+            "ssim": 0.7992333968480428,
+            "lpips": 0.02104249844948451
+          },
+          "grey": {
+            "psnr": 31.281449280125475,
+            "ssim": 0.8576758106549581,
+            "lpips": 0.02310399090250333
+          }
+        },
+        "records": [
+          {
+            "view": "DC",
+            "actor": "black",
+            "psnr": 30.521034547984463,
+            "ssim": 0.7963975071907043,
+            "lpips": 0.022247817367315292,
+            "actor_pixels": 50554,
+            "crop_xyxy": [
+              742,
+              61,
+              1087,
+              630
+            ],
+            "crop_pixels": 196305,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "DC",
+            "actor": "grey",
+            "psnr": 32.672013689493184,
+            "ssim": 0.8594609498977661,
+            "lpips": 0.023792460560798645,
+            "actor_pixels": 32212,
+            "crop_xyxy": [
+              880,
+              224,
+              1118,
+              625
+            ],
+            "crop_pixels": 95438,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "HC",
+            "actor": "black",
+            "psnr": 30.060411791268628,
+            "ssim": 0.7970814108848572,
+            "lpips": 0.02253362163901329,
+            "actor_pixels": 39768,
+            "crop_xyxy": [
+              883,
+              191,
+              1210,
+              688
+            ],
+            "crop_pixels": 162519,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "HC",
+            "actor": "grey",
+            "psnr": 32.43278158970584,
+            "ssim": 0.8658008575439453,
+            "lpips": 0.016119543462991714,
+            "actor_pixels": 30426,
+            "crop_xyxy": [
+              945,
+              345,
+              1230,
+              747
+            ],
+            "crop_pixels": 114570,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "KA",
+            "actor": "black",
+            "psnr": 30.94461249541041,
+            "ssim": 0.8042212724685669,
+            "lpips": 0.01834605634212494,
+            "actor_pixels": 31759,
+            "crop_xyxy": [
+              935,
+              0,
+              1203,
+              470
+            ],
+            "crop_pixels": 125960,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          },
+          {
+            "view": "KA",
+            "actor": "grey",
+            "psnr": 28.739552561177405,
+            "ssim": 0.8477656245231628,
+            "lpips": 0.029399968683719635,
+            "actor_pixels": 29297,
+            "crop_xyxy": [
+              889,
+              163,
+              1154,
+              539
+            ],
+            "crop_pixels": 99640,
+            "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+            "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+          }
+        ],
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "aggregation": "equal actors per camera, then equal cameras"
+      },
+      "total_samples_3FHD": 104547899,
+      "views": [
+        {
+          "camera": "DC",
+          "cap_hit_pixels": 3,
+          "sample_count_max": 1024,
+          "total_samples": 38247040,
+          "source_P3_parity": null,
+          "native_reference_error": 1.9073486328125e-06,
+          "selected_reference_error": 8.848996402299747e-08,
+          "selected_positive_sample_centers_outside_active_grid": 3876,
+          "archive_sha256": "bbb217cf83bd1ae978e594a9fb354e2237c6325a39a5ebd4b702777c83cbdbc7"
+        },
+        {
+          "camera": "HC",
+          "cap_hit_pixels": 0,
+          "sample_count_max": 1018,
+          "total_samples": 34200928,
+          "source_P3_parity": null,
+          "native_reference_error": 1.6689300537109375e-06,
+          "selected_reference_error": 1.0239588543736744e-07,
+          "selected_positive_sample_centers_outside_active_grid": 3277,
+          "archive_sha256": "479a452cbd1806f4ff48df9f653be1ff0917678b1b642dbf93872f953017199e"
+        },
+        {
+          "camera": "KA",
+          "cap_hit_pixels": 847,
+          "sample_count_max": 1024,
+          "total_samples": 32099931,
+          "source_P3_parity": null,
+          "native_reference_error": 2.205371856689453e-06,
+          "selected_reference_error": 1.0532396421680801e-07,
+          "selected_positive_sample_centers_outside_active_grid": 3884,
+          "archive_sha256": "b03cf9aa198a8acaba850581a90324c057c9fad23182894b6ad2746d028476e3"
+        }
+      ],
+      "query_groups": {
+        "clothing103": {
+          "rays": 103,
+          "mean_dense_selected_mass_outside_grid": 0.0001119563358399802,
+          "mean_dense_selected_mass_outside_native_intervals": 0.00011980899142696124,
+          "mean_native_tail_omitted_selected_mass": 5.132142198332332e-11,
+          "max_dense_RGB_convergence_error": 0.0014555007219314575,
+          "max_dense_opacity_convergence_error": 0.0005173874453987537
+        },
+        "shoe6": {
+          "rays": 6,
+          "mean_dense_selected_mass_outside_grid": 4.07247914324671e-05,
+          "mean_dense_selected_mass_outside_native_intervals": 4.9929052532130903e-05,
+          "mean_native_tail_omitted_selected_mass": 0.0,
+          "max_dense_RGB_convergence_error": 0.0011826753616333008,
+          "max_dense_opacity_convergence_error": 0.00017553348584442574
+        },
+        "DC12": {
+          "rays": 12,
+          "mean_dense_selected_mass_outside_grid": 8.041824712588246e-05,
+          "mean_dense_selected_mass_outside_native_intervals": 6.471992536448931e-05,
+          "mean_native_tail_omitted_selected_mass": 0.0,
+          "max_dense_RGB_convergence_error": 0.001360774040222168,
+          "max_dense_opacity_convergence_error": 0.0009429643774012675
+        },
+        "contour9": {
+          "rays": 9,
+          "mean_dense_selected_mass_outside_grid": 0.0001285268052065981,
+          "mean_dense_selected_mass_outside_native_intervals": 0.004142069413041504,
+          "mean_native_tail_omitted_selected_mass": 0.0,
+          "max_dense_RGB_convergence_error": 0.000522315502166748,
+          "max_dense_opacity_convergence_error": 0.0012209012436983357
+        }
+      },
+      "historical_witness_groups": {
+        "duplicate_excluded": {
+          "rays": 2,
+          "native_mean_before_band_after_escape": [
+            0.014724525912242825,
+            0.8853419944498455,
+            0.09992978890548823,
+            3.690732423455856e-06
+          ],
+          "dense16384_mean_before_band_after_escape": [
+            0.017221376774273267,
+            0.8881300371904217,
+            0.09464010548320799,
+            8.48055209701215e-06
+          ]
+        },
+        "new_prefix_supervised": {
+          "rays": 66,
+          "native_mean_before_band_after_escape": [
+            0.0037986361137716117,
+            0.972793865640147,
+            0.013631647763403726,
+            0.009775853033572118
+          ],
+          "dense16384_mean_before_band_after_escape": [
+            0.004160242442016592,
+            0.9727059184165652,
+            0.013234023156187087,
+            0.00989981905974408
+          ]
+        },
+        "new_whole_patch_reserved": {
+          "rays": 9,
+          "native_mean_before_band_after_escape": [
+            0.0001175634388346225,
+            0.999489732878658,
+            0.0003915997746322283,
+            1.1039078751353927e-06
+          ],
+          "dense16384_mean_before_band_after_escape": [
+            0.0002772232262360477,
+            0.9993251408480661,
+            0.00039236005550850065,
+            5.275870189367124e-06
+          ]
+        },
+        "old_local_reserved": {
+          "rays": 8,
+          "native_mean_before_band_after_escape": [
+            0.054940081162499155,
+            0.9294588863367608,
+            0.01558843651580926,
+            1.2595984930821591e-05
+          ],
+          "dense16384_mean_before_band_after_escape": [
+            0.05605341854933954,
+            0.9288871353683135,
+            0.015042020073067073,
+            1.7426009279897237e-05
+          ]
+        },
+        "old_prefix_supervised": {
+          "rays": 18,
+          "native_mean_before_band_after_escape": [
+            0.03403194182393084,
+            0.9363309937921763,
+            0.029612779692763817,
+            2.428469112900992e-05
+          ],
+          "dense16384_mean_before_band_after_escape": [
+            0.03370834445331323,
+            0.9370127010579381,
+            0.029252696432352558,
+            2.6258056396105063e-05
+          ]
+        }
+      },
+      "witness_group_note": "Names inherited from earlier prefix experiments; no new depth fitting in this replay. 5568 hair/chest caveat remains.",
+      "native_query_cap_hits": 0,
+      "max_native_query_count": 726
+    }
+  },
+  "field_coverage_not_physical_geometry": true,
+  "integration_is_not_asset_promotion": true,
+  "preferred_traversal_for_fixed_head": "semantic_r1 (root experimental review; no final ideal-geometry approval)",
+  "manual_review_sha256": "8358dea9abc43cc885dd21aa507e96136aa75224f00e52e08f2f0dce1a2fbb16"
+}
