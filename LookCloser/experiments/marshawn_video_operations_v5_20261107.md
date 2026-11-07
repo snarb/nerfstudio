@@ -85,3 +85,32 @@ and W64 gate, checks the released semantic/prepared/visual hashes and rejects
 other frames. The original V5 release remains unchanged. Missing gate,
 out-of-scope frame and changed-prepared-input regressions pass; a fresh1680
 factory run is still pending this source-review gate.
+
+
+## MAT/BAG scheduling
+
+The original material supervisor tried GPUs4/3 only after observing less than
+1GiB usage. Continuous map fits could occupy every retry window. The versioned
+advanced dispatcher now publishes a source-verified all66 MAT request, chooses
+one idle or proven campaign-map GPU in preference order4,3,7,6,5,2,1,0, and waits
+for a broker nonce acknowledgment. FIELD, native inference and unknown owners
+are excluded. The existing MAT model/worker accepts the selected GPU through
+its existing UUID/global-lease interface; its scientific processing is unchanged.
+
+BrokerV3 removes only that requested slot from new frequency jobs. Existing
+workers finish naturally and retain their inherited lease; all other free slots
+continue fitting. Source-op and alias-proof hashes bind each request. Completion
+requires the actual current-source material batch, rather than a stale PID.
+
+CPU regressions pass for both fields0–2/maps3–7 requesting4 and
+fields0–4/maps5–7 requesting7: the90s fit drains and other map slots advance.
+An actual inherited-flock child test verifies MAT cannot acquire early, can
+acquire after the fit exits and does not block other slot scheduling.
+
+The controlled V2→V3 handoff proved old LOCAL control/staging processes dead and
+preserved all five active remote fit workers with identical PID/start/boot.
+Evidence: `operations/future_rgb_sg/v2_to_v3_handoff.json`.
+BrokerV3 watchdog2265295/controller2265296 runs configSHA`3ad75a0d…`, bound to
+advanced dispatcher`d2589001…` and helper`44c7931b…`. Actual first1680 MAT intent
+is still pending native-input availability; no production MAT inference was
+claimed by these CPU regressions.
