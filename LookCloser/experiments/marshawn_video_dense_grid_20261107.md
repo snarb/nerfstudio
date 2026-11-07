@@ -295,3 +295,37 @@ Evidence: capped campaign `operations/video_fleet10/private_profile_v1/`,
 including `other_frame_CPU/001660/native_toe_actual_source_proof.json`,
 `native_toe_actual_source_contact.jpg`, `cell_audit/MA_ray_best_cells_contributors.jpg`,
 and the own-frame dense reports on silver-sable.
+
+## Frame1680: current source qualification before cold training
+
+The current frame1680 native actors, qualified hair, geometry-only128-native-pixel
+head envelope, crew exclusion and calibrated soft coverage were prepared without
+transferring learned state. Independent review covered all66 current-head
+triptychs, all66 whole-photo UNKNOWN overlays, all66 body contacts, and native
+NE/MD/NC head-and-feet panels. No obvious new crew foreground was visible at
+contact-page scale. Small grey head/shoulder omissions and some thin hair tips
+outside qualified RGB remain; geometry UNKNOWN is not a perfect-mask claim.
+AD's deliberately wider geometry-only fallback occupies55,344HD pixels(2.85%)
+and reaches the upper shoulders/torso, without floor/feet expansion.
+
+| Current source grid | Nominal contour rays across66 cameras | Misses |
+|---|---:|---:|
+|Base|163588|0|
+|Pad1|163588|0|
+|Frozen mapped admission|163588|0|
+
+The exact DDA diagnostic and frozen support loader ran before host reservation.
+This proves retention of current nominal actor-contour rays, not physical or
+hidden-depth occupancy completeness; the learned grid does not exist yet.
+Prepared sourceSHA `a5bf3abcd417f719ae281aa206c59d1f3012a1cfd22755fd0c16f0ae9409b915`,
+final readySHA `beac1e9fbe45a373a911688a43fdba187fb350955f7d014926d76fc95de44ede`,
+gate manifestSHA `e58f253a72689193430cea579bf7a48b573118ec4cc5fd4d6be4bda8c12f52b6`.
+
+Evidence under source campaign `/fsx/tmp/marshawn_video_1660_2015_24fps_20261107`:
+`operations/hair_unknown_manual1680/independent_review.json`
+(SHA `e0ffdb3e4e92a0616ccf1dbd0b4645fb989d4b494126237a16e81d3d128cd0c8`),
+`operations/advanced_inputs/001680/dense_guard_beac1e9fbe45/qualification.json`
+(SHA `bc5650c49e8821ed9784e9b24a1d73929edcfb63a4ee1a3d37c82d063633de9a`)
+and its reportSHA `e34634e2ee95840f50684f4044cfd7f0ff750c2aeb26b5df9b30a2bf81e5f8a3`.
+The verified frame was then assigned to DEV3 for a fresh capped model;
+this source audit changes no NeRF parameter or input after publication.
