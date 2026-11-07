@@ -115,3 +115,56 @@ before carving. The learned grid can independently omit low-EMA edges after
 source admission passes. Blanket runtime dilation restores those edges but
 currently worsens image metrics, motivating a smaller source-checked correction.
 None of these tests certifies every empty or occupied cell in unseen geometry.
+
+## Corrected1675 source admission
+
+The current native head/hair revision and regulated128-native-pixel geometry
+UNKNOWN inputs passed the source checks and ROOT's66-view visual review. An
+independent review also inspected all66 current UNKNOWN/photo overlays and head
+insets: bands stay near the actor's head/braids, covering0.59–2.01% of each
+raster. The weak AD fallback is the widest and reaches upper shoulders; its
+qualified RGB foreground addition remains zero. These are uncertainty inputs,
+not forced occupied cells. The AABB and calibration did not change.
+
+A derived-data cache error was caught before publication: the frozen DATA
+builder returned early on an old `prepared_ready.json`, leaving old W64 maps
+after native hair changed. AB had1477 qualified HD hair pixels with zero W64,
+and its recorded native-mask SHA differed from the current archive. The old
+completion controls were archived and the unchanged frozen builder actually
+reran. The confidence guard was retained. The final QA checks native H/U are
+inside native foreground, their calibrated projections match the saved flags,
+and W32/W64 dominate projected native coverage on valid non-veto footprints.
+Fractional coverage flags are not hard alpha labels; requiring them to be
+inside the >=.5 hard HD mask was an invalid earlier QA premise.
+
+| Corrected current-source check | Rays | Failures |
+|---|---:|---:|
+|All66 nominal actor contours, source base|165925|0|
+|All66 nominal actor contours, source pad1|165925|0|
+|All66 nominal actor contours, source mapped|165925|0|
+|The exact2867 previously failed mapped rays, retested|2867|0|
+|ROOT-selected five native hair candidate contours, base/pad1/mapped|13927|0|
+
+The native canaries bind the current photograph, NN checkpoint/spec/receipt,
+ROOT selection and camera calibration. RAW pixel-center lens inversion has a
+forward-polynomial residual below2e-12 native pixels. AD remains an uncertainty
+seed rather than certified hair foreground. These results check observed
+contours and do not certify hidden physical depth or future learned occupancy.
+
+The correction increases base source cells from380827 to383801 and pad1 cells
+from415797 to419581. It fixes the known hair false carving without enlarging the
+box or applying a blanket learned-grid dilation. No checkpoint, learned grid
+or optimizer state was reused across frames or changed by this diagnostic.
+
+Exact final bindings:
+
+- Source marker: `522cb9ef8547a2d341a563db38661d41c59913285790d4c6c89c90140419c014`.
+- Final ready: `85673fbecef7e33ee9410ebe39a93138124d3d00a678b6829f7819d6fd88aaad`.
+- Admission manifest: `6111f75e4f700c4ecf4cbc25614b1b9b26cb81a660a291883bf163587e10be0b`.
+- Grid archive: `776e16ea9ac7bf7e75258d1cc66c767bc63e349a67ecd351e625dca12ae553bb`.
+
+Evidence under the SOURCE campaign:
+`operations/advanced_inputs/001675/dense_contour_hair_v4_85673fbecef7/qualification.json`,
+`operations/witness1675_corrected/native5/native_report.json`,
+`operations/witness1675_corrected/old_failed_rays_retest.json`,
+`operations/hair_unknown_manual66/independent_review.json`.
