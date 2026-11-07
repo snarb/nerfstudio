@@ -266,3 +266,11 @@ OPENCV lens inversion with a forward-polynomial roundtrip below2e-12 native
 pixels. NN archive/spec/receipt, source photograph, checkpoint, calibration and
 ROOT selection hashes are bound. They remain NN proposals rather than certified
 anatomical truth; the weak AD candidate is explicitly geometry-UNKNOWN-only.
+
+The source qualification wrapper additionally checks exact requested final
+ready/admission-manifest SHAs with frozen `load_support`, all66 current camera
+memberships and reviewed visibility, then requires zero failures for both
+sourcepad1 and mapped grids. Its real1670 positive canary passed on168805 rays
+(ready`416f20a6…`, admission`4538d7e3…`). Base-grid failures remain a comparison,
+not a reason to mutate the frozen one-halo policy. The wrapper writes only
+operational reports; it never publishes DATA or dispatches a model.
