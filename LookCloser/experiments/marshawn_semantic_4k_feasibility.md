@@ -210,3 +210,16 @@ Root independently verified14 bindings +1502 code +654 source +189 map artifacts
 Black LPIPS .0319978644→.0301002562; grey .0303473783→.0300239064. DC .0364644583→.0344707016; HC .0289360508→.0276536494; KA .0281173550→.0280618928. Early average LPIPS improves3.56%, while PSNR/SSIM decline. This is not completed-model selection or pure-resolution causality.
 
 Root and fleet agents viewed all three actual GT/HD/4K contacts at `C/semantic_4k_review_15188/{DC,HC,KA}_GT_HD_4K.png`; image hashes and observations are bound in `visual_review.json`. Gross pose/hair/shoes remain; some clothing/hair details improve. Wide exterior haze and interleg/floor clumps persist in all three. No geometry or quality promotion. First15188 checkpoint, config, actual schema2 grid and renders are protected by the archive watcher at `independent_occupancy/semantic_4k_original_r0/step-000015188`; independent physical103TRAIN+12DC ray audit remains a separate gate.
+
+## Completed plateau and selected-model visual gate
+
+The cold4K bundle stopped normally at136316, selecting126316 under the frozen LPIPS-near-tie/PSNR rule. Durable health evidence reports no OOM and the expected worker exit. The selected renders, schema2 grid, config and immutable remote checkpoint are archived at `C/independent_occupancy/semantic_4k_original_r0/step-000126316`.
+
+| Independently selected completed checkpoints, same V1 FHD domain | Step | PSNR | SSIM | LPIPS |
+|---|---:|---:|---:|---:|
+| HD originalR0 |111316|31.518449|.83807344|.0223398572|
+| Experimental4K+4000maps |126316|31.581180|.84266496|.0215191580|
+
+This selected-checkpoint LPIPS reduction is3.67%, not a pure-resolution or equal-step causal claim. All three GT/selectedHD/selected4K contacts were inspected: gross pose, hair and footwear remain; some fine clothing/hair detail is visible, while broad exterior haze, interleg material and floor fragments remain in every view. [DC](/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_4k_review_selected/DC_GT_HD_4K.png), [HC](/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_4k_review_selected/HC_GT_HD_4K.png), [KA](/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_4k_review_selected/KA_GT_HD_4K.png); image hashes and observations are in that folder's `fleet_visual_review.json`.
+
+Independent first15188 physical-ray replay passed coordinate/RGB parity and206 cloth +24DC convergence, but its geometry regressed against HD: old18 band80.23→68.94%, new66 83.95→81.03%, reservedold8 84.48→74.97%, reservednew9 95.95→89.25%. Those are early-model results, not a substitute for selected-model geometry inspection. Selected126316 still flags black eroded interiors with alpha<.9 in2.29–3.54% of pixels across the three views. No ideal-grid claim or quality promotion is made.
