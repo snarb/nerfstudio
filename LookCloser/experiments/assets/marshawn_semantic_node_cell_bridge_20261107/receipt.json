@@ -1,0 +1,146 @@
+{
+  "passed": true,
+  "CPU_only": true,
+  "GPU_used": false,
+  "actual_head_evaluated": false,
+  "source_hashes": {
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_sourceW32_margin_continuation_v1/review_archives/original_mapped/step-000155316/grid.npz": "640dc683c9322ce0df05a1990999696136f46832f8c02b270f3171776884875b",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/quarter_distortion_sourcepoint_counterfactual_v1/queries/clothing103.json": "e11c111e4a41b02417e98ae2e0f4f5f6055883c070539b2334748974bb3c712c",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/quarter_distortion_sourcepoint_counterfactual_v1/queries/shoe6.json": "b8dc52856872bd3f9f26bc1eee3e94110e992bf69ebc60009b68718589f57dde",
+    "/home/pavlo/repos/nerfstudio/LookCloser/scripts/audit_marshawn_node_cell_bridge_cpu.py": "a7d9f0df224bcb1a5edb8748016d835042070e3b103e368c12c35cc78ff2e445",
+    "/home/pavlo/repos/nerfstudio/LookCloser/scripts/marshawn_semantic_node_cell_bridge.py": "e72ec5a32d41a9511742d90a8e61d124e86f13c15e20849413804a841dd829d0"
+  },
+  "semantic_bounds": [
+    [
+      -0.8399999737739563,
+      -0.20999999344348907,
+      -0.07000000029802322
+    ],
+    [
+      0.15000000596046448,
+      0.41999998688697815,
+      0.6299999952316284
+    ]
+  ],
+  "semantic_node_resolution": [
+    128,
+    128,
+    128
+  ],
+  "native_resolution": [
+    128,
+    128,
+    128
+  ],
+  "semantic_node_pitch": [
+    0.007795275430979691,
+    0.004960629766381632,
+    0.005511810988422454
+  ],
+  "native_cell_pitches": [
+    [
+      0.007734375074505806,
+      0.004921874962747097,
+      0.0054687499068677425
+    ]
+  ],
+  "source_observations": 109,
+  "unique_positions": 41,
+  "cases": {
+    "all_positive": [
+      {
+        "native_bounds": [
+          [
+            -0.8399999737739563,
+            -0.21000000834465027,
+            -0.06999999284744263
+          ],
+          [
+            0.15000003576278687,
+            0.41999998688697815,
+            0.6299999952316284
+          ]
+        ],
+        "cells_radius0": 2097152,
+        "cells_radius1": 2097152,
+        "witness_observations_inside": 109,
+        "witnesses_radius0": 109,
+        "witnesses_radius1": 109
+      }
+    ],
+    "all_negative": [
+      {
+        "native_bounds": [
+          [
+            -0.8399999737739563,
+            -0.21000000834465027,
+            -0.06999999284744263
+          ],
+          [
+            0.15000003576278687,
+            0.41999998688697815,
+            0.6299999952316284
+          ]
+        ],
+        "cells_radius0": 0,
+        "cells_radius1": 0,
+        "witness_observations_inside": 109,
+        "witnesses_radius0": 0,
+        "witnesses_radius1": 0
+      }
+    ],
+    "isolated_knot": [
+      {
+        "native_bounds": [
+          [
+            -0.8399999737739563,
+            -0.21000000834465027,
+            -0.06999999284744263
+          ],
+          [
+            0.15000003576278687,
+            0.41999998688697815,
+            0.6299999952316284
+          ]
+        ],
+        "cells_radius0": 27,
+        "cells_radius1": 125,
+        "witness_observations_inside": 109,
+        "witnesses_radius0": 0,
+        "witnesses_radius1": 0
+      }
+    ],
+    "synthetic_witness_basis": [
+      {
+        "native_bounds": [
+          [
+            -0.8399999737739563,
+            -0.21000000834465027,
+            -0.06999999284744263
+          ],
+          [
+            0.15000003576278687,
+            0.41999998688697815,
+            0.6299999952316284
+          ]
+        ],
+        "cells_radius0": 1641,
+        "cells_radius1": 4688,
+        "witness_observations_inside": 109,
+        "witnesses_radius0": 109,
+        "witnesses_radius1": 109
+      }
+    ]
+  },
+  "coordinate_guard": 2e-07,
+  "numerical_logit_guard": 1e-05,
+  "certification": "Conservative mathematical selector-support envelope under declared arithmetic slack; not a CUDA deployment certificate.",
+  "limitations": [
+    "No actual trained direct-LC head values were used.",
+    "Synthetic witness positives are a coordinate test, never semantic evidence.",
+    "Outside head bounds is zero by explicit chosen-head policy, not proved empty space.",
+    "GPU interpolation/threshold arithmetic still needs actual deployment parity.",
+    "Skipping zero-density cells can change native sample phase/tail; support proof alone does not establish rendered identity.",
+    "No model, grid, masks, labels, training or source checkpoint was changed."
+  ]
+}
