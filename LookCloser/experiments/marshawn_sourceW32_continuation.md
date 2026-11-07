@@ -1,4 +1,4 @@
-# W32 source support: controlled continuation preparation
+# W32 source support: controlled continuation
 
 ## What was tested
 
@@ -23,9 +23,9 @@ The treatment's own ZERO reference is the actual audited W32 `.002` render, not 
 
 ## Next gates
 
-CPU preparation, root-released ZERO and root-released 32+32 technical validation are complete. Both technical branches performed 64 successful updates. Root subsequently released the fresh production pair; it is running under guardian2167218 and artifact watcher2167221. Later RNG differences caused by different density are observed rather than forcibly reseeded.
+CPU preparation, root-released ZERO and root-released 32+32 technical validation are complete. Both technical branches performed 64 successful updates. Root subsequently released the fresh production pair; it completed naturally under guardian2167218 and artifact watcher2167221. Later RNG differences caused by different density are observed rather than forcibly reseeded.
 
-Production, if released, starts both arms afresh from 126316, retains all evaluated checkpoints and uses gates +500/+1000/+2000/+4000, then the unchanged two-signal plateau tracker with anchor 130316 and patience four. There is no arbitrary hard iteration cap. Full three-view V1 renders and fixed core/boundary diagnostics accompany each evaluation; those diagnostics do not replace V1 selection. Both raw-minimum and historical-selector choices retain the required selector provenance.
+Production started both arms afresh from 126316, retains all evaluated checkpoints and uses gates +500/+1000/+2000/+4000, then the unchanged two-signal plateau tracker with anchor 130316 and patience four. There is no arbitrary hard iteration cap. Full three-view V1 renders and fixed core/boundary diagnostics accompany each evaluation; those diagnostics do not replace V1 selection. Both raw-minimum and historical-selector choices retain the required selector provenance.
 
 Launch entry after exact ZERO authorization:
 
@@ -65,7 +65,7 @@ Both actual pipelines changed from source and between the two technical checkpoi
 
 The [full three-view technical contact](assets/marshawn_sourceW32_continuation_20261107/technical/body_overview.jpg) and [contour contexts](assets/marshawn_sourceW32_continuation_20261107/technical/contour9_context.png) were inspected. These are integration checks, not a quality comparison after sufficient adaptation. Cleanup and the grey HC contour deficit persist. All four workers exited, no OOM occurred, and both guardians finished successfully. One initial SSH255 supervision poll recovered automatically; the event is preserved, with no worker termination or scientific restart.
 
-[Actual proof and production request](assets/marshawn_sourceW32_continuation_20261107/technical/PRODUCTION_RELEASE_REQUEST.json) bind fresh original126316 for both production arms, explicitly exclude technical weights, preserve the original plateau criterion and require the next visual/geometry gates. The prepared read-only artifact watcher changes only the isolated job prefix from the qualified MG watcher; it has not been launched. No production authorization has been written by this agent.
+[Actual proof and production request](assets/marshawn_sourceW32_continuation_20261107/technical/PRODUCTION_RELEASE_REQUEST.json) bind fresh original126316 for both production arms, explicitly exclude technical weights, preserve the original plateau criterion and require the next visual/geometry gates. The prepared read-only artifact watcher changes only the isolated job prefix from the qualified MG watcher; it was subsequently launched with production. No production authorization has been written by this agent.
 
 
 ## Fresh production: first +4000 review
@@ -86,3 +86,44 @@ I inspected the [three-view contact](assets/marshawn_sourceW32_continuation_2026
 The fixed 16px exterior-opacity diagnostic shows partial regrowth after adaptation: W32 alpha>.1 counts increase from zero `77245/46665/32621` to `84649/50512/35387` in DC/HC/KA. They remain below matched control `118442/79837/55042`. Mask-exterior opacity is not certified nonactor geometry.
 
 All four gates pass actual saved core/active/admission/finite-EMA consistency, with all 109 sparse witness observations in active cells and admitted by the fixed W32 point selector. These are only 41 unique points and cannot certify all hair, contours or foot volume. No CPU-reconstructed occupancy is used. [Receipts](assets/marshawn_sourceW32_continuation_20261107/production_first4000/summary.json) preserve that limitation. Both production runs continue naturally to their own plateau; no quality promotion is made.
+
+
+## Natural terminal result: +29000
+
+Both branches stopped by the original two-signal plateau criterion at **155316**, with no arbitrary cap or interruption. Control performed 28,988 successful Adam updates (12 skips), W32 28,987 (13 skips). Both workers exited without OOM; guardian and hash-qualified artifact watcher completed. All evaluated checkpoints, including raw minimum, historical selector and terminal, remain archived with their exact selector provenance.
+
+| Choice | Step | PSNR | SSIM | LPIPS |
+|---|---:|---:|---:|---:|
+| Original mapped, matched terminal | 155316 | 31.582566 | .829864 | .018815275 |
+| W32, historical selector | 135316 | 31.390118 | .830259 | .019581658 |
+| W32, raw minimum and terminal | 155316 | 31.387673 | .829565 | .019525114 |
+
+Control's raw minimum and historical selector remain the original source126316; the matched-terminal comparison above isolates equal continuation age. W32 terminal improves from its own zero, but LPIPS is **3.77% worse than matched control**. Black LPIPS is nearly equal (.020173 versus .020194), while grey remains worse (.018877 versus .017437). Fixed-region PNG diagnostics show slightly better eroded-core LPIPS (.009774 versus .009808), but worse boundary LPIPS (.007127 versus .006571). Those auxiliary regions do not replace V1 or modify selection.
+
+The inspected [full three-view body contact](assets/marshawn_sourceW32_continuation_20261107/production_terminal/body_overview.jpg), all twelve hair/feet patches and [nine contour contexts](assets/marshawn_sourceW32_continuation_20261107/production_terminal/contour9_context.png) show partial grey-contour recovery and persistent unwanted floor/halo fragments. HC1052,576 predicted alpha recovers .41927→.60534, below matched control .69879; KA1028,331 recovers .54447→.75599, below control .96840. The queried DC head halo remains zero in W32 versus one in control. Existing RAW area coverage is not optical alpha ground truth, so these observations do not justify forcing alpha to one.
+
+At fixed 16px exterior distance, alpha>.1 counts (DC/HC/KA) are 88132/52250/36721 for W32 terminal versus 117434/79550/54871 for matched control and 100244/63445/45188 for the earlier W64-margin terminal. W32 cleans more but regrows relative to its own zero 77245/46665/32621. Mask-exterior opacity is not certified background geometry.
+
+Actual saved core equals active: 31,902 cells control and 29,844 W32; no active cell lies outside conservative admission, and EMA is finite. All 109 sparse observations (41 unique positions) remain in active cells and admitted. A separate exact cell-volume/support intersection check finds 1,563 inherited active W32 cells wholly disjoint from point admission at +500, five at +4000, and zero from +9000 through terminal. This reflects natural clearing of inherited traversal state; it is not a certificate that every remaining occupied cell contains a physical surface. Large historical EMA values alone do not establish false geometry.
+
+[Terminal CPU and process receipts](assets/marshawn_sourceW32_continuation_20261107/production_terminal/summary.json) bind source hashes, metrics, saved grids and selector checks. Root separately released a serial read-only replay of both terminal children with their exact checkpoint selectors, full three-view parity and sealed clothing/shoe/contour rays. Its geometry evidence is recorded below when complete. No quality promotion is made from image metrics or sparse retention alone.
+
+
+## Terminal native and dense geometry replay
+
+The exact root-released read-only replay passed for both terminal children on the same idle, physically verified GPU5, sequentially. Each took 91.33 seconds and peaked at 2594 MiB. All three full-FHD views passed the existing own-child RGB/alpha/metric replay tolerance. Actual FR .3, quarter step, cap1024, native R0 and the checkpoint-bound W32 point selector were restored before querying. Seven serialized states, live pipeline, RNG and nonpersistent feature LUT stayed unchanged; optimizer, occupancy and frequency updates were zero. No inference opacity pruning was applied.
+
+| Fixed native rays | Control mass within ±.02 of witness | W32 mass within ±.02 |
+|---|---:|---:|
+| Clothing103 | 96.185% | 96.625% |
+| Grey clothing54 | 98.567% | 98.551% |
+| New whole-patch reserves9 | 99.970% | 99.969% |
+| Shoe6 observations | 98.864% | 98.957% |
+
+Native early mass on clothing decreases 1.586%→1.217%; grey early mass is nearly unchanged (.231%→.237%). Median signed termination-depth residual is +.000735 control versus +.000719 W32 scene units; mean 10–90% width decreases .01394→.01267, with three unobserved 90th-percentile quantiles kept unknown in each arm. The ±.02 band is a diagnostic tolerance, not proof of an exact thin surface. Historical fitted/reserved groups remain fixed; this continuation itself adds no geometry supervision. The inherited 5568 hair/chest ambiguity remains.
+
+None of the 130 queried rays hits native cap1024: clothing maximum733 control/713 W32, shoes472/438. Dense8192→16384 convergence passes all103 clothing, six shoes and12 DC rays for both models under the existing opacity≤.005/RGB≤1code criterion. W32 passes all nine contour rays. Control has two unresolved head-halo RGB convergence cases (DC849,85 and850,85, maximum differences .00748 and .00638); their opacity is stable, but precise dense RGB claims remain unqualified. Dense queries inspect skipped space and must not be mistaken for physical occupancy truth.
+
+[Complete native/dense summaries](assets/marshawn_sourceW32_continuation_20261107/terminal_geometry/summary.json) and [shoe evidence](assets/marshawn_sourceW32_continuation_20261107/terminal_geometry/shoe_summary.json) bind every trace and source checkpoint. Sparse garment geometry is preserved with modest early-mass improvement, while the manually inspected residual halo/floor and grey boundary deficit prevent clean-asset promotion. Eight CPU cell-support/replay contract tests pass.
+
+All **832** replay result files were copied locally and verified against remote SHA256 values, with zero missing or mismatched files. The fresh [replay body contact](assets/marshawn_sourceW32_continuation_20261107/terminal_geometry/body_overview.jpg), all hair/feet pages and contour contexts were inspected independently of the archived production contact. They reproduce the same partial cleanup and remaining unwanted geometry.

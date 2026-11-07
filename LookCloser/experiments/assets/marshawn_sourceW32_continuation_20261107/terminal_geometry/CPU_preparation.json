@@ -1,0 +1,38 @@
+{
+  "prepared_only": true,
+  "GPU_started": false,
+  "release_written": false,
+  "policy_sha256": "c4c70bd97f82d7b57c4bde0b563ce13a24e422fef7dfe9f01d5dcd1d3e64c9af",
+  "unchanged_five_readonly_helpers": {
+    "audit_marshawn_margin_checkpoint.py": "3ce2c6c576f1ed14adb785c84fbe43e51e2b963416d038dad4f6bf78081840ec",
+    "run_marshawn_margin_checkpoint_audit.py": "cd86655dd638f3e8cd2db26d9f8e7e764a8d2c709d58bf75b2175c77dd8db231",
+    "probe_marshawn_occupancy.py": "daa03035152887bee2d2823bdf0cd66e8c1593a3ec198030dc1a09b405f2ff91",
+    "train_marshawn_semantic_late_distortion.py": "9ef0c76c1470187b2172bd5ebf3df7bef4b1a7b3e5d26dcb29b17d46ee8a1be3",
+    "marshawn_gpu_isolation.py": "42a2155aefdeae4ceeca441a28c417450ef49dee41b3a6cae6beb767dc53069b"
+  },
+  "source_science_files": 1506,
+  "models": {
+    "original_mapped": {
+      "step": 155316,
+      "checkpoint_sha256": "32789c6872f38317ef5a8e56a141717893cdabb52a2bd1ad2d4e3c677e65442d",
+      "selection": "Matched155316 control terminal; raw+selector parent126316"
+    },
+    "source_margin002": {
+      "step": 155316,
+      "checkpoint_sha256": "ce7ad304e65e7a4d3c5f809205390aa05c3f282eeba705296d1f7180fba7a1f0",
+      "selection": "Matched155316 terminal and raw-LPIPS minimum; established selector135316 separatelyretained"
+    }
+  },
+  "additional_queries": "Six pre-existing sealed TRAIN shoe rays; no newlabels orfits; source109 now actualraydiagnostics103+6. Other sealed115+9 unchanged.",
+  "expected_commands": [
+    "ssh ubuntu@silver-sable qualifiedPython REMOTE/helpers/run_marshawn_margin_checkpoint_audit.py --root REMOTE"
+  ],
+  "strict_loader": "install_checkpoint_margin; no plain original evaluator",
+  "own_full3FHD_numeric_parity_required": true,
+  "resource_limits": {
+    "serial_idle_exclusive_UUID": true,
+    "allocator_GiB": 8,
+    "process_MiB": 10240,
+    "seconds_per_model": 900
+  }
+}

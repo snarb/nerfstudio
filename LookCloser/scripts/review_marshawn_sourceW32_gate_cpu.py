@@ -1,6 +1,7 @@
 """Saved-render and actual-grid diagnostics; no model, target or grid mutation."""
 import argparse
 import hashlib
+import inspect
 import json
 import os
 from pathlib import Path
@@ -11,6 +12,7 @@ from PIL import Image
 import torch
 from marshawn_source_point_admission import SourcePointAdmission
 from marshawn_source_margin_admission import GeometricSourcePointAdmission
+from marshawn_semantic_cell_admission import WholeCellAdmission
 
 
 def read(path):
@@ -40,10 +42,16 @@ def review(root, queries, step):
     source = root/'margin/source_grid.npz'
     manifest = read(root/'margin/manifest.json')
     assert sha(source) == manifest['source_grid_sha256']
+    for helper in (SourcePointAdmission, GeometricSourcePointAdmission):
+        path = Path(inspect.getfile(helper))
+        assert sha(path) == manifest['helper_sha256'][path.name]
     with np.load(source, allow_pickle=False) as data:
         lookup = GeometricSourcePointAdmission(torch.from_numpy(data['semantic_gate_pad1']),
             data['aabb'], margin=.002, epsilon=2e-7, base_class=SourcePointAdmission)
         retained = lookup(torch.from_numpy(xyz)).numpy()
+        cell_lookup = WholeCellAdmission(data['semantic_gate_pad1'], data['aabb'], epsilon=2e-7)
+    cell_helper = Path(inspect.getfile(WholeCellAdmission))
+    assert sha(cell_helper) == sha(root/'code/LookCloser/scripts'/cell_helper.name)
     assert retained.all()
     result = dict(step=step, CPU_only=True, no_model_loaded=True, inputs=hashes,
         source_grid_sha256=sha(source), fixed_W32_point_admission_retained=int(retained.sum()),
@@ -55,6 +63,8 @@ def review(root, queries, step):
         archive = read(folder/'receipt.json')
         for name, digest in archive['files_sha256'].items():
             assert sha(folder/name) == digest, name
+        assert sha(folder/'margin_manifest.json') == sha(root/'margin/manifest.json')
+        assert sha(folder/'spec.json') == sha(root/'specs'/('production_'+arm)/'spec.json')
         grid = read(folder/'grid.json')
         assert grid['schema'] == 2 and grid['radius'] == 0 and not grid['cpu_reconstruction_used']
         assert sha(folder/'grid.npz') == grid['grid_archive_sha256']
@@ -72,6 +82,17 @@ def review(root, queries, step):
                 witness_cell_active_count=int(occupied.sum()),
                 witness_cell_inactive=[labels[i] for i in np.flatnonzero(~occupied)],
                 authority=grid['authority'], checkpoint_sha256=grid['checkpoint_sha256'])
+            if arm == 'source_margin002':
+                active_indices = np.argwhere(active)
+                pitch = (bounds[1]-bounds[0])/128
+                lower = bounds[0]+active_indices*pitch
+                # Expanded-cell/source intersection is conservative. Its
+                # outside-domain rule admits extra boundary cells, never
+                # labels UNKNOWN as definitely excluded.
+                intersects = cell_lookup.boxes_admitted(lower-.002, lower+pitch+.002)
+                native['whole_cells_disjoint_from_bound_point_gate'] = int((~intersects).sum())
+                native['wholecell_helper_sha256'] = sha(cell_helper)
+                native['wholecell_diagnostic_scope'] = 'No possible admitted point in excluded whole cells; not physical empty-space ground truth.'
         current = read(folder/'renders/metrics.json')
         zero = read(root/'runs'/('zero_'+arm)/'branch_zero/renders/step-000126316/metrics.json')
         result['arms'][arm] = dict(metrics=score(current), own_zero_metrics=score(zero),

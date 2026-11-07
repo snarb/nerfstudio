@@ -1,0 +1,16 @@
+{
+  "source_hashes": {
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/images/eval_DC.png": "6cd7eb43aaeb89d8d746ee49bef90a65886bf428d520732bbe857d0f877122d3",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/sourceW32_continuation_final_geometry_v1/original_mapped/renders/step-000155316/DC.png": "992cedced8c10e36dc05e33304326ced5b55b328f6fd8fb641fdf2a2e9dcbb42",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/sourceW32_continuation_final_geometry_v1/source_margin002/renders/step-000155316/DC.png": "50d760b683a5ebc87b591f2ae6a18662820850c3c560c1d38adb5cc333b4f688",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/images/eval_HC.png": "ccc98134f03be9f5202e40122692f08628f5dc9601aef90b08da69dbe29e0405",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/sourceW32_continuation_final_geometry_v1/original_mapped/renders/step-000155316/HC.png": "8e2912ddcab4dc266f63f19839d848d59bb676249884fa6be145419a7e6b00e3",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/sourceW32_continuation_final_geometry_v1/source_margin002/renders/step-000155316/HC.png": "82c56180997ca3f014463780e60da409b8473851d8171db7e1ccc5048ce83599",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/images/eval_KA.png": "4fb9111b577846c0f39cf93cd221346f50a57234ad3552cb8ca0ce8b0edc4a05",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/sourceW32_continuation_final_geometry_v1/original_mapped/renders/step-000155316/KA.png": "06155d33200036b3b8ae41b73ef4b706745d994d702f447775b1a605d5d6f919",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/sourceW32_continuation_final_geometry_v1/source_margin002/renders/step-000155316/KA.png": "6f553e75f721d689f9b96bc626f9a799ef4bbe71dfb7309c7a4c2412a593de5d"
+  },
+  "manual_review_pending": true,
+  "no_labels_changed": true,
+  "no_GPU": true
+}

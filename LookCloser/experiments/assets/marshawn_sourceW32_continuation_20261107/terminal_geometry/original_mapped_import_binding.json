@@ -1,0 +1,26 @@
+{
+  "_margin_readonly_isolation": {
+    "path": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/sourceW32_continuation_final_geometry_v1/helpers/marshawn_gpu_isolation.py",
+    "sha256": "42a2155aefdeae4ceeca441a28c417450ef49dee41b3a6cae6beb767dc53069b"
+  },
+  "probe_marshawn_occupancy": {
+    "path": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/sourceW32_continuation_final_geometry_v1/helpers/probe_marshawn_occupancy.py",
+    "sha256": "daa03035152887bee2d2823bdf0cd66e8c1593a3ec198030dc1a09b405f2ff91"
+  },
+  "_margin_readonly_state": {
+    "path": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/sourceW32_continuation_final_geometry_v1/helpers/train_marshawn_semantic_late_distortion.py",
+    "sha256": "9ef0c76c1470187b2172bd5ebf3df7bef4b1a7b3e5d26dcb29b17d46ee8a1be3"
+  },
+  "marshawn_margin_continuation_policy": {
+    "path": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/code/LookCloser/scripts/marshawn_margin_continuation_policy.py",
+    "sha256": "a040b0d33fa1eb7a802370e7c587e25450b89d4b8efeb8c2bc7b730bd72a4422"
+  },
+  "marshawn_semantic_occupancy": {
+    "path": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/code/LookCloser/scripts/marshawn_semantic_occupancy.py",
+    "sha256": "3dee86b78aa1f57067450ff39f6bb8e5bdae0e0f4aa475be0230d204b4a90d4b"
+  },
+  "train_marshawn_semantic_admission": {
+    "path": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/code/LookCloser/scripts/train_marshawn_semantic_admission.py",
+    "sha256": "fc3aae19781c84e2d21ee138b07015e6ea392b159719c274337895ad66cc189f"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "time": 1794034004.4791825,
+  "bindings": 1555,
+  "source_files": 1506,
+  "policy_sha256": "c4c70bd97f82d7b57c4bde0b563ce13a24e422fef7dfe9f01d5dcd1d3e64c9af",
+  "GPU_started": false,
+  "release_exists": false
+}

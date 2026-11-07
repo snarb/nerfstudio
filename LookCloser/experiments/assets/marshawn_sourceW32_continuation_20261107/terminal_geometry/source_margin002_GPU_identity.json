@@ -1,0 +1,8 @@
+{
+  "CUDA_VISIBLE_DEVICES": "GPU-216eac5a-c2f3-4bc5-d4e8-1a6f9cbd9b9a",
+  "expected_physical_uuid": "GPU-216eac5a-c2f3-4bc5-d4e8-1a6f9cbd9b9a",
+  "visible_device_count": 1,
+  "logical_current_device": 0,
+  "actual_physical_uuid": "GPU-216eac5a-c2f3-4bc5-d4e8-1a6f9cbd9b9a",
+  "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition"
+}

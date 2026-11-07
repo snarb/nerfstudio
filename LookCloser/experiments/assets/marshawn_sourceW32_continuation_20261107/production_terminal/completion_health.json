@@ -1,0 +1,30 @@
+{
+  "time": 1794034173.2817268,
+  "jobs": {
+    "sourceW32margin126316_production_original_mapped": {
+      "status": "complete",
+      "worker": {
+        "pid": 3540263,
+        "start": "6107218",
+        "boot": "3cd2faca-15ef-4b7e-9767-20e0b80af902",
+        "state": "R"
+      },
+      "worker_alive": false,
+      "gpu_uuid": "GPU-6a8bbc85-5a77-8d62-ab18-560955f0dc65",
+      "oom": false
+    },
+    "sourceW32margin126316_production_source_margin002": {
+      "status": "complete",
+      "worker": {
+        "pid": 3540907,
+        "start": "6107271",
+        "boot": "3cd2faca-15ef-4b7e-9767-20e0b80af902",
+        "state": "R"
+      },
+      "worker_alive": false,
+      "gpu_uuid": "GPU-26c63492-0230-896f-208e-10e4eaca4c3c",
+      "oom": false
+    }
+  },
+  "passed": true
+}

@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "step": 155316,
+  "checkpoint_sha256": "ce7ad304e65e7a4d3c5f809205390aa05c3f282eeba705296d1f7180fba7a1f0",
+  "source_selector": {
+    "schema_version": 1,
+    "arm": "source_margin002",
+    "manifest_sha256": "3b7632524656c4b6599936d7bc8093320c5db628ed1937118bb091e905d08f8d",
+    "source_grid_sha256": "a7e3d3703f9bb693c095bd5cd715f92b9ac048b3f96082dd95b39ac5db452328",
+    "geometric_Linf_margin": 0.002,
+    "numerical_epsilon": 2e-07,
+    "outside_unknown": "original_numerical_epsilon",
+    "source_checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+    "helpers_sha256": {
+      "marshawn_source_point_admission.py": "aa288b24bdf84463c33d101a252c6945db40b0f3fffc833a32c782d4a62018b1",
+      "marshawn_source_margin_admission.py": "7f1b9c942f8611123ac4a9800c369e49fd09e360a4eaca13ccc95d2c919967b8",
+      "marshawn_readonly_point_selector.py": "9835b52f46ad880e5022bc560fa4679db7fb5d12601bae02ba71da4fc412f184"
+    }
+  },
+  "actual_FR": 0.3,
+  "coarse_step": 0.0015625,
+  "cap": 1024,
+  "native_R0": true,
+  "seven_states_unchanged": true,
+  "RNG_LUT_unchanged": true,
+  "optimizer_updates": 0,
+  "occupancy_updates": 0,
+  "frequency_updates": 0,
+  "quality_promotion": false
+}

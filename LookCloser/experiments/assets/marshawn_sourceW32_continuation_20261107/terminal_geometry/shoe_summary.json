@@ -1,0 +1,1382 @@
+{
+  "original_mapped": {
+    "rows": [
+      {
+        "pixel": {
+          "camera_name": "ID",
+          "x": 880,
+          "y": 693,
+          "region": "toe_upper",
+          "actor": "black",
+          "witness_xyz": [
+            -0.11769208960984658,
+            0.15127923559030565,
+            0.014567836967476211
+          ],
+          "witness_id": "three_view_upper_toe",
+          "source_coordinate": [
+            879.7936946756498,
+            693.0452434064795
+          ],
+          "source_coordinate_contract": "array pixel center; nearest integer index",
+          "camera": 39,
+          "query_id": 0,
+          "accepted_AABB_interval": [
+            0.6524841552961345,
+            1.4079936540061158
+          ],
+          "query_witness_depth": 1.085782336258176,
+          "point_to_pixel_ray_distance": 7.939157348690407e-05
+        },
+        "profiles": {
+          "native": {
+            "samples": 326,
+            "native_cap_hit": false,
+            "opacity": 0.9956247817910935,
+            "transmission": 0.004375218208906517,
+            "RGB": [
+              0.11374707338079156,
+              0.13474642394542385,
+              0.08129670784176173
+            ],
+            "trace_sha256": "2b2bab89eb033a7f52fbbde2b66c92f4f30dbdbbf2260fb6bcccdfc936064f23",
+            "witness_depth": 1.0857822759447766,
+            "mass_before_band_after_transmission": [
+              0.0,
+              0.9894857183207932,
+              0.006139063470300243,
+              0.004375218208906517
+            ],
+            "signed_t50_minus_witness": 0.0015166935554651317,
+            "width10_90": 0.00659505898566537
+          },
+          "uniform": {
+            "samples": 8192,
+            "native_cap_hit": null,
+            "opacity": 0.9956276019418012,
+            "transmission": 0.004372398058198779,
+            "RGB": [
+              0.11643799818677303,
+              0.13944475509009557,
+              0.08408954788288328
+            ],
+            "trace_sha256": "d84ad70814ac84dc656f28ce6deeb5680ff1a564900af777f64037515b300c33",
+            "witness_depth": 1.0857822759447766,
+            "mass_before_band_after_transmission": [
+              0.009615038468437559,
+              0.9796201156463948,
+              0.006392447826968864,
+              0.004372398058198779
+            ],
+            "signed_t50_minus_witness": 0.0014921218654395663,
+            "width10_90": 0.006906104034842597
+          },
+          "uniform2x": {
+            "samples": 16384,
+            "native_cap_hit": null,
+            "opacity": 0.9957461113063616,
+            "transmission": 0.004253888693638408,
+            "RGB": [
+              0.11511422737540886,
+              0.13942408960269428,
+              0.08367571663828893
+            ],
+            "trace_sha256": "67b18751025eba103f6d289b07f783487ab119ef6f89a14b8190f321c46872e1",
+            "witness_depth": 1.0857822759447766,
+            "mass_before_band_after_transmission": [
+              0.009635493877202654,
+              0.9798749818936908,
+              0.006235635535467971,
+              0.004253888693638408
+            ],
+            "signed_t50_minus_witness": 0.0014904209547064173,
+            "width10_90": 0.006891344095905749
+          }
+        },
+        "convergence": {
+          "opacity_abs_difference": 0.00011850936456037076,
+          "expected_depth_abs_difference": 0.00011482107420213161,
+          "foreground_rgb_max_abs_difference": 0.0013237708113641722
+        }
+      },
+      {
+        "pixel": {
+          "camera_name": "HE",
+          "x": 914,
+          "y": 876,
+          "region": "toe_upper",
+          "actor": "black",
+          "witness_xyz": [
+            -0.11769208960984658,
+            0.15127923559030565,
+            0.014567836967476211
+          ],
+          "witness_id": "three_view_upper_toe",
+          "source_coordinate": [
+            914.0323425110798,
+            876.4060424338626
+          ],
+          "source_coordinate_contract": "array pixel center; nearest integer index",
+          "camera": 35,
+          "query_id": 1,
+          "accepted_AABB_interval": [
+            0.6622164848492895,
+            1.352805572260079
+          ],
+          "query_witness_depth": 1.058204252683741,
+          "point_to_pixel_ray_distance": 0.00042363173505266635
+        },
+        "profiles": {
+          "native": {
+            "samples": 472,
+            "native_cap_hit": false,
+            "opacity": 0.9996537901622702,
+            "transmission": 0.00034620983772981617,
+            "RGB": [
+              0.1364608423750354,
+              0.13102977698745308,
+              0.08480059613641149
+            ],
+            "trace_sha256": "8a761a648a5ceddb446bb01baaccdf81e038979d34a9a55d875f6231851136dc",
+            "witness_depth": 1.0582042754882375,
+            "mass_before_band_after_transmission": [
+              0.0052491731476038694,
+              0.9926236396868262,
+              0.0017809773278401053,
+              0.00034620983772981617
+            ],
+            "signed_t50_minus_witness": 0.0017295113054085487,
+            "width10_90": 0.009526832201709245
+          },
+          "uniform": {
+            "samples": 8192,
+            "native_cap_hit": null,
+            "opacity": 0.9997366549661445,
+            "transmission": 0.0002633450338554999,
+            "RGB": [
+              0.13628963378001102,
+              0.13246035630074818,
+              0.08394660653115807
+            ],
+            "trace_sha256": "2d3ea9b8f402edf7b013d6492389caaa44f5efd95e7d82b6be9a4e1d5305c01b",
+            "witness_depth": 1.0582042754882375,
+            "mass_before_band_after_transmission": [
+              0.02491375297832464,
+              0.9735257247410025,
+              0.0012971772468173379,
+              0.0002633450338554999
+            ],
+            "signed_t50_minus_witness": 0.0016845041077389045,
+            "width10_90": 0.011995656360140883
+          },
+          "uniform2x": {
+            "samples": 16384,
+            "native_cap_hit": null,
+            "opacity": 0.9997418819405179,
+            "transmission": 0.0002581180594820598,
+            "RGB": [
+              0.13639994585569667,
+              0.13199462867353795,
+              0.08358834349327052
+            ],
+            "trace_sha256": "89bead8a49c573c028b8fd180887475af4d72cc431f3d51b7db5178571e8046b",
+            "witness_depth": 1.0582042754882375,
+            "mass_before_band_after_transmission": [
+              0.024983397396213653,
+              0.9734745477101879,
+              0.001283936834116142,
+              0.0002581180594820598
+            ],
+            "signed_t50_minus_witness": 0.001681063480031053,
+            "width10_90": 0.012071453364154383
+          }
+        },
+        "convergence": {
+          "opacity_abs_difference": 5.2269743734401075e-06,
+          "expected_depth_abs_difference": 8.073647944417672e-06,
+          "foreground_rgb_max_abs_difference": 0.0004657276272102273
+        }
+      },
+      {
+        "pixel": {
+          "camera_name": "IC",
+          "x": 1049,
+          "y": 645,
+          "region": "toe_upper",
+          "actor": "black",
+          "witness_xyz": [
+            -0.11769208960984658,
+            0.15127923559030565,
+            0.014567836967476211
+          ],
+          "witness_id": "three_view_upper_toe",
+          "source_coordinate": [
+            1049.3875902481218,
+            645.382407783706
+          ],
+          "source_coordinate_contract": "array pixel center; nearest integer index",
+          "camera": 38,
+          "query_id": 2,
+          "accepted_AABB_interval": [
+            0.6497945088823056,
+            1.3804347143465294
+          ],
+          "query_witness_depth": 1.1260090126734823,
+          "point_to_pixel_ray_distance": 0.0001989631266320196
+        },
+        "profiles": {
+          "native": {
+            "samples": 247,
+            "native_cap_hit": false,
+            "opacity": 0.9963697610370446,
+            "transmission": 0.0036302389629554455,
+            "RGB": [
+              0.12391528885156938,
+              0.15237119731131188,
+              0.1606807957947623
+            ],
+            "trace_sha256": "198c8776bc32e54058e12f65ad9de81ef62def161c1cfc47186d35aa90bfc0b9",
+            "witness_depth": 1.1260089829789282,
+            "mass_before_band_after_transmission": [
+              0.0,
+              0.994440123125969,
+              0.001929637911075588,
+              0.0036302389629554455
+            ],
+            "signed_t50_minus_witness": 0.0018982946836862968,
+            "width10_90": 0.004180282528237544
+          },
+          "uniform": {
+            "samples": 8192,
+            "native_cap_hit": null,
+            "opacity": 0.9954528442872612,
+            "transmission": 0.004547155712738782,
+            "RGB": [
+              0.12905264021572577,
+              0.15075540167389934,
+              0.161034266484739
+            ],
+            "trace_sha256": "2f141e32e4983ae521cca1acb2375605271c134c4db3e7fe45c058eed84270a7",
+            "witness_depth": 1.1260089829789282,
+            "mass_before_band_after_transmission": [
+              0.011080201127468072,
+              0.9797019218169594,
+              0.0046707213428337545,
+              0.004547155712738782
+            ],
+            "signed_t50_minus_witness": 0.0018699716730994353,
+            "width10_90": 0.004351822074482703
+          },
+          "uniform2x": {
+            "samples": 16384,
+            "native_cap_hit": null,
+            "opacity": 0.9954451779248054,
+            "transmission": 0.004554822075194642,
+            "RGB": [
+              0.1289909999587638,
+              0.15084427988854676,
+              0.1610951626155308
+            ],
+            "trace_sha256": "32eb9b60ed7eec784ff5d7895984447581c9d90c37c93dc6a309cae96888ba8d",
+            "witness_depth": 1.1260089829789282,
+            "mass_before_band_after_transmission": [
+              0.011035694256285814,
+              0.9795696212170802,
+              0.0048398624514392335,
+              0.004554822075194642
+            ],
+            "signed_t50_minus_witness": 0.0018711952915062557,
+            "width10_90": 0.004355821587407105
+          }
+        },
+        "convergence": {
+          "opacity_abs_difference": 7.666362455860387e-06,
+          "expected_depth_abs_difference": 5.000171342528503e-06,
+          "foreground_rgb_max_abs_difference": 8.88782146474254e-05
+        }
+      },
+      {
+        "pixel": {
+          "camera_name": "JA",
+          "x": 776,
+          "y": 430,
+          "region": "sole6862",
+          "actor": "black",
+          "witness_xyz": [
+            -0.11713805167004304,
+            0.14165073766903985,
+            0.005085417456200336
+          ],
+          "witness_id": 6862,
+          "source_coordinate": [
+            776.6044311523438,
+            430.82171630859375
+          ],
+          "source_coordinate_contract": "COLMAP half-center UV; floor to integer pixel index",
+          "camera": 41,
+          "query_id": 3,
+          "accepted_AABB_interval": [
+            0.8877230906393374,
+            1.4412915253026655
+          ],
+          "query_witness_depth": 1.2989509176048883,
+          "point_to_pixel_ray_distance": 4.120039364139508e-05
+        },
+        "profiles": {
+          "native": {
+            "samples": 143,
+            "native_cap_hit": false,
+            "opacity": 0.9991091548400846,
+            "transmission": 0.0008908451599154432,
+            "RGB": [
+              0.25664392420235593,
+              0.2415925299067016,
+              0.2312617819374833
+            ],
+            "trace_sha256": "dfb408c5034ff50f0158bf3a2eacc493c4ad48eb4a53b4baac161ed7aa444dc2",
+            "witness_depth": 1.2989508529628304,
+            "mass_before_band_after_transmission": [
+              0.0008165836334228516,
+              0.9982814843107235,
+              1.1086895938205998e-05,
+              0.0008908451599154432
+            ],
+            "signed_t50_minus_witness": -0.0003671093492521038,
+            "width10_90": 0.004461379626593098
+          },
+          "uniform": {
+            "samples": 8192,
+            "native_cap_hit": null,
+            "opacity": 0.9991990047033904,
+            "transmission": 0.0008009952966095968,
+            "RGB": [
+              0.2555801334137952,
+              0.24128859533389738,
+              0.225901349267788
+            ],
+            "trace_sha256": "249ce45fe6c64409ca16b35b35e2829343081769299c57971ce09f8a6c0acbfd",
+            "witness_depth": 1.2989508529628304,
+            "mass_before_band_after_transmission": [
+              0.020203487849441766,
+              0.9789624506841812,
+              3.306616976741759e-05,
+              0.0008009952966095968
+            ],
+            "signed_t50_minus_witness": -0.00047414094616438085,
+            "width10_90": 0.009412413989839052
+          },
+          "uniform2x": {
+            "samples": 16384,
+            "native_cap_hit": null,
+            "opacity": 0.9991943380643483,
+            "transmission": 0.0008056619356516803,
+            "RGB": [
+              0.2556230788978084,
+              0.24122311037545907,
+              0.22583978255209172
+            ],
+            "trace_sha256": "001e6830b297355a6477937a802de3fb3676b21349f993bc6ae23a09b2f5f93a",
+            "witness_depth": 1.2989508529628304,
+            "mass_before_band_after_transmission": [
+              0.020118648400698002,
+              0.97904241897738,
+              3.327068627042939e-05,
+              0.0008056619356516803
+            ],
+            "signed_t50_minus_witness": -0.0004751347230094183,
+            "width10_90": 0.009406327456325414
+          }
+        },
+        "convergence": {
+          "opacity_abs_difference": 4.666639042083531e-06,
+          "expected_depth_abs_difference": 3.785567126657341e-06,
+          "foreground_rgb_max_abs_difference": 6.548495843830549e-05
+        }
+      },
+      {
+        "pixel": {
+          "camera_name": "JB",
+          "x": 893,
+          "y": 519,
+          "region": "sole6862",
+          "actor": "black",
+          "witness_xyz": [
+            -0.11713805167004304,
+            0.14165073766903985,
+            0.005085417456200336
+          ],
+          "witness_id": 6862,
+          "source_coordinate": [
+            893.465087890625,
+            519.1986694335938
+          ],
+          "source_coordinate_contract": "COLMAP half-center UV; floor to integer pixel index",
+          "camera": 42,
+          "query_id": 4,
+          "accepted_AABB_interval": [
+            0.7997775342363077,
+            1.3930396922445143
+          ],
+          "query_witness_depth": 1.2214704932655394,
+          "point_to_pixel_ray_distance": 0.0001546022361946945
+        },
+        "profiles": {
+          "native": {
+            "samples": 158,
+            "native_cap_hit": false,
+            "opacity": 0.9993582744951937,
+            "transmission": 0.0006417255048063453,
+            "RGB": [
+              0.28718596681662084,
+              0.22173189237657026,
+              0.2307904146043972
+            ],
+            "trace_sha256": "6a51ab7b37caeebf3fe0ead517e1ac0f0512c1f286d1bc4c962440727f521f16",
+            "witness_depth": 1.2214705463416438,
+            "mass_before_band_after_transmission": [
+              0.0,
+              0.9993349470495332,
+              2.3327445660470403e-05,
+              0.0006417255048063453
+            ],
+            "signed_t50_minus_witness": -0.0003206943413287533,
+            "width10_90": 0.004542990235758992
+          },
+          "uniform": {
+            "samples": 8192,
+            "native_cap_hit": null,
+            "opacity": 0.9994063568644703,
+            "transmission": 0.0005936431355296756,
+            "RGB": [
+              0.3037073329684018,
+              0.23035284065691705,
+              0.23183250302521577
+            ],
+            "trace_sha256": "10ff9efdff2d12a486146e84212f5f62ea0193ee6a67625de70acd17393a78e7",
+            "witness_depth": 1.2214705463416438,
+            "mass_before_band_after_transmission": [
+              0.016705575817019945,
+              0.9826568672202632,
+              4.3913827187037967e-05,
+              0.0005936431355296756
+            ],
+            "signed_t50_minus_witness": -0.0004214669246611624,
+            "width10_90": 0.005524766507292833
+          },
+          "uniform2x": {
+            "samples": 16384,
+            "native_cap_hit": null,
+            "opacity": 0.9994140976013065,
+            "transmission": 0.0005859023986934941,
+            "RGB": [
+              0.30362371374585545,
+              0.23022739097949746,
+              0.2316238525871848
+            ],
+            "trace_sha256": "e73a9da5bf53090ae9ffdfc4492dbc2e0bb77150a38fbd6864d5831f0e435920",
+            "witness_depth": 1.2214705463416438,
+            "mass_before_band_after_transmission": [
+              0.016720901148299057,
+              0.9826498056075857,
+              4.339084542160587e-05,
+              0.0005859023986934941
+            ],
+            "signed_t50_minus_witness": -0.0004228614487196136,
+            "width10_90": 0.0055300830860627315
+          }
+        },
+        "convergence": {
+          "opacity_abs_difference": 7.740736836181483e-06,
+          "expected_depth_abs_difference": 6.923304020300947e-06,
+          "foreground_rgb_max_abs_difference": 0.00020865043803097727
+        }
+      },
+      {
+        "pixel": {
+          "camera_name": "KB",
+          "x": 875,
+          "y": 478,
+          "region": "sole6862",
+          "actor": "black",
+          "witness_xyz": [
+            -0.11713805167004304,
+            0.14165073766903985,
+            0.005085417456200336
+          ],
+          "witness_id": 6862,
+          "source_coordinate": [
+            875.58447265625,
+            478.4267883300781
+          ],
+          "source_coordinate_contract": "COLMAP half-center UV; floor to integer pixel index",
+          "camera": 46,
+          "query_id": 5,
+          "accepted_AABB_interval": [
+            0.853968843570787,
+            1.378105007805065
+          ],
+          "query_witness_depth": 1.2075520093035295,
+          "point_to_pixel_ray_distance": 7.093552585205763e-05
+        },
+        "profiles": {
+          "native": {
+            "samples": 154,
+            "native_cap_hit": false,
+            "opacity": 0.9996583842410018,
+            "transmission": 0.00034161575899815944,
+            "RGB": [
+              0.20546196940251082,
+              0.24603665061287167,
+              0.23917606690346221
+            ],
+            "trace_sha256": "70260b646795b64ef6bae7ae0054cc180919a412f82936498da8612b31f59135",
+            "witness_depth": 1.2075519638519217,
+            "mass_before_band_after_transmission": [
+              0.04199699405580759,
+              0.9576568400329961,
+              4.550152198135038e-06,
+              0.00034161575899815944
+            ],
+            "signed_t50_minus_witness": -0.000746765624010326,
+            "width10_90": 0.01828820573049339
+          },
+          "uniform": {
+            "samples": 8192,
+            "native_cap_hit": null,
+            "opacity": 0.9997011368336626,
+            "transmission": 0.0002988631663374264,
+            "RGB": [
+              0.20575682876322945,
+              0.2472348511348142,
+              0.23506253017091533
+            ],
+            "trace_sha256": "c99ad4ccb9b785bd2f7eddd9122f3f86fb6a5ee0395379a61967fd75ef81ef41",
+            "witness_depth": 1.2075519638519217,
+            "mass_before_band_after_transmission": [
+              0.09559759912070183,
+              0.9040848469964926,
+              1.8690716468135507e-05,
+              0.0002988631663374264
+            ],
+            "signed_t50_minus_witness": -0.0008480701328994478,
+            "width10_90": 0.02094461398594527
+          },
+          "uniform2x": {
+            "samples": 16384,
+            "native_cap_hit": null,
+            "opacity": 0.9997014682951125,
+            "transmission": 0.0002985317048874725,
+            "RGB": [
+              0.20572513651339197,
+              0.24741557598736488,
+              0.23497739344755023
+            ],
+            "trace_sha256": "53a92aef77d3820448c5bbdc1214e6c02dad2f9de281d93f8905ab8eb38eb59d",
+            "witness_depth": 1.2075519638519217,
+            "mass_before_band_after_transmission": [
+              0.09495348090173826,
+              0.9047293176674618,
+              1.8669725912664574e-05,
+              0.0002985317048874725
+            ],
+            "signed_t50_minus_witness": -0.0008463840300168002,
+            "width10_90": 0.020944855446862976
+          }
+        },
+        "convergence": {
+          "opacity_abs_difference": 3.314614499538848e-07,
+          "expected_depth_abs_difference": 2.4849185942255048e-06,
+          "foreground_rgb_max_abs_difference": 0.00018072485255068993
+        }
+      }
+    ],
+    "summary": {
+      "rays": 6,
+      "profiles": {
+        "native": {
+          "mean_opacity": 0.998295691094448,
+          "maximum_samples": 472,
+          "cap_hits": 0,
+          "mean_mass": [
+            0.008010458472805718,
+            0.9886371254211402,
+            0.0016481072005021247,
+            0.0017043089055519545
+          ],
+          "signed_t50_minus_witness": {
+            "valid": 6,
+            "unknown": 0,
+            "mean": 0.000618321704994799,
+            "median": 0.0005979996070681892,
+            "p10": -0.0005569374866312149,
+            "p90": 0.0018139029945474228,
+            "max_abs": 0.0018982946836862968
+          },
+          "width10_90": {
+            "valid": 6,
+            "unknown": 0,
+            "mean": 0.007932458218076274,
+            "median": 0.005569024610712181,
+            "p10": 0.004320831077415321,
+            "p90": 0.013907518966101318,
+            "max_abs": 0.01828820573049339
+          }
+        },
+        "uniform": {
+          "mean_opacity": 0.998187266599455,
+          "maximum_samples": 8192,
+          "cap_hits": 0,
+          "mean_mass": [
+            0.02968594256023231,
+            0.9664253211842156,
+            0.0020760028550070907,
+            0.0018127334005449598
+          ],
+          "signed_t50_minus_witness": {
+            "valid": 6,
+            "unknown": 0,
+            "mean": 0.0005504866070921525,
+            "median": 0.0005353274703892019,
+            "p10": -0.0006611055395319143,
+            "p90": 0.00177723789041917,
+            "max_abs": 0.0018699716730994353
+          },
+          "width10_90": {
+            "valid": 6,
+            "unknown": 0,
+            "mean": 0.009855896158757224,
+            "median": 0.008159259012340825,
+            "p10": 0.004938294290887768,
+            "p90": 0.016470135173043077,
+            "max_abs": 0.02094461398594527
+          }
+        },
+        "uniform2x": {
+          "mean_opacity": 0.998207179188742,
+          "maximum_samples": 16384,
+          "cap_hits": 0,
+          "mean_mass": [
+            0.02957460266340624,
+            0.9665567821788977,
+            0.0020757943464380074,
+            0.0017928208112579596
+          ],
+          "signed_t50_minus_witness": {
+            "valid": 6,
+            "unknown": 0,
+            "mean": 0.0005497165874163157,
+            "median": 0.0005337797529934019,
+            "p10": -0.0006607593765131092,
+            "p90": 0.0017761293857686544,
+            "max_abs": 0.0018711952915062557
+          },
+          "width10_90": {
+            "valid": 6,
+            "unknown": 0,
+            "mean": 0.009866647506119727,
+            "median": 0.008148835776115582,
+            "p10": 0.004942952336734918,
+            "p90": 0.01650815440550868,
+            "max_abs": 0.020944855446862976
+          }
+        }
+      },
+      "convergence": {
+        "max_opacity_delta": 0.00011850936456037076,
+        "max_RGB_delta": 0.0013237708113641722,
+        "passed_rays": 6
+      }
+    },
+    "audit_sha256": "db5dbe6ccf4a27d222d10935a3b387d071af3d57f96a2bbcbe02c925ed5f4076"
+  },
+  "source_margin002": {
+    "rows": [
+      {
+        "pixel": {
+          "camera_name": "ID",
+          "x": 880,
+          "y": 693,
+          "region": "toe_upper",
+          "actor": "black",
+          "witness_xyz": [
+            -0.11769208960984658,
+            0.15127923559030565,
+            0.014567836967476211
+          ],
+          "witness_id": "three_view_upper_toe",
+          "source_coordinate": [
+            879.7936946756498,
+            693.0452434064795
+          ],
+          "source_coordinate_contract": "array pixel center; nearest integer index",
+          "camera": 39,
+          "query_id": 0,
+          "accepted_AABB_interval": [
+            0.6524841552961345,
+            1.4079936540061158
+          ],
+          "query_witness_depth": 1.085782336258176,
+          "point_to_pixel_ray_distance": 7.939157348690407e-05
+        },
+        "profiles": {
+          "native": {
+            "samples": 326,
+            "native_cap_hit": false,
+            "opacity": 0.9981388781872056,
+            "transmission": 0.0018611218127944085,
+            "RGB": [
+              0.11296254784139069,
+              0.13378432963573442,
+              0.0801204391247268
+            ],
+            "trace_sha256": "8b8dcd07c5fb1c76ecca6019ad550a4d71c8c634d4da677bed1bf429286d35dc",
+            "witness_depth": 1.0857822759447766,
+            "mass_before_band_after_transmission": [
+              0.0,
+              0.994963419695523,
+              0.003175458491682548,
+              0.0018611218127944085
+            ],
+            "signed_t50_minus_witness": 0.0014262321647193765,
+            "width10_90": 0.006412689778467762
+          },
+          "uniform": {
+            "samples": 8192,
+            "native_cap_hit": null,
+            "opacity": 0.9981365620860252,
+            "transmission": 0.001863437913974808,
+            "RGB": [
+              0.11492010311209033,
+              0.13693311360657656,
+              0.0828937472780892
+            ],
+            "trace_sha256": "a7fb37809b137e5c4d8fbc01118fcefaa868f42133521be3576249113685e909",
+            "witness_depth": 1.0857822759447766,
+            "mass_before_band_after_transmission": [
+              0.00646954690535986,
+              0.9882394537016188,
+              0.0034275614790466773,
+              0.001863437913974808
+            ],
+            "signed_t50_minus_witness": 0.001401255809516222,
+            "width10_90": 0.006644043706110159
+          },
+          "uniform2x": {
+            "samples": 16384,
+            "native_cap_hit": null,
+            "opacity": 0.9981852970436511,
+            "transmission": 0.0018147029563488903,
+            "RGB": [
+              0.11395663619894385,
+              0.1368942381869075,
+              0.08246966866290542
+            ],
+            "trace_sha256": "bd653880cf79675b1ce904feeb38c673064962ce4a9c88bb43bc7e7e95a0a866",
+            "witness_depth": 1.0857822759447766,
+            "mass_before_band_after_transmission": [
+              0.006498455539728082,
+              0.9883355809577384,
+              0.0033512605461845884,
+              0.0018147029563488903
+            ],
+            "signed_t50_minus_witness": 0.0014005890107082752,
+            "width10_90": 0.006637274782608227
+          }
+        },
+        "convergence": {
+          "opacity_abs_difference": 4.873495762591773e-05,
+          "expected_depth_abs_difference": 4.165019683854965e-05,
+          "foreground_rgb_max_abs_difference": 0.0009634669131464851
+        }
+      },
+      {
+        "pixel": {
+          "camera_name": "HE",
+          "x": 914,
+          "y": 876,
+          "region": "toe_upper",
+          "actor": "black",
+          "witness_xyz": [
+            -0.11769208960984658,
+            0.15127923559030565,
+            0.014567836967476211
+          ],
+          "witness_id": "three_view_upper_toe",
+          "source_coordinate": [
+            914.0323425110798,
+            876.4060424338626
+          ],
+          "source_coordinate_contract": "array pixel center; nearest integer index",
+          "camera": 35,
+          "query_id": 1,
+          "accepted_AABB_interval": [
+            0.6622164848492895,
+            1.352805572260079
+          ],
+          "query_witness_depth": 1.058204252683741,
+          "point_to_pixel_ray_distance": 0.00042363173505266635
+        },
+        "profiles": {
+          "native": {
+            "samples": 438,
+            "native_cap_hit": false,
+            "opacity": 0.9998636925001243,
+            "transmission": 0.00013630749987569857,
+            "RGB": [
+              0.13685918839901623,
+              0.1311046015983709,
+              0.08403833595316451
+            ],
+            "trace_sha256": "4dc52eff11eac79fbd880259e4af9ab19009e49a2b1b84de5a6678a0ca0d25ec",
+            "witness_depth": 1.0582042754882375,
+            "mass_before_band_after_transmission": [
+              0.0,
+              0.9991124527834927,
+              0.000751239716631602,
+              0.00013630749987569857
+            ],
+            "signed_t50_minus_witness": 0.0016813198908316451,
+            "width10_90": 0.009389840881367517
+          },
+          "uniform": {
+            "samples": 8192,
+            "native_cap_hit": null,
+            "opacity": 0.9999082290063246,
+            "transmission": 9.177099367541075e-05,
+            "RGB": [
+              0.13919468344553285,
+              0.13307144291322892,
+              0.0834953246643369
+            ],
+            "trace_sha256": "6358e964232ac9e615056f7700c90bb2170ffa6fed7608b9a71951843ceb5158",
+            "witness_depth": 1.0582042754882375,
+            "mass_before_band_after_transmission": [
+              0.025297898106574443,
+              0.9741207189651875,
+              0.0004896119345627652,
+              9.177099367541075e-05
+            ],
+            "signed_t50_minus_witness": 0.0016307456444839552,
+            "width10_90": 0.012647852161849826
+          },
+          "uniform2x": {
+            "samples": 16384,
+            "native_cap_hit": null,
+            "opacity": 0.9999101821229178,
+            "transmission": 8.98178770821767e-05,
+            "RGB": [
+              0.1392338864187813,
+              0.13272015751494892,
+              0.08311393301504523
+            ],
+            "trace_sha256": "a8c729a642c3aadb6f9776420b7fd39c96214b20da06b932bc1acb8ba4e1beb9",
+            "witness_depth": 1.0582042754882375,
+            "mass_before_band_after_transmission": [
+              0.0254125371936741,
+              0.9740137771655156,
+              0.0004838677637278772,
+              8.98178770821767e-05
+            ],
+            "signed_t50_minus_witness": 0.0016259308537993622,
+            "width10_90": 0.01268210989115115
+          }
+        },
+        "convergence": {
+          "opacity_abs_difference": 1.95311659323405e-06,
+          "expected_depth_abs_difference": 1.2799169918142894e-05,
+          "foreground_rgb_max_abs_difference": 0.0003813916492916708
+        }
+      },
+      {
+        "pixel": {
+          "camera_name": "IC",
+          "x": 1049,
+          "y": 645,
+          "region": "toe_upper",
+          "actor": "black",
+          "witness_xyz": [
+            -0.11769208960984658,
+            0.15127923559030565,
+            0.014567836967476211
+          ],
+          "witness_id": "three_view_upper_toe",
+          "source_coordinate": [
+            1049.3875902481218,
+            645.382407783706
+          ],
+          "source_coordinate_contract": "array pixel center; nearest integer index",
+          "camera": 38,
+          "query_id": 2,
+          "accepted_AABB_interval": [
+            0.6497945088823056,
+            1.3804347143465294
+          ],
+          "query_witness_depth": 1.1260090126734823,
+          "point_to_pixel_ray_distance": 0.0001989631266320196
+        },
+        "profiles": {
+          "native": {
+            "samples": 247,
+            "native_cap_hit": false,
+            "opacity": 0.9981499957384585,
+            "transmission": 0.0018500042615414714,
+            "RGB": [
+              0.12414561982705523,
+              0.15203769112360482,
+              0.16120716441524965
+            ],
+            "trace_sha256": "7ab8f26d9c50b4f5b08105b0a719c09d8d46a975bffd29abd72d15ebe044bc4c",
+            "witness_depth": 1.1260089829789282,
+            "mass_before_band_after_transmission": [
+              0.0,
+              0.9970839596826409,
+              0.0010660360558176762,
+              0.0018500042615414714
+            ],
+            "signed_t50_minus_witness": 0.0017699176899323987,
+            "width10_90": 0.0038030915122944098
+          },
+          "uniform": {
+            "samples": 8192,
+            "native_cap_hit": null,
+            "opacity": 0.9976054062514348,
+            "transmission": 0.0023945937485652102,
+            "RGB": [
+              0.1277967852407631,
+              0.1500391688182759,
+              0.16111077184028377
+            ],
+            "trace_sha256": "e7ec5c054ee17607139f8833a79ddea7ae526675c3d87d2b5b619d5c6809e134",
+            "witness_depth": 1.1260089829789282,
+            "mass_before_band_after_transmission": [
+              0.0033916455653004614,
+              0.9915907240054707,
+              0.002623036680663574,
+              0.0023945937485652102
+            ],
+            "signed_t50_minus_witness": 0.0017563173621930606,
+            "width10_90": 0.003905887074505676
+          },
+          "uniform2x": {
+            "samples": 16384,
+            "native_cap_hit": null,
+            "opacity": 0.9975917714224025,
+            "transmission": 0.002408228577597482,
+            "RGB": [
+              0.12787936104162492,
+              0.15009227368844746,
+              0.16114325658030093
+            ],
+            "trace_sha256": "038264a8d9b45d1eaf32457258746a69b7f876102e1e806785ee09ae6c97c6f5",
+            "witness_depth": 1.1260089829789282,
+            "mass_before_band_after_transmission": [
+              0.0033868575679851225,
+              0.9914733134429649,
+              0.002731600411452588,
+              0.002408228577597482
+            ],
+            "signed_t50_minus_witness": 0.0017555950034033874,
+            "width10_90": 0.00391455284030906
+          }
+        },
+        "convergence": {
+          "opacity_abs_difference": 1.3634829032271867e-05,
+          "expected_depth_abs_difference": 1.2727961418601552e-05,
+          "foreground_rgb_max_abs_difference": 8.25758008618227e-05
+        }
+      },
+      {
+        "pixel": {
+          "camera_name": "JA",
+          "x": 776,
+          "y": 430,
+          "region": "sole6862",
+          "actor": "black",
+          "witness_xyz": [
+            -0.11713805167004304,
+            0.14165073766903985,
+            0.005085417456200336
+          ],
+          "witness_id": 6862,
+          "source_coordinate": [
+            776.6044311523438,
+            430.82171630859375
+          ],
+          "source_coordinate_contract": "COLMAP half-center UV; floor to integer pixel index",
+          "camera": 41,
+          "query_id": 3,
+          "accepted_AABB_interval": [
+            0.8877230906393374,
+            1.4412915253026655
+          ],
+          "query_witness_depth": 1.2989509176048883,
+          "point_to_pixel_ray_distance": 4.120039364139508e-05
+        },
+        "profiles": {
+          "native": {
+            "samples": 142,
+            "native_cap_hit": false,
+            "opacity": 0.9990791970899409,
+            "transmission": 0.0009208029100591375,
+            "RGB": [
+              0.2558104794465693,
+              0.2415508508928607,
+              0.23108518066285252
+            ],
+            "trace_sha256": "014e9f6202be10d6a00386b3f3660d334e09e2f97f5f047af3714e5d0ca65be1",
+            "witness_depth": 1.2989508529628304,
+            "mass_before_band_after_transmission": [
+              0.0010870099067687988,
+              0.9979921871831721,
+              0.0,
+              0.0009208029100591375
+            ],
+            "signed_t50_minus_witness": -0.00035499799962512846,
+            "width10_90": 0.004661276187680086
+          },
+          "uniform": {
+            "samples": 8192,
+            "native_cap_hit": null,
+            "opacity": 0.9991664468212933,
+            "transmission": 0.000833553178706703,
+            "RGB": [
+              0.25350596336713577,
+              0.24028531367210385,
+              0.22637734590789638
+            ],
+            "trace_sha256": "ed85e3c84a997d64cd5d56bbd6ba34d361d6f5ca9ed2d70cd84c41a9b3c4b16f",
+            "witness_depth": 1.2989508529628304,
+            "mass_before_band_after_transmission": [
+              0.009487921883833307,
+              0.9896579335024561,
+              2.0591435003923297e-05,
+              0.000833553178706703
+            ],
+            "signed_t50_minus_witness": -0.0004487132317791964,
+            "width10_90": 0.00935870666864047
+          },
+          "uniform2x": {
+            "samples": 16384,
+            "native_cap_hit": null,
+            "opacity": 0.9991609824423845,
+            "transmission": 0.0008390175576155068,
+            "RGB": [
+              0.25359996659285344,
+              0.24018284120574113,
+              0.22631320220850146
+            ],
+            "trace_sha256": "6fe5cf68cc5351f6e36c76e7ead7a5687d1bb8a4a63776f5d7f42d1bba82ffbd",
+            "witness_depth": 1.2989508529628304,
+            "mass_before_band_after_transmission": [
+              0.009380231544659518,
+              0.989760008037598,
+              2.074286012691339e-05,
+              0.0008390175576155068
+            ],
+            "signed_t50_minus_witness": -0.00045067117765063003,
+            "width10_90": 0.009358791975279113
+          }
+        },
+        "convergence": {
+          "opacity_abs_difference": 5.464378908803802e-06,
+          "expected_depth_abs_difference": 8.427324438065043e-06,
+          "foreground_rgb_max_abs_difference": 0.00010247246636271856
+        }
+      },
+      {
+        "pixel": {
+          "camera_name": "JB",
+          "x": 893,
+          "y": 519,
+          "region": "sole6862",
+          "actor": "black",
+          "witness_xyz": [
+            -0.11713805167004304,
+            0.14165073766903985,
+            0.005085417456200336
+          ],
+          "witness_id": 6862,
+          "source_coordinate": [
+            893.465087890625,
+            519.1986694335938
+          ],
+          "source_coordinate_contract": "COLMAP half-center UV; floor to integer pixel index",
+          "camera": 42,
+          "query_id": 4,
+          "accepted_AABB_interval": [
+            0.7997775342363077,
+            1.3930396922445143
+          ],
+          "query_witness_depth": 1.2214704932655394,
+          "point_to_pixel_ray_distance": 0.0001546022361946945
+        },
+        "profiles": {
+          "native": {
+            "samples": 156,
+            "native_cap_hit": false,
+            "opacity": 0.999340784465744,
+            "transmission": 0.0006592155342559636,
+            "RGB": [
+              0.2849213773413001,
+              0.22169621465749015,
+              0.22977427270803685
+            ],
+            "trace_sha256": "ed6f96976f6394d30e38089d78deb2778b46156ac122201d7e2982c97cdadb4b",
+            "witness_depth": 1.2214705463416438,
+            "mass_before_band_after_transmission": [
+              0.0,
+              0.9993396548322835,
+              1.1296334605503944e-06,
+              0.0006592155342559636
+            ],
+            "signed_t50_minus_witness": -0.0003613625146026145,
+            "width10_90": 0.00477804243393587
+          },
+          "uniform": {
+            "samples": 8192,
+            "native_cap_hit": null,
+            "opacity": 0.9993823419780867,
+            "transmission": 0.0006176580219132699,
+            "RGB": [
+              0.2961760868708402,
+              0.2237750667364541,
+              0.23039518446626348
+            ],
+            "trace_sha256": "b317aa42f77993b4d96c741866c14fc8c27f75b7854fc73430c3ee38ca7be5cc",
+            "witness_depth": 1.2214705463416438,
+            "mass_before_band_after_transmission": [
+              0.007850368542329983,
+              0.9915144195050817,
+              1.7553930675083264e-05,
+              0.0006176580219132699
+            ],
+            "signed_t50_minus_witness": -0.00045358454275534754,
+            "width10_90": 0.005541121467318222
+          },
+          "uniform2x": {
+            "samples": 16384,
+            "native_cap_hit": null,
+            "opacity": 0.999386120885861,
+            "transmission": 0.0006138791141390154,
+            "RGB": [
+              0.29623676054180986,
+              0.22347760880863327,
+              0.23022054027143415
+            ],
+            "trace_sha256": "8fc9dfecbaab49bc3162d806d92911ff7ecaac1f66337879e95633ae20dcf403",
+            "witness_depth": 1.2214705463416438,
+            "mass_before_band_after_transmission": [
+              0.007847308016808406,
+              0.9915213688975315,
+              1.7443971521254343e-05,
+              0.0006138791141390154
+            ],
+            "signed_t50_minus_witness": -0.0004568896384722354,
+            "width10_90": 0.005545563931767639
+          }
+        },
+        "convergence": {
+          "opacity_abs_difference": 3.778907774254492e-06,
+          "expected_depth_abs_difference": 2.5129142193769383e-06,
+          "foreground_rgb_max_abs_difference": 0.00029745792782082114
+        }
+      },
+      {
+        "pixel": {
+          "camera_name": "KB",
+          "x": 875,
+          "y": 478,
+          "region": "sole6862",
+          "actor": "black",
+          "witness_xyz": [
+            -0.11713805167004304,
+            0.14165073766903985,
+            0.005085417456200336
+          ],
+          "witness_id": 6862,
+          "source_coordinate": [
+            875.58447265625,
+            478.4267883300781
+          ],
+          "source_coordinate_contract": "COLMAP half-center UV; floor to integer pixel index",
+          "camera": 46,
+          "query_id": 5,
+          "accepted_AABB_interval": [
+            0.853968843570787,
+            1.378105007805065
+          ],
+          "query_witness_depth": 1.2075520093035295,
+          "point_to_pixel_ray_distance": 7.093552585205763e-05
+        },
+        "profiles": {
+          "native": {
+            "samples": 169,
+            "native_cap_hit": false,
+            "opacity": 0.9996613177824827,
+            "transmission": 0.00033868221751731653,
+            "RGB": [
+              0.2014191579924146,
+              0.24606473274983215,
+              0.23673991428192034
+            ],
+            "trace_sha256": "b2fde5b0f004faf9e6f1420d6bf98a7e7717c0c25fcbf544dafe8473aed14477",
+            "witness_depth": 1.2075519638519217,
+            "mass_before_band_after_transmission": [
+              0.05074284004513174,
+              0.9489143216205775,
+              4.1561167734016635e-06,
+              0.00033868221751731653
+            ],
+            "signed_t50_minus_witness": -0.0008153474841250397,
+            "width10_90": 0.020308095996511843
+          },
+          "uniform": {
+            "samples": 8192,
+            "native_cap_hit": null,
+            "opacity": 0.9996979781266303,
+            "transmission": 0.00030202187336969555,
+            "RGB": [
+              0.2057066507054766,
+              0.24801444331996236,
+              0.23601735044484376
+            ],
+            "trace_sha256": "efc69ba6fd4242a2c81bba7cb0795ff87362f5ea26151d60fed47f3caa034466",
+            "witness_depth": 1.2075519638519217,
+            "mass_before_band_after_transmission": [
+              0.09735344546363858,
+              0.9023283480711056,
+              1.6184591886036327e-05,
+              0.00030202187336969555
+            ],
+            "signed_t50_minus_witness": -0.0008801430912657171,
+            "width10_90": 0.021084632804001968
+          },
+          "uniform2x": {
+            "samples": 16384,
+            "native_cap_hit": null,
+            "opacity": 0.9996979431380686,
+            "transmission": 0.0003020568619314101,
+            "RGB": [
+              0.20561396052391476,
+              0.24827289255071777,
+              0.23602160933143623
+            ],
+            "trace_sha256": "e2497c402e39f651bb879c8f5dfdde7af895e9f4f1dcb2c62c37c371275bee9f",
+            "witness_depth": 1.2075519638519217,
+            "mass_before_band_after_transmission": [
+              0.09642628741981049,
+              0.9032554735918337,
+              1.6182126424471988e-05,
+              0.0003020568619314101
+            ],
+            "signed_t50_minus_witness": -0.000879323213722083,
+            "width10_90": 0.02108591460333553
+          }
+        },
+        "convergence": {
+          "opacity_abs_difference": 3.4988561714577315e-08,
+          "expected_depth_abs_difference": 2.2704042645926847e-08,
+          "foreground_rgb_max_abs_difference": 0.0002584492307554087
+        }
+      }
+    ],
+    "summary": {
+      "rays": 6,
+      "profiles": {
+        "native": {
+          "mean_opacity": 0.999038977627326,
+          "maximum_samples": 438,
+          "cap_hits": 0,
+          "mean_mass": [
+            0.008638308325316757,
+            0.9895676659662817,
+            0.0008330033357276297,
+            0.0009610223726739994
+          ],
+          "signed_t50_minus_witness": {
+            "valid": 6,
+            "unknown": 0,
+            "mean": 0.0005576269578551063,
+            "median": 0.000535617082547124,
+            "p10": -0.0005883549993638271,
+            "p90": 0.001725618790382022,
+            "max_abs": 0.0017699176899323987
+          },
+          "width10_90": {
+            "valid": 6,
+            "unknown": 0,
+            "mean": 0.008225506131709581,
+            "median": 0.005595366106201816,
+            "p10": 0.004232183849987248,
+            "p90": 0.01484896843893968,
+            "max_abs": 0.020308095996511843
+          }
+        },
+        "uniform": {
+          "mean_opacity": 0.9989828273782991,
+          "maximum_samples": 8192,
+          "cap_hits": 0,
+          "mean_mass": [
+            0.024975137744506104,
+            0.9729085996251534,
+            0.0010990900086396765,
+            0.0010171726217008497
+          ],
+          "signed_t50_minus_witness": {
+            "valid": 6,
+            "unknown": 0,
+            "mean": 0.0005009796583988294,
+            "median": 0.0004762712888685128,
+            "p10": -0.0006668638170105323,
+            "p90": 0.0016935315033385079,
+            "max_abs": 0.0017563173621930606
+          },
+          "width10_90": {
+            "valid": 6,
+            "unknown": 0,
+            "mean": 0.009863707313737721,
+            "median": 0.008001375187375315,
+            "p10": 0.004723504270911949,
+            "p90": 0.016866242482925897,
+            "max_abs": 0.021084632804001968
+          }
+        },
+        "uniform2x": {
+          "mean_opacity": 0.9989887161758809,
+          "maximum_samples": 16384,
+          "cap_hits": 0,
+          "mean_mass": [
+            0.024825279547110956,
+            0.9730599203488638,
+            0.001103516279906282,
+            0.0010112838241190802
+          ],
+          "signed_t50_minus_witness": {
+            "valid": 6,
+            "unknown": 0,
+            "mean": 0.0004992051396776794,
+            "median": 0.0004749589165288226,
+            "p10": -0.0006681064260971592,
+            "p90": 0.0016907629286013748,
+            "max_abs": 0.0017555950034033874
+          },
+          "width10_90": {
+            "valid": 6,
+            "unknown": 0,
+            "mean": 0.009870701337408453,
+            "median": 0.00799803337894367,
+            "p10": 0.004730058386038349,
+            "p90": 0.01688401224724334,
+            "max_abs": 0.02108591460333553
+          }
+        }
+      },
+      "convergence": {
+        "max_opacity_delta": 4.873495762591773e-05,
+        "max_RGB_delta": 0.0009634669131464851,
+        "passed_rays": 6
+      }
+    },
+    "audit_sha256": "a5dbeab9dc127b3bc43c8a784b65613a96e7060d66b63df0444fb72703b59c09"
+  }
+}

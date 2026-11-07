@@ -1,0 +1,19 @@
+{
+  "source_hashes": {
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/images/eval_DC.png": "6cd7eb43aaeb89d8d746ee49bef90a65886bf428d520732bbe857d0f877122d3",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_sourceW32_margin_continuation_v1/review_archives/original_mapped/step-000155316/renders/DC.png": "b396e6d4516b9e0987559e1f616313b3d235be151fdef1f3cf5af6ebec7c3353",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_sourceW32_margin_continuation_v1/runs/zero_source_margin002/branch_zero/renders/step-000126316/DC.png": "9f44656c4d843a9a209e9a1f21b176913fb7bbad1a2538ff6929c34fae89f6d7",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_sourceW32_margin_continuation_v1/review_archives/source_margin002/step-000155316/renders/DC.png": "eceeb27f777b1ab6f66a91b196910c17371f9e2c9cbcb8a0d0d5223c450b8a52",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/images/eval_HC.png": "ccc98134f03be9f5202e40122692f08628f5dc9601aef90b08da69dbe29e0405",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_sourceW32_margin_continuation_v1/review_archives/original_mapped/step-000155316/renders/HC.png": "f1675b07d59a1c00ef256997e03d5ed6a8aebb45a5753f3a41bd02df446c0137",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_sourceW32_margin_continuation_v1/runs/zero_source_margin002/branch_zero/renders/step-000126316/HC.png": "55f8fae59c21564f7b82c15182668142a029fd439c9fcbb7d39398d913ae1ce3",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_sourceW32_margin_continuation_v1/review_archives/source_margin002/step-000155316/renders/HC.png": "3d9d67f2d66542b59fa6be76681c9c178b37fb38035a285d0336c1f7dfcc7e40",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/images/eval_KA.png": "4fb9111b577846c0f39cf93cd221346f50a57234ad3552cb8ca0ce8b0edc4a05",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_sourceW32_margin_continuation_v1/review_archives/original_mapped/step-000155316/renders/KA.png": "7c346f1d42cc01ecfc860ac7b641fa7fd03dfc1f6d84798b76aad0aa1b26a505",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_sourceW32_margin_continuation_v1/runs/zero_source_margin002/branch_zero/renders/step-000126316/KA.png": "387b1e346f39a46e81fdab88e5d01e0ddee1e508fdf8aaa4449cbc38c53cf74a",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_sourceW32_margin_continuation_v1/review_archives/source_margin002/step-000155316/renders/KA.png": "bc546a3703f3d38262bc4d015be1a6536dd48b836bd2ba253900e68dd7870190"
+  },
+  "manual_review_pending": true,
+  "no_labels_changed": true,
+  "no_GPU": true
+}

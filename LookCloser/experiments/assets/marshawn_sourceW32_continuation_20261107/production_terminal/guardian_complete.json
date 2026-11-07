@@ -1,0 +1,20 @@
+{
+  "instance": "5ab7bb6f-a107-4580-ba66-4c1e08c1f384",
+  "phase": "production",
+  "passed": true,
+  "failed": false,
+  "events": [],
+  "terminations": {},
+  "failures": [],
+  "finished": 1794033850.4966388,
+  "remote": {
+    "instance": "5ab7bb6f-a107-4580-ba66-4c1e08c1f384",
+    "phase": "production",
+    "passed": true,
+    "failed": false,
+    "events": [],
+    "terminations": {},
+    "failures": [],
+    "finished": 1794033849.1020539
+  }
+}
