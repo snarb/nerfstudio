@@ -135,3 +135,42 @@ worker PIDs alive, imported-source identity correct, baseline level3 progress,
 and2458MiB process GPU memory. Outputs remain outside all training datasets.
 Final maps, counts and source-bound receipts are still pending; no map is
 promoted on censor rate alone.
+
+### Completed three-camera pilot
+
+All12 fits finished and GPU6 was released. Peak Torch allocation was1357.6MiB.
+Every camera's four runs had identical initial parameter hashes, first eight
+random draws, final RNG and16000 updates. This does not imply identical maps:
+unchanged repeats differ substantially. The new CPU reporter
+`scripts/review_marshawn_frequency_pilot.py` verified all source/map bindings,
+SSIM censor counts and discrete schedules, producing24 actor records and18
+comparisons. Root inspected AA black and MA grey overlays.
+
+Fraction of actor patches still failing the final SSIM criterion (percent):
+
+| Camera / actor | Baseline | Repeat | LR decay | SSIM .93 |
+|---|---:|---:|---:|---:|
+| AA / black |58.52|56.11|49.92|22.62|
+| AA / grey |8.19|9.22|5.80|3.07|
+| HA / black |38.38|29.64|44.78|4.90|
+| HA / grey |15.60|9.48|31.80|0.31|
+| MA / black |38.86|24.57|29.52|11.05|
+| MA / grey |12.88|7.67|20.82|5.21|
+
+These regions contain original actor coverage of at least90% in complete8×8
+patches; the four uncovered bottom image rows are excluded. LR decay helps
+some regions and worsens others, with no consistent actor-level advantage.
+The unchanged repeat changes34–74% of actor patch labels. Its mean level shifts
+by−0.18 to−0.63, while LR decay shifts−0.17 to+0.40 relative to baseline. The
+lower threshold shifts levels by−1.20 to−2.02, consistently assigning coarser
+labels. That is its intended intervention, not evidence of better details.
+
+A formerly censored patch resolved only at the last level still has label15;
+the reporter explicitly measures this distinction. Neither lower censoring nor
+label change certifies a better radiance field. These results do not select a
+winner or replace production maps. Full3D comparisons remain required after
+structural recipe selection, including the observed repeat variability.
+
+[Source-bound report and map comparisons](/fsx/tmp/marshawn_001660_hd/tuning_20261106/frequency_HD_variants_pilot_v1/review/report.json),
+[AA black overlay](/fsx/tmp/marshawn_001660_hd/tuning_20261106/frequency_HD_variants_pilot_v1/review/AA_black_levels.jpg),
+[MA grey overlay](/fsx/tmp/marshawn_001660_hd/tuning_20261106/frequency_HD_variants_pilot_v1/review/MA_grey_levels.jpg).
