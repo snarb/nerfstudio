@@ -1,0 +1,10 @@
+{
+  "reviewer": "root",
+  "approved_map_fits": true,
+  "activation_sha256": "74ed2f44a9f95f93b1b3913ca6b1ff4983435c0c9b794a57c90fa47d31573e50",
+  "time": 1794021084.3113031,
+  "scope": "Only126 declared HD63TRAIN paired2D fits; original1000updates/level; LRdecay.01\u2192.001 vsSSIM.93; samecamera pairedhost/GPU. No NeRF, data assembly, READY, source map replacement or quality promotion.",
+  "scientific_fitter_unchanged": true,
+  "local_origin_only": true,
+  "hourly_supervision_required": true
+}

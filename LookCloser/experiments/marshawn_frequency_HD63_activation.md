@@ -2,7 +2,7 @@
 
 ## What was tested
 
-Prepared, but not launched: 126 independent frequency-map fits on the existing 63 TRAIN HD images. This is the frequency stage after the structural experiments; it does not train a NeRF or establish which maps improve rendered detail.
+Root released and launched 126 independent frequency-map fits on the existing 63 TRAIN HD images. This is the frequency stage after the structural experiments; it does not train a NeRF or establish which maps improve rendered detail.
 
 The two factors reuse the frozen fitter and 1000 updates per level, 16 levels, full 1920×1012 RGB:
 
@@ -15,7 +15,7 @@ Both use patch/stride 8, resolution range 16–8192, two features per level and 
 
 ## Prepared result and validation
 
-The immutable package is `/fsx/tmp/marshawn_001660_hd/tuning_20261106/frequency_HD63_activation_v1` (`A` below); its silver copy is `/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/frequency_HD63_activation_v1`. No fit has been launched at this preparation checkpoint.
+The immutable package is `/fsx/tmp/marshawn_001660_hd/tuning_20261106/frequency_HD63_activation_v1` (`A` below); its silver copy is `/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/frequency_HD63_activation_v1`. Root launched the reviewed package on 2026-11-07; controller PID 2131639. Release SHA256 is `ad1c7f0aa8e9f249b8725cd199646891e65dd270612c4caac55de8db4c450e3d`. The initial check found three completed fits and three active paired fits, zero failures/OOM, and correct parent leases and physical GPU UUIDs on all three lanes. A later concurrent launcher invocation returned “Controller already alive”; no duplicate worker/controller was created. `A/manual_supervision.jsonl` and `A/first_lanes_verified.json` record the check.
 
 - Activation SHA256: `74ed2f44a9f95f93b1b3913ca6b1ff4983435c0c9b794a57c90fa47d31573e50`.
 - Frozen worker: `13a3d723cb5462eeadead9df5862cd57eba37c5b351a5e9d417f0a5be524d91e`.

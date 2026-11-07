@@ -1,0 +1,81 @@
+{
+  "time": 1794021234.8023992,
+  "controller": {
+    "process": {
+      "pid": 2131639,
+      "start": "239627509",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "state": "R"
+    },
+    "started": 1794021093.1038313
+  },
+  "counts": {
+    "complete": 3,
+    "running": 3,
+    "pending": 120
+  },
+  "rows": [
+    {
+      "name": "freqHD63_v1_AA_lr_decay",
+      "status": "complete",
+      "host": "local",
+      "gpu_uuid": "GPU-7ed25c4d-10d1-cbe3-d0b2-76c21211bd46",
+      "worker_pid": 2131654,
+      "lease_bound": true,
+      "OOM": false,
+      "latest_check": 1794021186.3588612
+    },
+    {
+      "name": "freqHD63_v1_AA_threshold093",
+      "status": "running",
+      "host": "local",
+      "gpu_uuid": "GPU-7ed25c4d-10d1-cbe3-d0b2-76c21211bd46",
+      "worker_pid": 2132419,
+      "lease_bound": true,
+      "OOM": false,
+      "latest_check": 1794021225.997647
+    },
+    {
+      "name": "freqHD63_v1_AB_lr_decay",
+      "status": "complete",
+      "host": "silver",
+      "gpu_uuid": "GPU-cb1a0b07-abd6-8e55-9669-ccbb2c45a560",
+      "worker_pid": 2378417,
+      "lease_bound": true,
+      "OOM": false,
+      "latest_check": 1794021176.2920702
+    },
+    {
+      "name": "freqHD63_v1_AB_threshold093",
+      "status": "running",
+      "host": "silver",
+      "gpu_uuid": "GPU-cb1a0b07-abd6-8e55-9669-ccbb2c45a560",
+      "worker_pid": 2384182,
+      "lease_bound": true,
+      "OOM": false,
+      "latest_check": 1794021224.13135
+    },
+    {
+      "name": "freqHD63_v1_AC_lr_decay",
+      "status": "complete",
+      "host": "silver",
+      "gpu_uuid": "GPU-9c2ea572-537d-66a7-6df3-41c3d8914d39",
+      "worker_pid": 2378642,
+      "lease_bound": true,
+      "OOM": false,
+      "latest_check": 1794021176.8473384
+    },
+    {
+      "name": "freqHD63_v1_AC_threshold093",
+      "status": "running",
+      "host": "silver",
+      "gpu_uuid": "GPU-9c2ea572-537d-66a7-6df3-41c3d8914d39",
+      "worker_pid": 2384408,
+      "lease_bound": true,
+      "OOM": false,
+      "latest_check": 1794021224.681192
+    }
+  ],
+  "release_sha256": "ad1c7f0aa8e9f249b8725cd199646891e65dd270612c4caac55de8db4c450e3d",
+  "duplicate_launch_prevented": true
+}
