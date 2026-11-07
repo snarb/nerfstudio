@@ -1,0 +1,13 @@
+{
+  "root_explicit_review_received": true,
+  "root_messages": [
+    "MD glossy black actor shoe connected to cyan leg, most shoe omitted from nominal; qualify actor membership after exactmapping.",
+    "FD upward dreadtip visibly continues from hair, nominal misses tip; qualify actor membership with native centers and HD footprint, never assert alpha1."
+  ],
+  "root_viewed_artifacts": {
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_label_review_CPU_v1/MD_farshoe_native.png": "7e3d81c3985fd543af81583c3a235419dac16ba4331f88453aea9b714cb44bc5",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_label_review_CPU_v1/FD_tip_native.png": "6ab26bea1bbbf53791d42bdbc57793e61becf39c652166f269a7f7b10f3f98ff",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_label_review_CPU_v1/FD_frozen_queries_native.png": "9f9ed06a0bba7028d7672f9305c3d7049a89a7417c465c20c4fc9e9e49341908"
+  },
+  "root_policy": "Proposal only. Existing baseline69k queries/masks and two IA overrides remain unchanged. Nearby positive FD queries273/294 retained. Native class certainty is not whole-HD-pixel opacity."
+}
