@@ -1,0 +1,14 @@
+{
+  "accepted_floor_json": "/home/pavlo/repos/nerfstudio/LookCloser/configs/aabb_review/marshawn_1660_1900_floor.json",
+  "sha256": "292609eebe9939e7ce5f840a1b317d963d39ec738cafaad8500abf3a2cd0620f",
+  "plane_normal": [
+    0.027927779293854992,
+    -0.13628459607390522,
+    0.9902759958802829
+  ],
+  "plane_offset": 0.1716909230925756,
+  "transformed_fit_plane_z": 0.0,
+  "max_fit_residual": 0.004636666777014908,
+  "lowpoint_floor_z": -0.06179686635732651,
+  "interpretation": "Lowpoint is below fitted z0 plane in this coordinate frame. Fit residual is not local uncertainty or physical empty-space GT. No floor clipping/AABB/label change follows."
+}

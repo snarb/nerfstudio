@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "source_file_hashes_verified_unchanged": true,
+  "packed_distance_order_verified": true,
+  "maximum_interval_overlap": 1.1920928955078125e-07,
+  "fixed69_888_queries_preserved": true,
+  "all4_UNKNOWN_and_class0_weights_unchanged": true,
+  "all136_keys_targets_retained": true,
+  "all136_LC_native_capacity_ratios": [
+    1.0,
+    1.0
+  ],
+  "max136_derived_capacity_ratio_change": 1.5543122344752192e-15,
+  "all109_witness_records_unchanged": true,
+  "witness41_positive_exposure_ratio_range": [
+    1.0051512774448705,
+    1.0511459867413362
+  ],
+  "max_perray_A_preservation_error": 1.5543122344752192e-15,
+  "total_original_and_rescaled_positive_A": [
+    30435.914035305064,
+    30435.914035305064
+  ],
+  "constant_probability_class_mass_and_fixedN_identity": {
+    "passed": true,
+    "fractional_boundary": true,
+    "zero_alpha": true,
+    "negative_UNKNOWN_unchanged": true,
+    "constant_probability_identity": true,
+    "single_sample_fractional_rescaling_identity": true
+  },
+  "report_sha256": "8933173f1944dff516a0e9978d7ae393644173b247ed4b963faccb94261e8183"
+}

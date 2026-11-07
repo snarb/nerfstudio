@@ -1,0 +1,8 @@
+{
+  "reviewer": "root",
+  "decision": "DO_NOT_PREPARE_FITTER_OR_SCAN_MORE_PREFIX_PERCENTILES",
+  "scope": "95% CPU-only proposal rejected for current nextstep; preserve validNDboot labels and original cache/physical renderer.",
+  "reason": "Dominant lowpoint positive shared-node exposure retains90.645%; DCbag positive exposure increases3.505%.",
+  "fit_authorized": false,
+  "GPU_authorized": false
+}
