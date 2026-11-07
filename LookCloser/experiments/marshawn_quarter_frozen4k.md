@@ -79,3 +79,20 @@ Root viewed all3 actor comparisons and9 hair/contact/feet crops at both gates. L
 |New4K quarter / distortion .1|31.35041|.829843|.02065490|
 
 All3actor and9detail crops were manually inspected. No gross new limb/shoe loss is visible at contact scale, but substantial unwanted geometry remains; new4K still trails matched HD on actor LPIPS. Training continues to the original minimum and plateau protocol. [Actors](/fsx/tmp/marshawn_001660_hd/tuning_20261106/quarter_frozen4k_candidate_v1/reviews/step-000091128/all_actors.jpg), [details](/fsx/tmp/marshawn_001660_hd/tuning_20261106/quarter_frozen4k_candidate_v1/reviews/step-000091128/all_details.jpg).
+
+
+## Root minimum and postminimum4K gates
+
+| Step | Recipe | PSNR | SSIM | LPIPS |
+|---:|---|---:|---:|---:|
+|106316|HD_quarter01|31.66471|0.832548|0.01890305|
+|106316|old4K_coarse001|31.53144|0.843568|0.02205500|
+|106316|new4K_quarter01|31.31533|0.826771|0.02036358|
+|111316|HD_quarter01|31.63683|0.832166|0.01898528|
+|111316|old4K_coarse001|31.55453|0.842771|0.02178174|
+|111316|new4K_quarter01|31.30169|0.826354|0.02051743|
+|116316|HD_quarter01|31.63524|0.831819|0.01892447|
+|116316|old4K_coarse001|31.56483|0.843412|0.02176120|
+|116316|new4K_quarter01|31.29074|0.826119|0.02049429|
+
+All3actor and9detail crops were manually reviewed at each gate. New4K retains substantial unwanted floor/bag/silhouette geometry and remains below matched HD on actor LPIPS. No new resolution advantage or promotion. The original post106316 plateau protocol remains active; all per-gate root receipts and provenance are retained.
