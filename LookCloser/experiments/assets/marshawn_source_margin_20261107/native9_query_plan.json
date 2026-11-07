@@ -1,0 +1,120 @@
+{
+  "status": "PREPARED_NOT_AUTHORIZED_NO_GPU_LAUNCH",
+  "source_checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "source_policy_sha256": "16ac3abda946991aeb62bf46914cc1c19c0fffccdc6f846dec2100d352993938",
+  "source_grid_sha256": "e804d736dd766e8adf11df07e346a6317af87e0b106a94dfc524ab32f1690d71",
+  "queries": {
+    "split": "eval",
+    "camera_order": [
+      "DC",
+      "HC",
+      "KA"
+    ],
+    "pixels": [
+      {
+        "camera_name": "KA",
+        "camera": 2,
+        "x": 1027,
+        "y": 331,
+        "label": "grey_inner_knee_contour",
+        "diagnostic_only": true
+      },
+      {
+        "camera_name": "KA",
+        "camera": 2,
+        "x": 1028,
+        "y": 331,
+        "label": "grey_inner_knee_contour",
+        "diagnostic_only": true
+      },
+      {
+        "camera_name": "KA",
+        "camera": 2,
+        "x": 1029,
+        "y": 331,
+        "label": "grey_inner_knee_contour",
+        "diagnostic_only": true
+      },
+      {
+        "camera_name": "HC",
+        "camera": 1,
+        "x": 1051,
+        "y": 576,
+        "label": "grey_inner_leg_contour",
+        "diagnostic_only": true
+      },
+      {
+        "camera_name": "HC",
+        "camera": 1,
+        "x": 1052,
+        "y": 576,
+        "label": "grey_inner_leg_contour",
+        "diagnostic_only": true
+      },
+      {
+        "camera_name": "HC",
+        "camera": 1,
+        "x": 1053,
+        "y": 576,
+        "label": "grey_inner_leg_contour",
+        "diagnostic_only": true
+      },
+      {
+        "camera_name": "DC",
+        "camera": 0,
+        "x": 849,
+        "y": 85,
+        "label": "head_halo",
+        "diagnostic_only": true
+      },
+      {
+        "camera_name": "DC",
+        "camera": 0,
+        "x": 850,
+        "y": 85,
+        "label": "head_halo",
+        "diagnostic_only": true
+      },
+      {
+        "camera_name": "DC",
+        "camera": 0,
+        "x": 851,
+        "y": 85,
+        "label": "head_halo",
+        "diagnostic_only": true
+      }
+    ]
+  },
+  "phases": [
+    "original_native",
+    "source_margin_0",
+    "source_margin_0.0005",
+    "source_margin_0.001",
+    "source_margin_0.002",
+    "restored_native"
+  ],
+  "epsilon": 2e-07,
+  "geometric_Linf_margins": [
+    0,
+    0.0005,
+    0.001,
+    0.002
+  ],
+  "native_only": true,
+  "immutable_invariants": [
+    "core",
+    "EMA",
+    "active",
+    "wholecell_traversal_admission",
+    "AABB",
+    "weights",
+    "FR.3",
+    "legacycap1024",
+    "coarse.0015625",
+    "frequency_grid",
+    "private_and_global_RNG"
+  ],
+  "no_optimization": true,
+  "purpose": "Locate contour-opacity/RGB tradeoff missing from original160queries; no training labels or metric promotion",
+  "source_pixel_localization_sha256": "18cc5d3dea6dd2fac79f957a79c1c165663314ab9b22e2b5694f892a45ebb5a5"
+}
