@@ -1,0 +1,32 @@
+{
+  "original_mapped": {
+    "job_status": "complete",
+    "worker_alive": false,
+    "supervisor_alive": false,
+    "OOM": false,
+    "final_step": 150316,
+    "attempts": 24000,
+    "actualAdam": {
+      "fields": [
+        150252.0
+      ]
+    },
+    "raw_step": 126316,
+    "selected_step": 126316
+  },
+  "source_margin002": {
+    "job_status": "complete",
+    "worker_alive": false,
+    "supervisor_alive": false,
+    "OOM": false,
+    "final_step": 155316,
+    "attempts": 29000,
+    "actualAdam": {
+      "fields": [
+        155250.0
+      ]
+    },
+    "raw_step": 155316,
+    "selected_step": 145316
+  }
+}

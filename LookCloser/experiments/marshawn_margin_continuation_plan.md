@@ -90,3 +90,17 @@ At145316 fixed interior>8px diagnostic LPIPS improves .00989012→.00982334, whi
 Exterior16px alpha>.1 counts reduce DC117882→99314, HC79560→62949, KA54919→44945. Inspected all three [full body contacts](assets/marshawn_margin_continuation_plan_20261107/production_145316/body_overview.jpg) and [DC](assets/marshawn_margin_continuation_plan_20261107/production_145316/DC_hair_feet.jpg), [HC](assets/marshawn_margin_continuation_plan_20261107/production_145316/HC_hair_feet.jpg), [KA](assets/marshawn_margin_continuation_plan_20261107/production_145316/KA_hair_feet.jpg) head/feet pages. Gross hair and shoe silhouettes persist; thin strands/AA boundaries are not certified. Outer-head and behind-leg patches decrease, but broad attached halos, floor sheets and bag fragments remain. This is partial cleanup with grey-boundary cost, not a clean asset promotion.
 
 Control naturally completed150316 after24,000 attempts, actual Adam150252; terminal LPIPS .018877307. Treatment remained active at this report checkpoint, under its own unchanged plateau rule. Final child replay must install its explicit checkpoint selector; ordinary semantic evaluation alone is invalid.
+
+
+## Natural completion
+
+Both arms completed without OOM or external interruption; workers and supervisors exited. Control stopped150316 after24,000 attempts (23,990 actual Adam updates), treatment155316 after29,000 attempts (28,988 actual updates). The control historical selector and raw minimum both remain original126316. Treatment historical selector is145316; raw minimum is terminal155316. All three choices remain retained with explicit selector bindings; no selector was silently changed.
+
+| Natural terminal | PSNR | SSIM | LPIPS |
+|---|---:|---:|---:|
+| Control150316 |31.580952|.830100|.018877307|
+| Source+.002155316 |31.567911|.829972|.019167905|
+
+These terminal ages differ by5,000 attempts; matched earlier gates are above. Treatment raw-min LPIPS improves its own zero .019213951 slightly, but remains worse than original source .018773120. Terminal core diagnostic .00985981→.00976953 improves, boundary .00662900→.00683791 worsens; black .02020757→.02005504 improves, grey .01754704→.01828077 worsens. Exterior16 alpha>.1 decreases DC117526→100244, HC79581→63445, KA54835→45188. All [terminal body contacts](assets/marshawn_margin_continuation_plan_20261107/terminal/body_overview.jpg) and three head/feet pages were inspected. Broad attached halos/floor and bag remain, despite partial cleanup. No clean asset or global quality promotion follows. [Terminal metrics and visual assessment](assets/marshawn_margin_continuation_plan_20261107/terminal/summary.json), [process completion](assets/marshawn_margin_continuation_plan_20261107/terminal/terminal_health.json).
+
+A separate source-policy-aware read-only child replay is prepared at `C/independent_occupancy/margin_continuation_final_geometry_v1`, pending exact root resource review. It preserves original126316 evidence, loads each child selector explicitly, and checks FHD parity before geometry queries; no replay GPU was launched by this report.
