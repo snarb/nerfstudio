@@ -1,0 +1,30 @@
+{
+  "kind": "HD63_TWO_FREQUENCY_FACTORS_MAP_FITS_ONLY",
+  "jobs": 126,
+  "cameras": 63,
+  "controller_plan_sha256": "39bef7ea9744a9626e7cc46222a323e970fa1d96305c330da09082dc78a49386",
+  "bindings_sha256": "1d93ae130d0ace6eb5a0b274062179a7a0fff7bc5bc37a7d77504b9f79838fd8",
+  "controller_sha256": "2e7a1be53794882ffc3c0a6a82fff3cc24070b36fbf7593e65771772e0dadf39",
+  "GPU_UUIDs": {
+    "local": {
+      "0": "GPU-7ed25c4d-10d1-cbe3-d0b2-76c21211bd46"
+    },
+    "silver": {
+      "4": "GPU-cb1a0b07-abd6-8e55-9669-ccbb2c45a560",
+      "7": "GPU-9c2ea572-537d-66a7-6df3-41c3d8914d39"
+    }
+  },
+  "NeRF_training_authorized": false,
+  "assembly_authorized": false,
+  "READY_writes": false,
+  "root_release_required": true,
+  "host_file_bindings": {
+    "local": 2100,
+    "silver": 2100
+  },
+  "worker_sha256": "13a3d723cb5462eeadead9df5862cd57eba37c5b351a5e9d417f0a5be524d91e",
+  "preprocess_sha256": "729f10f26b24b97f56adcc3c62a6722a78c4ee5d59d5b0b8dd963fde6561ffad",
+  "factory_receipt_sha256": "d7bbc11107d78defb366ed6135c6d2cf0410323335c8bd926f45588fb0c6a777",
+  "same_camera_paired_host_gpu": true,
+  "failed_outputs_and_completed_prefix_immutable": true
+}

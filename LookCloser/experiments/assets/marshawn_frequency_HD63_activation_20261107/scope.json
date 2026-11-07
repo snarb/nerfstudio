@@ -1,0 +1,47 @@
+{
+  "prepared_only": true,
+  "map_fits_authorized": false,
+  "NeRF_training_authorized": false,
+  "assembly_authorized": false,
+  "READY_writes": false,
+  "jobs": 126,
+  "cameras": 63,
+  "variants": {
+    "lr_decay": {
+      "SSIM": 0.95,
+      "LR_initial": 0.01,
+      "LR_final_per_level": 0.001
+    },
+    "threshold093": {
+      "SSIM": 0.93,
+      "LR_initial": 0.01,
+      "LR_final_per_level": null
+    }
+  },
+  "shape": [
+    1012,
+    1920
+  ],
+  "steps_per_level": 1000,
+  "levels": 16,
+  "updates_per_fit": 16000,
+  "allocator_cap_GiB": 4,
+  "expected_fit_seconds": 76,
+  "expected_three_lane_wall_minutes": "roughly55\u201370 including dispatch/import overhead; not a timeout guarantee",
+  "source_prepared": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frequency_variants_HD63_prepared_v1",
+  "source_preparation_sha256": "32832f87ed91cf63ca9646799ea1b2bd1bb1c084eba3e8fdf56e3c5675d9f9aa",
+  "science_sha256": {
+    "worker.py": "13a3d723cb5462eeadead9df5862cd57eba37c5b351a5e9d417f0a5be524d91e",
+    "preprocess.py": "729f10f26b24b97f56adcc3c62a6722a78c4ee5d59d5b0b8dd963fde6561ffad",
+    "gpu_isolation.py": "42a2155aefdeae4ceeca441a28c417450ef49dee41b3a6cae6beb767dc53069b"
+  },
+  "controller_sha256": "2e7a1be53794882ffc3c0a6a82fff3cc24070b36fbf7593e65771772e0dadf39",
+  "factory_receipt_sha256": "d7bbc11107d78defb366ed6135c6d2cf0410323335c8bd926f45588fb0c6a777",
+  "same_camera_factor_host_and_gpu_paired": true,
+  "host_job_counts": {
+    "local": 42,
+    "silver": 84
+  },
+  "failure_policy": "Failed fit receipts/output directories are immutable. No automatic retry/replacement; a separately reviewed retry generation may later fill a missing camera/factor. SSH UNKNOWN never implies stopped. Controller resume preserves durable claims and completed prefix.",
+  "assembly_policy": "After all126 fits, separate CPU validation and source/visual review. No dataset assembly, READY mutation or NeRF jobs in this activation."
+}

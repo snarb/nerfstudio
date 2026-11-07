@@ -1,0 +1,96 @@
+{
+  "python": "/home/ubuntu/lookcloser/envs/marshawn_leader/bin/python",
+  "torch": "2.7.1+cu128",
+  "CUDA_build": "12.8",
+  "CUDA_initialized": false,
+  "packages": {
+    "torch": {
+      "version": "2.7.1+cu128",
+      "present": true,
+      "files_sha256": {
+        "/home/ubuntu/lookcloser/envs/marshawn_leader/lib/python3.11/site-packages/torch/__init__.py": "9801e75447c7f585545f989f8a21940b60e0c4cc888effb2f08e739664b4b904"
+      }
+    },
+    "torchvision": {
+      "version": "0.22.1+cu128",
+      "present": true,
+      "files_sha256": {
+        "/home/ubuntu/lookcloser/envs/marshawn_leader/lib/python3.11/site-packages/torchvision/__init__.py": "ee2c9f4110cf1203db48c42601607329ac1f19709fa91c152f8d95eb53437a73"
+      }
+    },
+    "numpy": {
+      "version": "1.26.4",
+      "present": true,
+      "files_sha256": {
+        "/home/ubuntu/lookcloser/envs/marshawn_leader/lib/python3.11/site-packages/numpy/__init__.py": "22cd1535fa14d74ef6f457cca149ffdc80875f460be313b8f895273f78bc402e"
+      }
+    },
+    "pytorch_msssim": {
+      "version": "1.0.0",
+      "present": true,
+      "files_sha256": {
+        "/home/ubuntu/lookcloser/envs/marshawn_leader/lib/python3.11/site-packages/pytorch_msssim/__init__.py": "b96916e5dad5b0dd5e02269aea06ed2da95a30424dc1b8c263ea21e0742e9061",
+        "/home/ubuntu/lookcloser/envs/marshawn_leader/lib/python3.11/site-packages/pytorch_msssim/ssim.py": "57f554515d97d2bdde2f51fa27ee05bd8264107cddcd7997f502cd7aeb6d1bee"
+      }
+    },
+    "tinycudann": {
+      "version": "2.0",
+      "present": true,
+      "files_sha256": {
+        "/home/ubuntu/lookcloser/envs/marshawn_leader/lib/python3.11/site-packages/tinycudann/__init__.py": "df59e6d40f1f3f45605c23cf363fd64b8bb99e987aa9006ae5f55f540050a738",
+        "/home/ubuntu/lookcloser/envs/marshawn_leader/lib/python3.11/site-packages/tinycudann/modules.py": "bbf32288e176611eb16595bce06f530e7c4f2ad4ac767b8acc822d1485418905"
+      }
+    }
+  },
+  "GPUs": [
+    {
+      "index": 0,
+      "uuid": "GPU-6a8bbc85-5a77-8d62-ab18-560955f0dc65",
+      "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "memory_MiB": 97887
+    },
+    {
+      "index": 1,
+      "uuid": "GPU-26c63492-0230-896f-208e-10e4eaca4c3c",
+      "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "memory_MiB": 97887
+    },
+    {
+      "index": 2,
+      "uuid": "GPU-279718e7-9e60-e5f2-53aa-65ff7dd03f37",
+      "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "memory_MiB": 97887
+    },
+    {
+      "index": 3,
+      "uuid": "GPU-c024b6e2-0def-f4fd-c18a-64b95975effd",
+      "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "memory_MiB": 97887
+    },
+    {
+      "index": 4,
+      "uuid": "GPU-cb1a0b07-abd6-8e55-9669-ccbb2c45a560",
+      "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "memory_MiB": 97887
+    },
+    {
+      "index": 5,
+      "uuid": "GPU-216eac5a-c2f3-4bc5-d4e8-1a6f9cbd9b9a",
+      "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "memory_MiB": 97887
+    },
+    {
+      "index": 6,
+      "uuid": "GPU-a53fcf27-02c4-c737-9269-0623ec25a6d9",
+      "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "memory_MiB": 97887
+    },
+    {
+      "index": 7,
+      "uuid": "GPU-9c2ea572-537d-66a7-6df3-41c3d8914d39",
+      "name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+      "memory_MiB": 97887
+    }
+  ],
+  "per_fit_identity_join": "Controller receipt + frozen worker launch records physical UUID and absolute Python command; this immutable host snapshot supplies package versions."
+}

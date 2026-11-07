@@ -1,0 +1,8 @@
+{
+  "time": 1794020899.4888601,
+  "passed": true,
+  "bound_files": 2100,
+  "activation_sha256": "74ed2f44a9f95f93b1b3913ca6b1ff4983435c0c9b794a57c90fa47d31573e50",
+  "GPU_jobs_launched": false,
+  "host": "local"
+}
