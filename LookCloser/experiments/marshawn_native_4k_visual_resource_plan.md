@@ -1,6 +1,6 @@
 # Native supplemental 4K visual rendering: resource proposal
 
-This is a preparation document, not a rendering release. The primary FHD V1 score, stopping rule and checkpoint selection remain unchanged. The existing actual 4K EVAL images are excluded from training.
+The single native100k HC resource probe is approved, conditional on paired production and its worker caches exiting. The remaining eight renders are still a proposal. The primary FHD V1 score, stopping rule and checkpoint selection remain unchanged. The existing actual 4K EVAL images are excluded from training.
 
 **What would be tested.** Compare actual 4K source images against native100k and the HD/TRAIN4K continuations at the same additional attempted step. Freeze the latest common completed gate after the paired controller finishes; record each checkpoint and hash. Render DC, HC and KA for each of those three checkpoints: nine full 3840×2024 outputs. Use fixed actor, hair, hand and foot regions derived by doubling the existing FHD crop coordinates. Do not upsample predicted FHD renders or select a favorable gate using 4K appearance.
 
@@ -30,6 +30,8 @@ The saved native100k FHD renderer measured 37.11 seconds for DC, 37.52 for HC an
 
 
 The executable single-view resource probe is now prepared at `O/documentation/native_4k_visual_probe_plan_v1`, with plan SHA256 `c235d4b2671632da3dcb6233e9e77a3521e1abe3b92c6218d1cf62254af3c293` and403 bound files. It requires an explicit approved release, paired-production completion, controller/worker/cache exit, and the global GPU0 lock. Only native100k HC is executable in this generation; the remaining eight frames require later resource and visual review. No GPU render has launched.
+
+Root independently checked all 403 bindings and the exact renderer changes, then issued `root_release.json` SHA256 `3ba934e03d374c75bc6a33db0c6e618e49e71665760b0d98f5e30b83489d414a`. Its scope is one HC frame after the stated lifecycle and resource gates. The frozen controller samples GPU use and available system RAM each second; any supplemental process RSS observations must state their separate cadence. After completion, CPU inspection will check every stored partition for finite values and create the fixed-region source comparison with [the visual review helper](../scripts/review_marshawn_native_4k_visual.py).
 
 The staged delta doubles a copied original native camera and substitutes the separate actual4K GT only for source panels after prediction. Its sampling, field-query, AABB classification and compositing loop remains byte-identical to the frozen renderer. Runtime checks compare native poses against inverse-floor diagnostic poses and doubled intrinsics against the4K raster. CPU tests of the actual historical `Cameras.rescale_output_resolution` operation pass for all three views: exact2× sizes/intrinsics, zero continuous-ray error, and floor-to-native pose difference1.11e-16. This does not claim equality between discrete FHD and4K image samples.
 
