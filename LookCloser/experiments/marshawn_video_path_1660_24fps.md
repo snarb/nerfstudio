@@ -336,3 +336,14 @@ The final fleet posthook SHA is now
 the earlier parameter-only hook remains archived. The training plan and all
 model/source data are unchanged. Qualified sources and CPU tests are in
 [`durability`](../scripts/marshawn_video_export_geometry_cpu/durability/README.md).
+
+A read-only storage check measured the completed1660 geometry package at92.77MB
+logical (98.65MB allocated), giving6.68GB for72 equal packages. The conservative
+uncompressed shape bound is79.13GB for all72, including1% metadata allowance;
+compression varies with scene complexity. No eviction/deletion was introduced.
+The optional CPU background-support study retained37,817/37,821 original R0
+cells (99.9894%) after all66 positive-W64 ray footprints and one clipped halo.
+It stopped without GPU work or production changes. Tiny original tail mass
+cannot bound changed RGB under the legacy ARM allocator because interval
+pruning changes sample allocation. Details and source-bound receipts are in
+[`marshawn_export_background_support_feasibility.md`](marshawn_export_background_support_feasibility.md).
