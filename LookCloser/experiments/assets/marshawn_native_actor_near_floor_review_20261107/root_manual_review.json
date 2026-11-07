@@ -1,0 +1,12 @@
+{
+  "root_explicit_manual_review_received": true,
+  "root_viewed_pages": {
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_near_floor_review_CPU_v1/MC_qualified_contact_native.png": "1ae3060015f189d4db80cd1a6744a789e1831ded7bbc3fec2027e1971d4f101f",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_near_floor_review_CPU_v1/MD_qualified_contact_native.png": "1061919c3c19cfa9d547151604da455199517c245a15a6552dd42f43aa455717",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_near_floor_review_CPU_v1/FD_qualified_contact_native.png": "4cb5181c253d7e60ed84f9de6bdada33c5f516f322229964285e481b3435330c"
+  },
+  "panels": 12,
+  "root_observation": "All three native qualified pages viewed. Red centers/guards show floor, not actor; adjacent foot/clothing parts outside inspected square.",
+  "root_qualification": "VISIBLE NONACTOR class proposals only; no alpha0, depth, or empty-ray targets.",
+  "existing_labels_changed": false
+}

@@ -1,0 +1,2520 @@
+{
+  "kind": "NATIVE_TRAIN_NEAR_ACTOR_VISIBLE_FLOOR_PROPOSALS_ONLY",
+  "frame": 1660,
+  "source126316_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "CPU_only": true,
+  "GPU_or_model_query": false,
+  "EVAL_images_or_masks_read": false,
+  "labels_or_masks_changed": false,
+  "queries_changed": false,
+  "AABB_unchanged": [
+    [
+      -0.84,
+      -0.21,
+      -0.07
+    ],
+    [
+      0.15,
+      0.42,
+      0.63
+    ]
+  ],
+  "color_contract_unchanged": true,
+  "frozen69888_query_manifest_sha256": "1562bcfaf5ec5da00a840da210962ef136d521fbca0d1beb5bf30d4a9aeb30ba",
+  "frozen_two_IA_overrides_sha256": "944d88dbbfd24a0021c1166dbfe1fa949047b8d929b9b0cad65e6c84f07ff4f0",
+  "existing_four_positive_proposals_unchanged": {
+    "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_label_review_CPU_v1/qualified_review.json",
+    "sha256": "01e9169cb991e76eecb6dcc971e54b095eca29622fb2e895b1742c3a4e49e3ab"
+  },
+  "counts": {
+    "TRAIN_cameras": 3,
+    "visible_floor_proposals": 12
+  },
+  "coordinate_contract": "HD integerarray pixel\u2192COLMAP+.5\u2192explicitOPENCV\u2192nativeRAW integerarray center; calibratedmap and inverse independently checked. Native RAW patch direct vendorLog3G10RWG\u2192positiveRec709float32\u2192fixedgain4\u2192Reinhard+sRGB replay exact.",
+  "records": [
+    {
+      "id": "MC_floor_01",
+      "camera": "MC",
+      "split": "TRAIN",
+      "qualification": "known_nonactor_visible_floor_class_negative_candidate",
+      "confidence": 0.98,
+      "HD_pixel": [
+        1373,
+        675
+      ],
+      "RAW_center": [
+        5842.30185622268,
+        2875.4909131475297
+      ],
+      "RAW_geometric_cell_corners": [
+        [
+          5840.236568106904,
+          2873.397842115639
+        ],
+        [
+          5844.395782199071,
+          2873.369206959986
+        ],
+        [
+          5844.366969904992,
+          2877.5838441872784
+        ],
+        [
+          5840.207810621139,
+          2877.612630428671
+        ]
+      ],
+      "RAW_patch_xyxy": [
+        5727,
+        2760,
+        5958,
+        2991
+      ],
+      "manual_native_guard_HD_corners": [
+        [
+          1363.0,
+          665.0
+        ],
+        [
+          1384.0,
+          665.0
+        ],
+        [
+          1384.0,
+          686.0
+        ],
+        [
+          1363.0,
+          686.0
+        ]
+      ],
+      "manual_native_guard_RAW_corners": [
+        [
+          5798.894386240056,
+          2831.507311295305
+        ],
+        [
+          5886.2488235884175,
+          2830.9378486114174
+        ],
+        [
+          5885.632410055826,
+          2919.412786083908
+        ],
+        [
+          5798.302139299471,
+          2920.048868152414
+        ]
+      ],
+      "manual_native_guard_observation": "All visible surface inside mapped guard is floor fabric or its seam/shadow; no actor material, hair, shoe, bag, foreground rig, or recognizable actor reflection seen. Qualification is visual, not mask-distance only.",
+      "verified_true_actor_margin_HD_pixels_conservative": 9.0,
+      "margin_basis": "Mapped21HD square is actor-free on native1:1 inspection; center-to-edge10.5HD, conservatively report9HD to retain visual/edge uncertainty. No exact contour was inferred from nominal mask.",
+      "RAW_nearest": {
+        "black": false,
+        "grey": false,
+        "nominal": false,
+        "source_ineligible": false
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 0.0,
+        "nominal": 0.0,
+        "W64": 0.0021474696695804596,
+        "core": 0.0,
+        "band": 1.0
+      },
+      "current_W64_source_support": true,
+      "current_UNKNOWN": false,
+      "exact_existing_query_matches": [],
+      "nearest_existing_query": {
+        "index": 941,
+        "HD_pixel": [
+          1384,
+          675
+        ],
+        "distance_HD_pixels": 11.0,
+        "semantic_target": 0.0,
+        "category": "near_qualified_clear"
+      },
+      "source_native_raster": [
+        8192,
+        4320
+      ],
+      "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/MC/MC.000408.tif",
+      "raw_source_sha256": "33d1e30556890c2bfa1a5ac8b8c2f2788e80071802ac2995f72220af587ce40e",
+      "native_crop_source": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/MC_RAW_native_crop.png",
+      "native_crop_source_sha256": "b360e7ed32d166d62e9e2eef8a09b513b8f5dae217a7119418c0c3f5e1c530a0",
+      "native_crop_xyxy": [
+        3931,
+        172,
+        7844,
+        4320
+      ],
+      "raw_archive": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/MC.npz",
+      "raw_archive_sha256": "c552321cbed9b93096f4fd27d4ca774e1c78be7a1d7f14b7a82b3779f2657258",
+      "camera_row": {
+        "file_path": "images/train_MC.png",
+        "mask_path": "masks/MC.png",
+        "physical_camera": "MC",
+        "w": 1920,
+        "h": 1012,
+        "fl_x": 1350.813875712102,
+        "fl_y": 1348.738785272778,
+        "cx": 960.0,
+        "cy": 506.0,
+        "k1": 0.0,
+        "k2": 0.0,
+        "p1": 0.0,
+        "p2": 0.0,
+        "transform_matrix": [
+          [
+            -0.20654484029525744,
+            -0.22818172326612307,
+            0.9514580271277747,
+            0.9785322411923555
+          ],
+          [
+            0.9777789366438865,
+            -0.08379807805373607,
+            0.19216192811637664,
+            0.08104678551247463
+          ],
+          [
+            0.03588249537815358,
+            0.9700057604545198,
+            0.24041931854156837,
+            0.3900192085886752
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "raw_OpenCV_K": [
+        [
+          5763.472536371634,
+          0.0,
+          4095.5
+        ],
+        [
+          0.0,
+          5757.4620082790525,
+          2159.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "distortion": [
+        -0.08952907861192838,
+        0.045748732117712854,
+        -0.0008254248852583816,
+        -0.00045052583844687954
+      ],
+      "explicit_vs_OpenCV_mapping_max_RAW_error": 0.00019104161401628517,
+      "RAW_to_HD_roundtrip_max_HD_error": 1.4852503227302805e-08,
+      "native_TIFF_display_replay_max_channel_code_error": 0,
+      "page": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_near_floor_review_CPU_v1/MC_floor_01_native.png",
+      "page_sha256": "4e6d8378e778f761b1bb32dc31f11a79f14cfade8b8f4c68954c936d869f2b22",
+      "optical_alpha_target": null,
+      "depth_target": null,
+      "whole_ray_empty_target": false,
+      "space_behind_visible_surface": "UNKNOWN",
+      "future_use": "Proposal only; actual source-native rendering weights/depth/color and root review must qualify any separately declared future class constraint."
+    },
+    {
+      "id": "MC_floor_02",
+      "camera": "MC",
+      "split": "TRAIN",
+      "qualification": "known_nonactor_visible_floor_class_negative_candidate",
+      "confidence": 0.98,
+      "HD_pixel": [
+        1372,
+        686
+      ],
+      "RAW_center": [
+        5837.817295622817,
+        2921.870573230073
+      ],
+      "RAW_geometric_cell_corners": [
+        [
+          5835.752900464187,
+          2919.779373323466
+        ],
+        [
+          5839.911931621507,
+          2919.7491394080002
+        ],
+        [
+          5839.881515558362,
+          2923.961630194108
+        ],
+        [
+          5835.722542368566,
+          2923.99201379551
+        ]
+      ],
+      "RAW_patch_xyxy": [
+        5723,
+        2807,
+        5954,
+        3038
+      ],
+      "manual_native_guard_HD_corners": [
+        [
+          1362.0,
+          676.0
+        ],
+        [
+          1383.0,
+          676.0
+        ],
+        [
+          1383.0,
+          697.0
+        ],
+        [
+          1362.0,
+          697.0
+        ]
+      ],
+      "manual_native_guard_RAW_corners": [
+        [
+          5794.4284060222635,
+          2877.9256370155945
+        ],
+        [
+          5881.779667449122,
+          2877.322315919295
+        ],
+        [
+          5881.128920958593,
+          2965.752479566422
+        ],
+        [
+          5793.803219084207,
+          2966.4218027565835
+        ]
+      ],
+      "manual_native_guard_observation": "All visible surface inside mapped guard is floor fabric or its seam/shadow; no actor material, hair, shoe, bag, foreground rig, or recognizable actor reflection seen. Qualification is visual, not mask-distance only.",
+      "verified_true_actor_margin_HD_pixels_conservative": 9.0,
+      "margin_basis": "Mapped21HD square is actor-free on native1:1 inspection; center-to-edge10.5HD, conservatively report9HD to retain visual/edge uncertainty. No exact contour was inferred from nominal mask.",
+      "RAW_nearest": {
+        "black": false,
+        "grey": false,
+        "nominal": false,
+        "source_ineligible": false
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 0.0,
+        "nominal": 0.0,
+        "W64": 0.003497849917039275,
+        "core": 0.0,
+        "band": 1.0
+      },
+      "current_W64_source_support": true,
+      "current_UNKNOWN": false,
+      "exact_existing_query_matches": [],
+      "nearest_existing_query": {
+        "index": 1000,
+        "HD_pixel": [
+          1381,
+          688
+        ],
+        "distance_HD_pixels": 9.219544457292887,
+        "semantic_target": 0.0,
+        "category": "near_qualified_clear"
+      },
+      "source_native_raster": [
+        8192,
+        4320
+      ],
+      "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/MC/MC.000408.tif",
+      "raw_source_sha256": "33d1e30556890c2bfa1a5ac8b8c2f2788e80071802ac2995f72220af587ce40e",
+      "native_crop_source": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/MC_RAW_native_crop.png",
+      "native_crop_source_sha256": "b360e7ed32d166d62e9e2eef8a09b513b8f5dae217a7119418c0c3f5e1c530a0",
+      "native_crop_xyxy": [
+        3931,
+        172,
+        7844,
+        4320
+      ],
+      "raw_archive": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/MC.npz",
+      "raw_archive_sha256": "c552321cbed9b93096f4fd27d4ca774e1c78be7a1d7f14b7a82b3779f2657258",
+      "camera_row": {
+        "file_path": "images/train_MC.png",
+        "mask_path": "masks/MC.png",
+        "physical_camera": "MC",
+        "w": 1920,
+        "h": 1012,
+        "fl_x": 1350.813875712102,
+        "fl_y": 1348.738785272778,
+        "cx": 960.0,
+        "cy": 506.0,
+        "k1": 0.0,
+        "k2": 0.0,
+        "p1": 0.0,
+        "p2": 0.0,
+        "transform_matrix": [
+          [
+            -0.20654484029525744,
+            -0.22818172326612307,
+            0.9514580271277747,
+            0.9785322411923555
+          ],
+          [
+            0.9777789366438865,
+            -0.08379807805373607,
+            0.19216192811637664,
+            0.08104678551247463
+          ],
+          [
+            0.03588249537815358,
+            0.9700057604545198,
+            0.24041931854156837,
+            0.3900192085886752
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "raw_OpenCV_K": [
+        [
+          5763.472536371634,
+          0.0,
+          4095.5
+        ],
+        [
+          0.0,
+          5757.4620082790525,
+          2159.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "distortion": [
+        -0.08952907861192838,
+        0.045748732117712854,
+        -0.0008254248852583816,
+        -0.00045052583844687954
+      ],
+      "explicit_vs_OpenCV_mapping_max_RAW_error": 0.00019104161401628517,
+      "RAW_to_HD_roundtrip_max_HD_error": 1.4852503227302805e-08,
+      "native_TIFF_display_replay_max_channel_code_error": 0,
+      "page": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_near_floor_review_CPU_v1/MC_floor_02_native.png",
+      "page_sha256": "02b058b49df31f9bb80f73fe7b858cc806a43adf3e3ad70576772e6b7f854571",
+      "optical_alpha_target": null,
+      "depth_target": null,
+      "whole_ray_empty_target": false,
+      "space_behind_visible_surface": "UNKNOWN",
+      "future_use": "Proposal only; actual source-native rendering weights/depth/color and root review must qualify any separately declared future class constraint."
+    },
+    {
+      "id": "MC_floor_03",
+      "camera": "MC",
+      "split": "TRAIN",
+      "qualification": "known_nonactor_visible_floor_class_negative_candidate",
+      "confidence": 0.98,
+      "HD_pixel": [
+        1371,
+        697
+      ],
+      "RAW_center": [
+        5833.3154172505365,
+        2968.227505679229
+      ],
+      "RAW_geometric_cell_corners": [
+        [
+          5831.25192381695,
+          2966.1382307903623
+        ],
+        [
+          5835.410735587761,
+          2966.1064169827237
+        ],
+        [
+          5835.378734713937,
+          2970.3166347479287
+        ],
+        [
+          5831.219984051494,
+          2970.348596776247
+        ]
+      ],
+      "RAW_patch_xyxy": [
+        5718,
+        2853,
+        5949,
+        3084
+      ],
+      "manual_native_guard_HD_corners": [
+        [
+          1361.0,
+          687.0
+        ],
+        [
+          1382.0,
+          687.0
+        ],
+        [
+          1382.0,
+          708.0
+        ],
+        [
+          1361.0,
+          708.0
+        ]
+      ],
+      "manual_native_guard_RAW_corners": [
+        [
+          5789.945300977822,
+          2924.3223818984106
+        ],
+        [
+          5877.292617409318,
+          2923.685584817456
+        ],
+        [
+          5876.6079398960865,
+          3012.0683307394606
+        ],
+        [
+          5789.287567878055,
+          3012.7704837592373
+        ]
+      ],
+      "manual_native_guard_observation": "All visible surface inside mapped guard is floor fabric or its seam/shadow; no actor material, hair, shoe, bag, foreground rig, or recognizable actor reflection seen. Qualification is visual, not mask-distance only.",
+      "verified_true_actor_margin_HD_pixels_conservative": 9.0,
+      "margin_basis": "Mapped21HD square is actor-free on native1:1 inspection; center-to-edge10.5HD, conservatively report9HD to retain visual/edge uncertainty. No exact contour was inferred from nominal mask.",
+      "RAW_nearest": {
+        "black": false,
+        "grey": false,
+        "nominal": false,
+        "source_ineligible": false
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 0.0,
+        "nominal": 0.0,
+        "W64": 0.0014270534738898277,
+        "core": 0.0,
+        "band": 1.0
+      },
+      "current_W64_source_support": true,
+      "current_UNKNOWN": false,
+      "exact_existing_query_matches": [],
+      "nearest_existing_query": {
+        "index": 620,
+        "HD_pixel": [
+          1381,
+          697
+        ],
+        "distance_HD_pixels": 10.0,
+        "semantic_target": 0.0,
+        "category": "near_qualified_clear"
+      },
+      "source_native_raster": [
+        8192,
+        4320
+      ],
+      "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/MC/MC.000408.tif",
+      "raw_source_sha256": "33d1e30556890c2bfa1a5ac8b8c2f2788e80071802ac2995f72220af587ce40e",
+      "native_crop_source": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/MC_RAW_native_crop.png",
+      "native_crop_source_sha256": "b360e7ed32d166d62e9e2eef8a09b513b8f5dae217a7119418c0c3f5e1c530a0",
+      "native_crop_xyxy": [
+        3931,
+        172,
+        7844,
+        4320
+      ],
+      "raw_archive": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/MC.npz",
+      "raw_archive_sha256": "c552321cbed9b93096f4fd27d4ca774e1c78be7a1d7f14b7a82b3779f2657258",
+      "camera_row": {
+        "file_path": "images/train_MC.png",
+        "mask_path": "masks/MC.png",
+        "physical_camera": "MC",
+        "w": 1920,
+        "h": 1012,
+        "fl_x": 1350.813875712102,
+        "fl_y": 1348.738785272778,
+        "cx": 960.0,
+        "cy": 506.0,
+        "k1": 0.0,
+        "k2": 0.0,
+        "p1": 0.0,
+        "p2": 0.0,
+        "transform_matrix": [
+          [
+            -0.20654484029525744,
+            -0.22818172326612307,
+            0.9514580271277747,
+            0.9785322411923555
+          ],
+          [
+            0.9777789366438865,
+            -0.08379807805373607,
+            0.19216192811637664,
+            0.08104678551247463
+          ],
+          [
+            0.03588249537815358,
+            0.9700057604545198,
+            0.24041931854156837,
+            0.3900192085886752
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "raw_OpenCV_K": [
+        [
+          5763.472536371634,
+          0.0,
+          4095.5
+        ],
+        [
+          0.0,
+          5757.4620082790525,
+          2159.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "distortion": [
+        -0.08952907861192838,
+        0.045748732117712854,
+        -0.0008254248852583816,
+        -0.00045052583844687954
+      ],
+      "explicit_vs_OpenCV_mapping_max_RAW_error": 0.00019104161401628517,
+      "RAW_to_HD_roundtrip_max_HD_error": 1.4852503227302805e-08,
+      "native_TIFF_display_replay_max_channel_code_error": 0,
+      "page": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_near_floor_review_CPU_v1/MC_floor_03_native.png",
+      "page_sha256": "30ce73e6802507108f7d11bbef30ab6653893bcc550d168d986da1f5f27729b1",
+      "optical_alpha_target": null,
+      "depth_target": null,
+      "whole_ray_empty_target": false,
+      "space_behind_visible_surface": "UNKNOWN",
+      "future_use": "Proposal only; actual source-native rendering weights/depth/color and root review must qualify any separately declared future class constraint."
+    },
+    {
+      "id": "MC_floor_04",
+      "camera": "MC",
+      "split": "TRAIN",
+      "qualification": "known_nonactor_visible_floor_class_negative_candidate",
+      "confidence": 0.98,
+      "HD_pixel": [
+        1375,
+        708
+      ],
+      "RAW_center": [
+        5849.583687135364,
+        3014.392271096071
+      ],
+      "RAW_geometric_cell_corners": [
+        [
+          5847.522345051751,
+          3012.305501644676
+        ],
+        [
+          5851.678737120255,
+          3012.2718093372696
+        ],
+        [
+          5851.644851717849,
+          3016.478891545187
+        ],
+        [
+          5847.488523288089,
+          3016.5127318925197
+        ]
+      ],
+      "RAW_patch_xyxy": [
+        5735,
+        2899,
+        5966,
+        3130
+      ],
+      "manual_native_guard_HD_corners": [
+        [
+          1365.0,
+          698.0
+        ],
+        [
+          1386.0,
+          698.0
+        ],
+        [
+          1386.0,
+          719.0
+        ],
+        [
+          1365.0,
+          719.0
+        ]
+      ],
+      "manual_native_guard_RAW_corners": [
+        [
+          5806.2584160585775,
+          2970.539081062715
+        ],
+        [
+          5893.555461891932,
+          2969.8628090781926
+        ],
+        [
+          5892.830689632607,
+          3058.179759332124
+        ],
+        [
+          5805.561703857605,
+          3058.9213074517006
+        ]
+      ],
+      "manual_native_guard_observation": "All visible surface inside mapped guard is floor fabric or its seam/shadow; no actor material, hair, shoe, bag, foreground rig, or recognizable actor reflection seen. Qualification is visual, not mask-distance only.",
+      "verified_true_actor_margin_HD_pixels_conservative": 9.0,
+      "margin_basis": "Mapped21HD square is actor-free on native1:1 inspection; center-to-edge10.5HD, conservatively report9HD to retain visual/edge uncertainty. No exact contour was inferred from nominal mask.",
+      "RAW_nearest": {
+        "black": false,
+        "grey": false,
+        "nominal": false,
+        "source_ineligible": false
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 0.0,
+        "nominal": 0.0,
+        "W64": 0.00036768318386748433,
+        "core": 0.0,
+        "band": 1.0
+      },
+      "current_W64_source_support": true,
+      "current_UNKNOWN": false,
+      "exact_existing_query_matches": [],
+      "nearest_existing_query": {
+        "index": 705,
+        "HD_pixel": [
+          1385,
+          704
+        ],
+        "distance_HD_pixels": 10.770329614269007,
+        "semantic_target": 0.0,
+        "category": "near_qualified_clear"
+      },
+      "source_native_raster": [
+        8192,
+        4320
+      ],
+      "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/MC/MC.000408.tif",
+      "raw_source_sha256": "33d1e30556890c2bfa1a5ac8b8c2f2788e80071802ac2995f72220af587ce40e",
+      "native_crop_source": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/MC_RAW_native_crop.png",
+      "native_crop_source_sha256": "b360e7ed32d166d62e9e2eef8a09b513b8f5dae217a7119418c0c3f5e1c530a0",
+      "native_crop_xyxy": [
+        3931,
+        172,
+        7844,
+        4320
+      ],
+      "raw_archive": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/MC.npz",
+      "raw_archive_sha256": "c552321cbed9b93096f4fd27d4ca774e1c78be7a1d7f14b7a82b3779f2657258",
+      "camera_row": {
+        "file_path": "images/train_MC.png",
+        "mask_path": "masks/MC.png",
+        "physical_camera": "MC",
+        "w": 1920,
+        "h": 1012,
+        "fl_x": 1350.813875712102,
+        "fl_y": 1348.738785272778,
+        "cx": 960.0,
+        "cy": 506.0,
+        "k1": 0.0,
+        "k2": 0.0,
+        "p1": 0.0,
+        "p2": 0.0,
+        "transform_matrix": [
+          [
+            -0.20654484029525744,
+            -0.22818172326612307,
+            0.9514580271277747,
+            0.9785322411923555
+          ],
+          [
+            0.9777789366438865,
+            -0.08379807805373607,
+            0.19216192811637664,
+            0.08104678551247463
+          ],
+          [
+            0.03588249537815358,
+            0.9700057604545198,
+            0.24041931854156837,
+            0.3900192085886752
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "raw_OpenCV_K": [
+        [
+          5763.472536371634,
+          0.0,
+          4095.5
+        ],
+        [
+          0.0,
+          5757.4620082790525,
+          2159.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "distortion": [
+        -0.08952907861192838,
+        0.045748732117712854,
+        -0.0008254248852583816,
+        -0.00045052583844687954
+      ],
+      "explicit_vs_OpenCV_mapping_max_RAW_error": 0.00019104161401628517,
+      "RAW_to_HD_roundtrip_max_HD_error": 1.4852503227302805e-08,
+      "native_TIFF_display_replay_max_channel_code_error": 0,
+      "page": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_near_floor_review_CPU_v1/MC_floor_04_native.png",
+      "page_sha256": "a55de535ea55062de60304790b7a823853524f976de46fb0d11139da4aaa351c",
+      "optical_alpha_target": null,
+      "depth_target": null,
+      "whole_ray_empty_target": false,
+      "space_behind_visible_surface": "UNKNOWN",
+      "future_use": "Proposal only; actual source-native rendering weights/depth/color and root review must qualify any separately declared future class constraint."
+    },
+    {
+      "id": "MD_floor_01",
+      "camera": "MD",
+      "split": "TRAIN",
+      "qualification": "known_nonactor_visible_floor_class_negative_candidate",
+      "confidence": 0.98,
+      "HD_pixel": [
+        1375,
+        865
+      ],
+      "RAW_center": [
+        5845.365854969191,
+        3673.05168085901
+      ],
+      "RAW_geometric_cell_corners": [
+        [
+          5843.314456779483,
+          3670.995184641299
+        ],
+        [
+          5847.468692024735,
+          3670.9438588022017
+        ],
+        [
+          5847.4170804315745,
+          3675.108005519891
+        ],
+        [
+          5843.262943638435,
+          3675.1594439904593
+        ]
+      ],
+      "RAW_patch_xyxy": [
+        5730,
+        3558,
+        5961,
+        3789
+      ],
+      "manual_native_guard_HD_corners": [
+        [
+          1365.0,
+          855.0
+        ],
+        [
+          1386.0,
+          855.0
+        ],
+        [
+          1386.0,
+          876.0
+        ],
+        [
+          1365.0,
+          876.0
+        ]
+      ],
+      "manual_native_guard_RAW_corners": [
+        [
+          5802.250278771301,
+          3629.8293159330533
+        ],
+        [
+          5889.509450841211,
+          3628.7754538250356
+        ],
+        [
+          5888.405269915809,
+          3716.198400399095
+        ],
+        [
+          5801.189506797014,
+          3717.301923276802
+        ]
+      ],
+      "manual_native_guard_observation": "All visible surface inside mapped guard is floor fabric or its seam/shadow; no actor material, hair, shoe, bag, foreground rig, or recognizable actor reflection seen. Qualification is visual, not mask-distance only.",
+      "verified_true_actor_margin_HD_pixels_conservative": 9.0,
+      "margin_basis": "Mapped21HD square is actor-free on native1:1 inspection; center-to-edge10.5HD, conservatively report9HD to retain visual/edge uncertainty. No exact contour was inferred from nominal mask.",
+      "RAW_nearest": {
+        "black": false,
+        "grey": false,
+        "nominal": false,
+        "source_ineligible": false
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 0.0,
+        "nominal": 0.0,
+        "W64": 0.0016373788239434361,
+        "core": 0.0,
+        "band": 1.0
+      },
+      "current_W64_source_support": true,
+      "current_UNKNOWN": false,
+      "exact_existing_query_matches": [],
+      "nearest_existing_query": {
+        "index": 674,
+        "HD_pixel": [
+          1382,
+          858
+        ],
+        "distance_HD_pixels": 9.899494936611665,
+        "semantic_target": 0.0,
+        "category": "near_qualified_clear"
+      },
+      "source_native_raster": [
+        8192,
+        4320
+      ],
+      "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/MD/MD.000408.tif",
+      "raw_source_sha256": "88b76233fb49774498e6fd598329f2699b6f3b54775bc6aacb6bfa00a151b532",
+      "native_crop_source": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/MD_RAW_native_crop.png",
+      "native_crop_source_sha256": "8d22094c9b4c9de1449cd35c0abc1412403af15c13e49b714976e0e07a196ef6",
+      "native_crop_xyxy": [
+        4009,
+        1037,
+        7562,
+        4320
+      ],
+      "raw_archive": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/MD.npz",
+      "raw_archive_sha256": "46202474a92ccd745dc10ed154b93f3c256d1f59e565c12ea6df3f9a66887d51",
+      "camera_row": {
+        "file_path": "images/train_MD.png",
+        "mask_path": "masks/MD.png",
+        "physical_camera": "MD",
+        "w": 1920,
+        "h": 1012,
+        "fl_x": 1353.987586804566,
+        "fl_y": 1351.2856253994826,
+        "cx": 960.0,
+        "cy": 506.0,
+        "k1": 0.0,
+        "k2": 0.0,
+        "p1": 0.0,
+        "p2": 0.0,
+        "transform_matrix": [
+          [
+            -0.07951604263218816,
+            0.1079483840051984,
+            0.990971411439032,
+            0.9848998204894728
+          ],
+          [
+            0.9966834458373548,
+            -0.00864445423227131,
+            0.08091602878889563,
+            -0.009611905805296986
+          ],
+          [
+            0.017301159126048127,
+            0.9941189462871853,
+            -0.10690299819291685,
+            0.23749647971157153
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "raw_OpenCV_K": [
+        [
+          5777.013703699482,
+          0.0,
+          4095.5
+        ],
+        [
+          0.0,
+          5768.3338949859335,
+          2159.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "distortion": [
+        -0.08976929218269657,
+        0.04731305676480062,
+        -0.0006016956183891615,
+        0.0007848075750959747
+      ],
+      "explicit_vs_OpenCV_mapping_max_RAW_error": 0.00013231294087745482,
+      "RAW_to_HD_roundtrip_max_HD_error": 6.676259545201901e-08,
+      "native_TIFF_display_replay_max_channel_code_error": 0,
+      "page": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_near_floor_review_CPU_v1/MD_floor_01_native.png",
+      "page_sha256": "56ecd729274d50a5de37c28aaef867a2230ff6bd68d84bffd93127fd7b822610",
+      "optical_alpha_target": null,
+      "depth_target": null,
+      "whole_ray_empty_target": false,
+      "space_behind_visible_surface": "UNKNOWN",
+      "future_use": "Proposal only; actual source-native rendering weights/depth/color and root review must qualify any separately declared future class constraint."
+    },
+    {
+      "id": "MD_floor_02",
+      "camera": "MD",
+      "split": "TRAIN",
+      "qualification": "known_nonactor_visible_floor_class_negative_candidate",
+      "confidence": 0.98,
+      "HD_pixel": [
+        1374,
+        876
+      ],
+      "RAW_center": [
+        5840.638598684021,
+        3718.88837393875
+      ],
+      "RAW_geometric_cell_corners": [
+        [
+          5838.588123583965,
+          3716.834400281169
+        ],
+        [
+          5842.741643328125,
+          3716.781947797513
+        ],
+        [
+          5842.688901249459,
+          3720.942174904092
+        ],
+        [
+          5838.535482355605,
+          3720.994737409127
+        ]
+      ],
+      "RAW_patch_xyxy": [
+        5726,
+        3604,
+        5957,
+        3835
+      ],
+      "manual_native_guard_HD_corners": [
+        [
+          1364.0,
+          866.0
+        ],
+        [
+          1385.0,
+          866.0
+        ],
+        [
+          1385.0,
+          887.0
+        ],
+        [
+          1364.0,
+          887.0
+        ]
+      ],
+      "manual_native_guard_RAW_corners": [
+        [
+          5797.5424396423,
+          3675.7187312380447
+        ],
+        [
+          5884.787096811443,
+          3674.640670842899
+        ],
+        [
+          5883.65868156908,
+          3761.9818707199893
+        ],
+        [
+          5796.458490696789,
+          3763.1084408572888
+        ]
+      ],
+      "manual_native_guard_observation": "All visible surface inside mapped guard is floor fabric or its seam/shadow; no actor material, hair, shoe, bag, foreground rig, or recognizable actor reflection seen. Qualification is visual, not mask-distance only.",
+      "verified_true_actor_margin_HD_pixels_conservative": 9.0,
+      "margin_basis": "Mapped21HD square is actor-free on native1:1 inspection; center-to-edge10.5HD, conservatively report9HD to retain visual/edge uncertainty. No exact contour was inferred from nominal mask.",
+      "RAW_nearest": {
+        "black": false,
+        "grey": false,
+        "nominal": false,
+        "source_ineligible": false
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 0.0,
+        "nominal": 0.0,
+        "W64": 0.0009003911982290447,
+        "core": 0.0,
+        "band": 1.0
+      },
+      "current_W64_source_support": true,
+      "current_UNKNOWN": false,
+      "exact_existing_query_matches": [],
+      "nearest_existing_query": {
+        "index": 729,
+        "HD_pixel": [
+          1380,
+          882
+        ],
+        "distance_HD_pixels": 8.48528137423857,
+        "semantic_target": 0.0,
+        "category": "near_qualified_clear"
+      },
+      "source_native_raster": [
+        8192,
+        4320
+      ],
+      "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/MD/MD.000408.tif",
+      "raw_source_sha256": "88b76233fb49774498e6fd598329f2699b6f3b54775bc6aacb6bfa00a151b532",
+      "native_crop_source": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/MD_RAW_native_crop.png",
+      "native_crop_source_sha256": "8d22094c9b4c9de1449cd35c0abc1412403af15c13e49b714976e0e07a196ef6",
+      "native_crop_xyxy": [
+        4009,
+        1037,
+        7562,
+        4320
+      ],
+      "raw_archive": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/MD.npz",
+      "raw_archive_sha256": "46202474a92ccd745dc10ed154b93f3c256d1f59e565c12ea6df3f9a66887d51",
+      "camera_row": {
+        "file_path": "images/train_MD.png",
+        "mask_path": "masks/MD.png",
+        "physical_camera": "MD",
+        "w": 1920,
+        "h": 1012,
+        "fl_x": 1353.987586804566,
+        "fl_y": 1351.2856253994826,
+        "cx": 960.0,
+        "cy": 506.0,
+        "k1": 0.0,
+        "k2": 0.0,
+        "p1": 0.0,
+        "p2": 0.0,
+        "transform_matrix": [
+          [
+            -0.07951604263218816,
+            0.1079483840051984,
+            0.990971411439032,
+            0.9848998204894728
+          ],
+          [
+            0.9966834458373548,
+            -0.00864445423227131,
+            0.08091602878889563,
+            -0.009611905805296986
+          ],
+          [
+            0.017301159126048127,
+            0.9941189462871853,
+            -0.10690299819291685,
+            0.23749647971157153
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "raw_OpenCV_K": [
+        [
+          5777.013703699482,
+          0.0,
+          4095.5
+        ],
+        [
+          0.0,
+          5768.3338949859335,
+          2159.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "distortion": [
+        -0.08976929218269657,
+        0.04731305676480062,
+        -0.0006016956183891615,
+        0.0007848075750959747
+      ],
+      "explicit_vs_OpenCV_mapping_max_RAW_error": 0.00013231294087745482,
+      "RAW_to_HD_roundtrip_max_HD_error": 6.676259545201901e-08,
+      "native_TIFF_display_replay_max_channel_code_error": 0,
+      "page": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_near_floor_review_CPU_v1/MD_floor_02_native.png",
+      "page_sha256": "3c07a4fcdb16c52e59c36f89c9e61d7e15841cfce3b3a82dccd2febc862713c4",
+      "optical_alpha_target": null,
+      "depth_target": null,
+      "whole_ray_empty_target": false,
+      "space_behind_visible_surface": "UNKNOWN",
+      "future_use": "Proposal only; actual source-native rendering weights/depth/color and root review must qualify any separately declared future class constraint."
+    },
+    {
+      "id": "MD_floor_03",
+      "camera": "MD",
+      "split": "TRAIN",
+      "qualification": "known_nonactor_visible_floor_class_negative_candidate",
+      "confidence": 0.98,
+      "HD_pixel": [
+        1373,
+        887
+      ],
+      "RAW_center": [
+        5835.8998243224305,
+        3764.6825923986753
+      ],
+      "RAW_geometric_cell_corners": [
+        [
+          5833.8502711157635,
+          3762.6311666652928
+        ],
+        [
+          5838.0030462594,
+          3762.5776189195035
+        ],
+        [
+          5837.94920524478,
+          3766.733844426495
+        ],
+        [
+          5833.796533297162,
+          3766.787499522151
+        ]
+      ],
+      "RAW_patch_xyxy": [
+        5721,
+        3650,
+        5952,
+        3881
+      ],
+      "manual_native_guard_HD_corners": [
+        [
+          1363.0,
+          877.0
+        ],
+        [
+          1384.0,
+          877.0
+        ],
+        [
+          1384.0,
+          898.0
+        ],
+        [
+          1363.0,
+          898.0
+        ]
+      ],
+      "manual_native_guard_RAW_corners": [
+        [
+          5792.823069297166,
+          3721.5662299595797
+        ],
+        [
+          5880.052589731404,
+          3720.4646173611764
+        ],
+        [
+          5878.900613684585,
+          3807.722362224516
+        ],
+        [
+          5791.7165937487935,
+          3808.8713064516123
+        ]
+      ],
+      "manual_native_guard_observation": "All visible surface inside mapped guard is floor fabric or its seam/shadow; no actor material, hair, shoe, bag, foreground rig, or recognizable actor reflection seen. Qualification is visual, not mask-distance only.",
+      "verified_true_actor_margin_HD_pixels_conservative": 9.0,
+      "margin_basis": "Mapped21HD square is actor-free on native1:1 inspection; center-to-edge10.5HD, conservatively report9HD to retain visual/edge uncertainty. No exact contour was inferred from nominal mask.",
+      "RAW_nearest": {
+        "black": false,
+        "grey": false,
+        "nominal": false,
+        "source_ineligible": false
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 0.0,
+        "nominal": 0.0,
+        "W64": 0.0011097247479483485,
+        "core": 0.0,
+        "band": 1.0
+      },
+      "current_W64_source_support": true,
+      "current_UNKNOWN": false,
+      "exact_existing_query_matches": [],
+      "nearest_existing_query": {
+        "index": 729,
+        "HD_pixel": [
+          1380,
+          882
+        ],
+        "distance_HD_pixels": 8.602325267042627,
+        "semantic_target": 0.0,
+        "category": "near_qualified_clear"
+      },
+      "source_native_raster": [
+        8192,
+        4320
+      ],
+      "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/MD/MD.000408.tif",
+      "raw_source_sha256": "88b76233fb49774498e6fd598329f2699b6f3b54775bc6aacb6bfa00a151b532",
+      "native_crop_source": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/MD_RAW_native_crop.png",
+      "native_crop_source_sha256": "8d22094c9b4c9de1449cd35c0abc1412403af15c13e49b714976e0e07a196ef6",
+      "native_crop_xyxy": [
+        4009,
+        1037,
+        7562,
+        4320
+      ],
+      "raw_archive": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/MD.npz",
+      "raw_archive_sha256": "46202474a92ccd745dc10ed154b93f3c256d1f59e565c12ea6df3f9a66887d51",
+      "camera_row": {
+        "file_path": "images/train_MD.png",
+        "mask_path": "masks/MD.png",
+        "physical_camera": "MD",
+        "w": 1920,
+        "h": 1012,
+        "fl_x": 1353.987586804566,
+        "fl_y": 1351.2856253994826,
+        "cx": 960.0,
+        "cy": 506.0,
+        "k1": 0.0,
+        "k2": 0.0,
+        "p1": 0.0,
+        "p2": 0.0,
+        "transform_matrix": [
+          [
+            -0.07951604263218816,
+            0.1079483840051984,
+            0.990971411439032,
+            0.9848998204894728
+          ],
+          [
+            0.9966834458373548,
+            -0.00864445423227131,
+            0.08091602878889563,
+            -0.009611905805296986
+          ],
+          [
+            0.017301159126048127,
+            0.9941189462871853,
+            -0.10690299819291685,
+            0.23749647971157153
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "raw_OpenCV_K": [
+        [
+          5777.013703699482,
+          0.0,
+          4095.5
+        ],
+        [
+          0.0,
+          5768.3338949859335,
+          2159.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "distortion": [
+        -0.08976929218269657,
+        0.04731305676480062,
+        -0.0006016956183891615,
+        0.0007848075750959747
+      ],
+      "explicit_vs_OpenCV_mapping_max_RAW_error": 0.00013231294087745482,
+      "RAW_to_HD_roundtrip_max_HD_error": 6.676259545201901e-08,
+      "native_TIFF_display_replay_max_channel_code_error": 0,
+      "page": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_near_floor_review_CPU_v1/MD_floor_03_native.png",
+      "page_sha256": "845a4d61b85e74cb408a15da518b65dac03fdeaa2219834cd35c13d67d0198a7",
+      "optical_alpha_target": null,
+      "depth_target": null,
+      "whole_ray_empty_target": false,
+      "space_behind_visible_surface": "UNKNOWN",
+      "future_use": "Proposal only; actual source-native rendering weights/depth/color and root review must qualify any separately declared future class constraint."
+    },
+    {
+      "id": "MD_floor_04",
+      "camera": "MD",
+      "split": "TRAIN",
+      "qualification": "known_nonactor_visible_floor_class_negative_candidate",
+      "confidence": 0.98,
+      "HD_pixel": [
+        1372,
+        898
+      ],
+      "RAW_center": [
+        5831.149910879591,
+        3810.433421111798
+      ],
+      "RAW_geometric_cell_corners": [
+        [
+          5829.101277797271,
+          3808.384566639504
+        ],
+        [
+          5833.253279764642,
+          3808.3299556336997
+        ],
+        [
+          5833.198371986211,
+          3812.4821009899524
+        ],
+        [
+          5829.046475506109,
+          3812.5368166132193
+        ]
+      ],
+      "RAW_patch_xyxy": [
+        5716,
+        3695,
+        5947,
+        3926
+      ],
+      "manual_native_guard_HD_corners": [
+        [
+          1362.0,
+          888.0
+        ],
+        [
+          1383.0,
+          888.0
+        ],
+        [
+          1383.0,
+          909.0
+        ],
+        [
+          1362.0,
+          909.0
+        ]
+      ],
+      "manual_native_guard_RAW_corners": [
+        [
+          5788.092534855109,
+          3767.3708549586763
+        ],
+        [
+          5875.306307301568,
+          3766.2463493651076
+        ],
+        [
+          5874.131457453419,
+          3853.419002971145
+        ],
+        [
+          5786.964195688869,
+          3854.58963522646
+        ]
+      ],
+      "manual_native_guard_observation": "All visible surface inside mapped guard is floor fabric or its seam/shadow; no actor material, hair, shoe, bag, foreground rig, or recognizable actor reflection seen. Qualification is visual, not mask-distance only.",
+      "verified_true_actor_margin_HD_pixels_conservative": 9.0,
+      "margin_basis": "Mapped21HD square is actor-free on native1:1 inspection; center-to-edge10.5HD, conservatively report9HD to retain visual/edge uncertainty. No exact contour was inferred from nominal mask.",
+      "RAW_nearest": {
+        "black": false,
+        "grey": false,
+        "nominal": false,
+        "source_ineligible": false
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 0.0,
+        "nominal": 0.0,
+        "W64": 0.000567241630051285,
+        "core": 0.0,
+        "band": 1.0
+      },
+      "current_W64_source_support": true,
+      "current_UNKNOWN": false,
+      "exact_existing_query_matches": [],
+      "nearest_existing_query": {
+        "index": 889,
+        "HD_pixel": [
+          1383,
+          899
+        ],
+        "distance_HD_pixels": 11.045361017187261,
+        "semantic_target": 0.0,
+        "category": "near_qualified_clear"
+      },
+      "source_native_raster": [
+        8192,
+        4320
+      ],
+      "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/MD/MD.000408.tif",
+      "raw_source_sha256": "88b76233fb49774498e6fd598329f2699b6f3b54775bc6aacb6bfa00a151b532",
+      "native_crop_source": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/MD_RAW_native_crop.png",
+      "native_crop_source_sha256": "8d22094c9b4c9de1449cd35c0abc1412403af15c13e49b714976e0e07a196ef6",
+      "native_crop_xyxy": [
+        4009,
+        1037,
+        7562,
+        4320
+      ],
+      "raw_archive": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/MD.npz",
+      "raw_archive_sha256": "46202474a92ccd745dc10ed154b93f3c256d1f59e565c12ea6df3f9a66887d51",
+      "camera_row": {
+        "file_path": "images/train_MD.png",
+        "mask_path": "masks/MD.png",
+        "physical_camera": "MD",
+        "w": 1920,
+        "h": 1012,
+        "fl_x": 1353.987586804566,
+        "fl_y": 1351.2856253994826,
+        "cx": 960.0,
+        "cy": 506.0,
+        "k1": 0.0,
+        "k2": 0.0,
+        "p1": 0.0,
+        "p2": 0.0,
+        "transform_matrix": [
+          [
+            -0.07951604263218816,
+            0.1079483840051984,
+            0.990971411439032,
+            0.9848998204894728
+          ],
+          [
+            0.9966834458373548,
+            -0.00864445423227131,
+            0.08091602878889563,
+            -0.009611905805296986
+          ],
+          [
+            0.017301159126048127,
+            0.9941189462871853,
+            -0.10690299819291685,
+            0.23749647971157153
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "raw_OpenCV_K": [
+        [
+          5777.013703699482,
+          0.0,
+          4095.5
+        ],
+        [
+          0.0,
+          5768.3338949859335,
+          2159.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "distortion": [
+        -0.08976929218269657,
+        0.04731305676480062,
+        -0.0006016956183891615,
+        0.0007848075750959747
+      ],
+      "explicit_vs_OpenCV_mapping_max_RAW_error": 0.00013231294087745482,
+      "RAW_to_HD_roundtrip_max_HD_error": 6.676259545201901e-08,
+      "native_TIFF_display_replay_max_channel_code_error": 0,
+      "page": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_near_floor_review_CPU_v1/MD_floor_04_native.png",
+      "page_sha256": "34c9a44951996b2be04181f4351dc1ea26a3cd38626287b8b00f8287d2bbbf53",
+      "optical_alpha_target": null,
+      "depth_target": null,
+      "whole_ray_empty_target": false,
+      "space_behind_visible_surface": "UNKNOWN",
+      "future_use": "Proposal only; actual source-native rendering weights/depth/color and root review must qualify any separately declared future class constraint."
+    },
+    {
+      "id": "FD_floor_01",
+      "camera": "FD",
+      "split": "TRAIN",
+      "qualification": "known_nonactor_visible_floor_class_negative_candidate",
+      "confidence": 0.98,
+      "HD_pixel": [
+        819,
+        795
+      ],
+      "RAW_center": [
+        3499.351781006788,
+        3388.152006278863
+      ],
+      "RAW_geometric_cell_corners": [
+        [
+          3497.22546625025,
+          3386.0394384579977
+        ],
+        [
+          3501.460764856244,
+          3386.0567447926833
+        ],
+        [
+          3501.4780904578947,
+          3390.264480408394
+        ],
+        [
+          3497.242911840124,
+          3390.2471233024944
+        ]
+      ],
+      "RAW_patch_xyxy": [
+        3384,
+        3273,
+        3615,
+        3504
+      ],
+      "manual_native_guard_HD_corners": [
+        [
+          809.0,
+          785.0
+        ],
+        [
+          830.0,
+          785.0
+        ],
+        [
+          830.0,
+          806.0
+        ],
+        [
+          809.0,
+          806.0
+        ]
+      ],
+      "manual_native_guard_RAW_corners": [
+        [
+          3454.6985231314234,
+          3343.768838866713
+        ],
+        [
+          3543.6641466701317,
+          3344.121521651929
+        ],
+        [
+          3544.0027001106323,
+          3432.4938592332755
+        ],
+        [
+          3455.089984643537,
+          3432.118789600777
+        ]
+      ],
+      "manual_native_guard_observation": "All visible surface inside mapped guard is floor fabric or its seam/shadow; no actor material, hair, shoe, bag, foreground rig, or recognizable actor reflection seen. Qualification is visual, not mask-distance only.",
+      "verified_true_actor_margin_HD_pixels_conservative": 9.0,
+      "margin_basis": "Mapped21HD square is actor-free on native1:1 inspection; center-to-edge10.5HD, conservatively report9HD to retain visual/edge uncertainty. No exact contour was inferred from nominal mask.",
+      "RAW_nearest": {
+        "black": false,
+        "grey": false,
+        "nominal": false,
+        "source_ineligible": false
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 0.0,
+        "nominal": 0.0,
+        "W64": 0.00040594625170342624,
+        "core": 0.0,
+        "band": 1.0
+      },
+      "current_W64_source_support": true,
+      "current_UNKNOWN": false,
+      "exact_existing_query_matches": [],
+      "nearest_existing_query": {
+        "index": 920,
+        "HD_pixel": [
+          811,
+          796
+        ],
+        "distance_HD_pixels": 8.06225774829855,
+        "semantic_target": 0.0,
+        "category": "near_qualified_clear"
+      },
+      "source_native_raster": [
+        8192,
+        4320
+      ],
+      "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/FD/FD.000408.tif",
+      "raw_source_sha256": "4e6fec38d582dbbd289784e96f241efb9c86ced17e93bd8030429183a791bcc2",
+      "native_crop_source": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/FD_RAW_native_crop.png",
+      "native_crop_source_sha256": "96941eb05f6fd3a311c090673b9dff1cc3f2fa129b54e8b45d814ec50bb02e0c",
+      "native_crop_xyxy": [
+        1927,
+        790,
+        5810,
+        4320
+      ],
+      "raw_archive": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/FD.npz",
+      "raw_archive_sha256": "403c29595870116a9288b7fdf6319b8cd829865df19acd00bd6d11c2802d1b44",
+      "camera_row": {
+        "file_path": "images/train_FD.png",
+        "mask_path": "masks/FD.png",
+        "physical_camera": "FD",
+        "w": 1920,
+        "h": 1012,
+        "fl_x": 1354.517161456622,
+        "fl_y": 1352.0828351219711,
+        "cx": 960.0,
+        "cy": 506.0,
+        "k1": 0.0,
+        "k2": 0.0,
+        "p1": 0.0,
+        "p2": 0.0,
+        "transform_matrix": [
+          [
+            0.950336966785648,
+            0.0006987807738369489,
+            -0.3112222179477973,
+            -0.24174573548818792
+          ],
+          [
+            -0.3111949946656125,
+            -0.011276456126746215,
+            -0.9502791710633538,
+            -0.8346584916702554
+          ],
+          [
+            -0.004173511383540204,
+            0.9999361675312977,
+            -0.010498941373786014,
+            0.247710863186433
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "raw_OpenCV_K": [
+        [
+          5779.273222214921,
+          0.0,
+          4095.5
+        ],
+        [
+          0.0,
+          5771.737003682723,
+          2159.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "distortion": [
+        -0.09085460470981212,
+        0.04703799847940806,
+        -0.0011321780663415882,
+        7.807218403119882e-05
+      ],
+      "explicit_vs_OpenCV_mapping_max_RAW_error": 0.00010798225684993668,
+      "RAW_to_HD_roundtrip_max_HD_error": 9.792984201340005e-10,
+      "native_TIFF_display_replay_max_channel_code_error": 0,
+      "page": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_near_floor_review_CPU_v1/FD_floor_01_native.png",
+      "page_sha256": "a09d126bd28c7e8ac8d54d86121870eb86bbfacb4275d06f2d7ce1aa80e1f944",
+      "optical_alpha_target": null,
+      "depth_target": null,
+      "whole_ray_empty_target": false,
+      "space_behind_visible_surface": "UNKNOWN",
+      "future_use": "Proposal only; actual source-native rendering weights/depth/color and root review must qualify any separately declared future class constraint."
+    },
+    {
+      "id": "FD_floor_02",
+      "camera": "FD",
+      "split": "TRAIN",
+      "qualification": "known_nonactor_visible_floor_class_negative_candidate",
+      "confidence": 0.98,
+      "HD_pixel": [
+        818,
+        806
+      ],
+      "RAW_center": [
+        3495.312276741901,
+        3434.397080638507
+      ],
+      "RAW_geometric_cell_corners": [
+        [
+          3493.1863751938226,
+          3432.286187481114
+        ],
+        [
+          3497.420167019426,
+          3432.304172267651
+        ],
+        [
+          3497.4381711465508,
+          3436.507876428756
+        ],
+        [
+          3493.204503067497,
+          3436.489841182385
+        ]
+      ],
+      "RAW_patch_xyxy": [
+        3380,
+        3319,
+        3611,
+        3550
+      ],
+      "manual_native_guard_HD_corners": [
+        [
+          808.0,
+          796.0
+        ],
+        [
+          829.0,
+          796.0
+        ],
+        [
+          829.0,
+          817.0
+        ],
+        [
+          808.0,
+          817.0
+        ]
+      ],
+      "manual_native_guard_RAW_corners": [
+        [
+          3450.667308453954,
+          3390.0483040183985
+        ],
+        [
+          3539.602086543374,
+          3390.415295613293
+        ],
+        [
+          3539.9540958118287,
+          3478.70292194971
+        ],
+        [
+          3451.0738829605502,
+          3478.3136808498107
+        ]
+      ],
+      "manual_native_guard_observation": "All visible surface inside mapped guard is floor fabric or its seam/shadow; no actor material, hair, shoe, bag, foreground rig, or recognizable actor reflection seen. Qualification is visual, not mask-distance only.",
+      "verified_true_actor_margin_HD_pixels_conservative": 9.0,
+      "margin_basis": "Mapped21HD square is actor-free on native1:1 inspection; center-to-edge10.5HD, conservatively report9HD to retain visual/edge uncertainty. No exact contour was inferred from nominal mask.",
+      "RAW_nearest": {
+        "black": false,
+        "grey": false,
+        "nominal": false,
+        "source_ineligible": false
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 0.0,
+        "nominal": 0.0,
+        "W64": 0.0012361196568235755,
+        "core": 0.0,
+        "band": 1.0
+      },
+      "current_W64_source_support": true,
+      "current_UNKNOWN": false,
+      "exact_existing_query_matches": [],
+      "nearest_existing_query": {
+        "index": 846,
+        "HD_pixel": [
+          810,
+          806
+        ],
+        "distance_HD_pixels": 8.0,
+        "semantic_target": 0.0,
+        "category": "near_qualified_clear"
+      },
+      "source_native_raster": [
+        8192,
+        4320
+      ],
+      "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/FD/FD.000408.tif",
+      "raw_source_sha256": "4e6fec38d582dbbd289784e96f241efb9c86ced17e93bd8030429183a791bcc2",
+      "native_crop_source": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/FD_RAW_native_crop.png",
+      "native_crop_source_sha256": "96941eb05f6fd3a311c090673b9dff1cc3f2fa129b54e8b45d814ec50bb02e0c",
+      "native_crop_xyxy": [
+        1927,
+        790,
+        5810,
+        4320
+      ],
+      "raw_archive": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/FD.npz",
+      "raw_archive_sha256": "403c29595870116a9288b7fdf6319b8cd829865df19acd00bd6d11c2802d1b44",
+      "camera_row": {
+        "file_path": "images/train_FD.png",
+        "mask_path": "masks/FD.png",
+        "physical_camera": "FD",
+        "w": 1920,
+        "h": 1012,
+        "fl_x": 1354.517161456622,
+        "fl_y": 1352.0828351219711,
+        "cx": 960.0,
+        "cy": 506.0,
+        "k1": 0.0,
+        "k2": 0.0,
+        "p1": 0.0,
+        "p2": 0.0,
+        "transform_matrix": [
+          [
+            0.950336966785648,
+            0.0006987807738369489,
+            -0.3112222179477973,
+            -0.24174573548818792
+          ],
+          [
+            -0.3111949946656125,
+            -0.011276456126746215,
+            -0.9502791710633538,
+            -0.8346584916702554
+          ],
+          [
+            -0.004173511383540204,
+            0.9999361675312977,
+            -0.010498941373786014,
+            0.247710863186433
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "raw_OpenCV_K": [
+        [
+          5779.273222214921,
+          0.0,
+          4095.5
+        ],
+        [
+          0.0,
+          5771.737003682723,
+          2159.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "distortion": [
+        -0.09085460470981212,
+        0.04703799847940806,
+        -0.0011321780663415882,
+        7.807218403119882e-05
+      ],
+      "explicit_vs_OpenCV_mapping_max_RAW_error": 0.00010798225684993668,
+      "RAW_to_HD_roundtrip_max_HD_error": 9.792984201340005e-10,
+      "native_TIFF_display_replay_max_channel_code_error": 0,
+      "page": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_near_floor_review_CPU_v1/FD_floor_02_native.png",
+      "page_sha256": "70e7906c4df51998d7362118c6f0bbc7eaec4afb28b9518fd76c70bb1b8ec3c0",
+      "optical_alpha_target": null,
+      "depth_target": null,
+      "whole_ray_empty_target": false,
+      "space_behind_visible_surface": "UNKNOWN",
+      "future_use": "Proposal only; actual source-native rendering weights/depth/color and root review must qualify any separately declared future class constraint."
+    },
+    {
+      "id": "FD_floor_03",
+      "camera": "FD",
+      "split": "TRAIN",
+      "qualification": "known_nonactor_visible_floor_class_negative_candidate",
+      "confidence": 0.98,
+      "HD_pixel": [
+        814,
+        817
+      ],
+      "RAW_center": [
+        3478.586012099468,
+        3480.5398774911027
+      ],
+      "RAW_geometric_cell_corners": [
+        [
+          3476.460609673545,
+          3478.4306007177406
+        ],
+        [
+          3480.6923418123642,
+          3478.4496444406577
+        ],
+        [
+          3480.711406749214,
+          3482.649053889246
+        ],
+        [
+          3476.479801864718,
+          3482.629959037497
+        ]
+      ],
+      "RAW_patch_xyxy": [
+        3364,
+        3366,
+        3595,
+        3597
+      ],
+      "manual_native_guard_HD_corners": [
+        [
+          804.0,
+          807.0
+        ],
+        [
+          825.0,
+          807.0
+        ],
+        [
+          825.0,
+          828.0
+        ],
+        [
+          804.0,
+          828.0
+        ]
+      ],
+      "manual_native_guard_RAW_corners": [
+        [
+          3433.9513906316424,
+          3436.224408312545
+        ],
+        [
+          3522.8436618003557,
+          3436.6134909329103
+        ],
+        [
+          3523.21720536515,
+          3524.8110849452487
+        ],
+        [
+          3434.381046106749,
+          3524.399457884554
+        ]
+      ],
+      "manual_native_guard_observation": "All visible surface inside mapped guard is floor fabric or its seam/shadow; no actor material, hair, shoe, bag, foreground rig, or recognizable actor reflection seen. Qualification is visual, not mask-distance only.",
+      "verified_true_actor_margin_HD_pixels_conservative": 9.0,
+      "margin_basis": "Mapped21HD square is actor-free on native1:1 inspection; center-to-edge10.5HD, conservatively report9HD to retain visual/edge uncertainty. No exact contour was inferred from nominal mask.",
+      "RAW_nearest": {
+        "black": false,
+        "grey": false,
+        "nominal": false,
+        "source_ineligible": false
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 0.0,
+        "nominal": 0.0,
+        "W64": 0.0005187206552363932,
+        "core": 0.0,
+        "band": 1.0
+      },
+      "current_W64_source_support": true,
+      "current_UNKNOWN": false,
+      "exact_existing_query_matches": [],
+      "nearest_existing_query": {
+        "index": 591,
+        "HD_pixel": [
+          812,
+          815
+        ],
+        "distance_HD_pixels": 2.8284271247461903,
+        "semantic_target": 0.0,
+        "category": "near_qualified_clear"
+      },
+      "source_native_raster": [
+        8192,
+        4320
+      ],
+      "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/FD/FD.000408.tif",
+      "raw_source_sha256": "4e6fec38d582dbbd289784e96f241efb9c86ced17e93bd8030429183a791bcc2",
+      "native_crop_source": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/FD_RAW_native_crop.png",
+      "native_crop_source_sha256": "96941eb05f6fd3a311c090673b9dff1cc3f2fa129b54e8b45d814ec50bb02e0c",
+      "native_crop_xyxy": [
+        1927,
+        790,
+        5810,
+        4320
+      ],
+      "raw_archive": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/FD.npz",
+      "raw_archive_sha256": "403c29595870116a9288b7fdf6319b8cd829865df19acd00bd6d11c2802d1b44",
+      "camera_row": {
+        "file_path": "images/train_FD.png",
+        "mask_path": "masks/FD.png",
+        "physical_camera": "FD",
+        "w": 1920,
+        "h": 1012,
+        "fl_x": 1354.517161456622,
+        "fl_y": 1352.0828351219711,
+        "cx": 960.0,
+        "cy": 506.0,
+        "k1": 0.0,
+        "k2": 0.0,
+        "p1": 0.0,
+        "p2": 0.0,
+        "transform_matrix": [
+          [
+            0.950336966785648,
+            0.0006987807738369489,
+            -0.3112222179477973,
+            -0.24174573548818792
+          ],
+          [
+            -0.3111949946656125,
+            -0.011276456126746215,
+            -0.9502791710633538,
+            -0.8346584916702554
+          ],
+          [
+            -0.004173511383540204,
+            0.9999361675312977,
+            -0.010498941373786014,
+            0.247710863186433
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "raw_OpenCV_K": [
+        [
+          5779.273222214921,
+          0.0,
+          4095.5
+        ],
+        [
+          0.0,
+          5771.737003682723,
+          2159.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "distortion": [
+        -0.09085460470981212,
+        0.04703799847940806,
+        -0.0011321780663415882,
+        7.807218403119882e-05
+      ],
+      "explicit_vs_OpenCV_mapping_max_RAW_error": 0.00010798225684993668,
+      "RAW_to_HD_roundtrip_max_HD_error": 9.792984201340005e-10,
+      "native_TIFF_display_replay_max_channel_code_error": 0,
+      "page": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_near_floor_review_CPU_v1/FD_floor_03_native.png",
+      "page_sha256": "2b161b0027d73224f961a5060b48812feae0906e7b09ec81eda9d7ebe8e09c9e",
+      "optical_alpha_target": null,
+      "depth_target": null,
+      "whole_ray_empty_target": false,
+      "space_behind_visible_surface": "UNKNOWN",
+      "future_use": "Proposal only; actual source-native rendering weights/depth/color and root review must qualify any separately declared future class constraint."
+    },
+    {
+      "id": "FD_floor_04",
+      "camera": "FD",
+      "split": "TRAIN",
+      "qualification": "known_nonactor_visible_floor_class_negative_candidate",
+      "confidence": 0.98,
+      "HD_pixel": [
+        809,
+        828
+      ],
+      "RAW_center": [
+        3457.650438331173,
+        3526.6103295999546
+      ],
+      "RAW_geometric_cell_corners": [
+        [
+          3455.5255742852896,
+          3524.502674520718
+        ],
+        [
+          3459.7550170171953,
+          3524.522928106838
+        ],
+        [
+          3459.7752943667965,
+          3528.7178815567895
+        ],
+        [
+          3455.5459822476514,
+          3528.6975759088978
+        ]
+      ],
+      "RAW_patch_xyxy": [
+        3343,
+        3412,
+        3574,
+        3643
+      ],
+      "manual_native_guard_HD_corners": [
+        [
+          799.0,
+          818.0
+        ],
+        [
+          820.0,
+          818.0
+        ],
+        [
+          820.0,
+          839.0
+        ],
+        [
+          799.0,
+          839.0
+        ]
+      ],
+      "manual_native_guard_RAW_corners": [
+        [
+          3413.0270717642466,
+          3482.328334158512
+        ],
+        [
+          3501.8719815297527,
+          3482.7426209440023
+        ],
+        [
+          3502.270273506487,
+          3570.8468519428843
+        ],
+        [
+          3413.482956466035,
+          3570.4096094066263
+        ]
+      ],
+      "manual_native_guard_observation": "All visible surface inside mapped guard is floor fabric or its seam/shadow; no actor material, hair, shoe, bag, foreground rig, or recognizable actor reflection seen. Qualification is visual, not mask-distance only.",
+      "verified_true_actor_margin_HD_pixels_conservative": 9.0,
+      "margin_basis": "Mapped21HD square is actor-free on native1:1 inspection; center-to-edge10.5HD, conservatively report9HD to retain visual/edge uncertainty. No exact contour was inferred from nominal mask.",
+      "RAW_nearest": {
+        "black": false,
+        "grey": false,
+        "nominal": false,
+        "source_ineligible": false
+      },
+      "current_HD": {
+        "black": 0.0,
+        "grey": 0.0,
+        "nominal": 0.0,
+        "W64": 0.0005906748701818287,
+        "core": 0.0,
+        "band": 1.0
+      },
+      "current_W64_source_support": true,
+      "current_UNKNOWN": false,
+      "exact_existing_query_matches": [],
+      "nearest_existing_query": {
+        "index": 818,
+        "HD_pixel": [
+          808,
+          819
+        ],
+        "distance_HD_pixels": 9.055385138137417,
+        "semantic_target": 0.0,
+        "category": "near_qualified_clear"
+      },
+      "source_native_raster": [
+        8192,
+        4320
+      ],
+      "raw_source": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/FD/FD.000408.tif",
+      "raw_source_sha256": "4e6fec38d582dbbd289784e96f241efb9c86ced17e93bd8030429183a791bcc2",
+      "native_crop_source": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/FD_RAW_native_crop.png",
+      "native_crop_source_sha256": "96941eb05f6fd3a311c090673b9dff1cc3f2fa129b54e8b45d814ec50bb02e0c",
+      "native_crop_xyxy": [
+        1927,
+        790,
+        5810,
+        4320
+      ],
+      "raw_archive": "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/FD.npz",
+      "raw_archive_sha256": "403c29595870116a9288b7fdf6319b8cd829865df19acd00bd6d11c2802d1b44",
+      "camera_row": {
+        "file_path": "images/train_FD.png",
+        "mask_path": "masks/FD.png",
+        "physical_camera": "FD",
+        "w": 1920,
+        "h": 1012,
+        "fl_x": 1354.517161456622,
+        "fl_y": 1352.0828351219711,
+        "cx": 960.0,
+        "cy": 506.0,
+        "k1": 0.0,
+        "k2": 0.0,
+        "p1": 0.0,
+        "p2": 0.0,
+        "transform_matrix": [
+          [
+            0.950336966785648,
+            0.0006987807738369489,
+            -0.3112222179477973,
+            -0.24174573548818792
+          ],
+          [
+            -0.3111949946656125,
+            -0.011276456126746215,
+            -0.9502791710633538,
+            -0.8346584916702554
+          ],
+          [
+            -0.004173511383540204,
+            0.9999361675312977,
+            -0.010498941373786014,
+            0.247710863186433
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      "raw_OpenCV_K": [
+        [
+          5779.273222214921,
+          0.0,
+          4095.5
+        ],
+        [
+          0.0,
+          5771.737003682723,
+          2159.5
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "distortion": [
+        -0.09085460470981212,
+        0.04703799847940806,
+        -0.0011321780663415882,
+        7.807218403119882e-05
+      ],
+      "explicit_vs_OpenCV_mapping_max_RAW_error": 0.00010798225684993668,
+      "RAW_to_HD_roundtrip_max_HD_error": 9.792984201340005e-10,
+      "native_TIFF_display_replay_max_channel_code_error": 0,
+      "page": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_near_floor_review_CPU_v1/FD_floor_04_native.png",
+      "page_sha256": "a5e27d569d95f5ff388e2928781c81ea6174ef03424d43f71edf56f52a9dc183",
+      "optical_alpha_target": null,
+      "depth_target": null,
+      "whole_ray_empty_target": false,
+      "space_behind_visible_surface": "UNKNOWN",
+      "future_use": "Proposal only; actual source-native rendering weights/depth/color and root review must qualify any separately declared future class constraint."
+    }
+  ],
+  "pages": [
+    {
+      "camera": "MC",
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_near_floor_review_CPU_v1/MC_qualified_contact_native.png",
+      "sha256": "1ae3060015f189d4db80cd1a6744a789e1831ded7bbc3fec2027e1971d4f101f"
+    },
+    {
+      "camera": "MD",
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_near_floor_review_CPU_v1/MD_qualified_contact_native.png",
+      "sha256": "1061919c3c19cfa9d547151604da455199517c245a15a6552dd42f43aa455717"
+    },
+    {
+      "camera": "FD",
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_near_floor_review_CPU_v1/FD_qualified_contact_native.png",
+      "sha256": "4cb5181c253d7e60ed84f9de6bdada33c5f516f322229964285e481b3435330c"
+    }
+  ],
+  "nativepatches": [
+    {
+      "id": "MC_floor_01",
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_near_floor_review_CPU_v1/MC_floor_01_native.png",
+      "sha256": "4e6d8378e778f761b1bb32dc31f11a79f14cfade8b8f4c68954c936d869f2b22",
+      "native_no_resize": true
+    },
+    {
+      "id": "MC_floor_02",
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_near_floor_review_CPU_v1/MC_floor_02_native.png",
+      "sha256": "02b058b49df31f9bb80f73fe7b858cc806a43adf3e3ad70576772e6b7f854571",
+      "native_no_resize": true
+    },
+    {
+      "id": "MC_floor_03",
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_near_floor_review_CPU_v1/MC_floor_03_native.png",
+      "sha256": "30ce73e6802507108f7d11bbef30ab6653893bcc550d168d986da1f5f27729b1",
+      "native_no_resize": true
+    },
+    {
+      "id": "MC_floor_04",
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_near_floor_review_CPU_v1/MC_floor_04_native.png",
+      "sha256": "a55de535ea55062de60304790b7a823853524f976de46fb0d11139da4aaa351c",
+      "native_no_resize": true
+    },
+    {
+      "id": "MD_floor_01",
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_near_floor_review_CPU_v1/MD_floor_01_native.png",
+      "sha256": "56ecd729274d50a5de37c28aaef867a2230ff6bd68d84bffd93127fd7b822610",
+      "native_no_resize": true
+    },
+    {
+      "id": "MD_floor_02",
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_near_floor_review_CPU_v1/MD_floor_02_native.png",
+      "sha256": "3c07a4fcdb16c52e59c36f89c9e61d7e15841cfce3b3a82dccd2febc862713c4",
+      "native_no_resize": true
+    },
+    {
+      "id": "MD_floor_03",
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_near_floor_review_CPU_v1/MD_floor_03_native.png",
+      "sha256": "845a4d61b85e74cb408a15da518b65dac03fdeaa2219834cd35c13d67d0198a7",
+      "native_no_resize": true
+    },
+    {
+      "id": "MD_floor_04",
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_near_floor_review_CPU_v1/MD_floor_04_native.png",
+      "sha256": "34c9a44951996b2be04181f4351dc1ea26a3cd38626287b8b00f8287d2bbbf53",
+      "native_no_resize": true
+    },
+    {
+      "id": "FD_floor_01",
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_near_floor_review_CPU_v1/FD_floor_01_native.png",
+      "sha256": "a09d126bd28c7e8ac8d54d86121870eb86bbfacb4275d06f2d7ce1aa80e1f944",
+      "native_no_resize": true
+    },
+    {
+      "id": "FD_floor_02",
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_near_floor_review_CPU_v1/FD_floor_02_native.png",
+      "sha256": "70e7906c4df51998d7362118c6f0bbc7eaec4afb28b9518fd76c70bb1b8ec3c0",
+      "native_no_resize": true
+    },
+    {
+      "id": "FD_floor_03",
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_near_floor_review_CPU_v1/FD_floor_03_native.png",
+      "sha256": "2b161b0027d73224f961a5060b48812feae0906e7b09ec81eda9d7ebe8e09c9e",
+      "native_no_resize": true
+    },
+    {
+      "id": "FD_floor_04",
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_near_floor_review_CPU_v1/FD_floor_04_native.png",
+      "sha256": "a5e27d569d95f5ff388e2928781c81ea6174ef03424d43f71edf56f52a9dc183",
+      "native_no_resize": true
+    }
+  ],
+  "inputs_sha256": {
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/request.json": "692ddf98d2334c710d0ac9e6481ffba7c99b70a899db882e33d117c4b729bca8",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/manifest.json": "1f7f28751aac5ae7486ff8392606cf6c09bd2118eef934dbf64c1171d96aabc3",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/transforms.json": "64176bce20fcf0f08427a89b492003adcce6a0b513d9fffd6bbc583db172f01a",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_native_semantic_CPU_v2/manifest.json": "1562bcfaf5ec5da00a840da210962ef136d521fbca0d1beb5bf30d4a9aeb30ba",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_native_semantic_head_technical_plan_v1/label_qualification.json": "944d88dbbfd24a0021c1166dbfe1fa949047b8d929b9b0cad65e6c84f07ff4f0",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_near_floor_review_CPU_v1/build_review.py": "8c22941d0598eac72c9c071d12cff486b54ec3ba33262c7a9d4d90d84fbdeb35",
+    "/home/pavlo/repos/nerfstudio/LookCloser/scripts/marshawn_actor_coordinates.py": "d4d6be06068b7cd2957375fbd2d857d4c8d75675b464dc8b4f900c31ab78b9f0",
+    "/fsx/oregon/gta_marshawn_2_1_prep_20261028/root/Marshawn_2_1/golden/rig/images.txt": "74cc5ca92ecd254729dd74876c3086e78e12ec959ca1729ce0c19aa507961ebc",
+    "/fsx/oregon/gta_marshawn_2_1_prep_20261028/root/Marshawn_2_1/golden/rig/cameras.txt": "6710f5563ea3831c6e53ea95894b4d166a33d2e15c3d2a26a38490acb2a9e893",
+    "/fsx/oregon/gta_marshawn_2_1/six_sec_20261019/code/engine_gta_pv_export/ca4d/ca4d/pq.py": "87e424399143ccffb8c2ba993d5d119b85f51f37d8904209777a6b386814d175",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/MC.npz": "c552321cbed9b93096f4fd27d4ca774e1c78be7a1d7f14b7a82b3779f2657258",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/archives/MC.npz": "704799409573d6258004e4134dcb84b304d5793819cfa3b32e746fb248b6d2e2",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/MC_RAW_native_crop.png": "b360e7ed32d166d62e9e2eef8a09b513b8f5dae217a7119418c0c3f5e1c530a0",
+    "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/MC/MC.000408.tif": "33d1e30556890c2bfa1a5ac8b8c2f2788e80071802ac2995f72220af587ce40e",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/MC.npz": "e37e1f03a07890a281760af92e3ac3e29a2495d2fe3f15b8151df27befb2f0c5",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/MC.npz": "114ed06e22e5339b829b65c7566d68a63609386d75d335a92e7f17c52bf96fbe",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_native_semantic_CPU_v2/queries/MC.npz": "e65ca8dfaca59ce1917f02cd3dc7913d4968e6c74b1db830d8e948405101da7e",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/images/train_MC.png": "d53acd79f0b2bc4f3fb2d5ba885e41d0749bc079ca70697fc03c70d5be056fe4",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/MD.npz": "46202474a92ccd745dc10ed154b93f3c256d1f59e565c12ea6df3f9a66887d51",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/archives/MD.npz": "28371a9e077151479c6243181c6c202e70d3d2fd033ff18879075b535ea81fea",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/MD_RAW_native_crop.png": "8d22094c9b4c9de1449cd35c0abc1412403af15c13e49b714976e0e07a196ef6",
+    "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/MD/MD.000408.tif": "88b76233fb49774498e6fd598329f2699b6f3b54775bc6aacb6bfa00a151b532",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/MD.npz": "f5405cc5900a35934c3b62afdd23a1084fca36ea74b784a6797811c58bb50085",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/MD.npz": "9baded348dda8e8ab13a71498b0bedfaa95b3d890976a4f1b7f9b0d70f9487af",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_native_semantic_CPU_v2/queries/MD.npz": "0c4a6c15eb6cb8418d2828a945b5645c8f9bee86ec73dfa6413f139255717425",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/images/train_MD.png": "d36b0925f7c5235908b8b5c8d53bab662d90bf3e8fd86eca4e4f3a3dc4191ddd",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/raw/FD.npz": "403c29595870116a9288b7fdf6319b8cd829865df19acd00bd6d11c2802d1b44",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/archives/FD.npz": "5670e536f26ac561743b3854ac4eefa9791d1716e279e4216784237460564096",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/raw_native_sources/FD_RAW_native_crop.png": "96941eb05f6fd3a311c090673b9dff1cc3f2fa129b54e8b45d814ec50bb02e0c",
+    "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/FD/FD.000408.tif": "4e6fec38d582dbbd289784e96f241efb9c86ced17e93bd8030429183a791bcc2",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/FD.npz": "f27bc612c11d68603689c497e3915627f231696cfc793e5aa06deac0ad872be7",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/occlusion_v2/W64/archives/FD.npz": "ad32c26360ddfbfd61a18f8f997e5eb65a5aba41755891190f7829fddbf635a3",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_native_semantic_CPU_v2/queries/FD.npz": "b4ded3c07fcb0c8c3954c82e5e6515877a0a9c525345a8646dbbc38f387cb9f7",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/images/train_FD.png": "9788cd4b1216af63fdbdbe9b30a29392fd59af02d64a92002a6a7b2e8a8b7ec5"
+  },
+  "manual_unknown_exclusions": [
+    "MC closer shoecorner preliminary1361,712 rejected for insufficient conservativeactor margin.",
+    "MD preliminary1285,910 and1300,928 are real actor/omittedshoe; never negatives.",
+    "MD preliminary1367,920 approached foregroundrod/occlusion and was excluded.",
+    "Bright specular actorreflection patches and ambiguous IA shoe/bag contacts excluded; original IA ambiguity remains UNKNOWN."
+  ],
+  "limitations": [
+    "Source visible nonactor class does not mean opticalalpha0, zerodensity, free space, whole-ray empty, or empty behind an opaque object.",
+    "No depth or density-contributor assignment follows from source-ray traversal.",
+    "Points are local within3 cameras, not a full-source silhouette certification.",
+    "Native visual guard excludes identifiable actor material; source noise/blur limits exact contour certainty.",
+    "No fitting usage authorized. Future actual source weights/depth/color and root review required."
+  ],
+  "root_manual_review": {
+    "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_actor_near_floor_review_CPU_v1/root_manual_review.json",
+    "sha256": "dbc48eb076b1483e91aab7d4b9b53219e36c7d285b4cf24dacc94e6428d2e16c"
+  }
+}
