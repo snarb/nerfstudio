@@ -168,10 +168,13 @@ def worker(root, spec):
         env['TUNING_DEPENDENCIES_FILE'] = str(dependency_file.resolve())
         env['TUNING_DEPENDENCIES_SHA256'] = hashlib.sha256(dependency_file.read_bytes()).hexdigest()
     if device: env.update(CUDA_VISIBLE_DEVICES=device['uuid'], CUDA_DEVICE_ORDER='PCI_BUS_ID')
+    if gpu_lock is not None:
+        env['LOOKCLOSER_GPU_LEASE_FD'] = str(gpu_lock.fileno())
     try:
         with (directory/'worker.log').open('ab') as output:
             process = subprocess.Popen(spec['command'],cwd=spec.get('cwd'),env=env,stdin=subprocess.DEVNULL,
-                                       stdout=output,stderr=subprocess.STDOUT,start_new_session=True)
+                                       stdout=output,stderr=subprocess.STDOUT,start_new_session=True,
+                                       pass_fds=(gpu_lock.fileno(),) if gpu_lock is not None else ())
             data.update(status='running', worker=identity(process.pid)); atomic(receipt_path,data)
             while True:
                 code = process.poll(); checkpoint = {'time':time.time(),'worker_alive':code is None,'worker_pid':process.pid}

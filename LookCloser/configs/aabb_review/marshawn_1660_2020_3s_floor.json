@@ -1,0 +1,85 @@
+{
+  "aabb": [
+    [
+      -0.91,
+      -0.26,
+      -0.08
+    ],
+    [
+      0.15,
+      0.5,
+      0.63
+    ]
+  ],
+  "world_to_box": [
+    [
+      0.9996099434998201,
+      0.0038076113038434233,
+      -0.027667001146584703,
+      0.0
+    ],
+    [
+      0.0,
+      0.9906624101928624,
+      0.13633777550946272,
+      0.0
+    ],
+    [
+      0.027927779293854992,
+      -0.13628459607390522,
+      0.9902759958802829,
+      0.1716909230925756
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "source_frames": [
+    1660,
+    1900,
+    1960,
+    2020
+  ],
+  "minimum_tail_margin": 0.025,
+  "floor_parallel": true,
+  "source_full_box": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/common_box.json",
+  "source_full_box_sha256": "bdf73f903420544065680bf1c55c6c864d8ecde99f37e48938cc92cf3ca2d15f",
+  "visual_review_directory": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/tail_native/review_v3_sixview_floor_cleanup",
+  "purpose": "Conservative common box for72independent frames1660..2015 at24fps; both fighters including mat contact",
+  "limitations": [
+    "Not a physical occupancy certificate",
+    "Four sampled times do not certify every intermediate extremum"
+  ],
+  "box_to_world": [
+    [
+      0.9996099434998202,
+      -4.338500950438773e-19,
+      0.02792777929385499,
+      -0.004794946206887683
+    ],
+    [
+      0.0038076113038434238,
+      0.9906624101928626,
+      -0.1362845960739052,
+      0.023398828103227593
+    ],
+    [
+      -0.027667001146584706,
+      0.13633777550946274,
+      0.9902759958802829,
+      -0.1700213998491054
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "coordinate_system": "AABB in rigid floor-aligned frame; oriented box in original prepared world",
+  "record_fps": 120,
+  "output_fps": 24
+}
