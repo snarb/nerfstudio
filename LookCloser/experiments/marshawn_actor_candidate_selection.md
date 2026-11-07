@@ -47,3 +47,23 @@ sheets and fixed-domain metrics. Root personally viewed all three sheets.
 The ZIP SHA256 is`dae98e39d042f0e9582e1610537a8c590963ff9003a47fc45aa3b7830d647b11`.
 These are explicit snapshot choices, not a claim that every enclosed file is
 the latest raw metric minimum. Colored halos and floor fragments remain.
+
+
+The quarter-step + distortion0.1 run subsequently completed naturally at126316.
+Its raw minimum is PSNR31.63973 / SSIM0.831264 / LPIPS0.01877312
+(checkpoint SHA256`340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641`).
+The historical selector60752 remains separately labelled. Its final115-ray
+source audit has no native cap hits; both selected and raw choices converge and
+pass native-render parity. Root personally viewed all three final source/body
+contacts; the outer halo is narrower, but head/floor/bag residuals remain.
+This establishes the current structural/detail candidate, not a clean asset.
+See [interaction evidence](marshawn_quarter_distortion_interaction.md) and
+[the artifact/source diagnosis](marshawn_artifact_source_geometry.md).
+
+At03:11UTC on2026-11-07 the separately released126-fit HD frequency queue began
+on localGPU0 and silverGPU4/7, using unchanged scientific fitter and paired
+camera/host/GPU allocation. No new maps have been assembled into training data
+and no frequency-variant NeRF has launched. The [activation protocol](marshawn_frequency_HD63_activation.md)
+records immutable sources, resource ownership and the subsequent validation gate.
+A same-field SourcePad1 density-selector counterfactual and a matched clear-ray
+continuation remain separate from that preprocessing queue.
