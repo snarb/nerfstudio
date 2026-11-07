@@ -29,3 +29,27 @@ Production root: `/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_cold_lamb
 Cold.1 gives PSNR31.62870/SSIM.846893/LPIPS.03237706 versus reference31.41439/.841056/.03117262: LPIPS worsens3.86%, while PSNR/SSIM improve. Native witness-band mass improves80.23→89.92% old18,83.95→95.15% new66,84.48→94.39% old8 reserves and95.95→99.71% new9 reserves. Old8 early mass falls9.76→2.20%; median10–90 widths improve.03433→.02453/.01928→.01186/.02668→.02015/.01139→.00791. All206 clothing/24 DC convergence and PNG checks pass.
 
 Manual DC-black,HC-grey and KA-black review shows narrower torso haze in places, with visible hair/shoes retained, while floor and hair-adjacent contamination persists. The measured tradeoff supports continuing the unchanged full trajectory, without early quality promotion. [Matched source geometry](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_cold_lambda01_15188_v2/clothing103/report.md), [actual crops](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_cold_lambda01_15188_v2/DC_black_gate_comparison.jpg).
+
+## Natural completion and separate checkpoint choices
+
+Training completed naturally at126316. Trainer1336534 exited and the controller recorded completion; no healthy process was interrupted. The established selector remains91128, while raw minimum LPIPS equals terminal126316. Both distinct weights and actual schema2 grids are protected. The selector and plateau were not changed posthoc.
+
+| Choice | Step | PSNR | SSIM | LPIPS |
+|---|---:|---:|---:|---:|
+| Established selector |91128|31.652626|.840094|.02228724|
+| Raw minimum / terminal |126316|31.651726|.837686|.02135285|
+
+All three GT/reference/selected/raw-min/terminal actor contacts were manually inspected. Relative to originalR0 selected111316, torso and hair-adjacent halos are narrower, while broad floor/bag contamination remains. Feet and hair are visible in these views; this is not a full contour-retention certificate. At the fixed16px exterior margin, alpha>.1 counts DC/HC/KA fall from185261/107305/74830 to121644/79593/54451 at selected91128, and120767/79280/54414 at terminal126316. Checkpoint ages differ explicitly. Exterior opacity is not a physical free-space label.
+
+The durable final watcher passed grid-hash checks and generated all0/3/8/16/32px diagnostics without model queries. [Final choices](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_cold_lambda01_final_choices/complete.json), [exterior evidence](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_cold_lambda01_final_exterior/receipt.json), [DC visual](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_cold_lambda01_final_exterior/DC_black_comparison.jpg).
+
+Final103TRAIN+12DC qualification of both selected91128 and terminal126316 completed under the existing idle-exclusive read-only scope. ActualFR.3 and the original radius/field/admission were preserved. OriginalR0 selected111316 traces were reused by CPU comparison, without duplicate model queries. All309 clothing and36DC dense-convergence/native-PNG checks pass.
+
+| Source group | Native band R0 / cold.1 selected / terminal (%) | Median10–90 width R0 / selected / terminal |
+|---|---|---|
+| Old18 |80.03 /91.31 /91.58|.02962 /.02192 /.02111|
+| New66 |83.12 /95.66 /96.14|.02646 /.00926 /.00803|
+| Old8 reserves |84.22 /92.39 /92.54|.03480 /.01889 /.01842|
+| New9 patch reserves |98.76 /99.97 /99.998|.003224 /.002481 /.002154|
+
+These are accepted-world coordinates, not certified physical units. Narrower distributions do not uniformly improve exact surface alignment: old18 median absolute witness residual.001533→.001794→.001895, old8.000372→.000749→.000857. New66 improves.002685→.001782→.001873. Inherited source uncertainty, hair/clothing ambiguity5568, unobserved surfaces and broad floor contamination remain. No global clean-asset or ideal-grid certificate follows from these local gains. [Final baseline comparison](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_cold_lambda01_final_vs_R0/clothing103/comparison.json), [signed depth and widths](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_cold_lambda01_final_vs_R0/clothing103/depth_residuals.json).
