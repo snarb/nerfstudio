@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "CPU_only": true,
+  "GPU_started": false,
+  "source_files": 1506,
+  "all_science_bytes_identical": true,
+  "anchor_seven_hashes_identical": true,
+  "anchor_checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "actual_Adam": {
+    "fields": [
+      126262.0
+    ]
+  },
+  "root_policy_sha256": "40e492e11ebb6053cd793f1ca1f4b54f3525e0e26d3e5638121b61d88bf78700",
+  "source_grid_sha256": "a7e3d3703f9bb693c095bd5cd715f92b9ac048b3f96082dd95b39ac5db452328",
+  "source_grid_cells": 91703,
+  "prior_W64_cells": 105049,
+  "tested_W64_centers": 105049,
+  "actual_W32_selector_retains": 91703,
+  "actual_W32_selector_excludes": 13346,
+  "actual_runtime_matches_audited_lookup": true,
+  "global_torch_RNG_unchanged": true,
+  "CPU_config_sampler_resume_sha256": "6da14f9150e9ffd2bfb4c2a625e80040205494a5ecf3721aa0846e25f84e47d8",
+  "original_RGB_width": 64,
+  "no_actual_root_releases": true,
+  "imported_runtime": {
+    "path": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/code/LookCloser/scripts/marshawn_margin_continuation_policy.py",
+    "sha256": "a040b0d33fa1eb7a802370e7c587e25450b89d4b8efeb8c2bc7b730bd72a4422"
+  }
+}

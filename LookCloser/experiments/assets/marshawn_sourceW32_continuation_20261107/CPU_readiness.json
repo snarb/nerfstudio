@@ -1,0 +1,104 @@
+{
+  "passed": true,
+  "CPU_only": true,
+  "manifest_sha256": "3b7632524656c4b6599936d7bc8093320c5db628ed1937118bb091e905d08f8d",
+  "source_sampling_sha256": "6b175a5a30bd6f67001fe3e006738002d4e3a7fe85d2f619e0d0d04c39288aa6",
+  "source_structure_sha256": "5d1bdeb26160ea162f710e4ef9e44b9a87f917ced522ccce4859cd3c46a00b00",
+  "config_differences_from_common_actual_resume": {
+    "zero_original_mapped": {
+      ".output_dir": {
+        "before": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/reference_output",
+        "after": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/runs/zero_original_mapped"
+      }
+    },
+    "zero_source_margin002": {
+      ".output_dir": {
+        "before": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/reference_output",
+        "after": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/runs/zero_source_margin002"
+      }
+    },
+    "technical_original_mapped": {
+      ".output_dir": {
+        "before": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/reference_output",
+        "after": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/runs/technical_original_mapped"
+      }
+    },
+    "technical_source_margin002": {
+      ".output_dir": {
+        "before": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/reference_output",
+        "after": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/runs/technical_source_margin002"
+      }
+    },
+    "production_original_mapped": {
+      ".output_dir": {
+        "before": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/reference_output",
+        "after": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/runs/production_original_mapped"
+      }
+    },
+    "production_source_margin002": {
+      ".output_dir": {
+        "before": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/reference_output",
+        "after": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/runs/production_source_margin002"
+      }
+    }
+  },
+  "actual_resume_vs_historical_initial_config": {
+    ".output_dir": {
+      "before": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_quarter_distortion_candidate_20261107/run",
+      "after": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/reference_output"
+    },
+    ".load_checkpoint": {
+      "before": null,
+      "after": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/anchor/checkpoint.ckpt"
+    },
+    ".pipeline.model.distortion_loss_mult": {
+      "before": 0.01,
+      "after": 0.1
+    }
+  },
+  "actual_common_distortion": 0.1,
+  "restored_FR_expected": 0.3,
+  "source_Adam": {
+    "fields": [
+      126262.0
+    ]
+  },
+  "policies": {
+    "original_mapped": {
+      "normalizer": 0.6893199440385297,
+      "original_W64_pools_FAS_exact": true,
+      "same_first_indices_weights_and_RNG": true,
+      "installation_RNG_unchanged": true,
+      "fresh_private_sampler_and_selector_roundtrip_exact": true,
+      "tampered_selector_and_normalizer_rejected": true
+    },
+    "source_margin002": {
+      "normalizer": 0.6893199440385297,
+      "original_W64_pools_FAS_exact": true,
+      "same_first_indices_weights_and_RNG": true,
+      "installation_RNG_unchanged": true,
+      "fresh_private_sampler_and_selector_roundtrip_exact": true,
+      "tampered_selector_and_normalizer_rejected": true
+    }
+  },
+  "separate_tracker": {
+    "schema_version": 1,
+    "anchor_step": 130316,
+    "interval": 5000,
+    "patience": 4,
+    "loss_relative_delta": 0.001,
+    "lpips_absolute_delta": 0.001,
+    "last_step": 150316,
+    "last_loss": 0.1,
+    "last_lpips": 0.02,
+    "significant_loss": 0.1,
+    "significant_lpips": 0.02,
+    "loss_misses": 4,
+    "lpips_misses": 4,
+    "stopped": true
+  },
+  "minimum_no_improvement_attempts": 24000,
+  "zero_FHD_fullmodel_and_density_gates": "PENDING_NOT_RUN",
+  "technical_actual_Adam32_plus32": "PENDING_NOT_RUN",
+  "GPU_or_training_started": false
+}

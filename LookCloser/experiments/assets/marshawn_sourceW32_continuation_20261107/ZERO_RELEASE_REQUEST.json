@@ -1,0 +1,62 @@
+{
+  "reviewer_requested": "root",
+  "GPU_started": false,
+  "root_releases_written": false,
+  "phase_requested": "zero_only",
+  "local_root": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_sourceW32_margin_continuation_v1",
+  "remote_root": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1",
+  "source_files_byteidentical": 1506,
+  "policy_sha256": "40e492e11ebb6053cd793f1ca1f4b54f3525e0e26d3e5638121b61d88bf78700",
+  "CPU_binding_verification_sha256": "d44af5fd942ff898f2c440465276a9a4ea15ae33e25becaa9de6e1d4ba1b6f92",
+  "CPU_readiness_sha256": "6da14f9150e9ffd2bfb4c2a625e80040205494a5ecf3721aa0846e25f84e47d8",
+  "source_manifest_sha256": "cd39d754c2a751ff017f79f9c750e39487fca26b68860b8653aea7f950184a82",
+  "protocol_sha256": "8015125c62964de4ec4999fec5116b96c7fc1e15da4b8b38ab40acc507883b65",
+  "margin_manifest_sha256": "3b7632524656c4b6599936d7bc8093320c5db628ed1937118bb091e905d08f8d",
+  "scope": "Both source-zero states only, no optimizer; full3FHD A before gate then ownA/W32+.002 and native density proof; strict source7/cache/RNG/LUT unchanged",
+  "requested_receipts": {
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_sourceW32_margin_continuation_v1/specs/zero_original_mapped/root_release.json": {
+      "exact_fields_if_root_approves": {
+        "reviewer": "root",
+        "technical_authorized": true,
+        "production_authorized": false,
+        "spec_sha256": "8f88a139ae8d5747cfa60b48856ab8de376996af57314a2b7ec69fbcd075abc0",
+        "margin_manifest_sha256": "3b7632524656c4b6599936d7bc8093320c5db628ed1937118bb091e905d08f8d",
+        "zero_reference_sha256": "00aaa217e8be5b3f548ec022549cf2290077e165b6aab5bfb8d8107a166a78cd"
+      },
+      "template_sha256": "96dc4293fb0ae668e322ca5b08c041a6279c37ca290b930b50b4966b82a9d448"
+    },
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_sourceW32_margin_continuation_v1/specs/zero_source_margin002/root_release.json": {
+      "exact_fields_if_root_approves": {
+        "reviewer": "root",
+        "technical_authorized": true,
+        "production_authorized": false,
+        "spec_sha256": "3647f2b579f873f5b4e0ee99e32cc83f5dadce204f6d07b2ac3499b4617a9293",
+        "margin_manifest_sha256": "3b7632524656c4b6599936d7bc8093320c5db628ed1937118bb091e905d08f8d",
+        "zero_reference_sha256": "9ebaed68b4c1d4e796e1037c1dc55a8700121cc3c9cb0b61e8c6efdf34cc9557"
+      },
+      "template_sha256": "5788510f90b8dc853507e994483fb59aabca139e224818399a095c5562ca9c41"
+    },
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_sourceW32_margin_continuation_v1/external_guard_margin_v1/zero_guard_release.json": {
+      "exact_fields_if_root_approves": {
+        "reviewer": "root",
+        "external_guard_authorized": true,
+        "policy_sha256": "40e492e11ebb6053cd793f1ca1f4b54f3525e0e26d3e5638121b61d88bf78700",
+        "authorized_phases": [
+          "zero"
+        ],
+        "protocol_sha256": "8015125c62964de4ec4999fec5116b96c7fc1e15da4b8b38ab40acc507883b65",
+        "CPU_readiness_sha256": "6da14f9150e9ffd2bfb4c2a625e80040205494a5ecf3721aa0846e25f84e47d8"
+      },
+      "template_sha256": "e9b3a71e5a4ba572da5ad38df21a67ed658349462a4e2e1f42bd22844dbb71b3"
+    }
+  },
+  "launch_after_exact_review": [
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/python",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_sourceW32_margin_continuation_v1/external_guard_margin_v1/guardian.py",
+    "launch",
+    "--policy",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_sourceW32_margin_continuation_v1/external_guard_margin_v1/policy.json",
+    "--phase",
+    "zero"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "unchanged_guard_core_functions": [
+    "identity",
+    "same",
+    "authorized_worker",
+    "event",
+    "fail",
+    "bounded_error",
+    "clear_errors",
+    "phase_status",
+    "signal_due",
+    "final_record",
+    "ssh_script",
+    "check_limits",
+    "require_phase_proof"
+  ],
+  "inherited_guardian_sha256": "1c05648f509b39da8e00317ddaf8b1d6964ffaa371739b414c4175d37058adaf",
+  "policy_sha256": "40e492e11ebb6053cd793f1ca1f4b54f3525e0e26d3e5638121b61d88bf78700",
+  "science1506byteidentical": true,
+  "launch_origin": "LOCAL_OLIVE_ONLY",
+  "production_deadline": null,
+  "GPU_started": false
+}

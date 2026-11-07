@@ -1,0 +1,75 @@
+{
+  "version": 3,
+  "process_cap_MiB": 16384,
+  "worker_allocator_GiB": 10,
+  "term_grace_seconds": 25,
+  "heartbeat_timeout_seconds": 90,
+  "max_consecutive_errors": 3,
+  "max_error_seconds": 30,
+  "poll_seconds": 5,
+  "local_root": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_sourceW32_margin_continuation_v1",
+  "remote_root": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1",
+  "local_python": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/python",
+  "controller_path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/transport_v2_code/LookCloser/scripts/marshawn_tuning_controller.py",
+  "address": "ubuntu@silver-sable",
+  "worker_path": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/code/LookCloser/scripts/train_marshawn_margin_continuation.py",
+  "guardian_sha256": "c1f4433150b373aed48faa782495c1a5cc4f3142e19e98c6c664b8b7ce752d2c",
+  "controller_sha256": "2e7a1be53794882ffc3c0a6a82fff3cc24070b36fbf7593e65771772e0dadf39",
+  "phase_plans": {
+    "zero": "external_guard_margin_v1/zero_plan.json",
+    "technical": "external_guard_margin_v1/technical_plan.json",
+    "production": "external_guard_margin_v1/production_plan.json"
+  },
+  "phase_deadlines": {
+    "zero": 900,
+    "technical": 900,
+    "production": null
+  },
+  "deadline_seconds_per_invocation": null,
+  "approved_gpu_indices": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    6
+  ],
+  "approved_gpu_UUIDs": {
+    "0": "GPU-6a8bbc85-5a77-8d62-ab18-560955f0dc65",
+    "1": "GPU-26c63492-0230-896f-208e-10e4eaca4c3c",
+    "2": "GPU-279718e7-9e60-e5f2-53aa-65ff7dd03f37",
+    "3": "GPU-c024b6e2-0def-f4fd-c18a-64b95975effd",
+    "5": "GPU-216eac5a-c2f3-4bc5-d4e8-1a6f9cbd9b9a",
+    "6": "GPU-a53fcf27-02c4-c737-9269-0623ec25a6d9"
+  },
+  "root_receipts": {
+    "protocol.json": "8015125c62964de4ec4999fec5116b96c7fc1e15da4b8b38ab40acc507883b65",
+    "CPU_readiness.json": "6da14f9150e9ffd2bfb4c2a625e80040205494a5ecf3721aa0846e25f84e47d8"
+  },
+  "launch_origin": "LOCAL_OLIVE_C_ONLY",
+  "science_snapshot_unchanged": true,
+  "prepared_bindings": {
+    "source_manifest.json": "cd39d754c2a751ff017f79f9c750e39487fca26b68860b8653aea7f950184a82",
+    "margin/manifest.json": "3b7632524656c4b6599936d7bc8093320c5db628ed1937118bb091e905d08f8d",
+    "anchor_audit.json": "8e0bffc0c9af163e723a121c7a44b66a42d7e25ee8c37d3215ac3e733d9c0c2b",
+    "protocol.json": "8015125c62964de4ec4999fec5116b96c7fc1e15da4b8b38ab40acc507883b65",
+    "CPU_readiness.json": "6da14f9150e9ffd2bfb4c2a625e80040205494a5ecf3721aa0846e25f84e47d8",
+    "specs/production_source_margin002/spec.json": "04cee62fedc678d7048e1085b0421b145230ba463274c0a42fd2cbf6ae568459",
+    "specs/technical_source_margin002/spec.json": "c1beb665d80f5deaa0d3f52116d921acc79265fb30eab1b3063610775cd9ce25",
+    "specs/zero_original_mapped/spec.json": "8f88a139ae8d5747cfa60b48856ab8de376996af57314a2b7ec69fbcd075abc0",
+    "specs/production_original_mapped/spec.json": "9d4fadbd4099c22756524f10f612f097802e00c5d3e0e82ccfa832786b9845f1",
+    "specs/zero_source_margin002/spec.json": "3647f2b579f873f5b4e0ee99e32cc83f5dadce204f6d07b2ac3499b4617a9293",
+    "specs/technical_original_mapped/spec.json": "3bb8b02b26e9e1f45ae97b93b95f6f5fe109de417b76acc12f41adb98f375926",
+    "zero_references/source_margin002/reference.json": "9ebaed68b4c1d4e796e1037c1dc55a8700121cc3c9cb0b61e8c6efdf34cc9557",
+    "zero_references/original_mapped/reference.json": "00aaa217e8be5b3f548ec022549cf2290077e165b6aab5bfb8d8107a166a78cd",
+    "source_evidence/W32_readonly_policy.json": "c63ffb131d84e9cdf44cb6c7867ba24a73f0573b7729f5b12c2d609c3b1c690d",
+    "source_evidence/W32_readonly_complete.json": "0cc7beafe44ec01046a339f853ea1d4601f1e6f7cd7d7f88168c39ec9edd1b32",
+    "source_evidence/root_manual_review.json": "df9163726ef1a19fea2c7f7ecb5b92d583fb80aefc86f26686d2779f84ce44f1",
+    "source_evidence/fourway_CPU.json": "cad40fa91cc8a42925febb2ebbc70070b89e56e80fd2afb305200c2d32640258",
+    "source_evidence/W32_readonly_release.json": "d374a38a675d056ef4ce407a7dfa70d9c55ae17447b0ceade6a099e9b439abd9",
+    "external_guard_margin_v1/zero_plan.json": "5d70d8c222aff8ce92363847fbfcf39756c3757aa42ccf08233c009f6f60e030",
+    "external_guard_margin_v1/technical_plan.json": "95ed1c7f27957eaa57910a095af381b11a61a6c7eb0da9f544ea96d35675ea61",
+    "external_guard_margin_v1/production_plan.json": "c3fc65a7c484fdcb70b1308af86a51eee5d1b1673ea3b87fe3d4a1892aba2633",
+    "external_guard_margin_v1/guardian.py": "c1f4433150b373aed48faa782495c1a5cc4f3142e19e98c6c664b8b7ce752d2c"
+  }
+}

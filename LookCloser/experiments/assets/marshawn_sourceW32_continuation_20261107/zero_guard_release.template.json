@@ -1,0 +1,10 @@
+{
+  "reviewer": "root",
+  "external_guard_authorized": false,
+  "policy_sha256": "40e492e11ebb6053cd793f1ca1f4b54f3525e0e26d3e5638121b61d88bf78700",
+  "authorized_phases": [
+    "zero"
+  ],
+  "protocol_sha256": "8015125c62964de4ec4999fec5116b96c7fc1e15da4b8b38ab40acc507883b65",
+  "CPU_readiness_sha256": "6da14f9150e9ffd2bfb4c2a625e80040205494a5ecf3721aa0846e25f84e47d8"
+}

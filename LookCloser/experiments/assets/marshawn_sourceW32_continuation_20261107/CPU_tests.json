@@ -1,0 +1,6 @@
+{
+  "passed": true,
+  "tests": 9,
+  "log": "bringing up nodes...\nbringing up nodes...\n\n.........                                                                [100%]\n9 passed in 1.88s\n",
+  "GPU_started": false
+}

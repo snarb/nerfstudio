@@ -1,0 +1,15 @@
+{
+  "CPU_only": true,
+  "GPU_started": false,
+  "releases_created": false,
+  "science_files_byte_identical_to_qualified_MG": 1506,
+  "original1495_unchanged": true,
+  "source_manifest_sha256": "cd39d754c2a751ff017f79f9c750e39487fca26b68860b8653aea7f950184a82",
+  "worker_sha256": "88c46a53d291fa275a6c246e4bea2afee7b8395d8ca55c745d66f51c08414eb6",
+  "source_geometry_width": 32,
+  "RGB_confidence_width": 64,
+  "parent_fresh126316": true,
+  "source_checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "source_actual_Adam": 126262,
+  "phase_gates": "ZERO then32+32 then separatelyreleasedfreshproduction; no inheritedW64 actualGPUproof mislabel"
+}
