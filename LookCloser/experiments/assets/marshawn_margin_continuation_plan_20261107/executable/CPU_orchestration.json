@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "unchanged_guard_core_functions": [
+    "identity",
+    "same",
+    "authorized_worker",
+    "event",
+    "fail",
+    "bounded_error",
+    "clear_errors",
+    "phase_status",
+    "signal_due",
+    "final_record",
+    "ssh_script",
+    "check_limits",
+    "require_phase_proof"
+  ],
+  "inherited_guardian_sha256": "4ad8faec50f96be73c54b2661061cae12f985d3eccd7e5c0bceedafe0135a863",
+  "policy_sha256": "930881d66b1239a9db3f1748c3494448faff125f485274ffb2cd9d1e36b34626",
+  "worker_science_unchanged": true,
+  "launch_origin": "LOCAL_OLIVE_ONLY",
+  "remote_guardian_only": true,
+  "production_deadline": null,
+  "GPU_started": false
+}

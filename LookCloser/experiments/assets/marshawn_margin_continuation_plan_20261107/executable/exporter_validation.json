@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "records": 18,
+  "max_error": {
+    "psnr": 0.0,
+    "ssim": 0.0,
+    "lpips": 0.0
+  },
+  "CPU_only": true,
+  "source_sha256": "34f8df7d9f83410fc3cf6d9805c76483a53a627bb67df1b105f7f7fa2c90baad"
+}

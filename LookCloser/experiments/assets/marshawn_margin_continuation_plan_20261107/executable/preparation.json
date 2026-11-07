@@ -1,0 +1,18 @@
+{
+  "CPU_only": true,
+  "source_checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "source_actual_Adam": {
+    "fields": [
+      126262.0
+    ]
+  },
+  "remote_root": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_margin_continuation_candidate_v1",
+  "local_root": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_margin_continuation_candidate_v1",
+  "immutable_parent_files": 1495,
+  "added_helpers": 11,
+  "GPU_started": false,
+  "releases_created": false,
+  "root_protocol_sha256": "659842196fa0351e48a5bf847433e582de48d08666b5486250f783126d2a083e",
+  "production_fresh_parent": true,
+  "one_scientific_factor": "SourcePad1+.002 density selector; original mapped traversal retained"
+}

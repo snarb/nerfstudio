@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "local_only_launch": true,
+  "missing_predecessors_rejected": true,
+  "all_bound_artifacts_verified": 17,
+  "phase_jobs": [
+    2,
+    4,
+    2
+  ],
+  "memory_and_deadline_fail_closed": true,
+  "production_no_deadline": true,
+  "CPU_only": true,
+  "CUDA_or_training_started": false,
+  "policy_sha256": "930881d66b1239a9db3f1748c3494448faff125f485274ffb2cd9d1e36b34626",
+  "tests": "11 passed",
+  "tests_log_sha256": "97fe4551ba9c1a9b0fec4996f8bd931235e282f0e0a305ce06358ab897f89f95"
+}

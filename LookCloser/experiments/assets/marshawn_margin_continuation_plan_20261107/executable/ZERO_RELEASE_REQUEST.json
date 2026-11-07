@@ -1,0 +1,49 @@
+{
+  "status": "READY_FOR_EXACT_ROOT_ZERO_REVIEW_NO_GPU_LAUNCH",
+  "local_root": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_margin_continuation_candidate_v1",
+  "remote_root": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_margin_continuation_candidate_v1",
+  "worker": "code/LookCloser/scripts/train_marshawn_margin_continuation.py",
+  "source_manifest_sha256": "cd39d754c2a751ff017f79f9c750e39487fca26b68860b8653aea7f950184a82",
+  "guard_template": {
+    "reviewer": "root",
+    "external_guard_authorized": false,
+    "policy_sha256": "930881d66b1239a9db3f1748c3494448faff125f485274ffb2cd9d1e36b34626",
+    "authorized_phases": [
+      "zero"
+    ],
+    "protocol_sha256": "659842196fa0351e48a5bf847433e582de48d08666b5486250f783126d2a083e",
+    "CPU_readiness_sha256": "5c11e1bf4d58beeee4e65be13475cd0d700948d06c0e7e937aba47a0a1d9bdc7"
+  },
+  "worker_templates": {
+    "original_mapped": {
+      "reviewer": "root",
+      "technical_authorized": false,
+      "production_authorized": false,
+      "spec_sha256": "97eb9d0e9b414e3f5f77cbfb8b8f01b8f8a1ac29ca558b1b01f074eadcb6ab68",
+      "margin_manifest_sha256": "ee335069afd93eeb4f44129be7135571997575abfea20bd8de475a0c365fc9d5",
+      "zero_reference_sha256": "39e6b28bd8a0796f885bc6a030d2154151ecbb8e00f9cf54417e7547de95d8f5"
+    },
+    "source_margin002": {
+      "reviewer": "root",
+      "technical_authorized": false,
+      "production_authorized": false,
+      "spec_sha256": "02913ba3569bd54a1e0043ed3fc422ef1d139a47cddbd7bd2db6f2204afd3146",
+      "margin_manifest_sha256": "ee335069afd93eeb4f44129be7135571997575abfea20bd8de475a0c365fc9d5",
+      "zero_reference_sha256": "f9a07a1642e84d1aced9f95471d7e9f3df92a92fb2b89c7f7406da7a86b3828a"
+    }
+  },
+  "write_rules": [
+    "Only root sets technical_authorized=true in two exact ZERO worker templates; production_authorized stays false.",
+    "Only root sets external_guard_authorized=true in zero_guard_release.json; authorized_phases remains [zero].",
+    "Copy all three exact receipts to identical relative remote paths, rehash; local olive launches guardian."
+  ],
+  "launch": [
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/python",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_margin_continuation_candidate_v1/external_guard_margin_v1/guardian.py",
+    "launch",
+    "--policy",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_margin_continuation_candidate_v1/external_guard_margin_v1/policy.json",
+    "--phase",
+    "zero"
+  ]
+}
