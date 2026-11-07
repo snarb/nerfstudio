@@ -2,9 +2,9 @@
 
 ## What was inspected
 
-Scene experiments remain proposed; an optional schedule and synthetic technical
-check are implemented below. No new scene fits, dataset edits, or changes to the
-approved63-camera queue. Primary references are [the local paper](../Paper%20LookCloser.md)
+The 3D frequency comparisons remain pending; an optional schedule, synthetic
+technical check, and isolated TRAIN map pilot are implemented below. The pilot
+does not edit datasets or the approved63-camera queue. Primary references are [the local paper](../Paper%20LookCloser.md)
 §4.1 and §7.3, and `nerfstudio/scripts/lookcloser_preprocess.py` lines813–1000.
 The inspected source SHA is
 `f1a3b3dbc2a72b4173c3e943ed4cd21f19526b97c7e9761e9f8150199c061855`,
@@ -109,3 +109,29 @@ unchanged V1 measurements remain comparable. No map is promoted from its
 censor rate, and a lower rate does not certify better 3D detail or temporal
 stability. Additional threshold variants or combinations follow only a
 substantial measured gain. Frequency remains the final tuning stage.
+
+## Isolated HD map pilot, 7 November
+
+`scripts/pilot_marshawn_frequency_variants.py` runs full 1920×1012 images from
+TRAIN cameras AA, HA and MA, using the original HD1000-update level budget,
+patch8/window7, 16 levels, resolutions16–8192, hash23 and batch16384. Each camera
+gets a new baseline, an unchanged repeat, LR decay A and threshold B. Baseline
+and threshold B leave the new LR option unset. This pilot prepares evidence
+for the final frequency stage; no NeRF recipe or training dataset is replaced.
+
+Every input image, source metadata, preprocessing module and worker is bound
+by SHA. The worker imports the specified preprocessing module by absolute
+path and records its actual path. Read-only SSIM counters retain exact censor
+masks; Adam construction and the first eight random draws are recorded with
+final RNG. These checks do not certify full numerical equivalence. The repeated
+baseline measures existing variation independently of the intended factors.
+
+The isolated generation is `tuning_20261106/frequency_HD_variants_pilot_v1`.
+Its plan SHA is `927ab5a99439ab6909893035c4226a7c73c426876208d3fb489cfaaef511431b`;
+the worker SHA is `f8be51932edca5084a4c5f26a94bdfc6a3d1ee6547c2eb6cbea6e1986278fb4d`.
+It runs under the shared exclusive silverGPU6 lease, a4GiB Torch allocator
+cap and an external3600-second timeout. Startup confirmed the timeout and
+worker PIDs alive, imported-source identity correct, baseline level3 progress,
+and2458MiB process GPU memory. Outputs remain outside all training datasets.
+Final maps, counts and source-bound receipts are still pending; no map is
+promoted on censor rate alone.
