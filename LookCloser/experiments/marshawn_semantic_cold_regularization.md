@@ -23,3 +23,9 @@ Local watcher2103917 preserves ongoing evaluation/grid/render evidence. First151
 A separate read-only watcher retains established-selector, raw minimum-LPIPS and terminal checkpoints with actual grids and renders. This does not change either selector or plateau. The minimum-LPIPS Pareto point and terminal are already protected by worker retention; the explicit archive makes them reviewable together. Future selected reviews also include root's CPU saved-alpha exterior diagnostic, with unequal checkpoint ages stated.
 
 Production root: `/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_cold_lambda01_candidate_20261106`. First-gate report root: `/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_cold_lambda01_15188_v2`. Production quality is pending; technical validity is not a clean-asset or ideal-grid certificate.
+
+## First15188 gate
+
+Cold.1 gives PSNR31.62870/SSIM.846893/LPIPS.03237706 versus reference31.41439/.841056/.03117262: LPIPS worsens3.86%, while PSNR/SSIM improve. Native witness-band mass improves80.23→89.92% old18,83.95→95.15% new66,84.48→94.39% old8 reserves and95.95→99.71% new9 reserves. Old8 early mass falls9.76→2.20%; median10–90 widths improve.03433→.02453/.01928→.01186/.02668→.02015/.01139→.00791. All206 clothing/24 DC convergence and PNG checks pass.
+
+Manual DC-black,HC-grey and KA-black review shows narrower torso haze in places, with visible hair/shoes retained, while floor and hair-adjacent contamination persists. The measured tradeoff supports continuing the unchanged full trajectory, without early quality promotion. [Matched source geometry](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_cold_lambda01_15188_v2/clothing103/report.md), [actual crops](/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_cold_lambda01_15188_v2/DC_black_gate_comparison.jpg).
