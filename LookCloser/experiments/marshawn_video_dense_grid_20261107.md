@@ -168,3 +168,65 @@ Evidence under the SOURCE campaign:
 `operations/witness1675_corrected/native5/native_report.json`,
 `operations/witness1675_corrected/old_failed_rays_retest.json`,
 `operations/hair_unknown_manual66/independent_review.json`.
+
+## Same-checkpoint render recovery on1670
+
+All variants below use the completed140000-iteration model
+`ccd0da52ad069beaaf93c7ebd3e9b79343242b0d7d0f7e6ce63e9c332cc42015`.
+The checkpoint, MLP, EMA, training recipe and source admission stay unchanged.
+The baseline has37821 learned active cells. Candidate cells are restricted to
+the original source admission and the global one-cell neighborhood of R0.
+
+The saved-EMA threshold .009 adds1457 cells but barely restores opacity at the
+three failed rays (.00634/.00234/.00194); a traversal hit is insufficient to
+fix the visible hole. Selecting only cells traversed by those rays adds30.
+A one-cell footprint guard around these30, clipped to global R1, adds145
+(+.38%). This is a local guard, not global R2. The read-only constructor is
+`scripts/build_marshawn_contour_grid_candidate.py`; parallel and half-open
+cell intersections, actual30/145-cell replay, immutable resume and rejection
+of conflicting output revisions passed CPU qualification.
+
+The145-cell candidate was rendered on all66 actual camera crops containing
+both actors and64HD pixels of context, with no resizing. PSNR is measured on
+each actual actor mask. Spatial AlexNet LPIPS and SSIM use identical neutral
+RGB outside that actor and average only inside it. Equal actor/camera means
+below contain132 measurements. All66 cameras are training views: these are
+in-sample diagnostics, not held-out quality estimates.
+
+| Same1670 model / render policy | PSNR | SSIM | LPIPS |
+|---|---:|---:|---:|
+|Original R0|45.941303|.991698137|.002353679|
+|Local145-cell secondary on every ray|45.925297|.991686942|.002355341|
+|Use secondary only where primary alpha equals zero|45.942275|.991698671|.002351804|
+
+Applying the secondary to every ray slightly regresses the overall mean and
+some individual views, despite improving the known ND black-actor contour.
+It is not promoted. Exact-empty recovery preserves every nonempty primary
+ray bitwise. On these66 crops it improves ND black-actor PSNR by.128371dB and
+LPIPS by.000247524; all other65 camera/actor pairs and every grey-actor score
+remain unchanged. There are no paired actor-view regressions.6250 context
+rays are recovered; this count includes background pixels.
+
+ROOT inspected the actual full4K V4 record2 recovery and the native ND
+RGB/alpha comparison. The known stepped black hole is reduced but a narrow
+residual remains where primary alpha is tiny and nonzero. Floor fragments
+and the broad hair shell remain; neither candidate certifies physically
+correct geometry or a clean background. Exact-empty recovery therefore
+remains an experimental inference guard, not a complete fix. A finite cached
+CPU comparison of thresholds0/.001/.01/.05 is pending, with no further GPU
+grid variants queued.
+
+`scripts/marshawn_empty_ray_recovery.py` requires the same checkpoint and
+camera-ray binding for both geometry caches, copies RGB/alpha/depth quantiles
+only on selected empty rays, and rejects unrelated checkpoints. Actual66-view
+replay passed. Float32 accumulation can exceed1 by a few ULPs (native maximum
+1.00000143); validation allows1e-5 without clipping or changing source values.
+`scripts/evaluate_marshawn_actor_contexts.py` binds source/prediction hashes
+and measures the unchanged actor masks. Target RGB participates only in
+measurement, never in selecting recovery pixels.
+
+Evidence in the capped campaign under `operations/contour_runtime_001670/`:
+`general_candidate_durability_qualification/`,
+`all66_R0_Halo145_actor_contexts/`, `empty_ray_recovery/actor_metrics/complete.json`,
+`empty_ray_recovery/ROOT_native_ND_empty_recovery_comparison.png`, and
+`empty_ray_recovery/EmptyRayRecovery_V4_record2_4K.png`.
