@@ -1,0 +1,263 @@
+{
+  "step": 20000,
+  "metrics": {
+    "source126316": {
+      "psnr": 31.63972670843312,
+      "ssim": 0.831264058748881,
+      "lpips": 0.018773120517532032
+    },
+    "control23": {
+      "psnr": 31.893421303792252,
+      "ssim": 0.8499480485916138,
+      "lpips": 0.021912019078930218
+    },
+    "corrected23": {
+      "psnr": 31.87856737047389,
+      "ssim": 0.8500396907329559,
+      "lpips": 0.021688817689816158
+    }
+  },
+  "corrected_minus_control": {
+    "psnr": -0.014853933318363488,
+    "ssim": 9.164214134216309e-05,
+    "lpips": -0.00022320138911405968
+  },
+  "per_view": {
+    "source126316": {
+      "DC": {
+        "psnr": 31.928317784803568,
+        "ssim": 0.8286823630332947,
+        "lpips": 0.02148943580687046
+      },
+      "HC": {
+        "psnr": 31.601697059452533,
+        "ssim": 0.832050085067749,
+        "lpips": 0.016353829763829708
+      },
+      "KA": {
+        "psnr": 31.38916528104327,
+        "ssim": 0.8330597281455994,
+        "lpips": 0.018476095981895924
+      }
+    },
+    "control23": {
+      "DC": {
+        "psnr": 32.370819213323315,
+        "ssim": 0.8488558828830719,
+        "lpips": 0.025465643033385277
+      },
+      "HC": {
+        "psnr": 31.814645327321468,
+        "ssim": 0.8502478897571564,
+        "lpips": 0.01995541900396347
+      },
+      "KA": {
+        "psnr": 31.494799370731972,
+        "ssim": 0.850740373134613,
+        "lpips": 0.02031499519944191
+      }
+    },
+    "corrected23": {
+      "DC": {
+        "psnr": 32.27868429529664,
+        "ssim": 0.8493110537528992,
+        "lpips": 0.02567519061267376
+      },
+      "HC": {
+        "psnr": 31.651159709352456,
+        "ssim": 0.8508376777172089,
+        "lpips": 0.020036141388118267
+      },
+      "KA": {
+        "psnr": 31.705858106772567,
+        "ssim": 0.8499703407287598,
+        "lpips": 0.019355121068656445
+      }
+    }
+  },
+  "outside16_V1_alpha_above01_pixels": {
+    "source126316": {
+      "DC": 118260,
+      "HC": 79892,
+      "KA": 54994
+    },
+    "control23": {
+      "DC": 130590,
+      "HC": 86678,
+      "KA": 57953
+    },
+    "corrected23": {
+      "DC": 128883,
+      "HC": 88052,
+      "KA": 58856
+    }
+  },
+  "existing_actor_opacity_diagnostics": {
+    "source126316": [
+      {
+        "view": "DC",
+        "actor": "black",
+        "eroded_pixels": 45559,
+        "below09_fraction": 0.03187076099124213,
+        "trigger": true
+      },
+      {
+        "view": "DC",
+        "actor": "grey",
+        "eroded_pixels": 28743,
+        "below09_fraction": 0.0007654037504783774,
+        "trigger": false
+      },
+      {
+        "view": "HC",
+        "actor": "black",
+        "eroded_pixels": 35296,
+        "below09_fraction": 0.03955122393472348,
+        "trigger": true
+      },
+      {
+        "view": "HC",
+        "actor": "grey",
+        "eroded_pixels": 27480,
+        "below09_fraction": 0.0002183406113537118,
+        "trigger": false
+      },
+      {
+        "view": "KA",
+        "actor": "black",
+        "eroded_pixels": 28831,
+        "below09_fraction": 0.023308244597828726,
+        "trigger": true
+      },
+      {
+        "view": "KA",
+        "actor": "grey",
+        "eroded_pixels": 25770,
+        "below09_fraction": 0.009274350019402406,
+        "trigger": false
+      }
+    ],
+    "control23": [
+      {
+        "view": "DC",
+        "actor": "black",
+        "eroded_pixels": 45559,
+        "below09_fraction": 0.0363704207730635,
+        "trigger": true
+      },
+      {
+        "view": "DC",
+        "actor": "grey",
+        "eroded_pixels": 28743,
+        "below09_fraction": 0.0007654037504783774,
+        "trigger": false
+      },
+      {
+        "view": "HC",
+        "actor": "black",
+        "eroded_pixels": 35296,
+        "below09_fraction": 0.06048844061650045,
+        "trigger": true
+      },
+      {
+        "view": "HC",
+        "actor": "grey",
+        "eroded_pixels": 27480,
+        "below09_fraction": 0.00040029112081513827,
+        "trigger": false
+      },
+      {
+        "view": "KA",
+        "actor": "black",
+        "eroded_pixels": 28831,
+        "below09_fraction": 0.032673164302313484,
+        "trigger": true
+      },
+      {
+        "view": "KA",
+        "actor": "grey",
+        "eroded_pixels": 25770,
+        "below09_fraction": 0.011796662786185488,
+        "trigger": true
+      }
+    ],
+    "corrected23": [
+      {
+        "view": "DC",
+        "actor": "black",
+        "eroded_pixels": 45559,
+        "below09_fraction": 0.029829451919489013,
+        "trigger": true
+      },
+      {
+        "view": "DC",
+        "actor": "grey",
+        "eroded_pixels": 28743,
+        "below09_fraction": 0.0007306126709111783,
+        "trigger": false
+      },
+      {
+        "view": "HC",
+        "actor": "black",
+        "eroded_pixels": 35296,
+        "below09_fraction": 0.06266999093381687,
+        "trigger": true
+      },
+      {
+        "view": "HC",
+        "actor": "grey",
+        "eroded_pixels": 27480,
+        "below09_fraction": 0.0005094614264919942,
+        "trigger": false
+      },
+      {
+        "view": "KA",
+        "actor": "black",
+        "eroded_pixels": 28831,
+        "below09_fraction": 0.039818251187957406,
+        "trigger": true
+      },
+      {
+        "view": "KA",
+        "actor": "grey",
+        "eroded_pixels": 25770,
+        "below09_fraction": 0.012650368645712068,
+        "trigger": true
+      }
+    ]
+  },
+  "source_files_sha256": {
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/images/eval_DC.png": "6cd7eb43aaeb89d8d746ee49bef90a65886bf428d520732bbe857d0f877122d3",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_quarter_distortion_final_geometry/quarter_distortion_rawmin/renders/DC.png": "a7b4d90a165e19fc9513d1fd0767c08c157868342edd35582e5e0984af608229",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/hash24_cold_matched_candidate_v1/retained20k/control23/renders/step-000020000/DC.png": "fa59bcb99a625dfe5ded7ecca1698b4cd297839cb313c81b98374780c495ffbe",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/hash24_cold_matched_candidate_v1/retained20k/corrected23/renders/step-000020000/DC.png": "f9b4d75cdf73d0c79b28c66c158d313dcaf0b15a9394818398b6164cd6cf7723",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/DC.npz": "4fff114ca0b8c87121dab73d20367cb0e872d7bb61dbe9f8b08b3ef4c714802e",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_quarter_distortion_final_geometry/quarter_distortion_rawmin/renders/DC_alpha.png": "1058061cc1de9489ef000c0f9702b51c0ab08eb388de65fb58e496efde099e59",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/hash24_cold_matched_candidate_v1/retained20k/control23/renders/step-000020000/DC_alpha.png": "492d070d901bdf8944ef7a37dfe7457ccbf2faf44119396e0d5a1ba083163ea6",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/hash24_cold_matched_candidate_v1/retained20k/corrected23/renders/step-000020000/DC_alpha.png": "fa28345b765e138171688601dca7a64c9cb55da29ab225f46dfa94c4acce72a7",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/images/eval_HC.png": "ccc98134f03be9f5202e40122692f08628f5dc9601aef90b08da69dbe29e0405",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_quarter_distortion_final_geometry/quarter_distortion_rawmin/renders/HC.png": "d74f1af772668738b18cf44f5dc74b4e3b9f6b39ee5d8aa04233ec87fe0e7326",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/hash24_cold_matched_candidate_v1/retained20k/control23/renders/step-000020000/HC.png": "cdb698a7b0043fdea5c4856f11baab7176112e8954cfb23cd75669100e58a9f9",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/hash24_cold_matched_candidate_v1/retained20k/corrected23/renders/step-000020000/HC.png": "3f1ed37f5565401c7e3a8eeb69a5cdd6d26810e007c112d11132cb9b713c5537",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/HC.npz": "8fcf0345d72a2c33a23441dee4ae531af2522222a29aee15c9e20bd7e7674476",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_quarter_distortion_final_geometry/quarter_distortion_rawmin/renders/HC_alpha.png": "20690cb8ee90d43b65c789cf705c9a740f9669a8af214a74d71eb5deb2ebe2d0",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/hash24_cold_matched_candidate_v1/retained20k/control23/renders/step-000020000/HC_alpha.png": "bbbd52787bdc26ea3345b71d3ac78874f1bf5d9a917847c2e054286a483e9bae",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/hash24_cold_matched_candidate_v1/retained20k/corrected23/renders/step-000020000/HC_alpha.png": "1c2731a6083d16ef17711c598851d3d80a03d251242f55dd4a94dca4d81de4f5",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/images/eval_KA.png": "4fb9111b577846c0f39cf93cd221346f50a57234ad3552cb8ca0ce8b0edc4a05",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_quarter_distortion_final_geometry/quarter_distortion_rawmin/renders/KA.png": "f99c87f01f09abd10e4d532b025d398025e3174c9d4d698543ce8e1cd266a579",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/hash24_cold_matched_candidate_v1/retained20k/control23/renders/step-000020000/KA.png": "9e17de9f71245c93834af8005bb7eee2ae30531ebf360ff2c48bab37ff6dfef8",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/hash24_cold_matched_candidate_v1/retained20k/corrected23/renders/step-000020000/KA.png": "1e151393b959868565e6888d51a9b71a2615087f90d62fe2626a230842ff5a89",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/data/semantics/KA.npz": "70960075b6bb88ab45345fc93efdbf8c74314563a649a791643a48453b9f37da",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/semantic_quarter_distortion_final_geometry/quarter_distortion_rawmin/renders/KA_alpha.png": "d9ed58adece05fe7e5637aa10085b2ac476d385525bc7b40ee32415be834c6ab",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/hash24_cold_matched_candidate_v1/retained20k/control23/renders/step-000020000/KA_alpha.png": "ae1a301964dbe2ff249345753f065b053d273c7f89b3970cf175047a0e52d860",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/hash24_cold_matched_candidate_v1/retained20k/corrected23/renders/step-000020000/KA_alpha.png": "8c2b0bdea656a1678741688cc31ea76cff5142edcc335c0591a1368a952631f7"
+  },
+  "ready_sha256": "7c39466b7921b608bf82aa47419f04ee14d957d6c2328ac0a975eab7105e0e36",
+  "fixed_region_crops_sha256": "603991a50762581ce1f76912c2f6d8a7d768e77f3679f74787662db2e777a309",
+  "source_checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "helper_sha256": "bd7f4f3fc1fb0fd802824acf7adc9003698f2d7ff6a8c2893f2b9022874293ac",
+  "GPU_used": false,
+  "new_renders_or_masks_or_labels": false,
+  "promotion": false,
+  "opacity_limitation": "Original fixedV1 exterior counts are diagnostics, not nonactor/alpha0/free-space truth; sourceRGB remains unmasked in all3+9 galleries."
+}

@@ -1,0 +1,194 @@
+{
+  "source_checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "source_pipeline_sha256": "c83bc7dbb1504063c35f0a2b14ae3fb329ff27ed2eb6b3661eb89b4918d46636",
+  "source1495_parent_manifest_sha256": "ad32a034c492314162fac8d966be2215c834393a1bb984beb05f1eed8f9c43b3",
+  "original_failed_ZERO_preserved": true,
+  "all_tolerances_unchanged": true,
+  "proofs": {
+    "original_three_case_ZERO_failed": {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/hash24_cold_matched_candidate_v1/external_guard_hash24_v1/zero/local_done.json",
+      "sha256": "e793ee67be429ff9074aaee58f1735fdf3d22f6b7da64569e6e87eb8dab05cc1",
+      "proof": {
+        "instance": "9997e65e-a66a-4477-a650-e5ed95654936",
+        "phase": "zero",
+        "passed": false,
+        "failed": true,
+        "events": [
+          {
+            "time": 1794049652.7474105,
+            "kind": "violation",
+            "reason": "controller_job_failure",
+            "statuses": [
+              "complete",
+              "failed",
+              "complete"
+            ]
+          },
+          {
+            "time": 1794049658.6752508,
+            "kind": "violation",
+            "reason": "remote_guard_violation"
+          }
+        ],
+        "terminations": {},
+        "failures": [
+          "{\"reason\": \"controller_job_failure\", \"statuses\": [\"complete\", \"failed\", \"complete\"]}",
+          "{\"reason\": \"remote_guard_violation\"}"
+        ],
+        "finished": 1794049658.683541,
+        "remote": {
+          "instance": "9997e65e-a66a-4477-a650-e5ed95654936",
+          "phase": "zero",
+          "passed": false,
+          "failed": true,
+          "events": [
+            {
+              "time": 1794049654.3626666,
+              "kind": "violation",
+              "reason": "local_supervisor_requested_abort"
+            }
+          ],
+          "terminations": {},
+          "failures": [
+            "{\"reason\": \"local_supervisor_requested_abort\"}"
+          ],
+          "finished": 1794049654.4355023
+        }
+      }
+    },
+    "hash24_gradient_diagnostic_NOT_full_native": {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/hash24_cold_matched_candidate_v1/hash24_ZERO_diagnostic_v1/runs/zero_hash24/diagnostic.json",
+      "sha256": "76cbb4c1c7465fb33ba6e8e1f42c5a693ead6fff876ca0a9d7420b971a5b31a7",
+      "proof": {
+        "kind": "HASH24_STRICT_ZERO_GRADIENT_DIAGNOSTIC",
+        "passed": true,
+        "diagnostic_only": true,
+        "production_accepted": false,
+        "optimizer_updates": 0,
+        "strict_gradient_tolerance": {
+          "rtol": 0.001,
+          "atol": 3e-06
+        },
+        "samegraph_backwards_per_forward": 2,
+        "spec_sha256": "5fd6b6e7d497bc2da90a12e119598c5e290cc241451829415c07bd9079b3ce14",
+        "worker_sha256": "a849b4bc88e1c207bb8406dc5f74d02354d5f652efad8a7800d7a0694daf30ab",
+        "parameters_before_sha256": "f0f424a3f3bc31338d0c61aaa23c0a0bd32950d1d945306d5564bb25a7680538",
+        "source_files_before_sha256": "90f8c37b73939c65f0e8f1a93d80ad264aa851721f1e59ba855ec2dd11d0bec2",
+        "initial_global_RNG_sha256": "eb45ce8ca09c287feec79a0ebe5d3c9e3430cd5a360f2355184dfa69cae5739b",
+        "actual_hash_bits": 24,
+        "actual_corrected_allocator": false,
+        "strict_allones_passed": true,
+        "source_files_after_sha256": "90f8c37b73939c65f0e8f1a93d80ad264aa851721f1e59ba855ec2dd11d0bec2",
+        "source_files_unchanged": true,
+        "parameters_after_sha256": "f0f424a3f3bc31338d0c61aaa23c0a0bd32950d1d945306d5564bb25a7680538",
+        "parameters_unchanged": true,
+        "all_parameter_grads_none": true,
+        "restored_global_RNG_sha256": "eb45ce8ca09c287feec79a0ebe5d3c9e3430cd5a360f2355184dfa69cae5739b",
+        "global_RNG_restored": true,
+        "peak_allocated_bytes": 4687231488
+      }
+    },
+    "hash24_full_original_native_ZERO": {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/hash24_cold_matched_candidate_v1/hash24_full_native_ZERO_v2/zero_verification.json",
+      "sha256": "8869f09ba3e1b17015bced9c84720bac7c895ba3d91633deab6300fbb2b768bc",
+      "proof": {
+        "passed": true,
+        "phase": "zero",
+        "CPU_only": true,
+        "CUDA_initialized": false,
+        "reports": [
+          {
+            "case": "zero_hash24",
+            "probe_sha256": "7c19f01e8b6781f9244e28a8d2fcc3d4cabc9618de5ce7124947aa9d04a8390c",
+            "actual_native_allones_paths": true,
+            "peak_allocated_bytes": 5017137664
+          }
+        ],
+        "production_authorized": false,
+        "quality_claim": false
+      }
+    },
+    "two23_actual_32plus32": {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/hash24_cold_matched_candidate_v1/technical_two23_v1/technical_verification.json",
+      "sha256": "84f96c0ff802fd84eac0e172646367ad911d3ca121dfcae548c46ca6ddaabe20",
+      "proof": {
+        "passed": true,
+        "phase": "technical",
+        "CPU_only": true,
+        "CUDA_initialized": false,
+        "reports": [
+          {
+            "case": "warmup_control23",
+            "first32_checkpoint_sha256": "56d399be38743fe76f0ffb5ebe2b3cc194889589b3e2ab1d3e09ac12547630ae",
+            "resumed32_checkpoint_sha256": "01afb2e3370696aec8276dd7a46fae4d05ebf1e9ca09b7e034cf94b747763d57",
+            "proof_sha256": "c1da911a75ce50b6f48600d414ee68dba3eeec0f6d6abea67ef88a91b84e2e54",
+            "source_cache_hashes_equal": true,
+            "seven_state_families_present": true,
+            "exact_encoding_parameters": 171739264
+          },
+          {
+            "case": "ARM_control23",
+            "first32_checkpoint_sha256": "9ba41166cce4b2b3127aab6d381a9182fa2f0828aca8ee97840ce800cff5bc30",
+            "resumed32_checkpoint_sha256": "cdf39aebdcd9a525e45562a3eb8a8eec12404952e3565656957c8901981eb513",
+            "proof_sha256": "9395ba7ca08f454c85559e1f361111dbb4ccf340b956e2bc7263393af760f06b",
+            "source_cache_hashes_equal": true,
+            "seven_state_families_present": true,
+            "exact_encoding_parameters": 171739264
+          },
+          {
+            "case": "warmup_corrected23",
+            "first32_checkpoint_sha256": "4ff1413131539d88688e2400204064fd7787e9ae4a72d74d770bff84b8757acb",
+            "resumed32_checkpoint_sha256": "37723d228e50e1c4c1ccc6f681082dbcea6a3d7b6cded894e1426844a57646de",
+            "proof_sha256": "440d6e086001d2efca24fbb797d809fd23948c0a36380678e2959fed58c376a1",
+            "source_cache_hashes_equal": true,
+            "seven_state_families_present": true,
+            "exact_encoding_parameters": 171739264
+          },
+          {
+            "case": "ARM_corrected23",
+            "first32_checkpoint_sha256": "d53e4db8a1fc55273708934612c1ae13e6f8cf0611e2e3aa6deb64a22205f3a8",
+            "resumed32_checkpoint_sha256": "166562364b6b1669a6268c17692ccdf440610b988a892dc49e95c1b6317e663f",
+            "proof_sha256": "b9826ce7467eb678dd1826d95d672a31afa8f71dead9d3780464d5d275479a8a",
+            "source_cache_hashes_equal": true,
+            "seven_state_families_present": true,
+            "exact_encoding_parameters": 171739264
+          }
+        ],
+        "production_authorized": false,
+        "quality_claim": false
+      }
+    },
+    "hash24_actual_32plus32": {
+      "path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/hash24_cold_matched_candidate_v1/technical_hash24_v1/technical_verification.json",
+      "sha256": "691d3f9647fc362cc3bd238175009fea2b6540e03f1e8770fc95301ee20092b7",
+      "proof": {
+        "passed": true,
+        "phase": "technical",
+        "CPU_only": true,
+        "CUDA_initialized": false,
+        "reports": [
+          {
+            "case": "warmup_hash24",
+            "first32_checkpoint_sha256": "cce5e5577c5ec9c052ce5dc9af011b8ebaa4dd4b3dbb55fedfb8700d3b4a3269",
+            "resumed32_checkpoint_sha256": "5b3cdab79f2bdd539eaef78602701175745aac500d4934fc1959ece93291c133",
+            "proof_sha256": "a0e61596afe889030b3cc14bdfc589cd25c7f3448706dbad24116be54924372f",
+            "source_cache_hashes_equal": true,
+            "seven_state_families_present": true,
+            "exact_encoding_parameters": 322734208
+          },
+          {
+            "case": "ARM_hash24",
+            "first32_checkpoint_sha256": "6a0773f23b94caa1a2a93308010b6a1d27146e043d948f9ed3fdfd79d68534af",
+            "resumed32_checkpoint_sha256": "a91332dca0245b3f46b0cb4b5699c3e497e0ce9cee6a9f9c47191869ced9aedf",
+            "proof_sha256": "96987210cac2d45da6a7366294529db7d16770c5fd98ab9a6e2ca0940de7a8ee",
+            "source_cache_hashes_equal": true,
+            "seven_state_families_present": true,
+            "exact_encoding_parameters": 322734208
+          }
+        ],
+        "production_authorized": false,
+        "quality_claim": false
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "cases": {
+    "control23": {
+      "step": 20000,
+      "spec_sha256": "7c0848b3f3b8d5ab18f5015a8321795b74a0cae17b2138d597a1632750e2fd7d",
+      "checkpoint_sha256": "8dec4368068de2d5ad7236547f810e925c5590647e16cc2f36c6089c040f926d",
+      "checkpoint_retained_remote_not_copied": true,
+      "remote_output": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/hash24_cold_matched_candidate_v1/runs/production_control23"
+    },
+    "corrected23": {
+      "step": 20000,
+      "spec_sha256": "638cdb1252e37921228e7d8f1f5eb1f7ab198fec6a22febe9923e1416bc09a5b",
+      "checkpoint_sha256": "676c8627c3ae1898620693a0de823b0f442765e7c8e545765e1d27407ad204c9",
+      "checkpoint_retained_remote_not_copied": true,
+      "remote_output": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/hash24_cold_matched_candidate_v1/runs/production_corrected23"
+    }
+  },
+  "gallery_sha256": {
+    "all3_actors.jpg": "c5ba0a167a0be536e09175416c62dcdef6a6c0a951e83c9ef702c473ee239ba6",
+    "all9_details.jpg": "c5e74961f1b4c126043e04bb7fd86e190fbaf4adce8c26f42e823abee4cb0fdd",
+    "summary.json": "32310ee6bb7330764658cf10e9974ac0699d0d4a32cc029d22e37718efe2e168"
+  },
+  "manual_view": {
+    "viewer": "native_actor_label_review",
+    "time": 1794051269.7886167,
+    "files": [
+      "all3_actors.jpg",
+      "all9_details.jpg"
+    ],
+    "observation": "Both20k cases preserve recognizable2actor bodies/hair/shoe appearances in these fixedHD crops; large surroundingfloor/hairfringe remains inboth, no obvious corrected-specific catastrophicfoot/hairloss visible at this scale. Corrected slightlylowerLPIPS but not promotion; source126316 retainsbetterLPIPS. Rootmanualreview stillrequired."
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "source_checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "cold_source": true,
+  "cold_evidence": "Actual step0 log plus archived config load pathsNone; worker only accepts own output latest as resume, source initial weights notloaded.",
+  "first_step0_record": {
+    "step": 0,
+    "elapsed_seconds": 0,
+    "plateau": false
+  },
+  "source_config_sha256": "21b961b55eda60f8f81132dc9d3cd398a208e3f31c664ded874b9ff9b68e33c3",
+  "receipt_sha256": "9b956f9c154de80d299d75e4dffdfe06751b69d216c3af2d98a07a1e6795cbce",
+  "worker_log_sha256": "093a6f222818519a3479589b6111af982e02624e79a3f52c01bdb65d1cc32a98",
+  "final_step": 126316,
+  "training_elapsed_seconds": 4860.1615358940035,
+  "controller_wall_seconds": 4885.839288949966,
+  "peak_allocated_bytes": 3733452800,
+  "source_GPU": 6,
+  "source_worker": {
+    "pid": 1859495,
+    "start": "4375814",
+    "boot": "3cd2faca-15ef-4b7e-9767-20e0b80af902",
+    "state": "R"
+  },
+  "original_auto_selected_step": 60752,
+  "original_auto_selected_metrics": {
+    "psnr": 31.810748448191067,
+    "ssim": 0.8379306097825369,
+    "lpips": 0.0194727402801315
+  },
+  "designated_detail_source_step": 126316,
+  "designated_detail_metrics": {
+    "psnr": 31.6397267,
+    "ssim": 0.83126406,
+    "lpips": 0.0187731205
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "CPU_only": true,
+  "CUDA_initialized": false,
+  "model_created": false,
+  "optimizer_created": false,
+  "actual_source_control_typed_config_exact": true,
+  "control_vs_hash24_config_difference": {
+    "pipeline.model.log2_hashmap_size": [
+      23,
+      24
+    ]
+  },
+  "control_vs_corrected_config_difference": {
+    "pipeline.model.corrected_arm_allocator": [
+      false,
+      true
+    ]
+  },
+  "all1495_new_files_verified": true,
+  "parent_manifest_sha256": "ad32a034c492314162fac8d966be2215c834393a1bb984beb05f1eed8f9c43b3",
+  "changed_scientific_files": [
+    "LookCloser/scripts/probe_marshawn_semantic_admission.py",
+    "LookCloser/scripts/train_marshawn_semantic_admission.py"
+  ],
+  "cold": true,
+  "external_checkpoint_paths_none": true,
+  "torch": "2.7.1+cu128",
+  "python": "3.11.16 (main, Sep  2 2026, 23:39:52) [GCC 15.3.0]",
+  "sourceconfig_sha256": "21b961b55eda60f8f81132dc9d3cd398a208e3f31c664ded874b9ff9b68e33c3",
+  "actual_project_import_closure_count": 165
+}

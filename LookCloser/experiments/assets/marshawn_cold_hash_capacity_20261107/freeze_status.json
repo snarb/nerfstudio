@@ -1,0 +1,67 @@
+{
+  "time": 1794052085.4916816,
+  "utc": "2026-11-07T11:48:05.491682+00:00",
+  "cases": {
+    "control23": {
+      "step": 38310,
+      "pid": 645723,
+      "allocator_peak_bytes": 3590920192,
+      "latest_eval_step": 35000,
+      "latest_eval_metrics": {
+        "psnr": 31.718333194136516,
+        "ssim": 0.8433994154135386,
+        "lpips": 0.020701805440088112
+      },
+      "latest_checkpoint": {
+        "checkpoint": "checkpoints/step-000038000.ckpt",
+        "checkpoint_sha256": "a9ffb0a2c113c06d6f94accb8b30383b0f71ff8cd1920cd5ecb25a9c6de14c25",
+        "step": 38000,
+        "terminal": false
+      },
+      "visual_gate_pending": true,
+      "visual_gate_root_release": true
+    },
+    "corrected23": {
+      "step": 39230,
+      "pid": 646389,
+      "allocator_peak_bytes": 3590445568,
+      "latest_eval_step": 35000,
+      "latest_eval_metrics": {
+        "psnr": 31.722755020558825,
+        "ssim": 0.844944417476654,
+        "lpips": 0.020283707107106846
+      },
+      "latest_checkpoint": {
+        "checkpoint": "checkpoints/step-000038000.ckpt",
+        "checkpoint_sha256": "b7481539903bf3689ba5b3dad07f086031feb573f724b90a43610b9decb50499",
+        "step": 38000,
+        "terminal": false
+      },
+      "visual_gate_pending": true,
+      "visual_gate_root_release": true
+    },
+    "hash24": {
+      "step": 6975,
+      "pid": 733082,
+      "allocator_peak_bytes": 6640318464,
+      "latest_eval_step": 5000,
+      "latest_eval_metrics": {
+        "psnr": 31.788713090698554,
+        "ssim": 0.847887396812439,
+        "lpips": 0.027471472198764484
+      },
+      "latest_checkpoint": {
+        "checkpoint": "checkpoints/step-000006000.ckpt",
+        "checkpoint_sha256": "631fbc4792785ea1d3cd5997709408d6980c58877a0c337a0a0fa0c928fd1151",
+        "step": 6000,
+        "terminal": false
+      },
+      "visual_gate_pending": false,
+      "visual_gate_root_release": false
+    }
+  },
+  "user_steering": "STOP newexperiments; only existing3runs may finishordinaryplateau, hash24existing20krootvisualdecision stillrequired",
+  "quality_promoted": false,
+  "source_leader_unchanged": true,
+  "gpu_processes": "GPU-6a8bbc85-5a77-8d62-ab18-560955f0dc65, 645723, 6538\nGPU-26c63492-0230-896f-208e-10e4eaca4c3c, 733082, 11692\nGPU-279718e7-9e60-e5f2-53aa-65ff7dd03f37, 646389, 6544\n"
+}

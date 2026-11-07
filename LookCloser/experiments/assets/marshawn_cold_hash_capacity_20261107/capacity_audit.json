@@ -1,0 +1,49 @@
+{
+  "actual_source_checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "paper_local_sha256": "6832bc4ccd291fd9639bbb7080cebbc631deabbcaab934ef99205efd0bde081c",
+  "levels": 16,
+  "features_per_level": 2,
+  "min_resolution": 16,
+  "max_resolution": 8192,
+  "max_res_base_ignored_when_explicit": 2048,
+  "source_log2_hashmap_size": 23,
+  "geometric_level_side_lengths": [
+    16,
+    25,
+    37,
+    56,
+    85,
+    128,
+    195,
+    295,
+    446,
+    676,
+    1024,
+    1553,
+    2353,
+    3566,
+    5405,
+    8192
+  ],
+  "predicted_tcnn_encoding_parameter_counts": {
+    "23": 171739264,
+    "24": 322734208,
+    "25": 608959984
+  },
+  "actual_source_encoding_parameter_count": 171739264,
+  "four_FP32_buffers_bytes": {
+    "23": 2747828224,
+    "24": 5163747328,
+    "25": 9743359744
+  },
+  "source1495_manifest_sha256": "ad32a034c492314162fac8d966be2215c834393a1bb984beb05f1eed8f9c43b3",
+  "native_ARM_max_steps_per_ray": 1024,
+  "frequency_contract": "Frozen maps max8192 /16levels; explicit max_res must match strict pipeline validation; feature weights and level resolutions unchanged by hashcapacity.",
+  "prior_inventory_configs": 320,
+  "prior_inventory_higher_hash_or_resolution": 0,
+  "prior_inventory_scope": "Existing campaign run config globs only; no claim about every historical workspace.",
+  "prior_hash_report": "experiments/marshawn_hash_capacity.md is a separate loose/full-scene hash21\u219223 staged technical study, not this matched hash24 corrected-data experiment.",
+  "recommendation": "Matched cold23legacy vs24legacy; separately23corrected fromcold. No25/maxreschange; no hash24+corrected combination.",
+  "architecture_or_detail_benefit_proven": false,
+  "GPU_memory_of_new_cases_measured": false
+}

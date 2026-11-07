@@ -1,0 +1,53 @@
+{
+  "scope": "Root20k visual review allows continuation of existing runs; no quality promotion",
+  "gallery_sha256": {
+    "all3_actors.jpg": "c5ba0a167a0be536e09175416c62dcdef6a6c0a951e83c9ef702c473ee239ba6",
+    "all9_details.jpg": "c5e74961f1b4c126043e04bb7fd86e190fbaf4adce8c26f42e823abee4cb0fdd"
+  },
+  "cases": {
+    "control23": {
+      "root_visual_decision_path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/hash24_cold_matched_candidate_v1/runs/production_control23/visual_gate_RELEASE.json",
+      "root_visual_decision_sha256": "024bbac2b5650d731b0e4ecd274f083002c961c73cf1f7a44228ca45d1f07e7d",
+      "decision": {
+        "reviewer": "root",
+        "continue_training": true,
+        "step": 20000,
+        "spec_sha256": "7c0848b3f3b8d5ab18f5015a8321795b74a0cae17b2138d597a1632750e2fd7d",
+        "checkpoint_sha256": "8dec4368068de2d5ad7236547f810e925c5590647e16cc2f36c6089c040f926d",
+        "root_review_utc": "2026-11-07T11:35:40.174427+00:00",
+        "personally_viewed_all3actors_all9details": true,
+        "review_gallery_sha256": {
+          "all3_actors.jpg": "c5ba0a167a0be536e09175416c62dcdef6a6c0a951e83c9ef702c473ee239ba6",
+          "all9_details.jpg": "c5e74961f1b4c126043e04bb7fd86e190fbaf4adce8c26f42e823abee4cb0fdd",
+          "summary.json": "32310ee6bb7330764658cf10e9974ac0699d0d4a32cc029d22e37718efe2e168"
+        },
+        "quality_promoted": false,
+        "root_notes": "Bodies/hair/hands/shoes retained; substantialfloor/fringe persists. Earlyonly, source126316 stillbetterLPIPS. Continue exactown20k fullstate to ordinarynativeplateau, no22kcap."
+      },
+      "root_continuation_guard_path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/hash24_cold_matched_candidate_v1/continuation_two23_v1/control23/external_guard_hash24_v1/production_guard_release.json",
+      "root_continuation_guard_sha256": "c5cd9ab586b1492559a0ddf74c6f38a343ef974eeae1c378eefe38ce76648717"
+    },
+    "corrected23": {
+      "root_visual_decision_path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/hash24_cold_matched_candidate_v1/runs/production_corrected23/visual_gate_RELEASE.json",
+      "root_visual_decision_sha256": "55357080f8ee93e60c91b96badbc6e6ed3a0412bd3cee396db2a67481a0f19c0",
+      "decision": {
+        "reviewer": "root",
+        "continue_training": true,
+        "step": 20000,
+        "spec_sha256": "638cdb1252e37921228e7d8f1f5eb1f7ab198fec6a22febe9923e1416bc09a5b",
+        "checkpoint_sha256": "676c8627c3ae1898620693a0de823b0f442765e7c8e545765e1d27407ad204c9",
+        "root_review_utc": "2026-11-07T11:35:40.207857+00:00",
+        "personally_viewed_all3actors_all9details": true,
+        "review_gallery_sha256": {
+          "all3_actors.jpg": "c5ba0a167a0be536e09175416c62dcdef6a6c0a951e83c9ef702c473ee239ba6",
+          "all9_details.jpg": "c5e74961f1b4c126043e04bb7fd86e190fbaf4adce8c26f42e823abee4cb0fdd",
+          "summary.json": "32310ee6bb7330764658cf10e9974ac0699d0d4a32cc029d22e37718efe2e168"
+        },
+        "quality_promoted": false,
+        "root_notes": "Bodies/hair/hands/shoes retained; substantialfloor/fringe persists. Earlyonly, source126316 stillbetterLPIPS. Continue exactown20k fullstate to ordinarynativeplateau, no22kcap."
+      },
+      "root_continuation_guard_path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/hash24_cold_matched_candidate_v1/continuation_two23_v1/corrected23/external_guard_hash24_v1/production_guard_release.json",
+      "root_continuation_guard_sha256": "9130214504f61901c7bff1e8f0c201bc595012f07f92b7e2543afbbfe83cf5f7"
+    }
+  }
+}
