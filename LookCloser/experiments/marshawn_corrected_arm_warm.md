@@ -111,6 +111,8 @@ The early gates continued under the unchanged validation plateau rule, with its 
 
 ## Natural terminal result
 
+Root independently inspected all three terminal actor comparisons and all nine fixed detail regions on November7. Both warm arms retain the hair halo, density between the legs and attachments around the shoes; neither provides a convincing geometry improvement. The inspection receipt is retained beside the terminal gallery as `root_terminal_manual_review.json`. This review does not certify empty space or a clean actor asset.
+
 |Actual evaluated field|Warm attempts|PSNR|SSIM|LPIPS|
 |---|---:|---:|---:|---:|
 |Unchanged source126316|0|31.639727|.831264|.01877312|
