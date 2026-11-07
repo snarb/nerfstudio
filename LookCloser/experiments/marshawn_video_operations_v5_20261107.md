@@ -274,3 +274,20 @@ sourcepad1 and mapped grids. Its real1670 positive canary passed on168805 rays
 (ready`416f20a6…`, admission`4538d7e3…`). Base-grid failures remain a comparison,
 not a reason to mutate the frozen one-halo policy. The wrapper writes only
 operational reports; it never publishes DATA or dispatches a model.
+
+### Chronological all66 scheduling after ownership migration
+
+The preserved legacy ledger inserted all future60-camera tasks before the old
+six-camera owner's missing tasks. A versioned V11 scheduler now orders pending
+logical maps by(global source frame,camera), preventing an unnecessary future
+all-video barrier for the former six. Claimed jobs, hosts, frozen scientific
+commands, source specs and output paths remain unchanged.
+
+Only V10 CPU watchdog/controller retired; no staging child existed and no GPU
+worker was signalled. V11 watchdog/controller2303121/2303122 adopted the same
+state. ConfigSHA`b198a019…` also binds the reviewed geometry-hair gate and new
+V4 MAT request source. Actual running job materialization matched every saved
+scientific spec digest, and the migrated ledger places1735/AC before1740/AA.
+Evidence: `SOURCE/operations/frequency10/v10_to_v11_handoff.json` and
+`v11_spec_and_order_qualification.json`. Source1675 remained held for its
+corrected source and dense-grid review throughout the CPU handoff.
