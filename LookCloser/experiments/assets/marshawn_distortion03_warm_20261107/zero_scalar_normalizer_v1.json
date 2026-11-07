@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "CPU_only": true,
+  "arms": {
+    "control01": {
+      "source_actual_scalar_before_treatment": 0.1,
+      "effective_scalar": 0.1,
+      "source7_before_loss_scalar": true,
+      "all63_original_RGB_weight_hashes_and_expectations_exact": true,
+      "expected_next_original_normalizer": 0.6893199440385297,
+      "no_training_batch_consumed": true,
+      "actual_torch_allocator_limit_bytes": 10737418240,
+      "physical_UUID": "GPU-6a8bbc85-5a77-8d62-ab18-560955f0dc65"
+    },
+    "distortion03": {
+      "source_actual_scalar_before_treatment": 0.1,
+      "effective_scalar": 0.3,
+      "source7_before_loss_scalar": true,
+      "all63_original_RGB_weight_hashes_and_expectations_exact": true,
+      "expected_next_original_normalizer": 0.6893199440385297,
+      "no_training_batch_consumed": true,
+      "actual_torch_allocator_limit_bytes": 10737418240,
+      "physical_UUID": "GPU-26c63492-0230-896f-208e-10e4eaca4c3c"
+    }
+  },
+  "actual_packed_value_gradient_factor": "PENDING_ACTUAL32_PLUS32"
+}
