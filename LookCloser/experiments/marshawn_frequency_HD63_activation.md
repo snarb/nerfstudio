@@ -48,3 +48,22 @@ After all jobs finish, `validate_marshawn_frequency_activation.py` performs CPU-
 Earlier baseline-repeat fits showed substantial patch-label variability; the lower threshold generally selected coarser labels, while the decay effect differed by camera. A full paired inventory measures those map changes but cannot itself demonstrate a 3D rendering benefit. Selection requires subsequent controlled NeRF experiments after a separately reviewed assembly. EVAL images are excluded from fitting.
 
 Reusable preparation, binding, launch, path validation, runtime inspection and result reconciliation helpers are in `scripts/*marshawn_frequency_activation*.py` plus `inspect_marshawn_frequency_runtime.py`. The scientific fitter is unchanged.
+
+All126 fits completed with zero failed jobs or OOM evidence. The dispatcher and workers exited and released all three GPUs. Both CPU validators and the126-job/63-pair reconciler passed; final validation SHA256 is `b2c16b591b91e71c999b9e9e18b91409ddcde20a9ba24ed0f12a361359a1a174`. Every new same-camera pair has identical initialization, first-eight draw hashes and final RNG state. Silver's84 complete result sets were copied and rehashed into `A/results_silver` for FSX durability.
+
+Root then authorized isolated CPU dataset preparation. `C/frequency_HD63_assembly_v1/assembly.json` has SHA256 `2f0e18a5a0cfa99168ce6d45903e0aa95506459bfa6c3c628ac9e0c45a394713`. Each dataset changes exactly126 existing TRAIN map/metadata files and adds63 explicit censor sidecars. RGB, masks, original confidence, poses and accepted box are unchanged; portable relative links point to the original data. EVAL maps were absent in the baseline and remain absent. No EVAL fit occurred. The original dataset and fit outputs are unchanged.
+
+| Actor / map | Mean level | Changed actor patches vs frozen baseline | Exact censored fraction |
+|---|---:|---:|---:|
+| Black / baseline |13.843|—|Unknown|
+| Black / decay |13.906|40.00%|56.77%|
+| Black / SSIM.93 |12.786|59.40%|29.03%|
+| Grey / baseline |12.654|—|Unknown|
+| Grey / decay |12.568|62.86%|23.27%|
+| Grey / SSIM.93 |11.219|77.11%|7.25%|
+
+These are equal-camera means over complete8×8 patches with at least90% original actor-mask coverage. Full-image exact censor fractions are31.27% for decay and11.35% for.93. Baseline level15 does not reveal whether its legacy fit converged; its censor fraction is not inferred. The legacy baseline is also not a new repeat-matched fit, so map disagreements include fitting variability.
+
+Six TRAIN source/map contacts—AA,DA,GA,JA,MA,OA—were inspected across hair, clothing and feet. The fixed palette is viridis level0 purple→15 yellow, identical for all panels. SSIM.93 generally coarsens actor levels; decay varies with camera/material. Maps also describe background patches and are not segmentation. Source panels and upper/middle/lower crops are under `C/frequency_HD63_assembly_v1/review`; `visual_review.json` records their scope. No3D quality benefit has yet been measured.
+
+The two ready hashes are decay `f91d1354ffcf00ad0757176a7dc1d2e5f1f77b0cae19f5ec587d9e2b4d454fe6` and.93 `2f5c0bbf93affc2bd97798f65e538d4a8e4e8f28879d848e399706e8496e64f6`. They are prepared inputs, not training authorization. [The CPU assembler](../scripts/assemble_marshawn_HD_frequency_variants.py) verifies the original inventory before and after assembly and preserves the fitted map bytes. Subsequent trials must start cold from seed42 with the same quarter-step/λ.1 recipe and original confidence; maps affect both FAS ray proposals and frequency-field updates.
