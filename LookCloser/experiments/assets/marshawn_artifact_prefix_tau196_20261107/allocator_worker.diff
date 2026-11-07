@@ -1,0 +1,15 @@
+--- pre_fix_worker
++++ allocator_enforced_worker
+@@ -29,6 +29,12 @@
+     import numpy as np
+     import torch
+     isolation=verify_cuda(lease['expected_physical_uuid'],torch)
++    allocator_total_bytes=int(torch.cuda.get_device_properties(0).total_memory)
++    allocator_limit_bytes=10*2**30
++    allocator_fraction=allocator_limit_bytes/allocator_total_bytes
++    torch.cuda.set_per_process_memory_fraction(allocator_fraction,0)
++    isolation.update(torch_allocator_limit_bytes=allocator_limit_bytes,torch_allocator_fraction=allocator_fraction,
++                     torch_allocator_total_bytes=allocator_total_bytes,torch_allocator_cap_call_succeeded=True)
+     import train_marshawn_semantic_admission as base
+     from marshawn_artifact_prefix_factory import build_config,validate_anchor
+     from marshawn_artifact_prefix_rgb import ConfidencePolicy

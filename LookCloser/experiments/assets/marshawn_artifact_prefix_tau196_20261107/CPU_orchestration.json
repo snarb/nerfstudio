@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "original1495_science_unchanged": true,
+  "science_worker_sha256": "4c7b7b75f7707f254e7f9dbae44afafba61f9b47b845d570983feb4cf2128c9b",
+  "unchanged_guard_core_functions": [
+    "identity",
+    "same",
+    "authorized_worker",
+    "event",
+    "fail",
+    "bounded_error",
+    "clear_errors",
+    "phase_status",
+    "signal_due",
+    "final_record",
+    "ssh_script"
+  ],
+  "local_origin_check": true,
+  "remote_guardian_only": true,
+  "plans_have_explicit_remote_address": true,
+  "job_commands_and_specs_unchanged": true,
+  "approved_GPU_UUIDs": {
+    "0": "GPU-6a8bbc85-5a77-8d62-ab18-560955f0dc65",
+    "1": "GPU-26c63492-0230-896f-208e-10e4eaca4c3c",
+    "2": "GPU-279718e7-9e60-e5f2-53aa-65ff7dd03f37",
+    "3": "GPU-c024b6e2-0def-f4fd-c18a-64b95975effd",
+    "5": "GPU-216eac5a-c2f3-4bc5-d4e8-1a6f9cbd9b9a",
+    "6": "GPU-a53fcf27-02c4-c737-9269-0623ec25a6d9"
+  },
+  "root_receipts": {
+    "root_four_prefix_qualification.json": "0850f67b215affe471aca1975a07a5eea4952325074751aed7084f2b68cf988f"
+  },
+  "old_proofs_overwritten": false,
+  "GPU_started": false
+}

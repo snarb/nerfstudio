@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "resource_only_change": true,
+  "exact_added_AST_nodes": [
+    "Assign(targets=[Name(id='allocator_total_bytes', ctx=Store())], value=Call(func=Name(id='int', ctx=Load()), args=[Attribute(value=Call(func=Attribute(value=Attribute(value=Name(id='torch', ctx=Load()), attr='cuda', ctx=Load()), attr='get_device_properties', ctx=Load()), args=[Constant(value=0)]), attr='total_memory', ctx=Load())]))",
+    "Assign(targets=[Name(id='allocator_limit_bytes', ctx=Store())], value=BinOp(left=Constant(value=10), op=Mult(), right=BinOp(left=Constant(value=2), op=Pow(), right=Constant(value=30))))",
+    "Assign(targets=[Name(id='allocator_fraction', ctx=Store())], value=BinOp(left=Name(id='allocator_limit_bytes', ctx=Load()), op=Div(), right=Name(id='allocator_total_bytes', ctx=Load())))",
+    "Expr(value=Call(func=Attribute(value=Attribute(value=Name(id='torch', ctx=Load()), attr='cuda', ctx=Load()), attr='set_per_process_memory_fraction', ctx=Load()), args=[Name(id='allocator_fraction', ctx=Load()), Constant(value=0)]))",
+    "Expr(value=Call(func=Attribute(value=Name(id='isolation', ctx=Load()), attr='update', ctx=Load()), keywords=[keyword(arg='torch_allocator_limit_bytes', value=Name(id='allocator_limit_bytes', ctx=Load())), keyword(arg='torch_allocator_fraction', value=Name(id='allocator_fraction', ctx=Load())), keyword(arg='torch_allocator_total_bytes', value=Name(id='allocator_total_bytes', ctx=Load())), keyword(arg='torch_allocator_cap_call_succeeded', value=Constant(value=True))]))"
+  ],
+  "removing_five_resource_nodes_recovers_entire_previous_worker_AST": true,
+  "previous_worker_sha256": "4c7b7b75f7707f254e7f9dbae44afafba61f9b47b845d570983feb4cf2128c9b",
+  "worker_sha256": "5129f2f02bfad232d95891e9471d89f73d7b0966f44fa7be21b0c40a98c2c8c3",
+  "CPU_science_readiness_preserved_sha256": "67fc7ea5d6d006ec52663bea8b351fe3a15609c7e305acc905b46517cd9149ee",
+  "CPU_private_integral_preserved_sha256": "a28786ddf40fc0801f3a442f10768f793ce4751c003484293baab7e9f0b514f6",
+  "no_original1495_changed": true,
+  "main_training_loop_tau_integral_factory_and_normalizer_unchanged": true,
+  "actual_GPU_allocator_cap": "10GiB Torch allocator, enforced after actual UUID/device check before model setup; successful call recorded in physical_gpu_isolation.json",
+  "CPU_science_not_repeated_per_root": true,
+  "no_GPU_or_actual_release_created": true
+}

@@ -1,0 +1,80 @@
+{
+  "reviewer": "root",
+  "utc": "2026-11-07T04:53:19.567846+00:00",
+  "kind": "ROOT_CONDITIONAL_FOUR_PATCH_SOFT_EMPTY_PREFIX_QUALIFICATION",
+  "proposal_sha256": "dccad0cece29596b725f5f51469ce1f92b727b19594f700391215a34390d941f",
+  "five_native_context_pages_personally_viewed": true,
+  "JA_native_footprint_additionally_viewed": true,
+  "root_independent_geometry_rays_checked": 245,
+  "selected_rays": 196,
+  "selected_patches": 4,
+  "excluded_JA_rays": 49,
+  "rows": [
+    {
+      "camera": "BA",
+      "center": [
+        993,
+        79
+      ],
+      "rays": 49,
+      "min_segment_Z": 0.2637058931530897,
+      "source_page_sha256": "43120806dbe78294bc574cc8a0029c9985063f455945d1bb70e32ed72cf8cadf",
+      "eligible_for_soft_prefix_experiment": true,
+      "reason": "Visible floor clear of actor/hair; bounded prefix above empirical floor guard."
+    },
+    {
+      "camera": "JA",
+      "center": [
+        977,
+        105
+      ],
+      "rays": 49,
+      "min_segment_Z": 0.24129366644336386,
+      "source_page_sha256": "bf014c994d91b2efdf043c0d5a9a811303dfe4d7bcd360e1c181719e8e06bfc1",
+      "eligible_for_soft_prefix_experiment": false,
+      "reason": "Near visible rig/stand edge; first-surface depth not independently qualified. Preserve UNKNOWN/no new negative target."
+    },
+    {
+      "camera": "BA",
+      "center": [
+        965,
+        160
+      ],
+      "rays": 49,
+      "min_segment_Z": 0.17989608790427203,
+      "source_page_sha256": "4d01d63786790970cbceff4d88a826deb6484a0adeba838ac75789fc7cddc860",
+      "eligible_for_soft_prefix_experiment": true,
+      "reason": "Visible floor clear of actor/hair; bounded prefix above empirical floor guard."
+    },
+    {
+      "camera": "AA",
+      "center": [
+        949,
+        351
+      ],
+      "rays": 49,
+      "min_segment_Z": 0.066612098527706,
+      "source_page_sha256": "2686b7e5f298754b994ccb9533889f5c5282861ea82419cbc488e5a3fc4dba0b",
+      "eligible_for_soft_prefix_experiment": true,
+      "reason": "Visible floor clear of actor/hair; bounded prefix above empirical floor guard."
+    },
+    {
+      "camera": "BA",
+      "center": [
+        952,
+        353
+      ],
+      "rays": 49,
+      "min_segment_Z": 0.025000513203935704,
+      "source_page_sha256": "7db58bfbd4d61434c824a7007a6abb17b2b03f2862f7bc97c9eac9051c04b5a8",
+      "eligible_for_soft_prefix_experiment": true,
+      "reason": "Visible floor clear of actor/hair; bounded prefix above empirical floor guard."
+    }
+  ],
+  "scope": "Only declared bounded prefixes for reversible soft-tau experiment. No whole-ray empty labels, hard grid carvings, optical alpha GT, or geometry certificate.",
+  "floor_guard_Z": 0.025,
+  "floor_guard_is_empirical": true,
+  "floor_uncertainty": "Global fitted floor and photo context; nearest independent support sparse, no locally certified floor bound. BA952353 is clipped before fittedZ.025.",
+  "source_geometry_or_masks_modified": false,
+  "training_launched": false
+}

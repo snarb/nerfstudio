@@ -1,0 +1,39 @@
+{
+  "CPU_only": true,
+  "source_checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "remote_root": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/artifact_prefix196_continuation_candidate_v1",
+  "local_root": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/artifact_prefix196_continuation_candidate_v1",
+  "source_checkpoint_remote": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_quarter_distortion_final_geometry/quarter_distortion_rawmin/checkpoint.ckpt",
+  "source_seven_state_proof_upstream": "17eeff46a530d6feb0eb1421a9a64698cc4aa792602672151a6bbdcba00c0595",
+  "sealed_tau_source_sha256": "a21becdb5ee2f5cc385649d64632c5d630c67ec91064c97bd9801302dee2520d",
+  "sealed_tau_copied_byte_identical": true,
+  "selected196_sha256": "ff6fd24f1443844bc2bbe089b5c0bf35b1331562d26d9380c366d60c7de4a250",
+  "existing10481_overlap": 14,
+  "new_rays": 182,
+  "scope": "Conditional soft prefixes only above empiricalZ.025. JA excluded; no hard cells/full-ray empty/alphaGT.",
+  "science_factors": {
+    "control": 0.0,
+    "tau001": 0.001,
+    "tau01": 0.01
+  },
+  "new_factor": ".01 versus proven .001; no integration/AMP/sigma changes",
+  "stopping": {
+    "minimum_attempts": 4000,
+    "anchor_step": 130316,
+    "interval": 5000,
+    "patience": 4,
+    "loss_relative_delta": 0.001,
+    "lpips_absolute_delta": 0.001,
+    "early_visual_attempts": [
+      500,
+      1000,
+      2000,
+      4000
+    ],
+    "hard_iteration_limit": null
+  },
+  "main_RGB": "exact originalW64 and original proposal expected normalizer",
+  "density_selector": "original_mapped",
+  "GPU_started": false,
+  "releases_created": false
+}

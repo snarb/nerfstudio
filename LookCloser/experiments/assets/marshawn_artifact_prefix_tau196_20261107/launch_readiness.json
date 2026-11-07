@@ -1,0 +1,43 @@
+{
+  "status": "CPU_READY_ROOT_REVIEW_REQUIRED_NO_GPU_NO_RELEASE",
+  "source_checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "source_manifest_sha256": "f72a4d20f6c7d80f4b61971db5a3d6742898e5c54049f3b31afc5afd318e2c85",
+  "confidence_original_manifest_sha256": "3cf40266675fa5b1d345f425b5a202f98f16e2d3998448ca7148daf7259a16ea",
+  "policy_sha256": "eed52d523148589a3a5ff0cf77c25ad1cc2a3ddf2937ed99bd3e0da5d178cf68",
+  "guardian_sha256": "a17673c639bf2abd7b80f5ada79061bf610ece0ab7b7689a28ef9b1f81464e85",
+  "worker_sha256": "5129f2f02bfad232d95891e9471d89f73d7b0966f44fa7be21b0c40a98c2c8c3",
+  "CPU_readiness_sha256": "67fc7ea5d6d006ec52663bea8b351fe3a15609c7e305acc905b46517cd9149ee",
+  "CPU_private_integral_sha256": "a28786ddf40fc0801f3a442f10768f793ce4751c003484293baab7e9f0b514f6",
+  "CPU_scope": [
+    "9 actual configurations differ only output_dir; source resume differs historical initial only checkpoint/output/distortion.01\u2192.1",
+    "Actual63-camera original W64 adapter: unchanged pools/FAS/labels, matched main packets/RNG, exact .6893199440385297 normalizer, fresh-adapter resume and tamper rejection",
+    "196 exact root-qualified TRAIN ray geometry/source qualification;14old10481/182new; JA excluded",
+    "PrivateCPU73011 packets64x512: initial32+strict32 replay, all3 same state/IDs/jitter chains, no globalCPU RNG consumption",
+    "Inherited byte-identical sealed native tau integral; CPU constant-density gradient coefficient.01/.001 ratio10; control zero density calls",
+    "11 guard safety functions AST unchanged; local controller/remote guardian-only; original resource cases incl uncapped production"
+  ],
+  "zero_FHD_loader_private_seven_state_gate": "NOT_RUN",
+  "technical_actual32_plus32": "NOT_RUN",
+  "zero_guard_template": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/artifact_prefix196_continuation_candidate_v1/external_guard_prefix196_v1/zero_guard_release.template.json",
+  "zero_worker_templates": {
+    "control": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/artifact_prefix196_continuation_candidate_v1/specs/zero_control/root_release.template.json",
+    "tau001": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/artifact_prefix196_continuation_candidate_v1/specs/zero_tau001/root_release.template.json",
+    "tau01": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/artifact_prefix196_continuation_candidate_v1/specs/zero_tau01/root_release.template.json"
+  },
+  "exact_authorized_fields": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/artifact_prefix196_continuation_candidate_v1/external_guard_prefix196_v1/root_release_requirements_NOT_AUTHORIZATION.json",
+  "local_ZERO_argv": [
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/python",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/artifact_prefix196_continuation_candidate_v1/external_guard_prefix196_v1/guardian.py",
+    "launch",
+    "--policy",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/artifact_prefix196_continuation_candidate_v1/external_guard_prefix196_v1/policy.json",
+    "--phase",
+    "zero"
+  ],
+  "original1495_changed": 0,
+  "total_frozen_science_files": 1504,
+  "no_actual_release_files_created": true,
+  "no_GPU_job_created": true,
+  "allocator_resource_refreeze_sha256": "48be9972dd6fd222035c4bef78d783e7d13b2a5483f22518e8ffd9a9baf4fa28",
+  "allocator_10GiB_enforced_by_worker": true
+}

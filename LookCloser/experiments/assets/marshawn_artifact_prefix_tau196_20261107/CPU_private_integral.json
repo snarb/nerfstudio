@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "private": {
+    "control": {
+      "draws": 64,
+      "chain": "d9a983ced927dca8e407bddfb4e4ab255f3ef766782ca3caaa901af26c0d0b43",
+      "ids_chain": "fe937e0d2648ac560bc74985afbdb04edd0d0611235aba8c6aad3eb351ef02b5",
+      "jitter_chain": "9d7472c70290624de2ed637e73fda23f768f708ee0ee534a3a8cababa960b331",
+      "generator": "e0503967dd2727f11b13db496d577098571710c1c7ac75ab8ece03eb09acd9f6",
+      "control_density_query_skipped": true
+    },
+    "tau001": {
+      "draws": 64,
+      "chain": "d9a983ced927dca8e407bddfb4e4ab255f3ef766782ca3caaa901af26c0d0b43",
+      "ids_chain": "fe937e0d2648ac560bc74985afbdb04edd0d0611235aba8c6aad3eb351ef02b5",
+      "jitter_chain": "9d7472c70290624de2ed637e73fda23f768f708ee0ee534a3a8cababa960b331",
+      "generator": "e0503967dd2727f11b13db496d577098571710c1c7ac75ab8ece03eb09acd9f6",
+      "control_density_query_skipped": null
+    },
+    "tau01": {
+      "draws": 64,
+      "chain": "d9a983ced927dca8e407bddfb4e4ab255f3ef766782ca3caaa901af26c0d0b43",
+      "ids_chain": "fe937e0d2648ac560bc74985afbdb04edd0d0611235aba8c6aad3eb351ef02b5",
+      "jitter_chain": "9d7472c70290624de2ed637e73fda23f768f708ee0ee534a3a8cababa960b331",
+      "generator": "e0503967dd2727f11b13db496d577098571710c1c7ac75ab8ece03eb09acd9f6",
+      "control_density_query_skipped": null
+    }
+  },
+  "gradient_ratio": 9.999998568483006,
+  "sealed_native_tau_method_reused": true,
+  "global_CPU_RNG_unchanged": true,
+  "no_GPU": true
+}

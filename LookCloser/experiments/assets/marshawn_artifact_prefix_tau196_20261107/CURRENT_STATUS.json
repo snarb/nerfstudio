@@ -1,0 +1,32 @@
+{
+  "CPU_source_real63_config_private_integral": "PASS",
+  "CPU_readiness_sha256": "67fc7ea5d6d006ec52663bea8b351fe3a15609c7e305acc905b46517cd9149ee",
+  "CPU_private_integral_sha256": "a28786ddf40fc0801f3a442f10768f793ce4751c003484293baab7e9f0b514f6",
+  "source_original1495_unchanged": true,
+  "total_frozen_science_files": 1504,
+  "source_checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "qualification_sha256": "0850f67b215affe471aca1975a07a5eea4952325074751aed7084f2b68cf988f",
+  "selected196_sha256": "ff6fd24f1443844bc2bbe089b5c0bf35b1331562d26d9380c366d60c7de4a250",
+  "zero": "NOT_RUN",
+  "technical": "NOT_RUN",
+  "production": "NOT_RELEASED",
+  "density_selector": "original_mapped",
+  "original_RGB_W64_unchanged": true,
+  "sourcepoint_gate": false,
+  "canonical_entry": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/artifact_prefix196_continuation_candidate_v1/external_guard_prefix196_v1/guardian.py",
+  "launch_origin": "LOCAL_OLIVE_ONLY",
+  "no_actual_release_files": true,
+  "no_GPU_job_created": true,
+  "production_no_iteration_or_wall_cap": true,
+  "early_attempts": [
+    500,
+    1000,
+    2000,
+    4000
+  ],
+  "worker_sha256": "5129f2f02bfad232d95891e9471d89f73d7b0966f44fa7be21b0c40a98c2c8c3",
+  "source_manifest_sha256": "f72a4d20f6c7d80f4b61971db5a3d6742898e5c54049f3b31afc5afd318e2c85",
+  "policy_sha256": "eed52d523148589a3a5ff0cf77c25ad1cc2a3ddf2937ed99bd3e0da5d178cf68",
+  "allocator_resource_refreeze_sha256": "48be9972dd6fd222035c4bef78d783e7d13b2a5483f22518e8ffd9a9baf4fa28",
+  "allocator_10GiB_enforced_by_worker": true
+}

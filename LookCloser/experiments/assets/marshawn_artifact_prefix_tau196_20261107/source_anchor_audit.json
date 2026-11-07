@@ -1,0 +1,359 @@
+{
+  "anchor_status": "QUARTER_DISTORTION_RAWMIN_FULLSTATE",
+  "step": 126316,
+  "checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "source_hashes": {
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/artifact_prefix196_continuation_candidate_v1/anchor/archive_receipt.json": "528ad8fea67bc7386980e2cdd1e9c3957cae8649a7314ecb32abdfd0dfa6a40c",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/artifact_prefix196_continuation_candidate_v1/anchor/config.yml": "21b961b55eda60f8f81132dc9d3cd398a208e3f31c664ded874b9ff9b68e33c3",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/artifact_prefix196_continuation_candidate_v1/anchor/grid.json": "5a5e0418434395b7d08cde8da923f14fd1f6301746912f6288cb58c31fc8bec9",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/artifact_prefix196_continuation_candidate_v1/anchor/grid.npz": "7db15fdda89f0661e767e53dd97ab34f3346550aa319d4363bdd6332b3cbac0f",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/artifact_prefix196_continuation_candidate_v1/anchor/source_manifest.json": "ad32a034c492314162fac8d966be2215c834393a1bb984beb05f1eed8f9c43b3",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/artifact_prefix196_continuation_candidate_v1/anchor/spec.json": "54e55e212bb7c1d27c12c9428cef8cd6b99ccdefa9ca3fbef776ba01d828aaa8",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/artifact_prefix196_continuation_candidate_v1/anchor/checkpoint.ckpt": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/artifact_prefix196_continuation_candidate_v1/anchor/renders/DC.png": "a7b4d90a165e19fc9513d1fd0767c08c157868342edd35582e5e0984af608229",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/artifact_prefix196_continuation_candidate_v1/anchor/renders/DC_alpha.png": "1058061cc1de9489ef000c0f9702b51c0ab08eb388de65fb58e496efde099e59",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/artifact_prefix196_continuation_candidate_v1/anchor/renders/HC.png": "d74f1af772668738b18cf44f5dc74b4e3b9f6b39ee5d8aa04233ec87fe0e7326",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/artifact_prefix196_continuation_candidate_v1/anchor/renders/HC_alpha.png": "20690cb8ee90d43b65c789cf705c9a740f9669a8af214a74d71eb5deb2ebe2d0",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/artifact_prefix196_continuation_candidate_v1/anchor/renders/KA.png": "f99c87f01f09abd10e4d532b025d398025e3174c9d4d698543ce8e1cd266a579",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/artifact_prefix196_continuation_candidate_v1/anchor/renders/KA_alpha.png": "d9ed58adece05fe7e5637aa10085b2ac476d385525bc7b40ee32415be834c6ab",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/artifact_prefix196_continuation_candidate_v1/anchor/renders/metrics.json": "a0356da49e40d82e7264308cd829077d78312edb438296c5753fd9ae2f8dca9e"
+  },
+  "fullstate_hashes": {
+    "actual_occupancy_capture": "b8809cd17b7c7c8b1440ac33f419872ef5b3cf1fb4953fee20aec2ddbb02dbd4",
+    "optimizers": "73ee993c0dc56b34e6fc9dd799cf63cfcf1d19ca7f252568680f12663dc9583e",
+    "pipeline": "c83bc7dbb1504063c35f0a2b14ae3fb329ff27ed2eb6b3661eb89b4918d46636",
+    "rng_state": "7de999966deb5bc61d81ce39a81891b52df244e05881da2b15cfabe0235e5811",
+    "scalers": "90fa2bbdf25a1c8b016fbd745e22cb8c20431f24c3088693acf9b029248f30c7",
+    "schedulers": "50cde065a272d13da9ef8522a84f2e50a7598437db28721153e3b8ae73447ec3",
+    "tuning_runtime": "6f988601c4ec813524a6d6e1bfeb056a7b8e03acfd66b8e8246f6d2f8f0b65a7"
+  },
+  "actual_Adam": {
+    "fields": [
+      126262.0
+    ]
+  },
+  "schedulers": {
+    "fields": {
+      "base_lrs": [
+        0.01
+      ],
+      "last_epoch": 126262,
+      "_step_count": 126263,
+      "_get_lr_called_within_step": false,
+      "_last_lr": [
+        0.0005462355985545388
+      ],
+      "lr_lambdas": [
+        null
+      ]
+    }
+  },
+  "scalers": {
+    "scale": 16384.0,
+    "growth_factor": 2.0,
+    "backoff_factor": 0.5,
+    "growth_interval": 2000,
+    "_growth_tracker": 1068
+  },
+  "optimizer_groups": {
+    "fields": [
+      {
+        "lr": 0.0005462355985545388,
+        "betas": [
+          0.9,
+          0.999
+        ],
+        "eps": 1e-15,
+        "weight_decay": 0,
+        "amsgrad": false,
+        "maximize": false,
+        "foreach": null,
+        "capturable": false,
+        "differentiable": false,
+        "fused": null,
+        "decoupled_weight_decay": false,
+        "initial_lr": 0.01,
+        "params": [
+          0,
+          1,
+          2,
+          3
+        ]
+      }
+    ]
+  },
+  "sampling_state": {
+    "schema_version": 1,
+    "step": 126316,
+    "objective": "actor",
+    "sampling": "body80",
+    "width": 64,
+    "audit": {
+      "batches": 126317,
+      "rays": 517394432,
+      "black": 177879382,
+      "grey": 165959576,
+      "band": 71423719,
+      "outside": 173555474
+    },
+    "source_hits": [
+      180934899,
+      164036828,
+      68969082,
+      103453623
+    ],
+    "sample_count": 126317
+  },
+  "original_plateau_preserved_as_ancestry": {
+    "schema_version": 1,
+    "anchor_step": 106316,
+    "interval": 5000,
+    "patience": 4,
+    "loss_relative_delta": 0.001,
+    "lpips_absolute_delta": 0.001,
+    "last_step": 126316,
+    "last_loss": 0.022064595483243465,
+    "last_lpips": 0.018773120517532032,
+    "significant_loss": 0.022008486712972324,
+    "significant_lpips": 0.01890304529418548,
+    "loss_misses": 4,
+    "lpips_misses": 4,
+    "stopped": true
+  },
+  "source_eval": {
+    "step": 126316,
+    "metrics": {
+      "psnr": 31.63972670843312,
+      "ssim": 0.831264058748881,
+      "lpips": 0.018773120517532032,
+      "validation_loss": 0.022064595483243465
+    },
+    "by_view": {
+      "DC": {
+        "psnr": 31.928317784803568,
+        "ssim": 0.8286823630332947,
+        "lpips": 0.02148943580687046,
+        "validation_loss": 0.020745201967656612
+      },
+      "HC": {
+        "psnr": 31.601697059452533,
+        "ssim": 0.832050085067749,
+        "lpips": 0.016353829763829708,
+        "validation_loss": 0.02247255202382803
+      },
+      "KA": {
+        "psnr": 31.38916528104327,
+        "ssim": 0.8330597281455994,
+        "lpips": 0.018476095981895924,
+        "validation_loss": 0.022976032458245754
+      }
+    },
+    "by_actor": {
+      "black": {
+        "psnr": 30.513517800400347,
+        "ssim": 0.7976165215174357,
+        "lpips": 0.020088519901037216,
+        "validation_loss": 0.023400044689575832
+      },
+      "grey": {
+        "psnr": 32.7659356164659,
+        "ssim": 0.8649115959803263,
+        "lpips": 0.017457721134026844,
+        "validation_loss": 0.0207291462769111
+      }
+    },
+    "records": [
+      {
+        "view": "DC",
+        "actor": "black",
+        "psnr": 30.882954748724583,
+        "ssim": 0.7967886924743652,
+        "lpips": 0.019903624430298805,
+        "validation_loss": 0.021752478554844856,
+        "actor_pixels": 50554,
+        "crop_xyxy": [
+          742,
+          61,
+          1087,
+          630
+        ],
+        "crop_pixels": 196305,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      },
+      {
+        "view": "DC",
+        "actor": "grey",
+        "psnr": 32.97368082088256,
+        "ssim": 0.8605760335922241,
+        "lpips": 0.023075247183442116,
+        "validation_loss": 0.01973792538046837,
+        "actor_pixels": 32212,
+        "crop_xyxy": [
+          880,
+          224,
+          1118,
+          625
+        ],
+        "crop_pixels": 95438,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      },
+      {
+        "view": "HC",
+        "actor": "black",
+        "psnr": 29.995297363722862,
+        "ssim": 0.7949431538581848,
+        "lpips": 0.02196265012025833,
+        "validation_loss": 0.02431020699441433,
+        "actor_pixels": 39768,
+        "crop_xyxy": [
+          883,
+          191,
+          1210,
+          688
+        ],
+        "crop_pixels": 162519,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      },
+      {
+        "view": "HC",
+        "actor": "grey",
+        "psnr": 33.208096755182204,
+        "ssim": 0.8691570162773132,
+        "lpips": 0.010745009407401085,
+        "validation_loss": 0.02063489705324173,
+        "actor_pixels": 30426,
+        "crop_xyxy": [
+          945,
+          345,
+          1230,
+          747
+        ],
+        "crop_pixels": 114570,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      },
+      {
+        "view": "KA",
+        "actor": "black",
+        "psnr": 30.66230128875359,
+        "ssim": 0.8011177182197571,
+        "lpips": 0.018399285152554512,
+        "validation_loss": 0.024137448519468307,
+        "actor_pixels": 31759,
+        "crop_xyxy": [
+          935,
+          0,
+          1203,
+          470
+        ],
+        "crop_pixels": 125960,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      },
+      {
+        "view": "KA",
+        "actor": "grey",
+        "psnr": 32.11602927333295,
+        "ssim": 0.8650017380714417,
+        "lpips": 0.018552906811237335,
+        "validation_loss": 0.0218146163970232,
+        "actor_pixels": 29297,
+        "crop_xyxy": [
+          889,
+          163,
+          1154,
+          539
+        ],
+        "crop_pixels": 99640,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      }
+    ],
+    "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+    "aggregation": "equal actors per camera, then equal cameras",
+    "opacity_diagnostics": [
+      {
+        "view": "DC",
+        "actor": "black",
+        "eroded_pixels": 45559,
+        "below09_fraction": 0.03187076099124213,
+        "trigger": true
+      },
+      {
+        "view": "DC",
+        "actor": "grey",
+        "eroded_pixels": 28743,
+        "below09_fraction": 0.0007654037504783774,
+        "trigger": false
+      },
+      {
+        "view": "HC",
+        "actor": "black",
+        "eroded_pixels": 35296,
+        "below09_fraction": 0.03955122393472348,
+        "trigger": true
+      },
+      {
+        "view": "HC",
+        "actor": "grey",
+        "eroded_pixels": 27480,
+        "below09_fraction": 0.0002183406113537118,
+        "trigger": false
+      },
+      {
+        "view": "KA",
+        "actor": "black",
+        "eroded_pixels": 28831,
+        "below09_fraction": 0.023308244597828726,
+        "trigger": true
+      },
+      {
+        "view": "KA",
+        "actor": "grey",
+        "eroded_pixels": 25770,
+        "below09_fraction": 0.009274350019402406,
+        "trigger": false
+      }
+    ],
+    "masked_lpips": 0.018773120517532032,
+    "psnr": 31.63972670843312,
+    "ssim": 0.831264058748881,
+    "validation_loss": 0.022064595483243465
+  },
+  "render_directory": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/artifact_prefix196_continuation_candidate_v1/anchor/renders",
+  "semantic_grid_checks": {
+    "core_capture": true,
+    "active_capture": true,
+    "active_pipeline": true,
+    "EMA_pipeline": true,
+    "learned_core": true,
+    "active_is_core_and_admission": true,
+    "semantic_receipt": true
+  },
+  "semantic_capture_metadata": {
+    "step": 126304,
+    "radius": 0,
+    "binary_warmup": false,
+    "semantic_receipt": {
+      "manifest_sha256": "fce7fc24735cd62d5242ce719964c5d6d61291feef1cc1c536c12f2ce194b15e",
+      "source_grid_sha256": "e804d736dd766e8adf11df07e346a6317af87e0b106a94dfc524ab32f1690d71",
+      "mapped_bool_sha256": "d60baa9186a63f3769204b93cb46dcfd2ea16e3d41a72ca788934fe19bd2659f",
+      "identity_control": false
+    }
+  },
+  "source_pipeline_extra_state_sha256": {},
+  "CUDA_initialized": false,
+  "model_instantiated": false,
+  "optimizer_instantiated": false,
+  "baseline_loader_resume_not_yet_run": true,
+  "upstream_anchor_audit_sha256": "17eeff46a530d6feb0eb1421a9a64698cc4aa792602672151a6bbdcba00c0595"
+}

@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "science_files_verified": 1504,
+  "prepared_bindings_verified": 18,
+  "actual_CPU_imports_path_and_SHA_exact": {
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/artifact_prefix196_continuation_candidate_v1/code/LookCloser/scripts/marshawn_artifact_prefix_factory.py": "b7eade4e46afd7185c3769c7ccea32f0e2897592735deb493c3cdc3fa21d610b",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/artifact_prefix196_continuation_candidate_v1/code/LookCloser/scripts/marshawn_artifact_prefix_rgb.py": "85122bec661b4c532fcd71e6a44f1015ec70c365978d49d69a8ed13ead7480e1",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/artifact_prefix196_continuation_candidate_v1/code/LookCloser/scripts/marshawn_artifact_prefix_tau.py": "69fbb63cbdf831c8c39bddd6f302e25c03f7a258f2fea347fde6cb057a1e7088",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/artifact_prefix196_continuation_candidate_v1/code/LookCloser/scripts/train_marshawn_artifact_prefix.py": "4c7b7b75f7707f254e7f9dbae44afafba61f9b47b845d570983feb4cf2128c9b",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/artifact_prefix196_continuation_candidate_v1/code/LookCloser/scripts/marshawn_artifact_prefix_sealed_tau.py": "a21becdb5ee2f5cc385649d64632c5d630c67ec91064c97bd9801302dee2520d"
+  },
+  "sealed_tau_inherited": true,
+  "CUDA_initialized": false,
+  "no_releases_or_jobs": true
+}

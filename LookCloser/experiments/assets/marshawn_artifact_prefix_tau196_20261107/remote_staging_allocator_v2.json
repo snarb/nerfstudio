@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "science_files_verified": 1504,
+  "original1495_exact": true,
+  "prepared_bindings_verified": 19,
+  "worker_actual_import_path_and_SHA_exact": {
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/artifact_prefix196_continuation_candidate_v1/code/LookCloser/scripts/train_marshawn_artifact_prefix.py": "5129f2f02bfad232d95891e9471d89f73d7b0966f44fa7be21b0c40a98c2c8c3",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/artifact_prefix196_continuation_candidate_v1/code/LookCloser/scripts/marshawn_artifact_prefix_tau.py": "69fbb63cbdf831c8c39bddd6f302e25c03f7a258f2fea347fde6cb057a1e7088",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/artifact_prefix196_continuation_candidate_v1/code/LookCloser/scripts/marshawn_artifact_prefix_sealed_tau.py": "a21becdb5ee2f5cc385649d64632c5d630c67ec91064c97bd9801302dee2520d"
+  },
+  "CUDA_initialized": false,
+  "allocator_site_AST_proof_sha256": "48be9972dd6fd222035c4bef78d783e7d13b2a5483f22518e8ffd9a9baf4fa28",
+  "new_worker_sha256": "5129f2f02bfad232d95891e9471d89f73d7b0966f44fa7be21b0c40a98c2c8c3",
+  "policy_sha256": "eed52d523148589a3a5ff0cf77c25ad1cc2a3ddf2937ed99bd3e0da5d178cf68",
+  "old_CPU_readiness_byte_preserved": true,
+  "old_private_proof_byte_preserved": true,
+  "no_releases_or_jobs": true
+}

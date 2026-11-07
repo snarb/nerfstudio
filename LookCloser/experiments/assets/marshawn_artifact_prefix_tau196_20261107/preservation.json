@@ -1,0 +1,14 @@
+{
+  "base_guardian_sha256": "82823e7f5778208d43f212288d65a9610980a3b1a36e3a1483520e07f54cbed8",
+  "science_manifest_sha256": "ee74d938b2c9a714d9ae1587e2646e908d0234f50943c838092e496aa194547e",
+  "confidence_manifest_sha256": "3cf40266675fa5b1d345f425b5a202f98f16e2d3998448ca7148daf7259a16ea",
+  "CPU_readiness_sha256": "67fc7ea5d6d006ec52663bea8b351fe3a15609c7e305acc905b46517cd9149ee",
+  "old_phase_runner_sha256": null,
+  "policy_sha256": "f2fcc53ba6fc4a78ba5b0f85634af163bbe02d71f5067c3ee9c1605de8f69542",
+  "plans_sha256": {
+    "zero": "670f454e7117c7ed6bb9a8283aee40ea5bf1547843e3a2f2f8f26ceb7273c82b",
+    "technical": "ca27de1dd425291505d6ca42c5c1fb763ba07283a630d93eb14205b8fd4c2cf8",
+    "production": "05db9402d91f96a695c81cf792546154de0a61f157dd18343d2e708f3ea23330"
+  },
+  "release_files_created": false
+}
