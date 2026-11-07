@@ -1,0 +1,17 @@
+{
+  "reviewer": "root",
+  "time_utc": "2026-11-07T06:52:58.984223+00:00",
+  "manual_visual_review": true,
+  "step": 150316,
+  "coverage": "All3 DC/HC/KA actorviews +9 fixedhair/hands/feetpatches; source/control/.3",
+  "images_sha256": {
+    "all_actors.jpg": "57eb93f2b35ba1f89d7d77d0a56677cbb58489be139516a04ada6b6fc4bdab70",
+    "all_details.jpg": "623ced81d3db9208a0eee12ec3443980208b3d02f91d3b73636ac36eabe6f1ba"
+  },
+  "findings": [
+    "Allgrossactorsandvisiblefeet/hairpreserved.",
+    "Modest exterior mass attenuation fails to remove broad fragmented floor and contourhalo.",
+    "No improvedrawminimum, bothselectimmutableparent126316."
+  ],
+  "decision": "No promotion; close this trial after naturalplateau, continue overall20hoptimizationcampaign."
+}

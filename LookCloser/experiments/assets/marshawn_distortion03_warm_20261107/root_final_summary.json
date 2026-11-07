@@ -1,0 +1,134 @@
+{
+  "time_utc": "2026-11-07T06:52:59.004982+00:00",
+  "status": "complete_natural_plateau",
+  "final_step": 150316,
+  "warm_attempts": 24000,
+  "best_checkpoint": "parent126316",
+  "promotion": false,
+  "terminal_proof_sha256": "983f71c3237eb04c40cb19930c98e10918bb31d231e21e69fec0049f9b61338f",
+  "terminal_metrics": {
+    "parent126316": {
+      "psnr": 31.63972670843312,
+      "ssim": 0.831264058748881,
+      "lpips": 0.018773120517532032
+    },
+    "control01": {
+      "psnr": 31.58635440190443,
+      "ssim": 0.8301584919293722,
+      "lpips": 0.018865072168409824
+    },
+    "distortion03": {
+      "psnr": 31.55273551531586,
+      "ssim": 0.8297710518042246,
+      "lpips": 0.018986537121236324
+    }
+  },
+  "terminal_exterior16px_alpha01": {
+    "parent126316": {
+      "DC": 118260,
+      "HC": 79892,
+      "KA": 54994
+    },
+    "control01": {
+      "DC": 117689,
+      "HC": 79619,
+      "KA": 54856
+    },
+    "distortion03": {
+      "DC": 109470,
+      "HC": 75432,
+      "KA": 52397
+    }
+  },
+  "reports": {
+    "control01": {
+      "effective_distortion": 0.1,
+      "source7_verified_before_scalar_change": true,
+      "final_step": 150316,
+      "attempts": 24000,
+      "actual_Adam_updates": {
+        "fields": 23989.0
+      },
+      "AMP_skips": {
+        "fields": 11.0
+      },
+      "source_seven_states_exact_before_policy": true,
+      "actual_FR": 0.3,
+      "actual_distortion_live_asserted_every_iteration": 0.1,
+      "confidence_manifest_and_all63_weight_hashes_exact": true,
+      "checkpoint_normalizer_error": 1.1102230246251565e-16,
+      "analytical_LUT_unchanged": true,
+      "original_mapped_admission_cascade_and_resolution_exact": true,
+      "explicit_cache_ids_and_source_associations_preserved": true,
+      "plateau": {
+        "schema_version": 1,
+        "anchor_step": 130316,
+        "interval": 5000,
+        "patience": 4,
+        "loss_relative_delta": 0.001,
+        "lpips_absolute_delta": 0.001,
+        "last_step": 150316,
+        "last_loss": 0.022151070026059944,
+        "last_lpips": 0.018865072168409824,
+        "significant_loss": 0.022103306837379932,
+        "significant_lpips": 0.01888571244974931,
+        "loss_misses": 4,
+        "lpips_misses": 4,
+        "stopped": true
+      },
+      "final_checkpoint_sha256": "ae71afc7d5bd20195109795a90b65582eb5cd2a80ef5b1d4758df8e8ba08c759",
+      "raw_min_step": 126316,
+      "historical_selector_step": 126316,
+      "best_metrics": {
+        "psnr": 31.63972670843312,
+        "ssim": 0.831264058748881,
+        "lpips": 0.018773120517532032
+      }
+    },
+    "distortion03": {
+      "effective_distortion": 0.3,
+      "source7_verified_before_scalar_change": true,
+      "final_step": 150316,
+      "attempts": 24000,
+      "actual_Adam_updates": {
+        "fields": 23990.0
+      },
+      "AMP_skips": {
+        "fields": 10.0
+      },
+      "source_seven_states_exact_before_policy": true,
+      "actual_FR": 0.3,
+      "actual_distortion_live_asserted_every_iteration": 0.3,
+      "confidence_manifest_and_all63_weight_hashes_exact": true,
+      "checkpoint_normalizer_error": 1.1102230246251565e-16,
+      "analytical_LUT_unchanged": true,
+      "original_mapped_admission_cascade_and_resolution_exact": true,
+      "explicit_cache_ids_and_source_associations_preserved": true,
+      "plateau": {
+        "schema_version": 1,
+        "anchor_step": 130316,
+        "interval": 5000,
+        "patience": 4,
+        "loss_relative_delta": 0.001,
+        "lpips_absolute_delta": 0.001,
+        "last_step": 150316,
+        "last_loss": 0.02218656086673339,
+        "last_lpips": 0.018986537121236324,
+        "significant_loss": 0.022117527201771736,
+        "significant_lpips": 0.01896990928798914,
+        "loss_misses": 4,
+        "lpips_misses": 4,
+        "stopped": true
+      },
+      "final_checkpoint_sha256": "e9730145dedbd5106189b660f0462001e4e93278724457a460a4d022462b5dd5",
+      "raw_min_step": 126316,
+      "historical_selector_step": 126316,
+      "best_metrics": {
+        "psnr": 31.63972670843312,
+        "ssim": 0.831264058748881,
+        "lpips": 0.018773120517532032
+      }
+    }
+  },
+  "root_visual_review": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/distortion03_warm_continuation_candidate_v1/external_guard_distortion03_v1/visual_gates_v1/reviews/step-000150316/root_manual_review.json"
+}

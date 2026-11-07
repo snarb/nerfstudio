@@ -1,0 +1,123 @@
+{
+  "passed": true,
+  "CPU_only": true,
+  "helper_sha256": "3adfca169f69a7b10d797da0a1496f4296bc7fb55936368c066887af95217a96",
+  "anchor_checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "technical_verification_sha256": "d1f89db7e935f2a421ffeb42106fc5f5bdc3142d90a8a028f9cc0200be7da26a",
+  "confidence_manifest_sha256": "3fe4e610d4bf641f44fb962cdec4d620d7db8ad7247451eb6ee49172353bc95d",
+  "reports": {
+    "control01": {
+      "effective_distortion": 0.1,
+      "source7_verified_before_scalar_change": true,
+      "final_step": 150316,
+      "attempts": 24000,
+      "actual_Adam_updates": {
+        "fields": 23989.0
+      },
+      "AMP_skips": {
+        "fields": 11.0
+      },
+      "source_seven_states_exact_before_policy": true,
+      "actual_FR": 0.3,
+      "actual_distortion_live_asserted_every_iteration": 0.1,
+      "confidence_manifest_and_all63_weight_hashes_exact": true,
+      "checkpoint_normalizer_error": 1.1102230246251565e-16,
+      "analytical_LUT_unchanged": true,
+      "original_mapped_admission_cascade_and_resolution_exact": true,
+      "explicit_cache_ids_and_source_associations_preserved": true,
+      "plateau": {
+        "schema_version": 1,
+        "anchor_step": 130316,
+        "interval": 5000,
+        "patience": 4,
+        "loss_relative_delta": 0.001,
+        "lpips_absolute_delta": 0.001,
+        "last_step": 150316,
+        "last_loss": 0.022151070026059944,
+        "last_lpips": 0.018865072168409824,
+        "significant_loss": 0.022103306837379932,
+        "significant_lpips": 0.01888571244974931,
+        "loss_misses": 4,
+        "lpips_misses": 4,
+        "stopped": true
+      },
+      "final_checkpoint_sha256": "ae71afc7d5bd20195109795a90b65582eb5cd2a80ef5b1d4758df8e8ba08c759",
+      "raw_min_step": 126316,
+      "historical_selector_step": 126316,
+      "best_metrics": {
+        "psnr": 31.63972670843312,
+        "ssim": 0.831264058748881,
+        "lpips": 0.018773120517532032
+      }
+    },
+    "distortion03": {
+      "effective_distortion": 0.3,
+      "source7_verified_before_scalar_change": true,
+      "final_step": 150316,
+      "attempts": 24000,
+      "actual_Adam_updates": {
+        "fields": 23990.0
+      },
+      "AMP_skips": {
+        "fields": 10.0
+      },
+      "source_seven_states_exact_before_policy": true,
+      "actual_FR": 0.3,
+      "actual_distortion_live_asserted_every_iteration": 0.3,
+      "confidence_manifest_and_all63_weight_hashes_exact": true,
+      "checkpoint_normalizer_error": 1.1102230246251565e-16,
+      "analytical_LUT_unchanged": true,
+      "original_mapped_admission_cascade_and_resolution_exact": true,
+      "explicit_cache_ids_and_source_associations_preserved": true,
+      "plateau": {
+        "schema_version": 1,
+        "anchor_step": 130316,
+        "interval": 5000,
+        "patience": 4,
+        "loss_relative_delta": 0.001,
+        "lpips_absolute_delta": 0.001,
+        "last_step": 150316,
+        "last_loss": 0.02218656086673339,
+        "last_lpips": 0.018986537121236324,
+        "significant_loss": 0.022117527201771736,
+        "significant_lpips": 0.01896990928798914,
+        "loss_misses": 4,
+        "lpips_misses": 4,
+        "stopped": true
+      },
+      "final_checkpoint_sha256": "e9730145dedbd5106189b660f0462001e4e93278724457a460a4d022462b5dd5",
+      "raw_min_step": 126316,
+      "historical_selector_step": 126316,
+      "best_metrics": {
+        "psnr": 31.63972670843312,
+        "ssim": 0.831264058748881,
+        "lpips": 0.018773120517532032
+      }
+    }
+  },
+  "last_common_checkpoint_stream_proof": {
+    "control01": {
+      "step": 150316,
+      "global_RNG": "8e561aeec9882e0d0e31e29d95e4572d351714391a3910add14101e783894846",
+      "sampler": "fded5c757c65e42dea5fad50f4c1a40e5549162bb34cba9efb8cc4da330af2a2",
+      "indices_chain": "d49a09c13153841e40c6b6b088b3aa8dbbefefe64eac369693ccc7658c01fba1",
+      "attempts": 24000
+    },
+    "distortion03": {
+      "step": 150316,
+      "global_RNG": "8e561aeec9882e0d0e31e29d95e4572d351714391a3910add14101e783894846",
+      "sampler": "fded5c757c65e42dea5fad50f4c1a40e5549162bb34cba9efb8cc4da330af2a2",
+      "indices_chain": "d49a09c13153841e40c6b6b088b3aa8dbbefefe64eac369693ccc7658c01fba1",
+      "attempts": 24000
+    }
+  },
+  "observed_common_stream_equality": {
+    "global_RNG": true,
+    "sampler": true,
+    "indices_chain": true,
+    "attempts": true
+  },
+  "streams_never_forced_equal": true,
+  "quality_promotion": false,
+  "limitation": "Serialized final-state audit, not another model-loader replay. Source loader/cache replay was independently proven by zero and actual32+32. Exterior opacity remains diagnostic, not empty-space truth."
+}
