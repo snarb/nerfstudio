@@ -100,4 +100,4 @@ Root manually inspected all three actor views and nine hair/contact/feet crops a
 |106316|lr_decay|31.65791|0.832744|0.01909051|
 |106316|threshold093|31.69143|0.833333|0.01881288|
 
-Root viewed all3 actor comparisons and9 hair/contact/feet crops at both gates. Large floor, bag, between-leg and silhouette artifacts persist; no clean geometry or promotion. The map .93 variant improves106316 modestly; new4K remains worse than matched HD and its75940 LPIPS is worse than60752. Neither observation changes the original stopping criterion. Each gate directory contains provenance and a hash-bound root_manual_review.json.
+Root viewed all3 actor comparisons and9 hair/contact/feet crops at both gates. Large floor, bag, between-leg and silhouette artifacts persist; no clean geometry or promotion. The map .93 variant improves106316 modestly; LR decay is worse at both matched gates. Neither observation changes the original stopping criterion. Each gate directory contains provenance and a hash-bound root_manual_review.json.

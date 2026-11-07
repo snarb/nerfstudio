@@ -67,4 +67,4 @@ Root manually inspected all three actor views and nine detail crops at each gate
 |75940|old4K_coarse001|31.57082|0.844172|0.02287375|
 |75940|new4K_quarter01|31.38063|0.831393|0.02077134|
 
-Root viewed all3 actor comparisons and9 hair/contact/feet crops at both gates. Large floor, bag, between-leg and silhouette artifacts persist; no clean geometry or promotion. The map .93 variant improves106316 modestly; new4K remains worse than matched HD and its75940 LPIPS is worse than60752. Neither observation changes the original stopping criterion. Each gate directory contains provenance and a hash-bound root_manual_review.json.
+Root viewed all3 actor comparisons and9 hair/contact/feet crops at both gates. Large floor, bag, between-leg and silhouette artifacts persist; no clean geometry or promotion. New4K remains worse than matched HD and its75940 LPIPS is worse than60752. Neither observation changes the original stopping criterion. Each gate directory contains provenance and a hash-bound root_manual_review.json.
