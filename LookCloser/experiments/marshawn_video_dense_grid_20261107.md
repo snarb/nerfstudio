@@ -353,3 +353,51 @@ Capped campaign evidence:
 (SHA `800a785c0f5daf346defe73fbf5b21d57ff31c6e79a6d748c68d47dd5f9bca5c`).
 The audit used the actual `train/occupancy/step-000139999_grid.npz`; no GPU lease
 or extra NeRF load was required. The released GPU returned to the normal fleet.
+
+## Frame1685: weak HEAD proposals must not imply known background
+
+The first source gate rejected10of920 sparse positive rays, all flying braid
+extrema. Exact gap-free DDA independently reproduced all10 misses. Along their
+best in-box voxels,52–53 cameras supplied positive support, while DD/ED and
+sometimesIB classified the complete projected voxel footprint as clear. The
+actual whole-cell votes reproduced the compiled sourcebase exactly; center-only
+carving was not the implementation error. A32-cell extension beyond the AABB
+found no better-consensus point, providing no evidence for changing the box.
+
+For representative cell(122,73,69), DD/ED/IB whole footprints contain150/176/252
+valid HD pixels and zero W64/semantic-UNKNOWN/props-UNKNOWN/hair-UNKNOWN pixels.
+The center is291.9/298.3/169.8native pixels from each current weak hair proposal.
+Native photos show stand hardware in DD/IB and board above visible hair in ED,
+so these are not certified foreground pixels in those views. The geometry
+contract was the problem: a weak/NONE proposal plus128 pixels did not establish
+known background throughout the already queried HEAD ROI.
+
+ROOT authorized admission-only UNKNOWN = oldUNKNOWN UNION the complete bounded,
+current queried HEAD ROI for weak/NONE detections.26 such ROIs changed; RGB,
+all actor/ownership masks, W32/W64, original/source UNKNOWN, frequency maps,
+AABB, classifier, one-cell halo and model recipe remained unchanged. Old332
+training-input files and native actor NPZs were byte-verified before restarting
+the same qualified dispatcher. Geometry has its own source bindings; ReadySHA
+stays `aad71f4be43821c9bae793cedc1c3edb474c7b35e8a6e4c299dfc18cac9e5fe8`.
+
+| Source matrix | Before | After | Added | Removed |
+|---|---:|---:|---:|---:|
+|Base|371586|372286|700|0|
+|Pad1|405482|406538|1056|0|
+
+Actual grid bytes changed from `8a62758589bd774b73d18a9f01380b2c3767bdf708047f87b99c00c377f179ea`
+to `e925ff6306f64b9f375ef9d64330ac7fea795440a5e6bc868e9d87ab21e40f9b`.
+Every old failed ray now intersects both newbase and newpad1. All920 sparse rays
+and all156350 current actor-contour rays across66 cameras pass; sourcebase,
+pad1 and mapped each have0dense misses. This does not force learned occupied
+cells or certify hidden physical depth. The new cold140k frame was dispatched
+only after the ordinary exact-source sparse+dense prerequisites passed.
+
+Source campaign evidence: `operations/witness1685_diagnostic/` contains old
+and new binary snapshots, `exact_cell_votes.json`, actual native contributor
+contact, `new_binary_old10_replay.json`, and quiescence/archive/restart receipts.
+New geometry manifestSHA `0e63793c0ba72faf0be840a2c3cd73df7d52ee5a678f3ce378212dfc726f7fa8`,
+preparedSHA `48ba74f315eefb899b72a0bd13ada6423179410fda06d79c7b98e37d90fd1f00`,
+source markerSHA `ce50d5565f245fcc06fecde107558f2fe74d3e8916f630a72de0ce98b7bb982d`,
+gateSHA `8c4f92f7f4257cca9d0e7725c945a70ac7d8e3fd608e45f05c3f69777ebb4a1b`,
+and dense qualificationSHA `d8595ee57ce453993099963d48249ff2af22d140d86b017d6f8ee6f83bc9373c`.
