@@ -1,0 +1,60 @@
+{
+  "kind": "ROOT_APPROVED_MARSHAWN_HYBRID_PARAMS_ONLY_PROFILE_V1",
+  "geometry": {
+    "kind": "native_saved_R0",
+    "weak_ray_guard": false,
+    "runtime_grid_replacement": false
+  },
+  "parameters": {
+    "source_count": 16,
+    "detail_sigma": 4.0,
+    "detail_gain": 0.75
+  },
+  "pixel_scale": {
+    "method": "smooth_fixed_anchor_log_focal_geometric_mean",
+    "reference_calibration": {
+      "IC": {
+        "w": 1920,
+        "h": 1012,
+        "fl_x": 1356.4222469159135,
+        "fl_y": 1354.502784711793
+      },
+      "JC": {
+        "w": 1920,
+        "h": 1012,
+        "fl_x": 1354.3035788364698,
+        "fl_y": 1352.159317831593
+      },
+      "KC": {
+        "w": 1920,
+        "h": 1012,
+        "fl_x": 1352.3687395523484,
+        "fl_y": 1349.8219040939712
+      },
+      "LC": {
+        "w": 1920,
+        "h": 1012,
+        "fl_x": 1354.2954220094648,
+        "fl_y": 1351.5905347308355
+      },
+      "MC": {
+        "w": 1920,
+        "h": 1012,
+        "fl_x": 1350.813875712102,
+        "fl_y": 1348.738785272778
+      }
+    },
+    "reference_path_clock": "quintic(t/3)",
+    "focal_helper_sha256": "d54983c65b6c99dabcb982081eecf946ce1219ecf0695b3aa83082750cfd2a3d"
+  },
+  "qualifications": {
+    "first_three_actual_4K_matrix": "/fsx/tmp/marshawn_video_1660_2015_24fps_140k_20261107/operations/video_fleet10/private_profile_v1/matched_first3/finite_profile_matrix_complete.json",
+    "first_three_actual_4K_matrix_sha256": "517f4154ec4e02eee8be95581f757df5a1f228282bfc0c7a8df5f146219bd754",
+    "geometry_CPU_transport_qualification": "/fsx/tmp/marshawn_video_1660_2015_24fps_140k_20261107/operations/video_geometry_cpu_v1/qualification_first0/qualification_complete.json",
+    "geometry_CPU_transport_qualification_sha256": "54006f8ae99614c3fa9ae0c5bf32dc6a850f8299dabd1c4918eb7c6c1be15b13"
+  },
+  "root_JSON_release_required": true,
+  "IC_direct_pose_fade": false,
+  "full_72_temporal_visual_gate_still_required": true,
+  "no_training_or_data_change": true
+}

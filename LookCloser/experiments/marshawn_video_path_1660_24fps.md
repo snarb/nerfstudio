@@ -1,20 +1,112 @@
 # Marshawn 1660: independent-model video camera path and native GT continuation
 
-## What was tested
+## Current delivery: v4 with a paused native photograph
+
+The user explicitly authorized holding source frame2020 for the last two
+playback seconds and moving a native crop over the heads. The final120-frame
+request therefore contains72 unchanged v3 neural frames, followed by48
+photographic outputs from **the same source instant2020**. This is a paused
+photograph pan, not motion from a future two-second continuation.
+
+The tail keeps the exact MC pose and3840×2024 native pixel scale. A quintic pan
+changes only integer crop origins, from `[3500,650]` through `[3710,606]` to
+`[3920,563]`. There is no resize or pixel magnification. Both heads, hair and
+full actors remain inside every crop; the minimum positive actor-envelope
+margin is149 native pixels. Independently rendered start/mid/end crops have
+**zero RGB-code difference on their overlapping native pixels**. The maximum
+24fps step is17 horizontal and4 vertical native pixels. The continuous pan
+has zero velocity and acceleration at its ends; integer quantization is explicit.
+
+The campaign owner inspected and approved the
+[actual paused-photo start/mid/end contact](</fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/endpoint_v3/MC2020_paused_tail_start_mid_end.jpg>).
+[v4 CPU validation](</fsx/tmp/marshawn_video_1660_2015_24fps_20261107/video/path_4K_v4/cpu_validation.json>)
+checks the constant2020 source,48 outputs, unchanged72 neural records, exact
+t3 splice, native rays, bounded integer crops and future60fps120-frame paused
+tail. The former47 missing future photographs are no longer required. No
+synthetic actor motion, source-time interpolation or additional training occurs.
+
+Approved v4 path SHA256:
+`e76cea4b4499fd7ef38215a7abc8a4cad4912606cd652d92faaf4e79f843a41e`.
+`video/export_pipeline_v4.json` and the stable plan alias select it. The durable
+user-decision receipt is `video/path_4K_v4/user_paused_source_decision.json`.
+The existing source-only v3 RAW transfer continues: every required neural
+source and the available MC2020 photograph are unchanged. An explicit v4
+inventory-equivalence receipt records this; control-plane suppression prevents
+that transfer from publishing an old request. Final staging publishes v4.
+The v3 selected-model IC gate remains valid as a diagnostic because its actual
+initial camera, rays and source frame are identical.
+
+## Neural trajectory v3, preserved by v4
+
+The approved path now starts at TRAIN camera IC and follows IC→JC→KC→LC→MC.
+It ends exactly at t=3.000 on MC with native1:1 crop
+`[3500,650,3840,2024]`. This replaces the earlier DC→HC v2 delivery request;
+v1/v2 remain diagnostics. No model, source calibration or training recipe changed.
+
+The earlier HC crop cut off the grey actor's head. That missed framing error
+was found by inspecting the actual2020 photograph. Nine camera photographs
+were reviewed, and six cameras' trusted current native actor masks were mapped
+through the exact RAW-to-native-rectified calibration. MC's full-actor union is
+`[4069,854,6472,2432]` in8192×4320 pixels. The approved crop contains this union
+with left/top/right/bottom margins569/204/868/242 pixels. Native RGB review
+confirms both heads, hair and feet are included. The grey actor's face remains
+physically turned into the mat; no camera or crop reveals unobserved features.
+
+IC's actual1660 mask bbox is `[1037,231,1328,740]` at1920×1012. Initial zoom1.45
+and actor recentering project it to4K bounds
+`[1498.05,273.95,2341.95,1750.05]`. The campaign owner inspected the actual IC
+photograph framing and the actual MC native crop and approved both.
+
+Simple initial-to-endpoint intrinsics failed to follow the action toward the
+mat. v3 therefore fits a natural cubic through seven current mask-support
+center/size keys at half-second intervals, composed with the quintic time
+clock. Initial IC intrinsics and exact MC endpoint intrinsics are preserved.
+All seven projected support envelopes fit, with minimum148.24 pixels of margin;
+interior vertical margins are at least200 pixels. These are conservative
+multiview mask-support proxies, not measured hidden geometry or NeRF renders.
+
+CPU checks passed: exact start and t3 endpoint, native-crop ray equivalence,
+C2 pose/intrinsic endpoints, positive focal lengths over10001 samples,72+48
+timing, TRAIN-only controls, camera centers outside the accepted actor box,
+and future60fps accounting180/common36/additional144. The production camera
+poses already include the historical rigid floor transform; the framing audit
+applies it exactly once.
+
+- [Approved IC/JC source-framing comparison](</fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/endpoint_v3/IC_JC_start_framing.jpg>)
+- [Actual MC and shifted-HC crop comparison](</fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/endpoint_v3/MC_vs_shifted_HC_native_crops.jpg>)
+- [Full actual MC native crop](</fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/endpoint_v3/MC2020_native_crop_3500_650.png>)
+- [Seven-time support-proxy framing](</fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/endpoint_v3/seven_time_support_framing.jpg>)
+- [CPU validation](</fsx/tmp/marshawn_video_1660_2015_24fps_20261107/video/path_4K_v3/cpu_validation.json>)
+
+Approved v3 path SHA256:
+`265a467879316d4742ba8654804ca32c79cf31411b8fcafacfa3732fa3954351`.
+`video/export_pipeline_v3.json` and the stable export-plan alias now select it.
+The old RAW prefetch process group was retired after quiescence checks; a
+versioned source-only prefetch stages IC's first16 cameras before continuing
+the72-frame native inventory at4MiB/s. It cannot publish a cached old path.
+The selected-model watcher was likewise replaced before any worker started;
+it will first prove canonical HC checkpoint parity, then render actual new4K
+IC LookCloser and hybrid rays. This actual neural visual gate and all final
+video-frame reviews remain required. The47 missing continuation photographs
+are still missing; no duplicate or synthetic GT was authorized.
+
+## Earlier v1/v2 preparation: what was tested
 
 CPU planning and renderer preparation for 72 cold-trained models, original frames
 1660–2015 at source step5/24fps. Each model supplies one neural output frame;
 the 3-second boundary is **frame2020 at t=3.000**, not neural frame2015 at t=71/24.
-The proposed endpoint is TRAIN camera HC. All66 views are now TRAIN views.
+The approved endpoint is TRAIN camera HC. All66 views are now TRAIN views.
 
 The path uses TRAIN controls DC→EC→FC→GC→HC, a Bezier interpolation of their
 centers (always inside the control centers' convex hull), RotationSpline
-orientation, smooth cubic intrinsics and a quintic time warp. Velocity and
+orientation and a quintic time warp. The approved v2 uses quintic intrinsics
+from an initial1.45zoom centered on the actual actor labels to the unchanged
+native HC crop at t=3.000. Velocity and
 acceleration approach zero at the endpoints. A continuous correction preserves
 the original calibration's approximately1e-7 rotation-matrix roundoff, so the
 endpoint remains exactly the stored TRAIN matrix.
 
-Proposed delivery is3840×2024. During the neural segment, focal length and
+Approved delivery is3840×2024. During the neural segment, focal length and
 principal point smoothly approach a native HC crop. The following48 photographs
 keep a fixed3840×2024 raster and permit only integer crop translations. This
 provides native face detail without resizing photographs. The source is first
@@ -37,6 +129,16 @@ claimed to preserve the bytes of the original distorted TIFF.
 | GT availability |2020 exists;2025–2255 absent in the two supplied RAW roots |
 | Neural/hybrid GPU validation |Pending model completion; no GPU launched by this preparation |
 
+The later uniform60fps neural timeline contains180 original source IDs at
+stride2,1660–2018. Its intersection with the current72 stride5 IDs contains
+36 models (stride10). Therefore upgrading this interval to60fps needs
+**144 additional independently trained models**, not108. The36 common frame
+models can be reused exactly; the36 odd-indexed current24fps models remain
+preserved but are not samples of the uniform60fps timeline. No existing model
+needs retraining, no neighboring weights are transferred, and no additional
+training jobs are scheduled by this accounting change. The current24fps run
+is unchanged.
+
 The1-code photometry replay difference is consistent with direct floating-point
 native lens interpolation versus the earlier OpenCV interpolation-table rounding.
 Both decode Log3G10/RWG native samples before linear-light interpolation and apply
@@ -47,7 +149,7 @@ Visual review:
 - [All66 source-camera contact](</fsx/tmp/marshawn_video_path_20261107/train_cameras_first_frame.jpg>)
 - [Actual2020 DC/HC/KA/MD candidates](</fsx/tmp/marshawn_video_path_20261107/endpoint2020_candidates.jpg>)
 - [HC2020 crop comparison](</fsx/tmp/marshawn_video_path_20261107/HC_2020_native_crop_review.jpg>): red is native3840×2024 crop `[1000,650,3840,2024]`; cyan is a native1920×1012 face crop.
-- [Rendered actual2020 native crop](</fsx/tmp/marshawn_video_path_20261107/GT2020_native_crop_preview.jpg>) is a diagnostic thumbnail; the full3840×2024 PNG is at campaign `video/delivery_4K/frames/0072/lookcloser.png`. The grey actor's face is physically facing down/occluded in the inspected HC/DC/KA views. The crop cannot reveal an unobserved face.
+- [Rendered actual2020 native crop](</fsx/tmp/marshawn_video_path_20261107/GT2020_native_crop_preview.jpg>) is a diagnostic thumbnail; the archived full3840×2024 PNG is at campaign `video/diagnostics/GT2020_v1_cpu_preview/lookcloser.png`. The grey actor's face is physically facing down/occluded in the inspected HC/DC/KA views. The crop cannot reveal an unobserved face.
 - [Six native actor closeups](</fsx/tmp/marshawn_video_path_20261107/six_native_head_crops2020.jpg>) additionally inspect FC/MC/NA. [Native512-pixel head crops](</fsx/tmp/marshawn_video_path_20261107/grey_head_native512_2020.jpg>) show that MC/NA expose an ear/back of the head, rather than readable eyes/nose/mouth. [Three further low-camera head crops](</fsx/tmp/marshawn_video_path_20261107/low_native_head_crops2020.jpg>) inspect MD/ND/OD and confirm the physical face-down occlusion. HC remains the proposed endpoint because the black actor's face is clearer there; no claim of two visible faces is made.
 
 The actual third second contains a major action change: the grey actor is lying
@@ -111,7 +213,8 @@ before authorizing full training; temporal AABB preparation is a separate gate.
   raise an error; they are not silently duplicated or synthesized.
 
 Campaign path:
-`/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/video/path_4K/path.json`.
+`/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/video/path_4K_v2/path.json`.
+The original `video/path_4K/path.json` is retained as a v1 diagnostic.
 Render configuration:
 `/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/video/render_spec.json`.
 Concrete transport/CLI/after-training plan:
@@ -126,10 +229,13 @@ These are prepared inputs, not a claim that the movies or GPU visual gate have
 completed. The final source transforms and common AABB must remain tied to the
 qualified campaign data before render dispatch.
 
-The silver transport/controller and neural GPU branches have been syntax
-checked, but have not yet run on a completed video model. The native GT branch
-has executed successfully for2020, and its full3840×2024 output was manually
-inspected. The existing physical occlusion of the grey actor's face remains.
+An actual GPU export gate has now passed for both LookCloser and hybrid using
+the same-frame intermediate checkpoint30376. Native/packed HD camera parity,
+full pipeline/checkpoint immutability and gathered PNG hashes passed. The
+campaign owner inspected both v2 exports and approved their framing. This is a
+technical export check, not a quality-leader claim or completion of video
+training. Details are in `marshawn_video_initial_export_gate_20261107.md`.
+The existing physical occlusion of the grey actor's face remains.
 
 ## Insights and next steps
 
@@ -144,3 +250,63 @@ Obtain actual2025–2255 photographs for a dynamic two-second continuation; the
 campaign owner has asked the user. After models complete, inspect path start,
 intermediate poses, final neural view, exact t=3 transition and both full videos.
 Approve camera motion and hybrid visibility from these renders before delivery.
+
+The matched first-three-frame 4K profile comparison is complete under
+`C/operations/video_fleet10/private_profile_v1/matched_first3`. The full-frame,
+native head and native foot contacts were inspected. Both fighters and their
+hair/feet remain framed. The candidate (`sigma4`, gain `.75`, smooth angular
+pixel scale and the eligible own-grid weak-ray guard) shows subtle detail
+changes; existing floor fragments and silhouette shells remain in both
+profiles and vary between independently trained frames. The six image hashes
+and own checkpoint bindings are in `finite_profile_matrix_complete.json`.
+This finite comparison does not automatically promote a profile or establish
+full-video temporal consistency.
+
+The first1660 baseline was also rebuilt by moving only bound floating-point
+geometry from the model's native SG host to olive, then applying the existing
+hybrid code on CPU against the original FSX TIFFs. Both LookCloser and hybrid
+4K PNGs were pixel-identical to the archived SG render (maximum code difference
+zero). This supports replacing bulk RAW copying with geometry-only transport;
+checkpoints, YAMLs, image resolution and calibrated photometry stay unchanged.
+
+A separate finite CPU anchor test used the existing IC-winning labels and
+confidence at the exact IC starting pose. Two direct blends (`.75` and `1`)
+changed only461056 already eligible IC pixels; all other donors and fallback
+pixels remained bitwise unchanged. The detail replay matched the existing
+candidate PNG exactly. Native face comparisons show modest tone/contrast
+changes, without a dramatic new detail gain. These remain private tests;
+no target-GT metric or default profile change was made.
+
+ROOT subsequently approved the **parameters-only** production profile:
+`sigma4`, gain `.75`,16 sources and the smooth IC/JC/KC/LC/MC focal reference.
+Geometry remains the native saved R0; the weak-grid guard and IC direct-pose
+blend are disabled. The direct-pose branch showed no clear additional benefit
+and was stopped. The third private comparison's145-cell guard is not part of
+production. Full72-frame temporal inspection is still required.
+
+The final parameter CPU worker reproduced the approved first1660 candidate
+at4K with zero differing RGB codes for both LookCloser and hybrid. The baseline
+sigma8 reconstruction had likewise matched the original native-SG render
+pixel-for-pixel. Sources are archived in
+[`scripts/marshawn_video_export_geometry_cpu`](../scripts/marshawn_video_export_geometry_cpu/README.md).
+The final immutable profile SHA is
+`2bd9bca54f43bb5da2920a5f95124677ee2754762bb8ad5551163d9dbf06eb81`;
+ROOT release SHA is
+`cd88438ff3cf16a3b7505e6065f62fb8a713f26e3f096f8fb53e179cb064acf7`.
+
+The fleet's final postprocess hook SHA is
+`0a98c1cc132aba3a1e7140eb5bd46956ebde24f79bae954705115b6f94c0f992`.
+It runs the external geometry/CPU router after all72 capped models complete;
+training plan SHA remains `74c92390646504254133402b1f8f6f6649364b0770e167269bb5e99541397050`.
+Models/checkpoints/YAMLs stay on their training hosts. Only bound float geometry
+is gathered to olive, where original FSX TIFFs supply native texture. This
+removes the bulk RAW-copy dependency. The optional copy controller and its
+exact three rsync/SSH children were retired;601 completed cached TIFFs were
+SHA-identical to originals, two partials were retained, and no data was deleted.
+The byte inventory SHA is
+`127a78325e866d7ceab40ab8cd36eea87da5cee756696bbaf95a3f4f4c36afb1`.
+
+Final output directory is
+`/fsx/tmp/marshawn_video_1660_2015_24fps_140k_20261107/video/geometry_cpu_delivery_params_v2`.
+The movies are not yet complete. They will contain72 neural frames followed
+by48 native integer crops of paused source2020, with no GT image resize.
