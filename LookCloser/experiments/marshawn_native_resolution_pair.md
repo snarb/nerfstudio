@@ -11,10 +11,12 @@ Production launched on dev3 after root verified all 387 bound files. Release SHA
 | Actual TRAIN4K continuation 105k | 30.360915 | 0.834820 | 0.048082 |
 | HD continuation 110k | 30.434841 | 0.835706 | 0.049878 |
 | Actual TRAIN4K continuation 110k | 30.352440 | 0.835044 | 0.047881 |
+| HD continuation 115k | 30.432073 | 0.835542 | 0.049990 |
+| Actual TRAIN4K continuation 115k | 30.389065 | 0.835473 | 0.047557 |
 
 At the first matched gate, both arms completed5,000 attempts and4,998 actual Adam updates, with two AMP skips each. TRAIN4K reduces FHD actor LPIPS by4.14% relative to matched HD; PSNR is0.05324dB lower. The all-three-view hair/hand/foot review shows modestly crisper fine texture and stable visible contours, but source detail remains sharper and floor/mat/bag fragments persist. This is an early resolution result, not a plateau or actor-isolation result. The next HD chunk restored its actual105k checkpoint, RNG and runtime exactly, confirming real production restart beyond the zero-update preflight.
 
-At110k, TRAIN4K retains a4.00% LPIPS advantage over matched HD, with PSNR0.08240dB lower. The repeated three-view hair/hand/foot review finds stable actor contours and continuing floor/mat/bag fragments. Both arms continue under their unchanged plateau rules.
+At110k, TRAIN4K retains a4.00% LPIPS advantage over matched HD, with PSNR0.08240dB lower. The repeated three-view hair/hand/foot review finds stable actor contours and continuing floor/mat/bag fragments. At 115k, the matched LPIPS advantage grows to 4.87%, with PSNR 0.04301dB lower. Both arms continue under their unchanged plateau rules.
 
 ![First matched FHD detail review](assets/marshawn_native_resolution_pair_20261106/matched_105000.jpg)
 

@@ -1,0 +1,24 @@
+{
+  "source": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_reference_20000/code/render_aabb_review.py",
+  "source_sha256": "6e85cb6e2dd05734848cb449fe14634b6cada1ca03e9a7a7482e4caf7f5fd718",
+  "staged_sha256": "b01993e975724789bd52a2ac1195380467b8cede085d8d254ce9fbfccac88796",
+  "exact_replacements": [
+    [
+      "    w,h = int(camera.width.item()), int(camera.height.item())",
+      "    if (int(camera.width.item()), int(camera.height.item())) != (1920,1012):\n        raise ValueError('Probe requires unchanged FHD native evaluation cameras')\n    camera.rescale_output_resolution(2.)\n    diagnostic = json.loads(a.diagnostic.read_text())\n    if diagnostic.get('training_eligible') is not False:\n        raise ValueError('Diagnostic camera descriptor must be excluded from training')\n    expected = next(row for row in diagnostic['frames'] if row['physical_camera'] == a.camera)\n    native_pose = np.linalg.inv(np.asarray(diagnostic['world_to_box'])) @ np.asarray(expected['transform_matrix'])\n    actual_pose = np.eye(4); actual_pose[:3] = camera.camera_to_worlds[0].cpu().numpy()\n    pose_error = float(np.max(np.abs(actual_pose-native_pose)))\n    if pose_error > 1e-6:\n        raise ValueError('Runtime native pose differs from inverse-floor diagnostic pose')\n    intrinsic_errors = {name:abs(float(getattr(camera,attribute).item())-expected[name])\n                        for name,attribute in [('fl_x','fx'),('fl_y','fy'),('cx','cx'),('cy','cy')]}\n    if max(intrinsic_errors.values()) > .001:\n        raise ValueError('Runtime doubled intrinsics differ from diagnostic raster')\n    w,h = int(camera.width.item()), int(camera.height.item())\n    if (w,h) != (expected['w'],expected['h']) or (w,h)!=(3840,2024):\n        raise ValueError('Wrong actual4K raster')\n    diagnostic_RGB = a.diagnostic.parent / expected['file_path']"
+    ],
+    [
+      "    source_array=ds.get_image_float32(ci).detach().cpu().numpy()[...,:3]",
+      "    source_array=np.asarray(Image.open(diagnostic_RGB).convert('RGB'), dtype=np.float32)/255.\n    if source_array.shape != (h,w,3): raise ValueError('Wrong actual4K source shape')"
+    ],
+    [
+      "        camera_runtime=c,display_transform=a.display_transform,overlay=overlay_receipt,",
+      "        camera_runtime=c,display_transform=a.display_transform,overlay=overlay_receipt,\n        diagnostic_descriptor_sha256=sha(a.diagnostic),diagnostic_RGB_sha256=sha(diagnostic_RGB),\n        diagnostic_only_not_primary_metric=True,resolution_scale=2.,native_pose_error=pose_error,intrinsic_errors=intrinsic_errors,"
+    ],
+    [
+      "    p.add_argument('--camera',required=True);p.add_argument('--chunk',type=int,default=512)",
+      "    p.add_argument('--camera',required=True);p.add_argument('--chunk',type=int,default=512)\n    p.add_argument('--diagnostic',type=Path,required=True)"
+    ]
+  ],
+  "sampler_field_compositor_AABB_rules_unchanged": true
+}

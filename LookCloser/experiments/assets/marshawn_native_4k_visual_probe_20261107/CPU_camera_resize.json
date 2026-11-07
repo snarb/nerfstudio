@@ -1,0 +1,64 @@
+{
+  "passed": true,
+  "CPU_only": true,
+  "no_model_loaded": true,
+  "rows": [
+    {
+      "camera": "DC",
+      "actual_CPU_camera_resize_ratios": {
+        "fx": 2.0,
+        "fy": 2.0,
+        "cx": 2.0,
+        "cy": 2.0,
+        "width": 2.0,
+        "height": 2.0
+      },
+      "continuous_ray_errors": {
+        "origin": 0.0,
+        "direction": 0.0
+      },
+      "floor_to_native_pose_error": 1.1102230246251565e-16
+    },
+    {
+      "camera": "HC",
+      "actual_CPU_camera_resize_ratios": {
+        "fx": 2.0,
+        "fy": 2.0,
+        "cx": 2.0,
+        "cy": 2.0,
+        "width": 2.0,
+        "height": 2.0
+      },
+      "continuous_ray_errors": {
+        "origin": 0.0,
+        "direction": 0.0
+      },
+      "floor_to_native_pose_error": 1.1102230246251565e-16
+    },
+    {
+      "camera": "KA",
+      "actual_CPU_camera_resize_ratios": {
+        "fx": 2.0,
+        "fy": 2.0,
+        "cx": 2.0,
+        "cy": 2.0,
+        "width": 2.0,
+        "height": 2.0
+      },
+      "continuous_ray_errors": {
+        "origin": 0.0,
+        "direction": 0.0
+      },
+      "floor_to_native_pose_error": 1.1102230246251565e-16
+    }
+  ],
+  "native_sampling_field_AABB_partition_compositing_loop_byte_unchanged": true,
+  "bindings": {
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/resolution_4k_eval_diagnostic_v1/render_views_4k.json": "f83aa03d9c148e05014907034d94d0f77f4e3d3282fa8169d9bf562a3cadda29",
+    "/fsx/tmp/marshawn_001660_hd/color_variants/radial_k4_joint_scalar_DIAGNOSTIC/sdr_png/transforms.json": "79893ade1ef2fbab92b9f1e0891bcb925be9ae4abc8d79a21238c209c5fb4406",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_reference_20000/code/render_aabb_review.py": "6e85cb6e2dd05734848cb449fe14634b6cada1ca03e9a7a7482e4caf7f5fd718",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/native_4k_visual_probe_plan_v1/code/render_native_4k_partition.py": "b01993e975724789bd52a2ac1195380467b8cede085d8d254ce9fbfccac88796",
+    "/tmp/audit_marshawn_native_4k_camera_resize.py": "82e62f230fc0ddbd65255cd6b5d15045534a1f9ffde5d7e0191de1dad596cf64"
+  },
+  "limitation": "Continuous ray equivalence, not equality of FHD and4K discrete pixel samples or an image-parity claim."
+}
