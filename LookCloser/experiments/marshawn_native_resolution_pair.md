@@ -14,12 +14,13 @@ Production launched on dev3 after root verified all 387 bound files. Release SHA
 | HD continuation 115k | 30.432073 | 0.835542 | 0.049990 |
 | Actual TRAIN4K continuation 115k | 30.389065 | 0.835473 | 0.047557 |
 | HD continuation 120k | 30.424657 | 0.835849 | 0.049896 |
+| Actual TRAIN4K continuation 120k | 30.372261 | 0.835351 | 0.047568 |
 
 At the first matched gate, both arms completed5,000 attempts and4,998 actual Adam updates, with two AMP skips each. TRAIN4K reduces FHD actor LPIPS by4.14% relative to matched HD; PSNR is0.05324dB lower. The all-three-view hair/hand/foot review shows modestly crisper fine texture and stable visible contours, but source detail remains sharper and floor/mat/bag fragments persist. This is an early resolution result, not a plateau or actor-isolation result. The next HD chunk restored its actual105k checkpoint, RNG and runtime exactly, confirming real production restart beyond the zero-update preflight.
 
 At110k, TRAIN4K retains a4.00% LPIPS advantage over matched HD, with PSNR0.08240dB lower. The repeated three-view hair/hand/foot review finds stable actor contours and continuing floor/mat/bag fragments. At 115k, the matched LPIPS advantage grows to 4.87%, with PSNR 0.04301dB lower. Both arms continue under their unchanged plateau rules.
 
-The LPIPS advantage is consistent across all three views and both actors at every matched gate through 115k. At 115k, the reduction is 5.12% in DC, 5.07% in HC, and 4.26% in KA; black and grey actor reductions are 4.14% and 5.63%. The aggregate PSNR decrease is mainly HC (−0.16135dB), while DC and KA increase slightly (+0.01269 and +0.01963dB). These are descriptive comparisons from one paired trajectory, without replicate-based uncertainty estimates. HD 120k also passed the three-view detail review; its matching TRAIN4K gate is pending.
+The LPIPS advantage is consistent across all three views and both actors at every matched gate through 115k. At 115k, the reduction is 5.12% in DC, 5.07% in HC, and 4.26% in KA; black and grey actor reductions are 4.14% and 5.63%. The aggregate PSNR decrease is mainly HC (−0.16135dB), while DC and KA increase slightly (+0.01269 and +0.01963dB). These are descriptive comparisons from one paired trajectory, without replicate-based uncertainty estimates. At matched 120k, the aggregate LPIPS advantage is 4.67%, with PSNR 0.05240dB lower. Both arms pass the three-view detail review; the unchanged visible floor/mat/bag residual remains substantial. Neither arm has met both plateau conditions yet.
 
 ![First matched FHD detail review](assets/marshawn_native_resolution_pair_20261106/matched_105000.jpg)
 
