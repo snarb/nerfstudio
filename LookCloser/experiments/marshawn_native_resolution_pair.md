@@ -73,3 +73,7 @@ HD195k: PSNR30.54089, SSIM0.839089, actor LPIPS0.047975. All three detail contac
 HD200k: PSNR30.53113, SSIM0.839129, actor LPIPS0.047948. All three hair/hand/foot contacts remain stable at the inspected scale, with soft fine texture and persistent floor/mat/bag. Receipt: `O/reviews/HD_200000/visual_review.json`. The unchanged cumulative stopping counters are2 internal-signal misses and3 LPIPS misses; HD205k is active.
 
 HD205k: PSNR30.56356, SSIM0.839382, actor LPIPS0.047803. All three detail contacts were reviewed; visible contours remain stable at contact scale, with soft fine texture and substantial floor/mat/bag. Receipt: `O/reviews/HD_205000/visual_review.json`. HD210k is active.
+
+The pair is now terminal: HD stopped at210k under the unchanged cumulative rule; TRAIN4K had stopped at125k. HD210k has PSNR30.54833, SSIM.839540 and actor LPIPS.0478119. The prescribed LPIPS.001 tie followed by highest PSNR selects HD190k (30.56882/.839111/.0479713), while TRAIN4K selects125k. All three final detail contacts were reviewed, with stable gross contours, soft fine texture and persistent floor/mat/bag; `O/reviews/HD_210000/visual_review.json` binds this review. Later HD is not step-matched evidence for the resolution factor.
+
+After verified controller, worker and cache exit, idle dev3 GPU0 and more than20GiB available RAM, the previously released single HC actual4K resource probe launched with controller251830. Remaining eight diagnostic renders still require separate resource/visual review; primary FHD scoring and all checkpoints are unchanged.

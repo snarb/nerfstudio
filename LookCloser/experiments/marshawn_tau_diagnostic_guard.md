@@ -37,3 +37,15 @@ A second pre-release self-review found that the fetcher reset its error counter 
 Production startup passed independent checks on all three arms: seven source states match original91128 exactly, sourceAdam91087, auxiliarydraws0, actualphysicalGPU0/1/2 UUIDs match parent leases. First500 updates reachAdam91587 in every arm. Three91628 gates were atomically retained, with their approximately2.096GB full checkpoints hash-verified and retained remotely. The first three-view actor/detail review finds no gross new contour loss at contact scale, but broad head/torso halos and floor/bag islands persist. At91628, control/old7369/seven10481 have PSNR31.43108/31.44947/31.44433, SSIM.827910/.828336/.828300 and LPIPS.019362/.019221/.019211. These early differences do not justify promotion. Review: `external_guard_v3/reviews/step-000091628`.
 
 At+2000, the declared TRAIN EA clear region shows native mean alpha control/old7369/seven10481 =.28147/.24272/.01206; its fixed512-midpoint diagnostic mean τ is.47634/.38832/.03745. JA/LA/NA are already near zero. The original three-camera regions clear more strongly underold7369 at this fixed private sampling budget. EVAL LPIPS is.019241/.019179/.019177, while the inspected detail sheets retain large halos and floor/bag. These are early target-population effects, not a physical-empty-space or global-cleanup certificate. Source black-actor eroded-mask alpha<.9 was already25.59% inDC; the+2000 maxima are24.68/23.45/23.62%, so this opacity limitation predates the treatment. No quality promotion is made.
+
+All three fresh runs completed 12000 attempts at103128. Their main ray-index chains match; control and seven10481 also share the auxiliary packet chain, while old7369 uses its declared different population. The remote guardian passed with no termination or failure. All18 gate manifests passed CPU retention, and every full checkpoint remains remote. The final summary is `external_guard_v3/final_summary.json`, SHA256 `19f010aebb7422ae3be53d65ef36a3372102b3c37e2fe335ebfa2e8006c59b59`.
+
+| Final103128 arm | PSNR | SSIM | Actor LPIPS | EA native mean alpha |
+|---|---:|---:|---:|---:|
+| Control |31.45327|.827952|.0191912|.287559|
+| Old7369 |31.45114|.828109|.0190418|.269879|
+| Seven10481 |31.45084|.828133|.0190245|.001711|
+
+EA fixed512 diagnostic mean τ is.491489/.458117/.002925. The seven-camera treatment clears its additional declared region, while the old three-camera treatment retains stronger clearing of some original regions at the same private sample budget. This is a target-coverage effect; fixed512 quadrature is not a convergence certificate throughout training.
+
+The final three actor panels and all nine hair/hand/foot rows were inspected against source and parent91128: no gross new contour cut is visible at contact-sheet scale, but large head/torso halos and floor/mat/bag remain in every arm. Fine sole opacity is not certified. Review files and their hash receipt are in `external_guard_v3/reviews/step-000103128`. Neither target population is promoted as a global cleanup solution.
