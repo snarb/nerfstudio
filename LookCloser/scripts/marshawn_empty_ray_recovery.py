@@ -1,4 +1,4 @@
-"""Same-model occupancy recovery restricted to exactly empty primary rays.
+"""Same-model occupancy recovery restricted to empty or very weak primary rays.
 
 The caller must derive the secondary support from this model's own current
 source evidence, validate it inside unchanged admission, and restore model
@@ -10,7 +10,10 @@ from __future__ import annotations
 import numpy as np
 
 
-def recover_geometry(primary, secondary, *, primary_binding, secondary_binding):
+def recover_geometry(primary, secondary, *, primary_binding, secondary_binding,
+                     max_primary_alpha=0.):
+    if not np.isfinite(max_primary_alpha) or not 0 <= max_primary_alpha <= .05:
+        raise ValueError('Only the measured primary alpha range [0, .05] is supported')
     for key in ['checkpoint_sha256', 'row']:
         if not primary_binding.get(key) or primary_binding[key] != secondary_binding.get(key):
             raise ValueError('Recovery requires exactly the same checkpoint and camera rays')
@@ -33,7 +36,8 @@ def recover_geometry(primary, secondary, *, primary_binding, secondary_binding):
             raise ValueError('Invalid accumulation')
         if any(values[k].shape != shape for k in set(values) - {'rgb'}):
             raise ValueError('Mismatched depth-quantile raster')
-    recover = (primary['alpha'] == 0) & (secondary['alpha'] > 0)
+    recover = ((primary['alpha'] <= max_primary_alpha) &
+               (secondary['alpha'] > primary['alpha']))
     result = {}
     for key, original in primary.items():
         output = np.array(original, copy=True)
@@ -41,9 +45,13 @@ def recover_geometry(primary, secondary, *, primary_binding, secondary_binding):
         if not np.array_equal(output[~recover], original[~recover], equal_nan=True):
             raise AssertionError('An existing primary ray changed')
         result[key] = output
-    return result, dict(kind='SAME_MODEL_EXACT_EMPTY_RAY_RECOVERY_V1',
+    nonempty_unchanged = all(np.array_equal(result[k][primary['alpha'] > 0],
+        primary[k][primary['alpha'] > 0], equal_nan=True) for k in primary)
+    return result, dict(kind='SAME_MODEL_WEAK_RAY_RECOVERY_V2',
         checkpoint_sha256=primary_binding['checkpoint_sha256'],
+        max_primary_alpha=float(max_primary_alpha),
         primary_empty_rays=int((primary['alpha'] == 0).sum()), recovered_rays=int(recover.sum()),
-        existing_nonempty_primary_rays_bitwise_unchanged=True,
+        unselected_primary_rays_bitwise_unchanged=True,
+        existing_nonempty_primary_rays_bitwise_unchanged=nonempty_unchanged,
         RGB_GT_or_actor_mask_used_for_recovery_decision=False, model_weights_changed=False,
         surface_depth_certified=False)

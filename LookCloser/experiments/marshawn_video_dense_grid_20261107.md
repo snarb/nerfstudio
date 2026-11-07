@@ -230,3 +230,35 @@ Evidence in the capped campaign under `operations/contour_runtime_001670/`:
 `all66_R0_Halo145_actor_contexts/`, `empty_ray_recovery/actor_metrics/complete.json`,
 `empty_ray_recovery/ROOT_native_ND_empty_recovery_comparison.png`, and
 `empty_ray_recovery/EmptyRayRecovery_V4_record2_4K.png`.
+
+## Finite weak-ray comparison
+
+The cached secondary was also tested only where primary alpha is at most
+0/.001/.01/.05 and secondary alpha is greater. The decision uses no target
+RGB or actor labels. Labels are used exclusively for evaluation. All unselected
+RGB/alpha/depth quantiles remain bitwise unchanged, and secondary cells remain
+the exact same145-cell candidate. No new grid or GPU render was introduced.
+
+| Maximum primary alpha | PSNR | SSIM | LPIPS | Changed actor pixels |
+|---|---:|---:|---:|---:|
+|0|45.942275|.991698671|.002351804|13 black /0 grey|
+|.001|45.942275|.991698671|.002351804|13 black /0 grey|
+|.01|45.942356|.991698690|.002351907|14 black /0 grey|
+|.05|45.942465|.991698771|.002351373|22 black /0 grey|
+
+All four settings have zero paired actor/view LPIPS regressions against R0
+on these66 in-sample cameras. The .05 candidate has the best mean LPIPS and
+also improves PSNR/SSIM. Changes are very small globally. ROOT viewed the
+native ND comparison and actual full4K image: the residual step is reduced
+further, although it is not completely eliminated. This remains a candidate
+requiring other-frame and temporal review before general export promotion.
+The full4K predicate replaces60472 rays, including background; it does not
+promise unchanged background geometry or solve existing floor fragments.
+
+The pure helper now accepts an explicit `max_primary_alpha` in[0,.05], default0.
+Its replay matched all66 cached predictions at every measured threshold;
+invalid thresholds and mismatched checkpoints are rejected. Receipt:
+`low_alpha_recovery_sweep/pure_helper_v2_qualification.json`. Additional
+evidence: `low_alpha_recovery_sweep/complete.json`,
+`ROOT_ND_native_weak_ray_comparison.png`, and `WeakRayRecovery_4K.png` in that
+directory. No training setting, learned field or original checkpoint changed.
