@@ -1,0 +1,29 @@
+{
+  "CPU_only": true,
+  "verified": 1794026925.7322435,
+  "rows": [
+    {
+      "camera": "AA",
+      "path": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/AA/AA.000408.tif",
+      "sha256": "ee8108578890db53c6567bda12086927f931d71147794c381306ddb6b08f9443",
+      "bytes": 212336804,
+      "request_bound": true
+    },
+    {
+      "camera": "BA",
+      "path": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/BA/BA.000408.tif",
+      "sha256": "f45905aa1f564f3e42e8a363cc9a40b717cadaecb4d27d6ac9d3f4bcb8243a6c",
+      "bytes": 212336804,
+      "request_bound": true
+    },
+    {
+      "camera": "JA",
+      "path": "/fsx/oregon/gta_marshawn_2_1/cedar/tiff16/by_local/JA/JA.000408.tif",
+      "sha256": "8e40a1f4cda5172a565e7881d5ff9f9e47c0e9114705083e7131170eb4810a9a",
+      "bytes": 212336804,
+      "request_bound": true
+    }
+  ],
+  "conversion_performed": false,
+  "display_source": "Existing frozen native crop PNG from same request; no new colour conversion"
+}

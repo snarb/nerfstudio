@@ -1,0 +1,155 @@
+{
+  "proposal_sha256": "dccad0cece29596b725f5f51469ce1f92b727b19594f700391215a34390d941f",
+  "original10481_sha256": "7b60c59e5cc6b175bf526aadb12c97491630ccab07fb5f79d6c5538ada6076b3",
+  "rows": [
+    {
+      "camera": "BA",
+      "center": [
+        993,
+        79
+      ],
+      "artifact": "head1_q50",
+      "nearest_new_prefix_gap": 0.00027090714315963576,
+      "nearest_new_prefix_pixel": [
+        993,
+        79
+      ],
+      "nearest_original10481_gap": 0.044824074416434496,
+      "overlap_existing10481_pixels": []
+    },
+    {
+      "camera": "JA",
+      "center": [
+        977,
+        105
+      ],
+      "artifact": "head2_q50",
+      "nearest_new_prefix_gap": 0.00017420013154522128,
+      "nearest_new_prefix_pixel": [
+        977,
+        105
+      ],
+      "nearest_original10481_gap": 0.010758906439058554,
+      "overlap_existing10481_pixels": []
+    },
+    {
+      "camera": "BA",
+      "center": [
+        965,
+        160
+      ],
+      "artifact": "head3_q50",
+      "nearest_new_prefix_gap": 9.70459202856783e-05,
+      "nearest_new_prefix_pixel": [
+        965,
+        160
+      ],
+      "nearest_original10481_gap": 0.0014722253258585701,
+      "overlap_existing10481_pixels": [
+        {
+          "camera": "BA",
+          "x": 962,
+          "y": 157
+        },
+        {
+          "camera": "BA",
+          "x": 963,
+          "y": 157
+        },
+        {
+          "camera": "BA",
+          "x": 962,
+          "y": 158
+        },
+        {
+          "camera": "BA",
+          "x": 963,
+          "y": 158
+        },
+        {
+          "camera": "BA",
+          "x": 962,
+          "y": 159
+        },
+        {
+          "camera": "BA",
+          "x": 963,
+          "y": 159
+        },
+        {
+          "camera": "BA",
+          "x": 962,
+          "y": 160
+        },
+        {
+          "camera": "BA",
+          "x": 963,
+          "y": 160
+        },
+        {
+          "camera": "BA",
+          "x": 962,
+          "y": 161
+        },
+        {
+          "camera": "BA",
+          "x": 963,
+          "y": 161
+        },
+        {
+          "camera": "BA",
+          "x": 962,
+          "y": 162
+        },
+        {
+          "camera": "BA",
+          "x": 963,
+          "y": 162
+        },
+        {
+          "camera": "BA",
+          "x": 962,
+          "y": 163
+        },
+        {
+          "camera": "BA",
+          "x": 963,
+          "y": 163
+        }
+      ]
+    },
+    {
+      "camera": "AA",
+      "center": [
+        949,
+        351
+      ],
+      "artifact": "torso1_q50",
+      "nearest_new_prefix_gap": 0.00041539404603264815,
+      "nearest_new_prefix_pixel": [
+        949,
+        351
+      ],
+      "nearest_original10481_gap": 0.013141145422148628,
+      "overlap_existing10481_pixels": []
+    },
+    {
+      "camera": "BA",
+      "center": [
+        952,
+        353
+      ],
+      "artifact": "torso3_q50",
+      "nearest_new_prefix_gap": 0.00048085668907996474,
+      "nearest_new_prefix_pixel": [
+        952,
+        353
+      ],
+      "nearest_original10481_gap": 0.081674049711711,
+      "overlap_existing10481_pixels": []
+    }
+  ],
+  "diagnostic_only": true,
+  "new_labels_generated": false,
+  "limitation": "A finite diagnostic point need not lie exactly on an HD centre ray. Gap measures geometric targeting, not physical-empty truth or guaranteed native-density removal."
+}

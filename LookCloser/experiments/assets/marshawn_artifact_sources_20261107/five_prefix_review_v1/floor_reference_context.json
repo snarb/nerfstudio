@@ -1,0 +1,3542 @@
+{
+  "kind": "EMPIRICAL_FLOOR_CONTEXT_NOT_DEPTH_CERTIFICATE",
+  "proposal_sha256": "dccad0cece29596b725f5f51469ce1f92b727b19594f700391215a34390d941f",
+  "floor_reference_path": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_resolution_pair_100000/documentation/floor_reference_domain_CPU/reference_domain.json",
+  "floor_reference_sha256": "2f7c9a7bd0d848887f0865801d57fc55f598151bd557c3a81cfc59e6966d86e2",
+  "floor_frame_source": {
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/temporal_2sec_floor_v1/floor_frame.json": "5908d9e240eef4406a6b4866652dfcf9dadf63c5cb21ea975d4e2fd9c51632e6",
+    "/fsx/tmp/marshawn_001660_hd/geometry/train_witnesses.npz": "885c7874b451ce9e90dab394e38bcf174c05e429f781b43b5fd731669714266b",
+    "/fsx/tmp/marshawn_001660_hd/floor_band_prior_PROPOSAL/proposal.json": "a93e34c4b2f941f4e9a2f245fc05fab8ac2555ed160ab331b1b1937fe0fe84aa",
+    "/fsx/tmp/marshawn_001660_hd/native_png_batch1M_sched22k_LOCAL_STAGED/black_KA_audit/raw8k_floor_sfm/manual_review_geometry.json": "21553d11db446ef7a7040e75d93da9784664264ac07385bd1a6f317c7ea3b76b",
+    "/tmp/actor_box_geometry.py": "46272bc32f9db2267ab6b0bf6ff65224f9d288d3c1f70171c8a43e9b2b954ded",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/corrected_v2/train_shoe_feature_depth.json": "bc534f9173110005f94660e4e83bd97335504f2dd0e94dfb5bf445c87a41f89a",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/native_semantic_grid_20000/mat_geometry_TRAIN/qualified_material_points_v2.json": "9ccf0ef91ad401b12c32710f2b2c4d3c23705cbb763cdfb2313c7bfb7c76f358"
+  },
+  "max_fit_abs": 0.004636666777014964,
+  "max_LOO_abs": 0.012787538321740344,
+  "guard_Z": 0.025,
+  "guard_minus_global_max_LOO": 0.012212461678259658,
+  "rows": [
+    {
+      "camera": "BA",
+      "center": [
+        993,
+        79
+      ],
+      "rays": [
+        {
+          "x": 990,
+          "y": 76,
+          "Z0_plane_XYZ": [
+            0.8020524793298004,
+            0.7082812181682594,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3625236360578128,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2691428515472466,
+          "distance_prefix_end_before_Z0": 0.7939140279836057
+        },
+        {
+          "x": 991,
+          "y": 76,
+          "Z0_plane_XYZ": [
+            0.8029132553940114,
+            0.7070950035633964,
+            -1.1102230246251565e-16
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3615559750969017,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.269362257050648,
+          "distance_prefix_end_before_Z0": 0.7946236530403983
+        },
+        {
+          "x": 992,
+          "y": 76,
+          "Z0_plane_XYZ": [
+            0.8037741404756441,
+            0.7059086387242688,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3605915524718251,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.26958146914705794,
+          "distance_prefix_end_before_Z0": 0.7953332080024191
+        },
+        {
+          "x": 993,
+          "y": 76,
+          "Z0_plane_XYZ": [
+            0.8046351345954125,
+            0.7047221236223344,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3596303964819865,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2698004880920979,
+          "distance_prefix_end_before_Z0": 0.7960426945187942
+        },
+        {
+          "x": 994,
+          "y": 76,
+          "Z0_plane_XYZ": [
+            0.8054962377740321,
+            0.7035354582290433,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3586725356422492,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.27001931414093844,
+          "distance_prefix_end_before_Z0": 0.7967521142354654
+        },
+        {
+          "x": 995,
+          "y": 76,
+          "Z0_plane_XYZ": [
+            0.8063574500322256,
+            0.7023486425158381,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.35771799868321763,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2702379475483011,
+          "distance_prefix_end_before_Z0": 0.7974614687952017
+        },
+        {
+          "x": 996,
+          "y": 76,
+          "Z0_plane_XYZ": [
+            0.8072187713907207,
+            0.7011616764541546,
+            1.1102230246251565e-16
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.35676681455146886,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2704563885684592,
+          "distance_prefix_end_before_Z0": 0.7981707598375991
+        },
+        {
+          "x": 990,
+          "y": 77,
+          "Z0_plane_XYZ": [
+            0.7985142692750092,
+            0.7062298865049037,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3597609314692358,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2682386577542027,
+          "distance_prefix_end_before_Z0": 0.7897817285714215
+        },
+        {
+          "x": 991,
+          "y": 77,
+          "Z0_plane_XYZ": [
+            0.7993734093029846,
+            0.7050454885605328,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3587855385004866,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.26845855729111173,
+          "distance_prefix_end_before_Z0": 0.7904912081606854
+        },
+        {
+          "x": 992,
+          "y": 77,
+          "Z0_plane_XYZ": [
+            0.8002326579626303,
+            0.7038609408581198,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.35781334728574066,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2686782629015012,
+          "distance_prefix_end_before_Z0": 0.7912006151654238
+        },
+        {
+          "x": 993,
+          "y": 77,
+          "Z0_plane_XYZ": [
+            0.8010920152745532,
+            0.7026762433692597,
+            1.1102230246251565e-16
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3568443862465956,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.26889777484179045,
+          "distance_prefix_end_before_Z0": 0.7919099512360914
+        },
+        {
+          "x": 994,
+          "y": 77,
+          "Z0_plane_XYZ": [
+            0.8019514812593614,
+            0.7014913960655397,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.35587868402760087,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2691170933679458,
+          "distance_prefix_end_before_Z0": 0.7926192180199565
+        },
+        {
+          "x": 995,
+          "y": 77,
+          "Z0_plane_XYZ": [
+            0.8028110559376714,
+            0.7003063989185403,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3549162694966863,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.26933621873548375,
+          "distance_prefix_end_before_Z0": 0.7933284171611135
+        },
+        {
+          "x": 996,
+          "y": 77,
+          "Z0_plane_XYZ": [
+            0.8036707393301031,
+            0.699121251899834,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3539571717455367,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2695551511994704,
+          "distance_prefix_end_before_Z0": 0.7940375503004797
+        },
+        {
+          "x": 990,
+          "y": 78,
+          "Z0_plane_XYZ": [
+            0.7949876504524372,
+            0.7041852750365902,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3570326254677468,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2673336789508767,
+          "distance_prefix_end_before_Z0": 0.7856621352726145
+        },
+        {
+          "x": 991,
+          "y": 78,
+          "Z0_plane_XYZ": [
+            0.7958451605357598,
+            0.7030026882250627,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.35604948834963623,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.267554073296466,
+          "distance_prefix_end_before_Z0": 0.786371472570994
+        },
+        {
+          "x": 992,
+          "y": 78,
+          "Z0_plane_XYZ": [
+            0.796702778867035,
+            0.7018199521294577,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3550695152218815,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.26777427319487346,
+          "distance_prefix_end_before_Z0": 0.787080734798967
+        },
+        {
+          "x": 993,
+          "y": 78,
+          "Z0_plane_XYZ": [
+            0.7975605054667624,
+            0.7006370667215067,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3540927346132322,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2679942789033176,
+          "distance_prefix_end_before_Z0": 0.787789923608321
+        },
+        {
+          "x": 994,
+          "y": 78,
+          "Z0_plane_XYZ": [
+            0.7984183403554442,
+            0.6994540319729328,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.35311917528287984,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2682140906785638,
+          "distance_prefix_end_before_Z0": 0.7884990406476586
+        },
+        {
+          "x": 995,
+          "y": 78,
+          "Z0_plane_XYZ": [
+            0.7992762835535895,
+            0.6982708478554528,
+            -1.1102230246251565e-16
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3521488662210385,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2684337087769247,
+          "distance_prefix_end_before_Z0": 0.789208087562403
+        },
+        {
+          "x": 996,
+          "y": 78,
+          "Z0_plane_XYZ": [
+            0.8001343350817122,
+            0.697087514340776,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.35118183664947433,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2686531334542616,
+          "distance_prefix_end_before_Z0": 0.7899170659948003
+        },
+        {
+          "x": 990,
+          "y": 79,
+          "Z0_plane_XYZ": [
+            0.7914725659956406,
+            0.7021473507941243,
+            -1.1102230246251565e-16
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3543390068428019,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2664279141145196,
+          "distance_prefix_end_before_Z0": 0.7815551808597867
+        },
+        {
+          "x": 991,
+          "y": 79,
+          "Z0_plane_XYZ": [
+            0.792328452192424,
+            0.7009665696128349,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3533481160700247,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.26664880404542324,
+          "distance_prefix_end_before_Z0": 0.7822643790290555
+        },
+        {
+          "x": 992,
+          "y": 79,
+          "Z0_plane_XYZ": [
+            0.7931844462554608,
+            0.6997856396191887,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3523603503355056,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2668694990073451,
+          "distance_prefix_end_before_Z0": 0.7829734996458775
+        },
+        {
+          "x": 993,
+          "y": 79,
+          "Z0_plane_XYZ": [
+            0.7940405482051437,
+            0.6986045607850521,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.35137573825931895,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.26708999925830573,
+          "distance_prefix_end_before_Z0": 0.7836825443633795
+        },
+        {
+          "x": 994,
+          "y": 79,
+          "Z0_plane_XYZ": [
+            0.7948967580618703,
+            0.6974233330822848,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.350394308699454,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2673103050558711,
+          "distance_prefix_end_before_Z0": 0.7843915148315042
+        },
+        {
+          "x": 995,
+          "y": 79,
+          "Z0_plane_XYZ": [
+            0.795753075846043,
+            0.696241956482738,
+            -1.1102230246251565e-16
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.34941609075254804,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.26753041665715255,
+          "distance_prefix_end_before_Z0": 0.78510041269701
+        },
+        {
+          "x": 996,
+          "y": 79,
+          "Z0_plane_XYZ": [
+            0.7966095015780704,
+            0.6950604309582573,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.34844111375458175,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.267750334318809,
+          "distance_prefix_end_before_Z0": 0.7858092396034781
+        },
+        {
+          "x": 990,
+          "y": 80,
+          "Z0_plane_XYZ": [
+            0.787968959409551,
+            0.7001160810236213,
+            -1.1102230246251565e-16
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.35168036786381063,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2655213622206053,
+          "distance_prefix_end_before_Z0": 0.7774607985324096
+        },
+        {
+          "x": 991,
+          "y": 80,
+          "Z0_plane_XYZ": [
+            0.7888232277446804,
+            0.6989370999948573,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3506817166918833,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.26574274851492163,
+          "distance_prefix_end_before_Z0": 0.778169860719607
+        },
+        {
+          "x": 992,
+          "y": 80,
+          "Z0_plane_XYZ": [
+            0.7896776035663676,
+            0.6977579706232275,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3496861504128117,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.26596393931731577,
+          "distance_prefix_end_before_Z0": 0.7788788428761266
+        },
+        {
+          "x": 993,
+          "y": 80,
+          "Z0_plane_XYZ": [
+            0.7905320868949005,
+            0.6965786928807327,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3486936977213827,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2661849348866132,
+          "distance_prefix_end_before_Z0": 0.7795877466564443
+        },
+        {
+          "x": 994,
+          "y": 80,
+          "Z0_plane_XYZ": [
+            0.7913866777505724,
+            0.6953992667393671,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3477043875577291,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2664057354811822,
+          "distance_prefix_end_before_Z0": 0.7802965737118461
+        },
+        {
+          "x": 995,
+          "y": 80,
+          "Z0_plane_XYZ": [
+            0.7922413761536807,
+            0.6942196921711173,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3467182491082282,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2666263413589354,
+          "distance_prefix_end_before_Z0": 0.7810053256904343
+        },
+        {
+          "x": 996,
+          "y": 80,
+          "Z0_plane_XYZ": [
+            0.7930961821245283,
+            0.6930399691479625,
+            1.1102230246251565e-16
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3457353118063612,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.26684675277733116,
+          "distance_prefix_end_before_Z0": 0.7817140042371289
+        },
+        {
+          "x": 990,
+          "y": 81,
+          "Z0_plane_XYZ": [
+            0.7844767745674465,
+            0.6980914331847516,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3490570040705972,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2646140222428262,
+          "distance_prefix_end_before_Z0": 0.7733789219133231
+        },
+        {
+          "x": 991,
+          "y": 81,
+          "Z0_plane_XYZ": [
+            0.7853294310328182,
+            0.6969142468555445,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3480505886423633,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.264835905680121,
+          "distance_prefix_end_before_Z0": 0.7740878512508886
+        },
+        {
+          "x": 992,
+          "y": 81,
+          "Z0_plane_XYZ": [
+            0.7861821946070428,
+            0.6957369126507466,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.34704721676533223,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.26505759310141075,
+          "distance_prefix_end_before_Z0": 0.7747966980833285
+        },
+        {
+          "x": 993,
+          "y": 81,
+          "Z0_plane_XYZ": [
+            0.7870350653103048,
+            0.6945594305424929,
+            -1.1102230246251565e-16
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3460469171916043,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2652790847663272,
+          "distance_prefix_end_before_Z0": 0.7755054640664716
+        },
+        {
+          "x": 994,
+          "y": 81,
+          "Z0_plane_XYZ": [
+            0.7878880431627923,
+            0.6933818005029107,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3450497189259948,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.26550038093404377,
+          "distance_prefix_end_before_Z0": 0.7762141508529539
+        },
+        {
+          "x": 995,
+          "y": 81,
+          "Z0_plane_XYZ": [
+            0.7887411281846987,
+            0.6922040225041207,
+            1.1102230246251565e-16
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3440556512271078,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.26572148186327643,
+          "distance_prefix_end_before_Z0": 0.7769227600922266
+        },
+        {
+          "x": 996,
+          "y": 81,
+          "Z0_plane_XYZ": [
+            0.7895943203962238,
+            0.6910260965182365,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3430647436083665,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.26594238781228496,
+          "distance_prefix_end_before_Z0": 0.7776312934305567
+        },
+        {
+          "x": 990,
+          "y": 82,
+          "Z0_plane_XYZ": [
+            0.7809959557079563,
+            0.6960733749490039,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3464692140473439,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2637058931530897,
+          "distance_prefix_end_before_Z0": 0.7693094850452673
+        },
+        {
+          "x": 991,
+          "y": 82,
+          "Z0_plane_XYZ": [
+            0.7818470062627153,
+            0.694897977890981,
+            -1.1102230246251565e-16
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3454550335211509,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2639282745143998,
+          "distance_prefix_end_before_Z0": 0.7700182846511776
+        },
+        {
+          "x": 992,
+          "y": 82,
+          "Z0_plane_XYZ": [
+            0.7826981635505997,
+            0.6937224334224404,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.34444385400735084,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.26415045933447645,
+          "distance_prefix_end_before_Z0": 0.7707269992812669
+        },
+        {
+          "x": 993,
+          "y": 82,
+          "Z0_plane_XYZ": [
+            0.78354942759169,
+            0.6925467415156505,
+            1.1102230246251565e-16
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3434357042971729,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2643724478737599,
+          "distance_prefix_end_before_Z0": 0.7714356305927221
+        },
+        {
+          "x": 994,
+          "y": 82,
+          "Z0_plane_XYZ": [
+            0.7844007984060716,
+            0.6913709021428717,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.34243061344185216,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2645942403922307,
+          "distance_prefix_end_before_Z0": 0.7721441802395375
+        },
+        {
+          "x": 995,
+          "y": 82,
+          "Z0_plane_XYZ": [
+            0.7852522760138335,
+            0.6901949152763568,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.34142861075387754,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2648158371494103,
+          "distance_prefix_end_before_Z0": 0.772852649872517
+        },
+        {
+          "x": 996,
+          "y": 82,
+          "Z0_plane_XYZ": [
+            0.7861038604350715,
+            0.6890187808883526,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3404297258082044,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2650372384043624,
+          "distance_prefix_end_before_Z0": 0.7735610411392799
+        }
+      ],
+      "all_inside_sparse_hull": false,
+      "nearest_floor_XY_distance_minmax": [
+        0.3404297258082044,
+        0.3625236360578128
+      ],
+      "endZ_minmax": [
+        0.2637058931530897,
+        0.2704563885684592
+      ]
+    },
+    {
+      "camera": "JA",
+      "center": [
+        977,
+        105
+      ],
+      "rays": [
+        {
+          "x": 974,
+          "y": 102,
+          "Z0_plane_XYZ": [
+            -0.5609549673703763,
+            0.9716262145981138,
+            0.0
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.22501436842555467,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.24719182114427085,
+          "distance_prefix_end_before_Z0": 0.7602032269218562
+        },
+        {
+          "x": 975,
+          "y": 102,
+          "Z0_plane_XYZ": [
+            -0.5597537397752347,
+            0.9725273007385344,
+            0.0
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.22472594793343442,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.24745090388615798,
+          "distance_prefix_end_before_Z0": 0.7609734624687239
+        },
+        {
+          "x": 976,
+          "y": 102,
+          "Z0_plane_XYZ": [
+            -0.5585526139297604,
+            0.973428310552692,
+            0.0
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.22444722670056932,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2477096620561136,
+          "distance_prefix_end_before_Z0": 0.7617430265934144
+        },
+        {
+          "x": 977,
+          "y": 102,
+          "Z0_plane_XYZ": [
+            -0.5573515898210236,
+            0.9743292440502831,
+            -1.1102230246251565e-16
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.2241782383456401,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2479680962636785,
+          "distance_prefix_end_before_Z0": 0.7625119224133818
+        },
+        {
+          "x": 978,
+          "y": 102,
+          "Z0_plane_XYZ": [
+            -0.5561506674361002,
+            0.9752301012410041,
+            1.1102230246251565e-16
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.22391901538329065,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.24822620711686816,
+          "distance_prefix_end_before_Z0": 0.7632801530373363
+        },
+        {
+          "x": 979,
+          "y": 102,
+          "Z0_plane_XYZ": [
+            -0.5549498467620672,
+            0.9761308821345489,
+            0.0
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.2236695892033129,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2484839952221773,
+          "distance_prefix_end_before_Z0": 0.7640477215652655
+        },
+        {
+          "x": 980,
+          "y": 102,
+          "Z0_plane_XYZ": [
+            -0.5537491277860028,
+            0.9770315867406096,
+            0.0
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.2234299900503812,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.24874146118458507,
+          "distance_prefix_end_before_Z0": 0.7648146310884554
+        },
+        {
+          "x": 974,
+          "y": 103,
+          "Z0_plane_XYZ": [
+            -0.5581383495643905,
+            0.9682243620996898,
+            0.0
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.22064744141244114,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.24621097378813928,
+          "distance_prefix_end_before_Z0": 0.7556977010328669
+        },
+        {
+          "x": 975,
+          "y": 103,
+          "Z0_plane_XYZ": [
+            -0.5569393617581878,
+            0.9691240012482207,
+            0.0
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.2203554412550761,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.24647078633277908,
+          "distance_prefix_end_before_Z0": 0.7564688255877263
+        },
+        {
+          "x": 976,
+          "y": 103,
+          "Z0_plane_XYZ": [
+            -0.5557404753326399,
+            0.9700235643275841,
+            0.0
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.22007328720852248,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2467302732471327,
+          "distance_prefix_end_before_Z0": 0.7572392753952761
+        },
+        {
+          "x": 977,
+          "y": 103,
+          "Z0_plane_XYZ": [
+            -0.5545416902748873,
+            0.9709230513474258,
+            0.0
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.2198010145947791,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2469894351429987,
+          "distance_prefix_end_before_Z0": 0.7580090535779778
+        },
+        {
+          "x": 978,
+          "y": 103,
+          "Z0_plane_XYZ": [
+            -0.5533430065720762,
+            0.9718224623173939,
+            0.0
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.219538657580619,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.24724827263064464,
+          "distance_prefix_end_before_Z0": 0.7587781632495381
+        },
+        {
+          "x": 979,
+          "y": 103,
+          "Z0_plane_XYZ": [
+            -0.5521444242113519,
+            0.9727217972471307,
+            0.0
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.21928624915498562,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.24750678631881046,
+          "distance_prefix_end_before_Z0": 0.7595466075149251
+        },
+        {
+          "x": 980,
+          "y": 103,
+          "Z0_plane_XYZ": [
+            -0.5509459431798637,
+            0.9736210561462804,
+            -1.1102230246251565e-16
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.21904382110699014,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2477649768147147,
+          "distance_prefix_end_before_Z0": 0.760314389470399
+        },
+        {
+          "x": 974,
+          "y": 104,
+          "Z0_plane_XYZ": [
+            -0.5553316598314942,
+            0.9648345005217847,
+            0.0
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.21629791160707335,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2452292566065477,
+          "distance_prefix_end_before_Z0": 0.7512069478417853
+        },
+        {
+          "x": 975,
+          "y": 104,
+          "Z0_plane_XYZ": [
+            -0.5541349035006958,
+            0.9657326972725233,
+            0.0
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.21600218972591864,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.24548980014640265,
+          "distance_prefix_end_before_Z0": 0.751978960735137
+        },
+        {
+          "x": 976,
+          "y": 104,
+          "Z0_plane_XYZ": [
+            -0.5529382481835424,
+            0.9666308182098948,
+            0.0
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.2157164656604615,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.24575001699518395,
+          "distance_prefix_end_before_Z0": 0.75275029555921
+        },
+        {
+          "x": 977,
+          "y": 104,
+          "Z0_plane_XYZ": [
+            -0.5517416938672443,
+            0.9675288633434969,
+            -1.1102230246251565e-16
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.21544077655465715,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.24600990776695475,
+          "distance_prefix_end_before_Z0": 0.7535209554414797
+        },
+        {
+          "x": 978,
+          "y": 104,
+          "Z0_plane_XYZ": [
+            -0.550545240539016,
+            0.9684268326829273,
+            0.0
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.21517515834297107,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.24626947307424119,
+          "distance_prefix_end_before_Z0": 0.7542909435006544
+        },
+        {
+          "x": 979,
+          "y": 104,
+          "Z0_plane_XYZ": [
+            -0.5493488881860719,
+            0.9693247262377791,
+            0.0
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.21491964572580696,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2465287135280348,
+          "distance_prefix_end_before_Z0": 0.7550602628466909
+        },
+        {
+          "x": 980,
+          "y": 104,
+          "Z0_plane_XYZ": [
+            -0.548152636795631,
+            0.9702225440176475,
+            -1.1102230246251565e-16
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.21467427214557475,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2467876297378001,
+          "distance_prefix_end_before_Z0": 0.7558289165808274
+        },
+        {
+          "x": 974,
+          "y": 105,
+          "Z0_plane_XYZ": [
+            -0.5525348457720197,
+            0.9614565665771677,
+            0.0
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.21196579916172315,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.244246668441928,
+          "distance_prefix_end_before_Z0": 0.7467308835129494
+        },
+        {
+          "x": 975,
+          "y": 105,
+          "Z0_plane_XYZ": [
+            -0.551340312649175,
+            0.9623533255026302,
+            -1.1102230246251565e-16
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.2116662059055705,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.24450794417177268,
+          "distance_prefix_end_before_Z0": 0.7475037840905148
+        },
+        {
+          "x": 976,
+          "y": 105,
+          "Z0_plane_XYZ": [
+            -0.5501458801749531,
+            0.9632500088692415,
+            0.0
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.21137676724837137,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.24476889214731756,
+          "distance_prefix_end_before_Z0": 0.7482760032799576
+        },
+        {
+          "x": 977,
+          "y": 105,
+          "Z0_plane_XYZ": [
+            -0.5489515483366337,
+            0.9641466166865498,
+            0.0
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.21109752228520157,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.24502951298489706,
+          "distance_prefix_end_before_Z0": 0.7490475442137736
+        },
+        {
+          "x": 978,
+          "y": 105,
+          "Z0_plane_XYZ": [
+            -0.5477573171214994,
+            0.965043148964104,
+            0.0
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.2108285088441016,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.24528980729930205,
+          "distance_prefix_end_before_Z0": 0.7498184100156788
+        },
+        {
+          "x": 979,
+          "y": 105,
+          "Z0_plane_XYZ": [
+            -0.546563186516834,
+            0.9659396057114493,
+            0.0
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.21056976345932504,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.245549775703783,
+          "distance_prefix_end_before_Z0": 0.7505886038006273
+        },
+        {
+          "x": 980,
+          "y": 105,
+          "Z0_plane_XYZ": [
+            -0.5453691565099242,
+            0.9668359869381304,
+            -1.1102230246251565e-16
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.2103213213452649,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.24580941881005614,
+          "distance_prefix_end_before_Z0": 0.7513581286748381
+        },
+        {
+          "x": 974,
+          "y": 106,
+          "Z0_plane_XYZ": [
+            -0.5497478553543992,
+            0.9580904974231923,
+            1.1102230246251565e-16
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.20765113251848635,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.24326320813465657,
+          "distance_prefix_end_before_Z0": 0.7422694247852328
+        },
+        {
+          "x": 975,
+          "y": 106,
+          "Z0_plane_XYZ": [
+            -0.548555537217802,
+            0.9589858230744484,
+            0.0
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.20734751009309732,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.24352521725158366,
+          "distance_prefix_end_before_Z0": 0.7430432124078477
+        },
+        {
+          "x": 976,
+          "y": 106,
+          "Z0_plane_XYZ": [
+            -0.5473633193667805,
+            0.9598810734200922,
+            -1.1102230246251565e-16
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.20705420436597488,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.24378689754853966,
+          "distance_prefix_end_before_Z0": 0.7438163153265833
+        },
+        {
+          "x": 977,
+          "y": 106,
+          "Z0_plane_XYZ": [
+            -0.5461712017886805,
+            0.9607762484696234,
+            1.1102230246251565e-16
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.20677125652413955,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.24404824964413735,
+          "distance_prefix_end_before_Z0": 0.7445887366789623
+        },
+        {
+          "x": 978,
+          "y": 106,
+          "Z0_plane_XYZ": [
+            -0.5449791844708541,
+            0.9616713482325423,
+            1.1102230246251565e-16
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.20649870642652565,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.24430927415543863,
+          "distance_prefix_end_before_Z0": 0.745360479593715
+        },
+        {
+          "x": 979,
+          "y": 106,
+          "Z0_plane_XYZ": [
+            -0.5437872674006522,
+            0.9625663727183451,
+            0.0
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.20623659257480556,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2445699716979593,
+          "distance_prefix_end_before_Z0": 0.7461315471907974
+        },
+        {
+          "x": 980,
+          "y": 106,
+          "Z0_plane_XYZ": [
+            -0.5425954505654303,
+            0.9634613219365282,
+            1.1102230246251565e-16
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.20598495208494846,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2448303428856745,
+          "distance_prefix_end_before_Z0": 0.7469019425814196
+        },
+        {
+          "x": 974,
+          "y": 107,
+          "Z0_plane_XYZ": [
+            -0.5469706369119413,
+            0.9547362306579013,
+            0.0
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.20335394913870775,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.24227887452305097,
+          "distance_prefix_end_before_Z0": 0.7378224889669893
+        },
+        {
+          "x": 975,
+          "y": 107,
+          "Z0_plane_XYZ": [
+            -0.5457805255852951,
+            0.9556301275647048,
+            0.0
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.2030461310067611,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.24254161822647596,
+          "distance_prefix_end_before_Z0": 0.7385971630104944
+        },
+        {
+          "x": 976,
+          "y": 107,
+          "Z0_plane_XYZ": [
+            -0.5445905141831352,
+            0.9565239494178672,
+            0.0
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.20274879723949243,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.24280403204180806,
+          "distance_prefix_end_before_Z0": 0.7393711490374144
+        },
+        {
+          "x": 977,
+          "y": 107,
+          "Z0_plane_XYZ": [
+            -0.5434006026928758,
+            0.9574176962268395,
+            0.0
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.20246199126963205,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.24306611658994398,
+          "distance_prefix_end_before_Z0": 0.7401444501903041
+        },
+        {
+          "x": 978,
+          "y": 107,
+          "Z0_plane_XYZ": [
+            -0.5422107911019368,
+            0.958311368001074,
+            0.0
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.20218575513702147,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.24332787249022414,
+          "distance_prefix_end_before_Z0": 0.7409170696029153
+        },
+        {
+          "x": 979,
+          "y": 107,
+          "Z0_plane_XYZ": [
+            -0.5410210793977365,
+            0.959204964750018,
+            -1.1102230246251565e-16
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.20192012945674984,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2435893003604359,
+          "distance_prefix_end_before_Z0": 0.7416890104002121
+        },
+        {
+          "x": 980,
+          "y": 107,
+          "Z0_plane_XYZ": [
+            -0.5398314675676975,
+            0.9600984864831199,
+            0.0
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.2016651533880773,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2438504008168197,
+          "distance_prefix_end_before_Z0": 0.7424602756984002
+        },
+        {
+          "x": 974,
+          "y": 108,
+          "Z0_plane_XYZ": [
+            -0.5442031391396346,
+            0.9513937043161671,
+            -1.1102230246251565e-16
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.19907429631724582,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.24129366644336386,
+          "distance_prefix_end_before_Z0": 0.7333899939310335
+        },
+        {
+          "x": 975,
+          "y": 108,
+          "Z0_plane_XYZ": [
+            -0.543015226491718,
+            0.9522861769870883,
+            0.0
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.19876210654324392,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.24155714593503141,
+          "distance_prefix_end_before_Z0": 0.7341655537861727
+        },
+        {
+          "x": 976,
+          "y": 108,
+          "Z0_plane_XYZ": [
+            -0.541827413409144,
+            0.9531785748550796,
+            0.0
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.19846057463255473,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2418202944680266,
+          "distance_prefix_end_before_Z0": 0.734940422315032
+        },
+        {
+          "x": 977,
+          "y": 108,
+          "Z0_plane_XYZ": [
+            -0.5406396998793946,
+            0.9540708979295445,
+            1.1102230246251565e-16
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.19816974643175922,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.24208311266553761,
+          "distance_prefix_end_before_Z0": 0.7357146026652068
+        },
+        {
+          "x": 978,
+          "y": 108,
+          "Z0_plane_XYZ": [
+            -0.5394520858899557,
+            0.9549631462198858,
+            0.0
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.19788966632574045,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.2423456011491893,
+          "distance_prefix_end_before_Z0": 0.7364880979754758
+        },
+        {
+          "x": 979,
+          "y": 108,
+          "Z0_plane_XYZ": [
+            -0.5382645714283137,
+            0.9558553197355044,
+            0.0
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.19762037720283615,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.24260776053904742,
+          "distance_prefix_end_before_Z0": 0.7372609113758182
+        },
+        {
+          "x": 980,
+          "y": 108,
+          "Z0_plane_XYZ": [
+            -0.537077156481958,
+            0.9567474184857994,
+            0.0
+          ],
+          "nearest_floor_id": 240,
+          "nearest_floor_XY_distance": 0.1973619204208199,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.24286959145362436,
+          "distance_prefix_end_before_Z0": 0.7380330459874422
+        }
+      ],
+      "all_inside_sparse_hull": false,
+      "nearest_floor_XY_distance_minmax": [
+        0.1973619204208199,
+        0.22501436842555467
+      ],
+      "endZ_minmax": [
+        0.24129366644336386,
+        0.24874146118458507
+      ]
+    },
+    {
+      "camera": "BA",
+      "center": [
+        965,
+        160
+      ],
+      "rays": [
+        {
+          "x": 962,
+          "y": 157,
+          "Z0_plane_XYZ": [
+            0.5278700805244813,
+            0.5908960069649606,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.30637591975856376,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.1858330501785077,
+          "distance_prefix_end_before_Z0": 0.4753487856019789
+        },
+        {
+          "x": 963,
+          "y": 157,
+          "Z0_plane_XYZ": [
+            0.5286132450372,
+            0.5898442388668501,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.30509167285512206,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.1861019535955607,
+          "distance_prefix_end_before_Z0": 0.47606390835928836
+        },
+        {
+          "x": 964,
+          "y": 157,
+          "Z0_plane_XYZ": [
+            0.5293564924836679,
+            0.588792353396246,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3038073129872913,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.1863706081674602,
+          "distance_prefix_end_before_Z0": 0.4767787184904704
+        },
+        {
+          "x": 965,
+          "y": 157,
+          "Z0_plane_XYZ": [
+            0.5300998228777688,
+            0.5877403505334998,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3025228405279018,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.18663901423947127,
+          "distance_prefix_end_before_Z0": 0.47749321786807686
+        },
+        {
+          "x": 966,
+          "y": 157,
+          "Z0_plane_XYZ": [
+            0.5308432362333889,
+            0.5866882302589589,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3012382558566291,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.1869071721562202,
+          "distance_prefix_end_before_Z0": 0.4782074083611352
+        },
+        {
+          "x": 967,
+          "y": 157,
+          "Z0_plane_XYZ": [
+            0.531586732564418,
+            0.5856359925529656,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.2999535593601403,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.18717508226169677,
+          "distance_prefix_end_before_Z0": 0.47892129183515664
+        },
+        {
+          "x": 968,
+          "y": 157,
+          "Z0_plane_XYZ": [
+            0.5323303118847486,
+            0.5845836373958587,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.2986687514322481,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.18744274489925483,
+          "distance_prefix_end_before_Z0": 0.4796348701521378
+        },
+        {
+          "x": 962,
+          "y": 158,
+          "Z0_plane_XYZ": [
+            0.5251482580239378,
+            0.5892578704536694,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3068598944137963,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.18484581026460079,
+          "distance_prefix_end_before_Z0": 0.47205623972701427
+        },
+        {
+          "x": 963,
+          "y": 158,
+          "Z0_plane_XYZ": [
+            0.5258901962385284,
+            0.5882075320002446,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3055785838025386,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.18511529334174737,
+          "distance_prefix_end_before_Z0": 0.47277150006924407
+        },
+        {
+          "x": 964,
+          "y": 158,
+          "Z0_plane_XYZ": [
+            0.5266322171302841,
+            0.5871570765033732,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3042971696091627,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.18538452692381935,
+          "distance_prefix_end_before_Z0": 0.47348644547381213
+        },
+        {
+          "x": 965,
+          "y": 158,
+          "Z0_plane_XYZ": [
+            0.5273743207130251,
+            0.5861065039434907,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3030156523203267,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.18565351135714103,
+          "distance_prefix_end_before_Z0": 0.4742010778151595
+        },
+        {
+          "x": 966,
+          "y": 158,
+          "Z0_plane_XYZ": [
+            0.5281165070005746,
+            0.5850558143010273,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.30173403243145724,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.18592224698739557,
+          "distance_prefix_end_before_Z0": 0.47491539896419965
+        },
+        {
+          "x": 967,
+          "y": 158,
+          "Z0_plane_XYZ": [
+            0.5288587760067597,
+            0.5840050075564095,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3004523104469388,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.1861907341596275,
+          "distance_prefix_end_before_Z0": 0.47562941078832655
+        },
+        {
+          "x": 968,
+          "y": 158,
+          "Z0_plane_XYZ": [
+            0.5296011277454095,
+            0.582954083690059,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.2991704868803081,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.186458973218243,
+          "distance_prefix_end_before_Z0": 0.47634311515141503
+        },
+        {
+          "x": 962,
+          "y": 159,
+          "Z0_plane_XYZ": [
+            0.5224342955148958,
+            0.5876244645003239,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.30737440459921195,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.18385767047478985,
+          "distance_prefix_end_before_Z0": 0.4687720227498091
+        },
+        {
+          "x": 963,
+          "y": 159,
+          "Z0_plane_XYZ": [
+            0.5231750114100985,
+            0.5865755518260501,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.306096152297516,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.18412773415709738,
+          "distance_prefix_end_before_Z0": 0.46948742295304746
+        },
+        {
+          "x": 964,
+          "y": 159,
+          "Z0_plane_XYZ": [
+            0.5239158097270652,
+            0.585526522435997,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.304817806810942,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.18439754769294203,
+          "distance_prefix_end_before_Z0": 0.4702025059088528
+        },
+        {
+          "x": 965,
+          "y": 159,
+          "Z0_plane_XYZ": [
+            0.5246566904795539,
+            0.5844773763106824,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.30353936875198134,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.18466711142971004,
+          "distance_prefix_end_before_Z0": 0.4709172734935618
+        },
+        {
+          "x": 966,
+          "y": 159,
+          "Z0_plane_XYZ": [
+            0.5253976536813251,
+            0.5834281134306195,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.30226083874400517,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.18493642571414493,
+          "distance_prefix_end_before_Z0": 0.4716317275799802
+        },
+        {
+          "x": 967,
+          "y": 159,
+          "Z0_plane_XYZ": [
+            0.5261386993461433,
+            0.582378733776318,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.30098221742149744,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.1852054908923486,
+          "distance_prefix_end_before_Z0": 0.4723458700373899
+        },
+        {
+          "x": 968,
+          "y": 159,
+          "Z0_plane_XYZ": [
+            0.526879827487775,
+            0.5813292373282827,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.2997035054302948,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.18547430730978298,
+          "distance_prefix_end_before_Z0": 0.47305970273155107
+        },
+        {
+          "x": 962,
+          "y": 160,
+          "Z0_plane_XYZ": [
+            0.5197281589996977,
+            0.5859957686433385,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.30791902117358294,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.1828686295781491,
+          "distance_prefix_end_before_Z0": 0.4654960932383465
+        },
+        {
+          "x": 963,
+          "y": 160,
+          "Z0_plane_XYZ": [
+            0.5204676565351528,
+            0.584948277898266,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3066439458231579,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.18313927481254777,
+          "distance_prefix_end_before_Z0": 0.4662116355722914
+        },
+        {
+          "x": 964,
+          "y": 160,
+          "Z0_plane_XYZ": [
+            0.5212072362381476,
+            0.5839006707637081,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3053687886556802,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.18340966924762425,
+          "distance_prefix_end_before_Z0": 0.46692685835077663
+        },
+        {
+          "x": 965,
+          "y": 160,
+          "Z0_plane_XYZ": [
+            0.5219468981223782,
+            0.5828529472202651,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3040935504206909,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.18367981323183002,
+          "distance_prefix_end_before_Z0": 0.46764176345204
+        },
+        {
+          "x": 966,
+          "y": 160,
+          "Z0_plane_XYZ": [
+            0.5226866422015423,
+            0.5818051072485333,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.30281823188089085,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.18394970711297154,
+          "distance_prefix_end_before_Z0": 0.46835635275078524
+        },
+        {
+          "x": 967,
+          "y": 160,
+          "Z0_plane_XYZ": [
+            0.5234264684893427,
+            0.5807571508291042,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.30154283381241836,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.18421935123821132,
+          "distance_prefix_end_before_Z0": 0.46907062811818867
+        },
+        {
+          "x": 968,
+          "y": 160,
+          "Z0_plane_XYZ": [
+            0.524166376999483,
+            0.5797090779425655,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3002673570051407,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.18448874595406983,
+          "distance_prefix_end_before_Z0": 0.46978459142190143
+        },
+        {
+          "x": 962,
+          "y": 161,
+          "Z0_plane_XYZ": [
+            0.5170298146764755,
+            0.5843717625389641,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3084933115232922,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.18187868634150706,
+          "distance_prefix_end_before_Z0": 0.4622284099863674
+        },
+        {
+          "x": 963,
+          "y": 161,
+          "Z0_plane_XYZ": [
+            0.5177680977928448,
+            0.5833256898886436,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3072215283474114,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.18214991407679426,
+          "distance_prefix_end_before_Z0": 0.4629440967143921
+        },
+        {
+          "x": 964,
+          "y": 161,
+          "Z0_plane_XYZ": [
+            0.5185064628236994,
+            0.5822795011737668,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.30594967564794723,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.18242089035842513,
+          "distance_prefix_end_before_Z0": 0.4636594615806553
+        },
+        {
+          "x": 965,
+          "y": 161,
+          "Z0_plane_XYZ": [
+            0.5192449097826727,
+            0.5812331963750159,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.30467775432190913,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.18269161553591962,
+          "distance_prefix_end_before_Z0": 0.46437450646530243
+        },
+        {
+          "x": 966,
+          "y": 161,
+          "Z0_plane_XYZ": [
+            0.5199834386834011,
+            0.5801867754730691,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.303405765281895,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.18296208995814978,
+          "distance_prefix_end_before_Z0": 0.4650892332449412
+        },
+        {
+          "x": 967,
+          "y": 161,
+          "Z0_plane_XYZ": [
+            0.520722049539525,
+            0.5791402384486003,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3021337094564208,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.1832323139733424,
+          "distance_prefix_end_before_Z0": 0.46580364379264827
+        },
+        {
+          "x": 968,
+          "y": 161,
+          "Z0_plane_XYZ": [
+            0.5214607423646868,
+            0.578093585282279,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.30086158779026023,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.18350228792907897,
+          "distance_prefix_end_before_Z0": 0.4665177399779714
+        },
+        {
+          "x": 962,
+          "y": 162,
+          "Z0_plane_XYZ": [
+            0.5143392289377421,
+            0.5827524259604407,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.30909683998825843,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.1808878395294411,
+          "distance_prefix_end_before_Z0": 0.45896893201172295
+        },
+        {
+          "x": 963,
+          "y": 162,
+          "Z0_plane_XYZ": [
+            0.5150763015568299,
+            0.5817077675858415,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3078284607562753,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.1811596507162858,
+          "distance_prefix_end_before_Z0": 0.45968476539094083
+        },
+        {
+          "x": 964,
+          "y": 162,
+          "Z0_plane_XYZ": [
+            0.5158134558385098,
+            0.5806629934702574,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3065600251744762,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.18143120979366156,
+          "distance_prefix_end_before_Z0": 0.4604002746038014
+        },
+        {
+          "x": 965,
+          "y": 162,
+          "Z0_plane_XYZ": [
+            0.5165506917963544,
+            0.5796181035944524,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3052915342969549,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.1817025171121598,
+          "distance_prefix_end_before_Z0": 0.46111546153236405
+        },
+        {
+          "x": 966,
+          "y": 162,
+          "Z0_plane_XYZ": [
+            0.5172880094439384,
+            0.5785730979391862,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.30402298919595605,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.18197357302172146,
+          "distance_prefix_end_before_Z0": 0.46183032805514634
+        },
+        {
+          "x": 967,
+          "y": 162,
+          "Z0_plane_XYZ": [
+            0.5180254087948405,
+            0.577527976485214,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.30275439096225676,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.18224437787164005,
+          "distance_prefix_end_before_Z0": 0.4625448760471309
+        },
+        {
+          "x": 968,
+          "y": 162,
+          "Z0_plane_XYZ": [
+            0.5187628898626419,
+            0.5764827392132874,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.30148574070556006,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.18251493201056168,
+          "distance_prefix_end_before_Z0": 0.4632591073797683
+        },
+        {
+          "x": 962,
+          "y": 163,
+          "Z0_plane_XYZ": [
+            0.5116563683689991,
+            0.5811377387971579,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.30972916828178887,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.17989608790427203,
+          "distance_prefix_end_before_Z0": 0.45571761855474446
+        },
+        {
+          "x": 963,
+          "y": 163,
+          "Z0_plane_XYZ": [
+            0.512392234393869,
+            0.5800944908945856,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.30846430128077623,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.1801684834952193,
+          "distance_prefix_end_before_Z0": 0.456433600836073
+        },
+        {
+          "x": 964,
+          "y": 163,
+          "Z0_plane_XYZ": [
+            0.5131281818305934,
+            0.5790511275732497,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.30719939193841017,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.18044062631940283,
+          "distance_prefix_end_before_Z0": 0.4571492566481359
+        },
+        {
+          "x": 965,
+          "y": 163,
+          "Z0_plane_XYZ": [
+            0.5138642106926837,
+            0.5780076488139958,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.3059344414746847,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.18071251672848831,
+          "distance_prefix_end_before_Z0": 0.4578645878749119
+        },
+        {
+          "x": 966,
+          "y": 163,
+          "Z0_plane_XYZ": [
+            0.5146003209936539,
+            0.5769640545976643,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.30466945113042154,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.1809841550734892,
+          "distance_prefix_end_before_Z0": 0.4585795963968351
+        },
+        {
+          "x": 967,
+          "y": 163,
+          "Z0_plane_XYZ": [
+            0.515336512747021,
+            0.5759203449050918,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.30340442216770735,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.1812555417047681,
+          "distance_prefix_end_before_Z0": 0.4592942840907994
+        },
+        {
+          "x": 968,
+          "y": 163,
+          "Z0_plane_XYZ": [
+            0.5160727859663051,
+            0.574876519717111,
+            0.0
+          ],
+          "nearest_floor_id": 4246,
+          "nearest_floor_XY_distance": 0.30213935587034024,
+          "inside_sparse_XY_hull": false,
+          "endpoint_Z": 0.18152667697203895,
+          "distance_prefix_end_before_Z0": 0.4600086528301648
+        }
+      ],
+      "all_inside_sparse_hull": false,
+      "nearest_floor_XY_distance_minmax": [
+        0.2986687514322481,
+        0.30972916828178887
+      ],
+      "endZ_minmax": [
+        0.17989608790427203,
+        0.18744274489925483
+      ]
+    },
+    {
+      "camera": "AA",
+      "center": [
+        949,
+        351
+      ],
+      "rays": [
+        {
+          "x": 946,
+          "y": 348,
+          "Z0_plane_XYZ": [
+            0.28172211072872555,
+            0.375017067139627,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.10260786720412876,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.0732745937203757,
+          "distance_prefix_end_before_Z0": 0.15629947070040595
+        },
+        {
+          "x": 947,
+          "y": 348,
+          "Z0_plane_XYZ": [
+            0.28202004355757726,
+            0.3739624798244243,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.10163298469582471,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.0734230189444085,
+          "distance_prefix_end_before_Z0": 0.1566131993881057
+        },
+        {
+          "x": 948,
+          "y": 348,
+          "Z0_plane_XYZ": [
+            0.28231796959436695,
+            0.37290791655095823,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.1006606131413415,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.07357137083816767,
+          "distance_prefix_end_before_Z0": 0.1569268438735656
+        },
+        {
+          "x": 949,
+          "y": 348,
+          "Z0_plane_XYZ": [
+            0.28261588883932687,
+            0.3718533773184067,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.0996908251906585,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.07371964945598375,
+          "distance_prefix_end_before_Z0": 0.15724040478682744
+        },
+        {
+          "x": 950,
+          "y": 348,
+          "Z0_plane_XYZ": [
+            0.28291380129268906,
+            0.3707988621259475,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.09872369614935878,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.07386785485213321,
+          "distance_prefix_end_before_Z0": 0.15755388275716475
+        },
+        {
+          "x": 951,
+          "y": 348,
+          "Z0_plane_XYZ": [
+            0.283211706954686,
+            0.3697443709727585,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.09775930409014673,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.07401598708083923,
+          "distance_prefix_end_before_Z0": 0.15786727841308212
+        },
+        {
+          "x": 952,
+          "y": 348,
+          "Z0_plane_XYZ": [
+            0.2835096058255495,
+            0.36868990385801786,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.09679772996931224,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.0741640461962717,
+          "distance_prefix_end_before_Z0": 0.15818059238231563
+        },
+        {
+          "x": 946,
+          "y": 349,
+          "Z0_plane_XYZ": [
+            0.2795028906468595,
+            0.37433717032376745,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.10363836132690978,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.07216680892402672,
+          "distance_prefix_end_before_Z0": 0.15372608285037348
+        },
+        {
+          "x": 947,
+          "y": 349,
+          "Z0_plane_XYZ": [
+            0.2798004665060607,
+            0.3732839437337744,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.10267503130831217,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.07231557831853863,
+          "distance_prefix_end_before_Z0": 0.15404016117861086
+        },
+        {
+          "x": 948,
+          "y": 349,
+          "Z0_plane_XYZ": [
+            0.2800980355900411,
+            0.3722307411236929,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.10171437601620874,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.07246427417792389,
+          "distance_prefix_end_before_Z0": 0.15435415371908445
+        },
+        {
+          "x": 949,
+          "y": 349,
+          "Z0_plane_XYZ": [
+            0.2803955978990318,
+            0.3711775624927039,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.1007564711438321,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.07261289655669045,
+          "distance_prefix_end_before_Z0": 0.1546680611026512
+        },
+        {
+          "x": 950,
+          "y": 349,
+          "Z0_plane_XYZ": [
+            0.28069315343326484,
+            0.37012440783998846,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.0998013950672374,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.07276144550929264,
+          "distance_prefix_end_before_Z0": 0.15498188395940105
+        },
+        {
+          "x": 951,
+          "y": 349,
+          "Z0_plane_XYZ": [
+            0.28099070219297073,
+            0.36907127716472776,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.09884922895316527,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.07290992109013028,
+          "distance_prefix_end_before_Z0": 0.1552956229186555
+        },
+        {
+          "x": 952,
+          "y": 349,
+          "Z0_plane_XYZ": [
+            0.2812882441783815,
+            0.36801817046610297,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.0979000568713629,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.07305832335355023,
+          "distance_prefix_end_before_Z0": 0.1556092786089689
+        },
+        {
+          "x": 946,
+          "y": 350,
+          "Z0_plane_XYZ": [
+            0.27728935764024976,
+            0.37365901584269917,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.1047073723546806,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.07105797369592048,
+          "distance_prefix_end_before_Z0": 0.15115753100513363
+        },
+        {
+          "x": 947,
+          "y": 350,
+          "Z0_plane_XYZ": [
+            0.2775865773799169,
+            0.37260714647108895,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.10375571040383644,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.07120708784697849,
+          "distance_prefix_end_before_Z0": 0.15147195933292035
+        },
+        {
+          "x": 948,
+          "y": 350,
+          "Z0_plane_XYZ": [
+            0.2778837903611422,
+            0.3715553010178033,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.10280688218434289,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.07135612825757276,
+          "distance_prefix_end_before_Z0": 0.15178630028897389
+        },
+        {
+          "x": 949,
+          "y": 350,
+          "Z0_plane_XYZ": [
+            0.27818099658415596,
+            0.3705034794820265,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.1018609660834406,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.07150509498238955,
+          "distance_prefix_end_before_Z0": 0.15210055450496762
+        },
+        {
+          "x": 950,
+          "y": 350,
+          "Z0_plane_XYZ": [
+            0.27847819604918866,
+            0.3694516818629424,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.10091804317971881,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.07165398807606083,
+          "distance_prefix_end_before_Z0": 0.15241472261180777
+        },
+        {
+          "x": 951,
+          "y": 350,
+          "Z0_plane_XYZ": [
+            0.278775388756471,
+            0.3683999081597357,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.0999781973464775,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.07180280759316449,
+          "distance_prefix_end_before_Z0": 0.15272880523963495
+        },
+        {
+          "x": 952,
+          "y": 350,
+          "Z0_plane_XYZ": [
+            0.27907257470623303,
+            0.3673481583715905,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.0990415153590472,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.07195155358822458,
+          "distance_prefix_end_before_Z0": 0.15304280301782147
+        },
+        {
+          "x": 946,
+          "y": 351,
+          "Z0_plane_XYZ": [
+            0.27508148987593106,
+            0.3729825970075122,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.10581335363457081,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.06994808654127627,
+          "distance_prefix_end_before_Z0": 0.1485937902694423
+        },
+        {
+          "x": 947,
+          "y": 351,
+          "Z0_plane_XYZ": [
+            0.2753783543431654,
+            0.37193208136099665,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.10487344507990122,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.07009754603615104,
+          "distance_prefix_end_before_Z0": 0.1489085689581433
+        },
+        {
+          "x": 948,
+          "y": 351,
+          "Z0_plane_XYZ": [
+            0.2756752120686743,
+            0.3708815895714557,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.10393652388681192,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.07024693158473982,
+          "distance_prefix_end_before_Z0": 0.14922325869268738
+        },
+        {
+          "x": 949,
+          "y": 351,
+          "Z0_plane_XYZ": [
+            0.27597206305268807,
+            0.36983112163807674,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.10300267078629095,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.07039624324190752,
+          "distance_prefix_end_before_Z0": 0.14953786010556458
+        },
+        {
+          "x": 950,
+          "y": 351,
+          "Z0_plane_XYZ": [
+            0.27626890729543496,
+            0.3687806775600467,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.10207196919192849,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.07054548106246428,
+          "distance_prefix_end_before_Z0": 0.14985237382849825
+        },
+        {
+          "x": 951,
+          "y": 351,
+          "Z0_plane_XYZ": [
+            0.27656574479714635,
+            0.36773025733655357,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.1011445052980969,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.07069464510116685,
+          "distance_prefix_end_before_Z0": 0.15016680049244924
+        },
+        {
+          "x": 952,
+          "y": 351,
+          "Z0_plane_XYZ": [
+            0.27686257555805005,
+            0.36667986096678445,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.10022036818158675,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.0708437354127166,
+          "distance_prefix_end_before_Z0": 0.15048114072760943
+        },
+        {
+          "x": 946,
+          "y": 352,
+          "Z0_plane_XYZ": [
+            0.27287926563255227,
+            0.3723079071634915,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.10695478595844395,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.06883714596247592,
+          "distance_prefix_end_before_Z0": 0.14603483586192367
+        },
+        {
+          "x": 947,
+          "y": 352,
+          "Z0_plane_XYZ": [
+            0.2731757756714537,
+            0.3712587417622515,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.10602668787680776,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.06898695138964483,
+          "distance_prefix_end_before_Z0": 0.146349965275254
+        },
+        {
+          "x": 948,
+          "y": 352,
+          "Z0_plane_XYZ": [
+            0.27347227898528437,
+            0.37020960015687193,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.10510172491302537,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.0691366826642188,
+          "distance_prefix_end_before_Z0": 0.1466650041535389
+        },
+        {
+          "x": 949,
+          "y": 352,
+          "Z0_plane_XYZ": [
+            0.27376877557427326,
+            0.3691604823465431,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.10417997979561577,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.069286339841242,
+          "distance_prefix_end_before_Z0": 0.14697995313008594
+        },
+        {
+          "x": 950,
+          "y": 352,
+          "Z0_plane_XYZ": [
+            0.2740652654386493,
+            0.36811138833045554,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.10326153791126028,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.06943592297570367,
+          "distance_prefix_end_before_Z0": 0.14729481283743895
+        },
+        {
+          "x": 951,
+          "y": 352,
+          "Z0_plane_XYZ": [
+            0.27436174857864115,
+            0.3670623181077997,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.10234648739728755,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.06958543212253898,
+          "distance_prefix_end_before_Z0": 0.147609583907377
+        },
+        {
+          "x": 952,
+          "y": 352,
+          "Z0_plane_XYZ": [
+            0.2746582249944767,
+            0.3660132716777661,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.1014349192371061,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.06973486733662837,
+          "distance_prefix_end_before_Z0": 0.14792426697091332
+        },
+        {
+          "x": 946,
+          "y": 353,
+          "Z0_plane_XYZ": [
+            0.27068266329966484,
+            0.3716349396898987,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.10813018122429201,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.06772515045905692,
+          "distance_prefix_end_before_Z0": 0.14348064311432185
+        },
+        {
+          "x": 947,
+          "y": 353,
+          "Z0_plane_XYZ": [
+            0.2709788197513452,
+            0.3705871210675152,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.10721392445702264,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.06787530240820672,
+          "distance_prefix_end_before_Z0": 0.14379612361834138
+        },
+        {
+          "x": 948,
+          "y": 353,
+          "Z0_plane_XYZ": [
+            0.27127496949454843,
+            0.36953932618011226,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.10630094429139104,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.0680253799979651,
+          "distance_prefix_end_before_Z0": 0.14411151200795436
+        },
+        {
+          "x": 949,
+          "y": 353,
+          "Z0_plane_XYZ": [
+            0.2715711125295017,
+            0.3684915550268837,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.10539132511554382,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.06817538328355566,
+          "distance_prefix_end_before_Z0": 0.14442680891728643
+        },
+        {
+          "x": 950,
+          "y": 353,
+          "Z0_plane_XYZ": [
+            0.27186724885643354,
+            0.36744380760702255,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.10448515393733948,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.06832531232014705,
+          "distance_prefix_end_before_Z0": 0.14474201497970096
+        },
+        {
+          "x": 951,
+          "y": 353,
+          "Z0_plane_XYZ": [
+            0.2721633784755719,
+            0.36639608391972306,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.10358252047076903,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.06847516716285396,
+          "distance_prefix_end_before_Z0": 0.14505713082779836
+        },
+        {
+          "x": 952,
+          "y": 353,
+          "Z0_plane_XYZ": [
+            0.27245950138714425,
+            0.36534838396417846,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.10268351722483257,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.0686249478667359,
+          "distance_prefix_end_before_Z0": 0.1453721570934141
+        },
+        {
+          "x": 946,
+          "y": 354,
+          "Z0_plane_XYZ": [
+            0.26849166137701497,
+            0.37096368799975565,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.10933808551435063,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.066612098527706,
+          "distance_prefix_end_before_Z0": 0.1409311874707575
+        },
+        {
+          "x": 947,
+          "y": 354,
+          "Z0_plane_XYZ": [
+            0.2687874650796134,
+            0.36991721270314076,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.10843367667511059,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.06676259758973624,
+          "distance_prefix_end_before_Z0": 0.14124701943386864
+        },
+        {
+          "x": 948,
+          "y": 354,
+          "Z0_plane_XYZ": [
+            0.2690832620902657,
+            0.3688707610808601,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.1075326793435628,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.0669130220850892,
+          "distance_prefix_end_before_Z0": 0.14156275770472893
+        },
+        {
+          "x": 949,
+          "y": 354,
+          "Z0_plane_XYZ": [
+            0.2693790524091997,
+            0.36782433313211027,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.1066351792413971,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.06706337206916879,
+          "distance_prefix_end_before_Z0": 0.14187840291828402
+        },
+        {
+          "x": 950,
+          "y": 354,
+          "Z0_plane_XYZ": [
+            0.26967483603664255,
+            0.3667779288560879,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.10574126465927947,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.06721364759732384,
+          "distance_prefix_end_before_Z0": 0.14219395570871796
+        },
+        {
+          "x": 951,
+          "y": 354,
+          "Z0_plane_XYZ": [
+            0.269970612972821,
+            0.3657315482519898,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.10485102653697,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.06736384872484869,
+          "distance_prefix_end_before_Z0": 0.14250941670945227
+        },
+        {
+          "x": 952,
+          "y": 354,
+          "Z0_plane_XYZ": [
+            0.27026638321796215,
+            0.3646851913190128,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.10396455854543757,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.06751397550698235,
+          "distance_prefix_end_before_Z0": 0.142824786553146
+        }
+      ],
+      "all_inside_sparse_hull": true,
+      "nearest_floor_XY_distance_minmax": [
+        0.09679772996931224,
+        0.10933808551435063
+      ],
+      "endZ_minmax": [
+        0.066612098527706,
+        0.0741640461962717
+      ]
+    },
+    {
+      "camera": "BA",
+      "center": [
+        952,
+        353
+      ],
+      "rays": [
+        {
+          "x": 949,
+          "y": 350,
+          "Z0_plane_XYZ": [
+            0.10939467665326263,
+            0.354256822712007,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.24812159760107275,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.025000513325825202,
+          "distance_prefix_end_before_Z0": 0.04870301102036012
+        },
+        {
+          "x": 950,
+          "y": 350,
+          "Z0_plane_XYZ": [
+            0.10995693720735489,
+            0.3534249553026233,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.24739127293510768,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.025000513306196126,
+          "distance_prefix_end_before_Z0": 0.04870487341109597
+        },
+        {
+          "x": 951,
+          "y": 350,
+          "Z0_plane_XYZ": [
+            0.11051924677259428,
+            0.35259301538099386,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.24666280962529613,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.025000513286292714,
+          "distance_prefix_end_before_Z0": 0.04870676197862833
+        },
+        {
+          "x": 952,
+          "y": 350,
+          "Z0_plane_XYZ": [
+            0.11108160535538836,
+            0.35176100293763723,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.24593622527543588,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.025000513266114965,
+          "distance_prefix_end_before_Z0": 0.048708676726755495
+        },
+        {
+          "x": 953,
+          "y": 350,
+          "Z0_plane_XYZ": [
+            0.11164401296214732,
+            0.35092891796307013,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.24521153765532488,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.02500051324566277,
+          "distance_prefix_end_before_Z0": 0.04871061765923401
+        },
+        {
+          "x": 954,
+          "y": 350,
+          "Z0_plane_XYZ": [
+            0.11220646959928182,
+            0.3500967604478076,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.24448876470185812,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.02500051322493635,
+          "distance_prefix_end_before_Z0": 0.0487125847797798
+        },
+        {
+          "x": 955,
+          "y": 350,
+          "Z0_plane_XYZ": [
+            0.11276897527320429,
+            0.34926453038236327,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.2437679245201079,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.025000513203935704,
+          "distance_prefix_end_before_Z0": 0.04871457809206836
+        },
+        {
+          "x": 949,
+          "y": 351,
+          "Z0_plane_XYZ": [
+            0.10774072743546281,
+            0.353244190899884,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.2495163262451304,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.025000513949078096,
+          "distance_prefix_end_before_Z0": 0.048643951352594916
+        },
+        {
+          "x": 950,
+          "y": 351,
+          "Z0_plane_XYZ": [
+            0.10830228069357684,
+            0.3524132193297067,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.248790624751551,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.025000513929450907,
+          "distance_prefix_end_before_Z0": 0.048645809046440336
+        },
+        {
+          "x": 951,
+          "y": 351,
+          "Z0_plane_XYZ": [
+            0.10886388284587378,
+            0.3515821754072186,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.24806679212213942,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.025000513909548938,
+          "distance_prefix_end_before_Z0": 0.04864769288924986
+        },
+        {
+          "x": 952,
+          "y": 351,
+          "Z0_plane_XYZ": [
+            0.10942553389873899,
+            0.3507510591229698,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.24734484581821925,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.0250005138893723,
+          "distance_prefix_end_before_Z0": 0.04864960288481335
+        },
+        {
+          "x": 953,
+          "y": 351,
+          "Z0_plane_XYZ": [
+            0.10998723385856068,
+            0.34991987046750883,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.2466248034628307,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.025000513868920993,
+          "distance_prefix_end_before_Z0": 0.048651539036880465
+        },
+        {
+          "x": 954,
+          "y": 351,
+          "Z0_plane_XYZ": [
+            0.11054898273172642,
+            0.3490886094313822,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.2459066828417496,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.025000513848195016,
+          "distance_prefix_end_before_Z0": 0.04865350134915891
+        },
+        {
+          "x": 955,
+          "y": 351,
+          "Z0_plane_XYZ": [
+            0.11111078052462597,
+            0.34825727600513556,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.245190501904487,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.02500051382719437,
+          "distance_prefix_end_before_Z0": 0.04865548982531642
+        },
+        {
+          "x": 949,
+          "y": 352,
+          "Z0_plane_XYZ": [
+            0.10609051141156678,
+            0.35223384473889663,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.2509151187386984,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.025000514572162347,
+          "distance_prefix_end_before_Z0": 0.048585050655910456
+        },
+        {
+          "x": 950,
+          "y": 352,
+          "Z0_plane_XYZ": [
+            0.10665135913257029,
+            0.3514037670851923,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.2501940012721884,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.025000514552537045,
+          "distance_prefix_end_before_Z0": 0.04858690367051355
+        },
+        {
+          "x": 951,
+          "y": 352,
+          "Z0_plane_XYZ": [
+            0.10721225563120995,
+            0.35057361723858405,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.24947475969668936,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.02500051453263674,
+          "distance_prefix_end_before_Z0": 0.04858878280629941
+        },
+        {
+          "x": 952,
+          "y": 352,
+          "Z0_plane_XYZ": [
+            0.10777320091384912,
+            0.34974339518965325,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.24875741132829013,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.025000514512461214,
+          "distance_prefix_end_before_Z0": 0.04859068806704969
+        },
+        {
+          "x": 953,
+          "y": 352,
+          "Z0_plane_XYZ": [
+            0.10833419498685293,
+            0.3489131009289801,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.24804197364058142,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.025000514492010684,
+          "distance_prefix_end_before_Z0": 0.048592619456506725
+        },
+        {
+          "x": 954,
+          "y": 352,
+          "Z0_plane_XYZ": [
+            0.10889523785658672,
+            0.34808273444714255,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.24732846426559754,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.02500051447128515,
+          "distance_prefix_end_before_Z0": 0.04859457697837022
+        },
+        {
+          "x": 955,
+          "y": 352,
+          "Z0_plane_XYZ": [
+            0.1094563295294183,
+            0.3472522957347175,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.24661690099474043,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.025000514450284617,
+          "distance_prefix_end_before_Z0": 0.04859656063630036
+        },
+        {
+          "x": 949,
+          "y": 353,
+          "Z0_plane_XYZ": [
+            0.10444401595631414,
+            0.35122577649921816,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.25231781757239147,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.025000515195076956,
+          "distance_prefix_end_before_Z0": 0.04852630839902217
+        },
+        {
+          "x": 950,
+          "y": 353,
+          "Z0_plane_XYZ": [
+            0.10500415989257872,
+            0.35039659084542074,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.2516012449583967,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.025000515175453764,
+          "distance_prefix_end_before_Z0": 0.04852815675194866
+        },
+        {
+          "x": 951,
+          "y": 353,
+          "Z0_plane_XYZ": [
+            0.10556435249034746,
+            0.34956733315760014,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.2508865547940171,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.025000515155555014,
+          "distance_prefix_end_before_Z0": 0.048530031198326995
+        },
+        {
+          "x": 952,
+          "y": 353,
+          "Z0_plane_XYZ": [
+            0.10612459375596173,
+            0.3487380034263694,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.2501737642476115,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.025000515135380708,
+          "distance_prefix_end_before_Z0": 0.04853193174193171
+        },
+        {
+          "x": 953,
+          "y": 353,
+          "Z0_plane_XYZ": [
+            0.10668488369576468,
+            0.3479086016423396,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.2494628906408944,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.025000515114930955,
+          "distance_prefix_end_before_Z0": 0.04853385838649649
+        },
+        {
+          "x": 954,
+          "y": 353,
+          "Z0_plane_XYZ": [
+            0.10724522231609879,
+            0.34707912779612027,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.24875395144980686,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.025000515094205977,
+          "distance_prefix_end_before_Z0": 0.04853581113571437
+        },
+        {
+          "x": 955,
+          "y": 353,
+          "Z0_plane_XYZ": [
+            0.1078056096233092,
+            0.34624958187831956,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.2480469643053666,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.02500051507320533,
+          "distance_prefix_end_before_Z0": 0.04853778999323666
+        },
+        {
+          "x": 949,
+          "y": 354,
+          "Z0_plane_XYZ": [
+            0.10280122850131101,
+            0.3502199784858391,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.25372426916186874,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.025000515817821145,
+          "distance_prefix_end_before_Z0": 0.04846772405300026
+        },
+        {
+          "x": 950,
+          "y": 354,
+          "Z0_plane_XYZ": [
+            0.1033606703987423,
+            0.3493916829215229,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.25301220222340065,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.02500051579819984,
+          "distance_prefix_end_before_Z0": 0.04846956776173306
+        },
+        {
+          "x": 951,
+          "y": 354,
+          "Z0_plane_XYZ": [
+            0.10392016084195965,
+            0.34856331548154107,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.2523020238377043,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.025000515778302534,
+          "distance_prefix_end_before_Z0": 0.04847143753623806
+        },
+        {
+          "x": 952,
+          "y": 354,
+          "Z0_plane_XYZ": [
+            0.10447969983728178,
+            0.3477348761565373,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.25159375102316617,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.02500051575812956,
+          "distance_prefix_end_before_Z0": 0.04847333338028159
+        },
+        {
+          "x": 953,
+          "y": 354,
+          "Z0_plane_XYZ": [
+            0.10503928739102875,
+            0.3469063649371542,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.2508874009474551,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.025000515737680584,
+          "distance_prefix_end_before_Z0": 0.04847525529758956
+        },
+        {
+          "x": 954,
+          "y": 354,
+          "Z0_plane_XYZ": [
+            0.10559892350952194,
+            0.34607778181403237,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.2501829909283209,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.02500051571695594,
+          "distance_prefix_end_before_Z0": 0.04847720329184724
+        },
+        {
+          "x": 955,
+          "y": 354,
+          "Z0_plane_XYZ": [
+            0.10615860819908429,
+            0.34524912677781117,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.24948053843437887,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.025000515695955516,
+          "distance_prefix_end_before_Z0": 0.04847917736669882
+        },
+        {
+          "x": 949,
+          "y": 355,
+          "Z0_plane_XYZ": [
+            0.10116213653470829,
+            0.3492164430383691,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.25513432375823986,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.025000516440393472,
+          "distance_prefix_end_before_Z0": 0.048409297091254855
+        },
+        {
+          "x": 950,
+          "y": 355,
+          "Z0_plane_XYZ": [
+            0.1017208781327793,
+            0.34838903565922374,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.2544267233410979,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.025000516420774055,
+          "distance_prefix_end_before_Z0": 0.048411136173196256
+        },
+        {
+          "x": 951,
+          "y": 355,
+          "Z0_plane_XYZ": [
+            0.10227966816132839,
+            0.3475615565622482,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.2537210171370765,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.025000516400878525,
+          "distance_prefix_end_before_Z0": 0.048413001293279745
+        },
+        {
+          "x": 952,
+          "y": 355,
+          "Z0_plane_XYZ": [
+            0.10283850662665273,
+            0.3467340057381181,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.25301722201258764,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.02500051638070666,
+          "distance_prefix_end_before_Z0": 0.04841489245526476
+        },
+        {
+          "x": 953,
+          "y": 355,
+          "Z0_plane_XYZ": [
+            0.10339739353505017,
+            0.3459063831775063,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.2523153549793243,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.025000516360258573,
+          "distance_prefix_end_before_Z0": 0.04841680966286899
+        },
+        {
+          "x": 954,
+          "y": 355,
+          "Z0_plane_XYZ": [
+            0.10395632889282036,
+            0.3450786888710853,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.2516154331949937,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.025000516339534484,
+          "distance_prefix_end_before_Z0": 0.0484187529197706
+        },
+        {
+          "x": 955,
+          "y": 355,
+          "Z0_plane_XYZ": [
+            0.10451531270626335,
+            0.34425092280952474,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.2509174739640363,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.02500051631853395,
+          "distance_prefix_end_before_Z0": 0.04842072222960514
+        },
+        {
+          "x": 949,
+          "y": 356,
+          "Z0_plane_XYZ": [
+            0.09952672760088521,
+            0.34821516253084395,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.25654783535971354,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.02500051706279305,
+          "distance_prefix_end_before_Z0": 0.048351026989525536
+        },
+        {
+          "x": 950,
+          "y": 356,
+          "Z0_plane_XYZ": [
+            0.10008477063266608,
+            0.3473886414386471,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.2558446623562007,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.02500051704317563,
+          "distance_prefix_end_before_Z0": 0.04835286146199569
+        },
+        {
+          "x": 951,
+          "y": 356,
+          "Z0_plane_XYZ": [
+            0.1006428619800267,
+            0.346562048785937,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.2551433887958208,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.025000517023281654,
+          "distance_prefix_end_before_Z0": 0.048354721945028656
+        },
+        {
+          "x": 952,
+          "y": 356,
+          "Z0_plane_XYZ": [
+            0.10120100164924162,
+            0.3457353845634198,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.25444403139123933,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.02500051700311101,
+          "distance_prefix_end_before_Z0": 0.04835660844237566
+        },
+        {
+          "x": 953,
+          "y": 356,
+          "Z0_plane_XYZ": [
+            0.10175918964658781,
+            0.34490864876179994,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.2537466069964741,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.025000516982663812,
+          "distance_prefix_end_before_Z0": 0.04835852095774773
+        },
+        {
+          "x": 954,
+          "y": 356,
+          "Z0_plane_XYZ": [
+            0.10231742597834204,
+            0.3440818413717802,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.2530511326075698,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.025000516961940056,
+          "distance_prefix_end_before_Z0": 0.048360459494814156
+        },
+        {
+          "x": 955,
+          "y": 356,
+          "Z0_plane_XYZ": [
+            0.1028757106507826,
+            0.3432549623840615,
+            0.0
+          ],
+          "nearest_floor_id": 3739,
+          "nearest_floor_XY_distance": 0.2523576253632509,
+          "inside_sparse_XY_hull": true,
+          "endpoint_Z": 0.025000516940939743,
+          "distance_prefix_end_before_Z0": 0.048362424057204256
+        }
+      ],
+      "all_inside_sparse_hull": true,
+      "nearest_floor_XY_distance_minmax": [
+        0.2437679245201079,
+        0.25654783535971354
+      ],
+      "endZ_minmax": [
+        0.025000513203935704,
+        0.02500051706279305
+      ]
+    }
+  ],
+  "limitation": "Sparse hull and global residuals are not calibrated local floor-height/first-surface bounds. Any intervening rig/mat/crew invalidates a prefix; source pixels and geometry require root manual qualification. JA target is near rig/stand edge; inspect native footprints. No full-ray negative and no labels generated."
+}
