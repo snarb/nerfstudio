@@ -262,3 +262,36 @@ invalid thresholds and mismatched checkpoints are rejected. Receipt:
 evidence: `low_alpha_recovery_sweep/complete.json`,
 `ROOT_ND_native_weak_ray_comparison.png`, and `WeakRayRecovery_4K.png` in that
 directory. No training setting, learned field or original checkpoint changed.
+
+## Other completed frames: eligibility differs
+
+Read-only CPU audits used each frame's own authoritative139999-step grid on
+silver-sable, with its original checkpoint/YAML and data kept in place.
+
+| Frame | Nominal contour rays | Runtime/admission misses | Own local-R1 result |
+|---|---:|---:|---|
+|1665|173185|0|No added cells required|
+|1660|165295|109, all grey toe contour|Ineligible: all109 are outside existing admission|
+
+For1660 the source pad1 audit also has426 misses; mapped/runtime admission
+has109. Those109 rays are in IA4/MA21/MB8/MC17/NA24/NB22/ND13. They intersect
+the fixed AABB, so a ray missing the box is not the cause. Native RAW/lens
+patches place their centers on or near the visible shoe-tip boundary, with
+no broad mat/floor mask region. This does not determine physical surface depth.
+
+For MA pixel(997,584), the53 in-box cells all have zero retained source support.
+The exact original reviewed admission-input classifier reproduces that result;
+the best cell has18 foreground votes against39 known-background votes, with
+many other-view projections on floor. A finite extension beyond the box did
+not find higher-consensus toe support. These facts do not establish AABB
+clipping or a specific camera/mask error. Calibration, pixel-footprint and
+support disagreement remain possible explanations.
+
+The private recovery correctly rejects1660 rather than copying1670's grid or
+adding cells outside the unchanged source admission. Its fallback is the
+original R0.1665 needs no recovery. First-three training inputs, weights and
+AABB remain unchanged; no claim of perfect source/learned occupancy is made.
+Evidence: capped campaign `operations/video_fleet10/private_profile_v1/`,
+including `other_frame_CPU/001660/native_toe_actual_source_proof.json`,
+`native_toe_actual_source_contact.jpg`, `cell_audit/MA_ray_best_cells_contributors.jpg`,
+and the own-frame dense reports on silver-sable.
