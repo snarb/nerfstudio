@@ -114,3 +114,74 @@ BrokerV3 watchdog2265295/controller2265296 runs configSHA`3ad75a0d…`, bound to
 advanced dispatcher`d2589001…` and helper`44c7931b…`. Actual first1680 MAT intent
 is still pending native-input availability; no production MAT inference was
 claimed by these CPU regressions.
+
+### Hard140k revision and ten-slot execution
+
+The user replaced the unlimited budget with a strict140000 attempted iterations
+per frame. Final models now live under
+`/fsx/tmp/marshawn_video_1660_2015_24fps_140k_20261107` (C), with its Silver
+counterpart SGC. Root sealed the scientific cap revision as `d873cd61…` and
+qualified exactly steps0–139999; optimizer, warm/ARM/FR math and LR schedule
+remain unchanged. Frames1660/1665 restarted cold after archived overcap runs.
+Frame1670 resumed its own122000 checkpoint with root-verified tensor/optimizer/
+EMA/grid/RNG equality and completed exactly140000 attempts (last step139999).
+Its selected checkpoint SHA is `ccd0da52…`. No other frame receives this state.
+
+The operational fleet controller uses all eight Silver GPUs, Olive0 and DEV3
+L40S0. Active plan is
+`/fsx/tmp/marshawn_fleet10_140k_20261107/video_plan.json`, SHA`74c92390…`;
+its initial watchdog/controller are2270474/2270475. Host claims precede input
+publication and bind source-ready, safe grid, inventory, plan and physical GPU.
+Every host trains using its original local C/SGC paths; model YAMLs are not
+relocated. DEV3 write permissions are qualified per owned frame only.
+
+Bootstrap copies include only regular, same-frame DATA. Absolute operational
+frequency specs from SOURCE were found during failed pre-training setup and
+replaced with target-root specs. CPU cached validation checked all66 maps for
+all three bootstrap frames on C and SGC, preserving ready/admission/map bytes.
+Evidence is `C/operations/input_materialization/cached_frequency_CPU_validation.json`.
+No gradient update happened in those failed setup attempts.
+
+### All66 frequency ownership migration
+
+A fixed six-camera reservation on DEV3 could block every future frame once
+DEV3 starts a field model. The new `marshawn_frequency10.py` uses all66 cameras
+on transient free slots across all ten GPUs. One durable owner exists per map;
+all completed maps reach the canonical SOURCE Silver cache before publication.
+The existing Silver command/spec/job/receipt namespace remains unchanged, so
+MAT capacity detection and running jobs can be adopted safely.
+
+The old DEV3 CPU batch parent stopped at its completed1735/AB map boundary;
+the current GPU fitter finished naturally. Parent/fitter death and global lease
+release were verified before missing six-camera tasks became eligible elsewhere.
+Completed maps were preserved. Old Silver CPU owners2270516/2270517 retired
+without signalling any scientific fitter. Adoption imported74 valid legacy-six
+maps and4554 all-camera tasks. Evidence:
+
+- `SOURCE/operations/future_frequency/exclusive_service_retired.json`
+- `SOURCE/operations/frequency10/legacy_SG_CPU_retirement.json`
+- `SOURCE/operations/frequency10/adoption.json`
+- `SOURCE/operations/frequency10/release.json` (SHA`f91e34e4…`)
+
+Unified watchdog/controller2294301/2294303 started with config bound to the
+final advancedV3 source `3de949a7…`. First actual tick recorded559 complete,
+7 running and3988 pending maps. Silver0/2 ran capped fields; Silver1/3/4/5/6/7
+fit maps at99% utilization; DEV3 fit its unified1715/DE map. Olive remained
+physically leased by root's requested hybrid-render session. No permanent GPU
+role remains. Ready field demands take precedence; current short map fits
+finish naturally. The first released1675 source was sealing in advancedV3,
+while1680 remained correctly blocked on its source guard.
+
+A stale1680 native drain nonce left after a streaming CPU handoff was retired
+only after all66 actual NN jobs and the source-bound completion marker passed.
+This restored map progress on six otherwise idle Silver GPUs. The later CC1680
+hair ROI completed on GPU4; no stale ROI reservation was introduced.
+
+### Input storage
+
+The versioned decoder policy lowered only the free-space reserve from256GiB to
+192GiB, retaining the8GiB per-frame budget. Existing source-ready hashes and
+exclusive source ownership remain unchanged. No RAW, mask, checkpoint or
+qualified evidence was deleted. New decoder watchdog2288279 adopts completed
+source receipts; the previous decoder CPU owners retired at a completed-frame
+boundary. FSX had227GiB free at the all66 handoff check.
