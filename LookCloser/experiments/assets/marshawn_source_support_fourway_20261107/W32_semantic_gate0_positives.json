@@ -1,0 +1,5634 @@
+{
+  "source_cells": 65970,
+  "whole_LC_cover_cells": 91703,
+  "mapped_sha256": "385b77ddfb3dae1f7bef95da96b28fbaf8bbb0a68332b71f06e73f4c32829718",
+  "geometric_Linf_margin": 0.002,
+  "numerical_epsilon": 2e-07,
+  "source_halo_distinct_from_native_R": true,
+  "positive_occurrences": 109,
+  "unique_positive_positions": 41,
+  "retained_true_points": 109,
+  "retained_pixel_depth_points": 109,
+  "minimum_front_depth_margin": 0.010377229747782435,
+  "minimum_back_depth_margin": 0.027906573929808998,
+  "minimum_band_pm02_fraction": 0.7594307436945613,
+  "positive_records": [
+    {
+      "index": 0,
+      "source": "clothing103.json",
+      "camera": "AA",
+      "witness_id": 60,
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0641654406071144,
+        1.1714945845334521
+      ],
+      "front_depth_margin": 0.025396556470479448,
+      "back_depth_margin": 0.0819325874558583,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0002940191252990625
+    },
+    {
+      "index": 1,
+      "source": "clothing103.json",
+      "camera": "AB",
+      "witness_id": 60,
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0108217260200643,
+        1.119640374396819
+      ],
+      "front_depth_margin": 0.02401835935251251,
+      "back_depth_margin": 0.0848002890242423,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00031223419983935193
+    },
+    {
+      "index": 2,
+      "source": "clothing103.json",
+      "camera": "AA",
+      "witness_id": 63,
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0429476131083335,
+        1.1754832538001707
+      ],
+      "front_depth_margin": 0.04507727313602716,
+      "back_depth_margin": 0.08745836755581005,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00047896000930623597
+    },
+    {
+      "index": 3,
+      "source": "clothing103.json",
+      "camera": "AB",
+      "witness_id": 63,
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0082808042818576,
+        1.1168259131589506
+      ],
+      "front_depth_margin": 0.026541672579779796,
+      "back_depth_margin": 0.08200343629731321,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00030636598569656523
+    },
+    {
+      "index": 4,
+      "source": "clothing103.json",
+      "camera": "AA",
+      "witness_id": 64,
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0426709899400142,
+        1.175122290401147
+      ],
+      "front_depth_margin": 0.046640739966281375,
+      "back_depth_margin": 0.08581056049485136,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0004718615635738061
+    },
+    {
+      "index": 5,
+      "source": "clothing103.json",
+      "camera": "AB",
+      "witness_id": 64,
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0083889343995036,
+        1.1169456838784437
+      ],
+      "front_depth_margin": 0.02772169405233793,
+      "back_depth_margin": 0.08083505542660219,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.000346910009908352
+    },
+    {
+      "index": 6,
+      "source": "clothing103.json",
+      "camera": "AA",
+      "witness_id": 65,
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0438620537884564,
+        1.1682090265514493
+      ],
+      "front_depth_margin": 0.04185542803613229,
+      "back_depth_margin": 0.0824915447268606,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00037187991500482374
+    },
+    {
+      "index": 7,
+      "source": "clothing103.json",
+      "camera": "AB",
+      "witness_id": 65,
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0008187218067508,
+        1.1174601682867182
+      ],
+      "front_depth_margin": 0.03129696141068794,
+      "back_depth_margin": 0.0853444850692795,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00025431951499112876
+    },
+    {
+      "index": 8,
+      "source": "clothing103.json",
+      "camera": "AA",
+      "witness_id": 66,
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0438620537884564,
+        1.1682090265514493
+      ],
+      "front_depth_margin": 0.042092843291940074,
+      "back_depth_margin": 0.08225412947105282,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00039090772517679385
+    },
+    {
+      "index": 9,
+      "source": "clothing103.json",
+      "camera": "AB",
+      "witness_id": 66,
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0008187218067508,
+        1.1174601682867182
+      ],
+      "front_depth_margin": 0.03153667214233358,
+      "back_depth_margin": 0.08510477433763386,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00028072123037429744
+    },
+    {
+      "index": 10,
+      "source": "clothing103.json",
+      "camera": "AA",
+      "witness_id": 68,
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0436302795270633,
+        1.1677058857733649
+      ],
+      "front_depth_margin": 0.03811292801351218,
+      "back_depth_margin": 0.08596267823278936,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00036086141324794126
+    },
+    {
+      "index": 11,
+      "source": "clothing103.json",
+      "camera": "AB",
+      "witness_id": 68,
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.000566125917398,
+        1.1171781333498465
+      ],
+      "front_depth_margin": 0.027766419239197537,
+      "back_depth_margin": 0.08884558819325106,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0004441291239736024
+    },
+    {
+      "index": 12,
+      "source": "clothing103.json",
+      "camera": "AA",
+      "witness_id": 70,
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0494887729124067,
+        1.1669530363828042
+      ],
+      "front_depth_margin": 0.030302778039892786,
+      "back_depth_margin": 0.08716148543050473,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.000414275247493171
+    },
+    {
+      "index": 13,
+      "source": "clothing103.json",
+      "camera": "AB",
+      "witness_id": 70,
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9999153853371586,
+        1.1164515515399136
+      ],
+      "front_depth_margin": 0.026769057403122187,
+      "back_depth_margin": 0.08976710879963279,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00019935933067966903
+    },
+    {
+      "index": 14,
+      "source": "clothing103.json",
+      "camera": "AA",
+      "witness_id": 71,
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.032379673414269,
+        1.173180093563422
+      ],
+      "front_depth_margin": 0.05062063213955437,
+      "back_depth_margin": 0.0901797880095987,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 9.348463080193512e-05
+    },
+    {
+      "index": 15,
+      "source": "clothing103.json",
+      "camera": "AB",
+      "witness_id": 71,
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9909557435649876,
+        1.115402283713709
+      ],
+      "front_depth_margin": 0.039568486419478965,
+      "back_depth_margin": 0.0848780537292424,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 1.9881788647295843e-05
+    },
+    {
+      "index": 16,
+      "source": "clothing103.json",
+      "camera": "AA",
+      "witness_id": 72,
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.032379673414269,
+        1.173180093563422
+      ],
+      "front_depth_margin": 0.050348722452034256,
+      "back_depth_margin": 0.0904516976971188,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00023205130982195335
+    },
+    {
+      "index": 17,
+      "source": "clothing103.json",
+      "camera": "AB",
+      "witness_id": 72,
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9909557435649876,
+        1.115402283713709
+      ],
+      "front_depth_margin": 0.039281541662404384,
+      "back_depth_margin": 0.08516499848631698,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0001275869492165494
+    },
+    {
+      "index": 18,
+      "source": "clothing103.json",
+      "camera": "AA",
+      "witness_id": 75,
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0374541445654601,
+        1.169291686557229
+      ],
+      "front_depth_margin": 0.0456982337408991,
+      "back_depth_margin": 0.08613930825086968,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00022966977524559417
+    },
+    {
+      "index": 19,
+      "source": "clothing103.json",
+      "camera": "AB",
+      "witness_id": 75,
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9888977128944813,
+        1.1130858007378117
+      ],
+      "front_depth_margin": 0.04312728938667976,
+      "back_depth_margin": 0.0810607984566507,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0002615171230583622
+    },
+    {
+      "index": 20,
+      "source": "clothing103.json",
+      "camera": "AA",
+      "witness_id": 267,
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0535491566266844,
+        1.1692286318623486
+      ],
+      "front_depth_margin": 0.037409219695650586,
+      "back_depth_margin": 0.07827025554001366,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0001411325220259106
+    },
+    {
+      "index": 21,
+      "source": "clothing103.json",
+      "camera": "BA",
+      "witness_id": 267,
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0470287710945096,
+        1.1769811115573037
+      ],
+      "front_depth_margin": 0.05017375986974959,
+      "back_depth_margin": 0.07977858059304443,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0001739570817220127
+    },
+    {
+      "index": 22,
+      "source": "clothing103.json",
+      "camera": "AA",
+      "witness_id": 268,
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0386921034157874,
+        1.1706869626757643
+      ],
+      "front_depth_margin": 0.047689731918311606,
+      "back_depth_margin": 0.08430512734166529,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0004983453953350747
+    },
+    {
+      "index": 23,
+      "source": "clothing103.json",
+      "camera": "BA",
+      "witness_id": 268,
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0377608000916694,
+        1.172226517686659
+      ],
+      "front_depth_margin": 0.051976918552279816,
+      "back_depth_margin": 0.08248879904270989,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00035105642998312884
+    },
+    {
+      "index": 24,
+      "source": "clothing103.json",
+      "camera": "AB",
+      "witness_id": 420,
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.010136753347942,
+        1.1188816619163442
+      ],
+      "front_depth_margin": 0.025072539446574504,
+      "back_depth_margin": 0.08367236912182774,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0003530077042200228
+    },
+    {
+      "index": 25,
+      "source": "clothing103.json",
+      "camera": "AC",
+      "witness_id": 420,
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9834707924015692,
+        1.1011044920872566
+      ],
+      "front_depth_margin": 0.04140654990334569,
+      "back_depth_margin": 0.07622714978234169,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00026637798250941767
+    },
+    {
+      "index": 26,
+      "source": "clothing103.json",
+      "camera": "AC",
+      "witness_id": 593,
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9872208419325583,
+        1.0962706597032585
+      ],
+      "front_depth_margin": 0.0406491150812609,
+      "back_depth_margin": 0.06840070268943932,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0003230863625167993
+    },
+    {
+      "index": 27,
+      "source": "clothing103.json",
+      "camera": "AD",
+      "witness_id": 593,
+      "actor": "black",
+      "region": "original_upper_back_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9812638246152721,
+        1.0798372155708165
+      ],
+      "front_depth_margin": 0.03972321916373489,
+      "back_depth_margin": 0.058850171791809514,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0002993794773768046
+    },
+    {
+      "index": 28,
+      "source": "clothing103.json",
+      "camera": "MA",
+      "witness_id": 7961,
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0447449105841737,
+        1.1824965238274763
+      ],
+      "front_depth_margin": 0.060584729235767965,
+      "back_depth_margin": 0.07716688400753458,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0005821241047310604
+    },
+    {
+      "index": 29,
+      "source": "clothing103.json",
+      "camera": "NE",
+      "witness_id": 7961,
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9121197831174787,
+        1.0722914388546907
+      ],
+      "front_depth_margin": 0.03745408289985519,
+      "back_depth_margin": 0.12271757283735685,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00032265212232634956
+    },
+    {
+      "index": 30,
+      "source": "clothing103.json",
+      "camera": "OA",
+      "witness_id": 7961,
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.1046700078185405,
+        1.312662793281399
+      ],
+      "front_depth_margin": 0.02573073533502601,
+      "back_depth_margin": 0.18226205012783248,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00027528170205366704
+    },
+    {
+      "index": 31,
+      "source": "clothing103.json",
+      "camera": "MA",
+      "witness_id": 8394,
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.035570881058466,
+        1.1833785757999766
+      ],
+      "front_depth_margin": 0.06844490458485919,
+      "back_depth_margin": 0.07936279015665137,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0004015675878826194
+    },
+    {
+      "index": 32,
+      "source": "clothing103.json",
+      "camera": "OD",
+      "witness_id": 8394,
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9646195938084294,
+        1.1380409946945065
+      ],
+      "front_depth_margin": 0.03760869036423453,
+      "back_depth_margin": 0.13581271052184252,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00017896347897261412
+    },
+    {
+      "index": 33,
+      "source": "clothing103.json",
+      "camera": "OA",
+      "witness_id": 8394,
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0948374503949896,
+        1.3138724545863947
+      ],
+      "front_depth_margin": 0.035747421989046124,
+      "back_depth_margin": 0.18328758220235897,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0004890732195674051
+    },
+    {
+      "index": 34,
+      "source": "clothing103.json",
+      "camera": "MC",
+      "witness_id": 8502,
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.936686119500498,
+        1.07708893743496
+      ],
+      "front_depth_margin": 0.05871716301423591,
+      "back_depth_margin": 0.08168565492022606,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00016725795932164334
+    },
+    {
+      "index": 35,
+      "source": "clothing103.json",
+      "camera": "NE",
+      "witness_id": 8502,
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.912754617076676,
+        1.0730377520387058
+      ],
+      "front_depth_margin": 0.04153437346964417,
+      "back_depth_margin": 0.11874876149238556,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00019854422393541447
+    },
+    {
+      "index": 36,
+      "source": "clothing103.json",
+      "camera": "NC",
+      "witness_id": 8502,
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9365125781885504,
+        1.083618099067937
+      ],
+      "front_depth_margin": 0.04227406867723127,
+      "back_depth_margin": 0.10483145220215528,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0001586335926157996
+    },
+    {
+      "index": 37,
+      "source": "clothing103.json",
+      "camera": "ND",
+      "witness_id": 9020,
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9256078671929409,
+        1.092345946035038
+      ],
+      "front_depth_margin": 0.054152488667420395,
+      "back_depth_margin": 0.11258559017467673,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0004261947462796482
+    },
+    {
+      "index": 38,
+      "source": "clothing103.json",
+      "camera": "OA",
+      "witness_id": 9020,
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.093301122151682,
+        1.3101082074819843
+      ],
+      "front_depth_margin": 0.03675792462146599,
+      "back_depth_margin": 0.18004916070883636,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 1.1627009734396925e-05
+    },
+    {
+      "index": 39,
+      "source": "clothing103.json",
+      "camera": "OD",
+      "witness_id": 9020,
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9651049872098696,
+        1.1386136531734952
+      ],
+      "front_depth_margin": 0.0401452203230257,
+      "back_depth_margin": 0.13336344564059988,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00023706672951658115
+    },
+    {
+      "index": 40,
+      "source": "clothing103.json",
+      "camera": "NA",
+      "witness_id": 8679,
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0233749415034874,
+        1.213630910088189
+      ],
+      "front_depth_margin": 0.0592856675645026,
+      "back_depth_margin": 0.13097030102019902,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0003615254795602846
+    },
+    {
+      "index": 41,
+      "source": "clothing103.json",
+      "camera": "OD",
+      "witness_id": 8679,
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9660124722574036,
+        1.1396842878493767
+      ],
+      "front_depth_margin": 0.0380975436061014,
+      "back_depth_margin": 0.13557427198587169,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0003443581508219287
+    },
+    {
+      "index": 42,
+      "source": "clothing103.json",
+      "camera": "OA",
+      "witness_id": 8679,
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0877681662575964,
+        1.3145628675976109
+      ],
+      "front_depth_margin": 0.04384190451795056,
+      "back_depth_margin": 0.1829527968220639,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.000171684508655521
+    },
+    {
+      "index": 43,
+      "source": "clothing103.json",
+      "camera": "MA",
+      "witness_id": 8173,
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0431845981947019,
+        1.1818661184048902
+      ],
+      "front_depth_margin": 0.06299311499487148,
+      "back_depth_margin": 0.07568840521531683,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00043526060554407715
+    },
+    {
+      "index": 44,
+      "source": "clothing103.json",
+      "camera": "NE",
+      "witness_id": 8173,
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9182844071148464,
+        1.0723678939203931
+      ],
+      "front_depth_margin": 0.033164525155046864,
+      "back_depth_margin": 0.12091896165049987,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0002179567213563505
+    },
+    {
+      "index": 45,
+      "source": "clothing103.json",
+      "camera": "OA",
+      "witness_id": 8173,
+      "actor": "black",
+      "region": "black_trouser_lettering",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.1028130517535928,
+        1.310456200255461
+      ],
+      "front_depth_margin": 0.027809063647322496,
+      "back_depth_margin": 0.17983408485454566,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0003012979881708474
+    },
+    {
+      "index": 46,
+      "source": "clothing103.json",
+      "camera": "HA",
+      "witness_id": 5568,
+      "actor": "black",
+      "region": "black_sleeve_RESERVED",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0734954230464404,
+        1.2477743648952728
+      ],
+      "front_depth_margin": 0.029784483084422053,
+      "back_depth_margin": 0.14449445876441036,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00042045931736147676
+    },
+    {
+      "index": 47,
+      "source": "clothing103.json",
+      "camera": "IE",
+      "witness_id": 5568,
+      "actor": "black",
+      "region": "black_sleeve_RESERVED",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9638943109104344,
+        1.1017458409846916
+      ],
+      "front_depth_margin": 0.03115945494744754,
+      "back_depth_margin": 0.10669207512680967,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00018691318182727506
+    },
+    {
+      "index": 48,
+      "source": "clothing103.json",
+      "camera": "JB",
+      "witness_id": 5568,
+      "actor": "black",
+      "region": "black_sleeve_RESERVED",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0091533692697745,
+        1.1834285586535787
+      ],
+      "front_depth_margin": 0.024245500974431122,
+      "back_depth_margin": 0.15002968840937303,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00038562168406333267
+    },
+    {
+      "index": 49,
+      "source": "clothing103.json",
+      "camera": "CC",
+      "witness_id": 2219,
+      "actor": "grey",
+      "region": "grey_trouser_RESERVED",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9577867568742805,
+        1.0354373159481178
+      ],
+      "front_depth_margin": 0.02601746653611625,
+      "back_depth_margin": 0.05163309253772108,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0002218999982955329
+    },
+    {
+      "index": 50,
+      "source": "clothing103.json",
+      "camera": "DE",
+      "witness_id": 2219,
+      "actor": "grey",
+      "region": "grey_trouser_RESERVED",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.8974152706228734,
+        0.9891022035951588
+      ],
+      "front_depth_margin": 0.02447244723416564,
+      "back_depth_margin": 0.06721448573811972,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00041220378051407496
+    },
+    {
+      "index": 51,
+      "source": "clothing103.json",
+      "camera": "DD",
+      "witness_id": 2219,
+      "actor": "grey",
+      "region": "grey_trouser_RESERVED",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9489469740015863,
+        1.025815190367868
+      ],
+      "front_depth_margin": 0.026755053430666642,
+      "back_depth_margin": 0.050113162935615074,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00017448820441049215
+    },
+    {
+      "index": 52,
+      "source": "clothing103.json",
+      "camera": "HA",
+      "witness_id": 5556,
+      "actor": "grey",
+      "region": "grey_trouser_RESERVED",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0930954134027349,
+        1.2347156891462816
+      ],
+      "front_depth_margin": 0.021848688256166815,
+      "back_depth_margin": 0.11977158748737993,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00015973821954449078
+    },
+    {
+      "index": 53,
+      "source": "clothing103.json",
+      "camera": "JE",
+      "witness_id": 5556,
+      "actor": "grey",
+      "region": "grey_trouser_RESERVED",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9453736619691839,
+        1.09345074251007
+      ],
+      "front_depth_margin": 0.0272063817156335,
+      "back_depth_margin": 0.12087069882525248,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 3.314008067879953e-05
+    },
+    {
+      "index": 54,
+      "source": "clothing103.json",
+      "camera": "JA",
+      "witness_id": 5556,
+      "actor": "grey",
+      "region": "grey_trouser_RESERVED",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.088094461914181,
+        1.3003238153536327
+      ],
+      "front_depth_margin": 0.030287645974405697,
+      "back_depth_margin": 0.181941707465046,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00032413160549357603
+    },
+    {
+      "index": 55,
+      "source": "clothing103.json",
+      "camera": "EA",
+      "witness_id": 2579,
+      "actor": "grey",
+      "region": "grey_jacket_shoulder",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0727735336363282,
+        1.1941711723810409
+      ],
+      "front_depth_margin": 0.0243421836186708,
+      "back_depth_margin": 0.09705545512604186,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0005266581246532483
+    },
+    {
+      "index": 56,
+      "source": "clothing103.json",
+      "camera": "GA",
+      "witness_id": 2579,
+      "actor": "grey",
+      "region": "grey_jacket_shoulder",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0530045411327669,
+        1.2111677763580049
+      ],
+      "front_depth_margin": 0.023184961251893732,
+      "back_depth_margin": 0.13497827397334428,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00017082715810079713
+    },
+    {
+      "index": 57,
+      "source": "clothing103.json",
+      "camera": "FA",
+      "witness_id": 2579,
+      "actor": "grey",
+      "region": "grey_jacket_shoulder",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0754725800819769,
+        1.2081322659858968
+      ],
+      "front_depth_margin": 0.023386712646625618,
+      "back_depth_margin": 0.10927297325729435,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00045591708753648107
+    },
+    {
+      "index": 58,
+      "source": "clothing103.json",
+      "camera": "BA",
+      "witness_id": 943,
+      "actor": "grey",
+      "region": "grey_jacket_lowerback",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0478618056301943,
+        1.2068975917511693
+      ],
+      "front_depth_margin": 0.026941299914234662,
+      "back_depth_margin": 0.13209448620674036,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0006873568236672336
+    },
+    {
+      "index": 59,
+      "source": "clothing103.json",
+      "camera": "CC",
+      "witness_id": 943,
+      "actor": "grey",
+      "region": "grey_jacket_lowerback",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9336625098307959,
+        1.110378670281725
+      ],
+      "front_depth_margin": 0.02939244192714996,
+      "back_depth_margin": 0.14732371852377923,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00017947875565924924
+    },
+    {
+      "index": 60,
+      "source": "clothing103.json",
+      "camera": "CA",
+      "witness_id": 943,
+      "actor": "grey",
+      "region": "grey_jacket_lowerback",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0433654516715483,
+        1.2304002889231749
+      ],
+      "front_depth_margin": 0.02444441037640699,
+      "back_depth_margin": 0.16259042687521963,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00034649880122497785
+    },
+    {
+      "index": 61,
+      "source": "clothing103.json",
+      "camera": "KC",
+      "witness_id": 7784,
+      "actor": "grey",
+      "region": "grey_jacket_forearm",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9706968614638558,
+        1.1028644586375584
+      ],
+      "front_depth_margin": 0.035353355785148644,
+      "back_depth_margin": 0.09681424138855399,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0004890641062661694
+    },
+    {
+      "index": 62,
+      "source": "clothing103.json",
+      "camera": "LC",
+      "witness_id": 7784,
+      "actor": "grey",
+      "region": "grey_jacket_forearm",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9574327264798873,
+        1.0992058812536911
+      ],
+      "front_depth_margin": 0.03140226284064196,
+      "back_depth_margin": 0.11037089193316185,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0002746054854253417
+    },
+    {
+      "index": 63,
+      "source": "clothing103.json",
+      "camera": "LB",
+      "witness_id": 7784,
+      "actor": "grey",
+      "region": "grey_jacket_forearm",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.019229917081636,
+        1.149720024735693
+      ],
+      "front_depth_margin": 0.034225793380449065,
+      "back_depth_margin": 0.09626431427360793,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00025533522211927814
+    },
+    {
+      "index": 64,
+      "source": "clothing103.json",
+      "camera": "IE",
+      "witness_id": 6820,
+      "actor": "grey",
+      "region": "grey_jacket_elbow_hem",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9328279561672365,
+        1.1064812070260361
+      ],
+      "front_depth_margin": 0.03831765699061007,
+      "back_depth_margin": 0.1353355938681896,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0002660134352074922
+    },
+    {
+      "index": 65,
+      "source": "clothing103.json",
+      "camera": "KD",
+      "witness_id": 6820,
+      "actor": "grey",
+      "region": "grey_jacket_elbow_hem",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9365209769303704,
+        1.1149357883986817
+      ],
+      "front_depth_margin": 0.04318796595564045,
+      "back_depth_margin": 0.13522684551267083,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0003823870123136758
+    },
+    {
+      "index": 66,
+      "source": "clothing103.json",
+      "camera": "JD",
+      "witness_id": 6820,
+      "actor": "grey",
+      "region": "grey_jacket_elbow_hem",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9528124274365206,
+        1.1313816783581196
+      ],
+      "front_depth_margin": 0.052134244124795615,
+      "back_depth_margin": 0.12643500679680342,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00040055515030583964
+    },
+    {
+      "index": 67,
+      "source": "clothing103.json",
+      "camera": "BA",
+      "witness_id": 981,
+      "actor": "grey",
+      "region": "grey_jacket_upperback",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0496308211648053,
+        1.2022637076542757
+      ],
+      "front_depth_margin": 0.05477704539439254,
+      "back_depth_margin": 0.09785584109507783,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0004333190555430291
+    },
+    {
+      "index": 68,
+      "source": "clothing103.json",
+      "camera": "DB",
+      "witness_id": 981,
+      "actor": "grey",
+      "region": "grey_jacket_upperback",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0478761385045359,
+        1.183723711163649
+      ],
+      "front_depth_margin": 0.02877270222264583,
+      "back_depth_margin": 0.10707487043646724,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00031119305791921454
+    },
+    {
+      "index": 69,
+      "source": "clothing103.json",
+      "camera": "CB",
+      "witness_id": 981,
+      "actor": "grey",
+      "region": "grey_jacket_upperback",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9905056883918181,
+        1.1341990804700013
+      ],
+      "front_depth_margin": 0.041405112582328596,
+      "back_depth_margin": 0.10228827949585462,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0002692897873776771
+    },
+    {
+      "index": 70,
+      "source": "clothing103.json",
+      "camera": "KB",
+      "witness_id": 7588,
+      "actor": "grey",
+      "region": "grey_jacket_elbow",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9704690582181955,
+        1.1922732753862684
+      ],
+      "front_depth_margin": 0.01139375520118413,
+      "back_depth_margin": 0.21041046196688873,
+      "band_pm02_fraction": 0.7848438800296037,
+      "point_to_pixel_ray_distance": 0.0004723540575258694
+    },
+    {
+      "index": 71,
+      "source": "clothing103.json",
+      "camera": "LA",
+      "witness_id": 7588,
+      "actor": "grey",
+      "region": "grey_jacket_elbow",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0353319071825544,
+        1.1737916678374736
+      ],
+      "front_depth_margin": 0.0146281906181569,
+      "back_depth_margin": 0.12383157003676226,
+      "band_pm02_fraction": 0.8657047654539229,
+      "point_to_pixel_ray_distance": 8.372694361903957e-05
+    },
+    {
+      "index": 72,
+      "source": "clothing103.json",
+      "camera": "LB",
+      "witness_id": 7588,
+      "actor": "grey",
+      "region": "grey_jacket_elbow",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.98923900923598,
+        1.2179671280007363
+      ],
+      "front_depth_margin": 0.010377229747782435,
+      "back_depth_margin": 0.21835088901697386,
+      "band_pm02_fraction": 0.7594307436945613,
+      "point_to_pixel_ray_distance": 0.00011817826925319997
+    },
+    {
+      "index": 73,
+      "source": "clothing103.json",
+      "camera": "EA",
+      "witness_id": 3000,
+      "actor": "grey",
+      "region": "grey_jacket_back_seam",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0565473230837554,
+        1.2114655889388777
+      ],
+      "front_depth_margin": 0.03240580304158147,
+      "back_depth_margin": 0.12251246281354078,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00013437153628254213
+    },
+    {
+      "index": 74,
+      "source": "clothing103.json",
+      "camera": "FA",
+      "witness_id": 3000,
+      "actor": "grey",
+      "region": "grey_jacket_back_seam",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.065988497747986,
+        1.2687325313922129
+      ],
+      "front_depth_margin": 0.0296639592128094,
+      "back_depth_margin": 0.17308007443141737,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0003830302921386224
+    },
+    {
+      "index": 75,
+      "source": "clothing103.json",
+      "camera": "FB",
+      "witness_id": 3000,
+      "actor": "grey",
+      "region": "grey_jacket_back_seam",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9812625427074598,
+        1.1598186558268975
+      ],
+      "front_depth_margin": 0.03322391678116976,
+      "back_depth_margin": 0.14533219633826788,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0005076107686218749
+    },
+    {
+      "index": 76,
+      "source": "clothing103.json",
+      "camera": "BA",
+      "witness_id": 946,
+      "actor": "grey",
+      "region": "grey_jacket_lowerback",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0483730033478598,
+        1.1866827320302127
+      ],
+      "front_depth_margin": 0.020292931545208504,
+      "back_depth_margin": 0.11801679713714441,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.000347561326339256
+    },
+    {
+      "index": 77,
+      "source": "clothing103.json",
+      "camera": "GB",
+      "witness_id": 946,
+      "actor": "grey",
+      "region": "grey_jacket_lowerback",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0111993178990109,
+        1.1870900362774361
+      ],
+      "front_depth_margin": 0.020320371126506087,
+      "back_depth_margin": 0.1555703472519192,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00018845116174981595
+    },
+    {
+      "index": 78,
+      "source": "clothing103.json",
+      "camera": "EB",
+      "witness_id": 946,
+      "actor": "grey",
+      "region": "grey_jacket_lowerback",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9918104679701645,
+        1.1906979872659758
+      ],
+      "front_depth_margin": 0.0192832468851174,
+      "back_depth_margin": 0.17960427241069388,
+      "band_pm02_fraction": 0.9820811721279354,
+      "point_to_pixel_ray_distance": 0.0003442946750634282
+    },
+    {
+      "index": 79,
+      "source": "clothing103.json",
+      "camera": "NC",
+      "witness_id": 8931,
+      "actor": "grey",
+      "region": "grey_jacket_shoulder",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9057500330880239,
+        1.1086926322661832
+      ],
+      "front_depth_margin": 0.04121632160365718,
+      "back_depth_margin": 0.1617262775745021,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00025018751584266364
+    },
+    {
+      "index": 80,
+      "source": "clothing103.json",
+      "camera": "NE",
+      "witness_id": 8931,
+      "actor": "grey",
+      "region": "grey_jacket_shoulder",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.8942918485551964,
+        1.0790388330362333
+      ],
+      "front_depth_margin": 0.032782691896545924,
+      "back_depth_margin": 0.15196429258449096,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00019229289953324
+    },
+    {
+      "index": 81,
+      "source": "clothing103.json",
+      "camera": "ND",
+      "witness_id": 8931,
+      "actor": "grey",
+      "region": "grey_jacket_shoulder",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9095384284890127,
+        1.0994043966178102
+      ],
+      "front_depth_margin": 0.04006273017236239,
+      "back_depth_margin": 0.14980323795643513,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00040723598517034514
+    },
+    {
+      "index": 82,
+      "source": "clothing103.json",
+      "camera": "JB",
+      "witness_id": 7015,
+      "actor": "grey",
+      "region": "grey_jacket_elbow_hem",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.013488637644754,
+        1.1490630219293387
+      ],
+      "front_depth_margin": 0.047959048735408905,
+      "back_depth_margin": 0.08761533554917578,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0002525650995557542
+    },
+    {
+      "index": 83,
+      "source": "clothing103.json",
+      "camera": "KD",
+      "witness_id": 7015,
+      "actor": "grey",
+      "region": "grey_jacket_elbow_hem",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9228105230147946,
+        1.1243732855996467
+      ],
+      "front_depth_margin": 0.05185374925918107,
+      "back_depth_margin": 0.149709013325671,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00023744511025590792
+    },
+    {
+      "index": 84,
+      "source": "clothing103.json",
+      "camera": "JC",
+      "witness_id": 7015,
+      "actor": "grey",
+      "region": "grey_jacket_elbow_hem",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9633037241515899,
+        1.1695920605901777
+      ],
+      "front_depth_margin": 0.05083687095224365,
+      "back_depth_margin": 0.15545146548634414,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0002865229722154922
+    },
+    {
+      "index": 85,
+      "source": "clothing103.json",
+      "camera": "MC",
+      "witness_id": 8492,
+      "actor": "grey",
+      "region": "grey_jacket_front",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9224286218513632,
+        1.1096551962359888
+      ],
+      "front_depth_margin": 0.03991985578418367,
+      "back_depth_margin": 0.14730671860044198,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0004833695290807744
+    },
+    {
+      "index": 86,
+      "source": "clothing103.json",
+      "camera": "NE",
+      "witness_id": 8492,
+      "actor": "grey",
+      "region": "grey_jacket_front",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9025541111145537,
+        1.0572943715869387
+      ],
+      "front_depth_margin": 0.03960685142948894,
+      "back_depth_margin": 0.11513340904289604,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0003545239030945469
+    },
+    {
+      "index": 87,
+      "source": "clothing103.json",
+      "camera": "ND",
+      "witness_id": 8492,
+      "actor": "grey",
+      "region": "grey_jacket_front",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.922578451344407,
+        1.090173898462618
+      ],
+      "front_depth_margin": 0.038916742687975514,
+      "back_depth_margin": 0.12867870443023544,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00033635028012882407
+    },
+    {
+      "index": 88,
+      "source": "clothing103.json",
+      "camera": "CA",
+      "witness_id": 1521,
+      "actor": "grey",
+      "region": "grey_jacket_upperback",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0349420494097163,
+        1.1968017183364268
+      ],
+      "front_depth_margin": 0.07909886488294315,
+      "back_depth_margin": 0.08276080404376729,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0003351602002243258
+    },
+    {
+      "index": 89,
+      "source": "clothing103.json",
+      "camera": "DB",
+      "witness_id": 1521,
+      "actor": "grey",
+      "region": "grey_jacket_upperback",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.029816149630149,
+        1.1783857419040722
+      ],
+      "front_depth_margin": 0.07003960341206827,
+      "back_depth_margin": 0.07852998886185492,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00018217470425554072
+    },
+    {
+      "index": 90,
+      "source": "clothing103.json",
+      "camera": "CB",
+      "witness_id": 1521,
+      "actor": "grey",
+      "region": "grey_jacket_upperback",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9855343964732921,
+        1.1383550532762547
+      ],
+      "front_depth_margin": 0.06988630278359476,
+      "back_depth_margin": 0.08293435401936788,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00021024170602792244
+    },
+    {
+      "index": 91,
+      "source": "clothing103.json",
+      "camera": "GE",
+      "witness_id": 5452,
+      "actor": "grey",
+      "region": "grey_jacket_elbow",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9076765483676011,
+        1.100125247627914
+      ],
+      "front_depth_margin": 0.020091485502762074,
+      "back_depth_margin": 0.17235721375755075,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.000559375442469682
+    },
+    {
+      "index": 92,
+      "source": "clothing103.json",
+      "camera": "IE",
+      "witness_id": 5452,
+      "actor": "grey",
+      "region": "grey_jacket_elbow",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9096491653813543,
+        1.1287307957208979
+      ],
+      "front_depth_margin": 0.017889466596747283,
+      "back_depth_margin": 0.20119216374279625,
+      "band_pm02_fraction": 0.9472366649186825,
+      "point_to_pixel_ray_distance": 0.0003057929754718307
+    },
+    {
+      "index": 93,
+      "source": "clothing103.json",
+      "camera": "HE",
+      "witness_id": 5452,
+      "actor": "grey",
+      "region": "grey_jacket_elbow",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9337422099535662,
+        1.145063707847012
+      ],
+      "front_depth_margin": 0.015868214033102346,
+      "back_depth_margin": 0.19545328386034355,
+      "band_pm02_fraction": 0.8967053508275591,
+      "point_to_pixel_ray_distance": 0.00012551900467138333
+    },
+    {
+      "index": 94,
+      "source": "clothing103.json",
+      "camera": "AA",
+      "witness_id": 352,
+      "actor": "grey",
+      "region": "grey_jacket_lowerback",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0804543229925623,
+        1.191531108224363
+      ],
+      "front_depth_margin": 0.030216579978970648,
+      "back_depth_margin": 0.08086020525283,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0008106619326935004
+    },
+    {
+      "index": 95,
+      "source": "clothing103.json",
+      "camera": "AC",
+      "witness_id": 352,
+      "actor": "grey",
+      "region": "grey_jacket_lowerback",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9720340813984295,
+        1.090951306193932
+      ],
+      "front_depth_margin": 0.037221612593021036,
+      "back_depth_margin": 0.08169561220248145,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.000920069276013621
+    },
+    {
+      "index": 96,
+      "source": "clothing103.json",
+      "camera": "BB",
+      "witness_id": 352,
+      "actor": "grey",
+      "region": "grey_jacket_lowerback",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0124646779875581,
+        1.1367576163310555
+      ],
+      "front_depth_margin": 0.03681193010414452,
+      "back_depth_margin": 0.0874810082393529,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0007478157318445249
+    },
+    {
+      "index": 97,
+      "source": "clothing103.json",
+      "camera": "BA",
+      "witness_id": 815,
+      "actor": "grey",
+      "region": "grey_jacket_upperback",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0730553983873559,
+        1.1961476065587098
+      ],
+      "front_depth_margin": 0.021237274783543425,
+      "back_depth_margin": 0.10185493338781049,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 6.0229690578568256e-05
+    },
+    {
+      "index": 98,
+      "source": "clothing103.json",
+      "camera": "CA",
+      "witness_id": 815,
+      "actor": "grey",
+      "region": "grey_jacket_upperback",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.057245177124809,
+        1.1997748355432112
+      ],
+      "front_depth_margin": 0.02114320415487203,
+      "back_depth_margin": 0.12138645426353012,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00017188658621200252
+    },
+    {
+      "index": 99,
+      "source": "clothing103.json",
+      "camera": "BB",
+      "witness_id": 815,
+      "actor": "grey",
+      "region": "grey_jacket_upperback",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0255273616092215,
+        1.1562427978633654
+      ],
+      "front_depth_margin": 0.026679674511677076,
+      "back_depth_margin": 0.10403576174246676,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00020493879583096953
+    },
+    {
+      "index": 100,
+      "source": "clothing103.json",
+      "camera": "CC",
+      "witness_id": 2047,
+      "actor": "grey",
+      "region": "grey_jacket_back_shoulder_seam",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9597831188740008,
+        1.0836177149606159
+      ],
+      "front_depth_margin": 0.04196819521659545,
+      "back_depth_margin": 0.08186640087001962,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0001280098907046695
+    },
+    {
+      "index": 101,
+      "source": "clothing103.json",
+      "camera": "CE",
+      "witness_id": 2047,
+      "actor": "grey",
+      "region": "grey_jacket_back_shoulder_seam",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9396711715924663,
+        1.0788239765080674
+      ],
+      "front_depth_margin": 0.04861154460883399,
+      "back_depth_margin": 0.09054126030676712,
+      "band_pm02_fraction": 0.9999999999999981,
+      "point_to_pixel_ray_distance": 0.00020020669683573525
+    },
+    {
+      "index": 102,
+      "source": "clothing103.json",
+      "camera": "DD",
+      "witness_id": 2047,
+      "actor": "grey",
+      "region": "grey_jacket_back_shoulder_seam",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        0.9677073529711625,
+        1.1103240736685693
+      ],
+      "front_depth_margin": 0.042343986656663835,
+      "back_depth_margin": 0.100272734040743,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0002814604445812291
+    },
+    {
+      "index": 103,
+      "source": "shoe6.json",
+      "camera": "ID",
+      "witness_id": "three_view_upper_toe",
+      "actor": "black",
+      "region": "toe_upper",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0627736502127603,
+        1.1333249391312104
+      ],
+      "front_depth_margin": 0.023008686045415727,
+      "back_depth_margin": 0.047542602873034356,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 7.939157348690407e-05
+    },
+    {
+      "index": 104,
+      "source": "shoe6.json",
+      "camera": "HE",
+      "witness_id": "three_view_upper_toe",
+      "actor": "black",
+      "region": "toe_upper",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.0322945992377965,
+        1.1230033662518883
+      ],
+      "front_depth_margin": 0.025909653445944425,
+      "back_depth_margin": 0.06479911356814738,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.00042363173505266635
+    },
+    {
+      "index": 105,
+      "source": "shoe6.json",
+      "camera": "IC",
+      "witness_id": "three_view_upper_toe",
+      "actor": "black",
+      "region": "toe_upper",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.1012658070396357,
+        1.1622105902799755
+      ],
+      "front_depth_margin": 0.024743205633846577,
+      "back_depth_margin": 0.03620157760649323,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0001989631266320196
+    },
+    {
+      "index": 106,
+      "source": "shoe6.json",
+      "camera": "JA",
+      "witness_id": 6862,
+      "actor": "black",
+      "region": "sole6862",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.2775018414175154,
+        1.3310726524727776
+      ],
+      "front_depth_margin": 0.021449076187372906,
+      "back_depth_margin": 0.03212173486788927,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 4.120039364139508e-05
+    },
+    {
+      "index": 107,
+      "source": "shoe6.json",
+      "camera": "JB",
+      "witness_id": 6862,
+      "actor": "black",
+      "region": "sole6862",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.1996402050146104,
+        1.2601155422804382
+      ],
+      "front_depth_margin": 0.02183028825092892,
+      "back_depth_margin": 0.03864504901489885,
+      "band_pm02_fraction": 1.0,
+      "point_to_pixel_ray_distance": 0.0001546022361946945
+    },
+    {
+      "index": 108,
+      "source": "shoe6.json",
+      "camera": "KB",
+      "witness_id": 6862,
+      "actor": "black",
+      "region": "sole6862",
+      "true_point_retained": true,
+      "pixel_depth_point_retained": true,
+      "depth_interval": [
+        1.1886769047243624,
+        1.2354585832333385
+      ],
+      "front_depth_margin": 0.01887510457916708,
+      "back_depth_margin": 0.027906573929808998,
+      "band_pm02_fraction": 0.9718776144791774,
+      "point_to_pixel_ray_distance": 7.093552585205763e-05
+    }
+  ],
+  "historical_ray_misses_without_margin": 1084,
+  "remaining_historical_ray_misses_with_margin": 730,
+  "remaining_ray_miss_pixels": [
+    {
+      "camera": "IA",
+      "x": 1019,
+      "y": 556
+    },
+    {
+      "camera": "IA",
+      "x": 1020,
+      "y": 556
+    },
+    {
+      "camera": "IA",
+      "x": 1018,
+      "y": 557
+    },
+    {
+      "camera": "IA",
+      "x": 1019,
+      "y": 557
+    },
+    {
+      "camera": "IA",
+      "x": 1020,
+      "y": 557
+    },
+    {
+      "camera": "IA",
+      "x": 1021,
+      "y": 557
+    },
+    {
+      "camera": "IA",
+      "x": 1017,
+      "y": 558
+    },
+    {
+      "camera": "IA",
+      "x": 1018,
+      "y": 558
+    },
+    {
+      "camera": "IA",
+      "x": 1019,
+      "y": 558
+    },
+    {
+      "camera": "IA",
+      "x": 1020,
+      "y": 558
+    },
+    {
+      "camera": "IA",
+      "x": 1021,
+      "y": 558
+    },
+    {
+      "camera": "IA",
+      "x": 1022,
+      "y": 558
+    },
+    {
+      "camera": "IA",
+      "x": 1017,
+      "y": 559
+    },
+    {
+      "camera": "IA",
+      "x": 1018,
+      "y": 559
+    },
+    {
+      "camera": "IA",
+      "x": 1019,
+      "y": 559
+    },
+    {
+      "camera": "IA",
+      "x": 1020,
+      "y": 559
+    },
+    {
+      "camera": "IA",
+      "x": 1021,
+      "y": 559
+    },
+    {
+      "camera": "IA",
+      "x": 1022,
+      "y": 559
+    },
+    {
+      "camera": "IA",
+      "x": 1016,
+      "y": 560
+    },
+    {
+      "camera": "IA",
+      "x": 1017,
+      "y": 560
+    },
+    {
+      "camera": "IA",
+      "x": 1018,
+      "y": 560
+    },
+    {
+      "camera": "IA",
+      "x": 1019,
+      "y": 560
+    },
+    {
+      "camera": "IA",
+      "x": 1020,
+      "y": 560
+    },
+    {
+      "camera": "IA",
+      "x": 1021,
+      "y": 560
+    },
+    {
+      "camera": "IA",
+      "x": 1022,
+      "y": 560
+    },
+    {
+      "camera": "IA",
+      "x": 1023,
+      "y": 560
+    },
+    {
+      "camera": "IA",
+      "x": 1016,
+      "y": 561
+    },
+    {
+      "camera": "IA",
+      "x": 1017,
+      "y": 561
+    },
+    {
+      "camera": "IA",
+      "x": 1018,
+      "y": 561
+    },
+    {
+      "camera": "IA",
+      "x": 1019,
+      "y": 561
+    },
+    {
+      "camera": "IA",
+      "x": 1020,
+      "y": 561
+    },
+    {
+      "camera": "IA",
+      "x": 1021,
+      "y": 561
+    },
+    {
+      "camera": "IA",
+      "x": 1022,
+      "y": 561
+    },
+    {
+      "camera": "IA",
+      "x": 1023,
+      "y": 561
+    },
+    {
+      "camera": "IA",
+      "x": 1024,
+      "y": 561
+    },
+    {
+      "camera": "IA",
+      "x": 1016,
+      "y": 562
+    },
+    {
+      "camera": "IA",
+      "x": 1017,
+      "y": 562
+    },
+    {
+      "camera": "IA",
+      "x": 1018,
+      "y": 562
+    },
+    {
+      "camera": "IA",
+      "x": 1019,
+      "y": 562
+    },
+    {
+      "camera": "IA",
+      "x": 1020,
+      "y": 562
+    },
+    {
+      "camera": "IA",
+      "x": 1021,
+      "y": 562
+    },
+    {
+      "camera": "IA",
+      "x": 1022,
+      "y": 562
+    },
+    {
+      "camera": "IA",
+      "x": 1023,
+      "y": 562
+    },
+    {
+      "camera": "IA",
+      "x": 1024,
+      "y": 562
+    },
+    {
+      "camera": "IA",
+      "x": 1025,
+      "y": 562
+    },
+    {
+      "camera": "IA",
+      "x": 1016,
+      "y": 563
+    },
+    {
+      "camera": "IA",
+      "x": 1017,
+      "y": 563
+    },
+    {
+      "camera": "IA",
+      "x": 1018,
+      "y": 563
+    },
+    {
+      "camera": "IA",
+      "x": 1019,
+      "y": 563
+    },
+    {
+      "camera": "IA",
+      "x": 1020,
+      "y": 563
+    },
+    {
+      "camera": "IA",
+      "x": 1021,
+      "y": 563
+    },
+    {
+      "camera": "IA",
+      "x": 1022,
+      "y": 563
+    },
+    {
+      "camera": "IA",
+      "x": 1023,
+      "y": 563
+    },
+    {
+      "camera": "IA",
+      "x": 1024,
+      "y": 563
+    },
+    {
+      "camera": "IA",
+      "x": 1025,
+      "y": 563
+    },
+    {
+      "camera": "IA",
+      "x": 1016,
+      "y": 564
+    },
+    {
+      "camera": "IA",
+      "x": 1017,
+      "y": 564
+    },
+    {
+      "camera": "IA",
+      "x": 1018,
+      "y": 564
+    },
+    {
+      "camera": "IA",
+      "x": 1019,
+      "y": 564
+    },
+    {
+      "camera": "IA",
+      "x": 1020,
+      "y": 564
+    },
+    {
+      "camera": "IA",
+      "x": 1021,
+      "y": 564
+    },
+    {
+      "camera": "IA",
+      "x": 1022,
+      "y": 564
+    },
+    {
+      "camera": "IA",
+      "x": 1023,
+      "y": 564
+    },
+    {
+      "camera": "IA",
+      "x": 1024,
+      "y": 564
+    },
+    {
+      "camera": "IA",
+      "x": 1025,
+      "y": 564
+    },
+    {
+      "camera": "IA",
+      "x": 1016,
+      "y": 565
+    },
+    {
+      "camera": "IA",
+      "x": 1017,
+      "y": 565
+    },
+    {
+      "camera": "IA",
+      "x": 1018,
+      "y": 565
+    },
+    {
+      "camera": "IA",
+      "x": 1019,
+      "y": 565
+    },
+    {
+      "camera": "IA",
+      "x": 1020,
+      "y": 565
+    },
+    {
+      "camera": "IA",
+      "x": 1021,
+      "y": 565
+    },
+    {
+      "camera": "IA",
+      "x": 1022,
+      "y": 565
+    },
+    {
+      "camera": "IA",
+      "x": 1023,
+      "y": 565
+    },
+    {
+      "camera": "IA",
+      "x": 1024,
+      "y": 565
+    },
+    {
+      "camera": "IA",
+      "x": 1025,
+      "y": 565
+    },
+    {
+      "camera": "IA",
+      "x": 1026,
+      "y": 565
+    },
+    {
+      "camera": "IA",
+      "x": 1015,
+      "y": 566
+    },
+    {
+      "camera": "IA",
+      "x": 1016,
+      "y": 566
+    },
+    {
+      "camera": "IA",
+      "x": 1017,
+      "y": 566
+    },
+    {
+      "camera": "IA",
+      "x": 1018,
+      "y": 566
+    },
+    {
+      "camera": "IA",
+      "x": 1019,
+      "y": 566
+    },
+    {
+      "camera": "IA",
+      "x": 1020,
+      "y": 566
+    },
+    {
+      "camera": "IA",
+      "x": 1021,
+      "y": 566
+    },
+    {
+      "camera": "IA",
+      "x": 1022,
+      "y": 566
+    },
+    {
+      "camera": "IA",
+      "x": 1023,
+      "y": 566
+    },
+    {
+      "camera": "IA",
+      "x": 1024,
+      "y": 566
+    },
+    {
+      "camera": "IA",
+      "x": 1025,
+      "y": 566
+    },
+    {
+      "camera": "IA",
+      "x": 1026,
+      "y": 566
+    },
+    {
+      "camera": "IA",
+      "x": 1014,
+      "y": 567
+    },
+    {
+      "camera": "IA",
+      "x": 1015,
+      "y": 567
+    },
+    {
+      "camera": "IA",
+      "x": 1016,
+      "y": 567
+    },
+    {
+      "camera": "IA",
+      "x": 1017,
+      "y": 567
+    },
+    {
+      "camera": "IA",
+      "x": 1018,
+      "y": 567
+    },
+    {
+      "camera": "IA",
+      "x": 1019,
+      "y": 567
+    },
+    {
+      "camera": "IA",
+      "x": 1020,
+      "y": 567
+    },
+    {
+      "camera": "IA",
+      "x": 1021,
+      "y": 567
+    },
+    {
+      "camera": "IA",
+      "x": 1022,
+      "y": 567
+    },
+    {
+      "camera": "IA",
+      "x": 1023,
+      "y": 567
+    },
+    {
+      "camera": "IA",
+      "x": 1024,
+      "y": 567
+    },
+    {
+      "camera": "IA",
+      "x": 1025,
+      "y": 567
+    },
+    {
+      "camera": "IA",
+      "x": 1026,
+      "y": 567
+    },
+    {
+      "camera": "IA",
+      "x": 1027,
+      "y": 567
+    },
+    {
+      "camera": "IA",
+      "x": 1013,
+      "y": 568
+    },
+    {
+      "camera": "IA",
+      "x": 1014,
+      "y": 568
+    },
+    {
+      "camera": "IA",
+      "x": 1015,
+      "y": 568
+    },
+    {
+      "camera": "IA",
+      "x": 1016,
+      "y": 568
+    },
+    {
+      "camera": "IA",
+      "x": 1017,
+      "y": 568
+    },
+    {
+      "camera": "IA",
+      "x": 1018,
+      "y": 568
+    },
+    {
+      "camera": "IA",
+      "x": 1019,
+      "y": 568
+    },
+    {
+      "camera": "IA",
+      "x": 1020,
+      "y": 568
+    },
+    {
+      "camera": "IA",
+      "x": 1021,
+      "y": 568
+    },
+    {
+      "camera": "IA",
+      "x": 1022,
+      "y": 568
+    },
+    {
+      "camera": "IA",
+      "x": 1023,
+      "y": 568
+    },
+    {
+      "camera": "IA",
+      "x": 1024,
+      "y": 568
+    },
+    {
+      "camera": "IA",
+      "x": 1025,
+      "y": 568
+    },
+    {
+      "camera": "IA",
+      "x": 1026,
+      "y": 568
+    },
+    {
+      "camera": "IA",
+      "x": 1027,
+      "y": 568
+    },
+    {
+      "camera": "IA",
+      "x": 1028,
+      "y": 568
+    },
+    {
+      "camera": "IA",
+      "x": 1012,
+      "y": 569
+    },
+    {
+      "camera": "IA",
+      "x": 1013,
+      "y": 569
+    },
+    {
+      "camera": "IA",
+      "x": 1014,
+      "y": 569
+    },
+    {
+      "camera": "IA",
+      "x": 1015,
+      "y": 569
+    },
+    {
+      "camera": "IA",
+      "x": 1016,
+      "y": 569
+    },
+    {
+      "camera": "IA",
+      "x": 1017,
+      "y": 569
+    },
+    {
+      "camera": "IA",
+      "x": 1018,
+      "y": 569
+    },
+    {
+      "camera": "IA",
+      "x": 1019,
+      "y": 569
+    },
+    {
+      "camera": "IA",
+      "x": 1020,
+      "y": 569
+    },
+    {
+      "camera": "IA",
+      "x": 1021,
+      "y": 569
+    },
+    {
+      "camera": "IA",
+      "x": 1022,
+      "y": 569
+    },
+    {
+      "camera": "IA",
+      "x": 1023,
+      "y": 569
+    },
+    {
+      "camera": "IA",
+      "x": 1024,
+      "y": 569
+    },
+    {
+      "camera": "IA",
+      "x": 1025,
+      "y": 569
+    },
+    {
+      "camera": "IA",
+      "x": 1026,
+      "y": 569
+    },
+    {
+      "camera": "IA",
+      "x": 1027,
+      "y": 569
+    },
+    {
+      "camera": "IA",
+      "x": 1028,
+      "y": 569
+    },
+    {
+      "camera": "IA",
+      "x": 1011,
+      "y": 570
+    },
+    {
+      "camera": "IA",
+      "x": 1012,
+      "y": 570
+    },
+    {
+      "camera": "IA",
+      "x": 1013,
+      "y": 570
+    },
+    {
+      "camera": "IA",
+      "x": 1014,
+      "y": 570
+    },
+    {
+      "camera": "IA",
+      "x": 1015,
+      "y": 570
+    },
+    {
+      "camera": "IA",
+      "x": 1016,
+      "y": 570
+    },
+    {
+      "camera": "IA",
+      "x": 1017,
+      "y": 570
+    },
+    {
+      "camera": "IA",
+      "x": 1018,
+      "y": 570
+    },
+    {
+      "camera": "IA",
+      "x": 1019,
+      "y": 570
+    },
+    {
+      "camera": "IA",
+      "x": 1020,
+      "y": 570
+    },
+    {
+      "camera": "IA",
+      "x": 1021,
+      "y": 570
+    },
+    {
+      "camera": "IA",
+      "x": 1022,
+      "y": 570
+    },
+    {
+      "camera": "IA",
+      "x": 1023,
+      "y": 570
+    },
+    {
+      "camera": "IA",
+      "x": 1024,
+      "y": 570
+    },
+    {
+      "camera": "IA",
+      "x": 1025,
+      "y": 570
+    },
+    {
+      "camera": "IA",
+      "x": 1026,
+      "y": 570
+    },
+    {
+      "camera": "IA",
+      "x": 1027,
+      "y": 570
+    },
+    {
+      "camera": "IA",
+      "x": 1028,
+      "y": 570
+    },
+    {
+      "camera": "IA",
+      "x": 1010,
+      "y": 571
+    },
+    {
+      "camera": "IA",
+      "x": 1011,
+      "y": 571
+    },
+    {
+      "camera": "IA",
+      "x": 1012,
+      "y": 571
+    },
+    {
+      "camera": "IA",
+      "x": 1013,
+      "y": 571
+    },
+    {
+      "camera": "IA",
+      "x": 1014,
+      "y": 571
+    },
+    {
+      "camera": "IA",
+      "x": 1015,
+      "y": 571
+    },
+    {
+      "camera": "IA",
+      "x": 1016,
+      "y": 571
+    },
+    {
+      "camera": "IA",
+      "x": 1017,
+      "y": 571
+    },
+    {
+      "camera": "IA",
+      "x": 1018,
+      "y": 571
+    },
+    {
+      "camera": "IA",
+      "x": 1019,
+      "y": 571
+    },
+    {
+      "camera": "IA",
+      "x": 1020,
+      "y": 571
+    },
+    {
+      "camera": "IA",
+      "x": 1021,
+      "y": 571
+    },
+    {
+      "camera": "IA",
+      "x": 1022,
+      "y": 571
+    },
+    {
+      "camera": "IA",
+      "x": 1023,
+      "y": 571
+    },
+    {
+      "camera": "IA",
+      "x": 1024,
+      "y": 571
+    },
+    {
+      "camera": "IA",
+      "x": 1025,
+      "y": 571
+    },
+    {
+      "camera": "IA",
+      "x": 1026,
+      "y": 571
+    },
+    {
+      "camera": "IA",
+      "x": 1027,
+      "y": 571
+    },
+    {
+      "camera": "IA",
+      "x": 1028,
+      "y": 571
+    },
+    {
+      "camera": "IA",
+      "x": 1029,
+      "y": 571
+    },
+    {
+      "camera": "IA",
+      "x": 1009,
+      "y": 572
+    },
+    {
+      "camera": "IA",
+      "x": 1010,
+      "y": 572
+    },
+    {
+      "camera": "IA",
+      "x": 1011,
+      "y": 572
+    },
+    {
+      "camera": "IA",
+      "x": 1012,
+      "y": 572
+    },
+    {
+      "camera": "IA",
+      "x": 1013,
+      "y": 572
+    },
+    {
+      "camera": "IA",
+      "x": 1014,
+      "y": 572
+    },
+    {
+      "camera": "IA",
+      "x": 1015,
+      "y": 572
+    },
+    {
+      "camera": "IA",
+      "x": 1016,
+      "y": 572
+    },
+    {
+      "camera": "IA",
+      "x": 1017,
+      "y": 572
+    },
+    {
+      "camera": "IA",
+      "x": 1018,
+      "y": 572
+    },
+    {
+      "camera": "IA",
+      "x": 1019,
+      "y": 572
+    },
+    {
+      "camera": "IA",
+      "x": 1020,
+      "y": 572
+    },
+    {
+      "camera": "IA",
+      "x": 1021,
+      "y": 572
+    },
+    {
+      "camera": "IA",
+      "x": 1022,
+      "y": 572
+    },
+    {
+      "camera": "IA",
+      "x": 1023,
+      "y": 572
+    },
+    {
+      "camera": "IA",
+      "x": 1024,
+      "y": 572
+    },
+    {
+      "camera": "IA",
+      "x": 1025,
+      "y": 572
+    },
+    {
+      "camera": "IA",
+      "x": 1026,
+      "y": 572
+    },
+    {
+      "camera": "IA",
+      "x": 1027,
+      "y": 572
+    },
+    {
+      "camera": "IA",
+      "x": 1028,
+      "y": 572
+    },
+    {
+      "camera": "IA",
+      "x": 1029,
+      "y": 572
+    },
+    {
+      "camera": "IA",
+      "x": 1010,
+      "y": 573
+    },
+    {
+      "camera": "IA",
+      "x": 1011,
+      "y": 573
+    },
+    {
+      "camera": "IA",
+      "x": 1012,
+      "y": 573
+    },
+    {
+      "camera": "IA",
+      "x": 1013,
+      "y": 573
+    },
+    {
+      "camera": "IA",
+      "x": 1014,
+      "y": 573
+    },
+    {
+      "camera": "IA",
+      "x": 1015,
+      "y": 573
+    },
+    {
+      "camera": "IA",
+      "x": 1016,
+      "y": 573
+    },
+    {
+      "camera": "IA",
+      "x": 1017,
+      "y": 573
+    },
+    {
+      "camera": "IA",
+      "x": 1018,
+      "y": 573
+    },
+    {
+      "camera": "IA",
+      "x": 1019,
+      "y": 573
+    },
+    {
+      "camera": "IA",
+      "x": 1020,
+      "y": 573
+    },
+    {
+      "camera": "IA",
+      "x": 1021,
+      "y": 573
+    },
+    {
+      "camera": "IA",
+      "x": 1022,
+      "y": 573
+    },
+    {
+      "camera": "IA",
+      "x": 1023,
+      "y": 573
+    },
+    {
+      "camera": "IA",
+      "x": 1024,
+      "y": 573
+    },
+    {
+      "camera": "IA",
+      "x": 1025,
+      "y": 573
+    },
+    {
+      "camera": "IA",
+      "x": 1026,
+      "y": 573
+    },
+    {
+      "camera": "IA",
+      "x": 1027,
+      "y": 573
+    },
+    {
+      "camera": "IA",
+      "x": 1028,
+      "y": 573
+    },
+    {
+      "camera": "IA",
+      "x": 1029,
+      "y": 573
+    },
+    {
+      "camera": "IA",
+      "x": 1011,
+      "y": 574
+    },
+    {
+      "camera": "IA",
+      "x": 1012,
+      "y": 574
+    },
+    {
+      "camera": "IA",
+      "x": 1013,
+      "y": 574
+    },
+    {
+      "camera": "IA",
+      "x": 1014,
+      "y": 574
+    },
+    {
+      "camera": "IA",
+      "x": 1015,
+      "y": 574
+    },
+    {
+      "camera": "IA",
+      "x": 1016,
+      "y": 574
+    },
+    {
+      "camera": "IA",
+      "x": 1017,
+      "y": 574
+    },
+    {
+      "camera": "IA",
+      "x": 1018,
+      "y": 574
+    },
+    {
+      "camera": "IA",
+      "x": 1019,
+      "y": 574
+    },
+    {
+      "camera": "IA",
+      "x": 1020,
+      "y": 574
+    },
+    {
+      "camera": "IA",
+      "x": 1021,
+      "y": 574
+    },
+    {
+      "camera": "IA",
+      "x": 1022,
+      "y": 574
+    },
+    {
+      "camera": "IA",
+      "x": 1023,
+      "y": 574
+    },
+    {
+      "camera": "IA",
+      "x": 1024,
+      "y": 574
+    },
+    {
+      "camera": "IA",
+      "x": 1025,
+      "y": 574
+    },
+    {
+      "camera": "IA",
+      "x": 1026,
+      "y": 574
+    },
+    {
+      "camera": "IA",
+      "x": 1027,
+      "y": 574
+    },
+    {
+      "camera": "IA",
+      "x": 1028,
+      "y": 574
+    },
+    {
+      "camera": "IA",
+      "x": 1013,
+      "y": 575
+    },
+    {
+      "camera": "IA",
+      "x": 1014,
+      "y": 575
+    },
+    {
+      "camera": "IA",
+      "x": 1015,
+      "y": 575
+    },
+    {
+      "camera": "IA",
+      "x": 1016,
+      "y": 575
+    },
+    {
+      "camera": "IA",
+      "x": 1017,
+      "y": 575
+    },
+    {
+      "camera": "IA",
+      "x": 1018,
+      "y": 575
+    },
+    {
+      "camera": "IA",
+      "x": 1019,
+      "y": 575
+    },
+    {
+      "camera": "IA",
+      "x": 1020,
+      "y": 575
+    },
+    {
+      "camera": "IA",
+      "x": 1021,
+      "y": 575
+    },
+    {
+      "camera": "IA",
+      "x": 1022,
+      "y": 575
+    },
+    {
+      "camera": "IA",
+      "x": 1023,
+      "y": 575
+    },
+    {
+      "camera": "IA",
+      "x": 1024,
+      "y": 575
+    },
+    {
+      "camera": "IA",
+      "x": 1025,
+      "y": 575
+    },
+    {
+      "camera": "IA",
+      "x": 1026,
+      "y": 575
+    },
+    {
+      "camera": "IA",
+      "x": 1027,
+      "y": 575
+    },
+    {
+      "camera": "IA",
+      "x": 1014,
+      "y": 576
+    },
+    {
+      "camera": "IA",
+      "x": 1015,
+      "y": 576
+    },
+    {
+      "camera": "IA",
+      "x": 1016,
+      "y": 576
+    },
+    {
+      "camera": "IA",
+      "x": 1017,
+      "y": 576
+    },
+    {
+      "camera": "IA",
+      "x": 1018,
+      "y": 576
+    },
+    {
+      "camera": "IA",
+      "x": 1019,
+      "y": 576
+    },
+    {
+      "camera": "IA",
+      "x": 1020,
+      "y": 576
+    },
+    {
+      "camera": "IA",
+      "x": 1021,
+      "y": 576
+    },
+    {
+      "camera": "IA",
+      "x": 1022,
+      "y": 576
+    },
+    {
+      "camera": "IA",
+      "x": 1023,
+      "y": 576
+    },
+    {
+      "camera": "IA",
+      "x": 1024,
+      "y": 576
+    },
+    {
+      "camera": "IA",
+      "x": 1025,
+      "y": 576
+    },
+    {
+      "camera": "IA",
+      "x": 1026,
+      "y": 576
+    },
+    {
+      "camera": "IA",
+      "x": 1016,
+      "y": 577
+    },
+    {
+      "camera": "IA",
+      "x": 1017,
+      "y": 577
+    },
+    {
+      "camera": "IA",
+      "x": 1018,
+      "y": 577
+    },
+    {
+      "camera": "IA",
+      "x": 1019,
+      "y": 577
+    },
+    {
+      "camera": "IA",
+      "x": 1020,
+      "y": 577
+    },
+    {
+      "camera": "IA",
+      "x": 1021,
+      "y": 577
+    },
+    {
+      "camera": "IA",
+      "x": 1022,
+      "y": 577
+    },
+    {
+      "camera": "IA",
+      "x": 1023,
+      "y": 577
+    },
+    {
+      "camera": "IA",
+      "x": 1024,
+      "y": 577
+    },
+    {
+      "camera": "IA",
+      "x": 1025,
+      "y": 577
+    },
+    {
+      "camera": "IA",
+      "x": 1018,
+      "y": 578
+    },
+    {
+      "camera": "IA",
+      "x": 1019,
+      "y": 578
+    },
+    {
+      "camera": "IA",
+      "x": 1020,
+      "y": 578
+    },
+    {
+      "camera": "IA",
+      "x": 1021,
+      "y": 578
+    },
+    {
+      "camera": "IA",
+      "x": 1022,
+      "y": 578
+    },
+    {
+      "camera": "IA",
+      "x": 1023,
+      "y": 578
+    },
+    {
+      "camera": "IA",
+      "x": 1024,
+      "y": 578
+    },
+    {
+      "camera": "IA",
+      "x": 1025,
+      "y": 578
+    },
+    {
+      "camera": "IA",
+      "x": 1019,
+      "y": 579
+    },
+    {
+      "camera": "IA",
+      "x": 1020,
+      "y": 579
+    },
+    {
+      "camera": "IA",
+      "x": 1021,
+      "y": 579
+    },
+    {
+      "camera": "IA",
+      "x": 1022,
+      "y": 579
+    },
+    {
+      "camera": "IA",
+      "x": 1023,
+      "y": 579
+    },
+    {
+      "camera": "IA",
+      "x": 1024,
+      "y": 579
+    },
+    {
+      "camera": "IA",
+      "x": 1020,
+      "y": 580
+    },
+    {
+      "camera": "IA",
+      "x": 1021,
+      "y": 580
+    },
+    {
+      "camera": "IA",
+      "x": 1022,
+      "y": 580
+    },
+    {
+      "camera": "IA",
+      "x": 1023,
+      "y": 580
+    },
+    {
+      "camera": "IA",
+      "x": 1021,
+      "y": 581
+    },
+    {
+      "camera": "IA",
+      "x": 1022,
+      "y": 581
+    },
+    {
+      "camera": "LA",
+      "x": 872,
+      "y": 568
+    },
+    {
+      "camera": "LA",
+      "x": 873,
+      "y": 568
+    },
+    {
+      "camera": "LA",
+      "x": 874,
+      "y": 569
+    },
+    {
+      "camera": "LA",
+      "x": 894,
+      "y": 569
+    },
+    {
+      "camera": "LA",
+      "x": 895,
+      "y": 569
+    },
+    {
+      "camera": "LA",
+      "x": 889,
+      "y": 570
+    },
+    {
+      "camera": "LA",
+      "x": 890,
+      "y": 570
+    },
+    {
+      "camera": "LA",
+      "x": 891,
+      "y": 570
+    },
+    {
+      "camera": "LA",
+      "x": 892,
+      "y": 570
+    },
+    {
+      "camera": "LA",
+      "x": 893,
+      "y": 570
+    },
+    {
+      "camera": "LA",
+      "x": 894,
+      "y": 570
+    },
+    {
+      "camera": "LA",
+      "x": 895,
+      "y": 570
+    },
+    {
+      "camera": "LA",
+      "x": 885,
+      "y": 571
+    },
+    {
+      "camera": "LA",
+      "x": 886,
+      "y": 571
+    },
+    {
+      "camera": "LA",
+      "x": 887,
+      "y": 571
+    },
+    {
+      "camera": "LA",
+      "x": 888,
+      "y": 571
+    },
+    {
+      "camera": "LA",
+      "x": 889,
+      "y": 571
+    },
+    {
+      "camera": "LA",
+      "x": 890,
+      "y": 571
+    },
+    {
+      "camera": "LA",
+      "x": 891,
+      "y": 571
+    },
+    {
+      "camera": "LA",
+      "x": 892,
+      "y": 571
+    },
+    {
+      "camera": "LA",
+      "x": 893,
+      "y": 571
+    },
+    {
+      "camera": "LA",
+      "x": 894,
+      "y": 571
+    },
+    {
+      "camera": "LA",
+      "x": 880,
+      "y": 572
+    },
+    {
+      "camera": "LA",
+      "x": 881,
+      "y": 572
+    },
+    {
+      "camera": "LA",
+      "x": 882,
+      "y": 572
+    },
+    {
+      "camera": "LA",
+      "x": 883,
+      "y": 572
+    },
+    {
+      "camera": "LA",
+      "x": 884,
+      "y": 572
+    },
+    {
+      "camera": "LA",
+      "x": 885,
+      "y": 572
+    },
+    {
+      "camera": "LA",
+      "x": 886,
+      "y": 572
+    },
+    {
+      "camera": "LA",
+      "x": 887,
+      "y": 572
+    },
+    {
+      "camera": "LA",
+      "x": 888,
+      "y": 572
+    },
+    {
+      "camera": "LA",
+      "x": 889,
+      "y": 572
+    },
+    {
+      "camera": "LA",
+      "x": 890,
+      "y": 572
+    },
+    {
+      "camera": "LA",
+      "x": 891,
+      "y": 572
+    },
+    {
+      "camera": "LA",
+      "x": 892,
+      "y": 572
+    },
+    {
+      "camera": "LA",
+      "x": 893,
+      "y": 572
+    },
+    {
+      "camera": "LA",
+      "x": 894,
+      "y": 572
+    },
+    {
+      "camera": "LA",
+      "x": 877,
+      "y": 573
+    },
+    {
+      "camera": "LA",
+      "x": 878,
+      "y": 573
+    },
+    {
+      "camera": "LA",
+      "x": 879,
+      "y": 573
+    },
+    {
+      "camera": "LA",
+      "x": 880,
+      "y": 573
+    },
+    {
+      "camera": "LA",
+      "x": 881,
+      "y": 573
+    },
+    {
+      "camera": "LA",
+      "x": 882,
+      "y": 573
+    },
+    {
+      "camera": "LA",
+      "x": 883,
+      "y": 573
+    },
+    {
+      "camera": "LA",
+      "x": 884,
+      "y": 573
+    },
+    {
+      "camera": "LA",
+      "x": 885,
+      "y": 573
+    },
+    {
+      "camera": "LA",
+      "x": 886,
+      "y": 573
+    },
+    {
+      "camera": "LA",
+      "x": 887,
+      "y": 573
+    },
+    {
+      "camera": "LA",
+      "x": 888,
+      "y": 573
+    },
+    {
+      "camera": "LA",
+      "x": 889,
+      "y": 573
+    },
+    {
+      "camera": "LA",
+      "x": 890,
+      "y": 573
+    },
+    {
+      "camera": "LA",
+      "x": 891,
+      "y": 573
+    },
+    {
+      "camera": "LA",
+      "x": 892,
+      "y": 573
+    },
+    {
+      "camera": "LA",
+      "x": 893,
+      "y": 573
+    },
+    {
+      "camera": "LA",
+      "x": 894,
+      "y": 573
+    },
+    {
+      "camera": "LA",
+      "x": 877,
+      "y": 574
+    },
+    {
+      "camera": "LA",
+      "x": 878,
+      "y": 574
+    },
+    {
+      "camera": "LA",
+      "x": 879,
+      "y": 574
+    },
+    {
+      "camera": "LA",
+      "x": 880,
+      "y": 574
+    },
+    {
+      "camera": "LA",
+      "x": 881,
+      "y": 574
+    },
+    {
+      "camera": "LA",
+      "x": 882,
+      "y": 574
+    },
+    {
+      "camera": "LA",
+      "x": 883,
+      "y": 574
+    },
+    {
+      "camera": "LA",
+      "x": 884,
+      "y": 574
+    },
+    {
+      "camera": "LA",
+      "x": 885,
+      "y": 574
+    },
+    {
+      "camera": "LA",
+      "x": 886,
+      "y": 574
+    },
+    {
+      "camera": "LA",
+      "x": 887,
+      "y": 574
+    },
+    {
+      "camera": "LA",
+      "x": 888,
+      "y": 574
+    },
+    {
+      "camera": "LA",
+      "x": 889,
+      "y": 574
+    },
+    {
+      "camera": "LA",
+      "x": 890,
+      "y": 574
+    },
+    {
+      "camera": "LA",
+      "x": 891,
+      "y": 574
+    },
+    {
+      "camera": "LA",
+      "x": 892,
+      "y": 574
+    },
+    {
+      "camera": "LA",
+      "x": 893,
+      "y": 574
+    },
+    {
+      "camera": "LA",
+      "x": 894,
+      "y": 574
+    },
+    {
+      "camera": "LA",
+      "x": 877,
+      "y": 575
+    },
+    {
+      "camera": "LA",
+      "x": 878,
+      "y": 575
+    },
+    {
+      "camera": "LA",
+      "x": 879,
+      "y": 575
+    },
+    {
+      "camera": "LA",
+      "x": 880,
+      "y": 575
+    },
+    {
+      "camera": "LA",
+      "x": 881,
+      "y": 575
+    },
+    {
+      "camera": "LA",
+      "x": 882,
+      "y": 575
+    },
+    {
+      "camera": "LA",
+      "x": 883,
+      "y": 575
+    },
+    {
+      "camera": "LA",
+      "x": 884,
+      "y": 575
+    },
+    {
+      "camera": "LA",
+      "x": 885,
+      "y": 575
+    },
+    {
+      "camera": "LA",
+      "x": 886,
+      "y": 575
+    },
+    {
+      "camera": "LA",
+      "x": 887,
+      "y": 575
+    },
+    {
+      "camera": "LA",
+      "x": 888,
+      "y": 575
+    },
+    {
+      "camera": "LA",
+      "x": 889,
+      "y": 575
+    },
+    {
+      "camera": "LA",
+      "x": 890,
+      "y": 575
+    },
+    {
+      "camera": "LA",
+      "x": 891,
+      "y": 575
+    },
+    {
+      "camera": "LA",
+      "x": 892,
+      "y": 575
+    },
+    {
+      "camera": "LA",
+      "x": 893,
+      "y": 575
+    },
+    {
+      "camera": "LA",
+      "x": 894,
+      "y": 575
+    },
+    {
+      "camera": "LA",
+      "x": 878,
+      "y": 576
+    },
+    {
+      "camera": "LA",
+      "x": 879,
+      "y": 576
+    },
+    {
+      "camera": "LA",
+      "x": 880,
+      "y": 576
+    },
+    {
+      "camera": "LA",
+      "x": 881,
+      "y": 576
+    },
+    {
+      "camera": "LA",
+      "x": 882,
+      "y": 576
+    },
+    {
+      "camera": "LA",
+      "x": 883,
+      "y": 576
+    },
+    {
+      "camera": "LA",
+      "x": 884,
+      "y": 576
+    },
+    {
+      "camera": "LA",
+      "x": 885,
+      "y": 576
+    },
+    {
+      "camera": "LA",
+      "x": 886,
+      "y": 576
+    },
+    {
+      "camera": "LA",
+      "x": 887,
+      "y": 576
+    },
+    {
+      "camera": "LA",
+      "x": 888,
+      "y": 576
+    },
+    {
+      "camera": "LA",
+      "x": 889,
+      "y": 576
+    },
+    {
+      "camera": "LA",
+      "x": 890,
+      "y": 576
+    },
+    {
+      "camera": "LA",
+      "x": 891,
+      "y": 576
+    },
+    {
+      "camera": "LA",
+      "x": 892,
+      "y": 576
+    },
+    {
+      "camera": "LA",
+      "x": 893,
+      "y": 576
+    },
+    {
+      "camera": "LA",
+      "x": 878,
+      "y": 577
+    },
+    {
+      "camera": "LA",
+      "x": 879,
+      "y": 577
+    },
+    {
+      "camera": "LA",
+      "x": 880,
+      "y": 577
+    },
+    {
+      "camera": "LA",
+      "x": 881,
+      "y": 577
+    },
+    {
+      "camera": "LA",
+      "x": 882,
+      "y": 577
+    },
+    {
+      "camera": "LA",
+      "x": 883,
+      "y": 577
+    },
+    {
+      "camera": "LA",
+      "x": 884,
+      "y": 577
+    },
+    {
+      "camera": "LA",
+      "x": 885,
+      "y": 577
+    },
+    {
+      "camera": "LA",
+      "x": 886,
+      "y": 577
+    },
+    {
+      "camera": "LA",
+      "x": 887,
+      "y": 577
+    },
+    {
+      "camera": "LA",
+      "x": 888,
+      "y": 577
+    },
+    {
+      "camera": "LA",
+      "x": 889,
+      "y": 577
+    },
+    {
+      "camera": "LA",
+      "x": 890,
+      "y": 577
+    },
+    {
+      "camera": "LA",
+      "x": 891,
+      "y": 577
+    },
+    {
+      "camera": "LA",
+      "x": 892,
+      "y": 577
+    },
+    {
+      "camera": "LA",
+      "x": 893,
+      "y": 577
+    },
+    {
+      "camera": "LA",
+      "x": 879,
+      "y": 578
+    },
+    {
+      "camera": "LA",
+      "x": 880,
+      "y": 578
+    },
+    {
+      "camera": "LA",
+      "x": 881,
+      "y": 578
+    },
+    {
+      "camera": "LA",
+      "x": 882,
+      "y": 578
+    },
+    {
+      "camera": "LA",
+      "x": 883,
+      "y": 578
+    },
+    {
+      "camera": "LA",
+      "x": 884,
+      "y": 578
+    },
+    {
+      "camera": "LA",
+      "x": 885,
+      "y": 578
+    },
+    {
+      "camera": "LA",
+      "x": 886,
+      "y": 578
+    },
+    {
+      "camera": "LA",
+      "x": 887,
+      "y": 578
+    },
+    {
+      "camera": "LA",
+      "x": 888,
+      "y": 578
+    },
+    {
+      "camera": "LA",
+      "x": 889,
+      "y": 578
+    },
+    {
+      "camera": "LA",
+      "x": 890,
+      "y": 578
+    },
+    {
+      "camera": "LA",
+      "x": 891,
+      "y": 578
+    },
+    {
+      "camera": "LA",
+      "x": 892,
+      "y": 578
+    },
+    {
+      "camera": "LA",
+      "x": 880,
+      "y": 579
+    },
+    {
+      "camera": "LA",
+      "x": 881,
+      "y": 579
+    },
+    {
+      "camera": "LA",
+      "x": 882,
+      "y": 579
+    },
+    {
+      "camera": "LA",
+      "x": 883,
+      "y": 579
+    },
+    {
+      "camera": "LA",
+      "x": 884,
+      "y": 579
+    },
+    {
+      "camera": "LA",
+      "x": 885,
+      "y": 579
+    },
+    {
+      "camera": "LA",
+      "x": 886,
+      "y": 579
+    },
+    {
+      "camera": "LA",
+      "x": 887,
+      "y": 579
+    },
+    {
+      "camera": "LA",
+      "x": 888,
+      "y": 579
+    },
+    {
+      "camera": "LA",
+      "x": 889,
+      "y": 579
+    },
+    {
+      "camera": "LA",
+      "x": 890,
+      "y": 579
+    },
+    {
+      "camera": "LA",
+      "x": 891,
+      "y": 579
+    },
+    {
+      "camera": "LA",
+      "x": 892,
+      "y": 579
+    },
+    {
+      "camera": "LA",
+      "x": 881,
+      "y": 580
+    },
+    {
+      "camera": "LA",
+      "x": 882,
+      "y": 580
+    },
+    {
+      "camera": "LA",
+      "x": 883,
+      "y": 580
+    },
+    {
+      "camera": "LA",
+      "x": 884,
+      "y": 580
+    },
+    {
+      "camera": "LA",
+      "x": 885,
+      "y": 580
+    },
+    {
+      "camera": "LA",
+      "x": 886,
+      "y": 580
+    },
+    {
+      "camera": "LA",
+      "x": 887,
+      "y": 580
+    },
+    {
+      "camera": "LA",
+      "x": 888,
+      "y": 580
+    },
+    {
+      "camera": "LA",
+      "x": 889,
+      "y": 580
+    },
+    {
+      "camera": "LA",
+      "x": 890,
+      "y": 580
+    },
+    {
+      "camera": "LA",
+      "x": 891,
+      "y": 580
+    },
+    {
+      "camera": "LA",
+      "x": 892,
+      "y": 580
+    },
+    {
+      "camera": "LA",
+      "x": 883,
+      "y": 581
+    },
+    {
+      "camera": "LA",
+      "x": 884,
+      "y": 581
+    },
+    {
+      "camera": "LA",
+      "x": 885,
+      "y": 581
+    },
+    {
+      "camera": "LA",
+      "x": 886,
+      "y": 581
+    },
+    {
+      "camera": "LA",
+      "x": 887,
+      "y": 581
+    },
+    {
+      "camera": "LA",
+      "x": 888,
+      "y": 581
+    },
+    {
+      "camera": "LA",
+      "x": 889,
+      "y": 581
+    },
+    {
+      "camera": "LA",
+      "x": 890,
+      "y": 581
+    },
+    {
+      "camera": "LA",
+      "x": 891,
+      "y": 581
+    },
+    {
+      "camera": "LA",
+      "x": 883,
+      "y": 582
+    },
+    {
+      "camera": "LA",
+      "x": 884,
+      "y": 582
+    },
+    {
+      "camera": "LA",
+      "x": 885,
+      "y": 582
+    },
+    {
+      "camera": "LA",
+      "x": 886,
+      "y": 582
+    },
+    {
+      "camera": "LA",
+      "x": 887,
+      "y": 582
+    },
+    {
+      "camera": "LA",
+      "x": 888,
+      "y": 582
+    },
+    {
+      "camera": "LA",
+      "x": 889,
+      "y": 582
+    },
+    {
+      "camera": "LA",
+      "x": 890,
+      "y": 582
+    },
+    {
+      "camera": "LA",
+      "x": 891,
+      "y": 582
+    },
+    {
+      "camera": "LA",
+      "x": 884,
+      "y": 583
+    },
+    {
+      "camera": "LA",
+      "x": 885,
+      "y": 583
+    },
+    {
+      "camera": "LA",
+      "x": 886,
+      "y": 583
+    },
+    {
+      "camera": "LA",
+      "x": 887,
+      "y": 583
+    },
+    {
+      "camera": "LA",
+      "x": 888,
+      "y": 583
+    },
+    {
+      "camera": "LA",
+      "x": 889,
+      "y": 583
+    },
+    {
+      "camera": "LA",
+      "x": 890,
+      "y": 583
+    },
+    {
+      "camera": "LA",
+      "x": 885,
+      "y": 584
+    },
+    {
+      "camera": "LA",
+      "x": 886,
+      "y": 584
+    },
+    {
+      "camera": "LA",
+      "x": 887,
+      "y": 584
+    },
+    {
+      "camera": "LB",
+      "x": 941,
+      "y": 592
+    },
+    {
+      "camera": "LB",
+      "x": 942,
+      "y": 592
+    },
+    {
+      "camera": "LB",
+      "x": 943,
+      "y": 592
+    },
+    {
+      "camera": "LB",
+      "x": 944,
+      "y": 592
+    },
+    {
+      "camera": "LB",
+      "x": 936,
+      "y": 593
+    },
+    {
+      "camera": "LB",
+      "x": 937,
+      "y": 593
+    },
+    {
+      "camera": "LB",
+      "x": 938,
+      "y": 593
+    },
+    {
+      "camera": "LB",
+      "x": 939,
+      "y": 593
+    },
+    {
+      "camera": "LB",
+      "x": 940,
+      "y": 593
+    },
+    {
+      "camera": "LB",
+      "x": 941,
+      "y": 593
+    },
+    {
+      "camera": "LB",
+      "x": 942,
+      "y": 593
+    },
+    {
+      "camera": "LB",
+      "x": 943,
+      "y": 593
+    },
+    {
+      "camera": "LB",
+      "x": 944,
+      "y": 593
+    },
+    {
+      "camera": "LB",
+      "x": 932,
+      "y": 594
+    },
+    {
+      "camera": "LB",
+      "x": 933,
+      "y": 594
+    },
+    {
+      "camera": "LB",
+      "x": 934,
+      "y": 594
+    },
+    {
+      "camera": "LB",
+      "x": 935,
+      "y": 594
+    },
+    {
+      "camera": "LB",
+      "x": 936,
+      "y": 594
+    },
+    {
+      "camera": "LB",
+      "x": 937,
+      "y": 594
+    },
+    {
+      "camera": "LB",
+      "x": 938,
+      "y": 594
+    },
+    {
+      "camera": "LB",
+      "x": 939,
+      "y": 594
+    },
+    {
+      "camera": "LB",
+      "x": 940,
+      "y": 594
+    },
+    {
+      "camera": "LB",
+      "x": 941,
+      "y": 594
+    },
+    {
+      "camera": "LB",
+      "x": 942,
+      "y": 594
+    },
+    {
+      "camera": "LB",
+      "x": 943,
+      "y": 594
+    },
+    {
+      "camera": "LB",
+      "x": 944,
+      "y": 594
+    },
+    {
+      "camera": "LB",
+      "x": 932,
+      "y": 595
+    },
+    {
+      "camera": "LB",
+      "x": 933,
+      "y": 595
+    },
+    {
+      "camera": "LB",
+      "x": 934,
+      "y": 595
+    },
+    {
+      "camera": "LB",
+      "x": 935,
+      "y": 595
+    },
+    {
+      "camera": "LB",
+      "x": 936,
+      "y": 595
+    },
+    {
+      "camera": "LB",
+      "x": 937,
+      "y": 595
+    },
+    {
+      "camera": "LB",
+      "x": 938,
+      "y": 595
+    },
+    {
+      "camera": "LB",
+      "x": 939,
+      "y": 595
+    },
+    {
+      "camera": "LB",
+      "x": 940,
+      "y": 595
+    },
+    {
+      "camera": "LB",
+      "x": 941,
+      "y": 595
+    },
+    {
+      "camera": "LB",
+      "x": 942,
+      "y": 595
+    },
+    {
+      "camera": "LB",
+      "x": 943,
+      "y": 595
+    },
+    {
+      "camera": "LB",
+      "x": 929,
+      "y": 596
+    },
+    {
+      "camera": "LB",
+      "x": 930,
+      "y": 596
+    },
+    {
+      "camera": "LB",
+      "x": 931,
+      "y": 596
+    },
+    {
+      "camera": "LB",
+      "x": 932,
+      "y": 596
+    },
+    {
+      "camera": "LB",
+      "x": 933,
+      "y": 596
+    },
+    {
+      "camera": "LB",
+      "x": 934,
+      "y": 596
+    },
+    {
+      "camera": "LB",
+      "x": 935,
+      "y": 596
+    },
+    {
+      "camera": "LB",
+      "x": 936,
+      "y": 596
+    },
+    {
+      "camera": "LB",
+      "x": 937,
+      "y": 596
+    },
+    {
+      "camera": "LB",
+      "x": 938,
+      "y": 596
+    },
+    {
+      "camera": "LB",
+      "x": 939,
+      "y": 596
+    },
+    {
+      "camera": "LB",
+      "x": 940,
+      "y": 596
+    },
+    {
+      "camera": "LB",
+      "x": 941,
+      "y": 596
+    },
+    {
+      "camera": "LB",
+      "x": 942,
+      "y": 596
+    },
+    {
+      "camera": "LB",
+      "x": 943,
+      "y": 596
+    },
+    {
+      "camera": "LB",
+      "x": 925,
+      "y": 597
+    },
+    {
+      "camera": "LB",
+      "x": 926,
+      "y": 597
+    },
+    {
+      "camera": "LB",
+      "x": 927,
+      "y": 597
+    },
+    {
+      "camera": "LB",
+      "x": 928,
+      "y": 597
+    },
+    {
+      "camera": "LB",
+      "x": 929,
+      "y": 597
+    },
+    {
+      "camera": "LB",
+      "x": 930,
+      "y": 597
+    },
+    {
+      "camera": "LB",
+      "x": 931,
+      "y": 597
+    },
+    {
+      "camera": "LB",
+      "x": 932,
+      "y": 597
+    },
+    {
+      "camera": "LB",
+      "x": 933,
+      "y": 597
+    },
+    {
+      "camera": "LB",
+      "x": 934,
+      "y": 597
+    },
+    {
+      "camera": "LB",
+      "x": 935,
+      "y": 597
+    },
+    {
+      "camera": "LB",
+      "x": 936,
+      "y": 597
+    },
+    {
+      "camera": "LB",
+      "x": 937,
+      "y": 597
+    },
+    {
+      "camera": "LB",
+      "x": 938,
+      "y": 597
+    },
+    {
+      "camera": "LB",
+      "x": 939,
+      "y": 597
+    },
+    {
+      "camera": "LB",
+      "x": 940,
+      "y": 597
+    },
+    {
+      "camera": "LB",
+      "x": 941,
+      "y": 597
+    },
+    {
+      "camera": "LB",
+      "x": 942,
+      "y": 597
+    },
+    {
+      "camera": "LB",
+      "x": 943,
+      "y": 597
+    },
+    {
+      "camera": "LB",
+      "x": 925,
+      "y": 598
+    },
+    {
+      "camera": "LB",
+      "x": 926,
+      "y": 598
+    },
+    {
+      "camera": "LB",
+      "x": 927,
+      "y": 598
+    },
+    {
+      "camera": "LB",
+      "x": 928,
+      "y": 598
+    },
+    {
+      "camera": "LB",
+      "x": 929,
+      "y": 598
+    },
+    {
+      "camera": "LB",
+      "x": 930,
+      "y": 598
+    },
+    {
+      "camera": "LB",
+      "x": 931,
+      "y": 598
+    },
+    {
+      "camera": "LB",
+      "x": 932,
+      "y": 598
+    },
+    {
+      "camera": "LB",
+      "x": 933,
+      "y": 598
+    },
+    {
+      "camera": "LB",
+      "x": 934,
+      "y": 598
+    },
+    {
+      "camera": "LB",
+      "x": 935,
+      "y": 598
+    },
+    {
+      "camera": "LB",
+      "x": 936,
+      "y": 598
+    },
+    {
+      "camera": "LB",
+      "x": 937,
+      "y": 598
+    },
+    {
+      "camera": "LB",
+      "x": 938,
+      "y": 598
+    },
+    {
+      "camera": "LB",
+      "x": 939,
+      "y": 598
+    },
+    {
+      "camera": "LB",
+      "x": 940,
+      "y": 598
+    },
+    {
+      "camera": "LB",
+      "x": 941,
+      "y": 598
+    },
+    {
+      "camera": "LB",
+      "x": 942,
+      "y": 598
+    },
+    {
+      "camera": "LB",
+      "x": 943,
+      "y": 598
+    },
+    {
+      "camera": "LB",
+      "x": 926,
+      "y": 599
+    },
+    {
+      "camera": "LB",
+      "x": 927,
+      "y": 599
+    },
+    {
+      "camera": "LB",
+      "x": 928,
+      "y": 599
+    },
+    {
+      "camera": "LB",
+      "x": 929,
+      "y": 599
+    },
+    {
+      "camera": "LB",
+      "x": 930,
+      "y": 599
+    },
+    {
+      "camera": "LB",
+      "x": 931,
+      "y": 599
+    },
+    {
+      "camera": "LB",
+      "x": 932,
+      "y": 599
+    },
+    {
+      "camera": "LB",
+      "x": 933,
+      "y": 599
+    },
+    {
+      "camera": "LB",
+      "x": 934,
+      "y": 599
+    },
+    {
+      "camera": "LB",
+      "x": 935,
+      "y": 599
+    },
+    {
+      "camera": "LB",
+      "x": 936,
+      "y": 599
+    },
+    {
+      "camera": "LB",
+      "x": 937,
+      "y": 599
+    },
+    {
+      "camera": "LB",
+      "x": 938,
+      "y": 599
+    },
+    {
+      "camera": "LB",
+      "x": 939,
+      "y": 599
+    },
+    {
+      "camera": "LB",
+      "x": 940,
+      "y": 599
+    },
+    {
+      "camera": "LB",
+      "x": 941,
+      "y": 599
+    },
+    {
+      "camera": "LB",
+      "x": 942,
+      "y": 599
+    },
+    {
+      "camera": "LB",
+      "x": 926,
+      "y": 600
+    },
+    {
+      "camera": "LB",
+      "x": 927,
+      "y": 600
+    },
+    {
+      "camera": "LB",
+      "x": 928,
+      "y": 600
+    },
+    {
+      "camera": "LB",
+      "x": 929,
+      "y": 600
+    },
+    {
+      "camera": "LB",
+      "x": 930,
+      "y": 600
+    },
+    {
+      "camera": "LB",
+      "x": 931,
+      "y": 600
+    },
+    {
+      "camera": "LB",
+      "x": 932,
+      "y": 600
+    },
+    {
+      "camera": "LB",
+      "x": 933,
+      "y": 600
+    },
+    {
+      "camera": "LB",
+      "x": 934,
+      "y": 600
+    },
+    {
+      "camera": "LB",
+      "x": 935,
+      "y": 600
+    },
+    {
+      "camera": "LB",
+      "x": 936,
+      "y": 600
+    },
+    {
+      "camera": "LB",
+      "x": 937,
+      "y": 600
+    },
+    {
+      "camera": "LB",
+      "x": 938,
+      "y": 600
+    },
+    {
+      "camera": "LB",
+      "x": 939,
+      "y": 600
+    },
+    {
+      "camera": "LB",
+      "x": 940,
+      "y": 600
+    },
+    {
+      "camera": "LB",
+      "x": 941,
+      "y": 600
+    },
+    {
+      "camera": "LB",
+      "x": 942,
+      "y": 600
+    },
+    {
+      "camera": "LB",
+      "x": 928,
+      "y": 601
+    },
+    {
+      "camera": "LB",
+      "x": 929,
+      "y": 601
+    },
+    {
+      "camera": "LB",
+      "x": 930,
+      "y": 601
+    },
+    {
+      "camera": "LB",
+      "x": 931,
+      "y": 601
+    },
+    {
+      "camera": "LB",
+      "x": 932,
+      "y": 601
+    },
+    {
+      "camera": "LB",
+      "x": 933,
+      "y": 601
+    },
+    {
+      "camera": "LB",
+      "x": 934,
+      "y": 601
+    },
+    {
+      "camera": "LB",
+      "x": 935,
+      "y": 601
+    },
+    {
+      "camera": "LB",
+      "x": 936,
+      "y": 601
+    },
+    {
+      "camera": "LB",
+      "x": 937,
+      "y": 601
+    },
+    {
+      "camera": "LB",
+      "x": 938,
+      "y": 601
+    },
+    {
+      "camera": "LB",
+      "x": 939,
+      "y": 601
+    },
+    {
+      "camera": "LB",
+      "x": 940,
+      "y": 601
+    },
+    {
+      "camera": "LB",
+      "x": 941,
+      "y": 601
+    },
+    {
+      "camera": "LB",
+      "x": 930,
+      "y": 602
+    },
+    {
+      "camera": "LB",
+      "x": 931,
+      "y": 602
+    },
+    {
+      "camera": "LB",
+      "x": 932,
+      "y": 602
+    },
+    {
+      "camera": "LB",
+      "x": 933,
+      "y": 602
+    },
+    {
+      "camera": "LB",
+      "x": 934,
+      "y": 602
+    },
+    {
+      "camera": "LB",
+      "x": 935,
+      "y": 602
+    },
+    {
+      "camera": "LB",
+      "x": 936,
+      "y": 602
+    },
+    {
+      "camera": "LB",
+      "x": 937,
+      "y": 602
+    },
+    {
+      "camera": "LB",
+      "x": 938,
+      "y": 602
+    },
+    {
+      "camera": "LB",
+      "x": 939,
+      "y": 602
+    },
+    {
+      "camera": "LB",
+      "x": 940,
+      "y": 602
+    },
+    {
+      "camera": "LB",
+      "x": 941,
+      "y": 602
+    },
+    {
+      "camera": "LB",
+      "x": 931,
+      "y": 603
+    },
+    {
+      "camera": "LB",
+      "x": 932,
+      "y": 603
+    },
+    {
+      "camera": "LB",
+      "x": 933,
+      "y": 603
+    },
+    {
+      "camera": "LB",
+      "x": 934,
+      "y": 603
+    },
+    {
+      "camera": "LB",
+      "x": 935,
+      "y": 603
+    },
+    {
+      "camera": "LB",
+      "x": 936,
+      "y": 603
+    },
+    {
+      "camera": "LB",
+      "x": 937,
+      "y": 603
+    },
+    {
+      "camera": "LB",
+      "x": 938,
+      "y": 603
+    },
+    {
+      "camera": "LB",
+      "x": 939,
+      "y": 603
+    },
+    {
+      "camera": "LB",
+      "x": 940,
+      "y": 603
+    },
+    {
+      "camera": "LB",
+      "x": 941,
+      "y": 603
+    },
+    {
+      "camera": "LB",
+      "x": 931,
+      "y": 604
+    },
+    {
+      "camera": "LB",
+      "x": 932,
+      "y": 604
+    },
+    {
+      "camera": "LB",
+      "x": 933,
+      "y": 604
+    },
+    {
+      "camera": "LB",
+      "x": 934,
+      "y": 604
+    },
+    {
+      "camera": "LB",
+      "x": 935,
+      "y": 604
+    },
+    {
+      "camera": "LB",
+      "x": 936,
+      "y": 604
+    },
+    {
+      "camera": "LB",
+      "x": 937,
+      "y": 604
+    },
+    {
+      "camera": "LB",
+      "x": 938,
+      "y": 604
+    },
+    {
+      "camera": "LB",
+      "x": 939,
+      "y": 604
+    },
+    {
+      "camera": "LB",
+      "x": 940,
+      "y": 604
+    },
+    {
+      "camera": "LB",
+      "x": 941,
+      "y": 604
+    },
+    {
+      "camera": "LB",
+      "x": 932,
+      "y": 605
+    },
+    {
+      "camera": "LB",
+      "x": 933,
+      "y": 605
+    },
+    {
+      "camera": "LB",
+      "x": 934,
+      "y": 605
+    },
+    {
+      "camera": "LB",
+      "x": 935,
+      "y": 605
+    },
+    {
+      "camera": "LB",
+      "x": 936,
+      "y": 605
+    },
+    {
+      "camera": "LB",
+      "x": 937,
+      "y": 605
+    },
+    {
+      "camera": "LB",
+      "x": 938,
+      "y": 605
+    },
+    {
+      "camera": "LB",
+      "x": 939,
+      "y": 605
+    },
+    {
+      "camera": "LB",
+      "x": 940,
+      "y": 605
+    },
+    {
+      "camera": "LB",
+      "x": 934,
+      "y": 606
+    },
+    {
+      "camera": "LB",
+      "x": 935,
+      "y": 606
+    },
+    {
+      "camera": "LB",
+      "x": 936,
+      "y": 606
+    },
+    {
+      "camera": "LB",
+      "x": 937,
+      "y": 606
+    },
+    {
+      "camera": "LB",
+      "x": 938,
+      "y": 606
+    },
+    {
+      "camera": "LB",
+      "x": 939,
+      "y": 606
+    },
+    {
+      "camera": "LB",
+      "x": 934,
+      "y": 607
+    },
+    {
+      "camera": "LB",
+      "x": 935,
+      "y": 607
+    },
+    {
+      "camera": "MA",
+      "x": 1058,
+      "y": 592
+    },
+    {
+      "camera": "MB",
+      "x": 1088,
+      "y": 671
+    },
+    {
+      "camera": "MB",
+      "x": 1089,
+      "y": 671
+    },
+    {
+      "camera": "MB",
+      "x": 1087,
+      "y": 672
+    },
+    {
+      "camera": "MB",
+      "x": 1088,
+      "y": 672
+    },
+    {
+      "camera": "MB",
+      "x": 1087,
+      "y": 673
+    },
+    {
+      "camera": "MB",
+      "x": 1088,
+      "y": 673
+    },
+    {
+      "camera": "MB",
+      "x": 1087,
+      "y": 674
+    },
+    {
+      "camera": "MB",
+      "x": 1088,
+      "y": 674
+    },
+    {
+      "camera": "MB",
+      "x": 1086,
+      "y": 675
+    },
+    {
+      "camera": "MB",
+      "x": 1087,
+      "y": 675
+    },
+    {
+      "camera": "MB",
+      "x": 1085,
+      "y": 676
+    },
+    {
+      "camera": "MB",
+      "x": 1086,
+      "y": 676
+    },
+    {
+      "camera": "MB",
+      "x": 1084,
+      "y": 677
+    },
+    {
+      "camera": "MB",
+      "x": 1085,
+      "y": 677
+    },
+    {
+      "camera": "MB",
+      "x": 1086,
+      "y": 677
+    },
+    {
+      "camera": "MB",
+      "x": 1084,
+      "y": 678
+    },
+    {
+      "camera": "MB",
+      "x": 1085,
+      "y": 678
+    },
+    {
+      "camera": "MB",
+      "x": 1083,
+      "y": 679
+    },
+    {
+      "camera": "MB",
+      "x": 1084,
+      "y": 679
+    },
+    {
+      "camera": "MB",
+      "x": 1082,
+      "y": 680
+    },
+    {
+      "camera": "MB",
+      "x": 1083,
+      "y": 680
+    },
+    {
+      "camera": "MB",
+      "x": 1084,
+      "y": 680
+    },
+    {
+      "camera": "MB",
+      "x": 1081,
+      "y": 681
+    },
+    {
+      "camera": "MB",
+      "x": 1082,
+      "y": 681
+    },
+    {
+      "camera": "MC",
+      "x": 1181,
+      "y": 742
+    },
+    {
+      "camera": "MC",
+      "x": 1182,
+      "y": 742
+    },
+    {
+      "camera": "MC",
+      "x": 1183,
+      "y": 742
+    },
+    {
+      "camera": "MC",
+      "x": 1184,
+      "y": 742
+    },
+    {
+      "camera": "MC",
+      "x": 1185,
+      "y": 742
+    },
+    {
+      "camera": "MC",
+      "x": 1180,
+      "y": 743
+    },
+    {
+      "camera": "MC",
+      "x": 1181,
+      "y": 743
+    },
+    {
+      "camera": "MC",
+      "x": 1182,
+      "y": 743
+    },
+    {
+      "camera": "MC",
+      "x": 1183,
+      "y": 743
+    },
+    {
+      "camera": "MC",
+      "x": 1179,
+      "y": 744
+    },
+    {
+      "camera": "MC",
+      "x": 1180,
+      "y": 744
+    },
+    {
+      "camera": "MC",
+      "x": 1181,
+      "y": 744
+    },
+    {
+      "camera": "MC",
+      "x": 1172,
+      "y": 748
+    },
+    {
+      "camera": "NB",
+      "x": 1145,
+      "y": 626
+    },
+    {
+      "camera": "NB",
+      "x": 1146,
+      "y": 626
+    },
+    {
+      "camera": "NB",
+      "x": 1147,
+      "y": 626
+    },
+    {
+      "camera": "NB",
+      "x": 1144,
+      "y": 627
+    },
+    {
+      "camera": "NB",
+      "x": 1145,
+      "y": 627
+    },
+    {
+      "camera": "NB",
+      "x": 1146,
+      "y": 627
+    },
+    {
+      "camera": "NB",
+      "x": 1143,
+      "y": 628
+    },
+    {
+      "camera": "NB",
+      "x": 1144,
+      "y": 628
+    },
+    {
+      "camera": "NB",
+      "x": 1145,
+      "y": 628
+    },
+    {
+      "camera": "NB",
+      "x": 1142,
+      "y": 629
+    },
+    {
+      "camera": "NB",
+      "x": 1143,
+      "y": 629
+    },
+    {
+      "camera": "NB",
+      "x": 1144,
+      "y": 629
+    },
+    {
+      "camera": "NB",
+      "x": 1140,
+      "y": 630
+    },
+    {
+      "camera": "NB",
+      "x": 1141,
+      "y": 630
+    },
+    {
+      "camera": "NB",
+      "x": 1142,
+      "y": 630
+    },
+    {
+      "camera": "NB",
+      "x": 1139,
+      "y": 631
+    },
+    {
+      "camera": "NB",
+      "x": 1140,
+      "y": 631
+    },
+    {
+      "camera": "NB",
+      "x": 1141,
+      "y": 631
+    },
+    {
+      "camera": "NB",
+      "x": 1138,
+      "y": 632
+    },
+    {
+      "camera": "NB",
+      "x": 1139,
+      "y": 632
+    },
+    {
+      "camera": "NB",
+      "x": 1140,
+      "y": 632
+    },
+    {
+      "camera": "NB",
+      "x": 1137,
+      "y": 633
+    }
+  ],
+  "historical_positive_ray_count": 4657323
+}
