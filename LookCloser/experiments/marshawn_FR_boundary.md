@@ -33,8 +33,47 @@ Quarter and focus checkpoint75940 full states are protected before the original7
 
 Quarter91128 slightly improves aggregate LPIPS after the switch, with black improving and grey worsening. Focus worsens both actors. These two historical observations do not isolate FR from subsequent optimization or the historical seed reset.
 
-Authorized read-only test: each immutable75940 state, FR1 → FR.3 → restored FR1; three FHD renders and sealed103 TRAIN/12 DC rays, native plus whole-field dense reference. Fixed native grid, no occupancy/frequency update or optimizer. Seven serialized states, live pipeline, global/private RNG and nonpersistent LUT are checked/restored. Restored FR1 images and native arrays must match.
+Authorized read-only test: each immutable75940 state, FR1 → FR.3 → restored FR1; three FHD renders and sealed103 TRAIN/12 DC rays, native plus whole-field dense reference. Fixed native grid, no occupancy/frequency update or optimizer. Seven serialized states, live pipeline, global/private RNG and nonpersistent LUT are checked/restored. Native arrays must restore bitwise; saved RGB8/alpha16 use the pre-existing max1-code, changed-fraction1e-5/.001 and all6/view/actor metric1e-5 replay tolerances.
 
 Any future actual continuation would use fresh75940 source full state and matched75941 seed reset for both arms, preserving Adam, scheduler, main sampling, occupancy and frequency state; only FR schedule differs. Private focus RNG, if used, must remain exact. No continuation is launched or approved by this report.
 
 Evidence: `/fsx/tmp/marshawn_001660_hd/tuning_20261106/independent_occupancy/quarter_FR_boundary/`; probe generation `FR_boundary_same_state_v1`.
+
+## Same-state result (v3)
+
+
+No optimizer step, frequency refresh or occupancy update. Both models use their own immutable75940 state. FR.3 weakens the analytical frequency damping relative to FR1.
+
+| Model | FR | PSNR | SSIM | LPIPS |
+|---|---:|---:|---:|---:|
+| quarter | FR1 | 31.444047 | 0.829468 | 0.01938208 |
+| quarter | FR03 | 31.083726 | 0.823344 | 0.02073437 |
+| quarter | FR1_restored | 31.444047 | 0.829468 | 0.01938249 |
+| focus | FR1 | 31.360956 | 0.823754 | 0.02101192 |
+| focus | FR03 | 31.350705 | 0.823860 | 0.02096339 |
+| focus | FR1_restored | 31.360955 | 0.823754 | 0.02101185 |
+
+| Model | Group | Native band FR1% | Native band FR.3% | Dense band FR1% | Dense band FR.3% |
+|---|---|---:|---:|---:|---:|
+| quarter | old_prefix_supervised | 85.5046 | 89.6095 | 81.2569 | 85.2262 |
+| quarter | new_prefix_supervised | 84.9371 | 88.4525 | 82.2611 | 85.8323 |
+| quarter | old_local_reserved | 90.1033 | 91.2481 | 83.7044 | 84.8414 |
+| quarter | new_whole_patch_reserved | 95.3252 | 96.5316 | 92.2690 | 93.4538 |
+| focus | old_prefix_supervised | 82.8809 | 83.7580 | 81.4933 | 82.4074 |
+| focus | new_prefix_supervised | 95.8024 | 95.8647 | 94.0846 | 94.3089 |
+| focus | old_local_reserved | 84.3906 | 87.8161 | 82.7778 | 85.4791 |
+| focus | new_whole_patch_reserved | 98.1526 | 98.2062 | 97.4903 | 97.6689 |
+
+Immediate FR perturbation is a function-jump diagnostic with the learned occupancy held fixed. It does not predict which independently continued training schedule will yield better detail or geometry. Dense profiles expose density changes hidden by occupancy traversal; skipped density is not physical truth.
+
+All seven serialized states, actual pipeline/global RNG and private focus state are unchanged. Nonpersistent feature LUT is restored. Native115 ray arrays restore bitwise; FHD RGB8/alpha16 images use pre-existing max1-code and changed fractions1e-5/.001, all6/view/actor metrics1e-5. V1 strict byte-image failure and interrupted v2 are preserved separately.
+
+Both state probes passed all restoration/source guards, with no optimizer, occupancy or frequency updates. Quarter used198s and focus208s; peak process memory2596MiB under the8GiB allocator/10GiB process/900s limits. GPU4 lease was released. The v1 strict byte-image mismatch (at most1code) and interrupted v2 are preserved; v3 uses the already established campaign replay policy, not a newly loosened quality tolerance.
+
+Quarter immediate FR switch worsens LPIPS6.98% and both actors, while native and dense witness-band locality improves. Focus immediate LPIPS slightly improves0.23%; its later degradation is therefore not explained by an immediate FR jump alone. Current original quarter training recovered to LPIPS.01923172 at111316, below its75940 value. A trained paired continuation is required before selecting an alternative schedule.
+
+Personally inspected all6 GT/FR1/FR.3/restored1 contacts. QuarterFR.3 increases the brightness/density of broad exterior remnants, particularly HC/KA; focus differences are small. Gross hair/shoe disappearance is not apparent, but neither is clean.
+
+Mature focus75940 reveals actual native cap saturation7/103 clothing rays (0/12 DC), versus quarter0/115. Focus all-cells saturation30/103 is separately diagnostic. Maximum dense tail beyond native end is.00480 atFR1 and.00393 atFR.3. This blocks any blind focus+quarter+distortion triple; a separately authorized cap2048 inference counterfactual is running, with no trained cap change.
+
+Artifacts: `C/independent_occupancy/FR_boundary_same_state_v3/{comparison.json,report.md,quarter_*_comparison.jpg,focus_*_comparison.jpg}`; all native/dense arrays remain on silver. Paired FR continuation proposal (no worker/code/launch) is `C/independent_occupancy/quarter_FR_boundary/paired_continuation_proposal.json`.
