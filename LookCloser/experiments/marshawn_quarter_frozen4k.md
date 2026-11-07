@@ -68,3 +68,14 @@ Root manually inspected all three actor views and nine detail crops at each gate
 |75940|new4K_quarter01|31.38063|0.831393|0.02077134|
 
 Root viewed all3 actor comparisons and9 hair/contact/feet crops at both gates. Large floor, bag, between-leg and silhouette artifacts persist; no clean geometry or promotion. New4K remains worse than matched HD and its75940 LPIPS is worse than60752. Neither observation changes the original stopping criterion. Each gate directory contains provenance and a hash-bound root_manual_review.json.
+
+
+## Root91128 review
+
+| Recipe | PSNR | SSIM | LPIPS |
+|---|---:|---:|---:|
+|HD quarter / distortion .1|31.69281|.834074|.01902171|
+|Old4K coarse / distortion .01|31.54728|.843935|.02246367|
+|New4K quarter / distortion .1|31.35041|.829843|.02065490|
+
+All3actor and9detail crops were manually inspected. No gross new limb/shoe loss is visible at contact scale, but substantial unwanted geometry remains; new4K still trails matched HD on actor LPIPS. Training continues to the original minimum and plateau protocol. [Actors](/fsx/tmp/marshawn_001660_hd/tuning_20261106/quarter_frozen4k_candidate_v1/reviews/step-000091128/all_actors.jpg), [details](/fsx/tmp/marshawn_001660_hd/tuning_20261106/quarter_frozen4k_candidate_v1/reviews/step-000091128/all_details.jpg).

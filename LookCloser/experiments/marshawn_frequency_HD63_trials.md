@@ -118,3 +118,19 @@ Root viewed all3 actor comparisons and9 hair/contact/feet crops at both gates. L
 |121316|threshold093|31.64880|0.832046|0.01879139|
 
 All three full actor comparisons and nine detail crops were manually viewed at each gate. No gross newly missing body or shoe region is visible at sheet scale; substantial floor, bag and silhouette mass remains. SSIM .93 has modest matched-step improvements; neither trial has demonstrated a clean asset. Both retain their original plateau protocol and their original106316 anchor. Hash-bound root receipts are in each review directory.
+
+
+## Terminal decision (2026-11-07)
+
+Both trials reached their own original plateau: LR decay126316, SSIM.93131316. All required matched126316 and terminal three-view actor/detail panels were reviewed; extensive floor, bag and silhouette artifacts persist. Final completion/metric/inventory receipts are preserved under `C/frequency_HD63_trials_v3/final_remote_state`; `root_final_summary.json` records separate rankings.
+
+| Recipe and ranking | Step | PSNR | SSIM | LPIPS |
+|---|---:|---:|---:|---:|
+|Original map, raw best|126316|31.63973|.831264|.01877312|
+|LR decay, raw best / terminal|126316|31.59188|.830857|.01903432|
+|SSIM .93, raw best|121316|31.64880|.832046|.01879139|
+|SSIM .93, terminal|131316|31.66282|.831720|.01883254|
+|LR decay, historical selector|60752|31.77474|.838615|.01955246|
+|SSIM .93, historical selector|45564|31.91158|.841475|.01974254|
+
+Keep the original frequency maps: neither proposal improves the original raw actor-LPIPS minimum, so these results do not justify additional map variants. Historical selectors remain recorded separately. [Matched126316 comparison](/fsx/tmp/marshawn_001660_hd/tuning_20261106/frequency_HD63_trials_v3/reviews/step-000126316/all_actors.jpg) isolates the map treatment. [Terminal comparison](/fsx/tmp/marshawn_001660_hd/tuning_20261106/frequency_HD63_trials_v3/reviews/terminal_unequal_131316/all_actors.jpg) explicitly labels the unequal126316/131316 ages; its fixed derivation helper and hashes are retained. This closes these two trials without ending the overall optimization campaign.
