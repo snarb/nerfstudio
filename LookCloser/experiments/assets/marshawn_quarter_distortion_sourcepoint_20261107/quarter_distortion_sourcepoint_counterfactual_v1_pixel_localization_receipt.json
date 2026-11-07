@@ -1,0 +1,122 @@
+[
+  {
+    "camera": "DC",
+    "actor": "black",
+    "worst_pixel_xy": [
+      823,
+      585
+    ],
+    "crop_xyxy": [
+      775,
+      537,
+      872,
+      634
+    ],
+    "MSE_A": 0.0008175051595818015,
+    "MSE_B": 0.0007955058769036435,
+    "positive_error_increment_fraction_within_2px_contour": 0.34276508088264807,
+    "positive_error_increment_fraction_within_8px_contour": 0.6398505322235157,
+    "positive_error_increment_fraction_within_16px_contour": 0.9937271702202969,
+    "changed_actor_pixels_RGBmax_gt_2codes": 1216
+  },
+  {
+    "camera": "DC",
+    "actor": "grey",
+    "worst_pixel_xy": [
+      1025,
+      575
+    ],
+    "crop_xyxy": [
+      977,
+      527,
+      1074,
+      624
+    ],
+    "MSE_A": 0.0005055896585671,
+    "MSE_B": 0.0005032424954635809,
+    "positive_error_increment_fraction_within_2px_contour": 0.9718279100240227,
+    "positive_error_increment_fraction_within_8px_contour": 0.9974885346145446,
+    "positive_error_increment_fraction_within_16px_contour": 1.0,
+    "changed_actor_pixels_RGBmax_gt_2codes": 146
+  },
+  {
+    "camera": "HC",
+    "actor": "black",
+    "worst_pixel_xy": [
+      1018,
+      324
+    ],
+    "crop_xyxy": [
+      970,
+      276,
+      1067,
+      373
+    ],
+    "MSE_A": 0.0010022621786910022,
+    "MSE_B": 0.0009739094720672995,
+    "positive_error_increment_fraction_within_2px_contour": 0.47679370699445545,
+    "positive_error_increment_fraction_within_8px_contour": 0.828103079698043,
+    "positive_error_increment_fraction_within_16px_contour": 0.9813865321664773,
+    "changed_actor_pixels_RGBmax_gt_2codes": 861
+  },
+  {
+    "camera": "HC",
+    "actor": "grey",
+    "worst_pixel_xy": [
+      1052,
+      576
+    ],
+    "crop_xyxy": [
+      1004,
+      528,
+      1101,
+      625
+    ],
+    "MSE_A": 0.0004793666869241005,
+    "MSE_B": 0.000509751068763496,
+    "positive_error_increment_fraction_within_2px_contour": 0.8862266389935557,
+    "positive_error_increment_fraction_within_8px_contour": 0.9985013024957796,
+    "positive_error_increment_fraction_within_16px_contour": 0.9999527224762076,
+    "changed_actor_pixels_RGBmax_gt_2codes": 308
+  },
+  {
+    "camera": "KA",
+    "actor": "black",
+    "worst_pixel_xy": [
+      1059,
+      20
+    ],
+    "crop_xyxy": [
+      1011,
+      0,
+      1108,
+      69
+    ],
+    "MSE_A": 0.0008598063469619373,
+    "MSE_B": 0.000794226907789137,
+    "positive_error_increment_fraction_within_2px_contour": 0.6341817369948651,
+    "positive_error_increment_fraction_within_8px_contour": 0.9275135819007222,
+    "positive_error_increment_fraction_within_16px_contour": 0.9944928183374266,
+    "changed_actor_pixels_RGBmax_gt_2codes": 490
+  },
+  {
+    "camera": "KA",
+    "actor": "grey",
+    "worst_pixel_xy": [
+      1028,
+      331
+    ],
+    "crop_xyxy": [
+      980,
+      283,
+      1077,
+      380
+    ],
+    "MSE_A": 0.0006155109174998665,
+    "MSE_B": 0.000860642409689143,
+    "positive_error_increment_fraction_within_2px_contour": 0.6473170307904225,
+    "positive_error_increment_fraction_within_8px_contour": 0.9724136143188848,
+    "positive_error_increment_fraction_within_16px_contour": 0.9999831845869924,
+    "changed_actor_pixels_RGBmax_gt_2codes": 843
+  }
+]

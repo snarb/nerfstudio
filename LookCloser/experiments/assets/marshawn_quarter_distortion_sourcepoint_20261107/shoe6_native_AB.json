@@ -1,0 +1,188 @@
+[
+  {
+    "pixel": {
+      "camera_name": "ID",
+      "x": 880,
+      "y": 693,
+      "region": "toe_upper",
+      "actor": "black",
+      "witness_xyz": [
+        -0.11769208960984658,
+        0.15127923559030565,
+        0.014567836967476211
+      ],
+      "witness_id": "three_view_upper_toe",
+      "source_coordinate": [
+        879.7936946756498,
+        693.0452434064795
+      ],
+      "source_coordinate_contract": "array pixel center; nearest integer index",
+      "camera": 39,
+      "query_id": 0,
+      "accepted_AABB_interval": [
+        0.6524841552961345,
+        1.4079936540061158
+      ],
+      "query_witness_depth": 1.085782336258176,
+      "point_to_pixel_ray_distance": 7.939157348690407e-05
+    },
+    "alpha_A": 0.9942378698751864,
+    "alpha_B": 0.9942378508611072,
+    "RGB_delta": 3.5762786865234375e-07
+  },
+  {
+    "pixel": {
+      "camera_name": "HE",
+      "x": 914,
+      "y": 876,
+      "region": "toe_upper",
+      "actor": "black",
+      "witness_xyz": [
+        -0.11769208960984658,
+        0.15127923559030565,
+        0.014567836967476211
+      ],
+      "witness_id": "three_view_upper_toe",
+      "source_coordinate": [
+        914.0323425110798,
+        876.4060424338626
+      ],
+      "source_coordinate_contract": "array pixel center; nearest integer index",
+      "camera": 35,
+      "query_id": 1,
+      "accepted_AABB_interval": [
+        0.6622164848492895,
+        1.352805572260079
+      ],
+      "query_witness_depth": 1.058204252683741,
+      "point_to_pixel_ray_distance": 0.00042363173505266635
+    },
+    "alpha_A": 0.9995800268345317,
+    "alpha_B": 0.9995789868934857,
+    "RGB_delta": 0.0017613619565963745
+  },
+  {
+    "pixel": {
+      "camera_name": "IC",
+      "x": 1049,
+      "y": 645,
+      "region": "toe_upper",
+      "actor": "black",
+      "witness_xyz": [
+        -0.11769208960984658,
+        0.15127923559030565,
+        0.014567836967476211
+      ],
+      "witness_id": "three_view_upper_toe",
+      "source_coordinate": [
+        1049.3875902481218,
+        645.382407783706
+      ],
+      "source_coordinate_contract": "array pixel center; nearest integer index",
+      "camera": 38,
+      "query_id": 2,
+      "accepted_AABB_interval": [
+        0.6497945088823056,
+        1.3804347143465294
+      ],
+      "query_witness_depth": 1.1260090126734823,
+      "point_to_pixel_ray_distance": 0.0001989631266320196
+    },
+    "alpha_A": 0.9958156136420686,
+    "alpha_B": 0.9958156136420686,
+    "RGB_delta": 4.470348358154297e-08
+  },
+  {
+    "pixel": {
+      "camera_name": "JA",
+      "x": 776,
+      "y": 430,
+      "region": "sole6862",
+      "actor": "black",
+      "witness_xyz": [
+        -0.11713805167004304,
+        0.14165073766903985,
+        0.005085417456200336
+      ],
+      "witness_id": 6862,
+      "source_coordinate": [
+        776.6044311523438,
+        430.82171630859375
+      ],
+      "source_coordinate_contract": "COLMAP half-center UV; floor to integer pixel index",
+      "camera": 41,
+      "query_id": 3,
+      "accepted_AABB_interval": [
+        0.8877230906393374,
+        1.4412915253026655
+      ],
+      "query_witness_depth": 1.2989509176048883,
+      "point_to_pixel_ray_distance": 4.120039364139508e-05
+    },
+    "alpha_A": 0.9987711694614536,
+    "alpha_B": 0.9987711694614536,
+    "RGB_delta": 4.470348358154297e-08
+  },
+  {
+    "pixel": {
+      "camera_name": "JB",
+      "x": 893,
+      "y": 519,
+      "region": "sole6862",
+      "actor": "black",
+      "witness_xyz": [
+        -0.11713805167004304,
+        0.14165073766903985,
+        0.005085417456200336
+      ],
+      "witness_id": 6862,
+      "source_coordinate": [
+        893.465087890625,
+        519.1986694335938
+      ],
+      "source_coordinate_contract": "COLMAP half-center UV; floor to integer pixel index",
+      "camera": 42,
+      "query_id": 4,
+      "accepted_AABB_interval": [
+        0.7997775342363077,
+        1.3930396922445143
+      ],
+      "query_witness_depth": 1.2214704932655394,
+      "point_to_pixel_ray_distance": 0.0001546022361946945
+    },
+    "alpha_A": 0.9990812435269985,
+    "alpha_B": 0.999047884803187,
+    "RGB_delta": 3.3274292945861816e-05
+  },
+  {
+    "pixel": {
+      "camera_name": "KB",
+      "x": 875,
+      "y": 478,
+      "region": "sole6862",
+      "actor": "black",
+      "witness_xyz": [
+        -0.11713805167004304,
+        0.14165073766903985,
+        0.005085417456200336
+      ],
+      "witness_id": 6862,
+      "source_coordinate": [
+        875.58447265625,
+        478.4267883300781
+      ],
+      "source_coordinate_contract": "COLMAP half-center UV; floor to integer pixel index",
+      "camera": 46,
+      "query_id": 5,
+      "accepted_AABB_interval": [
+        0.853968843570787,
+        1.378105007805065
+      ],
+      "query_witness_depth": 1.2075520093035295,
+      "point_to_pixel_ray_distance": 7.093552585205763e-05
+    },
+    "alpha_A": 0.9995340185617048,
+    "alpha_B": 0.9995340185617048,
+    "RGB_delta": 8.940696716308594e-08
+  }
+]

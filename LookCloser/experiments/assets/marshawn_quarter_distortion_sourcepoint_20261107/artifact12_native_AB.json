@@ -1,0 +1,146 @@
+[
+  {
+    "pixel": {
+      "label": "head1",
+      "camera": 0,
+      "camera_name": "DC",
+      "x": 850,
+      "y": 85
+    },
+    "alpha_A": 0.9999999999999999,
+    "alpha_B": 0.0,
+    "RGB_delta": 0.35427913069725037
+  },
+  {
+    "pixel": {
+      "label": "head2",
+      "camera": 0,
+      "camera_name": "DC",
+      "x": 1060,
+      "y": 100
+    },
+    "alpha_A": 0.00030522888592186554,
+    "alpha_B": 0.00030522888592186554,
+    "RGB_delta": 0.0
+  },
+  {
+    "pixel": {
+      "label": "head3",
+      "camera": 0,
+      "camera_name": "DC",
+      "x": 850,
+      "y": 190
+    },
+    "alpha_A": 0.2584970734166764,
+    "alpha_B": 0.2584970734166764,
+    "RGB_delta": 1.4901161193847656e-08
+  },
+  {
+    "pixel": {
+      "label": "torso1",
+      "camera": 0,
+      "camera_name": "DC",
+      "x": 790,
+      "y": 290
+    },
+    "alpha_A": 0.0,
+    "alpha_B": 0.0,
+    "RGB_delta": 0.0
+  },
+  {
+    "pixel": {
+      "label": "torso2",
+      "camera": 0,
+      "camera_name": "DC",
+      "x": 1090,
+      "y": 345
+    },
+    "alpha_A": 0.40786362357468753,
+    "alpha_B": 0.40786362357468753,
+    "RGB_delta": 8.940696716308594e-08
+  },
+  {
+    "pixel": {
+      "label": "torso3",
+      "camera": 0,
+      "camera_name": "DC",
+      "x": 800,
+      "y": 380
+    },
+    "alpha_A": 0.35449410585689456,
+    "alpha_B": 0.28693425618711105,
+    "RGB_delta": 0.05679043382406235
+  },
+  {
+    "pixel": {
+      "label": "feet1",
+      "camera": 0,
+      "camera_name": "DC",
+      "x": 755,
+      "y": 545
+    },
+    "alpha_A": 0.44552485087490545,
+    "alpha_B": 0.44552485087490545,
+    "RGB_delta": 1.1920928955078125e-07
+  },
+  {
+    "pixel": {
+      "label": "feet2",
+      "camera": 0,
+      "camera_name": "DC",
+      "x": 865,
+      "y": 555
+    },
+    "alpha_A": 0.13216273535440667,
+    "alpha_B": 0.0,
+    "RGB_delta": 0.13183262944221497
+  },
+  {
+    "pixel": {
+      "label": "feet3",
+      "camera": 0,
+      "camera_name": "DC",
+      "x": 1100,
+      "y": 595
+    },
+    "alpha_A": 0.27640641053471704,
+    "alpha_B": 0.17424423736626488,
+    "RGB_delta": 0.08569132536649704
+  },
+  {
+    "pixel": {
+      "label": "remote1",
+      "camera": 0,
+      "camera_name": "DC",
+      "x": 550,
+      "y": 720
+    },
+    "alpha_A": 0.0812779437971042,
+    "alpha_B": 0.050098690271586865,
+    "RGB_delta": 0.02694774977862835
+  },
+  {
+    "pixel": {
+      "label": "remote2",
+      "camera": 0,
+      "camera_name": "DC",
+      "x": 320,
+      "y": 730
+    },
+    "alpha_A": 0.0,
+    "alpha_B": 0.0,
+    "RGB_delta": 0.0
+  },
+  {
+    "pixel": {
+      "label": "remote3",
+      "camera": 0,
+      "camera_name": "DC",
+      "x": 600,
+      "y": 845
+    },
+    "alpha_A": 0.18044417876626673,
+    "alpha_B": 0.022359146856361423,
+    "RGB_delta": 0.0397765813395381
+  }
+]

@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "models": [
+    "quarter_distortion_raw126316"
+  ],
+  "optimizer_updates": 0,
+  "quality_promotion": false
+}
