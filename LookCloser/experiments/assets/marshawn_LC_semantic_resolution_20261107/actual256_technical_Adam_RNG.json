@@ -1,0 +1,64 @@
+{
+  "CPU_only": true,
+  "CUDA_initialized": false,
+  "optimizer_created": false,
+  "resume_start": {
+    "head_exact": true,
+    "Adam_exact": true,
+    "RNG_and_sampler_exact": true
+  },
+  "camera_packet_history_exact": true,
+  "head_logit_drift": {
+    "max_abs": 1.9073486328125e-06,
+    "RMSE": 1.7703647396597013e-08,
+    "bit_identical_fraction": 0.9987025260925293
+  },
+  "head_probability_drift": {
+    "max_abs": 3.5390257835388184e-08,
+    "RMSE": 2.8611040427802896e-10,
+    "bit_identical_fraction": 0.9987025260925293
+  },
+  "Adam_trajectory_drift": [
+    {
+      "parameter_key": 0,
+      "tensors": {
+        "step": {
+          "max_abs": 0.0,
+          "RMSE": 0.0,
+          "bit_identical_fraction": 1.0
+        },
+        "exp_avg": {
+          "max_abs": 7.275957614183426e-11,
+          "RMSE": 1.8305915747121398e-13,
+          "bit_identical_fraction": 0.9883109927177429
+        },
+        "exp_avg_sq": {
+          "max_abs": 3.1086244689504383e-15,
+          "RMSE": 3.1815939950280743e-18,
+          "bit_identical_fraction": 0.9852813482284546
+        }
+      }
+    }
+  ],
+  "final_RNG_and_sampler_bit_identical": {
+    "python": true,
+    "numpy": true,
+    "torch_cpu": true,
+    "torch_cuda": true,
+    "sampler": true
+  },
+  "checkpoint_sha256": {
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/frozen_LC_semantic_resolution256_fourUNK_plan_v1/runs/technical32/head.pt": "c715807b5e159070a6c4b6875238c7c7ae23327795af861856f393eda62025c5",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/frozen_LC_semantic_resolution256_fourUNK_plan_v1/runs/technical_resume32/head.pt": "30ec31c4391a5645353efb21fb8e3d90fafdb3479467c264007426a17ef3c67d",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/frozen_LC_semantic_resolution256_fourUNK_plan_v1/runs/technical64/head.pt": "a10a8a76c294efff64b64884c7be1855e19f4d9d9cbe0bf5cc1fb89ed9381511"
+  },
+  "source_pipeline_digest": "c83bc7dbb1504063c35f0a2b14ae3fb329ff27ed2eb6b3661eb89b4918d46636",
+  "source_capture_sha256": "fb8b875d8c7f3676c3dfbd187b4c76c3ee40ec8a3b62a940fdf33bb97d99073d",
+  "label_qualification_sha256": "44e7734ed93a2c10742de6dc55886978d7c2097ee62779915dada93feda94df4",
+  "initial_probability": 0.01,
+  "grid_resolution": 256,
+  "qualified_UNKNOWN_count": 4,
+  "automatic_numeric_acceptance_bound": null,
+  "automatic_promotion": false,
+  "post_run_bound_files_verified": 225
+}

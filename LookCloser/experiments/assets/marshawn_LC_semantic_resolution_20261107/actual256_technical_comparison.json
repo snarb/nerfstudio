@@ -1,0 +1,45 @@
+{
+  "resume_start_restoration": {
+    "head_exact": true,
+    "Adam_exact": true,
+    "RNG_and_sampler_exact": true
+  },
+  "camera_history_exact": true,
+  "independently_executed_first32": {
+    "logit_max_abs": 1.430511474609375e-06,
+    "logit_RMSE": 1.1041979467449348e-08,
+    "logit_abs_quantiles": [
+      0.0,
+      0.0,
+      0.0,
+      1.430511474609375e-06
+    ],
+    "probability_max_abs": 2.1420419216156006e-08,
+    "probability_RMSE": 1.4079700625417995e-10,
+    "fraction_of_logit_values_bit_identical": 0.9994968771934509
+  },
+  "resumed64_versus_uninterrupted64": {
+    "logit_max_abs": 1.9073486328125e-06,
+    "logit_RMSE": 1.7703647396597013e-08,
+    "logit_abs_quantiles": [
+      0.0,
+      0.0,
+      0.0,
+      1.9073486328125e-06
+    ],
+    "probability_max_abs": 3.5390257835388184e-08,
+    "probability_RMSE": 2.8611040427802896e-10,
+    "fraction_of_logit_values_bit_identical": 0.9987025260925293
+  },
+  "native_checkpoint_and_caches_unchanged": true,
+  "native_optimizers_created": false,
+  "source_RGB_targets_used": false,
+  "CPU_only": true,
+  "CUDA_initialized": false,
+  "checkpoint_sha256": {
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/frozen_LC_semantic_resolution256_fourUNK_plan_v1/runs/technical32/head.pt": "c715807b5e159070a6c4b6875238c7c7ae23327795af861856f393eda62025c5",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/frozen_LC_semantic_resolution256_fourUNK_plan_v1/runs/technical_resume32/head.pt": "30ec31c4391a5645353efb21fb8e3d90fafdb3479467c264007426a17ef3c67d",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/frozen_LC_semantic_resolution256_fourUNK_plan_v1/runs/technical64/head.pt": "a10a8a76c294efff64b64884c7be1855e19f4d9d9cbe0bf5cc1fb89ed9381511"
+  },
+  "interpretation": "Exact resume-start head/Adam/RNG and sampler history are required. Subsequent CUDA grid_sample backward atomic trajectories may differ; measured differences are reported, never advertised as bitwise equivalence."
+}

@@ -1,0 +1,92 @@
+{
+  "CPU_only": true,
+  "CUDA_started": false,
+  "optimizer_created": false,
+  "all_bound_files_verified": true,
+  "bound_files": 358,
+  "actual256_checkpoint_constructor_guard_passed": true,
+  "dryruns": [
+    {
+      "phase": "first2064_capped_native_path_physical_diagnostic",
+      "path_mode": "native1024",
+      "cameras": [
+        "DC",
+        "HC",
+        "KA"
+      ],
+      "source_model_updates": 0,
+      "CUDA_started": false,
+      "optimizer_created": false,
+      "heldout_fit_labels": false,
+      "exact_contributor_trace_pixels": {
+        "HC": [
+          [
+            875,
+            602
+          ]
+        ],
+        "DC": [
+          [
+            1097,
+            572
+          ]
+        ],
+        "KA": [
+          [
+            1075,
+            270
+          ],
+          [
+            961,
+            485
+          ]
+        ]
+      },
+      "full_visibility_certified": false
+    },
+    {
+      "phase": "post_render_metrics_and_visual_gate",
+      "spec_sha256": "6d3a11d3aed22b5c189c3cd4b8ed80bce16945a234d77e9e4c1dd594df4e6483",
+      "fit": false,
+      "native_updates": 0,
+      "optimizer_created": false,
+      "CUDA_started": false
+    },
+    {
+      "phase": "TRAIN_only_class_distributions",
+      "spec_sha256": "755302d13c822b20d24747cb1499ba7c162741c3b11d72e7a0fa22ff8ad8aab6",
+      "optimizer_created": false,
+      "CUDA_started": false,
+      "threshold_selection": false
+    },
+    {
+      "jobs": 3,
+      "hosts": {
+        "olive": {
+          "python": "/home/pavlo/.conda/envs/nerfstudio/bin/python",
+          "controller": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_resolution256_physical_plan_v1/code/marshawn_tuning_controller.py",
+          "root": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_resolution256_physical_plan_v1/queue",
+          "gpus": [
+            0
+          ]
+        }
+      },
+      "dependencies": {
+        "resolution256_render": [],
+        "resolution256_metrics": [
+          "resolution256_render"
+        ],
+        "resolution256_TRAIN": [
+          "resolution256_metrics"
+        ]
+      }
+    }
+  ],
+  "all_authorizations_false": true,
+  "renderer_TRAIN_diff": {
+    "render_marshawn_LC_semantic_physical.py": "--- 128/render_marshawn_LC_semantic_physical.py\n+++ 256/render_marshawn_LC_semantic_physical.py\n@@ -11,6 +11,7 @@\n import signal\n import time\n from prepare_marshawn_frozen_semantic_cpu import sha, write\n+from marshawn_LC_semantic_resolution_contract import physical_node_resolution\n \n \n def authorize(path, spec):\n@@ -74,7 +75,8 @@\n                 trained['spec_sha256'] != spec['head_training_spec_sha256'] or not trained['world_to_box_is_identity']):\n             raise ValueError('Head must be separately fitted on this exact LC visibility and prior')\n         initial_probability=trained['initial_probability']\n-        head=FrozenActorGrid(m['bounds'],np.eye(4),resolution=128,initial_probability=initial_probability).cuda()\n+        resolution=physical_node_resolution(trained,completion,dict(spec,expected_head_bounds=m['bounds']))\n+        head=FrozenActorGrid(m['bounds'],np.eye(4),resolution=resolution,initial_probability=initial_probability).cuda()\n         head.load_state_dict(trained['head'],strict=True);assert_exact_restoration(head,trained['head'])\n         head.eval();head.requires_grad_(False);head_digest=tensor_digest(head)\n         if not torch.equal(head.world_to_box,torch.eye(4,device=model.device)):raise ValueError('Floor transform must be identity')\n",
+    "audit_marshawn_LC_semantic_train_distributions.py": "--- 128/audit_marshawn_LC_semantic_train_distributions.py\n+++ 256/audit_marshawn_LC_semantic_train_distributions.py\n@@ -4,6 +4,7 @@\n import os\n from pathlib import Path\n from prepare_marshawn_frozen_semantic_cpu import sha, write\n+from marshawn_LC_semantic_resolution_contract import physical_node_resolution\n \n \n def run(spec_path, execute):\n@@ -40,7 +41,8 @@\n     initial_probability = float(trained.get('initial_probability', .99))\n     if initial_probability != float(s.get('expected_initial_probability', .99)):\n         raise ValueError('Semantic initial prior differs')\n-    head = FrozenActorGrid(m['bounds'], m['native_world_to_box'], 128, initial_probability=initial_probability).cuda()\n+    resolution = physical_node_resolution(trained, completion, dict(s, expected_head_bounds=m['bounds']))\n+    head = FrozenActorGrid(m['bounds'], m['native_world_to_box'], resolution, initial_probability=initial_probability).cuda()\n     head.load_state_dict(trained['head'], strict=True); head.eval(); head.requires_grad_(False)\n     digest = tensor_digest(head)\n     overrides = {(r['camera'], *r['pixel_xy']) for r in labels['unknown_queries']}\n"
+  },
+  "controller_sha256": "a9c322c581cc2be47b4b975fb048abd3bd71b004ee74b41eab0e7462adc5af00",
+  "release_template_sha256": "33f21bcb36b4cf8fd832603c40626eec4612b783046bfb9fd1831136f098289c"
+}
