@@ -1,0 +1,45 @@
+{
+  "kind": "ROOT_PERSONALLY_REVIEWED_ALL66_CURRENT1680_HEAD_SOURCE_CONTACTS",
+  "time": 1794084468.9453278,
+  "frame": 1680,
+  "reviewer": "ROOT",
+  "contact_receipt_sha256": "e04bf9f9c490602b781a45ffe9455fa64ee364da89177856e476cec1c3267631",
+  "visual_evidence": [
+    {
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1680_current_HEAD_source_review_v76/page_00.jpg",
+      "sha256": "bc4530c3ce44c572e0b17822454042c371a20321a8de9142532b35f8ecf8ce92"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1680_current_HEAD_source_review_v76/page_01.jpg",
+      "sha256": "27e750d2b8333f66926a51a96f8bd04f3382615aa7d8518cf898d9875ea4e160"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1680_current_HEAD_source_review_v76/page_02.jpg",
+      "sha256": "2ba66b9f66ec05a77d8c03f3d39a682f17ac9ba1c6a99473f96d32cc4a03d9d0"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1680_current_HEAD_source_review_v76/page_03.jpg",
+      "sha256": "2044e40c7f4bc5caa776d617f90006b9d1902f6d7e3281336f51032ae9be79b5"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1680_current_HEAD_source_review_v76/page_04.jpg",
+      "sha256": "2007b0f6e51a65d884527a8cd82579bf0486dd3c1bc0ad793ca99b4406a1c273"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1680_current_HEAD_source_review_v76/page_05.jpg",
+      "sha256": "396ae9cf095078f073278d3722e2b10451b811dad254597287a1a087ea021261"
+    }
+  ],
+  "cameras_reviewed": 66,
+  "qualified_head_additions_follow_visible_current_braids": true,
+  "separate_geometry_UNKNOWN_remains_near_head": true,
+  "observations": [
+    "AC/AD have weaker current qualified hair; conservative geometry-only region covers current braid tips; no broad forced RGB FG.",
+    "NB uses strong dreadlocks intersection preserving foreground braids while bald worker head is excluded from forced hair RGB.",
+    "AD uncertainty extends over upper shoulders/torso; accepted as geometry-only uncertainty, not labelled occupied physical geometry.",
+    "This contact review covers head inputs; final DATA/source QA and body review remain required before continuous release."
+  ],
+  "source_publication_authorized_by_this_receipt": false,
+  "continuous_release_authorized_by_this_receipt": false,
+  "AABB_or_training_recipe_changed": false
+}

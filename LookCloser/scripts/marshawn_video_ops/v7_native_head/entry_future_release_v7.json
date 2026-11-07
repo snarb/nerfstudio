@@ -1,0 +1,11 @@
+{
+  "kind": "ROOT_CANARY_GATED_CONTINUOUS_NATIVE_ENTRY_V7",
+  "native_cli": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/code/marshawn_mask_assist_full_v7.py",
+  "alias_helper": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/code/marshawn_sam3_v5_props_alias.py",
+  "files_sha256": {
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/code/marshawn_mask_assist_full_v7.py": "0d32712b8c6b2579ec1c590c5c734cd6d5049eef22ea6fc58c993e5aac282ba3",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/code/marshawn_mask_assist_entry_v7.py": "50c0dc8ffa5c49f82b1f3a3f09cbfe490eb6ee1b7ef809962a19b2a6b76fdc7b",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/code/marshawn_sam3_v5_props_alias.py": "014f56cb95db100a8a057ad542386262ade9b6095aac68111d15405d2157c079",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/v5/native_future_release_v7.json": "a42fae022972b04b93f75804a5e164bcf76127611c8f5b6fc4ce0e2d66549068"
+  }
+}

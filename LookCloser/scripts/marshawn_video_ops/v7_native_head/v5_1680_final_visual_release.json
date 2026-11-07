@@ -1,0 +1,101 @@
+{
+  "kind": "ROOT_REVIEWED_V5_1680_AUTONOMOUS_SOURCE_RELEASE",
+  "authorized": true,
+  "continuous_authorized": true,
+  "frame": 1680,
+  "time": 1794084681.6051698,
+  "native_semantic_ready_sha256": "4e84f68326b93168b7e3949a9fa33d2a60b19b740f91b3b30a8aac11fd92ee58",
+  "prepared_ready_sha256": "a5bf3abcd417f719ae281aa206c59d1f3012a1cfd22755fd0c16f0ae9409b915",
+  "source_QA_sha256": "4a914bfd6b0b8df6a0077f1a005675c20640a0cd6af868fd649e0efb9fd0b77b",
+  "visibility_UNKNOWN_QA_sha256": "18d2613e6318ecba986854bd9414ef204288e4b284b7ea6c5e9080003e979465",
+  "independent_review_sha256": "e0ffdb3e4e92a0616ccf1dbd0b4645fb989d4b494126237a16e81d3d128cd0c8",
+  "visual_evidence": [
+    {
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/root_1680_current_HEAD_visual_review.json",
+      "sha256": "29e704c4f6c2f5016980bba42338629cc5b3fb1647798f3db21639f9b50b807d"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/hair_unknown_manual1680/independent_review.json",
+      "sha256": "e0ffdb3e4e92a0616ccf1dbd0b4645fb989d4b494126237a16e81d3d128cd0c8"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1680_current_HEAD_source_review_v76/review_receipt.json",
+      "sha256": "e04bf9f9c490602b781a45ffe9455fa64ee364da89177856e476cec1c3267631"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1680_current_HEAD_source_review_v76/page_00.jpg",
+      "sha256": "bc4530c3ce44c572e0b17822454042c371a20321a8de9142532b35f8ecf8ce92"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1680_current_HEAD_source_review_v76/page_01.jpg",
+      "sha256": "27e750d2b8333f66926a51a96f8bd04f3382615aa7d8518cf898d9875ea4e160"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1680_current_HEAD_source_review_v76/page_02.jpg",
+      "sha256": "2ba66b9f66ec05a77d8c03f3d39a682f17ac9ba1c6a99473f96d32cc4a03d9d0"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1680_current_HEAD_source_review_v76/page_03.jpg",
+      "sha256": "2044e40c7f4bc5caa776d617f90006b9d1902f6d7e3281336f51032ae9be79b5"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1680_current_HEAD_source_review_v76/page_04.jpg",
+      "sha256": "2007b0f6e51a65d884527a8cd82579bf0486dd3c1bc0ad793ca99b4406a1c273"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1680_current_HEAD_source_review_v76/page_05.jpg",
+      "sha256": "396ae9cf095078f073278d3722e2b10451b811dad254597287a1a087ea021261"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/frames/001680/native_review/identity_page_01.jpg",
+      "sha256": "571e5b41a25fdfd64c1733d6d99328f9c52ba1f909f0694e01ab53f2a99db45d"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/frames/001680/native_review/identity_page_02.jpg",
+      "sha256": "887f98b8259dd692e5fd65790144503b571a767c8957b46b97afdd288947d97a"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/frames/001680/native_review/identity_page_03.jpg",
+      "sha256": "62e7c9ea2fb31886778db143e5623396affdbd84b6d58840b24bc94bf3e044bb"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/frames/001680/native_review/identity_page_04.jpg",
+      "sha256": "387c0c7857cb83fef1fd7fa0f8f343748d619a796c5e8bdab3ed56d68d1d241d"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/frames/001680/native_review/identity_page_05.jpg",
+      "sha256": "dd68edf8fc7bb2c475d365215a549351b76ad668d2b453cd2760b65afcf986fb"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/frames/001680/native_review/identity_page_06.jpg",
+      "sha256": "9935b87efa8fd3ec9f1c2e7f6965ffcb3cda7cb254b2c589fbcc83d38c5be264"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/frames/001680/native_review/native_rank1_NE_head_feet.jpg",
+      "sha256": "4fb5120f4a85502be1db8f4bd0828f9450c35f696ebd28bdd1639435f0848333"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/frames/001680/native_review/native_rank2_MD_head_feet.jpg",
+      "sha256": "074d97b4b173e67cf94d25f5ab33541c4177638bafe755d08ccfe04486dd76d2"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/frames/001680/native_review/native_rank3_NC_head_feet.jpg",
+      "sha256": "0c38a1577be94a99fcfbe49b70db6fb2f34e86fc514a93e1cfbec9df99fe62a9"
+    }
+  ],
+  "root_personally_viewed_all66_current_HEAD_and_full_body_contacts": true,
+  "root_personally_viewed_three_native_head_feet_panels": true,
+  "observations": [
+    "Two actors/bodies/boots remain in the contact-scale masks; no obvious newly labelled crew bodies/heads.",
+    "Native panels retain small existing speckled omissions near grey head/shoulder and thin hair tips; source labels are not certified perfect.",
+    "Separate current head geometry UNKNOWN covers braid-tip uncertainty; AD is wider over upper shoulders/torso and remains uncertainty-only.",
+    "Unresolved PREcore0 currently unlabelled FE/NE/FB components stay existing veto/UNKNOWN and zeroW32/W64, never forced foreground."
+  ],
+  "authorized_next_action": "Continue source-only chronological NN/HEAD/frozenDATA/QA producer1685..2015 autonomously; require existing own-frame new-grid+dense gate before every cold field.",
+  "policy_scope": "Routine current NN-qualified FG and existing PRE0/veto/UNKNOWN only; current actor-core/qualifiedcrew conflicts remain hard failures.",
+  "no_NeRF_weights_EMA_optimizer_or_occupancy_transfer": true,
+  "hard_iterations_per_frame": 140000,
+  "all66_cameras_train": true,
+  "AABB_unchanged": true,
+  "final_neural_or_physical_grid_perfection_certified": false
+}

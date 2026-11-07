@@ -1,0 +1,152 @@
+{
+  "campaign": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107",
+  "release_sha256": "966a5fb3a21eea059108aec3937c2f122388c89e4e5b4976f9eabda20b085032",
+  "files": [
+    {
+      "file": "marshawn_source_producer_v76.py",
+      "campaign_relative_path": "operations/marshawn_source_producer_v76.py",
+      "sha256": "1ca230a57de8099b6b34c4b1c810030a6b74b8ba8345b8e6ae0c756fe6c44d58"
+    },
+    {
+      "file": "marshawn_source_factory_v76.py",
+      "campaign_relative_path": "operations/marshawn_source_factory_v76.py",
+      "sha256": "b8a742f183748e5f8d1a1914d14d7d4b7f26cdb4d6c8e6b47fa5757f4c60b38c"
+    },
+    {
+      "file": "marshawn_head_queue_v73.py",
+      "campaign_relative_path": "operations/marshawn_head_queue_v73.py",
+      "sha256": "8bfe5bfefc3fddace77a3e68f2b58484b16695d6f9c9685039eb8adb12dc0121"
+    },
+    {
+      "file": "marshawn_head_hair_qualify_v71.py",
+      "campaign_relative_path": "operations/marshawn_head_hair_qualify_v71.py",
+      "sha256": "849d932ec83f08165ebdf5f45369b332e07c6a8bcba2174a469af461173b7ae9"
+    },
+    {
+      "file": "marshawn_head_hair_qualify_v72.py",
+      "campaign_relative_path": "operations/marshawn_head_hair_qualify_v72.py",
+      "sha256": "d3aa066915d02e4bab6086a39ec7abc5cfe7fe5d41702a342dded6070fa4af3d"
+    },
+    {
+      "file": "marshawn_apply_head_consensus_v7.py",
+      "campaign_relative_path": "operations/marshawn_apply_head_consensus_v7.py",
+      "sha256": "d0e2cd6b1ffecbd6d0d60b4cf80b10add7183de66f40eb8eee1fae1568366bf8"
+    },
+    {
+      "file": "marshawn_hair_admission_layer_v7.py",
+      "campaign_relative_path": "operations/marshawn_hair_admission_layer_v7.py",
+      "sha256": "82a2879db0612ff50c3fb50955b40c8e93a91083776b14b1206bec83a6145a07"
+    },
+    {
+      "file": "marshawn_visibility_unknown_v74.py",
+      "campaign_relative_path": "operations/marshawn_visibility_unknown_v74.py",
+      "sha256": "cfc31c2ddd908bf78f0ccd864c01fc66bd14f509781d437f22e6311f9363cbde"
+    },
+    {
+      "file": "visibility_unknown_policy_v74.json",
+      "campaign_relative_path": "operations/visibility_unknown_policy_v74.json",
+      "sha256": "f412b78923b9b7319e28a1d74c6512bf22080df292673bc38aa494c6663d6db7"
+    },
+    {
+      "file": "head_hair_policy_v74.json",
+      "campaign_relative_path": "operations/head_hair_policy_v74.json",
+      "sha256": "10215c338c90ae31ec78550d129615651f5eee9551f68ac58d96bbc351cc64b8"
+    },
+    {
+      "file": "native_ROI_pool_controller_v6.py",
+      "campaign_relative_path": "operations/native_ROI_pool_controller_v6.py",
+      "sha256": "2c5b323f7b14ddeec4d1fee72ec55c9c42b9e97c744e431112dfbf716254cc3e"
+    },
+    {
+      "file": "native_text_actor_parts_v6.py",
+      "campaign_relative_path": "operations/native_text_actor_parts_v6.py",
+      "sha256": "87c0de60a844f600fe8e823990c76df39b86af852ca794e4d1b83de014134683"
+    },
+    {
+      "file": "marshawn_current_part_intersection_v74.py",
+      "campaign_relative_path": "operations/marshawn_current_part_intersection_v74.py",
+      "sha256": "9b662c581e878300c6895ff8066b7691d155d92fb913655199738da219e8011c"
+    },
+    {
+      "file": "marshawn_final_source_QA_v7.py",
+      "campaign_relative_path": "operations/marshawn_final_source_QA_v7.py",
+      "sha256": "7d19c9108ff8ee681a3cc7d48b8b5ce5278808def5434736711d2eead8781787"
+    },
+    {
+      "file": "marshawn_HEAD_source_contact_v76.py",
+      "campaign_relative_path": "operations/marshawn_HEAD_source_contact_v76.py",
+      "sha256": "a09e8127de8bc4e3d33d8a667e44a2d3854e782a12aa98ac17aab7a143f12eb0"
+    },
+    {
+      "file": "source_producer_v76_release.json",
+      "campaign_relative_path": "operations/source_producer_v76_release.json",
+      "sha256": "966a5fb3a21eea059108aec3937c2f122388c89e4e5b4976f9eabda20b085032"
+    },
+    {
+      "file": "union_v5_future_input_install_v74.json",
+      "campaign_relative_path": "operations/union_v5_future_input_install_v74.json",
+      "sha256": "550179fa0c0eed07b0a59c60e15a11a0cff7131de291328b0d460ef469bad2ad"
+    },
+    {
+      "file": "visibility_unknown_v74_CPU_regression.json",
+      "campaign_relative_path": "operations/visibility_unknown_v74_CPU_regression.json",
+      "sha256": "fe0ba072e815bca4db760d8fc627a2ec1c116d0e0e74590dabee5a798a59568e"
+    },
+    {
+      "file": "marshawn_mask_assist_full_v7.py",
+      "campaign_relative_path": "operations/sam3_assist/code/marshawn_mask_assist_full_v7.py",
+      "sha256": "0d32712b8c6b2579ec1c590c5c734cd6d5049eef22ea6fc58c993e5aac282ba3"
+    },
+    {
+      "file": "marshawn_mask_assist_entry_v7.py",
+      "campaign_relative_path": "operations/sam3_assist/code/marshawn_mask_assist_entry_v7.py",
+      "sha256": "50c0dc8ffa5c49f82b1f3a3f09cbfe490eb6ee1b7ef809962a19b2a6b76fdc7b"
+    },
+    {
+      "file": "marshawn_native_pool_v6.py",
+      "campaign_relative_path": "operations/sam3_assist/code/marshawn_native_pool_v6.py",
+      "sha256": "553bdb99be35395060a0d82c34b8caf6fdbc55d58f2b79a373fac0ecb7886b88"
+    },
+    {
+      "file": "marshawn_native_stream_v62.py",
+      "campaign_relative_path": "operations/sam3_assist/code/marshawn_native_stream_v62.py",
+      "sha256": "adab13d8de2bf85e2238f34ea94fcdf1012077815777e101d443daf94868a4e5"
+    },
+    {
+      "file": "marshawn_sam3_union_batch_v62_runtime.py",
+      "campaign_relative_path": "operations/sam3_assist/code/marshawn_sam3_union_batch_v62_runtime.py",
+      "sha256": "f95b981696061aacfe98377e13e7588b6ce644bc608a38adb88accda9da9b9c4"
+    },
+    {
+      "file": "native_future_release_v7.json",
+      "campaign_relative_path": "operations/sam3_assist/v5/native_future_release_v7.json",
+      "sha256": "a42fae022972b04b93f75804a5e164bcf76127611c8f5b6fc4ce0e2d66549068"
+    },
+    {
+      "file": "entry_future_release_v7.json",
+      "campaign_relative_path": "operations/sam3_assist/v5/entry_future_release_v7.json",
+      "sha256": "e11842868b2c99e06a0e7e3cef0a368ac0baa263bcea78ca3a7735c317ba8c8a"
+    },
+    {
+      "file": "v5_1680_final_visual_release.json",
+      "campaign_relative_path": "operations/v5_1680_final_visual_release.json",
+      "sha256": "0f09f38283e88bb11111fa097e034100b479c0cb53e045af9fb09d3f0dd1ae16"
+    },
+    {
+      "file": "final_v5_source_QA.json",
+      "campaign_relative_path": "frames/001680/data/final_v5_source_QA.json",
+      "sha256": "4a914bfd6b0b8df6a0077f1a005675c20640a0cd6af868fd649e0efb9fd0b77b"
+    },
+    {
+      "file": "visibility_unknown_QA_v74.json",
+      "campaign_relative_path": "frames/001680/data/visibility_unknown_QA_v74.json",
+      "sha256": "18d2613e6318ecba986854bd9414ef204288e4b284b7ea6c5e9080003e979465"
+    },
+    {
+      "file": "root_1680_current_HEAD_visual_review.json",
+      "campaign_relative_path": "operations/root_1680_current_HEAD_visual_review.json",
+      "sha256": "29e704c4f6c2f5016980bba42338629cc5b3fb1647798f3db21639f9b50b807d"
+    }
+  ],
+  "scientific_code_snapshot_unchanged": true
+}

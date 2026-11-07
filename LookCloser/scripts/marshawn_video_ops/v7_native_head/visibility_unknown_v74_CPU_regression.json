@@ -1,0 +1,19 @@
+{
+  "status": "pass",
+  "records": [
+    {
+      "camera": "FE",
+      "actual_PRE0_existing_UNKNOWN_veto_case": "pass_without_native_changes",
+      "PRE_conflict_counterexample": "still_blocked",
+      "source_report_sha256": "c38610d3aea0b4296c8f6588c8e0809f7d4f70825e9a58db13387dca5ba8b18f"
+    },
+    {
+      "camera": "NE",
+      "actual_PRE0_existing_UNKNOWN_veto_case": "pass_without_native_changes",
+      "PRE_conflict_counterexample": "still_blocked",
+      "source_report_sha256": "d28fa393de56e6422066c52513b43fc99bcfb813368d4b194d053b8e67758c21"
+    }
+  ],
+  "source_sha256": "cfc31c2ddd908bf78f0ccd864c01fc66bd14f509781d437f22e6311f9363cbde",
+  "policy_sha256": "f412b78923b9b7319e28a1d74c6512bf22080df292673bc38aa494c6663d6db7"
+}

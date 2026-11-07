@@ -1,0 +1,87 @@
+{
+  "frame": 1680,
+  "status": "pass",
+  "records": [
+    {
+      "proof": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/frames/001680/visibility_unknown_inputs/CC_person3.json",
+      "proof_sha256": "470d94c9c3041df8e68752470519a335dd48d07ebe8fa0ae5ea2157dc648ac01",
+      "camera": "CC",
+      "instance": 3,
+      "HD_pixels": 3039,
+      "source_ineligible_all": true,
+      "geometry_UNKNOWN_all": true,
+      "W32_W64_zero_all": true
+    },
+    {
+      "proof": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/frames/001680/visibility_unknown_inputs/FB_person2.json",
+      "proof_sha256": "329f00f6804bbe2d07dee745e2e203c25a8b9081a3a87ec06c753af3b1e103f7",
+      "camera": "FB",
+      "instance": 2,
+      "HD_pixels": 996,
+      "source_ineligible_all": true,
+      "geometry_UNKNOWN_all": true,
+      "W32_W64_zero_all": true
+    },
+    {
+      "proof": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/frames/001680/visibility_unknown_inputs/FB_person5.json",
+      "proof_sha256": "3f27f96f443c98fdc403205e4d9a94af5651a002c426b865f3fd0b642aea760c",
+      "camera": "FB",
+      "instance": 5,
+      "HD_pixels": 1251,
+      "source_ineligible_all": true,
+      "geometry_UNKNOWN_all": true,
+      "W32_W64_zero_all": true
+    },
+    {
+      "proof": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/frames/001680/visibility_unknown_inputs/FB_person6.json",
+      "proof_sha256": "6d9eb82e49ef126514d6077331c27df9439ee1a79e577a7743448b9635fba690",
+      "camera": "FB",
+      "instance": 6,
+      "HD_pixels": 2833,
+      "source_ineligible_all": true,
+      "geometry_UNKNOWN_all": true,
+      "W32_W64_zero_all": true
+    },
+    {
+      "proof": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/frames/001680/visibility_unknown_inputs/FE_person1.json",
+      "proof_sha256": "a0522957cc10df10a8eec62acce4bbdde4c927627e1db2f12c872706998aecb2",
+      "camera": "FE",
+      "instance": 1,
+      "HD_pixels": 5242,
+      "source_ineligible_all": true,
+      "geometry_UNKNOWN_all": true,
+      "W32_W64_zero_all": true
+    },
+    {
+      "proof": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/frames/001680/visibility_unknown_inputs/NB_person17.json",
+      "proof_sha256": "96e3f672145d0567d8c6b2b26d46adeef931f3e10747f9d1090e0fc4c8cfdf0d",
+      "camera": "NB",
+      "instance": 17,
+      "HD_pixels": 3345,
+      "source_ineligible_all": true,
+      "geometry_UNKNOWN_all": true,
+      "W32_W64_zero_all": true
+    },
+    {
+      "proof": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/frames/001680/visibility_unknown_inputs/NB_person2.json",
+      "proof_sha256": "8cb095dac6ee8fcff1e78b9637aacd9410570eab05ac2db771af4364674b2ca7",
+      "camera": "NB",
+      "instance": 2,
+      "HD_pixels": 3529,
+      "source_ineligible_all": true,
+      "geometry_UNKNOWN_all": true,
+      "W32_W64_zero_all": true
+    },
+    {
+      "proof": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/frames/001680/visibility_unknown_inputs/NE_person21.json",
+      "proof_sha256": "c7c9c2871fa1e197060eaab73a3befbd536a9827b5ef4939fb6b98e5ee6bfbd9",
+      "camera": "NE",
+      "instance": 21,
+      "HD_pixels": 3966,
+      "source_ineligible_all": true,
+      "geometry_UNKNOWN_all": true,
+      "W32_W64_zero_all": true
+    }
+  ],
+  "existing_actor_RGB_and_weights_not_changed_by_resolution": true
+}
