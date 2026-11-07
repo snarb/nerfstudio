@@ -54,3 +54,17 @@ Reusable [preparer](../scripts/prepare_marshawn_quarter_4k.py) and [external fac
 Root manually inspected all three actor views and nine detail crops at each gate. The new structural recipe substantially improves over old4K, but remains below matched-step HD on actor LPIPS. Both4K variants contain considerable unwanted geometry; no clean asset or resolution advantage is established. RGB, frozen maps and confidence footprints change together against HD, so this is not resolution-only causality. Training continues to minimum106316 and subsequent original plateau protocol.
 
 [30376 actors](/fsx/tmp/marshawn_001660_hd/tuning_20261106/quarter_frozen4k_candidate_v1/reviews/step-000030376/all_actors.jpg), [30376 details](/fsx/tmp/marshawn_001660_hd/tuning_20261106/quarter_frozen4k_candidate_v1/reviews/step-000030376/all_details.jpg), [45564 actors](/fsx/tmp/marshawn_001660_hd/tuning_20261106/quarter_frozen4k_candidate_v1/reviews/step-000045564/all_actors.jpg), [45564 details](/fsx/tmp/marshawn_001660_hd/tuning_20261106/quarter_frozen4k_candidate_v1/reviews/step-000045564/all_details.jpg). Each directory contains a hash-bound root_manual_review.json.
+
+
+## Further root matched-step gates
+
+| Step | Recipe | PSNR | SSIM | LPIPS |
+|---:|---|---:|---:|---:|
+|60752|HD_quarter01|31.81075|0.837931|0.01947274|
+|60752|old4K_coarse001|31.49613|0.844755|0.02367900|
+|60752|new4K_quarter01|31.46883|0.835004|0.02054359|
+|75940|HD_quarter01|31.71675|0.835111|0.01927048|
+|75940|old4K_coarse001|31.57082|0.844172|0.02287375|
+|75940|new4K_quarter01|31.38063|0.831393|0.02077134|
+
+Root viewed all3 actor comparisons and9 hair/contact/feet crops at both gates. Large floor, bag, between-leg and silhouette artifacts persist; no clean geometry or promotion. The map .93 variant improves106316 modestly; new4K remains worse than matched HD and its75940 LPIPS is worse than60752. Neither observation changes the original stopping criterion. Each gate directory contains provenance and a hash-bound root_manual_review.json.

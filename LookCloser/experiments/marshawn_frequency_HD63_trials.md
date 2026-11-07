@@ -87,3 +87,17 @@ Reusable [assembler](../scripts/assemble_marshawn_HD_frequency_variants.py), [tr
 Root manually inspected all three actor views and nine hair/contact/feet crops at each gate. The .93 map modestly improves matched-step actor LPIPS; LR decay does not. All variants retain substantial floor, bag, between-leg and silhouette artifacts. No quality or geometry promotion; both continue to their original minimum106316 and subsequent plateau protocol.
 
 [60752 actors](/fsx/tmp/marshawn_001660_hd/tuning_20261106/frequency_HD63_trials_v3/reviews/step-000060752/all_actors.jpg), [60752 details](/fsx/tmp/marshawn_001660_hd/tuning_20261106/frequency_HD63_trials_v3/reviews/step-000060752/all_details.jpg), [75940 actors](/fsx/tmp/marshawn_001660_hd/tuning_20261106/frequency_HD63_trials_v3/reviews/step-000075940/all_actors.jpg), [75940 details](/fsx/tmp/marshawn_001660_hd/tuning_20261106/frequency_HD63_trials_v3/reviews/step-000075940/all_details.jpg). Each directory contains a hash-bound root_manual_review.json.
+
+
+## Further root matched-step gates
+
+| Step | Recipe | PSNR | SSIM | LPIPS |
+|---:|---|---:|---:|---:|
+|91128|baseline|31.69281|0.834074|0.01902171|
+|91128|lr_decay|31.66321|0.834013|0.01922739|
+|91128|threshold093|31.71242|0.834586|0.01903847|
+|106316|baseline|31.66471|0.832548|0.01890305|
+|106316|lr_decay|31.65791|0.832744|0.01909051|
+|106316|threshold093|31.69143|0.833333|0.01881288|
+
+Root viewed all3 actor comparisons and9 hair/contact/feet crops at both gates. Large floor, bag, between-leg and silhouette artifacts persist; no clean geometry or promotion. The map .93 variant improves106316 modestly; new4K remains worse than matched HD and its75940 LPIPS is worse than60752. Neither observation changes the original stopping criterion. Each gate directory contains provenance and a hash-bound root_manual_review.json.
