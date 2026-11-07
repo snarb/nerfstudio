@@ -1,0 +1,104 @@
+--- qualified_distortion_worker
++++ train_marshawn_corrected_arm_warm.py
+@@ -1,14 +1,14 @@
+-"""Matched full-state .1/.3 distortion forks; original scientific loop and plateau criterion."""
++"""Matched corrected ARM flag forks; fixed cap1024, original objective and plateau."""
+ import argparse,copy,fcntl,json,os,random,signal,time
+ from pathlib import Path
+ from train_marshawn_semantic_late_distortion import (sha,read,atomic,tree_digest,adam_steps,verify_state_equality,verify_cache_ids,verify_semantic_model,verify_numeric_render_parity)
+-from marshawn_distortion_warm_factory import SOURCE_STEP,SOURCE_SHA
+-from marshawn_distortion_warm_factory import ARMS
++from marshawn_corrected_arm_warm_factory import SOURCE_STEP,SOURCE_SHA
++from marshawn_corrected_arm_warm_factory import ARMS
+ 
+ 
+ def validate_spec(s):
+     expected={'output','parent_checkpoint','parent_checkpoint_sha256','parent_spec','parent_spec_sha256','anchor_audit','anchor_audit_sha256','mode','arm','release','worker_sha256','frozen_source_hashes','source_render_sha256','confidence_manifest','confidence_manifest_sha256','stopping','density_selector'}
+-    if set(s)!=expected or s['mode']not in ('zero','technical','production')or s['arm']not in ARMS:raise ValueError('Exact two-arm packed-distortion warm specification required')
++    if set(s)!=expected or s['mode']not in ('zero','technical','production')or s['arm']not in ARMS:raise ValueError('Exact two-arm corrected ARM warm specification required')
+     if s['parent_checkpoint_sha256']!=SOURCE_SHA or s['density_selector']!='original_mapped':raise ValueError('Exact raw126316 and common original mapped selector required')
+     if s['stopping']!=dict(minimum_attempts=4000,anchor_step=130316,interval=5000,patience=4,loss_relative_delta=.001,lpips_absolute_delta=.001,early_visual_attempts=[500,1000,2000,4000],hard_iteration_limit=None):raise ValueError('Original criterion with separate +4000 fork anchor required')
+     if set(s['source_render_sha256'])!={c+x for c in ('DC','HC','KA')for x in ('.png','_alpha.png')}:raise ValueError('Exact source three FHD RGB/alpha pairs required')
+@@ -35,7 +35,7 @@
+     isolation.update(torch_allocator_limit_bytes=allocator_limit_bytes,torch_allocator_fraction=allocator_fraction,
+                      torch_allocator_total_bytes=allocator_total_bytes,torch_allocator_cap_call_succeeded=True)
+     import train_marshawn_semantic_admission as base
+-    from marshawn_distortion_warm_factory import build_config,validate_anchor
++    from marshawn_corrected_arm_warm_factory import build_config,validate_anchor
+     from marshawn_distortion_warm_rgb import ConfidencePolicy
+     # Preserve the original worker's class-import order before frozen seed42
+     # cache reconstruction, then restore checkpoint RNG after setup as usual.
+@@ -63,7 +63,7 @@
+     if child:
+         receipt=read(latest);checkpoint=out/receipt['checkpoint']
+         if sha(checkpoint)!=receipt['sha256']:raise ValueError('Child checkpoint changed')
+-    loaded=torch.load(checkpoint,map_location='cpu',weights_only=False);lineage=loaded.get('distortion_fork_runtime')
++    loaded=torch.load(checkpoint,map_location='cpu',weights_only=False);lineage=loaded.get('corrected_arm_fork_runtime')
+     if child:
+         if not lineage or lineage['spec_sha256']!=sha(spec_path)or lineage['source_sha256']!=SOURCE_SHA:raise ValueError('Strict child source/arm/phase mismatch')
+     elif loaded['step']!=SOURCE_STEP:raise ValueError('Wrong immutable source step')
+@@ -93,6 +93,8 @@
+     pipe.datamanager.train_count=int(lineage['cache_state']['train_count']if child else sampler.state_dict()['sample_count'])
+     if trainer._loaded_rng_state is None:raise ValueError('Source global RNG absent')
+     _restore_rng_state(trainer._loaded_rng_state);trainer._loaded_rng_state=None;runtime=copy.deepcopy(loaded['tuning_runtime'])
++    def verify_source_immutable():
++        if sha(s['parent_checkpoint'])!=SOURCE_SHA:raise ValueError('Immutable source checkpoint changed during fork')
+     def actual_state():
+         r=copy.deepcopy(runtime);r['sampling_state']=sampler.state_dict()
+         return dict(pipeline=pipe.state_dict(),optimizers={k:v.state_dict()for k,v in trainer.optimizers.optimizers.items()},schedulers={k:v.state_dict()for k,v in trainer.optimizers.schedulers.items()},scalers=trainer.grad_scaler.state_dict(),rng_state=_capture_rng_state(),tuning_runtime=r,actual_occupancy_capture=m._tuning_occupancy_capture)
+@@ -111,7 +113,10 @@
+     if tree_digest(_capture_rng_state())!=before_policy:raise ValueError('Confidence installation consumed global RNG')
+     verify_state_equality(loaded,actual_state())
+     baseline.update(cache_ids=ids,cache_sha256=cache_hash,cache_sources=cache_sources,historical_cache_order_observed=False,cache_evidence='Frozen seed42 full-cache reconstruction, exact RGB/mask association; child IDs/sources explicitly checkpointed',confidence_state_sha256=tree_digest(confidence.state_dict()),model_cache_sha256=tree_digest(model_cache()),source_verified_before_confidence=True,FR=.3,distortion=.1,mode=s['mode'],Adam=adam_steps(loaded['optimizers']),next_step=trainer._start_step)
+-    effective_distortion=ARMS[s['arm']]
++    effective_distortion=.1
++    effective_sampler=dict(corrected_arm_allocator=ARMS[s['arm']],max_steps_per_ray=1024)
++    if child and lineage.get('effective_sampler')!=effective_sampler:raise ValueError('Child sampler factor changed')
++    baseline.update(source_sampler_verified_before_treatment=True,source_sampler=dict(corrected_arm_allocator=False,max_steps_per_ray=1024),requested_sampler=effective_sampler)
+     if child and lineage.get('effective_distortion')!=effective_distortion:raise ValueError('Child distortion scalar changed')
+     baseline.update(source_verified_before_loss_scalar=True,source_resume_distortion=.1,effective_distortion=effective_distortion)
+     # The actual .1 source/seven-state baseline above precedes the sole treatment.
+@@ -122,7 +127,8 @@
+         cache_before=tree_digest(model_cache());confidence_before=tree_digest(confidence.state_dict());metrics=base.evaluate(trainer,ready,Path(parent['data']),out,loaded['step']);verify_state_equality(loaded,actual_state())
+         if tree_digest(model_cache())!=cache_before or tree_digest(confidence.state_dict())!=confidence_before:raise ValueError('Zero evaluation changed primed model cache/confidence state')
+         parity=verify_numeric_render_parity(anchor['render_directory'],out/'renders'/f"step-{loaded['step']:09d}",s['source_render_sha256'],anchor['source_eval'],metrics)
+-        atomic(out/'complete.json',dict(status='zero_update_state_equal',passed=True,proof=baseline,render_parity=parity,confidence_state=confidence.state_dict(),effective_distortion=effective_distortion,render_state_unchanged=True));trainer.shutdown();return
++        atomic(out/'complete.json',dict(status='zero_update_state_equal',passed=True,proof=baseline,render_parity=parity,confidence_state=confidence.state_dict(),effective_distortion=effective_distortion,render_state_unchanged=True));verify_source_immutable();trainer.shutdown();return
++    m.config.corrected_arm_allocator=effective_sampler['corrected_arm_allocator'];cfg.save_config()
+     tracker=PlateauTracker.from_dict(lineage['plateau'])if child else PlateauTracker(anchor_step=130316)
+     evaluations=copy.deepcopy(lineage['evaluations'])if child else[anchor['source_eval']];checks=copy.deepcopy(lineage['gradient_checks'])if child else[];control_checks=copy.deepcopy(lineage.get('source_control_checks',[]))if child else[]
+     if s['mode']=='technical':
+@@ -142,7 +148,7 @@
+                 actual_distortion_grad=torch.autograd.grad(losses['distortion_loss'],weights,retain_graph=True)[0]
+                 reference_distortion_grad=torch.autograd.grad(reference_distortion,weights,retain_graph=True)[0]*(effective_distortion/.1)
+                 torch.testing.assert_close(actual_distortion_grad,reference_distortion_grad,rtol=1e-5,atol=1e-8)
+-                control_checks.append(dict(step=sampler.step,source_W64_exact=True,packed_weight_dtype=str(weights.dtype),packed_spacing_dtype=str(outputs['packed_spacing_starts'].dtype),packed_distortion_reference_mult=.1,expected_distortion_factor=effective_distortion/.1,packed_distortion_value_error=float((losses['distortion_loss']-expected_distortion).detach().abs()),packed_distortion_gradient_max_error=float((actual_distortion_grad-reference_distortion_grad).detach().abs().max()),source_main_batch_sha256=tree_digest(batch['indices']),source_original_RGB_gradient_max_error=float((actual_grad-reference_grad).abs().max()),actual_distortion=m.config.distortion_loss_mult,actual_FR=m.field.feature_reweighting_strength,extra_field_queries=0,extra_optimizer_updates=0));checked[0]=True
++                control_checks.append(dict(effective_sampler=effective_sampler,packed_samples=int(weights.numel()),packed_max_samples_per_ray=int(torch.bincount(outputs['packed_ray_indices'],minlength=outputs['rgb'].shape[0]).max()),step=sampler.step,source_W64_exact=True,packed_weight_dtype=str(weights.dtype),packed_spacing_dtype=str(outputs['packed_spacing_starts'].dtype),packed_distortion_reference_mult=.1,expected_distortion_factor=effective_distortion/.1,packed_distortion_value_error=float((losses['distortion_loss']-expected_distortion).detach().abs()),packed_distortion_gradient_max_error=float((actual_distortion_grad-reference_distortion_grad).detach().abs().max()),source_main_batch_sha256=tree_digest(batch['indices']),source_original_RGB_gradient_max_error=float((actual_grad-reference_grad).abs().max()),actual_distortion=m.config.distortion_loss_mult,actual_FR=m.field.feature_reweighting_strength,extra_field_queries=0,extra_optimizer_updates=0));checked[0]=True
+             return losses
+         m.get_loss_dict=source_control_loss
+     if child and tracker.stopped:raise ValueError('Completed plateau child cannot silently rerun')
+@@ -159,11 +165,12 @@
+     def cache_state():return dict(ids=ids,sources=cache_sources,train_count=pipe.datamanager.train_count)
+     def checkpoint_path(step):return str(Path(s['parent_checkpoint']))if step==SOURCE_STEP else str(ckpts/f'step-{step:09d}.ckpt')
+     def save(step):
+-        payload=dict(step=step,**actual_state(),distortion_fork_runtime=dict(effective_distortion=effective_distortion,spec_sha256=sha(spec_path),source_sha256=SOURCE_SHA,confidence_state=confidence.state_dict(),model_cache=model_cache(),cache_state=cache_state(),plateau=tracker.to_dict(),evaluations=evaluations,gradient_checks=checks,source_control_checks=control_checks,sampling_segment=segment(step)))
++        payload=dict(step=step,**actual_state(),corrected_arm_fork_runtime=dict(effective_sampler=effective_sampler,effective_distortion=effective_distortion,spec_sha256=sha(spec_path),source_sha256=SOURCE_SHA,confidence_state=confidence.state_dict(),model_cache=model_cache(),cache_state=cache_state(),plateau=tracker.to_dict(),evaluations=evaluations,gradient_checks=checks,source_control_checks=control_checks,sampling_segment=segment(step)))
+         path=ckpts/f'step-{step:09d}.ckpt';temp=path.with_suffix('.tmp');torch.save(payload,temp);os.replace(temp,path);export_snapshot(m,path,step,ckpts,sources=anchor['source_hashes']);atomic(latest,dict(step=step,checkpoint=str(path.relative_to(out)),sha256=sha(path)))
+         selected=base.choose_checkpoint(evaluations);raw=min(evaluations,key=lambda r:(r['metrics']['lpips'],-r['metrics']['psnr'],r['step']));atomic(out/'retention.json',dict(parent=checkpoint_path(SOURCE_STEP),selected=checkpoint_path(selected['step']),selected_step=selected['step'],raw_min=checkpoint_path(raw['step']),raw_min_step=raw['step'],latest=str(path),early_visual_steps=[SOURCE_STEP+n for n in (500,1000,2000,4000)],pruning='none; preserve all evaluated/atomic resume states in this matched campaign'))
+     step=start_step
+     while True:
++        if m.config.corrected_arm_allocator!=effective_sampler['corrected_arm_allocator'] or m.config.max_steps_per_ray!=1024:raise ValueError('Live sampler factor changed')
+         trainer.step=step;pipe.train();sampler.set_step(step);m.config.distortion_loss_mult=effective_distortion;trainer._apply_live_optimizer_switch(step)
+         for cb in trainer.callbacks:cb.run_callback_at_location(step,location=Location.BEFORE_TRAIN_ITERATION)
+         if m.config.distortion_loss_mult!=effective_distortion or m.field.feature_reweighting_strength!=.3 or m.config.feature_reweighting_strength!=.3:raise ValueError('Actual live source loss scalars changed before train_iteration')
+@@ -188,8 +195,8 @@
+         if terminal:
+             final_adam=adam_steps({k:v.state_dict()for k,v in trainer.optimizers.optimizers.items()})
+             if not all(min(v)>min(baseline['Adam'][k])for k,v in final_adam.items()):raise ValueError('No actual resumed Adam update in this invocation')
+-            atomic(out/'complete.json',dict(status='technical_resume_complete'if s['mode']=='technical'else'plateau',passed=True,final_step=step,attempts=delta,plateau=tracker.to_dict(),evaluations=evaluations,gradient_checks=checks,source_control_checks=control_checks,sampling_segment=segment(step),actual_Adam=final_adam,confidence_state=confidence.state_dict(),source_sha256=SOURCE_SHA,effective_distortion=effective_distortion,visual_review_complete=False,quality_promotion=False));trainer.shutdown();return
+-        if partial:trainer.shutdown();return
++            atomic(out/'complete.json',dict(status='technical_resume_complete'if s['mode']=='technical'else'plateau',passed=True,final_step=step,attempts=delta,plateau=tracker.to_dict(),evaluations=evaluations,gradient_checks=checks,source_control_checks=control_checks,sampling_segment=segment(step),actual_Adam=final_adam,confidence_state=confidence.state_dict(),source_sha256=SOURCE_SHA,effective_sampler=effective_sampler,effective_distortion=effective_distortion,visual_review_complete=False,quality_promotion=False));verify_source_immutable();trainer.shutdown();return
++        if partial:verify_source_immutable();trainer.shutdown();return
+         if stop:
+             atomic(out/'interrupted.json',dict(step=step,signals=stop,checkpoint_committed=True,quality_complete=False));trainer.shutdown();raise SystemExit(75)
+         step+=1

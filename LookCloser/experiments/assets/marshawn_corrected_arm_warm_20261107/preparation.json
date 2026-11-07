@@ -1,0 +1,43 @@
+{
+  "CPU_only": true,
+  "READY": false,
+  "GPU_started": false,
+  "releases_created": false,
+  "local_root": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/corrected_arm_warm_candidate_v1",
+  "remote_root": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/corrected_arm_warm_candidate_v1",
+  "source_checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "source_checkpoint_local": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_capture_plan_v2/local_source/checkpoint.ckpt",
+  "source_checkpoint_remote": "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/independent_occupancy/semantic_quarter_distortion_final_geometry/quarter_distortion_rawmin/checkpoint.ckpt",
+  "source1495_unchanged": true,
+  "science_factors": {
+    "legacy1024": false,
+    "corrected1024": true
+  },
+  "cap": 1024,
+  "distortion": 0.1,
+  "FR": 0.3,
+  "stopping": {
+    "minimum_attempts": 4000,
+    "anchor_step": 130316,
+    "interval": 5000,
+    "patience": 4,
+    "loss_relative_delta": 0.001,
+    "lpips_absolute_delta": 0.001,
+    "early_visual_attempts": [
+      500,
+      1000,
+      2000,
+      4000
+    ],
+    "hard_iteration_limit": null
+  },
+  "zero_behavior": "Both arms use OLD legacy1024 for source parity; treatment starts only after zero branch returns",
+  "resource_policy": {
+    "worker_allocator_GiB": 10,
+    "proposed_process_cap_MiB": 32768,
+    "zero_technical_deadline_seconds": 1800,
+    "production_deadline_seconds": null,
+    "mandatory_health_interval_seconds": 3600
+  },
+  "launcher_status": "PLANS_ONLY; external guardian/physical UUID binding/root reviews not prepared or authorized"
+}

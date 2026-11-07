@@ -1,0 +1,111 @@
+{
+  "passed": true,
+  "CPU_only": true,
+  "CUDA_initialized": false,
+  "READY": false,
+  "source1495_exact": true,
+  "configuration_differences": {
+    "zero_legacy1024": {},
+    "zero_corrected1024": {
+      ".pipeline.model.corrected_arm_allocator": {
+        "before": false,
+        "after": true
+      }
+    },
+    "technical_legacy1024": {},
+    "technical_corrected1024": {
+      ".pipeline.model.corrected_arm_allocator": {
+        "before": false,
+        "after": true
+      }
+    },
+    "production_legacy1024": {},
+    "production_corrected1024": {
+      ".pipeline.model.corrected_arm_allocator": {
+        "before": false,
+        "after": true
+      }
+    }
+  },
+  "arithmetic_probe": {
+    "legacy1024": {
+      "starts": [
+        0.0,
+        0.6000000238418579,
+        1.0,
+        1.600000023841858
+      ],
+      "ends": [
+        0.6000000238418579,
+        1.0,
+        1.600000023841858,
+        2.0
+      ],
+      "samples": 4
+    },
+    "corrected1024": {
+      "starts": [
+        0.0,
+        0.5,
+        1.0,
+        1.5
+      ],
+      "ends": [
+        0.5,
+        1.0,
+        1.5,
+        2.0
+      ],
+      "samples": 4
+    },
+    "legacyuncap0": {
+      "starts": [
+        0.0,
+        0.6000000238418579,
+        1.0,
+        1.600000023841858
+      ],
+      "ends": [
+        0.6000000238418579,
+        1.0,
+        1.600000023841858,
+        2.0
+      ],
+      "samples": 4
+    },
+    "legacy3": {
+      "starts": [
+        0.0,
+        0.8000000715255737,
+        1.0
+      ],
+      "ends": [
+        0.8000000715255737,
+        1.0,
+        1.8000000715255737
+      ],
+      "samples": 3
+    },
+    "corrected3": {
+      "starts": [
+        0.0,
+        0.5,
+        1.0
+      ],
+      "ends": [
+        0.5,
+        1.0,
+        2.0
+      ],
+      "samples": 3
+    }
+  },
+  "actual_frozen_forward_executed": true,
+  "CPU_pack_metadata_adapter_restored": true,
+  "native_CUDA_traversal_not_tested": true,
+  "zero_update_source_parity": "PENDING",
+  "actual_Adam32_plus32": "PENDING",
+  "external_guard_and_physical_UUID_binding": "PENDING_ROOT_REVIEW",
+  "GPU_started": false,
+  "releases_created": false
+}
