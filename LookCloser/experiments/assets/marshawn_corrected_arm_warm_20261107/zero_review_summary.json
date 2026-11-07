@@ -1,0 +1,90 @@
+{
+  "passed": true,
+  "phase": "ZERO_ONLY",
+  "time_utc": "2026-11-07T09:58:33.595837+00:00",
+  "zero_verification_sha256": "52e1d583a7c922ccadcfc25cfb7178ae88dd6d01963abaee90c7cf49aeb28262",
+  "local_and_remote_guardian_passed": true,
+  "guard_events": [],
+  "guard_terminations": {},
+  "arms": {
+    "legacy1024": {
+      "status": "complete",
+      "returncode": 0,
+      "wall_seconds": 60.42287993431091,
+      "physical_gpu": 3,
+      "physical_UUID": "GPU-c024b6e2-0def-f4fd-c18a-64b95975effd",
+      "peak_exclusive_device_MiB": 2743,
+      "OOM": false,
+      "traceback": false,
+      "source_seven_states_exact": true,
+      "source_actual_Adam": {
+        "fields": [
+          126262.0
+        ]
+      },
+      "next_step": 126317,
+      "treatment_applied": false,
+      "source_sampler": {
+        "corrected_arm_allocator": false,
+        "max_steps_per_ray": 1024
+      },
+      "requested_sampler": {
+        "corrected_arm_allocator": false,
+        "max_steps_per_ray": 1024
+      },
+      "FR": 0.3,
+      "distortion": 0.1,
+      "aggregate_metric_deltas": {
+        "psnr": -8.417301700092139e-08,
+        "ssim": -2.9802322387695312e-08,
+        "lpips": 1.0725731650756964e-07
+      },
+      "max_RGB_alpha_code_delta": 1.0,
+      "cache_sha256": "a80f6a908dd71cfbc3c75f60c6b8f71c9ebfaae3b24d3cfcc2f1ecdb5253ec56",
+      "model_cache_sha256": "37603241a8674923ee5f2e98eaa0d2ad29c067df6a80959f21b24ddecaf49d9f",
+      "confidence_state_sha256": "af95c1e8425dd7b7db8af0930ce1ea1ff32e9c78982f8bebe57abaf9f33ec674"
+    },
+    "corrected1024": {
+      "status": "complete",
+      "returncode": 0,
+      "wall_seconds": 60.42274284362793,
+      "physical_gpu": 4,
+      "physical_UUID": "GPU-cb1a0b07-abd6-8e55-9669-ccbb2c45a560",
+      "peak_exclusive_device_MiB": 2743,
+      "OOM": false,
+      "traceback": false,
+      "source_seven_states_exact": true,
+      "source_actual_Adam": {
+        "fields": [
+          126262.0
+        ]
+      },
+      "next_step": 126317,
+      "treatment_applied": false,
+      "source_sampler": {
+        "corrected_arm_allocator": false,
+        "max_steps_per_ray": 1024
+      },
+      "requested_sampler": {
+        "corrected_arm_allocator": true,
+        "max_steps_per_ray": 1024
+      },
+      "FR": 0.3,
+      "distortion": 0.1,
+      "aggregate_metric_deltas": {
+        "psnr": 9.814617385472957e-08,
+        "ssim": 9.934107536579972e-09,
+        "lpips": 4.268561800205295e-08
+      },
+      "max_RGB_alpha_code_delta": 1.0,
+      "cache_sha256": "a80f6a908dd71cfbc3c75f60c6b8f71c9ebfaae3b24d3cfcc2f1ecdb5253ec56",
+      "model_cache_sha256": "37603241a8674923ee5f2e98eaa0d2ad29c067df6a80959f21b24ddecaf49d9f",
+      "confidence_state_sha256": "af95c1e8425dd7b7db8af0930ce1ea1ff32e9c78982f8bebe57abaf9f33ec674"
+    }
+  },
+  "visual_review": "Source versus both OLD-flag replays visually consistent at thumbnail scale; known exterior artifacts persist",
+  "no_optimizer_steps": true,
+  "technical_authorized": false,
+  "production_authorized": false,
+  "quality_promotion": false
+}

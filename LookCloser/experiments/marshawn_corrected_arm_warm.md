@@ -52,3 +52,20 @@ SilverGPU3 binds `GPU-c024b6e2-0def-f4fd-c18a-64b95975effd`; GPU4 binds `GPU-cb1
 - [False zero-only external release template](assets/marshawn_corrected_arm_warm_20261107/zero_guard_release.template.json)
 
 Production would retain early500/1000/2000/4000 visual gates and the unchanged minimum4000-plus-plateau schedule, evaluating all DC/HC/KA PSNR/SSIM/LPIPS. All evaluated checkpoints remain preserved. The inherited warm framework's internal selector uses its campaign LPIPS tolerance; final export must additionally honor the user's highest `eval_all_psnr` with LPIPS tie-breaker within.07dB. No quality promotion is justified by these CPU results.
+
+## Actual ZERO result
+
+Root subsequently released only the two ZERO jobs. The exact local external guardian launch ran once: local guardian2202908/controller2202912, remote guardian61374, workers62240 onGPU3 and62464 onGPU4. Both returned0 after60.42seconds; sampled exclusive GPU memory peaked2743MiB each. Local and remote guardians finished with `passed=true`, no violations or terminations. Both expected workers exited and the GPUs were released; compact supervision records include actual process, memory and OOM checks. No OOM or traceback occurred.
+
+The CPU zero verifier passes with SHA`52e1d583a7c922ccadcfc25cfb7178ae88dd6d01963abaee90c7cf49aeb28262`. Both source seven-state hashes, cache/RNG/LUT/confidence, FR.3 and actual distortion.1 are preserved; source checkpoint rehash guards pass. Both run OLD legacy1024 as declared, with zero optimizer updates. The requested corrected flag has not been exercised on the source model yet.
+
+|OLD-flag ZERO replay|Delta PSNR|Delta SSIM|Delta LPIPS|Max RGB8/alpha16 code delta|
+|---|---:|---:|---:|---:|
+|Legacy arm|−8.42e−8|−2.98e−8|+1.07e−7|1|
+|Requested corrected arm|+9.81e−8|+9.93e−9|+4.27e−8|1|
+
+All three FHD RGB/alpha comparisons pass the existing source parity policy; renders are numerically equivalent within that policy, not bitwise identical. At thumbnail scale both replays visually match the source, including its known exterior artifacts. This establishes source replay validity only. Technical32+32 and production remain unreleased pending separate root review.
+
+![Source and both OLD-flag ZERO replays](assets/marshawn_corrected_arm_warm_20261107/zero_source_compare.jpg)
+
+[Actual ZERO verification](assets/marshawn_corrected_arm_warm_20261107/zero_verification.json), [compact process/resource/source summary](assets/marshawn_corrected_arm_warm_20261107/zero_review_summary.json), [supervision log](assets/marshawn_corrected_arm_warm_20261107/manual_zero_supervision.jsonl).
