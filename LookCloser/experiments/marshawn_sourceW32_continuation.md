@@ -23,7 +23,7 @@ The treatment's own ZERO reference is the actual audited W32 `.002` render, not 
 
 ## Next gates
 
-CPU preparation and the subsequently root-released ZERO phase are complete. No optimizer updates or training have been performed for this generation. Actual 32+32 pause/resume verification and production still require their separate phase releases. Later RNG differences caused by different density are observed rather than forcibly reseeded.
+CPU preparation, root-released ZERO and root-released 32+32 technical validation are complete. Both technical branches performed 64 successful updates; no production continuation has been launched. Production still requires its separate phase release. Later RNG differences caused by different density are observed rather than forcibly reseeded.
 
 Production, if released, starts both arms afresh from 126316, retains all evaluated checkpoints and uses gates +500/+1000/+2000/+4000, then the unchanged two-signal plateau tracker with anchor 130316 and patience four. There is no arbitrary hard iteration cap. Full three-view V1 renders and fixed core/boundary diagnostics accompany each evaluation; those diagnostics do not replace V1 selection. Both raw-minimum and historical-selector choices retain the required selector provenance.
 
@@ -55,3 +55,14 @@ The actual W32 field probe admits 261 of 327 predeclared positions with bitwise-
 I inspected the [three-view body comparison](assets/marshawn_sourceW32_continuation_20261107/zero/body_overview.jpg), all three hair/feet pages and the [grey-contour/head contexts](assets/marshawn_sourceW32_continuation_20261107/zero/contour9_context.png). W32 reproduces the expected cleanup; the HC grey-boundary deficit and residual halo/floor fragments remain. This is a technical replay pass, not quality promotion or a certificate of fine hair/foot preservation.
 
 The [technical request](assets/marshawn_sourceW32_continuation_20261107/zero/TECHNICAL_RELEASE_REQUEST.json) specifies fresh source Adam126262, 32 attempts before pause and another 32 after strict own checkpoint restoration, finite successful updates in both segments, unchanged control RGB gradient and actual captured grid checks. The required first-batch equality does not impose artificial later cross-arm RNG equality once density diverges. No technical or production authorization was created by this agent.
+
+
+## Actual technical 32+32 result
+
+The separately root-released technical guardian 2165831 passed. Both arms started from the original parent, saved at 126348, and resumed in fresh processes to 126380. Each achieved **Adam126262 → 126294 → 126326**, with 32 successful finite updates before pause and 32 after; zero skips. The strict CPU verifier checks the paused seven-state payload against actual restored state, plus selector, FR/LUT, cache identities and private sampling. Its SHA is `6c635c8e23da2bf4a517bce08275585a52f01c07b14282510d70d1bb4e5cb3c0`.
+
+Both actual pipelines changed from source and between the two technical checkpoints. Saved native core/active tensors exactly match their occupancy capture, and EMA remains finite. Original control RGB-gradient maximum discrepancy is zero at both process starts. First-batch equality passes; in this short test the complete per-segment ray streams and global RNG also happened to agree naturally. That later equality is not required or forced.
+
+The [full three-view technical contact](assets/marshawn_sourceW32_continuation_20261107/technical/body_overview.jpg) and [contour contexts](assets/marshawn_sourceW32_continuation_20261107/technical/contour9_context.png) were inspected. These are integration checks, not a quality comparison after sufficient adaptation. Cleanup and the grey HC contour deficit persist. All four workers exited, no OOM occurred, and both guardians finished successfully. One initial SSH255 supervision poll recovered automatically; the event is preserved, with no worker termination or scientific restart.
+
+[Actual proof and production request](assets/marshawn_sourceW32_continuation_20261107/technical/PRODUCTION_RELEASE_REQUEST.json) bind fresh original126316 for both production arms, explicitly exclude technical weights, preserve the original plateau criterion and require the next visual/geometry gates. The prepared read-only artifact watcher changes only the isolated job prefix from the qualified MG watcher; it has not been launched. No production authorization has been written by this agent.

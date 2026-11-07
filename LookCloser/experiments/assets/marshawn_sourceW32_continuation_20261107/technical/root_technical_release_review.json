@@ -1,0 +1,15 @@
+{
+  "reviewer": "root",
+  "phase": "technical32_plus32_only",
+  "verified_zero_proof_sha256": "c5aa090754d181b1699792766cb11133d337dedc3d34d9a97c27ac9b13bed154",
+  "zero_inputs_rehashed": 6,
+  "source7_and_numeric_own_branch_parity_pass": true,
+  "no_bitwise_render_claim": true,
+  "reviewer_correction": "Initial review assertion incorrectly treated explicit bitwise_render_claim=false as a failure. No release/job existed at failure; replaced with actual numeric pixel/metric tolerances. Model/worker unchanged.",
+  "production_authorized": false,
+  "actual_releases_sha256": {
+    "specs/technical_original_mapped/root_release.json": "27e3854be3cc247ec21e58d38863ac7b6664a59f586c850cb58489404389bc99",
+    "specs/technical_source_margin002/root_release.json": "a5053ec373fee7aa9387a3d6dc81d51df68bddca3c0ab25d8ad972c3dcb626c6",
+    "external_guard_margin_v1/technical_guard_release.json": "cdbf58c2fe40d51c91fabdc93bb4b4486d4b1d11156d361e0c22dc79bf883764"
+  }
+}

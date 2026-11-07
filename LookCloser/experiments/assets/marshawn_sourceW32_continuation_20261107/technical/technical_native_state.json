@@ -1,0 +1,114 @@
+{
+  "passed": true,
+  "CPU_only": true,
+  "arms": {
+    "original_mapped": {
+      "126348": {
+        "pipeline_sha256": "e2233c99891148d874c4373b56fa7e0a778718f89f99e501a9276b86642a6555",
+        "pipeline_changed_from_source": true,
+        "core_count": 32011,
+        "active_count": 32011,
+        "actual_capture_step": 126336,
+        "EMA_finite": true,
+        "EMA_max": 6662152192.0,
+        "core_matches_saved_native_capture": true,
+        "active_matches_saved_native_capture": true,
+        "selector_binding": {
+          "schema_version": 1,
+          "arm": "original_mapped",
+          "manifest_sha256": "3b7632524656c4b6599936d7bc8093320c5db628ed1937118bb091e905d08f8d",
+          "source_grid_sha256": "a7e3d3703f9bb693c095bd5cd715f92b9ac048b3f96082dd95b39ac5db452328",
+          "geometric_Linf_margin": null,
+          "numerical_epsilon": 2e-07,
+          "outside_unknown": "original_numerical_epsilon",
+          "source_checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+          "helpers_sha256": {
+            "marshawn_source_point_admission.py": "aa288b24bdf84463c33d101a252c6945db40b0f3fffc833a32c782d4a62018b1",
+            "marshawn_source_margin_admission.py": "7f1b9c942f8611123ac4a9800c369e49fd09e360a4eaca13ccc95d2c919967b8",
+            "marshawn_readonly_point_selector.py": "9835b52f46ad880e5022bc560fa4679db7fb5d12601bae02ba71da4fc412f184"
+          }
+        }
+      },
+      "126380": {
+        "pipeline_sha256": "e0b42d6dee2468b6d4c2ee32671ee70232e54e105f01c9104a43eb16c3111901",
+        "pipeline_changed_from_source": true,
+        "core_count": 32008,
+        "active_count": 32008,
+        "actual_capture_step": 126368,
+        "EMA_finite": true,
+        "EMA_max": 6012592128.0,
+        "core_matches_saved_native_capture": true,
+        "active_matches_saved_native_capture": true,
+        "selector_binding": {
+          "schema_version": 1,
+          "arm": "original_mapped",
+          "manifest_sha256": "3b7632524656c4b6599936d7bc8093320c5db628ed1937118bb091e905d08f8d",
+          "source_grid_sha256": "a7e3d3703f9bb693c095bd5cd715f92b9ac048b3f96082dd95b39ac5db452328",
+          "geometric_Linf_margin": null,
+          "numerical_epsilon": 2e-07,
+          "outside_unknown": "original_numerical_epsilon",
+          "source_checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+          "helpers_sha256": {
+            "marshawn_source_point_admission.py": "aa288b24bdf84463c33d101a252c6945db40b0f3fffc833a32c782d4a62018b1",
+            "marshawn_source_margin_admission.py": "7f1b9c942f8611123ac4a9800c369e49fd09e360a4eaca13ccc95d2c919967b8",
+            "marshawn_readonly_point_selector.py": "9835b52f46ad880e5022bc560fa4679db7fb5d12601bae02ba71da4fc412f184"
+          }
+        }
+      }
+    },
+    "source_margin002": {
+      "126348": {
+        "pipeline_sha256": "919d6b6bafe43705475710e77fefb491112b28da8665b2fa1756614644179c41",
+        "pipeline_changed_from_source": true,
+        "core_count": 31977,
+        "active_count": 31977,
+        "actual_capture_step": 126336,
+        "EMA_finite": true,
+        "EMA_max": 6662152192.0,
+        "core_matches_saved_native_capture": true,
+        "active_matches_saved_native_capture": true,
+        "selector_binding": {
+          "schema_version": 1,
+          "arm": "source_margin002",
+          "manifest_sha256": "3b7632524656c4b6599936d7bc8093320c5db628ed1937118bb091e905d08f8d",
+          "source_grid_sha256": "a7e3d3703f9bb693c095bd5cd715f92b9ac048b3f96082dd95b39ac5db452328",
+          "geometric_Linf_margin": 0.002,
+          "numerical_epsilon": 2e-07,
+          "outside_unknown": "original_numerical_epsilon",
+          "source_checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+          "helpers_sha256": {
+            "marshawn_source_point_admission.py": "aa288b24bdf84463c33d101a252c6945db40b0f3fffc833a32c782d4a62018b1",
+            "marshawn_source_margin_admission.py": "7f1b9c942f8611123ac4a9800c369e49fd09e360a4eaca13ccc95d2c919967b8",
+            "marshawn_readonly_point_selector.py": "9835b52f46ad880e5022bc560fa4679db7fb5d12601bae02ba71da4fc412f184"
+          }
+        }
+      },
+      "126380": {
+        "pipeline_sha256": "482f5f3184b6bab3cbd6d3ec06ded2b8004308fbfb2ec2cb7be6634b7164be70",
+        "pipeline_changed_from_source": true,
+        "core_count": 31971,
+        "active_count": 31971,
+        "actual_capture_step": 126368,
+        "EMA_finite": true,
+        "EMA_max": 6012592128.0,
+        "core_matches_saved_native_capture": true,
+        "active_matches_saved_native_capture": true,
+        "selector_binding": {
+          "schema_version": 1,
+          "arm": "source_margin002",
+          "manifest_sha256": "3b7632524656c4b6599936d7bc8093320c5db628ed1937118bb091e905d08f8d",
+          "source_grid_sha256": "a7e3d3703f9bb693c095bd5cd715f92b9ac048b3f96082dd95b39ac5db452328",
+          "geometric_Linf_margin": 0.002,
+          "numerical_epsilon": 2e-07,
+          "outside_unknown": "original_numerical_epsilon",
+          "source_checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+          "helpers_sha256": {
+            "marshawn_source_point_admission.py": "aa288b24bdf84463c33d101a252c6945db40b0f3fffc833a32c782d4a62018b1",
+            "marshawn_source_margin_admission.py": "7f1b9c942f8611123ac4a9800c369e49fd09e360a4eaca13ccc95d2c919967b8",
+            "marshawn_readonly_point_selector.py": "9835b52f46ad880e5022bc560fa4679db7fb5d12601bae02ba71da4fc412f184"
+          }
+        }
+      }
+    }
+  }
+}

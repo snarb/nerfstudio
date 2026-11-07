@@ -1,0 +1,27 @@
+{
+  "instance": "88412040-92d6-48ba-813c-9f4bb7941352",
+  "phase": "technical",
+  "passed": true,
+  "failed": false,
+  "events": [
+    {
+      "time": 1794031873.160329,
+      "kind": "supervision_error",
+      "error": "CalledProcessError(255, ['ssh', '-o', 'BatchMode=yes', '-o', 'ConnectTimeout=10', 'ubuntu@silver-sable', 'python3', '-'])",
+      "consecutive": 1
+    }
+  ],
+  "terminations": {},
+  "failures": [],
+  "finished": 1794032033.6736503,
+  "remote": {
+    "instance": "88412040-92d6-48ba-813c-9f4bb7941352",
+    "phase": "technical",
+    "passed": true,
+    "failed": false,
+    "events": [],
+    "terminations": {},
+    "failures": [],
+    "finished": 1794032028.901523
+  }
+}

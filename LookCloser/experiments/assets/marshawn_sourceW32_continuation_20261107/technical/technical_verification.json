@@ -1,0 +1,69 @@
+{
+  "passed": true,
+  "phase": "technical",
+  "arms": {
+    "original_mapped": {
+      "source_seven_states_exact": true,
+      "first_batch_indices": "f0f3100b30946ca20ab76314c505c800577ac14375ff8204594c35ec5b10f794",
+      "first32_indices": "0c1358e4363757f7098dde6b884338b51e4a79dbdc7099e15393e2ec576f641e",
+      "resume32_indices": "beed0f672318e56b1cd6d908e4abac8960b8a556f97552df7a9571fae72cafa5",
+      "first32_RNG": "909bebfaf18d8b725907dea26072986d4bc5ea1bc9022f6858769d51ba64245a",
+      "final_RNG": "5b8883954bb65b31f67005c2ca1ef45027d784b0a9a75baae46185ac1f0bb0a3",
+      "first_Adam": {
+        "fields": [
+          126294.0
+        ]
+      },
+      "final_Adam": {
+        "fields": [
+          126326.0
+        ]
+      },
+      "first_successful_updates": 32.0,
+      "resume_successful_updates": 32.0,
+      "selector_cache_LUT_private_sampling_restored_exact": true,
+      "own_initial_evaluation": true
+    },
+    "source_margin002": {
+      "source_seven_states_exact": true,
+      "first_batch_indices": "f0f3100b30946ca20ab76314c505c800577ac14375ff8204594c35ec5b10f794",
+      "first32_indices": "0c1358e4363757f7098dde6b884338b51e4a79dbdc7099e15393e2ec576f641e",
+      "resume32_indices": "beed0f672318e56b1cd6d908e4abac8960b8a556f97552df7a9571fae72cafa5",
+      "first32_RNG": "909bebfaf18d8b725907dea26072986d4bc5ea1bc9022f6858769d51ba64245a",
+      "final_RNG": "5b8883954bb65b31f67005c2ca1ef45027d784b0a9a75baae46185ac1f0bb0a3",
+      "first_Adam": {
+        "fields": [
+          126294.0
+        ]
+      },
+      "final_Adam": {
+        "fields": [
+          126326.0
+        ]
+      },
+      "first_successful_updates": 32.0,
+      "resume_successful_updates": 32.0,
+      "selector_cache_LUT_private_sampling_restored_exact": true,
+      "own_initial_evaluation": true
+    }
+  },
+  "cross_arm": {
+    "first_batch_or_cache_equal": true,
+    "later_cross_arm_RNG_equality_required": false
+  },
+  "inputs_sha256": {
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/runs/technical_original_mapped/source_baseline_parity.json": "dc892b67f1be6b31ec350b93a1725c7f8c59d9c3630ed90494ff6c307297ee83",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/runs/technical_original_mapped/branch_zero_parity.json": "1bdae5d8f81a8724f63caba95e67d67bb88b5d8fed133deae763f6f55fc8d956",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/runs/technical_original_mapped/density_gate_proof.json": "520657f02d28760747d540492fe632ee48a780ac63c0b67056379b68dafa4d45",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/runs/technical_original_mapped/checkpoints/step-000126348.ckpt": "c8e265f5d7dc4553ef208e27507faa42a709434417a752624126d56826295d05",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/runs/technical_original_mapped/checkpoints/step-000126380.ckpt": "7ed780635785ffbaad09251a38a384afa249ddacdf696cee74ac5d1be7c15f44",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/runs/technical_source_margin002/source_baseline_parity.json": "c9bfce264fd06903790ee9afe5a104691e8b491c6e507b4a6848591f84b69161",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/runs/technical_source_margin002/branch_zero_parity.json": "2835e0a1c9e86de13dd569221751eeac246beb62513da5177b9b6e46c890cdff",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/runs/technical_source_margin002/density_gate_proof.json": "e48323a9aa53d3779f3144439609e825b456e19da45d6dc1694eec57632008ab",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/runs/technical_source_margin002/checkpoints/step-000126348.ckpt": "54dac089c4a18b7ae7b986627d2007484506547b46dae4fd5c23b9e69358b3f5",
+    "/cache/ubuntu/lookcloser/campaigns/marshawn_tuning_20261106/semantic_sourceW32_margin_continuation_v1/runs/technical_source_margin002/checkpoints/step-000126380.ckpt": "1f245951ca518cddb02aa5b8edfe1c5f0c35856575831241d964af646adf89f0"
+  },
+  "CPU_only": true,
+  "technical_checkpoints_excluded_from_production": true,
+  "quality_promotion": false
+}

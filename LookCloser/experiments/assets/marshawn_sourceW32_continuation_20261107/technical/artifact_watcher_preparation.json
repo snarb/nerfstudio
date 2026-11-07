@@ -1,0 +1,9 @@
+{
+  "source_sha256": "b41b134edcfd370497370351ed9ba32fa8010861787f02874829b7db19b16472",
+  "prepared_sha256": "532cd8b46034568496291debde504623e5343d0c975d382c968132645bbcc7d0",
+  "only_change": "isolated production job prefix margin126316_\u2192sourceW32margin126316_",
+  "worker_mutations": false,
+  "GPU_queries": false,
+  "started": false,
+  "purpose": "Retain all evaluated checkpoint hardlinks and schema2/config/spec/gate bindings, fetch full RGB/alpha and fixed region diagnostics, log producer health every30s"
+}

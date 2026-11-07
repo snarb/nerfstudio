@@ -1,0 +1,78 @@
+{
+  "reviewer_requested": "root",
+  "phase_requested": "fresh_production_pair",
+  "actual_authorizations_written": false,
+  "technical_verification_sha256": "6c635c8e23da2bf4a517bce08275585a52f01c07b14282510d70d1bb4e5cb3c0",
+  "technical_summary_sha256": "79bdde464f1c8b7e10cb76a5f8d2723048b271fa009fcc3f859ce6a353dc3fc0",
+  "technical_native_state_sha256": "5659a8bd3ce9a0642c1e3ca4189be3146fa2a2205b6d9494cbf632574ed7e51e",
+  "guardian_completion_sha256": "af4ef2b0dfe5f9fe9ba797909b9c99331cdf7060297782b2609829a2ee63288e",
+  "policy_sha256": "40e492e11ebb6053cd793f1ca1f4b54f3525e0e26d3e5638121b61d88bf78700",
+  "fresh_source_checkpoint_sha256": "340e794ed8ea1cc656f246998941ddc9dee9d3a4244ee64952f2652ce35cd641",
+  "technical_checkpoints_excluded": true,
+  "stopping": {
+    "minimum_attempts": 4000,
+    "anchor_step": 130316,
+    "interval": 5000,
+    "patience": 4,
+    "loss_relative_delta": 0.001,
+    "lpips_absolute_delta": 0.001,
+    "early_visual_attempts": [
+      500,
+      1000,
+      2000,
+      4000
+    ],
+    "hard_iteration_limit": null
+  },
+  "artifact_watcher_sha256": "532cd8b46034568496291debde504623e5343d0c975d382c968132645bbcc7d0",
+  "artifact_watcher_started": false,
+  "requested_receipts": {
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_sourceW32_margin_continuation_v1/specs/production_original_mapped/root_release.json": {
+      "exact_fields_if_root_approves": {
+        "reviewer": "root",
+        "technical_authorized": false,
+        "production_authorized": true,
+        "spec_sha256": "9d4fadbd4099c22756524f10f612f097802e00c5d3e0e82ccfa832786b9845f1",
+        "margin_manifest_sha256": "3b7632524656c4b6599936d7bc8093320c5db628ed1937118bb091e905d08f8d",
+        "zero_reference_sha256": "00aaa217e8be5b3f548ec022549cf2290077e165b6aab5bfb8d8107a166a78cd"
+      },
+      "template_sha256": "043f48ece91d5b8e05031f2daf393eeb29c8bde2686825bbd04aaea559a309e7"
+    },
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_sourceW32_margin_continuation_v1/specs/production_source_margin002/root_release.json": {
+      "exact_fields_if_root_approves": {
+        "reviewer": "root",
+        "technical_authorized": false,
+        "production_authorized": true,
+        "spec_sha256": "04cee62fedc678d7048e1085b0421b145230ba463274c0a42fd2cbf6ae568459",
+        "margin_manifest_sha256": "3b7632524656c4b6599936d7bc8093320c5db628ed1937118bb091e905d08f8d",
+        "zero_reference_sha256": "9ebaed68b4c1d4e796e1037c1dc55a8700121cc3c9cb0b61e8c6efdf34cc9557"
+      },
+      "template_sha256": "e3ba0d010a9c5a86229fc6eb8c1dccc161b0b7038ffa2dd138a43fd057c70c65"
+    },
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_sourceW32_margin_continuation_v1/external_guard_margin_v1/production_guard_release.json": {
+      "exact_fields_if_root_approves": {
+        "reviewer": "root",
+        "external_guard_authorized": true,
+        "policy_sha256": "40e492e11ebb6053cd793f1ca1f4b54f3525e0e26d3e5638121b61d88bf78700",
+        "authorized_phases": [
+          "production"
+        ],
+        "protocol_sha256": "8015125c62964de4ec4999fec5116b96c7fc1e15da4b8b38ab40acc507883b65",
+        "CPU_readiness_sha256": "6da14f9150e9ffd2bfb4c2a625e80040205494a5ecf3721aa0846e25f84e47d8",
+        "technical_verification_sha256": "6c635c8e23da2bf4a517bce08275585a52f01c07b14282510d70d1bb4e5cb3c0"
+      },
+      "template_sha256": "2e03ec580d1dbd47b1d745710ead7c76135e7e195b34dbd7d5b87680fb43d7de"
+    }
+  },
+  "quality_promotion": false,
+  "launch_after_exact_review": [
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/python",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_sourceW32_margin_continuation_v1/external_guard_margin_v1/guardian.py",
+    "launch",
+    "--policy",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/semantic_sourceW32_margin_continuation_v1/external_guard_margin_v1/policy.json",
+    "--phase",
+    "production"
+  ],
+  "review_workflow": "Read-only artifact watcher preserves every gate cp/schema2, hashfetches RGB/alpha/core-boundary diagnostics and logs health30s. First500/1000/2000/4000 visual checks and actual original frequency update126976. Manual hourly supervision while active. Selected/raw/terminal children require own W32 policy-aware geometry replay; no plain eval."
+}
