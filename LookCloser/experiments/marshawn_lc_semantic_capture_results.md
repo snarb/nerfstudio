@@ -95,6 +95,31 @@ imports. Both output directories were absent and both workers/GPU processes
 terminal. A separate recovery controller changes only job names and queue root;
 its new root release remains an explicit prerequisite to execution.
 
+Root subsequently released that separate recovery, preserving the failed queues.
+Both independent fresh heads completed exactly2064 Adam updates from initial
+count0 on silver GPUs0/1, each in45.59s. Observed peak total GPU memory was749MiB;
+final RSS was about1.82GiB per worker, with no OOM. Physical UUIDs matched initial
+and final worker health, and every recorded compute process belonged exclusively
+to its leased worker. Both worker/supervisor processes terminated and GPUs became
+idle. Rehashing all212 source/release/runtime inputs after training passed.
+
+Exact unmodified heads and metadata are archived at
+`frozen_LC_semantic_head_archives/recovery1_20261107_v1` under the local campaign:
+
+| Initial prior | Raw head.pt SHA256 |
+|---|---|
+| .99 | `f2eb8982169728556fe956fdfaac313f47a52d2aeb628ff0f0cbb122dae8a341` |
+| .01 | `bdb2cc0d8138e4c22c61b4d411227b272b95ceac9e8295d474eecc4a84aa98bc` |
+
+The31-file archive preserves all original SC paths and spec digests. CPU checks
+confirmed each head's finite128³ FP32 parameters/Adam moments, actual Adam count,
+state digest, exact2064 camera history, direct-LC source/frame/capture/qualification
+bindings and source checkpoint/cache invariance. Final RNG state trees were
+bit-identical between priors. No extra head steps or physical rendering occurred
+during this supervision/fetch. Evidence is in `fetch_receipt.json`,
+`CPU_completed_head_audit.json`, `CPU_physical_lease_audit.json` and
+`remote_terminal_source_hash_audit.json` inside the new archive.
+
 Stage receipts: `frozen_LC_semantic_head_silver_stage_v1/stage_receipt.json` and
 `frozen_LC_semantic_head_silver_alias_v1/alias_stage_receipt.json`; the latter has
 SHA256 `9786ac1cf0c9075548087ef5f4723fd32936125fe31d187d87949d97c48fc517`.

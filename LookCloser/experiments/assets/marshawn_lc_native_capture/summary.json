@@ -16,10 +16,45 @@
     "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_head_silver_alias_v1/alias_stage_receipt.json": "9786ac1cf0c9075548087ef5f4723fd32936125fe31d187d87949d97c48fc517",
     "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_head_silver_alias_v1/recovery1_CPU_execution_closure.json": "cbd9d4f8998c0b4b4b7dfa05f8efbb80401ed04b1aeef8be98c761af29e107ec",
     "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_head_silver_alias_v1/controller_recovery1.json": "d04def8a76fbdf1746fac1295bc74e3cea5e4c99808e300cb2a0ca6a18c97340",
-    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_head_silver_alias_v1/rootrelease_recovery_TEMPLATE.json": "9ff97eff82310b17fb788695dce6ed2e0bc431c7b491831602de9345dc88fcdd"
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_head_silver_alias_v1/rootrelease_recovery_TEMPLATE.json": "9ff97eff82310b17fb788695dce6ed2e0bc431c7b491831602de9345dc88fcdd",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_head_archives/recovery1_20261107_v1/fetch_receipt.json": "e22d31ab63e0da808ea4cbd690edb4fe9debb661ba8d47da54bd59d227c8da8f",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_head_archives/recovery1_20261107_v1/CPU_completed_head_audit.json": "7d860c66375b6ac8c35fd6a59f9c81caa44f2543c5629df2d18f3c4ba9c5fc7f",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_head_archives/recovery1_20261107_v1/CPU_physical_lease_audit.json": "6246052350e25e4aac4ab10be7dd324b8eda1883911e948e870092201de6a1f0",
+    "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_head_archives/recovery1_20261107_v1/remote_terminal_source_hash_audit.json": "509395e208c259fbd4cb3882f67af2c83e3adc941adb795288e191690575d035"
   },
   "remote_first_attempt_steps": 0,
   "remote_first_attempt_head_created": false,
   "remote_recovery_executable_closure_verified": true,
-  "physical_full_visibility_claim": false
+  "physical_full_visibility_claim": false,
+  "remote_recovery1_heads_actual_complete": true,
+  "paired_final_RNG_bit_identical": true,
+  "head_archive": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_head_archives/recovery1_20261107_v1",
+  "heads": [
+    {
+      "prior": 0.99,
+      "checkpoint": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_head_archives/recovery1_20261107_v1/runs/prior099_fresh2064/head.pt",
+      "checkpoint_sha256": "f2eb8982169728556fe956fdfaac313f47a52d2aeb628ff0f0cbb122dae8a341",
+      "complete_sha256": "7228f428c0f94b4d13e0c4c47cfcecc6d5b93c727a78153d2b0fee0c6a8ae167",
+      "spec_sha256": "afae30c7dde1255d5273d184107e4a769a9aca6eb33407ba0708d405428de7a4",
+      "actual_updates": 2064,
+      "actual_Adam_count": 2064,
+      "source_pipeline_digest": "c83bc7dbb1504063c35f0a2b14ae3fb329ff27ed2eb6b3661eb89b4918d46636",
+      "actual_UUID": "GPU-6a8bbc85-5a77-8d62-ab18-560955f0dc65",
+      "elapsed_seconds": 45.58826422691345,
+      "OOM_evidence": false
+    },
+    {
+      "prior": 0.01,
+      "checkpoint": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/frozen_LC_semantic_head_archives/recovery1_20261107_v1/runs/prior001_fresh2064/head.pt",
+      "checkpoint_sha256": "bdb2cc0d8138e4c22c61b4d411227b272b95ceac9e8295d474eecc4a84aa98bc",
+      "complete_sha256": "956054a566bc1fe20b823bdf5d10a986239890251249d03e011ecad0cb4b0786",
+      "spec_sha256": "71daf7050fd45aaa580714533a3d11ac80168ebe3e2ab04984dfaf7055984f16",
+      "actual_updates": 2064,
+      "actual_Adam_count": 2064,
+      "source_pipeline_digest": "c83bc7dbb1504063c35f0a2b14ae3fb329ff27ed2eb6b3661eb89b4918d46636",
+      "actual_UUID": "GPU-26c63492-0230-896f-208e-10e4eaca4c3c",
+      "elapsed_seconds": 45.58302044868469,
+      "OOM_evidence": false
+    }
+  ]
 }
