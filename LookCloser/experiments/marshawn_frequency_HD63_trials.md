@@ -101,3 +101,20 @@ Root manually inspected all three actor views and nine hair/contact/feet crops a
 |106316|threshold093|31.69143|0.833333|0.01881288|
 
 Root viewed all3 actor comparisons and9 hair/contact/feet crops at both gates. Large floor, bag, between-leg and silhouette artifacts persist; no clean geometry or promotion. The map .93 variant improves106316 modestly; LR decay is worse at both matched gates. Neither observation changes the original stopping criterion. Each gate directory contains provenance and a hash-bound root_manual_review.json.
+
+
+## Root post106316 visual gates
+
+| Step | Map recipe | PSNR | SSIM | LPIPS |
+|---:|---|---:|---:|---:|
+|111316|baseline|31.63683|0.832166|0.01898528|
+|111316|lr_decay|31.57349|0.831917|0.01923921|
+|111316|threshold093|31.71378|0.833241|0.01889533|
+|116316|baseline|31.63524|0.831819|0.01892447|
+|116316|lr_decay|31.60518|0.831825|0.01905773|
+|116316|threshold093|31.67617|0.832886|0.01888289|
+|121316|baseline|31.63544|0.831515|0.01894863|
+|121316|lr_decay|31.59810|0.831241|0.01906807|
+|121316|threshold093|31.64880|0.832046|0.01879139|
+
+All three full actor comparisons and nine detail crops were manually viewed at each gate. No gross newly missing body or shoe region is visible at sheet scale; substantial floor, bag and silhouette mass remains. SSIM .93 has modest matched-step improvements; neither trial has demonstrated a clean asset. Both retain their original plateau protocol and their original106316 anchor. Hash-bound root receipts are in each review directory.
