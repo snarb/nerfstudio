@@ -1,0 +1,71 @@
+{
+  "time": 1794024087.3938313,
+  "rows": [
+    {
+      "arm": "control",
+      "source_seven_exact": true,
+      "source_Adam": 91087,
+      "source_aux_draws": 0,
+      "step": 91628,
+      "Adam": {
+        "fields": [
+          91587.0
+        ]
+      },
+      "worker": {
+        "pid": 2565203,
+        "start": "5263381",
+        "boot": "3cd2faca-15ef-4b7e-9767-20e0b80af902",
+        "state": "R"
+      },
+      "gpu": 0,
+      "physical_uuid": "GPU-6a8bbc85-5a77-8d62-ab18-560955f0dc65",
+      "proof_sha256": "56026566bb343e137c9bd759988317ce3ad344841472eb71a8f96cf19c90c4c3"
+    },
+    {
+      "arm": "old7369",
+      "source_seven_exact": true,
+      "source_Adam": 91087,
+      "source_aux_draws": 0,
+      "step": 91628,
+      "Adam": {
+        "fields": [
+          91587.0
+        ]
+      },
+      "worker": {
+        "pid": 2565426,
+        "start": "5263436",
+        "boot": "3cd2faca-15ef-4b7e-9767-20e0b80af902",
+        "state": "R"
+      },
+      "gpu": 1,
+      "physical_uuid": "GPU-26c63492-0230-896f-208e-10e4eaca4c3c",
+      "proof_sha256": "95cb28b81b20bcde2996cdeb6830b3fc5564b2555ab4fa15051aaf8dfde0a6ba"
+    },
+    {
+      "arm": "seven10481",
+      "source_seven_exact": true,
+      "source_Adam": 91087,
+      "source_aux_draws": 0,
+      "step": 91628,
+      "Adam": {
+        "fields": [
+          91587.0
+        ]
+      },
+      "worker": {
+        "pid": 2565649,
+        "start": "5263492",
+        "boot": "3cd2faca-15ef-4b7e-9767-20e0b80af902",
+        "state": "R"
+      },
+      "gpu": 2,
+      "physical_uuid": "GPU-279718e7-9e60-e5f2-53aa-65ff7dd03f37",
+      "proof_sha256": "1e216b453fc1daec797dce0cf39ee4354e971675a1bb3d20368d731da96a3335"
+    }
+  ],
+  "passed": true,
+  "source_step": 91128,
+  "technical_ancestry": false
+}

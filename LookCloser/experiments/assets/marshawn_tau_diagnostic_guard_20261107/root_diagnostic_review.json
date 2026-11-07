@@ -1,0 +1,19 @@
+{
+  "reviewer": "root",
+  "time": 1794023990.090426,
+  "guardian_diff_and_retention_reviewed": true,
+  "policy_sha256": "5d449a9a5cbaa29f9d804081b613f0abc1ae4624724462c8899fe4ddcae81cd1",
+  "technical_verification_sha256": "08d4055a816311e4642f80d65e43c5e16175fe9d14a3315fffe9864ac0464309",
+  "technical_source_Adam": 91087,
+  "technical_final_Adam": 91151,
+  "actual_technical_updates_each_arm": 64,
+  "actual_frequency_refresh": 91136,
+  "main_and_private_streams_exact_observed": true,
+  "six_checkpoints_per_arm_remote_retained": true,
+  "new_orchestration_CPU_tests": 10,
+  "all1586_bindings_rechecked_both_hosts": true,
+  "source_checkpoint_sha256": "81a226cdc96a437b221d9891ab8eac5bb9aa4ca5e5179ee03f92ceb16002c9a9",
+  "current_best_recipe_claim": false,
+  "global_geometry_or_quality_promotion": false,
+  "minimum_campaign_end_UTC": "2026-11-07T14:30:16.699466Z"
+}

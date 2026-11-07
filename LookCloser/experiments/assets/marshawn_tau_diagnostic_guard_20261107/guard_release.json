@@ -1,0 +1,13 @@
+{
+  "reviewer": "root",
+  "external_guard_authorized": true,
+  "authorized_phases": [
+    "diagnostic"
+  ],
+  "policy_sha256": "5d449a9a5cbaa29f9d804081b613f0abc1ae4624724462c8899fe4ddcae81cd1",
+  "technical_verification_sha256": "08d4055a816311e4642f80d65e43c5e16175fe9d14a3315fffe9864ac0464309",
+  "time": 1794023990.090426,
+  "source1500_unchanged": true,
+  "root_new_CPU_tests_passed": 10,
+  "root_local_and_remote_bindings_verified": 1586
+}

@@ -69,3 +69,7 @@ HD185k: PSNR30.53492, SSIM0.838712, actor LPIPS0.048309. All nine source/native1
 HD190k: PSNR30.56882, SSIM0.839111, actor LPIPS0.047971. The three-view detail review finds stable visible contours and modestly sharper cloth relative100k; the source remains finer and floor/mat/bag remains. Review: `O/reviews/HD_190000/visual_review.json`. This is an unmatched HD suffix; the controlled HD/4K comparison remains125k.
 
 HD195k: PSNR30.54089, SSIM0.839089, actor LPIPS0.047975. All three detail contacts remain visually consistent at this scale; source texture is still finer and substantial floor/mat/bag persists. Review receipt: `O/reviews/HD_195000/visual_review.json`. HD200k remains active.
+
+HD200k: PSNR30.53113, SSIM0.839129, actor LPIPS0.047948. All three hair/hand/foot contacts remain stable at the inspected scale, with soft fine texture and persistent floor/mat/bag. Receipt: `O/reviews/HD_200000/visual_review.json`. The unchanged cumulative stopping counters are2 internal-signal misses and3 LPIPS misses; HD205k is active.
+
+HD205k: PSNR30.56356, SSIM0.839382, actor LPIPS0.047803. All three detail contacts were reviewed; visible contours remain stable at contact scale, with soft fine texture and substantial floor/mat/bag. Receipt: `O/reviews/HD_205000/visual_review.json`. HD210k is active.
