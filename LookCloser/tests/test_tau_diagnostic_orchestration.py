@@ -5,6 +5,7 @@ from pathlib import Path
 import shutil
 import tempfile
 import unittest
+from unittest import mock
 
 
 def module(name):
@@ -83,6 +84,17 @@ class Retention(unittest.TestCase):
         self.assertFalse((self.out / 'control' / f'step-{self.step:09d}').exists())
         retain.commit_gate(record, self.out, shutil.copyfile)
         self.assertTrue((self.out / 'control' / f'step-{self.step:09d}' / 'retention.json').exists())
+
+    def test_terminal_incomplete_is_bounded(self):
+        package = self.root / 'external_guard_v3'; (package / 'diagnostic').mkdir(parents=True)
+        (package / 'diagnostic/local_done.json').write_text('{"passed":false}')
+        policy = package / 'policy.json'; policy.write_text('{}')
+        with mock.patch.object(retain, 'policy_at', return_value={'local_root': str(self.root)}), \
+             mock.patch.object(retain, 'run_once', return_value={'retained_gates': 0}) as run, \
+             mock.patch.object(retain.time, 'sleep'):
+            with self.assertRaises(RuntimeError): retain.watch(policy)
+        self.assertEqual(run.call_count, 3)
+        self.assertTrue((package / 'retained_gates/failure.json').exists())
 
 
 if __name__ == '__main__': unittest.main()

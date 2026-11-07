@@ -45,7 +45,7 @@ def main(root):
     result = subprocess.run([sys.executable, '-m', 'unittest', 'discover', '-s', str(repo / 'tests'), '-p', 'test_tau_diagnostic_orchestration.py', '-v'], text=True, capture_output=True)
     (out / 'CPU_tests.log').write_text(result.stdout + result.stderr)
     if result.returncode: raise RuntimeError('New orchestration tests failed; preserve staging evidence')
-    write(out / 'CPU_tests.json', dict(passed=True, new_tests=9, prior_guard_core_tests_not_repeated=True,
+    write(out / 'CPU_tests.json', dict(passed=True, new_tests=10, prior_guard_core_tests_not_repeated=True,
                                       unchanged_guard_functions=unchanged, comparison='AST exact excluding line offsets', GPU_used=False))
     write(out / 'preservation.json', dict(base_guardian_sha256=sha(old / 'guardian.py'), base_policy_sha256=sha(old / 'policy.json'),
                                          base_guard_release_sha256=sha(old / 'guard_release.json'),
@@ -58,7 +58,7 @@ def main(root):
 
 Three fresh 12000-attempt forks from original quarter.01 step91128; technical checkpoints are excluded ancestry. This tests qualified clear-ray target population on that older parent, not the current best recipe.
 
-Science/specs/worker remain unchanged. Only orchestration changes: diagnostic authorization, exact passing technical-proof binding, v3 paths, worker deadline3600s, and dispatcher GPU allowlist0/1/2/3/5/6 excluding frequency-fit4/7. Process16GiB and allocator10GiB remain. PID/start/boot/argv, UUID, sticky failure, heartbeat90s, TERM25s escalation and failed-reaper logic are retained. Twelve guard functions are AST-identical; nine new CPU tests cover proof authorization and atomic artifact retention. The prior27 core tests are not repeated.
+Science/specs/worker remain unchanged. Only orchestration changes: diagnostic authorization, exact passing technical-proof binding, v3 paths, worker deadline3600s, and dispatcher GPU allowlist0/1/2/3/5/6 excluding frequency-fit4/7. Process16GiB and allocator10GiB remain. PID/start/boot/argv, UUID, sticky failure, heartbeat90s, TERM25s escalation and failed-reaper logic are retained. Twelve guard functions are AST-identical; ten new CPU tests cover proof authorization and atomic artifact retention. The prior27 core tests are not repeated.
 
 The new guard release must bind policy.json and technical verification SHA. All three unchanged specs also need their own diagnostic_authorized root releases. Before dispatch, existing diagnostic outputs or remote job claims are rejected. No launch has occurred through this preparation.
 

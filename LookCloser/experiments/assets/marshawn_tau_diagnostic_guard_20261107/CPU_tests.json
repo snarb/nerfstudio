@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "new_tests": 9,
+  "new_tests": 10,
   "prior_guard_core_tests_not_repeated": true,
   "unchanged_guard_functions": [
     "identity",
@@ -18,5 +18,6 @@
   ],
   "comparison": "AST exact excluding line offsets",
   "GPU_used": false,
-  "direct_packaged_replay_passed": true
+  "direct_packaged_replay_passed": true,
+  "bounded_terminal_retention_failure_test": true
 }

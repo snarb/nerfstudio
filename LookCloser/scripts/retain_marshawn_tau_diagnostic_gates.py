@@ -143,21 +143,25 @@ def watch(policy_path, once=False):
     out = expected.parent / 'retained_gates'; out.mkdir(exist_ok=True)
     lock = (out / 'fetch.lock').open('a+'); fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
     atomic(out / 'process.json', dict(pid=os.getpid(), start=Path('/proc/self/stat').read_text().split(') ', 1)[1].split()[19], policy_sha256=sha(policy_path)))
-    errors = 0
-    while True:
-        try:
-            result = run_once(policy, out); errors = 0; atomic(out / 'status.json', result)
-            if result['retained_gates'] == 18:
-                atomic(out / 'complete.json', dict(result, passed=True)); return
-            guard_done = expected.parent / 'diagnostic/local_done.json'
-            if guard_done.exists():
-                raise RuntimeError('Guard terminal before all18 gates retained; preserve partial evidence')
-            if once: return
-        except Exception as exc:
-            errors += 1; atomic(out / 'last_error.json', dict(time=time.time(), error=repr(exc), consecutive=errors))
-            if errors >= 3 or once:
-                atomic(out / 'failure.json', dict(time=time.time(), error=repr(exc), worker_interrupted=False)); raise
-        time.sleep(30)
+    try:
+        errors = 0
+        while True:
+            try:
+                result = run_once(policy, out); atomic(out / 'status.json', result)
+                if result['retained_gates'] == 18:
+                    atomic(out / 'complete.json', dict(result, passed=True)); return
+                guard_done = expected.parent / 'diagnostic/local_done.json'
+                if guard_done.exists():
+                    raise RuntimeError('Guard terminal before all18 gates retained; preserve partial evidence')
+                errors = 0
+                if once: return
+            except Exception as exc:
+                errors += 1; atomic(out / 'last_error.json', dict(time=time.time(), error=repr(exc), consecutive=errors))
+                if errors >= 3 or once:
+                    atomic(out / 'failure.json', dict(time=time.time(), error=repr(exc), worker_interrupted=False)); raise
+            time.sleep(30)
+    finally:
+        lock.close()
 
 
 def launch(policy_path):

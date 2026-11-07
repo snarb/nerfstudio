@@ -1,11 +1,11 @@
 {
   "package": "/fsx/tmp/marshawn_001660_hd/tuning_20261106/quarter_seven_tau_candidate_v1/external_guard_v3",
   "files_sha256": {
-    "policy.json": "1a488a0776f4c46fff846de8e3eb6269e13ad80cf9b331b9a8b11dbd3792be21",
+    "policy.json": "5d449a9a5cbaa29f9d804081b613f0abc1ae4624724462c8899fe4ddcae81cd1",
     "guardian.py": "82823e7f5778208d43f212288d65a9610980a3b1a36e3a1483520e07f54cbed8",
-    "retention.py": "bf0fc1ab27c36ef5409d33b9ada46c63c74ecf06c40f168181b58e79d3d73c5a",
+    "retention.py": "76a14dd314630616ea4edeb42ae2da60a1cdbf09ef32876123a56dd0c2eb9242",
     "diagnostic_plan.json": "80381fe503fd3736b8dae1260898818792633dd5ae3ad4276df43771c070e8b7",
-    "test_tau_diagnostic_orchestration.py": "8fbd84bc8c5fc932c3a0dee1e9ecee01fad59dcb3400fd757bac5c7168ef8eba"
+    "test_tau_diagnostic_orchestration.py": "ea2f45ef0831b0496d08e6cb67dd5ca989bf93b12e35a2e60c4bd95abc9b77ba"
   },
   "GPU_launched": false
 }

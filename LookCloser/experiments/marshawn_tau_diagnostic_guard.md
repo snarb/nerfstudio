@@ -12,11 +12,11 @@ The prepared package is `C/quarter_seven_tau_candidate_v1/external_guard_v3`, wh
 
 | Artifact | SHA256 |
 |---|---|
-| Current policy | `1a488a0776f4c46fff846de8e3eb6269e13ad80cf9b331b9a8b11dbd3792be21` |
+| Current policy | `5d449a9a5cbaa29f9d804081b613f0abc1ae4624724462c8899fe4ddcae81cd1` |
 | Guardian | `82823e7f5778208d43f212288d65a9610980a3b1a36e3a1483520e07f54cbed8` |
-| CPU retention helper | `bf0fc1ab27c36ef5409d33b9ada46c63c74ecf06c40f168181b58e79d3d73c5a` |
+| CPU retention helper | `76a14dd314630616ea4edeb42ae2da60a1cdbf09ef32876123a56dd0c2eb9242` |
 
-All1585 bound files passed remote staging verification. Twelve guard functions, including PID/start/boot/argv identity, UUID/resource checks, sticky failure, error accounting and signal escalation, are AST-identical to v2. The exact diff is packaged as `guardian.diff`. Nine new CPU tests pass, including direct replay from the packaged directory; the previously passing27 core guard tests were not repeated.
+All1586 bound files passed remote staging verification. Twelve guard functions, including PID/start/boot/argv identity, UUID/resource checks, sticky failure, error accounting and signal escalation, are AST-identical to v2. The exact diff is packaged as `guardian.diff`. Ten new CPU tests pass, including direct replay from the packaged directory; the previously passing27 core guard tests were not repeated.
 
 Changes are limited to diagnostic phase authorization, the exact root-bound technical proof, separate v3 state paths, a3600-second worker deadline and a dispatcher GPU allowlist0/1/2/3/5/6. GPUs4/7 remain reserved for the frequency fits. The16GiB process limit,10GiB allocator,90-second heartbeat expiry,25-second TERM grace and failed-reaper behavior remain. Existing diagnostic outputs/job claims are rejected before fresh dispatch. The three specifications each require `diagnostic_authorized=true`; a separate v3 root release must bind the policy and technical-proof hashes.
 
@@ -31,3 +31,5 @@ All six checkpoints per arm—91628,92128,93128,95128,99128,103128—remain remo
 After root release, launch both commands from the local host using the package's `guardian.py launch --policy .../policy.json --phase diagnostic` and `retention.py launch --policy .../policy.json`. Guard state is `external_guard_v3/diagnostic`, dispatcher state is `external_guard_v3/diagnostic_controller`, and copied artifacts are under `external_guard_v3/retained_gates`. No source, frequency map, calibration, mask, accepted box or architecture is modified.
 
 Reusable helpers: [guardian](../scripts/guard_marshawn_tau_diagnostic_resources.py), [retention](../scripts/retain_marshawn_tau_diagnostic_gates.py), [preparer](../scripts/prepare_marshawn_tau_diagnostic_guard.py), [new CPU tests](../tests/test_tau_diagnostic_orchestration.py).
+
+A second pre-release self-review found that the fetcher reset its error counter before checking a terminal guard with incomplete retention. The counter now resets only after a successful nonterminal poll, and a tenth regression test proves failure after three attempts. The fetch lock closes on exit. The preceding unapproved seal remains in `external_guard_v3_review_generation2`; `retention_revision3.diff` records the exact change. Guardian and scientific code remain unchanged.
