@@ -2133,3 +2133,15 @@ skipping. All arms consume the private packets; the zero-coefficient control
 skips auxiliary density queries. These are soft sparse priors, not hard grid
 carves or global geometry certificates. Technical restart crosses an actual
 frequency refresh; production ancestry starts again from the original anchor.
+
+The opt-in RGB-confidence continuation keeps the original TRAIN pools, FAS,
+main RNG, field and mapped semantic selector. Four matched full-state forks
+compare original confidence, qualified6874 bag-interior RGB-ignore, and two RAW
+distance attenuation profiles. Effective confidence arrays and exact proposal
+normalizers have separate checkpoint bindings, including cache/LUT restoration;
+the source seven-state baseline is verified before installing the loss policy.
+A separate fork tracker uses the original fixed-actor validation criterion,
+5000-step cadence and four misses after its+4000 anchor. These RGB weights are
+neither opacity labels nor full-ray empty-space constraints. GPU proof and
+production releases remain separate from CPU preparation.
+
