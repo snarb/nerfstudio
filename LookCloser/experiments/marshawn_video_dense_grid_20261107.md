@@ -329,3 +329,27 @@ Evidence under source campaign `/fsx/tmp/marshawn_video_1660_2015_24fps_20261107
 and its reportSHA `e34634e2ee95840f50684f4044cfd7f0ff750c2aeb26b5df9b30a2bf81e5f8a3`.
 The verified frame was then assigned to DEV3 for a fresh capped model;
 this source audit changes no NeRF parameter or input after publication.
+
+## Frame1675 terminal140k runtime: all observed contour rays retained
+
+The independent cold model completed exactly140000 updates, terminal step139999,
+and RAW actor-LPIPS selected that same checkpoint (`c4aee93b5c460990a9b31257e55e57256f99444d10500a7590bd85a15e0b4318`).
+DC/HC/KA remain in-sample monitoring views: PSNR46.63545, SSIM0.99236691,
+LPIPS0.000798631. CurrentGT and the actual selected renders were visually compared.
+Clothing, boots, colors and pose are coherent; a broad noisy background/floor
+shell persists around the actors, so this is not a clean-cutout claim.
+
+Exact CPU DDA against the checkpoint's saved runtime snapshot checked all165925
+nominal actor-contour rays across66 cameras. Sourcebase/pad1/mapped and runtime
+core/active/admission each had0misses. Runtime core and active each contain36662
+occupied cells; runtime admission contains453946. This diagnostic requires no
+additional halo repair for1675. It does not certify physical empty-space occupancy
+or unobserved/omitted anatomical contours, and it changes no grid, field or input.
+
+Capped campaign evidence:
+`frames/001675/final_visual_review/selected_actor_contact.jpg`,
+`operations/contour_runtime_001675/dense/report.json`, and
+`operations/contour_runtime_001675/selected_runtime_compact_report.json`
+(SHA `800a785c0f5daf346defe73fbf5b21d57ff31c6e79a6d748c68d47dd5f9bca5c`).
+The audit used the actual `train/occupancy/step-000139999_grid.npz`; no GPU lease
+or extra NeRF load was required. The released GPU returned to the normal fleet.
