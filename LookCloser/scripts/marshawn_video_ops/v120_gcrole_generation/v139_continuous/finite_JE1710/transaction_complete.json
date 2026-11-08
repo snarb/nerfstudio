@@ -1,0 +1,24 @@
+{
+  "status": "pass",
+  "application_complete_sha256": "a787525cd251ab6e1dcfd4e4e107afa89507b87c1ac00314851f811e67752745",
+  "resumed": [
+    {
+      "pid": 2485926,
+      "start": "249184181",
+      "state": "T",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/marshawn_source_producer_g1_v139.py watchdog ",
+      "ppid": 1
+    },
+    {
+      "pid": 2485958,
+      "start": "249184226",
+      "state": "T",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/marshawn_source_producer_g1_v139.py controller ",
+      "ppid": 2485926
+    }
+  ],
+  "time": 1794117955.7092552,
+  "fresh_all66_SOURCE_QA_and_grid_still_required": true
+}

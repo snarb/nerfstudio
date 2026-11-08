@@ -1,0 +1,461 @@
+{
+  "kind": "ROOT_CURRENT_PHOTO_TARGET_ACTOR_ROLE_JUDGMENT_NOT_APPLICATION_RELEASE",
+  "frame": 1710,
+  "camera": "JE",
+  "exact_current_NN_scope_archive": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/current_role_UNKNOWN_v132/frame001710/JE/33f157d25b2ba1d29964.npz",
+  "exact_current_NN_scope_sha256": "9c3749a4bc2ea54e6cb0e94289bd29197205c556ae9cbe7270ea05732ddca199",
+  "scope_pixels": 12226,
+  "current_qualification_sha256": "708a1e03ef12654e9a125fbed8c566e21f990d966d592a3c786804e98f27519f",
+  "NN_pair": {
+    "family": "pants",
+    "a": {
+      "prompt": "pants",
+      "index": 16,
+      "score": 0.7734375,
+      "archive": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/current_native_parts_v105/frame001710/remote_results/JE_9080ddd9f0c2/candidates/pants.npz",
+      "archive_sha256": "f2f757ef35de160310fb30a5955ff320fead6cef4a9b41b030994096b92a66e2"
+    },
+    "b": {
+      "prompt": "dark pants",
+      "index": 17,
+      "score": 0.7890625,
+      "archive": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/current_native_parts_v105/frame001710/remote_results/JE_9080ddd9f0c2/candidates/dark_pants.npz",
+      "archive_sha256": "334399351881d684f508f48e898aec34314a938ee3bb1c40caa5c7d5538ca32c"
+    },
+    "IoU": 0.9969887880405767,
+    "NN_intersection_component": 1,
+    "new_pixels": 0,
+    "new_actor_union_pixels": 0,
+    "existing_actor_semantically_qualified_pixels": 0,
+    "complete_union_anchor_fraction": 0.7342548666775723,
+    "new_exact_union_flow_fraction": 0.7342548666775723,
+    "new_current_actor32native_fraction": 0.0,
+    "independent_current_CREW_new_overlap": 0,
+    "independent_current_CREW_context_available": true,
+    "crew_proof": [
+      {
+        "instance": 0,
+        "previous": 1,
+        "proof": {
+          "qualified": true,
+          "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+          "envelope_native_pixels": 128,
+          "known_clean_crew_IoU": 0.89258114374034,
+          "current_upper_head_anchor_pixels": 247,
+          "head_anchor_previous_crew_envelope_coverage": 1.0,
+          "current_NN_head_previous_clean_CREW_core_seed_pixels": 228,
+          "head_connected_components": [
+            1
+          ],
+          "qualified_current_core_pixels": 1156,
+          "disconnected_or_lower_new_components_excluded": true,
+          "previous_pixels_never_final_foreground": true
+        }
+      },
+      {
+        "instance": 1,
+        "previous": 3,
+        "proof": {
+          "qualified": true,
+          "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+          "envelope_native_pixels": 128,
+          "known_clean_crew_IoU": 0.9649614576033637,
+          "current_upper_head_anchor_pixels": 285,
+          "head_anchor_previous_crew_envelope_coverage": 1.0,
+          "current_NN_head_previous_clean_CREW_core_seed_pixels": 238,
+          "head_connected_components": [
+            1
+          ],
+          "qualified_current_core_pixels": 1323,
+          "disconnected_or_lower_new_components_excluded": true,
+          "previous_pixels_never_final_foreground": true
+        }
+      },
+      {
+        "instance": 3,
+        "previous": 19,
+        "proof": {
+          "qualified": true,
+          "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+          "envelope_native_pixels": 128,
+          "known_clean_crew_IoU": 0.8964455639518611,
+          "current_upper_head_anchor_pixels": 639,
+          "head_anchor_previous_crew_envelope_coverage": 1.0,
+          "current_NN_head_previous_clean_CREW_core_seed_pixels": 600,
+          "head_connected_components": [
+            1
+          ],
+          "qualified_current_core_pixels": 3039,
+          "disconnected_or_lower_new_components_excluded": true,
+          "previous_pixels_never_final_foreground": true
+        }
+      },
+      {
+        "instance": 4,
+        "previous": 5,
+        "proof": {
+          "qualified": true,
+          "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+          "envelope_native_pixels": 128,
+          "known_clean_crew_IoU": 0.8561215370866846,
+          "current_upper_head_anchor_pixels": 188,
+          "head_anchor_previous_crew_envelope_coverage": 1.0,
+          "current_NN_head_previous_clean_CREW_core_seed_pixels": 161,
+          "head_connected_components": [
+            1
+          ],
+          "qualified_current_core_pixels": 902,
+          "disconnected_or_lower_new_components_excluded": true,
+          "previous_pixels_never_final_foreground": true
+        }
+      },
+      {
+        "instance": 5,
+        "previous": 10,
+        "proof": {
+          "qualified": true,
+          "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+          "envelope_native_pixels": 128,
+          "known_clean_crew_IoU": 0.8490654205607476,
+          "current_upper_head_anchor_pixels": 361,
+          "head_anchor_previous_crew_envelope_coverage": 1.0,
+          "current_NN_head_previous_clean_CREW_core_seed_pixels": 332,
+          "head_connected_components": [
+            1
+          ],
+          "qualified_current_core_pixels": 1503,
+          "disconnected_or_lower_new_components_excluded": true,
+          "previous_pixels_never_final_foreground": true
+        }
+      },
+      {
+        "instance": 6,
+        "previous": 7,
+        "proof": {
+          "qualified": true,
+          "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+          "envelope_native_pixels": 128,
+          "known_clean_crew_IoU": 0.9762162004321673,
+          "current_upper_head_anchor_pixels": 13760,
+          "head_anchor_previous_crew_envelope_coverage": 1.0,
+          "current_NN_head_previous_clean_CREW_core_seed_pixels": 12834,
+          "head_connected_components": [
+            1
+          ],
+          "qualified_current_core_pixels": 66709,
+          "disconnected_or_lower_new_components_excluded": true,
+          "previous_pixels_never_final_foreground": true
+        }
+      },
+      {
+        "instance": 7,
+        "previous": 8,
+        "proof": {
+          "qualified": true,
+          "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+          "envelope_native_pixels": 128,
+          "known_clean_crew_IoU": 0.956369982547993,
+          "current_upper_head_anchor_pixels": 102,
+          "head_anchor_previous_crew_envelope_coverage": 1.0,
+          "current_NN_head_previous_clean_CREW_core_seed_pixels": 79,
+          "head_connected_components": [
+            1
+          ],
+          "qualified_current_core_pixels": 505,
+          "disconnected_or_lower_new_components_excluded": true,
+          "previous_pixels_never_final_foreground": true
+        }
+      },
+      {
+        "instance": 9,
+        "previous": 9,
+        "proof": {
+          "qualified": true,
+          "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+          "envelope_native_pixels": 128,
+          "known_clean_crew_IoU": 0.87298682284041,
+          "current_upper_head_anchor_pixels": 489,
+          "head_anchor_previous_crew_envelope_coverage": 1.0,
+          "current_NN_head_previous_clean_CREW_core_seed_pixels": 453,
+          "head_connected_components": [
+            1
+          ],
+          "qualified_current_core_pixels": 2287,
+          "disconnected_or_lower_new_components_excluded": true,
+          "previous_pixels_never_final_foreground": true
+        }
+      },
+      {
+        "instance": 11,
+        "previous": 20,
+        "proof": {
+          "qualified": true,
+          "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+          "envelope_native_pixels": 128,
+          "known_clean_crew_IoU": 0.9157358156028369,
+          "current_upper_head_anchor_pixels": 4359,
+          "head_anchor_previous_crew_envelope_coverage": 1.0,
+          "current_NN_head_previous_clean_CREW_core_seed_pixels": 4105,
+          "head_connected_components": [
+            1
+          ],
+          "qualified_current_core_pixels": 20732,
+          "disconnected_or_lower_new_components_excluded": true,
+          "previous_pixels_never_final_foreground": true
+        }
+      },
+      {
+        "instance": 12,
+        "previous": 11,
+        "proof": {
+          "qualified": true,
+          "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+          "envelope_native_pixels": 128,
+          "known_clean_crew_IoU": 0.8440860215053764,
+          "current_upper_head_anchor_pixels": 171,
+          "head_anchor_previous_crew_envelope_coverage": 1.0,
+          "current_NN_head_previous_clean_CREW_core_seed_pixels": 155,
+          "head_connected_components": [
+            1
+          ],
+          "qualified_current_core_pixels": 825,
+          "disconnected_or_lower_new_components_excluded": true,
+          "previous_pixels_never_final_foreground": true
+        }
+      },
+      {
+        "instance": 14,
+        "previous": 10,
+        "proof": {
+          "qualified": true,
+          "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+          "envelope_native_pixels": 128,
+          "known_clean_crew_IoU": 0.8968105065666041,
+          "current_upper_head_anchor_pixels": 358,
+          "head_anchor_previous_crew_envelope_coverage": 1.0,
+          "current_NN_head_previous_clean_CREW_core_seed_pixels": 318,
+          "head_connected_components": [
+            1
+          ],
+          "qualified_current_core_pixels": 1574,
+          "disconnected_or_lower_new_components_excluded": true,
+          "previous_pixels_never_final_foreground": true
+        }
+      },
+      {
+        "instance": 17,
+        "previous": 16,
+        "proof": {
+          "qualified": true,
+          "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+          "envelope_native_pixels": 128,
+          "known_clean_crew_IoU": 0.8341968911917098,
+          "current_upper_head_anchor_pixels": 77,
+          "head_anchor_previous_crew_envelope_coverage": 1.0,
+          "current_NN_head_previous_clean_CREW_core_seed_pixels": 63,
+          "head_connected_components": [
+            1
+          ],
+          "qualified_current_core_pixels": 322,
+          "disconnected_or_lower_new_components_excluded": true,
+          "previous_pixels_never_final_foreground": true
+        }
+      },
+      {
+        "instance": 18,
+        "previous": 14,
+        "proof": {
+          "qualified": true,
+          "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+          "envelope_native_pixels": 128,
+          "known_clean_crew_IoU": 0.9833910034602076,
+          "current_upper_head_anchor_pixels": 296,
+          "head_anchor_previous_crew_envelope_coverage": 1.0,
+          "current_NN_head_previous_clean_CREW_core_seed_pixels": 255,
+          "head_connected_components": [
+            1
+          ],
+          "qualified_current_core_pixels": 1351,
+          "disconnected_or_lower_new_components_excluded": true,
+          "previous_pixels_never_final_foreground": true
+        }
+      },
+      {
+        "instance": 19,
+        "previous": 6,
+        "proof": {
+          "qualified": true,
+          "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+          "envelope_native_pixels": 128,
+          "known_clean_crew_IoU": 0.9228547854785478,
+          "current_upper_head_anchor_pixels": 467,
+          "head_anchor_previous_crew_envelope_coverage": 1.0,
+          "current_NN_head_previous_clean_CREW_core_seed_pixels": 403,
+          "head_connected_components": [
+            1
+          ],
+          "qualified_current_core_pixels": 2255,
+          "disconnected_or_lower_new_components_excluded": true,
+          "previous_pixels_never_final_foreground": true
+        }
+      },
+      {
+        "instance": 20,
+        "previous": 17,
+        "proof": {
+          "qualified": true,
+          "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+          "envelope_native_pixels": 128,
+          "known_clean_crew_IoU": 0.9304556354916067,
+          "current_upper_head_anchor_pixels": 155,
+          "head_anchor_previous_crew_envelope_coverage": 1.0,
+          "current_NN_head_previous_clean_CREW_core_seed_pixels": 127,
+          "head_connected_components": [
+            1
+          ],
+          "qualified_current_core_pixels": 754,
+          "disconnected_or_lower_new_components_excluded": true,
+          "previous_pixels_never_final_foreground": true
+        }
+      },
+      {
+        "instance": 21,
+        "previous": 18,
+        "proof": {
+          "qualified": true,
+          "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+          "envelope_native_pixels": 128,
+          "known_clean_crew_IoU": 0.895271763146266,
+          "current_upper_head_anchor_pixels": 391,
+          "head_anchor_previous_crew_envelope_coverage": 1.0,
+          "current_NN_head_previous_clean_CREW_core_seed_pixels": 344,
+          "head_connected_components": [
+            1
+          ],
+          "qualified_current_core_pixels": 1937,
+          "disconnected_or_lower_new_components_excluded": true,
+          "previous_pixels_never_final_foreground": true
+        }
+      },
+      {
+        "instance": 22,
+        "previous": 0,
+        "proof": {
+          "qualified": true,
+          "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+          "envelope_native_pixels": 128,
+          "known_clean_crew_IoU": 0.9707044107965767,
+          "current_upper_head_anchor_pixels": 584,
+          "head_anchor_previous_crew_envelope_coverage": 1.0,
+          "current_NN_head_previous_clean_CREW_core_seed_pixels": 503,
+          "head_connected_components": [
+            1
+          ],
+          "qualified_current_core_pixels": 2881,
+          "disconnected_or_lower_new_components_excluded": true,
+          "previous_pixels_never_final_foreground": true
+        }
+      },
+      {
+        "instance": 23,
+        "previous": 13,
+        "proof": {
+          "qualified": true,
+          "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+          "envelope_native_pixels": 128,
+          "known_clean_crew_IoU": 0.8416385135135135,
+          "current_upper_head_anchor_pixels": 373,
+          "head_anchor_previous_crew_envelope_coverage": 1.0,
+          "current_NN_head_previous_clean_CREW_core_seed_pixels": 324,
+          "head_connected_components": [
+            1,
+            2
+          ],
+          "qualified_current_core_pixels": 770,
+          "disconnected_or_lower_new_components_excluded": true,
+          "previous_pixels_never_final_foreground": true
+        }
+      }
+    ],
+    "target_human_role": {
+      "decision": {
+        "current_target_cue": false,
+        "same_family_prior_role": false,
+        "finite_current_photo_bootstrap": false,
+        "accepted": false
+      },
+      "current_preapplication_native_sha256": "9ef7faa746a97773ec53f16f0026a5f273142d9b2eb6b82de0dbc7de0e1bd534",
+      "current_candidate_archive_sha256": "b420479db36f9c92b1094b17c98d6852e1f877f3e2140a01ae0b5cbce0a233b1",
+      "current_part_A_pixels": 0,
+      "current_part_RAW_pixels": 0,
+      "current_residual_near32_fraction": 0.0,
+      "current_residual_pixels": 12226,
+      "prior_same_family_supported_pixels": 0,
+      "rule_helper_sha256": "2012ca0a23ba92f4f59e942328ae504b81c990d299310ab123e16525e8b466d0",
+      "prior_role_receipt": {
+        "kind": "QUALIFIED_PRIOR_SAME_FAMILY_ROLE_GUIDANCE_V132",
+        "binding": {
+          "frame": 1710,
+          "prior": 1705,
+          "camera": "JE",
+          "family": "pants",
+          "prior_source_marker_sha256": "12b28ce1a7c291e783f46a9779eb992256e38092ff037c938fa819c3c1ced9e9",
+          "prior_actor_native_sha256": "03a68b0748480a41022fc2b7088b5ea1b85ae1ed142933f70e70a1f249441768",
+          "prior_actor_metadata_sha256": "c707e6a94f3990e9554c42ff7e6e1f02eb1bf56e9d6d273be0427bb078b2c5d6",
+          "prior_semantic_NN_bindings_sha256": "e9d1b6bba24f75643c0760760c2027a822d69740a1422655b0ea1935ee951404",
+          "current_RAW_receipt_sha256": "0b06dd9811b8b2bd852bf96b96ff63150dedc835d8a6e0d3d9fa83cd13e724d6",
+          "previous_RAW_receipt_sha256": "eadae478e75b1c511e23eaa6dbaf77eb0a4fc723dd248854d445c2efd26b46a5",
+          "implementation_sha256": "c961345cc108a0e1e9f51d6dbb99ba780345059dbf78202a91153895528e792a",
+          "tracker_sha256": "065a3ef88a6a3b72a904b4d1764761b7f7b65e7e64f950c5b68c8484e75f6f6f",
+          "extra_registry_sha256": "c637caa81db1f9c87193214b2d1cc726c8938c06f59f35e5f73a1300ac65f9bf"
+        },
+        "archive_sha256": "3c7376dd47b4ec1f22585142ae18d39741bb08613fc08108e45b772c2db6200d",
+        "prior_role_pixels": 168465,
+        "prior_role_array_sha256": "887d9eedf6411c31b358fbb2f33fcb4a8554381ad27b69d0da1941412bd93576",
+        "current_flowed_role_array_sha256": "83817b27065d5822e9093a82b33e7e6270842f0e129f6a2c67f147d8b1587672",
+        "proofs": [
+          {
+            "spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/current_native_parts_v105/frame001705/JE_c3d49a3dbfa9/spec.json",
+            "spec_sha256": "134243cbb7d12461aafa78ba216ad5bdd899564c7fd44e661fbc9fe2fe88be76",
+            "NN_receipt": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/current_native_parts_v105/frame001705/remote_results/JE_c3d49a3dbfa9/candidates/receipt.json",
+            "NN_receipt_sha256": "54290c85349003377d11a909d86f3b3ae84e3fda626f6df79ffe111197d61d9c",
+            "a": {
+              "prompt": "pants",
+              "index": 31,
+              "score": 0.734375,
+              "archive": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/current_native_parts_v105/frame001705/remote_results/JE_c3d49a3dbfa9/candidates/pants.npz",
+              "archive_sha256": "4767715d701dedbd74fcb9dec19233b6e5233e7ccde43c34131fcc9471833121"
+            },
+            "b": {
+              "prompt": "dark pants",
+              "index": 4,
+              "score": 0.7265625,
+              "archive": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/current_native_parts_v105/frame001705/remote_results/JE_c3d49a3dbfa9/candidates/dark_pants.npz",
+              "archive_sha256": "06b3e2fce8f43b44d2bfff0a0bf70c5f1b1aaa607cc1e3ec754493c4ee93ab50"
+            },
+            "IoU": 0.9038690856437119,
+            "component": 1,
+            "prior_actor_fraction": 0.9921962424171035,
+            "pixels": 169790
+          }
+        ],
+        "prior_ROLE_only_not_current_FG": true,
+        "created": 1794117301.9385705
+      },
+      "finite_exact_photo_bootstrap": null
+    },
+    "ROLE_UNKNOWN_only": true,
+    "role_unknown_current_NN_archive": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/current_role_UNKNOWN_v132/frame001710/JE/33f157d25b2ba1d29964.npz",
+    "role_unknown_current_NN_archive_sha256": "9c3749a4bc2ea54e6cb0e94289bd29197205c556ae9cbe7270ea05732ddca199",
+    "originally_proposed_actor_union_pixels": 12226
+  },
+  "personally_viewed": {
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/production_role_review_v139/frame001710/contact_page_01.jpg": "48ca62dc81943146cde766b4eb26c0b252c273fd051c678e8dd87e227a439bf1",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/production_role_review_v139/frame001710/JE_full_source_ROLEUNKNOWN_context.jpg": "d0dfac1e969faecd3c0b5e18dd4e0299b2f941575c7db0e3085cc3083c22d5a6",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/production_role_review_v139/frame001710/JE_wide_native_role_context.jpg": "e028e53cab1dc16d8fde790c081ea450d26502ea47b8c185d62c987f2ad01863"
+  },
+  "judgment": "Exact current-NN pants scope follows blackfighter visible righttrouserleg behindcrouchedgrayfighter, above foregroundworker. It is targetactor clothing. Currentwholecamera andwidecontext establish actorrole; tightanatomycrop alone doesnot.",
+  "authorization": "Prepare finite currentNN scope-only positive correction; no invented/newlydrawnmask, no flowasFG. ROOTwillreviewconcreteapplierbeforeapply. Other126/74warningsremainphysicalUNKNOWN withfrozenW64.",
+  "approved_for_application": false,
+  "created": 1794117676.8716376
+}

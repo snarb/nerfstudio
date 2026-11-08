@@ -1,0 +1,78 @@
+{
+  "kind": "FINITE_CURRENT_NN_PHOTO_ACTOR_ROLE_CORRECTION",
+  "frame": 1710,
+  "camera": "JE",
+  "files": [
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/apply_JE1710_current_photo_positive.py",
+      "snapshot": "apply_JE1710_current_photo_positive.py",
+      "sha256": "936f5b89e945bccc8fb4f4336c3c5c808a8b206c58933723f3b675d3db9af594"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/run_JE1710_finite_positive_transaction.py",
+      "snapshot": "run_JE1710_finite_positive_transaction.py",
+      "sha256": "12395d23fd9660d6cf4d582cc8a51578ae390ba9408cb2b15645a1a3fb96e530"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/simulate_JE1710_exact_current_positive.py",
+      "snapshot": "simulate_JE1710_exact_current_positive.py",
+      "sha256": "b282d18a9e5cf813552bc7e25ec72abf3141d9fc3b47f45e78f1ccb8341f016b"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/build_production_role_contacts_v139.py",
+      "snapshot": "build_production_role_contacts_v139.py",
+      "sha256": "14c742e1a49296e9d7052880581eef0e193872dbd8327228e94cda92d28b6673"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/ROOT_1710_JE12226_photo_role_judgment.json",
+      "snapshot": "ROOT_1710_JE12226_photo_role_judgment.json",
+      "sha256": "00adf528e6f9f702d7a00da25f166b3470863539cd2c7fdb5ae27e72079d6b0d"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_JE12226_current_actor_review_hold.json",
+      "snapshot": "1710_JE12226_current_actor_review_hold.json",
+      "sha256": "d75ce5d859d92f3bdb2cf2247bead97b2bde702c2371137970b43afee3df1fca"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/G1_future_DATA_parent_directories_created.json",
+      "snapshot": "G1_future_DATA_parent_directories_created.json",
+      "sha256": "08d71f21b382e58a731813376fff32613c2c19648d6e2a2cb267451cebd28367"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_JE12226_current_positive/ROOT_application_authorization.json",
+      "snapshot": "ROOT_application_authorization.json",
+      "sha256": "098506af3494f790302e2ddf28ea1fb19967a643861d264a10827f2fd4c318bf"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_JE12226_current_positive/simulation.json",
+      "snapshot": "simulation.json",
+      "sha256": "695135735297dd52bbf6f2f6f9d754a44ecd1ce3c05d906202360dad800ab1a1"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_JE12226_current_positive/application_complete.json",
+      "snapshot": "application_complete.json",
+      "sha256": "a787525cd251ab6e1dcfd4e4e107afa89507b87c1ac00314851f811e67752745"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_JE12226_current_positive/finite_current_actor_extension.json",
+      "snapshot": "finite_current_actor_extension.json",
+      "sha256": "52f34b951a1b3134346888f4717d563a60ee0bec3a58cd9db5a14319af54ce36"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_JE12226_current_positive/transaction_complete.json",
+      "snapshot": "transaction_complete.json",
+      "sha256": "dfa3d10175989888a7b0bdeecabd5de808d6832938d6101b39a95a6246121d02"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_JE12226_current_positive/worker_retirement.json",
+      "snapshot": "worker_retirement.json",
+      "sha256": "40b6846072749b8aa228e6af70b544ca59d16acc4af072759733246d291e7a61"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_JE12226_current_positive/unpublished_downstream_archive.json",
+      "snapshot": "unpublished_downstream_archive.json",
+      "sha256": "4e8e51a49bf8ce4e5a56cecf2848989b78839a3787d9ef35dbedef61ee6099d4"
+    }
+  ],
+  "large_source_arrays_remain_in_campaign": true
+}

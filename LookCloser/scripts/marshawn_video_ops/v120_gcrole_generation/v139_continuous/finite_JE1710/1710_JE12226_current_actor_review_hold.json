@@ -1,0 +1,35 @@
+{
+  "kind": "FINITE_SOURCE_ONLY_CURRENT_ACTOR_ROLE_REVIEW_HOLD",
+  "frame": 1710,
+  "records": [
+    {
+      "pid": 2485926,
+      "start": "249184181",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/marshawn_source_producer_g1_v139.py watchdog ",
+      "identity_file": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/source_producer_g1_v139_watchdog_identity.json",
+      "signal": "SIGSTOP"
+    },
+    {
+      "pid": 2485958,
+      "start": "249184226",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/marshawn_source_producer_g1_v139.py controller ",
+      "identity_file": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/source_producer_g1_v139_identity.json",
+      "signal": "SIGSTOP"
+    },
+    {
+      "pid": 2490689,
+      "start": "249276390",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/marshawn_source_factory_g1_v139.py --frame 1710 --previous 1705 --prepare-only ",
+      "identity_file": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/source_producer_g1_v139_logs/1710_current_HEAD_source_DATA_QA.identity.json",
+      "signal": "SIGSTOP"
+    }
+  ],
+  "no_source_marker": true,
+  "reason": "ROOT actual currentphoto identifies JE12226 as blackfighter trouserleg; finite currentNN positive correction pending review.",
+  "time": 1794117584.0510318,
+  "release_sha256": "6fa7cc2255b979727e82ada636b63eb66e32d34c2473d9c113da9289c854713d",
+  "NN_fields_frequency_cache_untouched": true
+}
