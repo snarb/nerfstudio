@@ -1,0 +1,179 @@
+{
+  "frame": 1700,
+  "tree": [
+    {
+      "identity": {
+        "pid": 2400676,
+        "start": "247849188",
+        "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+        "state": "S"
+      },
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_source_factory_v110.py --frame 1700 --previous 1695 --prepare-only ",
+      "wchan": "futex_do_wait"
+    },
+    {
+      "identity": {
+        "pid": 2400677,
+        "start": "247849188",
+        "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+        "state": "S"
+      },
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_source_factory_v110.py --frame 1700 --previous 1695 --prepare-only ",
+      "wchan": "futex_do_wait"
+    },
+    {
+      "identity": {
+        "pid": 2400678,
+        "start": "247849189",
+        "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+        "state": "S"
+      },
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_source_factory_v110.py --frame 1700 --previous 1695 --prepare-only ",
+      "wchan": "futex_do_wait"
+    },
+    {
+      "identity": {
+        "pid": 2400679,
+        "start": "247849189",
+        "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+        "state": "S"
+      },
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_source_factory_v110.py --frame 1700 --previous 1695 --prepare-only ",
+      "wchan": "futex_do_wait"
+    },
+    {
+      "identity": {
+        "pid": 2400680,
+        "start": "247849189",
+        "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+        "state": "S"
+      },
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_source_factory_v110.py --frame 1700 --previous 1695 --prepare-only ",
+      "wchan": "futex_do_wait"
+    },
+    {
+      "identity": {
+        "pid": 2400681,
+        "start": "247849190",
+        "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+        "state": "S"
+      },
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_source_factory_v110.py --frame 1700 --previous 1695 --prepare-only ",
+      "wchan": "futex_do_wait"
+    },
+    {
+      "identity": {
+        "pid": 2400682,
+        "start": "247849190",
+        "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+        "state": "S"
+      },
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_source_factory_v110.py --frame 1700 --previous 1695 --prepare-only ",
+      "wchan": "futex_do_wait"
+    },
+    {
+      "identity": {
+        "pid": 2400683,
+        "start": "247849191",
+        "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+        "state": "S"
+      },
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_source_factory_v110.py --frame 1700 --previous 1695 --prepare-only ",
+      "wchan": "futex_do_wait"
+    },
+    {
+      "identity": {
+        "pid": 2394582,
+        "start": "247734741",
+        "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+        "state": "S"
+      },
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_source_factory_v110.py --frame 1700 --previous 1695 --prepare-only ",
+      "wchan": "futex_do_wait"
+    }
+  ],
+  "source_outer_retired": [
+    {
+      "pid": 2390450,
+      "start": "247659207",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "state": "R"
+    },
+    {
+      "pid": 2390479,
+      "start": "247659228",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "state": "R"
+    }
+  ],
+  "native_before_sha256": {
+    "OA.npz": "542b562ef07c41d9f3782f646075b13a5dfefdc7cccc758747aeadc11feea452",
+    "HC.npz": "98b29c25256118dd2c3dfa14ab98a8d8bf333176a025ee127a9b863178a2693a",
+    "EB.npz": "ee0b1c366fbb529b022529f90639b3b953bc307e208d71cc894d54e2b4cd092b",
+    "HD.npz": "20b2ed33497b833295eecfa9ced793f9ed46cdf36bb6c3ee2b7025390895b042",
+    "EE.npz": "dd0a731143a899a7003a9a352ea29bb2b6fa7bda1854486c655eb3f49790156b",
+    "KA.npz": "930b6a1424b409f839f1f9aae8f038d461b05931c525a6007d26f652b86b9782",
+    "AB.npz": "83984a07c6692bd73041ec2c0565fdee706036f0efc0020d1f05922171805943",
+    "LC.npz": "413ba3165139c18f3bd5c32599fff8bae96f0ca6e7abdcc713e9a5bb5d70b729",
+    "MB.npz": "e0e382ad55c3f742ac82f1580ebd1cde08e447b62093099698297c6154a0bdf2",
+    "GA.npz": "1535b03b68bc5f2883fa216c1c4bc14d062d1bb14d7ea9567d7e455c00fcb4a8",
+    "DD.npz": "40f01eed2c1ee908b49cc6d86e5e05cedcd919acdece67373be00afa643b7d05",
+    "IE.npz": "24089d992f00dba8e41b48383af37a5699f1e032d1dab52d63dded9345e6d86a",
+    "DC.npz": "181461ae681e4f406251089a0ab4ef893c306258b708ca4a995a8dd06079c8e1",
+    "IB.npz": "09d66b4af2e397cd03a1ef076ca0ba547296b96dd45a5e5f99d882ef1f9cb98d",
+    "CA.npz": "bd70a7b6d8b568edfe4ae11d9988a16ff8c80524e10336f2e9432474cc1abd72",
+    "AC.npz": "5ecd1e345f85b5dd92234db9e25ba081aecaba776e6d9580a31b8d039c5c2563",
+    "LB.npz": "4ffe1c11e280a6fbbea19e194e997261db171282d663327e1a718c3cf6295389",
+    "AD.npz": "df503aecae8d537684b251ccbabbd8a3b8b884eb168fdb330191aeb8a304b47d",
+    "FA.npz": "878490ccfade5c38274417dd81a756ee386a6632f15febb6842b151265dc7574",
+    "HE.npz": "9a19fc107b766eb9672a8bed1a75eb6b8ce0ace9545b60eab90cfb6f31b0ecb3",
+    "ED.npz": "a51e1463fca816bc9a00e030491f4a61c57de2d632ed0cd63e9036723c942f68",
+    "HB.npz": "e2b71e6d1ce382ee89ffbf5dccc946d15ad4525ceea93cc51ce60320714a4a05",
+    "EC.npz": "d1b9af2ddf9045504dc3bfe2ae17a3ae8869a0c65c60a7bce30f5d3b5070bc77",
+    "BA.npz": "18be4bb633d806c92efa82a81bd822381ff3103d70464d401bac24046ee44592",
+    "NA.npz": "42dd4db025db2d5d854d329396b3c6202af218ef63d56816a82dea4653396f6e",
+    "DB.npz": "b616bafa838b3933e6efd5254f00d5f6aa547107d14c50fe09218c098a82f130",
+    "IC.npz": "c76076ab42ad7a98ac10ad078cadf5cd6e6ba2d395ed5bc3bb54fa8462788ec5",
+    "DE.npz": "4019ad954c0d85e79b0cfe683b3467d7f0d019d76f16975b48c45675dfc822bd",
+    "ID.npz": "d3ed29519dd6816d0c7a87e64e745504d4f04aa835157e8e65f7f9ebf87ca5ff",
+    "JA.npz": "97748cb96e07cfcb5b3086cec818ca558debce931635903ba74e0f714e6c4ac2",
+    "MD.npz": "f211e2375ebdda7b8a005975bf85faf4d97c0f54945d52de7b8fe633f6196b92",
+    "MC.npz": "5482debc6837f1814d76debe3822d89934f4b09c2896c5fb2e986ef5f795fc07",
+    "CC.npz": "57bbebdd1cca13748a44522f9e06caf7106f2d6490c9170583183e188cb8fb90",
+    "NB.npz": "3742cfe2be0ab229b027d1f1d0713f14f3b7193c76960c260a1a0913037d10d4",
+    "CD.npz": "e948da6aedc528941885cfb82f5607bca4acd2a80adf4e9878a89d250d28204d",
+    "NE.npz": "dedaa4e0e5fef047edc457a775921eb42cf321d5038dc4f501f779b2ebdceadc",
+    "DA.npz": "7a0d7e11bdbcec7bff51766945690cf65adaf79f05733a45d69eb2914b3db7a7",
+    "JE.npz": "0460ad1c64362cbd1a3ecf0b4fea658dc3bba27c60805b344488e79be724c32c",
+    "GD.npz": "54fd757e85ca6c05616ca0c1089980c397054c74ad454e45d79305b0b8fbd938",
+    "JB.npz": "4d1f6459a4cdfc416e9bc7c16aa997694a9366af08f832aab32de266c968ca38",
+    "GC.npz": "efbffedece171342ab6652765916915a6fcbfab0659cf5f28aabd0999e114987",
+    "LA.npz": "e3ca40bc83a0558d91452e14ce74d31ae038794e215f3aa331a06819306162a1",
+    "FB.npz": "1f5de5f6639c3621f4048880e12ed9b97cd2efbc0cbc343379a629be51dc9580",
+    "KC.npz": "c0bbd9b40d7f0c043fb9ac39b3d053d008f065603619b266a1dfd6d14a09cb9d",
+    "FE.npz": "df035f23f0e1d70344c155bc4683c91fee0aa3ed414c2f04205e43c5150a2c61",
+    "KD.npz": "d8d8def14a936519383aafde1b48678ad3eafc6ceb98fd5c597cc249e1008613",
+    "HA.npz": "e9eb40f8038ba0b37e9ceaf848d9193cde2fc96e4977dcee34e5330b7dd0df5d",
+    "OD.npz": "fc4f3133177f1e9793ab2d1c4e0fdd4e5332f3345061a042d5f39ec55cddc01b",
+    "BB.npz": "2ff7a7a845af0e3dd1cc43c017510c388501b79483e1a3634b38df942ed373e4",
+    "MA.npz": "f5642c60776277ecf67ceb82d424b637f91b89ed263731f68964076b618eda7b",
+    "JC.npz": "97fb8250ba221ea9a34c7e7c0bea52740d1d57892cf8308d881194f7fa86d455",
+    "GB.npz": "c26a643da1e088fe96230215311b180293ee25d089c299582186ea69902c5b47",
+    "JD.npz": "abcddc1a03fc0a211cd490df0b4509aabc4e3069202570710bc3763b9f9ce3e5",
+    "GE.npz": "d7af57b84d8cef778f8e9ccfb5f1533241c7561815efe38cbe384dc98703e37d",
+    "IA.npz": "a3e8019d876e48bcfc8d205c2d83ff15f5b834a4e4f84bdfc26eba97b2a1da46",
+    "CE.npz": "69a3624a9f9cbc722aed1024f390a18117fb16ea9a5ec1a75059257019a201cd",
+    "ND.npz": "bf0a0f386b875d1c506bb5400d00cd56c0291494c1ee69da6ea9649b2dd1cf09",
+    "CB.npz": "a34e8df926747bbf2eef13bda5aa8cda7fb26046d0b84ee40deb4153875c7d0b",
+    "NC.npz": "b6918fd14d5cf30f584c334f267071a644df8a57b0fa42875fb06d3392162baf",
+    "BC.npz": "59c5e2822ac9aa10f6044e78dedb42a9736d22c0702d74b5118e42eb78b738be",
+    "BD.npz": "0158ad9a7e4827d6528c53ec7c10511bc54dfce0bdd780e5d818bb55e5b186b4",
+    "EA.npz": "8dc6295a3a3b49b09fcbbe94bc92316c7cb9739a3e71ef0fee4ca1be17c7a9f6",
+    "FD.npz": "0c170cc64267bff8a912b30e30fcc9c7527362f0aaef9fa572f4bc1665347312",
+    "FC.npz": "09ef7b7e78a0c01c0929df252807c1f6a0f23753b994af970a79104b3da9383f",
+    "KB.npz": "43cee6b8959ccb7502b37c3f76a30d86b1476f438f1b7b955e350fad59aa852f",
+    "AA.npz": "fd1cdcf4ed0b134f4a12ddac17792b90f46c92cd2a198bda5ef300e6ec0f5c5d"
+  },
+  "no_training_failure": true,
+  "no_NN_jobs_killed": true
+}

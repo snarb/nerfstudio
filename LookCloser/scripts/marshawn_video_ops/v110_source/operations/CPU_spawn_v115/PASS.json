@@ -1,0 +1,9 @@
+{
+  "status": "pass",
+  "threaded_parent_then_actual_DE_spawn_canary": true,
+  "closure_archive_byte_equal": true,
+  "all_decisions_equal": true,
+  "closure_and_guard_AST_only_start_method_changed": true,
+  "current_native_unchanged": true,
+  "seconds": 14.01028823852539
+}
