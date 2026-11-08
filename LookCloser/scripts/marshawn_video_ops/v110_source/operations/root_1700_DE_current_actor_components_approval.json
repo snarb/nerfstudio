@@ -1,0 +1,48 @@
+{
+  "kind": "ROOT_CURRENT_NATIVE_NN_ACTOR_UNION_RECOVERY_APPROVAL",
+  "approved": true,
+  "time": 1794104910.8611472,
+  "frame": 1700,
+  "camera": "DE",
+  "instance": 9,
+  "native_components": [
+    4,
+    6
+  ],
+  "proposal_archive": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1700_DE9_readonly/component4_6_proposal.npz",
+  "proposal_archive_sha256": "1ff5866bbbab065b6fe0cc8e399cbfbe9c27d09d4df008bc90a9a4ad20b327ba",
+  "proposal_union_array_sha256": "f33b9aca9f33b78999df9ad0d187a6be07efecea506e36f2de5b6668213a193f",
+  "new_actor_union_delta_sha256": "267686fc26abbfd3fa477ae570608246a3f280cc88892aae1262c5e11eb0b3d3",
+  "new_actor_union_pixels": 38082,
+  "measurement_sha256": "d24ea6fb262d178be77651990c905a39b5891d995f4ae692e9483d5b1b2d3df3",
+  "input_binding": {
+    "candidate_archive_sha256": "e0fba6f354cf26d2621aae1ce5a80f3f9e8d2c4b95731912eecb40e0bf3ae9c9",
+    "source_receipt_sha256": "51773db6422be907383cba2c371d47086ddba81338615e2a5f185cf03f4fc6a8",
+    "source_native_sha256": "e93f047e53a37e9f705729967d76da8c853254f6b58e02ce02315a418a033595",
+    "native_archive_sha256": "5913464b5f81e10d819622c77b8dfbb2ebebc644275e2282e2ec18ebfe51400d"
+  },
+  "ROOT_personal_view": [
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1700_DE9_readonly/DE_full_source.jpg",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1700_DE9_readonly/DE9_component4_native_contact.jpg",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1700_DE9_readonly/DE9_component6_native_contact.jpg",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1700_DE9_readonly/DE9_component3_native_contact.jpg"
+  ],
+  "visual_finding": "CurrentNN component4 contains target-fighter cuff/forearm and rear boot/dark leg; component6 lies on visible target palm/knuckle. Accept actor UNION only; no persistent per-person ownership assertion. Shadowed connection has mask-boundary uncertainty; preserve conservative margins.",
+  "support": {
+    "current_strong_semantic_component4_coverage": 0.4066,
+    "residual_reliable_flow_pixels": 26001,
+    "residual_reliable_flow_fraction": 0.6827635103198362,
+    "independent_CURRENT_crew_overlap": 0
+  },
+  "scope": "Only these exact currentNN component pixels may recover target union/sourceeligibility. Preserve existingA/H, unrelatedUNKNOWN/veto/independentcrew, and unqualifiedcomponent3. No old-image foreground, threshold relaxation, RAWPRE accounting waiver or previous3D/modelstate transfer. Rebuild owncurrent DATA/admission/normalguards afterward.",
+  "remaining_unqualified": {
+    "R_pixels": 16838,
+    "RAW_PRE": 0,
+    "refined_PRE": 0,
+    "UNKNOWN": 16838,
+    "do_not_call_zero_RGB_weight": true,
+    "W64_positive_HD": 1065,
+    "W64_sum": 395.727783203125
+  },
+  "independent_review_sha256": "f77e3581517421633d8a51488d997e5ae0c5f20efa300efa15f6b311eb00b65b"
+}

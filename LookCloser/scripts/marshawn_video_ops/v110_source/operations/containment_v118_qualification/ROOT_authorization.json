@@ -1,0 +1,24 @@
+{
+  "kind": "ROOT_APPROVED_STRICT_CURRENT_NN_PEER_RAW_CONTAINMENT_V118",
+  "approved": true,
+  "time": 1794106399.9841766,
+  "files_sha256": {
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_current_component_closure_v118.py": "0877957e16fa096a2a13cb30ce7b3652903b0966c4f55de130ca9fec5656b18b",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/containment_v118_qualification/PASS.json": "b08b6db5d184a8e9979e8d9d7b46302dfe508c67a05cb5aeb0d31f9faab54b85"
+  },
+  "scope": "Current24fps/step5 campaign; source-owner versioned CPU qualification integration only. No live NN/model/optimizer/grid transfer or already-published source mutation. Existing semantic/duplicate-IoU rules unchanged.",
+  "requirements": {
+    "distinct_CURRENT_selected_target_peer": true,
+    "component_containment_minimum": 0.99,
+    "emitted_R_intersection_peer_RAW_own_reliable_flow_minimum": 0.8,
+    "emitted_R_current_RAW_deep32_minimum_pixels": 128,
+    "actual_qualified_prior_actor_union_SHA_required": true,
+    "current_independent_CREW_context_required": true,
+    "current_independent_CREW_overlap": 0,
+    "emit_only_CURRENT_NN_intersection_RAW": true,
+    "UNKNOWN_or_ROI_not_actor_support": true,
+    "actor_UNION_not_persistent_person_identity": true
+  },
+  "ROOT_review": "Personally inspected complete118source+117diff, prioractorunion/source/guide checks, qualifiedcrew helper, distinctpeer exclusion, emitted-residual flow/deep correction. ActualEEpre-repair8504 positive and oldMD11269/DE125974 exact; realMC/NB adverse cases rejected; borderlinewhole.8/emitted<.8 rejected.",
+  "integration": "Sole source owner may activate a sealed release preserving current source1700 and active1705NN; choose safe CPU-stage handoff/adoption, no scientific worker preemption. All normal source/DATA/freshgrid/dense gates remain mandatory."
+}

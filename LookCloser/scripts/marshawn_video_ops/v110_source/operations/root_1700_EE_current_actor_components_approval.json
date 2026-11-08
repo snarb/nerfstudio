@@ -1,0 +1,165 @@
+{
+  "kind": "ROOT_CURRENT_NATIVE_NN_ACTOR_UNION_RECOVERY_APPROVAL",
+  "approved": true,
+  "time": 1794105148.8317757,
+  "frame": 1700,
+  "camera": "EE",
+  "instance": 2,
+  "native_components": [
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "proposal_archive": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1700_EE2_readonly/components2_6.npz",
+  "proposal_archive_sha256": "6041702c7b5b118a0fc333029e019b4eaaab428b30f6bf3d4bc43c226b65d9de",
+  "proposal_union_array_sha256": "7844465e6021a637e608870d0afa540b70c448eb0e3df17de252b5edd595d131",
+  "new_actor_union_pixels": 28083,
+  "input_binding": {
+    "native_archive_sha256": "9ed2388b4124c2deb34750373b0a294305242678b87c2ad96855bbeafec849fb",
+    "person_archive_sha256": "c4c8d4a815b76fc43933017595174ea7fda9554a38d2d95722814f015b806310",
+    "source_native_sha256": "f8f556b4622ae805ff6979e0f4a6dd00d25e11c2664e1702a3d6251546b520fe"
+  },
+  "proof_sha256": {
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1700_EE2_readonly/proof.json": "0f13c8acbcb8035b44bf06d972188815ff7a81fd8e2f5de72fb823609c869349",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1700_EE2_readonly/component2_independent_support.json": "8785e027d5e84189fa3d4c3109fdda0b2852e81b900ac58a895e9b10ea4ebdf5",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1700_EE2_readonly/components2_6_support.json": "a05707d88e0ab4b085a1c8ad5927d741b736310a574e3bf4c0671a13d8208f81"
+  },
+  "per_component_support": [
+    {
+      "component": 2,
+      "pixels": 8504,
+      "R_pixels": 8504,
+      "selected_actor_overlap": {
+        "black": 0,
+        "grey": 8504
+      },
+      "selected_actor_union_pixels": 8504,
+      "selected_actor_union_fraction": 1.0,
+      "R_flow_pixels": 7171,
+      "R_flow_fraction": 0.8432502351834431,
+      "R_current_qualified_CREW_core_upperbound": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "7": 0
+      },
+      "R_veto": 8504,
+      "R_UNKNOWN": 8504,
+      "mask_sha256": "ada19e6ca9759dd5e19fe95e40148ba23802b1da10ec42e5380f0b23ad549a93"
+    },
+    {
+      "component": 3,
+      "pixels": 258,
+      "R_pixels": 258,
+      "selected_actor_overlap": {
+        "black": 0,
+        "grey": 258
+      },
+      "selected_actor_union_pixels": 258,
+      "selected_actor_union_fraction": 1.0,
+      "R_flow_pixels": 117,
+      "R_flow_fraction": 0.45348837209302323,
+      "R_current_qualified_CREW_core_upperbound": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "7": 0
+      },
+      "R_veto": 258,
+      "R_UNKNOWN": 258,
+      "mask_sha256": "13f05ddc0295e52530e2240d5c384c40b1cc905ecf9eb24caa9cc07465232959"
+    },
+    {
+      "component": 4,
+      "pixels": 33,
+      "R_pixels": 33,
+      "selected_actor_overlap": {
+        "black": 0,
+        "grey": 33
+      },
+      "selected_actor_union_pixels": 33,
+      "selected_actor_union_fraction": 1.0,
+      "R_flow_pixels": 33,
+      "R_flow_fraction": 1.0,
+      "R_current_qualified_CREW_core_upperbound": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "7": 0
+      },
+      "R_veto": 33,
+      "R_UNKNOWN": 33,
+      "mask_sha256": "67ca266fb82b3c4456d39a630f54177d72ff8a095dc45f1f974719184ae8930a"
+    },
+    {
+      "component": 5,
+      "pixels": 663,
+      "R_pixels": 663,
+      "selected_actor_overlap": {
+        "black": 0,
+        "grey": 123
+      },
+      "selected_actor_union_pixels": 123,
+      "selected_actor_union_fraction": 0.18552036199095023,
+      "R_flow_pixels": 622,
+      "R_flow_fraction": 0.9381598793363499,
+      "R_current_qualified_CREW_core_upperbound": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "7": 0
+      },
+      "R_veto": 663,
+      "R_UNKNOWN": 663,
+      "mask_sha256": "1db1be3a9557611a20bd2609b75f3a010d546f00f7851e73c12d8a0dadbc88e4"
+    },
+    {
+      "component": 6,
+      "pixels": 18625,
+      "R_pixels": 18625,
+      "selected_actor_overlap": {
+        "black": 0,
+        "grey": 778
+      },
+      "selected_actor_union_pixels": 778,
+      "selected_actor_union_fraction": 0.041771812080536916,
+      "R_flow_pixels": 3482,
+      "R_flow_fraction": 0.18695302013422818,
+      "R_current_qualified_CREW_core_upperbound": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "7": 0
+      },
+      "R_veto": 18625,
+      "R_UNKNOWN": 18625,
+      "mask_sha256": "efe0f7f614afbfa18246876bf7857de409b9c71d2ee215ce06ceec8fc691d561"
+    }
+  ],
+  "ROOT_personal_view": {
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1700_EE2_readonly/EE_full_source.jpg": "b46c0c6a1005052bb164cb00e9a7ffea45264c1a552179fd58eb00ffb5804eed",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1700_EE2_readonly/EE_both_actor_context.png": "59de1d1cc34820a413c31aa4ba3160a143812d511b3fb563403bac5d0c3f3c97",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1700_EE2_readonly/EE_arm_leg_corridor.png": "da7090e1f1353dd5e01940a11f63161c825cb7b22dd7f59da29d754be63bceed",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1700_EE2_readonly/EE2_component2_native_contact.jpg": "8eb804f31b8c64bd28968a99f95bb93c0c5796bdd5e16110dab21d3d25bd5d6b",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1700_EE2_readonly/EE2_component3_native_contact.jpg": "9576882cceab2c62ec348a57489899d0e94de90b662c16c031bccaf264f46ced",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1700_EE2_readonly/EE2_component4_native_contact.jpg": "f027bcfd17cf43b0751543563977233a1d203fe33c9c88aad3c93c20b1994b46",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1700_EE2_readonly/EE2_component5_native_contact.jpg": "fe3e7e950b9bfa117d0878094901f1621257fa187ec2dc5573e9b59b051e93cd",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1700_EE2_readonly/EE2_component6_native_contact.jpg": "137b89f6460d31a10733ad3d8e832c2e2edaea0cd11966089ce95131b4bfebca"
+  },
+  "visual_finding": "Exact currentNN lower fragments are target-actor cloth in sleeve/leg corridor, visible skin/hand edges, and the glossy rear black boot. Preserve two-actor UNION without forcing persistent actor identity; ownership of dark cloth remains uncertain. Separate white-crew component1 is excluded.",
+  "support_limitation": "Component2 has CURRENTselectedtargetRAW containment100%, residualflow84.3%, RAWdeep7058, independentcurrentcrew0. Other currentNN hand/boot components are authorized from actualphoto/manualanatomy; their lower RAW/flow scores do not magically become strong semantic proof. No semanticpair>=.7 is claimed.",
+  "scope": "Recover ONLY these exact currentNN component pixels as targetunion/sourceeligibility. Preserve existingA/H and independentCURRENTcrew; exclude component1 and all unlisted pixels. Preserve unrelatedUNKNOWN/veto, keep originalRAWPRE evidence and existingthresholds. No ROOT RAWPRE accounting waiver and no oldpixel/model/3Dgrid transfer. Own-current sourceguards/DATA/admission/densegate still required.",
+  "independent_review_sha256": "f77e3581517421633d8a51488d997e5ae0c5f20efa300efa15f6b311eb00b65b"
+}

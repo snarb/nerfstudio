@@ -1,0 +1,40 @@
+{
+  "status": "pass",
+  "frame": 1700,
+  "camera": "DE",
+  "new_native_sha256": "c1a7d0126365006b456baa3e196c18cad68ac2c90987672a6064fbe64cd3c485",
+  "added_actor_union_pixels": 38082,
+  "current_NN_component_4_6_only": true,
+  "component3_never_added": true,
+  "source_approval_sha256": "4ca2600d01bd988e8e7a1bb8dffc989457f6c338c90a560eedb043433b471303",
+  "array_conservation_sha256": "5b8a4d155507b644ad95576fc3abd6a8ceef4cadf7cfb3f6fc9944f3580b4719",
+  "new_ordered_stage_sha256": "04acb73a4a65ce9e97699b36b5a39dc7a7886db4e0018157a55d0c1a0dc147d6",
+  "explicit_source_extension_not_false_requalification": true,
+  "source_QA_DATA_guard_grid_still_required": true,
+  "application": {
+    "frame": 1700,
+    "camera": "DE",
+    "kind": "ROOT_QUALIFIED_CURRENT_TWO_ACTOR_UNION_COMPONENTS",
+    "source_receipt_sha256": "51773db6422be907383cba2c371d47086ddba81338615e2a5f185cf03f4fc6a8",
+    "candidate_archive_sha256": "e0fba6f354cf26d2621aae1ce5a80f3f9e8d2c4b95731912eecb40e0bf3ae9c9",
+    "instance": 9,
+    "native_components": [
+      4,
+      6
+    ],
+    "ROOT_approval": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/root_1700_DE_current_actor_components_approval.json",
+    "ROOT_approval_sha256": "4ca2600d01bd988e8e7a1bb8dffc989457f6c338c90a560eedb043433b471303",
+    "native_hair_archive_sha256": "39dc40c7d6560eae9ce7fdf92a94766bbb913c9213ae413e83b62623c9a49564",
+    "native_hair_mask_sha256": "fd9e2aa58085ca8ec0eb4327246bd3242cadb5eeb04888b9b31d650e28892417",
+    "new_native_sha256": "c1a7d0126365006b456baa3e196c18cad68ac2c90987672a6064fbe64cd3c485",
+    "added_actor_union_pixels": 38082,
+    "prior_same_frame_qualified_scope": "qualified_union_parts_v116/DE_instance9_components4_6/old_qualified_RGB",
+    "source_only_current_NN_pixels": true,
+    "existing_BLACK_GREY_ownership_preserved": true,
+    "new_labels_BLACK_are_convention_ownership_uncertain": true,
+    "skin_between_actors_NOT_claimed_identified": true,
+    "geometry_UNKNOWN_unchanged": true,
+    "created": 1794105232.8290274
+  },
+  "created": 1794105234.2559817
+}

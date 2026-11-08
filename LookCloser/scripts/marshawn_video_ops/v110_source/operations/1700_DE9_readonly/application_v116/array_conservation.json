@@ -1,0 +1,18 @@
+{
+  "status": "pass",
+  "frame": 1700,
+  "camera": "DE",
+  "source_receipt_sha256": "51773db6422be907383cba2c371d47086ddba81338615e2a5f185cf03f4fc6a8",
+  "current_candidate_sha256": "e0fba6f354cf26d2621aae1ce5a80f3f9e8d2c4b95731912eecb40e0bf3ae9c9",
+  "ROOT_approval_sha256": "4ca2600d01bd988e8e7a1bb8dffc989457f6c338c90a560eedb043433b471303",
+  "old_native_sha256": "5913464b5f81e10d819622c77b8dfbb2ebebc644275e2282e2ec18ebfe51400d",
+  "new_native_sha256": "c1a7d0126365006b456baa3e196c18cad68ac2c90987672a6064fbe64cd3c485",
+  "proposal_archive_sha256": "1ff5866bbbab065b6fe0cc8e399cbfbe9c27d09d4df008bc90a9a4ad20b327ba",
+  "added_actor_union_pixels": 38082,
+  "existing_A_H_labels_preserved": true,
+  "new_ownership_uncertain": true,
+  "unknown_and_all_unrelated_arrays_bitwise_preserved": true,
+  "veto_trimmed_only_approved_current_NN_mask": true,
+  "union_guard_PASS": true,
+  "old_ordered_stage_sha256": "cbefd4fe641904c1a20b57cf143bade10821e51fa0be9c3371559d9cbf530e13"
+}

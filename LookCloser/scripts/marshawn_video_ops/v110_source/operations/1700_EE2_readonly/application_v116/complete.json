@@ -1,0 +1,43 @@
+{
+  "status": "pass",
+  "frame": 1700,
+  "camera": "EE",
+  "new_native_sha256": "9f2b8e4558abf410c9fec0974edce9ad0ddd64d67fdf37e0119592e941683d33",
+  "added_actor_union_pixels": 28083,
+  "current_NN_components_2_6_only": true,
+  "white_crew_component1_never_added": true,
+  "source_approval_sha256": "d8e87e0047c7c5fc93a908f71419ee0cb08bfaaf270f1361305d42e9330af3f6",
+  "array_conservation_sha256": "02a27ca0a9450cae04184274e87ea58502364a540c427fce0bd91423f1c886c2",
+  "new_ordered_stage_sha256": "c8ea1e0667f921bc67fc4dfd5648b8bcddacfe9d13be3dd1414ec9fc746d967c",
+  "explicit_source_extension_not_false_requalification": true,
+  "source_QA_DATA_guard_grid_still_required": true,
+  "application": {
+    "frame": 1700,
+    "camera": "EE",
+    "kind": "ROOT_QUALIFIED_CURRENT_TWO_ACTOR_UNION_COMPONENTS",
+    "source_receipt_sha256": "c2d56c8d8181913b726212cc150b54cc28d53c419bc11846b564203231a0a7dd",
+    "candidate_archive_sha256": "c4c8d4a815b76fc43933017595174ea7fda9554a38d2d95722814f015b806310",
+    "instance": 2,
+    "native_components": [
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "ROOT_approval": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/root_1700_EE_current_actor_components_approval.json",
+    "ROOT_approval_sha256": "d8e87e0047c7c5fc93a908f71419ee0cb08bfaaf270f1361305d42e9330af3f6",
+    "native_hair_archive_sha256": "a5535f49bc589d8b2434f75697e505d0364b56fe6610b8deff4cf417b888381b",
+    "native_hair_mask_sha256": "fd00ae35ca278a84c5fae432ceadd73bc1ffab0fbe0800d5a84019d36358a33e",
+    "new_native_sha256": "9f2b8e4558abf410c9fec0974edce9ad0ddd64d67fdf37e0119592e941683d33",
+    "added_actor_union_pixels": 28083,
+    "prior_same_frame_qualified_scope": "qualified_union_parts_v116/EE_instance2_components2_3_4_5_6/old_qualified_RGB",
+    "source_only_current_NN_pixels": true,
+    "existing_BLACK_GREY_ownership_preserved": true,
+    "new_labels_BLACK_are_convention_ownership_uncertain": true,
+    "skin_between_actors_NOT_claimed_identified": true,
+    "geometry_UNKNOWN_unchanged": true,
+    "created": 1794105236.7622473
+  },
+  "created": 1794105238.0681195
+}

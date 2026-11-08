@@ -1,0 +1,16 @@
+{
+  "status": "pass",
+  "frame": 1705,
+  "CPU8_pack_seconds": 39.24817228317261,
+  "CPU8_workers": 8,
+  "camera_host_variants": 132,
+  "linked_PNG_cameras": 66,
+  "cache_link_same_inode": 66,
+  "original_stage_seconds": 16.06317925453186,
+  "original_all66_stream_SHA_gate_sha256": "847bf02c27529fbee544e610052e6c1647f9faa054f4df4dc80830ffbe6793ad",
+  "cache_result_sha256": "528467e0052bbde9df64d08b9e1861786e0e6e97ea46c44a0f604e6f4a393ec5",
+  "CPU8_execution_sha256": "e25910783acd93511f4f726bd24efc5b74c62039d6eedf75472776db69f146f2",
+  "source_data_NO_NeRF_or_weights_transferred": true,
+  "actual_full_BODY_end_to_end_not_yet_complete": true,
+  "created": 1794105620.1365511
+}
