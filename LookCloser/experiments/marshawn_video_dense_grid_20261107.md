@@ -411,3 +411,13 @@ The saved terminal snapshot passed the read-only exact DDA check for all156350 c
 [Actual terminal actor contact](/fsx/tmp/marshawn_video_1660_2015_24fps_140k_20261107/frames/001685/final_visual_review/selected_actor_contact.jpg) was manually inspected against currentGT in all three monitoring views. Actor colors, poses, clothing, faces, hands, and boots are coherent. A broad noisy floor/background shell persists outside the actor bodies. Ray retention does not certify physical surface depth, all missing native hair, or a clean cutout.
 
 Evidence: [compact bound report](/fsx/tmp/marshawn_video_1660_2015_24fps_140k_20261107/operations/contour_runtime_001685/selected_runtime_compact_report.json), SHA256 `c489ae0823c32398acb1fa162f030a0b963c0f7815ac2daea61309bfd6396fbc`; [full six-grid audit](/fsx/tmp/marshawn_video_1660_2015_24fps_140k_20261107/operations/contour_runtime_001685/selected/report.json).
+
+## Frame 1690 terminal model, 2026-11-08
+
+Cold training completed exactly140000 updates; raw actor-LPIPS selected terminal139999, checkpoint SHA256 `a2789ff660c8fa4dff616f75b932e02e518af8d7627b11b98f13ce482339209b`. In-sample overlapping DC/HC/KA actor metrics are PSNR47.26644, SSIM0.9940548, LPIPS0.000646709. These are not held-out or cross-frame quality comparisons.
+
+All148916 current HD actor-contour rays across66 cameras have zero misses in each of sourcebase, sourcepad1, sourcemapped, runtimecore, runtimeactive, and runtimeadmission. Runtime core and active each contain36464 cells; admission contains431240. Only the same-frame selected occupancy snapshot, archived renders, and metadata were copied from SG; no checkpoint weights were relocated, no GPU lease was requested, and no source/model/grid bytes were changed.
+
+[Actor contact](/fsx/tmp/marshawn_video_1660_2015_24fps_140k_20261107/frames/001690/final_visual_review/selected_actor_contact.jpg) and [whole-scene contact](/fsx/tmp/marshawn_video_1660_2015_24fps_140k_20261107/frames/001690/final_visual_review/selected_full_scene_contact.jpg) were manually viewed; ROOT independently reviewed the actor contact. Both actors' colors, poses, clothing, hands, hair and boots are coherent. A pronounced noisy floor and silhouette/background shell persists. Actor visual PASS and nominal ray retention do not certify a clean foreground, hidden physical surface depth, or all missing native hair.
+
+Evidence: [compact selected-runtime report](/fsx/tmp/marshawn_video_1660_2015_24fps_140k_20261107/operations/contour_runtime_001690/selected_runtime_compact_report.json), SHA256 `36ed7069e7e79402a6c9bfcdcd47cb9249fb07b2bb65d989bc5a86b4eece804c`; [full six-grid audit](/fsx/tmp/marshawn_video_1660_2015_24fps_140k_20261107/operations/contour_runtime_001690/selected/report.json).
