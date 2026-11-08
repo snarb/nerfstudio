@@ -1,0 +1,7 @@
+{
+  "status": "pass",
+  "factory_sha256": "a937100687b0ace4ebab0790b733dd1d6b607fc8488810e5b1c806bbd5c3cb48",
+  "exact_parent_env_preserved_on_success_and_exception": true,
+  "no_GPU_or_source_mutation": true,
+  "time": 1794101107.9254916
+}
