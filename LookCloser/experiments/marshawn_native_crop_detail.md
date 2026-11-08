@@ -145,7 +145,7 @@ Selected later evaluations use the same native in-sample actor protocol. Steps a
 | Q | 50000 | 30.240323 | 0.735833 | 0.133613 |
 | U | 32000 | 29.763338 | 0.710156 | 0.157856 |
 
-The [quality-versus-iterations plot](/fsx/tmp/marshawn_native_crop_tuning_20261108/operations/learning_curves/quality_vs_steps.png), [active-loop time plot](/fsx/tmp/marshawn_native_crop_tuning_20261108/operations/learning_curves/quality_vs_active_loop.png) and [source-linked CSV](/fsx/tmp/marshawn_native_crop_tuning_20261108/operations/learning_curves/learning_curves.csv) are the verified 12:22 UTC snapshot; the newer L/N 50k rows above are not yet timed points in that export. At measured gates, L32k reached `30.279158 / .735042 / .129428` in 2357.15 active-loop seconds versus B50k `30.137022 / .727685 / .137904` in 3059.19 seconds: 22.95% less time with better aggregate metrics. This is an observed operational comparison, not a causal attribution to batch size. Setup is reported separately in [GPU-lease wall time](/fsx/tmp/marshawn_native_crop_tuning_20261108/operations/learning_curves/quality_vs_lease_wall.png); between-stage idle is excluded from both clocks. The shared 69-second source preparation and 5493.66 GPU-second map fitting are not added independently to every arm.
+The [quality-versus-iterations plot](/fsx/tmp/marshawn_native_crop_tuning_20261108/operations/learning_curves/quality_vs_steps.png), [active-loop time plot](/fsx/tmp/marshawn_native_crop_tuning_20261108/operations/learning_curves/quality_vs_active_loop.png) and [source-linked CSV](/fsx/tmp/marshawn_native_crop_tuning_20261108/operations/learning_curves/learning_curves.csv) were refreshed around13:00 UTC to68 exact PID-qualified gate times, including L/N/M50k and S/T16k. Later A/B140k and new density trials are outside that snapshot. At measured gates, L32k reached `30.279158 / .735042 / .129428` in 2357.15 active-loop seconds versus B50k `30.137022 / .727685 / .137904` in 3059.19 seconds: 22.95% less time with better aggregate metrics. This is an observed operational comparison, not a causal attribution to batch size. Setup is reported separately in [GPU-lease wall time](/fsx/tmp/marshawn_native_crop_tuning_20261108/operations/learning_curves/quality_vs_lease_wall.png); between-stage idle is excluded from both clocks. The shared 69-second source preparation and 5493.66 GPU-second map fitting are not added independently to every arm.
 
 **The aggregate gain does not resolve clothing geometry.** In the reviewed native HC black-cloth interior `[500,650,756,906]`, the same mask intersection selects 65474 pixels. Mean rendered opacity is:
 
@@ -187,3 +187,33 @@ Actual NVIDIA process checks at 12:44:45 UTC confirm all ten field GPU contexts 
 M finished 50000 iterations at `30.532138 / .743817 / .123683`; its LPIPS gain over32k is only .002072. It was retired at that gate. Its GPU automatically started cold W, the corresponding S8192/scale2 control with only distortion changed to .01. No state moved from M to W. [W cold initialization](/fsx/tmp/marshawn_native_crop_tuning_20261108/ops/W_batch8k_scale2_dist001/actual_cold_first_gradients.json).
 
 The reusable NN worker and packed gather are committed as `7eeeee70`, with Python3.8 compatibility follow-up `d0f9b7fd`. The public worker SHA is `69def4a01c5e92cc1e98411cec5266c5108204ef306352e358e9f22965036701`; active private workers retain their original hashes. Public imports explicitly bind NN helpers to the declared sealed release and the two crop samplers to their exact local files. CPU tests cover configuration/loop parity, source-checkout rejection, variable-raster gathers and RNG, and actual DEV3 Python3.8/Torch2.4 configuration/Adam/YAML compatibility. They do not claim a new public GPU qualification. [Local qualification](/fsx/tmp/marshawn_native_crop_tuning_20261108/operations/geometry_v7/public_template_cpu_checks.json), [DEV3 proof](/fsx/tmp/marshawn_native_crop_tuning_20261108/operations/public_template_py38/result.json).
+
+### Terminal references and density screens — 13:37 UTC
+
+| Arm | Iterations | PSNR | SSIM | LPIPS |
+|---|---:|---:|---:|---:|
+| A native reference |140000|30.687317|.755608|.107840|
+| B corrected allocation |140000|30.652963|.754867|.108218|
+| L8192, long schedule |80000|31.040898|.771832|.100177|
+| N8192, compressed LR/FR |80000|30.766615|.755794|.114730|
+| P constant-map proxy |80000|30.561121|.752345|.117438|
+| Q gradient-rank proxy |80000|30.570177|.752349|.119251|
+| S8192, all phases scaled |32000|30.376257|.739661|.125491|
+| T16384, all phases scaled |32000|30.695378|.756164|.112290|
+| V: T with distortion .01 |8000|30.461844|.732769|.145681|
+| W: S with distortion .01 |16000|30.423760|.731943|.144080|
+| Y: W with Adam beta2 .99 |8000|29.713392|.698219|.179383|
+
+A/B ended at exactly140000 attempts and selected their139999 checkpoints. Root inspected fixed native novel-view contacts for B140 and L80: both actors and boots remain framed; substantial floor/background fragments persist. L80 has the best raw actor LPIPS in this table, but cloth mean alpha remains .873695 and60.42% of the diagnostic interior is below .9. A/B140 cloth means are .982653/.986770. Thus L80 is a detail reference, not a geometry-safe selected recipe. [B140 novel contact](/fsx/tmp/marshawn_native_crop_tuning_20261108/review/novel_140000/B_native/contact.jpg), [L80 contact](/fsx/tmp/marshawn_native_crop_tuning_20261108/review/novel_080000/L_native/contact.jpg).
+
+Reducing distortion improves aggregate image metrics but has not repaired opacity: V8k cloth alpha is .665269; W16k is .763699 versus S16k .7874. Y8k beta2=.99 increases cloth alpha to .848613 versus W8k .724279, while LPIPS is .00405 worse at that gate. X tests the same beta change at16384 rays; Z isolates distortion .01 at4096 rays. Every new arm is cold. P/Q continue their own checkpoints to140k to test the later FR phase against matched A/B endpoints; their source/code/specs remain unchanged.
+
+T16k takes2332.21 active-loop seconds versus L32k2357.15 seconds, at the same cumulative ray count. PSNR is slightly lower, SSIM slightly higher and LPIPS nearly equal; fewer iterations do not establish a proportional wall-time speedup. [Exact timing comparison](/fsx/tmp/marshawn_native_crop_tuning_20261108/operations/learning_curves/T16_vs_L32.json).
+
+An optional deficit-only adaptation of the green-scene opacity recipe is now screened from cold. AA/AB preserve W and add coefficients .1/.01 only on exact32-native-pixel Euclidean erosions of current valid actor unions. All66 overlays and HC close view were inspected; direct band/exterior overlap is zero. Thick hair interiors can remain, and shared-field changes can affect other pixels indirectly. This is an explicit opaque-material prior, not measured alpha ground truth. Existing RGB/W64, sampling, field, occupancy and cameras are unchanged; there is no profile penalty or extra field query. Packed flags cost .093ms per8192 rays versus3.245ms with camera loops. [Definition, proofs and risks](/fsx/tmp/marshawn_native_crop_tuning_20261108/operations/opaque_core_prior_v9/REPORT.md). No quality improvement is claimed before native gates.
+
+The read-only checkpoint evaluator reproduces original B50 float metrics within3e-7 and restores all state, source bytes and RNG. It ran in67.46 seconds including preflight/setup, with2.42GB peak allocated GPU memory. This enables separate intermediate-step scoring without altering ongoing training. [Actual canary](/fsx/tmp/marshawn_native_crop_tuning_20261108/review/readonly_checkpoint_evaluations/B_050000_olive_canary/complete.json).
+
+A private, inactive v8 builder also removes the native NN-ready prerequisite from fast proxies: freshly generated maps match P/Q on all66 cameras with forbidden NN paths poisoned. Original HD geometry READY metadata is still required, so this is not yet a complete new-frame production replacement. [Scope and remaining dependency](/fsx/tmp/marshawn_native_crop_tuning_20261108/operations/pure_proxy_v8/REPORT.md). Existing P/Q retain v4 and their original dependencies.
+
+The13:37 root supervision confirms ten actual field GPU contexts, live expected workers/controllers, current progress and no recent OOM/CUDA traceback evidence. [Hourly receipt](/fsx/tmp/marshawn_native_crop_tuning_20261108/operations/ROOT_supervision_1337.json). No old video job was restarted.
