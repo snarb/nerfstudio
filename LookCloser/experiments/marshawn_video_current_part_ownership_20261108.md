@@ -136,3 +136,42 @@ Missing prior same-family evidence does not establish nonactor identity.
 The conservative UNKNOWN path avoided a hard RGB cutoff in this case; full
 camera context provided the missing positive role evidence. Future warning
 reviews must retain this distinction.
+
+### Frame1710 DE mixed instance: current anatomy overrides an old crew ID
+
+The subsequent all66 guard passed65 cameras and stopped on DE instance1.
+Its historical stable crew ID did not describe the current prediction: the
+native connected components contain parts of both fighters. ROOT reviewed
+[the full source and wide native component outlines](/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_DE1_readonly/DE_two_actors_wide_native_outline.jpg)
+and all five component contacts. Component1 is the black fighter's forearm
+across the grey fighter's upper back; component3 is his right trouser leg,
+continuing to the already qualified component5 boot; component4 is the grey
+fighter's knee fold. Tight crops initially made the dark regions ambiguous;
+the full two-person anatomy establishes their role.
+
+The exact current-NN components1/3/4 contain94310 pixels, of which2322 were
+already actor/H and91988 were missing. Independent current CREW overlap is
+zero even when testing the whole qualified CREW instances, not only their
+smaller cores. The finite application added only that91988-pixel residual
+to actor/H and uncertain ownership. Geometry UNKNOWN, all prior actors,
+the existing25390-pixel boot component, all other65 native archives including
+the JE correction, and all66 RGB images remained unchanged. The tiny separate
+component2 remains68 pixels of UNKNOWN/veto with no actor/H/U assignment.
+The DE126 role warning lies entirely inside the proven actor knee component
+and is explicitly superseded; original NN decisions remain archived unchanged.
+
+[Actual application receipt](/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_DE_components_current_positive/application_complete.json)
+SHA256 `60b892f2651985aa9c7354d5d35a4de1b09817c469a74093f2399906ebf21770`;
+new DE native SHA256
+`1a3f36a33891bb0d3e249e77fef86db88d947f80ae3bd2b603ef3a2a5141aab5`.
+This restores121 deep RAW-PRE pixels through a current-photo-proven actor
+positive; no general PRE guard waiver was introduced. Original code/release,
+the continuous source authorization and the140k model recipe remain unchanged.
+The detached transaction resumed the source parents after its PASS. Fresh
+hair admission, all66 guards, frozen DATA/source QA and admission/contour
+checks remain required before the first1710 cold model.
+
+Coordinate lesson: `people.bbox_coarse` uses512×270, whereas component-check
+boxes use1024×540. Native diagnostics must use the actual bitmap or the
+correct declared scale. Bounding boxes and an old instance ID alone cannot
+establish actor or crew ownership in an occluding fight.
