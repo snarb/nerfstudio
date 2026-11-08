@@ -1,0 +1,18 @@
+{
+  "kind": "ACTUAL_CLEAN_G1_BODY_END_TO_END_SUCCESS",
+  "frame": 1715,
+  "all66_inferred_and_collected": true,
+  "all66_current_NN_unions_conserved": true,
+  "all66_canonical_postclear_replays_exact": true,
+  "all66_source_PNG_bytes_staged_and_verified": true,
+  "native_ready_sha256": "817843ef743c13d3142917e7cb9422ace174813d1fe7767b33aef40adb0bd1ab",
+  "native_inputs_ready_sha256": "f37ef3fe6f7bea3c9e7ba9ffc4931e79cb4c3bbc46492b165366923dc200267b",
+  "props_alias_ready_sha256": "ac77ea35a2382e0cebfcd04f40ef96dc4ec4cf9130772e73c37b6e44a09c4b8a",
+  "live_install_receipt_sha256": "b85020b70c82cecfdfc906690502b21dfcee7b4e2eb5e4c2065b88c371b55f6a",
+  "actual_132_numeric_seed_proof_sha256": "e304b568a398c6645cf132cf9e722512e57f9896867d168572892e461ad851a8",
+  "source_operations_release_sha256": "f74e81c7df9f000b790701371b978034dc3b69ea241d8806cecd0a9578b98153",
+  "collector_operations_release_sha256": "bfa861bf027be019fcabe9994a50f8271467bd9657c1bb18d5051d2bac142490",
+  "prepared_source_QA_and_grid_still_required": true,
+  "NN_source_quality_not_certified_by_transport_equality": true,
+  "created": 1794122813.992072
+}
