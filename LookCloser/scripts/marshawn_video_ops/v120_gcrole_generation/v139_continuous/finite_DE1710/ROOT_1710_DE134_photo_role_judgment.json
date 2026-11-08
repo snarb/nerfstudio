@@ -1,0 +1,31 @@
+{
+  "kind": "ROOT_CURRENT_PHOTO_TARGET_ACTOR_COMPONENT_ROLE_JUDGMENT_NOT_APPLICATION_RELEASE",
+  "frame": 1710,
+  "camera": "DE",
+  "candidate_instance": 1,
+  "approved_current_NN_component_IDs": [
+    1,
+    3,
+    4
+  ],
+  "candidate_archive_sha256": "70a5071be9227aec28e0e9157b2d4f5fb5a27d74ad1969f8d72158c80f3bd376",
+  "native_before_sha256": "6a59687632dad3e8a7f2c6bc5dd0cdfb4b02d6c6499f399726a53484491c9d43",
+  "scope_archive": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_DE1_readonly/native_component_scopes.npz",
+  "scope_archive_sha256": "f441968d159943f20856f425bdb9b0e7ba69ae04716beb8b7a79f2529d797323",
+  "exact_scope_proof_sha256": "aba3e724361db0db4f10423322f2aa4dfdc0308606f88a232c84adee91e2c3d3",
+  "full_component_pixels": 94310,
+  "unqualified_residual_new_actor_pixels": 91988,
+  "personally_viewed": {
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_DE1_readonly/DE_full_source.jpg": "019f585bb2e0875fe84b4185b7ec27f9775c3166f6c81c80e856312f77ce7b01",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_DE1_readonly/DE_two_actors_wide_native_outline.jpg": "2ba9f81fc745ce2613c155aa160be657ed7890a53e4f08f1cb1f9fd212fd9548",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_DE1_readonly/DE1_component1_native_contact.jpg": "c139764cdd8ff10d1e7a945201a030e7383a6a6cfad238c4c965658ffd582fe5",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_DE1_readonly/DE1_component2_native_contact.jpg": "671ed12d43d8aa18874d4db489d71fa2975ee5c7217e3d9474474fe9335324f2",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_DE1_readonly/DE1_component3_native_contact.jpg": "237c3a6fe7f0eea1072bcee4ff443cf9f93cad65400c3c8106dfe80aa2a9fddd",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_DE1_readonly/DE1_component4_native_contact.jpg": "456c0ee9d6c55e5d0b25a0fcfc399d7cc4e3d3b676ca3fabb292ff8f1c6eb048",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_DE1_readonly/DE1_component5_native_contact.jpg": "fb2d118f4fbb53db01c30e92db8a6f2638f639c4baf5076d5d9f676d7ac97a75"
+  },
+  "judgment": "C1blackfighterforearm crossesgrayfighterupperback. C3blackfighterrighttrouserleg continuesbehindgrayhiptoknownC5boot. C4grayfighterkneefold. Thesearetargetactorpixels. C5alreadyqualifiedpreserve; C2tiny68unprovenkeepUNKNOWN/veto. OldstableCREW-ID doesnotdescribecurrentmixedNNmask.",
+  "constraints": "ExactexistingcurrentNNcomponentsonly; addmissingR toactor/H/uncertainownership, preservephysicalUNKNOWN/alloldactors/all65othercameras includingJE12226fix andallRGB. No wholeinstanceownershipclaim, no genericRAWPREwaiver. ROOTreviewsfiniteapplierbeforeapplication.",
+  "application_authorized": false,
+  "created": 1794118530.4708629
+}

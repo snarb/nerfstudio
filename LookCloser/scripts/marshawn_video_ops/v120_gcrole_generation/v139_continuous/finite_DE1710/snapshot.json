@@ -1,0 +1,73 @@
+{
+  "kind": "FINITE_CURRENT_NN_PHOTO_ACTOR_COMPONENT_RECOVERY",
+  "frame": 1710,
+  "camera": "DE",
+  "files": [
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/apply_DE1710_current_photo_components.py",
+      "snapshot": "apply_DE1710_current_photo_components.py",
+      "sha256": "1500c643e2a66b9ffcc6417b209c39b54f2dfa6859e9ea20ba43dedc6af90842"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/run_DE1710_finite_positive_transaction.py",
+      "snapshot": "run_DE1710_finite_positive_transaction.py",
+      "sha256": "a13abe6b9f0545a0f9eea7a0dba3476c16ae3f94d022918b7fb2e3505bdbfd6c"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/ROOT_1710_DE134_photo_role_judgment.json",
+      "snapshot": "ROOT_1710_DE134_photo_role_judgment.json",
+      "sha256": "78af2a7c0b6286ebc89c49d1dd23187c37ed5f552f6239daf10596fe1bef003d"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_DE1_current_actor_review_hold.json",
+      "snapshot": "1710_DE1_current_actor_review_hold.json",
+      "sha256": "793a0fbecc9bfa2f15c98d7110131d1e8c5e6995f22066f2e88eeaf6fb2da50d"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_DE_components_current_positive/ROOT_application_authorization.json",
+      "snapshot": "ROOT_application_authorization.json",
+      "sha256": "8b3d276fecfb81521140a1b5cee6e5d940272e19ba02c1f9e1e594d600f539b1"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_DE_components_current_positive/scope_proof.json",
+      "snapshot": "scope_proof.json",
+      "sha256": "4b3cb1a8b1a3f7d450b0777efa652c4033e98088024670f1fee19736df39cb0e"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_DE_components_current_positive/application_complete.json",
+      "snapshot": "application_complete.json",
+      "sha256": "60b892f2651985aa9c7354d5d35a4de1b09817c469a74093f2399906ebf21770"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_DE_components_current_positive/finite_current_actor_extension.json",
+      "snapshot": "finite_current_actor_extension.json",
+      "sha256": "17411d65ea668871376e70eab1296f4e924219be60f22c961ecc070fc3f7a7a4"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_DE_components_current_positive/transaction_complete.json",
+      "snapshot": "transaction_complete.json",
+      "sha256": "3ccb7d7d34fcef9e6020bfde5fd59331ca15bdaedb8b6c1b7a78789b65d96fe7"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_DE_components_current_positive/worker_retirement.json",
+      "snapshot": "worker_retirement.json",
+      "sha256": "affc9d6afff36ba7bfffc1d62b95ea0c6ce403e267b8080d0a6e7f8953edcc02"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_DE_components_current_positive/unpublished_downstream_archive.json",
+      "snapshot": "unpublished_downstream_archive.json",
+      "sha256": "2222dac2f4b790e4bbcaf59ae0fb95f7a8e159d999fca4d5c36c6bd79dd0dc95"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_DE_components_current_positive/post_application_C2_invariance.json",
+      "snapshot": "post_application_C2_invariance.json",
+      "sha256": "402ed7ec62b118817f9a35421ca8a13590de975d9de33b9d4b6c38842c4c9e32"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_DE1_readonly/exact_scope_proof.json",
+      "snapshot": "exact_scope_proof.json",
+      "sha256": "aba3e724361db0db4f10423322f2aa4dfdc0308606f88a232c84adee91e2c3d3"
+    }
+  ],
+  "source_masks_and_photo_arrays_remain_in_campaign": true
+}

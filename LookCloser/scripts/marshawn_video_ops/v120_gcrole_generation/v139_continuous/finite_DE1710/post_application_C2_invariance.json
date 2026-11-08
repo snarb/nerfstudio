@@ -1,0 +1,16 @@
+{
+  "frame": 1710,
+  "camera": "DE",
+  "component2_pixels": 68,
+  "component2_all_native_arrays_unchanged": true,
+  "after_component2": {
+    "black": 0,
+    "grey": 0,
+    "source_ineligible": 68,
+    "unknown": 68,
+    "actor_ownership_uncertain": 0,
+    "qualified_actor_rgb": 0
+  },
+  "new_native_sha256": "1a3f36a33891bb0d3e249e77fef86db88d947f80ae3bd2b603ef3a2a5141aab5",
+  "time": 1794118726.3630764
+}

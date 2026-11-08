@@ -1,0 +1,34 @@
+{
+  "kind": "FINITE_CURRENT_NN_ACTOR_COMPONENT_REVIEW_HOLD",
+  "frame": 1710,
+  "records": [
+    {
+      "pid": 2485926,
+      "start": "249184181",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/marshawn_source_producer_g1_v139.py watchdog ",
+      "identity_file": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/source_producer_g1_v139_watchdog_identity.json",
+      "signal": "SIGSTOP"
+    },
+    {
+      "pid": 2485958,
+      "start": "249184226",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/marshawn_source_producer_g1_v139.py controller ",
+      "identity_file": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/source_producer_g1_v139_identity.json",
+      "signal": "SIGSTOP"
+    },
+    {
+      "pid": 2494057,
+      "start": "249356859",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/marshawn_source_factory_g1_v139.py --frame 1710 --previous 1705 --prepare-only ",
+      "identity_file": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/source_producer_g1_v139_logs/1710_current_HEAD_source_DATA_QA.identity.json",
+      "signal": "SIGSTOP"
+    }
+  ],
+  "no_source_marker": true,
+  "time": 1794118439.762611,
+  "reason": "ROOTphotoqualifies exactunlabeledDEperson1components1/3/4 asfighterunion; finiteapplierreviewpending",
+  "NN_fields_frequency_cache_untouched": true
+}

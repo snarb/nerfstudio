@@ -1,0 +1,18 @@
+{
+  "records": [
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/data/admission_unknown_hair",
+      "archived": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_DE_components_current_positive/unpublished_downstream_before/0_admission_unknown_hair"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/crew_guard",
+      "archived": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_DE_components_current_positive/unpublished_downstream_before/1_crew_guard"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/visibility_unknown_inputs",
+      "archived": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_DE_components_current_positive/unpublished_downstream_before/2_visibility_unknown_inputs"
+    }
+  ],
+  "time": 1794118672.8627634,
+  "no_RGB_or_frequency_files_changed": true
+}

@@ -1,0 +1,87 @@
+{
+  "worker": {
+    "pid": 2494057,
+    "start": "249356859",
+    "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+    "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/marshawn_source_factory_g1_v139.py --frame 1710 --previous 1705 --prepare-only ",
+    "identity_file": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/source_producer_g1_v139_logs/1710_current_HEAD_source_DATA_QA.identity.json",
+    "signal": "SIGSTOP"
+  },
+  "descendants": [
+    {
+      "pid": 2494282,
+      "start": "249360816",
+      "state": "S",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python -B -c from multiprocessing.resource_tracker import main;main(8) ",
+      "ppid": 2494057
+    },
+    {
+      "pid": 2494283,
+      "start": "249360816",
+      "state": "S",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python -B -c from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=9, pipe_handle=13) --multiprocessing-fork ",
+      "ppid": 2494057
+    },
+    {
+      "pid": 2494286,
+      "start": "249360817",
+      "state": "S",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python -B -c from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=9, pipe_handle=15) --multiprocessing-fork ",
+      "ppid": 2494057
+    },
+    {
+      "pid": 2494287,
+      "start": "249360817",
+      "state": "S",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python -B -c from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=9, pipe_handle=17) --multiprocessing-fork ",
+      "ppid": 2494057
+    },
+    {
+      "pid": 2494288,
+      "start": "249360817",
+      "state": "S",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python -B -c from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=9, pipe_handle=19) --multiprocessing-fork ",
+      "ppid": 2494057
+    },
+    {
+      "pid": 2494289,
+      "start": "249360817",
+      "state": "S",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python -B -c from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=9, pipe_handle=21) --multiprocessing-fork ",
+      "ppid": 2494057
+    },
+    {
+      "pid": 2494290,
+      "start": "249360817",
+      "state": "S",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python -B -c from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=9, pipe_handle=23) --multiprocessing-fork ",
+      "ppid": 2494057
+    },
+    {
+      "pid": 2494291,
+      "start": "249360817",
+      "state": "S",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python -B -c from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=9, pipe_handle=25) --multiprocessing-fork ",
+      "ppid": 2494057
+    },
+    {
+      "pid": 2494292,
+      "start": "249360817",
+      "state": "S",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python -B -c from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=9, pipe_handle=27) --multiprocessing-fork ",
+      "ppid": 2494057
+    }
+  ],
+  "all_live_writing_descendants_absent": true,
+  "time": 1794118672.8267765,
+  "no_fields_NN_frequency_cache_stopped": true
+}
