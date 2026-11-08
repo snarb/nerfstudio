@@ -102,3 +102,19 @@ The sole source owner can create a hardlink from an already verified cache file 
 Qualification used actual1705/AA and1710/AB PNGs of73,682,789 and72,658,671 bytes. An interrupted1,605,632-byte partial file was rejected before cache READY, then resumed to the exact source SHA/size/mtime. The isolated consumer produced a same-inode hardlink; foreign cache and normal files remained unchanged after rejection; an unready consumer returned without creating a target. Qualification did not create any real future native-task directory or touch frame1700. [Cache release](/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/native_png_prefetch_v1/release.json), SHA256 `74245e7657069eab1e1abef950eb1a37664653d50021da45db152623b1cd7e49`; [qualification](/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/native_png_prefetch_v1/qualification.json), SHA256 `2e4b62c74279b8ffa415b284a15104a908d81f4b107550d29bb0bb18b04d1e26`.
 
 ROOT approved the cache under authorization `6dd8eefe…`; producer-owned V114 adds the optional consumer for unclaimed1705+ routes. Existing frame1700 retains its old owner. The source and frequency/model pipelines continue independently if prefetch fails. Actual1705 packing, collection, cache-hit counts, and full source cadence still need observation; no end-to-end speedup is claimed yet.
+
+## First production use: frame 1705
+
+The first complete BODY pass using transactional CPU8 packing, optional PNG cache, and bounded async2 collection finished successfully for all66 cameras. Every normal streamed-source SHA check remained enabled; all66 cached PNG inputs were create-only same-inode links. Original NN models, native crops, seed/reference math, camera order, and native-priority policy were unchanged.
+
+| Observed stage | Old frame1700 | New frame1705 |
+|---|---:|---:|
+| Task packing,132 host variants |845s serial file span|39.25s actual CPU8 execution|
+| Normal source staging and all66 SHA checks |484s|16.35s identity-mtime interval; producer timer16.06s|
+| First NN start to last NN supervisor completion |1027.3s|475.80s|
+| Last NN completion to final verified collection |about10s|15.32s|
+| Factory/pack start to all66 collected |1987s|611.01s|
+
+These are single production observations on different frames and concurrent loads, not a matched benchmark. The new cached PNG payload was transferred before the critical path. The1705 aggregate collection work was427.99s, averaging6.48s per camera and9.48s maximum, while two collectors overlapped with continued NN refill. Task counts were SG1/5/7:11 each, SG0:6, SG2:9, SG3:3, SG4:7, and olive:8. SG6 remained an active field slot. All66 jobs completed without failure and all66 results were collected.
+
+The measured BODY pass decreased from33m07s on1700 to10m11s on1705. Full source cadence still includes HEAD/part inference, qualification, source guard, DATA, and final grid audits; this does not establish a ten-minute end-to-end frame pipeline. This observation does not justify changing native priority or scientific parameters. [Source-bound final timing receipt](/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/native_BODY_1705_profile/BODY_complete.json).
