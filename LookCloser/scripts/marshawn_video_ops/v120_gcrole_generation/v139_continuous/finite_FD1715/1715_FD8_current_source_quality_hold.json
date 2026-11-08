@@ -1,0 +1,30 @@
+{
+  "frame": 1715,
+  "records": [
+    {
+      "pid": 2505524,
+      "start": "249567471",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/marshawn_source_producer_g1_v143.py watchdog ",
+      "signal": "SIGSTOP"
+    },
+    {
+      "pid": 2505556,
+      "start": "249567530",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/marshawn_source_producer_g1_v143.py controller ",
+      "signal": "SIGSTOP"
+    },
+    {
+      "pid": 2596253,
+      "start": "249883789",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/marshawn_source_factory_g1_v139.py --frame 1715 --previous 1710 --prepare-only ",
+      "signal": "SIGSTOP"
+    }
+  ],
+  "reason": "Repeated exact FD person8 actual current identity/PRE conflict; ROOT finitephoto review before mutation",
+  "no_source_marker": true,
+  "NN_training_frequency_and_cache_untouched": true,
+  "created": 1794123754.6340256
+}

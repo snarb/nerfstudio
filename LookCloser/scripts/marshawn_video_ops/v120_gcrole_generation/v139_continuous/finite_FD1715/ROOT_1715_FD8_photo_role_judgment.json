@@ -1,0 +1,54 @@
+{
+  "kind": "ROOT_ACTUAL_CURRENT_NATIVE_PHOTO_ROLE_JUDGMENT_V1",
+  "frame": 1715,
+  "camera": "FD",
+  "instance": 8,
+  "created": 1794124104.5532784,
+  "ROOT_personally_viewed_all_listed_photos": true,
+  "files_sha256": {
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1715_FD8_readonly/proof.json": "f1491cb5b7d489de58ffd70e722a068a0647d89408d65990bd58ad184106764b",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1715_FD8_readonly/FD_full_source.jpg": "250c9945dcbd0fe6952bb9766f072a9a5058372d412c38e40e54eaa0f022ca39",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1715_FD8_readonly/FD_two_actor_wide_native_outline.jpg": "821c32f2812b2f055eca8780a9882574b3f8d693b0682dca6651529385912721",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1715_FD8_readonly/FD8_component1_native.jpg": "71ac033735767ae1ad42897166049956f2a091d4c0ce579ca4fa9a56594279b0",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1715_FD8_readonly/FD8_component2_native.jpg": "321e665a3c600e4768a155ff6796210b40c8a4ab9123065082cfd54ec34d0b68",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1715_FD8_readonly/FD8_component3_native.jpg": "f5e05aed77e16473b7513c5e562b2d4d7c84d3f8aeefb42ad4cd17bba8ecbad5",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1715_FD8_readonly/FD8_component4_native.jpg": "d0593f0640bb5e577ab80f21fe5e528262a4868d2eb3558163ceb2fada429977",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1715_FD8_readonly/FD8_component5_native.jpg": "012ae81e928b7a6f3e0dfd49b5241c83e12aff7303a7b855d83ca1b84b3701aa",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1715_FD8_readonly/FD8_component6_native.jpg": "376218a64af31083dd19a248d1ddae4e292ec5e607eab4acab4182046874c83e",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1715_FD8_readonly/FD8_component7_native.jpg": "cddebd897a98ded3c681065bb0aefa8761db7af3df07eb1a1034cc2c9dd3c7cc",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1715_FD8_readonly/FD8_component8_native.jpg": "4e335638a31419130f64611780c57ecabf4d733cf727dc57a6037dbeb8766cd2",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1715_FD8_readonly/FD8_component9_native.jpg": "ac0d32caba6e325bab27c296cec4edd2e67c93d6a56ccf0cc26aeaa4137d327d",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1715_FD8_readonly/FD8_component10_native.jpg": "cea0ec1d69617827dbbd6d891a21f388e06ded5aac0a05cfca848aa3664aa7d7",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1715_FD8_readonly/FD8_component11_native.jpg": "0261b556b32c7e4270c5601310466799d1e5866993fea78a4073829dcc5b832d"
+  },
+  "current_components_positive_black_actor": {
+    "1": "Black fighter forearm/shirt below extended arm",
+    "2": "Black fighter torso behind gray back",
+    "4": "Black fighter right trouser leg visible beside gray hip",
+    "7": "Black fighter trouser knee behind gray crotch, connected anatomically toward rear boot",
+    "9": "Small interior fragment of same black fighter rear leg/boot",
+    "10": "Small interior fragment of same black fighter rear boot",
+    "11": "Same black fighter rear boot above gray shoe"
+  },
+  "positive_component_ids": [
+    1,
+    2,
+    4,
+    7,
+    9,
+    10,
+    11
+  ],
+  "preserve_unchanged_component_ids": [
+    3,
+    5,
+    6,
+    8
+  ],
+  "component3": "Mostly seated worker beige trousers and shoe; never promote entire component. Preserve all existing4155 actor/H pixels unchanged.",
+  "component8": "Two pixels unresolved; preserve physical UNKNOWN and veto/source-ineligible status.",
+  "components5_and6": "Exactly93+190=283 pixels are brown calibration cardboard visible through gap behind black hip, not either actor. Current refinedPRE=0; RAWdeepPRE is false positive at these exact source-bound masks. Preserve all arrays including physical UNKNOWN/veto; finite original uncertainty-proof hook only, no free-space claim.",
+  "limitations": "No whole-instance actor ownership, no stable-ID identity proof, no prior bitmap foreground, no broad PRE bypass. Exact current NN masks/source photograph only.",
+  "authorization": "Photo judgment supports preparation of finite residual-positive applier and exact283 UNKNOWN accounting. Execution requires ROOT review of concrete code, independent current CREW non-overlap and frozen source bindings.",
+  "source_arrays_modified": false
+}

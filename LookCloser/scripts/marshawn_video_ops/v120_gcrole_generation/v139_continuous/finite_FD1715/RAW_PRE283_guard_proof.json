@@ -1,0 +1,26 @@
+{
+  "kind": "ROOT_SCOPED_RAW_PROPOSAL_UNCERTAINTY_ONLY",
+  "frame": 1715,
+  "camera": "FD",
+  "instance": 8,
+  "source_receipt_sha256": "1f90158d6d50c9fae1c2c02569cba05596907a99261e3f06c0ca2f11918cf505",
+  "candidate_archive_sha256": "0c50661ad42d553383dbc179cff59ca27041be6e70e6a9ba547c27492164a66c",
+  "native_archive_sha256": "dc809b46a7705a2c17c46eed10df2bc7e0209eabf60e31d1fcccc6d6408257be",
+  "mask_archive_sha256": "a3939bd200b5847de6bef39795ad303408b921c4b040176a79fd79352e8646c8",
+  "mask_array_sha256": "5150add7efe05029bef6e3b880cf744108108ba8659204ccf5a66b5d1c609a57",
+  "scope_pixels": 283,
+  "refined_PRE_archive_sha256": "30441d6772255d45af6027c44808e78097df4a2c2577907441e5d506030a4445",
+  "ROOT_approval_path": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1715_FD_components_current_positive/ROOT_application_authorization.json",
+  "ROOT_approval_sha256": "fa2a2cb009de9081673f6292d0a90d7f54008505aa18f14002aae734fb71e27f",
+  "ROOT_photo_judgment": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/ROOT_1715_FD8_photo_role_judgment.json",
+  "ROOT_photo_judgment_sha256": "342f259b93ff622b75b709cfa59e28c3abab7b2f91d76624e810f1cacfed5489",
+  "scope_components": [
+    5,
+    6
+  ],
+  "photo_resolution": "Visible brown calibration cardboard; RAW-selected proposal false-positive, refined PRE0",
+  "original_RAW_PRE_preserved": true,
+  "no_native_DATA_RGB_confidence_or_physical_UNKNOWN_changed_by_accounting": true,
+  "NOT_physical_free_space_certificate": true,
+  "created": 1794124285.3892803
+}

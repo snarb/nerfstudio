@@ -1,0 +1,27 @@
+{
+  "kind": "CURRENT_NN_ROOT_PHOTO_QUALIFIED_ACTOR_ROLE_EXTENSION",
+  "frame": 1715,
+  "camera": "FD",
+  "positive_components": [
+    1,
+    2,
+    4,
+    7,
+    9,
+    10,
+    11
+  ],
+  "current_NN_scope_sha256": "535bce024af28f6b074bbbb4bc541c0fa2bd26cc944af7cd3af08fd04369d57e",
+  "scope_pixels": 19881,
+  "ROOT_authorization_sha256": "fa2a2cb009de9081673f6292d0a90d7f54008505aa18f14002aae734fb71e27f",
+  "original_qualification_sha256": "6848dc901ea66667b7d2c4ca86cdb8eb5e5839b0eadd606c113df91df0e1508b",
+  "original_qualification_decisions_preserved": true,
+  "original_ordered_stage_sha256": "0ede9dcfb9f4def954efe1e88b830cb8bb0b2eafe76f65fbcc6fd11403da91d9",
+  "old_native_sha256": "3b453dcd5617722b2f449912d77cba957b54223b2788e9a68d5e40f3b6f37c01",
+  "new_native_sha256": "dc809b46a7705a2c17c46eed10df2bc7e0209eabf60e31d1fcccc6d6408257be",
+  "application_receipt": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1715_FD_components_current_positive/finite_apply_scope/applications/FD/complete.json",
+  "application_receipt_sha256": "b032d7b8fe2bcf7a7853aae1052ad7cabc6a048bc4ada052289d90efcd00ba37",
+  "guard_accounting_proof_sha256": "d89f81e2e19db62fb339f412be3c30447c559e8367ee06f290ce9706f236b258",
+  "original_geometry_UNKNOWN_and_all_old_actor_pixels_preserved": true,
+  "created": 1794124285.4571555
+}

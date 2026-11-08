@@ -1,0 +1,86 @@
+{
+  "records": [
+    {
+      "original": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/apply_FD1715_current_photo_components.py",
+      "snapshot": "apply_FD1715_current_photo_components.py",
+      "sha256": "270bbb11c233cd5347796729059894324f074b77eb0c031db59acfe007fb6574"
+    },
+    {
+      "original": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/run_FD1715_finite_positive_transaction.py",
+      "snapshot": "run_FD1715_finite_positive_transaction.py",
+      "sha256": "4d35850a71651dda752b5da1e29ee82faeee2691c7a699e83e9200baf729479c"
+    },
+    {
+      "original": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/prepare_FD1715_finite_scopes.py",
+      "snapshot": "prepare_FD1715_finite_scopes.py",
+      "sha256": "7882a242f49d1e456b420f671b5481f3567e5520c147ab39a138195e786e871e"
+    },
+    {
+      "original": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/ROOT_1715_FD8_photo_role_judgment.json",
+      "snapshot": "ROOT_1715_FD8_photo_role_judgment.json",
+      "sha256": "342f259b93ff622b75b709cfa59e28c3abab7b2f91d76624e810f1cacfed5489"
+    },
+    {
+      "original": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1715_FD8_current_source_quality_hold.json",
+      "snapshot": "1715_FD8_current_source_quality_hold.json",
+      "sha256": "6448d38477632b4f0dec374592a0841a0bd764cb6862ecb2ca3d513c92ea811c"
+    },
+    {
+      "original": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1715_FD_components_current_positive/ROOT_application_authorization.json",
+      "snapshot": "ROOT_application_authorization.json",
+      "sha256": "fa2a2cb009de9081673f6292d0a90d7f54008505aa18f14002aae734fb71e27f"
+    },
+    {
+      "original": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1715_FD_components_current_positive/scope_proof.json",
+      "snapshot": "scope_proof.json",
+      "sha256": "f91a0821426d7414850b5c36ea05db3626173fba6663e144b92180da12cad050"
+    },
+    {
+      "original": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1715_FD_components_current_positive/application_complete.json",
+      "snapshot": "application_complete.json",
+      "sha256": "c1e6bf8fd74a989b0bf68d01df0a596933c8ff66bebdd6dcb0cc01c84e36bad5"
+    },
+    {
+      "original": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1715_FD_components_current_positive/finite_current_actor_extension.json",
+      "snapshot": "finite_current_actor_extension.json",
+      "sha256": "74f9eee5d091012aa6a7863980e7bf6296513e14ae5c5b79377fd353bb771cf8"
+    },
+    {
+      "original": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1715_FD_components_current_positive/transaction_complete.json",
+      "snapshot": "transaction_complete.json",
+      "sha256": "cd6281b0e4e8410269468bf975a327b6055ebba8875409a594a7e4fffe66509d"
+    },
+    {
+      "original": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1715_FD_components_current_positive/worker_retirement.json",
+      "snapshot": "worker_retirement.json",
+      "sha256": "dd247eda6915410d97f7aab888b7988606e5443803fa9d61d9020c1961b58e40"
+    },
+    {
+      "original": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1715_FD_components_current_positive/unpublished_downstream_archive.json",
+      "snapshot": "unpublished_downstream_archive.json",
+      "sha256": "56598f8bd81719b04160d39061052d2cc519f4ad98741977f8a35a1bd85fb93b"
+    },
+    {
+      "original": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1715_FD_components_current_positive/actual_contact_proof.json",
+      "snapshot": "actual_contact_proof.json",
+      "sha256": "254fc7dd0343b171f5f2ad48cf9dd90000cde9b4acd369b5e39dbe80f9b7312c"
+    },
+    {
+      "original": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1715_FD_components_current_positive/ROOT_actual_application_visual_review.json",
+      "snapshot": "ROOT_actual_application_visual_review.json",
+      "sha256": "8a08c3b999d4d25e248900783a31c175fc27fe56eaed4b69bb21369a5d440f5c"
+    },
+    {
+      "original": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1715_FD_components_current_positive/build_actual_contact.py",
+      "snapshot": "build_actual_contact.py",
+      "sha256": "582a2ff0ec94048154469da75d098190ebd7ec483cc89ac6501fc4320923089a"
+    },
+    {
+      "original": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001715/guard_proposal_uncertainty_inputs/FD/proof.json",
+      "snapshot": "RAW_PRE283_guard_proof.json",
+      "sha256": "d89f81e2e19db62fb339f412be3c30447c559e8367ee06f290ce9706f236b258"
+    }
+  ],
+  "created": 1794124649.6832755,
+  "no_released_source_implementation_modified": true
+}

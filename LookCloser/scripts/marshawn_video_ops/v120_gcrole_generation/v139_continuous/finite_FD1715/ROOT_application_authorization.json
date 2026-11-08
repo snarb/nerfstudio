@@ -1,0 +1,32 @@
+{
+  "authorized": true,
+  "frame": 1715,
+  "camera": "FD",
+  "applier_sha256": "270bbb11c233cd5347796729059894324f074b77eb0c031db59acfe007fb6574",
+  "transaction_runner_sha256": "4d35850a71651dda752b5da1e29ee82faeee2691c7a699e83e9200baf729479c",
+  "photo_judgment_sha256": "342f259b93ff622b75b709cfa59e28c3abab7b2f91d76624e810f1cacfed5489",
+  "simulation_sha256": "f91a0821426d7414850b5c36ea05db3626173fba6663e144b92180da12cad050",
+  "ROOT_reviewed_concrete_applier_and_scope": true,
+  "exact_positive_components": [
+    1,
+    2,
+    4,
+    7,
+    9,
+    10,
+    11
+  ],
+  "new_actor_pixels": 19881,
+  "current_qualified_CREW_overlap": 0,
+  "unchanged_components": [
+    3,
+    5,
+    6,
+    8
+  ],
+  "exact_RAW_PRE283_accounting_only": true,
+  "physical_UNKNOWN_preserved": true,
+  "no_whole_instance_or_generic_PRE_waiver": true,
+  "requirements": "Retire exact held SOURCECPUwriter descendants, apply once using factorylock, verify exactallarraydelta+65native+66RGB, rebuildfreshhair/all66guard/DATA/sourceQA before publication, resumeoriginalSOURCE143owners durably onlyafterapplicationPASS; no field/NN/frequency restart",
+  "created": 1794124260.5461638
+}

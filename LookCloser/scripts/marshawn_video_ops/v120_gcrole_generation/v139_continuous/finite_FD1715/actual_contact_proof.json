@@ -1,0 +1,17 @@
+{
+  "frame": 1715,
+  "camera": "FD",
+  "native_sha256": "dc809b46a7705a2c17c46eed10df2bc7e0209eabf60e31d1fcccc6d6408257be",
+  "application_complete_sha256": "c1e6bf8fd74a989b0bf68d01df0a596933c8ff66bebdd6dcb0cc01c84e36bad5",
+  "source_native_image_sha256": "083e076faeb58793d0183f1e05b2ab4b57cb0e38e4a81ba292e57660c909239d",
+  "crop_native_xyxy": [
+    2619,
+    1454,
+    4242,
+    3806
+  ],
+  "actor_added19881": true,
+  "actor_removed0": true,
+  "contact": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1715_FD_components_current_positive/FD_actual_before_delta_after.jpg",
+  "contact_sha256": "a71976c7ceabc46fbc1f8548f36f5705258a95a517030c529f2ef1f14dedf4a7"
+}

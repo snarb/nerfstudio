@@ -1,0 +1,21 @@
+{
+  "status": "pass",
+  "guard_sha256": "10b211e9294771b8f90f0ded753fa5a99888e6875c026683a341651be16f7f0e",
+  "FD_guard_sha256": "c7ba7479275a8d5202aa67ed79556a2664f2c21f230c789c30c5df0f5bbae0c1",
+  "FD_native_sha256": "dc809b46a7705a2c17c46eed10df2bc7e0209eabf60e31d1fcccc6d6408257be",
+  "current_factory_state": {
+    "frame": 1715,
+    "stage": "ownership",
+    "pid": 2598854,
+    "checked_at": 1794124619.8251328,
+    "argv": [
+      "/home/pavlo/.conda/envs/nerfstudio/bin/python",
+      "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/marshawn_semantic_ownership_v5.py",
+      "--root",
+      "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108",
+      "--frame",
+      "1715"
+    ]
+  },
+  "no_SOURCE_or_field_completion_claim": true
+}
