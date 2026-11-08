@@ -96,3 +96,43 @@ confirmed crew negatives and detached actor positives, and qualify any
 replacement ownership rule before using it on later sources. Recompute
 affected guidance from corrected masks; do not relabel stale inference as
 a new run or reuse learned model state after changing its inputs.
+
+### First continuous-source frame1710: retain a real trouser fragment
+
+The released role filter kept107/110 current anatomy-pair proposals and left
+three proposals UNKNOWN. ROOT inspected the actual small contacts, then the
+[full JE photograph with scope](/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/production_role_review_v139/frame001710/JE_full_source_ROLEUNKNOWN_context.jpg)
+and its wider native crop. The12226-pixel pants proposal is the black fighter's
+right trouser leg, behind the crouching grey fighter and above the foreground
+worker. The tight crop alone did not establish that identity.
+
+The baseline64-native-pixel falloff had retained partial RGB supervision:
+829/863 covered validHDpixels were positive, with coverage-weighted mean
+W64=.450386. A finite, ROOT-photo-qualified correction used exactly the existing
+current NN intersection: pants/dark-pants scores.773438/.789063, IoU.996989,
+independent current CREW overlap0. It added those12226 pixels to actor/H and
+uncertain ownership, preserving physical UNKNOWN, grey labels and all prior
+actors. No new hand-drawn mask, prior bitmap foreground, threshold change or
+additional inference was used. The simulated meanW64 becomes.982653; this is
+weight accounting, not a demonstrated rendered-quality gain.
+
+The actual application passed exact expected-array comparisons. All other65
+native archives, all66 RGB images and the original NN qualification remained
+unchanged. The separate JE74-pixel and DE126-pixel warnings remain UNKNOWN;
+JE74 has zero overlap with the approved trouser scope. Historical role/ordered
+receipts were archived, and current receipts record the explicit finite
+positive extension. [Application receipt](/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_JE12226_current_positive/application_complete.json)
+SHA256 `a787525cd251ab6e1dcfd4e4e107afa89507b87c1ac00314851f811e67752745`.
+New JE native SHA256
+`f460835c4393e0133033f3ca9fb1ff060557e0a89b2a63faabadb969818731b7`.
+
+This happened before SOURCE publication or any1710 field training. A detached
+transaction resumed the exact source controller/watchdog after its PASS;
+fresh hair admission, all66 guards, DATA/source QA and the dispatcher's fresh
+grid/contour gates still precede the cold model. V139 code and the immutable
+continuous-generation authorization remain unchanged.
+
+Missing prior same-family evidence does not establish nonactor identity.
+The conservative UNKNOWN path avoided a hard RGB cutoff in this case; full
+camera context provided the missing positive role evidence. Future warning
+reviews must retain this distinction.
