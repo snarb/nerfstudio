@@ -401,3 +401,13 @@ preparedSHA `48ba74f315eefb899b72a0bd13ada6423179410fda06d79c7b98e37d90fd1f00`,
 source markerSHA `ce50d5565f245fcc06fecde107558f2fe74d3e8916f630a72de0ce98b7bb982d`,
 gateSHA `8c4f92f7f4257cca9d0e7725c945a70ac7d8e3fd608e45f05c3f69777ebb4a1b`,
 and dense qualificationSHA `d8595ee57ce453993099963d48249ff2af22d140d86b017d6f8ee6f83bc9373c`.
+
+## Frame 1685 terminal model, 2026-11-08
+
+The independently cold-trained model completed exactly140000 updates, ending at139999. The raw actor-LPIPS selector chose that terminal checkpoint, SHA256 `aec40a94f12fd77854a59ed51bf0b5e44224afa8584e641ed800cf91b6859136`. In-sample actor metrics across the overlapping DC/HC/KA monitoring views are PSNR46.78337, SSIM0.9932453, LPIPS0.000714994; these are not held-out or cross-frame quality comparisons.
+
+The saved terminal snapshot passed the read-only exact DDA check for all156350 current HD actor-contour rays in each of sourcebase, sourcepad1, sourcemapped, runtimecore, runtimeactive, and runtimeadmission: zero misses in all six. Runtime core and active each contain35126 cells; admission contains439724. The audit loaded no model, requested no GPU lease, and changed no source/input/grid/checkpoint bytes.
+
+[Actual terminal actor contact](/fsx/tmp/marshawn_video_1660_2015_24fps_140k_20261107/frames/001685/final_visual_review/selected_actor_contact.jpg) was manually inspected against currentGT in all three monitoring views. Actor colors, poses, clothing, faces, hands, and boots are coherent. A broad noisy floor/background shell persists outside the actor bodies. Ray retention does not certify physical surface depth, all missing native hair, or a clean cutout.
+
+Evidence: [compact bound report](/fsx/tmp/marshawn_video_1660_2015_24fps_140k_20261107/operations/contour_runtime_001685/selected_runtime_compact_report.json), SHA256 `c489ae0823c32398acb1fa162f030a0b963c0f7815ac2daea61309bfd6396fbc`; [full six-grid audit](/fsx/tmp/marshawn_video_1660_2015_24fps_140k_20261107/operations/contour_runtime_001685/selected/report.json).
