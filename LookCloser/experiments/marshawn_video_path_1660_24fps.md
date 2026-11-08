@@ -347,3 +347,22 @@ It stopped without GPU work or production changes. Tiny original tail mass
 cannot bound changed RGB under the legacy ARM allocator because interval
 pruning changes sample allocation. Details and source-bound receipts are in
 [`marshawn_export_background_support_feasibility.md`](marshawn_export_background_support_feasibility.md).
+
+## Current launcher and actual six-frame moving preview
+
+Use the live [production launcher manifest](/fsx/tmp/marshawn_fleet10_140k_20261107/postprocess_command.json)
+for the current entry rather than a historical hook SHA in the sections above.
+The ROOT-approved DEV3 UUID compatibility wrapper V5 is active at SHA
+`4ca257d6430314085fda414a9e75f605680ee094e8f69e96ee6513aab9bebd71`.
+It proves the actual Torch CUDA-context UUID and inherited supervisor lease,
+then calls the unchanged GPU shader. Native HC parity≤1, full model tensor
+identity and16-donor geometry passed on the real finished1680 model. CPUshader,
+profile2bd9 and encoderV4 are unchanged; no final movie was started early.
+
+Both actual first-six moving-path4K previews are ready in
+`/fsx/tmp/marshawn_video_1660_2015_24fps_140k_20261107/operations/video_partial_first6_v1/`.
+Each has6 frames at24fps (0.25s), accompanied by full-frame contacts and native
+face/foot crops. Full actors remain framed; existing floor/silhouette fragments
+vary across the independent models. See the [qualification and preview report](marshawn_dev3_export_compatibility.md)
+for exact artifacts, operational failure/fix evidence and scope limits. The
+complete72-frame temporal review remains required.

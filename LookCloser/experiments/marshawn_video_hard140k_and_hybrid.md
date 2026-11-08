@@ -160,9 +160,12 @@ under the capped campaign.
 
 The production profile SHA256 is
 `2bd9bca54f43bb5da2920a5f95124677ee2754762bb8ad5551163d9dbf06eb81`.
-The active export hook SHA256 is
-`06f2541bf7cb8d53e7b95029e4f5cff97d995f61fba870386b83e908b604c32c`
-(after the qualified explicit-color encoder V4 update).
+The current launcher is the [production manifest](/fsx/tmp/marshawn_fleet10_140k_20261107/postprocess_command.json).
+At the ROOT-approved DEV3 compatibility update V5 its SHA256 is
+`4ca257d6430314085fda414a9e75f605680ee094e8f69e96ee6513aab9bebd71`.
+V5 proves the actual Torch CUDA-context UUID on older DEV3 Torch before invoking
+the unchanged GPU shader. The explicit-color encoder V4 and rendering profile
+remain unchanged; the previous launcher is archived.
 Its durable wrapper preserves source/model bindings and recovers GPU and
 CPU launch intents after coordinator failure. Actual first-frame neural
 and hybrid outputs match the qualified profile pixel-for-pixel. The frozen
