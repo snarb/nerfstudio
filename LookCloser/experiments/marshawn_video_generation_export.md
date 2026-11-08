@@ -43,3 +43,30 @@ The audit used existing current native RGB and exact accepted NN intersections, 
 Evidence: `/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/semantic_zero_owner_readonly_20261108/`. First-set review SHA `c669a9e9…`; remaining-set review SHA `c756a2ed…`. NC actual neighbor views and nearby source frames were inspected. One finite calibrated NC-to-ND/NB same-ray photo contact was saved; correspondence identity could not be certified, so its candidate depths are explicitly **not measured world-depth claims**. The earlier standing-camera-operator-shoe hypothesis is unsupported: that operator's actual feet are separate. NC is not approved for automatic exclusion.
 
 Zero overlap with a current actor seed does not imply crew: seven exact proposals above show real actor parts outside that seed. Positive overlap alone is also insufficient, as the independently identified GC crew hand demonstrates. Source role decisions require actual anatomy/ownership evidence; a generic foot/hand detector or prior flow cannot certify ownership.
+
+### Actual first corrected-generation native export
+
+The genuine1695 generation1 model completed exactly140000 updates and selected
+step139999, checkpoint `a6ee666b2724cda172b5549e8f7c6d811fb3009ffc2a4754609b7d203c16ac0f`.
+The first native attempt stopped before loading weights because the original
+source-publication JSON had not been copied to the native SG model directory.
+Create-only transport of the original byte-identical `dispatch_ready.json`
+(SHA `f86627d66a27e76c094f3bb36be3618b220ab0daf81c9f948d83da00fc9b51ce`)
+fixed the missing operational proof; fresh CPU native-policy validation passed.
+No checkpoint, DATA, YAML, shader, profile or model parameter was changed.
+The failed attempt remains archived.
+
+The distinct V2 attempt completed the unchanged full-path record7 export.
+HC selected-checkpoint agreement is within one RGB byte and the pipeline tensor
+SHA is identical before/after rendering. ROOT personally inspected the actual
+HC output, full4K target preview and DC/HC/KA contacts. Both actors, limbs and
+boots are coherent; soft detail and substantial floor/silhouette residue remain.
+This validates the native export route and source bindings, not clean physical
+geometry. The original first six packages remain unchanged.
+
+[Complete proof](/fsx/tmp/marshawn_video_1660_2015_24fps_140k_20261107/operations/video_first_g1_canary_v2/complete.json)
+records the canonical geometry receipt SHA
+`3a52b95baefe3fa5298b95b476c0b37bde4f882407aff54ad3781c221f5048d7`.
+The selected16-donor sigma4/gain.75 profile and queued V6 final renderer remain
+unchanged. Generation1 CPU hybrid output and full-sequence temporal review
+remain separate required checks.
