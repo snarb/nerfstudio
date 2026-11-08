@@ -161,7 +161,8 @@ under the capped campaign.
 The production profile SHA256 is
 `2bd9bca54f43bb5da2920a5f95124677ee2754762bb8ad5551163d9dbf06eb81`.
 The active export hook SHA256 is
-`390ef99d70780ff6f3a39ed18bd72fc2edf792c47c204c29fdae82a75df5fe4d`.
+`06f2541bf7cb8d53e7b95029e4f5cff97d995f61fba870386b83e908b604c32c`
+(after the qualified explicit-color encoder V4 update).
 Its durable wrapper preserves source/model bindings and recovers GPU and
 CPU launch intents after coordinator failure. Actual first-frame neural
 and hybrid outputs match the qualified profile pixel-for-pixel. The frozen
