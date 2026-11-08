@@ -40,6 +40,10 @@ The corrected1700 source subsequently published marker `35b25500…`, with63 unc
 
 After ROOT reviewed current NC/HE photography and all admission planes,1700 started fully cold in CG1 on SG6. Trainer2536656 reached1357 updates at the first60-second observation; audit confirms resume=null, start0, occupied0, EMA0, optimizer0, all66 TRAIN, and limit140000. Original generation0 checkpoints remain excluded. [New-generation first-gradient proof](/fsx/tmp/marshawn_fleet10_140k_gcrole_g1_20261108/first_gradient_001700_g01.json).
 
+1695 generation1 subsequently completed exactly140000 updates. All selectors chose step139999, checkpoint SHA `a6ee666b2724cda172b5549e8f7c6d811fb3009ffc2a4754609b7d203c16ac0f`. In-sample equal-actor metrics were PSNR48.05055 dB, SSIM0.9949005, LPIPS0.00053750. The actual [GT/selected actor contact](/fsx/tmp/marshawn_video_1660_2015_24fps_140k_gcrole_g1_20261108/frames/001695/final_visual_review/selected_actor_contact.jpg) shows coherent actors, hands, boots, hair, and colors; substantial floor/background and silhouette shell remains.
+
+Its selected saved-runtime audit traced143535 nominal actor-contour rays from all66 cameras through each of six grids: source base/pad1/mapped and saved runtime core/active/admission. Every grid had zero missed rays. [Audit report](/fsx/tmp/marshawn_video_1660_2015_24fps_140k_gcrole_g1_20261108/operations/contour_runtime_001695/selected/report.json), SHA `2fbb91e3a9f51e598e129b4d121eeba29d24c4c5a732b89fbd0507a820720c7b`. The20.54-second CPU audit did not alter model/data or claim a GPU; retained rays do not certify the actual hidden surface voxel or unlabelled native hair.
+
 ## Insights and next steps
 
 Contour retention cannot certify person ownership: a fresh high-confidence hand prediction can belong to crew. Keep current anatomy/ownership evidence separate from class confidence and prior-flow support. Corrected source publication must precede fresh source-grid/dense qualification, and corrected models must start in a new cold output generation.
