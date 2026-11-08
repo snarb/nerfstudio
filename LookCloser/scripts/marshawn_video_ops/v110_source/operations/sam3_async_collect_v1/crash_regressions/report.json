@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "source_configuration_sha256": "7fa1e29088c4536afa9fc5f8e86a95f88fe54a9d8822527779fce6709c046d97",
+  "helper_sha256": "592d73c952f3573832e8ba2f034736edcc4326c734a2e12a5a3a9e1c90ade74d",
+  "controller_parent_death_preserves_exact_two_collectors": true,
+  "completed_before_parent_state_merge_adopted_without_rerun": true,
+  "collector_death_after_assist_recovers_with_retained_original_evidence": true,
+  "collector_death_during_rsync_preserves_both_leases_in_child": true,
+  "all_recovered_native_and_person_archives_byte_identical": true,
+  "no_GPU_or_NN_job_or_canonical_source_mutation": true
+}

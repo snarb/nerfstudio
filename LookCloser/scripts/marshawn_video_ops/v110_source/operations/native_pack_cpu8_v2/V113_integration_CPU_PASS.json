@@ -1,0 +1,8 @@
+{
+  "status": "pass",
+  "all_source_prefetch_native_guards_pass": true,
+  "old1700_preserved": true,
+  "unstarted1705_async_cpu8_route": true,
+  "same_frame_repeat_adopted": true,
+  "actual_parent_environment_guard_inherited_from_v112": true
+}

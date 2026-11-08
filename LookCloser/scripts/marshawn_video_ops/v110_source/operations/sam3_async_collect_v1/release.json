@@ -1,0 +1,46 @@
+{
+  "kind": "INACTIVE_BOUNDED_TWO_CAMERA_ASYNC_COLLECT_RELEASE_V1",
+  "authorized": false,
+  "created": 1794101269.1109993,
+  "files_sha256": {
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_async_collect_v1/code/marshawn_native_async_collect.py": "592d73c952f3573832e8ba2f034736edcc4326c734a2e12a5a3a9e1c90ade74d",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_async_collect_v1/code/marshawn_sam3_union_batch_async_v1.py": "1e30f39605b6771e4d449d4bef25e6833b41e6bd5ea83a7a7a8dba72969cf0e9",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_async_collect_v1/code/marshawn_native_async_collect_parity.py": "9f8b6567054c87bfd3bed85ad376631f7ec0b6f215fdd038161f70f4119c4c14",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_async_collect_v1/code/marshawn_native_async_collect_crash_test.py": "293e3bb833e31d08566aea2a6e2c9f1209a111e715e873c83752e19cbb41afb6",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/code/marshawn_sam3_union_batch_v62_runtime.py": "f95b981696061aacfe98377e13e7588b6ce644bc608a38adb88accda9da9b9c4",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/code/marshawn_sam3_assist.py": "f81902e04bca3e1233f8dccbc826add417899122a26e8c3f1bcba2db7cfecb16",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/code/marshawn_sam3_assist_v5.py": "1f597493b8c4696556b440969e457e71ad7b1f587004eb42ff30e1929833876b"
+  },
+  "qualification_sha256": {
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_async_collect_v1/parity.json": "f58a7d4f1022cec259b8711e1c8a7e046b78ada1fe27dc9659161f1c1b6a2179",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_async_collect_v1/crash_regressions/report.json": "b5aa7ee179fc8bdb48a8ec293bd47f3e6d9530c17d3c73c9a5a2ab2d7b97b56d",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_async_collect_v1/parent_runtime_AST_parity.json": "f1af8b3d27e37320785c8b5704618680c387b8d7c70409bf99d2e75b5ac93088"
+  },
+  "qualification_configuration_sha256": "38cf8d0ae9b105059b5a5d4d4b73485c6e969b2d8a1d88842c8514808b662c0f",
+  "workers": 2,
+  "API": {
+    "batch_runtime": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_async_collect_v1/code/marshawn_sam3_union_batch_async_v1.py",
+    "helper": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_async_collect_v1/code/marshawn_native_async_collect.py"
+  },
+  "native_priority_policy_unchanged": true,
+  "unchanged_original_gather": true,
+  "unchanged_five_rsync_arguments_and_all_validation": true,
+  "transport_inherits_camera_and_pool_lock_FDs": true,
+  "parent_only_original_order_state_merge": true,
+  "per_camera_partial_outputs_retained_not_discarded": true,
+  "canonical_source_and_models_mutated": false,
+  "all66_archives_byte_equal": true,
+  "all66_normalized_metadata_equal": true,
+  "normalization": [
+    "isolated root path",
+    "SHA of application receipt containing that path"
+  ],
+  "parent_child_transport_crash_regressions_passed": true,
+  "activation_owner": "video_prepare sole native producer owner",
+  "performance": {
+    "actual_completed_result_replay_seconds": 329.75204372406006,
+    "parent_poll_loop_median_seconds": 0.194899320602417,
+    "parent_poll_loop_max_seconds": 6.693765163421631,
+    "limit": "Completed-NN CPU collection replay, not a full BODY end-to-end benchmark"
+  }
+}

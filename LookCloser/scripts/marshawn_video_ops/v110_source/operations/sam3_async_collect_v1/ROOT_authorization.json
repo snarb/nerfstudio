@@ -1,0 +1,25 @@
+{
+  "approved": true,
+  "authorized": true,
+  "created": 1794101374.0874639,
+  "release_sha256": "6e2e7634ec8c84eb2775a7d2d9d19d6ee580c7561f543ce48cf9bd258e8bfba3",
+  "release": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_async_collect_v1/release.json",
+  "files_sha256": {
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_async_collect_v1/code/marshawn_native_async_collect.py": "592d73c952f3573832e8ba2f034736edcc4326c734a2e12a5a3a9e1c90ade74d",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_async_collect_v1/code/marshawn_sam3_union_batch_async_v1.py": "1e30f39605b6771e4d449d4bef25e6833b41e6bd5ea83a7a7a8dba72969cf0e9",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_async_collect_v1/code/marshawn_native_async_collect_parity.py": "9f8b6567054c87bfd3bed85ad376631f7ec0b6f215fdd038161f70f4119c4c14",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_async_collect_v1/code/marshawn_native_async_collect_crash_test.py": "293e3bb833e31d08566aea2a6e2c9f1209a111e715e873c83752e19cbb41afb6",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/code/marshawn_sam3_union_batch_v62_runtime.py": "f95b981696061aacfe98377e13e7588b6ce644bc608a38adb88accda9da9b9c4",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/code/marshawn_sam3_assist.py": "f81902e04bca3e1233f8dccbc826add417899122a26e8c3f1bcba2db7cfecb16",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/code/marshawn_sam3_assist_v5.py": "1f597493b8c4696556b440969e457e71ad7b1f587004eb42ff30e1929833876b"
+  },
+  "qualification_sha256": {
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_async_collect_v1/parity.json": "f58a7d4f1022cec259b8711e1c8a7e046b78ada1fe27dc9659161f1c1b6a2179",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_async_collect_v1/crash_regressions/report.json": "b5aa7ee179fc8bdb48a8ec293bd47f3e6d9530c17d3c73c9a5a2ab2d7b97b56d",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_async_collect_v1/parent_runtime_AST_parity.json": "f1af8b3d27e37320785c8b5704618680c387b8d7c70409bf99d2e75b5ac93088"
+  },
+  "review": "ROOT personally inspected helper lock/identity/partial retention/unchanged gather and reversed-AST parity; all66 archives byte-identical and three actual transport/parent crash regressions PASS",
+  "scope": "Two bounded CPU collectors only; producer+prefetch integration by sole source owner; active1700 legacy BODY untouched; unchanged GPU priority/NN commands/scientific source math",
+  "workers": 2,
+  "no_NN_or_training_kill": true
+}

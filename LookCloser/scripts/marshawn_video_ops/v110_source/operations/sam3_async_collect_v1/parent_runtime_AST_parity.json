@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "functions": {
+    "run": true,
+    "watchdog": true
+  },
+  "original_runtime_sha256": "f95b981696061aacfe98377e13e7588b6ce644bc608a38adb88accda9da9b9c4",
+  "candidate_runtime_sha256": "1e30f39605b6771e4d449d4bef25e6833b41e6bd5ea83a7a7a8dba72969cf0e9",
+  "reversed_changes": [
+    "qualified base-module IO imports",
+    "Collectors construction",
+    "blocking gather replaced by submit/result; state merge remains parent original loop order"
+  ],
+  "native_pool_source_ready_fleet_tick_job_commands_retries_unchanged": true
+}
