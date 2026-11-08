@@ -366,3 +366,12 @@ face/foot crops. Full actors remain framed; existing floor/silhouette fragments
 vary across the independent models. See the [qualification and preview report](marshawn_dev3_export_compatibility.md)
 for exact artifacts, operational failure/fix evidence and scope limits. The
 complete72-frame temporal review remains required.
+
+A read-only [eventual-control adoption audit](marshawn_dev3_export_compatibility.md#read-only-eventual-control-adoption-audit)
+verified all six canonical geometry packages against the exact prospective
+final specs. The old index0 completion marker is already archived for the
+source-visibility schema change; final CPU rendering will use the current spec,
+so no foreign receipt is adopted. No repair or rolling coordinator was added.
+The [face/clothing split of existing scores](marshawn_hybrid_face_cloth_score_audit.md)
+records a modest face LPIPS penalty despite the shared profile's overall patch
+improvement. The approved profile remains unchanged.

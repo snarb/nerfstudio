@@ -84,3 +84,34 @@ limitations: material floor/shell variation, artifacts above the flying hair,
 and soft native faces. Its exact artifact-bound review is
 `/fsx/tmp/marshawn_video_1660_2015_24fps_140k_20261107/operations/root_partial6_visual_review.json`
 (SHA `f07d00cdc560ae4e256918f3ad3455d9c6ce001a6f971ed583d8019245377eb9`). No further tuning branch was opened.
+
+## Read-only eventual-control adoption audit
+
+A subsequent audit extracted the prospective spec construction directly from
+the frozen final router and applied the real protected Bridge write logic
+without writing canonical controls. The eventual olive/dev3 spec SHA is
+`bb0ccc8c8206f902c2028527a079ec98b9f23a392c947780cda4976ac82657fa`;
+SG is `a55e1e63f5939cf1a5a61b2670597914e0f8ad0593d56de8290eca95bc475d41`.
+The current olive control is already byte-identical to its future form.
+All six canonical geometry packages pass the exact full-path, native selected
+checkpoint/completion, ready/transforms,16 donor row/mask/semantic, focal-anchor
+and every package-file hash check. No repair is needed.
+
+Canonical index0 intentionally has no active completion marker. The old marker
+for spec `73a17f36…` is preserved under the durability schema-migration archive;
+the only spec delta is `source_visibility_adapter_sha256`. The current migrator
+is an actual no-op because that key is already present. Final export will
+CPU-render index0 under `bb0ccc8c…` rather than adopt/restamp the old marker.
+Its archived PNG hardlinks remain safe because the frozen saver writes a new
+temporary PNG and replaces the public path atomically. The main CPUexec ledger
+contains no stale intents. No canonical file or renderer state was changed.
+Proof:
+`operations/video_final_control_binding_audit_20261108/report.json`
+under the capped campaign, SHA `7108a1ac…`.
+
+The six measured CPU transfers took162.9–173.5s each (mean169.1s), giving about
+67.6min for72 equal frames at three workers before later-view/IO contention.
+ROOT deferred a new rolling-export coordinator to preserve the qualified final
+route. A separate [existing face/clothing score audit](marshawn_hybrid_face_cloth_score_audit.md)
+records the small face LPIPS tradeoff of the shared profile without opening a
+new rendering branch.
