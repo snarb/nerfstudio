@@ -33,16 +33,25 @@ PUBLIC_SCRIPT_DIR = Path(__file__).resolve().parent
 sys.path[:0] = [str(SOURCE_CODE), str(SOURCE_CODE/'LookCloser/scripts'), str(PUBLIC_SCRIPT_DIR)]
 
 
+def _path_under_source(path):
+    """Path.is_relative_to semantics using the Python 3.8-compatible API."""
+    try:
+        Path(path).resolve().relative_to(SOURCE_CODE)
+    except ValueError:
+        return False
+    return True
+
+
 def _source_import(name):
     module = importlib.import_module(name)
     path = getattr(module, '__file__', None)
-    if path is None or not Path(path).resolve().is_relative_to(SOURCE_CODE):
+    if path is None or not _path_under_source(path):
         raise ImportError('Source helper must come from declared sealed source: '+name+' '+str(path))
     # Catch cached transitive imports from another checkout as well.
     for module_name, loaded in tuple(sys.modules.items()):
         if module_name.startswith(('marshawn_', 'nerfstudio.')) or module_name == 'prepare_marshawn_tuning':
             loaded_path = getattr(loaded, '__file__', None)
-            if loaded_path is not None and not Path(loaded_path).resolve().is_relative_to(SOURCE_CODE):
+            if loaded_path is not None and not _path_under_source(loaded_path):
                 raise ImportError('Mixed source helper checkout: '+module_name+' '+str(loaded_path))
     return module
 

@@ -193,6 +193,18 @@ def test_public_sampling_import_rejects_foreign_overlay(worker,monkeypatch,tmp_p
     with pytest.raises(ImportError):worker._public_sampling_import('native_crop_sampling_v2')
 
 
+def test_import_provenance_uses_python38_path_api(worker,monkeypatch,tmp_path):
+    tree=ast.parse((ROOT/'scripts/train_native_crop.py').read_text())
+    assert not any(isinstance(node,ast.Attribute) and node.attr=='is_relative_to' for node in ast.walk(tree))
+    assert worker._path_under_source(SOURCE_ROOT/'LookCloser/scripts/helper.py')
+    assert worker._path_under_source(SOURCE_ROOT)
+    assert not worker._path_under_source(SOURCE_ROOT.parent/(SOURCE_ROOT.name+'_other')/'helper.py')
+    assert not worker._path_under_source(SOURCE_ROOT/'..'/'outside.py')
+    if hasattr(Path,'is_relative_to'):
+        monkeypatch.setattr(Path,'is_relative_to',lambda *args:(_ for _ in ()).throw(AssertionError('Python 3.9 API used')))
+    assert worker._source_import('marshawn_iteration_budget')
+
+
 def test_frozen_v7_recipe_and_loop_parity(worker,spec):
     """Public bootstrap may differ; every inherited v7 function keeps its body."""
     import yaml
@@ -220,7 +232,7 @@ def test_frozen_v7_recipe_and_loop_parity(worker,spec):
         settings=worker.validate_spec(dict(spec,**change))
         assert yaml.dump(worker.build_config(settings))==yaml.dump(baseline.build_config(settings))
     for name in ('marshawn_semantic_admission','marshawn_iteration_budget','nerfstudio.configs.method_configs'):
-        assert Path(sys.modules[name].__file__).resolve().is_relative_to(SOURCE_ROOT)
+        assert worker._path_under_source(sys.modules[name].__file__)
     for name in ('native_crop_sampling','native_crop_sampling_v2'):
         assert Path(sys.modules[name].__file__).resolve()==ROOT/'scripts'/(name+'.py')
         assert sha(ROOT/'scripts'/(name+'.py'))==sha(frozen.parent/(name+'.py'))
