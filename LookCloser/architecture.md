@@ -2175,3 +2175,5 @@ Video source preparation keeps the complete actor union separate from uncertain 
 
 The video renderer uses the selected field on its training host to export source-bound native R0 geometry, then applies the qualified 16-donor hybrid profile on CPU beside FSX TIFFs. The final 48 frames use the paused 2020 photograph with integer crop/pan. A separate crash-adopting encoder preserves PNG masters and produces 24fps native-size MP4 with explicit limited-range Rec.709 matrix/primaries and sRGB transfer metadata. Codec validation checks frame count, dimensions, duration, color tags and decoded frames without modifying model state.
 
+An additional nonshared Clever GPU serves only independent current-image 2D frequency fits. A private software overlay preserves the canonical fitter; verified inputs and physical GPU receipts bind each map to its own RGB. SHA-verified Silver archival precedes canonical publication on both hosts. The ten field slots and their native/field priorities are unchanged, and the broker adopts existing scientific workers during CPU controller handoff.
+
