@@ -156,7 +156,13 @@ Full receipts and PNGs are under the capped campaign's
 `operations/ROOT_hybrid_refine_low_sigma_20261108`.
 A separate private CPU render of canonical records0,2,5 uses the unchanged
 qualified shader, existing R0 float geometry, original RAW/donors, and a
-sigma1.5-only profile. Its native output review is pending under
+sigma1.5-only profile. All three completed. Original LookCloser PNGs, donor
+labels and transfer weights match exactly; only the transferred detail radius
+changed. Root inspected full views plus native face/foot crops and found no
+clear visual win across the three views. Floor fragments and silhouette
+shells remain. Keep production sigma4; this sparse three-frame comparison
+does not establish temporal behavior. Bound conservation and manual-review
+receipts are under
 `operations/ROOT_hybrid_sigma1p5_novel_first3_20261108`; no production profile
 or geometry receipt was overwritten.
 
