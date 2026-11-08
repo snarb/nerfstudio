@@ -22,3 +22,19 @@ The shader transfers a single donor's high-pass residual, retaining the LC base 
 ## Insights
 
 No rejection-threshold relaxation is justified. One future-only candidate is fixed sigma4/gain1 versus4/.75 on current1695 HC, excluding HC from all texture donors. Existing1670 native-face scores favor gain1 for LPIPS, with a PSNR/SSIM tradeoff; this remains unproven for current1695. Cached HC neuralRGB/alpha/q10/50/90 and calibrated pose exist at1920×1012, along with all15 other donors and HC's native RAW photo. This permits a bounded HD TRAIN-camera comparison without new GPU geometry, not an independent held-out or native4K geometry claim. KA has no cache. No comparison was launched or adopted.
+
+## Authorized finite HC comparison: gain1 rejected
+
+ROOT subsequently authorized one private CPU sigma4/gain.75 versus gain1 comparison, using cached1695 HC1920 geometry and exactly the other15 donors. Cached/prepared camera alignment is exact. Re-decoding actual HC RAW through the frozen linear AREA/remap/k4 display chain reproduces the prepared HC photograph byte-for-byte (maximum difference0). Target photography participates only in reference/scoring, never prediction. This remains an HD TRAIN-camera test.
+
+Each cell below is PSNR↑ / SSIM↑ / LPIPS↓ on actor-supported pixels within photo-reviewed patches:
+
+|Patch|LC|gain.75|gain1|
+|---|---|---|---|
+|Black face|50.8954 / .997848 / .000166|38.4302 / .963903 / .009543|36.0306 / .941732 / .021924|
+|Gray face|47.2564 / .996414 / .000288|37.0852 / .944462 / .007205|34.7437 / .911198 / .015452|
+|Equal mean of8 face/hair/shirt/boot patches|47.8441 / .995730 / .001004|35.7166 / .920048 / .011407|33.4266 / .877301 / .022775|
+
+Gain1 worsens all three metrics in all eight patches versus.75; LC alone is best in all eight, consistent with its excellent in-sample fit. Native contacts show added fine-pattern/color variation rather than demonstrated facial recovery. Acceptance/donor labels are identical between gain variants and fallback remains exactly LC. This rejects the candidate on current HC; it does not measure novel-view fidelity or establish a safe alternative.
+
+[Full finite report](/fsx/tmp/marshawn_video_1660_2015_24fps_140k_20261107/operations/private_HC_gain_1695_20261108/REPORT.md), [native contacts](/fsx/tmp/marshawn_video_1660_2015_24fps_140k_20261107/operations/private_HC_gain_1695_20261108/all_native_contacts_legible.png), [metrics and proofs](/fsx/tmp/marshawn_video_1660_2015_24fps_140k_20261107/operations/private_HC_gain_1695_20261108/complete.json). Worker46.30s, peak2709.89MiB; hard limits300s/12GiB/3CPUthreads. All351 bound inputs, including the previous286, remain unchanged; no GPU, model query, depth interpolation, production change or adoption. No additional test ran.
