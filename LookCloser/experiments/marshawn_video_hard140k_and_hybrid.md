@@ -130,6 +130,36 @@ without alignment. This alignment experiment did not improve the objective
 and is excluded from the production candidate. It neither changes geometry
 nor trains the NeRF.
 
+### Smaller detail radii, 2026-11-08
+
+Two further finite cached sweeps tested 16 and nine configurations, including
+controls, on the same eight bound patch/scale contexts. No NeRF or new
+geometry was trained. The local GPU ran spatial LPIPS; target photographs
+remained measurement-only and every target excluded itself from its donors.
+
+| Same-GPU control/candidate, eight-context mean | PSNR | SSIM | Spatial LPIPS |
+| --- | ---: | ---: | ---: |
+| Selected sigma4 / gain.75 / 16 donors | 28.77568 | 0.616199 | 0.410071 |
+| Sigma2 / gain.75 / 16 donors | 28.79278 | 0.616520 | 0.408689 |
+| Sigma1.5 / gain.75 / 16 donors | 28.80739 | 0.616916 | 0.408492 |
+
+Sigma1.5 improves the mean LPIPS by 0.385% against the same-GPU control.
+Both shirt contexts and all four face contexts at native focal scale improve;
+the two face contexts at pixel scale2 worsen by 0.65–1.15%. The eight rows
+still represent one model, two train cameras, and repeated physical regions,
+not eight independent views. Root inspected native face/shirt crops: visual
+differences are small and the photographs retain substantially finer detail.
+Production remains sigma4 pending matched novel-view and temporal review.
+
+Full receipts and PNGs are under the capped campaign's
+`operations/ROOT_hybrid_refine_20261108` and
+`operations/ROOT_hybrid_refine_low_sigma_20261108`.
+A separate private CPU render of canonical records0,2,5 uses the unchanged
+qualified shader, existing R0 float geometry, original RAW/donors, and a
+sigma1.5-only profile. Its native output review is pending under
+`operations/ROOT_hybrid_sigma1p5_novel_first3_20261108`; no production profile
+or geometry receipt was overwritten.
+
 Root inspected the native three-region HC comparison. Detail changes are
 subtle; the real photographs remain clearer. Full 4K V4 camera record2 was
 also rendered from the completed 1670 model with unchanged weights and
