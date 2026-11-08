@@ -1,0 +1,20 @@
+{
+  "frame": 1720,
+  "source_marker_sha256": "1716cd176d7cd3e643c76aa6e967948d1101c00f6f0b56215d1cc47c902b9b11",
+  "prepared_ready_sha256": "3a96fb10453777549edf6fc470ff61acf02dc62d10d7091445eff03666ba3f71",
+  "QA_sha256": "2b2d3d253ca49dbfc40e44b9285a799bb370ffe02540c78105c96034e886a243",
+  "status": "APPROXIMATE_SOURCE_READY",
+  "unavailable": [
+    {
+      "camera": "JE",
+      "actor": "black"
+    }
+  ],
+  "DATA_and_cheap_QA_seconds": 122.6550567150116,
+  "oldBODY_adoption_seconds": 9.191773414611816,
+  "all66_current_RGB_verified": true,
+  "DATA_watchdog": 2606372,
+  "DATA_controller": 2606373,
+  "workers": 4,
+  "no_HEAD_parts_CREW_PRE_perfection_or_dense_PASS_claim": true
+}

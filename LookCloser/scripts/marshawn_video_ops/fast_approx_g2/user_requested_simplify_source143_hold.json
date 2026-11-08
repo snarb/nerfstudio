@@ -1,0 +1,25 @@
+{
+  "kind": "USER_REQUESTED_SIMPLIFY_FUTURE_SOURCE_HOLD",
+  "reason": "User accepts approximate masks; stop advanced HEAD/anatomy/crew/perfection chain for future frames",
+  "records": [
+    {
+      "pid": 2505524,
+      "start": "249567471",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/marshawn_source_producer_g1_v143.py watchdog ",
+      "signal": "SIGSTOP"
+    },
+    {
+      "pid": 2505556,
+      "start": "249567530",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/marshawn_source_producer_g1_v143.py controller ",
+      "signal": "SIGSTOP"
+    }
+  ],
+  "current1720_BODY_entry_and_all_NN_not_stopped": true,
+  "training_frequency_cache_not_stopped": true,
+  "published1715_and_earlier_unchanged": true,
+  "perf_and_prefetch_candidates_not_activated": true,
+  "created": 1794125177.8490186
+}

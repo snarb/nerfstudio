@@ -1,0 +1,25 @@
+{
+  "records": [
+    {
+      "source": "/fsx/tmp/marshawn_video_fast_masks_20261108/operations/fast_approx_data_controller.py",
+      "snapshot": "fast_approx_data_controller.py",
+      "sha256": "98c42f66305613aeba67b01d168c1145d359015bc555a3d7b04af187955def9b"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_fast_masks_20261108/operations/fast_approx_data_math.py",
+      "snapshot": "fast_approx_data_math.py",
+      "sha256": "6480abeb2f2f14a4260e8555d1a787587b087d6b3b5a93a554ecd45a403529ca"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_fast_masks_20261108/operations/fast_approx_policy.json",
+      "snapshot": "fast_approx_policy.json",
+      "sha256": "5a7a5422f97962746f9f35d48be2f5b56f00c68403cafa872c300c77931d629f"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/user_requested_simplify_source143_hold.json",
+      "snapshot": "user_requested_simplify_source143_hold.json",
+      "sha256": "f907c45ce6d23c15eedc7d82a73cd4955f8f9ba17836d0aa369224395ce753d2"
+    }
+  ],
+  "created": 1794125924.685392
+}
