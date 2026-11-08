@@ -258,5 +258,44 @@ The current final-video hook is generation-aware V6 under
 (SHA256 `f73c64c445572eb4a56e57a7098347e29efa118c607e105be201dd42423884a9`).
 It is queued behind all72 genuine140k completions. The selected16-donor,
 sigma4/gain.75 hybrid profile and native rendering math remain unchanged.
-The first corrected-source1695 output still requires its actual terminal
-canary and ROOT visual inspection; the full movies are not complete.
+The first corrected-source1695 native canary and both actual CPU variants
+have passed their route checks and ROOT visual inspection; see the
+[export report](marshawn_video_generation_export.md). The full movies remain incomplete.
+
+### Additional finite hybrid review, 2026-11-08 07:35 UTC
+
+Two private sigma sweeps used the same cached eight native1670 contexts.
+Sigma1.5/gain.75 scored LPIPS.408492 versus same-GPU production4/.75
+.410071. These are repeated scales from two TRAIN cameras on one model.
+Three matched native4K novel outputs from completed models did not show a
+clear face/hair/foot improvement on ROOT inspection; geometry labels and
+transfer weights were unchanged. Production stays16 donors, sigma4/gain.75.
+
+A separate CPU diagnosis reproduced all587 queried source-admission cell
+decisions exactly. Point-only source contradictions also occur on real hair,
+so point carving is unsafe. Conservative complete cached-depth envelopes
+provided a narrower candidate. One private1685 CPU postprocess changed
+55032 pixels (.7081% of the4K image), leaving all14 selected actor controls
+and all pixels outside its mask unchanged. ROOT viewed its actual full frame
+and native head/face/feet comparisons: the opaque cap and some detached
+fragments recede, but ragged bright edges and holes remain, with substantial
+side/floor debris. This is an experimental2D mask, not new physical density
+or occupancy. It is **not adopted**. Flying-braid1710 and temporal preservation
+remain untested.
+
+[Complete private diagnosis and visual evidence](/fsx/tmp/marshawn_video_1660_2015_24fps_140k_20261107/operations/independent_ray_responsibility_1685_20261108/private_cpu_cleanup_v1/REPORT.md).
+
+The source UNKNOWN/qualified-RGB audit also found that the actual CPU worker
+already uses the correct separate source_unknown adapter. Its1695 selected16
+donors contain zero pixels affected by the suspected eligibility difference;
+there is no demonstrated missing-adapter fix or quality gain. See the
+[read-only semantic audit](marshawn_hybrid_qualified_RGB_UNKNOWN_20261108.md).
+
+Actual all-host supervision at07:34 verified ten completed140k models,
+1710 cold training on olive, eight silver frequency fits and live durable
+controllers, without new training OOM evidence. The corrected1700 model
+trained140000 updates and selected136316; in-sample actor metrics were
+PSNR47.010885, SSIM.99320036, LPIPS.000684739. ROOT inspected its actual
+DC/HC/KA contact: actors and boots are coherent; large background/floor shells
+remain. These metrics include TRAIN cameras and do not establish novel-view
+quality. No recipe, training limit, AABB, source RGB or final renderer changed.
