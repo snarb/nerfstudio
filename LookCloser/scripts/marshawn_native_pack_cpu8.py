@@ -9,6 +9,8 @@ from __future__ import annotations
 
 import argparse
 from concurrent.futures import ProcessPoolExecutor
+from contextlib import contextmanager
+import fcntl
 import hashlib
 import importlib
 import json
@@ -34,7 +36,111 @@ def _bounded_cpu():
         os.environ[key] = "1"
 
 
+@contextmanager
+def _camera_lock(task_root, camera):
+    path = Path(task_root) / ".packing_locks" / (camera + ".lock")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("a+") as held:
+        # A pool child may survive its factory parent. A restarted factory waits
+        # for that camera, then validates/reuses its finished immutable tasks.
+        fcntl.flock(held.fileno(), fcntl.LOCK_EX)
+        yield
+
+
 def _pack_camera(item):
+    with _camera_lock(item["task_root"], item["camera"]):
+        return _pack_camera_locked(item)
+
+
+def _check_spec_identity(io, campaign, frame, camera, spec, remote_task, remote_code, overlay):
+    source_path = campaign / "sources" / str(frame) / camera / "receipt.json"
+    source = io.read(source_path)
+    if source["frame"] != frame or source["camera"] != camera:
+        raise ValueError("Canonical source receipt belongs to another frame/camera")
+    module = io.canonical(campaign / "code")
+    expected = dict(frame=frame, camera=camera, remote_task=str(remote_task),
+                    source_code=remote_code, overlay=overlay,
+                    original_source_receipt_sha256=io.sha(source_path),
+                    raw_native_image_sha256=source["raw_native_image_sha256"],
+                    raw_sha256=source["raw_sha256"],
+                    canonical_mask_sha256=io.sha(module.__file__),
+                    cleanup_sha256=io.sha(campaign / "code/LookCloser/scripts/marshawn_video_prep_mask_components.py"),
+                    code_seal_sha256=io.sha(campaign / "code_seal.json"),
+                    checkpoint_sha256="9999e2341ceef5e136daa386eecb55cb414446a00ac2b55eb2dfd2f7c3cf8c9e",
+                    adapter_sha256=io.sha(io.__file__), no_NeRF_state_loaded=True,
+                    capture_person_candidates=True, canary=False)
+    for key, value in expected.items():
+        if spec.get(key) != value:
+            raise ValueError("Existing packed input identity differs: " + key)
+    return module
+
+
+def _validate_bundle(assist, io, campaign, frame, camera, task, remote_task,
+                     remote_code, overlay, resolver, *, adoption):
+    spec = io.read(task / "task.json")
+    module = _check_spec_identity(io, campaign, frame, camera, spec, remote_task, remote_code, overlay)
+    for key, expected in dict(v5_adapter_sha256=io.sha(assist.__file__),
+                              v5_capture_sha256=io.sha(assist.capture.__file__),
+                              v5_resolver_sha256=io.sha(resolver),
+                              v5_seed_policy_sha256=io.sha(task / "seed_policy_v5.json")).items():
+        if spec.get(key) != expected:
+            raise ValueError("Existing packed V5 source differs: " + key)
+    io.validate_task(spec, task)
+    source = io.read(campaign / "sources" / str(frame) / camera / "receipt.json")
+    if not (task / "raw_native.png").is_symlink() or (task / "raw_native.png").readlink() != Path(source["raw_native_image"]):
+        raise ValueError("Packed native PNG alias belongs to another source locator")
+    if io.sha(task / "union_resolver.py") != spec["v5_resolver_sha256"]:
+        raise ValueError("Packed union resolver changed")
+    if adoption:
+        # A restart adopts only the exact current qualified identity reference,
+        # not merely some internally consistent blob from another source run.
+        result, policy = assist.capture.seed_with_ownership_policy(
+            module, campaign, frame, camera, module.seed)
+        reference, previous, digest = result
+        expected_arrays = {actor: io.array_sha(mask) for actor, mask in reference.items()}
+        if (spec["reference"]["frame"] != previous or
+                spec["reference"]["archive_sha256"] != digest or
+                spec["reference"]["arrays_sha256"] != expected_arrays or
+                io.read(task / "seed_policy_v5.json") != policy):
+            raise ValueError("Packed input has a different current identity reference")
+    return spec
+
+
+def _pack_variant(assist, io, campaign, frame, camera, task, remote_task,
+                  remote_code, overlay, resolver, task_root, host):
+    if task.exists():
+        if not task.is_dir() or task.is_symlink():
+            raise ValueError("Packing target must be an owned regular task directory")
+        manifest = task / "task.json"
+        if manifest.exists():
+            spec = io.read(manifest)
+            _check_spec_identity(io, campaign, frame, camera, spec, remote_task, remote_code, overlay)
+            if "v5_adapter_sha256" in spec:
+                _validate_bundle(assist, io, campaign, frame, camera, task, remote_task,
+                                 remote_code, overlay, resolver, adoption=True)
+                return
+        # An unsealed legacy bundle is retained, never used as a source. New
+        # transaction directories below are never exposed at the final locator.
+        quarantine = task_root / ".packing_interrupted" / camera / (host + "." + str(time.time_ns()))
+        quarantine.parent.mkdir(parents=True, exist_ok=True)
+        task.rename(quarantine)
+    work = task_root / ".packing_work" / camera / (host + ".%d.%d" % (os.getpid(), time.time_ns()))
+    work.parent.mkdir(parents=True, exist_ok=True)
+    assist.pack(campaign, frame, camera, work, str(remote_task), remote_code, overlay, resolver)
+    _validate_bundle(assist, io, campaign, frame, camera, work, remote_task,
+                     remote_code, overlay, resolver, adoption=False)
+    task.parent.mkdir(parents=True, exist_ok=True)
+    work.rename(task)
+    # Original file fsyncs are unchanged; the completed bundle locator is also
+    # persisted only after the entire task has passed its source/hash checks.
+    parent_fd = os.open(task.parent, os.O_RDONLY | os.O_DIRECTORY)
+    try:
+        os.fsync(parent_fd)
+    finally:
+        os.close(parent_fd)
+
+
+def _pack_camera_locked(item):
     _bounded_cpu()
     campaign = Path(item["campaign"])
     identity = Path(item["campaign_identity"])
@@ -63,11 +169,12 @@ def _pack_camera(item):
             task = Path(item["task_root"]) / folder / camera
             remote_task = (remote_frame / "tasks" / camera if host == "silver"
                            else Path(item["logical_root"]) / folder / camera)
-            assist.pack(campaign, frame, camera, task, str(remote_task),
-                        str(remote_root / "code" if host == "silver" else identity / "code"),
-                        str(remote_root / "tools/sam3_overlay") if host == "silver"
-                        else item["release"]["local_overlay"],
-                        identity / "operations/marshawn_union_resolution_v5.py")
+            _pack_variant(assist, io, campaign, frame, camera, task, remote_task,
+                          str(remote_root / "code" if host == "silver" else identity / "code"),
+                          str(remote_root / "tools/sam3_overlay") if host == "silver"
+                          else item["release"]["local_overlay"],
+                          identity / "operations/marshawn_union_resolution_v5.py",
+                          Path(item["task_root"]), host)
             variants[host] = dict(task=str(task / "task.json"),
                                   task_sha256=io.sha(task / "task.json"))
     original = campaign / "frames" / ("%06d" % frame) / "native_masks" / (camera + ".npz")
