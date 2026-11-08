@@ -56,6 +56,38 @@ Consequently, rejecting every component lacking current body-mask overlap
 would remove true detail. Further ambiguous components and a general role
 qualification rule are still under investigation.
 
+Corrected1695 passed143535 dense contour rays in all three admission forms;
+corrected1705 passed152874, both with zero misses. The latter removes the
+48 false hand-boundary rays responsible for its old failure. Both frames
+have now started genuine cold140000-step models; actual audits show step0,
+zero occupancy/EMA/Adam, no resume and66 TRAIN cameras. Seven preceding
+models remain complete. These are operational counts, not a quality claim.
+
+Native review of NC1700's8390-pixel dark fragment could not establish actor
+or crew ownership. Its unsupported foreground assertion was withdrawn while
+preserving physical UNKNOWN and the existing confidence falloff:95 covered
+HD pixels retain positive W64, with total mass4.78188. A separate198-pixel
+HE1700 fragment also lacks proven target identity; its proposed UNKNOWN
+treatment retains positive W64 on all37 covered HD pixels (mass7.600524).
+That input revision is being rebuilt before any1700 model consumes it.
+Original source markers, arrays and CPU admission controls are archived;
+no1700 model or assignment exists for the retired revision. The three changed
+cameras require63-camera invariance and all66 RGB equality checks.
+
+An independent audit reproduced all2097152 cells and the fresh26-neighbor
+pad1 array exactly, with zero mismatches. It found35860 admitted cells with
+no W64-positive projection; actual source footprints explain their UNKNOWN
+protection. This is conservative sampling allowance, not proof that these
+cells contain objects. No justified safe carve was established. Evidence:
+`operations/independent_grid_review_g1_1695_20261108/report.md` under the
+corrected source campaign.
+
+For repeatable manual inspection, `scripts/export_marshawn_admission_slices.py`
+verifies the manifest-bound grid payload and exports every orthogonal slice.
+Gray denotes base allowance, blue the extra pad1 allowance, and black cells
+excluded from admission. The helper changes no source arrays and makes no
+physical occupancy claim.
+
 ## Insights
 
 Anatomy confidence and optical flow cannot independently establish actor
