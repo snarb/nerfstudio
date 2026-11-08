@@ -6,9 +6,10 @@ Results:
 
 | Check | Result |
 |---|---|
-| CPU generation contracts |8 passed; no GPU or shader execution |
+| CPU generation contracts |14 passed; no GPU or shader execution |
 | Retired1695 root / generation downgrade | Rejected before model loading |
 | Replacement nonzero initial occupancy / over-cap completion | Rejected |
+| Missing, empty or nonzero optimizer evidence | Rejected; exact D873 `fields:0` evidence required |
 | CPU dataset resolution | Per-record native dataset, one unchanged global spec file for all120 images |
 | Paused-GT72/119 | Original `one.py` call preserved; no2020 neural model or dataset required |
 | Actual seven retained native models | Selected completion/source metadata and current F2 job status verified |
@@ -17,6 +18,8 @@ Results:
 Code: [generation helpers](../scripts/marshawn_video_export_geometry_cpu/generations/route.py). Review bundle: `/fsx/tmp/marshawn_video_1660_2015_24fps_140k_20261107/operations/video_generation_v6/`. The candidate hook is **not activated**; `root_release_REQUEST.json` remains unapproved. F2's final-hook placeholder remains untouched. Actual generation1 HC parity and geometry validation must run when those models genuinely complete; the unchanged GPU shader enforces the existing HC maximum-one-code parity and tensor-state preservation gates.
 
 The overlay resolves each record using its immutable assignment, current F2 job, frame-specific model/source generations, native completion, cold provenance, source publication, dense-grid proof and ROOT source authorization. It keeps exactly three physical host entries. Checkpoints, YAMLs and training data remain at native paths. It reuses the qualified CPU prelaunch/exec ledger and capacity locks; supervisor loss requires source-bound artifact verification before GPU adoption.
+
+The finite ROOT review correction distinguishes an unavailable SSH/verifier response from a reachable, source-bound verifier reporting an absent, incomplete or invalid native artifact. With both original worker and supervisor proven dead, the latter becomes an explicit blocked review failure, preserving partial files. It no longer waits indefinitely under an ambiguous transport status. Genuine transport uncertainty still prevents a replacement launch.
 
 The GPU shader `6603aa…`, CPU shader `51239b…`, profile `2bd9bc…`, DEV3 context-UUID adapter and explicit709 encoder remain unchanged. The global CPU spec binds the complete generation manifest; its dataset placeholder fails without the external resolver. Existing private preview images are never relabelled as new final completions. No final canonical frame-completion or MP4 marker existed at the read-only preflight.
 

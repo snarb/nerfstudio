@@ -58,6 +58,25 @@ def module(path, name):
 
 
 
+def artifact_outcome(item, proof, *, index, manifest_sha, path_sha, verifier_sha, policy_sha):
+    """Called only after both original GPU process identities are proven dead."""
+    expected = dict(kind='SOURCE_BOUND_NATIVE_GEOMETRY_VERIFICATION_V2', index=index,
+                    manifest_sha256=manifest_sha, path_sha256=path_sha,
+                    verifier_sha256=verifier_sha, policy_sha256=policy_sha)
+    if any(proof.get(key) != value for key, value in expected.items()):
+        raise ValueError('Remote native artifact verification belongs to another request/source')
+    if proof.get('verified') is True:
+        item.pop('review_required', None)
+        item.pop('review_reason', None)
+        item.update(status='complete', completion_source='verified_own_artifact_after_supervisor_loss', geometry_proof=proof)
+    elif proof.get('verified') is False and proof.get('review_required') is True:
+        item.update(status='blocked', review_required=True,
+                    review_reason='Original GPU worker and supervisor are dead; own native artifact is incomplete/invalid',
+                    artifact_verification=proof)
+    else:
+        raise ValueError('Remote verifier returned no authoritative artifact outcome')
+
+
 def main(args):
     O = Path(__file__).parent
     lock = (O / 'postprocess.lock').open('a+')
@@ -236,8 +255,9 @@ def main(args):
                 except (subprocess.SubprocessError, OSError, json.JSONDecodeError) as error:
                     item.update(status='unknown', adoption_wait='Cannot prove original GPU artifact/transport', transport_error=str(error))
                     continue
-                if proof.get('verified') is True:
-                    item.update(status='complete', completion_source='verified_own_artifact_after_supervisor_loss', geometry_proof=proof)
+                artifact_outcome(item, proof, index=index,
+                                 manifest_sha=manifest_sha, path_sha=sha(canonical),
+                                 verifier_sha=sha(O / 'verify.py'), policy_sha=sha(O / 'policy.py'))
         write(authority, gpu)
         for key, row in manifest['records'].items():
             index = int(key)

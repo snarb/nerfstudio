@@ -8,6 +8,8 @@ import types
 
 import entry
 import policy
+import route
+import verify
 
 
 def save(path, value):
@@ -102,6 +104,22 @@ def run():
         else:
             raise AssertionError('Warm replacement accepted')
         save(directory / 'train/cold_setup_audit.json', read_audit)
+        for name, evidence in [('missing', None), ('empty', {}), ('nonzero', {'fields': 1})]:
+            modified = copy.deepcopy(read_audit)
+            if evidence is None:
+                modified.pop('optimizer_state_sizes')
+            else:
+                modified['optimizer_state_sizes'] = evidence
+            save(directory / 'train/cold_setup_audit.json', modified)
+            bad = copy.deepcopy(row)
+            bad['native_inputs_sha256']['train/cold_setup_audit.json'] = policy.sha(directory / 'train/cold_setup_audit.json')
+            try:
+                policy.validate_native(bad)
+            except ValueError:
+                results['generation1_%s_optimizer_evidence_rejected' % name] = True
+            else:
+                raise AssertionError('Unproven zero optimizer accepted: ' + name)
+        save(directory / 'train/cold_setup_audit.json', read_audit)
         manifest = dict(kind='FRAME_GENERATION_NATIVE_RENDER_MANIFEST_V1', records={'7': row})
         manifest_path = temporary / 'manifest.json'
         save(manifest_path, manifest)
@@ -174,6 +192,29 @@ def run():
         entry.runpy.run_path, sys.argv = old_run, old_argv
         assert len(captures) == 2 and all('--cpu' in argv for _, argv in captures)
         results['GT72_and119_call_original_one_without_neural_DATA'] = True
+        # A successful source-bound RPC proving missing/incomplete geometry is a
+        # visible review failure. It is not indistinguishable from lost SSH.
+        path = temporary / 'path.json'
+        save(path, dict(records=[{}] * 8))
+        missing = verify.verify(temporary / 'missing_geometry', manifest_path, path, 7)
+        expected = dict(index=7, manifest_sha=policy.sha(manifest_path), path_sha=policy.sha(path),
+                        verifier_sha=policy.sha(verify.__file__), policy_sha=policy.sha(policy.__file__))
+        item = dict(status='failed', worker_alive=False, supervisor_alive=False)
+        route.artifact_outcome(item, missing, **expected)
+        assert item['status'] == 'blocked' and item['review_required'] is True
+        results['proven_dead_missing_artifact_is_explicit_review_failure'] = True
+        complete = dict(missing, verified=True)
+        complete.pop('review_required')
+        route.artifact_outcome(item, complete, **expected)
+        assert item['status'] == 'complete'
+        results['same_source_complete_artifact_can_be_adopted'] = True
+        wrong = dict(complete, manifest_sha256='another-source')
+        try:
+            route.artifact_outcome(item, wrong, **expected)
+        except ValueError:
+            results['foreign_artifact_RPC_rejected'] = True
+        else:
+            raise AssertionError('Foreign artifact RPC accepted')
     for name, value in original.items():
         setattr(policy, name, value)
     return dict(kind='GENERATION_RENDER_CPU_CONTRACT_QUALIFICATION_V1', passed=True,

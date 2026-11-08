@@ -134,10 +134,13 @@ def validate_native(row, *, hash_checkpoint=True):
             raise ValueError('Native marker is not the original source publication')
     if frame in REPLACED:
         cold = read(directory / 'train/cold_setup_audit.json')
+        optimizer = cold.get('optimizer_state_sizes')
+        if (not isinstance(optimizer, dict) or set(optimizer) != {'fields'}
+                or type(optimizer['fields']) is not int or optimizer['fields'] != 0):
+            raise ValueError('Replacement generation lacks exact zero D873 optimizer evidence')
         if (cold.get('cold') is not True or cold.get('resume') is not None
                 or cold.get('trainer_start_step') != 0 or cold.get('occupied_cells') != 0
-                or cold.get('nonzero_ema_cells') != 0
-                or any(cold.get('optimizer_state_sizes', {}).values())):
+                or cold.get('nonzero_ema_cells') != 0):
             raise ValueError('Replacement generation was not trained from zero')
         if completion.get('cold_provenance_sha256') != row['cold_provenance_sha256']:
             raise ValueError('Cold provenance differs from approved manifest')
