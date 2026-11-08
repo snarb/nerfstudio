@@ -61,3 +61,18 @@ The candidate is held for concrete ROOT release; fleet hook390ef99d… was
 unchanged during the audit. Activation is a separate OPS-only posthook update.
 Qualified source archives are in
 [`encoding`](../scripts/marshawn_video_export_geometry_cpu/encoding/README.md).
+
+ROOT subsequently approved and activated this OPS-only final encoder. Independent
+read-only verification passed every active-hook source hash and the release/tool
+library guard under the actual fleet2270475 environment. The fleet plan remains
+74c92390…, with no duplicate activation or early encoder/model launch.
+
+Active fleet posthook SHA:
+`06f2541bf7cb8d53e7b95029e4f5cff97d995f61fba870386b83e908b604c32c`.
+ROOT encoder release SHA:
+`175dd1c6dbf6feca983e7bc8d369176abf28d0b69d4b1601a8059b7063f0922a`.
+The old390ef99d… hook and the immutable candidate were preserved. Activation and
+independent guard receipts are under
+`operations/video_geometry_cpu_encoding_v4/{activation,independent_activation_verification}.json`.
+The final encoder will run autonomously after all72 models and120 image records
+are complete; full-video visual review remains required before delivery.
