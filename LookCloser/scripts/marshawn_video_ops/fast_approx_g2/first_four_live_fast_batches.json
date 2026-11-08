@@ -1,0 +1,33 @@
+{
+  "source_frames": [
+    {
+      "frame": 1720,
+      "marker_sha256": "1716cd176d7cd3e643c76aa6e967948d1101c00f6f0b56215d1cc47c902b9b11"
+    },
+    {
+      "frame": 1725,
+      "marker_sha256": "d763a1275db013ce3040eb91680b1d94994312a77b6a83b67943905b104cee23"
+    },
+    {
+      "frame": 1730,
+      "marker_sha256": "76684d7edc3fdd9826a3674b78c9849cda65b39925d0911b655009c22fdc2b72"
+    },
+    {
+      "frame": 1735,
+      "marker_sha256": "f96224f6455d216dd3de77df73264cd3c9e39c8995748ec6fe06f395dcb7fe8c"
+    },
+    {
+      "frame": 1740,
+      "marker_sha256": "2fa4bd0701f1d267defbc51f79569706ad89c10601e6ee62c9f1e007ab4df881"
+    }
+  ],
+  "DATA_state": {
+    "pid": 2606373,
+    "complete": 5,
+    "running": {},
+    "pending": 55,
+    "workers": 4,
+    "time": 1794127269.7945626
+  },
+  "created": 1794127273.9293082
+}
