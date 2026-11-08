@@ -1,0 +1,69 @@
+{
+  "kind": "ROOT_AUTHORIZED_ADDITIVE_SOURCE_BODY_IMPLEMENTATION_IDENTITY_HANDOFF",
+  "old_exact_CPU_owners": [
+    {
+      "pid": 2485926,
+      "ppid": 1,
+      "state": "T",
+      "start": "249184181",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/marshawn_source_producer_g1_v139.py watchdog "
+    },
+    {
+      "pid": 2485958,
+      "ppid": 2485926,
+      "state": "T",
+      "start": "249184226",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/marshawn_source_producer_g1_v139.py controller "
+    },
+    {
+      "pid": 2498646,
+      "ppid": 2485958,
+      "state": "T",
+      "start": "249447693",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/code/marshawn_mask_assist_entry_v113.py --campaign /fsx/tmp/marshawn_video_source_gcrole_g1_20261108 --frame 1715 "
+    },
+    {
+      "pid": 2498648,
+      "ppid": 2498646,
+      "state": "T",
+      "start": "249447705",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/code/marshawn_native_route_v113.py --campaign /fsx/tmp/marshawn_video_source_gcrole_g1_20261108 --frame 1715 "
+    },
+    {
+      "pid": 2498650,
+      "ppid": 2498648,
+      "state": "T",
+      "start": "249447716",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/code/marshawn_mask_assist_full_v114.py --campaign /fsx/tmp/marshawn_video_source_gcrole_g1_20261108 --frame 1715 "
+    },
+    {
+      "pid": 2498652,
+      "ppid": 2498650,
+      "state": "T",
+      "start": "249447755",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/code/marshawn_mask_assist_full_v114.py watchdog --campaign /fsx/tmp/marshawn_video_source_gcrole_g1_20261108 --frame 1715 "
+    },
+    {
+      "pid": 2501731,
+      "ppid": 2498652,
+      "state": "Z",
+      "start": "249502747",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "argv": ""
+    }
+  ],
+  "all_old_CPU_owners_dead_or_zombie": true,
+  "no_1715_NN_tasks_or_config_existed": true,
+  "archived_failed_preNN_factory": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_g1_v140/retired_preNN_1715_1794119875462543802",
+  "source1710_marker_unchanged": "275a2b5a746b8ef4bc7a89f357897758bc08f3dae99d9a03d05895b63271fc0d",
+  "new_release_sha256": "af4141f4e9d314aba3469b34ba8a1e50df5bd54bb98b6c5b3ea3c48f13374fd2",
+  "parent_release_sha256": "6fa7cc2255b979727e82ada636b63eb66e32d34c2473d9c113da9289c854713d",
+  "no_fields_NN_frequency_cache_workers_stopped": true,
+  "time": 1794119875.470626
+}

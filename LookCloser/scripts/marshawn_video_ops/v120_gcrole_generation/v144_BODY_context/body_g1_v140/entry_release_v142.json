@@ -1,0 +1,21 @@
+{
+  "kind": "G1_IMMUTABLE_CODE_IDENTITY_AND_SHARED_CONTROL_ENTRY_V142",
+  "authorized": false,
+  "parent_source_release_sha256": "6fa7cc2255b979727e82ada636b63eb66e32d34c2473d9c113da9289c854713d",
+  "native_cli": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_g1_v140/code/marshawn_mask_assist_full_g1_v142.py",
+  "alias_helper": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/code/marshawn_sam3_v5_props_alias.py",
+  "files_sha256": {
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_g1_v140/code/marshawn_mask_assist_full_g1_v142.py": "3c33d4d7c0e13ae24fb638a0e363bac854ecd54d99cd8042d38054e049567084",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_g1_v140/code/marshawn_mask_assist_entry_g1_v142.py": "7a2e0711464de2a51255a6258f7823d9ef2d58b86b33b462df716ea639222a91",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_g1_v140/code/marshawn_sam3_assist.py": "f81902e04bca3e1233f8dccbc826add417899122a26e8c3f1bcba2db7cfecb16",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_g1_v140/code/marshawn_sam3_assist_v5.py": "1f597493b8c4696556b440969e457e71ad7b1f587004eb42ff30e1929833876b",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_g1_v140/code/marshawn_sam3_union_capture_v5.py": "33aed8be65c745720c1bc3cf1bfb9b5c48b38c2f5640f87f7577bd0a384bd3a0"
+  },
+  "campaign_data_and_target_prior_root": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108",
+  "immutable_implementation_identity": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107",
+  "original_native_release": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/v5/native_future_release_v114.json",
+  "original_native_release_sha256": "88ccc5ed23c2c8c3fc538d5ea45b5a3dda92fad4c4cd3a18e3f6a0c5ec6b8775",
+  "change": "One existing optional campaign_identity keyword; campaign/data/source/previous actor masks remain G1. No NN/model/refinement/seed math changes.",
+  "shared_control_campaign": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107",
+  "control_retirement_uses_owned_receipt_priority_request": true
+}

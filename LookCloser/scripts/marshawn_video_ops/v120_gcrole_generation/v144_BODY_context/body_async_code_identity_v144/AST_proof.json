@@ -1,0 +1,12 @@
+{
+  "kind": "CANONICAL_PHYSICAL_CODE_IDENTITY_ONLY_FOR_SYMLINKED_G1",
+  "original_collector": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_async_collect_v1/code/marshawn_native_async_collect.py",
+  "original_collector_sha256": "592d73c952f3573832e8ba2f034736edcc4326c734a2e12a5a3a9e1c90ade74d",
+  "candidate_collector": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_async_code_identity_v144/marshawn_native_async_collect.py",
+  "candidate_collector_sha256": "df9b7cce3160df7d614c5ac2a0050695e38df28909b263313f1027c85c89f30a",
+  "AST_equal_after_expected_directory_resolve": true,
+  "runtime_source_bytes_identical_to_qualified_original": true,
+  "target_config_campaign_and_isolated_data_root_unchanged": true,
+  "original_gather_math_unchanged": true,
+  "created": 1794121029.4546618
+}

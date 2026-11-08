@@ -1,0 +1,11 @@
+{
+  "status": "pass",
+  "actual_G1_configuration_sha256": "a3d9f1c7b5139366dc370b41bf4028c5478a0336fb203e1e6e52017c0b460699",
+  "config_campaign": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108",
+  "actual_base_module_physical": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/code/marshawn_sam3_union_batch_v62_runtime.py",
+  "actual_base_module_sha256": "f95b981696061aacfe98377e13e7588b6ce644bc608a38adb88accda9da9b9c4",
+  "original_all_task_and_code_guard_pass": true,
+  "foreign_module_import_still_rejected": true,
+  "config_and_132_tasks_unchanged": true,
+  "created": 1794121030.2498143
+}

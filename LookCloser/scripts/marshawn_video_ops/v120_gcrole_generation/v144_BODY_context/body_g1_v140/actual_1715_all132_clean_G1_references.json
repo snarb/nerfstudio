@@ -1,0 +1,1926 @@
+{
+  "status": "pass",
+  "frame": 1715,
+  "prior": 1710,
+  "records": [
+    {
+      "camera": "AA",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/AA.npz",
+      "actual_prior_native_sha256": "7563721929fe7597288825ba586c2705d22878d322a32ed53382255c8e833277",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/AA/task.json",
+          "task_sha256": "9acf1f034a75477b288836251643f1b6eabe2a3b412643ab7685adac03f9ceb7",
+          "seed_policy_sha256": "f71c6e0d166167ff56b10c61bfced417e0cb441694b850546a6138e17923c3e2",
+          "reference_arrays_sha256": {
+            "black": "101b153300f20cb5a70521479ab5e811432a49f802900328ffb0892972fdee1b",
+            "grey": "c7e898220076ecc9c552200143152f421c38caa95fb93769b33ba4811a75b7de"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/AA/task.json",
+          "task_sha256": "508693b6f2cb289476f160049d7f02eb46eeb27a0e89b7dbf68e0c02da2b7475",
+          "seed_policy_sha256": "f71c6e0d166167ff56b10c61bfced417e0cb441694b850546a6138e17923c3e2",
+          "reference_arrays_sha256": {
+            "black": "101b153300f20cb5a70521479ab5e811432a49f802900328ffb0892972fdee1b",
+            "grey": "c7e898220076ecc9c552200143152f421c38caa95fb93769b33ba4811a75b7de"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "AB",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/AB.npz",
+      "actual_prior_native_sha256": "40c1c23c429f863e1530de993b35067fc4e4a318db601c0fa2a01092329e8c95",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/AB/task.json",
+          "task_sha256": "48e331bab81076b2ad14eb17f01169a3c97a5733a32588d09ef235cfcf708456",
+          "seed_policy_sha256": "fd1e7da4e04a9e6235dbe84126fa35dcb46d59eb02805ec8b4845341a154456b",
+          "reference_arrays_sha256": {
+            "black": "6a8c22c0b204353073b1fe62b0f27f1d4dc6ae3dc8421caf45f4de587355151f",
+            "grey": "b69141dd076f901f5d754710f812614400ce0bb17febe9d02952f2c93f8dbaae"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/AB/task.json",
+          "task_sha256": "8e3cf4c1815ec24b865c371b011278db3a36ceff534be9ef29c53b7e73985a25",
+          "seed_policy_sha256": "fd1e7da4e04a9e6235dbe84126fa35dcb46d59eb02805ec8b4845341a154456b",
+          "reference_arrays_sha256": {
+            "black": "6a8c22c0b204353073b1fe62b0f27f1d4dc6ae3dc8421caf45f4de587355151f",
+            "grey": "b69141dd076f901f5d754710f812614400ce0bb17febe9d02952f2c93f8dbaae"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "AC",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/AC.npz",
+      "actual_prior_native_sha256": "433b99bbc9bd3a14cc54425ae9497163bd27956f8a6db13458b680ebbe882b1d",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/AC/task.json",
+          "task_sha256": "80467808524419853c5d46b6fc473a0b50e91d3054b547ce5e3bab8bc50e9de0",
+          "seed_policy_sha256": "e2b1e73748407e41c1518d26f9f896545a574e9a526c6a5b89ec898c6ca4f9e5",
+          "reference_arrays_sha256": {
+            "black": "312c3517af261d9537619b32584fd11ea15ac3365af7fed744c5da03d72e5561",
+            "grey": "792de9be5907e3c8e2218c0624675bf0b4571071891bb83f8d4db3da70f44fad"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/AC/task.json",
+          "task_sha256": "6aff4124dbdb914937e70f3387664e4d19a076db442d600ecacd7b2671e15f16",
+          "seed_policy_sha256": "e2b1e73748407e41c1518d26f9f896545a574e9a526c6a5b89ec898c6ca4f9e5",
+          "reference_arrays_sha256": {
+            "black": "312c3517af261d9537619b32584fd11ea15ac3365af7fed744c5da03d72e5561",
+            "grey": "792de9be5907e3c8e2218c0624675bf0b4571071891bb83f8d4db3da70f44fad"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "AD",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/AD.npz",
+      "actual_prior_native_sha256": "8e5bc5c651a694c340e24b1a2ededdd1b1e6188afb3685005d65d1e1b2bb1be2",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/AD/task.json",
+          "task_sha256": "7a57e6baee94c152118f44fdb2a16461bf79812dbcd09ad3f778eff02d9c4937",
+          "seed_policy_sha256": "778baf5b6da20417b53e0f646b7de8b61e85f7bc4df285097ae3547099d092bd",
+          "reference_arrays_sha256": {
+            "black": "ff9111a9c9ff394a235d646f325ee1fed129e8c83b9d1d90ce90621645db934f",
+            "grey": "28babef6f576e98238cdfc96e156187d3eadee98ce57f8f3694b055558ded80f"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/AD/task.json",
+          "task_sha256": "1f1eafb48939882aebd119847bc7d54d4ecfe4c2d9b1f661f6cf29118671d087",
+          "seed_policy_sha256": "778baf5b6da20417b53e0f646b7de8b61e85f7bc4df285097ae3547099d092bd",
+          "reference_arrays_sha256": {
+            "black": "ff9111a9c9ff394a235d646f325ee1fed129e8c83b9d1d90ce90621645db934f",
+            "grey": "28babef6f576e98238cdfc96e156187d3eadee98ce57f8f3694b055558ded80f"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "BA",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/BA.npz",
+      "actual_prior_native_sha256": "d248acbf1f206f1377e7aec747b4b3b5c6b4480614d1fd6d2a36816aa7ed4afb",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/BA/task.json",
+          "task_sha256": "87022e20664f94d650607aef2e3119871c103b7fe1961a4915ac8b9f1cda229b",
+          "seed_policy_sha256": "1e3e18c56b3e91cc8f74cb7b0183ef935058dc45720144a8c670fcb6a00cc880",
+          "reference_arrays_sha256": {
+            "black": "13952136c679c6bf1418b0ed56bfe6c250e4f6eb630e8137f04d71b5581c5813",
+            "grey": "f799e3d56551225c893977be148201535b7f4836ecc97852d0b2e5601f2dbf5a"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/BA/task.json",
+          "task_sha256": "75d6f59b21af34af83d3aeaf50dc26de4a8f8aac57014ab07c1a91a2f353a69c",
+          "seed_policy_sha256": "1e3e18c56b3e91cc8f74cb7b0183ef935058dc45720144a8c670fcb6a00cc880",
+          "reference_arrays_sha256": {
+            "black": "13952136c679c6bf1418b0ed56bfe6c250e4f6eb630e8137f04d71b5581c5813",
+            "grey": "f799e3d56551225c893977be148201535b7f4836ecc97852d0b2e5601f2dbf5a"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "BB",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/BB.npz",
+      "actual_prior_native_sha256": "e4be8995bd176c04b8d5ed231cebedb0024a87a01730bb2c58e511b5420426aa",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/BB/task.json",
+          "task_sha256": "9c59dcce55a463910d2a7758ca0a86ab7ea3a7fb0a47d62d0d471cb88714c351",
+          "seed_policy_sha256": "cc0749e52f5c30edc0ca1d022951562fb7812a326e6db620711a0c8fe3b87ad5",
+          "reference_arrays_sha256": {
+            "black": "62ef43145e97a821bb243b70a703330f0214e5e48e5f5c915c06f95c9141d8a2",
+            "grey": "af8da42775f56ad151ffcbdcf8d3dda099ce09fa0b549b3199953d29ab046a84"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/BB/task.json",
+          "task_sha256": "699fd3123b270c7824afa61e73d7ae46d34c590b561ac8f822b56cb19abe0f25",
+          "seed_policy_sha256": "cc0749e52f5c30edc0ca1d022951562fb7812a326e6db620711a0c8fe3b87ad5",
+          "reference_arrays_sha256": {
+            "black": "62ef43145e97a821bb243b70a703330f0214e5e48e5f5c915c06f95c9141d8a2",
+            "grey": "af8da42775f56ad151ffcbdcf8d3dda099ce09fa0b549b3199953d29ab046a84"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "BC",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/BC.npz",
+      "actual_prior_native_sha256": "9866963a8d2c7353ead5a10275ddb668ad19e9edc790933ba62480b9e4a5eb7d",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/BC/task.json",
+          "task_sha256": "eea43f70ce3f916651297af6c19bd03957c3813830365931c8d5b34893534d89",
+          "seed_policy_sha256": "fad68a3c377e04274d021a6cd07506b5fe3d5da059e23221fe31ac77cd30451a",
+          "reference_arrays_sha256": {
+            "black": "0b21e8bb76a63e78362ba9bfa30e7c89d02496ec77839242230eefa4fe09abf5",
+            "grey": "06703b6cc9bd84a7467cea6591706882b07d579e7d1eb96c6e42817ad330e9d4"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/BC/task.json",
+          "task_sha256": "9b9c65cc5dabdf4a1295082db8b0463c9ec95f172b9fb168eb3c9f3ad0ccc193",
+          "seed_policy_sha256": "fad68a3c377e04274d021a6cd07506b5fe3d5da059e23221fe31ac77cd30451a",
+          "reference_arrays_sha256": {
+            "black": "0b21e8bb76a63e78362ba9bfa30e7c89d02496ec77839242230eefa4fe09abf5",
+            "grey": "06703b6cc9bd84a7467cea6591706882b07d579e7d1eb96c6e42817ad330e9d4"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "BD",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/BD.npz",
+      "actual_prior_native_sha256": "551d55b6fb83745e47e62cf38773414a7675be59b0f45630b33927dd26c961c9",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/BD/task.json",
+          "task_sha256": "4b7b1910cd1b06951f30fe5e830dfa8882750454f0ba1491cba5a8e682777f66",
+          "seed_policy_sha256": "091623452f2dcdb3a7d12c57e5c6e5626e3c5c95ad80cac42f26fa5424e01a4a",
+          "reference_arrays_sha256": {
+            "black": "fc0eb1b4622278fc5db178f4c0479074a39c168b1f648dd4a704a86fe2e74ffe",
+            "grey": "e6203d8b49f15f9a83b25d0636f49ddcbcfa48e76f710d8fab539ab3545cb88b"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/BD/task.json",
+          "task_sha256": "6baa6b0a785f337d04ef951ccde01a7558ac8c68367697188214786c5df1e1d2",
+          "seed_policy_sha256": "091623452f2dcdb3a7d12c57e5c6e5626e3c5c95ad80cac42f26fa5424e01a4a",
+          "reference_arrays_sha256": {
+            "black": "fc0eb1b4622278fc5db178f4c0479074a39c168b1f648dd4a704a86fe2e74ffe",
+            "grey": "e6203d8b49f15f9a83b25d0636f49ddcbcfa48e76f710d8fab539ab3545cb88b"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "CA",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/CA.npz",
+      "actual_prior_native_sha256": "e786f9faada742ecd7eadb98594b369f64123e09ca5447a538fd2f867879e15d",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/CA/task.json",
+          "task_sha256": "09c41c09ae547491826c1c5015481752c88971bf035ec7985ea8a4a6f34844a8",
+          "seed_policy_sha256": "d0fbaa60725364a865f355c0355ca897d44a3c9ed073cf1886b015eb38871984",
+          "reference_arrays_sha256": {
+            "black": "4d274f79bf0ff74a26978f8aadbf35f5874d8736aaea9cc126fda70039afbb70",
+            "grey": "b83245268c1ce7bcc5d9c41b74d5f881129f1da31cc567a097dd4bcf5923a059"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/CA/task.json",
+          "task_sha256": "0b1ee1529998b25c67b4748d7529dd6fb99ee8225bf0c6f78f72766ecdf5e5e3",
+          "seed_policy_sha256": "d0fbaa60725364a865f355c0355ca897d44a3c9ed073cf1886b015eb38871984",
+          "reference_arrays_sha256": {
+            "black": "4d274f79bf0ff74a26978f8aadbf35f5874d8736aaea9cc126fda70039afbb70",
+            "grey": "b83245268c1ce7bcc5d9c41b74d5f881129f1da31cc567a097dd4bcf5923a059"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "CB",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/CB.npz",
+      "actual_prior_native_sha256": "647e937856709918a6acaa021147699f61da4e4512e89fc64a15ae9997679438",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/CB/task.json",
+          "task_sha256": "2c35ff153c053abd59e0279beb69d0f02cb9498acdbf3b49781e68c9f6227dbd",
+          "seed_policy_sha256": "f8f68aa604a98a88d3aa5702bd78da6ca7644d1b46579fd6b958ba37d31a976d",
+          "reference_arrays_sha256": {
+            "black": "5d260d789579cfd0a6778b1206ea78ed78b51c20ed3b46a98919ed464f7fe4ed",
+            "grey": "44fdf2af86a4d16ea42c541ffa9cd798617c253783531bb60c6a883dd55c790e"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/CB/task.json",
+          "task_sha256": "eb754786d99a37daf48652ef132d1f3748fd1c1490be216f7faf7ce98f745e65",
+          "seed_policy_sha256": "f8f68aa604a98a88d3aa5702bd78da6ca7644d1b46579fd6b958ba37d31a976d",
+          "reference_arrays_sha256": {
+            "black": "5d260d789579cfd0a6778b1206ea78ed78b51c20ed3b46a98919ed464f7fe4ed",
+            "grey": "44fdf2af86a4d16ea42c541ffa9cd798617c253783531bb60c6a883dd55c790e"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "CC",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/CC.npz",
+      "actual_prior_native_sha256": "4440b21a28c1c9cbe1e8465000f0764ca08c5b2d5ed867b254e0f279c609ae59",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/CC/task.json",
+          "task_sha256": "4f2b1c58e902c6386acafd4e2d84700874709f092ba3f0951f1aac0db3bd908c",
+          "seed_policy_sha256": "d72cfaabcd52bb4d3a69489ceb6f505692d1f0d6f83fbbeda64790b8e2024c03",
+          "reference_arrays_sha256": {
+            "black": "8c1cf0a2d81631ddd4ee5caf37c7aa0ad06dce3d03d3e38e2682084e6680139b",
+            "grey": "7f0e6fba833908af6f8e2e75eecda460ca76451a8dd4e27f353c91f9fbc73d80"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/CC/task.json",
+          "task_sha256": "b2b6398cee1b337196555c99b286ab407ecf04fb55fa741f28a7983088fac291",
+          "seed_policy_sha256": "d72cfaabcd52bb4d3a69489ceb6f505692d1f0d6f83fbbeda64790b8e2024c03",
+          "reference_arrays_sha256": {
+            "black": "8c1cf0a2d81631ddd4ee5caf37c7aa0ad06dce3d03d3e38e2682084e6680139b",
+            "grey": "7f0e6fba833908af6f8e2e75eecda460ca76451a8dd4e27f353c91f9fbc73d80"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "CD",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/CD.npz",
+      "actual_prior_native_sha256": "2c0f7219062c3ee71f5b9e6668dbec33d00bf40ce35b06cb6fd80ff491db3ad2",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/CD/task.json",
+          "task_sha256": "9c32ac6177e5df8627e92367435b0add0c471c606580258d3378d1e8537ce1ba",
+          "seed_policy_sha256": "0ec35eabf81ff9a5c9fa0a5c02d932d505f3d60d8e59a86833a2f173b47148d8",
+          "reference_arrays_sha256": {
+            "black": "e1e9c810e03518ab64bf2c505797d840a2e64b7ad9781e8f62d366f110d24a72",
+            "grey": "94ca5b78ab5a5498f8a2ebee29ecfe26dbc8319b7a4a057d0550f49bc6871ef2"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/CD/task.json",
+          "task_sha256": "14f09c111de6d658f2a6a19df638c5a355a7bd17074a4cd86b530fb475e44ea9",
+          "seed_policy_sha256": "0ec35eabf81ff9a5c9fa0a5c02d932d505f3d60d8e59a86833a2f173b47148d8",
+          "reference_arrays_sha256": {
+            "black": "e1e9c810e03518ab64bf2c505797d840a2e64b7ad9781e8f62d366f110d24a72",
+            "grey": "94ca5b78ab5a5498f8a2ebee29ecfe26dbc8319b7a4a057d0550f49bc6871ef2"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "CE",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/CE.npz",
+      "actual_prior_native_sha256": "9ee5ece8fdf92cdb6bdbb2e8a94e4649fdbfa7fbc3abcc61657bab1f1dee2ca9",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/CE/task.json",
+          "task_sha256": "410d297e56dcfc1fc0d96f0a2860c3df93d8f57695554a7497c2cb06ef41380a",
+          "seed_policy_sha256": "cbe28a2c9a9ee3caa8e86323ec05eb68b28689855967f075b8b51a86a69f0756",
+          "reference_arrays_sha256": {
+            "black": "4e431f406b0dedf3b4f16f62e83f7ecb146036d65aa1648c444a69de9500b62c",
+            "grey": "4b453d62c9f2fd1a1411832c6d5feaf0cc500e1457045111eca452e7aca7a1dd"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/CE/task.json",
+          "task_sha256": "250227b5886262fac90d2aad53cbc0cd4b731529eae608957be84af9214b4089",
+          "seed_policy_sha256": "cbe28a2c9a9ee3caa8e86323ec05eb68b28689855967f075b8b51a86a69f0756",
+          "reference_arrays_sha256": {
+            "black": "4e431f406b0dedf3b4f16f62e83f7ecb146036d65aa1648c444a69de9500b62c",
+            "grey": "4b453d62c9f2fd1a1411832c6d5feaf0cc500e1457045111eca452e7aca7a1dd"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "DA",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/DA.npz",
+      "actual_prior_native_sha256": "8204dbcca947320164ce094ba716080e5a2271aa36905210704136de5d9da0bb",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/DA/task.json",
+          "task_sha256": "5503581b27e47a33456c8a78c5df1d1f91ee1834e18d2e8d68d8f417df7998cc",
+          "seed_policy_sha256": "0eb68d455af21beb0c933f3683db754eb83ea546d0285f754452a3ba2611d79e",
+          "reference_arrays_sha256": {
+            "black": "a8ee75348c915a50f2d77bdeb750c4dbf1634a5b35d32dbb40b4b60ffe2aa9a8",
+            "grey": "4794d550c1b8cb6a7ba9d7260036407817f9bdb23cb5d76c6d9ee43197f92102"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/DA/task.json",
+          "task_sha256": "c7a2c5e079e01e878a6d57983d64c38e9997ddd0b30ce0a4c16a56cfcb529627",
+          "seed_policy_sha256": "0eb68d455af21beb0c933f3683db754eb83ea546d0285f754452a3ba2611d79e",
+          "reference_arrays_sha256": {
+            "black": "a8ee75348c915a50f2d77bdeb750c4dbf1634a5b35d32dbb40b4b60ffe2aa9a8",
+            "grey": "4794d550c1b8cb6a7ba9d7260036407817f9bdb23cb5d76c6d9ee43197f92102"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "DB",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/DB.npz",
+      "actual_prior_native_sha256": "5c81857cae862ab8059f5804ece5e71df3d076f86bdb14b32b6c40ba367c393b",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/DB/task.json",
+          "task_sha256": "248c6bdee9d1c0404877e4b00bd0e21607fec622a6afd84f6caaeae85a06992d",
+          "seed_policy_sha256": "eede4e6953ae160d41c7be69b13cb89fa811e3b99667fd716c050b6eef4f687e",
+          "reference_arrays_sha256": {
+            "black": "180d39066e09a5e1cc75313d33e53875ecc424ae18d1b07804ee0e65750f571c",
+            "grey": "49d328a4a280e66e7869daeaec7814d2376468ccd1ff6d98942c51f001ee1d69"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/DB/task.json",
+          "task_sha256": "3da30409f2d23f5f6f644f910fa79afaf0d5f9fd55657741cb8e50a64bb25480",
+          "seed_policy_sha256": "eede4e6953ae160d41c7be69b13cb89fa811e3b99667fd716c050b6eef4f687e",
+          "reference_arrays_sha256": {
+            "black": "180d39066e09a5e1cc75313d33e53875ecc424ae18d1b07804ee0e65750f571c",
+            "grey": "49d328a4a280e66e7869daeaec7814d2376468ccd1ff6d98942c51f001ee1d69"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "DC",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/DC.npz",
+      "actual_prior_native_sha256": "6bb2241fde887374d4f4dabcd04f4ebae3aa01e99371c9bc91cb219ca560e2ce",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/DC/task.json",
+          "task_sha256": "b692220de492b0055d6d6fe167fd544ef236e12de58a2a882c98b8fdae713eac",
+          "seed_policy_sha256": "cc99bb582761600be82d243a3b394c8400617039ab7c4672e829e3011f3a2b8d",
+          "reference_arrays_sha256": {
+            "black": "eab588813b1f3707a6979668f3fb9d7949052c3aef9a976ac03a91543f2b22cd",
+            "grey": "c00fcb0d559d920368c2ef828f235de85e8df42dd4ca9af8a56ebf14ed4b3a6f"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/DC/task.json",
+          "task_sha256": "caf91335045e5fd98597de3937d921b1570fa3f9670b329c752cc38b05b0bd24",
+          "seed_policy_sha256": "cc99bb582761600be82d243a3b394c8400617039ab7c4672e829e3011f3a2b8d",
+          "reference_arrays_sha256": {
+            "black": "eab588813b1f3707a6979668f3fb9d7949052c3aef9a976ac03a91543f2b22cd",
+            "grey": "c00fcb0d559d920368c2ef828f235de85e8df42dd4ca9af8a56ebf14ed4b3a6f"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "DD",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/DD.npz",
+      "actual_prior_native_sha256": "06d5c9f061da2119ade934d2e3716d16082a4f0855781998bb862803894897ab",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/DD/task.json",
+          "task_sha256": "698717be6a9627c05502e9d624b16d900808f7520820916b1465c3132b92198e",
+          "seed_policy_sha256": "5cf7a0037630a25fbc979fe2680a499b3003d24f02cf0b1abd14fb43be146d4a",
+          "reference_arrays_sha256": {
+            "black": "59bf43cb4b8d047892d7d790efce4315b1029d5d50330f78ea7a846526988daf",
+            "grey": "db99e6f54a04677fea0c4516a47d99b92846d4482146ebc76a0da7a8b3197300"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/DD/task.json",
+          "task_sha256": "af1db530803d4f46402de7f7dab47a4eaebc9be3e90d0aa0a9382a66117e4f59",
+          "seed_policy_sha256": "5cf7a0037630a25fbc979fe2680a499b3003d24f02cf0b1abd14fb43be146d4a",
+          "reference_arrays_sha256": {
+            "black": "59bf43cb4b8d047892d7d790efce4315b1029d5d50330f78ea7a846526988daf",
+            "grey": "db99e6f54a04677fea0c4516a47d99b92846d4482146ebc76a0da7a8b3197300"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "DE",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/DE.npz",
+      "actual_prior_native_sha256": "1a3f36a33891bb0d3e249e77fef86db88d947f80ae3bd2b603ef3a2a5141aab5",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/DE/task.json",
+          "task_sha256": "71ee368f1526c3c4a1d2cd43c86a27c21911eada42c91d37a4f0706352d5f6ad",
+          "seed_policy_sha256": "acad0182cc45c69f891e4f758f36ee739eafb62cc74bec01c778a9860271627e",
+          "reference_arrays_sha256": {
+            "black": "2ea6d706939a1a0296dd5e1647b0699b79ec6a5d5b548ae8233827cc6b3f9b35",
+            "grey": "76adc33cc5c5a8a3c094c77f8da2077931ad371b66ffc1b83f0b6bdec9da7670"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/DE/task.json",
+          "task_sha256": "d75e7e77678a360a6d2ec8a63f2346a83053bd48b39f282ea8955a2d3dcdbcea",
+          "seed_policy_sha256": "acad0182cc45c69f891e4f758f36ee739eafb62cc74bec01c778a9860271627e",
+          "reference_arrays_sha256": {
+            "black": "2ea6d706939a1a0296dd5e1647b0699b79ec6a5d5b548ae8233827cc6b3f9b35",
+            "grey": "76adc33cc5c5a8a3c094c77f8da2077931ad371b66ffc1b83f0b6bdec9da7670"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "EA",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/EA.npz",
+      "actual_prior_native_sha256": "824f3cd90c1b5fcc553541f6d90e339cccf91ee8a85bb277f9cf0bcd742e02fa",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/EA/task.json",
+          "task_sha256": "577b9c38a0fb28ece085e6125f7d812c0bff11e04565413120cc363c14c30695",
+          "seed_policy_sha256": "3c618199d04013aaa38e38bd5e575c49a870eef1a2f3d0b3495127c1c2b2ed86",
+          "reference_arrays_sha256": {
+            "black": "bbbbcff90f8db7c00b0a762a0e127a1780e206d002918eecaf4800a945f552ff",
+            "grey": "76691a2876571c3ae95e738f606a4808ed54b3ad081a7a0a5d1b7bc3c5f8166a"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/EA/task.json",
+          "task_sha256": "026da55fce73ae621162b16e09c365a3803bf3fa8bcc295747904df74822358e",
+          "seed_policy_sha256": "3c618199d04013aaa38e38bd5e575c49a870eef1a2f3d0b3495127c1c2b2ed86",
+          "reference_arrays_sha256": {
+            "black": "bbbbcff90f8db7c00b0a762a0e127a1780e206d002918eecaf4800a945f552ff",
+            "grey": "76691a2876571c3ae95e738f606a4808ed54b3ad081a7a0a5d1b7bc3c5f8166a"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "EB",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/EB.npz",
+      "actual_prior_native_sha256": "1a1708b5f731b1dee04a5a6f02fd2225dc6146a97f495f208a6452fcf82d3c57",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/EB/task.json",
+          "task_sha256": "46dc16981327fc187011db16f968e693b20761e8df580b9b0e3e89f714116587",
+          "seed_policy_sha256": "29533176cb0bb9ca194280652585b678e34c1865c4f77fbd9dde0d32444988df",
+          "reference_arrays_sha256": {
+            "black": "a1de930504a2cd2f420103fb3b42091850a12e057a032347c5d8d3bdba837546",
+            "grey": "e80fb05990ea3f6a20b6a8c512d59c216fa8918028df9d18253ccef2cb4b0d50"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/EB/task.json",
+          "task_sha256": "a30bef8166b1128b952363d3bbd824809547d3e23d1525be62a1015af97b0c36",
+          "seed_policy_sha256": "29533176cb0bb9ca194280652585b678e34c1865c4f77fbd9dde0d32444988df",
+          "reference_arrays_sha256": {
+            "black": "a1de930504a2cd2f420103fb3b42091850a12e057a032347c5d8d3bdba837546",
+            "grey": "e80fb05990ea3f6a20b6a8c512d59c216fa8918028df9d18253ccef2cb4b0d50"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "EC",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/EC.npz",
+      "actual_prior_native_sha256": "4cc94e2f8ab72712ea634a67de27afb4ec819a7143ebd62ef6987a8734ad1abf",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/EC/task.json",
+          "task_sha256": "bebe50bdf9b8791579092f0fb54d241d103a1ebfb57d2a57705daf3fe7e7dd35",
+          "seed_policy_sha256": "44cb95138e6f8ec3cb2757ea36e003c594dacfe5f9e1da2800d7b3a9427300dc",
+          "reference_arrays_sha256": {
+            "black": "325df186788b2a468f91a10b90001afefc3fea9f690386ca3dd8c3187e11dcc3",
+            "grey": "07cbf36ef7a09190cbb4931ab6a36302351f954606e8e27ba7e6c1e7ea94c57e"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/EC/task.json",
+          "task_sha256": "a9d495153c38a358df33dba565078f3e494f0e85eee1ad13322ed15b58fc5015",
+          "seed_policy_sha256": "44cb95138e6f8ec3cb2757ea36e003c594dacfe5f9e1da2800d7b3a9427300dc",
+          "reference_arrays_sha256": {
+            "black": "325df186788b2a468f91a10b90001afefc3fea9f690386ca3dd8c3187e11dcc3",
+            "grey": "07cbf36ef7a09190cbb4931ab6a36302351f954606e8e27ba7e6c1e7ea94c57e"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "ED",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/ED.npz",
+      "actual_prior_native_sha256": "585bcde1adfadee4346efcbc4c5ca4e36ce27672cbb4c016c3fee45aa1c3ae31",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/ED/task.json",
+          "task_sha256": "105ab0f87bb27f44c6bed4f0a55cde97bdc326ad7d1deb096f3e0939d41fdc64",
+          "seed_policy_sha256": "0a000c2883792e8ab7cf802d3df6e2ac3bc14f692fe2e2d8e483af2858b60860",
+          "reference_arrays_sha256": {
+            "black": "5f85bac9c2e9b18acdc22d8b2f25e0f165a8e5a1e70f31be8a730392309da5f9",
+            "grey": "7dd85a1deea2761ceb24e72e7b574871457308ff2e6cf8a60809fc3e023ee2b5"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/ED/task.json",
+          "task_sha256": "5834e9e74ebfa1f9b0664d5b480f4e0f7da4ab71bc7831195ae5a5eeffa0e148",
+          "seed_policy_sha256": "0a000c2883792e8ab7cf802d3df6e2ac3bc14f692fe2e2d8e483af2858b60860",
+          "reference_arrays_sha256": {
+            "black": "5f85bac9c2e9b18acdc22d8b2f25e0f165a8e5a1e70f31be8a730392309da5f9",
+            "grey": "7dd85a1deea2761ceb24e72e7b574871457308ff2e6cf8a60809fc3e023ee2b5"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "EE",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/EE.npz",
+      "actual_prior_native_sha256": "07d1cec43b64c59a47fc2bee7b341e4fa3c728d1b9b62b50c6a1db0416f8d37e",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/EE/task.json",
+          "task_sha256": "cf9ab2ada0abdef09acafd85f9bd631c8ac104ed1ea80f86af9137342e8d0c57",
+          "seed_policy_sha256": "3e260033a746f813d5d3d442b2aacc48c211ad2cef2652fd1b818f2f97190ca4",
+          "reference_arrays_sha256": {
+            "black": "c62c7fc0eaa95201a841f917f22e3e61fd11ba41a82f44572a318c315a96ea66",
+            "grey": "eab0e080e4abdb0ab0a33a1cf1b89453ce6a1c7bb52bf75d570ace71fb5bc0ba"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/EE/task.json",
+          "task_sha256": "ea53e2faf9a12aaaf04cd358eda011d021d8b2284fe2e29003d613382571984b",
+          "seed_policy_sha256": "3e260033a746f813d5d3d442b2aacc48c211ad2cef2652fd1b818f2f97190ca4",
+          "reference_arrays_sha256": {
+            "black": "c62c7fc0eaa95201a841f917f22e3e61fd11ba41a82f44572a318c315a96ea66",
+            "grey": "eab0e080e4abdb0ab0a33a1cf1b89453ce6a1c7bb52bf75d570ace71fb5bc0ba"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "FA",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/FA.npz",
+      "actual_prior_native_sha256": "708d21e9275df2d2bdc3570d744ad9ba10f34c2bebee4052a6f440681662b7bf",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/FA/task.json",
+          "task_sha256": "783334f578c982d391861af44b53b9a2de77151ab91da498b858fa15b1d083d7",
+          "seed_policy_sha256": "6d0ebfeda108d9c0614994f42e422732e3dfef1accd31cfd96616294aac19fe7",
+          "reference_arrays_sha256": {
+            "black": "f563f7af903dce70c1dee3a0efc6cc0a0193c9ff52fa3629c19dd4be7c494d61",
+            "grey": "683a1a7322d62f1c904708713bc6a1ef86d32212c2dc9a452f40b2e8fe9dd629"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/FA/task.json",
+          "task_sha256": "6ef3db9b930ad5bc690cfb4e8ccf9ce1ee37eb1525fc0887ea15eb46ef8624c4",
+          "seed_policy_sha256": "6d0ebfeda108d9c0614994f42e422732e3dfef1accd31cfd96616294aac19fe7",
+          "reference_arrays_sha256": {
+            "black": "f563f7af903dce70c1dee3a0efc6cc0a0193c9ff52fa3629c19dd4be7c494d61",
+            "grey": "683a1a7322d62f1c904708713bc6a1ef86d32212c2dc9a452f40b2e8fe9dd629"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "FB",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/FB.npz",
+      "actual_prior_native_sha256": "919eeca95065098c46481b0562a4a6e3f1561e08d469536a235e5e30ac8293a9",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/FB/task.json",
+          "task_sha256": "8348d21fcd195ccfc2cdbd72e33328838d442259d0944a55487d8bda87d77f8a",
+          "seed_policy_sha256": "a9ab5a5b2689aec83c6dc2cc10ecb10007cd9c1bc59f30ab370116091caa42d1",
+          "reference_arrays_sha256": {
+            "black": "f8a02005298f17ddc45d5eb47c4955456d3b91e171c88e47a4caa90f68b97eff",
+            "grey": "bbe64112ec599defe6413ca795a2f19b0218006d0dec43f73772df0ed6121ac9"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/FB/task.json",
+          "task_sha256": "eeee80b6644433f35f00361d3d760f94993b78e8f8ba02c836f9a19fa3fba688",
+          "seed_policy_sha256": "a9ab5a5b2689aec83c6dc2cc10ecb10007cd9c1bc59f30ab370116091caa42d1",
+          "reference_arrays_sha256": {
+            "black": "f8a02005298f17ddc45d5eb47c4955456d3b91e171c88e47a4caa90f68b97eff",
+            "grey": "bbe64112ec599defe6413ca795a2f19b0218006d0dec43f73772df0ed6121ac9"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "FC",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/FC.npz",
+      "actual_prior_native_sha256": "8128a9540b02e3627ac762110baa1725c8eb1e813a14e63176e8331eb97e7f34",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/FC/task.json",
+          "task_sha256": "4175d2ee85868f60307c69fb89e5223ebaeccca285950774878e578e28f1ff3c",
+          "seed_policy_sha256": "30cf5cea0d650ef90f06517f7364c7a48d561bb53da62299d462866d62a458a7",
+          "reference_arrays_sha256": {
+            "black": "a6cf01cb3b07321d1708c007c2b2c857b144b4403746cc2c37603e2f098e41c8",
+            "grey": "8fbe3fd2d2718d7262cdfc1cefc7c67c8fc37960dbc57eed66c2d0c5e5525a38"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/FC/task.json",
+          "task_sha256": "d4de2ac5527888f6cc02e4e062788e5b3e745266a03f286ae066ada33cf34605",
+          "seed_policy_sha256": "30cf5cea0d650ef90f06517f7364c7a48d561bb53da62299d462866d62a458a7",
+          "reference_arrays_sha256": {
+            "black": "a6cf01cb3b07321d1708c007c2b2c857b144b4403746cc2c37603e2f098e41c8",
+            "grey": "8fbe3fd2d2718d7262cdfc1cefc7c67c8fc37960dbc57eed66c2d0c5e5525a38"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "FD",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/FD.npz",
+      "actual_prior_native_sha256": "39081fd047a255065874b3e6367c213c3f5ff688a558cbd714e081520382724d",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/FD/task.json",
+          "task_sha256": "422c43584df916d9663248d93e254f1554d0646770624f4e57dd7daeac6fabf7",
+          "seed_policy_sha256": "71f82281e190f4788a18f052103aa3da900abc201264c90b481e1b7f39765cda",
+          "reference_arrays_sha256": {
+            "black": "28a85d02d7fd270fc65a3f31378c68cb6f2357dd503a73d365c09454c24e250d",
+            "grey": "819b11bc80cf43cdbc0daf54f81c827ac0ec7f5e287fe5153c9985e9b76aa35a"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/FD/task.json",
+          "task_sha256": "a754c3c7d8dfa8ef3ffd55eebd0bdbe9b857697d639c86b391f1f70f76f6ad02",
+          "seed_policy_sha256": "71f82281e190f4788a18f052103aa3da900abc201264c90b481e1b7f39765cda",
+          "reference_arrays_sha256": {
+            "black": "28a85d02d7fd270fc65a3f31378c68cb6f2357dd503a73d365c09454c24e250d",
+            "grey": "819b11bc80cf43cdbc0daf54f81c827ac0ec7f5e287fe5153c9985e9b76aa35a"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "FE",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/FE.npz",
+      "actual_prior_native_sha256": "d1365e9b9fe81d7b84e6e98c8041254da2f78d6767a706fed17baa6110d03623",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/FE/task.json",
+          "task_sha256": "7adc44011a5f78da4c0715ddeeac3c71d44c8f8901b530099215579323f79d51",
+          "seed_policy_sha256": "3fe4fa2b1034150551770370bf91483e0e5fb1350eb8539f5ca7e271eb1bfbe9",
+          "reference_arrays_sha256": {
+            "black": "dc2570e717401ddad951bc042d836d937719fdcd9f8232d621f53827a37e0908",
+            "grey": "6fcf88a0b57017acaa96bdfff8b3c4467a1e7c383eb0fd2d7142fd37ae779723"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/FE/task.json",
+          "task_sha256": "c5159af4b0faad35150f8559bd4eccb37a30244f439be38031184c5209399d1d",
+          "seed_policy_sha256": "3fe4fa2b1034150551770370bf91483e0e5fb1350eb8539f5ca7e271eb1bfbe9",
+          "reference_arrays_sha256": {
+            "black": "dc2570e717401ddad951bc042d836d937719fdcd9f8232d621f53827a37e0908",
+            "grey": "6fcf88a0b57017acaa96bdfff8b3c4467a1e7c383eb0fd2d7142fd37ae779723"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "GA",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/GA.npz",
+      "actual_prior_native_sha256": "b301eaed7d88d73a9d3f219fc36a7ddcb9ba0620917f880bcab95d3e0a23b574",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/GA/task.json",
+          "task_sha256": "5298be23599afdb60b1565f667ace2e1abe7d3510d062a1e3b1d81c31489cb1f",
+          "seed_policy_sha256": "4af51f401f25b4e2a7e309a37f4754cd1fb781a7e2d66f748d8eb87082cb7c99",
+          "reference_arrays_sha256": {
+            "black": "6998eaddc7c9878ab9e41aac715ceab87920acb0888aa28429e1899469d496cf",
+            "grey": "a1adcb72656cd9f367cba20d4a38ba40f9170fed1bfd8c3b78b80a62054ac815"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/GA/task.json",
+          "task_sha256": "dfd64fd2d5a1049c4b28cba03c8456836518240380e087a9a6fefc6ae340e26e",
+          "seed_policy_sha256": "4af51f401f25b4e2a7e309a37f4754cd1fb781a7e2d66f748d8eb87082cb7c99",
+          "reference_arrays_sha256": {
+            "black": "6998eaddc7c9878ab9e41aac715ceab87920acb0888aa28429e1899469d496cf",
+            "grey": "a1adcb72656cd9f367cba20d4a38ba40f9170fed1bfd8c3b78b80a62054ac815"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "GB",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/GB.npz",
+      "actual_prior_native_sha256": "0003b94ad66f3ac44dd96eaa9aa44171cdc18ebc2e291582e1aac53b68e61c61",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/GB/task.json",
+          "task_sha256": "0d91667ae34bddef54cb53fd25b2360a277dd689a5a365c7b54ffcadcb08bf72",
+          "seed_policy_sha256": "9b50b2bcacbe9b30c20e801825921291b3be900b4d7100eae5d5f7ed59922de1",
+          "reference_arrays_sha256": {
+            "black": "b0c2cbea36290202684cb37d5ff146a4f7d17546c7b64e469d9451a3cd232280",
+            "grey": "0928b9f216991df09b72169276b0b6baea22890247ded414d76e1d47c16eeeaa"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/GB/task.json",
+          "task_sha256": "5dcf119e781accbf500e7c4903406b56c0e6fcb19a506837322525beac58c403",
+          "seed_policy_sha256": "9b50b2bcacbe9b30c20e801825921291b3be900b4d7100eae5d5f7ed59922de1",
+          "reference_arrays_sha256": {
+            "black": "b0c2cbea36290202684cb37d5ff146a4f7d17546c7b64e469d9451a3cd232280",
+            "grey": "0928b9f216991df09b72169276b0b6baea22890247ded414d76e1d47c16eeeaa"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "GC",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/GC.npz",
+      "actual_prior_native_sha256": "f5f2672bbf9dc42b3816659a5a2267519c9685a7e98c6d97a43141e894386a5e",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/GC/task.json",
+          "task_sha256": "d2449b3d0efe7723d7c73b1210099bf1a601c84c1e219614ee022bea8c5a6f69",
+          "seed_policy_sha256": "c27b9f4349af9da1039a7e2d0c40782f232cd59c6539224f413d815063d93bf5",
+          "reference_arrays_sha256": {
+            "black": "ac07c9e0922f675a05a9218c9ec1174f77ec55ca95e1449a5330117445a1373c",
+            "grey": "92f24e9bb33869d1f5f9f042af452aac97209de80988f02b783354aea5f8118f"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/GC/task.json",
+          "task_sha256": "e42e4d7a56649c8f6f8caeee23860bfd7a314c49828c8f08248e6358e0b39764",
+          "seed_policy_sha256": "c27b9f4349af9da1039a7e2d0c40782f232cd59c6539224f413d815063d93bf5",
+          "reference_arrays_sha256": {
+            "black": "ac07c9e0922f675a05a9218c9ec1174f77ec55ca95e1449a5330117445a1373c",
+            "grey": "92f24e9bb33869d1f5f9f042af452aac97209de80988f02b783354aea5f8118f"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "GD",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/GD.npz",
+      "actual_prior_native_sha256": "e7c206e508bf656866d93d35d45c094d897e92355f7ff4c09f98390bab94270e",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/GD/task.json",
+          "task_sha256": "8ccc7fb96847e45761e77060110b72a365adbf46c1480436b1f562f182169255",
+          "seed_policy_sha256": "64baeb20e6acb0bb327f16cd455d8069ebf730b9bc4944a5d45fb3bc75ef82ed",
+          "reference_arrays_sha256": {
+            "black": "f48c4615fbb4ce1dd1a72637bc572f9bf8ff0b35ce36dad9e696b6c8c5b4d836",
+            "grey": "6c83d30e144b154ced6870b330f195ec2d2bde4a8e658e1c29b5d2a5799bb16b"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/GD/task.json",
+          "task_sha256": "71ba07922d35b20c696fa45215c4329c43b6c0c6bb84841f6e9e7c2f4a8425f5",
+          "seed_policy_sha256": "64baeb20e6acb0bb327f16cd455d8069ebf730b9bc4944a5d45fb3bc75ef82ed",
+          "reference_arrays_sha256": {
+            "black": "f48c4615fbb4ce1dd1a72637bc572f9bf8ff0b35ce36dad9e696b6c8c5b4d836",
+            "grey": "6c83d30e144b154ced6870b330f195ec2d2bde4a8e658e1c29b5d2a5799bb16b"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "GE",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/GE.npz",
+      "actual_prior_native_sha256": "79d249db267148a3ba9a3f936f2d69639668e317739cd995c29d98f56e7152f3",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/GE/task.json",
+          "task_sha256": "ba2c0ac83ba3c0ec2b33f5889e00cd91d32b5819ea387c5f23b60ae3034f1d16",
+          "seed_policy_sha256": "ff7f066996ee9ea7d4af21dc0145298eb9e4d05b4e02867e49d8470b5e65b045",
+          "reference_arrays_sha256": {
+            "black": "ca87cbc023f2c2b77e53d725cab28e8338200f065e86af324f7f8e3264795c88",
+            "grey": "48dbdb0e0397e91d5a05110da2264184fa500dee3e7d587dc39022ebe37b1fde"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/GE/task.json",
+          "task_sha256": "a004b0a35157c81125c21b1d5fe5f8a698ac57a1374da2d662fe6056b7c720a9",
+          "seed_policy_sha256": "ff7f066996ee9ea7d4af21dc0145298eb9e4d05b4e02867e49d8470b5e65b045",
+          "reference_arrays_sha256": {
+            "black": "ca87cbc023f2c2b77e53d725cab28e8338200f065e86af324f7f8e3264795c88",
+            "grey": "48dbdb0e0397e91d5a05110da2264184fa500dee3e7d587dc39022ebe37b1fde"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "HA",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/HA.npz",
+      "actual_prior_native_sha256": "095491152fbbed70537438da9c1e2985d0a8ec62559ec120d479660769ac3d54",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/HA/task.json",
+          "task_sha256": "d3efd701e25b52e2d97bee3558762b19e338f07965c9dfdb3f52ff95bb2ad0a1",
+          "seed_policy_sha256": "994950e9a5ce77447305b8d6cf30c96a38150c4fa6e57eeb4417f87cf361968d",
+          "reference_arrays_sha256": {
+            "black": "64ab879f26c45cfd8e580f5b0593d549c9a279daadad7351012ad55857f3d167",
+            "grey": "eba1450f537c7325aeac42be5fac99d361f81fbd260f411ab6c0757e16a330cd"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/HA/task.json",
+          "task_sha256": "49cf8bba8d0626946bc16b69d6b21c5891741d83b1bc41a9296bfa52bdf45634",
+          "seed_policy_sha256": "994950e9a5ce77447305b8d6cf30c96a38150c4fa6e57eeb4417f87cf361968d",
+          "reference_arrays_sha256": {
+            "black": "64ab879f26c45cfd8e580f5b0593d549c9a279daadad7351012ad55857f3d167",
+            "grey": "eba1450f537c7325aeac42be5fac99d361f81fbd260f411ab6c0757e16a330cd"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "HB",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/HB.npz",
+      "actual_prior_native_sha256": "11cd8f80816e7497798ac10437e3f828da15bc64d5a43c9b9c473fdd9138262d",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/HB/task.json",
+          "task_sha256": "8458b4f2c71afea861cbc5c76b27d7eb01bced1ec590fbc01df2937fad34bc19",
+          "seed_policy_sha256": "bc4ff7a1422a829fe0ba6059f65c85e86144a3aba4c4ca6a7e27efc080e024ec",
+          "reference_arrays_sha256": {
+            "black": "9acfcc1b0a2baa8e4fec6175cb345b520b3e476239578ea88b122ae8f24dde41",
+            "grey": "466edb440f7739bdbe9e01484785a0b0df22afe1d2ce7167bcb3718db7525ac4"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/HB/task.json",
+          "task_sha256": "ab52bb2f9b01c9889f4639ab22f87e52d0d6a6373ae582612b6848333ec8adb0",
+          "seed_policy_sha256": "bc4ff7a1422a829fe0ba6059f65c85e86144a3aba4c4ca6a7e27efc080e024ec",
+          "reference_arrays_sha256": {
+            "black": "9acfcc1b0a2baa8e4fec6175cb345b520b3e476239578ea88b122ae8f24dde41",
+            "grey": "466edb440f7739bdbe9e01484785a0b0df22afe1d2ce7167bcb3718db7525ac4"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "HC",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/HC.npz",
+      "actual_prior_native_sha256": "24a150a33e286f5f637296ecff8e67a90e184580a0211885248bfa6cd6ac7dae",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/HC/task.json",
+          "task_sha256": "065a4a58765cf808438d2439d34189fc0997c5df3b6db6c5301eef97f33e9b30",
+          "seed_policy_sha256": "06f8a22b131cedcc9e627d1a991569dc77ae849aa84a32bc2deda1f6ed76a53a",
+          "reference_arrays_sha256": {
+            "black": "b9a8917362d0c38820193c8b5e229948b81f7562e6520c4f0e34f079a0ead5f0",
+            "grey": "39d9484ac51aa4243563ed4e53ee95a4d48bf0a90d60c0a1cc16b128ea89dc84"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/HC/task.json",
+          "task_sha256": "4ff4d255b1a6d6ae43f45e545f0f2981b827c14f64fd6f7e9b97d3992853ec83",
+          "seed_policy_sha256": "06f8a22b131cedcc9e627d1a991569dc77ae849aa84a32bc2deda1f6ed76a53a",
+          "reference_arrays_sha256": {
+            "black": "b9a8917362d0c38820193c8b5e229948b81f7562e6520c4f0e34f079a0ead5f0",
+            "grey": "39d9484ac51aa4243563ed4e53ee95a4d48bf0a90d60c0a1cc16b128ea89dc84"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "HD",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/HD.npz",
+      "actual_prior_native_sha256": "4a9fd01d90d33bfcd6985fe7b251c7dbb54cc89b786c8f7e857907ff9355829c",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/HD/task.json",
+          "task_sha256": "1b6d80583c3a05760ca807c450f896760d3025ed88a6559de3eaf720297110b1",
+          "seed_policy_sha256": "a8de480c2f709577d39e3d51c1b688869f2fb736180ac276bcae90bde6899a64",
+          "reference_arrays_sha256": {
+            "black": "87ba4077831d17666525e426b6dd5b563bd7ab3c1d17ab6a65f25ff59f7bc544",
+            "grey": "17910e040fbadcd1359bdf327290cc82ead168ed5fe0964a67de1c2819dea66e"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/HD/task.json",
+          "task_sha256": "4d178f2607628ceb73c2b2000e47d6e6584da53400b1f67cef3d9a08257d6b76",
+          "seed_policy_sha256": "a8de480c2f709577d39e3d51c1b688869f2fb736180ac276bcae90bde6899a64",
+          "reference_arrays_sha256": {
+            "black": "87ba4077831d17666525e426b6dd5b563bd7ab3c1d17ab6a65f25ff59f7bc544",
+            "grey": "17910e040fbadcd1359bdf327290cc82ead168ed5fe0964a67de1c2819dea66e"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "HE",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/HE.npz",
+      "actual_prior_native_sha256": "9039da98f1a60ba460e0e97866890ebf04faa599e9187841474bc546fc6729ad",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/HE/task.json",
+          "task_sha256": "9328ee2d5f1c5a10c30b43c07c14134eb7d0d80f6aa353b4bd16a54e14fc6d40",
+          "seed_policy_sha256": "224ac70dca0709601114cda94ef8e66f30fedd3dd7aa62195165cd2734b662e8",
+          "reference_arrays_sha256": {
+            "black": "7dd52df1e2a4a763515efcc4db291328f5f84ffe7db051ad2fa22917e7b8001e",
+            "grey": "9e5843a15d47190b585ac1d97a2a3348f316f1a67982525f45127ff344b93927"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/HE/task.json",
+          "task_sha256": "c649ee660e42b5e8f1cea7053528e1be4abc4caf01a4fea5da463a9966e21e2a",
+          "seed_policy_sha256": "224ac70dca0709601114cda94ef8e66f30fedd3dd7aa62195165cd2734b662e8",
+          "reference_arrays_sha256": {
+            "black": "7dd52df1e2a4a763515efcc4db291328f5f84ffe7db051ad2fa22917e7b8001e",
+            "grey": "9e5843a15d47190b585ac1d97a2a3348f316f1a67982525f45127ff344b93927"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "IA",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/IA.npz",
+      "actual_prior_native_sha256": "02541e9d3713901387e717e7fbf639eb53757b63b6739a8da6c67c543ae0d4a8",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/IA/task.json",
+          "task_sha256": "c9555383642aabd7b1eea5f5f61adcd6f28463ea9b617a1b40d19a88049b62d7",
+          "seed_policy_sha256": "542a83c79d9715b14ba2ff827bfaee8feade6c8fa51285ee69e796cd5df5f4f3",
+          "reference_arrays_sha256": {
+            "black": "af53c7be86a4fe176814fdb34fe553a26441b4dd74342a9c33482f413557cfd3",
+            "grey": "d8108d9bdac0a826bea95c5beed4e12a7d7611b2d0b846e026db602eef67cc99"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/IA/task.json",
+          "task_sha256": "450c2501e2a33b4e684959599c10c89996e34118f85f6785cbc5336b61e0eece",
+          "seed_policy_sha256": "542a83c79d9715b14ba2ff827bfaee8feade6c8fa51285ee69e796cd5df5f4f3",
+          "reference_arrays_sha256": {
+            "black": "af53c7be86a4fe176814fdb34fe553a26441b4dd74342a9c33482f413557cfd3",
+            "grey": "d8108d9bdac0a826bea95c5beed4e12a7d7611b2d0b846e026db602eef67cc99"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "IB",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/IB.npz",
+      "actual_prior_native_sha256": "95bb9764c43bbc10aac66363d53217abc490190aab2c4dd5572d30707f427cef",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/IB/task.json",
+          "task_sha256": "a2c11ce84416af2a125bba5ba910578a83f2cc31f7d87798035a93867d1ca226",
+          "seed_policy_sha256": "b2dbf9fdab305a579f59bc5022fe543fb29b1cad00feca7e76b042921b260187",
+          "reference_arrays_sha256": {
+            "black": "64736fac2d01c6097d067925178beccf82cc9aea9ebf93cdf41a399aacb30944",
+            "grey": "490bd628477b34abf2d691945c715bbd32b90e7fd722fe737f1f1561bb5c43a1"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/IB/task.json",
+          "task_sha256": "86ea9fc8bdf4d1ac4b5cd1605740ae5e31278be01a3860bb56951a3dc4cc2b53",
+          "seed_policy_sha256": "b2dbf9fdab305a579f59bc5022fe543fb29b1cad00feca7e76b042921b260187",
+          "reference_arrays_sha256": {
+            "black": "64736fac2d01c6097d067925178beccf82cc9aea9ebf93cdf41a399aacb30944",
+            "grey": "490bd628477b34abf2d691945c715bbd32b90e7fd722fe737f1f1561bb5c43a1"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "IC",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/IC.npz",
+      "actual_prior_native_sha256": "7e981d6c8111e46acb866acb085117f5dc77b3bb1374877b6b673f7488f7eff1",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/IC/task.json",
+          "task_sha256": "054bd5952825fd507226d88697feb32a89f21258ddc8a771c927042404a5d61e",
+          "seed_policy_sha256": "df6d053f7ebbd38acae723c8bec8df2629cd7752448697fb9ae3437e4817b08b",
+          "reference_arrays_sha256": {
+            "black": "157353fbb156f595ca8094aff55828aa840cff3ac7fea2ae2b3d91f0d203001b",
+            "grey": "be6a1379eab7e929bd8b2af4d5cfb8abe1cdaf52ae1f39a7a68b9230965eb2ae"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/IC/task.json",
+          "task_sha256": "19c48eb91f43f23ae0baae4383014044ccef417555cbbabb9293b03cbea688ad",
+          "seed_policy_sha256": "df6d053f7ebbd38acae723c8bec8df2629cd7752448697fb9ae3437e4817b08b",
+          "reference_arrays_sha256": {
+            "black": "157353fbb156f595ca8094aff55828aa840cff3ac7fea2ae2b3d91f0d203001b",
+            "grey": "be6a1379eab7e929bd8b2af4d5cfb8abe1cdaf52ae1f39a7a68b9230965eb2ae"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "ID",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/ID.npz",
+      "actual_prior_native_sha256": "5b2f5bb3b39985ec6513bf70bc1e34d90737e06746917b08592f3abbe2c34046",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/ID/task.json",
+          "task_sha256": "43eb67b4f6f2ebea295411dcb610f825c58ffbf6c3284891eff1e1f5b68b557c",
+          "seed_policy_sha256": "3bdf7c9a1200963c12f6f96d3651d987f22436a3ef1000d5153be2dd75706144",
+          "reference_arrays_sha256": {
+            "black": "e12f4adb5d2d7261ec1b0d128921842ae5cf430c8427cb3ce13837a8e9efe061",
+            "grey": "697c1eaa1a6944cc9717f33e127969dd0a24d01ebb26f143730ef835acb9fe99"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/ID/task.json",
+          "task_sha256": "4ef72060c61d5f9f3d1533cf70619625bc3433477ca2a76a8238ac3b8adbfd30",
+          "seed_policy_sha256": "3bdf7c9a1200963c12f6f96d3651d987f22436a3ef1000d5153be2dd75706144",
+          "reference_arrays_sha256": {
+            "black": "e12f4adb5d2d7261ec1b0d128921842ae5cf430c8427cb3ce13837a8e9efe061",
+            "grey": "697c1eaa1a6944cc9717f33e127969dd0a24d01ebb26f143730ef835acb9fe99"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "IE",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/IE.npz",
+      "actual_prior_native_sha256": "fbea7d4975e417dfc9a3be3b75a4c26803f3ba6a60531d453d204fa3bac725eb",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/IE/task.json",
+          "task_sha256": "498940b30c7f8695b568f389703979bc6a7c6ecda5e981cb139409b37e315f37",
+          "seed_policy_sha256": "1309168cc0117cd26a5dfe365edd0bcfc6013a72d66ced70febefc37099d9674",
+          "reference_arrays_sha256": {
+            "black": "e309bc91b6c4d069deb5ca34de1d826d61db45901086186f86433b678823eea6",
+            "grey": "3a5d6a3174d8e5ae45ef0f06aa5605e24db1fee48e88dcebe17e800f917830ba"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/IE/task.json",
+          "task_sha256": "c7a6962b7182aaecf3f0ebd033af3a8735c271893a01fefcc964ca147a33fd22",
+          "seed_policy_sha256": "1309168cc0117cd26a5dfe365edd0bcfc6013a72d66ced70febefc37099d9674",
+          "reference_arrays_sha256": {
+            "black": "e309bc91b6c4d069deb5ca34de1d826d61db45901086186f86433b678823eea6",
+            "grey": "3a5d6a3174d8e5ae45ef0f06aa5605e24db1fee48e88dcebe17e800f917830ba"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "JA",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/JA.npz",
+      "actual_prior_native_sha256": "af5092aec91e63c55f2ce72666a9a39999f97eb4131b5aa7daa5e6aa8fd9ca7b",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/JA/task.json",
+          "task_sha256": "7db58eae1b8d37611357db4ec8f1a2d5feebe67fb2e311b98da736d6a14bb4eb",
+          "seed_policy_sha256": "03d18c84d2de4fe1c1d79973cb7109610ad5594715e7679d774e105d0efb68b8",
+          "reference_arrays_sha256": {
+            "black": "d433d0c0a212de2e06e30aee8e88b6d54bfe2d9d810d8caa888f0c253e85ff45",
+            "grey": "702c938b491d7167c233f8cef0a9bf30595e453cbb00ebaa30810ef255ddfe31"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/JA/task.json",
+          "task_sha256": "188a17a7264e6cb5e63080e776f779e9a67a3b38e43beb85bc39dda24ae18b74",
+          "seed_policy_sha256": "03d18c84d2de4fe1c1d79973cb7109610ad5594715e7679d774e105d0efb68b8",
+          "reference_arrays_sha256": {
+            "black": "d433d0c0a212de2e06e30aee8e88b6d54bfe2d9d810d8caa888f0c253e85ff45",
+            "grey": "702c938b491d7167c233f8cef0a9bf30595e453cbb00ebaa30810ef255ddfe31"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "JB",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/JB.npz",
+      "actual_prior_native_sha256": "12da9d39610503b532dd4f8c8132ed9b900aa1d7d69368600006c4542293bd66",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/JB/task.json",
+          "task_sha256": "c563fdc6f00a35f656fde5852174ff9368e63619bd437df5a92c360fd5ec4428",
+          "seed_policy_sha256": "9b6e0f6209f436e1d923aff90789fdb2c287ff490b6219b1ca271f9a90d317cd",
+          "reference_arrays_sha256": {
+            "black": "207ce3356a004c80b2152c2171c0a2d6ec2c1923dc2bb156f2c40bed6b08a9ed",
+            "grey": "384cc41c9871ae2ba44245b9a59fa70018abb7f587972330ad6f67e32685ae90"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/JB/task.json",
+          "task_sha256": "e43cf4b1cac4f529063073a53d8d07d02aeb6a5fe0b668e012a45d5225469d83",
+          "seed_policy_sha256": "9b6e0f6209f436e1d923aff90789fdb2c287ff490b6219b1ca271f9a90d317cd",
+          "reference_arrays_sha256": {
+            "black": "207ce3356a004c80b2152c2171c0a2d6ec2c1923dc2bb156f2c40bed6b08a9ed",
+            "grey": "384cc41c9871ae2ba44245b9a59fa70018abb7f587972330ad6f67e32685ae90"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "JC",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/JC.npz",
+      "actual_prior_native_sha256": "d051419173927fb693fad86ef019dc8fdbb17adc4c4397cbf619b22a610a9871",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/JC/task.json",
+          "task_sha256": "44905ca2b6a52ee98c46c681248dac146dcc08e1419de11d2c2fbc7d0de2b779",
+          "seed_policy_sha256": "427fd69b325b3c11a92d05b261fde0fcf42b6c0b71fdb904881fd6961d2ecdb3",
+          "reference_arrays_sha256": {
+            "black": "ea6660700d74b3d515c42506a95df3f3b50edb8b86e8017d0f1d047021164409",
+            "grey": "29a071d03562e63ca6ac6a7f3e7abd7e6fd04dd2178852a0a53d1f9ed5cb2573"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/JC/task.json",
+          "task_sha256": "db3694714213f5c98d2726148f16df8dd1330fb6b0b1b1c511c0540499a28868",
+          "seed_policy_sha256": "427fd69b325b3c11a92d05b261fde0fcf42b6c0b71fdb904881fd6961d2ecdb3",
+          "reference_arrays_sha256": {
+            "black": "ea6660700d74b3d515c42506a95df3f3b50edb8b86e8017d0f1d047021164409",
+            "grey": "29a071d03562e63ca6ac6a7f3e7abd7e6fd04dd2178852a0a53d1f9ed5cb2573"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "JD",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/JD.npz",
+      "actual_prior_native_sha256": "2573b0e4ac23bf82588a9f9b0f576fe57ae4516cd075cacd9e65dd44fea6e640",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/JD/task.json",
+          "task_sha256": "bbcea8f53c5ccd2a8ec6823ce73ce2b444294160f391a107824cf2dfba28ee79",
+          "seed_policy_sha256": "4b1773d4d9c345d1d5da6162bcbc90529b35ce416de36a572b860ccc015f6f73",
+          "reference_arrays_sha256": {
+            "black": "2b482e9f31558557d3ddfcb098e673cae05eb7240439661d0308e5c12b9d1d4c",
+            "grey": "ede54cd7fcac6a2034adf84a3f5eff23a924bc49093d3d738af6f8c11595fc23"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/JD/task.json",
+          "task_sha256": "68b65fbe1272acc898c35951aca55f21199e308b9155cc3ce392e5cd32569d1b",
+          "seed_policy_sha256": "4b1773d4d9c345d1d5da6162bcbc90529b35ce416de36a572b860ccc015f6f73",
+          "reference_arrays_sha256": {
+            "black": "2b482e9f31558557d3ddfcb098e673cae05eb7240439661d0308e5c12b9d1d4c",
+            "grey": "ede54cd7fcac6a2034adf84a3f5eff23a924bc49093d3d738af6f8c11595fc23"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "JE",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/JE.npz",
+      "actual_prior_native_sha256": "f460835c4393e0133033f3ca9fb1ff060557e0a89b2a63faabadb969818731b7",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/JE/task.json",
+          "task_sha256": "9972710f85373a8576f6081dfcf63c794021670258d971890215bdf2f117ffa3",
+          "seed_policy_sha256": "00fc65c47869c11fed4a8101468b8644344cd7fb62e56069bb108ce05608bda9",
+          "reference_arrays_sha256": {
+            "black": "4518c4a12152599ffe4db840263a5b66d6f8bfee787dd2c6f95ff15ead218dd6",
+            "grey": "788fcd55e3fb439174e9acf03c33773eb66f4b72639aacf1e5648fcaef2620a9"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/JE/task.json",
+          "task_sha256": "a1b0a3d62ce32f7ac46d70620588fe3c2540df9fdc5c8221977bdb008d38fb05",
+          "seed_policy_sha256": "00fc65c47869c11fed4a8101468b8644344cd7fb62e56069bb108ce05608bda9",
+          "reference_arrays_sha256": {
+            "black": "4518c4a12152599ffe4db840263a5b66d6f8bfee787dd2c6f95ff15ead218dd6",
+            "grey": "788fcd55e3fb439174e9acf03c33773eb66f4b72639aacf1e5648fcaef2620a9"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "KA",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/KA.npz",
+      "actual_prior_native_sha256": "eb217f45336fb7627d7d4e254bae623dbe6f99a24a205683287048f412b03438",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/KA/task.json",
+          "task_sha256": "906cf9d93243d7472ca6cc8640a9b933d7692a3d4b2ee480c9e7480215685a41",
+          "seed_policy_sha256": "3a478a7902184d876cfeaf978da53b58bcfc086f1e476a7f79d10b5f6a7f9daa",
+          "reference_arrays_sha256": {
+            "black": "7773312764121ae97e5abdab1b09fcbf4f60def74bd080baf04cc68207c5083e",
+            "grey": "4880f4b20beceae24124ea1fc39e7db0349ef93253184b99cc4b6aa72d73ba62"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/KA/task.json",
+          "task_sha256": "ac5889f09866e91196c74d64c86e428eb5f54939ab29f12fb52424e3329c34fe",
+          "seed_policy_sha256": "3a478a7902184d876cfeaf978da53b58bcfc086f1e476a7f79d10b5f6a7f9daa",
+          "reference_arrays_sha256": {
+            "black": "7773312764121ae97e5abdab1b09fcbf4f60def74bd080baf04cc68207c5083e",
+            "grey": "4880f4b20beceae24124ea1fc39e7db0349ef93253184b99cc4b6aa72d73ba62"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "KB",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/KB.npz",
+      "actual_prior_native_sha256": "dacf60b1a5c75b4664ab16d1a266e26780736e8abe394728aee1e60e0d82afc7",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/KB/task.json",
+          "task_sha256": "2342217b5137f1ba41167e73ee98c4390bcfb8287624cb28af657d680d7a84cf",
+          "seed_policy_sha256": "7c9590455d1c0e0b30a9df3cb0ca43e52a547ff86739e80f128b46796c9e82c1",
+          "reference_arrays_sha256": {
+            "black": "a5167faa6e274c6a0b09812eada50076e8c56735a584ff11c00ef19c68803357",
+            "grey": "4c990e183a7ea238ddefb240f3c11d4d0c4dcda76f14e1b5760c1d9b8f142f60"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/KB/task.json",
+          "task_sha256": "b21718afa5ca2006e9a5eb020ff896abd976b46e8ce41b626fca3d3e03ff9443",
+          "seed_policy_sha256": "7c9590455d1c0e0b30a9df3cb0ca43e52a547ff86739e80f128b46796c9e82c1",
+          "reference_arrays_sha256": {
+            "black": "a5167faa6e274c6a0b09812eada50076e8c56735a584ff11c00ef19c68803357",
+            "grey": "4c990e183a7ea238ddefb240f3c11d4d0c4dcda76f14e1b5760c1d9b8f142f60"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "KC",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/KC.npz",
+      "actual_prior_native_sha256": "db8cb6b72945aa907c8f3daaa230f769e176ba82493ff95633c2a75a137e270a",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/KC/task.json",
+          "task_sha256": "8633290320dd58802470ca2aa623dfb3cf4e19911b13c459e036351f2700cf99",
+          "seed_policy_sha256": "d122bae67e68a7b936bfd82b9072f86096eff08b49be292107c21c08a3e7a694",
+          "reference_arrays_sha256": {
+            "black": "1d9ded6c1855cd4514eacc210a4ad4a6a1179fbf80f23c8d73eb6b931511494e",
+            "grey": "5f1f63bff5b3bed7dc69f9939664c1f718285052bd9f43969d7045c4781d1f59"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/KC/task.json",
+          "task_sha256": "1b93f0974bd1b18df0feed1cd045148ec17ca2f9f82b575542f006eaa9e83878",
+          "seed_policy_sha256": "d122bae67e68a7b936bfd82b9072f86096eff08b49be292107c21c08a3e7a694",
+          "reference_arrays_sha256": {
+            "black": "1d9ded6c1855cd4514eacc210a4ad4a6a1179fbf80f23c8d73eb6b931511494e",
+            "grey": "5f1f63bff5b3bed7dc69f9939664c1f718285052bd9f43969d7045c4781d1f59"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "KD",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/KD.npz",
+      "actual_prior_native_sha256": "205fb9904204a3ec88f29d9f25f93a8a5bb845ed75ea5752d2cc0184d48922f3",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/KD/task.json",
+          "task_sha256": "99cce81fe170642d60174bee839c15015013dc9e16c531217652d54275c8774a",
+          "seed_policy_sha256": "e90e215afdcb91a02e84d8b886773877f911c0c580ffdc9c763d19c1ae8794e4",
+          "reference_arrays_sha256": {
+            "black": "f0ed7e7a14e3a2f772f79b32047ae2ad8cf920aa29fe50b069cc168e02fead4c",
+            "grey": "e63d4262a8516b523c75dd633efc78aadadb2e02831c38a492d0b7a0d6061706"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/KD/task.json",
+          "task_sha256": "9c5e7082917911e6485f385e0f08a8795465a287a513edf7bd0d7f001b5edfe2",
+          "seed_policy_sha256": "e90e215afdcb91a02e84d8b886773877f911c0c580ffdc9c763d19c1ae8794e4",
+          "reference_arrays_sha256": {
+            "black": "f0ed7e7a14e3a2f772f79b32047ae2ad8cf920aa29fe50b069cc168e02fead4c",
+            "grey": "e63d4262a8516b523c75dd633efc78aadadb2e02831c38a492d0b7a0d6061706"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "LA",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/LA.npz",
+      "actual_prior_native_sha256": "c45e3ecabcff55928570a7e537881f6f5cb15acdd62fa62f292466bfdb6e44bb",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/LA/task.json",
+          "task_sha256": "69c31583c29170adbf333e9a78388324eb15215dc73a95cc7ae7608947e1dbd0",
+          "seed_policy_sha256": "8ca4fbe7fd57b69ae0e754a0960f26ee8556d27a7de60cf5213fdc089b75817b",
+          "reference_arrays_sha256": {
+            "black": "c40f8ec4e47a5eb8ae31ebd7920379690ca38b55271726379404b4f4e43b35a7",
+            "grey": "ca094f3c19ff725263dcab81e110363ad6dfdf6a3df67b51be853abc96a18156"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/LA/task.json",
+          "task_sha256": "00dae319c834e13fd5467de7a4f9e41c70102a95ed4150f49708e88fe435209a",
+          "seed_policy_sha256": "8ca4fbe7fd57b69ae0e754a0960f26ee8556d27a7de60cf5213fdc089b75817b",
+          "reference_arrays_sha256": {
+            "black": "c40f8ec4e47a5eb8ae31ebd7920379690ca38b55271726379404b4f4e43b35a7",
+            "grey": "ca094f3c19ff725263dcab81e110363ad6dfdf6a3df67b51be853abc96a18156"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "LB",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/LB.npz",
+      "actual_prior_native_sha256": "6ade6c69a51653bdb2372c9273132fba649bd0862e37de3e8cbe549ab88969fd",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/LB/task.json",
+          "task_sha256": "76f90b4230ed195e6a9f1e49caaad9b00e8f1658c81e522bfeaa99219bb33257",
+          "seed_policy_sha256": "cd4be8db44cc173377ab1e6f33ea0f830b024df1e5b4eddbbba9ca594a670c11",
+          "reference_arrays_sha256": {
+            "black": "312f830b85ed04a6ce635081bfe7c30530be7293f081483a625e36895d300365",
+            "grey": "baec7a6c8893557fa51d131d057b3a19c92d5bd80678826bd9c76d0148b37d29"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/LB/task.json",
+          "task_sha256": "263c8506ce3c5c5191b99ae2d25dcbab02c608ab04d0dc12d453d7b890fe76cf",
+          "seed_policy_sha256": "cd4be8db44cc173377ab1e6f33ea0f830b024df1e5b4eddbbba9ca594a670c11",
+          "reference_arrays_sha256": {
+            "black": "312f830b85ed04a6ce635081bfe7c30530be7293f081483a625e36895d300365",
+            "grey": "baec7a6c8893557fa51d131d057b3a19c92d5bd80678826bd9c76d0148b37d29"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "LC",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/LC.npz",
+      "actual_prior_native_sha256": "29417606d181d4a4a36e801205d6a574c5518a2c9a44a98a931874665668ace8",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/LC/task.json",
+          "task_sha256": "ecd4621d619b443dd5cf43db6b843ac31e2c1a4ec491aa98e14523f06f938663",
+          "seed_policy_sha256": "ab35e9cf16652d3eae78f7bc05fc26c173f94141005f5226fc79f05923109ded",
+          "reference_arrays_sha256": {
+            "black": "958df0914a8b63219eff9da7eb23d72e8a00428bfd713d808e151255f851b369",
+            "grey": "6556580d86cb3ec69a8b5520e98ce6a898222311d1ef3423772d0070b5eec40d"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/LC/task.json",
+          "task_sha256": "59e5840ea61182bc8807eae1160cb9f536f0bd33d284db451afef48dc8029650",
+          "seed_policy_sha256": "ab35e9cf16652d3eae78f7bc05fc26c173f94141005f5226fc79f05923109ded",
+          "reference_arrays_sha256": {
+            "black": "958df0914a8b63219eff9da7eb23d72e8a00428bfd713d808e151255f851b369",
+            "grey": "6556580d86cb3ec69a8b5520e98ce6a898222311d1ef3423772d0070b5eec40d"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "MA",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/MA.npz",
+      "actual_prior_native_sha256": "6b31f9dc7da41e5467e4dbc685b56427e83daaa12868d17f61f08353fdbdb645",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/MA/task.json",
+          "task_sha256": "893ca7595d40c07e2554c3878d4baeec321407dde839d8870d86d948fdd42508",
+          "seed_policy_sha256": "664754b68e2e53156223af40256ce4282524a184d9c4558ce91e2bd68e27538b",
+          "reference_arrays_sha256": {
+            "black": "86f133a897b4d6090d2938c065be1af6995b1c74ed9bbad568d6042ce8821253",
+            "grey": "3ad044c407fb36ff972d4f6cd2cf4f2303213a851cde2e7e7c1fac69e237e1f5"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/MA/task.json",
+          "task_sha256": "9c3062455f0767b886b595a73c650104244dbf041d6aa1ce987c85c8e9b5a03f",
+          "seed_policy_sha256": "664754b68e2e53156223af40256ce4282524a184d9c4558ce91e2bd68e27538b",
+          "reference_arrays_sha256": {
+            "black": "86f133a897b4d6090d2938c065be1af6995b1c74ed9bbad568d6042ce8821253",
+            "grey": "3ad044c407fb36ff972d4f6cd2cf4f2303213a851cde2e7e7c1fac69e237e1f5"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "MB",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/MB.npz",
+      "actual_prior_native_sha256": "8050696bd5f5f043e398697b5e3d21a4943842bc5102a6d6ee4cd1214f4c7455",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/MB/task.json",
+          "task_sha256": "0b8bda859e707da250716ad91360fc64469f36d339e8ebd9378b3d682ef4eea9",
+          "seed_policy_sha256": "8e1de35593ddecd271132ccea02d35a694cbd12c9c8ba8d14bf5e5f4022368ca",
+          "reference_arrays_sha256": {
+            "black": "3cbf47942c943af828605775751e6968ee5df4bfba4a892cc14932978a1668a9",
+            "grey": "f4dc19278bc298737fb9ccaa440099fa2b7fee46436c96a5ced2c8497615142b"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/MB/task.json",
+          "task_sha256": "ef432e46714537f1241c71ad09b0348e1ea07bbc8681d12f79cfeae7d822c6e0",
+          "seed_policy_sha256": "8e1de35593ddecd271132ccea02d35a694cbd12c9c8ba8d14bf5e5f4022368ca",
+          "reference_arrays_sha256": {
+            "black": "3cbf47942c943af828605775751e6968ee5df4bfba4a892cc14932978a1668a9",
+            "grey": "f4dc19278bc298737fb9ccaa440099fa2b7fee46436c96a5ced2c8497615142b"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "MC",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/MC.npz",
+      "actual_prior_native_sha256": "c81e417f307133c213092a97fc0239e63e15f04b690e032da4442edd5d21d6e3",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/MC/task.json",
+          "task_sha256": "bcc6b738ad7eacfd1bc1294dd582530136c38ff3eb921c31954cbe6ec331885e",
+          "seed_policy_sha256": "d42b7100d7081d641f8614b0d2ed081ce3ed6fd05c6f2bee929cd3e8b1eea291",
+          "reference_arrays_sha256": {
+            "black": "f590a325a85e6aa87b584f99459d4b78e76a404c722afbdf393dd6de2ff91bc8",
+            "grey": "bd640bad80f41d07a535c4e023b36c773105e1d99e6191438251ee1a0d4d06d5"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/MC/task.json",
+          "task_sha256": "64d25e803ea81469a8ce3b3af122e84238ce5516dc7dbebd871b85765a86f88c",
+          "seed_policy_sha256": "d42b7100d7081d641f8614b0d2ed081ce3ed6fd05c6f2bee929cd3e8b1eea291",
+          "reference_arrays_sha256": {
+            "black": "f590a325a85e6aa87b584f99459d4b78e76a404c722afbdf393dd6de2ff91bc8",
+            "grey": "bd640bad80f41d07a535c4e023b36c773105e1d99e6191438251ee1a0d4d06d5"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "MD",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/MD.npz",
+      "actual_prior_native_sha256": "244010ec32f4b20c2fece84c541918593f017157b42c9348b017dc287bc6a1b7",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/MD/task.json",
+          "task_sha256": "f1635056ef609e91849a03d79f403670d1664f0dcb11c1335f88c2768482868b",
+          "seed_policy_sha256": "8e292595ba152aec34f667c9d04c23c04f7448a0a16f8c81f0633713a2c4e6a4",
+          "reference_arrays_sha256": {
+            "black": "ca625a91943f6e99b17dd1b6ebbdd747b7513221a08bbe3247d6b21f361dfcb0",
+            "grey": "612700ed24960c0d982fc321128082ad8743a3295f18a44529df0a69e5f706af"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/MD/task.json",
+          "task_sha256": "22ba2fcb4c4c48aab6394a5fa806027b0b77673f035f4782e0128324e3c03c3b",
+          "seed_policy_sha256": "8e292595ba152aec34f667c9d04c23c04f7448a0a16f8c81f0633713a2c4e6a4",
+          "reference_arrays_sha256": {
+            "black": "ca625a91943f6e99b17dd1b6ebbdd747b7513221a08bbe3247d6b21f361dfcb0",
+            "grey": "612700ed24960c0d982fc321128082ad8743a3295f18a44529df0a69e5f706af"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "NA",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/NA.npz",
+      "actual_prior_native_sha256": "4d47c36211b98a277ab6334a0b618bb8ea55914e07c5a41c11926c39d0adc270",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/NA/task.json",
+          "task_sha256": "80ebee7c0d914bb8ee6ee66806b973aef8867ba8943551824579be38237f07ba",
+          "seed_policy_sha256": "821c5180a3ba968a75dc939730f7bc4ce7ae5498cdb01e165d2d5e8d822baced",
+          "reference_arrays_sha256": {
+            "black": "3e0d3ec605c56c5385c8d53f0b3ed94b110b8bb1ea0b1c2bb5c672013dc68cfb",
+            "grey": "38911f8d0b977fc5bd4a84b832d542245647fb6d393dc1a99d169d7fef7ccd48"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/NA/task.json",
+          "task_sha256": "dc019f61fb2de106c65a348b092b350a368b0940ce44c449c8807efd31b1febd",
+          "seed_policy_sha256": "821c5180a3ba968a75dc939730f7bc4ce7ae5498cdb01e165d2d5e8d822baced",
+          "reference_arrays_sha256": {
+            "black": "3e0d3ec605c56c5385c8d53f0b3ed94b110b8bb1ea0b1c2bb5c672013dc68cfb",
+            "grey": "38911f8d0b977fc5bd4a84b832d542245647fb6d393dc1a99d169d7fef7ccd48"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "NB",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/NB.npz",
+      "actual_prior_native_sha256": "0eb31f0008b526f0b4d1187948a8280ff70feab4135fb1f0d281e920a5450e89",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/NB/task.json",
+          "task_sha256": "4fa4f18a091d14a293354cb403d355554fcca94ed62816ecbf8d0e147c520b33",
+          "seed_policy_sha256": "2ca26473c63948ae5b3e96036326c537186409f64007f4033965b00c48d9edb6",
+          "reference_arrays_sha256": {
+            "black": "97d4582129089195eadd0b4751cea8edf6a2377a19d4aa61c9a1201a4b422372",
+            "grey": "c072a8e53ad8bf18250da1bf4c340b43d113f9be4265f48c9d7ea6bf1e248c5b"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/NB/task.json",
+          "task_sha256": "f9489f21c03a05ba17866b9f74cb47c9cc3068a5e9179a5567a08c1351cbfac8",
+          "seed_policy_sha256": "2ca26473c63948ae5b3e96036326c537186409f64007f4033965b00c48d9edb6",
+          "reference_arrays_sha256": {
+            "black": "97d4582129089195eadd0b4751cea8edf6a2377a19d4aa61c9a1201a4b422372",
+            "grey": "c072a8e53ad8bf18250da1bf4c340b43d113f9be4265f48c9d7ea6bf1e248c5b"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "NC",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/NC.npz",
+      "actual_prior_native_sha256": "dd90c6955fe7d780c5ab891942b3b6f5e709a2374da048e4184a60c7ab758826",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/NC/task.json",
+          "task_sha256": "65a1d8506f4278e3d8647bdf90abfc9dbfc09cc6836bd3a36b613de4ac3f23c0",
+          "seed_policy_sha256": "c1b35ac7fc2a258530ed1a9c6b15ee86b93fe597ab02d279e11355c176ea6ef6",
+          "reference_arrays_sha256": {
+            "black": "3d4c35dd9ba2e468b9cb4f3ef05fc7ace7979a7874692d94ba6ea328e2521c42",
+            "grey": "43ef26aed0ced73232fe66f743e3777fe2c59b1ede624da37a75eedf667b19cf"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/NC/task.json",
+          "task_sha256": "ef92e999720d692b961b3a2100b67a6a2610d0ab00b57d52587e382c2009bda3",
+          "seed_policy_sha256": "c1b35ac7fc2a258530ed1a9c6b15ee86b93fe597ab02d279e11355c176ea6ef6",
+          "reference_arrays_sha256": {
+            "black": "3d4c35dd9ba2e468b9cb4f3ef05fc7ace7979a7874692d94ba6ea328e2521c42",
+            "grey": "43ef26aed0ced73232fe66f743e3777fe2c59b1ede624da37a75eedf667b19cf"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "ND",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/ND.npz",
+      "actual_prior_native_sha256": "229e7f7ab789aa6d868bcb7481fa55006aa742953bdea27e5c60bfa87d1c1d34",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/ND/task.json",
+          "task_sha256": "e3497e6343859fcb94fccd9d76bd15406da69e82d855f58d2971827ae6da4b5c",
+          "seed_policy_sha256": "8cfe4a03ef3ab7aa7294380fa045769b7df83a4b5440bf93308ea671c24983ad",
+          "reference_arrays_sha256": {
+            "black": "1754684f59d2e869b434c9efc91e1ad28756ed6f1705b874fb69d854df397018",
+            "grey": "067b0a42e45a4fd94be4ab351400492a07de48e0ff7c6f9680933645dd01dced"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/ND/task.json",
+          "task_sha256": "f9326944cb665551a0cee5812fafca395af0fad26207217bd9a60fffe00a249b",
+          "seed_policy_sha256": "8cfe4a03ef3ab7aa7294380fa045769b7df83a4b5440bf93308ea671c24983ad",
+          "reference_arrays_sha256": {
+            "black": "1754684f59d2e869b434c9efc91e1ad28756ed6f1705b874fb69d854df397018",
+            "grey": "067b0a42e45a4fd94be4ab351400492a07de48e0ff7c6f9680933645dd01dced"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "NE",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/NE.npz",
+      "actual_prior_native_sha256": "e593b991011f439789bd5cddd585d25b3ef0781b0a024579e310d000709b1930",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/NE/task.json",
+          "task_sha256": "63f6ff58fb8a6b6ae1b292a2234ffb7217ae213f440c0af85328e8d4cf9f12e0",
+          "seed_policy_sha256": "45ceaf98aefbbab75195c75c047155de79ba042dd9975b4307c8ce35fd7a22e9",
+          "reference_arrays_sha256": {
+            "black": "7912b043910c1baf764d43f8b7280e79ecb30fc209d28543b7bbb11a976f30d9",
+            "grey": "bed07af300e7a07d0bedfd9ca989dcefc6beb37494a2650263dcc4965ac1b362"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/NE/task.json",
+          "task_sha256": "2e9926f82a79eae2c7118eab545a82a6aff1d984f66f3d0c60c8e06d37f4933f",
+          "seed_policy_sha256": "45ceaf98aefbbab75195c75c047155de79ba042dd9975b4307c8ce35fd7a22e9",
+          "reference_arrays_sha256": {
+            "black": "7912b043910c1baf764d43f8b7280e79ecb30fc209d28543b7bbb11a976f30d9",
+            "grey": "bed07af300e7a07d0bedfd9ca989dcefc6beb37494a2650263dcc4965ac1b362"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "OA",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/OA.npz",
+      "actual_prior_native_sha256": "0456326c326d37e2b3882c37ede42756b0840c3db9dd64c54cdbbe6c24c5327b",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/OA/task.json",
+          "task_sha256": "3dba3148baec31be517b390e03e21cdf4788866226888601b7821ee773f95ffc",
+          "seed_policy_sha256": "bc88938ea92e788b59833b284b323bab8bc4d8a1d25d9bd4eae11c2d88ca37d5",
+          "reference_arrays_sha256": {
+            "black": "549158fbdd384e888c894570bac64c119f71c6b2d4f04c1ef41ca8c6b2679900",
+            "grey": "b7f4e545b95e8bea554cdbc26613946b91e0d30065bfaa8b4bc8636320db107e"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/OA/task.json",
+          "task_sha256": "8e288f1431a14acf8afe2c6e7dfdf4b4fce77c9b40e8b7176e5476d001ae3e64",
+          "seed_policy_sha256": "bc88938ea92e788b59833b284b323bab8bc4d8a1d25d9bd4eae11c2d88ca37d5",
+          "reference_arrays_sha256": {
+            "black": "549158fbdd384e888c894570bac64c119f71c6b2d4f04c1ef41ca8c6b2679900",
+            "grey": "b7f4e545b95e8bea554cdbc26613946b91e0d30065bfaa8b4bc8636320db107e"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    },
+    {
+      "camera": "OD",
+      "actual_prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/OD.npz",
+      "actual_prior_native_sha256": "7c65e01e1e0104f76ea4d0e0da76f62e3155e35adc4d4539b3b9100335f83305",
+      "hosts": [
+        {
+          "host": "silver",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks/OD/task.json",
+          "task_sha256": "95ae6e0c0b07c7e3d6badf3e0f2aaf297642774bd378059ffa8f9ece39a2f62e",
+          "seed_policy_sha256": "e68bce807130e1e7d122ff8ffa27345de9c4e06ad1395885a494a340ec6a4f7e",
+          "reference_arrays_sha256": {
+            "black": "ecaad1c4633b93247cd32348b7215e5ca8b3b6d6a4e44cd3bb6a077562ac38f4",
+            "grey": "3be4ce71ceab12147c8d41f81a69673af4c43dc96ad44cd91b59aa37b2b80424"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        },
+        {
+          "host": "olive",
+          "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/frame001715/tasks_local/OD/task.json",
+          "task_sha256": "457eeb4028d93363c917e80d5e025cb962c509b9b35501b9c3df74419d1e45f5",
+          "seed_policy_sha256": "e68bce807130e1e7d122ff8ffa27345de9c4e06ad1395885a494a340ec6a4f7e",
+          "reference_arrays_sha256": {
+            "black": "ecaad1c4633b93247cd32348b7215e5ca8b3b6d6a4e44cd3bb6a077562ac38f4",
+            "grey": "3be4ce71ceab12147c8d41f81a69673af4c43dc96ad44cd91b59aa37b2b80424"
+          },
+          "actual_numeric_reference_equals_clean_G1_native_small_actor_minus_U": true
+        }
+      ]
+    }
+  ],
+  "all66_clean_G1_reference_archives": true,
+  "all132_actual_numeric_reference_arrays_match_clean_G1": true,
+  "hash_functions_distinguished": "task includes dtype/shape; seed policy hashes raw bytes",
+  "no_NN_config_or_execution_yet": true,
+  "created": 1794120231.4992914
+}

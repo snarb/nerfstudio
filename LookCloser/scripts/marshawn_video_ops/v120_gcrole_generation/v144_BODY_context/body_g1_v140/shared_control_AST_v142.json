@@ -1,0 +1,13 @@
+{
+  "kind": "SHARED_CONTROL_ONLY_BODY_DRAIN_AND_NONCE_RETIREMENT_V142",
+  "baseline": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_g1_v140/code/marshawn_mask_assist_full_g1_v140.py",
+  "baseline_sha256": "c8ad17f03fb3fffbb30d2405569c9e28455975f45ad0b8d83bff319f44f10c50",
+  "candidate": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_g1_v140/code/marshawn_mask_assist_full_g1_v142.py",
+  "candidate_sha256": "3c33d4d7c0e13ae24fb638a0e363bac854ecd54d99cd8042d38054e049567084",
+  "AST_equal_after_two_control_namespace_locations": true,
+  "NN_and_all_target_actor_prior_paths_remain_G1": true,
+  "legacy_control_priority_compatibility_fresh": true,
+  "no_file_symlink_atomic_write_redirection": true,
+  "existing132_tasks_are_adopted_with_original_hash_validation": true,
+  "created": 1794120151.9076605
+}

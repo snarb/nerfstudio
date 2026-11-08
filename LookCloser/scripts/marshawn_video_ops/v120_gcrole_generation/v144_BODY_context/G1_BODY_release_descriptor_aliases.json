@@ -1,0 +1,63 @@
+{
+  "kind": "CREATE_ONLY_ORIGINAL_IMMUTABLE_BODY_RELEASE_DESCRIPTOR_ADOPTION",
+  "records": [
+    {
+      "descriptor": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/entry_future_release_v111.json",
+      "original": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/v5/entry_future_release_v111.json",
+      "sha256": "73f52e9ece629b366410204181f57111f84e5c4844502bb9cc61728cd6d9f450",
+      "read_only_original_dependency": true
+    },
+    {
+      "descriptor": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/entry_future_release_v112.json",
+      "original": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/v5/entry_future_release_v112.json",
+      "sha256": "c3d793d024592244e8b196cd16c9f7f24560c61950040d036e424b07aacab4b5",
+      "read_only_original_dependency": true
+    },
+    {
+      "descriptor": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/entry_future_release_v113.json",
+      "original": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/v5/entry_future_release_v113.json",
+      "sha256": "3f1774c4020047501773ae1a73f7756819b980e4f922b1e45dbcad8bb831afa8",
+      "read_only_original_dependency": true
+    },
+    {
+      "descriptor": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/entry_future_release_v7.json",
+      "original": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/v5/entry_future_release_v7.json",
+      "sha256": "e11842868b2c99e06a0e7e3cef0a368ac0baa263bcea78ca3a7735c317ba8c8a",
+      "read_only_original_dependency": true
+    },
+    {
+      "descriptor": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/native_future_release_v111.json",
+      "original": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/v5/native_future_release_v111.json",
+      "sha256": "95ace4a52ce5bf62c2125cca89e161a447f58dd65acb35d2dab3af8da9defdb6",
+      "read_only_original_dependency": true
+    },
+    {
+      "descriptor": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/native_future_release_v112.json",
+      "original": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/v5/native_future_release_v112.json",
+      "sha256": "d0d90450b47efea40c66874036de74058f62b3475cfe3c20edc30b91ca880a78",
+      "read_only_original_dependency": true
+    },
+    {
+      "descriptor": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/native_future_release_v113.json",
+      "original": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/v5/native_future_release_v113.json",
+      "sha256": "76cd85f7047e78c6ec0f4913b8526a7255527ad9e20f4b4d3208b100eb267745",
+      "read_only_original_dependency": true
+    },
+    {
+      "descriptor": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/native_future_release_v114.json",
+      "original": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/v5/native_future_release_v114.json",
+      "sha256": "88ccc5ed23c2c8c3fc538d5ea45b5a3dda92fad4c4cd3a18e3f6a0c5ec6b8775",
+      "read_only_original_dependency": true
+    },
+    {
+      "descriptor": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/sam3_assist/v5/native_future_release_v7.json",
+      "original": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/v5/native_future_release_v7.json",
+      "sha256": "a42fae022972b04b93f75804a5e164bcf76127611c8f5b6fc4ce0e2d66549068",
+      "read_only_original_dependency": true
+    }
+  ],
+  "no_code_or_source_array_changed": true,
+  "no_original_inference_receipt_restamped": true,
+  "actual_task_seed_from_G1_still_required": true,
+  "created": 1794119280.2677429
+}

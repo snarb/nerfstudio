@@ -1,0 +1,12 @@
+{
+  "kind": "BODY_CALLER_ONLY_EXISTING_OPTIONAL_CODE_IDENTITY_KEYWORD",
+  "baseline": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/code/marshawn_mask_assist_full_v114.py",
+  "baseline_sha256": "4693dbb5d1a44f2e33585db5dc896237aa2e03fd171eddd57dfc5436e5fc94f2",
+  "candidate": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_g1_v140/code/marshawn_mask_assist_full_g1_v140.py",
+  "candidate_sha256": "c8ad17f03fb3fffbb30d2405569c9e28455975f45ad0b8d83bff319f44f10c50",
+  "AST_identical_after_removing_one_campaign_identity_keyword": true,
+  "NN_refine_select_seed_resolver_stream_pool_collection_logic_unchanged": true,
+  "private_actual_G1_pack_parity": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/BODY_G1_identity_v140/PASS.json",
+  "private_actual_G1_pack_parity_sha256": "b104b5e1ff78146f943361c12aaa81b9a2da51166b6e766ad54e2a6916c9ccb5",
+  "created": 1794119630.9725413
+}

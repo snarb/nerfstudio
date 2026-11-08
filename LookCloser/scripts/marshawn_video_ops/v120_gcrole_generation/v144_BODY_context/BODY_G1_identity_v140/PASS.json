@@ -1,0 +1,138 @@
+{
+  "status": "pass",
+  "frame": 1715,
+  "campaign_data_root": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108",
+  "immutable_implementation_identity": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107",
+  "records": [
+    {
+      "camera": "DE",
+      "host": "silver",
+      "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/BODY_G1_identity_v140/parallel/tasks/DE/task.json",
+      "task_sha256": "71ee368f1526c3c4a1d2cd43c86a27c21911eada42c91d37a4f0706352d5f6ad",
+      "prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/DE.npz",
+      "prior_native_sha256": "1a3f36a33891bb0d3e249e77fef86db88d947f80ae3bd2b603ef3a2a5141aab5",
+      "actual_clean_G1_reference": true,
+      "exact_original_direct_pack_file_and_symlink_parity": true,
+      "compared_files": [
+        "task.json",
+        "source_portable_receipt.json",
+        "raw_native.png",
+        "source_original_receipt.json",
+        "reference.npz",
+        "union_resolver.py",
+        "seed_policy_v5.json"
+      ],
+      "seed_policy": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/BODY_G1_identity_v140/parallel/tasks/DE/seed_policy_v5.json",
+      "seed_policy_sha256": "acad0182cc45c69f891e4f758f36ee739eafb62cc74bec01c778a9860271627e"
+    },
+    {
+      "camera": "DE",
+      "host": "olive",
+      "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/BODY_G1_identity_v140/parallel/tasks_local/DE/task.json",
+      "task_sha256": "d75e7e77678a360a6d2ec8a63f2346a83053bd48b39f282ea8955a2d3dcdbcea",
+      "prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/DE.npz",
+      "prior_native_sha256": "1a3f36a33891bb0d3e249e77fef86db88d947f80ae3bd2b603ef3a2a5141aab5",
+      "actual_clean_G1_reference": true,
+      "exact_original_direct_pack_file_and_symlink_parity": true,
+      "compared_files": [
+        "reference.npz",
+        "source_original_receipt.json",
+        "raw_native.png",
+        "source_portable_receipt.json",
+        "union_resolver.py",
+        "seed_policy_v5.json",
+        "task.json"
+      ],
+      "seed_policy": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/BODY_G1_identity_v140/parallel/tasks_local/DE/seed_policy_v5.json",
+      "seed_policy_sha256": "acad0182cc45c69f891e4f758f36ee739eafb62cc74bec01c778a9860271627e"
+    },
+    {
+      "camera": "JE",
+      "host": "silver",
+      "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/BODY_G1_identity_v140/parallel/tasks/JE/task.json",
+      "task_sha256": "9972710f85373a8576f6081dfcf63c794021670258d971890215bdf2f117ffa3",
+      "prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/JE.npz",
+      "prior_native_sha256": "f460835c4393e0133033f3ca9fb1ff060557e0a89b2a63faabadb969818731b7",
+      "actual_clean_G1_reference": true,
+      "exact_original_direct_pack_file_and_symlink_parity": true,
+      "compared_files": [
+        "reference.npz",
+        "source_original_receipt.json",
+        "seed_policy_v5.json",
+        "union_resolver.py",
+        "source_portable_receipt.json",
+        "raw_native.png",
+        "task.json"
+      ],
+      "seed_policy": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/BODY_G1_identity_v140/parallel/tasks/JE/seed_policy_v5.json",
+      "seed_policy_sha256": "00fc65c47869c11fed4a8101468b8644344cd7fb62e56069bb108ce05608bda9"
+    },
+    {
+      "camera": "JE",
+      "host": "olive",
+      "task": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/BODY_G1_identity_v140/parallel/tasks_local/JE/task.json",
+      "task_sha256": "a1b0a3d62ce32f7ac46d70620588fe3c2540df9fdc5c8221977bdb008d38fb05",
+      "prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/JE.npz",
+      "prior_native_sha256": "f460835c4393e0133033f3ca9fb1ff060557e0a89b2a63faabadb969818731b7",
+      "actual_clean_G1_reference": true,
+      "exact_original_direct_pack_file_and_symlink_parity": true,
+      "compared_files": [
+        "reference.npz",
+        "union_resolver.py",
+        "raw_native.png",
+        "source_original_receipt.json",
+        "seed_policy_v5.json",
+        "task.json",
+        "source_portable_receipt.json"
+      ],
+      "seed_policy": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/BODY_G1_identity_v140/parallel/tasks_local/JE/seed_policy_v5.json",
+      "seed_policy_sha256": "00fc65c47869c11fed4a8101468b8644344cd7fb62e56069bb108ce05608bda9"
+    }
+  ],
+  "execution": {
+    "kind": "UNCHANGED_V5_ORDERED_CAMERA_PACK_CPU8_V1",
+    "frame": 1715,
+    "workers": 2,
+    "camera_order": [
+      "DE",
+      "JE"
+    ],
+    "host_order": [
+      "silver",
+      "olive"
+    ],
+    "adapter_sources_sha256": {
+      "marshawn_sam3_assist.py": "f81902e04bca3e1233f8dccbc826add417899122a26e8c3f1bcba2db7cfecb16",
+      "marshawn_sam3_assist_v5.py": "1f597493b8c4696556b440969e457e71ad7b1f587004eb42ff30e1929833876b",
+      "marshawn_sam3_union_capture_v5.py": "33aed8be65c745720c1bc3cf1bfb9b5c48b38c2f5640f87f7577bd0a384bd3a0"
+    },
+    "helper_sha256": "917728fda0d2e1485005c6ef0ddb8c59b05752cd65432ec1c7ddf017e060872a",
+    "started_at": 1794119540.1823466,
+    "finished_at": 1794119542.6856353,
+    "cameras": [
+      {
+        "camera": "DE",
+        "pid": 2500001,
+        "started_at": 1794119540.3317337,
+        "finished_at": 1794119542.2703137,
+        "host_order": [
+          "silver",
+          "olive"
+        ]
+      },
+      {
+        "camera": "JE",
+        "pid": 2500004,
+        "started_at": 1794119540.341605,
+        "finished_at": 1794119542.6507325,
+        "host_order": [
+          "silver",
+          "olive"
+        ]
+      }
+    ],
+    "no_GPU_or_NeRF_state_loaded": true
+  },
+  "no_live_tasks_or_GPU_NN_or_source_metadata_modified": true,
+  "created": 1794119549.4388669
+}

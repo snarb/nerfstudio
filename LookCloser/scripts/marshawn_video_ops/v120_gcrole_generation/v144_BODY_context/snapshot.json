@@ -1,0 +1,170 @@
+{
+  "kind": "ADDITIVE_G1_BODY_CODE_DATA_CONTROL_NAMESPACE_SNAPSHOT",
+  "files": [
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/marshawn_source_producer_g1_v141.py",
+      "snapshot": "marshawn_source_producer_g1_v141.py",
+      "sha256": "579d653e09e1737580c24aa22e103e344c46594753fc03a569ef95d8341c7fa4"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/source_producer_g1_v141_release.json",
+      "snapshot": "source_producer_g1_v141_release.json",
+      "sha256": "af4141f4e9d314aba3469b34ba8a1e50df5bd54bb98b6c5b3ea3c48f13374fd2"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/marshawn_source_producer_g1_v143.py",
+      "snapshot": "marshawn_source_producer_g1_v143.py",
+      "sha256": "84cc80c0708d59ca1d3315ce2e0bc9e3beac44efd748e46f697ea4881b7c7028"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/source_producer_g1_v143_release.json",
+      "snapshot": "source_producer_g1_v143_release.json",
+      "sha256": "f74e81c7df9f000b790701371b978034dc3b69ea241d8806cecd0a9578b98153"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/qualify_BODY_G1_identity_v140.py",
+      "snapshot": "qualify_BODY_G1_identity_v140.py",
+      "sha256": "571f87bf873b42cff6dbb9b44325d36fa96619159f68a46121880661b680994a"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/verify_actual_1715_G1_pack_provenance.py",
+      "snapshot": "verify_actual_1715_G1_pack_provenance.py",
+      "sha256": "2be83baaa09e7025cbd3a44bd88c345d533b6d00f2fed508e484941b2b2bef81"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/handoff_source_139_to_141.py",
+      "snapshot": "handoff_source_139_to_141.py",
+      "sha256": "ce846943098742fb194ba2a0d0041ffe3d923eddbca3ef23aa82571167cc7a39"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/handoff_source_141_to_143.py",
+      "snapshot": "handoff_source_141_to_143.py",
+      "sha256": "1dfd66c73558938d0e061eb798fe7e3db01516d293e80706e19b405016fc5bb1"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/G1_BODY_release_descriptor_aliases.json",
+      "snapshot": "G1_BODY_release_descriptor_aliases.json",
+      "sha256": "4d3d6e82e5157e309cb73886a23f75e3ff17b2e10b08d0f0c5b5ace895c6ae74"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_g1_v140/entry_release.json",
+      "snapshot": "body_g1_v140/entry_release.json",
+      "sha256": "11aec4e4fd3c5bd0ad5e4921e9fdb22aae760b85bfde7b55c70b6b12fc5cdb40"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_g1_v140/entry_release_v142.json",
+      "snapshot": "body_g1_v140/entry_release_v142.json",
+      "sha256": "47128d909c21947b7933d8f244a38cbe628cbaae667dc601171088496ec17b7f"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_g1_v140/caller_AST_and_provenance.json",
+      "snapshot": "body_g1_v140/caller_AST_and_provenance.json",
+      "sha256": "67ca7353e26d8b2b4e1c6ef1e557ac6c9d5bf1c87b9d64ea91fe730de31a22ab"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_g1_v140/shared_control_AST_v142.json",
+      "snapshot": "body_g1_v140/shared_control_AST_v142.json",
+      "sha256": "27a8d8d53faea8d6dc8900b334a2d32011e56f1320f4acc042052cd628ef8082"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_g1_v140/actual_1715_all132_clean_G1_references.json",
+      "snapshot": "body_g1_v140/actual_1715_all132_clean_G1_references.json",
+      "sha256": "e304b568a398c6645cf132cf9e722512e57f9896867d168572892e461ad851a8"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_g1_v140/original_BODY_dynamic_import_aliases.json",
+      "snapshot": "body_g1_v140/original_BODY_dynamic_import_aliases.json",
+      "sha256": "1897f93f17bb1cb94587b8d614f27bafead3ee4e8999706aa4c71eeec01f0ef4"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_g1_v140/handoff_retirement.json",
+      "snapshot": "body_g1_v140/handoff_retirement.json",
+      "sha256": "e001480847a1fc77d4cec34b1adfe531ae7364df9450c45359b4e4bd5bc875ac"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_g1_v140/handoff_launched.json",
+      "snapshot": "body_g1_v140/handoff_launched.json",
+      "sha256": "7aa108e2c67d23749e97c717f7235541f32ae0cada0d876fe67ee1f0c78047a2"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_g1_v140/handoff143_retirement.json",
+      "snapshot": "body_g1_v140/handoff143_retirement.json",
+      "sha256": "6e5853eaa4364909f7f750eb014a66831cd1aab46ec3c2d68dbf69be60783e4f"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_g1_v140/handoff143_launched.json",
+      "snapshot": "body_g1_v140/handoff143_launched.json",
+      "sha256": "05d5d79f56525f05c6ddfcb1f566a69ebb688fcee0b7fabdf333ed53371fd761"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_g1_v140/code/marshawn_mask_assist_full_g1_v140.py",
+      "snapshot": "body_g1_v140/code/marshawn_mask_assist_full_g1_v140.py",
+      "sha256": "c8ad17f03fb3fffbb30d2405569c9e28455975f45ad0b8d83bff319f44f10c50"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_g1_v140/code/marshawn_mask_assist_entry_g1_v140.py",
+      "snapshot": "body_g1_v140/code/marshawn_mask_assist_entry_g1_v140.py",
+      "sha256": "692ed92507ee7d9e4e6fd5ca3f7d81db5ebbda3db6902082f69dd81aaf3ea462"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_g1_v140/code/marshawn_mask_assist_full_g1_v142.py",
+      "snapshot": "body_g1_v140/code/marshawn_mask_assist_full_g1_v142.py",
+      "sha256": "3c33d4d7c0e13ae24fb638a0e363bac854ecd54d99cd8042d38054e049567084"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_g1_v140/code/marshawn_mask_assist_entry_g1_v142.py",
+      "snapshot": "body_g1_v140/code/marshawn_mask_assist_entry_g1_v142.py",
+      "sha256": "7a2e0711464de2a51255a6258f7823d9ef2d58b86b33b462df716ea639222a91"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_async_code_identity_v144/marshawn_native_async_collect.py",
+      "snapshot": "body_async_code_identity_v144/marshawn_native_async_collect.py",
+      "sha256": "df9b7cce3160df7d614c5ac2a0050695e38df28909b263313f1027c85c89f30a"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_async_code_identity_v144/marshawn_sam3_union_batch_async_g1_v144.py",
+      "snapshot": "body_async_code_identity_v144/marshawn_sam3_union_batch_async_g1_v144.py",
+      "sha256": "1e30f39605b6771e4d449d4bef25e6833b41e6bd5ea83a7a7a8dba72969cf0e9"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_async_code_identity_v144/runtime_manager.py",
+      "snapshot": "body_async_code_identity_v144/runtime_manager.py",
+      "sha256": "d9477b65f4ad5eb4b7e0712a87d40b3a91e097538726cca9e2507f54a9a2a454"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_async_code_identity_v144/qualify_import_identity.py",
+      "snapshot": "body_async_code_identity_v144/qualify_import_identity.py",
+      "sha256": "e4d693e32708f2b2b91c33cc2e4a16848102bcf74989b280c996e80832db816f"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_async_code_identity_v144/release.json",
+      "snapshot": "body_async_code_identity_v144/release.json",
+      "sha256": "bfa861bf027be019fcabe9994a50f8271467bd9657c1bb18d5051d2bac142490"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_async_code_identity_v144/AST_proof.json",
+      "snapshot": "body_async_code_identity_v144/AST_proof.json",
+      "sha256": "513db463b8bfe02fc7a26179ae658b596c1642c5d33e5e9a041637cca452a0a7"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_async_code_identity_v144/qualification.json",
+      "snapshot": "body_async_code_identity_v144/qualification.json",
+      "sha256": "246b6558a5aed133b2a882e81ca52bab396c1a9f3dfd4f7a3b57eec87399e279"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_async_code_identity_v144/namespace_audit.json",
+      "snapshot": "body_async_code_identity_v144/namespace_audit.json",
+      "sha256": "2cd117e3fe83a6a6ce0f8e9d0f1ed997cd17385f697d51eaca39e5178657db0d"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/BODY_G1_identity_v140/PASS.json",
+      "snapshot": "BODY_G1_identity_v140/PASS.json",
+      "sha256": "b104b5e1ff78146f943361c12aaa81b9a2da51166b6e766ad54e2a6916c9ccb5"
+    }
+  ],
+  "scientific_source_release_unchanged": "6fa7cc2255b979727e82ada636b63eb66e32d34c2473d9c113da9289c854713d",
+  "active_source_operations_release": "f74e81c7df9f000b790701371b978034dc3b69ea241d8806cecd0a9578b98153",
+  "active_same_config_collector_release": "bfa861bf027be019fcabe9994a50f8271467bd9657c1bb18d5051d2bac142490",
+  "source_and_model_arrays_not_in_git": true,
+  "created": 1794121765.142229
+}

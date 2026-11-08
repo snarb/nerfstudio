@@ -1,0 +1,36 @@
+{
+  "kind": "ADDITIVE_G1_PHYSICAL_CODE_IDENTITY_ASYNC_RUNTIME_ADOPTION_V144",
+  "authorized": true,
+  "parent_source_release": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/source_producer_g1_v143_release.json",
+  "parent_source_release_sha256": "f74e81c7df9f000b790701371b978034dc3b69ea241d8806cecd0a9578b98153",
+  "original_scientific_parent_release_sha256": "6fa7cc2255b979727e82ada636b63eb66e32d34c2473d9c113da9289c854713d",
+  "files_sha256": {
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_async_code_identity_v144/marshawn_native_async_collect.py": "df9b7cce3160df7d614c5ac2a0050695e38df28909b263313f1027c85c89f30a",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_async_code_identity_v144/marshawn_sam3_union_batch_async_g1_v144.py": "1e30f39605b6771e4d449d4bef25e6833b41e6bd5ea83a7a7a8dba72969cf0e9",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_async_code_identity_v144/runtime_manager.py": "d9477b65f4ad5eb4b7e0712a87d40b3a91e097538726cca9e2507f54a9a2a454",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_async_collect_v1/code/marshawn_native_async_collect.py": "592d73c952f3573832e8ba2f034736edcc4326c734a2e12a5a3a9e1c90ade74d",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_async_collect_v1/code/marshawn_sam3_union_batch_async_v1.py": "1e30f39605b6771e4d449d4bef25e6833b41e6bd5ea83a7a7a8dba72969cf0e9",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/code/marshawn_sam3_union_batch_v62_runtime.py": "f95b981696061aacfe98377e13e7588b6ce644bc608a38adb88accda9da9b9c4"
+  },
+  "proofs": [
+    {
+      "path": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_async_code_identity_v144/AST_proof.json",
+      "sha256": "513db463b8bfe02fc7a26179ae658b596c1642c5d33e5e9a041637cca452a0a7"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_async_code_identity_v144/qualification.json",
+      "sha256": "246b6558a5aed133b2a882e81ca52bab396c1a9f3dfd4f7a3b57eec87399e279"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/body_async_code_identity_v144/namespace_audit.json",
+      "sha256": "2cd117e3fe83a6a6ce0f8e9d0f1ed997cd17385f697d51eaca39e5178657db0d"
+    }
+  ],
+  "same_existing_config_132_inputs_locks_and_transport": true,
+  "no_NN_scheduling_or_gather_math_changes": true,
+  "only_expected_code_directory_canonicalized": true,
+  "created": 1794121078.4423704,
+  "ROOT_reviewed_at": 1794121387.6087337,
+  "ROOT_review": "ROOTreadactualcollectorone-linedirectory.resolve diff +durablesameconfigmanager. Runtimebyteidentical1e30f396, originalguardpassesactualG1configuration+132tasks; foreignmodulepathstillrejects. Allfile/proofbindingschecked. DATA/actor/priorrootsG1; immutableimplementationoldV; noNN/gather/stream/math/schedulingchange. AdoptSAME existingconfigs/locks/transports, noRAWrestart.",
+  "shared_GPU_leases_and_existing_scientific_workers_preserved": true
+}
