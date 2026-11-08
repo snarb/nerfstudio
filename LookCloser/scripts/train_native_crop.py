@@ -8,6 +8,8 @@ from __future__ import annotations
 import argparse
 import copy
 import fcntl
+import importlib
+import importlib.util
 import json
 import os
 from pathlib import Path
@@ -25,12 +27,54 @@ if '--spec' in sys.argv:
     if _position < len(sys.argv):
         _bootstrap_spec = json.loads(Path(sys.argv[_position]).read_text())
 SOURCE_CODE = Path(_bootstrap_spec.get('source_code', os.environ.get('LOOKCLOSER_SEALED_CODE', _DEFAULT_SOURCE))).resolve()
-sys.path[:0] = [str(Path(__file__).resolve().parent), str(SOURCE_CODE), str(SOURCE_CODE/'LookCloser/scripts')]
+PUBLIC_SCRIPT_DIR = Path(__file__).resolve().parent
+# A public scripts directory also contains legacy NN helpers. The declared release
+# owns those helpers; only the two crop sampling overlays come from this directory.
+sys.path[:0] = [str(SOURCE_CODE), str(SOURCE_CODE/'LookCloser/scripts'), str(PUBLIC_SCRIPT_DIR)]
+
+
+def _source_import(name):
+    module = importlib.import_module(name)
+    path = getattr(module, '__file__', None)
+    if path is None or not Path(path).resolve().is_relative_to(SOURCE_CODE):
+        raise ImportError('Source helper must come from declared sealed source: '+name+' '+str(path))
+    # Catch cached transitive imports from another checkout as well.
+    for module_name, loaded in tuple(sys.modules.items()):
+        if module_name.startswith(('marshawn_', 'nerfstudio.')) or module_name == 'prepare_marshawn_tuning':
+            loaded_path = getattr(loaded, '__file__', None)
+            if loaded_path is not None and not Path(loaded_path).resolve().is_relative_to(SOURCE_CODE):
+                raise ImportError('Mixed source helper checkout: '+module_name+' '+str(loaded_path))
+    return module
+
+
+def _public_sampling_import(name):
+    path = PUBLIC_SCRIPT_DIR/(name+'.py')
+    loaded = sys.modules.get(name)
+    if loaded is not None:
+        if Path(getattr(loaded, '__file__', '')).resolve() != path:
+            raise ImportError('Crop sampling helper was loaded from another directory: '+name)
+        return loaded
+    module_spec = importlib.util.spec_from_file_location(name, path)
+    module = importlib.util.module_from_spec(module_spec)
+    sys.modules[name] = module
+    try:
+        module_spec.loader.exec_module(module)
+    except Exception:
+        sys.modules.pop(name, None)
+        raise
+    return module
+
+
+_source_import('marshawn_tuning_sampling')
+_public_sampling_import('native_crop_sampling')
+_public_sampling_import('native_crop_sampling_v2')
 EVAL_ITERATIONS = (8000, 16000, 32000, 50000, 80000, 140000)
 HISTORICAL_EVAL_STEPS = tuple(x-1 for x in EVAL_ITERATIONS)
 from types import SimpleNamespace
 
+_source_import('marshawn_iteration_budget')
 from marshawn_iteration_budget import validate_limit, check_step, completed
+_source_import('marshawn_tuning_occupancy')
 from marshawn_tuning_occupancy import atomic_json, sha
 
 MODULE = 'train_native_crop'
@@ -42,7 +86,9 @@ def __getattr__(name):
     if name != 'TuningParser':
         raise AttributeError(name)
     import torch
+    _source_import('nerfstudio.data.dataparsers.nerfstudio_dataparser')
     from nerfstudio.data.dataparsers.nerfstudio_dataparser import Nerfstudio
+    _source_import('nerfstudio.data.scene_box')
     from nerfstudio.data.scene_box import SceneBox
 
     class TuningParser(Nerfstudio):
@@ -65,7 +111,7 @@ DEFAULTS = dict(objective='actor', sampling='body80', width=64, radius=0,
     correct_sh_directions=True, density_activation='trunc_exp', frequency_projection_mode='legacy',
     lr_decay_steps=200000, fr_switch_step=75941, fr_after_switch=.3,
     corrected_arm_allocator=False, min_step_size=1e-4, max_steps_per_ray=1024,
-    target_num_samples_per_batch=0, hard_max_iterations=140000, train_count=66)
+    target_num_samples_per_batch=0, hard_max_iterations=140000, train_count=66, train_rays_per_batch=4096, exposure_scale=1, adam_beta2=.999, initial_lr=.01, final_lr=.0001, extra_eval_interval=0)
 
 
 def read_stage_plan(spec):
@@ -83,6 +129,8 @@ def validate_spec(spec):
     if not required <= set(spec) or set(spec)-required-optional:
         raise ValueError('Missing or unsupported native crop spec keys: '+str(sorted((required-set(spec)) | (set(spec)-required-optional))))
     spec = dict(DEFAULTS, **spec)
+    if type(spec['radius']) is not int or spec['radius'] not in (0,1):raise ValueError('Occupancy radius must be integer0or1')
+    if isinstance(spec['distortion_final'], bool) or not isinstance(spec['distortion_final'], (int,float)) or spec['distortion_final'] not in (0,.01,.03,.1):raise ValueError('Final distortion must be0,0.01,0.03or0.1')
     for key in ('data','output','source_code','source_seal','stage_plan','evaluation_data'):
         if key in spec and (not isinstance(spec[key],str) or not Path(spec[key]).is_absolute()):
             raise ValueError('Absolute path required: '+key)
@@ -96,21 +144,26 @@ def validate_spec(spec):
         if relative.is_absolute() or '..' in relative.parts or sha(SOURCE_CODE/relative) != digest:
             raise ValueError('Sealed source changed: '+name)
     overlay = Path(__file__).resolve().parent
-    if set(spec['code_sha256']) != {'train_native_crop.py','native_crop_sampling.py'}:
+    if set(spec['code_sha256']) != {'train_native_crop.py','native_crop_sampling.py','native_crop_sampling_v2.py'}:
         raise ValueError('Both isolated worker/sampling code hashes required')
     for name, digest in spec['code_sha256'].items():
         if sha(overlay/name) != digest: raise ValueError('Isolated overlay code changed: '+name)
-    for key, expected in dict(objective='actor',sampling='body80',width=64,radius=0,
-            frequency_threshold=.95,correct_sh_directions=True,density_activation='trunc_exp',distortion_final=.1).items():
+    for key, expected in dict(objective='actor',sampling='body80',width=64,
+            frequency_threshold=.95,correct_sh_directions=True,density_activation='trunc_exp').items():
         if type(spec[key]) is not type(expected) or spec[key] != expected:
             raise ValueError('Fixed native crop recipe differs: '+key)
+    if type(spec['exposure_scale']) is not int or spec['exposure_scale'] not in (1,2,4):raise ValueError('Exposure scale must be1,2or4')
+    if not isinstance(spec['adam_beta2'], (int,float)) or not math.isfinite(spec['adam_beta2']) or not 0 < spec['adam_beta2'] < 1:raise ValueError('Adam beta2 must lie strictly in(0,1)')
+    for key in ('initial_lr','final_lr'):
+        if not isinstance(spec[key], (int,float)) or not math.isfinite(spec[key]) or not 0 < spec[key] <= .04:raise ValueError('LR must be positive finite and at most0.04: '+key)
+    if type(spec['extra_eval_interval']) is not int or spec['extra_eval_interval'] < 0:raise ValueError('Extra eval interval must be a nonnegative integer')
     if spec['frequency_projection_mode'] not in ('legacy','normalized_jacobian'):
         raise ValueError('Unsupported frequency projection')
     if type(spec['corrected_arm_allocator']) is not bool:raise ValueError('Boolean corrected allocator required')
     for key in ('coarse_step','min_step_size'):
         if not isinstance(spec[key],(int,float)) or not math.isfinite(spec[key]) or not 0 < spec[key] <= .1:
             raise ValueError('Positive finite step required: '+key)
-    for key in ('max_steps_per_ray','lr_decay_steps'):
+    for key in ('max_steps_per_ray','lr_decay_steps','train_rays_per_batch'):
         if type(spec[key]) is not int or spec[key] < 1:raise ValueError('Positive integer required: '+key)
     if type(spec['fr_switch_step']) is not int or not 0 <= spec['fr_switch_step'] < 140000:raise ValueError('Invalid FR switch')
     if not isinstance(spec['fr_after_switch'],(int,float)) or not 0 <= spec['fr_after_switch'] <= 1:raise ValueError('Invalid FR strength')
@@ -130,6 +183,7 @@ def validate_spec(spec):
 
 
 def build_config(spec, resume=None):
+    _source_import('nerfstudio.configs.method_configs')
     from nerfstudio.configs.method_configs import method_configs
     cfg = copy.deepcopy(method_configs['lookcloser'])
     cfg.output_dir = Path(spec['output'])
@@ -150,6 +204,7 @@ def build_config(spec, resume=None):
     cfg.load_step = None
     cfg.pipeline.training_seed = spec['seed']
     cfg.pipeline.model.training_seed = spec['seed']
+    _source_import('marshawn_semantic_admission')
     from marshawn_semantic_admission import SemanticAdmissionModelConfig
     cfg.pipeline.model = SemanticAdmissionModelConfig(**{k: v for k, v in vars(cfg.pipeline.model).items() if k != '_target'},
         semantic_manifest=spec['semantic_admission']['manifest'], semantic_manifest_sha256=spec['semantic_admission']['manifest_sha256'],
@@ -158,16 +213,29 @@ def build_config(spec, resume=None):
     cfg.pipeline.model.density_activation = spec.get('density_activation', 'softplus')
     cfg.pipeline.frequency_projection_mode = spec.get('frequency_projection_mode', 'legacy')
     cfg.optimizers['fields']['scheduler'].max_steps = spec.get('lr_decay_steps', 200000)
+    # OptimizerConfig.setup forwards dynamic attributes through vars(self).
+    cfg.optimizers['fields']['optimizer'].betas = (.9, spec.get('adam_beta2', .999))
+    cfg.optimizers['fields']['optimizer'].lr = spec.get('initial_lr', .01)
+    cfg.optimizers['fields']['scheduler'].lr_final = spec.get('final_lr', .0001)
     cfg.pipeline.feature_reweighting_switch_step = spec['fr_switch_step']
     cfg.pipeline.feature_reweighting_after_switch = spec['fr_after_switch']
     cfg.pipeline.model.occupancy_dilation_radius = spec['radius']
     cfg.pipeline.model.adaptive_coarse_step_size = spec['coarse_step']
+    exposure_scale = spec.get('exposure_scale', 1)
+    cfg.pipeline.model.adaptive_warmup_steps = 4096//exposure_scale
+    cfg.pipeline.model.occupancy_warmup_steps = 4096//exposure_scale
+    cfg.pipeline.model.occupancy_binary_warmup_steps = 4096//exposure_scale
+    cfg.pipeline.model.occupancy_update_interval = 16//exposure_scale
+    cfg.pipeline.grid_update_interval = 1024//exposure_scale
     cfg.pipeline.model.corrected_arm_allocator = spec['corrected_arm_allocator']
     cfg.pipeline.model.adaptive_min_step_size = spec['min_step_size']
     cfg.pipeline.model.max_steps_per_ray = spec['max_steps_per_ray']
     cfg.pipeline.target_num_samples_per_batch = spec['target_num_samples_per_batch']
     cfg.pipeline.dynamic_rays_start_step = 4096
     cfg.pipeline.dynamic_rays_max = 32768
+    if spec['train_rays_per_batch'] > 32768:
+        raise ValueError('Train ray batch exceeds reviewed32768 limit')
+    cfg.pipeline.datamanager.train_num_rays_per_batch = spec['train_rays_per_batch']
     cfg.pipeline.datamanager.cpu_fas_prefetch = False
     cfg.pipeline.datamanager.cache_train_rays = False
     cfg.pipeline.model.eval_num_rays_per_chunk = 4096
@@ -183,6 +251,23 @@ def build_config(spec, resume=None):
     dp.eval_mode = 'filename'
     return cfg
 
+
+
+def exposure_phase(actual_step, exposure_scale=1):
+    """Return body80 phase and distortion ramp in4096-ray-equivalent steps.
+
+    Trainer/model/optimizer/checkpoint step counters remain actual updates.
+    This pure mapping consumes no RNG; LR and FR use explicit spec schedules.
+    """
+    virtual_step = actual_step*exposure_scale
+    fraction = min(1., max(0., (virtual_step-4096)/8192))
+    return virtual_step, fraction
+
+
+def is_eval_iteration(completed_iterations, extra_eval_interval=0):
+    """Evaluation cadence uses actual completed updates, including extra late gates."""
+    return (completed_iterations in EVAL_ITERATIONS or
+            (extra_eval_interval > 0 and completed_iterations >= 32000 and completed_iterations % extra_eval_interval == 0))
 
 def choose_checkpoint(evaluations):
     return min(evaluations, key=lambda row:(row['metrics']['lpips'], -row['metrics']['psnr'], row['step'])) if evaluations else None
@@ -245,6 +330,7 @@ def inventory_and_prune(output, checkpoint, step, evaluations, fr_boundary=75940
                                 bytes=checkpoint.stat().st_size, retained=True)
     protected = protected_checkpoints(evaluations, step, fr_boundary)
     if evaluations:
+        _source_import('marshawn_video_train')
         from marshawn_video_train import selectors
         protected.update(r['step'] for r in selectors(evaluations).values())
     for candidate in checkpoint_dir.glob('step-?????????.ckpt'):
@@ -262,7 +348,9 @@ def inventory_and_prune(output, checkpoint, step, evaluations, fr_boundary=75940
 
 def validate_data(data, train_count=None):
     import numpy as np
+    _source_import('marshawn_video_metrics')
     from marshawn_video_metrics import actor_visibility
+    _source_import('prepare_marshawn_tuning')
     from prepare_marshawn_tuning import verify_inventory
     ready = verify_inventory(data)
     if ready['train'] not in (63,66) or (train_count is not None and ready['train'] != train_count) or len(ready['records']) != 66 or len(ready['validation']) != 3:
@@ -300,7 +388,9 @@ def evaluate(trainer, ready, data, output, step):
     import torch
     from PIL import Image
     from scipy.ndimage import binary_erosion
+    _source_import('nerfstudio.engine.trainer')
     from nerfstudio.engine.trainer import _capture_rng_state, _restore_rng_state
+    _source_import('marshawn_tuning_metrics')
     from marshawn_tuning_metrics import masked_actor_metrics, aggregate_actor_metrics
     state = _capture_rng_state()
     pipeline = trainer.pipeline
@@ -329,6 +419,7 @@ def evaluate(trainer, ready, data, output, step):
             with np.load(data / 'semantics' / f"{row['camera']}.npz", allow_pickle=False) as source:
                 for actor in ('black', 'grey'):
                     mask = source[actor]
+                    _source_import('marshawn_video_metrics')
                     from marshawn_video_metrics import actor_visibility
                     if actor_visibility(row, actor, mask) == 'absent':
                         continue
@@ -341,6 +432,7 @@ def evaluate(trainer, ready, data, output, step):
                     fraction = float((opacity[inner] < .9).mean()) if inner.any() else None
                     holes.append(dict(view=row['camera'], actor=actor, eroded_pixels=int(inner.sum()),
                                       below09_fraction=fraction, trigger=bool(fraction is not None and fraction > .01)))
+        _source_import('marshawn_video_metrics')
         from marshawn_video_metrics import aggregate_visible
         result = dict(step=step, **aggregate_visible(rows, ready), opacity_diagnostics=holes)
         result.update(masked_lpips=result['metrics']['lpips'], psnr=result['metrics']['psnr'],
@@ -372,10 +464,14 @@ def train(spec_path, smoke_steps=None):
     import random
     import numpy as np
     import torch
+    _source_import('nerfstudio.engine.callbacks')
     from nerfstudio.engine.callbacks import TrainingCallbackLocation as Location
+    _source_import('nerfstudio.engine.trainer')
     from nerfstudio.engine.trainer import _capture_rng_state, _restore_rng_state
+    _source_import('nerfstudio.utils.writer')
     from nerfstudio.utils import writer
-    from native_crop_sampling import install_sampling
+    from native_crop_sampling_v2 import install_sampling
+    _source_import('marshawn_semantic_occupancy')
     from marshawn_semantic_occupancy import install_capture_hook, export_snapshot
 
     spec_path = Path(spec_path).resolve()
@@ -459,6 +555,7 @@ def train(spec_path, smoke_steps=None):
     cfg.save_config()
     trainer = cfg.setup(local_rank=0, world_size=1)
     trainer.setup()
+    _source_import('marshawn_video_train')
     from marshawn_video_train import cold_setup_audit
     cold_setup_audit(trainer, output, resume)
     pipe, model = trainer.pipeline, trainer.pipeline.model
@@ -484,6 +581,7 @@ def train(spec_path, smoke_steps=None):
         model._tuning_occupancy_capture = {k: v.to(model.device) if torch.is_tensor(v) else v
                                           for k, v in resumed_capture.items()}
     if trainer._loaded_rng_state is not None:
+        _source_import('marshawn_semantic_admission')
         from marshawn_semantic_admission import rng_signature
         expected_rng = rng_signature(trainer._loaded_rng_state)
         _restore_rng_state(trainer._loaded_rng_state)
@@ -496,7 +594,7 @@ def train(spec_path, smoke_steps=None):
     atomic_json(output / 'runtime.json', dict(pid=os.getpid(), host=socket.gethostname(), spec_sha256=spec_hash,
                 data_sha256=data_hash, config=str(cfg.get_base_dir() / 'config.yml'), technical_smoke=smoke_steps,
                 framework_max_num_iterations_display_only=cfg.max_num_iterations,
-                actual_iteration_limit=hard_limit, source_sha256={Path(__file__).name: sha(__file__)},
+                actual_iteration_limit=hard_limit, optimizer_hyperparameters={k:[dict(betas=list(group['betas']),lr=group['lr'],eps=group['eps']) for group in opt.param_groups] for k,opt in trainer.optimizers.optimizers.items()}, extra_eval_interval=spec['extra_eval_interval'], exposure_scale=spec['exposure_scale'], phase_policy='body80/distortion use actual_step*exposure_scale; warmup/update cadence compressed; LR/FR explicit; trainer steps actual', source_sha256={Path(__file__).name: sha(__file__)},
                 baseline=dict(density_activation=model.config.density_activation,
                               correct_sh_directions=model.config.correct_sh_directions,
                               frequency_projection=pipe.config.frequency_projection_mode,
@@ -510,6 +608,7 @@ def train(spec_path, smoke_steps=None):
     def save(step, terminal=False):
         state['plateau'] = tracker.to_dict()
         state['sampling_state'] = sampler.state_dict()
+        state['exposure_schedule'] = dict(exposure_scale=spec['exposure_scale'], actual_step=step, virtual_sampler_step=step*spec['exposure_scale'])
         path = checkpoint_dir / f'step-{step:09d}.ckpt'
         temporary = path.with_suffix('.ckpt.tmp')
         previous_size = 0
@@ -549,8 +648,8 @@ def train(spec_path, smoke_steps=None):
         if step == spec['fr_switch_step'] and not state['boundary_rng_reset']:
             seed_all(spec['seed'])
             state['boundary_rng_reset'] = True
-        sampler.set_step(step)
-        fraction = min(1., max(0., (step - 4096) / 8192))
+        sampler_step, fraction = exposure_phase(step, spec['exposure_scale'])
+        sampler.set_step(sampler_step)
         model.config.distortion_loss_mult = .01 + (spec['distortion_final'] - .01) * fraction
         trainer._apply_live_optimizer_switch(step)
         for callback in trainer.callbacks:
@@ -561,7 +660,7 @@ def train(spec_path, smoke_steps=None):
         for callback in trainer.callbacks:
             callback.run_callback_at_location(step, location=Location.AFTER_TRAIN_ITERATION)
         writer.write_out_storage()
-        gate = step + 1 in EVAL_ITERATIONS
+        gate = is_eval_iteration(step+1, spec['extra_eval_interval'])
         smoke_done = smoke_steps is not None and step + 1 >= smoke_steps
         hard_done = completed(step, hard_limit)
         if step + 1 >= stage_target:stage_target = read_stage_plan(spec)
@@ -583,6 +682,7 @@ def train(spec_path, smoke_steps=None):
                         gpu_peak_memory_bytes=torch.cuda.max_memory_allocated(),
                         cumulative_point_samples=int(pipe.cumulative_point_samples.item()),
                         completed_iterations=step+1, stage_target=stage_target, evaluation_policy=evaluation_policy,
+                        exposure_scale=spec['exposure_scale'], virtual_sampler_step=sampler_step,
                         current_train_rays=int(pipe.datamanager.train_pixel_sampler.num_rays_per_batch),
                         sampling_metrics={k:float(v.detach().cpu()) if torch.is_tensor(v) else float(v) for k,v in train_metrics.items() if k in ('num_samples_per_batch','samples_per_ray_mean','adaptive_samples_max','adaptive_saturation_rate','zero_sample_ray_rate')},
                         plateau=tracker.to_dict(), technical_smoke=smoke_steps is not None))
