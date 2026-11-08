@@ -1,0 +1,106 @@
+{
+  "kind": "IMMUTABLE_ACTUAL1690_SERIAL_VS_CAMERA_GROUPED_CPU8_SEMANTIC_PARITY_V1",
+  "status": "passed",
+  "frame": 1690,
+  "actual_NN_ROIs": 64,
+  "source_camera_contexts": 16,
+  "qualified_record_count": 49,
+  "record_decisions_values_and_order_identical": true,
+  "input_native_bindings_identical": true,
+  "normalized_full_qualification_identical": true,
+  "ignored_metadata_only": [
+    "created timestamp",
+    "qualified archive absolute output directory"
+  ],
+  "archives": [
+    {
+      "camera": "LC",
+      "exact_bool_equal": true,
+      "differing_pixels": 0,
+      "shape_equal": true,
+      "baseline_archive_sha256": "41768f02a35c358efce69c0f25f1c8c8062be22d473917a25640208133217443",
+      "parallel_archive_sha256": "41768f02a35c358efce69c0f25f1c8c8062be22d473917a25640208133217443",
+      "byte_identical_archives": true,
+      "array_hash_equal": true,
+      "pixel_count_equal": true
+    },
+    {
+      "camera": "JE",
+      "exact_bool_equal": true,
+      "differing_pixels": 0,
+      "shape_equal": true,
+      "baseline_archive_sha256": "7c1645f87812537c4a14a946647aefc7151c979c56a3c3827de247382aaee28c",
+      "parallel_archive_sha256": "7c1645f87812537c4a14a946647aefc7151c979c56a3c3827de247382aaee28c",
+      "byte_identical_archives": true,
+      "array_hash_equal": true,
+      "pixel_count_equal": true
+    },
+    {
+      "camera": "CE",
+      "exact_bool_equal": true,
+      "differing_pixels": 0,
+      "shape_equal": true,
+      "baseline_archive_sha256": "488e8ebeea8a22a19b98b149ec189c524c8e1acd758aa4288f891fa2de3fdeb4",
+      "parallel_archive_sha256": "488e8ebeea8a22a19b98b149ec189c524c8e1acd758aa4288f891fa2de3fdeb4",
+      "byte_identical_archives": true,
+      "array_hash_equal": true,
+      "pixel_count_equal": true
+    },
+    {
+      "camera": "EC",
+      "exact_bool_equal": true,
+      "differing_pixels": 0,
+      "shape_equal": true,
+      "baseline_archive_sha256": "202cae0e838462b1ff69dfb534b140d7aea49b27fd4d373444057610063a7bf4",
+      "parallel_archive_sha256": "202cae0e838462b1ff69dfb534b140d7aea49b27fd4d373444057610063a7bf4",
+      "byte_identical_archives": true,
+      "array_hash_equal": true,
+      "pixel_count_equal": true
+    },
+    {
+      "camera": "HE",
+      "exact_bool_equal": true,
+      "differing_pixels": 0,
+      "shape_equal": true,
+      "baseline_archive_sha256": "d3743ddd0b88ec931e9ffd5807642f422cae6051c97a2d39903c7fc3c0a3536c",
+      "parallel_archive_sha256": "d3743ddd0b88ec931e9ffd5807642f422cae6051c97a2d39903c7fc3c0a3536c",
+      "byte_identical_archives": true,
+      "array_hash_equal": true,
+      "pixel_count_equal": true
+    },
+    {
+      "camera": "MD",
+      "exact_bool_equal": true,
+      "differing_pixels": 0,
+      "shape_equal": true,
+      "baseline_archive_sha256": "470e364f15f66be0e5f66dcb53dcb72c746ce2f7d5f2a31110b918a3048e10ff",
+      "parallel_archive_sha256": "470e364f15f66be0e5f66dcb53dcb72c746ce2f7d5f2a31110b918a3048e10ff",
+      "byte_identical_archives": true,
+      "array_hash_equal": true,
+      "pixel_count_equal": true
+    },
+    {
+      "camera": "HD",
+      "exact_bool_equal": true,
+      "differing_pixels": 0,
+      "shape_equal": true,
+      "baseline_archive_sha256": "8b2a3a4a32564823a5f99412b3673e35c4e4aa0fb36031d18b4b78c7357bc83a",
+      "parallel_archive_sha256": "8b2a3a4a32564823a5f99412b3673e35c4e4aa0fb36031d18b4b78c7357bc83a",
+      "byte_identical_archives": true,
+      "array_hash_equal": true,
+      "pixel_count_equal": true
+    }
+  ],
+  "snapshot_manifest_sha256": "da63b67a06b8f13bd024e29fa7834f7d2468bba08e04675cf87d4762339386b4",
+  "baseline_qualification_sha256": "55994f9b56b7ab93761ba1b0e60c57759673ba5adf6566f39a1277e6751a5d7d",
+  "parallel_qualification_sha256": "39294b6bc3526b3b9bf226710a47c43b2c24ac9c2abfa5de292937362cec5cc7",
+  "CPU_execution_sha256": "aeb67f761bbebd540c2a224bf1b4df575a52cd5cf7886c2c3c720594864f28bd",
+  "parallel_elapsed_seconds": 65.34548282623291,
+  "baseline_observed_serial_phase_seconds": 177,
+  "parallel_workers": 8,
+  "native_threads_per_worker": 1,
+  "exact_qualified_function_sha256": "838e6b701e152d6591a1dbe7db33fd0196238ea0d0f2a80df56f2ef2cc4a5831",
+  "parallel_helper_sha256": "27b7207267c0fd0719af8553fbbaed7ea217432431019a590c7e646c4b97416c",
+  "no_canonical_source_or_model_mutated": true,
+  "created": 1794096852.3352275
+}

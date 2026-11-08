@@ -1,0 +1,1927 @@
+{
+  "aabb": [
+    [
+      -0.91,
+      -0.26,
+      -0.08
+    ],
+    [
+      0.15,
+      0.5,
+      0.63
+    ]
+  ],
+  "world_to_box": [
+    [
+      0.9996099434998201,
+      0.0038076113038434233,
+      -0.027667001146584703,
+      0.0
+    ],
+    [
+      0.0,
+      0.9906624101928624,
+      0.13633777550946272,
+      0.0
+    ],
+    [
+      0.027927779293854992,
+      -0.13628459607390522,
+      0.9902759958802829,
+      0.1716909230925756
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "box_to_world": [
+    [
+      0.9996099434998202,
+      -4.338500950438773e-19,
+      0.02792777929385499,
+      -0.004794946206887683
+    ],
+    [
+      0.0038076113038434238,
+      0.9906624101928626,
+      -0.1362845960739052,
+      0.023398828103227593
+    ],
+    [
+      -0.027667001146584706,
+      0.13633777550946274,
+      0.9902759958802829,
+      -0.1700213998491054
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "coordinate_system": "AABB in rigid floor-aligned frame; oriented box in original prepared world",
+  "original_accepted_box": "accepted_1660_original_axes.json",
+  "record_fps": 120,
+  "output_fps": 24,
+  "sample_frames": [
+    1660,
+    1720,
+    1780,
+    1840,
+    1900,
+    1960,
+    2020
+  ],
+  "sample_times_seconds": [
+    0,
+    0.5,
+    1,
+    1.5,
+    2,
+    2.5,
+    3
+  ],
+  "output_source_frames": [
+    1660,
+    1665,
+    1670,
+    1675,
+    1680,
+    1685,
+    1690,
+    1695,
+    1700,
+    1705,
+    1710,
+    1715,
+    1720,
+    1725,
+    1730,
+    1735,
+    1740,
+    1745,
+    1750,
+    1755,
+    1760,
+    1765,
+    1770,
+    1775,
+    1780,
+    1785,
+    1790,
+    1795,
+    1800,
+    1805,
+    1810,
+    1815,
+    1820,
+    1825,
+    1830,
+    1835,
+    1840,
+    1845,
+    1850,
+    1855,
+    1860,
+    1865,
+    1870,
+    1875,
+    1880,
+    1885,
+    1890,
+    1895
+  ],
+  "output_frame_count": 48,
+  "end_boundary_check": 1900,
+  "minimum_face_margin": 0.025,
+  "mask_padding_native_pixels": 64,
+  "floor_fit": {
+    "world_to_box": [
+      [
+        0.9996099434998201,
+        0.0038076113038434233,
+        -0.027667001146584703,
+        0.0
+      ],
+      [
+        0.0,
+        0.9906624101928624,
+        0.13633777550946272,
+        0.0
+      ],
+      [
+        0.027927779293854992,
+        -0.13628459607390522,
+        0.9902759958802829,
+        0.1716909230925756
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "box_to_world": [
+      [
+        0.9996099434998202,
+        -4.338500950438773e-19,
+        0.02792777929385499,
+        -0.004794946206887683
+      ],
+      [
+        0.0038076113038434238,
+        0.9906624101928626,
+        -0.1362845960739052,
+        0.023398828103227593
+      ],
+      [
+        -0.027667001146584706,
+        0.13633777550946274,
+        0.9902759958802829,
+        -0.1700213998491054
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "floor_plane_normal": [
+      0.027927779293854992,
+      -0.13628459607390522,
+      0.9902759958802829
+    ],
+    "floor_plane_offset": 0.1716909230925756,
+    "floor_ids": [
+      237,
+      238,
+      239,
+      240,
+      242,
+      243,
+      253,
+      263,
+      3739,
+      3800,
+      4246,
+      4766,
+      8353,
+      8290
+    ],
+    "excluded_floor_ids": [
+      3738,
+      8246
+    ],
+    "tilt_degrees": 7.9967358371380985,
+    "max_fit_residual": 0.004636666777014908,
+    "max_leave_one_out_degrees": 0.43984423169074743,
+    "units": "prepared world; physical scale unspecified",
+    "training_started": false,
+    "floor_points_prepared_world": [
+      [
+        -0.3101009224787447,
+        0.9388602334503767,
+        -0.03828113722336493
+      ],
+      [
+        -0.3964925186490533,
+        0.8370969993606658,
+        -0.04681935062595121
+      ],
+      [
+        -0.3964847063601577,
+        0.836758404966164,
+        -0.0465238555690465
+      ],
+      [
+        -0.39808988277915414,
+        0.8360296265920174,
+        -0.04960231437585498
+      ],
+      [
+        -0.2274117363593992,
+        0.9731470038424561,
+        -0.033683610882739246
+      ],
+      [
+        -0.22327029179786398,
+        0.9717166054751244,
+        -0.03658265228784297
+      ],
+      [
+        -0.4515794774683937,
+        0.6479465070142286,
+        -0.067935723354199
+      ],
+      [
+        -0.36151807324231866,
+        0.42199718383676127,
+        -0.1010157037761584
+      ],
+      [
+        0.3466037019380723,
+        0.3212861774910396,
+        -0.13599002397123172
+      ],
+      [
+        0.3193843764143102,
+        0.12568275620555697,
+        -0.1650243921726025
+      ],
+      [
+        0.7177057475905678,
+        0.3774326698301524,
+        -0.14215416510275533
+      ],
+      [
+        0.39360452439429805,
+        0.08714373554906814,
+        -0.16948324555704347
+      ],
+      [
+        -0.7910414151821624,
+        0.6231069925714658,
+        -0.06522220682848866
+      ],
+      [
+        0.2585924391597604,
+        -0.6106017176927997,
+        -0.2693846079326251
+      ]
+    ],
+    "floor_points_source": "/fsx/tmp/marshawn_001660_hd/geometry/train_witnesses.npz",
+    "floor_points_source_sha256": "885c7874b451ce9e90dab394e38bcf174c05e429f781b43b5fd731669714266b",
+    "fit_residuals": [
+      -0.002830586002166041,
+      0.00017026203995174072,
+      0.0005092470818733597,
+      -0.0024847845252247702,
+      -0.0006411993402508087,
+      -0.0032014478413991965,
+      0.0034990670258451817,
+      0.00404938373232297,
+      0.0029167814413447735,
+      6.230150078823105e-05,
+      -0.00047526555934296333,
+      0.0029718848002225906,
+      9.10224230499801e-05,
+      -0.004636666777014908
+    ],
+    "floor_fit_helper": "scripts/actor_box_geometry.py",
+    "floor_fit_helper_sha256": "d70afb06dd61247317e31cac9ddcdd2690b14c09eacef7e66e9a1cb397c484a7",
+    "note": "Rigid orientation from 14 previously photo-qualified floor witnesses; local floor coverings may warp. No camera intrinsics/extrinsics recalibrated."
+  },
+  "identity_sha256": "ab68a04cff74a69e468550fd9623f457c024ec69ba289ac343e054c2788b8929",
+  "per_frame_extents": {
+    "1660": [
+      [
+        -0.15687766616734045,
+        0.04932493411247867,
+        -0.012298348441850918
+      ],
+      [
+        0.11519564973611943,
+        0.286289873382486,
+        0.36602568537000557
+      ]
+    ],
+    "1720": [
+      [
+        -0.17780638277529892,
+        0.03403687351441369,
+        -0.02437251973371868
+      ],
+      [
+        0.12217188860543891,
+        0.2939339036815185,
+        0.36200096160604966
+      ]
+    ],
+    "1780": [
+      [
+        -0.31035492129236913,
+        0.0034607523182837094,
+        -0.012298348441850918
+      ],
+      [
+        0.08031445538952202,
+        0.301577933980551,
+        0.5994596636794489
+      ]
+    ],
+    "1840": [
+      [
+        -0.42197474320148093,
+        -0.08062358097107372,
+        -0.03644669102558644
+      ],
+      [
+        -0.03130536651958975,
+        0.3780182369708759,
+        0.3821245804258293
+      ]
+    ],
+    "1900": [
+      [
+        -0.8056678810140526,
+        -0.17999597485849614,
+        -0.02437251973371868
+      ],
+      [
+        -0.21268757712189634,
+        0.39330629756894087,
+        0.3378526190223141
+      ]
+    ]
+  },
+  "actual_lower_margin": [
+    0.034332118985947346,
+    0.030004025141503854,
+    0.03355330897441357
+  ],
+  "actual_upper_margin": [
+    0.02782811139456108,
+    0.02669370243105912,
+    0.030540336320551087
+  ],
+  "mat_exclusion_feasible": false,
+  "reason": "Grey actor lands on thick mat at 1.5s and remains there at 2s",
+  "temporal_scope": "Five sampled poses plus explicit margin; unsampled-time containment is not mathematically certified",
+  "no_training": true,
+  "calibration_changed": false,
+  "optimizer_updates": 0,
+  "script_sha256": "7238399c039a2376ad7b9d852d3a925fde5d67efeca8f758cd680c7b607121ce",
+  "hull_script_sha256": "bf1339a8dd1c65e5fd0dda925edb6e69ed68a46b7566dbe5648a2ca4e15fb835",
+  "status": "ROOT_VISUALLY_RELEASED_FOR_72FRAMES",
+  "remaining_uncertainty": "Grey actor final-pose hull retains an occlusion shadow behind the body; xmin remains conservative. Do not label this box optimal or use hull rejection as occupancy free-space evidence.",
+  "third_second_reports": [
+    {
+      "frame": 1960,
+      "extent": [
+        [
+          -0.7219530145822187,
+          -0.2335041869517236,
+          -0.02
+        ],
+        [
+          -0.2684974880764522,
+          0.46974660055926587,
+          0.3740751328979174
+        ]
+      ],
+      "actors": [
+        {
+          "actor": "black",
+          "anchors": 5,
+          "hull": {
+            "kind": "MULTIVIEW_MASK_SUPPORTED_CONSERVATIVE_AABB_NOT_HIDDEN_GEOMETRY_GT",
+            "domain": [
+              [
+                -3.6101159064804857,
+                -3.9408588819824835,
+                -1.0868995934180816
+              ],
+              [
+                3.5335526957026677,
+                3.886628144226791,
+                3.0344175408727807
+              ]
+            ],
+            "aabb": [
+              [
+                -1.17,
+                0.115,
+                -0.125
+              ],
+              [
+                -0.265,
+                0.555,
+                0.375
+              ]
+            ],
+            "retained_extent_aabb": [
+              [
+                -1.1684323022186658,
+                0.11812120680377114,
+                -0.12499061383261668
+              ],
+              [
+                -0.2684974880764522,
+                0.5538309338486234,
+                0.3740751328979174
+              ]
+            ],
+            "leaf_size_upper_bound": 0.008,
+            "actual_leaf_extent": [
+              0.006976238869319485,
+              0.0076440302990324945,
+              0.00402472376395592
+            ],
+            "depth": 10,
+            "retained_cells": 39497,
+            "min_foreground_support": 3,
+            "max_clear_background_contradictions": 0,
+            "padding_native_pixels": 64,
+            "margin_prepared_world": 0,
+            "world_snap_step": 0.005,
+            "margin_guarantee": {
+              "units": "prepared_world; original physical unit unspecified",
+              "minimum_common_margin": 0.0,
+              "requested_axis_minimums": null,
+              "requested_lower_Z_minimum": null,
+              "effective_lower_face_minimums": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "effective_upper_face_minimums": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "applied_after_snap_lower_margins": [
+                0.001567697781334143,
+                0.0031212068037711344,
+                9.386167383315658e-06
+              ],
+              "applied_after_snap_upper_margins": [
+                0.003497488076452171,
+                0.0011690661513766853,
+                0.000924867102082616
+              ],
+              "verified_actual_margins_at_least_requested": true,
+              "world_snap_step": 0.005,
+              "world_grid_origin": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "semantics": "Absolute face minimums: max(common,XYZ); lowerZ additionally max(bottom). No relation to optical mask padding."
+            },
+            "fixed_world_grid_origin": [
+              0,
+              0,
+              0
+            ],
+            "search_boundary_touched_axes": [],
+            "requires_expanded_search": false,
+            "vetted_anchors_union": 0,
+            "levels": [
+              {
+                "level": 0,
+                "input_cells": 1,
+                "retained": 1,
+                "clear_background_rejected": 0,
+                "unsupported_unknown_not_declared_empty": 0,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.00019767414778470993
+              },
+              {
+                "level": 1,
+                "input_cells": 8,
+                "retained": 8,
+                "clear_background_rejected": 0,
+                "unsupported_unknown_not_declared_empty": 0,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.003077189903706312
+              },
+              {
+                "level": 2,
+                "input_cells": 64,
+                "retained": 35,
+                "clear_background_rejected": 0,
+                "unsupported_unknown_not_declared_empty": 29,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.0037103909999132156
+              },
+              {
+                "level": 3,
+                "input_cells": 280,
+                "retained": 89,
+                "clear_background_rejected": 4,
+                "unsupported_unknown_not_declared_empty": 187,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.00477307103574276
+              },
+              {
+                "level": 4,
+                "input_cells": 712,
+                "retained": 194,
+                "clear_background_rejected": 59,
+                "unsupported_unknown_not_declared_empty": 459,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.006792824249714613
+              },
+              {
+                "level": 5,
+                "input_cells": 1552,
+                "retained": 306,
+                "clear_background_rejected": 186,
+                "unsupported_unknown_not_declared_empty": 1060,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.01086520403623581
+              },
+              {
+                "level": 6,
+                "input_cells": 2448,
+                "retained": 451,
+                "clear_background_rejected": 375,
+                "unsupported_unknown_not_declared_empty": 1622,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.016977005172520876
+              },
+              {
+                "level": 7,
+                "input_cells": 3608,
+                "retained": 726,
+                "clear_background_rejected": 709,
+                "unsupported_unknown_not_declared_empty": 2173,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.025950260926038027
+              },
+              {
+                "level": 8,
+                "input_cells": 5808,
+                "retained": 1801,
+                "clear_background_rejected": 1850,
+                "unsupported_unknown_not_declared_empty": 2157,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.041700080037117004
+              },
+              {
+                "level": 9,
+                "input_cells": 14408,
+                "retained": 7231,
+                "clear_background_rejected": 4895,
+                "unsupported_unknown_not_declared_empty": 2282,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.082119797822088
+              },
+              {
+                "level": 10,
+                "input_cells": 57848,
+                "retained": 39497,
+                "clear_background_rejected": 14742,
+                "unsupported_unknown_not_declared_empty": 2755,
+                "unresolved_nearplane_not_declared_empty": 854,
+                "elapsed_seconds": 0.24959013191983104
+              }
+            ],
+            "limitations": [
+              "Integral bounding footprints can retain false volume, especially at coarse resolution.",
+              "Unobserved/occluded/out-of-FOV volume is UNKNOWN, never certified empty; only observed multi-view actor support contributes to this bounding hypothesis.",
+              "Padding/contradiction allowance protect some mask false negatives, not an exact hair matte.",
+              "Ray-box coverage is necessary but does not prove actor surface depth or hidden geometry."
+            ],
+            "training_approved": false,
+            "elapsed_seconds": 0.2511030761525035,
+            "floor_halfspace_lower_bound": -0.02,
+            "floor_fit_max_residual": 0.004636666777014908
+          },
+          "component_qualification": {
+            "components": [
+              {
+                "component": 0,
+                "cells": 5507,
+                "anchors": 0,
+                "retained": false,
+                "bounds": [
+                  [
+                    -1.0637887191788735,
+                    0.32451002487764846,
+                    -0.020347795969762758
+                  ],
+                  [
+                    -0.6731193424969824,
+                    0.5156107823534609,
+                    0.1486906021163859
+                  ]
+                ]
+              },
+              {
+                "component": 1,
+                "cells": 1,
+                "anchors": 0,
+                "retained": false,
+                "bounds": [
+                  [
+                    -1.0777411969175124,
+                    0.5156107823534609,
+                    -0.016323072205806838
+                  ],
+                  [
+                    -1.0707649580481928,
+                    0.5232548126524934,
+                    -0.012298348441850918
+                  ]
+                ]
+              },
+              {
+                "component": 2,
+                "cells": 1,
+                "anchors": 0,
+                "retained": false,
+                "bounds": [
+                  [
+                    -1.042860002570915,
+                    0.5079667520544284,
+                    0.015874717905840524
+                  ],
+                  [
+                    -1.0358837637015954,
+                    0.5156107823534609,
+                    0.019899441669796444
+                  ]
+                ]
+              },
+              {
+                "component": 3,
+                "cells": 4,
+                "anchors": 0,
+                "retained": false,
+                "bounds": [
+                  [
+                    -0.7777629255367747,
+                    0.4468145096621684,
+                    0.11649281200473853
+                  ],
+                  [
+                    -0.7568342089288163,
+                    0.46974660055926587,
+                    0.12454225953265037
+                  ]
+                ]
+              },
+              {
+                "component": 4,
+                "cells": 25,
+                "anchors": 0,
+                "retained": true,
+                "bounds": [
+                  [
+                    -0.6033569538037875,
+                    0.3627301763728109,
+                    -0.020347795969762758
+                  ],
+                  [
+                    -0.5614995205878706,
+                    0.40859435816700596,
+                    -0.004248900913939077
+                  ]
+                ]
+              },
+              {
+                "component": 5,
+                "cells": 30631,
+                "anchors": 5,
+                "retained": true,
+                "bounds": [
+                  [
+                    -0.5614995205878706,
+                    0.17927344919603105,
+                    -0.020347795969762758
+                  ],
+                  [
+                    -0.2684974880764522,
+                    0.46974660055926587,
+                    0.3740751328979174
+                  ]
+                ]
+              },
+              {
+                "component": 6,
+                "cells": 17,
+                "anchors": 0,
+                "retained": false,
+                "bounds": [
+                  [
+                    -0.394069787724203,
+                    0.11812120680377114,
+                    0.07624557436517933
+                  ],
+                  [
+                    -0.380117309985564,
+                    0.15634135829893359,
+                    0.10039391694891485
+                  ]
+                ]
+              },
+              {
+                "component": 7,
+                "cells": 1,
+                "anchors": 0,
+                "retained": false,
+                "bounds": [
+                  [
+                    -0.38709354885488345,
+                    0.16398538859796608,
+                    0.11649281200473853
+                  ],
+                  [
+                    -0.380117309985564,
+                    0.17162941889699856,
+                    0.12051753576869445
+                  ]
+                ]
+              },
+              {
+                "component": 8,
+                "cells": 1,
+                "anchors": 0,
+                "retained": false,
+                "bounds": [
+                  [
+                    -0.3731410711162445,
+                    0.1486973279999011,
+                    0.14466587835242997
+                  ],
+                  [
+                    -0.36616483224692503,
+                    0.15634135829893359,
+                    0.1486906021163859
+                  ]
+                ]
+              },
+              {
+                "component": 9,
+                "cells": 8,
+                "anchors": 0,
+                "retained": false,
+                "bounds": [
+                  [
+                    -0.3731410711162445,
+                    0.13340926740183612,
+                    0.15674004964429772
+                  ],
+                  [
+                    -0.3522123545082861,
+                    0.1486973279999011,
+                    0.1728389447001214
+                  ]
+                ]
+              },
+              {
+                "component": 10,
+                "cells": 1,
+                "anchors": 0,
+                "retained": true,
+                "bounds": [
+                  [
+                    -0.4498796986787589,
+                    0.42388241876507093,
+                    0.14466587835242997
+                  ],
+                  [
+                    -0.44290345980943935,
+                    0.4315264490641034,
+                    0.1486906021163859
+                  ]
+                ]
+              },
+              {
+                "component": 11,
+                "cells": 1,
+                "anchors": 0,
+                "retained": true,
+                "bounds": [
+                  [
+                    -0.3731410711162445,
+                    0.24806972188732354,
+                    0.16076477340825365
+                  ],
+                  [
+                    -0.36616483224692503,
+                    0.25571375218635606,
+                    0.1647894971722096
+                  ]
+                ]
+              },
+              {
+                "component": 12,
+                "cells": 91,
+                "anchors": 0,
+                "retained": false,
+                "bounds": [
+                  [
+                    -0.3243073990310081,
+                    0.16398538859796608,
+                    0.2090614585757247
+                  ],
+                  [
+                    -0.2964024435537302,
+                    0.20220554009312858,
+                    0.2694323150350635
+                  ]
+                ]
+              },
+              {
+                "component": 13,
+                "cells": 36,
+                "anchors": 0,
+                "retained": false,
+                "bounds": [
+                  [
+                    -0.3173311601616886,
+                    0.1410532977008686,
+                    0.21308618233968063
+                  ],
+                  [
+                    -0.2894262046844107,
+                    0.15634135829893359,
+                    0.25735814374319577
+                  ]
+                ]
+              },
+              {
+                "component": 14,
+                "cells": 1,
+                "anchors": 0,
+                "retained": false,
+                "bounds": [
+                  [
+                    -0.31035492129236913,
+                    0.20984957039216107,
+                    0.24125924868737206
+                  ],
+                  [
+                    -0.30337868242304966,
+                    0.21749360069119356,
+                    0.245283972451328
+                  ]
+                ]
+              },
+              {
+                "component": 15,
+                "cells": 9,
+                "anchors": 0,
+                "retained": true,
+                "bounds": [
+                  [
+                    -0.44290345980943935,
+                    0.40859435816700596,
+                    0.3298031714944023
+                  ],
+                  [
+                    -0.42197474320148093,
+                    0.41623838846603844,
+                    0.34992679031418195
+                  ]
+                ]
+              },
+              {
+                "component": 16,
+                "cells": 119,
+                "anchors": 0,
+                "retained": false,
+                "bounds": [
+                  [
+                    -0.4498796986787589,
+                    0.4621025702602334,
+                    0.25333341997923986
+                  ],
+                  [
+                    -0.41499850433216146,
+                    0.5003227217553959,
+                    0.3298031714944023
+                  ]
+                ]
+              }
+            ],
+            "nearby_margin": 0.03,
+            "anchors_within_two_leaf_diagonals": 5,
+            "anchors_total": 5,
+            "discarded_semantics": "unresolved remote silhouette components, NOT known free space"
+          }
+        },
+        {
+          "actor": "grey",
+          "anchors": 2,
+          "hull": {
+            "kind": "MULTIVIEW_MASK_SUPPORTED_CONSERVATIVE_AABB_NOT_HIDDEN_GEOMETRY_GT",
+            "domain": [
+              [
+                -3.6101159064804857,
+                -3.9408588819824835,
+                -1.0868995934180816
+              ],
+              [
+                3.5335526957026677,
+                3.886628144226791,
+                3.0344175408727807
+              ]
+            ],
+            "aabb": [
+              [
+                -0.915,
+                -0.23500000000000001,
+                -0.17
+              ],
+              [
+                -0.275,
+                0.23500000000000001,
+                0.12
+              ]
+            ],
+            "retained_extent_aabb": [
+              [
+                -0.910311464053845,
+                -0.2335041869517236,
+                -0.1652378514721759
+              ],
+              [
+                -0.27547372694577166,
+                0.23278166128925853,
+                0.11649281200473853
+              ]
+            ],
+            "leaf_size_upper_bound": 0.008,
+            "actual_leaf_extent": [
+              0.006976238869319485,
+              0.0076440302990324945,
+              0.00402472376395592
+            ],
+            "depth": 10,
+            "retained_cells": 37549,
+            "min_foreground_support": 3,
+            "max_clear_background_contradictions": 0,
+            "padding_native_pixels": 64,
+            "margin_prepared_world": 0,
+            "world_snap_step": 0.005,
+            "margin_guarantee": {
+              "units": "prepared_world; original physical unit unspecified",
+              "minimum_common_margin": 0.0,
+              "requested_axis_minimums": null,
+              "requested_lower_Z_minimum": null,
+              "effective_lower_face_minimums": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "effective_upper_face_minimums": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "applied_after_snap_lower_margins": [
+                0.004688535946155037,
+                0.0014958130482764231,
+                0.004762148527824112
+              ],
+              "applied_after_snap_upper_margins": [
+                0.0004737269457716353,
+                0.00221833871074148,
+                0.0035071879952614654
+              ],
+              "verified_actual_margins_at_least_requested": true,
+              "world_snap_step": 0.005,
+              "world_grid_origin": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "semantics": "Absolute face minimums: max(common,XYZ); lowerZ additionally max(bottom). No relation to optical mask padding."
+            },
+            "fixed_world_grid_origin": [
+              0,
+              0,
+              0
+            ],
+            "search_boundary_touched_axes": [],
+            "requires_expanded_search": false,
+            "vetted_anchors_union": 0,
+            "levels": [
+              {
+                "level": 0,
+                "input_cells": 1,
+                "retained": 1,
+                "clear_background_rejected": 0,
+                "unsupported_unknown_not_declared_empty": 0,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.00016261404380202293
+              },
+              {
+                "level": 1,
+                "input_cells": 8,
+                "retained": 8,
+                "clear_background_rejected": 0,
+                "unsupported_unknown_not_declared_empty": 0,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.000716483686119318
+              },
+              {
+                "level": 2,
+                "input_cells": 64,
+                "retained": 32,
+                "clear_background_rejected": 0,
+                "unsupported_unknown_not_declared_empty": 32,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.0012788656167685986
+              },
+              {
+                "level": 3,
+                "input_cells": 256,
+                "retained": 87,
+                "clear_background_rejected": 3,
+                "unsupported_unknown_not_declared_empty": 166,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.002281803637742996
+              },
+              {
+                "level": 4,
+                "input_cells": 696,
+                "retained": 186,
+                "clear_background_rejected": 54,
+                "unsupported_unknown_not_declared_empty": 456,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.004280386958271265
+              },
+              {
+                "level": 5,
+                "input_cells": 1488,
+                "retained": 254,
+                "clear_background_rejected": 261,
+                "unsupported_unknown_not_declared_empty": 973,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.008215646725147963
+              },
+              {
+                "level": 6,
+                "input_cells": 2032,
+                "retained": 357,
+                "clear_background_rejected": 305,
+                "unsupported_unknown_not_declared_empty": 1370,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.013676443602889776
+              },
+              {
+                "level": 7,
+                "input_cells": 2856,
+                "retained": 556,
+                "clear_background_rejected": 488,
+                "unsupported_unknown_not_declared_empty": 1812,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.02108821179717779
+              },
+              {
+                "level": 8,
+                "input_cells": 4448,
+                "retained": 1428,
+                "clear_background_rejected": 1161,
+                "unsupported_unknown_not_declared_empty": 1859,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.03431132296100259
+              },
+              {
+                "level": 9,
+                "input_cells": 11424,
+                "retained": 6388,
+                "clear_background_rejected": 3178,
+                "unsupported_unknown_not_declared_empty": 1858,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.06749942293390632
+              },
+              {
+                "level": 10,
+                "input_cells": 51104,
+                "retained": 37549,
+                "clear_background_rejected": 10874,
+                "unsupported_unknown_not_declared_empty": 2412,
+                "unresolved_nearplane_not_declared_empty": 269,
+                "elapsed_seconds": 0.21879871282726526
+              }
+            ],
+            "limitations": [
+              "Integral bounding footprints can retain false volume, especially at coarse resolution.",
+              "Unobserved/occluded/out-of-FOV volume is UNKNOWN, never certified empty; only observed multi-view actor support contributes to this bounding hypothesis.",
+              "Padding/contradiction allowance protect some mask false negatives, not an exact hair matte.",
+              "Ray-box coverage is necessary but does not prove actor surface depth or hidden geometry."
+            ],
+            "training_approved": false,
+            "elapsed_seconds": 0.22024684865027666,
+            "floor_halfspace_lower_bound": -0.02,
+            "floor_fit_max_residual": 0.004636666777014908
+          },
+          "component_qualification": {
+            "components": [
+              {
+                "component": 0,
+                "cells": 26680,
+                "anchors": 2,
+                "retained": true,
+                "bounds": [
+                  [
+                    -0.7219530145822187,
+                    -0.2335041869517236,
+                    -0.020347795969762758
+                  ],
+                  [
+                    -0.27547372694577166,
+                    0.23278166128925853,
+                    0.11649281200473853
+                  ]
+                ]
+              }
+            ],
+            "nearby_margin": 0.03,
+            "anchors_within_two_leaf_diagonals": 2,
+            "anchors_total": 2,
+            "discarded_semantics": "unresolved remote silhouette components, NOT known free space"
+          }
+        }
+      ]
+    },
+    {
+      "frame": 2020,
+      "extent": [
+        [
+          -0.8754302697072475,
+          -0.2258601566526911,
+          -0.02
+        ],
+        [
+          -0.27547372694577166,
+          0.4391704793631359,
+          0.3861493041897852
+        ]
+      ],
+      "actors": [
+        {
+          "actor": "black",
+          "anchors": 2,
+          "hull": {
+            "kind": "MULTIVIEW_MASK_SUPPORTED_CONSERVATIVE_AABB_NOT_HIDDEN_GEOMETRY_GT",
+            "domain": [
+              [
+                -3.6101159064804857,
+                -3.9408588819824835,
+                -1.0868995934180816
+              ],
+              [
+                3.5335526957026677,
+                3.886628144226791,
+                3.0344175408727807
+              ]
+            ],
+            "aabb": [
+              [
+                -0.96,
+                0.11,
+                -0.14
+              ],
+              [
+                -0.37,
+                0.52,
+                0.39
+              ]
+            ],
+            "retained_extent_aabb": [
+              [
+                -0.959145136139081,
+                0.11047717650473864,
+                -0.13706478512448445
+              ],
+              [
+                -0.3731410711162445,
+                0.5156107823534609,
+                0.3861493041897852
+              ]
+            ],
+            "leaf_size_upper_bound": 0.008,
+            "actual_leaf_extent": [
+              0.006976238869319485,
+              0.0076440302990324945,
+              0.00402472376395592
+            ],
+            "depth": 10,
+            "retained_cells": 41728,
+            "min_foreground_support": 3,
+            "max_clear_background_contradictions": 0,
+            "padding_native_pixels": 64,
+            "margin_prepared_world": 0,
+            "world_snap_step": 0.005,
+            "margin_guarantee": {
+              "units": "prepared_world; original physical unit unspecified",
+              "minimum_common_margin": 0.0,
+              "requested_axis_minimums": null,
+              "requested_lower_Z_minimum": null,
+              "effective_lower_face_minimums": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "effective_upper_face_minimums": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "applied_after_snap_lower_margins": [
+                0.0008548638609189307,
+                0.0004771765047386356,
+                0.0029352148755155683
+              ],
+              "applied_after_snap_upper_margins": [
+                0.0031410711162445093,
+                0.004389217646539101,
+                0.0038506958102147992
+              ],
+              "verified_actual_margins_at_least_requested": true,
+              "world_snap_step": 0.005,
+              "world_grid_origin": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "semantics": "Absolute face minimums: max(common,XYZ); lowerZ additionally max(bottom). No relation to optical mask padding."
+            },
+            "fixed_world_grid_origin": [
+              0,
+              0,
+              0
+            ],
+            "search_boundary_touched_axes": [],
+            "requires_expanded_search": false,
+            "vetted_anchors_union": 0,
+            "levels": [
+              {
+                "level": 0,
+                "input_cells": 1,
+                "retained": 1,
+                "clear_background_rejected": 0,
+                "unsupported_unknown_not_declared_empty": 0,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.0001670168712735176
+              },
+              {
+                "level": 1,
+                "input_cells": 8,
+                "retained": 8,
+                "clear_background_rejected": 0,
+                "unsupported_unknown_not_declared_empty": 0,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.0006820578128099442
+              },
+              {
+                "level": 2,
+                "input_cells": 64,
+                "retained": 36,
+                "clear_background_rejected": 0,
+                "unsupported_unknown_not_declared_empty": 28,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.0012319451197981834
+              },
+              {
+                "level": 3,
+                "input_cells": 288,
+                "retained": 94,
+                "clear_background_rejected": 9,
+                "unsupported_unknown_not_declared_empty": 185,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.002317973878234625
+              },
+              {
+                "level": 4,
+                "input_cells": 752,
+                "retained": 184,
+                "clear_background_rejected": 89,
+                "unsupported_unknown_not_declared_empty": 479,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.004492240957915783
+              },
+              {
+                "level": 5,
+                "input_cells": 1472,
+                "retained": 268,
+                "clear_background_rejected": 183,
+                "unsupported_unknown_not_declared_empty": 1021,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.008397787809371948
+              },
+              {
+                "level": 6,
+                "input_cells": 2144,
+                "retained": 404,
+                "clear_background_rejected": 225,
+                "unsupported_unknown_not_declared_empty": 1515,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.01390618970617652
+              },
+              {
+                "level": 7,
+                "input_cells": 3232,
+                "retained": 688,
+                "clear_background_rejected": 401,
+                "unsupported_unknown_not_declared_empty": 2143,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.022123822011053562
+              },
+              {
+                "level": 8,
+                "input_cells": 5504,
+                "retained": 1891,
+                "clear_background_rejected": 1246,
+                "unsupported_unknown_not_declared_empty": 2367,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.037251094821840525
+              },
+              {
+                "level": 9,
+                "input_cells": 15128,
+                "retained": 7829,
+                "clear_background_rejected": 4641,
+                "unsupported_unknown_not_declared_empty": 2658,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.08070165012031794
+              },
+              {
+                "level": 10,
+                "input_cells": 62632,
+                "retained": 41728,
+                "clear_background_rejected": 15827,
+                "unsupported_unknown_not_declared_empty": 3794,
+                "unresolved_nearplane_not_declared_empty": 1283,
+                "elapsed_seconds": 0.26178539311513305
+              }
+            ],
+            "limitations": [
+              "Integral bounding footprints can retain false volume, especially at coarse resolution.",
+              "Unobserved/occluded/out-of-FOV volume is UNKNOWN, never certified empty; only observed multi-view actor support contributes to this bounding hypothesis.",
+              "Padding/contradiction allowance protect some mask false negatives, not an exact hair matte.",
+              "Ray-box coverage is necessary but does not prove actor surface depth or hidden geometry."
+            ],
+            "training_approved": false,
+            "elapsed_seconds": 0.26341706002131104,
+            "floor_halfspace_lower_bound": -0.02,
+            "floor_fit_max_residual": 0.004636666777014908
+          },
+          "component_qualification": {
+            "components": [
+              {
+                "component": 0,
+                "cells": 36129,
+                "anchors": 2,
+                "retained": true,
+                "bounds": [
+                  [
+                    -0.8754302697072475,
+                    0.15634135829893359,
+                    -0.020347795969762758
+                  ],
+                  [
+                    -0.3731410711162445,
+                    0.40859435816700596,
+                    0.3861493041897852
+                  ]
+                ]
+              },
+              {
+                "component": 1,
+                "cells": 1,
+                "anchors": 0,
+                "retained": true,
+                "bounds": [
+                  [
+                    -0.8335728364913305,
+                    0.3550861460737784,
+                    0.031973612961664205
+                  ],
+                  [
+                    -0.8265965976220111,
+                    0.3627301763728109,
+                    0.035998336725620125
+                  ]
+                ]
+              },
+              {
+                "component": 2,
+                "cells": 1,
+                "anchors": 0,
+                "retained": true,
+                "bounds": [
+                  [
+                    -0.8265965976220111,
+                    0.3550861460737784,
+                    0.044047784253531966
+                  ],
+                  [
+                    -0.8196203587526916,
+                    0.3627301763728109,
+                    0.048072508017487886
+                  ]
+                ]
+              },
+              {
+                "component": 3,
+                "cells": 189,
+                "anchors": 0,
+                "retained": true,
+                "bounds": [
+                  [
+                    -0.7568342089288163,
+                    0.286289873382486,
+                    0.1285669832966063
+                  ],
+                  [
+                    -0.6800955813663019,
+                    0.3550861460737784,
+                    0.1688142209361655
+                  ]
+                ]
+              },
+              {
+                "component": 4,
+                "cells": 3,
+                "anchors": 0,
+                "retained": false,
+                "bounds": [
+                  [
+                    -0.6452143870197045,
+                    0.2786458430834535,
+                    0.18088839222803327
+                  ],
+                  [
+                    -0.6312619092810654,
+                    0.2939339036815185,
+                    0.18893783975594508
+                  ]
+                ]
+              },
+              {
+                "component": 5,
+                "cells": 155,
+                "anchors": 0,
+                "retained": true,
+                "bounds": [
+                  [
+                    -0.596380714934468,
+                    0.301577933980551,
+                    0.1486906021163859
+                  ],
+                  [
+                    -0.5684757594571901,
+                    0.3627301763728109,
+                    0.2613828675071517
+                  ]
+                ]
+              },
+              {
+                "component": 6,
+                "cells": 4,
+                "anchors": 0,
+                "retained": true,
+                "bounds": [
+                  [
+                    -0.5475470428492317,
+                    0.3550861460737784,
+                    0.08027029812913525
+                  ],
+                  [
+                    -0.5405708039799122,
+                    0.3703742066718434,
+                    0.09234446942100301
+                  ]
+                ]
+              },
+              {
+                "component": 7,
+                "cells": 2,
+                "anchors": 0,
+                "retained": true,
+                "bounds": [
+                  [
+                    -0.5196420873719536,
+                    0.18691747949506357,
+                    0.2694323150350635
+                  ],
+                  [
+                    -0.5126658485026341,
+                    0.1945615097940961,
+                    0.2774817625629753
+                  ]
+                ]
+              },
+              {
+                "component": 8,
+                "cells": 54,
+                "anchors": 0,
+                "retained": true,
+                "bounds": [
+                  [
+                    -0.582428237195829,
+                    0.3092219642795835,
+                    0.2654075912711076
+                  ],
+                  [
+                    -0.5614995205878706,
+                    0.3550861460737784,
+                    0.31370427643857857
+                  ]
+                ]
+              },
+              {
+                "component": 9,
+                "cells": 381,
+                "anchors": 0,
+                "retained": true,
+                "bounds": [
+                  [
+                    -0.5475470428492317,
+                    0.40859435816700596,
+                    0.22113562986759244
+                  ],
+                  [
+                    -0.4638321764173979,
+                    0.4391704793631359,
+                    0.34992679031418195
+                  ]
+                ]
+              },
+              {
+                "component": 10,
+                "cells": 1,
+                "anchors": 0,
+                "retained": true,
+                "bounds": [
+                  [
+                    -0.5614995205878706,
+                    0.33979808547571344,
+                    0.3177290002025346
+                  ],
+                  [
+                    -0.554523281718551,
+                    0.34744211577474593,
+                    0.3217537239664905
+                  ]
+                ]
+              },
+              {
+                "component": 11,
+                "cells": 113,
+                "anchors": 0,
+                "retained": false,
+                "bounds": [
+                  [
+                    -0.5475470428492317,
+                    0.47739063085829836,
+                    0.21711090610363654
+                  ],
+                  [
+                    -0.5126658485026341,
+                    0.5156107823534609,
+                    0.30163010514671085
+                  ]
+                ]
+              },
+              {
+                "component": 12,
+                "cells": 1,
+                "anchors": 0,
+                "retained": false,
+                "bounds": [
+                  [
+                    -0.4359272209401199,
+                    0.11047717650473864,
+                    0.18893783975594508
+                  ],
+                  [
+                    -0.4289509820708004,
+                    0.11812120680377114,
+                    0.192962563519901
+                  ]
+                ]
+              }
+            ],
+            "nearby_margin": 0.03,
+            "anchors_within_two_leaf_diagonals": 2,
+            "anchors_total": 2,
+            "discarded_semantics": "unresolved remote silhouette components, NOT known free space"
+          }
+        },
+        {
+          "actor": "grey",
+          "anchors": 1,
+          "hull": {
+            "kind": "MULTIVIEW_MASK_SUPPORTED_CONSERVATIVE_AABB_NOT_HIDDEN_GEOMETRY_GT",
+            "domain": [
+              [
+                -3.6101159064804857,
+                -3.9408588819824835,
+                -1.0868995934180816
+              ],
+              [
+                3.5335526957026677,
+                3.886628144226791,
+                3.0344175408727807
+              ]
+            ],
+            "aabb": [
+              [
+                -0.915,
+                -0.23,
+                -0.17
+              ],
+              [
+                -0.275,
+                0.275,
+                0.115
+              ]
+            ],
+            "retained_extent_aabb": [
+              [
+                -0.910311464053845,
+                -0.2258601566526911,
+                -0.1652378514721759
+              ],
+              [
+                -0.27547372694577166,
+                0.27100181278442104,
+                0.11246808824078261
+              ]
+            ],
+            "leaf_size_upper_bound": 0.008,
+            "actual_leaf_extent": [
+              0.006976238869319485,
+              0.0076440302990324945,
+              0.00402472376395592
+            ],
+            "depth": 10,
+            "retained_cells": 38016,
+            "min_foreground_support": 3,
+            "max_clear_background_contradictions": 0,
+            "padding_native_pixels": 64,
+            "margin_prepared_world": 0,
+            "world_snap_step": 0.005,
+            "margin_guarantee": {
+              "units": "prepared_world; original physical unit unspecified",
+              "minimum_common_margin": 0.0,
+              "requested_axis_minimums": null,
+              "requested_lower_Z_minimum": null,
+              "effective_lower_face_minimums": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "effective_upper_face_minimums": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "applied_after_snap_lower_margins": [
+                0.004688535946155037,
+                0.004139843347308908,
+                0.004762148527824112
+              ],
+              "applied_after_snap_upper_margins": [
+                0.0004737269457716353,
+                0.0039981872155789855,
+                0.002531911759217395
+              ],
+              "verified_actual_margins_at_least_requested": true,
+              "world_snap_step": 0.005,
+              "world_grid_origin": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "semantics": "Absolute face minimums: max(common,XYZ); lowerZ additionally max(bottom). No relation to optical mask padding."
+            },
+            "fixed_world_grid_origin": [
+              0,
+              0,
+              0
+            ],
+            "search_boundary_touched_axes": [],
+            "requires_expanded_search": false,
+            "vetted_anchors_union": 0,
+            "levels": [
+              {
+                "level": 0,
+                "input_cells": 1,
+                "retained": 1,
+                "clear_background_rejected": 0,
+                "unsupported_unknown_not_declared_empty": 0,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.00016811490058898926
+              },
+              {
+                "level": 1,
+                "input_cells": 8,
+                "retained": 8,
+                "clear_background_rejected": 0,
+                "unsupported_unknown_not_declared_empty": 0,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.0007126042619347572
+              },
+              {
+                "level": 2,
+                "input_cells": 64,
+                "retained": 32,
+                "clear_background_rejected": 0,
+                "unsupported_unknown_not_declared_empty": 32,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.0012682350352406502
+              },
+              {
+                "level": 3,
+                "input_cells": 256,
+                "retained": 87,
+                "clear_background_rejected": 7,
+                "unsupported_unknown_not_declared_empty": 162,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.0022498080506920815
+              },
+              {
+                "level": 4,
+                "input_cells": 696,
+                "retained": 184,
+                "clear_background_rejected": 70,
+                "unsupported_unknown_not_declared_empty": 442,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.004308055154979229
+              },
+              {
+                "level": 5,
+                "input_cells": 1472,
+                "retained": 248,
+                "clear_background_rejected": 263,
+                "unsupported_unknown_not_declared_empty": 961,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.008240810129791498
+              },
+              {
+                "level": 6,
+                "input_cells": 1984,
+                "retained": 349,
+                "clear_background_rejected": 276,
+                "unsupported_unknown_not_declared_empty": 1359,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.013143064919859171
+              },
+              {
+                "level": 7,
+                "input_cells": 2792,
+                "retained": 547,
+                "clear_background_rejected": 434,
+                "unsupported_unknown_not_declared_empty": 1811,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.0202540410682559
+              },
+              {
+                "level": 8,
+                "input_cells": 4376,
+                "retained": 1458,
+                "clear_background_rejected": 1035,
+                "unsupported_unknown_not_declared_empty": 1883,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.03268469497561455
+              },
+              {
+                "level": 9,
+                "input_cells": 11664,
+                "retained": 6486,
+                "clear_background_rejected": 3216,
+                "unsupported_unknown_not_declared_empty": 1962,
+                "unresolved_nearplane_not_declared_empty": 0,
+                "elapsed_seconds": 0.06713035609573126
+              },
+              {
+                "level": 10,
+                "input_cells": 51888,
+                "retained": 38016,
+                "clear_background_rejected": 11024,
+                "unsupported_unknown_not_declared_empty": 2579,
+                "unresolved_nearplane_not_declared_empty": 269,
+                "elapsed_seconds": 0.22006221814081073
+              }
+            ],
+            "limitations": [
+              "Integral bounding footprints can retain false volume, especially at coarse resolution.",
+              "Unobserved/occluded/out-of-FOV volume is UNKNOWN, never certified empty; only observed multi-view actor support contributes to this bounding hypothesis.",
+              "Padding/contradiction allowance protect some mask false negatives, not an exact hair matte.",
+              "Ray-box coverage is necessary but does not prove actor surface depth or hidden geometry."
+            ],
+            "training_approved": false,
+            "elapsed_seconds": 0.2215520991012454,
+            "floor_halfspace_lower_bound": -0.02,
+            "floor_fit_max_residual": 0.004636666777014908
+          },
+          "component_qualification": {
+            "components": [
+              {
+                "component": 0,
+                "cells": 26581,
+                "anchors": 1,
+                "retained": true,
+                "bounds": [
+                  [
+                    -0.7149767757128993,
+                    -0.2258601566526911,
+                    -0.020347795969762758
+                  ],
+                  [
+                    -0.27547372694577166,
+                    0.24042569158829102,
+                    0.11246808824078261
+                  ]
+                ]
+              },
+              {
+                "component": 1,
+                "cells": 397,
+                "anchors": 0,
+                "retained": true,
+                "bounds": [
+                  [
+                    -0.5405708039799121,
+                    0.20984957039216107,
+                    -0.020347795969762758
+                  ],
+                  [
+                    -0.408022265462842,
+                    0.27100181278442104,
+                    0.027948889197708285
+                  ]
+                ]
+              },
+              {
+                "component": 2,
+                "cells": 1,
+                "anchors": 0,
+                "retained": true,
+                "bounds": [
+                  [
+                    -0.4289509820708004,
+                    0.17927344919603105,
+                    0.040023060489576046
+                  ],
+                  [
+                    -0.42197474320148093,
+                    0.18691747949506354,
+                    0.044047784253531966
+                  ]
+                ]
+              }
+            ],
+            "nearby_margin": 0.03,
+            "anchors_within_two_leaf_diagonals": 1,
+            "anchors_total": 1,
+            "discarded_semantics": "unresolved remote silhouette components, NOT known free space"
+          }
+        }
+      ]
+    }
+  ],
+  "minimum_tail_margin": 0.025,
+  "mat_reason": "Greyfighter lies onmat; matintersection unavoidable",
+  "no_model_or_learned_grid_loaded": true,
+  "root_review": {
+    "approved_at": 1794055288.4844544,
+    "source_manifest_sha256": "bd7ef27dbb535a8b27631cfd30819dfc8955e106dc48a3ccb7077e149f1f79b2",
+    "scope": "Conservativefloorparallel3secondAABB; notperfectphysicaloccupancycertificate"
+  }
+}

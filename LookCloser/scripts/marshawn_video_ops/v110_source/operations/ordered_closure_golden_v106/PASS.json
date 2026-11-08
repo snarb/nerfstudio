@@ -1,0 +1,49 @@
+{
+  "kind": "ORDERED_CURRENT_SEMANTIC_THEN_COMPONENT_CLOSURE_SOURCE_GOLDEN_V106",
+  "status": "pass",
+  "positives": [
+    {
+      "camera": "MD",
+      "actual_source_before_semantic_application": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/current_native_parts_v92_MD/frame001690/applications/MD/old_MD.npz",
+      "actual_native_sha256": "96e5b978fa563f744d5d7d8ccfb87844477a7c0f7112202219eba83e9c2c7d23",
+      "proof_sha256": "c03ab5afcd3935d024e40aea8ee463f5aa8604f8ed54d48ad09e0a8e0fd0fc07",
+      "expected_pixels": 11269,
+      "expected_array_sha256": "99b9b5b8dd43140c16baf742e72ef6addc577a2f095c61522270d99c4408118c",
+      "exact_current_NN_closure_equals_ROOT_source_positive": true
+    },
+    {
+      "camera": "DE",
+      "actual_source_before_semantic_application": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1690_DE_readonly/application_v94/before/native.npz",
+      "actual_native_sha256": "3b42989cb81d1a4df573d39521055a093bec110c94b63d26d611971af3255f30",
+      "proof_sha256": "cbbb5bf0871d653358104c03d4fb7e2677f98be223967678bdef0a9dc772b29f",
+      "expected_pixels": 125974,
+      "expected_array_sha256": "852a3758cd255406cdadef7f5fc5755aa6912730e7545e4ccd1da887fa841fd9",
+      "exact_current_NN_closure_equals_ROOT_source_positive": true
+    }
+  ],
+  "negatives": [
+    {
+      "camera": "NB",
+      "frame": 1685,
+      "residual_pixels": 37706,
+      "residual_reliable_flow_fraction": 0.001352569882777277,
+      "independent_current_CREW_overlap": 0,
+      "adversarial_semantic_coverage_up_to1_rejected": true,
+      "both_closure_paths_rejected": true
+    },
+    {
+      "camera": "MC",
+      "frame": 1665,
+      "residual_pixels": 67593,
+      "residual_reliable_flow_fraction": 0.02839051381060169,
+      "independent_current_CREW_overlap": 62473,
+      "adversarial_semantic_coverage_up_to1_rejected": true,
+      "both_closure_paths_rejected": true
+    }
+  ],
+  "negative_actual_source_report_sha256": "1acc925b0c5deac913141cc1c3aaecc294e783c5c1101b94244f89516a442dce",
+  "same_immutable_preapplication_native_for_semantic_and_closure": true,
+  "no_field_or_live_source_arrays_modified": true,
+  "policy_code_sha256": "4688dfd295b8e0247ac1615ee2a2d0fb629a22eb4ca994a6f4d930e94e487890",
+  "created": 1794093956.0430639
+}

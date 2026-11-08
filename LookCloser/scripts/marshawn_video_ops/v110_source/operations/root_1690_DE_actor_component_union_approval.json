@@ -1,0 +1,38 @@
+{
+  "kind": "ROOT_CURRENT_NATIVE_ACTOR_ONLY_COMPONENT_UNION_APPROVAL",
+  "frame": 1690,
+  "camera": "DE",
+  "time": 1794092843.0107398,
+  "proof_sha256": "c3afced763de864c719f71eba8792fa9b72aa4c232587b20f6431d584d32c992",
+  "current_candidates": [
+    {
+      "instance": 0,
+      "component": 1,
+      "pixels": 120488
+    },
+    {
+      "instance": 8,
+      "component": 6,
+      "pixels": 125239
+    }
+  ],
+  "union_pixels": 125974,
+  "union_bool_sha256": "852a3758cd255406cdadef7f5fc5755aa6912730e7545e4ccd1da887fa841fd9",
+  "union_archive": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1690_DE_readonly/reviewed_main_components.npz",
+  "union_archive_sha256": "0b313ecadc7652c55d418d3e7d8dee71acd58bcf634a25a8267045f4d07326a0",
+  "personally_viewed_contact_sha256": "54f6a4feec9c21302a46b633e353bcb14b62d21df30340c1231eb697d18ed984",
+  "also_viewed": [
+    "DE0_native_contact.jpg",
+    "DE8_native_contact.jpg"
+  ],
+  "decision": "APPROVE_EXACT_REVIEWED_ACTOR_UNION_SOURCE_REPAIR",
+  "reason": "Current RAW and exact native mask show bent gray actor face/hands/sleeve plus black actor rear shiny boot. Large chair/floor gaps remain outside union. All seven independently qualified clean current crew cores have zero overlap. These are mixed actor identities, not known crew.",
+  "constraints": [
+    "only instance0/component1 and instance8/component6 from bound CURRENT archives",
+    "exclude tiny instance8/components1..5 (189pixels) pending own qualification",
+    "preserve all prior A/H; new pixels ownership_uncertain",
+    "trim veto only exact actor union delta; preserve geometryUNKNOWN",
+    "never infer single identity for both fighters from shared component",
+    "rebuild current source DATA/QA then actual ownframegrid/dense before training"
+  ]
+}

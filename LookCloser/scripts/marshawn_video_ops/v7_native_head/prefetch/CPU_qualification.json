@@ -1,0 +1,10 @@
+{
+  "status": "pass",
+  "actual_qualified_frame1680_all66_accepted": true,
+  "unfinished_frame1685_blocked": true,
+  "actual_ROOT_continuous_native1690_guard_pass": true,
+  "out_of_release_native1680_rejected": true,
+  "code_sha256": "947a099f0f6fbe3df13ea85fa82b36243a41ddc7d83de525594306d660b8250b",
+  "native_factory_sha256": "0d32712b8c6b2579ec1c590c5c734cd6d5049eef22ea6fc58c993e5aac282ba3",
+  "created": 1794085020.5308135
+}

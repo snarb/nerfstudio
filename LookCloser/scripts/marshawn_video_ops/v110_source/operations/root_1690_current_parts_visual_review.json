@@ -1,0 +1,38 @@
+{
+  "kind": "ROOT_CURRENT_NATIVE_PAIR_ADDITION_VISUAL_REVIEW",
+  "time": 1794091830.5047846,
+  "frame": 1690,
+  "qualification": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/current_native_parts_v87/frame001690/qualification.json",
+  "qualification_sha256": "9f8345896b041f48486a4c409c46e06b34a7edf099b236544e822225a9f64f65",
+  "images_personally_viewed": [
+    {
+      "camera": "FD",
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/current_native_parts_v87/frame001690/visual/FD_source_before_delta_NATIVE.jpg",
+      "sha256": "7fe3491eb076c3d9fa32d8dca8958097cd31a0b193bb47248a24158e8abbe9da"
+    },
+    {
+      "camera": "FC",
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/current_native_parts_v87/frame001690/visual/FC_source_before_delta_NATIVE.jpg",
+      "sha256": "33dacf5cd4d27078d34890fff5d99a13b7a56f7c790c5f50ae5a5b1720b8031d"
+    },
+    {
+      "camera": "EE",
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/current_native_parts_v87/frame001690/visual/EE_source_before_delta_NATIVE.jpg",
+      "sha256": "b39a965d907aa4686d8effdfaff7c727f09b6c14ef69f90f8d3929d9a73bd025"
+    }
+  ],
+  "decision": "APPROVE_QUALIFIED_NEW_UNION_ONLY_PIXELS",
+  "new_native_pixels": {
+    "FD": 10394,
+    "FC": 7643,
+    "EE": 1343
+  },
+  "observations": "New additions follow current actor boot/trouser borders and small occluded leg areas in the native photographs. No whole mixed person is approved. Existing mask incompleteness remains; this is approval of bounded new pixels only.",
+  "conditions": [
+    "preserve existing actor/head/UNKNOWN",
+    "ownership_uncertain for union-only additions",
+    "exact current NN pixel intersections only; no temporal foreground paste",
+    "independent current CREW exclusion and NB/FB prop negatives retain existing rules",
+    "qualify current grid before dispatch"
+  ]
+}

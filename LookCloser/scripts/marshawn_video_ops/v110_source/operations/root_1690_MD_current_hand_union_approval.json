@@ -1,0 +1,32 @@
+{
+  "kind": "ROOT_CURRENT_NATIVE_HAND_CONSENSUS_UNION_VISUAL_APPROVAL",
+  "frame": 1690,
+  "camera": "MD",
+  "time": 1794092471.4608145,
+  "qualification_sha256": "7653e4c76ee71081df8f90de676d71fded60dd2cce948811d948376c24c3b09a",
+  "new_pixels": 7950,
+  "personally_viewed": [
+    {
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/current_native_parts_v92_MD/frame001690/visual/MD_source_before_delta_NATIVE.jpg",
+      "sha256": "213e3358458aa5076901d4daf41d037aaa805b854e8a99a11920c4cebe7ecfc4"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1690_MD7_readonly/MC_adjacent_native.jpg",
+      "sha256": "73290779172a8d5d6975e0cca5cbecce4ce36a973cfcfbfc4c709e8ce115ab20"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1690_MD7_readonly/NC_adjacent_native.jpg",
+      "sha256": "3363f4bce89d449a1cdefa691cad379c3e40d99017426cd18ddec981a5aa2d99"
+    }
+  ],
+  "decision": "APPROVE_ONLY_BOUND_CURRENT_NN_UNION_ADDITION",
+  "reason": "Native MD new pixels follow bare hand beneath gray sleeve; MC and NC show corresponding tucked hand at gray actor body. Two current semantic prompts plus exact complete-actor-flow anchor support union membership; no entire mixed person is approved.",
+  "constraints": [
+    "new exact current semantic intersection only",
+    "retain ownership_uncertain",
+    "preserve previous A/H/UNKNOWN and source RGB",
+    "trim current veto only exact newly qualified pixels",
+    "no promotion of bald crew upper component or generic PRE waiver",
+    "new grid/source guard/dense qualification before training"
+  ]
+}

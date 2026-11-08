@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "old_inner_worker_sha256": "501d1162f70b5f09a26bc9777c2d5b769c0a8f6188c70a5335ca25b858e18699",
+  "new_helper_sha256": "52d4330538aa5190167b9c42cafadabed112c99f3be529b6235d6e8183f7eeee",
+  "only_inner_worker_function_name_changed": true,
+  "inner_body_AST_identical": true,
+  "old_full132_parity_sha256": "90c2b283ea495b501c2ef4aa8ea3e60436f1417fb4e03e84b46bfb869e7d1e14"
+}

@@ -1,0 +1,17 @@
+{
+  "kind": "ROOT_APPROVED_NATIVE_PRE0_QUALIFIED_ACTOR_RESIDUAL_PARTITION_V79",
+  "authorized": true,
+  "PRE_current_actor_core_conflict_always_hard_fail": true,
+  "only_CURRENT_NN_currently_UNLABELED_pixels": true,
+  "qualified_CURRENT_actor_and_independent_CREW_priority": true,
+  "require_existing_SOURCE_INELIGIBLE_and_geometry_UNKNOWN": true,
+  "no_forced_FG_RGB_or_old_bitmap_copy": true,
+  "no_native_or_training_weight_change": true,
+  "validate_frozen_DATA_W32_W64_zero": true,
+  "ROOT_approval": "ROOT approved narrowly scoped unresolved FLOW-only PREcore0 currentlyUNLABELED visibility, preserve all existing actorFG, source RGB/actorbytes and independentCREW; actualDATAweights validated, noidentitywhitelist",
+  "created": 1794086106.7706566,
+  "native_PRE_on_residual_must_be_zero": true,
+  "known_actor_A_preserved_positive": true,
+  "independent_CREW_A_only_sourcequalified_H": true,
+  "ROOT_additional_authorization": "ROOT approved splitknownqualifiedactor/H A fromM; onlyunlabeledR withEXACTnativePRE0+existingveto+UNKNOWN maypass; noRGB/bitmapchange, MCknownCREWnegative remainsblocked"
+}

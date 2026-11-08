@@ -1,0 +1,39 @@
+{
+  "kind": "REVIEWABLE_PURE_CAMERA_GROUPED_SEMANTIC_CPU8_RELEASE_V1",
+  "authorized": false,
+  "helper": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/semantic_CPU8_v1/marshawn_semantic_qualification_cpu8.py",
+  "helper_sha256": "27b7207267c0fd0719af8553fbbaed7ea217432431019a590c7e646c4b97416c",
+  "exact_qualified_core": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_current_parts_v105.py",
+  "exact_qualified_core_sha256": "838e6b701e152d6591a1dbe7db33fd0196238ea0d0f2a80df56f2ef2cc4a5831",
+  "workers": 8,
+  "native_threads_per_worker": 1,
+  "module_import": "from semantic_CPU8_v1.marshawn_semantic_qualification_cpu8 import qualify",
+  "API": "qualify(frame,bindings,root=V,output=None,workers=8,data_root=None)",
+  "production_default_output": "V/operations/current_native_parts_v105/frame{frame:06d}",
+  "canonical_source_writer": "Parent source factory holds source_factory_v74.lock; no alternate producer/controller created",
+  "same_source_algorithms_and_thresholds": true,
+  "ROI_order_within_camera_and_global_record_order_preserved": true,
+  "immutable_context_per_camera": true,
+  "no_model_grid_RGB_DATA_modified": true,
+  "qualification": {
+    "actual_frame": 1690,
+    "ROIs": 64,
+    "camera_contexts": 16,
+    "qualified_records": 49,
+    "parity_report": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/semantic_CPU8_v1/parity.json",
+    "parity_report_sha256": "aad3337920ef0cb21858c0194b07da5c06dc3fa7c5f011c3e970f9bff05e6ddc",
+    "snapshot_manifest_sha256": "da63b67a06b8f13bd024e29fa7834f7d2468bba08e04675cf87d4762339386b4",
+    "baseline_qualification_sha256": "55994f9b56b7ab93761ba1b0e60c57759673ba5adf6566f39a1277e6751a5d7d",
+    "parallel_qualification_sha256": "39294b6bc3526b3b9bf226710a47c43b2c24ac9c2abfa5de292937362cec5cc7",
+    "CPU_execution_sha256": "aeb67f761bbebd540c2a224bf1b4df575a52cd5cf7886c2c3c720594864f28bd",
+    "normal_import_API_canary": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/semantic_CPU8_v1/import_api_canary.json",
+    "normal_import_API_canary_sha256": "be21c32d55df07ec0c689e5ee387f58b680378a2565f81d4618cda3a4de55a1f"
+  },
+  "observed_elapsed_seconds": {
+    "serial_qualified_stage": 177,
+    "parallel_qualified_stage": 65.34548282623291,
+    "limitation": "Single same-input cached-NN canary; observed elapsed times are not a controlled multi-run benchmark."
+  },
+  "remaining_integration": "Sole source producer/factory owner may integrate only in new version after ROOT release; closure/guard pool4->8 separate unchanged implementations. No activeV107 edits.",
+  "created": 1794097006.6535542
+}

@@ -1,0 +1,85 @@
+{
+  "kind": "JOINT_SOURCE_PREFETCH_NEXT_UNSTARTED_BODY_CPU8_HANDOFF",
+  "retired_exact_CPU_parents": [
+    {
+      "receipt": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/source_producer_v110_watchdog_identity.json",
+      "identity": {
+        "pid": 2383549,
+        "start": "247514657",
+        "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+        "state": "R"
+      }
+    },
+    {
+      "receipt": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/source_producer_v110_identity.json",
+      "identity": {
+        "pid": 2383553,
+        "start": "247514703",
+        "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+        "state": "R"
+      }
+    },
+    {
+      "receipt": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/native_prefetch_v77/watchdog_identity.json",
+      "identity": {
+        "pid": 2331102,
+        "start": "246001516",
+        "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+        "state": "R"
+      }
+    },
+    {
+      "receipt": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/native_prefetch_v77/controller_identity.json",
+      "identity": {
+        "pid": 2331106,
+        "start": "246001541",
+        "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+        "state": "R"
+      }
+    }
+  ],
+  "adopted_live_native_waiters": [
+    {
+      "namespace": "source",
+      "receipt": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/source_producer_v110_logs/1700_native_body_current.identity.json",
+      "identity": {
+        "pid": 2384632,
+        "start": "247554053",
+        "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+        "argv": [
+          "/home/pavlo/.conda/envs/nerfstudio/bin/python",
+          "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/code/marshawn_mask_assist_entry_v7.py",
+          "--campaign",
+          "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107",
+          "--frame",
+          "1700"
+        ]
+      }
+    },
+    {
+      "namespace": "prefetch",
+      "receipt": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/native_prefetch_v77/1700_worker_identity.json",
+      "identity": {
+        "pid": 2383990,
+        "start": "247529231",
+        "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+        "state": "R"
+      }
+    }
+  ],
+  "started": [
+    {
+      "cli": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_source_producer_v111.py",
+      "pid": 2386578
+    },
+    {
+      "cli": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_native_prefetch_v111.py",
+      "pid": 2386579
+    }
+  ],
+  "source_release_sha256": "3d5d8a189ba5b3ece80374c2ddc0e64e9cf4391ec343abb2e4c5b123c787876c",
+  "prefetch_release_sha256": "a73839c9769571ddeb8fb96d4e1352e170b26511868488a74d7d3b724382e0e3",
+  "canonical_source_writer_lock_held": true,
+  "all_existing_NN_fields_and_inputs_preserved": true,
+  "created": 1794100830.6486392
+}

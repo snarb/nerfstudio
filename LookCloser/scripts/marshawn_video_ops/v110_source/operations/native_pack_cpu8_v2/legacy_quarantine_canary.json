@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "unsealed_legacy_bundle_preserved": true,
+  "both_host_task_bytes_equal": {
+    "tasks": true,
+    "tasks_local": true
+  },
+  "helper_sha256": "917728fda0d2e1485005c6ef0ddb8c59b05752cd65432ec1c7ddf017e060872a"
+}

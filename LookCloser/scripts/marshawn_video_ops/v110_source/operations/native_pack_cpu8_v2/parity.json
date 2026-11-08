@@ -1,0 +1,2001 @@
+{
+  "kind": "NATIVE_PACK_CPU8_EXECUTED_INPUT_PARITY_V1",
+  "passed": true,
+  "frame": 1695,
+  "cameras": 66,
+  "variants": 132,
+  "camera_and_host_order_equal": true,
+  "all_input_bytes_equal": true,
+  "source_snapshot_unchanged": true,
+  "ignored_fields": [
+    "parent record task output locator only"
+  ],
+  "baseline_configuration_sha256": "7fa1e29088c4536afa9fc5f8e86a95f88fe54a9d8822527779fce6709c046d97",
+  "snapshot_manifest_sha256": "07ae6a541db4d573bcaf85ded09b5bc4d748aa4d92b7e7c7ca754db4ffc0b193",
+  "execution_sha256": "37ee8e287cb89a25dc405a6ddf83dadcd2f1d3e0c0d553e9bf597b9089a0c84d",
+  "workers": 8,
+  "measured_seconds": 191.79153490066528,
+  "no_GPU_or_source_publication": true,
+  "records": [
+    {
+      "camera": "AA",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "AA",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "AB",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "AB",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "AC",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "AC",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "AD",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "AD",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "BA",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "BA",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "BB",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "BB",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "BC",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "BC",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "BD",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "BD",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "CA",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "CA",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "CB",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "CB",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "CC",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "CC",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "CD",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "CD",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "CE",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "CE",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "DA",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "DA",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "DB",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "DB",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "DC",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "DC",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "DD",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "DD",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "DE",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "DE",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "EA",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "EA",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "EB",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "EB",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "EC",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "EC",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "ED",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "ED",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "EE",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "EE",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "FA",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "FA",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "FB",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "FB",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "FC",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "FC",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "FD",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "FD",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "FE",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "FE",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "GA",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "GA",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "GB",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "GB",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "GC",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "GC",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "GD",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "GD",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "GE",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "GE",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "HA",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "HA",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "HB",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "HB",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "HC",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "HC",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "HD",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "HD",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "HE",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "HE",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "IA",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "IA",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "IB",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "IB",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "IC",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "IC",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "ID",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "ID",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "IE",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "IE",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "JA",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "JA",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "JB",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "JB",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "JC",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "JC",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "JD",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "JD",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "JE",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "JE",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "KA",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "KA",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "KB",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "KB",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "KC",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "KC",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "KD",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "KD",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "LA",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "LA",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "LB",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "LB",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "LC",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "LC",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "MA",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "MA",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "MB",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "MB",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "MC",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "MC",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "MD",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "MD",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "NA",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "NA",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "NB",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "NB",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "NC",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "NC",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "ND",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "ND",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "NE",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "NE",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "OA",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "OA",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "OD",
+      "host": "silver",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    },
+    {
+      "camera": "OD",
+      "host": "olive",
+      "files_byte_equal": {
+        "task.json": true,
+        "reference.npz": true,
+        "source_original_receipt.json": true,
+        "source_portable_receipt.json": true,
+        "union_resolver.py": true,
+        "seed_policy_v5.json": true
+      },
+      "reference_blob_byte_equal": true,
+      "source_png_symlink_target_equal": true,
+      "complete_task_metadata_equal": true
+    }
+  ]
+}

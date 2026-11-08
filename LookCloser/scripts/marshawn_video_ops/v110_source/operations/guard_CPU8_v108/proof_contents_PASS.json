@@ -1,0 +1,21 @@
+{
+  "status": "pass",
+  "current_visibility_proofs": 12,
+  "all_proof_contents_equal_except_created_and_snapshot_root": true,
+  "records": [
+    "FD_person3.json",
+    "GD_person1.json",
+    "MD_person20.json",
+    "EE_person5.json",
+    "FC_person0.json",
+    "MD_person2.json",
+    "FD_person0.json",
+    "NB_person5.json",
+    "GC_person14.json",
+    "FC_person9.json",
+    "ND_person11.json",
+    "FD_person9.json"
+  ],
+  "no_source_modified": true,
+  "created": 1794098335.9848237
+}

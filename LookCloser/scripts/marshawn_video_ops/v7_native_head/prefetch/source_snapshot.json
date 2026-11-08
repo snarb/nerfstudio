@@ -1,0 +1,20 @@
+{
+  "campaign": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107",
+  "files": [
+    {
+      "file": "marshawn_native_prefetch_v77.py",
+      "campaign_relative_path": "operations/marshawn_native_prefetch_v77.py",
+      "sha256": "947a099f0f6fbe3df13ea85fa82b36243a41ddc7d83de525594306d660b8250b"
+    },
+    {
+      "file": "release.json",
+      "campaign_relative_path": "operations/native_prefetch_v77/release.json",
+      "sha256": "2d4e68f200ed6a65e87ecef01c3e67a87d5a1a0654020cb6e3f1067a1b0d4d27"
+    },
+    {
+      "file": "CPU_qualification.json",
+      "campaign_relative_path": "operations/native_prefetch_v77/CPU_qualification.json",
+      "sha256": "cb39e53933fdd5ab83394c3b1301c88c7e9e0aea91563686111db1f891fdb066"
+    }
+  ]
+}

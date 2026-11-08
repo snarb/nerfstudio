@@ -1,0 +1,37 @@
+{
+  "authorized": true,
+  "authorized_by": "ExplicitROOTvisualreleaseV3ofthisturn",
+  "box_sha256": "bdf73f903420544065680bf1c55c6c864d8ecde99f37e48938cc92cf3ca2d15f",
+  "source_inventory_sha256": "b1876909f6ef2d11badb3c95f2e72d3e015eee59c6f4ac6a7bed4118c97520fe",
+  "scripts_sha256": {
+    "marshawn_video_prep_inputs.py": "f41b3768dc0eb94c5b4c9f410881e71335dacfc2a73a37c41e9592ede8fef978",
+    "marshawn_video_prep_sources.py": "6c6b3d6ea7260ebec18d76839d50146ea2890f7a8e65931204a52663189d9c42",
+    "marshawn_video_prep_masks.py": "48f1cebeded7b9998c65783a87c4eba7accbb91cc1e5525d860f34d95ea126bb",
+    "marshawn_video_prep_mask_components.py": "10049fe9b448e1e0ab993acc11eb64e709cd65066ebb507674df90cd40c3d8c4",
+    "marshawn_video_prep_data.py": "cc983d0d2d4c6f40e8c01219317a183b42e1e5042668f74bff3e730db8bd23c0",
+    "marshawn_video_prep_gate.py": "7abb81169a6428888ac6a5a31cfe6b61c7b9309517737a926816bc2f73db48e2",
+    "marshawn_video_support.py": "82ef1e558edce9602f586396ba6648b02558d0feabf17ce9d25d88427c02b266",
+    "marshawn_video_prep_producer.py": "c2a92e94b708a007efaf878b835c5265e62484befb1b440d9b5c8b69b6e2c99e",
+    "prepare_marshawn_tuning.py": "d5f4e0660043b72322911205d96d134d20c24cbcc1a1843c776a0b184d818a0a",
+    "prepare_marshawn_color_variants.py": "c1e6fef6b12119ef828bd8722dac2d628de0380403357abcde7487d6869d6e89",
+    "marshawn_actor_coordinates.py": "d4d6be06068b7cd2957375fbd2d857d4c8d75675b464dc8b4f900c31ab78b9f0",
+    "marshawn_actor_confidence.py": "28b1c8aa6325acfcfef575ae2f1c3969daea9fad4640d041c42da148894536fa",
+    "mask_visual_hull_aabb.py": "bf1339a8dd1c65e5fd0dda925edb6e69ed68a46b7566dbe5648a2ca4e15fb835",
+    "marshawn_semantic_cell_admission.py": "b8393073012ba9a6606babcfa29ae91b14774407f909bb188f18fbe90495fefd"
+  },
+  "source_files_sha256": {
+    "/fsx/tmp/marshawn_001660_hd/color_variants/radial_k4_joint_scalar_DIAGNOSTIC/sdr_png/transforms.json": "79893ade1ef2fbab92b9f1e0891bcb925be9ae4abc8d79a21238c209c5fb4406",
+    "/fsx/tmp/marshawn_001660_hd/report/shared_radial1660_train_PRECHECK/fit_k4.json": "272478de1e9d563961d0553c8009c2d5972fdf628d407f40d90485d6e9af9355",
+    "/fsx/oregon/gta_marshawn_2_1_prep_20261028/root/Marshawn_2_1/golden/rig/images.txt": "74cc5ca92ecd254729dd74876c3086e78e12ec959ca1729ce0c19aa507961ebc",
+    "/fsx/oregon/gta_marshawn_2_1_prep_20261028/root/Marshawn_2_1/golden/rig/cameras.txt": "6710f5563ea3831c6e53ea95894b4d166a33d2e15c3d2a26a38490acb2a9e893",
+    "/fsx/oregon/gta_marshawn_2_1/six_sec_20261019/code/engine_gta_pv_export/ca4d/ca4d/pq.py": "87e424399143ccffb8c2ba993d5d119b85f51f37d8904209777a6b386814d175",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/confidence_native_hair_v2/manifest.json": "1f7f28751aac5ae7486ff8392606cf6c09bd2118eef934dbf64c1171d96aabc3",
+    "/fsx/tmp/marshawn_001660_hd/two_actor_isolation/automatic_aabb/input_v2/manifest.json": "e127a7f97a01f0cfae8a765781088ca76a12c8a1e5b7de76551646324a175184"
+  },
+  "source_review_manifest_sha256": "bd7ef27dbb535a8b27631cfd30819dfc8955e106dc48a3ccb7077e149f1f79b2",
+  "ALL66_TRAIN": true,
+  "each_model_fully_cold": true,
+  "learned_occupancy_transfer": false,
+  "frequency_map_transfer_between_frames": false,
+  "scope": "Chronologicalnativepreparationandverifieddispatch72frames; trainingbyseparateconsumer"
+}

@@ -1,0 +1,40 @@
+{
+  "kind": "INACTIVE_TRANSACTIONAL_ORDERED_NATIVE_BODY_PACK_CPU8_RELEASE_V2",
+  "authorized": false,
+  "created": 1794100283.8351476,
+  "files_sha256": {
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/native_pack_cpu8_v2/marshawn_native_pack_cpu8.py": "917728fda0d2e1485005c6ef0ddb8c59b05752cd65432ec1c7ddf017e060872a",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/native_pack_cpu8_v2/marshawn_native_pack_cpu8_parity.py": "49a1160ed8e26292ba92783d780e3da26cbe0a16f43848c772ac9fd1d694cd8e",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/native_pack_cpu8_v2/marshawn_native_pack_cpu8_crash_test.py": "4bf0bb74195af981a8d7048c1d63d67e84f69e5c71181f519314e0c30fc095ac",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/native_pack_cpu8_v2/marshawn_native_pack_cpu8_lock_test.py": "4fb17a1086b76aa154793ea5ddb9922de259383e27d053d0d9d58f552d76b1f0",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/code/marshawn_sam3_assist.py": "f81902e04bca3e1233f8dccbc826add417899122a26e8c3f1bcba2db7cfecb16",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/code/marshawn_sam3_assist_v5.py": "1f597493b8c4696556b440969e457e71ad7b1f587004eb42ff30e1929833876b",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/code/marshawn_sam3_union_capture_v5.py": "33aed8be65c745720c1bc3cf1bfb9b5c48b38c2f5640f87f7577bd0a384bd3a0",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_union_resolution_v5.py": "31e4d16836c581423bc14906be60e9a0934ebd932cea22545a5daac68d94e610"
+  },
+  "qualification_sha256": {
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/native_pack_cpu8_v2/parity.json": "457c8206fb44cb1f7aa45e1c820ffd837fcfc69223a94551dd4b9389d3afe1dc",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/native_pack_cpu8_v2/orphan_lock_regression_final/report.json": "c14a89d2ccaace2ef5f97bf15d08dade8d6c380c8dd5dddd1638443329c0630c",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/native_pack_cpu8_v2/canonical_crash_regression/report.json": "a3e5ed990e8d1ab6152fd5e72d885d5d84db4da8aa7bbd005e4b8cf608a4fbf2",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/native_pack_cpu8_v2/legacy_quarantine_canary.json": "1cab44d73ecd851e14901662ec0af5d91d18b0492a46cff18b78e36354ad6567"
+  },
+  "snapshot_manifest_sha256": "07ae6a541db4d573bcaf85ded09b5bc4d748aa4d92b7e7c7ca754db4ffc0b193",
+  "execution_sha256": "37ee8e287cb89a25dc405a6ddf83dadcd2f1d3e0c0d553e9bf597b9089a0c84d",
+  "elapsed_seconds": 191.79153490066528,
+  "observed_original_serial_task_span_seconds": 416,
+  "benchmark_limit": "One cached-input replay; not controlled repeated benchmark.",
+  "workers": 8,
+  "api": "from native_pack_cpu8_v2.marshawn_native_pack_cpu8 import pack_records; records, execution=pack_records(V,frame,cameras,root,release,workers=8)",
+  "changes": [
+    "per-camera process pool; original camera/silver-olive order",
+    "per-camera flock survives factory-parent crash",
+    "original pack into private transaction directory, complete source/hash validation then atomic directory rename",
+    "strict same-frame/camera/code/path/current-reference completed-task adoption",
+    "interrupted unsealed owned bundle retained separately; no source data deleted"
+  ],
+  "canonical_adapters_and_NN_unchanged": true,
+  "all132_task_inputs_byte_equal": true,
+  "prepared_source_or_field_publication": false,
+  "activation_owner": "video_prepare sole source factory producer",
+  "supersedes_unactivated_candidate_release_sha256": "be8162738a30878701456636f5815252c9e31ca9a7468c82edc3a08a7bc5bc51"
+}

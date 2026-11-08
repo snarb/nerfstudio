@@ -1,0 +1,33 @@
+{
+  "kind": "ROOT_EXACT_RAW_PROPOSAL_CONFLICT_UNKNOWN_ACCOUNTING_APPROVAL",
+  "time": 1794092062.2779617,
+  "frame": 1690,
+  "camera": "NB",
+  "candidate": 5,
+  "proof_sha256": "c8ea9a5783ab1d2ab6d80ea9a2f746c3d55c7f5d1f28e4c5adcfbd290cb8d965",
+  "personally_viewed_native_contact_sha256": "653d8e7b37ee3ff3a54314dc4b392b195551660d893c5470b7e3ee55bfeab1d1",
+  "scope": "EXACT intersection of original global-person masks[2]|masks[8] with current candidate5",
+  "scope_pixels": 3511,
+  "source_bindings": {
+    "candidate_archive_sha256": "4626544c41cbe788955e1523d1d00e750492a42d337851635ffd0e75101a0819",
+    "PRE_archive_sha256": "817aff9ab8cc5020b62b746e61d885b20ec72a6752750b0ef719d53a369a9f2a",
+    "native_archive_sha256": "c65ba91aa959c224c6c26fe0ab7c58e2719b8118f4c9f066489d41dca0f392fd",
+    "RAW_sha256": "fbbe73427bb57b674663ee1ee57db657e3afed5df35017576bf17bc633a07ca5"
+  },
+  "decision": "ALLOW_GUARD_ACCOUNTING_EXCEPTION_AS_UNRESOLVED_PROPOSAL_ONLY",
+  "visual_observation": "Thin occlusion rim mostly follows background jacket/forearm; detached dark sliver remains visually unresolved. This is not a nonactor or physical-empty certificate.",
+  "mandatory_before_apply": [
+    "save exact3511 mask with SHA and verify all input bindings",
+    "refined current PRE/A/H/current qualified hair overlaps all zero",
+    "every scope pixel already current veto AND physical-geometry UNKNOWN",
+    "final current W32/W64 are zero on scope and entire DATA image/weights byte unchanged",
+    "preserve original RAW selected PRE unmodified for audit",
+    "change only scoped PRE hard-conflict accounting; generic hard-fail retained"
+  ],
+  "forbidden": [
+    "whole candidate exception",
+    "NONACTOR/CREW/FG/free labels from this approval",
+    "native/H/veto/UNKNOWN/RGB/weights/grid changes",
+    "reuse exception on another frame/camera"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "kind": "ROOT_AUTHORIZED_ONE_FRAME_AHEAD_CURRENT_NN_ONLY_PREFETCH_V77",
+  "authorized": true,
+  "ROOT_authorization": "ROOT authorized one-frame-ahead CURRENTqualified2D native prefetch afterimmutableguard/native/head proof, sharedexactadoptionlocks, no oldbitmapFG orlearnedstate, no speculativepublication",
+  "files_sha256": {
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_native_prefetch_v77.py": "947a099f0f6fbe3df13ea85fa82b36243a41ddc7d83de525594306d660b8250b",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/source_producer_v76_release.json": "966a5fb3a21eea059108aec3937c2f122388c89e4e5b4976f9eabda20b085032",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_source_producer_v76.py": "1ca230a57de8099b6b34c4b1c810030a6b74b8ba8345b8e6ae0c756fe6c44d58",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/v5/native_future_release_v7.json": "a42fae022972b04b93f75804a5e164bcf76127611c8f5b6fc4ce0e2d66549068",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/code/marshawn_mask_assist_full_v7.py": "0d32712b8c6b2579ec1c590c5c734cd6d5049eef22ea6fc58c993e5aac282ba3",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_native_prefetch_v111.py": "5dc84564a0b0f70ca5d91f8873baf73d79189476d14ab26f345ad2c742517627",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/code/marshawn_native_route_v111.py": "59dfc29cfc25bd2c69150b8751835c134b805c28f903f14ec6e75e00a59eaf41",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/v5/native_future_release_v111.json": "95ace4a52ce5bf62c2125cca89e161a447f58dd65acb35d2dab3af8da9defdb6"
+  },
+  "sourceproducer_retains_live_install_alias_HEAD_DATA_publication_ownership": true,
+  "created": 1794100782.6063735,
+  "ROOT_pack_authorization_sha256": "c4ef766c4b940726813a5d256a123ada97995c8e2dba4bdd44043db0e1cce31d",
+  "preserve_existing_BODY_owners": true
+}

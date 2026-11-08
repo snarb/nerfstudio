@@ -1,0 +1,27 @@
+{
+  "kind": "ROOT_CURRENT_NATIVE_WRIST_COMPONENT_CLOSURE_VISUAL_APPROVAL",
+  "time": 1794093266.8937593,
+  "frame": 1690,
+  "camera": "MD",
+  "instance": 7,
+  "component": 3,
+  "component_pixels": 11269,
+  "already_qualified_A_H_pixels": 7744,
+  "new_union_pixels": 3525,
+  "proof_sha256": "db720b98f23152c147e3f5827c9207fd29d4b721d8125c6a5e6da5e69af15286",
+  "native_sha256": "49df6ea2a4797e25c634607b6387a6cf4e295e1ac0de57482a44c2ca9375dd94",
+  "candidate_sha256": "6ed69e39fb31b041350d3303ff8bf1a2f8ca9fb22a9a01081c8258722180492a",
+  "component_array_sha256": "99b9b5b8dd43140c16baf742e72ef6addc577a2f095c61522270d99c4408118c",
+  "delta_array_sha256": "0c273cd0e4b33c5674fce16ae5de68219d9c35ce9b01a05b05bc741493aef785",
+  "personally_viewed_native_image_sha256": "b00e77842b2498a00461f81dc5ac42669b125842ca8fe9d7ef9f2c4bfd1a379f",
+  "decision": "APPROVE_EXACT_CURRENT_COMPONENT_RESIDUAL_ACTOR_UNION",
+  "reason": "Yellow residual shows gray sleeve/cuff adjoining the independently qualified current hand plus a thin hand contour; no upper bald crew component. Previously reviewed MC/NC support the tucked gray hand anatomy. Independently qualified current crew cores overlap zero.",
+  "constraints": [
+    "only3525 exact current residual pixels",
+    "preserve original hand7744 and all prior labels/H/geometryUNKNOWN",
+    "new pixels ownership_uncertain; trimvetoexactdelta",
+    "no other MDperson7components approval",
+    "do not replace this rescue with RAW-boundary UNKNOWN waiver",
+    "sourceDATA/QA and actual grid/dense before coldtraining"
+  ]
+}

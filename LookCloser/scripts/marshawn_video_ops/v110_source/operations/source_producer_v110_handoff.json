@@ -1,0 +1,22 @@
+{
+  "retired_exact_CPU_owners": [
+    {
+      "pid": 2381806,
+      "start": "247448730",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "state": "R"
+    },
+    {
+      "pid": 2381810,
+      "start": "247448757",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "state": "R"
+    }
+  ],
+  "new_watchdog_pid": 2383549,
+  "release_sha256": "87ab2680e9dc423f8cfb8c2dfbf19cfce90c21b1734452bd46cd2fdc7bcf8426",
+  "scope_guard_proof_sha256": "c46141d3bb962826a462b2a1dbef7e35e78736eaf671af9abaf6d2f0dfd906a4",
+  "no_NN_field_frequency_or_published_source_modified": true,
+  "canonical_writer_lock_held": true,
+  "created": 1794099964.5321536
+}

@@ -1,0 +1,411 @@
+{
+  "kind": "ACTUAL_ALL66_POSTAPPLICATION_GUARD_CPU8_PARITY",
+  "status": "pass",
+  "frame": 1690,
+  "cameras": 66,
+  "records": [
+    {
+      "camera": "AA",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 7.817976236343384,
+      "maxrss_kib": 1413316
+    },
+    {
+      "camera": "AB",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 11.953551769256592,
+      "maxrss_kib": 1690144
+    },
+    {
+      "camera": "AC",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 13.831565380096436,
+      "maxrss_kib": 1829280
+    },
+    {
+      "camera": "AD",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 14.224356651306152,
+      "maxrss_kib": 1642808
+    },
+    {
+      "camera": "BA",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 5.423793077468872,
+      "maxrss_kib": 1206180
+    },
+    {
+      "camera": "BB",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 7.733257532119751,
+      "maxrss_kib": 1414364
+    },
+    {
+      "camera": "BC",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 12.605594635009766,
+      "maxrss_kib": 1759972
+    },
+    {
+      "camera": "BD",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 13.399534225463867,
+      "maxrss_kib": 1759440
+    },
+    {
+      "camera": "CA",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 4.521270990371704,
+      "maxrss_kib": 1206180
+    },
+    {
+      "camera": "CB",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 7.279474258422852,
+      "maxrss_kib": 1414592
+    },
+    {
+      "camera": "CC",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 14.571828603744507,
+      "maxrss_kib": 1642548
+    },
+    {
+      "camera": "CD",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 9.800125360488892,
+      "maxrss_kib": 1296732
+    },
+    {
+      "camera": "CE",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 4.56370210647583,
+      "maxrss_kib": 1690144
+    },
+    {
+      "camera": "DA",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 5.137826681137085,
+      "maxrss_kib": 1759972
+    },
+    {
+      "camera": "DB",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 4.923647880554199,
+      "maxrss_kib": 1759440
+    },
+    {
+      "camera": "DC",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 9.549004793167114,
+      "maxrss_kib": 1829280
+    },
+    {
+      "camera": "DD",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 5.293816804885864,
+      "maxrss_kib": 1642808
+    },
+    {
+      "camera": "DE",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 11.718543529510498,
+      "maxrss_kib": 1435116
+    },
+    {
+      "camera": "EA",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 4.878724098205566,
+      "maxrss_kib": 1690144
+    },
+    {
+      "camera": "EB",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 11.230848550796509,
+      "maxrss_kib": 1759972
+    },
+    {
+      "camera": "EC",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 10.608513832092285,
+      "maxrss_kib": 1759440
+    },
+    {
+      "camera": "ED",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 5.0926618576049805,
+      "maxrss_kib": 1642808
+    },
+    {
+      "camera": "EE",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 15.49337363243103,
+      "maxrss_kib": 1953872
+    },
+    {
+      "camera": "FA",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 5.66542387008667,
+      "maxrss_kib": 1690144
+    },
+    {
+      "camera": "FB",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 9.83389687538147,
+      "maxrss_kib": 1642548
+    },
+    {
+      "camera": "FC",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 20.469839096069336,
+      "maxrss_kib": 2092284
+    },
+    {
+      "camera": "FD",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 20.771960973739624,
+      "maxrss_kib": 2092060
+    },
+    {
+      "camera": "FE",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 11.074244737625122,
+      "maxrss_kib": 1435612
+    },
+    {
+      "camera": "GA",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 7.160937309265137,
+      "maxrss_kib": 1690144
+    },
+    {
+      "camera": "GB",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 14.126652956008911,
+      "maxrss_kib": 1759440
+    },
+    {
+      "camera": "GC",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 19.674307346343994,
+      "maxrss_kib": 2369044
+    },
+    {
+      "camera": "GD",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 17.87407422065735,
+      "maxrss_kib": 2230440
+    },
+    {
+      "camera": "GE",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 10.702382326126099,
+      "maxrss_kib": 1690144
+    },
+    {
+      "camera": "HA",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 7.001204013824463,
+      "maxrss_kib": 1953872
+    },
+    {
+      "camera": "HB",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 10.366042137145996,
+      "maxrss_kib": 1505932
+    },
+    {
+      "camera": "HC",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 9.518754005432129,
+      "maxrss_kib": 1953872
+    },
+    {
+      "camera": "HD",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 10.73736572265625,
+      "maxrss_kib": 1759440
+    },
+    {
+      "camera": "HE",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 10.42734432220459,
+      "maxrss_kib": 2092284
+    },
+    {
+      "camera": "IA",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 7.3816077709198,
+      "maxrss_kib": 1690144
+    },
+    {
+      "camera": "IB",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 10.359466552734375,
+      "maxrss_kib": 2092060
+    },
+    {
+      "camera": "IC",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 10.997700691223145,
+      "maxrss_kib": 1972640
+    },
+    {
+      "camera": "ID",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 9.038022518157959,
+      "maxrss_kib": 2369044
+    },
+    {
+      "camera": "IE",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 16.135875463485718,
+      "maxrss_kib": 2230440
+    },
+    {
+      "camera": "JA",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 8.215901613235474,
+      "maxrss_kib": 1953872
+    },
+    {
+      "camera": "JB",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 12.382094144821167,
+      "maxrss_kib": 1972584
+    },
+    {
+      "camera": "JC",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 21.582629680633545,
+      "maxrss_kib": 2526024
+    },
+    {
+      "camera": "JD",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 8.97203516960144,
+      "maxrss_kib": 2092284
+    },
+    {
+      "camera": "JE",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 20.254241704940796,
+      "maxrss_kib": 2354492
+    },
+    {
+      "camera": "KA",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 5.2754762172698975,
+      "maxrss_kib": 2369044
+    },
+    {
+      "camera": "KB",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 11.354999303817749,
+      "maxrss_kib": 1972640
+    },
+    {
+      "camera": "KC",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 14.550426721572876,
+      "maxrss_kib": 2145640
+    },
+    {
+      "camera": "KD",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 18.94768452644348,
+      "maxrss_kib": 2369044
+    },
+    {
+      "camera": "LA",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 10.666072607040405,
+      "maxrss_kib": 2092284
+    },
+    {
+      "camera": "LB",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 15.239672422409058,
+      "maxrss_kib": 2180032
+    },
+    {
+      "camera": "LC",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 25.56351089477539,
+      "maxrss_kib": 2630012
+    },
+    {
+      "camera": "MA",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 11.557800769805908,
+      "maxrss_kib": 1972640
+    },
+    {
+      "camera": "MB",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 27.24937343597412,
+      "maxrss_kib": 2719336
+    },
+    {
+      "camera": "MC",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 24.796236038208008,
+      "maxrss_kib": 2583876
+    },
+    {
+      "camera": "MD",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 25.63413667678833,
+      "maxrss_kib": 3026552
+    },
+    {
+      "camera": "NA",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 17.191910982131958,
+      "maxrss_kib": 2354492
+    },
+    {
+      "camera": "NB",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 26.090508699417114,
+      "maxrss_kib": 3234868
+    },
+    {
+      "camera": "NC",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 21.07302165031433,
+      "maxrss_kib": 2369044
+    },
+    {
+      "camera": "ND",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 23.742911338806152,
+      "maxrss_kib": 3027332
+    },
+    {
+      "camera": "NE",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 18.02928853034973,
+      "maxrss_kib": 2630012
+    },
+    {
+      "camera": "OA",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 19.30505633354187,
+      "maxrss_kib": 2492588
+    },
+    {
+      "camera": "OD",
+      "status_and_all_normalized_decisions_equal": true,
+      "elapsed": 26.35702681541443,
+      "maxrss_kib": 2838920
+    }
+  ],
+  "parallel_elapsed_seconds": 126.74224805831909,
+  "original_actual4pool_seconds": 192,
+  "source_factory_sha256": "e25def7195066a56f8d37cb1953772da32e743b0e9974fd147fc90e9da839e6a",
+  "normalization": "Only created timestamps and dynamically regenerated proof SHA fields omitted; input *_sha256 and all decision contents/order retained",
+  "canonical_write_audit_enforced": true,
+  "no_canonical_source_or_model_modified": true,
+  "created": 1794098119.2568665
+}

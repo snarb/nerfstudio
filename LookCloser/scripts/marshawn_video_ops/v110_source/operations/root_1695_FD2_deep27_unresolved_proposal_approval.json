@@ -1,0 +1,154 @@
+{
+  "kind": "ROOT_EXACT_COARSE_RAW_PROPOSAL_UNKNOWN_ACCOUNTING_APPROVAL",
+  "time": 1794099709.073379,
+  "frame": 1695,
+  "camera": "FD",
+  "instance": 2,
+  "component": 2,
+  "approved": true,
+  "scope_native_xy": [
+    [
+      3740,
+      3203
+    ],
+    [
+      3741,
+      3203
+    ],
+    [
+      3740,
+      3204
+    ],
+    [
+      3741,
+      3204
+    ],
+    [
+      3739,
+      3205
+    ],
+    [
+      3740,
+      3205
+    ],
+    [
+      3741,
+      3205
+    ],
+    [
+      3739,
+      3206
+    ],
+    [
+      3740,
+      3206
+    ],
+    [
+      3741,
+      3206
+    ],
+    [
+      3739,
+      3207
+    ],
+    [
+      3740,
+      3207
+    ],
+    [
+      3741,
+      3207
+    ],
+    [
+      3739,
+      3208
+    ],
+    [
+      3740,
+      3208
+    ],
+    [
+      3741,
+      3208
+    ],
+    [
+      3738,
+      3209
+    ],
+    [
+      3739,
+      3209
+    ],
+    [
+      3740,
+      3209
+    ],
+    [
+      3737,
+      3210
+    ],
+    [
+      3738,
+      3210
+    ],
+    [
+      3739,
+      3210
+    ],
+    [
+      3737,
+      3211
+    ],
+    [
+      3738,
+      3211
+    ],
+    [
+      3737,
+      3212
+    ],
+    [
+      3738,
+      3212
+    ],
+    [
+      3737,
+      3213
+    ]
+  ],
+  "scope_pixels": 27,
+  "scope_definition": "R AND originalRAWselectedPRE AND rawPREinteriorDistance>32; ONLY these27 listed pixels",
+  "proof_sha256": "d23b19ce374e1ecf8e9804e5f39972eddd08f9279be663c2b28ed1940deebb2e",
+  "scope_json_sha256": "c126f17d2307a162c1f6609577bd4c54d44cd29978cd2a7e132c95b2b1b1cd9b",
+  "personally_viewed": [
+    {
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1695_FD2_readonly/FD2_27deep_RAW_contact.png",
+      "sha256": "3101a3316fdae6508d32423182c542b532a6fa3c89dc3bb019526932c9f37f14"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1695_FD2_readonly/FD2_component2_native_contact.jpg",
+      "sha256": "dc8e45c8dd96e61b2142b12cc961c5686755531bf6f4a24d537f2b80fbe247ab"
+    },
+    {
+      "path": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1695_FD2_readonly/FD_full_source.jpg",
+      "sha256": "f12cc2b85b1e88b11c2b35df329f25f5c2058bd87ebc6ed8f4ff952f18010529"
+    }
+  ],
+  "bindings": {
+    "source_native_sha256": "db6161283907cf8259a7c598f83237f0ce9796eac3d26397dc5be0ab8a17ce11",
+    "person_archive_sha256": "bfd7517de71a218297bc14b10df644f9b730b476d8ba251a6c849be3e8c09180",
+    "native_archive_sha256": "860591ebef3e1fab17f633ae4d8f05ee064237f93516953e55c7452e04b5d5e2",
+    "refined_PRE_sha256": "2a2c8136f67092a9af8af76e785cfac2075d82ea6ceabad97e69caa719abcbdd",
+    "guard_sha256": "ad6d42103350f5516cf07ea8a13f2be984563d3ab50152bf086f7ec068596990"
+  },
+  "decision": "ALLOW_ONLY27_UNRESOLVED_PROPOSAL_PIXELS_IN_GUARD_ACCOUNTING",
+  "reason": "Tiny dark occlusion patch has no unmistakable actor-core certificate. Native/current refinedPRE excludes it, currentA/H unchanged, physicalUNKNOWN/sourceveto already true. This is not a nonactor, knowncrew, foreground or physical-empty certificate.",
+  "requirements": [
+    "verify exact listed27 current pixels areR/refinedPRE0/A0/H0/currentveto1/geometryUNKNOWN1",
+    "preserve original RAWselectedPRE for audit",
+    "subtract only27 from RAW deep-conflict accounting; other3053 contour pixels use existing qualified rule",
+    "native/core/sourceUNKNOWN/veto/RGB/W32/W64/grid arrays unchanged; record actual original weights honestly, UNKNOWN is not zero-loss proof",
+    "generic32 threshold and deeper actualactor/CREW failures remain unchanged",
+    "no wholeperson or wholecomponent FG/free/CREW promotion"
+  ]
+}

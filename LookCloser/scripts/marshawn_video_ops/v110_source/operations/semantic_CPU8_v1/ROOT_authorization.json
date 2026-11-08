@@ -1,0 +1,23 @@
+{
+  "kind": "ROOT_QUALIFIED_CPU8_SEMANTIC_EXECUTION_AUTHORIZATION",
+  "authorized": true,
+  "time": 1794097125.9512217,
+  "release_inputs_sha256": "0d58933bdc71437c04d5083f89ed7695817250595fefbaa64305f73232997225",
+  "verified_input_hashes": {
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/semantic_CPU8_v1/marshawn_semantic_qualification_cpu8.py": "27b7207267c0fd0719af8553fbbaed7ea217432431019a590c7e646c4b97416c",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_current_parts_v105.py": "838e6b701e152d6591a1dbe7db33fd0196238ea0d0f2a80df56f2ef2cc4a5831",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/semantic_CPU8_v1/parity.json": "aad3337920ef0cb21858c0194b07da5c06dc3fa7c5f011c3e970f9bff05e6ddc",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/semantic_CPU8_v1/import_api_canary.json": "be21c32d55df07ec0c689e5ee387f58b680378a2565f81d4618cda3a4de55a1f"
+  },
+  "decision": "APPROVE_SOLE_PRODUCER_VERSIONED_INTEGRATION",
+  "scope": "Same v105 pure semantic function; camera grouped8processes/native threads1, immutable per-camera archives/original result order. No science/threshold/field/RGB/orderedapply changes.",
+  "prerequisite": "1690actualcoldSG1trainer1577904verified",
+  "producer_owner": "video_prepare only; no alternate producer",
+  "requirements": [
+    "new versioned release binds this authorization/helper/core/parity",
+    "canonical source writer lock and exact prior CPUowner retirement",
+    "closure/guard4to8 keep same functions/order/masks; qualify separately",
+    "no published source/modelDATA edits",
+    "record actual next-frame timings and memory"
+  ]
+}

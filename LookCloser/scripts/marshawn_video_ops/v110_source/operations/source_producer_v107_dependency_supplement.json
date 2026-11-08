@@ -1,0 +1,13 @@
+{
+  "kind": "READ_ONLY_SUPPLEMENTAL_IMPORTED_DEPENDENCY_SEAL_V107",
+  "dependency": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_current_parts_v96.py",
+  "sha256": "ca25d369bcd5acff8f4e32f71fa7043e448710bb27aab933d4019b7a8283a744",
+  "actual_importer": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_current_component_closure_v106.py",
+  "actual_importer_sha256": "4688dfd295b8e0247ac1615ee2a2d0fb629a22eb4ca994a6f4d930e94e487890",
+  "only_imported_function": "crew_core",
+  "function_AST_identical_to_already_sealed_dependency": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_current_parts_v105.py",
+  "function_AST_sha256": "c4ad1f87133ce9b89a02c8ebfd05c1160ec72def62271442e2d46d20e2c1100e",
+  "primary_release_unchanged": true,
+  "no_runtime_or_source_arrays_changed": true,
+  "created": 1794095208.5879037
+}

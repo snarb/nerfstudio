@@ -1,0 +1,20 @@
+{
+  "pid": 2383773,
+  "argv": [
+    "/home/pavlo/.conda/envs/nerfstudio/bin/python",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/native_pack_cpu8_v2/marshawn_native_pack_cpu8.py",
+    "--campaign",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/native_pack_cpu8_v1/snapshot",
+    "--frame",
+    "1695",
+    "--task-root",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/native_pack_cpu8_v2/parallel",
+    "--release",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/v5/native_future_release_v7.json",
+    "--campaign-identity",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107",
+    "--logical-root",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/v5/frame001695"
+  ],
+  "helper_sha256": "917728fda0d2e1485005c6ef0ddb8c59b05752cd65432ec1c7ddf017e060872a"
+}

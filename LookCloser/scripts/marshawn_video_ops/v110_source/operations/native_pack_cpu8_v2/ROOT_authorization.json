@@ -1,0 +1,31 @@
+{
+  "kind": "ROOT_TRANSACTIONAL_NATIVE_BODY_PACK_CPU8_AUTHORIZATION_V2",
+  "authorized": true,
+  "time": 1794100359.238346,
+  "release_inputs_sha256": "e08507ee2a739df051bc496f54301b9ec770a353ed2f6fda1740b7dfb33902e1",
+  "verified_file_sha256": {
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/native_pack_cpu8_v2/marshawn_native_pack_cpu8.py": "917728fda0d2e1485005c6ef0ddb8c59b05752cd65432ec1c7ddf017e060872a",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/native_pack_cpu8_v2/marshawn_native_pack_cpu8_parity.py": "49a1160ed8e26292ba92783d780e3da26cbe0a16f43848c772ac9fd1d694cd8e",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/native_pack_cpu8_v2/marshawn_native_pack_cpu8_crash_test.py": "4bf0bb74195af981a8d7048c1d63d67e84f69e5c71181f519314e0c30fc095ac",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/native_pack_cpu8_v2/marshawn_native_pack_cpu8_lock_test.py": "4fb17a1086b76aa154793ea5ddb9922de259383e27d053d0d9d58f552d76b1f0",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/code/marshawn_sam3_assist.py": "f81902e04bca3e1233f8dccbc826add417899122a26e8c3f1bcba2db7cfecb16",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/code/marshawn_sam3_assist_v5.py": "1f597493b8c4696556b440969e457e71ad7b1f587004eb42ff30e1929833876b",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/code/marshawn_sam3_union_capture_v5.py": "33aed8be65c745720c1bc3cf1bfb9b5c48b38c2f5640f87f7577bd0a384bd3a0",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_union_resolution_v5.py": "31e4d16836c581423bc14906be60e9a0934ebd932cea22545a5daac68d94e610",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/native_pack_cpu8_v2/parity.json": "457c8206fb44cb1f7aa45e1c820ffd837fcfc69223a94551dd4b9389d3afe1dc",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/native_pack_cpu8_v2/orphan_lock_regression_final/report.json": "c14a89d2ccaace2ef5f97bf15d08dade8d6c380c8dd5dddd1638443329c0630c",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/native_pack_cpu8_v2/canonical_crash_regression/report.json": "a3e5ed990e8d1ab6152fd5e72d885d5d84db4da8aa7bbd005e4b8cf608a4fbf2",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/native_pack_cpu8_v2/legacy_quarantine_canary.json": "1cab44d73ecd851e14901662ec0af5d91d18b0492a46cff18b78e36354ad6567"
+  },
+  "decision": "APPROVE_SOLE_PRODUCER_VERSIONED_INTEGRATION",
+  "requirements": [
+    "use only next unstarted BODY packing, never replace active old BODY inputs",
+    "per-camera flock/atomic bundles/strict current-reference adoption retained",
+    "all132 task/reference bytes, image symlink targets and parent order unchanged",
+    "no NN/crop/pixel/seed/field/math/threshold change",
+    "bindhelper917728fd/parity457c8206/thisauthorization in new producer release"
+  ],
+  "supersedes_revoked_v1_authorization": true,
+  "source_owner": "video_prepare only",
+  "old_v1_remains_revoked": true
+}
