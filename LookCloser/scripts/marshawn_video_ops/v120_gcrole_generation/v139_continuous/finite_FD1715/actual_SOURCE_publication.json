@@ -1,0 +1,21 @@
+{
+  "frame": 1715,
+  "status": "source_published_all66_QA_PASS",
+  "files_sha256": {
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001715/native_semantic_ready.json": "e63c6a4ef6861cee83f8b21b10f12323e7a0a1fa5d46b71215d4086390543566",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001715/data/prepared_ready.json": "39fc4a9373f9b867c1fefbbc3c71ca14e5882255cfd67095f14bc7697f4420f6",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001715/data/ready.json": "39acf64a44f17bc135e254b184afc276d52d69b2a9861e7620272dc4f52ef553",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001715/data/final_v5_source_QA.json": "a7643456a6c42039fef4de198a5e656eaac9c650785e10569a3c8bbeb5e50f04",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001715/data/visibility_unknown_QA_v74.json": "b6a6b4cda071121d727dfd09356584b3ea022f748527d8c4cbc7e98aae5356fd",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001715/crew_guard/plan_receipt.json": "10b211e9294771b8f90f0ded753fa5a99888e6875c026683a341651be16f7f0e"
+  },
+  "next_source_state": {
+    "pid": 2505556,
+    "frame": 1720,
+    "stage": "native_body_current",
+    "checked_at": 1794124819.7952075,
+    "worker_pid": 2601017
+  },
+  "new_field_requires_fresh_grid_and_dense": true,
+  "created": 1794124821.278301
+}
