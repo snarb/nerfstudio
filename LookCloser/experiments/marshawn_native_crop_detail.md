@@ -87,4 +87,103 @@ At the same 8000-iteration checkpoint, A contains 10767 maximum-level frequency 
 
 An actual66-camera profile isolated approximately 9 ms/batch of list-gather overhead: the same HD data and random draws take 8.61/12.06 ms as a tensor versus 17.96/21.23 ms as lists (warmup/FAS). A separate packed-CPU gather candidate reduces native gathering from about 9.45 ms to 0.33 ms, and full sampling from 18.32/22.02 ms to 9.30/12.99 ms. Packing costs about 0.59 seconds once and 2.81 GiB additional RAM. Actual RGB, masks, indices, confidence, normalization and random-number states are bit-identical in CPU checks.
 
-The candidate also handles CUDA camera-ID/index metadata with CPU image storage; actual GPU qualification remains pending. Running A–J are unchanged. A separate K arm will test the same H recipe from cold initialization with this gather optimization after a physical slot becomes free. No trained weights transfer between arms. [Profile evidence](/fsx/tmp/marshawn_native_crop_tuning_20261108/operations/cpu_sampling_profile_v2/summary.json).
+The candidate also handles CUDA camera-ID/index metadata with CPU image storage. An actual GPU canary passed exact RGB/mask and CPU/CUDA RNG checks, and cold K tested the same H recipe with this gather optimization. K's 8k/16k LPIPS is 0.213139/0.190916 versus H's 0.215638/0.193874; this does not attribute small GPU-training variation to mathematically unchanged gathering. Running A–J were unchanged. No trained weights transfer between arms. [Profile evidence](/fsx/tmp/marshawn_native_crop_tuning_20261108/operations/cpu_sampling_profile_v2/summary.json), [actual CUDA proof](/fsx/tmp/marshawn_native_crop_tuning_20261108/ops/K_fast_gather/actual_GPU_canary.json).
+
+### 32000-iteration gate
+
+| Arm | PSNR | SSIM | LPIPS |
+|---|---:|---:|---:|
+| A native reference |29.782408|0.709723|0.156527|
+| B corrected allocation |29.785252|0.710604|0.155978|
+| C projection Jacobian |29.781846|0.708910|0.157870|
+| D smaller marching floor |29.759243|0.709165|0.156853|
+| E higher sample cap |29.732521|0.709954|0.157258|
+| F coarser traversal |29.614516|0.700949|0.167085|
+| G smaller point budget |29.257211|0.680112|0.199335|
+| H shorter schedule |29.705287|0.699527|0.171812|
+| I HD training, native evaluation |29.067315|0.655165|0.194555|
+
+B improves LPIPS by 19.83% relative to the matched HD control, with +0.718 dB PSNR and +0.0554 SSIM. Root inspected unscaled native face/cloth comparisons. The shorter LR50k/FR20k bundle loses its early advantage; it is not selected. Coarser traversal and the 524288-point budget also lose quality. Smaller marching steps and a higher cap do not improve masked LPIPS at this gate, although their opacity behavior differs. A/B continue to 80k to observe the original FR75941 phase; D continues to50k for geometry comparison. These remain intermediate results, not a saturation claim.
+
+Native source versus HD comparison: [grey face](/fsx/tmp/marshawn_native_crop_tuning_20261108/review/32k_native_vs_HD/grey_head_comparison_1to1.png). Fixed novel views are also rendered from the same interpolated cameras. The HD control still contains substantial floor/background residue; actor metrics do not certify clean isolated geometry. [Novel control](/fsx/tmp/marshawn_native_crop_tuning_20261108/review/novel_032000/I_HD/contact.jpg).
+
+### Larger ray batches and phase timing
+
+Separate cold trials use the packed gather and parent B settings:
+
+| Arm | Rays/update | LR horizon | FR switch | Early LPIPS |
+|---|---:|---:|---:|---|
+| L |8192|200000|75941|8k:0.188851;16k:0.165181|
+| N |8192|100000|37971|8k:0.188911;16k:0.167777|
+| M |16384|50000|18986|8k:0.168235|
+
+L at8k approximately matches B at16k (0.190463), using the same cumulative ray count. M gains more per iteration but has a larger GPU footprint. Wall time, field-point counts and later quality gates decide the recipe. L/N/M retain iteration-based warmup, occupancy/FAS/frequency cadence and distortion ramp, so LR/FR scaling alone is not a completely exposure-matched schedule. A further explicitly scaled schedule tests these phases too, preserving actual optimizer-attempt counters and the140k ceiling.
+
+### Fast frequency-map ablations
+
+The learned native maps contain 10–15 eligible FAS levels per camera; level15 covers only19.46% of eligible cells. Replacing them changes the proposal. Legacy projection nevertheless saturates updated in-box cells: even scalar16 projects above42194, versus the8192 cap. [Measured histogram and cap certificate](/fsx/tmp/marshawn_native_crop_tuning_20261108/operations/frequency_cost_audit/report.json).
+
+Two independent CPU proxy map sets were prepared in5.945 seconds: constant scalar16 and eligible-actor Sobel-energy quantile ranks. Both have honest zero-training metadata and distinct manifests. The original NN validator rejects them; an isolated strict proxy validator binds identical RGB, cameras, masks and AABB to the original ready SHA. P/Q train from cold using the B neural settings and the unchanged native evaluation source. These are controlled frequency-estimator ablations, not claimed equivalents of progressive SSIM. Their quality remains unproven; the original learned maps stay unchanged.
+
+### Updated gates and quality/geometry review — 2026-11-08 12:39 UTC
+
+Selected later evaluations use the same native in-sample actor protocol. Steps are completed trainer iterations, including any AMP-skipped optimizer attempts. These are intermediate checkpoints, not a selected final recipe or evidence of saturation.
+
+| Arm | Iterations | PSNR | SSIM | LPIPS |
+|---|---:|---:|---:|---:|
+| A | 50000 | 30.159932 | 0.727258 | 0.137948 |
+| A | 80000 | 30.485385 | 0.743627 | 0.123037 |
+| B | 50000 | 30.137022 | 0.727685 | 0.137904 |
+| B | 80000 | 30.459985 | 0.743281 | 0.124236 |
+| D | 50000 | 30.130760 | 0.726478 | 0.137101 |
+| L | 32000 | 30.279158 | 0.735042 | 0.129428 |
+| L | 50000 | 30.695631 | 0.754812 | 0.113923 |
+| M | 32000 | 30.404836 | 0.737376 | 0.125755 |
+| N | 32000 | 30.271978 | 0.731802 | 0.135669 |
+| N | 50000 | 30.580419 | 0.746282 | 0.122020 |
+| P | 50000 | 30.228487 | 0.735091 | 0.134499 |
+| Q | 50000 | 30.240323 | 0.735833 | 0.133613 |
+| U | 32000 | 29.763338 | 0.710156 | 0.157856 |
+
+The [quality-versus-iterations plot](/fsx/tmp/marshawn_native_crop_tuning_20261108/operations/learning_curves/quality_vs_steps.png), [active-loop time plot](/fsx/tmp/marshawn_native_crop_tuning_20261108/operations/learning_curves/quality_vs_active_loop.png) and [source-linked CSV](/fsx/tmp/marshawn_native_crop_tuning_20261108/operations/learning_curves/learning_curves.csv) are the verified 12:22 UTC snapshot; the newer L/N 50k rows above are not yet timed points in that export. At measured gates, L32k reached `30.279158 / .735042 / .129428` in 2357.15 active-loop seconds versus B50k `30.137022 / .727685 / .137904` in 3059.19 seconds: 22.95% less time with better aggregate metrics. This is an observed operational comparison, not a causal attribution to batch size. Setup is reported separately in [GPU-lease wall time](/fsx/tmp/marshawn_native_crop_tuning_20261108/operations/learning_curves/quality_vs_lease_wall.png); between-stage idle is excluded from both clocks. The shared 69-second source preparation and 5493.66 GPU-second map fitting are not added independently to every arm.
+
+**The aggregate gain does not resolve clothing geometry.** In the reviewed native HC black-cloth interior `[500,650,756,906]`, the same mask intersection selects 65474 pixels. Mean rendered opacity is:
+
+| Checkpoint | Mean rendered alpha |
+|---|---:|
+| B80k | .984972 |
+| L50k | .865599 |
+| M32k | .664907 |
+| N50k | .852352 |
+| T8k | .649499 |
+
+The [unscaled RGB/opacity contact](/fsx/tmp/marshawn_native_crop_tuning_20261108/review/black_cloth_opacity_contact_1to1.png) shows the large deficit relative to B despite plausible dark-cloth RGB. The mask selects a diagnostic region; it is not alpha ground truth and has not become an opacity target. This observation alone does not separate occupancy culling from insufficient learned density. Lower whole-actor LPIPS and faster iteration progress therefore do not justify selecting the larger-batch recipe. [Patch measurements and source hashes](/fsx/tmp/marshawn_native_crop_tuning_20261108/review/detail_patch_metrics.json).
+
+At 50k, whole-actor P/Q LPIPS improves over B (`.134499/.133613` versus `.137904`), but HC grey-face patch LPIPS worsens (`.233677/.236270` versus B `.222631`). Black-face P also worsens (`.375472` versus `.370797`), while Q improves (`.359551`). Thus the actor average does not establish a uniform facial-detail gain. These patch scores use saved native PNGs and a separate local domain, not the float-render whole-actor domain. [Frequency curves](/fsx/tmp/marshawn_native_crop_tuning_20261108/operations/learning_curves/frequency_proxy_lpips_vs_steps.png).
+
+### Full exposure-phase compression and proxy dependency
+
+S/T test whether scaling the other training phases improves on partial LR/FR compression in N/M. S uses 8192 rays and exposure scale 2: all three warmups 2048, occupancy interval 8, frequency interval 512, LR horizon 100000 and FR switch 37971. T uses 16384 rays and scale 4: warmups 1024, occupancy interval 4, frequency interval 256, LR horizon 50000 and FR switch 18986. Body80 FAS and distortion phases use `actual_step × exposure_scale`; the distortion ramp ends at actual iterations 6144/3072 respectively. Optimizer-attempt counters, evaluation steps and the 140k ceiling remain actual counts; fewer Adam updates are still an algorithmic change. S runs on L40S and T on Blackwell, so their [step comparison](/fsx/tmp/marshawn_native_crop_tuning_20261108/operations/learning_curves/S_T_quality_vs_steps.png) is not a causal wall-clock hardware comparison.
+
+P/Q currently still require the original complete NN-map generation: the dedicated proxy validator first runs the unchanged strict progressive-SSIM reference verification against native READY `0d1e3015938ad5cf377196e417c29a80df551c0a314008fb14b24d72012aca70`. Training uses honest zero-fit proxy maps, but this reference dependency means the present workflow is not an NN-free production preprocessing pipeline. Original RGB, masks, cameras, AABB and learned maps remain unchanged.
+
+A separate frozen-B50 inference check found that 2×2/3×3 subpixel averaging softened face/hair detail and worsened all four declared patch LPIPS scores; reducing the marching floor did not recover them. State remained unchanged, no AA variant was promoted, and this does not establish a general geometry-oracle result. [ROOT review](/fsx/tmp/marshawn_native_crop_tuning_20261108/operations/inference_AA_patch/ROOT_result_review.json) and [native AA comparison](/fsx/tmp/marshawn_native_crop_tuning_20261108/review/inference_B050000_AA_v3/grey_head_contact_1to1.png).
+
+### Frozen-field opacity diagnosis and next controlled trial
+
+Nine fixed native HC rays through the opaque-cloth diagnostic region were evaluated with the original occupancy, one-cell dilation, all statically admitted cells, and uniform 16384/32768/65536-point quadrature. All variants retain the same field and static density admission. The dense reference measures the existing field; it does not supply physical opacity ground truth.
+
+| Frozen field | Original grid mean alpha | +1 grid | All admitted | Uniform 65536 |
+|---|---:|---:|---:|---:|
+| L at 50000 | .874062 | .882026 | .884075 | .884396 |
+| M at 32000 | .650933 | .688909 | .702857 | .699499 |
+
+Between 32768 and 65536 samples, the largest absolute alpha change is .000117 for L and .000059 for M. The opacity deficit therefore persists with converged dense integration on these rays; occupancy culling explains a smaller part. Both finite checks took approximately nine seconds and restored the exact field, persistent state, binary aliases, frequency grids, configuration and RNG. [Per-ray measurements](/fsx/tmp/marshawn_native_crop_tuning_20261108/ops/opacity_oracle/early_summary.json) and [complete evidence](/fsx/tmp/marshawn_native_crop_tuning_20261108/review/opacity_oracle).
+
+Cold V tests only reducing final distortion weight from .1 to the paper's .01 against fully exposure-scaled T (16384 rays, scale4, LR50000, FR18986), using the original learned frequency maps. No opacity target or new mask interpretation is introduced. Its initial review budget is 32000 actual iterations. The trial is a hypothesis about learned density, not an established repair.
+
+Actual NVIDIA process checks at 12:44:45 UTC confirm all ten field GPU contexts simultaneously: eight on silver-sable, one on olive and one on dev3. [Process/progress receipt](/fsx/tmp/marshawn_native_crop_tuning_20261108/ops/actual_arms_20261108_124445.json). P/Q/N now have own-output 80k gates; S/T have 50k gates. A/B retain the 140k ceiling. Earlier video training remains stopped.
+
+M finished 50000 iterations at `30.532138 / .743817 / .123683`; its LPIPS gain over32k is only .002072. It was retired at that gate. Its GPU automatically started cold W, the corresponding S8192/scale2 control with only distortion changed to .01. No state moved from M to W. [W cold initialization](/fsx/tmp/marshawn_native_crop_tuning_20261108/ops/W_batch8k_scale2_dist001/actual_cold_first_gradients.json).
+
+The reusable NN worker and packed gather are committed as `7eeeee70`, with Python3.8 compatibility follow-up `d0f9b7fd`. The public worker SHA is `69def4a01c5e92cc1e98411cec5266c5108204ef306352e358e9f22965036701`; active private workers retain their original hashes. Public imports explicitly bind NN helpers to the declared sealed release and the two crop samplers to their exact local files. CPU tests cover configuration/loop parity, source-checkout rejection, variable-raster gathers and RNG, and actual DEV3 Python3.8/Torch2.4 configuration/Adam/YAML compatibility. They do not claim a new public GPU qualification. [Local qualification](/fsx/tmp/marshawn_native_crop_tuning_20261108/operations/geometry_v7/public_template_cpu_checks.json), [DEV3 proof](/fsx/tmp/marshawn_native_crop_tuning_20261108/operations/public_template_py38/result.json).
