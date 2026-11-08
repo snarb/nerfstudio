@@ -116,3 +116,30 @@ the same campaign. Source copies are in
 [`scripts/marshawn_frequency_nonshared`](../scripts/marshawn_frequency_nonshared/).
 At this checkpoint V13 is a qualified **candidate**, with main-job authorization
 false. No active broker replacement or main map claim was performed.
+
+## ROOT-approved activation and first actual main map
+
+ROOT approved V13 and wrote the active config with main-job authorization
+true (SHA `4152cbbec5e68eebf9f8173637a8973f593fab4a172191a33f28ea69b47a09c5`),
+bound by `operations/frequency13/root_release.json`. The candidate and its
+original hashed proofs remain unchanged.
+
+A fresh separate-path adoption preflight and quiescent state archive preceded
+the CPU-only handoff. Exact old V12 watchdog/controller identities were retired;
+V13 watchdog2391759/controller2391761 adopted all four then-live fits with the
+same worker/supervisor PID, boot/start identity and scientific spec. All old job
+names were preserved. No scientific process or GPU lease was signalled,
+released or restarted. Receipts are in
+`operations/frequency13/handoff_20261108_0130/`.
+
+The first actual main assignment, frame1845/cameraED, fitted from scratch in
+72.37s with1.424GB peak allocated memory, seed42 and no previous-frame state.
+It completed on Clever's qualified physical UUID without OOM. The full SG
+archive was verified before identical map/metadata publication to canonical SG
+and LOCAL caches. Map SHA is
+`ac9f5024a2ca91c2792e92452f484cffb23ec085b1b9f36cebb0c4195da3ede9`.
+The source-bound actual proof is
+`operations/frequency13/first_actual_main_map.json` (SHA
+`85697aa606840a911504ecd99e75c414b78e627162caaff78aaa7f8f29158d46`).
+This activates an eleventh frequency-only GPU; the ten field slots and training
+recipe remain unchanged.
