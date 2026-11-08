@@ -25,6 +25,8 @@ The GPU shader `6603aa…`, CPU shader `51239b…`, profile `2bd9bc…`, DEV3 co
 
 Insights: generation routing is a provenance change, not additional GPU capacity or a training change. The actual first-six packages can be reused without rerendering geometry. The queued final route retains the corrected generation's scientific completion and native runtime gates. The72-frame temporal visual review remains mandatory.
 
+The separately prepared [passive first-generation canary](../scripts/marshawn_video_export_geometry_cpu/first_g1/watcher.py) waits for F2's current `frame001695_g01_a00` to complete before reading its selected checkpoint metadata or probing/acquiring a GPU. CPU dry check passed while that scientific job was still running; it started no GPU work. Its30-second detached watcher uses the unchanged V6 entry/policy/GPU shader, a prefix-eight generation manifest and the exact complete canonical path. The resulting source-bound canonical index7 geometry can therefore be reused by the final renderer. This canary remains unlaunched pending its operational review; it does not establish generation1 runtime parity yet.
+
 # Read-only detached-part audit
 
 The audit used existing current native RGB and exact accepted NN intersections, including the original allowed-envelope clipping. It performed no inference, GPU work or source edits.
