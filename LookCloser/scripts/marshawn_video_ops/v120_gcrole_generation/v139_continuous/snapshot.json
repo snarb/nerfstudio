@@ -1,0 +1,284 @@
+{
+  "kind": "SOURCE_G1_V139_EXACT_OPERATIONAL_SNAPSHOT",
+  "created": 1794116720.0141225,
+  "release_sha256": "6fa7cc2255b979727e82ada636b63eb66e32d34c2473d9c113da9289c854713d",
+  "files": [
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/marshawn_clean_source_context_v134.py",
+      "snapshot": "generation_operations/marshawn_clean_source_context_v134.py",
+      "sha256": "3c6d90953313dc15512e2a49412bf49f5d13aea69c93a26a19e9e14273ccd4ab"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/marshawn_semantic_role_core_v132.py",
+      "snapshot": "generation_operations/marshawn_semantic_role_core_v132.py",
+      "sha256": "d5f3ac66d66031d0abde59a67c69a2467c2fae786bcd33fcef22285ce1be9a9c"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/marshawn_prior_family_role_cache_v132.py",
+      "snapshot": "generation_operations/marshawn_prior_family_role_cache_v132.py",
+      "sha256": "c961345cc108a0e1e9f51d6dbb99ba780345059dbf78202a91153895528e792a"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/marshawn_role_unknown_consistency_v135.py",
+      "snapshot": "generation_operations/marshawn_role_unknown_consistency_v135.py",
+      "sha256": "9615343dec68b93ebaa441298595a5c581c4c586703e1aa649a9ce6b88a55b66"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/marshawn_ordered_source_role_stage_v136.py",
+      "snapshot": "generation_operations/marshawn_ordered_source_role_stage_v136.py",
+      "sha256": "71014c89f718c5b0241c04f045fb04adf99460d39576f203a9119d84bbd15881"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/marshawn_role_visibility_v137.py",
+      "snapshot": "generation_operations/marshawn_role_visibility_v137.py",
+      "sha256": "d0b87cae6b962c81273d8deb8bb3f7b942ad75cf3f18881fc40c2bb39e33234d"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/marshawn_g1_role_runtime_v138.py",
+      "snapshot": "generation_operations/marshawn_g1_role_runtime_v138.py",
+      "sha256": "0c1b7977ad558c6cf8ab52067e4219037e71d464866e1b9151f53c0821f77ecf"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/marshawn_source_factory_g1_v139.py",
+      "snapshot": "generation_operations/marshawn_source_factory_g1_v139.py",
+      "sha256": "c5853eceb35fca73f838c4045910e3c7dd8bd74a350b2e97be8c50b2f156c708"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/marshawn_source_producer_g1_v139.py",
+      "snapshot": "generation_operations/marshawn_source_producer_g1_v139.py",
+      "sha256": "813adbf6b717dfefeb1bfbce581848bd9e09ec8f899e870d1b8f510daf99173c"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/prior_family_ROLE_extra_inputs_v132.json",
+      "snapshot": "generation_operations/prior_family_ROLE_extra_inputs_v132.json",
+      "sha256": "c637caa81db1f9c87193214b2d1cc726c8938c06f59f35e5f73a1300ac65f9bf"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/semantic_actor_role_v120/marshawn_current_part_role_policy_v128.py",
+      "snapshot": "original_operations/semantic_actor_role_v120/marshawn_current_part_role_policy_v128.py",
+      "sha256": "2012ca0a23ba92f4f59e942328ae504b81c990d299310ab123e16525e8b466d0"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/semantic_actor_role_v120/policy_v128/ROOT_policy_design_review.json",
+      "snapshot": "original_operations/semantic_actor_role_v120/policy_v128/ROOT_policy_design_review.json",
+      "sha256": "b1e20b6dc2157586d6a0c426c163d162150e23c02a9da35a09a526c2e78b35c9"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/crew_guard_plan.py",
+      "snapshot": "original_operations/crew_guard_plan.py",
+      "sha256": "61b76130ba57042b5e5b65a29af6014f26f5fcaed3a4d52a0e6f332dbb6351a4"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/crew_guard_plan_v53.py",
+      "snapshot": "original_operations/crew_guard_plan_v53.py",
+      "sha256": "c6299fbbc2f40099910c7306044707194cb148550f431a14f860b7cc30db85b1"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_actor_conflict_v51.py",
+      "snapshot": "original_operations/marshawn_actor_conflict_v51.py",
+      "sha256": "bf6dcec5bbdff3c34162ad20978efacf0e6bec70e3949ce7f738cd2b931e0c53"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/code/LookCloser/scripts/marshawn_actor_coordinates.py",
+      "snapshot": "frozen_code/LookCloser/scripts/marshawn_actor_coordinates.py",
+      "sha256": "d4d6be06068b7cd2957375fbd2d857d4c8d75675b464dc8b4f900c31ab78b9f0"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_apply_head_consensus_v88.py",
+      "snapshot": "original_operations/marshawn_apply_head_consensus_v88.py",
+      "sha256": "300dc328e3b170c78de0f4b6c7ea377309874185287d6c78f97de3dd5b1f230f"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_cpu_worker_init_v108.py",
+      "snapshot": "original_operations/marshawn_cpu_worker_init_v108.py",
+      "sha256": "b61fae4a4161696b017ec2c158bdab8bc8855211fddf058bbcbf9a4ee8e1c9fe"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_current_component_closure_v118.py",
+      "snapshot": "original_operations/marshawn_current_component_closure_v118.py",
+      "sha256": "0877957e16fa096a2a13cb30ce7b3652903b0966c4f55de130ca9fec5656b18b"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_current_parts_apply_v105.py",
+      "snapshot": "original_operations/marshawn_current_parts_apply_v105.py",
+      "sha256": "cd6882200c61a3b544739cdd12f39907ad5082ac4665c15195cea94f1bccfd2a"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_current_parts_v105.py",
+      "snapshot": "original_operations/marshawn_current_parts_v105.py",
+      "sha256": "838e6b701e152d6591a1dbe7db33fd0196238ea0d0f2a80df56f2ef2cc4a5831"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_current_parts_v96.py",
+      "snapshot": "original_operations/marshawn_current_parts_v96.py",
+      "sha256": "ca25d369bcd5acff8f4e32f71fa7043e448710bb27aab933d4019b7a8283a744"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_hair_admission_layer_v88.py",
+      "snapshot": "original_operations/marshawn_hair_admission_layer_v88.py",
+      "sha256": "0df0be5f6a5eb3fe9c29076461b96c162111b82c2272bc1443f7cd6719d38656"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_head_hair_qualify_v72.py",
+      "snapshot": "original_operations/marshawn_head_hair_qualify_v72.py",
+      "sha256": "d3aa066915d02e4bab6086a39ec7abc5cfe7fe5d41702a342dded6070fa4af3d"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_head_queue_v90.py",
+      "snapshot": "original_operations/marshawn_head_queue_v90.py",
+      "sha256": "70f54e41bd39061e8750efc013a91cc08a2ce05843a4d6243694b39371f5c983"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_ordered_current_source_stage_v118.py",
+      "snapshot": "original_operations/marshawn_ordered_current_source_stage_v118.py",
+      "sha256": "626681ad3be6d7c5b57f71f8f0700b2f9fb79fbe26960098726fc26387456b2b"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_ordered_union_apply_v107.py",
+      "snapshot": "original_operations/marshawn_ordered_union_apply_v107.py",
+      "sha256": "b7336692e5bfe3a621bb74105b5c9eb53444c8b17f23b81f69316cef9c51902d"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_source_factory_v118.py",
+      "snapshot": "original_operations/marshawn_source_factory_v118.py",
+      "sha256": "04c88c00fb59520ea253339c08019764954b8f0d002bc6fb414fda9dcb4d977d"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_union_guard_v53.py",
+      "snapshot": "original_operations/marshawn_union_guard_v53.py",
+      "sha256": "4a8bebcddc32170c21864a31219458eef999a857c4f1b152289479557409f63e"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_union_resolution_v5.py",
+      "snapshot": "original_operations/marshawn_union_resolution_v5.py",
+      "sha256": "31e4d16836c581423bc14906be60e9a0934ebd932cea22545a5daac68d94e610"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_union_tracking_proposals_v1.py",
+      "snapshot": "original_operations/marshawn_union_tracking_proposals_v1.py",
+      "sha256": "065a3ef88a6a3b72a904b4d1764761b7f7b65e7e64f950c5b68c8484e75f6f6f"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_video_producer_v3.py",
+      "snapshot": "original_operations/marshawn_video_producer_v3.py",
+      "sha256": "241cbce88feeeef2c6957b6765a44681144b182eabfbb1287598f11e708ff74e"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_visibility_unknown_v110.py",
+      "snapshot": "original_operations/marshawn_visibility_unknown_v110.py",
+      "sha256": "4b7fa4b244bb5cb7339fb9e83ef2c079842daf796bc03b1d664531728c5aadda"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/code/LookCloser/scripts/prepare_marshawn_tuning.py",
+      "snapshot": "frozen_code/LookCloser/scripts/prepare_marshawn_tuning.py",
+      "sha256": "d5f4e0660043b72322911205d96d134d20c24cbcc1a1843c776a0b184d818a0a"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/semantic_CPU8_v1/marshawn_semantic_qualification_cpu8.py",
+      "snapshot": "original_operations/semantic_CPU8_v1/marshawn_semantic_qualification_cpu8.py",
+      "sha256": "27b7207267c0fd0719af8553fbbaed7ea217432431019a590c7e646c4b97416c"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_identity_refresh_v79.py",
+      "snapshot": "original_operations/marshawn_identity_refresh_v79.py",
+      "sha256": "2dbe556466ed804b81aed933574cdd9e40053665aa249eb83fb0db83a5ee3e53"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/code/LookCloser/scripts/marshawn_video_prep_data.py",
+      "snapshot": "frozen_code/LookCloser/scripts/marshawn_video_prep_data.py",
+      "sha256": "cc983d0d2d4c6f40e8c01219317a183b42e1e5042668f74bff3e730db8bd23c0"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_semantic_ownership_v5.py",
+      "snapshot": "original_operations/marshawn_semantic_ownership_v5.py",
+      "sha256": "95457b9866a533e481927424829b66c1be1edf2544ff455866c008a83fd9a2d5"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_final_source_QA_v7.py",
+      "snapshot": "original_operations/marshawn_final_source_QA_v7.py",
+      "sha256": "7d19c9108ff8ee681a3cc7d48b8b5ce5278808def5434736711d2eead8781787"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_native_review.py",
+      "snapshot": "original_operations/marshawn_native_review.py",
+      "sha256": "45b6a4da0effb07f78ab59bb4741da7073b5286aba7338354e22ad551925433e"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/source_import_namespace_allowlist_v139.json",
+      "snapshot": "generation_operations/source_import_namespace_allowlist_v139.json",
+      "sha256": "b70e076b96dde62dfbf155a458d8fa2e881c34a8f36e7c9949b989801fbd25d0"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/runtime_role_spawn_v136/PASS.json",
+      "snapshot": "evidence/G1/runtime_role_spawn_v136/PASS.json",
+      "sha256": "23b50646bbb914b88c151b4f1cc724a97cba2543c9e20f1edc8c10ec8f347da2"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_inference_adoption/context_spawn_actual_v134.json",
+      "snapshot": "evidence/G1/1710_inference_adoption/context_spawn_actual_v134.json",
+      "sha256": "9d491679d0cabd9c0e0260c9e0be1ebc197e714765f4195e539b4ea247b42b03"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_inference_adoption/role_halo_CPU_edge_fixture.json",
+      "snapshot": "evidence/G1/1710_inference_adoption/role_halo_CPU_edge_fixture.json",
+      "sha256": "07371ee0ca1bbc7450604b524cf6c40a8ca8546c234084f1f1dfa58fe45c75f5"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_inference_adoption/combined_role_unknown_adversarial_CPU.json",
+      "snapshot": "evidence/G1/1710_inference_adoption/combined_role_unknown_adversarial_CPU.json",
+      "sha256": "80ce01926c6345586bcf0c9c08135230d958a5ca0ccf04be45345a314c47cd96"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_inference_adoption/input_equivalence.json",
+      "snapshot": "evidence/G1/1710_inference_adoption/input_equivalence.json",
+      "sha256": "c19852700eec3a04f8fad0d8678a56493e1ae02c7355292f7d295f134be3e6a5"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_inference_adoption/staging_ready.json",
+      "snapshot": "evidence/G1/1710_inference_adoption/staging_ready.json",
+      "sha256": "bcc69eb46462e02cde13297cf59a2621b43c91a80b9ac77b4494621c14224fe8"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_inference_adoption/clean_union_channels_ready.json",
+      "snapshot": "evidence/G1/1710_inference_adoption/clean_union_channels_ready.json",
+      "sha256": "857eb91657d32c9f0aa7fde5a7b9ca744915ac64b1609d90a6aed46fcbc42990"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/semantic_actor_role_v120/policy_v128/qualification.json",
+      "snapshot": "evidence/original/semantic_actor_role_v120/policy_v128/qualification.json",
+      "sha256": "6d9edfd63f0b869884ac68d64c9c4219676a29c83bc846755eec2e0fee673e02"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_inference_adoption/runtime_hooks_actual_v139.json",
+      "snapshot": "evidence/G1/1710_inference_adoption/runtime_hooks_actual_v139.json",
+      "sha256": "576f4de52f6cdfdbdbffb0daa3c1a8a0c172efddd55f3481bc6ba819612e0995"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/old_source_CPU_retirement_v139.json",
+      "snapshot": "evidence/G1/old_source_CPU_retirement_v139.json",
+      "sha256": "a41d40a64590f1768034c45a13abb4b1d83a62be7a7637aad088d9441c1f20ea"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/source_producer_g1_v139_release.json",
+      "snapshot": "source_producer_g1_v139_release.json",
+      "sha256": "6fa7cc2255b979727e82ada636b63eb66e32d34c2473d9c113da9289c854713d"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/source_producer_g1_v139_watchdog_identity.json",
+      "snapshot": "launch/source_producer_g1_v139_watchdog_identity.json",
+      "sha256": "933386d1d5829464694d1dd343e190a8922467fb88ff313667b84f8ec413a0d9"
+    },
+    {
+      "source": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/source_producer_g1_v139_identity.json",
+      "snapshot": "launch/source_producer_g1_v139_identity.json",
+      "sha256": "9ec4df72ca7e9e0f9ed970a05c2f5916ff279ae886f4bd58a9d6179ebbf5035d"
+    }
+  ],
+  "runtime_root": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108",
+  "runtime_launch": [
+    "/home/pavlo/.conda/envs/nerfstudio/bin/python",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/marshawn_source_producer_g1_v139.py",
+    "watchdog"
+  ],
+  "notes": "Campaign paths intentionally preserved; source and model data live outside git. Original source/model generations remain immutable."
+}

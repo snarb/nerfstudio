@@ -1,0 +1,21 @@
+{
+  "kind": "ROOT_CURRENT_PART_ROLE_POLICY_DESIGN_REVIEW",
+  "time": 1794113618.8231122,
+  "policy_core_approved": true,
+  "runtime_producer_activation_authorized": false,
+  "policy_helper_sha256": "2012ca0a23ba92f4f59e942328ae504b81c990d299310ab123e16525e8b466d0",
+  "qualification_sha256": "6d9edfd63f0b869884ac68d64c9c4219676a29c83bc846755eec2e0fee673e02",
+  "retrospective_records": 442,
+  "retained": 437,
+  "unknown_only": 5,
+  "conditions": [
+    "CURRENT A/selectedRAW measurements from immutable preSEM; no semantic self-financing",
+    "Prior role is SAME FAMILY in clean qualifiedprevioussource, never wholeactorunion alone",
+    "Current NN pixels only; old score/pairIoU/crew checks and closure thresholds preserved",
+    "ExactfiniteFB current-photo bootstrap bound NN/image/component hashes, no general border waiver",
+    "Unproven role is physicalUNKNOWN with existingfrozenconfidencefalloff, no FG/BG/free-space assertion",
+    "Validate evidence counts/finite fractions and source/input/code hashes at runtime",
+    "Review concrete root/context/producer wrapper before publishing1710+; inputequivalent BODY/HEAD may stage now"
+  ],
+  "ROOT_review": "Read puredecisionhelper and bound437/442 qualification; knownGCnegatives0; named genuineparts retained; HE198 separatelyunproven in actualphotographs, mustnot be silentlyaccepted."
+}

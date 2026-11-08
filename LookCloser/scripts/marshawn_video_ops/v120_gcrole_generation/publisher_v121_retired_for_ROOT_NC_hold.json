@@ -1,0 +1,9 @@
+{
+  "pid": 2448286,
+  "start": "248564762",
+  "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+  "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/publish_gcrole_generation_v121.py ",
+  "signal": "SIGTERM",
+  "reason": "Need explicit per-frame current ROOT publication hold before1700",
+  "created": 1794110747.7713325
+}

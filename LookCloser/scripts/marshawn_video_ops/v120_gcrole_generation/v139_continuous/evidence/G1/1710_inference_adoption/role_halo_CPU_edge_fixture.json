@@ -1,0 +1,6 @@
+{
+  "status": "pass",
+  "halo_matches_full_current_A_exact": true,
+  "cropped_old_result_diff_pixels": 2305,
+  "runtime_core_sha256": "d5f3ac66d66031d0abde59a67c69a2467c2fae786bcd33fcef22285ce1be9a9c"
+}

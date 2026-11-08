@@ -1,0 +1,17 @@
+{
+  "kind": "GCROLE_G1_CORRECTED_SOURCE_REVIEW_READY",
+  "frame": 1695,
+  "cameras": 66,
+  "source_root": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108",
+  "status": "pass",
+  "prepared_ready_sha256": "315e8ba46a346c70fcee1673d8ef4f155d5bc3a136da3846ed719f4a992157f6",
+  "ready_sha256": "2502961db0ee6a0b1b822ce2a98f4cae5eec82088f0e0695e98835a1a27ca771",
+  "source_QA_sha256": "f369a173eb0f8cab007b04b6591177e7cd25c9a29bc1b9b87bd9398b12f7b26e",
+  "visibility_QA_sha256": "881b7d7f2db4fec39823b5a1a83826557d75c0163c3b0fc529a278dbc4503938",
+  "head_UNKNOWN_manifest_sha256": "4e0ed0238b14dd5d51d13213fc5ca471424edb2f6755f25ae30880842e33db09",
+  "GC_correction_proof_sha256": "a374d7150485e019e0eaadacf797b9c32e9bec20c99ba52a96ed1bff9324ad83",
+  "all_original_published_files_unchanged": true,
+  "source_marker_withheld_until_ROOT_generation_review": true,
+  "no_learned_state_reused": true,
+  "created": 1794110756.6162155
+}

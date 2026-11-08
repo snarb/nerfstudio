@@ -1,0 +1,2790 @@
+{
+  "kind": "EXACT_BODY_ID_AND_HEAD_NUMERIC_INPUT_EQUIVALENCE_CURRENT1710",
+  "status": "pass",
+  "frame": 1710,
+  "prior": 1705,
+  "records": [
+    {
+      "camera": "AA",
+      "old_prior_native_sha256": "1c62b9991115b9b0ed6332dd0566672e9d6b87d835f342e34e5662b5bd5af4ad",
+      "clean_prior_native_sha256": "1c62b9991115b9b0ed6332dd0566672e9d6b87d835f342e34e5662b5bd5af4ad",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "2a94883d5beb82349abaeda55052d21c6e1ade9aa7b6217060fb0d3ff1bd3e28",
+          "actual_NN_reference_output_sha256": "2489829765db2f5d0904916dfd61b0145db3ab2e9d81c0b2f4167476c61e2497",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "8c65407389cee2ff63426ff7fda9fd4c78362d7521684fdef6450cd795a326aa",
+          "actual_NN_reference_output_sha256": "5417a570bc1abc0b92a84409dab9b94772a6962d5ea6d1880a774a3d25ce3276",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "9a3d5e4b51c31807bc715a65bd2bc57b566125cf429eb5ff7a1b3f4df02651cc",
+      "original_seed_policy_sha256": "92349e2756e04fb0b59349f71d4356d56cfa632db161ed57366de8c44911bcb0",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          4128,
+          369,
+          5136,
+          1377
+        ],
+        "chosen_proposal_sha256": "660bd963cbd1f795476865b2aa8390bba156e28618b056c0bde6cf610f1685d8"
+      },
+      "HEAD_prior_hint_array_sha256": "b0d8398fb5f9397fa36991924373d1498e09f626a1e9fa56f43372c67da1d0d0",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/AA/spec.json",
+      "HEAD_original_current_spec_sha256": "cc84d6b919c916937403df1cfca3bb27ba61c790057f8351a89510719d1288fa",
+      "HEAD_original_crop": [
+        3967,
+        322,
+        4975,
+        1330
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "14dc2cc3e11ded764e8805388fc88355542fac40b49859c27d44ec77c9d5f262",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "AB",
+      "old_prior_native_sha256": "e9ca5aa2302fbb009535462b60df0b4fba1444b83268eba1f6ec9e5f896adf20",
+      "clean_prior_native_sha256": "e9ca5aa2302fbb009535462b60df0b4fba1444b83268eba1f6ec9e5f896adf20",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "e2dc38743173e4566be7f23ea37d697d5d4cee2de80ff4c3880a8d33b5de2388",
+          "actual_NN_reference_output_sha256": "d312b63e77113daab991b6127dd463cb28edffd2fc94fc9b2673fc2698a88cbb",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "06b38ef03153fdaca60b2e38eee7e7247eafd4010fe04e88c3f7632bcb8dcc1a",
+          "actual_NN_reference_output_sha256": "1ab04a0fe960662940845563b764da0d0b2c27a7cf83fbe4911ae8657d319189",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "9cd45d583dddb48252ba4f44639cf4d38010ab1d573c22e9263f27686fcaa0e5",
+      "original_seed_policy_sha256": "09061b36289402befc218f9df2b5150c321917edee9cf36e472c68c929ec8816",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          3388,
+          531,
+          4396,
+          1539
+        ],
+        "chosen_proposal_sha256": "77309dc70b34445336b6576ad796b0e76da37226da4f6bd82c1395b812eea366"
+      },
+      "HEAD_prior_hint_array_sha256": "435ef31abdd49ee1e3b6b4283d460d8eee932b63501538b8cae4817809ae5d26",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/AB/spec.json",
+      "HEAD_original_current_spec_sha256": "d495aac43d0938fbff632a565177e4f311cc591dd25839da2f065cd9c4b4bd57",
+      "HEAD_original_crop": [
+        3240,
+        455,
+        4248,
+        1463
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "a8d9a84506a0b6ad2f8117329900f93c1727cf2c9d567236f96ce8e326fac9b0",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "AC",
+      "old_prior_native_sha256": "889ce9a06e004a652f6cfe033713ce4c619372972dc0645c4f6c6673f552506b",
+      "clean_prior_native_sha256": "889ce9a06e004a652f6cfe033713ce4c619372972dc0645c4f6c6673f552506b",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "97d88d186e039abdef6514e208730b72ec79f482be31ceac28426341784ba8e1",
+          "actual_NN_reference_output_sha256": "65784533bf348a113f72b043dd0df8d936bd9340e5a8c81adaede3fb128ad7cc",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "f7e01c884f977ae14a42d45ac2044b6594f4a519cdf1a4099f1df4753555babc",
+          "actual_NN_reference_output_sha256": "23b82b6de347ac691a841caf0c146da5a16385ea8d9569f7fd0ba58d30d431a3",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "0b1d4a7647a348e3fd83e0672d09ae6f3c326ef83efd0e954669bbc52c917de0",
+      "original_seed_policy_sha256": "795600ba5d0144566eaa7f859ce270f698e46e9f16f71aeebf05767dfcfc63b5",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          2811,
+          1168,
+          3819,
+          2176
+        ],
+        "chosen_proposal_sha256": "8946ee61508e6c8b5af96a708327b6a034e280aa71b7bc83b67f84d64f1b4960"
+      },
+      "HEAD_prior_hint_array_sha256": "d4c0e5f70527c93c9578800ce9baa5238c363948e322839ea8589517f7b34a9c",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/AC/spec.json",
+      "HEAD_original_current_spec_sha256": "340c5a96c4218b6b145bf8ced2939eddc1ea839d281150f5d3eb8ac6c740fb9b",
+      "HEAD_original_crop": [
+        2646,
+        1061,
+        3654,
+        2069
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "06b42ec75637aa175cedeb3274df5def8d39e9d1a40d39ce6bedeb0f478feb27",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "AD",
+      "old_prior_native_sha256": "85d201c7f70ea7dffc63ae06f1a9c95f2e9b479dc18ab64e3c37d6354ed7683f",
+      "clean_prior_native_sha256": "85d201c7f70ea7dffc63ae06f1a9c95f2e9b479dc18ab64e3c37d6354ed7683f",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "2c74e03eb46e83c11a47ff723c16c9b2e3109cfb1411a19fec7731a45a50ccb1",
+          "actual_NN_reference_output_sha256": "a4213d3f757d2f85ba57e4d49dbe6b343f627159f9cca1d0e5f57238a4e98a50",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "6ffc3f80fddf4de77589497481bb4b433f2e64bed9c6cc311daa32b7dadd929d",
+          "actual_NN_reference_output_sha256": "bb287159d906ca2c567fbeb430860282c45eda81212d807b44eb48848a9f63dc",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "2498dc9b044aa1fe975c0ebd942b91c84938181ea05e1499e66863cde888052f",
+      "original_seed_policy_sha256": "c1317937b6b82f937fc8c626ab931f021d4a6cc5f8177ad195a445d30a45d28c",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          2582,
+          1206,
+          3590,
+          2214
+        ],
+        "chosen_proposal_sha256": "e8a1c133f66806ec1974887f74d5ad5bdc6052a95fda954e2a16633e0b8ee5bd"
+      },
+      "HEAD_prior_hint_array_sha256": "02deab3a251a03be63a3faa7c41f4b8d21c0de842c0625e41a42666bca5c72ca",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/AD/spec.json",
+      "HEAD_original_current_spec_sha256": "f79dc72798d567b01dc2ff14e4ab1330d0c474308f7844c3d1650df426c99e4a",
+      "HEAD_original_crop": [
+        2370,
+        898,
+        3378,
+        1906
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "35d20e00d8818b089b2259620a9f9301a09ab08ab5189e8bdcb5a60673f19271",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "BA",
+      "old_prior_native_sha256": "97c454d6aa5554d21e827404e18b1d7cbb587bac5307e21f4270beb931625ac0",
+      "clean_prior_native_sha256": "97c454d6aa5554d21e827404e18b1d7cbb587bac5307e21f4270beb931625ac0",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "c15e0f27e88249036c5fa7a1c38f3a074369dfc925b3fa49501fa5c7835565be",
+          "actual_NN_reference_output_sha256": "6be3fd1fcb14b5e30ce06989babd82a42f2a798a76c9ad8671ffacd865746ce1",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "a4520c1144c301b673f15710fc03f8f931b4cd6854e0c250c067676e4716c6cc",
+          "actual_NN_reference_output_sha256": "b869619d73b40abafea8ba7842e5dc09ac74d5d6b42382229209e75aaff17eda",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "2cec17d8e1f0b5ec44d112b997db482dfaac0cf7993da9820026b63ecaf5e52f",
+      "original_seed_policy_sha256": "740b75f6e33f6568ef8ca63ca0d43715eccc99cb2080ad88768c9e34c983d28c",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          4131,
+          106,
+          5139,
+          1114
+        ],
+        "chosen_proposal_sha256": "7527cadc63d8af89fcbbfffb54818a58fac982711b2425fb6a781ad3bb9fcc30"
+      },
+      "HEAD_prior_hint_array_sha256": "84d356a6b767f8f49fcbf5b4532d2f1157c7d16929ed72466bf42c8ec85134ea",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/BA/spec.json",
+      "HEAD_original_current_spec_sha256": "ba8454d4b4140f8d9479557c8137a60840aaeb4e6d63bd05a0881178258823e3",
+      "HEAD_original_crop": [
+        3973,
+        43,
+        4981,
+        1051
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "e0b0910b66b4647fdaba23b40072c230915b9415fd59bdbe7600d44c03a88951",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "BB",
+      "old_prior_native_sha256": "1ecbff45441e5cadd75a5112976983528b5c4f7d8f8a04ad01b11260255c8033",
+      "clean_prior_native_sha256": "1ecbff45441e5cadd75a5112976983528b5c4f7d8f8a04ad01b11260255c8033",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "edc90f870dc7a498566ea01d2db348834b8114769e2e5bcbf70902472ddf1090",
+          "actual_NN_reference_output_sha256": "1071bdd3ef451805a31c182734aae914c4920d226fef2dc7bc848d64aa82f0e2",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "2009b44cee1426e96cfeeb28827033b42b2173168a91c204d415977a57530226",
+          "actual_NN_reference_output_sha256": "b3de99b3296175008204a161761c126084c7d967e2760422bebc3c150a0b2a7a",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "f0c497ce3c8c6fe9117149f405fc887b8d86d9e947a37bc6fe4f3a54b853b877",
+      "original_seed_policy_sha256": "1993c3171d90061034df6c072af069f02cc5b5c6b7e08362200e69ca980e5e27",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          2769,
+          179,
+          3777,
+          1187
+        ],
+        "chosen_proposal_sha256": "35e737454649fd03974d825525505e9dde386b1fd38ccd479ccf4b885eb0fdaf"
+      },
+      "HEAD_prior_hint_array_sha256": "a2bc3767763b581eb23b670ab434a7a49fcc2b1ead9fdad5e10c8a433d492128",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/BB/spec.json",
+      "HEAD_original_current_spec_sha256": "1de9ac63bfe445e7626b012cc7fc8b030e13ad2dbc0bcf9deeb9091fb5e88a59",
+      "HEAD_original_crop": [
+        2643,
+        91,
+        3651,
+        1099
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "26baafbb07c40fa2a37ac0e6fd2281a4e53f5de2964d11214e02d608a17e4f66",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "BC",
+      "old_prior_native_sha256": "6b3460c4de7be3cdb8a0d85153381c6dd164e2933295ca68443555e5d1c49c62",
+      "clean_prior_native_sha256": "6b3460c4de7be3cdb8a0d85153381c6dd164e2933295ca68443555e5d1c49c62",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "6cb3a20a9288a3cf7f48423ba39d8245e3547190b8c56661b57fd26c298247c3",
+          "actual_NN_reference_output_sha256": "b1c355ecc409870360ad4a49f7e076e228338a73eb39eb769c58b1176398fd96",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "266a19a0d303bbb1c8765926e2c63ff57388dba353c3284f8de9f27458bbbb3f",
+          "actual_NN_reference_output_sha256": "96aae6289c1b6c2ecab9252f23b5314ba777283e4e3c540c02dffadaf0669f2c",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "c9be7aff844b8c01c1635c8aee3181d08a7bae5994795a39319ea4be78f112ef",
+      "original_seed_policy_sha256": "59b912ca4c6e41a70ded35a5b98ed46b683bcfffc73ad28b1d6e6361c978ee4e",
+      "HEAD_prior_numeric_inputs": {
+        "status": "GEOMETRY_UNKNOWN_ONLY_WEAK_CURRENT_HAIR",
+        "crop_xyxy": [
+          2944,
+          1037,
+          3952,
+          2045
+        ],
+        "chosen_proposal_sha256": "42cfbdcbe7800fbb7f3327f0641587548406b702f149481551395f2fc5e281b6"
+      },
+      "HEAD_prior_hint_array_sha256": "79ae6b98c767ac0c63bd9366632123c9f3d24126134229f133ec78b4e3bc5f1b",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/BC/spec.json",
+      "HEAD_original_current_spec_sha256": "17e7eac9af1f5a2bac13aa56b62afa82d48c8f16b32158d9f523055b0b9a2d47",
+      "HEAD_original_crop": [
+        2936,
+        1028,
+        3944,
+        2036
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "0573af6faada731c53c7973200e1e10a46009f19ef293922164b548c914d7906",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "BD",
+      "old_prior_native_sha256": "4c74c0a9eb63636f61034d7cc4d95b97ec08e10913938fea5bba3e4394384e1b",
+      "clean_prior_native_sha256": "4c74c0a9eb63636f61034d7cc4d95b97ec08e10913938fea5bba3e4394384e1b",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "0e6f62196e040b800016c0192fcdeb435c2bcc2929905077503580fefa48acdf",
+          "actual_NN_reference_output_sha256": "5c3e9af4a775420288bb21674f19731ab777cbe6bc17494d6876498cb58ef592",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "d134c3ec2edd01ddef9a7b53dde2287a6fb4b4b93fcef9cb79d34bbf06b2f444",
+          "actual_NN_reference_output_sha256": "b1c80f549b9fc23c012ec4e603cd4726671c0dbd27b6bbdb8b0fb4437ef866e0",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "6ff8aa2832ef478187c9a512dfce871048d3901c33d35a0c884ae34a0715a233",
+      "original_seed_policy_sha256": "508e4a7d67aa1b85cca5767892f9e3ca8310667acd27bc3779ea0a1bfa49ff32",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          2321,
+          1870,
+          3329,
+          2878
+        ],
+        "chosen_proposal_sha256": "5b512bdecbae49a46e1a21d75d4bc3a8599b33dc60b7fda86cb37b537e2928d9"
+      },
+      "HEAD_prior_hint_array_sha256": "a02df341e01b4eed587bb7efafd5f96cac1dc2c085fbc3933f79c55b379e5b5c",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/BD/spec.json",
+      "HEAD_original_current_spec_sha256": "a9058fa4d09e4c2acb6f256a8d472ae3baba9e66ebf17c1b179eb0e83f936623",
+      "HEAD_original_crop": [
+        2010,
+        1447,
+        3018,
+        2455
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "6e8fa881e0cc873439cd1d2b9e9480a0754d89493bce7b63a85562370ded5691",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "CA",
+      "old_prior_native_sha256": "3abb866df6ef073b6e4520fc164a89b2f2d1d1b16f51f949bc76a47400dd8d32",
+      "clean_prior_native_sha256": "3abb866df6ef073b6e4520fc164a89b2f2d1d1b16f51f949bc76a47400dd8d32",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "e901e2418f214f88a6b3b618dd86469c03b46dcc14e162c52dfbaa8fb15014d4",
+          "actual_NN_reference_output_sha256": "e9d32ac4fd872362024e3d3961ebd03170b506da09ad5a1bea75e55ccb5edc34",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "765d6486a9dbc33da7d53fa3af3e3ad98e188ebda54d30dd6e32e38ea532e122",
+          "actual_NN_reference_output_sha256": "429a8b9d9f1e20ba3307fc6c45e80427298a72283abda37f5ebfe78950c2c956",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "a9a012fd70a5cca125fe005419735b12bbf051e0a3c3e104c8784f442223f35d",
+      "original_seed_policy_sha256": "9487a8f5a612b562279996780e6862ef5e874030b03e7d7a3c5f361fdc73decd",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          4035,
+          602,
+          5043,
+          1610
+        ],
+        "chosen_proposal_sha256": "e3e51e44036f57847b545cc8d901f24ced0b52fb4236cdf00caa3bdc19b1e5fe"
+      },
+      "HEAD_prior_hint_array_sha256": "1d534fe05def8792b5eaeafcadd91d7d22fc2e5d0f4c94d2e39d75c7d9507d0b",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/CA/spec.json",
+      "HEAD_original_current_spec_sha256": "df72c4c30e97bd33ba3eff6b9d66293a21ea04af708ce6faf9f85a3f3222015a",
+      "HEAD_original_crop": [
+        3820,
+        481,
+        4828,
+        1489
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "391282e760b98c227b97366f1d5f12db7f4a26b0d92a86d9e9c1e0797cf5f6eb",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "CB",
+      "old_prior_native_sha256": "357e9de092cae1aa56e0b994b7a7c14d71a4b3cc4ebd95ced6eb9667e275aa8c",
+      "clean_prior_native_sha256": "357e9de092cae1aa56e0b994b7a7c14d71a4b3cc4ebd95ced6eb9667e275aa8c",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "c73121bc1c673a62de71c63679be37bdbac28ebf75b8e1f2bde45954b4121d36",
+          "actual_NN_reference_output_sha256": "a598f448cd03792e430ac4b24e9fb334acc806b3e51a2e6cd5f0916f63ab7346",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "a314f6c1fa3572a579f26931f52042391d4e83554c5455aa0d124cd80b40d848",
+          "actual_NN_reference_output_sha256": "095c4731e395d147f496801a20ab68aad13aac509f0d41a38446542bf79f71f2",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "9157ef5d8dc72a0ef2cdc00c98d1c24d9af7170e27c071cd0fbdba61e7782150",
+      "original_seed_policy_sha256": "401f8b1b3f2c1e93cfb1bb4123668b897515f87f8b1738c322feea4977fb59eb",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          3640,
+          486,
+          4648,
+          1494
+        ],
+        "chosen_proposal_sha256": "f818c76806a18370935c84af697cb2aa60fc8ca8fab5053821475f75e9b091e9"
+      },
+      "HEAD_prior_hint_array_sha256": "aa71990d6f71e1e743ec479b366c1b2033d0f62ec4dcd67b1aa75f21cf77fec8",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/CB/spec.json",
+      "HEAD_original_current_spec_sha256": "029195fb91b8043c0c593a91155a884d869993a1bc7766e4e549a64289d04701",
+      "HEAD_original_crop": [
+        3309,
+        313,
+        4317,
+        1321
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "4aa4552b721a640708a2bf2c6801a5a3bbf9ad81ef45513c96d5e6979e787b76",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "CC",
+      "old_prior_native_sha256": "3855228f47d724ebeebe96a4642da580cbc92e1b5640c8ba095a371138e0a4b6",
+      "clean_prior_native_sha256": "3855228f47d724ebeebe96a4642da580cbc92e1b5640c8ba095a371138e0a4b6",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "1bb782bf88f819f8275f9a8b42bda7c34a098fae2b0bc74882a30b27e4b3403e",
+          "actual_NN_reference_output_sha256": "31f1b4e936191ffd2ec8a748696698077a578d14bb38c4ebd541f5d671bcec60",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "95106e4c043558e32d28b53dce84ffa231c93a5ee3fe96257d905e4012776921",
+          "actual_NN_reference_output_sha256": "e73c8603b7b7870ca2cf82d7260abd9f114a587adc156aef6cd3652f97e9b202",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "bc7fe3193d41cd8fec41fa18f13d0999749f5f533853fca38db1aba589c6608f",
+      "original_seed_policy_sha256": "dd49e0a720682cd1351f2756feceddeee16159833ab60a8ed3f5c2a87665913a",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          3696,
+          1637,
+          4704,
+          2645
+        ],
+        "chosen_proposal_sha256": "465abfe1eaa43ff2ca520f45074aa32a913e1ec062752e13124c24bff0b36385"
+      },
+      "HEAD_prior_hint_array_sha256": "2f95365dcc8a90502037101cb434cdc0070876ae0f2def2bba7475497823e4fe",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/CC/spec.json",
+      "HEAD_original_current_spec_sha256": "a5cd3cb63a485644fdc19e8a677d189bd46ed6a918b0dfd488ce9ba5b96feea1",
+      "HEAD_original_crop": [
+        3352,
+        1352,
+        4360,
+        2360
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "7f9d9448ecb494370cbb7f8893fc3420319780d4709cd006d3ba8d3f9cbd122e",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "CD",
+      "old_prior_native_sha256": "b4ce78bee908d59934482d11cd30d586bdfef0027ba32dfe0b77701075dbf323",
+      "clean_prior_native_sha256": "b4ce78bee908d59934482d11cd30d586bdfef0027ba32dfe0b77701075dbf323",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "374b22a1a237f70f968612f5109d075373671124f280658ece1d2262742fe01f",
+          "actual_NN_reference_output_sha256": "31bb8945321305f87b4597af5f920ff4b059af0986147f7edafc8bceacfeeb75",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "211c956592bb405b66f0d2f9406e3257a69b73a4ee4762313b44d3f946e884f3",
+          "actual_NN_reference_output_sha256": "63642280717fc0e2a68abd4b5fcee1e0a594a1e29cf21d1c235112d455be098a",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "7c117c48add544073bba7d6c048b09a24c26ff9bf371fa5ab46610065eb0d9ec",
+      "original_seed_policy_sha256": "8ece0a3ae5957c7dd8401fcab386e60fb19e1ab9a23f76eafce97d9b4812c407",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          4024,
+          1896,
+          5032,
+          2904
+        ],
+        "chosen_proposal_sha256": "58dcbe795d6a46b482260d052af93ed1897923c9331c33e2dcaaf6b2bcf19eda"
+      },
+      "HEAD_prior_hint_array_sha256": "49879a3c4b33d6b286209568547518e70bb39dafde7ea4d3465e5ae3c840dc72",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/CD/spec.json",
+      "HEAD_original_current_spec_sha256": "b8e458c0c680ee1fbeca1d604b1168db588198d8df111df822f43cba1b9a6abc",
+      "HEAD_original_crop": [
+        3553,
+        1519,
+        4561,
+        2527
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "e9cec019f3f01de01075bb1922e71a88037b0b3c0f53d8f268838c9b7e9a900a",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "CE",
+      "old_prior_native_sha256": "819fd689f83edb36107983e89c0ee3fcaeecb3a9385e29461b0d70efec5c1796",
+      "clean_prior_native_sha256": "819fd689f83edb36107983e89c0ee3fcaeecb3a9385e29461b0d70efec5c1796",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "98a742c21cbd8aa39b698c13a2c47784bb076d82c494d807b0802268d28edac0",
+          "actual_NN_reference_output_sha256": "6513ddc659bad83b8c5b326f1c592d50dec201b66484f2aafc66cf2b197331a5",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "41d2c6b6b9448b081597af2caa6b7dc1928cae1371e26079e66e91feb616a863",
+          "actual_NN_reference_output_sha256": "6cece6766f5dbbf0e14277a1b6889ecc28917416f2526d782a93dcb2a525dce8",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "cd6b36b93a9471cd58395d84685d0d95594268db2e3582f3703a909a2e9e0475",
+      "original_seed_policy_sha256": "9df0f8733ceaa89aae461b0b423e2cc6bb66f2d23f166d1ff06ffcbaabdadf10",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          4209,
+          2645,
+          5217,
+          3653
+        ],
+        "chosen_proposal_sha256": "d6754e138c8059912c20794a57c120acf6f5a544263264e17428613d519e7f46"
+      },
+      "HEAD_prior_hint_array_sha256": "842140f7055cdf5bceb1c71b0ec6476e54ab6d61691a4c5936fb89e02f555bf2",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/CE/spec.json",
+      "HEAD_original_current_spec_sha256": "dbf460418d6332055bc0ba0ab95edd74a1a7f98ce78416e617c8db9615556f86",
+      "HEAD_original_crop": [
+        3907,
+        2477,
+        4915,
+        3485
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "db90e03203e9d807cb140da0660be3dc3b6a3ecc6e1a6a3d50b76776a141965f",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "DA",
+      "old_prior_native_sha256": "b8f253a2c96c42e8e493b8c8ad066ae8393558099277ace0ca1932bb241282ce",
+      "clean_prior_native_sha256": "b8f253a2c96c42e8e493b8c8ad066ae8393558099277ace0ca1932bb241282ce",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "cd47ce220b2eaba684aded82fbea82624c42423b88fa358876d4dd338490de19",
+          "actual_NN_reference_output_sha256": "1292cdc53aa196efcd3222b33c93945a3ff6b5f5f2bc6d12b2774bd28e43dfcb",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "b3ae8f5c9c334150d2f0df156d2ecdabe16c4f47b4dbbabebeb5259c12c2d0af",
+          "actual_NN_reference_output_sha256": "851ed2afe882c78ee185195c5994ff9cc6f9c349e713715d4d8082263790c2ad",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "39ded376a3d04156d418db2c025143d73cfbf286af19084899779ed9ef27eac6",
+      "original_seed_policy_sha256": "2c2ae4ee79da0b86006dbec15111a883d784a736ab3d3ad01194bdf4ed81db26",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          4311,
+          0,
+          5319,
+          1008
+        ],
+        "chosen_proposal_sha256": "034a253a67540bf66ab872a49eafe178123b4682f1a3ecb2ebce31139c224583"
+      },
+      "HEAD_prior_hint_array_sha256": "80ffd7c4ac92ed8c84bc48512784dae18409b40cad43caea9ed8f6481e2dd14b",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/DA/spec.json",
+      "HEAD_original_current_spec_sha256": "084a2288ca88cb2bdd2b43aca4dd308885649a8cfa80b25a47dbf42601375354",
+      "HEAD_original_crop": [
+        3887,
+        0,
+        4895,
+        1008
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "9d96b1a482a4a9a38df4396adc6d32ddf18a5da828256ca0d0991861da8f26aa",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "DB",
+      "old_prior_native_sha256": "03b733ac466ea08d89d9a96d435f7ebc2d834f58e17892acae5053beff3179ba",
+      "clean_prior_native_sha256": "03b733ac466ea08d89d9a96d435f7ebc2d834f58e17892acae5053beff3179ba",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "1b381d988e52acc27e15a3fe5fe36e64953604e413835f0c31243a206f823fde",
+          "actual_NN_reference_output_sha256": "95badb0a4c20ce5c92d944e735409dddbcf41f0321320a8d27a19538523beb49",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "656a3021c7bfc2a69155b9e387e97c5f952b2d0de2ff51e4109743fe8c413665",
+          "actual_NN_reference_output_sha256": "fe3191c98b2522019ac907e7eb580d5a1e4595820ed0089587a7dcabdbc878d8",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "87de980f948159875c654cd517a40074d57dc27527c6b7a168910ace0bda46de",
+      "original_seed_policy_sha256": "03be5be2e26c7e9d4cca5941af6aee01b6822cd9d324eda1bbffd524a80a8244",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          4400,
+          533,
+          5408,
+          1541
+        ],
+        "chosen_proposal_sha256": "078c4ae3f5f61b69f4d4d7a8b749c5aa9fcc296e0bab1c824caea65cdfdd2c74"
+      },
+      "HEAD_prior_hint_array_sha256": "2b1081d0021b8115e93d5bd215a98be96a6ae2d2f30e0c7d3bc2fe3b8539d0e0",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/DB/spec.json",
+      "HEAD_original_current_spec_sha256": "6605ec50ccb909940d90c66e35051a8b8434ac8478f9ae12c33a5dcdc1090107",
+      "HEAD_original_crop": [
+        4123,
+        306,
+        5131,
+        1314
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "a880ab412ed6e9739e4b6bcdf275168a6c68bf9f17942c2df56eb1662e4262c9",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "DC",
+      "old_prior_native_sha256": "fa4b3282fb8b662dbf35da669aa40886bb50b309295961ce78de4b4f07306b42",
+      "clean_prior_native_sha256": "fa4b3282fb8b662dbf35da669aa40886bb50b309295961ce78de4b4f07306b42",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "1ece75eef8a1c77fe798d39f56cbbb9c1f2c095c5d73b660a775207905e22231",
+          "actual_NN_reference_output_sha256": "649d5c7fadb6079b028ec7db0f6da19e93b82fca7bafbbddd7fdb09f2bb1b61d",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "afa693239c0ac775745a1564a1554e7ec072c97ecb25f4fca5796069dc1bd67b",
+          "actual_NN_reference_output_sha256": "22d494ff61d6190a41497c777f308034985a066d0bb9fb61c2815edce397b4b1",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "e1f9d6135ef965d9ecf2622da9bb9b4048efb24b22aa3cc2e9798d6322b3793b",
+      "original_seed_policy_sha256": "33e3b6c8ad92af91acfa88fda578e068a738869b2cff7c399ea2fcf7a4dd3b5f",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          3971,
+          542,
+          4979,
+          1550
+        ],
+        "chosen_proposal_sha256": "736e51b61f9365023307c716ad8a6f3a6f15e8fc0a61717e79cf62d260dff8bc"
+      },
+      "HEAD_prior_hint_array_sha256": "a9f7ca74bcb01b6320837885a3af4ae5dad75d44bceb987f4f039a97bf64e784",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/DC/spec.json",
+      "HEAD_original_current_spec_sha256": "6d1b56d78fe1d1f4f0841e9f163a17171cc4b962c5add31ab223cd46bedda2ed",
+      "HEAD_original_crop": [
+        3575,
+        254,
+        4583,
+        1262
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "14b8c7b25220c991ff48dc28bfb8bb258e126f5f8dc5aba5675854aca0f5b357",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "DD",
+      "old_prior_native_sha256": "45cdbb6be33e067d927c75c41417738e3b8d4557f68e2222376689d91af36e66",
+      "clean_prior_native_sha256": "45cdbb6be33e067d927c75c41417738e3b8d4557f68e2222376689d91af36e66",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "ff3e8be7d5b673d935c43bf8b0c7826512a8d333c15645928bd177acdcc651e0",
+          "actual_NN_reference_output_sha256": "a50da2afaca35e7d65f63a22218f4d742ee7d37dfea0447e4c1bf961cd981554",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "04144d2c61574ef5e8acfefd6f3eefad0b7434bf79c68f1970662b40bd2c569f",
+          "actual_NN_reference_output_sha256": "790066fb674cd279697e107190d94aedfe105f727161245255925ea0831456c3",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "72dd730984c65f77f9ed257dc75a26fa36fdc66eba3041f352f587180241d2f5",
+      "original_seed_policy_sha256": "691518102870d037264857328717166b149afe039e02152ebb4c3a324d3e944f",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          3226,
+          1935,
+          4234,
+          2943
+        ],
+        "chosen_proposal_sha256": "5d4e2f963eee69b17328eaa6dcd1f5c9cff640c336ef61733b15eeb0194ec9f5"
+      },
+      "HEAD_prior_hint_array_sha256": "dc7f40c5adc448f517673413a5517f8f09f2ab3138db90e96ea1d1953c751567",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/DD/spec.json",
+      "HEAD_original_current_spec_sha256": "1f6587cd9671f1cb43aeb3fca47f36b48556c2f8b57e9103c19e5ced570eab87",
+      "HEAD_original_crop": [
+        2741,
+        1481,
+        3749,
+        2489
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "9b2c76397c721e83efaaf411dae48d13a88a7541c25d01fee9bab8d5905e1e30",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "DE",
+      "old_prior_native_sha256": "e82d21a414cd4c9a91a64cbdfca2bbaae0c9782bc722dab48ef20ae1e15570a1",
+      "clean_prior_native_sha256": "e82d21a414cd4c9a91a64cbdfca2bbaae0c9782bc722dab48ef20ae1e15570a1",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "15098a9ee58dfb73472734955083c7dc207683fd556b5f9911622eb0880edcae",
+          "actual_NN_reference_output_sha256": "a8421b6fb607e75ad21360d705ed01725e49c18f0a3357a76f74426e67556def",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "906f391618d7623b7ca0e93bfadf02f7d3ffd5accb9e47bb123d1e52bd43fbf7",
+          "actual_NN_reference_output_sha256": "5ca8336559dab6c8829b829fc2132ed45873f7fb9490c76df89c6e16928f6138",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "f02dee6cc65c464219a8fa6d25f4d861b87b931e51a2b87f4d1567929c638905",
+      "original_seed_policy_sha256": "fb1bc448b6afe2fc415dfed44bf027e107e23a4b5cb0b91eaebbab11efcdbd45",
+      "HEAD_prior_numeric_inputs": {
+        "status": "GEOMETRY_UNKNOWN_ONLY_WEAK_CURRENT_HAIR",
+        "crop_xyxy": [
+          3680,
+          2164,
+          4688,
+          3172
+        ],
+        "chosen_proposal_sha256": "df65fcfcc9b3ad009f914392fc1ca7f717d88cf6a63612d8ce8b478f81c1f37f"
+      },
+      "HEAD_prior_hint_array_sha256": "2531ffea3f29c7616d3b2ecf4ca00fde28137f1093de73695f134c4c7603a873",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/DE/spec.json",
+      "HEAD_original_current_spec_sha256": "a2296ec69a4a05e7cfcc0e1f493bd243edaa975a925b7de203caaaeedf67ca41",
+      "HEAD_original_crop": [
+        3679,
+        2160,
+        4687,
+        3168
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "8e674dab44688b45733608cf3fff288ee56a66cb2c860e8c718ada5222913bf9",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "EA",
+      "old_prior_native_sha256": "ee2399b694a67bf22c5bb8e3cd5b85ed97f89717f6647919a01dd1732dec4d20",
+      "clean_prior_native_sha256": "ee2399b694a67bf22c5bb8e3cd5b85ed97f89717f6647919a01dd1732dec4d20",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "248495b0eeb6720950d041dabc5495a9daba527ef6909ea0ef4c59ea908c2f83",
+          "actual_NN_reference_output_sha256": "ddd833cd46d6f6d062a28212e7936aedf938c4864a0713498a93c2ecce797d5f",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "a84768fc74ac3c2418c05419ef18a7bfe7c219ac0e8b0448abbb35e64a2951e4",
+          "actual_NN_reference_output_sha256": "80ec444895bf0b2a1871a43069702fe18b8f5e4f65c064119260df89ba05f4b4",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "a9a4626104eb9f4dc29d4f99ec72fec397dfb6d1c20c4ff775c12cfb7fc4d950",
+      "original_seed_policy_sha256": "364c3287ce19545d8895a99f46cc7f4b342ac45bc9bf69ac2aaab4771116c471",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          3687,
+          40,
+          4695,
+          1048
+        ],
+        "chosen_proposal_sha256": "f6d1aa376bcf0a6f0e02a980e785b62cbcdbb8d7a18c9535673bab9adbdaf9bb"
+      },
+      "HEAD_prior_hint_array_sha256": "df9e064d3e52dd0047a03f1bf679d9a78ce660f0320025254b1040ed971837e3",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/EA/spec.json",
+      "HEAD_original_current_spec_sha256": "f82142f41b846da46b8fef93febc92fd23a75ac8df6770a180ab467de20e68fa",
+      "HEAD_original_crop": [
+        3519,
+        0,
+        4527,
+        1008
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "b327a5d08342601dbcdc1347250fe735cbb3a8e6b199c142196a5ab79a6eec1e",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "EB",
+      "old_prior_native_sha256": "0576dd6d032e426a803633d19e1b3b873e26630f05457f936ae48faad296b666",
+      "clean_prior_native_sha256": "0576dd6d032e426a803633d19e1b3b873e26630f05457f936ae48faad296b666",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "19c4d99b1cab797ae1d6351af854949d748eb155798d55bc4c2b3059d2e7f46c",
+          "actual_NN_reference_output_sha256": "48a1824532dd0fa0bc409d11d3e62da5c72b4d548978dc9ed6bbb0d2f2ac7266",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "b2f55c6fea4c654aff7ebcb860f23765864af4653e59b1d3558f5d7a2855f77e",
+          "actual_NN_reference_output_sha256": "51e6b64d3412079ed1e860421f1cb9b5d120a97f150bbe300dafa3a168d2c4ea",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "607e9d9671118c8c778b44f2ded65fd51ee87f964055e18059139b7a1a12eb11",
+      "original_seed_policy_sha256": "543a6ac457a73e6041b8abfa3c4a33d72a3547adcd7efbd8f9d81762e2b149c1",
+      "HEAD_prior_numeric_inputs": {
+        "status": "GEOMETRY_UNKNOWN_ONLY_WEAK_CURRENT_HAIR",
+        "crop_xyxy": [
+          3698,
+          658,
+          4706,
+          1666
+        ],
+        "chosen_proposal_sha256": "ea7f013e1af4b45a9f1a35fb8ace8306207405b3576f33675fe99608efa66730"
+      },
+      "HEAD_prior_hint_array_sha256": "5f6ba7ef6b1006d28b41182bc1c8b22a8ee77aef49bcbcd87bd5881ee64abf0c",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/EB/spec.json",
+      "HEAD_original_current_spec_sha256": "0cfd13e09fd6884b11d3f95fd89fe0d9a24fd1b21fa19a9a2aabf80920fe365a",
+      "HEAD_original_crop": [
+        3673,
+        651,
+        4681,
+        1659
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "2a2cae850b6e8264976d79ba30f7d177154f634ab9b2b2853282d0a852e77185",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "EC",
+      "old_prior_native_sha256": "3c04605f65f7a504c0820734f7ec7e5fad280129273d32153a64da9ba85f9d91",
+      "clean_prior_native_sha256": "3c04605f65f7a504c0820734f7ec7e5fad280129273d32153a64da9ba85f9d91",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "f930c9f8236050ead506a695fb79453930d22ab263b9a6e1ac01427a5e0aa5c5",
+          "actual_NN_reference_output_sha256": "c72fc395707b316d83b9413e844676be03c8d0071afe1ea2cf91707c5d347932",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "ab191ad493b92cfc6c1025ee6d0c8cb1225e2160b724a5a18b3fc0c8ba59e967",
+          "actual_NN_reference_output_sha256": "457ea461893b5968bd4cc0288ba7c4153cdd68601af863c78490e2dc44b0ef28",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "3c738d67d3308459242d5999c1a7879575747fccc97f9706125dcecf9827ba6c",
+      "original_seed_policy_sha256": "2b19508a0f903435722c4d4fe44f9dd6fc5fafcdc60c995bbe74635216b1a9c1",
+      "HEAD_prior_numeric_inputs": {
+        "status": "GEOMETRY_UNKNOWN_ONLY_WEAK_CURRENT_HAIR",
+        "crop_xyxy": [
+          3062,
+          1417,
+          4070,
+          2425
+        ],
+        "chosen_proposal_sha256": "938745dc07abf157858da32fa7f54bcb171e89eda317453fd582a6805d1b9991"
+      },
+      "HEAD_prior_hint_array_sha256": "706af5c642f9a516a3f3fbf57a6a1cba3220eb303b9ccc5d1221a7126c6184e5",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/EC/spec.json",
+      "HEAD_original_current_spec_sha256": "35cee82b269a09d7b40d2cc52cbd2d5113c815f3d6fff9c628277022d5416816",
+      "HEAD_original_crop": [
+        3058,
+        1389,
+        4066,
+        2397
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "e9960dc1461336ff8b4d6117380151f0b8ee966481e8fe5c3f188f761569cb04",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "ED",
+      "old_prior_native_sha256": "adfe7c24337e71b3ebd093384dff72c1470d02e681b54219d4467602994cfdbe",
+      "clean_prior_native_sha256": "adfe7c24337e71b3ebd093384dff72c1470d02e681b54219d4467602994cfdbe",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "f40543a56b1f50a7c2ec13201e616e7b7f41029b585db8de56c5ba6d91a533e4",
+          "actual_NN_reference_output_sha256": "9eea8967fe67d94dbf7872cba677676a2659c1e2ce0965e339b372fc8c7f6338",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "a3be464c08e8395fc35c027357d7c2816bf599889ea23064258771f0be5288df",
+          "actual_NN_reference_output_sha256": "76380b11da82f4592c176d335b332c9461b28d25b25fb10f58a0f933bb1da1cf",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "58bead6fb617655223c955f206b4f0e71ce009e0238b2bbb00010f7a84556333",
+      "original_seed_policy_sha256": "abbf736e757bd811bf5c9d54e70eedd8720a90ac448f74ace6413b52c114a572",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          2740,
+          1360,
+          3748,
+          2368
+        ],
+        "chosen_proposal_sha256": "999824e9d8380e76eafc786dc88969b57bc0ed32bfa49f0549e897b091c9c1ca"
+      },
+      "HEAD_prior_hint_array_sha256": "f5c10119cf7c60e8b9eeef4513b4641e03e6abda9bbdd54c3a92204876a2640e",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/ED/spec.json",
+      "HEAD_original_current_spec_sha256": "b58fee2de39ffc485f831e8ab2363433dc752b0fa4909094f64e90872a6ba976",
+      "HEAD_original_crop": [
+        2310,
+        995,
+        3318,
+        2003
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "896c21777f1b889df8380270d14dbcac1010744964ecb16cb0e5e73bf9859775",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "EE",
+      "old_prior_native_sha256": "755048bfe4e3aa9c14925dbf250b898aab1a0fc2d6a611b5d0fc0c2b804f225e",
+      "clean_prior_native_sha256": "755048bfe4e3aa9c14925dbf250b898aab1a0fc2d6a611b5d0fc0c2b804f225e",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "1a7f94c78c28e77adf39d6df3ef77cd3032a9e376b9dfb58b7e2a79e78c7c70a",
+          "actual_NN_reference_output_sha256": "ff23d8ddf82b12e47553e038a03756483274ad2f1f458cc9e90a62bcdcf380ad",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "7634e536c4198bafe60daff297d8e2c47192fb081a6c4da5a9a6e2e46cebfc6b",
+          "actual_NN_reference_output_sha256": "5dff8aee6810a3d4a89ad5d9981eb6693eb87e934df61f8feeafff0092e69ab9",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "44ed1b976c76956b0c6dc1e3f5d52590d6be2b516b5ed9f0155d29ee6bb8c2bc",
+      "original_seed_policy_sha256": "f49d387defbab2fb8cadbe826d90613fc5be90662fb4c1eb33d684fc9cd5a552",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          3036,
+          2258,
+          4044,
+          3266
+        ],
+        "chosen_proposal_sha256": "bacb0214ae90098d44fbecb081d93363a2db2902adb17118da9aed36cae3f92b"
+      },
+      "HEAD_prior_hint_array_sha256": "ca93ba920c6f996aaec3d38009ab694416b0ba0154d9a4bc96addefe825af886",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/EE/spec.json",
+      "HEAD_original_current_spec_sha256": "d344467cdab7a4d7328dfb0996d847d7803154b85bb78b84c713678a035cedbd",
+      "HEAD_original_crop": [
+        2639,
+        1884,
+        3647,
+        2892
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "42f0532b2aa42ac6e399f4baadcc899596ea76a020937aa603b0cfcdc1bb2d91",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "FA",
+      "old_prior_native_sha256": "e827638e1d7ccc1a55b0ab065f99cc864ff4656eb4df066c2178a64658220389",
+      "clean_prior_native_sha256": "e827638e1d7ccc1a55b0ab065f99cc864ff4656eb4df066c2178a64658220389",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "bcb75b9b0e180f78abd837683be869f3404bcd7a2a893c4e711cabdffdfa4432",
+          "actual_NN_reference_output_sha256": "0d23dca548ab66bf62c7a64b785f0e1444f47aa2672421cc24758796a0c486ff",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "f433643717b349a9b22bf88f6453c1025d3d2eca343eaa103217d9e26692028c",
+          "actual_NN_reference_output_sha256": "7b5418e3c003e7f69155749353806d758b637994b1ebcc2d861714eae6bad069",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "bcfc1cb30cc40c0d0b8202d398628e1102056ef82ccce0462125260122c68b8d",
+      "original_seed_policy_sha256": "001cfbad99364338954b53bd66ccfd7a78920c84f21818a8b63771df86c71ed0",
+      "HEAD_prior_numeric_inputs": {
+        "status": "GEOMETRY_UNKNOWN_ONLY_WEAK_CURRENT_HAIR",
+        "crop_xyxy": [
+          3676,
+          0,
+          4684,
+          1008
+        ],
+        "chosen_proposal_sha256": "0946f1e5b31214c9899f971cb97f9a663e55121253c8c757018ef9d770a76b6d"
+      },
+      "HEAD_prior_hint_array_sha256": "ef4c5b6f0ac2d2019ab919feaaa3c159e2b5b9dc2974d1e99b5162999301e35f",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/FA/spec.json",
+      "HEAD_original_current_spec_sha256": "fa7eb4d34f6a93b81139ebccfbe5ebfe524b6c848cea878d771d3fbf33982227",
+      "HEAD_original_crop": [
+        3625,
+        0,
+        4633,
+        1008
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "59a6f8cb5d7bf412faa8a188d1c112a86e607e5d5bc0a5370a84adaa947fe346",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "FB",
+      "old_prior_native_sha256": "0ea8b6be6838feeea5e0ea5a492ff0cb1e98304f49ead980752a0c31e6ed93b4",
+      "clean_prior_native_sha256": "0ea8b6be6838feeea5e0ea5a492ff0cb1e98304f49ead980752a0c31e6ed93b4",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "baaa701ee69e8a4d1a62cb4f144855907899eeea4561b89723dba56e446e1cfe",
+          "actual_NN_reference_output_sha256": "dcc9e642b8a2c9d29238c67248bdb864fb70c7bde07cdc6507b6713056f71480",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "5df0caf2b2dd49b510ca0133c1220082ad9279890fcf622f40276d59fd572a34",
+          "actual_NN_reference_output_sha256": "62e24c512006a20c0e502ae8c8a0fc8c09af6508d95c18f6cebe2179e3c61174",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "b53e6c6dddbaac2fe87d46a3f4de8b6dd5e7cb6819bd2831f4b350b7a0bcc8d8",
+      "original_seed_policy_sha256": "7013fe1b660b3a4149a47f1dbc139610f97e2c944d10f10b8404e5a0a6d177cb",
+      "HEAD_prior_numeric_inputs": {
+        "status": "GEOMETRY_UNKNOWN_ONLY_WEAK_CURRENT_HAIR",
+        "crop_xyxy": [
+          3040,
+          0,
+          4048,
+          1008
+        ],
+        "chosen_proposal_sha256": "9f1e23a26c1455822055bf72de95c5f0726e48293565a70319f9b3c70202d1d8"
+      },
+      "HEAD_prior_hint_array_sha256": "f34f0ace858f667cc4de70785bd09bd073ead3db976cff945b4b5127b81a9bd6",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/FB/spec.json",
+      "HEAD_original_current_spec_sha256": "ff6923b530fd9c31a5bb72a28c821718bd0308f99d01167e9978aa85dfc4ce14",
+      "HEAD_original_crop": [
+        3039,
+        0,
+        4047,
+        1008
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "a0b2b10bc1ecfb8e4eb1aa9780f25c620ead2e5135c4dc714dbf7c4ddbaaa549",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "FC",
+      "old_prior_native_sha256": "3a2bf8081efbbc67cdb50c0cdc92fdff77d6966131462e42d0cabcd14fa329ea",
+      "clean_prior_native_sha256": "3a2bf8081efbbc67cdb50c0cdc92fdff77d6966131462e42d0cabcd14fa329ea",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "ffecce098f30268e3ff23aa76fef38f30ee63053438a2281f7ad781323105b12",
+          "actual_NN_reference_output_sha256": "9d0a1e14430f9c981e6aee9ae7f48a03a45b90d7c1de4eb598707b43946f47aa",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "4e4bba2da4ffc7c9ed0a8a81256bfee5485a8829099624ac90bd9cbb6ed2090c",
+          "actual_NN_reference_output_sha256": "2b3fa03846732cf8dd7d66eca6fa0d899158a473a1b5d22826ef707649b30797",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "5ef111ddc58dd9ec8aa5c1b07fa9158d66ba6d6ab5ff350e38ee8939279b78e5",
+      "original_seed_policy_sha256": "05d47140ede480b3dd36fd62e12a4760871fe569e8cb8f8235ba1322f1f228a7",
+      "HEAD_prior_numeric_inputs": {
+        "status": "GEOMETRY_UNKNOWN_ONLY_WEAK_CURRENT_HAIR",
+        "crop_xyxy": [
+          3675,
+          1133,
+          4683,
+          2141
+        ],
+        "chosen_proposal_sha256": "f03ef487e47a96b72acadd116aafcc5ba255335e50f60f41654080d1a1baea34"
+      },
+      "HEAD_prior_hint_array_sha256": "3d47ec7d1dfb4afbc962e09c100a908e120a3e8e70a567e2c45e392dcaf9ffb8",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/FC/spec.json",
+      "HEAD_original_current_spec_sha256": "b07836c5d23c21957b7f9d78539ea0e51b3b0a8f7fe65b35d1389ace846d4a61",
+      "HEAD_original_crop": [
+        3680,
+        1128,
+        4688,
+        2136
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "e8decba861ec9d7133fda5a9925bbc27907f4808db978daa185da2054c070cfe",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "FD",
+      "old_prior_native_sha256": "4df619cef66ca9c6737e62e287fd681cf336aa265aed59d2940378f7a2fcad9b",
+      "clean_prior_native_sha256": "4df619cef66ca9c6737e62e287fd681cf336aa265aed59d2940378f7a2fcad9b",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "bdb71bc90f97bfc5e1d2b79fdcbc10568fe0cf89d5642f6eaf48dea11b2cb746",
+          "actual_NN_reference_output_sha256": "54b2ed27412053ba4c48f112bc0d8588b0cab38f9442a1589a8c1bb52f91d49b",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "c6687e9f7dfbf245c36dc3a39d38788e121d85fc1d807cd5c55b43bfd54eec02",
+          "actual_NN_reference_output_sha256": "cd58a6bc91af2da02b49ed518b2d8b5dc7dc936d44179ac6fe61044213a975f8",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "fb5a4d7c7eab46f880dd8bcbb112df1d81674fff26b0ba7db605409c4967a5fa",
+      "original_seed_policy_sha256": "e869b08f05f6564d8caa275408ad4857cf00fbda1b1fd2c6a3750aa06f085d0c",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          3467,
+          1786,
+          4475,
+          2794
+        ],
+        "chosen_proposal_sha256": "1684ac7993e7b041192e58672dfb723d8bca351d4c75f6dbd61b2d8702cd2232"
+      },
+      "HEAD_prior_hint_array_sha256": "7a50c4fc962871556530f6ab43958b1dcd3d8316e0f69a5fbca2b9007ae19ea5",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/FD/spec.json",
+      "HEAD_original_current_spec_sha256": "c300230d4396ebfc82b57f6b7b226e79c4d16721cea61b55bcf59f58dc38efc1",
+      "HEAD_original_crop": [
+        3000,
+        1391,
+        4008,
+        2399
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "aab1b7497ca7328edb199eaa5e512debe682fff52cd2d4c2273fcae736f34f0f",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "FE",
+      "old_prior_native_sha256": "1159e3ee72a8115d650126951fa6f3c3a6d83b05cbed8e259279b436a42f98a8",
+      "clean_prior_native_sha256": "1159e3ee72a8115d650126951fa6f3c3a6d83b05cbed8e259279b436a42f98a8",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "4de22bb053ef37903895c7476e65321d4c31e9aa02cfd56b4a8dc549b61c2f67",
+          "actual_NN_reference_output_sha256": "90386cf898beb1ca8a16c9d1af4ccec4bd5cf65defdb2478e4027f193628ef2d",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "cd2b5097bdecb4649620490b423012ef085d0bf24b2ee1756d7e848956c89e92",
+          "actual_NN_reference_output_sha256": "8c93c0e62193dc50e8616ab1dfb09684e964c8b6c94db0e54a4c0c44b606c01f",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "4a647d6bd5e95dde2214270c8ff86d3a9cef192b44594a4a6a2002e15a26edf8",
+      "original_seed_policy_sha256": "08aedaeaa59a52bdb8ec4d5b600505f49c2ea79130c21950642ded73749c2fde",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          3119,
+          2256,
+          4127,
+          3264
+        ],
+        "chosen_proposal_sha256": "4fd5b6c610a686a2843d5cb62eb2129b452718399c110277a61d4fbd03b8fd14"
+      },
+      "HEAD_prior_hint_array_sha256": "e093d79bd53043b9a1f7ca1c7559885cdf3b5dbdfdd18d38c8e43383e3795c36",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/FE/spec.json",
+      "HEAD_original_current_spec_sha256": "2f80e18012363c897fbcfc7ed4bf34e500ba4ee8160b6a6ecb9f7f77cfff07b8",
+      "HEAD_original_crop": [
+        2699,
+        1876,
+        3707,
+        2884
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "8c0fd35e1975ec8ef9cf953d753736641df27da9a0573c60ac5e3f54626c4816",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "GA",
+      "old_prior_native_sha256": "e931b2b4eacaa4e6b1f41d2f3dca1c8f453ae4330c42bd7e144a1d7a39f58226",
+      "clean_prior_native_sha256": "e931b2b4eacaa4e6b1f41d2f3dca1c8f453ae4330c42bd7e144a1d7a39f58226",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "43a47e3160202bd7d6669e8b07a7ac1ed708b6bce2a6de5123d4333404d4e7f4",
+          "actual_NN_reference_output_sha256": "818b8b8bfe24ff7d772b70de22f55c696a060bde01398ac76008528953fbc041",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "73b5b9842709a4ffc3a08b83df2ef20427f38542a78efd158278e68869e48c0a",
+          "actual_NN_reference_output_sha256": "f5ba31a8dbab72ecf712aeeffe4e1e6772fb5110d7dc84efaf4f72be22e22dc8",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "777740eb7a8d2886f8f034d7eb8abd994fb669d220f6f087516c98009609b9ed",
+      "original_seed_policy_sha256": "f8bac599bb401569f4f024c4fe4161dd396d3a0fc443d07013d3b05f572e73f7",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          3704,
+          316,
+          4712,
+          1324
+        ],
+        "chosen_proposal_sha256": "e3c21ec6ab3e46cb3c8d3a1e31cf0190732e2aee2232e28161b3a09a4effa660"
+      },
+      "HEAD_prior_hint_array_sha256": "0987e522731a5d4b9923b01d0b03ee085325bed12def279221d15e667cea4b98",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/GA/spec.json",
+      "HEAD_original_current_spec_sha256": "798d175007be7a39702e1847a2f4b019e92ac1347df7f8a92b23be6382bce0ed",
+      "HEAD_original_crop": [
+        3623,
+        204,
+        4631,
+        1212
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "64ddbecb07b07e87897ea122c0bfcc12590cd575d333d1de92f98e45d0e071f2",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "GB",
+      "old_prior_native_sha256": "87b3540840d6a8710a4f0596fb0cef2184df89d4bfb1b4e632ceafce323d3453",
+      "clean_prior_native_sha256": "87b3540840d6a8710a4f0596fb0cef2184df89d4bfb1b4e632ceafce323d3453",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "26bc08f2e9d345c95395d3aa195d4ed8a3e24cbf0281f2f06b890d2970a19d9e",
+          "actual_NN_reference_output_sha256": "b1cfd69351746d8ca11bebcbd89171473464ba0425e72a5c5c68211f27371b2d",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "edeb642b60d3fd29cc7e05f83d1603b0cb3deabd6d86c3147f851473a259c567",
+          "actual_NN_reference_output_sha256": "5a5463ee46c78153a5ceb44867ffac554806fcc68d86a97a4977f6d0c7b60633",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "3e5b40669e17e117ab60a223b7145674a7b6c66f0e4cffb1a2802c0f05bd3795",
+      "original_seed_policy_sha256": "86a1b18196095203b628e59fd1ed901feb46d99563db55cac455fe82cc548c73",
+      "HEAD_prior_numeric_inputs": {
+        "status": "GEOMETRY_UNKNOWN_ONLY_WEAK_CURRENT_HAIR",
+        "crop_xyxy": [
+          3985,
+          415,
+          4993,
+          1423
+        ],
+        "chosen_proposal_sha256": "b5c0910fb9482fd0fb17055b738a9f48ab67b07d2ce6226ecac8a9d90c33eee3"
+      },
+      "HEAD_prior_hint_array_sha256": "b4acadb9af62398b376168dd21acf27057cf9ba421626f9ab686fdb93d17064c",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/GB/spec.json",
+      "HEAD_original_current_spec_sha256": "58e58ca59b3cfe44350b9ccee0743a90b9fe1ddf2b90bb8c9b4f667b19ad9f2a",
+      "HEAD_original_crop": [
+        3950,
+        394,
+        4958,
+        1402
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "6ec3e33feca23a6452de37904d66b502cb2257918954b4139340476e9538569e",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "GC",
+      "old_prior_native_sha256": "e30f7ee2e9ffd425738017c39d5a4a79189c89b6b319cf1ce0dab1ab33e1183d",
+      "clean_prior_native_sha256": "3306d54b07d5620de8284855212bbbad1b5b87442de540c129b128591a211d72",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "dace2ff1a022d11fa25cbde47232e76695f05f596abbc15219dcb0ae90669fe0",
+          "actual_NN_reference_output_sha256": "7997b8910e6732356799df7e5bd525e4afefc08bfada64d097ed9f3569ad3324",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "35b7afe400d6a3578cdbd685af47b0cad6293030999e5cb8ccdc90092a25f1ef",
+          "actual_NN_reference_output_sha256": "92785225830c091d6e5bb7cabd53b72f99d38fcdb151c74274ceeed4afaebe33",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "ac0012ff128386cf114ff6f7a623fb1fad2060cd527586b82963c13d550fa056",
+      "original_seed_policy_sha256": "9108db3e0ad27224ee73bf0259e1cbdb6cac4d1ded2889d212b3663c03e56c55",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          3828,
+          941,
+          4836,
+          1949
+        ],
+        "chosen_proposal_sha256": "0ecd3bb863de0db691e2f13c57373b0a5d4f873e4e2ed93fbd57a790c6e3122b"
+      },
+      "HEAD_prior_hint_array_sha256": "5202e689afef29dec821c062af0541fd10ec3a9a8d8ee11f995114616fee95ef",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/GC/spec.json",
+      "HEAD_original_current_spec_sha256": "3f617ae19b9992e3b2d345d51a112c79c863222e9d92259545b698deafa04bd4",
+      "HEAD_original_crop": [
+        3590,
+        693,
+        4598,
+        1701
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "c322a530c3d28049bf727430d81f8b84eef2eb31910ec5a810f8c220fcc02023",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "GD",
+      "old_prior_native_sha256": "74a648fa3e4f15558bc1d333b5c78c3ef5dd4bc83f44d581d326e355d00caa3a",
+      "clean_prior_native_sha256": "74a648fa3e4f15558bc1d333b5c78c3ef5dd4bc83f44d581d326e355d00caa3a",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "e3154f22a544ed1fb9a285e7451d1b0f532d7246771c553f9745dfa3cc134499",
+          "actual_NN_reference_output_sha256": "528754b54aef9422d311b420c38fb6f53dfe296c4286fd032d14b4c1f7b9d0f4",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "e3e424becd3c2658fb77a511873cbb544389b8ae28b36ab995fa504c26b29cbd",
+          "actual_NN_reference_output_sha256": "72e8d2b474799da301c1487669b09edd9f111ae6d8bf9370eadbdef3fe44c424",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "296668fae39592d2869762568a1520865917b300c419438c6ab0fe9b6fdea0ad",
+      "original_seed_policy_sha256": "0a85f0ce6987b73820ee451019e25508a46bee289762298e8d7e1b3f66070253",
+      "HEAD_prior_numeric_inputs": {
+        "status": "GEOMETRY_UNKNOWN_ONLY_WEAK_CURRENT_HAIR",
+        "crop_xyxy": [
+          3626,
+          1204,
+          4634,
+          2212
+        ],
+        "chosen_proposal_sha256": "78117492dffea5baaf3511e1220bb9ab2756567cb4ce3f3fba07692f388fa5e6"
+      },
+      "HEAD_prior_hint_array_sha256": "dd9d77733e7084d029ad16a4eb9069cd8f17f45f4db2966e8595076507a83b80",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/GD/spec.json",
+      "HEAD_original_current_spec_sha256": "863ea29e82fc43410e2653ab3bffa6502cbbd71d2b81e3a03fdfa1f557e3381d",
+      "HEAD_original_crop": [
+        3619,
+        1202,
+        4627,
+        2210
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "6d22719171f60c1f31b3c667009479e971960663902ff8b40c7c4eacd37840c5",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "GE",
+      "old_prior_native_sha256": "beafe2d5d5f16e4b77fe57b7800915b1d13acc6528e2515ed7737c68149586b1",
+      "clean_prior_native_sha256": "beafe2d5d5f16e4b77fe57b7800915b1d13acc6528e2515ed7737c68149586b1",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "9997ecce31f3dbb5a3caf20ed7225a043b04a368214c437d3f0868d04db4ed0b",
+          "actual_NN_reference_output_sha256": "2d9b268dc7a03d0346d395a1d803f7177b735b3fa6f772c4d1725f98bb490fe2",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "f8761b99e834bb0bb20a1e36e693fa53866d065055b95e05ccd76bc4f3cb5677",
+          "actual_NN_reference_output_sha256": "785a79e725bc776dd8c323c68947f7d5a565d12056aaafde434a36c89e71ed7f",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "38630dd1096c9279fda507a7a7e72b73b4e0ec9a68d71ebed5ad7b04a5050f83",
+      "original_seed_policy_sha256": "756081b03cb1ec516b1e0f23052cded2403fd7aebc9412300b4451a5791cec82",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          3716,
+          1776,
+          4724,
+          2784
+        ],
+        "chosen_proposal_sha256": "75e24525fac50dbe2ce4fb75fbec738e49fa4fec204cdb65ec6fd1815da82165"
+      },
+      "HEAD_prior_hint_array_sha256": "09b18eb1f039ae05823bd7033f454af9c87acfa526ba78c38b9692836e9a0046",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/GE/spec.json",
+      "HEAD_original_current_spec_sha256": "9d675d1be67e0143a62887dddbd0e7e18c1f5f753379552d141ad2547dd93f1e",
+      "HEAD_original_crop": [
+        3433,
+        1567,
+        4441,
+        2575
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "27eece22c60ffcc0db5715f1c3d3d3384443cb31f70cd93fab3a746d9964ad80",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "HA",
+      "old_prior_native_sha256": "fb8de76e028a5537b5b79b83cbb3bb61f35055c79a560a098c514440e1bf79c7",
+      "clean_prior_native_sha256": "fb8de76e028a5537b5b79b83cbb3bb61f35055c79a560a098c514440e1bf79c7",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "c4e4f67563aaae616d4d516847fa117944c26c139b202da61803fce95495724d",
+          "actual_NN_reference_output_sha256": "28a62e4a4538a2f4cc6a94ced2ea1d9d8c5ff7f09eebc5b044cad9c29fd97d64",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "1c6afcb41fe97da1b2a41188582a85d7e930f30e69dc27f7a3918426303cbb87",
+          "actual_NN_reference_output_sha256": "d3418b086eef14a4bbddcd8994dd5c184fdae47c835cd857328d1b1cd8e604ba",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "6166e515ebf5586e0d51cd7a4d3c3bd8798b65e932ad276b4c7fa94229777390",
+      "original_seed_policy_sha256": "6971f0ab22e8a6d1b6fc3de1b392c9d08cf99ff6de57f8305254fe31670d6d1a",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          3570,
+          208,
+          4578,
+          1216
+        ],
+        "chosen_proposal_sha256": "7a4f730d1284744badd4fdbb77d23432ebb16b35039f7910b3f7cc5ee9b07ba4"
+      },
+      "HEAD_prior_hint_array_sha256": "df793d2e614886151d89c94779f37dacf8751b261c88b03006cf0ffc19ba5fe0",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/HA/spec.json",
+      "HEAD_original_current_spec_sha256": "4078a1ac94b98604d707bc04afb24dd6ec6d4f4fb0185b125ca307f1431e84dd",
+      "HEAD_original_crop": [
+        3525,
+        122,
+        4533,
+        1130
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "dbf39ff5059e792b9b902e01f44644f9185e20bc3d69c1da3fcdc91b08bb7ef3",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "HB",
+      "old_prior_native_sha256": "df2534536c2b07d5ed5521a03acbb7fa54aac897d0a0a5b81082d6e72ac7ac6a",
+      "clean_prior_native_sha256": "df2534536c2b07d5ed5521a03acbb7fa54aac897d0a0a5b81082d6e72ac7ac6a",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "b296da5652ef9ce282c36b279df1442fd68efb151fa096e4fab0c6cf15c212ff",
+          "actual_NN_reference_output_sha256": "71f215ce40d518c26981763c4c74288e00dae4a836d1fbe1edbe08247e6946ec",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "9386ba18fa656456e807476ded28c350c81a07481b4057e0889736da93272a36",
+          "actual_NN_reference_output_sha256": "bf2fc1767d6dc676c1b85a801ce070becb901ef9ef5498afef5c856d9dd738e5",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "a551cd68157014668d7d988586388b8cb7c9b60aa0051f10556fc6e3cfaed6cd",
+      "original_seed_policy_sha256": "e9b1def2cb3c0e7c4cfa75356e1b5c8a472223460d43d79149730ac7f3b555f2",
+      "HEAD_prior_numeric_inputs": {
+        "status": "GEOMETRY_UNKNOWN_ONLY_WEAK_CURRENT_HAIR",
+        "crop_xyxy": [
+          3945,
+          0,
+          4953,
+          1008
+        ],
+        "chosen_proposal_sha256": "80e039a397253b44a757f777ee8a96c1eb0bb609d0bc2b2dfe0ed733ee5e6626"
+      },
+      "HEAD_prior_hint_array_sha256": "092d9b46229ac2dae6f4e3865c225a02695f21b092396342f5c7995c87f7b84c",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/HB/spec.json",
+      "HEAD_original_current_spec_sha256": "1f0d397ea9f619c8d9512347d83a4ef8dbcab94c0395278639925c5a876afe83",
+      "HEAD_original_crop": [
+        3932,
+        0,
+        4940,
+        1008
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "adf6794219f2979b264086046303bfd0acefa42e9aae8d3a997a9a942f61f184",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "HC",
+      "old_prior_native_sha256": "fcc041fbcc7b87bb12e8f413f6befe703a01452522ccb8488399b4d1183b51f0",
+      "clean_prior_native_sha256": "fcc041fbcc7b87bb12e8f413f6befe703a01452522ccb8488399b4d1183b51f0",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "e91c2032da5d0cba521e1edbed90e3263abc7847c3c9c33eb1d1b5720a53aec5",
+          "actual_NN_reference_output_sha256": "368f7a5b89e0f9331cefacd542d222bcc2ed91f470dfd683d341c1c2be01dfeb",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "c4d23f47bd54befb2859407de200861a3da84e64a067f47c260965ce37936e4d",
+          "actual_NN_reference_output_sha256": "343d862649fec1d2f19f12317d7d512d4ea556d9d7f4b5d538eaea6c49b3e07f",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "a78a700b201291c3595878e9f58d61da657bc654bdc5cef373e75bcd8013f86f",
+      "original_seed_policy_sha256": "cfec11df937fdab461df2a997889c8d512e1470ff4b42011930c071e3dcc7063",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          4154,
+          807,
+          5162,
+          1815
+        ],
+        "chosen_proposal_sha256": "377fd0066863116ed2a93c4aa70aeb8c7e7ba45007631cb184ab3fafc24816ab"
+      },
+      "HEAD_prior_hint_array_sha256": "5faef4d46e8f517822070c976fd3f964f5c71d23143fd3434c3c9803639b78ed",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/HC/spec.json",
+      "HEAD_original_current_spec_sha256": "ec9aedeed9a8337ee94f014a8b6220256c35b54072403181a3a184797e02091e",
+      "HEAD_original_crop": [
+        4049,
+        747,
+        5057,
+        1755
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "9afcf4521f3469a991fbb466bf43c97828dd6eba933930c0b72fe107ceb3ee7f",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "HD",
+      "old_prior_native_sha256": "30874e30447d3625d0dc9263dab3f342c0f4650a78fc70dac3bf85bbe11dea51",
+      "clean_prior_native_sha256": "30874e30447d3625d0dc9263dab3f342c0f4650a78fc70dac3bf85bbe11dea51",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "7c90645645109e81a12fee86e8f134fc2d11219ccfee381d3216d7034f4255d1",
+          "actual_NN_reference_output_sha256": "f2308e1840279690038d1e813dda20c73dab90eaaaf5688820037229ae6c9173",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "62146eba4e3c5797d382742c762d96923ce78398b7455333ad733405c341f63d",
+          "actual_NN_reference_output_sha256": "61a6b272c50f4dfb1f792333d3eae9bb250fdaba84b2eec5b6d100a26534e374",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "0f0ab63915875bd2a128b323c55391ca90925bc038cb9a4c82e2b9792d72ff5e",
+      "original_seed_policy_sha256": "a7afd945625a2771556f2e484e54065b1c6bef25836c24eaddcc45198ea6197b",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          3906,
+          1115,
+          4914,
+          2123
+        ],
+        "chosen_proposal_sha256": "9652386233a95e4dc292a264b4430c5496f257ea5c2615bfa54286fe019f074c"
+      },
+      "HEAD_prior_hint_array_sha256": "4a0ae38f6f2ecb5839438e64f050ac8ab35acdbba614fdbb40b81820a945b197",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/HD/spec.json",
+      "HEAD_original_current_spec_sha256": "18f78a6578eee9418c961c990682b5c9d89595b6ea6ed05909c69be95e845038",
+      "HEAD_original_crop": [
+        3800,
+        1068,
+        4808,
+        2076
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "232b0043da3e97098c05f04eeeb4f7b1d46c0ae3a44b51b934dff037e26e8d49",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "HE",
+      "old_prior_native_sha256": "5247a82cf5662d2e6d6a5f80bc46d9f48ed8bff0ee11792540e217b2a3db16b3",
+      "clean_prior_native_sha256": "5247a82cf5662d2e6d6a5f80bc46d9f48ed8bff0ee11792540e217b2a3db16b3",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "4e16beb6f0cb1bf69407cb03c110fa05537407cb0b67170507377a6f081704fc",
+          "actual_NN_reference_output_sha256": "298d0039b8b57e2bb88859754237210b2b3e94f484e983f32b92169908b78543",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "b65179f894cb59770dd94e869744b09b5cd343b4d2cf7e9d76238cae26c54ee3",
+          "actual_NN_reference_output_sha256": "34346f234aba90f7c079cbe3f0f24070d8119d6d843c2b31ba42df373a6ac176",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "a5785b4cc1e6ff4465dcb0784d9c46577566bc5cb1863d4c4ba107dbf2128b65",
+      "original_seed_policy_sha256": "f93ee823886a905a25c98882fc837f37c059ed7a093bf562db08defed9c98caf",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          4113,
+          1747,
+          5121,
+          2755
+        ],
+        "chosen_proposal_sha256": "142875b44a28c0603902fce3ff607d2512169a1bc2946fb8dbda002357cea6c1"
+      },
+      "HEAD_prior_hint_array_sha256": "678531ee30ea49a5ff450a28b9588e110b2efb35a4fae7b526c1ccbec4f9a1bd",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/HE/spec.json",
+      "HEAD_original_current_spec_sha256": "099e30528925972285f1379791640dc02fea88a3a561ce9232dabc560efefbc6",
+      "HEAD_original_crop": [
+        4029,
+        1666,
+        5037,
+        2674
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "863808ffda384a10e8c8aadb027faba4433cb223ddc4e4c49e4bf78a90a9c1ff",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "IA",
+      "old_prior_native_sha256": "54289b18286c3c2716c8eac2a570afbbeb213aa146ed3df5603653d9f73503fc",
+      "clean_prior_native_sha256": "54289b18286c3c2716c8eac2a570afbbeb213aa146ed3df5603653d9f73503fc",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "e0ccb3f6ae195828504d49aea3f7e7566b3d28d059cac9d3673e367752a92351",
+          "actual_NN_reference_output_sha256": "91f63a4113c6fb3092111eeda02b76ef3c33c2a6329ff3d100043c61401cbd0c",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "6237dfac8b2c897c16edbd441574417e7c3331ad6a6347f14a35e3b832b97add",
+          "actual_NN_reference_output_sha256": "5fe7c9060bc93cc05412e6e7a5fe068286975e654935545869bd93ae211407f2",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "a3870dbe8871cf449545634b96a56f729eb02d247d04cb9321c44cb2d79fbd58",
+      "original_seed_policy_sha256": "c11ae8281c886376a277953e8c0ebe8c3125a4bd2d900c1053f1503bf569cdbc",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          3859,
+          209,
+          4867,
+          1217
+        ],
+        "chosen_proposal_sha256": "d867088766f6bf57f90216c7425ac996d0548e81f5924f0a70c215deffa68c9f"
+      },
+      "HEAD_prior_hint_array_sha256": "31e4f2198437b2720063ca4602a11f9e64599ef7424f63db1e7a60ee7b670544",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/IA/spec.json",
+      "HEAD_original_current_spec_sha256": "9d3db554f44445079a8d7dbcfeab3b23be1b8068e05ce786144b4a1b9df12d7c",
+      "HEAD_original_crop": [
+        3792,
+        163,
+        4800,
+        1171
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "1439d8ccd41bc2cb3bba5fc1384c5b723d9ade0721efad9bfc614022248df13b",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "IB",
+      "old_prior_native_sha256": "65bc589261e447e0b33ab8b7f0f19690d6034792b62e9bab35f5a52f0f544590",
+      "clean_prior_native_sha256": "65bc589261e447e0b33ab8b7f0f19690d6034792b62e9bab35f5a52f0f544590",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "832daeb601112025e6747ebbc0f828248e7398927c932ac52855db957ad2b363",
+          "actual_NN_reference_output_sha256": "1e8c3148aef151ad81f100627fd07b5788ed9b27ad366226d267ca11d0da4201",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "4ef0ae027b04d9c575e6a3509a5b217c6ed2a1149807763b7b903e731047f09a",
+          "actual_NN_reference_output_sha256": "1298773b21b43a11eb674c1edc221d8e301d05daf7b8b3c89cd57d2a1d4d571a",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "3ee8c15829f7eba66d2b695109b06f3b56156e463d23884671c8bddd5041c95f",
+      "original_seed_policy_sha256": "e835eb53f234b40b13e2102cd3ee108450e00200e96f27429ada831cdced3451",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          4089,
+          419,
+          5097,
+          1427
+        ],
+        "chosen_proposal_sha256": "2fc453e8da4a1b495beb0f3ac2d04687d28ccc684b57d3a083d88b44bf05c7b7"
+      },
+      "HEAD_prior_hint_array_sha256": "c9615b36d3ddeb9add03108470b913a6dc350aad6a813790027d3ff283d3bf89",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/IB/spec.json",
+      "HEAD_original_current_spec_sha256": "935c79983d600842b6990373b26b7a34ceba22a364871232d3f4e5ad3b84fd9f",
+      "HEAD_original_crop": [
+        3984,
+        289,
+        4992,
+        1297
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "e7206d4bd48d737744e10468a5022d725836d171305c020b7773b5e2552ae9fb",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "IC",
+      "old_prior_native_sha256": "3dd088fc0863c5506d14c3ab2af0c6999dad3009c17943c0a9d7fce9f7e9791a",
+      "clean_prior_native_sha256": "3dd088fc0863c5506d14c3ab2af0c6999dad3009c17943c0a9d7fce9f7e9791a",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "475925c2a3dcfd0ed1e55de98981e8c420ab41b44e4c3a0f68a2bb9bcd83d7a6",
+          "actual_NN_reference_output_sha256": "758ad90dc37c7877138f0abc8f838ba65d111185da50b25a5ff166ffaa43b901",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "1df9fd1dd6db7d50e4cb596acd1f9060628ae7ae8f8d3921161ed093aeb472c6",
+          "actual_NN_reference_output_sha256": "f70004ffe1aa987b7b5e0e8c3df627eba102cda88c624ff9b5715db721994558",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "3282e7fc2f3926687bcb19d402fece790f46225e55d5f188225f703cd6ec8998",
+      "original_seed_policy_sha256": "89ffc08eb03e1b8e90e3a0ba835b856c134923570d797857c1ae4a2dd1d0f177",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          4701,
+          847,
+          5709,
+          1855
+        ],
+        "chosen_proposal_sha256": "98d17ecada2e920b3018e533e16cc47ecf09761b176f2bc247d6d8a6fedc9e8a"
+      },
+      "HEAD_prior_hint_array_sha256": "962a8b40a9befbeedd5bec846d8b8a7c48a481eec9a4d1a6625a4f523ebc31ff",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/IC/spec.json",
+      "HEAD_original_current_spec_sha256": "a50751f4f590ac0e4c16f018c79522d57ed9f0262f8556f6cadf00b4d15b5adf",
+      "HEAD_original_crop": [
+        4656,
+        783,
+        5664,
+        1791
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "1ba289e758643796692be34aa247059f1989149266496b2f0ceb8d157a53d7a2",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "ID",
+      "old_prior_native_sha256": "aa77bf2db5797576368720c5040649bf50964b3ed182f5ad771e9a62b57c616a",
+      "clean_prior_native_sha256": "aa77bf2db5797576368720c5040649bf50964b3ed182f5ad771e9a62b57c616a",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "3a43f2053d1160916dcbf010d3c75baf20a372590749b01492b083a6c91642f2",
+          "actual_NN_reference_output_sha256": "da1aa3b80e19a9a74cc2741cde22dc59699838d38cdf0899727f7a82f4ec3bef",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "37b78cf81d6c5a62912f86ac53cd2b12fe653cb253e3550c3cf69dceb911f010",
+          "actual_NN_reference_output_sha256": "7cb0d83d77fe5c6bd50277526ebab7ed33f7cb1b08935f9627c52e0daad1c01c",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "4b4db92d5955d403cf0d894aad6a8a179be807d321d83b3b504c301cf9a30af9",
+      "original_seed_policy_sha256": "6dd4590cddb38f24d2571418237bef925c1263ae3e849196055435af10023695",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          4041,
+          1021,
+          5049,
+          2029
+        ],
+        "chosen_proposal_sha256": "7b9515d2108256b51072326f8fb5f96be644ac87a0db288a64eb4c1d677e9f1b"
+      },
+      "HEAD_prior_hint_array_sha256": "9350dffd37838a88200b8923f27a48c7ade531cb64017d04ebaff589fadc537a",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/ID/spec.json",
+      "HEAD_original_current_spec_sha256": "71e722ab915a2ef570e621a73a0ad8eec9cc025af1ec32a5ccd1110d086d4fd4",
+      "HEAD_original_crop": [
+        4017,
+        997,
+        5025,
+        2005
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "d97918d45df6849142976f02a4fbfd26c5bb16edf5d01f991739f56fa5f7e67a",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "IE",
+      "old_prior_native_sha256": "263f05e1dc1f3627d83dd4f14a223cc800a1ad78d845db19b3107bc3979301a5",
+      "clean_prior_native_sha256": "263f05e1dc1f3627d83dd4f14a223cc800a1ad78d845db19b3107bc3979301a5",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "8056b3253293b7a81ac2e1e0759da6ad4190a033c9085b2f0672e1d839bc3ae8",
+          "actual_NN_reference_output_sha256": "fa35af7c2392d05038912aa73797902a4cc32cbfa40e1f5b49b75230a63351f2",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "651a68008c277a64b3410c70cf1c17fc8c97a81c452e9747c30475c11cf61768",
+          "actual_NN_reference_output_sha256": "02091e30bb4cf0ba0f31889050fec780560b951fd7e6c0298af6aa8be2099b38",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "e2a4927e8369cc5a1f1ef9dd402bf8c131f84764791c1408c32408193e83e259",
+      "original_seed_policy_sha256": "728d1fabbb8ca2b3c5b9122e14c70d6a80a890c05efd7320e936922482ed6958",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          3541,
+          1657,
+          4549,
+          2665
+        ],
+        "chosen_proposal_sha256": "5454a7e00c01d0673235d7e10b80238171e5c5d29f882b5904a7129a8c57a0f0"
+      },
+      "HEAD_prior_hint_array_sha256": "c1ba280a5384bf53944edea2af6b3c5a848dc13e88e27833d4bfe61dd9fe6bde",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/IE/spec.json",
+      "HEAD_original_current_spec_sha256": "a0d1787a463aadccdcde675929b680aa94c8f1bc91e006505a126e8bce4026df",
+      "HEAD_original_crop": [
+        3513,
+        1589,
+        4521,
+        2597
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "58b81838749ace0bcfc3521473425b7faceaaa5806d3cf68ba8f089669c0e9e1",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "JA",
+      "old_prior_native_sha256": "f6b2c3434fed76a5492dfe6e84fd4be17828aea7b31182c279f5050180299d45",
+      "clean_prior_native_sha256": "f6b2c3434fed76a5492dfe6e84fd4be17828aea7b31182c279f5050180299d45",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "d8f5a9279e96d4441cd9725ecf07dee8de680786b5ef0bb89bd81e74c1234a0e",
+          "actual_NN_reference_output_sha256": "c742fa682e0376b09f7dc0fd6585f68c459e39e550008efacaedf16f562ccf3c",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "65afaa9e7367231d0fcadb555edc294a2b8bf4b024fd3b8304a695e7c5c67ed3",
+          "actual_NN_reference_output_sha256": "57b0931e7a955e9362cd9cf8b20ce361e7f2761f1b1002be98c75d1b78be5502",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "ac318cc37eec57214b519e8fdb4a7566787470e4d24513669257a968ff7497bc",
+      "original_seed_policy_sha256": "aa017ebec315a6218e817d64474a6e89683f9ebd03e8c9a5608080469706eb4a",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          3246,
+          103,
+          4254,
+          1111
+        ],
+        "chosen_proposal_sha256": "6674023b97396f188a31aaa29bce911e386dd2ed439fc9ade195b8f70c3955cc"
+      },
+      "HEAD_prior_hint_array_sha256": "c55ad9d787d4511a507df3f0b13c2d362441c9c9ca8adcbc836824cc7ec4264c",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/JA/spec.json",
+      "HEAD_original_current_spec_sha256": "ef90bb1ac8d16a3fb16d15021f9775d37d1d66386fac86a5cdf908be0f61e1d5",
+      "HEAD_original_crop": [
+        3222,
+        0,
+        4230,
+        1008
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "5b29c75f1774e434e0af472e94baf5b7ae1563eaf274078995765e415a38be5f",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "JB",
+      "old_prior_native_sha256": "02753ec4b8b47b17e709e91d984933b07af2f63f21bf8b8f9c172fca836fc20f",
+      "clean_prior_native_sha256": "02753ec4b8b47b17e709e91d984933b07af2f63f21bf8b8f9c172fca836fc20f",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "6163c929efba82be279f1c8f1b08841b2935446142eab345fd1040033a78627b",
+          "actual_NN_reference_output_sha256": "fafd25c0875009f87f1480b8aebdbe747fe8adcc75649b46e37b4cd7a57f3383",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "5c552736ce2f25ef5fb3cf02b5b236e76366f17f673114f06e1de40130f25232",
+          "actual_NN_reference_output_sha256": "420504e8bfa696d0dd393f6ed1eaa53515d48a01ef45d11b4fa39a641a78f84d",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "2659df0d55fe149a642b1f2effb240197cbc42c55e68e8a3d8504adc70d16a6d",
+      "original_seed_policy_sha256": "849f1d62373ac55422d86a5852d13c28aab5f5ec4e56492beafb7d40bd134730",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          3923,
+          398,
+          4931,
+          1406
+        ],
+        "chosen_proposal_sha256": "add4ffe9921be2b36ab91dcc1496e910289ab7461fb0577da2ce0013b8210d71"
+      },
+      "HEAD_prior_hint_array_sha256": "d5269f008fae734f1467293ec01354410d498a139918a2c389f191240306034f",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/JB/spec.json",
+      "HEAD_original_current_spec_sha256": "f4d3323e631175bcea53d9e248be41e0c16160e5a78a809dfca3cefe23a5d37e",
+      "HEAD_original_crop": [
+        3868,
+        285,
+        4876,
+        1293
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "c0282dfef8a6770a37f8f4ea2b7b86c3bae6dc0a09ca7ccbd1d055bca4dcb8b8",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "JC",
+      "old_prior_native_sha256": "b7e52ca89154bb81c3a650c063393983489bcda8ab178cf4a795ac6dd3ebb7d5",
+      "clean_prior_native_sha256": "b7e52ca89154bb81c3a650c063393983489bcda8ab178cf4a795ac6dd3ebb7d5",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "601e5152b4e8d90c2cd4e270b1fcd240ea36ffc3ba2b25eadaffd96c1e9a8b86",
+          "actual_NN_reference_output_sha256": "2528b632e8730f280379644090c65e3f5a021faba7d18c6fd8c6219b4d8c021a",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "6088825cc144dba75159b04e006e4ebd55979a8d4eeaecdac9d63ea54929fa17",
+          "actual_NN_reference_output_sha256": "a3c3936303d511f1db9f8946af9a029475403a523b1ba48a9ed3343da4a29d2b",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "1880508f4b5acd8fd8e59bc329b083a7b160c1b3a0f782500c9d9e7defa3b041",
+      "original_seed_policy_sha256": "83c0ff3923e5191546ffd35578aec80f09a39f7730611a22780f646853bef40f",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          4995,
+          981,
+          6003,
+          1989
+        ],
+        "chosen_proposal_sha256": "7e0abd9bc00ded7e8a129e6328d2be1beae3627c972f7d767cd0634cfb144547"
+      },
+      "HEAD_prior_hint_array_sha256": "5417fcfd4cfd717656165246303913806ad807a0c0db039c2780290a379910d1",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/JC/spec.json",
+      "HEAD_original_current_spec_sha256": "de7477c7da41f10e68e56556b035101a0a89686e5ae00efe581c881e9634e0fe",
+      "HEAD_original_crop": [
+        4974,
+        900,
+        5982,
+        1908
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "a6d9e4fb7beb5426c9e93f6d7911e6363db8c7798dea248a702c041584f46cae",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "JD",
+      "old_prior_native_sha256": "03e110dbb1bb4f7b452a9ddb3b08ade5943ccf1dbe6444259ff79c73567281b5",
+      "clean_prior_native_sha256": "03e110dbb1bb4f7b452a9ddb3b08ade5943ccf1dbe6444259ff79c73567281b5",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "3b47eda8a483f17c61ee078f319d718c1133a3bfe90ae8eea4aebb8e9f8256c7",
+          "actual_NN_reference_output_sha256": "0b13d6e01500ce77d9408e6f56b3bc9dfcf7a5548a0f3a99cb30a359de26fd18",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "a257e84b51805730e7c8ac7911c3b53029b59e25051613eb3e2447a0dd757348",
+          "actual_NN_reference_output_sha256": "9164791137cded9cea53e0f78ba72fb2f8abf4449a5e147d607e01485f9ae938",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "a38e2be9fccce29ae2c94eff002d4d56f3b0c8860e3ed5efe278d721780e57d5",
+      "original_seed_policy_sha256": "91ff363ea72d930e2ff8380770b067c5f75d41d8bb84b6555faa670af0d2bbb9",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          4298,
+          1306,
+          5306,
+          2314
+        ],
+        "chosen_proposal_sha256": "3223a6cd9140f55ac172ac2bf075a66163576fccecd89365a10fbab5a3e17cd7"
+      },
+      "HEAD_prior_hint_array_sha256": "c83bacaf86b41b40c55aef303c2695f79476ec8e3998e64b6defe08c0d1902f7",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/JD/spec.json",
+      "HEAD_original_current_spec_sha256": "d702d6c9af11c6a4ba9684d1e1876036fd7ca87ecb245bb6b7f16b43d50bb95e",
+      "HEAD_original_crop": [
+        4253,
+        1191,
+        5261,
+        2199
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "fb2d8fcfbef76349b5a58134d9e260a914b10ccb3a6c42c52846dc46baba765a",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "JE",
+      "old_prior_native_sha256": "03a68b0748480a41022fc2b7088b5ea1b85ae1ed142933f70e70a1f249441768",
+      "clean_prior_native_sha256": "03a68b0748480a41022fc2b7088b5ea1b85ae1ed142933f70e70a1f249441768",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "8802ad7e88f5a5a47e4f070150ef064882e456367141ca25d5910a5421ef32ca",
+          "actual_NN_reference_output_sha256": "8fb5f65a991114e645fed471a9ea94788d3b2fe556327f155bf63d086737cc4e",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "72577bf04c975271812fc0ee6a08bae6a49cafbcd4f0590ec8cb857d4eb62bbc",
+          "actual_NN_reference_output_sha256": "ec8b4d6e5137105f729a93befbf725333d23051294a9624eb37b68e8281ab148",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "3b31a5234795e4f70b20dc3c0895a466daf208493c0350c232f194cd51ec298f",
+      "original_seed_policy_sha256": "ed52f4cd13f67a074c30a553c7db032460b151000a0a60a1a85e2ec2952c9aae",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          4930,
+          1467,
+          5938,
+          2475
+        ],
+        "chosen_proposal_sha256": "e7abadad1a32456120eff3f986050c276bb4e4b4b8a47d1405ae271633b10de1"
+      },
+      "HEAD_prior_hint_array_sha256": "a033b981b1b7ad298b35fab83a2e074ecf49bebc5c7b02d109b03e7f124a696a",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/JE/spec.json",
+      "HEAD_original_current_spec_sha256": "d207872bee345f601dfd494fd6ab3e6d7600d3883a64a0533dfe73a8901f35f0",
+      "HEAD_original_crop": [
+        4884,
+        1408,
+        5892,
+        2416
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "d5173e3650386f213f00b7f945c8c3fd9e14b7b0e3dac49a788677b87ef95b1e",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "KA",
+      "old_prior_native_sha256": "8fa90948b0f315ff6f66c953674033f0dfb9d8c49dd742a85ccfadc3b90c6e16",
+      "clean_prior_native_sha256": "8fa90948b0f315ff6f66c953674033f0dfb9d8c49dd742a85ccfadc3b90c6e16",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "b5a28bb554080bf1a850b2c6280a95965d01a23fbe623c0a294f9e3b63c2feff",
+          "actual_NN_reference_output_sha256": "311ebe84fec123cc9ffba6502ebd20b2a8149992ecab97463cf543d7f1720281",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "49d23c8c6f9c0eea44f5db1bdefd4f727666ee818b8f240387eac58715fa435e",
+          "actual_NN_reference_output_sha256": "0c78573513500ae74f98045c79f56641eff4b11df2d6d7d5718e63778f2bea3f",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "1185477a57be5953d3b69055e52d8a4ec64dc381b77c2534725e104df2bf7f16",
+      "original_seed_policy_sha256": "cb0b9f3636d4aec1a88c365a59c6b284d59502f3880482262bf722c1a6dcb41b",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          4017,
+          0,
+          5025,
+          1008
+        ],
+        "chosen_proposal_sha256": "8d483e942c1b9969e18225d73551128975a0fa13545c138f6b501c7561ca3877"
+      },
+      "HEAD_prior_hint_array_sha256": "29a8a6cf351df99b8aedd6df057c35d43d346206db08370e6d9fdfa204408eef",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/KA/spec.json",
+      "HEAD_original_current_spec_sha256": "b4a6ef53c4380258cde0654ef9eefce59793eafe7cbdf8d7a23f49e57ad78be7",
+      "HEAD_original_crop": [
+        4028,
+        0,
+        5036,
+        1008
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "d816806a97f8c61328076a1e2dc30c30df01fa7d9cd755bdfb7999d0d6a065e4",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "KB",
+      "old_prior_native_sha256": "de5444815016a63716fe3aa7a87db77a95aa4770a32ca443991fcab14b74e639",
+      "clean_prior_native_sha256": "de5444815016a63716fe3aa7a87db77a95aa4770a32ca443991fcab14b74e639",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "976af0c04ad30f364a6b56c59f7a367df5ce564c000f25a22806b96a219492d0",
+          "actual_NN_reference_output_sha256": "490b743cab8b568a02a3a3a1f877008270abc6c487b6355377ecbb081456e373",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "8d71f0d7ed12ad999f9f5d55ea024bbcf56c256f1e2d778004223c8229df1fa5",
+          "actual_NN_reference_output_sha256": "6bfadadda258a765c1a8480a405e652ef5f17b0188e07d46dc56784408070919",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "80a7ce690cf57114ec13d280eb2bd60ed28a52cb97264a9b6f5ab4dd51933ae7",
+      "original_seed_policy_sha256": "1279b69d51ca0879d678da9d1d905c80bf91174d1f0fc35109d1534e056d89b7",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          3786,
+          207,
+          4794,
+          1215
+        ],
+        "chosen_proposal_sha256": "ba50470331181ed46060511f2a3b90a169e2d73942e07716ff24c24a8f80479e"
+      },
+      "HEAD_prior_hint_array_sha256": "bd80432d2db42bec92b12d6e7c8bc4e9b74b430bc9d687fa4638b9e4e5571943",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/KB/spec.json",
+      "HEAD_original_current_spec_sha256": "5d5d54606b94c73b8861c598b7f670c5e30ba2d9625bfb3df3170e435bb55bfc",
+      "HEAD_original_crop": [
+        3770,
+        101,
+        4778,
+        1109
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "55def18dc930b64b9275df16ec3d0fa5fd7517c1e97085edabf4ba023e268df1",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "KC",
+      "old_prior_native_sha256": "94076dea95307825cf890f3e5d080c754ea53a7e86c56fb3065db9449e171be5",
+      "clean_prior_native_sha256": "94076dea95307825cf890f3e5d080c754ea53a7e86c56fb3065db9449e171be5",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "f78393511032bf327ccadb1f30c428a8521df4d8f3c3eea590a5494b5935dac2",
+          "actual_NN_reference_output_sha256": "c7fbd97eaf3b64e12003ab9ffc8f1bdb7bb5c0f531f4b4106089e90ebdd2c165",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "adab193138a7a1a5dc33225bc3bf6c460faa7379abf072fe4f5f58c145353fe5",
+          "actual_NN_reference_output_sha256": "da514bde822d23229eceb6abd4ba86e4d79a4830b701e853494b8633c377e72d",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "79febc75325fec2b3c36cb20fec6f32768401c76d15f7531eeb1b256023b41c4",
+      "original_seed_policy_sha256": "da0b17ee9c92588b962d6b371bc6ed1ebdbb988d14320aa1f8cdf161106469aa",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          3515,
+          986,
+          4523,
+          1994
+        ],
+        "chosen_proposal_sha256": "0786f53a509174b97bd0a83a3d1904b72ca3b7f507e9be4b6ac3c6c82eba6a78"
+      },
+      "HEAD_prior_hint_array_sha256": "db9e7bf991dfb51b0e9625d45b7d1cd3502cdf09257e8c8947911b7b0c8612be",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/KC/spec.json",
+      "HEAD_original_current_spec_sha256": "35373c48f70b24d1b3d0f71d40340b2a075b220bf40e48ec408eead397db61fa",
+      "HEAD_original_crop": [
+        3468,
+        844,
+        4476,
+        1852
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "a345c8c2c41d5533c68b469de390ccb4ffc407dbbd9cd8f22de8c0fad8fe26e2",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "KD",
+      "old_prior_native_sha256": "12034a73b40969e8500b3dbec688934d391fba38320342df7bff9e889041f768",
+      "clean_prior_native_sha256": "12034a73b40969e8500b3dbec688934d391fba38320342df7bff9e889041f768",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "24ee1afdcb7171aba292cbb43cbe4e89bcbeefa81cfa62848c9b52b547121df8",
+          "actual_NN_reference_output_sha256": "eec2abf5a1162d39c53e879ee384caa710b25d6435e00076b479f615f2b97017",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "6eeb657b47db572783fa1ee19ff21cdf523f785b0c3f7ec2110d4f43ce8ed31a",
+          "actual_NN_reference_output_sha256": "7da57b22b70f2b564bec7753dbde50df5604b6601180a88f27618179707ab265",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "eb1e59e6ca8838d164f8c13171c36687d750aa38a283b375801b050fe3e0f37f",
+      "original_seed_policy_sha256": "1f0f835ef569ab3b0c052438c3333d4f841d4b468a73025df936b188aaf52e35",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          4856,
+          1480,
+          5864,
+          2488
+        ],
+        "chosen_proposal_sha256": "77457d7bfd936cc0c176becd53fc0f68b67bdffc53188ba1d5c828c39da66b9c"
+      },
+      "HEAD_prior_hint_array_sha256": "21f6258ec621d48978b514f581fe39bbfefb3b66b4723278a2c61494c129e84a",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/KD/spec.json",
+      "HEAD_original_current_spec_sha256": "eee3d74c6fa45c73ca13fda7c159283f05a573dbccfc250e8e3efbfc96bcb106",
+      "HEAD_original_crop": [
+        4809,
+        1306,
+        5817,
+        2314
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "a22d2d3ff01012909dfdd097deace0a3c94222d00356c35048c9a90b5891404e",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "LA",
+      "old_prior_native_sha256": "1a7a8bc6e812d8a9ba5d0003180a6d5d346266598a6e4c431969f6f126b4d5c0",
+      "clean_prior_native_sha256": "1a7a8bc6e812d8a9ba5d0003180a6d5d346266598a6e4c431969f6f126b4d5c0",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "5e8cfbff8b3c9fa64fd0f8f3f408ff0a5b1328c1c349a74cff8b9ffb9cd787c7",
+          "actual_NN_reference_output_sha256": "e392bcbd8db73a7c60f0e2a2434528cb9fa8f8022d6127b1408ba115faaf39b2",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "da4a759389ee999ef7224f1e7186053efd395bd0fab07715e9445fc22b021405",
+          "actual_NN_reference_output_sha256": "3cc317f928becc21c423e0d3cacfc834814090d410b641e71532d0445f6c7a8d",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "d977afcf6d2ad34673539ab5a43ea135292caf64f0fa2b35e2aa1785fe233adb",
+      "original_seed_policy_sha256": "5e33af1dd4ffb5f5dca8b80692f815ff8d86a1b4c1273b9dcac48510f8ed10ff",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          3799,
+          285,
+          4807,
+          1293
+        ],
+        "chosen_proposal_sha256": "d1210b9bed756a2633cdaf84b19590c699f853abc19242b0c3f144fbc88d95e1"
+      },
+      "HEAD_prior_hint_array_sha256": "f8462fe51c12165913b563dabd52be2b89cd45e127472a4059c419acd999db74",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/LA/spec.json",
+      "HEAD_original_current_spec_sha256": "ee91faeeee323fabe03e0210fa67f49081b0ce3f181b4326a3c812bb5a4e6eff",
+      "HEAD_original_crop": [
+        3814,
+        170,
+        4822,
+        1178
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "cda8370d169ae712b74c4cd3b445cf29e808b88638d8fb8b80f42e79e2f5733d",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "LB",
+      "old_prior_native_sha256": "c3ff1634ffb4cac1e493d51008dadd2245d11286c6fddd94323064cb8356b6f9",
+      "clean_prior_native_sha256": "c3ff1634ffb4cac1e493d51008dadd2245d11286c6fddd94323064cb8356b6f9",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "1f638b22410424844127006d90c17d52c6f652c0857608d03c9be2d09600fe78",
+          "actual_NN_reference_output_sha256": "2b0a6bbd18e9aee7c9da5f1d5d14e2772fdbceca9708b3191a7f6a0350fedb3b",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "0d5f4b43dc241d6a48c0a1536d2750ec611c027406f0fef3099df9d05d4fe69a",
+          "actual_NN_reference_output_sha256": "0ae10d47e46321de8d3a490beb9cd34720ed95817abcb65b528b35f4d853fbf8",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "1c1c32b6dcecd37a013a4f8a845a55cad3f3ff5cd8ebcdbce692689a34dca6dc",
+      "original_seed_policy_sha256": "895b943f9955d2efab30981680615af98fabf90b02ea769944a4fce6a489ad8b",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          3997,
+          277,
+          5005,
+          1285
+        ],
+        "chosen_proposal_sha256": "6a721b40eb629ececfa917697557c2a3176693792689813cd3d9f30ea4d4b8df"
+      },
+      "HEAD_prior_hint_array_sha256": "f750ce0650f35f319c8a3fd2538526eb20a5cd397cc61d52c5e85d91dc31522a",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/LB/spec.json",
+      "HEAD_original_current_spec_sha256": "618cdec2142c8b48c34b62673d1d305a4b9513719d0a181cfd39dce5dccba7b9",
+      "HEAD_original_crop": [
+        4001,
+        182,
+        5009,
+        1190
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "53da45b41996442a92bcbac57a93b93cbc09be6d929d0d1308aaf37d6b7826ca",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "LC",
+      "old_prior_native_sha256": "532d693b1d9de4aea115ec6240ade3738aba8a15ad5e7fbbfda7ac2a3ba3fff4",
+      "clean_prior_native_sha256": "532d693b1d9de4aea115ec6240ade3738aba8a15ad5e7fbbfda7ac2a3ba3fff4",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "93cd5529bce401b56bc1c69d5e87cf95dc58d919392264176d8b2d1a68e626c6",
+          "actual_NN_reference_output_sha256": "81927f779162a4118aa7d4c66553f7aa2a3368301e5fdf40bd35e7654a2c4626",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "1fda9cc3b00fea3d5b7398b12b81e04e4946c337ab26538432857e6bd01e2f7c",
+          "actual_NN_reference_output_sha256": "b54983e26e0525710aa6696368b7af50a2913f06bd66dbee553b984cfb6c523e",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "d362b48d61d682e057110fdf3b2b45a757197f116bee2a4bcab80e5e0c3b3e6c",
+      "original_seed_policy_sha256": "3ca52aecdbbf2402eb0153aa1e1e72a442143f3480c297453216106ba5e3c842",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          4999,
+          1134,
+          6007,
+          2142
+        ],
+        "chosen_proposal_sha256": "45f9e19e9b0fa2a02a68e01b554462ea30bd2cab3bdf961b7da45e14cf6b5fe0"
+      },
+      "HEAD_prior_hint_array_sha256": "7bf2bbeca97aa05a0b0c39b52b3694ade03ece8936d196a4d3dce382bbee5f8e",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/LC/spec.json",
+      "HEAD_original_current_spec_sha256": "d95ff6ba89ef163c13ec19b7c835ff83ae8036b8f208b0baba738950b5125d00",
+      "HEAD_original_crop": [
+        5029,
+        970,
+        6037,
+        1978
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "d320111a0c82213a6b7f3b99f933198b804a3b1504795677efb5caf096a87f77",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "MA",
+      "old_prior_native_sha256": "89858aac33db927948df8d1673cc81b604ab44f21bf6c695edbc9dc2deea213c",
+      "clean_prior_native_sha256": "89858aac33db927948df8d1673cc81b604ab44f21bf6c695edbc9dc2deea213c",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "bfddf54e3a5ebd0160d0cf8bfdb138021b671a71f73f0222cb0e5579e4214aea",
+          "actual_NN_reference_output_sha256": "a9ff1ef984abc24da434ab3f3d4a71726e308d08218407d928103ab77d2c1670",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "f77f7bd68eb1372b285f5f641c76c57291c776995d7dc257cb3a2a423d415efc",
+          "actual_NN_reference_output_sha256": "e47ec821fd9c250bdd7bd0f04863e6e5512c3f8940e80c98cd1cde41d2eb0b74",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "0b618af5283ecb1d4e3ba8ae8fe8bb8911427cc394a6742efc711372fc2e67c3",
+      "original_seed_policy_sha256": "068c10414ae260146263cb6003d36a1cc8ab73456f68d3a4af1efa4c6022cd15",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          4852,
+          665,
+          5860,
+          1673
+        ],
+        "chosen_proposal_sha256": "98fbbcb8e85f6d6ebd510b3d208142c9f6a8ad9f22011a813b0eaa17e177bc05"
+      },
+      "HEAD_prior_hint_array_sha256": "9617d839956118c42bb220ca0adc610ca8d6c6faffd0b07d855e0f2bececb690",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/MA/spec.json",
+      "HEAD_original_current_spec_sha256": "18e4ce1bcccfd4e3ba35b401b7665fc598122fb5a0417e90afee7cd72f925cce",
+      "HEAD_original_crop": [
+        4947,
+        497,
+        5955,
+        1505
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "69bba923f8787b3dfd4aac837d581fd8b9b326ce1f0fdf3c926260a385520ad9",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "MB",
+      "old_prior_native_sha256": "d8d4123fb24566207105a721febeca59d3f8515ac844c679518dd9a063269133",
+      "clean_prior_native_sha256": "d8d4123fb24566207105a721febeca59d3f8515ac844c679518dd9a063269133",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "20e5a10b67cf1d136b65dfabde5c1d1b33386c6520d99600062dc5dbe898f5d0",
+          "actual_NN_reference_output_sha256": "0b3c7ef473fb39c8e77c0968cbb81f5d8bf8d74f2cbb4798e6fa5d4373aca992",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "0ea27d6eb9ba2d70dfb379d8cc777f968018cbe99617f197c3d1b11a77d681a0",
+          "actual_NN_reference_output_sha256": "57565366b68984eb6297f717176863db9820f35149f74f297774672641a0058f",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "a16ccb3696fa88aca7978bd63afa520a247b9c8687421a92b8c231fcacf96c87",
+      "original_seed_policy_sha256": "9dcd4714843a670ab99cd0dd16f93a6e7d4e950a95cb57f771b73e0b48fd4c69",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          4951,
+          832,
+          5959,
+          1840
+        ],
+        "chosen_proposal_sha256": "2bdeda05b52643457eec681c973fb9670c0822bfa81a3161ad1d6aae983fe5d9"
+      },
+      "HEAD_prior_hint_array_sha256": "2120e568155000472dfae9a41bb5f0337e4224a17cf07d097f0f2c57c54318b0",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/MB/spec.json",
+      "HEAD_original_current_spec_sha256": "a7b76c2bd628db95e12111be2255f0247bbc40edd83a5ee13937b2822e924d62",
+      "HEAD_original_crop": [
+        5024,
+        701,
+        6032,
+        1709
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "5be4e065735e496c4cfed03668f932c4bbc4ff176f648f6369ab532438eb0604",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "MC",
+      "old_prior_native_sha256": "32b25b28b383936e036e8b45dd88cf13029ae5147e1dbd91115f4d4bd7d986a6",
+      "clean_prior_native_sha256": "32b25b28b383936e036e8b45dd88cf13029ae5147e1dbd91115f4d4bd7d986a6",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "665ead5053c3c4b5a7807764821237f984dc92f27e87c6f1b9988b0b367fdb71",
+          "actual_NN_reference_output_sha256": "95813fc716b7ffe691d9f343423f07b9dff6ee7249f53dfe1dc2b6a66279d870",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "5795d0304b5cc662b7d8a0d4b3c163125789eb30712a31afefef6ca28898fc0e",
+          "actual_NN_reference_output_sha256": "4a1b69f4a528c25a919c5874a356836483159fe31d949e6df7ec6b3aa231146c",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "5e29ed6ef5dff221dcb28223b83df69be50175389b4c2a1e0f51f65c9b3782db",
+      "original_seed_policy_sha256": "76d3616bc18b2554e6ed09ada21968f81820fae81926da62ef296ba91662e40a",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          5506,
+          998,
+          6514,
+          2006
+        ],
+        "chosen_proposal_sha256": "b23f574cfe95a05233964fc3059f0afc69cf39064e682333790cde970f6b4f7b"
+      },
+      "HEAD_prior_hint_array_sha256": "bc0401f679f0c5b0794f30ee009c3a3f33c768723387524d4cf53ddd645a2d1f",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/MC/spec.json",
+      "HEAD_original_current_spec_sha256": "2d155499fcaca2ecf56ce66a68df273579c98e2f436f25363666e1b63bcd1408",
+      "HEAD_original_crop": [
+        5579,
+        870,
+        6587,
+        1878
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "b356df3d6aba384aca1d943f6d4f2038a6d544af326881c8346817199f7861a2",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "MD",
+      "old_prior_native_sha256": "44154e93ec043d6869d04f75d43726bf7ba2288e4c67fe764bd14450e4841bd4",
+      "clean_prior_native_sha256": "44154e93ec043d6869d04f75d43726bf7ba2288e4c67fe764bd14450e4841bd4",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "88ae307a75efc3d6f40356c06ccdb41075d195ef8f3a01bc198c136f2af0e85c",
+          "actual_NN_reference_output_sha256": "191915b717485faf7bfa771cb4fd834f6aeb6d8385bbd2393a3a2c19d74a3541",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "e872813ada6b4e8ea8d03793c633e75d92c20d61e7a545597a18fd51f9056b98",
+          "actual_NN_reference_output_sha256": "641d7b874c86a94065cebad549f99d0128529327b0773b7786c556c3c6187761",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "f38211547b690b05c3baae0a3425465bb473de95352a1c66a799b17f8d86b148",
+      "original_seed_policy_sha256": "2aa9f443f7b59049aecbe7c74cf15c0ee54613736e9cdd05ed5b15c075059f5f",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          5303,
+          1984,
+          6311,
+          2992
+        ],
+        "chosen_proposal_sha256": "973b52adbca4c59b1f62d6e91f0cfcf49f27b1b3134f7a88007f32df08b77014"
+      },
+      "HEAD_prior_hint_array_sha256": "e9100323f89bc1fd24170ce84a44a9f6b7c4062b53b6480036f6bc03667eaa54",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/MD/spec.json",
+      "HEAD_original_current_spec_sha256": "b8a8ef42edb51bf8bfbc73f66ddef3c2ed5893f4377d7368414d5dd2f3a92f16",
+      "HEAD_original_crop": [
+        5337,
+        1896,
+        6345,
+        2904
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "90624ba6a76310207cae873ed8e8b90a7789927935a37313c95f6039d53b494c",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "NA",
+      "old_prior_native_sha256": "dea3af5d1564c1510676b73439aa6644079f7a246e2de75eb99c8f5f40edb612",
+      "clean_prior_native_sha256": "dea3af5d1564c1510676b73439aa6644079f7a246e2de75eb99c8f5f40edb612",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "28fad1cb5fb555ed290318058b03b38841427bcf3063661ace8fe9ee29b744a1",
+          "actual_NN_reference_output_sha256": "3d06b395079f50c001e47c5afd7489522576f8055d6b664bf02e56e3951241a3",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "7a61d4ea3815955313c543c2362ef9e31eeb3c66085a482008f1326474e8ca53",
+          "actual_NN_reference_output_sha256": "cb971b855081903ebf276b1d6ccf2ffc2d252f25dbf1205063bc3aa7c635925d",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "0d575f0ca53ad1db6ca1e3e361e4b7e94ea0c8ad3aed1543cd3642782a6d97bd",
+      "original_seed_policy_sha256": "ebc745cf9ae89a63d12cdd6452a7c63b6f78797e434ede5e695a70dfa92144a2",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          4889,
+          985,
+          5897,
+          1993
+        ],
+        "chosen_proposal_sha256": "b70cdeca8bc5bfd5254dcaa51cfb8b3bbe8d6803c00e7fed1ff128be43152b7a"
+      },
+      "HEAD_prior_hint_array_sha256": "5127b6ddd1e964be75b8d49a7b015e36492bdaa3d5cc682b0740361f2e4af8a9",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/NA/spec.json",
+      "HEAD_original_current_spec_sha256": "c5c0af67ef013d75ca730320acb312dd4627b9ea9332a4ac90cf02572f6e1dff",
+      "HEAD_original_crop": [
+        4968,
+        909,
+        5976,
+        1917
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "27aac9c066e1d28d3204ce43ebe46535bbc2eba6c626b1eabf80b8fdf7b20134",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "NB",
+      "old_prior_native_sha256": "6b2a931816bd245633c9698a5a6c3b2564ceee83c5f035bccf4965df72343845",
+      "clean_prior_native_sha256": "6b2a931816bd245633c9698a5a6c3b2564ceee83c5f035bccf4965df72343845",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "1a3380455b06915bce3d234ed1aa91c7ed6c79ee809ac4eb0e108ea7a49988cd",
+          "actual_NN_reference_output_sha256": "61f29b66c795c9bb6c8258e1a553576572ddfd1d52b5661b4c95c53236a32548",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "337d453474dfe5fbba65334d8fc9eaad1aa9d0aef29c08ea2f4c93c9f55a1d91",
+          "actual_NN_reference_output_sha256": "d541927af6c23a120c29437fbfb73f3c9cc1edd8c409aafb6470d775844dfdda",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "41eebcddb4686878110eea5e76a4064738cd12a527b643c3d1c51f098cce0cb8",
+      "original_seed_policy_sha256": "a0ec4b53efd778c6106955924c80b1656a45aef78cbfaacfbe0d3718c4819257",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          5311,
+          689,
+          6319,
+          1697
+        ],
+        "chosen_proposal_sha256": "c0194317be9df2a2cf7e48b78b1fbf8b3f3e7f2937bccf6ab69770ab3df687b1"
+      },
+      "HEAD_prior_hint_array_sha256": "ba5474533acdad91ec093804bde97a4391fb4343ec8b348ce5c85acb5fc0b890",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/NB/spec.json",
+      "HEAD_original_current_spec_sha256": "189c61500d04f5d7da231c2614547ac3dc64c36255b386ca21c29c61950f3267",
+      "HEAD_original_crop": [
+        5412,
+        594,
+        6420,
+        1602
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "08e92366b3a280f118baa525613201277fc29d610ef603161576d800676ba3d0",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "NC",
+      "old_prior_native_sha256": "f138db693880f72784c96c2126e50b6e1a048a0c76da62fafc860e31811a13f1",
+      "clean_prior_native_sha256": "f138db693880f72784c96c2126e50b6e1a048a0c76da62fafc860e31811a13f1",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "24d40888d37c480e9421ba4f5f1a963728d1b865cef0e4602af8ccfb4a44a4d3",
+          "actual_NN_reference_output_sha256": "a50e0710e98bd88eaa6b263381d14340bd81c698d71a97ae0fb0351c6f326ee9",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "fd71406ba114e6f2457755c7c80f21c05929e61af13f6c3e4cb0ae976747c4cb",
+          "actual_NN_reference_output_sha256": "4d17b03fa126f421fe66db517f5492d990ade2a0455fdfd0e13f802e8bb3cb0b",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "4fd42ecf45dea9a729136eb0bbb0f8d8979c2ecedb61758acdf6906311f2d08a",
+      "original_seed_policy_sha256": "6120f2876b6e2e3056bd2c79e662b7662e6477b79f75c0094ec316fc40f5f663",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          5713,
+          1045,
+          6721,
+          2053
+        ],
+        "chosen_proposal_sha256": "91c3e896ddb57ee82a1681f5d512a663534c2566d579481153e739daade9da4a"
+      },
+      "HEAD_prior_hint_array_sha256": "6e43195b1789052383aac93539c3d93eabe7ea86fd9155306f4486b9240b9e62",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/NC/spec.json",
+      "HEAD_original_current_spec_sha256": "b64f3e07cd37435c73756e989e6caa115ebf36fa6d845662b8bb87807635e6b5",
+      "HEAD_original_crop": [
+        5792,
+        916,
+        6800,
+        1924
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "c1ed038ae03060ced0799c4f49073e2adf979700acbca2eb202178a60ddf9dc7",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "ND",
+      "old_prior_native_sha256": "d7e5edcd88b9567107c689beb347cd49c0e050e01f258d64becfb8ee42d06ede",
+      "clean_prior_native_sha256": "d7e5edcd88b9567107c689beb347cd49c0e050e01f258d64becfb8ee42d06ede",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "00b93dbf66bd403dc0b38bca88489fd90c8faeb9977b250bb8d9be075c55179b",
+          "actual_NN_reference_output_sha256": "87c18403506e764468e5c9c7bfca5033c809091ec10f5d2c950967cfb788971e",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "5bc91adfdb116b6d1e0b128ff916c628ef41b6d7dcda985bf7bb32562dc55e6d",
+          "actual_NN_reference_output_sha256": "c046ad39c98123433a6701febe49780a766fe84273b54370ce369329688e9ab9",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "0df4a32aeb24f223effcd48a90b92ce1507b8ef6a8e7f06dc0b0de2f757fbe38",
+      "original_seed_policy_sha256": "7349a921b4ec9a16050d40f8013b930b146bb33c5c7e5b52d8adb0b99dfb7dba",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          5288,
+          1207,
+          6296,
+          2215
+        ],
+        "chosen_proposal_sha256": "760ea574470caed7d8aa749ab42fe836c20fdbff10899203f52b0024ab6a0efe"
+      },
+      "HEAD_prior_hint_array_sha256": "04297da46689ebe25ae797c5a26df8da3565d581eff72619ce20df4b4e702fea",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/ND/spec.json",
+      "HEAD_original_current_spec_sha256": "abd63b4a511ab6e40a8aa62c4bd3fdfcd00b3282c8db159d1ce4af31deb6d0ad",
+      "HEAD_original_crop": [
+        5382,
+        1146,
+        6390,
+        2154
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "e1a0ffa8121e310ffbbf3c2d35e9abe3bad71845838ef5bac9f33305c30a3a6c",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "NE",
+      "old_prior_native_sha256": "0aa0379c4f0a5307c9e787ed1f9cbe86cf0defaf6c54cfa500b07331900edecd",
+      "clean_prior_native_sha256": "0aa0379c4f0a5307c9e787ed1f9cbe86cf0defaf6c54cfa500b07331900edecd",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "e880714e04372b4edb1ad27d5f66f09fd0391a65df8542452115dcfad71d1b79",
+          "actual_NN_reference_output_sha256": "1cc74f85e15f6457f327e11d650160f5a7648f6316d977c701db675b92902452",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "9220ecfda5713cf29786b86d131560b930900b95740164b74a3283d6de81e732",
+          "actual_NN_reference_output_sha256": "53922587e9dd86e888b38534eb907d8902ca1908d4ff21e6800a624a0188c686",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "a1ba4b3611175e0f4b47aaa34966077e11dbc71064c86e781c89832c7c9af6ce",
+      "original_seed_policy_sha256": "d75322c87dc237b5b2e23e5d6930ceb1cf420bd63da58e09ffc3451deb3b6c6e",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          5217,
+          1435,
+          6225,
+          2443
+        ],
+        "chosen_proposal_sha256": "0ef6460e32d22a85857a4e6cebccb4888657c6e305e7126a5ff7fc697f21e509"
+      },
+      "HEAD_prior_hint_array_sha256": "2a31265a274d2f2c3d946ddc888970862b369b3251912bdc3f39106b01b75170",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/NE/spec.json",
+      "HEAD_original_current_spec_sha256": "c278df47f88f126a16dd1db5062e0ce70f25c08e88f2d62581fa2818fc0426d3",
+      "HEAD_original_crop": [
+        5323,
+        1354,
+        6331,
+        2362
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "df691c43d8d0803e7a2d8865973e244fcf6af772f8f70fa2a099699288e6cb56",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "OA",
+      "old_prior_native_sha256": "45907ee4367c4963e454901270a2b3ce8fd1bf4c1be62c7c4388b6127ab28bf1",
+      "clean_prior_native_sha256": "45907ee4367c4963e454901270a2b3ce8fd1bf4c1be62c7c4388b6127ab28bf1",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "f85fdb646be1b3320db90beee0d6d87e786d1929efa16ff7f1b5cf917dd32660",
+          "actual_NN_reference_output_sha256": "56f31f2d8fe31a976ccb03592161dcfbfca9eea2480c02010dda9496dd881088",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "ef79cd3429afab1388a655dcbccacb7a3c04133951ca4b66a01028fc420651bd",
+          "actual_NN_reference_output_sha256": "918438e1d5143f7f0e40ad122ea7bf6308cffd3ca9a772701ded8b051ca7f3fc",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "4987246dc2a29b54d44466f10e70ec480ae67eea50da63c54aadfc74265d015b",
+      "original_seed_policy_sha256": "04fed2c55dfc1bb5992b831a465ef45c1e251fe401c6c78788e007f48fce9395",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          4449,
+          1181,
+          5457,
+          2189
+        ],
+        "chosen_proposal_sha256": "6dfc0d7615914f13a354ef08f44b17c8c5df99d4609d72a5cdf3bb27ee2e57c5"
+      },
+      "HEAD_prior_hint_array_sha256": "3d8675dd2894c9a406405396d74d5722037f6586b8122ce8ebdf834031f6bdbd",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/OA/spec.json",
+      "HEAD_original_current_spec_sha256": "d1625f8a85836ad57544bd9b725a313977c8599b54b455e0edc451db42edfc94",
+      "HEAD_original_crop": [
+        4570,
+        1087,
+        5578,
+        2095
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "3fa9b57e87bc51464b28a39f9733d551139c45f08e88635a2fd03d546dc0ed97",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    },
+    {
+      "camera": "OD",
+      "old_prior_native_sha256": "820bdec2ae2d6fbb12ffe615363ba05da2434f179a40d8e05d9aa758a64571cb",
+      "clean_prior_native_sha256": "820bdec2ae2d6fbb12ffe615363ba05da2434f179a40d8e05d9aa758a64571cb",
+      "BODY_ID_inputs": {
+        "black": {
+          "native_ID_input_sha256": "28a69ac585b1212509b810d1d59bbaa02b35d6e876e7d6ba0a6fd8db809e081b",
+          "actual_NN_reference_output_sha256": "d27925ccdd1bdbe60be7e1ab0614853031b0bc6983a3971181fea41fc2f6b16f",
+          "bitwise_identical": true
+        },
+        "grey": {
+          "native_ID_input_sha256": "9147b230cccb8c8d86380ea5d8d3244eea9e1f796b41b99d383cf69e58933f11",
+          "actual_NN_reference_output_sha256": "008fcb9fdcd3fd398bcb07b15ce4ac3c5fe22cd0416944481e3643da8f8b3a13",
+          "bitwise_identical": true
+        }
+      },
+      "original_task_sha256": "e095c827af6628335bc21e52dba73e061fcabce46c6dfc1668385706ead3111b",
+      "original_seed_policy_sha256": "aa66e5cb4cef64d7d74c2c1df4d7bea5ae1064e2e7a1de71916119ec4eeb496d",
+      "HEAD_prior_numeric_inputs": {
+        "status": "CURRENT_NATIVE_DUAL_PROMPT_ACTOR_HAIR",
+        "crop_xyxy": [
+          4814,
+          1525,
+          5822,
+          2533
+        ],
+        "chosen_proposal_sha256": "95b8e4931a97ec4f8dd4afa7694edef76165efdb9232904b79902a27b5362594"
+      },
+      "HEAD_prior_hint_array_sha256": "afa42a208a19cda42678b5cf4bd1e0ebed817086e8fc139498ebb36baf6d9d7e",
+      "HEAD_original_current_spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/OD/spec.json",
+      "HEAD_original_current_spec_sha256": "ce68a6489066fb1e4563d3b0a691e8002572db51a2b50f5488c158a4eb5ea026",
+      "HEAD_original_crop": [
+        4943,
+        1390,
+        5951,
+        2398
+      ],
+      "HEAD_actual_same_current_native_image_sha256": "383133afd912ae5e0c00eaf067b33a4a47e3843c09147ec50685c6ce96bfce59",
+      "same_previous_and_current_RAW_source_receipts": true,
+      "HEAD_numeric_ROI_inputs_bitwise_equal": true,
+      "original_inference_metadata_NOT_restamped": true
+    }
+  ],
+  "original_prior_source_marker_sha256": "4219210cbe4410eedb995a4d1714328a8f3ea161a72ecbf4a72fef20e3aa049d",
+  "clean_prior_source_marker_sha256": "12b28ce1a7c291e783f46a9779eb992256e38092ff037c938fa819c3c1ced9e9",
+  "BODY_NN_actual512x270_inputs_exact_all66": true,
+  "HEAD_ROI_algorithm_inputs_exact_all66": true,
+  "HEAD_code_sha256": "70f54e41bd39061e8750efc013a91cc08a2ce05843a4d6243694b39371f5c983",
+  "HEAD_images_proposal_hints_status_and_crop_unchanged": true,
+  "no_new_NN_execution_claimed": true,
+  "no_old_inference_metadata_modified": true,
+  "GC_complete_union_guidance_MUST_recompute": true,
+  "created": 1794113335.3543386
+}

@@ -1,0 +1,3491 @@
+{
+  "kind": "PRIVATE_CURRENT_FULL_HEAD_QUALIFIED_CREW_RAW_WARNING_METRICS",
+  "records": [
+    {
+      "frame": 1695,
+      "camera": "GC",
+      "index": 30,
+      "family": "hand",
+      "residual_pixels": 4334,
+      "R_array_sha256": "402a7e86ff00fb4b6b26c50c59b6e0720bfc576c09730229981c8c8f29cde2f5",
+      "full_head_qualified_CURRENT_CREW_RAW_union_residual_overlap": 0,
+      "full_HEAD_CREW_RAW_union_residual_fraction": 0.0,
+      "conservative_head_connected_crew_core_residual_overlap": 0,
+      "known_full_CREW_instances": [
+        {
+          "instance": 0,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 1,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 2,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 3,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 4,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 6,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 7,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 8,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 9,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 10,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 11,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 14,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        }
+      ],
+      "current_CREW_head_proof": [
+        {
+          "instance": 0,
+          "previous": 0,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9256272401433692,
+            "current_upper_head_anchor_pixels": 210,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 175,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 988,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 1,
+          "previous": 12,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.7093852908891328,
+            "current_upper_head_anchor_pixels": 579,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 502,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 2710,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 2,
+          "previous": 2,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9253581301834631,
+            "current_upper_head_anchor_pixels": 753,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 670,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 3504,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 3,
+          "previous": 4,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9375586365057854,
+            "current_upper_head_anchor_pixels": 1833,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 1552,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 9160,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 4,
+          "previous": 6,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.8681481481481481,
+            "current_upper_head_anchor_pixels": 129,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 105,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 566,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 6,
+          "previous": 12,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.6991513023119695,
+            "current_upper_head_anchor_pixels": 453,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 401,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 2238,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 7,
+          "previous": 8,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9133713819812475,
+            "current_upper_head_anchor_pixels": 2808,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 2463,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 13545,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 8,
+          "previous": 3,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9856617647058824,
+            "current_upper_head_anchor_pixels": 529,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 484,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 2541,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 9,
+          "previous": 9,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9685144124168514,
+            "current_upper_head_anchor_pixels": 1341,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 1304,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 6432,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 10,
+          "previous": 10,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9865996649916248,
+            "current_upper_head_anchor_pixels": 582,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 533,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 2823,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 11,
+          "previous": 11,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9552957359009628,
+            "current_upper_head_anchor_pixels": 861,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 787,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 4085,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 14,
+          "previous": 1,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9118387909319899,
+            "current_upper_head_anchor_pixels": 80,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 63,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 351,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        }
+      ],
+      "current_native_used_for_CREW": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001695/native_masks/GC.npz",
+      "current_native_sha256": "6dd18d024190c08665af6029ae81cfe72118d34c237330039f2d4fc94780179b",
+      "current_candidates_sha256": "c1b7b275df8035af6a19cc52e7a6b9359e1bebc614395441c18d2431b6464604",
+      "preSEM_native_sha256": "6dd18d024190c08665af6029ae81cfe72118d34c237330039f2d4fc94780179b",
+      "warning_only_NOT_actor_or_nonactor_certificate": true
+    },
+    {
+      "frame": 1695,
+      "camera": "MD",
+      "index": 21,
+      "family": "foot",
+      "residual_pixels": 11461,
+      "R_array_sha256": "d5c2858a6d0f03e487a14e7a5032a582bb969efd3c831b96e73cf3252d5bee2f",
+      "full_head_qualified_CURRENT_CREW_RAW_union_residual_overlap": 11441,
+      "full_HEAD_CREW_RAW_union_residual_fraction": 0.9982549515749062,
+      "conservative_head_connected_crew_core_residual_overlap": 0,
+      "known_full_CREW_instances": [
+        {
+          "instance": 0,
+          "new_residual_overlap": 11441,
+          "new_residual_fraction": 0.9982549515749062,
+          "semantic_component_overlap": 11441,
+          "semantic_component_fraction": 0.9982549515749062
+        },
+        {
+          "instance": 2,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 3,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 4,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 5,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 6,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 7,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 8,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 10,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 11,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 12,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 13,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 14,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 15,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 17,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 18,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        }
+      ],
+      "current_CREW_head_proof": [
+        {
+          "instance": 0,
+          "previous": 8,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.6422914466737064,
+            "current_upper_head_anchor_pixels": 673,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 646,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 2672,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 2,
+          "previous": 4,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9666666666666667,
+            "current_upper_head_anchor_pixels": 343,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 284,
+            "head_connected_components": [
+              1,
+              2
+            ],
+            "qualified_current_core_pixels": 1604,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 3,
+          "previous": 5,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9763246899661782,
+            "current_upper_head_anchor_pixels": 359,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 322,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 1643,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 4,
+          "previous": 6,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9726288987905792,
+            "current_upper_head_anchor_pixels": 284,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 243,
+            "head_connected_components": [
+              1,
+              2
+            ],
+            "qualified_current_core_pixels": 1416,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 5,
+          "previous": 8,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.8701298701298701,
+            "current_upper_head_anchor_pixels": 513,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 487,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 2490,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 6,
+          "previous": 9,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.7614622057001239,
+            "current_upper_head_anchor_pixels": 242,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 172,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 1169,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 7,
+          "previous": 10,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9237516869095816,
+            "current_upper_head_anchor_pixels": 293,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 275,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 1308,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 8,
+          "previous": 11,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9495798319327731,
+            "current_upper_head_anchor_pixels": 565,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 519,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 2769,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 10,
+          "previous": 1,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.7283372365339579,
+            "current_upper_head_anchor_pixels": 106,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 81,
+            "head_connected_components": [
+              1,
+              2
+            ],
+            "qualified_current_core_pixels": 251,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 11,
+          "previous": 13,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9503464203233256,
+            "current_upper_head_anchor_pixels": 159,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 131,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 788,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 12,
+          "previous": 17,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9209486166007905,
+            "current_upper_head_anchor_pixels": 138,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 125,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 648,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 13,
+          "previous": 14,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.8406676783004552,
+            "current_upper_head_anchor_pixels": 334,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 286,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 1593,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 14,
+          "previous": 15,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9130434782608695,
+            "current_upper_head_anchor_pixels": 46,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 34,
+            "head_connected_components": [
+              1,
+              2
+            ],
+            "qualified_current_core_pixels": 197,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 15,
+          "previous": 18,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9281088082901554,
+            "current_upper_head_anchor_pixels": 282,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 251,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 1379,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 17,
+          "previous": 12,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.8835341365461847,
+            "current_upper_head_anchor_pixels": 278,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 239,
+            "head_connected_components": [
+              1,
+              2
+            ],
+            "qualified_current_core_pixels": 965,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 18,
+          "previous": 21,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9483749504558066,
+            "current_upper_head_anchor_pixels": 1944,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 1861,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 9598,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        }
+      ],
+      "current_native_used_for_CREW": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001695/native_masks/MD.npz",
+      "current_native_sha256": "2a24fc94eb6a5c907e220089e2094364df11eea62e26ab4eba6ee2bf880c5ca4",
+      "current_candidates_sha256": "dbc8a633c12445ed23c4731eea8a40bb6a65ebcf72c99c7f55aaef0d2ec6debb",
+      "preSEM_native_sha256": "2dd102662f2519c0ccebefc738a03a35b035d61fae97792fb8afd81fd41937c1",
+      "warning_only_NOT_actor_or_nonactor_certificate": true
+    },
+    {
+      "frame": 1695,
+      "camera": "MD",
+      "index": 25,
+      "family": "foot",
+      "residual_pixels": 11396,
+      "R_array_sha256": "e831068ae7c5fa482e4ec3d9ae3f11b4e139bfa99879cd05a94c8c851d6b5ae0",
+      "full_head_qualified_CURRENT_CREW_RAW_union_residual_overlap": 11364,
+      "full_HEAD_CREW_RAW_union_residual_fraction": 0.9971919971919971,
+      "conservative_head_connected_crew_core_residual_overlap": 0,
+      "known_full_CREW_instances": [
+        {
+          "instance": 0,
+          "new_residual_overlap": 11364,
+          "new_residual_fraction": 0.9971919971919971,
+          "semantic_component_overlap": 11364,
+          "semantic_component_fraction": 0.9971919971919971
+        },
+        {
+          "instance": 2,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 3,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 4,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 5,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 6,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 7,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 8,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 10,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 11,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 12,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 13,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 14,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 15,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 17,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 18,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        }
+      ],
+      "current_CREW_head_proof": [
+        {
+          "instance": 0,
+          "previous": 8,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.6422914466737064,
+            "current_upper_head_anchor_pixels": 673,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 646,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 2672,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 2,
+          "previous": 4,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9666666666666667,
+            "current_upper_head_anchor_pixels": 343,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 284,
+            "head_connected_components": [
+              1,
+              2
+            ],
+            "qualified_current_core_pixels": 1604,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 3,
+          "previous": 5,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9763246899661782,
+            "current_upper_head_anchor_pixels": 359,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 322,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 1643,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 4,
+          "previous": 6,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9726288987905792,
+            "current_upper_head_anchor_pixels": 284,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 243,
+            "head_connected_components": [
+              1,
+              2
+            ],
+            "qualified_current_core_pixels": 1416,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 5,
+          "previous": 8,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.8701298701298701,
+            "current_upper_head_anchor_pixels": 513,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 487,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 2490,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 6,
+          "previous": 9,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.7614622057001239,
+            "current_upper_head_anchor_pixels": 242,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 172,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 1169,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 7,
+          "previous": 10,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9237516869095816,
+            "current_upper_head_anchor_pixels": 293,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 275,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 1308,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 8,
+          "previous": 11,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9495798319327731,
+            "current_upper_head_anchor_pixels": 565,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 519,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 2769,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 10,
+          "previous": 1,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.7283372365339579,
+            "current_upper_head_anchor_pixels": 106,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 81,
+            "head_connected_components": [
+              1,
+              2
+            ],
+            "qualified_current_core_pixels": 251,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 11,
+          "previous": 13,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9503464203233256,
+            "current_upper_head_anchor_pixels": 159,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 131,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 788,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 12,
+          "previous": 17,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9209486166007905,
+            "current_upper_head_anchor_pixels": 138,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 125,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 648,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 13,
+          "previous": 14,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.8406676783004552,
+            "current_upper_head_anchor_pixels": 334,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 286,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 1593,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 14,
+          "previous": 15,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9130434782608695,
+            "current_upper_head_anchor_pixels": 46,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 34,
+            "head_connected_components": [
+              1,
+              2
+            ],
+            "qualified_current_core_pixels": 197,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 15,
+          "previous": 18,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9281088082901554,
+            "current_upper_head_anchor_pixels": 282,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 251,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 1379,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 17,
+          "previous": 12,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.8835341365461847,
+            "current_upper_head_anchor_pixels": 278,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 239,
+            "head_connected_components": [
+              1,
+              2
+            ],
+            "qualified_current_core_pixels": 965,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 18,
+          "previous": 21,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9483749504558066,
+            "current_upper_head_anchor_pixels": 1944,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 1861,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 9598,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        }
+      ],
+      "current_native_used_for_CREW": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001695/native_masks/MD.npz",
+      "current_native_sha256": "2a24fc94eb6a5c907e220089e2094364df11eea62e26ab4eba6ee2bf880c5ca4",
+      "current_candidates_sha256": "dbc8a633c12445ed23c4731eea8a40bb6a65ebcf72c99c7f55aaef0d2ec6debb",
+      "preSEM_native_sha256": "2dd102662f2519c0ccebefc738a03a35b035d61fae97792fb8afd81fd41937c1",
+      "warning_only_NOT_actor_or_nonactor_certificate": true
+    },
+    {
+      "frame": 1700,
+      "camera": "GC",
+      "index": 28,
+      "family": "hand",
+      "residual_pixels": 4380,
+      "R_array_sha256": "a5575ae1d179dfda8c235f2657fe532bd39903814ad374a8d1e3a0386220f586",
+      "full_head_qualified_CURRENT_CREW_RAW_union_residual_overlap": 0,
+      "full_HEAD_CREW_RAW_union_residual_fraction": 0.0,
+      "conservative_head_connected_crew_core_residual_overlap": 0,
+      "known_full_CREW_instances": [
+        {
+          "instance": 0,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 1,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 2,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 3,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 4,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 6,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 7,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 8,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 9,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 10,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 12,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 15,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        }
+      ],
+      "current_CREW_head_proof": [
+        {
+          "instance": 0,
+          "previous": 0,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9711359404096834,
+            "current_upper_head_anchor_pixels": 199,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 167,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 987,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 1,
+          "previous": 14,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.959079283887468,
+            "current_upper_head_anchor_pixels": 78,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 63,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 336,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 2,
+          "previous": 2,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.8939432018094998,
+            "current_upper_head_anchor_pixels": 676,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 615,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 2705,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 3,
+          "previous": 3,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9395993836671803,
+            "current_upper_head_anchor_pixels": 1883,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 1679,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 9310,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 4,
+          "previous": 4,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.8931185944363104,
+            "current_upper_head_anchor_pixels": 133,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 108,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 605,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 6,
+          "previous": 7,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9098611111111111,
+            "current_upper_head_anchor_pixels": 2796,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 2439,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 13237,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 7,
+          "previous": 8,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9600144092219021,
+            "current_upper_head_anchor_pixels": 534,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 449,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 2602,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 8,
+          "previous": 9,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9828281319994027,
+            "current_upper_head_anchor_pixels": 1335,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 1262,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 6437,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 9,
+          "previous": 10,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9872139973082099,
+            "current_upper_head_anchor_pixels": 583,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 518,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 2816,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 10,
+          "previous": 11,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9498411257376305,
+            "current_upper_head_anchor_pixels": 816,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 744,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 4029,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 12,
+          "previous": 1,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.7937608318890814,
+            "current_upper_head_anchor_pixels": 642,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 591,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 3185,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 15,
+          "previous": 1,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.4377894411855511,
+            "current_upper_head_anchor_pixels": 344,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 237,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 1688,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        }
+      ],
+      "current_native_used_for_CREW": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001700/native_masks/GC.npz",
+      "current_native_sha256": "68fff16fbfe63fc975aef29844186aa2db6f7455178c17e7d53f2993adf0a308",
+      "current_candidates_sha256": "ecc0786ade6bef7c7be38e88429d52845af35c2f4b55bb7bb58ae4e46cb30f5f",
+      "preSEM_native_sha256": "efbffedece171342ab6652765916915a6fcbfab0659cf5f28aabd0999e114987",
+      "warning_only_NOT_actor_or_nonactor_certificate": true
+    },
+    {
+      "frame": 1700,
+      "camera": "ED",
+      "index": 151,
+      "family": "hand",
+      "residual_pixels": 299,
+      "R_array_sha256": "2c2792ec9581ecc39127fe804769d1f1787158b3eb21ba8eacc5720bc0cc4ebb",
+      "full_head_qualified_CURRENT_CREW_RAW_union_residual_overlap": 0,
+      "full_HEAD_CREW_RAW_union_residual_fraction": 0.0,
+      "conservative_head_connected_crew_core_residual_overlap": 0,
+      "known_full_CREW_instances": [
+        {
+          "instance": 0,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 1,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 3,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 5,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 6,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        }
+      ],
+      "current_CREW_head_proof": [
+        {
+          "instance": 0,
+          "previous": 1,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9562560027940278,
+            "current_upper_head_anchor_pixels": 2188,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 2055,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 10792,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 1,
+          "previous": 2,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9379363847944143,
+            "current_upper_head_anchor_pixels": 238,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 198,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 1175,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 3,
+          "previous": 5,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9746663034595479,
+            "current_upper_head_anchor_pixels": 730,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 665,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 3475,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 5,
+          "previous": 7,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9570957095709571,
+            "current_upper_head_anchor_pixels": 113,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 89,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 537,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 6,
+          "previous": 6,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9537641288121135,
+            "current_upper_head_anchor_pixels": 4559,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 4190,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 22418,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        }
+      ],
+      "current_native_used_for_CREW": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001700/native_masks/ED.npz",
+      "current_native_sha256": "a1177cfa9c5da5190e56d9e4385a09b1c1d4ab14ab369c00d2f13a87e04c1ea8",
+      "current_candidates_sha256": "b60d42ddf97df193efeb2fcdc7ccfda683d3b3537875589e33d5126585492b7d",
+      "preSEM_native_sha256": "a51e1463fca816bc9a00e030491f4a61c57de2d632ed0cd63e9036723c942f68",
+      "warning_only_NOT_actor_or_nonactor_certificate": true
+    },
+    {
+      "frame": 1700,
+      "camera": "NC",
+      "index": 34,
+      "family": "foot",
+      "residual_pixels": 8390,
+      "R_array_sha256": "d8aeb71266caf5ae0799bf51fa8b413308db6eff95d4f76b0988cae6cda0d008",
+      "full_head_qualified_CURRENT_CREW_RAW_union_residual_overlap": 0,
+      "full_HEAD_CREW_RAW_union_residual_fraction": 0.0,
+      "conservative_head_connected_crew_core_residual_overlap": 0,
+      "known_full_CREW_instances": [
+        {
+          "instance": 0,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 1,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 2,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 4,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 5,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 6,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 7,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 8,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 9,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 11,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 12,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 13,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 14,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 15,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 16,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 17,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 18,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 19,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 20,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 21,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 22,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 23,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 24,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        }
+      ],
+      "current_CREW_head_proof": [
+        {
+          "instance": 0,
+          "previous": 22,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.6381940207443563,
+            "current_upper_head_anchor_pixels": 299,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 219,
+            "head_connected_components": [
+              2
+            ],
+            "qualified_current_core_pixels": 1267,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 1,
+          "previous": 0,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9288659793814433,
+            "current_upper_head_anchor_pixels": 189,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 156,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 542,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 2,
+          "previous": 1,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.6413765345139867,
+            "current_upper_head_anchor_pixels": 750,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 530,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 1075,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 4,
+          "previous": 4,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9125910509885536,
+            "current_upper_head_anchor_pixels": 181,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 139,
+            "head_connected_components": [
+              1,
+              2
+            ],
+            "qualified_current_core_pixels": 806,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 5,
+          "previous": 5,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.7557603686635944,
+            "current_upper_head_anchor_pixels": 250,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 190,
+            "head_connected_components": [
+              4
+            ],
+            "qualified_current_core_pixels": 582,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 6,
+          "previous": 6,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9315673289183223,
+            "current_upper_head_anchor_pixels": 1451,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 1396,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 7121,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 7,
+          "previous": 1,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.3665601703940362,
+            "current_upper_head_anchor_pixels": 424,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 353,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 2116,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 8,
+          "previous": 2,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.7855172413793103,
+            "current_upper_head_anchor_pixels": 235,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 187,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 1145,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 9,
+          "previous": 8,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.862759643916914,
+            "current_upper_head_anchor_pixels": 457,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 407,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 2053,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 11,
+          "previous": 10,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9388374404855334,
+            "current_upper_head_anchor_pixels": 3671,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 3541,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 18227,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 12,
+          "previous": 11,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9340796019900498,
+            "current_upper_head_anchor_pixels": 141,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 117,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 244,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 13,
+          "previous": 12,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.8996458087367178,
+            "current_upper_head_anchor_pixels": 153,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 114,
+            "head_connected_components": [
+              1,
+              2
+            ],
+            "qualified_current_core_pixels": 708,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 14,
+          "previous": 7,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9300291545189504,
+            "current_upper_head_anchor_pixels": 64,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 54,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 282,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 15,
+          "previous": 22,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9440298507462687,
+            "current_upper_head_anchor_pixels": 210,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 187,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 968,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 16,
+          "previous": 13,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9082167832167832,
+            "current_upper_head_anchor_pixels": 199,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 168,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 964,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 17,
+          "previous": 15,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9198813056379822,
+            "current_upper_head_anchor_pixels": 744,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 681,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 3636,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 18,
+          "previous": 14,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9152542372881356,
+            "current_upper_head_anchor_pixels": 146,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 121,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 151,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 19,
+          "previous": 16,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9605263157894737,
+            "current_upper_head_anchor_pixels": 42,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 33,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 178,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 20,
+          "previous": 17,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9259259259259259,
+            "current_upper_head_anchor_pixels": 21,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 16,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 103,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 21,
+          "previous": 18,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.970275626013331,
+            "current_upper_head_anchor_pixels": 1069,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 1016,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 4773,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 22,
+          "previous": 19,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.919431279620853,
+            "current_upper_head_anchor_pixels": 152,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 139,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 744,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 23,
+          "previous": 20,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9654561558901683,
+            "current_upper_head_anchor_pixels": 196,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 167,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 468,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 24,
+          "previous": 21,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9272379128769747,
+            "current_upper_head_anchor_pixels": 385,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 345,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 1856,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        }
+      ],
+      "current_native_used_for_CREW": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001700/native_masks/NC.npz",
+      "current_native_sha256": "886d0514efaed4dabde2f941d3b8223085a40146ff274191cfe0c5573a3687b9",
+      "current_candidates_sha256": "0170eb74fed962cb5008c4cc9633ffd7321f74efb5e950a2a6df0be263500aa1",
+      "preSEM_native_sha256": "b6918fd14d5cf30f584c334f267071a644df8a57b0fa42875fb06d3392162baf",
+      "warning_only_NOT_actor_or_nonactor_certificate": true
+    },
+    {
+      "frame": 1705,
+      "camera": "GC",
+      "index": 51,
+      "family": "hand",
+      "residual_pixels": 4344,
+      "R_array_sha256": "0b4034972212cb6bb1d58fe18519a387cb553581e14fc8c8f5b6e2d5a9f8bbca",
+      "full_head_qualified_CURRENT_CREW_RAW_union_residual_overlap": 0,
+      "full_HEAD_CREW_RAW_union_residual_fraction": 0.0,
+      "conservative_head_connected_crew_core_residual_overlap": 0,
+      "known_full_CREW_instances": [
+        {
+          "instance": 0,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 1,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 2,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 3,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 4,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 6,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 7,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 8,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 9,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 10,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 13,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        }
+      ],
+      "current_CREW_head_proof": [
+        {
+          "instance": 0,
+          "previous": 0,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.8125490196078431,
+            "current_upper_head_anchor_pixels": 244,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 217,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 1183,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 1,
+          "previous": 2,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9210731961448294,
+            "current_upper_head_anchor_pixels": 700,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 630,
+            "head_connected_components": [
+              1,
+              2
+            ],
+            "qualified_current_core_pixels": 3393,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 2,
+          "previous": 7,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9617742517129463,
+            "current_upper_head_anchor_pixels": 529,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 498,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 2544,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 3,
+          "previous": 3,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9417711281843915,
+            "current_upper_head_anchor_pixels": 1965,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 1741,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 9461,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 4,
+          "previous": 4,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9004392386530015,
+            "current_upper_head_anchor_pixels": 120,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 95,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 574,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 6,
+          "previous": 6,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9217503772364734,
+            "current_upper_head_anchor_pixels": 2634,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 2346,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 12756,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 7,
+          "previous": 8,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9848938079569249,
+            "current_upper_head_anchor_pixels": 1351,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 1257,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 6433,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 8,
+          "previous": 9,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9882273797510932,
+            "current_upper_head_anchor_pixels": 584,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 528,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 2812,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 9,
+          "previous": 10,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9502737226277372,
+            "current_upper_head_anchor_pixels": 827,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 747,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 4011,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 10,
+          "previous": 12,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.8599244405696018,
+            "current_upper_head_anchor_pixels": 612,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 556,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 2917,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 13,
+          "previous": 1,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9583333333333334,
+            "current_upper_head_anchor_pixels": 74,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 61,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 330,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        }
+      ],
+      "current_native_used_for_CREW": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001705/native_masks/GC.npz",
+      "current_native_sha256": "3306d54b07d5620de8284855212bbbad1b5b87442de540c129b128591a211d72",
+      "current_candidates_sha256": "fbb6bd64aef180fd1c8ba09793a166fe7ff0b006f2a0b7c7d2887aa89e150d53",
+      "preSEM_native_sha256": "3306d54b07d5620de8284855212bbbad1b5b87442de540c129b128591a211d72",
+      "warning_only_NOT_actor_or_nonactor_certificate": true
+    },
+    {
+      "frame": 1705,
+      "camera": "FB",
+      "index": 29,
+      "family": "hand",
+      "residual_pixels": 4767,
+      "R_array_sha256": "7f93890b08aa71a9b2edc99508f1eac05d18eca87db16e7bf0721e19c69cf10e",
+      "full_head_qualified_CURRENT_CREW_RAW_union_residual_overlap": 4752,
+      "full_HEAD_CREW_RAW_union_residual_fraction": 0.9968533668974198,
+      "conservative_head_connected_crew_core_residual_overlap": 0,
+      "known_full_CREW_instances": [
+        {
+          "instance": 1,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 2,
+          "new_residual_overlap": 4752,
+          "new_residual_fraction": 0.9968533668974198,
+          "semantic_component_overlap": 4752,
+          "semantic_component_fraction": 0.9968533668974198
+        },
+        {
+          "instance": 3,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 4,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 5,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 6,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 8,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        }
+      ],
+      "current_CREW_head_proof": [
+        {
+          "instance": 1,
+          "previous": 1,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9561366806136681,
+            "current_upper_head_anchor_pixels": 2796,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 2493,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 13619,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 2,
+          "previous": 2,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.535667107001321,
+            "current_upper_head_anchor_pixels": 305,
+            "head_anchor_previous_crew_envelope_coverage": 0.5704918032786885,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 123,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 874,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 3,
+          "previous": 2,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.8527865404837014,
+            "current_upper_head_anchor_pixels": 202,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 159,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 852,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 4,
+          "previous": 3,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9791538933169834,
+            "current_upper_head_anchor_pixels": 304,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 271,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 1399,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 5,
+          "previous": 4,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9787516600265604,
+            "current_upper_head_anchor_pixels": 286,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 253,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 1398,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 6,
+          "previous": 5,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9324324324324325,
+            "current_upper_head_anchor_pixels": 27,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 16,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 129,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 8,
+          "previous": 7,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.8904946126546663,
+            "current_upper_head_anchor_pixels": 6039,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 5759,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 29087,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        }
+      ],
+      "current_native_used_for_CREW": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001705/native_masks/FB.npz",
+      "current_native_sha256": "0ea8b6be6838feeea5e0ea5a492ff0cb1e98304f49ead980752a0c31e6ed93b4",
+      "current_candidates_sha256": "5f34d629be9ee14bdf4989b95cb57cd12f6c6be2db4661361d5236809f409110",
+      "preSEM_native_sha256": "05416c649fc716cabb5a427f4848aced38e0e65481634243d2c70bad09663d9c",
+      "warning_only_NOT_actor_or_nonactor_certificate": true
+    },
+    {
+      "frame": 1705,
+      "camera": "FB",
+      "index": 34,
+      "family": "hand",
+      "residual_pixels": 4641,
+      "R_array_sha256": "ea9b219a2ee751e6f269e4f4cb3e7be4f56082b2fbd34134cabdd88f459d9bfa",
+      "full_head_qualified_CURRENT_CREW_RAW_union_residual_overlap": 4626,
+      "full_HEAD_CREW_RAW_union_residual_fraction": 0.9967679379444085,
+      "conservative_head_connected_crew_core_residual_overlap": 0,
+      "known_full_CREW_instances": [
+        {
+          "instance": 1,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 2,
+          "new_residual_overlap": 4626,
+          "new_residual_fraction": 0.9967679379444085,
+          "semantic_component_overlap": 4626,
+          "semantic_component_fraction": 0.9967679379444085
+        },
+        {
+          "instance": 3,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 4,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 5,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 6,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 8,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        }
+      ],
+      "current_CREW_head_proof": [
+        {
+          "instance": 1,
+          "previous": 1,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9561366806136681,
+            "current_upper_head_anchor_pixels": 2796,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 2493,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 13619,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 2,
+          "previous": 2,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.535667107001321,
+            "current_upper_head_anchor_pixels": 305,
+            "head_anchor_previous_crew_envelope_coverage": 0.5704918032786885,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 123,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 874,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 3,
+          "previous": 2,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.8527865404837014,
+            "current_upper_head_anchor_pixels": 202,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 159,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 852,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 4,
+          "previous": 3,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9791538933169834,
+            "current_upper_head_anchor_pixels": 304,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 271,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 1399,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 5,
+          "previous": 4,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9787516600265604,
+            "current_upper_head_anchor_pixels": 286,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 253,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 1398,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 6,
+          "previous": 5,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9324324324324325,
+            "current_upper_head_anchor_pixels": 27,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 16,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 129,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 8,
+          "previous": 7,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.8904946126546663,
+            "current_upper_head_anchor_pixels": 6039,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 5759,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 29087,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        }
+      ],
+      "current_native_used_for_CREW": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001705/native_masks/FB.npz",
+      "current_native_sha256": "0ea8b6be6838feeea5e0ea5a492ff0cb1e98304f49ead980752a0c31e6ed93b4",
+      "current_candidates_sha256": "5f34d629be9ee14bdf4989b95cb57cd12f6c6be2db4661361d5236809f409110",
+      "preSEM_native_sha256": "05416c649fc716cabb5a427f4848aced38e0e65481634243d2c70bad09663d9c",
+      "warning_only_NOT_actor_or_nonactor_certificate": true
+    },
+    {
+      "frame": 1705,
+      "camera": "GD",
+      "index": 117,
+      "family": "foot",
+      "residual_pixels": 7545,
+      "R_array_sha256": "ccb85859a664bfb4503ada897be334b2e4cfa165eaffa2274ecaf39837aaeefb",
+      "full_head_qualified_CURRENT_CREW_RAW_union_residual_overlap": 0,
+      "full_HEAD_CREW_RAW_union_residual_fraction": 0.0,
+      "conservative_head_connected_crew_core_residual_overlap": 0,
+      "known_full_CREW_instances": [
+        {
+          "instance": 0,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 1,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 4,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 6,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 7,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 8,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 9,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 10,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        }
+      ],
+      "current_CREW_head_proof": [
+        {
+          "instance": 0,
+          "previous": 8,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9206349206349206,
+            "current_upper_head_anchor_pixels": 432,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 410,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 2104,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 1,
+          "previous": 0,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.936965811965812,
+            "current_upper_head_anchor_pixels": 176,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 148,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 845,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 4,
+          "previous": 2,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9649571364114905,
+            "current_upper_head_anchor_pixels": 2563,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 2456,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 12805,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 6,
+          "previous": 4,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9877110228401191,
+            "current_upper_head_anchor_pixels": 1560,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 1458,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 7771,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 7,
+          "previous": 7,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.974866478165253,
+            "current_upper_head_anchor_pixels": 614,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 572,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 2980,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 8,
+          "previous": 5,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.8685121107266436,
+            "current_upper_head_anchor_pixels": 418,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 378,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 2002,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 9,
+          "previous": 6,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9732731690385283,
+            "current_upper_head_anchor_pixels": 564,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 501,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 2734,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 10,
+          "previous": 10,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9442446043165468,
+            "current_upper_head_anchor_pixels": 7139,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 6707,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 34140,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        }
+      ],
+      "current_native_used_for_CREW": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001705/native_masks/GD.npz",
+      "current_native_sha256": "74a648fa3e4f15558bc1d333b5c78c3ef5dd4bc83f44d581d326e355d00caa3a",
+      "current_candidates_sha256": "fc899078e81adaaebcc24d4f7ab033aeec1938123db84062d0b6c60adcbcc294",
+      "preSEM_native_sha256": "d300a3d50fe3e07bba82a158b4fe87e2ce808037341394f710dbe2f0bcb037ca",
+      "warning_only_NOT_actor_or_nonactor_certificate": true
+    },
+    {
+      "frame": 1705,
+      "camera": "DE",
+      "index": 2,
+      "family": "foot",
+      "residual_pixels": 19762,
+      "R_array_sha256": "6d8e6b00df07e3f8f10edf3da016ee07a7416416691c5ee94b3d07cf4729f171",
+      "full_head_qualified_CURRENT_CREW_RAW_union_residual_overlap": 19731,
+      "full_HEAD_CREW_RAW_union_residual_fraction": 0.9984313328610465,
+      "conservative_head_connected_crew_core_residual_overlap": 0,
+      "known_full_CREW_instances": [
+        {
+          "instance": 0,
+          "new_residual_overlap": 19731,
+          "new_residual_fraction": 0.9984313328610465,
+          "semantic_component_overlap": 19731,
+          "semantic_component_fraction": 0.9984313328610465
+        },
+        {
+          "instance": 1,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 2,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 4,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 5,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 6,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 7,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        },
+        {
+          "instance": 10,
+          "new_residual_overlap": 0,
+          "new_residual_fraction": 0.0,
+          "semantic_component_overlap": 0,
+          "semantic_component_fraction": 0.0
+        }
+      ],
+      "current_CREW_head_proof": [
+        {
+          "instance": 0,
+          "previous": 9,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.2689075630252101,
+            "current_upper_head_anchor_pixels": 242,
+            "head_anchor_previous_crew_envelope_coverage": 0.6735537190082644,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 48,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 450,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 1,
+          "previous": 1,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.8220211161387632,
+            "current_upper_head_anchor_pixels": 109,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 91,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 502,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 2,
+          "previous": 3,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9707916986933128,
+            "current_upper_head_anchor_pixels": 263,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 222,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 1242,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 4,
+          "previous": 2,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9401481907776419,
+            "current_upper_head_anchor_pixels": 2719,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 2655,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 13237,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 5,
+          "previous": 4,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.8907755102040816,
+            "current_upper_head_anchor_pixels": 1143,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 1052,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 5635,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 6,
+          "previous": 6,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9758721878056733,
+            "current_upper_head_anchor_pixels": 609,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 546,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 2864,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 7,
+          "previous": 7,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.9690989353414697,
+            "current_upper_head_anchor_pixels": 745,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 670,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 3636,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        },
+        {
+          "instance": 10,
+          "previous": 8,
+          "proof": {
+            "qualified": true,
+            "policy": "FLOW-only warning; CURRENT PRE-veto actor-core conflict never waived",
+            "envelope_native_pixels": 128,
+            "known_clean_crew_IoU": 0.8693820224719101,
+            "current_upper_head_anchor_pixels": 240,
+            "head_anchor_previous_crew_envelope_coverage": 1.0,
+            "current_NN_head_previous_clean_CREW_core_seed_pixels": 220,
+            "head_connected_components": [
+              1
+            ],
+            "qualified_current_core_pixels": 1169,
+            "disconnected_or_lower_new_components_excluded": true,
+            "previous_pixels_never_final_foreground": true
+          }
+        }
+      ],
+      "current_native_used_for_CREW": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001705/native_masks/DE.npz",
+      "current_native_sha256": "e82d21a414cd4c9a91a64cbdfca2bbaae0c9782bc722dab48ef20ae1e15570a1",
+      "current_candidates_sha256": "67354aacebd26951780565066a07ff7852b3316f3f8c4b752cedd1050db70d21",
+      "preSEM_native_sha256": "792afd60351d995b59c82820f8cda6c571a8711b14f98b8dc35a3b41ae8412c8",
+      "warning_only_NOT_actor_or_nonactor_certificate": true
+    }
+  ],
+  "no_NN_or_source_modified": true,
+  "private_not_policy_authority": true,
+  "created": 1794111142.4700773
+}

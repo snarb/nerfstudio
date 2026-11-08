@@ -1,0 +1,11 @@
+{
+  "kind": "SOURCE_GENERATION_PUBLICATION_CURRENT_ROOT_HOLDS_ADAPTER_V122",
+  "authorized": true,
+  "base_release": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/source_generation_release.json",
+  "base_release_sha256": "f6bac872f201a9bb687f47b05194371cbcb5dd16b004064000a4e04dfa77d8b2",
+  "publisher": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/publish_gcrole_generation_v122.py",
+  "publisher_sha256": "be5d204f561db0f4025c9c6ca39b055b7b9e2e2d81e0a07a23c06759f751935d",
+  "only_operational_delta": "Honor per-frame ROOT source publication hold before any marker; no source arrays/thresholds/NN changes",
+  "source_publication_holds": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/source_publish_holds",
+  "created": 1794110747.7860565
+}

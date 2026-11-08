@@ -1,0 +1,68 @@
+{
+  "kind": "PRIVATE_NC1700_ROLE_UNKNOWN_WEIGHTS_NO_INPUT_MUTATION",
+  "frame": 1700,
+  "camera": "NC",
+  "scope_native_pixels": 8390,
+  "scope_HD_pixels": 597,
+  "current_native_sha256": "886d0514efaed4dabde2f941d3b8223085a40146ff274191cfe0c5573a3687b9",
+  "preSEM_native_sha256": "b6918fd14d5cf30f584c334f267071a644df8a57b0fa42875fb06d3392162baf",
+  "records": [
+    {
+      "variant": "restore_preSEM_veto",
+      "stats": {
+        "W32": {
+          "scope_positive": 0,
+          "scope_sum": 0.0,
+          "scope_max": 0.0,
+          "scope_min": 0.0,
+          "scope_full_weight_ones": 0,
+          "all_image_changed_pixels": 904,
+          "changed_pixels_outside_HD_R": 530,
+          "unchanged_frozen_confidence_formula": true
+        },
+        "W64": {
+          "scope_positive": 0,
+          "scope_sum": 0.0,
+          "scope_max": 0.0,
+          "scope_min": 0.0,
+          "scope_full_weight_ones": 0,
+          "all_image_changed_pixels": 1702,
+          "changed_pixels_outside_HD_R": 1328,
+          "unchanged_frozen_confidence_formula": true
+        }
+      },
+      "veto_native_R": 8390,
+      "original_unknown_native_R": 8390,
+      "role_assertion_removed_no_FG_added": true
+    },
+    {
+      "variant": "retain_visible_candidate_veto_0",
+      "stats": {
+        "W32": {
+          "scope_positive": 22,
+          "scope_sum": 0.47344642877578735,
+          "scope_max": 0.12458493560552597,
+          "scope_min": 0.0,
+          "scope_full_weight_ones": 0,
+          "all_image_changed_pixels": 904,
+          "changed_pixels_outside_HD_R": 530,
+          "unchanged_frozen_confidence_formula": true
+        },
+        "W64": {
+          "scope_positive": 95,
+          "scope_sum": 4.781878471374512,
+          "scope_max": 0.4072284400463104,
+          "scope_min": 0.0,
+          "scope_full_weight_ones": 0,
+          "all_image_changed_pixels": 1702,
+          "changed_pixels_outside_HD_R": 1328,
+          "unchanged_frozen_confidence_formula": true
+        }
+      },
+      "veto_native_R": 0,
+      "original_unknown_native_R": 8390,
+      "role_assertion_removed_no_FG_added": true
+    }
+  ],
+  "all_original_Native_DATA_R_Role_arrays_UNCHANGED": true
+}

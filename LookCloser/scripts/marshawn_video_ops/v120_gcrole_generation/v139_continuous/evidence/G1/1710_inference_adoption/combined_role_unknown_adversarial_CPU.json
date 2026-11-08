@@ -1,0 +1,11 @@
+{
+  "status": "pass",
+  "proof": {
+    "other_routes_attempted_ROLEUNKNOWN_FG": 15,
+    "ROLEUNKNOWN_after_all_routes_FG": 0,
+    "preexisting_actor_pixels_preserved": true
+  },
+  "arbitrary_old_closure_cannot_restore_unknown": true,
+  "all_base_actor_pixels_retained": true,
+  "helper_sha256": "687dc63f01d82ac941a2fd9852677b01aa6b702abc9147a83058104e6306f534"
+}

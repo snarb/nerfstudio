@@ -1,0 +1,10 @@
+{
+  "status": "pass",
+  "factory_root": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108",
+  "factory_guard_module": "marshawn_g1_role_runtime_v138",
+  "factory_CPU_initializer_module": "marshawn_clean_source_context_v134",
+  "ordered_run_module": "marshawn_ordered_source_role_stage_v136",
+  "ordered_CPU_initializer_module": "marshawn_clean_source_context_v134",
+  "parent_GPU_ENV_unchanged": true,
+  "runtime_helper_sha256": "0c1b7977ad558c6cf8ab52067e4219037e71d464866e1b9151f53c0821f77ecf"
+}

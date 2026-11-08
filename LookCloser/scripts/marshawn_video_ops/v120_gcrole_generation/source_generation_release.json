@@ -1,0 +1,18 @@
+{
+  "kind": "ROOT_AUTHORIZED_FINITE_SOURCE_GCROLE_G1_REPAIR_RELEASE_V1",
+  "authorized": true,
+  "frames": [
+    1695,
+    1700,
+    1705
+  ],
+  "future_generic_policy_authorized": false,
+  "scope": "New separate source generation only; original V published inputs immutable. Exact current NN CREW-hand retraction; validated true actor parts retained. ROOT directed finite generation guards/DATA/QA/source publication without waiting generic future policy. All fresh grid/dense + ROOT corrected-generation review before any new field.",
+  "files_sha256": {
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/finish_gcrole_generation_v121.py": "183c74508b1287b5d002ec479c8d0f6c22538b1ffff92c52bd712982e0419579",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/generation_watchdog_v121.py": "d317d2bfd9be992be249359219479a7630d52a53c6fc7afd8b6ff92d0da2156e",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/publish_gcrole_generation_v121.py": "ffc8a9c01f04020b2c8ab93f922d993fa6fcdf50482b4e6eb34e84b37e315c3a",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/semantic_actor_role_v120/correct_GC_generation.py": "006b839b5b182bcb5a3c2301c1155106ce14de64dd815711167cbbcf9f2ba40f"
+  },
+  "created": 1794110465.5597935
+}

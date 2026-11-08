@@ -1,0 +1,35 @@
+{
+  "status": "pass",
+  "parent_pid": 2476848,
+  "child_records": [
+    {
+      "pid": 2476886,
+      "kind": "closure",
+      "closure_root": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108",
+      "crew96_root": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108",
+      "crew105_root": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108",
+      "camera_guard_root": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108",
+      "current_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/GC.npz",
+      "current_native_sha256": "b82325117fb7956ee6831c849a68207e625a9d85059858471adc217d4f9d826e",
+      "prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001705/native_masks/GC.npz",
+      "prior_native_sha256": "3306d54b07d5620de8284855212bbbad1b5b87442de540c129b128591a211d72"
+    },
+    {
+      "pid": 2476883,
+      "kind": "guard",
+      "closure_root": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108",
+      "crew96_root": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108",
+      "crew105_root": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108",
+      "camera_guard_root": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108",
+      "current_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001710/native_masks/GC.npz",
+      "current_native_sha256": "b82325117fb7956ee6831c849a68207e625a9d85059858471adc217d4f9d826e",
+      "prior_native": "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/frames/001705/native_masks/GC.npz",
+      "prior_native_sha256": "3306d54b07d5620de8284855212bbbad1b5b87442de540c129b128591a211d72"
+    }
+  ],
+  "actual_factory_and_ordered_initializers_patched": true,
+  "parent_CUDA_and_thread_ENV_unchanged": true,
+  "context_helper_sha256": "3c6d90953313dc15512e2a49412bf49f5d13aea69c93a26a19e9e14273ccd4ab",
+  "test_sha256": "3e8dbdebc476b95920aa9d240750f21c9736b5cc3c18e0220113984b4e5816a1",
+  "no_source_or_model_inputs_modified": true
+}

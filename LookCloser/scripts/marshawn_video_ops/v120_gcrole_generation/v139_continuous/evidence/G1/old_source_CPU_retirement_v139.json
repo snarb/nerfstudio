@@ -1,0 +1,58 @@
+{
+  "kind": "ROOT_AUTHORIZED_EXACT_SOURCE_CPU_RETIREMENT_FOR_CLEAN_G1",
+  "owners": [
+    {
+      "pid": 2419736,
+      "ppid": 1,
+      "state": "T",
+      "start": "248179578",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_source_producer_v118.py watchdog"
+    },
+    {
+      "pid": 2419746,
+      "ppid": 2419736,
+      "state": "T",
+      "start": "248179623",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_source_producer_v118.py controller"
+    },
+    {
+      "pid": 2431360,
+      "ppid": 2419746,
+      "state": "T",
+      "start": "248373216",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_source_factory_v118.py --frame 1710 --previous 1705 --prepare-only"
+    },
+    {
+      "pid": 2390451,
+      "ppid": 1,
+      "state": "S",
+      "start": "247659208",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_native_prefetch_v113.py watchdog"
+    },
+    {
+      "pid": 2390478,
+      "ppid": 2390451,
+      "state": "S",
+      "start": "247659227",
+      "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+      "argv": "/home/pavlo/.conda/envs/nerfstudio/bin/python /fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/marshawn_native_prefetch_v113.py controller"
+    }
+  ],
+  "signals": "SIGKILL exact source/prefetch CPU identities only",
+  "unexpected_live_descendants": [],
+  "all_old_CPU_owners_absent_or_zombie": true,
+  "old_canonical_writer_lock_verified_released": true,
+  "all66_original_current_BODY_native_hashes_unchanged": true,
+  "protected_inputs_sha256": {
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/1710_head_ALL66_ROI_v73/plan.json": "c2479c40b6a70cc0881c2b0b52cc0bd37123b00dd3a7e715f6e0c82554e78698",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_inference_adoption/input_equivalence.json": "c19852700eec3a04f8fad0d8678a56493e1ae02c7355292f7d295f134be3e6a5",
+    "/fsx/tmp/marshawn_video_source_gcrole_g1_20261108/operations/1710_inference_adoption/staging_ready.json": "bcc69eb46462e02cde13297cf59a2621b43c91a80b9ac77b4494621c14224fe8"
+  },
+  "NN_fields_frequency_and_PNGcache_workers_untouched": true,
+  "old_published_sources_unmodified": true,
+  "created": 1794116472.6739867
+}

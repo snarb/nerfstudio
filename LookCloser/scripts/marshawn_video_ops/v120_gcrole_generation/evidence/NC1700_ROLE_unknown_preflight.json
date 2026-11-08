@@ -1,0 +1,48 @@
+{
+  "scope_pixels": 8390,
+  "proof": {
+    "current_qualification": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/current_native_parts_v105/frame001700/qualification.json",
+    "current_qualification_sha256": "a70c921b72344e65d0168412721a9aa13c8b226c0d2148b0ba9c603a1a664ef7",
+    "current_record_index": 34,
+    "current_preSEM_native": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/ordered_source_stage_v107/frame001700/applications/NC/old_NC.npz",
+    "current_preSEM_native_sha256": "b6918fd14d5cf30f584c334f267071a644df8a57b0fa42875fb06d3392162baf"
+  },
+  "values": {
+    "pre": {
+      "black": 0,
+      "grey": 0,
+      "source_ineligible": 8390,
+      "unknown": 8390,
+      "actor_ownership_uncertain": 0,
+      "qualified_actor_rgb": 0
+    },
+    "g0": {
+      "black": 8390,
+      "grey": 0,
+      "source_ineligible": 0,
+      "unknown": 8390,
+      "actor_ownership_uncertain": 8390,
+      "qualified_actor_rgb": 8390
+    },
+    "g0_HD": {
+      "W32": {
+        "positive": 374,
+        "min": 0.0,
+        "max": 1.0,
+        "sum": 374.0
+      },
+      "W64": {
+        "positive": 374,
+        "min": 0.0,
+        "max": 1.0,
+        "sum": 374.0
+      },
+      "covered": 597,
+      "raw_coverage_sum": 491.9818115234375,
+      "unknown": 597,
+      "source_unknown": 223,
+      "veto": 223
+    }
+  },
+  "no_native_or_DATA_modified": true
+}

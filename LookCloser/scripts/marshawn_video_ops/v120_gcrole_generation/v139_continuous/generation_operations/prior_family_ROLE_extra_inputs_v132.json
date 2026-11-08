@@ -1,0 +1,36 @@
+{
+  "records": [
+    {
+      "prior_frame": 1690,
+      "camera": "MD",
+      "family": "foot",
+      "spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/private_prior_ROLE_goldens_v123/MD_prior1690_foot/spec.json",
+      "spec_sha256": "5dd79e39f522e7b77530129f268761c7ff14b5c04b5d8e5cccbf7e0ada87b2d6",
+      "candidates": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/private_prior_ROLE_goldens_v123/remote_results/MD_prior1690_foot/candidates",
+      "NN_receipt_sha256": "29074de2013319b81aade88cfa64910641f531b93fec5d193cb1e2688ebf805f",
+      "purpose": "Three ROOT-authorized real native prior-role golden queries, never final current foreground"
+    },
+    {
+      "prior_frame": 1700,
+      "camera": "FB",
+      "family": "hand",
+      "spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/private_prior_ROLE_goldens_v123/FB_prior1700_hand/spec.json",
+      "spec_sha256": "a5a1a7ba6e1be0296c051763877b4fd7000b70294673e57295c51abf2416e63b",
+      "candidates": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/private_prior_ROLE_goldens_v123/remote_results/FB_prior1700_hand/candidates",
+      "NN_receipt_sha256": "9fff0728ce45a68f5a83fd588001eb7b012d579dadfdcd657efeb6836217c016",
+      "purpose": "Three ROOT-authorized real native prior-role golden queries, never final current foreground"
+    },
+    {
+      "prior_frame": 1695,
+      "camera": "ED",
+      "family": "hand",
+      "spec": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/private_prior_ROLE_goldens_v123/ED_prior1695_hand/spec.json",
+      "spec_sha256": "55f4fde87b364e9e1f799431f8a15146017ca7be2d3869484ff0d6baf0cf8cee",
+      "candidates": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/private_prior_ROLE_goldens_v123/remote_results/ED_prior1695_hand/candidates",
+      "NN_receipt_sha256": "0db7639fd08cd467bccda30bf0249dd4b6858ccd722ca75af7c269f6e30cdb49",
+      "purpose": "Three ROOT-authorized real native prior-role golden queries, never final current foreground"
+    }
+  ],
+  "prior_source_images_only": true,
+  "no_current_FG_transfer": true
+}
