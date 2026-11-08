@@ -70,3 +70,14 @@ records the canonical geometry receipt SHA
 The selected16-donor sigma4/gain.75 profile and queued V6 final renderer remain
 unchanged. Generation1 CPU hybrid output and full-sequence temporal review
 remain separate required checks.
+
+The first actual generation1 CPU run now also completed both native3840×2024
+variants using the unchanged16-donor sigma4/gain.75 shader. Its neural PNG
+matches the cached native float RGB conversion exactly. ROOT inspected the full
+comparison and corrected native-size face/feet crops: shoe/fabric detail improves,
+face sharpness remains limited, and substantial floor/silhouette debris persists.
+No cleanup or production-profile change was adopted.
+[CPU completion and visual proof](/fsx/tmp/marshawn_video_1660_2015_24fps_140k_20261107/operations/video_first_g1_canary_v2/actual_CPU_two_variants/ROOT_visual_review.json).
+Stable downloadable aliases are `review/Marshawn1695_LookCloser_140k_4K.png` and
+`review/Marshawn1695_Hybrid_140k_4K.png` under the capped campaign. These are
+HD-trained model outputs rendered at4K, not completed full-sequence movies.
