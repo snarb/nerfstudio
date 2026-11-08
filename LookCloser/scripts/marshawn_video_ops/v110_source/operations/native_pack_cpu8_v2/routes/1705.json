@@ -1,0 +1,12 @@
+{
+  "frame": 1705,
+  "version": 114,
+  "cli": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/sam3_assist/code/marshawn_mask_assist_full_v114.py",
+  "cli_sha256": "4693dbb5d1a44f2e33585db5dc896237aa2e03fd171eddd57dfc5436e5fc94f2",
+  "preexisting_BODY_inputs_preserved": false,
+  "native_release_sha256": "88ccc5ed23c2c8c3fc538d5ea45b5a3dda92fad4c4cd3a18e3f6a0c5ec6b8775",
+  "ROOT_cache_authorization_sha256": "6dd8eefefae4b18fddb8dc258dc3feb22d70104dacd8e7bb4e04748a9fcbdee9",
+  "kind": "QUALIFIED_SHARED_BODY_STAGE_ROUTE_RELEASE",
+  "no_NN_launch_before_existing_producer_previous_2D_proof": true,
+  "created": 1794103544.6696472
+}

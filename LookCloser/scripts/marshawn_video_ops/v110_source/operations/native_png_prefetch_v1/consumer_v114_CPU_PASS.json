@@ -1,0 +1,10 @@
+{
+  "status": "pass",
+  "original_rsync_and_stream_statements_AST_exact": true,
+  "missing_cache_falls_through": true,
+  "optional_timeout_falls_through": true,
+  "marker_owner_scope_preserved": true,
+  "original_remote_and_source_inputs_untouched": true,
+  "adapter_sha256": "7627dd48e4939e3e76b4b17f2555c67b6d0f420d860dffb1e81af9092e8195a8",
+  "factory_sha256": "4693dbb5d1a44f2e33585db5dc896237aa2e03fd171eddd57dfc5436e5fc94f2"
+}

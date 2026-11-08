@@ -1,0 +1,13 @@
+{
+  "approved": true,
+  "created": 1794103440.7145236,
+  "release": "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/native_png_prefetch_v1/release.json",
+  "release_sha256": "74245e7657069eab1e1abef950eb1a37664653d50021da45db152623b1cd7e49",
+  "files_sha256": {
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/native_png_prefetch_v1/code/marshawn_native_png_cache_store.py": "ff45dee9a95aed69caef2ce9f5b13dc4422bd994b32f5610bff89fd9afb84cda",
+    "/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/native_png_prefetch_v1/code/marshawn_native_png_prefetch.py": "9c50f2cbf6043e4fd63a4e88bfde6625f5573300bc0c4c45efa847a3321894e0"
+  },
+  "qualification_sha256": "2e4b62c74279b8ffa415b284a15104a908d81f4b107550d29bb0bb18b04d1e26",
+  "scope": "PNG inputs only in owned private SG NVMe; create-only opportunistic consumer only for whollyunclaimed futureBODY routes; preserve normalrsync/source-readySHA, do not block sourceonoptionalcacheerror; no original/mask/weight/model/NNoutput deletion or current1700 change",
+  "review": "ROOT personally inspected sourceReady/native receipt binding, exacthash+size+mtime check beforeREADY andlink, create-only hardlinks, inheritedcontrollerlock through transport, sourceconsumer liveness/yield and boundedcapacity; actualtwoPNG/interruptedcopy/foreign/unreadyqualification PASS"
+}

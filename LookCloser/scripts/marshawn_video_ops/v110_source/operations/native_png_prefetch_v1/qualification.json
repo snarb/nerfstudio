@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "actual_sources": [
+    {
+      "frame": 1705,
+      "camera": "AA",
+      "sha256": "df21a38b97f258165946b0c61abbc53be44da7937d9e40952af60e475867d6d7",
+      "size": 73682789,
+      "mtime_ns": 1794063953000000000
+    },
+    {
+      "frame": 1710,
+      "camera": "AB",
+      "sha256": "a8d9a84506a0b6ad2f8117329900f93c1727cf2c9d567236f96ce8e326fac9b0",
+      "size": 72658671,
+      "mtime_ns": 1794064139000000000
+    }
+  ],
+  "interrupted_transfer_partial": {
+    "exists": true,
+    "size": 1605632
+  },
+  "partial_rejected_before_ready": true,
+  "normal_resume_exact_source_ready": true,
+  "create_only_same_inode_consumer": true,
+  "foreign_normal_rejected_unchanged": true,
+  "foreign_cache_rejected_unchanged": true,
+  "unready_consumer_returns_without_wait": true,
+  "qualification_normal_targets_only_under": "/cache/ubuntu/lookcloser/campaigns/marshawn_video_1660_2015_24fps_20261107/operations/native_png_cache_qualification_v1",
+  "no_current1700_or_real_future_taskroute_mutated": true,
+  "helper_sha256": "ff45dee9a95aed69caef2ce9f5b13dc4422bd994b32f5610bff89fd9afb84cda"
+}
