@@ -233,3 +233,30 @@ set. A camera that supplies its own photograph would make a transfer score
 misleading. Numerical candidates require visual checks of faces, hair,
 clothing and seams, followed by adjacent-camera/adjacent-frame review before
 changing the final video renderer.
+
+### Native ray diagnostic, 2026-11-08
+
+One finite read-only replay of the valid1685 checkpoint traced32 actual novel
+4K pixels and six HC controls. ROOT personally inspected the resulting
+contribution plots and native/coarse/fine RGB swatches. Native HC agreement
+was within one byte; the unchanged field, optimizer, occupancy, frequency,
+RNG and cached source state passed conservation checks. The1024-sample cap
+was never reached. Only12/38 uniform-reference comparisons met the sealed
+convergence criterion; results for the other26 remain provisional.
+
+Six converged artifact rays retain the visible residue with finer integration
+through the existing source admission. All18 sampled native artifact rays have
+zero contribution below or crossing floor Z=−.02. A photographed boot control
+has2.17% of its native alpha below that plane: a hard floor carve would change
+a real boot pixel. The floor control h05 is a negative control and supplies no
+actor-preservation evidence. This does not justify changing the production
+occupancy, floor clipping, dilation or renderer. No further GPU refinement was
+started. [Full results and plots](/fsx/tmp/marshawn_video_1660_2015_24fps_140k_20261107/operations/independent_ray_responsibility_1685_20261108/RESULTS.md).
+
+The current final-video hook is generation-aware V6 under
+`/fsx/tmp/marshawn_fleet10_140k_gcrole_g1_20261108/postprocess_command.json`
+(SHA256 `f73c64c445572eb4a56e57a7098347e29efa118c607e105be201dd42423884a9`).
+It is queued behind all72 genuine140k completions. The selected16-donor,
+sigma4/gain.75 hybrid profile and native rendering math remain unchanged.
+The first corrected-source1695 output still requires its actual terminal
+canary and ROOT visual inspection; the full movies are not complete.
