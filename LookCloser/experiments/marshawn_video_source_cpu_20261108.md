@@ -118,3 +118,20 @@ The first complete BODY pass using transactional CPU8 packing, optional PNG cach
 These are single production observations on different frames and concurrent loads, not a matched benchmark. The new cached PNG payload was transferred before the critical path. The1705 aggregate collection work was427.99s, averaging6.48s per camera and9.48s maximum, while two collectors overlapped with continued NN refill. Task counts were SG1/5/7:11 each, SG0:6, SG2:9, SG3:3, SG4:7, and olive:8. SG6 remained an active field slot. All66 jobs completed without failure and all66 results were collected.
 
 The measured BODY pass decreased from33m07s on1700 to10m11s on1705. Full source cadence still includes HEAD/part inference, qualification, source guard, DATA, and final grid audits; this does not establish a ten-minute end-to-end frame pipeline. This observation does not justify changing native priority or scientific parameters. [Source-bound final timing receipt](/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/native_BODY_1705_profile/BODY_complete.json).
+
+## Frame1705 HEAD timing attribution
+
+A bounded read-only review of existing timestamps and the actual source code found no border-expansion NN round for1705. The66 main HEAD jobs took294.59s from first start to last supervisor completion. All64 subsequent semantic-part jobs took290.42s and used the six non-field SG slots evenly,10–11 jobs per GPU.
+
+| HEAD interval | Observed time | Actual work |
+|---|---:|---|
+| BODY collected → original HEAD worker start |61.59s|Producer/install/launch gap; not attributed to one function|
+| HEAD worker → first NN start |238.39s|Includes serial ROI/spec generation and launch|
+| First → last of66 specs |201s|Previous/current native PNG SHA checks and grayscale decoding, bounded ROI flow, small spec/proof writes|
+| Last spec → controller launch |2.19s|Small-spec staging and launch|
+| Launch → first NN |30.83s|GPU probing, lease/startup path; individual costs not instrumented|
+| Last NN → first qualification record |29.39s|Terminal polling, unchanged result rsync, first qualification|
+| First → last of66 qualification records |30s|Read-only qualification plus private proposal/proof writes|
+| Last qualification → all66 source applications finished |154s|Serial requalification, current native/H/union archival and writes, union validation and SHA receipts|
+
+The post-NN total was213.39s, from02:57:22 to03:00:56. The application receipt span was151s;56 cameras changed and10 weak-camera applications left foreground unchanged. This is combined CPU/decompression/hash/compression and filesystem work, not an instrumented CPU-versus-I/O split. `qualify` itself reads current source and NN outputs; `apply` repeats qualification and mutates canonical per-camera source artifacts. No new tests, inference, parallelization, scheduler policy, or source edits were performed by this profiling. Filesystem timestamps are rounded to seconds; these are observational bounds. [Bound timings and code hashes](/fsx/tmp/marshawn_video_1660_2015_24fps_20261107/operations/native_BODY_1705_profile/HEAD_CPU_IO_attribution.json).
