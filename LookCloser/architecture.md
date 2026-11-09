@@ -2230,3 +2230,10 @@ resumable checkpoints are released only after a durable completion. Clever's
 limited staging disk archives models/data to Silver with SHA verification before
 pruning its own frame directory. Inference reloads avoid the native training
 image cache. Production dispatch constrains NVIDIA jobs to locally owned frames.
+Confidence ablations use immutable variants with re-bound semantic/head/core
+manifests and identical RGB/actor labels/static geometry. W32 is explicitly
+mapped into the historical W64 sampler slot, preserving proposal normalization.
+Final allocation reserves whole-cut weighted quotas before source constraints;
+production network retries back off without resetting optimizer-attempt budgets.
+Full HD diagnostics undo native crop origins, verify ray parity, render the
+original calibrated FOV, and export raw RGB/straight alpha without GT masking.

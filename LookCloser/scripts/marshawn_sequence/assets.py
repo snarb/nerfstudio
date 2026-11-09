@@ -171,6 +171,54 @@ def scale_variant(source,output,scale):
     return ready
 
 
+def confidence_variant(source,output,width=32):
+    import fcntl
+    out=Path(output);out.mkdir(parents=True,exist_ok=True)
+    with (out/'confidence.lock').open('a+') as lock:
+        fcntl.flock(lock,fcntl.LOCK_EX)
+        return _confidence_variant_unlocked(source,output,width)
+
+
+def _confidence_variant_unlocked(source,output,width=32):
+    """Controlled confidence ablation; RGB, actor/head masks and geometry stay fixed.
+
+    The historical sampler consumes the W64 slot. This variant explicitly maps
+    the existing W32 confidence raster into that slot; it is never physical alpha.
+    """
+    src,out=Path(source),Path(output);out.mkdir(parents=True,exist_ok=True)
+    if width!=32:raise ValueError('Only the pre-existing W32 raster is qualified')
+    if (out/'confidence_complete.json').exists():return read(out/'ready.json')
+    for name in ('images','masks','linear','parts','lookcloser_frequencies'):
+        if not (out/name).is_symlink():(out/name).symlink_to((src/name).resolve(),target_is_directory=True)
+    for name in ('transforms.json','box.json'):shutil.copy2(src/name,out/name)
+    (out/'semantics').mkdir(exist_ok=True)
+    ready=read(src/'ready.json');records=[];digests={}
+    for row in ready['records']:
+        camera=row['camera']
+        with np.load(src/'semantics'/(camera+'.npz')) as archive:arrays={k:archive[k] for k in archive.files}
+        arrays['W64']=arrays['W32'].copy()
+        dest=out/'semantics'/(camera+'.npz');np.savez_compressed(dest,**arrays)
+        digests[camera]=sha(dest);records.append(dict(row,semantic_sha256=digests[camera]))
+    for name,reference in [('heads','semantic_sha256'),('cores','source_semantic_sha256')]:
+        (out/name).mkdir(exist_ok=True)
+        manifest=read(src/name/'manifest.json')
+        for camera,record in manifest['records'].items():
+            record[reference]=digests[camera]
+        for file in (src/name).glob('*.npz'):
+            dest=out/name/file.name
+            if not dest.is_symlink():dest.symlink_to(file.resolve())
+        atomic(out/name/'manifest.json',manifest)
+    ready.update(records=records,confidence_width_native=width,confidence_storage='W64 slot explicitly contains original W32; no RGB/actor/head/geometry change')
+    atomic(out/'ready.json',ready)
+    (out/'admission').mkdir(exist_ok=True);shutil.copy2(src/'admission/grid.npz',out/'admission/grid.npz')
+    manifest=read(src/'admission/manifest.json')
+    for row in manifest['records']:row['semantic_sha256']=digests[row['camera']]
+    manifest.update(ready_sha256=sha(out/'ready.json'))
+    atomic(out/'admission/manifest.json',manifest)
+    atomic(out/'confidence_complete.json',dict(width=width,parent_ready_sha256=sha(src/'ready.json'),actor_masks_unchanged=True,rgb_unchanged=True,admission_grid_sha256=sha(out/'admission/grid.npz')))
+    return ready
+
+
 def resolution_variant(source,output,max_res):
     """Uniform16 remains the exact minimum scalar under a new consumer ladder."""
     src,out=Path(source),Path(output);out.mkdir(parents=True,exist_ok=True)

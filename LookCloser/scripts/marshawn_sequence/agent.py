@@ -45,12 +45,15 @@ def run(root):
                     exhausted=bool(row['job'].get('max_optimizer_attempts') and receipt.get('attempt_budget',{}).get('reserved_attempts',0)>=row['job']['max_optimizer_attempts'])
                     valid=receipt.get('completed_iterations',0)>=row['job']['target'] or receipt.get('plateau',False) or exhausted
                 row.update(status='complete' if valid and code in (0,-999) else 'failed',exit_code=code,finished=now)
+                if row['status']=='failed' and row['job'].get('retry_backoff_seconds'):
+                    row['next_retry_at']=now+min(900,row['job']['retry_backoff_seconds']*2**(row['attempts']-1))
                 atomic(root/'agent_state.json',state);process=None;active=None
         if not active:
             for job in queue['jobs']:
                 key=job['id'];old=state['jobs'].get(key)
                 if old and old['status']=='complete':continue
-                if old and old.get('attempts',0)>=3:continue
+                if old and old.get('attempts',0)>=job.get('max_attempts',3):continue
+                if old and now<old.get('next_retry_at',0):continue
                 if any(state['jobs'].get(d,{}).get('status')!='complete' for d in job.get('dependencies',[])):continue
                 log=root/'logs'/(key+'.log');log.parent.mkdir(exist_ok=True)
                 with log.open('ab',buffering=0) as stream:

@@ -61,9 +61,11 @@ def run(root,frame):
         # Final training includes former heldout cameras: generate their maps too.
         tf=read(native/'transforms.json');tf['train_filenames']=[f['file_path'] for f in tf['frames']];atomic(native/'transforms.json',tf)
         command([settings['python'],tools/'frequency.py','--data',native,'--source-code',settings['source_code']])
-    from assets import assemble,admission,exr_variant,scale_variant,resolution_variant
+    from assets import assemble,admission,exr_variant,scale_variant,resolution_variant,confidence_variant
     sys.path[:0]=[settings['source_code'],str(Path(settings['source_code'])/'LookCloser/scripts')]
     assemble(native,dataset,recipe['parameters']['frequency_source_policy'],all_train=True);admission(dataset)
+    if recipe['parameters'].get('confidence_width')==32:
+        confidence_variant(dataset,local/'data_confidence',32);dataset=local/'data_confidence'
     units=recipe['parameters'].get('model_units_scale',settings.get('model_units_scale',1.))
     if units!=1:
         scale_variant(dataset,local/'data_model',units);dataset=local/'data_model'

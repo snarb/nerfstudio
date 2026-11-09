@@ -22,7 +22,7 @@ ARMS=[
     ('arm_half',dict(frequency_source_policy='uniform16',coarse_step=.00078125)),
     ('arm_double',dict(frequency_source_policy='uniform16',coarse_step=.003125)),
     ('arm_2048',dict(frequency_source_policy='uniform16',max_steps_per_ray=2048)),
-    ('exr',dict(frequency_source_policy='uniform16',format='exr')),
+    ('exr',dict(frequency_source_policy='uniform16',format='exr',coarse_step=.00078125)),
     ('resolution16384',dict(frequency_source_policy='uniform16',max_res=16384)),
     ('arm_max3',dict(frequency_source_policy='uniform16',adaptive_interval_level_mode='max3')),
     ('uniform_repeat',dict(frequency_source_policy='uniform16')),
@@ -33,8 +33,10 @@ ARMS=[
     ('rig_units',dict(frequency_source_policy='uniform16',model_units_scale=1.)),
     ('batch16384',dict(frequency_source_policy='uniform16',train_rays_per_batch=16384)),
     ('learned095_arm_half',dict(frequency_source_policy='ssim095',coarse_step=.00078125)),
+    ('confidence32',dict(frequency_source_policy='uniform16',confidence_width=32)),
+    ('arm_quarter',dict(frequency_source_policy='uniform16',coarse_step=.000390625)),
 ]
-_priority=['uniform','uniform_repeat','uniform_gpu','learned095','learned090','arm_half','arm_double','arm_2048','resolution16384','arm_max3','fr_initial03','frequency512','batch16384','head20','rig_units','exr','learned095_arm_half','uniform_clever']
+_priority=['uniform','uniform_repeat','uniform_gpu','learned095','learned090','arm_half','arm_double','arm_2048','resolution16384','arm_max3','fr_initial03','frequency512','batch16384','head20','rig_units','exr','confidence32','learned095_arm_half','uniform_clever','arm_quarter']
 ARMS.sort(key=lambda row:_priority.index(row[0]))
 
 
@@ -85,6 +87,10 @@ class Host:
         dataset=self.root/'variants'/(prefix+parameters['frequency_source_policy'])
         if parameters.get('model_units_scale')==1.:dataset=self.root/'variants'/'uniform16'
         if parameters.get('format')=='exr':dataset=self.root/'variants'/(prefix+'exr')
+        if parameters.get('confidence_width')==32:
+            parent=dataset;dataset=dataset.with_name(dataset.name+'_w32')
+            build='from assets import confidence_variant;confidence_variant('+repr(str(parent))+','+repr(str(dataset))+',32)'
+            self.command('PYTHONPATH='+shlex.quote(settings['tools']+':'+settings['dependency_path'])+' '+shlex.quote(settings['python'])+' -c '+shlex.quote(build),timeout=600)
         if parameters.get('max_res',8192)!=8192:
             source_dataset=dataset
             dataset=self.root/'variants'/(prefix+parameters['frequency_source_policy']+'_res'+str(parameters['max_res']))
@@ -97,6 +103,29 @@ class Host:
 
 
 def metrics(host,name):return host.get(host.root/'tuning'/name/'metrics.json',[])
+
+
+def allocate_frames(hosts,first=908,last=1268):
+    """Balance the whole sequence before reserving each local source range."""
+    weights=[h.row.get('production_weight',1.) for h in hosts]
+    if any(w<=0 for w in weights):raise ValueError('Positive worker weights required')
+    total=last-first+1;expected=[total*w/sum(weights) for w in weights]
+    quotas=[int(x) for x in expected]
+    for i in sorted(range(len(hosts)),key=lambda i:expected[i]-quotas[i],reverse=True)[:total-sum(quotas)]:quotas[i]+=1
+    remaining=set(range(first,last+1));allocation={i:[] for i in range(len(hosts))}
+    for i,h in enumerate(hosts):
+        if 'frame_range' not in h.row:continue
+        lo,hi=h.row['frame_range'];available=sorted(f for f in remaining if lo<=f<=hi);count=quotas[i]
+        if count>len(available):raise ValueError('Source range cannot meet worker quota')
+        chosen=[available[round(k*(len(available)-1)/max(1,count-1))] for k in range(count)]
+        allocation[i]=chosen;remaining.difference_update(chosen)
+    for frame in sorted(remaining):
+        eligible=[i for i,h in enumerate(hosts) if len(allocation[i])<quotas[i] and h.row.get('frame_range',[first,last])[0]<=frame<=h.row.get('frame_range',[first,last])[1]]
+        if not eligible:raise ValueError('No source-capable production host for frame '+str(frame))
+        index=min(eligible,key=lambda i:(len(allocation[i])/weights[i],i));allocation[index].append(frame)
+    flattened=[f for frames in allocation.values() for f in frames]
+    if sorted(flattened)!=list(range(first,last+1)):raise ValueError('Production coverage/uniqueness failure')
+    return {i:sorted(frames) for i,frames in allocation.items()}
 
 
 def run(root):
@@ -133,7 +162,7 @@ def run(root):
                 if unseen:
                     h.put(h.agent_root/'queue.json',dict(jobs=[state['jobs'][name] for name in unseen]));continue
                 if any(status.get('jobs',{}).get(name+'_screen',{}).get('status') not in ('complete','failed') for name in previous):continue
-                pending=[(n,p) for n,p in ARMS if n not in state['assignments'] and (p.get('format','png') in h.row.get('formats',['png']))]
+                pending=[(n,p) for n,p in ARMS if n not in state['assignments'] and (p.get('format','png') in h.row.get('formats',['png'])) and (n!='arm_quarter' or h.row['name']=='ws07')]
                 if not pending:
                     if str(i) not in state.get('early_extensions',{}):
                         scored=[(r['metrics']['lpips'],name) for name in previous for r in metrics(h,name) if r['step']+1==32000 and r['cap']==10]
@@ -191,10 +220,15 @@ def run(root):
         # EXR additionally needs detail evidence; absent evidence defaults honestly to PNG.
         def exr_qualifies(c):
             if c['parameters'].get('format')!='exr':return True
-            a=c['result'].get('head_lpips_by_view',{});b=baseline['result'].get('head_lpips_by_view',{})
+            def training_key(row):return {k:v for k,v in row['parameters'].items() if k not in ('format','gpu_cache')}
+            pairs=[p for p in png if training_key(p)==training_key(c) and p['result']['step']==c['result']['step'] and p['result']['cap']==c['result']['cap']]
+            if not pairs:
+                c['exr_detail_adoption_check']=dict(passed=False,reason='No matched PNG parameter/step/cap gate');return False
+            reference=min(pairs,key=lambda p:p['result']['metrics']['lpips'])
+            a=c['result'].get('head_lpips_by_view',{});b=reference['result'].get('head_lpips_by_view',{})
             shared=set(a)&set(b)
-            passed=c['result']['metrics']['lpips']<baseline['result']['metrics']['lpips']*.98 and sum(a[v]<b[v]*.98 for v in shared)>=2 and all(a[v]<=b[v]*1.05 for v in shared)
-            c['exr_detail_adoption_check']=dict(passed=passed,shared_views=sorted(shared),policy='>=2% actor LPIPS improvement; >=2% head detail improvement in at least2views; no head view regresses>5%; common SDR reference')
+            passed=c['result']['metrics']['lpips']<reference['result']['metrics']['lpips']*.98 and sum(a[v]<b[v]*.98 for v in shared)>=2 and all(a[v]<=b[v]*1.05 for v in shared)
+            c['exr_detail_adoption_check']=dict(passed=passed,matched_png_arm=reference['name'],matched_png_step=reference['result']['step']+1,matched_png_cap=reference['result']['cap'],shared_views=sorted(shared),policy='same hyperparameters/steps/cap; >=2% actor LPIPS improvement; >=2% head detail improvement in at least2views; no head view regresses>5%; common SDR reference')
             return passed
         eligible=[c for c in candidates if exr_qualifies(c)]
         best_lpips=min(c['result']['metrics']['lpips'] for c in eligible)
@@ -208,8 +242,15 @@ def run(root):
             p=hosts[c['host']].get(hosts[c['host']].root/'tuning'/c['name']/'progress.json',{})
             return (c['result']['step']+1)*p.get('elapsed_seconds',3600)/max(1,p.get('completed_iterations',32000))
         chosen=min(tied,key=lambda c:(estimated_training_seconds(c),c['result']['metrics']['lpips']))
-        recipe=dict(parameters=chosen['parameters'],steps=chosen['result']['step']+1,selection=chosen,all_candidates=candidates,primary='equal visible-person masked AlexLPIPS then equal heldout views',plateau_confirmed=False,limit=150000,source_frame=908,final_train_cameras=72)
+        recipe=dict(parameters=dict(chosen['parameters']),steps=chosen['result']['step']+1,selection=chosen,all_candidates=candidates,primary='equal visible-person masked AlexLPIPS then equal heldout views',plateau_confirmed=False,limit=150000,source_frame=908,final_train_cameras=72)
         recipe['parameters'].setdefault('model_units_scale',read(root/'settings.json').get('model_units_scale',1.))
+        canonical=read(root/'box.json')
+        recipe['canonical_geometry']={key:canonical[key] for key in ('aabb','world_to_box','box_to_world') if key in canonical}
+        recipe['canonical_aabb_sha256']=sha(root/'box.json')
+        recipe['rig_units_per_metre']=1.0805
+        recipe['physical_box_dimensions_metres']=[(hi-lo)/1.0805 for lo,hi in zip(canonical['aabb'][0],canonical['aabb'][1])]
+        recipe['tuning_heldout']=read(root/'split.json')['heldout']
+        recipe['tuning_started']=state['started'];recipe['tuning_deadline']=state['deadline']
         trajectory=hosts[chosen['host']].get(hosts[chosen['host']].root/'tuning'/chosen['name']/'stage_complete.json',{})
         recipe['plateau_confirmed']=bool(trajectory.get('plateau',False))
         recipe['trajectory_completed_iterations']=trajectory.get('completed_iterations')
@@ -231,6 +272,8 @@ def run(root):
                 cache_check.update(adopted=speedup>=.05,speedup=speedup,seconds_per_step=pair,reason='Matched cold native runs on Silver; includes checkpoint/evaluation overhead')
         recipe['gpu_cache_benchmark']=cache_check
         recipe['parameters']['gpu_cache']=cache_check['adopted']
+        p=recipe['parameters']
+        recipe['effective_hyperparameters']=dict(hash_levels=16,hash_features_per_level=2,log2_hashmap_size=25,max_res=p.get('max_res',8192),sh_degree=4,correct_sh_directions=True,density_activation='trunc_exp',train_rays_per_batch=p.get('train_rays_per_batch',8192),sampling='body80 with exact rounded proposal expectation, no 1/q correction',head_fraction=p.get('head_fraction',.15),confidence_width_native=p.get('confidence_width',64),opaque_core_erosion_native_pixels=32,opaque_core_prior=.01,adam_betas=[.9,.99],learning_rate=.01,learning_rate_final=.0001,learning_rate_horizon=200000,warmup_steps=4096,distortion_weight_start=.01,distortion_weight_final=.1,distortion_ramp=[4096,12288],fr_initial=p.get('fr_initial',1.),fr_switch_step=75941,fr_after_switch=.3,coarse_step=p.get('coarse_step',.0015625),minimum_step=.0001,maximum_step=.1,max_samples_per_ray=p.get('max_steps_per_ray',1024),corrected_arm_allocator=True,interval_level_mode=p.get('adaptive_interval_level_mode','midpoint'),occupancy_resolution=128,occupancy_ema=.95,occupancy_threshold=.01,occupancy_update_interval=16,occupancy_dilation_radius=0,frequency_grid_update_interval=p.get('frequency_grid_update_interval',1024),frequency_projection='legacy',frequency_probe_train_rays=2048,frequency_source_policy=p['frequency_source_policy'],native_rgb_resize=False,seed=42)
         for h in hosts:h.put(h.root/'selected_recipe.json',recipe)
         atomic(root/'selected_recipe.json',recipe)
         text='# Marshawn908–1268 selected native recipe\n\nPrimary: masked actor AlexLPIPS, without background.\n\nSelected parameters:\n```json\n'+json.dumps(recipe['parameters'],indent=2)+'\n```\n\nSteps: '+str(recipe['steps'])+'. Native crops without resize; accepted V3 box.\n\n|Arm|Host|Step|LPIPS|PSNR|SSIM|\n|---|---|---:|---:|---:|---:|\n'
@@ -238,6 +281,9 @@ def run(root):
             m=c['result']['metrics'];text+='|%s|%s|%s|%.6f|%.4f|%.4f|\n'%(c['name'],c['host'],c['result']['step']+1,m['lpips'],m['psnr'],m['ssim'])
         text+='\nAll final models cold-start on72TRAIN cameras; metrics on former heldout cameras are in-sample. Maximum150000attempts including recovery replay. FPS120 remains assumed. Plateau is only asserted if the saved late trajectory passes the two-signal test. EXR sources are decoded from PQ16, not independent higher-information originals.\n'
         text+='\nInference cap: '+str(recipe['selected_inference_cap'])+'. Plateau confirmed: '+str(recipe['plateau_confirmed'])+'. Trajectory completed iterations: '+str(recipe['trajectory_completed_iterations'])+'.\n'
+        text+='\nEffective training settings:\n```json\n'+json.dumps(recipe['effective_hyperparameters'],indent=2)+'\n```\n'
+        text+='\nFixed tuning heldouts: '+', '.join(recipe['tuning_heldout'])+'. Canonical physical rig geometry (apply world_to_box before testing aabb; then apply the isotropic model-unit scale above):\n```json\n'+json.dumps(recipe['canonical_geometry'],indent=2)+'\n```\n'
+        text+='\nRig calibration: 1.0805units/metre. Physical box dimensions: '+', '.join('%.4fm'%d for d in recipe['physical_box_dimensions_metres'])+'.\n'
         text+='\nGPU image cache benchmark:\n```json\n'+json.dumps(cache_check,indent=2)+'\n```\n'
         exr_checks=[c.get('exr_detail_adoption_check') for c in candidates if c.get('exr_detail_adoption_check')]
         text+='\nEXR detail adoption checks passed: '+str(sum(c['passed'] for c in exr_checks))+' / '+str(len(exr_checks))+'. Full head/view evidence and fixed-reference policy are recorded in selected_recipe.json.\n'
@@ -249,22 +295,18 @@ def run(root):
                 host.command(command,input=text)
         state['phase']='production';atomic(state_path,state)
     if state['phase']=='production':
-        allocation={i:[] for i in range(len(hosts))};loads={i:0. for i in range(len(hosts))}
-        for f in range(908,1269):
-            eligible=[i for i,h in enumerate(hosts) if h.row.get('frame_range',[908,1268])[0]<=f<=h.row.get('frame_range',[908,1268])[1]]
-            if not eligible:raise ValueError('No source-capable production host for frame '+str(f))
-            index=min(eligible,key=lambda i:(loads[i],i));allocation[index].append(f)
-            loads[index]+=1./hosts[index].row.get('production_weight',1.)
+        allocation=allocate_frames(hosts)
+        state['production_allocation']={hosts[i].row['name']:frames for i,frames in allocation.items()};atomic(state_path,state)
         for i,h in enumerate(hosts):
             s=h.get(h.root/'settings.json');frames=allocation[i]
-            jobs=[dict(id='frame%06d'%f,command=[s['python'],str(Path(s['tools'])/'production.py'),'--root',str(h.root),'--frame',str(f)],completion=str(h.root/'frames'/f'{f:06d}'/'frame_complete.json'),progress=str(h.root/'frames'/f'{f:06d}'/'train/progress.json'),env={'PYTHONPATH':s['dependency_path'],'CUDA_VISIBLE_DEVICES':str(h.row.get('gpu',0))}) for f in frames]
+            jobs=[dict(id='frame%06d'%f,command=[s['python'],str(Path(s['tools'])/'production.py'),'--root',str(h.root),'--frame',str(f)],completion=str(h.root/'frames'/f'{f:06d}'/'frame_complete.json'),progress=str(h.root/'frames'/f'{f:06d}'/'train/progress.json'),max_attempts=12,retry_backoff_seconds=60,env={'PYTHONPATH':s['dependency_path'],'CUDA_VISIBLE_DEVICES':str(h.row.get('gpu',0))}) for f in frames]
             h.put(h.agent_root/'queue.json',dict(jobs=jobs))
         state['phase']='production_dispatched';atomic(state_path,state)
     # Controller remains an independent watcher until every assigned frame finalizes/quarantines.
     while state['phase']=='production_dispatched':
         checks=[h.get(h.agent_root/'agent_state.json',{}) for h in hosts]
         completed=sum(sum(1 for k,v in s.get('jobs',{}).items() if k.startswith('frame') and v['status']=='complete') for s in checks)
-        quarantined=sum(sum(1 for k,v in s.get('jobs',{}).items() if k.startswith('frame') and v['status']=='failed' and v['attempts']>=3) for s in checks)
+        quarantined=sum(sum(1 for k,v in s.get('jobs',{}).items() if k.startswith('frame') and v['status']=='failed' and v['attempts']>=v['job'].get('max_attempts',3)) for s in checks)
         atomic(root/'sequence_progress.json',dict(time=time.time(),completed=completed,quarantined=quarantined,total=361))
         if completed+quarantined==361:
             state.update(phase='complete' if not quarantined else 'complete_with_quarantine',completed=completed,quarantined=quarantined);atomic(state_path,state);return

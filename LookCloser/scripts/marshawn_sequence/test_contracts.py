@@ -69,4 +69,16 @@ class ExportRecoveryTests(unittest.TestCase):
             with self.assertRaises(ValueError):export(root,checkpoint,selection)
 
 
+class SequenceAllocationTests(unittest.TestCase):
+    def test_split_source_ranges_still_balance_both_workstations(self):
+        from types import SimpleNamespace
+        from campaign import allocate_frames
+        rows=[dict(name='ws07',production_weight=1.4,frame_range=[908,1111]),dict(name='ws08',production_weight=1.4,frame_range=[1112,1268])]+[dict(name='silver'+str(i),production_weight=1.) for i in range(8)]+[dict(name=n,production_weight=.8) for n in ('olive','clever')]
+        allocation=allocate_frames([SimpleNamespace(row=row) for row in rows])
+        self.assertEqual(sorted(f for frames in allocation.values() for f in frames),list(range(908,1269)))
+        self.assertEqual(len(allocation[0]),41);self.assertEqual(len(allocation[1]),41)
+        self.assertTrue(all(908<=f<=1111 for f in allocation[0]))
+        self.assertTrue(all(1112<=f<=1268 for f in allocation[1]))
+
+
 if __name__=='__main__':unittest.main()

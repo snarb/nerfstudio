@@ -8,7 +8,7 @@ from common import read,atomic,sha
 from runtime import bootstrap,config
 
 
-def run(root,spec_path,checkpoint,output,caps,data_override=None):
+def load_pipeline(root,spec_path,checkpoint,output,data_override=None):
     root=Path(root);settings=read(root/'settings.json');spec=read(spec_path)
     # Relocated artifacts use the receiving host's qualified runtime, while model
     # parameters and the selected source checkpoint remain explicitly recorded.
@@ -24,11 +24,17 @@ def run(root,spec_path,checkpoint,output,caps,data_override=None):
     torch.set_num_threads(4)
     cfg=config(spec);pipe=cfg.pipeline.setup(device='cuda:0',test_mode='inference')
     state=torch.load(checkpoint,map_location='cpu',weights_only=False)
-    pipe.load_pipeline(state['pipeline'],state['step']);del state
+    pipe.load_pipeline(state['pipeline'],state['step']);step=state['step'];del state
+    pipe.eval()
+    return pipe,spec,step
+
+
+def run(root,spec_path,checkpoint,output,caps,data_override=None):
+    pipe,spec,step=load_pipeline(root,spec_path,checkpoint,output,data_override)
     from worker import score
     results=[]
     for cap in caps:
-        result=score(SimpleNamespace(pipeline=pipe),spec,read(Path(checkpoint).parent/'manifest.json')['step'],cap)
+        result=score(SimpleNamespace(pipeline=pipe),spec,step,cap)
         results.append(result)
     atomic(Path(output)/'inference_evaluation.json',dict(checkpoint_sha256=sha(checkpoint),caps=caps,results=results,training_image_cache=False))
 

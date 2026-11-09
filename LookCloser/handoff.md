@@ -257,3 +257,14 @@ it will be replaced by the controller's measured selection after the deadline.
 Do not claim the final recipe or sequence is finished while tuning is active.
 
 Early 8k review: https://drive.google.com/file/d/12FJ60o7WpBqlfhAVEV_Xwh3p7GDL_r0b/view
+
+Operational update12:22 PST: all12 agents were restarted while their scientific
+workers continued (identity checks passed). Production retries now allow12
+attempts with backoff capped15min. Weighted final allocation balances both
+source-constrained NVIDIA stations (~41frames each) rather than overloading the
+later frame range. Dev3 exact-tensor inference parity passed (max LPIPS delta
+1.03e-6); same-weight cap diagnostics and original-FOV Full HD raw renders are
+separate helper jobs, with no training-image cache. Confirmed Olive/Clever can
+fetch both NVIDIA producers through calm-otter; Clever can reach its Silver
+archive target. Current best32k arm is half coarse step, actor LPIPS0.166759;
+quarter step and W32-confidence ablations were added with unchanged17:08deadline.
