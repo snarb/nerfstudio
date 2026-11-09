@@ -96,4 +96,35 @@ class TrustedBackgroundTests(unittest.TestCase):
         self.assertFalse(mask[63,100]);self.assertFalse(mask[450,100])
 
 
+class HistoricalConfidenceTests(unittest.TestCase):
+    def test_reference_half_width_and_veto_override(self):
+        import importlib.util
+        import numpy as np
+        path=Path(__file__).resolve().parents[1]/'marshawn_actor_confidence.py'
+        definition=importlib.util.spec_from_file_location('historical_confidence_test',path)
+        module=importlib.util.module_from_spec(definition);definition.loader.exec_module(module)
+        actor=np.zeros((220,220),bool);actor[100,100]=True;veto=np.zeros_like(actor)
+        weight,_=module.native_confidence(actor,veto,64)
+        self.assertAlmostEqual(float(weight[100,132]),.1,places=7)
+        self.assertEqual(float(weight[100,164]),0.)
+        self.assertEqual(float(weight[100,100]),1.)
+        veto[100,100]=True
+        weight,_=module.native_confidence(actor,veto,64)
+        self.assertEqual(float(weight[100,100]),0.)
+
+
+class SourceCacheTests(unittest.TestCase):
+    def test_release_requires_matching_transfer_acknowledgement(self):
+        from producer import release
+        with tempfile.TemporaryDirectory(prefix='marshawn_source_cache_') as directory:
+            root=Path(directory);folder=root/'prepared/000908';folder.mkdir(parents=True)
+            atomic(folder/'producer_complete.json',dict(frame=908,native_ready_sha256='expected'))
+            (folder/'derived.png').write_bytes(b'cache')
+            with self.assertRaises(ValueError):release(root,908,'wrong')
+            self.assertTrue((folder/'derived.png').exists())
+            release(root,908,'expected');self.assertFalse(folder.exists())
+            self.assertTrue(read(root/'prepared_released/000908.json')['released_after_verified_transfer'])
+            release(root,908,'expected')
+
+
 if __name__=='__main__':unittest.main()

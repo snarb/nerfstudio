@@ -48,7 +48,14 @@ def run(root,frame):
             receiver=subprocess.run(['tar','-C',str(native),'-xf','-'],stdin=process.stdout)
             process.stdout.close();code=process.wait()
             if receiver.returncode or code:raise RuntimeError('Native source transfer failed; retry preserves source receipt')
-            atomic(native/'transfer_complete.json',owner.get(receipt))
+            transfer_receipt=owner.get(receipt)
+            if sha(native/'native_ready.json')!=transfer_receipt['native_ready_sha256'] or sha(native/'points3D.txt')!=transfer_receipt['seed_sha256']:raise ValueError('Transferred native manifest/seed checksum differs')
+            atomic(native/'transfer_complete.json',transfer_receipt)
+            # Only derivatives are released: source RGB16 and persistent seeds stay.
+            release=[owner_settings['python'],str(Path(owner_settings['tools'])/'producer.py'),'--root',str(owner.root),'--frame',str(frame),'--release','--expected-ready-sha',transfer_receipt['native_ready_sha256']]
+            try:owner.command(shlex.join(release),timeout=120)
+            except (RuntimeError,subprocess.TimeoutExpired) as error:
+                atomic(native/'source_cache_release_pending.json',dict(frame=frame,error=str(error)))
         else:command([settings['python'],tools/'prepare.py','--frame',frame,'--output',native,'--box',root/'box.json','--split',root/'split.json'])
     sam_env=dict(os.environ,PYTHONPATH=settings.get('sam_dependency_path',settings['dependency_path']))
     sam_command=[settings['sam_python'],str(tools/'parts.py'),'--data',str(native)]
@@ -61,10 +68,12 @@ def run(root,frame):
         # Final training includes former heldout cameras: generate their maps too.
         tf=read(native/'transforms.json');tf['train_filenames']=[f['file_path'] for f in tf['frames']];atomic(native/'transforms.json',tf)
         command([settings['python'],tools/'frequency.py','--data',native,'--source-code',settings['source_code']])
-    from assets import assemble,admission,exr_variant,scale_variant,resolution_variant,confidence_variant
+    from assets import assemble,admission,exr_variant,scale_variant,resolution_variant,confidence_variant,historical_confidence_variant
     sys.path[:0]=[settings['source_code'],str(Path(settings['source_code'])/'LookCloser/scripts')]
     assemble(native,dataset,recipe['parameters']['frequency_source_policy'],all_train=True);admission(dataset)
-    if recipe['parameters'].get('confidence_width')==32:
+    if recipe['parameters'].get('confidence_profile')=='historical_power':
+        historical_confidence_variant(dataset,local/'data_confidence',settings['source_code'],recipe['parameters'].get('confidence_width',64));dataset=local/'data_confidence'
+    elif recipe['parameters'].get('confidence_width')==32:
         confidence_variant(dataset,local/'data_confidence',32);dataset=local/'data_confidence'
     units=recipe['parameters'].get('model_units_scale',settings.get('model_units_scale',1.))
     if units!=1:

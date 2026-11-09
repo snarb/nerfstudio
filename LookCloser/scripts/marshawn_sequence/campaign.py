@@ -36,15 +36,22 @@ ARMS=[
     ('confidence32',dict(frequency_source_policy='uniform16',confidence_width=32)),
     ('arm_quarter',dict(frequency_source_policy='uniform16',coarse_step=.000390625)),
     ('clear_background',dict(frequency_source_policy='uniform16',coarse_step=.00078125,background_opacity_prior=.01)),
+    ('reference_half',dict(frequency_source_policy='uniform16',coarse_step=.00078125,confidence_profile='historical_power')),
+    ('reference_uniform',dict(frequency_source_policy='uniform16',confidence_profile='historical_power')),
+    ('reference_learned_half',dict(frequency_source_policy='ssim095',coarse_step=.00078125,confidence_profile='historical_power')),
+    ('reference_background',dict(frequency_source_policy='uniform16',coarse_step=.00078125,confidence_profile='historical_power',background_opacity_prior=.01)),
 ]
-_priority=['uniform','uniform_repeat','uniform_gpu','learned095','learned090','arm_half','arm_double','arm_2048','resolution16384','arm_max3','fr_initial03','frequency512','batch16384','head20','rig_units','exr','confidence32','learned095_arm_half','uniform_clever','arm_quarter','clear_background']
+_priority=['uniform','uniform_repeat','uniform_gpu','learned095','learned090','arm_half','arm_double','arm_2048','resolution16384','arm_max3','fr_initial03','frequency512','batch16384','head20','rig_units','exr','confidence32','learned095_arm_half','uniform_clever','arm_quarter','clear_background','reference_half','reference_uniform','reference_learned_half','reference_background']
 ARMS.sort(key=lambda row:_priority.index(row[0]))
 
 
 def make_spec(root,parameters,data,output,target,allow_plateau=False):
     root=Path(root);s=read(root/'settings.json');data=Path(data);output=Path(output);output.mkdir(parents=True,exist_ok=True)
     parameters={'model_units_scale':s.get('model_units_scale',1.),**parameters}
-    if abs(read(data/'ready.json').get('model_units_scale',1.)-parameters['model_units_scale'])>1e-10:raise ValueError('Dataset/spec model units differ')
+    ready=read(data/'ready.json')
+    if abs(ready.get('model_units_scale',1.)-parameters['model_units_scale'])>1e-10:raise ValueError('Dataset/spec model units differ')
+    if ready.get('confidence_profile','linear')!=parameters.get('confidence_profile','linear'):raise ValueError('Dataset/spec confidence profiles differ')
+    if ready.get('confidence_width_native',64)!=parameters.get('confidence_width',64):raise ValueError('Dataset/spec confidence widths differ')
     stage=output/'stage.json';atomic(stage,dict(stop_after_iterations=target))
     spec=dict(parameters,data=str(data),output=str(output),stage_plan=str(stage),source_code=s['source_code'],frozen_helpers=s['frozen_helpers'],nerfacc_extension=s['nerfacc_extension'],hard_max_iterations=150000,head_fraction=parameters.get('head_fraction',.15),head_proxy_manifest=str(data/'heads/manifest.json'),head_proxy_manifest_sha256=sha(data/'heads/manifest.json'),semantic_admission=dict(manifest=str(data/'admission/manifest.json'),manifest_sha256=sha(data/'admission/manifest.json')),gpu_cache=parameters.get('gpu_cache',s.get('gpu_cache',False)),allow_plateau=allow_plateau)
     if s.get('sampling_memmap_root'):
@@ -89,7 +96,15 @@ class Host:
         dataset=self.root/'variants'/(prefix+parameters['frequency_source_policy'])
         if parameters.get('model_units_scale')==1.:dataset=self.root/'variants'/'uniform16'
         if parameters.get('format')=='exr':dataset=self.root/'variants'/(prefix+'exr')
-        if parameters.get('confidence_width')==32:
+        if parameters.get('confidence_profile')=='historical_power':
+            parent=dataset;dataset=dataset.with_name(dataset.name+'_power'+str(parameters.get('confidence_width',64)))
+            if parameters['frequency_source_policy']=='uniform16' or parameters.get('format')=='exr':
+                build='from assets import historical_confidence_variant;historical_confidence_variant('+repr(str(parent))+','+repr(str(dataset))+','+repr(settings['source_code'])+','+repr(parameters.get('confidence_width',64))+')'
+            else:
+                template=self.root/'variants'/(prefix+'uniform16');power=template.with_name(template.name+'_power'+str(parameters.get('confidence_width',64)))
+                build='from assets import historical_confidence_variant,map_variant;historical_confidence_variant('+repr(str(template))+','+repr(str(power))+','+repr(settings['source_code'])+','+repr(parameters.get('confidence_width',64))+');map_variant('+repr(str(power))+','+repr(str(self.root/'data/000908'))+','+repr(str(dataset))+','+repr(parameters['frequency_source_policy'])+')'
+            self.command('PYTHONPATH='+shlex.quote(settings['tools']+':'+settings['dependency_path'])+' '+shlex.quote(settings['python'])+' -c '+shlex.quote(build),timeout=900)
+        elif parameters.get('confidence_width')==32:
             parent=dataset;dataset=dataset.with_name(dataset.name+'_w32')
             build='from assets import confidence_variant;confidence_variant('+repr(str(parent))+','+repr(str(dataset))+',32)'
             self.command('PYTHONPATH='+shlex.quote(settings['tools']+':'+settings['dependency_path'])+' '+shlex.quote(settings['python'])+' -c '+shlex.quote(build),timeout=600)
@@ -258,6 +273,7 @@ def run(root):
         chosen=min(tied,key=choice_key)
         recipe=dict(parameters=dict(chosen['parameters']),steps=chosen['result']['step']+1,selection=chosen,all_candidates=candidates,primary='equal visible-person masked AlexLPIPS then equal heldout views',plateau_confirmed=False,limit=150000,source_frame=908,final_train_cameras=72)
         recipe['parameters'].setdefault('model_units_scale',read(root/'settings.json').get('model_units_scale',1.))
+        recipe['parameters'].setdefault('confidence_profile','linear')
         canonical=read(root/'box.json')
         recipe['canonical_geometry']={key:canonical[key] for key in ('aabb','world_to_box','box_to_world') if key in canonical}
         recipe['canonical_aabb_sha256']=sha(root/'box.json')
@@ -289,12 +305,15 @@ def run(root):
         p=recipe['parameters']
         recipe['effective_hyperparameters']=dict(hash_levels=16,hash_features_per_level=2,log2_hashmap_size=25,max_res=p.get('max_res',8192),sh_degree=4,correct_sh_directions=True,density_activation='trunc_exp',train_rays_per_batch=p.get('train_rays_per_batch',8192),sampling='body80 with exact rounded proposal expectation, no 1/q correction',head_fraction=p.get('head_fraction',.15),confidence_width_native=p.get('confidence_width',64),opaque_core_erosion_native_pixels=32,opaque_core_prior=.01,adam_betas=[.9,.99],learning_rate=.01,learning_rate_final=.0001,learning_rate_horizon=200000,warmup_steps=4096,distortion_weight_start=.01,distortion_weight_final=.1,distortion_ramp=[4096,12288],fr_initial=p.get('fr_initial',1.),fr_switch_step=75941,fr_after_switch=.3,coarse_step=p.get('coarse_step',.0015625),minimum_step=.0001,maximum_step=.1,max_samples_per_ray=p.get('max_steps_per_ray',1024),corrected_arm_allocator=True,interval_level_mode=p.get('adaptive_interval_level_mode','midpoint'),occupancy_resolution=128,occupancy_ema=.95,occupancy_threshold=.01,occupancy_update_interval=16,occupancy_dilation_radius=0,frequency_grid_update_interval=p.get('frequency_grid_update_interval',1024),frequency_projection='legacy',frequency_probe_train_rays=2048,frequency_source_policy=p['frequency_source_policy'],native_rgb_resize=False,seed=42)
         recipe['effective_hyperparameters']['background_opacity_prior']=p.get('background_opacity_prior',0.)
+        recipe['effective_hyperparameters']['confidence_profile']=p['confidence_profile']
+        recipe['effective_hyperparameters']['confidence_exponent']=math.log(.1)/math.log(.5) if p['confidence_profile']=='historical_power' else 1.
         for h in hosts:h.put(h.root/'selected_recipe.json',recipe)
         atomic(root/'selected_recipe.json',recipe)
-        text='# Marshawn908–1268 selected native recipe\n\nPrimary: masked actor AlexLPIPS, without background.\n\nSelected parameters:\n```json\n'+json.dumps(recipe['parameters'],indent=2)+'\n```\n\nSteps: '+str(recipe['steps'])+'. Native crops without resize; accepted V3 box.\n\n|Arm|Host|Step|LPIPS|PSNR|SSIM|\n|---|---|---:|---:|---:|---:|\n'
+        text='# Marshawn908–1268 selected native recipe\n\nPrimary: masked actor AlexLPIPS, without background.\n\nSelected parameters:\n```json\n'+json.dumps(recipe['parameters'],indent=2)+'\n```\n\nSteps: '+str(recipe['steps'])+'. Native crops without resize; accepted V3 box.\n\n|Arm|Confidence|Host|Step|LPIPS|PSNR|SSIM|\n|---|---|---|---:|---:|---:|---:|\n'
         for c in candidates:
-            m=c['result']['metrics'];text+='|%s|%s|%s|%.6f|%.4f|%.4f|\n'%(c['name'],c['host'],c['result']['step']+1,m['lpips'],m['psnr'],m['ssim'])
+            m=c['result']['metrics'];text+='|%s|%s/W%d|%s|%s|%.6f|%.4f|%.4f|\n'%(c['name'],c['parameters'].get('confidence_profile','linear'),c['parameters'].get('confidence_width',64),c['host'],c['result']['step']+1,m['lpips'],m['psnr'],m['ssim'])
         text+='\nAll final models cold-start on72TRAIN cameras; metrics on former heldout cameras are in-sample. Maximum150000attempts including recovery replay. FPS120 remains assumed. Plateau is only asserted if the saved late trajectory passes the two-signal test. EXR sources are decoded from PQ16, not independent higher-information originals.\n'
+        text+='\nConfidence-port correction: early runs used a linear outside taper. The historical recipe uses exponent log(0.1)/log(0.5), giving weight0.1 at half width. Reference arms recompute the sealed helper on qualified actors, also removing confidence halos from rejected crew. Early linear runs remain explicitly labelled alternative measurements, not exact historical-recipe baselines.\n'
         text+='\nInference cap: '+str(recipe['selected_inference_cap'])+'. Plateau confirmed: '+str(recipe['plateau_confirmed'])+'. Trajectory completed iterations: '+str(recipe['trajectory_completed_iterations'])+'.\n'
         text+='\nEffective training settings:\n```json\n'+json.dumps(recipe['effective_hyperparameters'],indent=2)+'\n```\n'
         text+='\nFixed tuning heldouts: '+', '.join(recipe['tuning_heldout'])+'. Canonical physical rig geometry (apply world_to_box before testing aabb; then apply the isotropic model-unit scale above):\n```json\n'+json.dumps(recipe['canonical_geometry'],indent=2)+'\n```\n'

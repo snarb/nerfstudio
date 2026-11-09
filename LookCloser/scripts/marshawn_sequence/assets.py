@@ -18,7 +18,7 @@ def assemble(source, output, policy='uniform16', all_train=False):
     if all_train:tf['train_filenames']=[f['file_path'] for f in tf['frames']]
     names={Path(p).stem for p in tf['train_filenames']}
     for name in ('images','masks','linear','parts'):
-        if not (out/name).exists():(out/name).symlink_to((src/name).resolve(),target_is_directory=True)
+        if not (out/name).exists() and not (out/name).is_symlink():(out/name).symlink_to((src/name).resolve(),target_is_directory=True)
     for name in ('semantics','heads','cores','lookcloser_frequencies'):(out/name).mkdir(exist_ok=True)
     atomic(out/'transforms.json',tf);atomic(out/'box.json',box)
     records=[];heads={};cores={}
@@ -103,7 +103,7 @@ def exr_variant(source,output):
     if (out/'ready.json').exists() and (out/'admission/manifest.json').exists():return read(out/'ready.json')
     (out/'images').mkdir(exist_ok=True)
     for name in ('masks','linear','parts','semantics','heads','cores','lookcloser_frequencies'):
-        if not (out/name).exists():(out/name).symlink_to((src/name).resolve(),target_is_directory=True)
+        if not (out/name).exists() and not (out/name).is_symlink():(out/name).symlink_to((src/name).resolve(),target_is_directory=True)
     ready=read(src/'ready.json');tf=read(src/'transforms.json');records=[]
     for row in ready['records']:
         c=row['camera'];path=out/'images'/(c+'.exr')
@@ -122,10 +122,10 @@ def exr_variant(source,output):
 def map_variant(template,native,output,policy):
     """Only frequency-map files differ; share exact immutable semantic bytes."""
     src,native,out=Path(template),Path(native),Path(output);out.mkdir(parents=True,exist_ok=True)
-    if (out/'ready.json').exists():return read(out/'ready.json')
+    if (out/'ready.json').exists() and (out/'admission/manifest.json').exists():return read(out/'ready.json')
     ready=read(src/'ready.json');tf=read(src/'transforms.json')
     for name in ('images','masks','linear','parts','semantics','heads','cores'):
-        if not (out/name).exists():(out/name).symlink_to((src/name).resolve(),target_is_directory=True)
+        if not (out/name).exists() and not (out/name).is_symlink():(out/name).symlink_to((src/name).resolve(),target_is_directory=True)
     atomic(out/'transforms.json',tf);atomic(out/'box.json',read(src/'box.json'))
     (out/'lookcloser_frequencies').mkdir(exist_ok=True)
     for filename in tf['train_filenames']:
@@ -158,7 +158,7 @@ def scale_variant(source,output,scale):
     by_name={f['physical_camera']:f for f in tf['frames']}
     ready.update(aabb=box['aabb'],world_to_box=box['world_to_box'],model_units_scale=scale,records=[dict(r,camera_row=by_name[r['camera']]) for r in ready['records']])
     for name in ('images','masks','linear','parts','semantics','heads','cores','lookcloser_frequencies'):
-        if not (out/name).exists():(out/name).symlink_to((src/name).resolve(),target_is_directory=True)
+        if not (out/name).exists() and not (out/name).is_symlink():(out/name).symlink_to((src/name).resolve(),target_is_directory=True)
     atomic(out/'box.json',box);atomic(out/'transforms.json',tf);ready['transforms_sha256']=sha(out/'transforms.json');atomic(out/'ready.json',ready)
     (out/'admission').mkdir(exist_ok=True)
     with np.load(src/'admission/grid.npz') as z:arrays={k:z[k] for k in z.files}
@@ -177,6 +177,47 @@ def confidence_variant(source,output,width=32):
     with (out/'confidence.lock').open('a+') as lock:
         fcntl.flock(lock,fcntl.LOCK_EX)
         return _confidence_variant_unlocked(source,output,width)
+
+
+def historical_confidence_variant(source,output,source_code,width=64):
+    """Recompute the exact sealed historical confidence from qualified actors."""
+    import fcntl,importlib.util
+    src,out=Path(source),Path(output);out.mkdir(parents=True,exist_ok=True)
+    with (out/'confidence.lock').open('a+') as lock:
+        fcntl.flock(lock,fcntl.LOCK_EX)
+        if (out/'confidence_complete.json').exists():return read(out/'ready.json')
+        if width not in (32,64):raise ValueError('Historical confidence width must be32 or64')
+        helper=Path(source_code)/'LookCloser/scripts/marshawn_actor_confidence.py'
+        definition=importlib.util.spec_from_file_location('sealed_actor_confidence',helper)
+        module=importlib.util.module_from_spec(definition);definition.loader.exec_module(module)
+        for name in ('images','masks','linear','parts','lookcloser_frequencies'):
+            if not (out/name).is_symlink():(out/name).symlink_to((src/name).resolve(),target_is_directory=True)
+        for name in ('transforms.json','box.json'):shutil.copy2(src/name,out/name)
+        (out/'semantics').mkdir(exist_ok=True);ready=read(src/'ready.json');records=[];digests={}
+        for row in ready['records']:
+            camera=row['camera']
+            with np.load(src/'semantics'/(camera+'.npz')) as archive:arrays={k:archive[k] for k in archive.files}
+            actor=arrays['black']|arrays['grey'];veto=~arrays['valid']
+            for key,native_width in [('W32',32),('W64',width)]:
+                arrays[key],_=module.native_confidence(actor,veto,native_width)
+            dest=out/'semantics'/(camera+'.npz');np.savez_compressed(dest,**arrays)
+            digests[camera]=sha(dest);records.append(dict(row,semantic_sha256=digests[camera]))
+            print('HISTORICAL_CONFIDENCE',camera,flush=True)
+        for name,reference in [('heads','semantic_sha256'),('cores','source_semantic_sha256')]:
+            (out/name).mkdir(exist_ok=True);manifest=read(src/name/'manifest.json')
+            for camera,record in manifest['records'].items():record[reference]=digests[camera]
+            for file in (src/name).glob('*.npz'):
+                dest=out/name/file.name
+                if not dest.is_symlink():dest.symlink_to(file.resolve())
+            atomic(out/name/'manifest.json',manifest)
+        ready.update(records=records,confidence_width_native=width,confidence_profile='historical_power',confidence_exponent=module.P,confidence_helper_sha256=sha(helper),confidence_storage='Exact sealed native_confidence on qualified actor union; veto overrides; W64 slot uses selected width')
+        atomic(out/'ready.json',ready)
+        (out/'admission').mkdir(exist_ok=True);shutil.copy2(src/'admission/grid.npz',out/'admission/grid.npz')
+        manifest=read(src/'admission/manifest.json')
+        for row in manifest['records']:row['semantic_sha256']=digests[row['camera']]
+        manifest.update(ready_sha256=sha(out/'ready.json'));atomic(out/'admission/manifest.json',manifest)
+        atomic(out/'confidence_complete.json',dict(profile='historical_power',exponent=module.P,width=width,parent_ready_sha256=sha(src/'ready.json'),helper_sha256=sha(helper),rgb_and_actor_masks_unchanged=True,static_geometry_grid_unchanged=True))
+        return ready
 
 
 def _confidence_variant_unlocked(source,output,width=32):

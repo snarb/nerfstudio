@@ -3,6 +3,14 @@
 Status: tuning in progress. The recipe below is the control, not a selected winner.
 The six-hour wall-clock window began 2026-11-09 11:08:12 PST and ends 17:08:12 PST.
 
+**Confidence-port correction, discovered12:53 PST:** early runs used a linear
+outside taper. The historical recipe uses exponent `log(.1)/log(.5)` (~3.32193),
+so weight is0.1 at half width, not0.5. These early runs are retained as explicit
+linear alternatives, not exact old-recipe reproductions. New reference controls
+recompute the sealed historical helper from qualified actor masks, which also
+removes the confidence halo around rejected crew. RGB/evaluation actor labels
+and static admission geometry remain unchanged. The six-hour clock is unchanged.
+
 ## What is tested
 
 Frame908,69TRAIN/3heldout cameras: **CB, GC, NB**. These minimize120-degree azimuth

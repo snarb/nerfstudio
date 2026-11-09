@@ -268,3 +268,14 @@ separate helper jobs, with no training-image cache. Confirmed Olive/Clever can
 fetch both NVIDIA producers through calm-otter; Clever can reach its Silver
 archive target. Current best32k arm is half coarse step, actor LPIPS0.166759;
 quarter step and W32-confidence ablations were added with unchanged17:08deadline.
+
+Confidence-port correction12:53 PST: initial preparation incorrectly used a
+linear outside falloff. Historical `marshawn_actor_confidence.py` uses exponent
+log(.1)/log(.5)=3.321928…, with0.1weight at half width. Do not call earlier linear
+arms exact historical-recipe baselines. New `reference_*` arms use immutable
+variants computed by the exact sealed helper (SHA28b1c8aa…); they recompute the
+falloff from qualified actor masks, also removing residual confidence halos near
+rejected crew. RGB/actor/head labels and admission grid remain unchanged.
+Qualified stored arrays match the actual helper on CB/GC/NB/CC. Historical
+half/default/learned-half controls are now assigned; original deadline17:08:12
+is unchanged. Keep every source run/profile labelled in the final comparison.
