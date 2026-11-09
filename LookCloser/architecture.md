@@ -2253,3 +2253,5 @@ can reconcile late completion receipts after losing a parent. Per-host preparati
 faults back off; explicit unavailable-host flags preserve measurements while
 excluding that host from new tuning/production allocation. The measured validation
 step is distinct from the final150k ceiling when no plateau has been confirmed.
+
+The Marshawn campaign selects continued finalists at their latest shared committed evaluation gate, then selects the winning arm/cap's own best checkpoint. This separates unequal launch times from hyperparameter quality; the production iteration ceiling remains a separate plateau decision.

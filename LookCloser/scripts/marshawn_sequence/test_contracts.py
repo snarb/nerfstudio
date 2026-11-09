@@ -129,6 +129,20 @@ class HistoricalConfidenceTests(unittest.TestCase):
         self.assertEqual(float(weight[100,100]),0.)
 
 
+class ComparisonTests(unittest.TestCase):
+    def test_unequal_training_lengths_use_latest_shared_finalist_gate(self):
+        from campaign import matched_finalist_candidates
+        def row(name,step,value,cap=10):
+            return dict(name=name,result=dict(step=step-1,cap=cap,metrics=dict(lpips=value)))
+        candidates=[row('early',32000,.18),row('early',64000,.15),row('early',128000,.12),row('late',32000,.17),row('late',64000,.14),row('late',64000,.139,None),row('screen_only',32000,.20)]
+        compared,proof=matched_finalist_candidates(candidates,['early','late'])
+        self.assertEqual(proof['steps'],64000)
+        self.assertEqual({c['result']['step']+1 for c in compared},{64000})
+        self.assertEqual(min(compared,key=lambda c:c['result']['metrics']['lpips'])['name'],'late')
+        self.assertEqual(len(compared),3)
+        with self.assertRaises(ValueError):matched_finalist_candidates(candidates,['missing'])
+
+
 class SourceCacheTests(unittest.TestCase):
     def test_release_requires_matching_transfer_acknowledgement(self):
         from producer import release

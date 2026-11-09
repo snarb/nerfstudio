@@ -126,6 +126,17 @@ class Host:
 def metrics(host,name):return host.get(host.root/'tuning'/name/'metrics.json',[])
 
 
+def matched_finalist_candidates(candidates,finalists):
+    """Successive screening must not reward an earlier launch with extra steps."""
+    names=set(finalists)&{c['name'] for c in candidates}
+    if not names:raise ValueError('No committed finalist comparison')
+    gates=[{c['result']['step'] for c in candidates if c['name']==name and c['result']['cap']==10} for name in names]
+    common=set.intersection(*gates)
+    if not common:raise ValueError('Finalists have no common committed cap10 gate')
+    step=max(common)
+    return [c for c in candidates if c['name'] in names and c['result']['step']==step],dict(steps=step+1,finalists=sorted(names),excluded_without_eligible_measurements=sorted(set(finalists)-names),policy='Latest shared cap10 evaluation gate among continued finalists; capNone/10 compared at that same step; late checkpoint selection only within the winning arm/cap')
+
+
 def allocate_frames(hosts,first=908,last=1268):
     """Balance the whole sequence before reserving each local source range."""
     weights=[h.row.get('production_weight',1.) for h in hosts]
@@ -171,6 +182,14 @@ def run(root):
             atomic(state_path,dict(state,stopped=True));return
         now=time.time();statuses={i:h.get(h.agent_root/'agent_state.json',{}) for i,h in enumerate(hosts)}
         if now>=state['deadline']:
+            finalists=[]
+            for i,h in enumerate(hosts):
+                if h.row.get('tuning_disabled'):continue
+                active=statuses[i].get('active')
+                name=next((n for n in sorted(state['assignments'],key=len,reverse=True) if active and active.startswith(n+'_')),None)
+                name=name or state.get('early_extensions',{}).get(str(i))
+                if name:finalists.append(name)
+            state['comparison_finalists']=sorted(set(finalists));atomic(state_path,state)
             for i,h in enumerate(hosts):
                 h.put(h.agent_root/'queue.json',dict(jobs=[]))
                 active=statuses[i].get('active')
@@ -270,9 +289,10 @@ def run(root):
             c['exr_detail_adoption_check']=dict(passed=passed,matched_png_arm=reference['name'],matched_png_step=reference['result']['step']+1,matched_png_cap=reference['result']['cap'],shared_views=sorted(shared),policy='same hyperparameters/steps/cap; >=2% actor LPIPS improvement; >=2% head detail improvement in at least2views; no head view regresses>5%; common SDR reference')
             return passed
         eligible=[c for c in candidates if exr_qualifies(c)]
-        best_lpips=min(c['result']['metrics']['lpips'] for c in eligible)
-        tied=[c for c in eligible if c['result']['metrics']['lpips']<=best_lpips*1.005]
-        absolute_best=min(eligible,key=lambda c:c['result']['metrics']['lpips'])
+        comparable,comparison=matched_finalist_candidates(eligible,state['comparison_finalists'])
+        best_lpips=min(c['result']['metrics']['lpips'] for c in comparable)
+        tied=[c for c in comparable if c['result']['metrics']['lpips']<=best_lpips*1.005]
+        absolute_best=min(comparable,key=lambda c:c['result']['metrics']['lpips'])
         def reasonable_detail(c):
             a=c['result'].get('head_lpips_by_view',{});b=absolute_best['result'].get('head_lpips_by_view',{})
             return all(a.get(v,float('inf'))<=value*1.05 for v,value in b.items())
@@ -292,7 +312,11 @@ def run(root):
             leakage=c.get('background_leakage',{}).get('mean_opacity_equal_views')
             return ((leakage if leakage is not None else float('inf')) if background_tie_break else 0.,estimated_training_seconds(c),c['result']['metrics']['lpips'])
         chosen=min(tied,key=choice_key)
+        comparison_selection=chosen
+        later=[c for c in eligible if c['name']==chosen['name'] and c['host']==chosen['host'] and c['result']['cap']==chosen['result']['cap']]
+        chosen=min(later,key=lambda c:(c['result']['metrics']['lpips'],-c['result']['metrics']['psnr']))
         recipe=dict(parameters=dict(chosen['parameters']),steps=chosen['result']['step']+1,selection=chosen,all_candidates=candidates,primary='equal visible-person masked AlexLPIPS then equal heldout views',plateau_confirmed=False,limit=150000,source_frame=908,final_train_cameras=72)
+        recipe['matched_comparison']=dict(comparison,selection=comparison_selection)
         recipe['parameters'].setdefault('model_units_scale',read(root/'settings.json').get('model_units_scale',1.))
         recipe['parameters'].setdefault('confidence_profile','linear')
         canonical=read(root/'box.json')
@@ -348,6 +372,7 @@ def run(root):
         text+='\nConfidence-port correction: early runs used a linear outside taper. The historical recipe uses exponent log(0.1)/log(0.5), giving weight0.1 at half width. Reference arms recompute the sealed helper on qualified actors, also removing confidence halos from rejected crew. Early linear runs remain explicitly labelled alternative measurements, not exact historical-recipe baselines.\n'
         text+='\nInference cap: '+str(recipe['selected_inference_cap'])+'. Plateau confirmed: '+str(recipe['plateau_confirmed'])+'. Trajectory completed iterations: '+str(recipe['trajectory_completed_iterations'])+'.\n'
         text+='\nWinning validation checkpoint: '+str(recipe['selected_validation_step'])+'steps. Final training policy: '+recipe['final_step_policy']+'.\n'
+        text+='\nHyperparameters compared at '+str(comparison['steps'])+' common steps across '+str(len(comparison['finalists']))+' continued finalists. The winning arm/cap then uses its own best measured checkpoint; unequal run lengths do not decide the hyperparameter comparison. Full comparison membership and evidence: selected_recipe.json.\n'
         text+='\nEffective training settings:\n```json\n'+json.dumps(recipe['effective_hyperparameters'],indent=2)+'\n```\n'
         text+='\nFixed tuning heldouts: '+', '.join(recipe['tuning_heldout'])+'. Canonical physical rig geometry (apply world_to_box before testing aabb; then apply the isotropic model-unit scale above):\n```json\n'+json.dumps(recipe['canonical_geometry'],indent=2)+'\n```\n'
         text+='\nRig calibration: 1.0805units/metre. Physical box dimensions: '+', '.join('%.4fm'%d for d in recipe['physical_box_dimensions_metres'])+'.\n'
