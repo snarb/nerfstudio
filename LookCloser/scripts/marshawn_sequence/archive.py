@@ -44,7 +44,9 @@ def relocate(root,frame,completion,archive_definition):
         except ValueError:continue
         path.unlink();path.symlink_to(os.path.relpath(target,path.parent),target_is_directory=target.is_dir())
     host.command('mkdir -p '+shlex.quote(str(dest)))
-    process=subprocess.Popen(['tar','-cf','-','-C',str(frame_root),'.'],stdout=subprocess.PIPE)
+    # Keep recovery states locally until transfer verification, but never copy
+    # optimizer checkpoints or recreatable linear masters into the final archive.
+    process=subprocess.Popen(['tar','-cf','-','--exclude=./train/checkpoints','--exclude=./native/linear','-C',str(frame_root),'.'],stdout=subprocess.PIPE)
     receiver=subprocess.run(host.argv('tar -C '+shlex.quote(str(dest))+' -xf -'),stdin=process.stdout)
     process.stdout.close();code=process.wait()
     if code or receiver.returncode:raise RuntimeError('Completed frame archive transfer failed')

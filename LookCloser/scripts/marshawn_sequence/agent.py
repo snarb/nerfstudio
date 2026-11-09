@@ -41,7 +41,9 @@ def run(root):
                 done=Path(row['job']['completion'])
                 valid=done.exists()
                 if valid and row['job'].get('target'):
-                    receipt=read(done);valid=receipt.get('completed_iterations',0)>=row['job']['target'] or receipt.get('plateau',False)
+                    receipt=read(done)
+                    exhausted=bool(row['job'].get('max_optimizer_attempts') and receipt.get('attempt_budget',{}).get('reserved_attempts',0)>=row['job']['max_optimizer_attempts'])
+                    valid=receipt.get('completed_iterations',0)>=row['job']['target'] or receipt.get('plateau',False) or exhausted
                 row.update(status='complete' if valid and code in (0,-999) else 'failed',exit_code=code,finished=now)
                 atomic(root/'agent_state.json',state);process=None;active=None
         if not active:

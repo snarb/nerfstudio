@@ -93,7 +93,7 @@ class Host:
         output=self.root/'tuning'/name
         expression='from campaign import make_spec;make_spec('+repr(str(self.root))+','+repr(parameters)+','+repr(str(dataset))+','+repr(str(output))+','+repr(target)+')'
         self.command('PYTHONPATH='+shlex.quote(settings['tools'])+' '+shlex.quote(settings['python'])+' -c '+shlex.quote(expression))
-        return dict(id=name+'_'+round_name,command=[settings['python'],str(Path(settings['tools'])/'worker.py'),'--spec',str(output/'spec.json')],completion=str(output/'stage_complete.json'),progress=str(output/'progress.json'),target=target,env={'PYTHONPATH':settings['dependency_path'],'CUDA_VISIBLE_DEVICES':str(self.row.get('gpu',0))})
+        return dict(id=name+'_'+round_name,command=[settings['python'],str(Path(settings['tools'])/'worker.py'),'--spec',str(output/'spec.json')],completion=str(output/'stage_complete.json'),progress=str(output/'progress.json'),target=target,max_optimizer_attempts=150000,env={'PYTHONPATH':settings['dependency_path'],'CUDA_VISIBLE_DEVICES':str(self.row.get('gpu',0))})
 
 
 def metrics(host,name):return host.get(host.root/'tuning'/name/'metrics.json',[])

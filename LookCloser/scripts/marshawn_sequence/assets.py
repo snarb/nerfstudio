@@ -100,7 +100,7 @@ def exr_variant(source,output):
     """Same crop geometry/masks/maps, scene-linear32-bit EXR targets."""
     from nerfstudio.data.utils.data_utils import write_exr_image
     src,out=Path(source),Path(output);out.mkdir(parents=True,exist_ok=True)
-    if (out/'ready.json').exists():return read(out/'ready.json')
+    if (out/'ready.json').exists() and (out/'admission/manifest.json').exists():return read(out/'ready.json')
     (out/'images').mkdir(exist_ok=True)
     for name in ('masks','linear','parts','semantics','heads','cores','lookcloser_frequencies'):
         if not (out/name).exists():(out/name).symlink_to((src/name).resolve(),target_is_directory=True)
@@ -142,7 +142,7 @@ def map_variant(template,native,output,policy):
 def scale_variant(source,output,scale):
     """Change model units isotropically; accepted physical AABB membership is invariant."""
     src,out=Path(source),Path(output);out.mkdir(parents=True,exist_ok=True)
-    if (out/'ready.json').exists():return read(out/'ready.json')
+    if (out/'ready.json').exists() and (out/'admission/manifest.json').exists() and (out/'units_parity.json').exists():return read(out/'ready.json')
     if not 0<scale<=10:raise ValueError('Positive global model scale required')
     ready=read(src/'ready.json');tf=read(src/'transforms.json');original=read(src/'box.json')
     box=dict(original);box['canonical_rig_box']=original

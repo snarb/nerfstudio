@@ -24,7 +24,11 @@ def fit(data,source_code,only=None):
     dual=namespace[original.__name__]
     for c in sorted(train):
         target=root/'learned'/'ssim095'/(c+'.pt')
-        if target.exists() and (root/'learned'/'ssim090'/(c+'.pt')).exists():continue
+        complete=True
+        for policy in ('ssim095','ssim090'):
+            candidate=root/'learned'/policy/(c+'.pt');receipt=candidate.with_suffix('.json')
+            if not candidate.exists() or not receipt.exists() or read(receipt).get('frequency_map_sha256')!=sha(candidate):complete=False
+        if complete:continue
         random.seed(42);np.random.seed(42);torch.manual_seed(42);torch.cuda.manual_seed_all(42);torch.set_num_threads(4)
         image=torch.from_numpy(np.array(Image.open(root/'images'/(c+'.png')),dtype=np.float32)/255).to('cuda')
         model,freq,levels,_,low=dual(image_tensor=image,steps=None,train_steps_per_level=1000,batch_size=16384,lr=.01,ssim_threshold=.95,patch_size=8,eval_patch_batch_size=1024,n_levels=16,n_features=2,min_res=16,max_res=8192,log2_hashmap_size=23,ssim_window_size=7)
