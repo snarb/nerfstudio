@@ -190,6 +190,11 @@ with the initial estimated normal within0.342degrees (median residual.00696rig).
 
 ### Review-ready V3 result
 
+**Accepted by the user after visual review, 2026-11-09.** Freeze V3 as the
+working box for frames908–1268. The canonical file below includes both the rigid
+`world_to_box` transform and bounds in that transformed coordinate frame; preserve
+both when adapting training. The diagnostic limitations below remain applicable.
+
 Original-rig box metadata: [aabb_original_rig.json](marshawn_908_1268_aabb/aabb_original_rig.json).
 Rotated-floor bounds `[-.41,-1.20,-.15] -> [3.41,5.14,1.77]`, dimensions
 3.5354 ×5.8677 ×1.7770m at1.0805rig units/m. This is a practical review candidate,

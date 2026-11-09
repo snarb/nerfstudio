@@ -207,6 +207,17 @@ Review folder: https://drive.google.com/drive/folders/1n70r-bKJ2fEnRUIa4ytPZbVXr
 Archive: https://drive.google.com/file/d/1vMLc-ecQ7JosAN9h1R3oTflJ5xTmIQJ4/view
 Artifacts local WS07: `LookCloser/lookcloser_debug_outputs/marshawn_ws07_aabb/`.
 Teachers on WS08: `/home/nvuser/lookcloser/logs/aabb_geometry_20261109/stage_campaign/`.
-Proceed through the AABB visual gate and exact adapted recipe/pilot before any
+The user accepted the V3 box after visual review on 2026-11-09. The canonical
+accepted geometry is `experiments/marshawn_908_1268_aabb/aabb_original_rig.json`:
+apply its `world_to_box` before testing its `aabb` bounds. This closes the AABB
+visual-review gate for frames908–1268; it does not certify a different interval.
+Proceed through the exact adapted recipe/pilot before any
 production video queue. Do not silently reuse the early silhouette box or declare
 zero sparse outliers by filtering away occluded actor regions.
+
+Live mask status checked 2026-11-09 08:22 PST: WS07 has14688/14688 nonempty
+mask files matching source PNG names, WS08 has14616/14616. Missing and unexpected
+counts are zero on both machines. Driver logs report completion at07:36:45 PST
+(WS07) and07:12:03 PST (WS08). No SAM mask workers remain. Each GPU has only
+an idle CUDA MPS server using68MiB in the compute-process listing. This was a
+filename/nonempty-file completeness check, not a full mask-decode or quality audit.
