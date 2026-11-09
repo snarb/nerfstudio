@@ -1,0 +1,43 @@
+{
+  "crop_policy": "fixed union of largest visible train-semantic hair components; display only, metric domain unchanged",
+  "path_sha256": "d8a84b9dbeb65b446a7f21bb9edfb1dec686d691eb9862d14f9fbe63f2901533",
+  "portrait_crop": [
+    156,
+    474,
+    886,
+    1088
+  ],
+  "records": [
+    {
+      "decoded_frames": 16,
+      "fps": 24.0,
+      "method": "baseline",
+      "native_crop_no_upscale": true,
+      "sheets": [
+        {
+          "path": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/pilot_final_head_subpixel/baseline/head_000.jpg",
+          "sha256": "1b636fb458b971ec852a61dd8d35246b92258a9af1fa26b1c2c4906e2a059294"
+        }
+      ],
+      "source_receipt_sha256": "3de2d1360f38a7646d1d2ca4f9763e17c26923ad51e6cd4085fbc12239b9acc9",
+      "video": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/pilot_final_head_subpixel/baseline/head.mp4",
+      "video_sha256": "be7f425434504de90644250c4fc8d880df0f0367316eeb815bec6eabe5ce8734"
+    },
+    {
+      "decoded_frames": 16,
+      "fps": 24.0,
+      "method": "candidate",
+      "native_crop_no_upscale": true,
+      "sheets": [
+        {
+          "path": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/pilot_final_head_subpixel/candidate/head_000.jpg",
+          "sha256": "73c23a72a0a487459a4f27407dcd7999ff264d1bdd7fcff719923a5912c83e15"
+        }
+      ],
+      "source_receipt_sha256": "025dbc8c8680ad13511a92ca699a105ad646b74e96a1f971e71408e812ef4d32",
+      "video": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/pilot_final_head_subpixel/candidate/head.mp4",
+      "video_sha256": "2ef31e4822adb437d8d1dede755f456daeddb667c086a7d43acee5f735d9fb9a"
+    }
+  ],
+  "script_sha256": "465a54250536e6bd74a676d92084ada900b0b3e5c8c149e1295ed99c130922e8"
+}

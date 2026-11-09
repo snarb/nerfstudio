@@ -1,0 +1,8 @@
+{
+  "batches": 114,
+  "float32_mismatches": 0,
+  "max_float64_difference": 0.0,
+  "rays": 6152,
+  "reference_seconds": 0.17445401404984295,
+  "vectorized_seconds": 0.15057038026861846
+}

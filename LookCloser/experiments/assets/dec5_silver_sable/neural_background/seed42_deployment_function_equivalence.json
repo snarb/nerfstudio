@@ -1,0 +1,6 @@
+{
+  "source_equal": true,
+  "local_sha256": "0b342ef89895d29945e7c9a31406fd05ffb34c021a8b4bfbaf1f28da7af29659",
+  "deployed_sha256": "0b342ef89895d29945e7c9a31406fd05ffb34c021a8b4bfbaf1f28da7af29659",
+  "comparison": "source text excluding leading/trailing whitespace"
+}

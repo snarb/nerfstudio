@@ -1,0 +1,63 @@
+{
+  "results": [
+    {
+      "arm": "background_volume25k",
+      "metrics": {
+        "boundary": {
+          "lpips": 0.04583180695772171,
+          "psnr": 17.71141815185547,
+          "ssim": 0.461963415145874
+        },
+        "clothing_hands_proxy": {
+          "lpips": 0.2022823542356491,
+          "psnr": 25.5157470703125,
+          "ssim": 0.5513970851898193
+        },
+        "face_neck": {
+          "lpips": 0.11855068802833557,
+          "psnr": 26.589462280273438,
+          "ssim": 0.7035266757011414
+        },
+        "full_frame": {
+          "lpips": 0.51288902759552,
+          "psnr": 16.47234344482422,
+          "ssim": 0.6505083441734314
+        },
+        "hair": {
+          "lpips": 0.20419108867645264,
+          "psnr": 19.322607040405273,
+          "ssim": 0.27970170974731445
+        },
+        "halo_fraction": 4.9441313161277566e-05,
+        "holes_fraction": 0.0008827251100875639,
+        "interior": {
+          "lpips": 0.19145849347114563,
+          "psnr": 19.50213623046875,
+          "ssim": 0.2709364593029022
+        },
+        "reprojection_error_hair": 3.879145383834839,
+        "silhouette_recall": 0.953203421572101,
+        "witness_deficit_fraction": 0.011661689527762312
+      }
+    }
+  ],
+  "heldout_cameras": 1,
+  "native_source_rgb": [
+    6144,
+    3072
+  ],
+  "target_rgb": [
+    3840,
+    1920
+  ],
+  "field_training_resolution": [
+    1920,
+    960
+  ],
+  "source_camera_count": 8,
+  "minimum_opacity": 0.1,
+  "depth_quantile": 0.1,
+  "same_renderer_sources_fallback_and_roi": true,
+  "no_depth_ground_truth": true,
+  "physical_time_stability_established": false
+}

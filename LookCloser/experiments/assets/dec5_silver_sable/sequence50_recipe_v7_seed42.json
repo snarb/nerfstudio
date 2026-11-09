@@ -1,0 +1,34 @@
+{
+  "revision": "v7_seed42",
+  "scripts": "/home/ubuntu/lookcloser/campaigns/dec5_sequence50_20261028/revisions/v7_seed42/code/LookCloser/scripts",
+  "sapiens_repo": "/home/ubuntu/lookcloser/assets/sequence50/sapiens2",
+  "sapiens_checkpoint": "/home/ubuntu/lookcloser/assets/sequence50/sapiens2_0.4b_seg.safetensors",
+  "scene_scale": 0.15,
+  "recipe_reference": "Luster000540 cold_body80_fas50_threshold095_zero + native DEC5 ray-background separation; full leader75940/106316",
+  "code_archive_sha256": "3b42a8acfadee99d02988c49e4f3c9ead5109a7dd4eab293e93180027566ff5c",
+  "sampling_policy": "luster_body80_fas50",
+  "frequency_projection": "normalized_jacobian",
+  "final_distortion": 1.0,
+  "occupancy_dilation": 1,
+  "eval_rays_per_chunk": 8192,
+  "evaluation_chunk_validation": {
+    "camera_raster": [
+      6144,
+      3072
+    ],
+    "tested_rays": 1179648,
+    "speedup": 4.3275,
+    "peak_gib": 3.01,
+    "max_supported_depth_abs_difference": 4.95e-06,
+    "opacity_gate_crossings": 0,
+    "training_recipe_changed": false
+  },
+  "packed_distortion_precision": "fp64_global_prefix",
+  "checkpoint_runtime_phase_persisted": true,
+  "numerical_validation": "18 precision/runtime/RNG tests; fixed+adaptive real synthetic updates and full-state resume; late real checkpoint RGB roundtrip1.31e-6",
+  "hair_core_mix": 0.0,
+  "full_corrected_hd_preflight": "Completed106317 updates on clever-shadow; official RGB best45564",
+  "background_seed": 42,
+  "background_seed_validation": "/home/ubuntu/lookcloser/campaigns/dec5_sequence50_20261028/background_seed_check.json",
+  "change": "Explicit deterministic ray-background initialization; same v6 foreground/frequency recipe, no experimental volume enabled"
+}

@@ -1,0 +1,52 @@
+{
+  "regions": {
+    "trusted_background": {
+      "ray": {
+        "psnr": 14.730973519523392,
+        "ssim": 0.8510995507240295,
+        "lpips": 0.3877199590206146,
+        "pixels": 1059081,
+        "mean_background_volume_opacity": 0.7445459961891174
+      },
+      "volume_hybrid": {
+        "psnr": 16.050255526722633,
+        "ssim": 0.8779803514480591,
+        "lpips": 0.3781633973121643,
+        "pixels": 1059081,
+        "mean_background_volume_opacity": 0.7445459961891174
+      }
+    },
+    "hair_adjacent_background": {
+      "ray": {
+        "psnr": 16.725848769022438,
+        "ssim": 0.9584619402885437,
+        "lpips": 0.15046945214271545,
+        "pixels": 44034,
+        "mean_background_volume_opacity": 0.9146055579185486
+      },
+      "volume_hybrid": {
+        "psnr": 23.51938590747426,
+        "ssim": 0.9738489389419556,
+        "lpips": 0.10118421912193298,
+        "pixels": 44034,
+        "mean_background_volume_opacity": 0.9146055579185486
+      }
+    }
+  },
+  "step": 19999,
+  "background_component_only": true,
+  "semantic_reference_for_metrics_only": true,
+  "hidden_background_has_no_gt": true,
+  "foreground_improvement_established": false,
+  "production_promoted": false,
+  "prediction_receipt": {
+    "step": 19999,
+    "checkpoint_sha256": "8d16758083e59f3000ab394b093d5a97708f1bcded8f390edf09eae6b6fd7829",
+    "prediction_sha256": "da8cac537b112ee59bb83d8ea16ebd3407c86d30b7323b834d8a26b807047fdd",
+    "fallback_sha256": "1a756f34769a1914368eed69d15ef237a57661ae82ad71d1a7761e2f342ca3d6",
+    "source_request_sha256": "a03390a85362838261c19a8e10956891d5d08a40c3cf78f4914e2c6f6334614b",
+    "uses_validation_rgb": false,
+    "uses_test_rgb": false,
+    "method": "separate background volume premultiplied RGB plus residual frozen ray-background RGB"
+  }
+}

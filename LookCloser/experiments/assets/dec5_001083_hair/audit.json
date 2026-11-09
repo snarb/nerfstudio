@@ -1,0 +1,1327 @@
+{
+  "conservative_gpu_allocation_hours": 2.489144137567944,
+  "budget_hours": 24,
+  "controls": [
+    {
+      "path": "c_base_control",
+      "elapsed_seconds": 30.07588267326355,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "c_fine_control",
+      "elapsed_seconds": 30.076409816741943,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "c_front_control",
+      "elapsed_seconds": 30.076201915740967,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "c_layer_binary_control",
+      "elapsed_seconds": 30.077523469924927,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "c_layer_fb_control",
+      "elapsed_seconds": 30.075775623321533,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "c_layer_soft_control",
+      "elapsed_seconds": 30.077420711517334,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "c_layer_two-depth_control",
+      "elapsed_seconds": 30.075884580612183,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "c_ngp_expected_control",
+      "elapsed_seconds": 30.076534748077393,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "c_ngp_front_control",
+      "elapsed_seconds": 30.075193166732788,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "c_ngp_gate_control",
+      "elapsed_seconds": 30.07623863220215,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "c_ngp_peak1_control",
+      "elapsed_seconds": 30.061996936798096,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "c_ngp_subpixel_control",
+      "elapsed_seconds": 30.078105926513672,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "c_no_orientation_control",
+      "elapsed_seconds": 30.07038950920105,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "c_orientation_control",
+      "elapsed_seconds": 30.077677488327026,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "c_path_base_control",
+      "elapsed_seconds": 150.35885190963745,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "c_path_fine_control",
+      "elapsed_seconds": 180.3931849002838,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "c_peak1_control",
+      "elapsed_seconds": 30.052492380142212,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "c_peak2_control",
+      "elapsed_seconds": 30.076953411102295,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "c_repeat_base_control",
+      "elapsed_seconds": 30.078038692474365,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "c_test_base_control",
+      "elapsed_seconds": 30.068443298339844,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "c_test_fine_control",
+      "elapsed_seconds": 30.076685190200806,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "dev3_controls/nerf2048_common4096_control",
+      "elapsed_seconds": 120.29972767829895,
+      "final_resources": {
+        "gpu_total_mib": 46068,
+        "gpu_used_mib": 3,
+        "gpu_utilization": 0,
+        "processes": []
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "dev3_controls/nerf4096_control",
+      "elapsed_seconds": 781.8930375576019,
+      "final_resources": {
+        "gpu_total_mib": 46068,
+        "gpu_used_mib": 3,
+        "gpu_utilization": 0,
+        "processes": []
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "dev3_controls/nerf4096_native_validation_control",
+      "elapsed_seconds": 120.32335925102234,
+      "final_resources": {
+        "gpu_total_mib": 46068,
+        "gpu_used_mib": 3,
+        "gpu_utilization": 0,
+        "processes": []
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "dev3_controls/nerf_control",
+      "elapsed_seconds": 30.085801601409912,
+      "final_resources": {
+        "gpu_total_mib": 46068,
+        "gpu_used_mib": 3,
+        "gpu_utilization": 0,
+        "processes": []
+      },
+      "oom_evidence": false,
+      "returncode": 1,
+      "stop_reason": null
+    },
+    {
+      "path": "dev3_controls/nerf_v2_control",
+      "elapsed_seconds": 812.0278227329254,
+      "final_resources": {
+        "gpu_total_mib": 46068,
+        "gpu_used_mib": 3,
+        "gpu_utilization": 0,
+        "processes": []
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "dev3_controls/neural_path_control",
+      "elapsed_seconds": 90.1999204158783,
+      "final_resources": {
+        "gpu_total_mib": 46068,
+        "gpu_used_mib": 3,
+        "gpu_utilization": 0,
+        "processes": []
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "dev3_controls/neural_validation_control",
+      "elapsed_seconds": 90.19688439369202,
+      "final_resources": {
+        "gpu_total_mib": 46068,
+        "gpu_used_mib": 3,
+        "gpu_utilization": 0,
+        "processes": []
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "dev3_controls/pm960_control",
+      "elapsed_seconds": 511.0956757068634,
+      "final_resources": {
+        "gpu_total_mib": 46068,
+        "gpu_used_mib": 3,
+        "gpu_utilization": 0,
+        "processes": []
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "dev3_controls/portable_profile_control",
+      "elapsed_seconds": 30.06863832473755,
+      "final_resources": {
+        "gpu_total_mib": 46068,
+        "gpu_used_mib": 3,
+        "gpu_utilization": 0,
+        "processes": []
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "dev3_controls/probe_pilot_control",
+      "elapsed_seconds": 360.8402028083801,
+      "final_resources": {
+        "gpu_total_mib": 46068,
+        "gpu_used_mib": 3,
+        "gpu_utilization": 0,
+        "processes": []
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "dev3_controls/probe_validation_control",
+      "elapsed_seconds": 90.20994925498962,
+      "final_resources": {
+        "gpu_total_mib": 46068,
+        "gpu_used_mib": 3,
+        "gpu_utilization": 0,
+        "processes": []
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "dev3_controls/ray_profiles_control",
+      "elapsed_seconds": 30.061003923416138,
+      "final_resources": {
+        "gpu_total_mib": 46068,
+        "gpu_used_mib": 3,
+        "gpu_utilization": 0,
+        "processes": []
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "dev3_controls/subpixel_volume_control",
+      "elapsed_seconds": 90.24764370918274,
+      "final_resources": {
+        "gpu_total_mib": 46068,
+        "gpu_used_mib": 3,
+        "gpu_utilization": 0,
+        "processes": []
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "dev3_controls/target_volume_control",
+      "elapsed_seconds": 90.23988556861877,
+      "final_resources": {
+        "gpu_total_mib": 46068,
+        "gpu_used_mib": 3,
+        "gpu_utilization": 0,
+        "processes": []
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "dev3_controls/test_neural_control",
+      "elapsed_seconds": 60.13039493560791,
+      "final_resources": {
+        "gpu_total_mib": 46068,
+        "gpu_used_mib": 3,
+        "gpu_utilization": 0,
+        "processes": []
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "dev3_controls/volume_control",
+      "elapsed_seconds": 300.7068564891815,
+      "final_resources": {
+        "gpu_total_mib": 46068,
+        "gpu_used_mib": 3,
+        "gpu_utilization": 0,
+        "processes": []
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "final_test_semantics_control",
+      "elapsed_seconds": 30.07799768447876,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "layer_binary_control",
+      "elapsed_seconds": 30.076024055480957,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "layer_fb_control",
+      "elapsed_seconds": 30.078670978546143,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "layer_soft_control",
+      "elapsed_seconds": 30.075366735458374,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "layer_two_depth_control",
+      "elapsed_seconds": 30.060768604278564,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "matting_control",
+      "elapsed_seconds": 30.077824115753174,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 1,
+      "stop_reason": null
+    },
+    {
+      "path": "matting_v2_control",
+      "elapsed_seconds": 30.08037567138672,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 1,
+      "stop_reason": null
+    },
+    {
+      "path": "matting_v3_control",
+      "elapsed_seconds": 60.14087772369385,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "mesh_render_control",
+      "elapsed_seconds": 30.074538469314575,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "native_base_control",
+      "elapsed_seconds": 30.07215929031372,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "native_fine_control",
+      "elapsed_seconds": 30.08171844482422,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "native_layer_binary_control",
+      "elapsed_seconds": 30.080339193344116,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "native_layer_fb_control",
+      "elapsed_seconds": 30.07702136039734,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "native_layer_soft_control",
+      "elapsed_seconds": 30.053730010986328,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "native_layer_two-depth_control",
+      "elapsed_seconds": 30.078433990478516,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "native_ngp_expected_control",
+      "elapsed_seconds": 30.07887864112854,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "native_ngp_front_control",
+      "elapsed_seconds": 30.05832529067993,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "native_no_orientation_control",
+      "elapsed_seconds": 30.07735562324524,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "native_orientation_control",
+      "elapsed_seconds": 30.076881170272827,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "native_path_base_control",
+      "elapsed_seconds": 150.35835599899292,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "native_path_fine_control",
+      "elapsed_seconds": 180.41891288757324,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "native_raw_control",
+      "elapsed_seconds": 30.080086708068848,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "native_render_front_control",
+      "elapsed_seconds": 30.07448434829712,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "native_render_peak2_control",
+      "elapsed_seconds": 30.07347846031189,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "native_repeat_base_control",
+      "elapsed_seconds": 30.073414087295532,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "native_test_base_control",
+      "elapsed_seconds": 30.079071521759033,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "nerf_front_meshbase_control",
+      "elapsed_seconds": 30.078285694122314,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "nerf_peak2_meshbase_control",
+      "elapsed_seconds": 30.074637413024902,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "no_orientation_meshbase_control",
+      "elapsed_seconds": 30.078493118286133,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "orientation_meshbase_control",
+      "elapsed_seconds": 30.07394027709961,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "orientation_render_control",
+      "elapsed_seconds": 30.07939124107361,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "p_gate_control",
+      "elapsed_seconds": 30.075207948684692,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "p_peak1_control",
+      "elapsed_seconds": 30.074307680130005,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "p_subpixel_control",
+      "elapsed_seconds": 30.078583002090454,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "pilot_gate_control",
+      "elapsed_seconds": 60.10950517654419,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "pilot_peak1_control",
+      "elapsed_seconds": 60.12196898460388,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "pilot_subpixel_control",
+      "elapsed_seconds": 60.12165069580078,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "pm1920_control",
+      "elapsed_seconds": 751.5929129123688,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "pm1920_native_control",
+      "elapsed_seconds": 601.3903269767761,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 1,
+      "stop_reason": null
+    },
+    {
+      "path": "pm1920_native_v2_control",
+      "elapsed_seconds": 721.5887115001678,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "pm1920_pinhole_control",
+      "elapsed_seconds": 721.6136555671692,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "raw_render_control",
+      "elapsed_seconds": 30.051406145095825,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 1,
+      "stop_reason": null
+    },
+    {
+      "path": "raw_render_v2_control",
+      "elapsed_seconds": 30.077674865722656,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "semantics_control",
+      "elapsed_seconds": 60.14263606071472,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    {
+      "path": "validation_reference_control",
+      "elapsed_seconds": 30.07781958580017,
+      "final_resources": {
+        "gpu_total_mib": 97887,
+        "gpu_used_mib": 7816,
+        "gpu_utilization": 0,
+        "processes": [
+          "3718826, python, 7806"
+        ]
+      },
+      "oom_evidence": false,
+      "returncode": 0,
+      "stop_reason": null
+    }
+  ],
+  "incomplete_controller_receipts": [],
+  "any_worker_oom_reported": false,
+  "max_total_gpu_mib": 17281,
+  "baseline_repeat": [
+    {
+      "camera": "D004_A005_12103C",
+      "exact": {
+        "rgb": true,
+        "front_depth": true,
+        "source_id": true,
+        "support": true,
+        "roi": true,
+        "reprojection_error": true
+      }
+    },
+    {
+      "camera": "E004_B005_1210I7",
+      "exact": {
+        "rgb": true,
+        "front_depth": true,
+        "source_id": true,
+        "support": true,
+        "roi": true,
+        "reprojection_error": true
+      }
+    },
+    {
+      "camera": "I004_D005_1210Q7",
+      "exact": {
+        "rgb": true,
+        "front_depth": true,
+        "source_id": true,
+        "support": true,
+        "roi": true,
+        "reprojection_error": true
+      }
+    }
+  ],
+  "source_files": [
+    {
+      "path": "code/LookCloser/scripts/add_dec5_neural_fallback.py",
+      "sha256": "c829621ca9a73da424c1b233c00819d5221d5da9b313a4c9f35cd4d5666178b8"
+    },
+    {
+      "path": "code/LookCloser/scripts/dec5_hair.py",
+      "sha256": "eaacb41866f4389f88c9436c827339e897b3ef7c3b4df7a4a170e36410ab1893"
+    },
+    {
+      "path": "code/LookCloser/scripts/export_dec5_hair_override.py",
+      "sha256": "972442e968ccb25c7fba2fc58c8560f12b709e8d62d698f5454eb96acbdb7a4e"
+    },
+    {
+      "path": "code/LookCloser/scripts/export_dec5_hair_volume.py",
+      "sha256": "d99fee80b8d211c4c0a0807e0f3966387c464bd08b89faffee7a1cd8cd02e4d6"
+    },
+    {
+      "path": "code/LookCloser/scripts/finalize_dec5_hair_eval.py",
+      "sha256": "663afb4d239ecf373445ac8d6294c24a93b2b84872bfd45900e14d57aa2530f0"
+    },
+    {
+      "path": "code/LookCloser/scripts/freeze_dec5_hair_path.py",
+      "sha256": "2cd3a87e2da8225ffc233cd85ebd93fed0c5dd439c3ef44e93b11795c40e757c"
+    },
+    {
+      "path": "code/LookCloser/scripts/hair_depth_override.py",
+      "sha256": "b3c80dc9f71efefe078d9025ced3f5bbd198d93be0db1e6a48d777f8533e2db9"
+    },
+    {
+      "path": "code/LookCloser/scripts/infer_dec5_hair_semantics.py",
+      "sha256": "2f97bf04e50ef713b3309aa9a69a712b996857cc7e3a82fddc331eb6b74f43e0"
+    },
+    {
+      "path": "code/LookCloser/scripts/lock_dec5_hair_selection.py",
+      "sha256": "87d8035dda81e6921b1f5e1f9623894f7b513daf6e57a061c05719fb56ba5ce4"
+    },
+    {
+      "path": "code/LookCloser/scripts/matte_dec5_hair.py",
+      "sha256": "9187d1feac05f9506a1e749466754af71988ee75b3ffb09ef72a0030ae053fc1"
+    },
+    {
+      "path": "code/LookCloser/scripts/package_dec5_hair_result.py",
+      "sha256": "17cfc32b3875d6fa6dac33e4addc332d8593fcb6d4a8cd018d0ca7d7010df724"
+    },
+    {
+      "path": "code/LookCloser/scripts/prepare_dec5_hairgs.py",
+      "sha256": "e87003145fe8e8485f7b0e663e5aa4362d227bbc1e7e72d1b93a0ee5a669c12f"
+    },
+    {
+      "path": "code/LookCloser/scripts/prepare_native_colmap_workspace.py",
+      "sha256": "289d3849833a565bc99a293cb9cbb5e04a9e6b43b1b65f19e65b467830530c66"
+    },
+    {
+      "path": "code/LookCloser/scripts/render_mesh_image_blend.py",
+      "sha256": "c7ec1d2878ae2ba478f871e9dec0599ebe7299981da93f0deadd05ccbb47d4ef"
+    },
+    {
+      "path": "code/LookCloser/scripts/review_dec5_hair_path.py",
+      "sha256": "bebe1e0a0d0378eacb4dd32f6a5be51c27276396c164eb95365b6765e40d2524"
+    },
+    {
+      "path": "code/LookCloser/scripts/run_dec5_hair_campaign.py",
+      "sha256": "f2291831b1f4de8f622d6a7c5b40200a8c6ca4e5bea0e38e2c5909f82d6aba73"
+    },
+    {
+      "path": "code/LookCloser/scripts/score_dec5_hair.py",
+      "sha256": "27d0ba6903cc4d0a479564c1cd6fd2b28c435c2d9b9154d89b4e13d9b34ca303"
+    },
+    {
+      "path": "code/LookCloser/scripts/score_dec5_neural_fields.py",
+      "sha256": "7458a8ab458fc1c4390a82d83ec33fb25135d60fa8c35ca7d02e0a25bf711541"
+    },
+    {
+      "path": "code/LookCloser/scripts/study_dec5_hair_geometry.py",
+      "sha256": "6e2e4cc75d11e244a33622085d93a188cbe4d5d32be13959de879a7a90882026"
+    },
+    {
+      "path": "code/LookCloser/scripts/train_dec5_hair_baseline.py",
+      "sha256": "91c96abd82d59348811cd68c82e91fed399bf8c9af95af4f0db5e104a31371ce"
+    }
+  ],
+  "gpu_processes": [
+    "3718826, python, 7806 MiB"
+  ]
+}

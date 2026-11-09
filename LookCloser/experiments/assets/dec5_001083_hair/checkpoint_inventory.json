@@ -1,0 +1,18 @@
+[
+  {
+    "path": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/nerf_v2/best.pt",
+    "bytes": 81114238,
+    "sha256": "9cbfb93591d0514398db48b6f049dc7701747514c48cd44770ebd1c0ecebdc36",
+    "step": 13999,
+    "selection_matches": true,
+    "export_receipt_matches": true
+  },
+  {
+    "path": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/nerf4096/best.pt",
+    "bytes": 81114238,
+    "sha256": "23ab4e63fc90c85114689768a604496abd1be12a2add86bd4aa898eb8e47a196",
+    "step": 8999,
+    "selection_matches": true,
+    "export_receipt_matches": true
+  }
+]

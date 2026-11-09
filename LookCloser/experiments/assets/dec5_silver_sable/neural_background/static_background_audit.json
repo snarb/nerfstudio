@@ -1,0 +1,329 @@
+{
+  "pairs": [
+    {
+      "source_frame": "000901",
+      "frame": "000917",
+      "camera": "E004_A005_1210QB",
+      "regions": {
+        "common_background": {
+          "pixels": 1039534,
+          "psnr": 38.37027948813406,
+          "mean_absolute_change": 0.008657127618789673
+        },
+        "hair_adjacent_background": {
+          "pixels": 13659,
+          "psnr": 41.09478123303515,
+          "mean_absolute_change": 0.006688783410936594
+        }
+      },
+      "identical_full_images": false,
+      "source_sha256": "e8f1b13d09fdcbf943191f0c2955469afe583b19ba15e7f212bfb834b3ef7807",
+      "target_sha256": "019ad007eb55301d79554532601df8e5672ec2724775519aaf4892a2a0b96ff1"
+    },
+    {
+      "source_frame": "000901",
+      "frame": "000917",
+      "camera": "E004_B005_1210I7",
+      "regions": {
+        "common_background": {
+          "pixels": 981731,
+          "psnr": 39.27018813174547,
+          "mean_absolute_change": 0.00817897729575634
+        },
+        "hair_adjacent_background": {
+          "pixels": 12998,
+          "psnr": 38.39035918376436,
+          "mean_absolute_change": 0.009223942644894123
+        }
+      },
+      "identical_full_images": false,
+      "source_sha256": "1ffe4dfed52554063d6210266c633c404f23556aa473d3306dcc227c9944bdd5",
+      "target_sha256": "18b9012ce73588eab5d682a9e83491589e6c5e308cd2f04e178ee0519149b209"
+    },
+    {
+      "source_frame": "000901",
+      "frame": "000917",
+      "camera": "D004_B005_1210N4",
+      "regions": {
+        "common_background": {
+          "pixels": 919015,
+          "psnr": 35.59171745355822,
+          "mean_absolute_change": 0.011799434199929237
+        },
+        "hair_adjacent_background": {
+          "pixels": 12298,
+          "psnr": 36.284406275575854,
+          "mean_absolute_change": 0.011481222696602345
+        }
+      },
+      "identical_full_images": false,
+      "source_sha256": "f00dc7d2ce074a2ff2affe3394c9a14c30c7abb8ea6859293e4693216ae2d3b1",
+      "target_sha256": "fd552023c57074cc40456fd485edce39fc28d17558dad2a0e8076f552627b8d8"
+    },
+    {
+      "source_frame": "000901",
+      "frame": "000917",
+      "camera": "F004_B005_1210O9",
+      "regions": {
+        "common_background": {
+          "pixels": 990735,
+          "psnr": 40.25653951294413,
+          "mean_absolute_change": 0.007121622562408447
+        },
+        "hair_adjacent_background": {
+          "pixels": 11650,
+          "psnr": 39.624892922466074,
+          "mean_absolute_change": 0.007732951547950506
+        }
+      },
+      "identical_full_images": false,
+      "source_sha256": "111cb0e28978f079f41f38f642326f5ae79f432bb190c0ae310d9d0573e92140",
+      "target_sha256": "8c1c68ccbfe3212dd76cd658c06e8e93c8c45c63d13b90e56eee7b7ebda6e68d"
+    },
+    {
+      "source_frame": "000901",
+      "frame": "000917",
+      "camera": "C004_B005_1210ER",
+      "regions": {
+        "common_background": {
+          "pixels": 1034169,
+          "psnr": 31.78038663549975,
+          "mean_absolute_change": 0.01852588541805744
+        },
+        "hair_adjacent_background": {
+          "pixels": 8370,
+          "psnr": 34.32982932387252,
+          "mean_absolute_change": 0.013794675469398499
+        }
+      },
+      "identical_full_images": false,
+      "source_sha256": "fc1051c5bac4225b549674039f892051c4687d488d34e8d104f7fc556d06c04f",
+      "target_sha256": "66deb09782e92be33c1f9e923db7f466a2aca182351aca3a253c97d9ca88775d"
+    },
+    {
+      "source_frame": "000901",
+      "frame": "000917",
+      "camera": "F004_A005_12103K",
+      "regions": {
+        "common_background": {
+          "pixels": 1001423,
+          "psnr": 40.05230025880782,
+          "mean_absolute_change": 0.006920218467712402
+        },
+        "hair_adjacent_background": {
+          "pixels": 13320,
+          "psnr": 42.96960652334885,
+          "mean_absolute_change": 0.005336415022611618
+        }
+      },
+      "identical_full_images": false,
+      "source_sha256": "77a005a20ae00a857776165c564807efbacce110500002299f868fd6719b21e7",
+      "target_sha256": "142d80610c92d4e02e887d888f43c760278e0c790685730210e8c1faf82815a0"
+    },
+    {
+      "source_frame": "000901",
+      "frame": "000917",
+      "camera": "G004_B005_1210FG",
+      "regions": {
+        "common_background": {
+          "pixels": 929224,
+          "psnr": 41.611522735011405,
+          "mean_absolute_change": 0.006103679072111845
+        },
+        "hair_adjacent_background": {
+          "pixels": 13871,
+          "psnr": 43.560950783569595,
+          "mean_absolute_change": 0.004947077948600054
+        }
+      },
+      "identical_full_images": false,
+      "source_sha256": "a6cea14fb876eb702f49576d171df7438ccb5aab08febad15a173cac1ac22382",
+      "target_sha256": "5a24260d0e093b75ed7c41631eba408bcea98a0a10132fb2e1cf61f2b72ce127"
+    },
+    {
+      "source_frame": "000901",
+      "frame": "000917",
+      "camera": "D004_C005_1210ES",
+      "regions": {
+        "common_background": {
+          "pixels": 974289,
+          "psnr": 37.978947515023386,
+          "mean_absolute_change": 0.009150437079370022
+        },
+        "hair_adjacent_background": {
+          "pixels": 13073,
+          "psnr": 41.452188695411635,
+          "mean_absolute_change": 0.006361262872815132
+        }
+      },
+      "identical_full_images": false,
+      "source_sha256": "33fdd581a6187e0c6e0699414e9c05001649328424f6d6bb3fe4d9026f8601b7",
+      "target_sha256": "628d81eca60fa0c3c58ab2d70db37f4ace2e64abd700b4b2f5142846f0c1cd91"
+    },
+    {
+      "source_frame": "000901",
+      "frame": "000932",
+      "camera": "E004_A005_1210QB",
+      "regions": {
+        "common_background": {
+          "pixels": 1027388,
+          "psnr": 38.349191838530686,
+          "mean_absolute_change": 0.008680409751832485
+        },
+        "hair_adjacent_background": {
+          "pixels": 14680,
+          "psnr": 41.271576588583024,
+          "mean_absolute_change": 0.006544763687998056
+        }
+      },
+      "identical_full_images": false,
+      "source_sha256": "e8f1b13d09fdcbf943191f0c2955469afe583b19ba15e7f212bfb834b3ef7807",
+      "target_sha256": "9f61530743d3b62fb90a59b91d06f7085327ddc76733fe6ac20710c86a5bd432"
+    },
+    {
+      "source_frame": "000901",
+      "frame": "000932",
+      "camera": "E004_B005_1210I7",
+      "regions": {
+        "common_background": {
+          "pixels": 962125,
+          "psnr": 39.267604859381045,
+          "mean_absolute_change": 0.008178207091987133
+        },
+        "hair_adjacent_background": {
+          "pixels": 13778,
+          "psnr": 38.48494669627631,
+          "mean_absolute_change": 0.009127178229391575
+        }
+      },
+      "identical_full_images": false,
+      "source_sha256": "1ffe4dfed52554063d6210266c633c404f23556aa473d3306dcc227c9944bdd5",
+      "target_sha256": "6a6b3a5015e108c69b48402cbc9e5c4d6e8b79c2830552783089c5cb3f459895"
+    },
+    {
+      "source_frame": "000901",
+      "frame": "000932",
+      "camera": "D004_B005_1210N4",
+      "regions": {
+        "common_background": {
+          "pixels": 894645,
+          "psnr": 35.50508460758824,
+          "mean_absolute_change": 0.01193981897085905
+        },
+        "hair_adjacent_background": {
+          "pixels": 12641,
+          "psnr": 36.410282150197546,
+          "mean_absolute_change": 0.011176102794706821
+        }
+      },
+      "identical_full_images": false,
+      "source_sha256": "f00dc7d2ce074a2ff2affe3394c9a14c30c7abb8ea6859293e4693216ae2d3b1",
+      "target_sha256": "cec4df06cd1cbce9c1d2e55f99ddabeac8fa3ae9a700e1e7e8c84bc5395da240"
+    },
+    {
+      "source_frame": "000901",
+      "frame": "000932",
+      "camera": "F004_B005_1210O9",
+      "regions": {
+        "common_background": {
+          "pixels": 972558,
+          "psnr": 40.222161803426594,
+          "mean_absolute_change": 0.007154353428632021
+        },
+        "hair_adjacent_background": {
+          "pixels": 12390,
+          "psnr": 39.58623197460704,
+          "mean_absolute_change": 0.007694167084991932
+        }
+      },
+      "identical_full_images": false,
+      "source_sha256": "111cb0e28978f079f41f38f642326f5ae79f432bb190c0ae310d9d0573e92140",
+      "target_sha256": "2ee1d6a918f279515ad985e0e2416a4ab27ab51901bc8c6b302961a07df7d564"
+    },
+    {
+      "source_frame": "000901",
+      "frame": "000932",
+      "camera": "C004_B005_1210ER",
+      "regions": {
+        "common_background": {
+          "pixels": 1018539,
+          "psnr": 31.770536871690926,
+          "mean_absolute_change": 0.0185428187251091
+        },
+        "hair_adjacent_background": {
+          "pixels": 8656,
+          "psnr": 33.70943995962409,
+          "mean_absolute_change": 0.014832885935902596
+        }
+      },
+      "identical_full_images": false,
+      "source_sha256": "fc1051c5bac4225b549674039f892051c4687d488d34e8d104f7fc556d06c04f",
+      "target_sha256": "2c33895cd11551ec2611fca46408fb762f53b4cd16d377d5cba3cc65cd5c7942"
+    },
+    {
+      "source_frame": "000901",
+      "frame": "000932",
+      "camera": "F004_A005_12103K",
+      "regions": {
+        "common_background": {
+          "pixels": 983778,
+          "psnr": 39.979709151057946,
+          "mean_absolute_change": 0.006983453407883644
+        },
+        "hair_adjacent_background": {
+          "pixels": 13762,
+          "psnr": 42.74879380965029,
+          "mean_absolute_change": 0.005468691699206829
+        }
+      },
+      "identical_full_images": false,
+      "source_sha256": "77a005a20ae00a857776165c564807efbacce110500002299f868fd6719b21e7",
+      "target_sha256": "145895754d79cf610fd6b521e9e9d70dd1da205753b73aac13bb81e2f2f07b12"
+    },
+    {
+      "source_frame": "000901",
+      "frame": "000932",
+      "camera": "G004_B005_1210FG",
+      "regions": {
+        "common_background": {
+          "pixels": 911304,
+          "psnr": 41.54396341518797,
+          "mean_absolute_change": 0.006146174389868975
+        },
+        "hair_adjacent_background": {
+          "pixels": 13936,
+          "psnr": 43.47432017194433,
+          "mean_absolute_change": 0.004992383997887373
+        }
+      },
+      "identical_full_images": false,
+      "source_sha256": "a6cea14fb876eb702f49576d171df7438ccb5aab08febad15a173cac1ac22382",
+      "target_sha256": "e9d65f304fe3858cb646a1e19ac89fe0ebdd9e1ad2cd86485c362cfdaaddef6e"
+    },
+    {
+      "source_frame": "000901",
+      "frame": "000932",
+      "camera": "D004_C005_1210ES",
+      "regions": {
+        "common_background": {
+          "pixels": 952017,
+          "psnr": 37.916287475809824,
+          "mean_absolute_change": 0.009237479418516159
+        },
+        "hair_adjacent_background": {
+          "pixels": 13619,
+          "psnr": 41.484667682619225,
+          "mean_absolute_change": 0.006317490246146917
+        }
+      },
+      "identical_full_images": false,
+      "source_sha256": "33fdd581a6187e0c6e0699414e9c05001649328424f6d6bb3fe4d9026f8601b7",
+      "target_sha256": "7211ac8d275cf9832f5768bc15fec0ce5d552504dabc3d323c45189837dc03c1"
+    }
+  ],
+  "all64_camera_poses_and_intrinsics_equal": true,
+  "uses_validation_rgb": false,
+  "uses_test_rgb": false,
+  "background_static_assumption_not_yet_promoted": true,
+  "protocol": "fixed train camera; common confident BG eroded16 HD pixels; adjacent band32px around either train hair ROI"
+}

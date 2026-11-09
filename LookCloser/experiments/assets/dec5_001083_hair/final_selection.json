@@ -1,0 +1,216 @@
+{
+  "baseline": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/c_metrics_base.json",
+  "baseline_sha256": "b6397ae219c1cea96adc715f1fd1f18a4dc5f37327139b0439c4c969792d939d",
+  "candidates": [
+    {
+      "camera_popping_gain_20_percent": false,
+      "face_guard": true,
+      "hair_lpips_gain_5_percent": false,
+      "holes_gain_20_percent": false,
+      "independent_depth_proxy_improved": true,
+      "metrics": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/c_metrics_fine.json",
+      "metrics_sha256": "febc40aaf8146222b12d2e909c51e986e6a996a19e17374a39c9e683af8e3c20",
+      "passes": false,
+      "path_review": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/c_path_review_v2/metrics.json",
+      "path_review_sha256": "960d44b8a0a0637c65b5a021c611184e52770603c1c0a69a01c954d93c94f353",
+      "silhouette_recall_guard": true
+    },
+    {
+      "camera_popping_gain_20_percent": false,
+      "face_guard": true,
+      "hair_lpips_gain_5_percent": false,
+      "holes_gain_20_percent": false,
+      "independent_depth_proxy_improved": true,
+      "metrics": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/c_metrics_orientation.json",
+      "metrics_sha256": "02b68d964c0504299af5462704af66f4f445acc79ddc0f17939895762c360eef",
+      "passes": false,
+      "silhouette_recall_guard": true
+    },
+    {
+      "camera_popping_gain_20_percent": false,
+      "face_guard": true,
+      "hair_lpips_gain_5_percent": false,
+      "holes_gain_20_percent": false,
+      "independent_depth_proxy_improved": true,
+      "metrics": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/c_metrics_no_orientation.json",
+      "metrics_sha256": "e444c44d1515463d3d2152f7d4561c223d82d8127a2c0c23c1d015a9970980bd",
+      "passes": false,
+      "silhouette_recall_guard": true
+    },
+    {
+      "camera_popping_gain_20_percent": false,
+      "face_guard": true,
+      "hair_lpips_gain_5_percent": false,
+      "holes_gain_20_percent": false,
+      "independent_depth_proxy_improved": true,
+      "metrics": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/c_metrics_front.json",
+      "metrics_sha256": "37c6b8200d58c96544b7a1607352fc0f86b5e039a199814706c2f6e602cdc947",
+      "passes": false,
+      "silhouette_recall_guard": true
+    },
+    {
+      "camera_popping_gain_20_percent": false,
+      "face_guard": true,
+      "hair_lpips_gain_5_percent": false,
+      "holes_gain_20_percent": false,
+      "independent_depth_proxy_improved": true,
+      "metrics": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/c_metrics_peak1.json",
+      "metrics_sha256": "01ca24bef723c3dbd388f46d3221c1dfae5faa81e34630bba9b02b7225950fb1",
+      "passes": false,
+      "silhouette_recall_guard": true
+    },
+    {
+      "camera_popping_gain_20_percent": false,
+      "face_guard": true,
+      "hair_lpips_gain_5_percent": false,
+      "holes_gain_20_percent": false,
+      "independent_depth_proxy_improved": true,
+      "metrics": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/c_metrics_peak2.json",
+      "metrics_sha256": "287669c6e5977a5f7edd0d20cfba5dfc66c4fc21ec3767858a5d66ec6127ddfe",
+      "passes": false,
+      "silhouette_recall_guard": true
+    },
+    {
+      "camera_popping_gain_20_percent": false,
+      "face_guard": true,
+      "hair_lpips_gain_5_percent": false,
+      "holes_gain_20_percent": false,
+      "independent_depth_proxy_improved": false,
+      "metrics": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/c_metrics_layer_binary.json",
+      "metrics_sha256": "a71ce9944a802f651ce02cde0f66f6e43be0a70c4a10ed246cd8ffbf2f237e8c",
+      "passes": false,
+      "silhouette_recall_guard": true
+    },
+    {
+      "camera_popping_gain_20_percent": false,
+      "face_guard": true,
+      "hair_lpips_gain_5_percent": false,
+      "holes_gain_20_percent": false,
+      "independent_depth_proxy_improved": false,
+      "metrics": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/c_metrics_layer_soft.json",
+      "metrics_sha256": "b440b0132115a49ea600a829fa3258d9ae117b312e9f2ec5a42951820345cf2c",
+      "passes": false,
+      "silhouette_recall_guard": true
+    },
+    {
+      "camera_popping_gain_20_percent": false,
+      "face_guard": true,
+      "hair_lpips_gain_5_percent": false,
+      "holes_gain_20_percent": false,
+      "independent_depth_proxy_improved": false,
+      "metrics": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/c_metrics_layer_fb.json",
+      "metrics_sha256": "d1a8e7fe84675d00f882c94c55f4fbb64f8cbd0b104fca72af2b7af209a0eb12",
+      "passes": false,
+      "silhouette_recall_guard": true
+    },
+    {
+      "camera_popping_gain_20_percent": false,
+      "face_guard": true,
+      "hair_lpips_gain_5_percent": false,
+      "holes_gain_20_percent": false,
+      "independent_depth_proxy_improved": false,
+      "metrics": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/c_metrics_layer_two-depth.json",
+      "metrics_sha256": "dda1b3c17b3305ee858794da913133bbea900413f8fe2f76ef10fbe82511ac37",
+      "passes": false,
+      "silhouette_recall_guard": true
+    },
+    {
+      "camera_popping_gain_20_percent": false,
+      "face_guard": true,
+      "hair_lpips_gain_5_percent": false,
+      "holes_gain_20_percent": false,
+      "independent_depth_proxy_improved": false,
+      "metrics": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/c_metrics_ngp_expected.json",
+      "metrics_sha256": "0301be14c8e6d9b86947089423f6d70c3a8ae01b89c8230d5f45bc9cdc3e90ad",
+      "passes": false,
+      "silhouette_recall_guard": false
+    },
+    {
+      "camera_popping_gain_20_percent": false,
+      "face_guard": true,
+      "hair_lpips_gain_5_percent": false,
+      "holes_gain_20_percent": false,
+      "independent_depth_proxy_improved": false,
+      "metrics": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/c_metrics_ngp_front.json",
+      "metrics_sha256": "3970887af71b9259c5f995d8a64ba54f0ed73d54f750f0959f521a4345fe223f",
+      "passes": false,
+      "silhouette_recall_guard": false
+    },
+    {
+      "camera_popping_gain_20_percent": false,
+      "face_guard": true,
+      "hair_lpips_gain_5_percent": true,
+      "holes_gain_20_percent": false,
+      "independent_depth_proxy_improved": true,
+      "metrics": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/p_metrics_peak1.json",
+      "metrics_sha256": "c8770ffdc84b323e4acdf28ee9eb83b9edd30de7c46a910673c2eddbbc3c6dc1",
+      "numerical_passes_before_visual_review": true,
+      "passes": false,
+      "silhouette_recall_guard": true,
+      "visual_decision": {
+        "accepted": false,
+        "evidence": [
+          "/mnt/footage2/lookcloser_hair_001083_20261027_1330/pilot_final_review_peak1/metrics.json",
+          "/mnt/footage2/lookcloser_hair_001083_20261027_1330/pilot_final_head_peak1/complete.json"
+        ],
+        "reason": "Central 16-pose pilot visibility toggles are 2.1354x B0; no camera stability gain. Peak variants also introduce visible yellow patches/strand banding absent from control. Gated variant fails material RGB/holes thresholds."
+      },
+      "visual_evidence": [
+        {
+          "path": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/pilot_final_review_peak1/metrics.json",
+          "sha256": "fbb7bb6cee2890af3fd44c21eef8c72ae4625250abb304305cb46d3112725306"
+        },
+        {
+          "path": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/pilot_final_head_peak1/complete.json",
+          "sha256": "60665b1674cde7814270379529d62691812ae516bee5800e64bdb005a9a14867"
+        }
+      ]
+    },
+    {
+      "camera_popping_gain_20_percent": false,
+      "face_guard": true,
+      "hair_lpips_gain_5_percent": true,
+      "holes_gain_20_percent": false,
+      "independent_depth_proxy_improved": true,
+      "metrics": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/p_metrics_subpixel.json",
+      "metrics_sha256": "c47b579d6ae8bf935795a56ad2d00f2e5989ab13979882b49c08a3452c55c632",
+      "numerical_passes_before_visual_review": true,
+      "passes": false,
+      "silhouette_recall_guard": true,
+      "visual_decision": {
+        "accepted": false,
+        "evidence": [
+          "/mnt/footage2/lookcloser_hair_001083_20261027_1330/pilot_final_review_subpixel/metrics.json",
+          "/mnt/footage2/lookcloser_hair_001083_20261027_1330/pilot_final_head_subpixel/complete.json"
+        ],
+        "reason": "Central 16-pose pilot visibility toggles are 2.0302x B0; no camera stability gain. Peak variants also introduce visible yellow patches/strand banding absent from control. Gated variant fails material RGB/holes thresholds."
+      },
+      "visual_evidence": [
+        {
+          "path": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/pilot_final_review_subpixel/metrics.json",
+          "sha256": "da997668bee2b4709becb5e1dc98e6e69bff810388810ae62c2ddf188830c3e3"
+        },
+        {
+          "path": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/pilot_final_head_subpixel/complete.json",
+          "sha256": "c7c19a54d209f1a175dfb76e4e448a7309027153d6d75737db2e1d2908cb1f52"
+        }
+      ]
+    },
+    {
+      "camera_popping_gain_20_percent": false,
+      "face_guard": true,
+      "hair_lpips_gain_5_percent": false,
+      "holes_gain_20_percent": false,
+      "independent_depth_proxy_improved": true,
+      "metrics": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/p_metrics_gate.json",
+      "metrics_sha256": "3f2428721784e8fe5f6562ca758a686ca86bbca71f9a384aec6342baf5020d24",
+      "passes": false,
+      "silhouette_recall_guard": true
+    }
+  ],
+  "chosen_metrics": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/c_metrics_base.json",
+  "chosen_metrics_sha256": "b6397ae219c1cea96adc715f1fd1f18a4dc5f37327139b0439c4c969792d939d",
+  "independent_test_rgb_used": false,
+  "status": "validation and visual review locked before test RGB",
+  "test_unlocked": false
+}

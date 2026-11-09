@@ -1,0 +1,25 @@
+{
+  "cameras": 59,
+  "dataset_sha256": "a137bb57be5a0e1fded48ed300070a04e95f32862e47249559b0372e7787451b",
+  "dependencies": {
+    "pytorch3d": false,
+    "pyvista": false
+  },
+  "gaussian_geometry_used_in_track_N": false,
+  "gt_strands_required_for_inference": false,
+  "initialization_points": 215779,
+  "orientation_encoding": "theta modulo pi, uint8 theta*255/pi",
+  "ready_for_training": false,
+  "reasons": [
+    "No calibrated head_verts/scalp_verts supplied; the hair TSDF is not a certified scalp.",
+    "Missing isolated HairGS training dependencies; no build attempted before scalp qualification."
+  ],
+  "source_mvs_request_sha256": "3ee04002e464b50d0409c3321285605b6e7aafef7cf74a1c51c22015e1fda879",
+  "training_launched": false,
+  "upstream_commit": "16588656b1f6f048bc3bc83f3cb98c2da8596754",
+  "upstream_compatibility_work": [
+    "np.bool removed in modern NumPy",
+    "final evaluation guard must respect absent strand GT"
+  ],
+  "uses_eval_rgb": false
+}

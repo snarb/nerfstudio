@@ -1,0 +1,24 @@
+{
+  "baseline_sha256": "37fcdf55e5edbbb80e07fffdac1b635496bbce1afa7cf4c9e384846b9b3c73b6",
+  "candidate_sha256": "223806da1de6788cb3a663a4d249b4f4049f35ce451c4974e08f87eaee7482d9",
+  "coverage_review_required": true,
+  "deletion_can_reduce_variation": true,
+  "metric": "common baseline-depth transported RGB; dropout-inclusive proxy",
+  "no_geometry_ground_truth": true,
+  "regions": {
+    "all_anchored_hair": {
+      "baseline_abs_rgb_sum": 22188.1298828125,
+      "baseline_mae": 0.008908641541623004,
+      "candidate_abs_rgb_sum": 21501.004028320312,
+      "candidate_mae": 0.008632757185258473,
+      "pixels": 2490630
+    },
+    "baseline_fallback_transitions": {
+      "baseline_abs_rgb_sum": 161.05695724487305,
+      "baseline_mae": 0.08217191696166992,
+      "candidate_abs_rgb_sum": 23.540912747383118,
+      "candidate_mae": 0.012010669769073019,
+      "pixels": 1960
+    }
+  }
+}

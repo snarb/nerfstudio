@@ -1,0 +1,169 @@
+{
+  "aggregate": {
+    "expected": {
+      "median_absolute_relative": 0.016047199912720515,
+      "p90_absolute_relative": 0.0233458934447363
+    },
+    "front": {
+      "median_absolute_relative": 0.09067284593843382,
+      "p90_absolute_relative": 0.11311160358383765
+    },
+    "native_expected": {
+      "median_absolute_relative": 0.006045132044374481,
+      "p90_absolute_relative": 0.008093225417540734
+    },
+    "peak1": {
+      "median_absolute_relative": 0.0009408592501641631,
+      "p90_absolute_relative": 0.002860468844779299
+    },
+    "peak1_subpixel": {
+      "median_absolute_relative": 0.0009319878015521135,
+      "p90_absolute_relative": 0.002854992005666153
+    }
+  },
+  "checkpoint_sha256": "4599968f831c9b9280b0902aedecdfee1775b8418872880d1680d31a6fca3a5e",
+  "depth_convention": "camera-z in calibration units",
+  "implementation_sha256": "0b525a1aa36f0d97e1d42a572ec5a626ba294fcc6039a5d9e196b36796e1b34c",
+  "invalid_depth_relative_penalty": 1.0,
+  "matching_receipt_sha256": "9a6911e79efbed105e06aa5534a944bf5b8c17d5f0add06fccf4dea94cabbbca",
+  "median_weight_mass_before_near_behind_witness": [
+    0.27381807565689087,
+    0.5632087588310242,
+    0.17289426922798157
+  ],
+  "native_ray_sampling_mode": "adaptive",
+  "probe_ray_sampling_mode": "fixed",
+  "profiles_sha256": "abae484719dbc7f6ddeb79859e6bb84e4ee6eaac47ee869f8ee6717148285322",
+  "proxy": "independent-detector triangulated train-RGB witnesses, not independent 3D ground truth",
+  "records": [
+    {
+      "camera": "F004_C005_121059",
+      "median_weight_mass_before_near_behind_witness": [
+        0.31726494431495667,
+        0.5110014081001282,
+        0.1687881350517273
+      ],
+      "metrics": {
+        "expected": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.020241967286052185,
+          "p90_absolute_relative": 0.023903835193888865,
+          "valid_fraction": 1.0
+        },
+        "front": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.09424293877206276,
+          "p90_absolute_relative": 0.1006369404078086,
+          "valid_fraction": 1.0
+        },
+        "native_expected": {
+          "median_absolute_relative": 0.006475518114906223,
+          "p90_absolute_relative": 0.00825822015697765,
+          "valid_fraction": 1.0
+        },
+        "peak1": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.0009829261811736265,
+          "p90_absolute_relative": 0.002848905732857257,
+          "valid_fraction": 1.0
+        },
+        "peak1_subpixel": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.0009863325077137694,
+          "p90_absolute_relative": 0.002843566709081631,
+          "valid_fraction": 1.0
+        }
+      },
+      "opacity_median": 0.9986622333526611,
+      "witnesses": 133
+    },
+    {
+      "camera": "G004_C005_121037",
+      "median_weight_mass_before_near_behind_witness": [
+        0.25202739238739014,
+        0.5886040925979614,
+        0.17769941687583923
+      ],
+      "metrics": {
+        "expected": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.01540841351409466,
+          "p90_absolute_relative": 0.021002173732956125,
+          "valid_fraction": 1.0
+        },
+        "front": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.08886393736851503,
+          "p90_absolute_relative": 0.09371244699472293,
+          "valid_fraction": 1.0
+        },
+        "native_expected": {
+          "median_absolute_relative": 0.005564082884845401,
+          "p90_absolute_relative": 0.0074877757757889725,
+          "valid_fraction": 1.0
+        },
+        "peak1": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.0009400414288661074,
+          "p90_absolute_relative": 0.003178888934615748,
+          "valid_fraction": 1.0
+        },
+        "peak1_subpixel": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.0009422358593086384,
+          "p90_absolute_relative": 0.003157737635047189,
+          "valid_fraction": 1.0
+        }
+      },
+      "opacity_median": 0.9991042017936707,
+      "witnesses": 133
+    },
+    {
+      "camera": "E004_C005_1210YM",
+      "median_weight_mass_before_near_behind_witness": [
+        0.26343148946762085,
+        0.5748602747917175,
+        0.17388282716274261
+      ],
+      "metrics": {
+        "expected": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.01550066600333324,
+          "p90_absolute_relative": 0.02056673898335938,
+          "valid_fraction": 1.0
+        },
+        "front": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.09595016616292096,
+          "p90_absolute_relative": 0.11556197459000167,
+          "valid_fraction": 1.0
+        },
+        "native_expected": {
+          "median_absolute_relative": 0.006025406608901755,
+          "p90_absolute_relative": 0.008178344498186737,
+          "valid_fraction": 1.0
+        },
+        "peak1": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.00088539169216649,
+          "p90_absolute_relative": 0.0026870237720006693,
+          "valid_fraction": 1.0
+        },
+        "peak1_subpixel": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.000869020922565081,
+          "p90_absolute_relative": 0.0026934544761748284,
+          "valid_fraction": 1.0
+        }
+      },
+      "opacity_median": 0.9985610246658325,
+      "witnesses": 133
+    }
+  ],
+  "samples": 4096,
+  "step": 4999,
+  "uses_test_rgb": false,
+  "uses_validation_rgb": false,
+  "witness_sha256": "f591ac368a121121573ac6b6a920910496ae6b0aa6b1d3b87edb19563f97d111",
+  "witness_window_relative": 0.01
+}

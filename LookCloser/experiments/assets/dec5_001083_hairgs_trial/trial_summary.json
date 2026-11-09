@@ -1,0 +1,2887 @@
+{
+  "selection": {
+    "accepted": "B0 unchanged",
+    "hairgs_adopted": false,
+    "native_checkpoint_selection": {
+      "label": "corrected_s00500",
+      "config": "corrected",
+      "iteration": 30507,
+      "strand_optimization_steps": 500,
+      "checkpoint": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/hairgs_trial_20261027_171606/model_corrected/point_cloud/iteration_30507/point_cloud.ply",
+      "checkpoint_sha256": "00da2606a0e1ad5cd315e24919a71da6a728224647beddb814ebcb0def84e988",
+      "native": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/hairgs_trial_20261027_171606/native_corrected_s00500",
+      "metrics": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/hairgs_trial_20261027_171606/native_corrected_s00500/metrics.json",
+      "aggregate": {
+        "full_frame": {
+          "psnr": 20.474531809488933,
+          "ssim": 0.7441465059916178,
+          "lpips": 0.5461006760597229
+        },
+        "hair": {
+          "psnr": 19.376686096191406,
+          "ssim": 0.2899054189523061,
+          "lpips": 0.3389872908592224
+        },
+        "face_neck": {
+          "psnr": 29.302786509195965,
+          "ssim": 0.8498503168423971,
+          "lpips": 0.18315525352954865
+        }
+      },
+      "selection_space": "native upstream HairGS RGB",
+      "maximum_eval_all_psnr": 20.53439458211263,
+      "tie_band_db": 0.07,
+      "evaluated_checkpoint_count": 22,
+      "test_rgb_opened": false
+    },
+    "receiver_checkpoint_selection": {
+      "config": "corrected",
+      "iteration": 33007,
+      "strand_optimization_steps": 3000,
+      "label": "corrected_s03000",
+      "checkpoint": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/hairgs_trial_20261027_171606/model_corrected/point_cloud/iteration_33007/point_cloud.ply",
+      "checkpoint_sha256": "13b39e2c9744babadce553ae29d18caae6ed7f437e457c539eb81be193db1fb9",
+      "metrics": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/hairgs_trial_20261027_171606/metrics_transfer_corrected_s03000.json",
+      "metrics_sha256": "8843c22e201e377fe841e3f08ec4abae37f0512426ba007c50b2fa435c41cb6e",
+      "aggregate": {
+        "boundary": {
+          "lpips": 0.04371533667047819,
+          "psnr": 18.461777369181316,
+          "ssim": 0.45471370220184326
+        },
+        "face_neck": {
+          "lpips": 0.07837872331341107,
+          "psnr": 29.659369786580402,
+          "ssim": 0.8502792318662008
+        },
+        "full_frame": {
+          "lpips": 0.4333866039911906,
+          "psnr": 23.162573496500652,
+          "ssim": 0.7789011597633362
+        },
+        "hair": {
+          "lpips": 0.19760452707608542,
+          "psnr": 21.00053532918294,
+          "ssim": 0.3414940337340037
+        },
+        "halo_fraction": 0.007685349035991144,
+        "holes_fraction": 0.060778154027291066,
+        "interior": {
+          "lpips": 0.1914793699979782,
+          "psnr": 21.21685218811035,
+          "ssim": 0.3355269134044647
+        },
+        "reprojection_error_hair": 3.2206511894861856,
+        "silhouette_recall": 0.9197226537335189,
+        "witness_deficit_fraction": 0.1722307144949192
+      },
+      "native": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/hairgs_trial_20261027_171606/native_corrected_s03000",
+      "transfer": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/hairgs_trial_20261027_171606/transfer_corrected_s03000"
+    },
+    "evaluated_strand_checkpoints": 22,
+    "test_rgb_opened": false,
+    "path96_run": false,
+    "path96_reason": "Material validationRGB/geometry gate failed",
+    "core_diagnostics": [
+      "metrics_transfer_core_default_final.json",
+      "metrics_transfer_core_selected_native.json"
+    ],
+    "selected_native_geometry": "geometry_selected_native",
+    "selected_native_depth_delivery": "cores_selected_native",
+    "source_dataset_sha256": "a137bb57be5a0e1fded48ed300070a04e95f32862e47249559b0372e7787451b",
+    "baseline_metrics_sha256": "b6397ae219c1cea96adc715f1fd1f18a4dc5f37327139b0439c4c969792d939d"
+  },
+  "resources": {
+    "start_utc": "2026-10-27T17:16:06+00:00",
+    "finished_utc": "2026-10-27T19:14:10.832978+00:00",
+    "deadline_utc": "2026-10-27T21:16:06Z",
+    "wall_seconds": 7084.832978,
+    "gpu_stage_process_wall_seconds": 4766.572359085083,
+    "gpu_stage_wall_definition": "Controller process wall for GPU stages, includes their CPU/IO; firstsmoke2/stage1 controllers add <=30s polling slack each",
+    "cuda_forward_backward_event_seconds": 2876.61517503643,
+    "peak_torch_mib": 29801.59912109375,
+    "peak_own_gpu_process_mib_sampled": 30016.0,
+    "minimum_global_free_gpu_mib_sampled": 60050.0,
+    "training": [
+      {
+        "label": "smoke2",
+        "wall_seconds": 30.158406734466553,
+        "cuda_forward_backward_event_seconds": 1.518788290977478,
+        "returncode": 0,
+        "peak_torch_mib": 5193.77783203125
+      },
+      {
+        "label": "stage1",
+        "wall_seconds": 1384.7238700389862,
+        "cuda_forward_backward_event_seconds": 1026.749135658264,
+        "returncode": 0,
+        "peak_torch_mib": 16546.3779296875
+      },
+      {
+        "label": "stage3_default",
+        "wall_seconds": 100.35623288154602,
+        "cuda_forward_backward_event_seconds": 59.6201102142334,
+        "returncode": 1,
+        "peak_torch_mib": 18172.7890625
+      },
+      {
+        "label": "stage3_default_retry32",
+        "wall_seconds": 742.270546913147,
+        "cuda_forward_backward_event_seconds": 506.31704611968996,
+        "returncode": 0,
+        "peak_torch_mib": 29801.59912109375
+      },
+      {
+        "label": "stage1_corrected",
+        "wall_seconds": 1230.3401319980621,
+        "cuda_forward_backward_event_seconds": 899.8241991577148,
+        "returncode": 0,
+        "peak_torch_mib": 7377.423828125
+      },
+      {
+        "label": "stage3_corrected",
+        "wall_seconds": 650.9305033683777,
+        "cuda_forward_backward_event_seconds": 382.58589559555054,
+        "returncode": 0,
+        "peak_torch_mib": 8972.0126953125
+      }
+    ],
+    "protected_process": "3718826  2-21:14:58 python -m calibration_service",
+    "own_workers_alive": [],
+    "oom": "One own24GiB-capOOM;32GiB retry completed; device still had64.98GiBfree duringcapOOM",
+    "gpu_stage_count": 62,
+    "gpu_evaluation_and_audits_finished_utc": "2026-10-27T19:14:10.832978+00:00",
+    "report_finalized_utc": "2026-10-27T19:26:40.827634+00:00",
+    "wall_seconds_including_report": 7834.827634,
+    "protected_process_final": "3718826  2-21:27:28 python -m calibration_service"
+  },
+  "baseline": {
+    "aggregate": {
+      "boundary": {
+        "lpips": 0.04371533667047819,
+        "psnr": 18.461777369181316,
+        "ssim": 0.45471370220184326
+      },
+      "face_neck": {
+        "lpips": 0.07837872331341107,
+        "psnr": 29.659369786580402,
+        "ssim": 0.8502792318662008
+      },
+      "full_frame": {
+        "lpips": 0.43337653080622357,
+        "psnr": 23.162644068400066,
+        "ssim": 0.7789032061894735
+      },
+      "hair": {
+        "lpips": 0.19753052790959677,
+        "psnr": 21.000974655151367,
+        "ssim": 0.3415166735649109
+      },
+      "halo_fraction": 0.007685349035991144,
+      "holes_fraction": 0.06081060986610164,
+      "interior": {
+        "lpips": 0.1913507878780365,
+        "psnr": 21.217334111531574,
+        "ssim": 0.3355506360530853
+      },
+      "reprojection_error_hair": 3.214257518450419,
+      "silhouette_recall": 0.9196901978947083,
+      "witness_deficit_fraction": 0.17240062944463666
+    },
+    "lpips_protocol": "neutral 0.5 exterior inside fixed reference crop",
+    "missing_pixels_excluded": false,
+    "partition": "validation",
+    "per_view": [
+      {
+        "boundary": {
+          "crop": [
+            837,
+            282,
+            1419,
+            909
+          ],
+          "lpips": 0.05375194549560547,
+          "pixels": 17759,
+          "psnr": 17.811548233032227,
+          "ssim": 0.4117116630077362
+        },
+        "camera": "D004_A005_12103C",
+        "face_neck": {
+          "crop": [
+            582,
+            317,
+            1182,
+            833
+          ],
+          "lpips": 0.06406468898057938,
+          "pixels": 162266,
+          "psnr": 29.095443725585938,
+          "ssim": 0.8435614109039307
+        },
+        "full_frame": {
+          "crop": [
+            0,
+            0,
+            1920,
+            1080
+          ],
+          "lpips": 0.5222572088241577,
+          "pixels": 2073600,
+          "psnr": 21.395954132080078,
+          "ssim": 0.7537614703178406
+        },
+        "hair": {
+          "crop": [
+            840,
+            285,
+            1416,
+            906
+          ],
+          "lpips": 0.2205674648284912,
+          "pixels": 179844,
+          "psnr": 20.441858291625977,
+          "ssim": 0.34142357110977173
+        },
+        "halo_fraction": 0.010529872177487472,
+        "holes_fraction": 0.11142990591846266,
+        "interior": {
+          "crop": [
+            843,
+            289,
+            1412,
+            903
+          ],
+          "lpips": 0.20729732513427734,
+          "pixels": 171000,
+          "psnr": 20.62798309326172,
+          "ssim": 0.3378775417804718
+        },
+        "reprojection_error_hair": 4.614308834075928,
+        "silhouette": {
+          "f1": 0.9191522185224767,
+          "false_pixels": 3718,
+          "missed_pixels": 23743,
+          "precision": 0.9767361828068002,
+          "recall": 0.8679800271346277
+        },
+        "witness_deficit_fraction": 0.24832632726140433
+      },
+      {
+        "boundary": {
+          "crop": [
+            762,
+            231,
+            1365,
+            932
+          ],
+          "lpips": 0.04202249273657799,
+          "pixels": 19989,
+          "psnr": 17.745868682861328,
+          "ssim": 0.36659446358680725
+        },
+        "camera": "E004_B005_1210I7",
+        "face_neck": {
+          "crop": [
+            459,
+            222,
+            1110,
+            822
+          ],
+          "lpips": 0.06107138469815254,
+          "pixels": 198130,
+          "psnr": 28.171955108642578,
+          "ssim": 0.8136135339736938
+        },
+        "full_frame": {
+          "crop": [
+            0,
+            0,
+            1920,
+            1080
+          ],
+          "lpips": 0.40253153443336487,
+          "pixels": 2073600,
+          "psnr": 22.908632278442383,
+          "ssim": 0.7617504000663757
+        },
+        "hair": {
+          "crop": [
+            765,
+            234,
+            1362,
+            929
+          ],
+          "lpips": 0.19827133417129517,
+          "pixels": 199341,
+          "psnr": 20.131324768066406,
+          "ssim": 0.21301910281181335
+        },
+        "halo_fraction": 0.011056080844464456,
+        "holes_fraction": 0.06233037859747869,
+        "interior": {
+          "crop": [
+            768,
+            237,
+            1358,
+            925
+          ],
+          "lpips": 0.1875571608543396,
+          "pixels": 189391,
+          "psnr": 20.310043334960938,
+          "ssim": 0.20626813173294067
+        },
+        "reprojection_error_hair": 3.2654104232788086,
+        "silhouette": {
+          "f1": 0.9429534358000351,
+          "false_pixels": 5466,
+          "missed_pixels": 16640,
+          "precision": 0.9709513357815133,
+          "recall": 0.9165249497092921
+        },
+        "witness_deficit_fraction": 0.1944356655178814
+      },
+      {
+        "boundary": {
+          "crop": [
+            725,
+            273,
+            1359,
+            968
+          ],
+          "lpips": 0.0353715717792511,
+          "pixels": 23808,
+          "psnr": 19.82791519165039,
+          "ssim": 0.5858349800109863
+        },
+        "camera": "I004_D005_1210Q7",
+        "face_neck": {
+          "crop": [
+            528,
+            293,
+            1174,
+            819
+          ],
+          "lpips": 0.11000009626150131,
+          "pixels": 176737,
+          "psnr": 31.710710525512695,
+          "ssim": 0.8936627507209778
+        },
+        "full_frame": {
+          "crop": [
+            0,
+            0,
+            1920,
+            1080
+          ],
+          "lpips": 0.37534084916114807,
+          "pixels": 2073600,
+          "psnr": 25.183345794677734,
+          "ssim": 0.8211977481842041
+        },
+        "hair": {
+          "crop": [
+            728,
+            276,
+            1356,
+            965
+          ],
+          "lpips": 0.1737527847290039,
+          "pixels": 155105,
+          "psnr": 22.42974090576172,
+          "ssim": 0.4701073467731476
+        },
+        "halo_fraction": 0.0014700940860215054,
+        "holes_fraction": 0.00867154508236356,
+        "interior": {
+          "crop": [
+            732,
+            310,
+            1352,
+            961
+          ],
+          "lpips": 0.17919787764549255,
+          "pixels": 143408,
+          "psnr": 22.71397590637207,
+          "ssim": 0.4625062346458435
+        },
+        "reprojection_error_hair": 1.763053297996521,
+        "silhouette": {
+          "f1": 0.972174433150145,
+          "false_pixels": 4708,
+          "missed_pixels": 3945,
+          "precision": 0.9697949547052634,
+          "recall": 0.974565616840205
+        },
+        "witness_deficit_fraction": 0.07443989555462428
+      }
+    ],
+    "prediction_receipt_sha256": "24821a97917345d94e885a921217b732c0b76ab5d4cee4f8bbbefe7df1cc445e",
+    "reference_kind": "GT RGB + fallible Sapiens semantic ROI; no depth/alpha GT",
+    "semantic_reference_receipt_sha256": "6c1b68291e3d093573ef21aa9b73b2a1cf394b466b1dc1f5b647f8ea00dec8f8"
+  },
+  "default_final": {
+    "aggregate": {
+      "boundary": {
+        "lpips": 0.045060012489557266,
+        "psnr": 18.401269912719727,
+        "ssim": 0.4434824784596761
+      },
+      "face_neck": {
+        "lpips": 0.07888003687063853,
+        "psnr": 29.64385922749837,
+        "ssim": 0.8500294287999471
+      },
+      "full_frame": {
+        "lpips": 0.4343123435974121,
+        "psnr": 23.146658579508465,
+        "ssim": 0.7769171595573425
+      },
+      "hair": {
+        "lpips": 0.2034099002679189,
+        "psnr": 20.890911102294922,
+        "ssim": 0.31778961916764575
+      },
+      "halo_fraction": 0.008173608734500517,
+      "holes_fraction": 0.05713946199406491,
+      "interior": {
+        "lpips": 0.19527674714724222,
+        "psnr": 21.098368962605793,
+        "ssim": 0.31108926236629486
+      },
+      "reprojection_error_hair": 4.424079338709514,
+      "silhouette_recall": 0.9259951751417397,
+      "witness_deficit_fraction": 0.14953275839852304
+    },
+    "lpips_protocol": "neutral 0.5 exterior inside fixed reference crop",
+    "missing_pixels_excluded": false,
+    "partition": "validation",
+    "per_view": [
+      {
+        "boundary": {
+          "crop": [
+            837,
+            282,
+            1419,
+            909
+          ],
+          "lpips": 0.055192731320858,
+          "pixels": 17759,
+          "psnr": 17.711118698120117,
+          "ssim": 0.4004354476928711
+        },
+        "camera": "D004_A005_12103C",
+        "face_neck": {
+          "crop": [
+            582,
+            317,
+            1182,
+            833
+          ],
+          "lpips": 0.06476667523384094,
+          "pixels": 162266,
+          "psnr": 29.075504302978516,
+          "ssim": 0.8432803750038147
+        },
+        "full_frame": {
+          "crop": [
+            0,
+            0,
+            1920,
+            1080
+          ],
+          "lpips": 0.5246699452400208,
+          "pixels": 2073600,
+          "psnr": 21.382770538330078,
+          "ssim": 0.7512544393539429
+        },
+        "hair": {
+          "crop": [
+            840,
+            285,
+            1416,
+            906
+          ],
+          "lpips": 0.231266587972641,
+          "pixels": 179844,
+          "psnr": 20.329999923706055,
+          "ssim": 0.31313619017601013
+        },
+        "halo_fraction": 0.011374514330761868,
+        "holes_fraction": 0.10576944462979027,
+        "interior": {
+          "crop": [
+            843,
+            289,
+            1412,
+            903
+          ],
+          "lpips": 0.21572178602218628,
+          "pixels": 171000,
+          "psnr": 20.514816284179688,
+          "ssim": 0.3090081512928009
+        },
+        "reprojection_error_hair": 5.80955171585083,
+        "silhouette": {
+          "f1": 0.9226111072105596,
+          "false_pixels": 4299,
+          "missed_pixels": 22155,
+          "precision": 0.9734609971108971,
+          "recall": 0.876809901914993
+        },
+        "witness_deficit_fraction": 0.2222092480149463
+      },
+      {
+        "boundary": {
+          "crop": [
+            762,
+            231,
+            1365,
+            932
+          ],
+          "lpips": 0.04278112202882767,
+          "pixels": 19989,
+          "psnr": 17.732364654541016,
+          "ssim": 0.36191558837890625
+        },
+        "camera": "E004_B005_1210I7",
+        "face_neck": {
+          "crop": [
+            459,
+            222,
+            1110,
+            822
+          ],
+          "lpips": 0.06140387803316116,
+          "pixels": 198130,
+          "psnr": 28.16463851928711,
+          "ssim": 0.8134939670562744
+        },
+        "full_frame": {
+          "crop": [
+            0,
+            0,
+            1920,
+            1080
+          ],
+          "lpips": 0.40395334362983704,
+          "pixels": 2073600,
+          "psnr": 22.90287971496582,
+          "ssim": 0.7613464593887329
+        },
+        "hair": {
+          "crop": [
+            765,
+            234,
+            1362,
+            929
+          ],
+          "lpips": 0.2070184350013733,
+          "pixels": 199341,
+          "psnr": 20.098848342895508,
+          "ssim": 0.20957009494304657
+        },
+        "halo_fraction": 0.01125619090499775,
+        "holes_fraction": 0.05790579960971401,
+        "interior": {
+          "crop": [
+            768,
+            237,
+            1358,
+            925
+          ],
+          "lpips": 0.1920965313911438,
+          "pixels": 189391,
+          "psnr": 20.27893829345703,
+          "ssim": 0.2027147263288498
+        },
+        "reprojection_error_hair": 4.229195594787598,
+        "silhouette": {
+          "f1": 0.946033327598117,
+          "false_pixels": 5870,
+          "missed_pixels": 15145,
+          "precision": 0.969115991287237,
+          "recall": 0.9240246612588479
+        },
+        "witness_deficit_fraction": 0.1695887950797879
+      },
+      {
+        "boundary": {
+          "crop": [
+            725,
+            273,
+            1359,
+            968
+          ],
+          "lpips": 0.03720618411898613,
+          "pixels": 23808,
+          "psnr": 19.760326385498047,
+          "ssim": 0.568096399307251
+        },
+        "camera": "I004_D005_1210Q7",
+        "face_neck": {
+          "crop": [
+            528,
+            293,
+            1174,
+            819
+          ],
+          "lpips": 0.11046955734491348,
+          "pixels": 176737,
+          "psnr": 31.691434860229492,
+          "ssim": 0.8933139443397522
+        },
+        "full_frame": {
+          "crop": [
+            0,
+            0,
+            1920,
+            1080
+          ],
+          "lpips": 0.37431374192237854,
+          "pixels": 2073600,
+          "psnr": 25.154325485229492,
+          "ssim": 0.8181505799293518
+        },
+        "hair": {
+          "crop": [
+            728,
+            276,
+            1356,
+            965
+          ],
+          "lpips": 0.17194467782974243,
+          "pixels": 155105,
+          "psnr": 22.243885040283203,
+          "ssim": 0.4306625723838806
+        },
+        "halo_fraction": 0.0018901209677419355,
+        "holes_fraction": 0.0077431417426904355,
+        "interior": {
+          "crop": [
+            732,
+            310,
+            1352,
+            961
+          ],
+          "lpips": 0.1780119240283966,
+          "pixels": 143408,
+          "psnr": 22.501352310180664,
+          "ssim": 0.4215449094772339
+        },
+        "reprojection_error_hair": 3.2334907054901123,
+        "silhouette": {
+          "f1": 0.9726266071560358,
+          "false_pixels": 4987,
+          "missed_pixels": 3544,
+          "precision": 0.9681439558474079,
+          "recall": 0.9771509622513781
+        },
+        "witness_deficit_fraction": 0.056800232100834916
+      }
+    ],
+    "prediction_receipt_sha256": "7e08c3d94d03e6a27343031175ddcfb72e95896efdfdbf59d008c768d8a77aff",
+    "reference_kind": "GT RGB + fallible Sapiens semantic ROI; no depth/alpha GT",
+    "semantic_reference_receipt_sha256": "6c1b68291e3d093573ef21aa9b73b2a1cf394b466b1dc1f5b647f8ea00dec8f8"
+  },
+  "corrected_final": {
+    "aggregate": {
+      "boundary": {
+        "lpips": 0.043984100222587585,
+        "psnr": 18.433826446533203,
+        "ssim": 0.44747774799664813
+      },
+      "face_neck": {
+        "lpips": 0.07988097642858823,
+        "psnr": 29.60866101582845,
+        "ssim": 0.8498733639717102
+      },
+      "full_frame": {
+        "lpips": 0.4339345196882884,
+        "psnr": 23.142719904581707,
+        "ssim": 0.7762128909428915
+      },
+      "hair": {
+        "lpips": 0.2014661580324173,
+        "psnr": 20.859146118164062,
+        "ssim": 0.30807097752888996
+      },
+      "halo_fraction": 0.007755353516277882,
+      "holes_fraction": 0.05697610465750139,
+      "interior": {
+        "lpips": 0.1942523072163264,
+        "psnr": 21.05930455525716,
+        "ssim": 0.30037518839041394
+      },
+      "reprojection_error_hair": 4.885466416676839,
+      "silhouette_recall": 0.9250924488047229,
+      "witness_deficit_fraction": 0.14688585222696157
+    },
+    "lpips_protocol": "neutral 0.5 exterior inside fixed reference crop",
+    "missing_pixels_excluded": false,
+    "partition": "validation",
+    "per_view": [
+      {
+        "boundary": {
+          "crop": [
+            837,
+            282,
+            1419,
+            909
+          ],
+          "lpips": 0.053924910724163055,
+          "pixels": 17759,
+          "psnr": 17.79393768310547,
+          "ssim": 0.40877974033355713
+        },
+        "camera": "D004_A005_12103C",
+        "face_neck": {
+          "crop": [
+            582,
+            317,
+            1182,
+            833
+          ],
+          "lpips": 0.06401319801807404,
+          "pixels": 162266,
+          "psnr": 29.082416534423828,
+          "ssim": 0.8433501720428467
+        },
+        "full_frame": {
+          "crop": [
+            0,
+            0,
+            1920,
+            1080
+          ],
+          "lpips": 0.52352374792099,
+          "pixels": 2073600,
+          "psnr": 21.379892349243164,
+          "ssim": 0.7507994771003723
+        },
+        "hair": {
+          "crop": [
+            840,
+            285,
+            1416,
+            906
+          ],
+          "lpips": 0.22792211174964905,
+          "pixels": 179844,
+          "psnr": 20.29451560974121,
+          "ssim": 0.3074284493923187
+        },
+        "halo_fraction": 0.010529872177487472,
+        "holes_fraction": 0.10586397099708636,
+        "interior": {
+          "crop": [
+            843,
+            289,
+            1412,
+            903
+          ],
+          "lpips": 0.21711042523384094,
+          "pixels": 171000,
+          "psnr": 20.466846466064453,
+          "ssim": 0.30226314067840576
+        },
+        "reprojection_error_hair": 6.101959705352783,
+        "silhouette": {
+          "f1": 0.9228365293001901,
+          "false_pixels": 3870,
+          "missed_pixels": 22451,
+          "precision": 0.9760019347277429,
+          "recall": 0.8751640310491314
+        },
+        "witness_deficit_fraction": 0.21941237961789106
+      },
+      {
+        "boundary": {
+          "crop": [
+            762,
+            231,
+            1365,
+            932
+          ],
+          "lpips": 0.0426359660923481,
+          "pixels": 19989,
+          "psnr": 17.713626861572266,
+          "ssim": 0.36473384499549866
+        },
+        "camera": "E004_B005_1210I7",
+        "face_neck": {
+          "crop": [
+            459,
+            222,
+            1110,
+            822
+          ],
+          "lpips": 0.061251793056726456,
+          "pixels": 198130,
+          "psnr": 28.165781021118164,
+          "ssim": 0.8135966658592224
+        },
+        "full_frame": {
+          "crop": [
+            0,
+            0,
+            1920,
+            1080
+          ],
+          "lpips": 0.40354061126708984,
+          "pixels": 2073600,
+          "psnr": 22.901527404785156,
+          "ssim": 0.7615396976470947
+        },
+        "hair": {
+          "crop": [
+            765,
+            234,
+            1362,
+            929
+          ],
+          "lpips": 0.20531751215457916,
+          "pixels": 199341,
+          "psnr": 20.09351921081543,
+          "ssim": 0.21082338690757751
+        },
+        "halo_fraction": 0.011056080844464456,
+        "holes_fraction": 0.05778540290256395,
+        "interior": {
+          "crop": [
+            768,
+            237,
+            1358,
+            925
+          ],
+          "lpips": 0.19085727632045746,
+          "pixels": 189391,
+          "psnr": 20.273645401000977,
+          "ssim": 0.2041541486978531
+        },
+        "reprojection_error_hair": 4.537096977233887,
+        "silhouette": {
+          "f1": 0.9460147099303606,
+          "false_pixels": 5510,
+          "missed_pixels": 15475,
+          "precision": 0.9709044440689422,
+          "recall": 0.9223692065355346
+        },
+        "witness_deficit_fraction": 0.1686356544815166
+      },
+      {
+        "boundary": {
+          "crop": [
+            725,
+            273,
+            1359,
+            968
+          ],
+          "lpips": 0.0353914238512516,
+          "pixels": 23808,
+          "psnr": 19.793914794921875,
+          "ssim": 0.5689196586608887
+        },
+        "camera": "I004_D005_1210Q7",
+        "face_neck": {
+          "crop": [
+            528,
+            293,
+            1174,
+            819
+          ],
+          "lpips": 0.1143779382109642,
+          "pixels": 176737,
+          "psnr": 31.57778549194336,
+          "ssim": 0.8926732540130615
+        },
+        "full_frame": {
+          "crop": [
+            0,
+            0,
+            1920,
+            1080
+          ],
+          "lpips": 0.3747391998767853,
+          "pixels": 2073600,
+          "psnr": 25.146739959716797,
+          "ssim": 0.8162994980812073
+        },
+        "hair": {
+          "crop": [
+            728,
+            276,
+            1356,
+            965
+          ],
+          "lpips": 0.17115885019302368,
+          "pixels": 155105,
+          "psnr": 22.189403533935547,
+          "ssim": 0.4059610962867737
+        },
+        "halo_fraction": 0.0016801075268817205,
+        "holes_fraction": 0.007278940072853873,
+        "interior": {
+          "crop": [
+            732,
+            310,
+            1352,
+            961
+          ],
+          "lpips": 0.1747892200946808,
+          "pixels": 143408,
+          "psnr": 22.437421798706055,
+          "ssim": 0.3947082757949829
+        },
+        "reprojection_error_hair": 4.017342567443848,
+        "silhouette": {
+          "f1": 0.9730452859727693,
+          "false_pixels": 4950,
+          "missed_pixels": 3452,
+          "precision": 0.9683914101262427,
+          "recall": 0.9777441088295026
+        },
+        "witness_deficit_fraction": 0.05260952258147707
+      }
+    ],
+    "prediction_receipt_sha256": "dd40ce58783fa4dd4cf16839bf550d97bce559af6c3e27abe1fc07532aa6a897",
+    "reference_kind": "GT RGB + fallible Sapiens semantic ROI; no depth/alpha GT",
+    "semantic_reference_receipt_sha256": "6c1b68291e3d093573ef21aa9b73b2a1cf394b466b1dc1f5b647f8ea00dec8f8"
+  },
+  "selected_native_expected": {
+    "aggregate": {
+      "boundary": {
+        "lpips": 0.044755165775616966,
+        "psnr": 18.407620747884113,
+        "ssim": 0.4419671297073364
+      },
+      "face_neck": {
+        "lpips": 0.07952188452084859,
+        "psnr": 29.625766118367512,
+        "ssim": 0.8499066630999247
+      },
+      "full_frame": {
+        "lpips": 0.43424665927886963,
+        "psnr": 23.140844345092773,
+        "ssim": 0.7759573459625244
+      },
+      "hair": {
+        "lpips": 0.2027199019988378,
+        "psnr": 20.82920201619466,
+        "ssim": 0.3056992044051488
+      },
+      "halo_fraction": 0.007824150857039525,
+      "holes_fraction": 0.05614846852577914,
+      "interior": {
+        "lpips": 0.19350450734297434,
+        "psnr": 21.032995859781902,
+        "ssim": 0.2985379596551259
+      },
+      "reprojection_error_hair": 4.891832033793132,
+      "silhouette_recall": 0.9268692890046788,
+      "witness_deficit_fraction": 0.14076506778599376
+    },
+    "lpips_protocol": "neutral 0.5 exterior inside fixed reference crop",
+    "missing_pixels_excluded": false,
+    "partition": "validation",
+    "per_view": [
+      {
+        "boundary": {
+          "crop": [
+            837,
+            282,
+            1419,
+            909
+          ],
+          "lpips": 0.05532645806670189,
+          "pixels": 17759,
+          "psnr": 17.612709045410156,
+          "ssim": 0.4000144600868225
+        },
+        "camera": "D004_A005_12103C",
+        "face_neck": {
+          "crop": [
+            582,
+            317,
+            1182,
+            833
+          ],
+          "lpips": 0.06439468264579773,
+          "pixels": 162266,
+          "psnr": 29.06925392150879,
+          "ssim": 0.8433129787445068
+        },
+        "full_frame": {
+          "crop": [
+            0,
+            0,
+            1920,
+            1080
+          ],
+          "lpips": 0.5236935019493103,
+          "pixels": 2073600,
+          "psnr": 21.369226455688477,
+          "ssim": 0.7497307658195496
+        },
+        "hair": {
+          "crop": [
+            840,
+            285,
+            1416,
+            906
+          ],
+          "lpips": 0.23160851001739502,
+          "pixels": 179844,
+          "psnr": 20.209436416625977,
+          "ssim": 0.2952251434326172
+        },
+        "halo_fraction": 0.010586181654372431,
+        "holes_fraction": 0.10363982117835457,
+        "interior": {
+          "crop": [
+            843,
+            289,
+            1412,
+            903
+          ],
+          "lpips": 0.2160516232252121,
+          "pixels": 171000,
+          "psnr": 20.399072647094727,
+          "ssim": 0.2901478409767151
+        },
+        "reprojection_error_hair": 6.264515399932861,
+        "silhouette": {
+          "f1": 0.9238456902453439,
+          "false_pixels": 4074,
+          "missed_pixels": 21956,
+          "precision": 0.9748459515194923,
+          "recall": 0.8779164164498121
+        },
+        "witness_deficit_fraction": 0.20940926580814484
+      },
+      {
+        "boundary": {
+          "crop": [
+            762,
+            231,
+            1365,
+            932
+          ],
+          "lpips": 0.04234643653035164,
+          "pixels": 19989,
+          "psnr": 17.745800018310547,
+          "ssim": 0.361707866191864
+        },
+        "camera": "E004_B005_1210I7",
+        "face_neck": {
+          "crop": [
+            459,
+            222,
+            1110,
+            822
+          ],
+          "lpips": 0.061173707246780396,
+          "pixels": 198130,
+          "psnr": 28.166770935058594,
+          "ssim": 0.8135703802108765
+        },
+        "full_frame": {
+          "crop": [
+            0,
+            0,
+            1920,
+            1080
+          ],
+          "lpips": 0.4035361707210541,
+          "pixels": 2073600,
+          "psnr": 22.903656005859375,
+          "ssim": 0.7612056136131287
+        },
+        "hair": {
+          "crop": [
+            765,
+            234,
+            1362,
+            929
+          ],
+          "lpips": 0.20313812792301178,
+          "pixels": 199341,
+          "psnr": 20.10384750366211,
+          "ssim": 0.20752640068531036
+        },
+        "halo_fraction": 0.011206163389864425,
+        "holes_fraction": 0.057404146663255426,
+        "interior": {
+          "crop": [
+            768,
+            237,
+            1358,
+            925
+          ],
+          "lpips": 0.1889062076807022,
+          "pixels": 189391,
+          "psnr": 20.280139923095703,
+          "ssim": 0.2008558213710785
+        },
+        "reprojection_error_hair": 4.7879204750061035,
+        "silhouette": {
+          "f1": 0.9467273147791228,
+          "false_pixels": 5589,
+          "missed_pixels": 15141,
+          "precision": 0.9705515072001012,
+          "recall": 0.9240447273767063
+        },
+        "witness_deficit_fraction": 0.15960590144526213
+      },
+      {
+        "boundary": {
+          "crop": [
+            725,
+            273,
+            1359,
+            968
+          ],
+          "lpips": 0.03659260272979736,
+          "pixels": 23808,
+          "psnr": 19.86435317993164,
+          "ssim": 0.5641790628433228
+        },
+        "camera": "I004_D005_1210Q7",
+        "face_neck": {
+          "crop": [
+            528,
+            293,
+            1174,
+            819
+          ],
+          "lpips": 0.11299726366996765,
+          "pixels": 176737,
+          "psnr": 31.641273498535156,
+          "ssim": 0.8928366303443909
+        },
+        "full_frame": {
+          "crop": [
+            0,
+            0,
+            1920,
+            1080
+          ],
+          "lpips": 0.3755103051662445,
+          "pixels": 2073600,
+          "psnr": 25.14965057373047,
+          "ssim": 0.816935658454895
+        },
+        "hair": {
+          "crop": [
+            728,
+            276,
+            1356,
+            965
+          ],
+          "lpips": 0.17341306805610657,
+          "pixels": 155105,
+          "psnr": 22.1743221282959,
+          "ssim": 0.4143460690975189
+        },
+        "halo_fraction": 0.0016801075268817205,
+        "holes_fraction": 0.007401437735727411,
+        "interior": {
+          "crop": [
+            732,
+            310,
+            1352,
+            961
+          ],
+          "lpips": 0.17555569112300873,
+          "pixels": 143408,
+          "psnr": 22.419775009155273,
+          "ssim": 0.40461021661758423
+        },
+        "reprojection_error_hair": 3.6230602264404297,
+        "silhouette": {
+          "f1": 0.9731505760316961,
+          "false_pixels": 5064,
+          "missed_pixels": 3312,
+          "precision": 0.9677158175918193,
+          "recall": 0.9786467231875181
+        },
+        "witness_deficit_fraction": 0.05328003610457432
+      }
+    ],
+    "prediction_receipt_sha256": "d86d6804ecd4a6206f0ceeafc46f77f6110c9cd326669a8bdfd513d4bc968b3d",
+    "reference_kind": "GT RGB + fallible Sapiens semantic ROI; no depth/alpha GT",
+    "semantic_reference_receipt_sha256": "6c1b68291e3d093573ef21aa9b73b2a1cf394b466b1dc1f5b647f8ea00dec8f8"
+  },
+  "core_default": {
+    "aggregate": {
+      "boundary": {
+        "lpips": 0.051568374037742615,
+        "psnr": 17.906180063883465,
+        "ssim": 0.3861578404903412
+      },
+      "face_neck": {
+        "lpips": 0.07954642673333485,
+        "psnr": 29.615819931030273,
+        "ssim": 0.8487308224042257
+      },
+      "full_frame": {
+        "lpips": 0.4440908432006836,
+        "psnr": 23.05304781595866,
+        "ssim": 0.7718950112660726
+      },
+      "hair": {
+        "lpips": 0.2524896462758382,
+        "psnr": 20.34695561726888,
+        "ssim": 0.261406014362971
+      },
+      "halo_fraction": 0.009428191439673987,
+      "holes_fraction": 0.056322513285532776,
+      "interior": {
+        "lpips": 0.24151228864987692,
+        "psnr": 20.567216873168945,
+        "ssim": 0.25541867812474567
+      },
+      "reprojection_error_hair": 7.000880082448323,
+      "silhouette_recall": 0.9281183281905289,
+      "witness_deficit_fraction": 0.14007111296813646
+    },
+    "lpips_protocol": "neutral 0.5 exterior inside fixed reference crop",
+    "missing_pixels_excluded": false,
+    "partition": "validation",
+    "per_view": [
+      {
+        "boundary": {
+          "crop": [
+            837,
+            282,
+            1419,
+            909
+          ],
+          "lpips": 0.06472077965736389,
+          "pixels": 17759,
+          "psnr": 17.16660499572754,
+          "ssim": 0.3326731026172638
+        },
+        "camera": "D004_A005_12103C",
+        "face_neck": {
+          "crop": [
+            582,
+            317,
+            1182,
+            833
+          ],
+          "lpips": 0.06705796718597412,
+          "pixels": 162266,
+          "psnr": 29.031959533691406,
+          "ssim": 0.8410502076148987
+        },
+        "full_frame": {
+          "crop": [
+            0,
+            0,
+            1920,
+            1080
+          ],
+          "lpips": 0.5383572578430176,
+          "pixels": 2073600,
+          "psnr": 21.31760597229004,
+          "ssim": 0.7461956739425659
+        },
+        "hair": {
+          "crop": [
+            840,
+            285,
+            1416,
+            906
+          ],
+          "lpips": 0.30682727694511414,
+          "pixels": 179844,
+          "psnr": 19.88005828857422,
+          "ssim": 0.2589603662490845
+        },
+        "halo_fraction": 0.012613322822230981,
+        "holes_fraction": 0.10531905429149707,
+        "interior": {
+          "crop": [
+            843,
+            289,
+            1412,
+            903
+          ],
+          "lpips": 0.28939422965049744,
+          "pixels": 171000,
+          "psnr": 20.08049964904785,
+          "ssim": 0.25632596015930176
+        },
+        "reprojection_error_hair": 8.420741081237793,
+        "silhouette": {
+          "f1": 0.9216208170627068,
+          "false_pixels": 4905,
+          "missed_pixels": 21951,
+          "precision": 0.9698706372314156,
+          "recall": 0.8779442183225462
+        },
+        "witness_deficit_fraction": 0.214458085896666
+      },
+      {
+        "boundary": {
+          "crop": [
+            762,
+            231,
+            1365,
+            932
+          ],
+          "lpips": 0.045586973428726196,
+          "pixels": 19989,
+          "psnr": 17.402074813842773,
+          "ssim": 0.32006144523620605
+        },
+        "camera": "E004_B005_1210I7",
+        "face_neck": {
+          "crop": [
+            459,
+            222,
+            1110,
+            822
+          ],
+          "lpips": 0.06170448660850525,
+          "pixels": 198130,
+          "psnr": 28.128746032714844,
+          "ssim": 0.8124075531959534
+        },
+        "full_frame": {
+          "crop": [
+            0,
+            0,
+            1920,
+            1080
+          ],
+          "lpips": 0.4144284725189209,
+          "pixels": 2073600,
+          "psnr": 22.84880828857422,
+          "ssim": 0.7588871121406555
+        },
+        "hair": {
+          "crop": [
+            765,
+            234,
+            1362,
+            929
+          ],
+          "lpips": 0.26245465874671936,
+          "pixels": 199341,
+          "psnr": 19.822917938232422,
+          "ssim": 0.18692082166671753
+        },
+        "halo_fraction": 0.012857071389264096,
+        "holes_fraction": 0.05696269207037188,
+        "interior": {
+          "crop": [
+            768,
+            237,
+            1358,
+            925
+          ],
+          "lpips": 0.24524623155593872,
+          "pixels": 189391,
+          "psnr": 20.0228328704834,
+          "ssim": 0.18152162432670593
+        },
+        "reprojection_error_hair": 6.8678412437438965,
+        "silhouette": {
+          "f1": 0.9450319290034156,
+          "false_pixels": 6670,
+          "missed_pixels": 14798,
+          "precision": 0.9651174344840571,
+          "recall": 0.9257653969830592
+        },
+        "witness_deficit_fraction": 0.1559438349361145
+      },
+      {
+        "boundary": {
+          "crop": [
+            725,
+            273,
+            1359,
+            968
+          ],
+          "lpips": 0.044397369027137756,
+          "pixels": 23808,
+          "psnr": 19.149860382080078,
+          "ssim": 0.5057389736175537
+        },
+        "camera": "I004_D005_1210Q7",
+        "face_neck": {
+          "crop": [
+            528,
+            293,
+            1174,
+            819
+          ],
+          "lpips": 0.10987682640552521,
+          "pixels": 176737,
+          "psnr": 31.68675422668457,
+          "ssim": 0.892734706401825
+        },
+        "full_frame": {
+          "crop": [
+            0,
+            0,
+            1920,
+            1080
+          ],
+          "lpips": 0.3794867992401123,
+          "pixels": 2073600,
+          "psnr": 24.99272918701172,
+          "ssim": 0.8106022477149963
+        },
+        "hair": {
+          "crop": [
+            728,
+            276,
+            1356,
+            965
+          ],
+          "lpips": 0.18818700313568115,
+          "pixels": 155105,
+          "psnr": 21.337890625,
+          "ssim": 0.33833685517311096
+        },
+        "halo_fraction": 0.002814180107526882,
+        "holes_fraction": 0.006685793494729377,
+        "interior": {
+          "crop": [
+            732,
+            310,
+            1352,
+            961
+          ],
+          "lpips": 0.18989640474319458,
+          "pixels": 143408,
+          "psnr": 21.598318099975586,
+          "ssim": 0.32840844988822937
+        },
+        "reprojection_error_hair": 5.714057922363281,
+        "silhouette": {
+          "f1": 0.9709239234510845,
+          "false_pixels": 6108,
+          "missed_pixels": 3002,
+          "precision": 0.9613933291616892,
+          "recall": 0.9806453692659811
+        },
+        "witness_deficit_fraction": 0.04981141807162889
+      }
+    ],
+    "prediction_receipt_sha256": "0c5ed9d26fe64737b75293ffa1bd4c81620bc1ca2a73a63bd6726e1e5561f9fb",
+    "reference_kind": "GT RGB + fallible Sapiens semantic ROI; no depth/alpha GT",
+    "semantic_reference_receipt_sha256": "6c1b68291e3d093573ef21aa9b73b2a1cf394b466b1dc1f5b647f8ea00dec8f8"
+  },
+  "core_selected": {
+    "aggregate": {
+      "boundary": {
+        "lpips": 0.05498475581407547,
+        "psnr": 17.492820103963215,
+        "ssim": 0.36307674646377563
+      },
+      "face_neck": {
+        "lpips": 0.08117964118719101,
+        "psnr": 29.574032465616863,
+        "ssim": 0.8482270439465841
+      },
+      "full_frame": {
+        "lpips": 0.447389950354894,
+        "psnr": 22.973716735839844,
+        "ssim": 0.7692416906356812
+      },
+      "hair": {
+        "lpips": 0.2695413629213969,
+        "psnr": 19.957441329956055,
+        "ssim": 0.2310410588979721
+      },
+      "halo_fraction": 0.010454982583999113,
+      "holes_fraction": 0.05401751059860748,
+      "interior": {
+        "lpips": 0.25673746565977734,
+        "psnr": 20.18128776550293,
+        "ssim": 0.2245954821507136
+      },
+      "reprojection_error_hair": 9.373483657836914,
+      "silhouette_recall": 0.9312931624218087,
+      "witness_deficit_fraction": 0.1295607241988525
+    },
+    "lpips_protocol": "neutral 0.5 exterior inside fixed reference crop",
+    "missing_pixels_excluded": false,
+    "partition": "validation",
+    "per_view": [
+      {
+        "boundary": {
+          "crop": [
+            837,
+            282,
+            1419,
+            909
+          ],
+          "lpips": 0.0677894651889801,
+          "pixels": 17759,
+          "psnr": 16.809146881103516,
+          "ssim": 0.3060759902000427
+        },
+        "camera": "D004_A005_12103C",
+        "face_neck": {
+          "crop": [
+            582,
+            317,
+            1182,
+            833
+          ],
+          "lpips": 0.07087308913469315,
+          "pixels": 162266,
+          "psnr": 28.936100006103516,
+          "ssim": 0.8400958180427551
+        },
+        "full_frame": {
+          "crop": [
+            0,
+            0,
+            1920,
+            1080
+          ],
+          "lpips": 0.542295515537262,
+          "pixels": 2073600,
+          "psnr": 21.266023635864258,
+          "ssim": 0.7430999279022217
+        },
+        "hair": {
+          "crop": [
+            840,
+            285,
+            1416,
+            906
+          ],
+          "lpips": 0.33193546533584595,
+          "pixels": 179844,
+          "psnr": 19.546987533569336,
+          "ssim": 0.22436103224754333
+        },
+        "halo_fraction": 0.013683202883045217,
+        "holes_fraction": 0.10248882364716087,
+        "interior": {
+          "crop": [
+            843,
+            289,
+            1412,
+            903
+          ],
+          "lpips": 0.3073533773422241,
+          "pixels": 171000,
+          "psnr": 19.736173629760742,
+          "ssim": 0.22159388661384583
+        },
+        "reprojection_error_hair": 10.919246673583984,
+        "silhouette": {
+          "f1": 0.9228629133175408,
+          "false_pixels": 5220,
+          "missed_pixels": 21286,
+          "precision": 0.9681275873438435,
+          "recall": 0.8816418673961878
+        },
+        "witness_deficit_fraction": 0.20314272369386802
+      },
+      {
+        "boundary": {
+          "crop": [
+            762,
+            231,
+            1365,
+            932
+          ],
+          "lpips": 0.04941705986857414,
+          "pixels": 19989,
+          "psnr": 17.19129180908203,
+          "ssim": 0.29628100991249084
+        },
+        "camera": "E004_B005_1210I7",
+        "face_neck": {
+          "crop": [
+            459,
+            222,
+            1110,
+            822
+          ],
+          "lpips": 0.06239823251962662,
+          "pixels": 198130,
+          "psnr": 28.0936336517334,
+          "ssim": 0.81160569190979
+        },
+        "full_frame": {
+          "crop": [
+            0,
+            0,
+            1920,
+            1080
+          ],
+          "lpips": 0.41890451312065125,
+          "pixels": 2073600,
+          "psnr": 22.799179077148438,
+          "ssim": 0.7579922080039978
+        },
+        "hair": {
+          "crop": [
+            765,
+            234,
+            1362,
+            929
+          ],
+          "lpips": 0.2792893946170807,
+          "pixels": 199341,
+          "psnr": 19.581863403320312,
+          "ssim": 0.17953504621982574
+        },
+        "halo_fraction": 0.013607484116263946,
+        "holes_fraction": 0.05315514620675125,
+        "interior": {
+          "crop": [
+            768,
+            237,
+            1358,
+            925
+          ],
+          "lpips": 0.26039186120033264,
+          "pixels": 189391,
+          "psnr": 19.79256820678711,
+          "ssim": 0.17501653730869293
+        },
+        "reprojection_error_hair": 9.303668975830078,
+        "silhouette": {
+          "f1": 0.9463626050045252,
+          "false_pixels": 7301,
+          "missed_pixels": 13738,
+          "precision": 0.9621521585866545,
+          "recall": 0.9310829182155201
+        },
+        "witness_deficit_fraction": 0.13954480011638348
+      },
+      {
+        "boundary": {
+          "crop": [
+            725,
+            273,
+            1359,
+            968
+          ],
+          "lpips": 0.047747742384672165,
+          "pixels": 23808,
+          "psnr": 18.4780216217041,
+          "ssim": 0.48687323927879333
+        },
+        "camera": "I004_D005_1210Q7",
+        "face_neck": {
+          "crop": [
+            528,
+            293,
+            1174,
+            819
+          ],
+          "lpips": 0.11026760190725327,
+          "pixels": 176737,
+          "psnr": 31.692363739013672,
+          "ssim": 0.892979621887207
+        },
+        "full_frame": {
+          "crop": [
+            0,
+            0,
+            1920,
+            1080
+          ],
+          "lpips": 0.3809698224067688,
+          "pixels": 2073600,
+          "psnr": 24.855947494506836,
+          "ssim": 0.806632936000824
+        },
+        "hair": {
+          "crop": [
+            728,
+            276,
+            1356,
+            965
+          ],
+          "lpips": 0.19739922881126404,
+          "pixels": 155105,
+          "psnr": 20.743473052978516,
+          "ssim": 0.28922709822654724
+        },
+        "halo_fraction": 0.004074260752688172,
+        "holes_fraction": 0.006408561941910319,
+        "interior": {
+          "crop": [
+            732,
+            310,
+            1352,
+            961
+          ],
+          "lpips": 0.2024671584367752,
+          "pixels": 143408,
+          "psnr": 21.015121459960938,
+          "ssim": 0.27717602252960205
+        },
+        "reprojection_error_hair": 7.89753532409668,
+        "silhouette": {
+          "f1": 0.9682359415808544,
+          "false_pixels": 7062,
+          "missed_pixels": 2923,
+          "precision": 0.9556529602371204,
+          "recall": 0.9811547016537184
+        },
+        "witness_deficit_fraction": 0.045994648786306054
+      }
+    ],
+    "prediction_receipt_sha256": "45550258ac7a5b8af607c22c838ce2b478683755ed58bd43b580e32bccec3141",
+    "reference_kind": "GT RGB + fallible Sapiens semantic ROI; no depth/alpha GT",
+    "semantic_reference_receipt_sha256": "6c1b68291e3d093573ef21aa9b73b2a1cf394b466b1dc1f5b647f8ea00dec8f8"
+  },
+  "geometry": {
+    "default_final": {
+      "checkpoint": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/hairgs_trial_20261027_171606/model_main/point_cloud/iteration_35008/point_cloud.ply",
+      "checkpoint_sha256": "def8065a471233d577e25511c6cda9d461230d85890485c071eaa194396a5cb8",
+      "strand_archive_sha256": "8f7a29b12b7e0bcdb5dda497a60e437d1964f4371b24d33e33567ee297389d3c",
+      "gaussian_segments": 1172941,
+      "foreground_segments": 36321,
+      "foreground_strands": 34473,
+      "strand_points_quantiles": [
+        2.0,
+        2.0,
+        2.0,
+        2.0,
+        7.0
+      ],
+      "length_quantiles": [
+        0.002281945664435625,
+        0.010698891058564187,
+        0.035515233874320984,
+        0.16394248306751244,
+        1.338340401649475
+      ],
+      "root_distance_to_approx_scalp_quantiles": [
+        0.0002994579351716835,
+        0.00525493647696722,
+        0.07286787827338305,
+        17.948386361472206,
+        27.317218542397363
+      ],
+      "fraction_roots_within_001": 0.09041858846053433,
+      "units": "calibration units; not certified metric",
+      "scalp": "anatomical ellipsoid approximation",
+      "root_contact_enforced": false,
+      "gt_strand_accuracy_available": false
+    },
+    "corrected_final": {
+      "checkpoint": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/hairgs_trial_20261027_171606/model_corrected/point_cloud/iteration_35007/point_cloud.ply",
+      "checkpoint_sha256": "ff500f531547bb1c5baef14c07f4955754642fc6a69faecd31720402bf48dabd",
+      "strand_archive_sha256": "817290e7a56d1284482c69c2c08218285797ca972c491b6e73ec99b736441c95",
+      "gaussian_segments": 820384,
+      "foreground_segments": 46837,
+      "foreground_strands": 44146,
+      "strand_points_quantiles": [
+        2.0,
+        2.0,
+        2.0,
+        3.0,
+        6.0
+      ],
+      "length_quantiles": [
+        0.0010409224778413773,
+        0.009116259403526783,
+        0.03325202502310276,
+        0.13022487610578537,
+        0.9801238179206848
+      ],
+      "root_distance_to_approx_scalp_quantiles": [
+        0.0004308596443431328,
+        0.009229562781905,
+        0.07927166197920912,
+        10.989397317879483,
+        21.950351330377725
+      ],
+      "fraction_roots_within_001": 0.05309654328818013,
+      "units": "calibration units; not certified metric",
+      "scalp": "anatomical ellipsoid approximation",
+      "root_contact_enforced": false,
+      "gt_strand_accuracy_available": false
+    },
+    "selected_native": {
+      "checkpoint": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/hairgs_trial_20261027_171606/model_corrected/point_cloud/iteration_30507/point_cloud.ply",
+      "checkpoint_sha256": "00da2606a0e1ad5cd315e24919a71da6a728224647beddb814ebcb0def84e988",
+      "strand_archive_sha256": "9db3f6668ab7af0586e08fa3e7c2891b15c7698dd418dfa2d046a356d43d86a4",
+      "gaussian_segments": 848899,
+      "foreground_segments": 67338,
+      "foreground_strands": 60569,
+      "strand_points_quantiles": [
+        2.0,
+        2.0,
+        2.0,
+        3.0,
+        12.0
+      ],
+      "length_quantiles": [
+        0.00031797782867215574,
+        0.014347208105027676,
+        0.031029144302010536,
+        0.08839068561792372,
+        1.155763030052185
+      ],
+      "root_distance_to_approx_scalp_quantiles": [
+        0.00029114047224154465,
+        0.006919508767870409,
+        0.06207209264000461,
+        10.426755039794312,
+        22.034974286404612
+      ],
+      "fraction_roots_within_001": 0.0704320692103221,
+      "units": "calibration units; not certified metric",
+      "scalp": "anatomical ellipsoid approximation",
+      "root_contact_enforced": false,
+      "gt_strand_accuracy_available": false
+    }
+  },
+  "head_proxy": {
+    "type": "anatomical_ellipsoid_approximation_NOT_FLAME_NOT_certified_scalp",
+    "train_only": true,
+    "uses_test_rgb": false,
+    "uses_validation_rgb": false,
+    "hair_surface_used_for_fitting": false,
+    "center": [
+      -1.4106784342249956,
+      6.303395412762042,
+      -1.338854560550066
+    ],
+    "basis_right_up_front": [
+      [
+        -0.2955671557460257,
+        0.9282628517120958,
+        0.225761233553354
+      ],
+      [
+        0.24655881790938067,
+        0.30243541802492674,
+        -0.9207288239406958
+      ],
+      [
+        -0.9229565568082462,
+        -0.21647377683085609,
+        -0.318261367729813
+      ]
+    ],
+    "radii_calibration_units": [
+      0.12213295111055222,
+      0.185,
+      0.17
+    ],
+    "head_vertices": 16000,
+    "scalp_vertices": 7531,
+    "constraints": "Ear-span width; chin-to-forehead up; nose-to-earmid forward; center ear-mid+0.045 up; up radius .185 and front radius .170 are anatomical priors, not metric-certified.",
+    "limitations": "Manual broad nonhomologous surface cues; hidden cranium/scalp unconstrained; no exact hairline, root directions, head skin detail or strand GT.",
+    "landmark_source_sha256": "2559c75230fbe93dc0a4395e0b4413ed48b698cbe5bbafc620b692d589fc6b43",
+    "projections_train59": [
+      {
+        "camera": "A004_B005_1210RN",
+        "projected": 7531,
+        "hair_fraction": 0.9280308060018589,
+        "person_fraction": 1.0,
+        "measured_hair_pairs": 6342,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0,
+        "scalp_behind_hair_margin_quantiles": [
+          0.0578830766658748,
+          0.13657212333666013,
+          0.2756144289478963
+        ]
+      },
+      {
+        "camera": "A004_C005_121008",
+        "projected": 7531,
+        "hair_fraction": 0.87690877705484,
+        "person_fraction": 0.9992032930553711,
+        "measured_hair_pairs": 6347,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0,
+        "scalp_behind_hair_margin_quantiles": [
+          0.04900921152759885,
+          0.1566502084814081,
+          0.2701189041099429
+        ]
+      },
+      {
+        "camera": "A004_D005_1210CH",
+        "projected": 7531,
+        "hair_fraction": 0.8781038374717833,
+        "person_fraction": 0.9982738016199708,
+        "measured_hair_pairs": 6231,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.005617075910768737,
+        "scalp_behind_hair_margin_quantiles": [
+          0.04834085265073851,
+          0.17943513973816394,
+          0.269570617266937
+        ]
+      },
+      {
+        "camera": "A004_E005_1210OU",
+        "projected": 7531,
+        "hair_fraction": 0.8090559022706147,
+        "person_fraction": 0.9977426636568849,
+        "measured_hair_pairs": 5933,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0,
+        "scalp_behind_hair_margin_quantiles": [
+          0.042519896764282805,
+          0.1981462167223107,
+          0.25953780777625646
+        ]
+      },
+      {
+        "camera": "B004_B005_1210Z3",
+        "projected": 7531,
+        "hair_fraction": 0.9017394768291064,
+        "person_fraction": 1.0,
+        "measured_hair_pairs": 5231,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0005735041101127892,
+        "scalp_behind_hair_margin_quantiles": [
+          0.04051303197489187,
+          0.13727256749838634,
+          0.2832589201450846
+        ]
+      },
+      {
+        "camera": "B004_C005_1210NK",
+        "projected": 7531,
+        "hair_fraction": 0.8482273270482008,
+        "person_fraction": 0.9993360775461426,
+        "measured_hair_pairs": 6339,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0,
+        "scalp_behind_hair_margin_quantiles": [
+          0.038987397754872706,
+          0.15882146201114722,
+          0.2679259282282908
+        ]
+      },
+      {
+        "camera": "B004_D005_1210FT",
+        "projected": 7531,
+        "hair_fraction": 0.8271145930155358,
+        "person_fraction": 0.9984065861107423,
+        "measured_hair_pairs": 6130,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0,
+        "scalp_behind_hair_margin_quantiles": [
+          0.042908213913539175,
+          0.18360938642977587,
+          0.26111978510625156
+        ]
+      },
+      {
+        "camera": "B004_E005_1210VE",
+        "projected": 7531,
+        "hair_fraction": 0.7612534855928828,
+        "person_fraction": 0.9981410171291993,
+        "measured_hair_pairs": 5695,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0,
+        "scalp_behind_hair_margin_quantiles": [
+          0.03289043015161042,
+          0.19005663874800938,
+          0.24793232790119343
+        ]
+      },
+      {
+        "camera": "C004_B005_1210ER",
+        "projected": 7531,
+        "hair_fraction": 0.8785021909440978,
+        "person_fraction": 1.0,
+        "measured_hair_pairs": 6429,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0,
+        "scalp_behind_hair_margin_quantiles": [
+          0.04317872814014319,
+          0.13255299433873535,
+          0.2775350487173618
+        ]
+      },
+      {
+        "camera": "C004_C005_12104M",
+        "projected": 7531,
+        "hair_fraction": 0.8204753684769619,
+        "person_fraction": 0.999734431018457,
+        "measured_hair_pairs": 6154,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0,
+        "scalp_behind_hair_margin_quantiles": [
+          0.0332331783402982,
+          0.158511011510019,
+          0.26449183932681514
+        ]
+      },
+      {
+        "camera": "C004_D005_12107I",
+        "projected": 7531,
+        "hair_fraction": 0.804939583056699,
+        "person_fraction": 0.9985393706015138,
+        "measured_hair_pairs": 6004,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0,
+        "scalp_behind_hair_margin_quantiles": [
+          0.0320370916600191,
+          0.16999917954484367,
+          0.25384522430016737
+        ]
+      },
+      {
+        "camera": "C004_E005_1210X7",
+        "projected": 7531,
+        "hair_fraction": 0.7319081131323861,
+        "person_fraction": 0.9978754481476564,
+        "measured_hair_pairs": 5498,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0,
+        "scalp_behind_hair_margin_quantiles": [
+          0.02326153094554613,
+          0.18305996961303883,
+          0.24516589982890463
+        ]
+      },
+      {
+        "camera": "D004_B005_1210N4",
+        "projected": 7531,
+        "hair_fraction": 0.8538042756606028,
+        "person_fraction": 1.0,
+        "measured_hair_pairs": 6236,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0,
+        "scalp_behind_hair_margin_quantiles": [
+          0.03736679082383243,
+          0.13452985579650178,
+          0.2747697707843071
+        ]
+      },
+      {
+        "camera": "D004_C005_1210ES",
+        "projected": 7531,
+        "hair_fraction": 0.7895365821272076,
+        "person_fraction": 0.9998672155092285,
+        "measured_hair_pairs": 5809,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0,
+        "scalp_behind_hair_margin_quantiles": [
+          0.027899106698550297,
+          0.16184121962011577,
+          0.25783561041257386
+        ]
+      },
+      {
+        "camera": "D004_D005_1210LZ",
+        "projected": 7531,
+        "hair_fraction": 0.7673615721683708,
+        "person_fraction": 0.9985393706015138,
+        "measured_hair_pairs": 5758,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0,
+        "scalp_behind_hair_margin_quantiles": [
+          0.026617907690726694,
+          0.16196464306816916,
+          0.2494329658305603
+        ]
+      },
+      {
+        "camera": "D004_E005_1210GX",
+        "projected": 7531,
+        "hair_fraction": 0.6730845837206214,
+        "person_fraction": 0.9982738016199708,
+        "measured_hair_pairs": 5055,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0,
+        "scalp_behind_hair_margin_quantiles": [
+          0.01726686727194924,
+          0.16503995341627942,
+          0.2381469808219739
+        ]
+      },
+      {
+        "camera": "E004_A005_1210QB",
+        "projected": 7531,
+        "hair_fraction": 0.8632319745053778,
+        "person_fraction": 1.0,
+        "measured_hair_pairs": 4215,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.005456702253855279,
+        "scalp_behind_hair_margin_quantiles": [
+          0.0058510744941895785,
+          0.1350642786386249,
+          0.27250711252381876
+        ]
+      },
+      {
+        "camera": "E004_C005_1210YM",
+        "projected": 7531,
+        "hair_fraction": 0.7571371663789669,
+        "person_fraction": 1.0,
+        "measured_hair_pairs": 4651,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0,
+        "scalp_behind_hair_margin_quantiles": [
+          0.014761577414950988,
+          0.15327064381688604,
+          0.26619453961936035
+        ]
+      },
+      {
+        "camera": "E004_D005_1210L4",
+        "projected": 7531,
+        "hair_fraction": 0.7222148453060683,
+        "person_fraction": 0.9985393706015138,
+        "measured_hair_pairs": 5424,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0,
+        "scalp_behind_hair_margin_quantiles": [
+          0.02148454922197729,
+          0.15436710077089089,
+          0.24859142421753214
+        ]
+      },
+      {
+        "camera": "E004_E005_1210WX",
+        "projected": 7531,
+        "hair_fraction": 0.6121365024565131,
+        "person_fraction": 0.9949541893506838,
+        "measured_hair_pairs": 4592,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0,
+        "scalp_behind_hair_margin_quantiles": [
+          0.013676087026189701,
+          0.15136861335171492,
+          0.23197706935870369
+        ]
+      },
+      {
+        "camera": "F004_A005_12103K",
+        "projected": 7531,
+        "hair_fraction": 0.8552649050590891,
+        "person_fraction": 1.0,
+        "measured_hair_pairs": 4237,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0002360160490913382,
+        "scalp_behind_hair_margin_quantiles": [
+          0.007355563689011647,
+          0.13917971094086568,
+          0.28581448383017294
+        ]
+      },
+      {
+        "camera": "F004_C005_121059",
+        "projected": 7531,
+        "hair_fraction": 0.7370867082724738,
+        "person_fraction": 1.0,
+        "measured_hair_pairs": 3112,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0,
+        "scalp_behind_hair_margin_quantiles": [
+          0.00298753881242,
+          0.13371586560551796,
+          0.26254048945718583
+        ]
+      },
+      {
+        "camera": "F004_D005_1210KW",
+        "projected": 7531,
+        "hair_fraction": 0.6896826450670561,
+        "person_fraction": 0.9980082326384279,
+        "measured_hair_pairs": 5157,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0,
+        "scalp_behind_hair_margin_quantiles": [
+          0.016588457603105768,
+          0.15008164671158397,
+          0.24521737753245
+        ]
+      },
+      {
+        "camera": "F004_E005_1210FP",
+        "projected": 7531,
+        "hair_fraction": 0.5594210596202364,
+        "person_fraction": 0.9924312840260258,
+        "measured_hair_pairs": 4211,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0,
+        "scalp_behind_hair_margin_quantiles": [
+          0.012057217017885868,
+          0.1339812441066517,
+          0.22510506927748075
+        ]
+      },
+      {
+        "camera": "G004_A005_121071",
+        "projected": 7531,
+        "hair_fraction": 0.8325587571371664,
+        "person_fraction": 1.0,
+        "measured_hair_pairs": 1058,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0,
+        "scalp_behind_hair_margin_quantiles": [
+          -0.006322335487702401,
+          0.10154897127498641,
+          0.2854511043459133
+        ]
+      },
+      {
+        "camera": "G004_B005_1210FG",
+        "projected": 7531,
+        "hair_fraction": 0.7984331430088966,
+        "person_fraction": 1.0,
+        "measured_hair_pairs": 4124,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0007274490785645005,
+        "scalp_behind_hair_margin_quantiles": [
+          0.006893397042805072,
+          0.1468058289720755,
+          0.27456406358862656
+        ]
+      },
+      {
+        "camera": "G004_C005_121037",
+        "projected": 7531,
+        "hair_fraction": 0.6981808524764308,
+        "person_fraction": 1.0,
+        "measured_hair_pairs": 2845,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0,
+        "scalp_behind_hair_margin_quantiles": [
+          0.0018629224678331736,
+          0.1320691967810559,
+          0.24778220122654535
+        ]
+      },
+      {
+        "camera": "G004_D005_12107O",
+        "projected": 7531,
+        "hair_fraction": 0.6356393573230646,
+        "person_fraction": 0.9970787412030275,
+        "measured_hair_pairs": 4758,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0,
+        "scalp_behind_hair_margin_quantiles": [
+          0.013256335231053207,
+          0.14211609331493813,
+          0.23686472326573701
+        ]
+      },
+      {
+        "camera": "G004_E005_1211KO",
+        "projected": 7531,
+        "hair_fraction": 0.504846633913159,
+        "person_fraction": 0.9876510423582525,
+        "measured_hair_pairs": 3793,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0,
+        "scalp_behind_hair_margin_quantiles": [
+          0.008736770448584254,
+          0.12518210199746171,
+          0.2130116235386431
+        ]
+      },
+      {
+        "camera": "H004_A005_1210M6",
+        "projected": 7531,
+        "hair_fraction": 0.8308325587571371,
+        "person_fraction": 1.0,
+        "measured_hair_pairs": 716,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0,
+        "scalp_behind_hair_margin_quantiles": [
+          -0.009767948601101528,
+          0.06324222853964345,
+          0.28537128207426266
+        ]
+      },
+      {
+        "camera": "H004_B005_1210EL",
+        "projected": 7531,
+        "hair_fraction": 0.7822334351347763,
+        "person_fraction": 1.0,
+        "measured_hair_pairs": 2466,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.00202757502027575,
+        "scalp_behind_hair_margin_quantiles": [
+          -3.8176802846345836e-05,
+          0.14227400228379938,
+          0.2699801292750572
+        ]
+      },
+      {
+        "camera": "H004_C005_1210SZ",
+        "projected": 7531,
+        "hair_fraction": 0.6940645332625149,
+        "person_fraction": 1.0,
+        "measured_hair_pairs": 3189,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0,
+        "scalp_behind_hair_margin_quantiles": [
+          0.004800549668340538,
+          0.13909551861775604,
+          0.23822830205744372
+        ]
+      },
+      {
+        "camera": "H004_D005_1210SF",
+        "projected": 7531,
+        "hair_fraction": 0.6040366485194529,
+        "person_fraction": 0.9984065861107423,
+        "measured_hair_pairs": 4449,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0,
+        "scalp_behind_hair_margin_quantiles": [
+          0.011578559445371185,
+          0.1310493932778236,
+          0.2230193285981766
+        ]
+      },
+      {
+        "camera": "H004_E005_1210YK",
+        "projected": 7531,
+        "hair_fraction": 0.4486787943168238,
+        "person_fraction": 0.9851281370335945,
+        "measured_hair_pairs": 2743,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0,
+        "scalp_behind_hair_margin_quantiles": [
+          0.0062082540878257925,
+          0.1177114385499447,
+          0.20036203681546766
+        ]
+      },
+      {
+        "camera": "I004_A005_121062",
+        "projected": 7531,
+        "hair_fraction": 0.8398619041295977,
+        "person_fraction": 1.0,
+        "measured_hair_pairs": 664,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0,
+        "scalp_behind_hair_margin_quantiles": [
+          -0.01049292252198768,
+          0.046145065595005974,
+          0.28385082451748256
+        ]
+      },
+      {
+        "camera": "I004_B005_1210T5",
+        "projected": 7531,
+        "hair_fraction": 0.7797105298101181,
+        "person_fraction": 1.0,
+        "measured_hair_pairs": 2294,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.012641673931996512,
+        "scalp_behind_hair_margin_quantiles": [
+          -0.0025771535588066533,
+          0.15456602481974446,
+          0.2634600846657398
+        ]
+      },
+      {
+        "camera": "I004_C005_1210BA",
+        "projected": 7531,
+        "hair_fraction": 0.6886203691408843,
+        "person_fraction": 1.0,
+        "measured_hair_pairs": 3415,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.00029282576866764275,
+        "scalp_behind_hair_margin_quantiles": [
+          0.006016159263779565,
+          0.14193914970670818,
+          0.22304421026874086
+        ]
+      },
+      {
+        "camera": "I004_E005_1210FW",
+        "projected": 7531,
+        "hair_fraction": 0.4582392776523702,
+        "person_fraction": 0.987783826849024,
+        "measured_hair_pairs": 3445,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0,
+        "scalp_behind_hair_margin_quantiles": [
+          0.009687765720068601,
+          0.11079852855337435,
+          0.17560939837854117
+        ]
+      },
+      {
+        "camera": "J004_A005_121014",
+        "projected": 7531,
+        "hair_fraction": 0.843579869871199,
+        "person_fraction": 1.0,
+        "measured_hair_pairs": 1575,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0006349206349206349,
+        "scalp_behind_hair_margin_quantiles": [
+          -0.003575589115122923,
+          0.12284863147460268,
+          0.2845649905911315
+        ]
+      },
+      {
+        "camera": "J004_B005_1210GR",
+        "projected": 7531,
+        "hair_fraction": 0.732439251095472,
+        "person_fraction": 1.0,
+        "measured_hair_pairs": 457,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.015317286652078774,
+        "scalp_behind_hair_margin_quantiles": [
+          -0.01068384415373451,
+          0.058325851035926135,
+          0.26582667317384184
+        ]
+      },
+      {
+        "camera": "J004_C005_1210I4",
+        "projected": 7531,
+        "hair_fraction": 0.6814500066392245,
+        "person_fraction": 0.9998672155092285,
+        "measured_hair_pairs": 3334,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0,
+        "scalp_behind_hair_margin_quantiles": [
+          0.006689275498298609,
+          0.1500003378431285,
+          0.2182342239060852
+        ]
+      },
+      {
+        "camera": "J004_E005_1210N7",
+        "projected": 7531,
+        "hair_fraction": 0.42437923250564336,
+        "person_fraction": 0.9879166113397955,
+        "measured_hair_pairs": 3169,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0003155569580309246,
+        "scalp_behind_hair_margin_quantiles": [
+          0.009954253682375836,
+          0.10553167683446141,
+          0.15270719146747921
+        ]
+      },
+      {
+        "camera": "K004_A005_1210EF",
+        "projected": 7531,
+        "hair_fraction": 0.8584517328376046,
+        "person_fraction": 1.0,
+        "measured_hair_pairs": 6238,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0004809233728759218,
+        "scalp_behind_hair_margin_quantiles": [
+          0.022482529703744137,
+          0.15369652088117114,
+          0.28656959842449364
+        ]
+      },
+      {
+        "camera": "K004_B005_1210DS",
+        "projected": 7531,
+        "hair_fraction": 0.7787810383747178,
+        "person_fraction": 1.0,
+        "measured_hair_pairs": 1387,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0,
+        "scalp_behind_hair_margin_quantiles": [
+          -0.004563050528660373,
+          0.10745782153397965,
+          0.25919043764811456
+        ]
+      },
+      {
+        "camera": "K004_C005_1210BC",
+        "projected": 7531,
+        "hair_fraction": 0.6860974638162263,
+        "person_fraction": 1.0,
+        "measured_hair_pairs": 4798,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0,
+        "scalp_behind_hair_margin_quantiles": [
+          0.01636784642863845,
+          0.15072457119076788,
+          0.21884620496758797
+        ]
+      },
+      {
+        "camera": "K004_D005_121016",
+        "projected": 7531,
+        "hair_fraction": 0.5804010091621299,
+        "person_fraction": 1.0,
+        "measured_hair_pairs": 4361,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.00022930520522815867,
+        "scalp_behind_hair_margin_quantiles": [
+          0.012753829882155898,
+          0.12897804138903446,
+          0.18038179293327428
+        ]
+      },
+      {
+        "camera": "K004_E005_1210UF",
+        "projected": 7531,
+        "hair_fraction": 0.4361970521843049,
+        "person_fraction": 0.991103439118311,
+        "measured_hair_pairs": 3274,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.002443494196701283,
+        "scalp_behind_hair_margin_quantiles": [
+          0.010225803892512176,
+          0.10584756310053667,
+          0.1452226270641784
+        ]
+      },
+      {
+        "camera": "L004_A005_1210YO",
+        "projected": 7531,
+        "hair_fraction": 0.8636303279776922,
+        "person_fraction": 1.0,
+        "measured_hair_pairs": 6444,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0020173805090006208,
+        "scalp_behind_hair_margin_quantiles": [
+          0.028100260610002845,
+          0.1588236801071412,
+          0.29453839074484156
+        ]
+      },
+      {
+        "camera": "L004_C005_1210QQ",
+        "projected": 7531,
+        "hair_fraction": 0.7182313105829239,
+        "person_fraction": 1.0,
+        "measured_hair_pairs": 5159,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.003295212250436131,
+        "scalp_behind_hair_margin_quantiles": [
+          0.015032444110553734,
+          0.1517529949323757,
+          0.2346198064409694
+        ]
+      },
+      {
+        "camera": "L004_D005_1210T4",
+        "projected": 7531,
+        "hair_fraction": 0.5757535519851281,
+        "person_fraction": 1.0,
+        "measured_hair_pairs": 4318,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.001157943492357573,
+        "scalp_behind_hair_margin_quantiles": [
+          0.013636251930385646,
+          0.12996905280982007,
+          0.1796082858732556
+        ]
+      },
+      {
+        "camera": "L004_E005_1210RM",
+        "projected": 7531,
+        "hair_fraction": 0.4614261054308857,
+        "person_fraction": 0.9932279909706546,
+        "measured_hair_pairs": 3464,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.005196304849884526,
+        "scalp_behind_hair_margin_quantiles": [
+          0.011893521564595088,
+          0.10530923727344721,
+          0.15196524032669068
+        ]
+      },
+      {
+        "camera": "M004_A005_1210WZ",
+        "projected": 7531,
+        "hair_fraction": 0.8944363298366751,
+        "person_fraction": 1.0,
+        "measured_hair_pairs": 6592,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.00379247572815534,
+        "scalp_behind_hair_margin_quantiles": [
+          0.02998760100991569,
+          0.15612478924238848,
+          0.3083734606501154
+        ]
+      },
+      {
+        "camera": "M004_B005_12109O",
+        "projected": 7531,
+        "hair_fraction": 0.8114460231045014,
+        "person_fraction": 1.0,
+        "measured_hair_pairs": 5998,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.001333777925975325,
+        "scalp_behind_hair_margin_quantiles": [
+          0.020751738984244206,
+          0.15756476369992933,
+          0.2746409407598881
+        ]
+      },
+      {
+        "camera": "M004_C005_1210A4",
+        "projected": 7531,
+        "hair_fraction": 0.7651042358252557,
+        "person_fraction": 1.0,
+        "measured_hair_pairs": 5647,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.00779174783070657,
+        "scalp_behind_hair_margin_quantiles": [
+          0.016948288191054674,
+          0.16229490679998815,
+          0.24992997168670542
+        ]
+      },
+      {
+        "camera": "M004_D005_1210R6",
+        "projected": 7531,
+        "hair_fraction": 0.6299296242198911,
+        "person_fraction": 1.0,
+        "measured_hair_pairs": 4663,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.0038601758524555007,
+        "scalp_behind_hair_margin_quantiles": [
+          0.014430724412170194,
+          0.13093122760180886,
+          0.19330372393720116
+        ]
+      },
+      {
+        "camera": "M004_E005_12106V",
+        "projected": 7531,
+        "hair_fraction": 0.5628734563802947,
+        "person_fraction": 1.0,
+        "measured_hair_pairs": 4221,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.004738213693437574,
+        "scalp_behind_hair_margin_quantiles": [
+          0.01925644148121286,
+          0.12222976590721579,
+          0.17584080078090736
+        ]
+      },
+      {
+        "camera": "N004_A005_121003",
+        "projected": 7531,
+        "hair_fraction": 0.9089098393307662,
+        "person_fraction": 1.0,
+        "measured_hair_pairs": 6502,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.010612119347892955,
+        "scalp_behind_hair_margin_quantiles": [
+          0.027376621772149348,
+          0.15276910936609633,
+          0.3178762461848833
+        ]
+      },
+      {
+        "camera": "N004_B005_1210MO",
+        "projected": 7531,
+        "hair_fraction": 0.8421192404727128,
+        "person_fraction": 1.0,
+        "measured_hair_pairs": 6279,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.006211180124223602,
+        "scalp_behind_hair_margin_quantiles": [
+          0.022180048182782127,
+          0.157750481650492,
+          0.2794299345066309
+        ]
+      },
+      {
+        "camera": "N004_C005_1210AA",
+        "projected": 7531,
+        "hair_fraction": 0.8002921258796972,
+        "person_fraction": 1.0,
+        "measured_hair_pairs": 5892,
+        "scalp_in_front_of_observed_hair_gt02_fraction": 0.011710794297352342,
+        "scalp_behind_hair_margin_quantiles": [
+          0.018924769020223754,
+          0.17188540070066072,
+          0.2606612887229399
+        ]
+      }
+    ],
+    "scalp_to_measured_hair_nn_quantiles": [
+      0.006268284154441249,
+      0.06507725269542929,
+      0.109282606938119
+    ],
+    "upper_frontal_skin_ellipsoid_normalized_residual_quantiles": [
+      -0.0638867616169054,
+      0.03402554860656526,
+      0.1673400638633284
+    ]
+  },
+  "acceptance_audit": {
+    "candidates": [
+      {
+        "label": "default_s00000",
+        "hair_lpips_improvement": -0.027557456283858126,
+        "holes_improvement": 0.0456274799177105,
+        "geometry_roundtrip_improvement": -0.3484533376476996,
+        "face_lpips_regression": 0.005366999116033222,
+        "silhouette_recall_delta": 0.0042594238105055915,
+        "quantitative_gate_passed": false
+      },
+      {
+        "label": "default_s00500",
+        "hair_lpips_improvement": -0.03536398023865728,
+        "holes_improvement": 0.07652103983541517,
+        "geometry_roundtrip_improvement": -0.465468192949144,
+        "face_lpips_regression": 0.009792172342715011,
+        "silhouette_recall_delta": 0.008542632329417654,
+        "quantitative_gate_passed": false
+      },
+      {
+        "label": "default_s01000",
+        "hair_lpips_improvement": -0.03086990623752456,
+        "holes_improvement": 0.08542742070955729,
+        "geometry_roundtrip_improvement": -0.46105745646227075,
+        "face_lpips_regression": 0.005961432937226396,
+        "silhouette_recall_delta": 0.009188941609673318,
+        "quantitative_gate_passed": false
+      },
+      {
+        "label": "default_s01500",
+        "hair_lpips_improvement": -0.03239680661015439,
+        "holes_improvement": 0.08531254648727857,
+        "geometry_roundtrip_improvement": -0.4477906565775541,
+        "face_lpips_regression": 0.005080397095100775,
+        "silhouette_recall_delta": 0.008918417879344998,
+        "quantitative_gate_passed": false
+      },
+      {
+        "label": "default_s02000",
+        "hair_lpips_improvement": -0.043377856067121856,
+        "holes_improvement": 0.08096767516486107,
+        "geometry_roundtrip_improvement": -0.4565774155016702,
+        "face_lpips_regression": 0.00402496020010501,
+        "silhouette_recall_delta": 0.008456819093905277,
+        "quantitative_gate_passed": false
+      },
+      {
+        "label": "default_s02500",
+        "hair_lpips_improvement": -0.03445305021496088,
+        "holes_improvement": 0.07682189780753833,
+        "geometry_roundtrip_improvement": -0.4618370390725544,
+        "face_lpips_regression": 0.005035687813560008,
+        "silhouette_recall_delta": 0.007820046656811908,
+        "quantitative_gate_passed": false
+      },
+      {
+        "label": "default_s03000",
+        "hair_lpips_improvement": 6.889936136876745e-06,
+        "holes_improvement": 0.000359788116700783,
+        "geometry_roundtrip_improvement": -0.0013128289837688206,
+        "face_lpips_regression": 0.0,
+        "silhouette_recall_delta": 2.187893479910219e-05,
+        "quantitative_gate_passed": false
+      },
+      {
+        "label": "default_s03500",
+        "hair_lpips_improvement": -0.026402889065892634,
+        "holes_improvement": 0.0607504602348638,
+        "geometry_roundtrip_improvement": -0.3789021580431532,
+        "face_lpips_regression": 0.004427755655062704,
+        "silhouette_recall_delta": 0.006564623385024393,
+        "quantitative_gate_passed": false
+      },
+      {
+        "label": "default_s04000",
+        "hair_lpips_improvement": -0.02555507488052992,
+        "holes_improvement": 0.059993675386434936,
+        "geometry_roundtrip_improvement": -0.38506387712739615,
+        "face_lpips_regression": 0.005673785270446485,
+        "silhouette_recall_delta": 0.006363757013132965,
+        "quantitative_gate_passed": false
+      },
+      {
+        "label": "default_s04500",
+        "hair_lpips_improvement": -0.031301055306875145,
+        "holes_improvement": 0.05964701133318104,
+        "geometry_roundtrip_improvement": -0.38233899730717624,
+        "face_lpips_regression": 0.009097103030258014,
+        "silhouette_recall_delta": 0.006337384290312831,
+        "quantitative_gate_passed": false
+      },
+      {
+        "label": "default_final",
+        "hair_lpips_improvement": -0.029764373236591254,
+        "holes_improvement": 0.06037018671774881,
+        "geometry_roundtrip_improvement": -0.37639231247480914,
+        "face_lpips_regression": 0.006396041374938877,
+        "silhouette_recall_delta": 0.006304977247031385,
+        "quantitative_gate_passed": false
+      },
+      {
+        "label": "corrected_s00000",
+        "hair_lpips_improvement": -0.03347832541761805,
+        "holes_improvement": 0.05457333723795752,
+        "geometry_roundtrip_improvement": -0.5421338254058111,
+        "face_lpips_regression": 0.021133469008522754,
+        "silhouette_recall_delta": 0.004253865120193434,
+        "quantitative_gate_passed": false
+      },
+      {
+        "label": "corrected_s00500",
+        "hair_lpips_improvement": -0.026271251052475464,
+        "holes_improvement": 0.07666657760196831,
+        "geometry_roundtrip_improvement": -0.5219166497124552,
+        "face_lpips_regression": 0.014585096045343748,
+        "silhouette_recall_delta": 0.0071790911099705035,
+        "quantitative_gate_passed": false
+      },
+      {
+        "label": "corrected_s01000",
+        "hair_lpips_improvement": -0.01828365253518972,
+        "holes_improvement": 0.09263607657782773,
+        "geometry_roundtrip_improvement": -0.5345123854796422,
+        "face_lpips_regression": 0.014669793358992322,
+        "silhouette_recall_delta": 0.00850606890796246,
+        "quantitative_gate_passed": false
+      },
+      {
+        "label": "corrected_s01500",
+        "hair_lpips_improvement": -0.0236351966905775,
+        "holes_improvement": 0.08232601416797118,
+        "geometry_roundtrip_improvement": -0.5639035894413857,
+        "face_lpips_regression": 0.01819875303564067,
+        "silhouette_recall_delta": 0.007667483739956293,
+        "quantitative_gate_passed": false
+      },
+      {
+        "label": "corrected_s02000",
+        "hair_lpips_improvement": -0.038897411063748805,
+        "holes_improvement": 0.08377081160641794,
+        "geometry_roundtrip_improvement": -0.607496227041456,
+        "face_lpips_regression": 0.017712765363329774,
+        "silhouette_recall_delta": 0.0075858760022432525,
+        "quantitative_gate_passed": false
+      },
+      {
+        "label": "corrected_s02500",
+        "hair_lpips_improvement": -0.02705318336674859,
+        "holes_improvement": 0.08118683431812311,
+        "geometry_roundtrip_improvement": -0.6242185583707658,
+        "face_lpips_regression": 0.017778403404939747,
+        "silhouette_recall_delta": 0.007337993885145555,
+        "quantitative_gate_passed": false
+      },
+      {
+        "label": "corrected_s03000",
+        "hair_lpips_improvement": -0.00037462141812588304,
+        "holes_improvement": 0.0005337200018556212,
+        "geometry_roundtrip_improvement": -0.0019891595489987266,
+        "face_lpips_regression": 0.0,
+        "silhouette_recall_delta": 3.2455838810618864e-05,
+        "quantitative_gate_passed": false
+      },
+      {
+        "label": "corrected_s03500",
+        "hair_lpips_improvement": -0.023653377069507896,
+        "holes_improvement": 0.06808826952456562,
+        "geometry_roundtrip_improvement": -0.4929535609710436,
+        "face_lpips_regression": 0.017838417139339535,
+        "silhouette_recall_delta": 0.00618135238573736,
+        "quantitative_gate_passed": false
+      },
+      {
+        "label": "corrected_s04000",
+        "hair_lpips_improvement": -0.02522712397871784,
+        "holes_improvement": 0.06819369893204846,
+        "geometry_roundtrip_improvement": -0.5085265209961465,
+        "face_lpips_regression": 0.018846197932679054,
+        "silhouette_recall_delta": 0.005972802110857489,
+        "quantitative_gate_passed": false
+      },
+      {
+        "label": "corrected_s04500",
+        "hair_lpips_improvement": -0.027332125197281,
+        "holes_improvement": 0.06468898520170915,
+        "geometry_roundtrip_improvement": -0.5164929503343448,
+        "face_lpips_regression": 0.01956599835374173,
+        "silhouette_recall_delta": 0.005590814135278177,
+        "quantitative_gate_passed": false
+      },
+      {
+        "label": "corrected_final",
+        "hair_lpips_improvement": -0.01992416141682027,
+        "holes_improvement": 0.063056516240232,
+        "geometry_roundtrip_improvement": -0.5199362181260769,
+        "face_lpips_regression": 0.01916659332622883,
+        "silhouette_recall_delta": 0.005402250910014561,
+        "quantitative_gate_passed": false
+      },
+      {
+        "label": "core_default_final",
+        "hair_lpips_improvement": -0.27823101040561393,
+        "holes_improvement": 0.07380449876183069,
+        "geometry_roundtrip_improvement": -1.178070687324213,
+        "face_lpips_regression": 0.014898219447317507,
+        "silhouette_recall_delta": 0.008428130295820568,
+        "quantitative_gate_passed": false
+      },
+      {
+        "label": "core_selected_native",
+        "hair_lpips_improvement": -0.36455547288749784,
+        "holes_improvement": 0.11170911264418873,
+        "geometry_roundtrip_improvement": -1.916220496967472,
+        "face_lpips_regression": 0.03573569146539901,
+        "silhouette_recall_delta": 0.011602964527100412,
+        "quantitative_gate_passed": false
+      }
+    ],
+    "all_failed": true,
+    "popping_not_measured": true,
+    "final_decision": "B0unchanged; no path96/testunlock"
+  }
+}

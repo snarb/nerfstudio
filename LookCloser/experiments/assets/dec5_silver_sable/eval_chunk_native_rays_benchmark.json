@@ -1,0 +1,150 @@
+{
+  "measurements": [
+    {
+      "chunk": 1024,
+      "seconds": 14.088460177881643,
+      "rays": 1179648,
+      "rays_per_second": 83731.50685779013,
+      "peak_gpu_bytes": 1459856896,
+      "max_absolute_differences": {
+        "rgb": 0.0,
+        "depth": 0.0,
+        "accumulation": 0.0
+      },
+      "supported_depth_max_absolute_difference": 0.0,
+      "opacity_gate_crossings": {
+        "0.001": 0,
+        "0.01": 0,
+        "0.1": 0,
+        "0.9": 0
+      },
+      "passes": true
+    },
+    {
+      "chunk": 4096,
+      "seconds": 4.830585932126269,
+      "rays": 1179648,
+      "rays_per_second": 244203.9157516357,
+      "peak_gpu_bytes": 2197666816,
+      "max_absolute_differences": {
+        "rgb": 2.562999725341797e-06,
+        "depth": 0.2843970060348511,
+        "accumulation": 3.2186508178710938e-06
+      },
+      "supported_depth_max_absolute_difference": 3.3974647521972656e-06,
+      "opacity_gate_crossings": {
+        "0.001": 0,
+        "0.01": 0,
+        "0.1": 0,
+        "0.9": 0
+      },
+      "passes": true
+    },
+    {
+      "chunk": 8192,
+      "seconds": 2.959989344002679,
+      "rays": 1179648,
+      "rays_per_second": 398531.16444156104,
+      "peak_gpu_bytes": 3231954432,
+      "max_absolute_differences": {
+        "rgb": 2.562999725341797e-06,
+        "depth": 0.28447091579437256,
+        "accumulation": 3.2782554626464844e-06
+      },
+      "supported_depth_max_absolute_difference": 4.112720489501953e-06,
+      "opacity_gate_crossings": {
+        "0.001": 0,
+        "0.01": 0,
+        "0.1": 0,
+        "0.9": 0
+      },
+      "passes": true
+    },
+    {
+      "chunk": 1024,
+      "seconds": 12.797767441021279,
+      "rays": 1179648,
+      "rays_per_second": 92176.07722881566,
+      "peak_gpu_bytes": 1492880896,
+      "max_absolute_differences": {
+        "rgb": 2.3543834686279297e-06,
+        "depth": 4.291534423828125e-06,
+        "accumulation": 2.9206275939941406e-06
+      },
+      "supported_depth_max_absolute_difference": 4.291534423828125e-06,
+      "opacity_gate_crossings": {
+        "0.001": 0,
+        "0.01": 0,
+        "0.1": 0,
+        "0.9": 0
+      },
+      "passes": true
+    },
+    {
+      "chunk": 8192,
+      "seconds": 3.2528895831201226,
+      "rays": 1179648,
+      "rays_per_second": 362646.18575478956,
+      "peak_gpu_bytes": 3231954432,
+      "max_absolute_differences": {
+        "rgb": 2.5033950805664062e-06,
+        "depth": 0.28447091579437256,
+        "accumulation": 2.9206275939941406e-06
+      },
+      "supported_depth_max_absolute_difference": 4.947185516357422e-06,
+      "opacity_gate_crossings": {
+        "0.001": 0,
+        "0.01": 0,
+        "0.1": 0,
+        "0.9": 0
+      },
+      "passes": true
+    },
+    {
+      "chunk": 4096,
+      "seconds": 5.363063764059916,
+      "rays": 1179648,
+      "rays_per_second": 219957.85466980716,
+      "peak_gpu_bytes": 2197853696,
+      "max_absolute_differences": {
+        "rgb": 2.5033950805664062e-06,
+        "depth": 0.2843970060348511,
+        "accumulation": 3.2782554626464844e-06
+      },
+      "supported_depth_max_absolute_difference": 3.7550926208496094e-06,
+      "opacity_gate_crossings": {
+        "0.001": 0,
+        "0.01": 0,
+        "0.1": 0,
+        "0.9": 0
+      },
+      "passes": true
+    }
+  ],
+  "summary": {
+    "1024": {
+      "median_seconds": 13.44311380945146,
+      "passes": true
+    },
+    "4096": {
+      "median_seconds": 5.096824848093092,
+      "passes": true
+    },
+    "8192": {
+      "median_seconds": 3.1064394635614008,
+      "passes": true
+    }
+  },
+  "checkpoint_sha256": "3a710c8cda3593ee0da17fce241524782fc031203dac1af70225d39a2703fdc8",
+  "camera_raster": [
+    6144,
+    3072
+  ],
+  "probe_pixel_stride": 4,
+  "depth_support_minimum_opacity": 0.001,
+  "zero_gate_crossings_required": true,
+  "fitting": false,
+  "finished": true,
+  "concurrent_training_may_affect_timing": true,
+  "reference_tolerance": 1e-05
+}

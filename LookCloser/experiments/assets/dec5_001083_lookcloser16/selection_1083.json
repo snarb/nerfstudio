@@ -1,0 +1,137 @@
+{
+  "baseline": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/c_metrics_base.json",
+  "baseline_sha256": "b6397ae219c1cea96adc715f1fd1f18a4dc5f37327139b0439c4c969792d939d",
+  "candidates": [
+    {
+      "camera_popping_gain_20_percent": true,
+      "face_guard": true,
+      "hair_lpips_gain_5_percent": true,
+      "holes_gain_20_percent": true,
+      "independent_depth_proxy_improved": true,
+      "metrics": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/dense_selected_joint_metrics.json",
+      "metrics_sha256": "29b549757d4a36e7f9cb1fd31968218e4e9f405a0009ec886db621c1d4cc8590",
+      "numerical_passes_before_visual_review": true,
+      "passes": true,
+      "path_review": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/dense_selected_full_review/metrics.json",
+      "path_review_sha256": "9ed8406c3488b9d1bdda2dc22b7fc8b84b1350fadd072150824f4944776d0aaa",
+      "silhouette_recall_guard": true,
+      "visual_decision": {
+        "accepted": true,
+        "evidence": [
+          "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/dense_selected_full_review/candidate/video.mp4",
+          "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/dense_selected_full_review/candidate/decoded_000.jpg",
+          "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/dense_selected_full_review/candidate/decoded_032.jpg",
+          "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/dense_selected_full_review/candidate/decoded_064.jpg"
+        ],
+        "reason": "Accepted as improved research prototype versus corrected B0: stable inner curls and retained detail on encoded 96-pose path; residual crown background chips remain. Not an artifact-free geometry or 4K claim."
+      },
+      "visual_evidence": [
+        {
+          "path": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/dense_selected_full_review/candidate/video.mp4",
+          "sha256": "973b6fd13f8a36954e069c986ba57f5fb714d07629b489e2b668005a0d5e9581"
+        },
+        {
+          "path": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/dense_selected_full_review/candidate/decoded_000.jpg",
+          "sha256": "de495a02ff3766988b6e0996a61452013cb75ed4f221522163f54e7ef9d92adc"
+        },
+        {
+          "path": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/dense_selected_full_review/candidate/decoded_032.jpg",
+          "sha256": "9da0af77d1c0886225174826c78d937a159e6e9e6b32ab3f196ecb622ccfdd3a"
+        },
+        {
+          "path": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/dense_selected_full_review/candidate/decoded_064.jpg",
+          "sha256": "40bf5689f6488c7643f8bbccd7f279f69ebee42def80d510977ac5ece0b195dd"
+        }
+      ]
+    },
+    {
+      "camera_popping_gain_20_percent": true,
+      "face_guard": true,
+      "hair_lpips_gain_5_percent": true,
+      "holes_gain_20_percent": true,
+      "independent_depth_proxy_improved": true,
+      "metrics": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/scoped_source_rgba_v2_metrics.json",
+      "metrics_sha256": "9108ef2bf524cd2f16ba40cc1e536a0684e1e31e974c13f33fca2655099b974c",
+      "numerical_passes_before_visual_review": true,
+      "passes": true,
+      "path_review": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/scoped_source_rgba_full_review/metrics.json",
+      "path_review_sha256": "c82cb35198df731eab13b47f27c462d492ef08fc8dd03dc86a9a6961cdd4080e",
+      "silhouette_recall_guard": true,
+      "visual_decision": {
+        "accepted": true,
+        "evidence": [
+          "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/scoped_source_rgba_full_review/candidate/video.mp4",
+          "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/scoped_source_rgba_full_review/candidate/decoded_000.jpg",
+          "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/scoped_source_rgba_full_review/candidate/decoded_032.jpg",
+          "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/scoped_source_rgba_full_review/candidate/decoded_064.jpg"
+        ],
+        "reason": "Accepted as improved research prototype versus corrected B0: stable inner curls and retained detail on encoded 96-pose path; residual crown background chips remain. Not an artifact-free geometry or 4K claim."
+      },
+      "visual_evidence": [
+        {
+          "path": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/scoped_source_rgba_full_review/candidate/video.mp4",
+          "sha256": "eac9215b6c7a33b58fc71fa69179c4c4cf360381eea9a6a165732ef7ae68dfb8"
+        },
+        {
+          "path": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/scoped_source_rgba_full_review/candidate/decoded_000.jpg",
+          "sha256": "af30245a338124697460f90a2befd423598f5411db2e53ca8199443f29c839b8"
+        },
+        {
+          "path": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/scoped_source_rgba_full_review/candidate/decoded_032.jpg",
+          "sha256": "6ef46b23a2e4f2c59e63df4bb80a4b3c15131a778bc1964ef27d6eb2c36aa8d6"
+        },
+        {
+          "path": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/scoped_source_rgba_full_review/candidate/decoded_064.jpg",
+          "sha256": "7a11feaa8ba38315b439eb21a205ae14cbe92c55cb135ef11ec43e67558c1a3c"
+        }
+      ]
+    },
+    {
+      "camera_popping_gain_20_percent": true,
+      "face_guard": true,
+      "hair_lpips_gain_5_percent": true,
+      "holes_gain_20_percent": true,
+      "independent_depth_proxy_improved": true,
+      "metrics": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/joint_head_rgba_metrics.json",
+      "metrics_sha256": "0e94e9670f5dfaf7c8d6fe9a33b90e2482ab9f02e00c223910fcfbc22c68d87c",
+      "numerical_passes_before_visual_review": true,
+      "passes": true,
+      "path_review": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/joint_head_rgba_full_review/metrics.json",
+      "path_review_sha256": "7a57a57150f699d247a72a2b6effe3b92bc8703746eb1dfb17d686e7349e2f6d",
+      "silhouette_recall_guard": true,
+      "visual_decision": {
+        "accepted": true,
+        "evidence": [
+          "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/joint_head_rgba_full_review/candidate/video.mp4",
+          "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/joint_head_rgba_full_review/candidate/decoded_000.jpg",
+          "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/joint_head_rgba_full_review/candidate/decoded_032.jpg",
+          "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/joint_head_rgba_full_review/candidate/decoded_064.jpg"
+        ],
+        "reason": "Accepted as improved research prototype versus corrected B0: stable inner curls and retained detail on encoded 96-pose path; residual crown background chips remain. Not an artifact-free geometry or 4K claim."
+      },
+      "visual_evidence": [
+        {
+          "path": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/joint_head_rgba_full_review/candidate/video.mp4",
+          "sha256": "b3f3c352136af552c31e8a85004034637cd8e6a10f966b2d275981678c08648b"
+        },
+        {
+          "path": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/joint_head_rgba_full_review/candidate/decoded_000.jpg",
+          "sha256": "02966cbfbd8df5ddae726ae56a53291e73020ad9415fac15eb00b6e6f4ec0d3e"
+        },
+        {
+          "path": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/joint_head_rgba_full_review/candidate/decoded_032.jpg",
+          "sha256": "eb75ddcc97d3b35438024aa8df716c293970ac1592a8f2bc1dd6afaec6a54cc8"
+        },
+        {
+          "path": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/joint_head_rgba_full_review/candidate/decoded_064.jpg",
+          "sha256": "24bd1e8b3cc540f0c2a724515c35fab8958f517edea4fbc4131cec2a9b3b589d"
+        }
+      ]
+    }
+  ],
+  "chosen_metrics": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/joint_head_rgba_metrics.json",
+  "chosen_metrics_sha256": "0e94e9670f5dfaf7c8d6fe9a33b90e2482ab9f02e00c223910fcfbc22c68d87c",
+  "independent_test_rgb_used": false,
+  "status": "validation and visual review locked before test RGB",
+  "test_unlocked": false
+}

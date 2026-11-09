@@ -1,0 +1,92 @@
+{
+  "checkpoint_sha256": "d8e3db3a2f97ce009ece2b87b686ecf75b3cbda4c63e53b8b36dab53aa9ffcd7",
+  "comparison": "same density/FR/adaptive policy; native occupancy vs all cells enabled; original mask restored",
+  "frozen_state_unchanged": true,
+  "groups": {
+    "all": {
+      "all_cells": {
+        "mean_samples": 771.129388816645,
+        "relative_median": 0.00027860885106454307,
+        "relative_p90": 0.0017996414253458582,
+        "valid": 3076
+      },
+      "count": 3076,
+      "median_changed_over_1pct_gt": 0.0013003901170351106,
+      "native": {
+        "mean_samples": 214.31697009102731,
+        "relative_median": 0.000284633190951845,
+        "relative_p90": 0.0019114184298325738,
+        "valid": 3076
+      }
+    },
+    "background": {
+      "all_cells": {
+        "mean_samples": 713.25,
+        "relative_median": 0.006705381152332579,
+        "relative_p90": 0.009944712142519116,
+        "valid": 4
+      },
+      "count": 4,
+      "median_changed_over_1pct_gt": 0.0,
+      "native": {
+        "mean_samples": 151.75,
+        "relative_median": 0.007052263262480268,
+        "relative_p90": 0.010529400275208376,
+        "valid": 4
+      }
+    },
+    "face_neck": {
+      "all_cells": {
+        "mean_samples": 841.4814453125,
+        "relative_median": 0.0003476332985336535,
+        "relative_p90": 0.0014849051188338097,
+        "valid": 1024
+      },
+      "count": 1024,
+      "median_changed_over_1pct_gt": 0.0,
+      "native": {
+        "mean_samples": 270.1884765625,
+        "relative_median": 0.0003657374614954871,
+        "relative_p90": 0.0015759151438957128,
+        "valid": 1024
+      }
+    },
+    "hair": {
+      "all_cells": {
+        "mean_samples": 775.8310546875,
+        "relative_median": 0.0006469890362728112,
+        "relative_p90": 0.003559895404404351,
+        "valid": 1024
+      },
+      "count": 1024,
+      "median_changed_over_1pct_gt": 0.0029296875,
+      "native": {
+        "mean_samples": 185.7626953125,
+        "relative_median": 0.0006775172698856143,
+        "relative_p90": 0.0038109999532527704,
+        "valid": 1024
+      }
+    },
+    "uncertain": {
+      "all_cells": {
+        "mean_samples": 696.3017578125,
+        "relative_median": 0.00010614993703179785,
+        "relative_p90": 0.00037445817899106674,
+        "valid": 1024
+      },
+      "count": 1024,
+      "median_changed_over_1pct_gt": 0.0009765625,
+      "native": {
+        "mean_samples": 187.244140625,
+        "relative_median": 9.88753614997579e-05,
+        "relative_p90": 0.00037478513859193896,
+        "valid": 1024
+      }
+    }
+  },
+  "occupied_cell_fraction": 0.2820916175842285,
+  "source": "train SfM fitting witnesses; not independent 3D GT",
+  "sparse_sha256": "19a5ba3096afdd6bde5f8b0815683287872ab9a229a26c998ddf2f07c2f14706",
+  "uses_test_rgb": false,
+  "uses_validation_rgb": false
+}

@@ -4,6 +4,34 @@ This directory extends Nerfstudio with the LookCloser model and its measured pre
 rendering experiments. The paper implementation remains available as `lookcloser`; optional
 geometry/rendering tools do not change that model unless explicitly selected.
 
+## Environment on the Pavlo workstation
+
+Activate the installed training environment on this machine:
+
+```bash
+conda activate /home/pavlo/.conda/envs/nerfstudio
+```
+
+It uses Python 3.11, PyTorch 2.7.1 / torchvision 0.22.1 with CUDA 12.8,
+the CUDA 12.8.1 toolkit, and tiny-cuda-nn 2.0 (commit
+`3daa6e5b8b8e0fa17971a1a20acfbb3754494b38`, compiled for GPU architecture 120).
+Nerfstudio is installed editable from the parent checkout, with its declared
+dependencies, pytest/pytest-xdist, LPIPS, OpenEXR and PyMaxflow 1.3.2.
+The environment sets `CUDA_HOME` and `CPATH` for Conda's CUDA header layout;
+setuptools is kept below 81 for tiny-cuda-nn's build tooling.
+
+The exact `scripts/requirements-leader-jpeg.txt` pins are installed separately:
+
+```bash
+conda activate /home/pavlo/.conda/envs/lookcloser-jpeg
+```
+
+This environment uses Python 3.12 and FFmpeg 5.0.1. Pass
+`--ffmpeg /home/pavlo/.conda/envs/lookcloser-jpeg/bin/ffmpeg` to the temporal
+EXR converter. Its NumPy 2 pin is incompatible with the training environment's
+dependencies. Historical `/home/ubuntu/...` environment and data paths refer
+to the previous machine and must be replaced with local paths when running scripts.
+
 ## Selected geometry backend for the DEC5 rig
 
 The selected no-training actor geometry path is **fixed-pose COLMAP PatchMatch -> continuous

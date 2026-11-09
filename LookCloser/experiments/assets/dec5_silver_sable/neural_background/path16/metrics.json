@@ -1,0 +1,800 @@
+{
+  "aggregate": {
+    "baseline": {
+      "anchors": 5120214,
+      "depth_exposure_dropouts": 170608,
+      "depth_exposure_dropouts_fraction": 0.03332048230796603,
+      "next_present_pixels": 1740170,
+      "present_pixels": 1743857,
+      "present_pixels_fraction": 0.34058283501431774,
+      "source_switches": 5869,
+      "source_switches_fraction": 0.0011462411532017999,
+      "visibility_toggles": 14233,
+      "visibility_toggles_fraction": 0.0027797666269417645
+    },
+    "candidate": {
+      "anchors": 5120214,
+      "depth_exposure_dropouts": 159026,
+      "depth_exposure_dropouts_fraction": 0.031058467478117125,
+      "next_present_pixels": 1741511,
+      "present_pixels": 1740777,
+      "present_pixels_fraction": 0.3399812976566995,
+      "source_switches": 5768,
+      "source_switches_fraction": 0.0011265154151760062,
+      "visibility_toggles": 10548,
+      "visibility_toggles_fraction": 0.0020600701455056373
+    }
+  },
+  "baseline_receipt_sha256": "07ccf1e3ed85a2a0f452f555681cab390adee9d4abd965c0d2cafd6436bc3859",
+  "camera_path_only": true,
+  "candidate_receipt_sha256": "01f272237830982df60edf5802c3244544da57609b295625790c8841686d4e9a",
+  "coverage_domain": "whole fixed crop plus baseline train-voted hair; no GT topology claim",
+  "depth_transport": "candidate previous depth; frozen baseline image correspondences/domain/occlusion veto",
+  "frame_count": 16,
+  "human_continuous_playback_claimed": false,
+  "metric_kind": "fixed-baseline warped coverage and source-switch proxies, no strand GT",
+  "missing_candidate_pixels_excluded": false,
+  "path_sha256": "852171b481bd797b007ef31523ff88dd612ec756b0f57055f4a80a4d8e06185f",
+  "per_pair": [
+    {
+      "baseline": {
+        "anchors": 414718,
+        "depth_exposure_dropouts": 7364,
+        "next_present_pixels": 81636,
+        "present_pixels": 81859,
+        "source_switches": 298,
+        "visibility_toggles": 677
+      },
+      "candidate": {
+        "anchors": 414718,
+        "depth_exposure_dropouts": 6799,
+        "next_present_pixels": 81594,
+        "present_pixels": 81522,
+        "source_switches": 260,
+        "visibility_toggles": 412
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        0,
+        1
+      ],
+      "unknown_reference_pixels": 115956
+    },
+    {
+      "baseline": {
+        "anchors": 409334,
+        "depth_exposure_dropouts": 7958,
+        "next_present_pixels": 92373,
+        "present_pixels": 92611,
+        "source_switches": 327,
+        "visibility_toggles": 742
+      },
+      "candidate": {
+        "anchors": 409334,
+        "depth_exposure_dropouts": 7358,
+        "next_present_pixels": 92493,
+        "present_pixels": 92389,
+        "source_switches": 311,
+        "visibility_toggles": 456
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        1,
+        2
+      ],
+      "unknown_reference_pixels": 119577
+    },
+    {
+      "baseline": {
+        "anchors": 404500,
+        "depth_exposure_dropouts": 9281,
+        "next_present_pixels": 103031,
+        "present_pixels": 103327,
+        "source_switches": 345,
+        "visibility_toggles": 874
+      },
+      "candidate": {
+        "anchors": 404500,
+        "depth_exposure_dropouts": 8603,
+        "next_present_pixels": 103082,
+        "present_pixels": 103064,
+        "source_switches": 340,
+        "visibility_toggles": 556
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        2,
+        3
+      ],
+      "unknown_reference_pixels": 123918
+    },
+    {
+      "baseline": {
+        "anchors": 398245,
+        "depth_exposure_dropouts": 10679,
+        "next_present_pixels": 112110,
+        "present_pixels": 112336,
+        "source_switches": 353,
+        "visibility_toggles": 934
+      },
+      "candidate": {
+        "anchors": 398245,
+        "depth_exposure_dropouts": 9963,
+        "next_present_pixels": 112149,
+        "present_pixels": 112046,
+        "source_switches": 344,
+        "visibility_toggles": 607
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        3,
+        4
+      ],
+      "unknown_reference_pixels": 129256
+    },
+    {
+      "baseline": {
+        "anchors": 390261,
+        "depth_exposure_dropouts": 11440,
+        "next_present_pixels": 118953,
+        "present_pixels": 119198,
+        "source_switches": 389,
+        "visibility_toggles": 847
+      },
+      "candidate": {
+        "anchors": 390261,
+        "depth_exposure_dropouts": 10440,
+        "next_present_pixels": 119076,
+        "present_pixels": 119055,
+        "source_switches": 348,
+        "visibility_toggles": 645
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        4,
+        5
+      ],
+      "unknown_reference_pixels": 136014
+    },
+    {
+      "baseline": {
+        "anchors": 381231,
+        "depth_exposure_dropouts": 12589,
+        "next_present_pixels": 123190,
+        "present_pixels": 123470,
+        "source_switches": 403,
+        "visibility_toggles": 1062
+      },
+      "candidate": {
+        "anchors": 381231,
+        "depth_exposure_dropouts": 11872,
+        "next_present_pixels": 123387,
+        "present_pixels": 123368,
+        "source_switches": 402,
+        "visibility_toggles": 807
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        5,
+        6
+      ],
+      "unknown_reference_pixels": 144214
+    },
+    {
+      "baseline": {
+        "anchors": 368203,
+        "depth_exposure_dropouts": 12663,
+        "next_present_pixels": 123438,
+        "present_pixels": 123674,
+        "source_switches": 403,
+        "visibility_toggles": 1018
+      },
+      "candidate": {
+        "anchors": 368203,
+        "depth_exposure_dropouts": 11857,
+        "next_present_pixels": 123471,
+        "present_pixels": 123392,
+        "source_switches": 381,
+        "visibility_toggles": 789
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        6,
+        7
+      ],
+      "unknown_reference_pixels": 156863
+    },
+    {
+      "baseline": {
+        "anchors": 351413,
+        "depth_exposure_dropouts": 12442,
+        "next_present_pixels": 122988,
+        "present_pixels": 123227,
+        "source_switches": 390,
+        "visibility_toggles": 1013
+      },
+      "candidate": {
+        "anchors": 351413,
+        "depth_exposure_dropouts": 11608,
+        "next_present_pixels": 123033,
+        "present_pixels": 122989,
+        "source_switches": 365,
+        "visibility_toggles": 784
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        7,
+        8
+      ],
+      "unknown_reference_pixels": 173352
+    },
+    {
+      "baseline": {
+        "anchors": 334431,
+        "depth_exposure_dropouts": 12673,
+        "next_present_pixels": 123172,
+        "present_pixels": 123448,
+        "source_switches": 427,
+        "visibility_toggles": 1044
+      },
+      "candidate": {
+        "anchors": 334431,
+        "depth_exposure_dropouts": 11794,
+        "next_present_pixels": 123257,
+        "present_pixels": 123192,
+        "source_switches": 427,
+        "visibility_toggles": 759
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        8,
+        9
+      ],
+      "unknown_reference_pixels": 190271
+    },
+    {
+      "baseline": {
+        "anchors": 317791,
+        "depth_exposure_dropouts": 12393,
+        "next_present_pixels": 123210,
+        "present_pixels": 123445,
+        "source_switches": 405,
+        "visibility_toggles": 993
+      },
+      "candidate": {
+        "anchors": 317791,
+        "depth_exposure_dropouts": 11557,
+        "next_present_pixels": 123267,
+        "present_pixels": 123263,
+        "source_switches": 442,
+        "visibility_toggles": 738
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        9,
+        10
+      ],
+      "unknown_reference_pixels": 207172
+    },
+    {
+      "baseline": {
+        "anchors": 300966,
+        "depth_exposure_dropouts": 12377,
+        "next_present_pixels": 123211,
+        "present_pixels": 123436,
+        "source_switches": 430,
+        "visibility_toggles": 991
+      },
+      "candidate": {
+        "anchors": 300966,
+        "depth_exposure_dropouts": 11524,
+        "next_present_pixels": 123254,
+        "present_pixels": 123238,
+        "source_switches": 411,
+        "visibility_toggles": 814
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        10,
+        11
+      ],
+      "unknown_reference_pixels": 224178
+    },
+    {
+      "baseline": {
+        "anchors": 284497,
+        "depth_exposure_dropouts": 12033,
+        "next_present_pixels": 123000,
+        "present_pixels": 123258,
+        "source_switches": 426,
+        "visibility_toggles": 994
+      },
+      "candidate": {
+        "anchors": 284497,
+        "depth_exposure_dropouts": 11272,
+        "next_present_pixels": 123066,
+        "present_pixels": 123042,
+        "source_switches": 447,
+        "visibility_toggles": 722
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        11,
+        12
+      ],
+      "unknown_reference_pixels": 240979
+    },
+    {
+      "baseline": {
+        "anchors": 269089,
+        "depth_exposure_dropouts": 12466,
+        "next_present_pixels": 123338,
+        "present_pixels": 123643,
+        "source_switches": 433,
+        "visibility_toggles": 993
+      },
+      "candidate": {
+        "anchors": 269089,
+        "depth_exposure_dropouts": 11637,
+        "next_present_pixels": 123509,
+        "present_pixels": 123450,
+        "source_switches": 436,
+        "visibility_toggles": 819
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        12,
+        13
+      ],
+      "unknown_reference_pixels": 257799
+    },
+    {
+      "baseline": {
+        "anchors": 254153,
+        "depth_exposure_dropouts": 12227,
+        "next_present_pixels": 123360,
+        "present_pixels": 123541,
+        "source_switches": 419,
+        "visibility_toggles": 1045
+      },
+      "candidate": {
+        "anchors": 254153,
+        "depth_exposure_dropouts": 11589,
+        "next_present_pixels": 123504,
+        "present_pixels": 123459,
+        "source_switches": 422,
+        "visibility_toggles": 801
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        13,
+        14
+      ],
+      "unknown_reference_pixels": 274049
+    },
+    {
+      "baseline": {
+        "anchors": 241382,
+        "depth_exposure_dropouts": 12023,
+        "next_present_pixels": 123160,
+        "present_pixels": 123384,
+        "source_switches": 421,
+        "visibility_toggles": 1006
+      },
+      "candidate": {
+        "anchors": 241382,
+        "depth_exposure_dropouts": 11153,
+        "next_present_pixels": 123369,
+        "present_pixels": 123308,
+        "source_switches": 432,
+        "visibility_toggles": 839
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        14,
+        15
+      ],
+      "unknown_reference_pixels": 289360
+    }
+  ],
+  "physical_time_stability_established": false,
+  "pilot": true,
+  "problem_patches": [
+    {
+      "frames": [
+        5,
+        6
+      ],
+      "original_box": [
+        536,
+        0,
+        696,
+        149
+      ],
+      "path": "/home/ubuntu/lookcloser_transfer/background_path_20261029/review/problem_patch_0.jpg",
+      "sha256": "395948f17f4b64cd1dcb8fcffa2cb377a135579c2a5c132b3a79f715a7bf3da7"
+    },
+    {
+      "frames": [
+        13,
+        14
+      ],
+      "original_box": [
+        540,
+        248,
+        700,
+        408
+      ],
+      "path": "/home/ubuntu/lookcloser_transfer/background_path_20261029/review/problem_patch_1.jpg",
+      "sha256": "1e68649b24745f65de06512b597aabb94d5066353cf0a2f8acb1d4b81656f0ec"
+    },
+    {
+      "frames": [
+        14,
+        15
+      ],
+      "original_box": [
+        392,
+        44,
+        552,
+        204
+      ],
+      "path": "/home/ubuntu/lookcloser_transfer/background_path_20261029/review/problem_patch_2.jpg",
+      "sha256": "e74360112a04e8cbe38149b0b3074c0db17aaf4272a69c474476555deea4180a"
+    }
+  ],
+  "unconditional_per_frame_coverage": [
+    {
+      "baseline": {
+        "baseline_hair_domain_pixels": 89468,
+        "domain_pixels": 559088,
+        "fallback_pixels": 122799,
+        "foreground_depth_pixels": 443132,
+        "hair_present_pixels": 89468,
+        "present_in_baseline_hair": 89468
+      },
+      "camera": "novel_0000",
+      "candidate": {
+        "baseline_hair_domain_pixels": 89468,
+        "domain_pixels": 559088,
+        "fallback_pixels": 113079,
+        "foreground_depth_pixels": 454009,
+        "hair_present_pixels": 91437,
+        "present_in_baseline_hair": 88651
+      },
+      "frame": 0
+    },
+    {
+      "baseline": {
+        "baseline_hair_domain_pixels": 101590,
+        "domain_pixels": 559088,
+        "fallback_pixels": 126772,
+        "foreground_depth_pixels": 439511,
+        "hair_present_pixels": 101590,
+        "present_in_baseline_hair": 101590
+      },
+      "camera": "novel_0001",
+      "candidate": {
+        "baseline_hair_domain_pixels": 101590,
+        "domain_pixels": 559088,
+        "fallback_pixels": 117139,
+        "foreground_depth_pixels": 451224,
+        "hair_present_pixels": 103739,
+        "present_in_baseline_hair": 100720
+      },
+      "frame": 1
+    },
+    {
+      "baseline": {
+        "baseline_hair_domain_pixels": 112946,
+        "domain_pixels": 559088,
+        "fallback_pixels": 131419,
+        "foreground_depth_pixels": 435170,
+        "hair_present_pixels": 112946,
+        "present_in_baseline_hair": 112946
+      },
+      "camera": "novel_0002",
+      "candidate": {
+        "baseline_hair_domain_pixels": 112946,
+        "domain_pixels": 559088,
+        "fallback_pixels": 121669,
+        "foreground_depth_pixels": 447593,
+        "hair_present_pixels": 115145,
+        "present_in_baseline_hair": 111953
+      },
+      "frame": 2
+    },
+    {
+      "baseline": {
+        "baseline_hair_domain_pixels": 122386,
+        "domain_pixels": 559088,
+        "fallback_pixels": 137030,
+        "foreground_depth_pixels": 429832,
+        "hair_present_pixels": 122386,
+        "present_in_baseline_hair": 122386
+      },
+      "camera": "novel_0003",
+      "candidate": {
+        "baseline_hair_domain_pixels": 122386,
+        "domain_pixels": 559088,
+        "fallback_pixels": 127577,
+        "foreground_depth_pixels": 442619,
+        "hair_present_pixels": 124592,
+        "present_in_baseline_hair": 121278
+      },
+      "frame": 3
+    },
+    {
+      "baseline": {
+        "baseline_hair_domain_pixels": 130188,
+        "domain_pixels": 559088,
+        "fallback_pixels": 144237,
+        "foreground_depth_pixels": 423074,
+        "hair_present_pixels": 130188,
+        "present_in_baseline_hair": 130188
+      },
+      "camera": "novel_0004",
+      "candidate": {
+        "baseline_hair_domain_pixels": 130188,
+        "domain_pixels": 559088,
+        "fallback_pixels": 134858,
+        "foreground_depth_pixels": 436069,
+        "hair_present_pixels": 132628,
+        "present_in_baseline_hair": 129087
+      },
+      "frame": 4
+    },
+    {
+      "baseline": {
+        "baseline_hair_domain_pixels": 134929,
+        "domain_pixels": 559088,
+        "fallback_pixels": 152900,
+        "foreground_depth_pixels": 414874,
+        "hair_present_pixels": 134929,
+        "present_in_baseline_hair": 134929
+      },
+      "camera": "novel_0005",
+      "candidate": {
+        "baseline_hair_domain_pixels": 134929,
+        "domain_pixels": 559088,
+        "fallback_pixels": 143525,
+        "foreground_depth_pixels": 428181,
+        "hair_present_pixels": 137326,
+        "present_in_baseline_hair": 133620
+      },
+      "frame": 5
+    },
+    {
+      "baseline": {
+        "baseline_hair_domain_pixels": 134993,
+        "domain_pixels": 559088,
+        "fallback_pixels": 166343,
+        "foreground_depth_pixels": 402225,
+        "hair_present_pixels": 134993,
+        "present_in_baseline_hair": 134993
+      },
+      "camera": "novel_0006",
+      "candidate": {
+        "baseline_hair_domain_pixels": 134993,
+        "domain_pixels": 559088,
+        "fallback_pixels": 156720,
+        "foreground_depth_pixels": 416021,
+        "hair_present_pixels": 137299,
+        "present_in_baseline_hair": 133518
+      },
+      "frame": 6
+    },
+    {
+      "baseline": {
+        "baseline_hair_domain_pixels": 134941,
+        "domain_pixels": 559088,
+        "fallback_pixels": 183242,
+        "foreground_depth_pixels": 385736,
+        "hair_present_pixels": 134941,
+        "present_in_baseline_hair": 134941
+      },
+      "camera": "novel_0007",
+      "candidate": {
+        "baseline_hair_domain_pixels": 134941,
+        "domain_pixels": 559088,
+        "fallback_pixels": 173597,
+        "foreground_depth_pixels": 400090,
+        "hair_present_pixels": 137223,
+        "present_in_baseline_hair": 133528
+      },
+      "frame": 7
+    },
+    {
+      "baseline": {
+        "baseline_hair_domain_pixels": 134935,
+        "domain_pixels": 559088,
+        "fallback_pixels": 200367,
+        "foreground_depth_pixels": 368817,
+        "hair_present_pixels": 134935,
+        "present_in_baseline_hair": 134935
+      },
+      "camera": "novel_0008",
+      "candidate": {
+        "baseline_hair_domain_pixels": 134935,
+        "domain_pixels": 559088,
+        "fallback_pixels": 191047,
+        "foreground_depth_pixels": 383066,
+        "hair_present_pixels": 137158,
+        "present_in_baseline_hair": 133529
+      },
+      "frame": 8
+    },
+    {
+      "baseline": {
+        "baseline_hair_domain_pixels": 134807,
+        "domain_pixels": 559088,
+        "fallback_pixels": 217592,
+        "foreground_depth_pixels": 351916,
+        "hair_present_pixels": 134807,
+        "present_in_baseline_hair": 134807
+      },
+      "camera": "novel_0009",
+      "candidate": {
+        "baseline_hair_domain_pixels": 134807,
+        "domain_pixels": 559088,
+        "fallback_pixels": 208554,
+        "foreground_depth_pixels": 366164,
+        "hair_present_pixels": 137113,
+        "present_in_baseline_hair": 133484
+      },
+      "frame": 9
+    },
+    {
+      "baseline": {
+        "baseline_hair_domain_pixels": 134736,
+        "domain_pixels": 559088,
+        "fallback_pixels": 234665,
+        "foreground_depth_pixels": 334910,
+        "hair_present_pixels": 134736,
+        "present_in_baseline_hair": 134736
+      },
+      "camera": "novel_0010",
+      "candidate": {
+        "baseline_hair_domain_pixels": 134736,
+        "domain_pixels": 559088,
+        "fallback_pixels": 226253,
+        "foreground_depth_pixels": 348699,
+        "hair_present_pixels": 136967,
+        "present_in_baseline_hair": 133389
+      },
+      "frame": 10
+    },
+    {
+      "baseline": {
+        "baseline_hair_domain_pixels": 134676,
+        "domain_pixels": 559088,
+        "fallback_pixels": 251517,
+        "foreground_depth_pixels": 318109,
+        "hair_present_pixels": 134676,
+        "present_in_baseline_hair": 134676
+      },
+      "camera": "novel_0011",
+      "candidate": {
+        "baseline_hair_domain_pixels": 134676,
+        "domain_pixels": 559088,
+        "fallback_pixels": 243673,
+        "foreground_depth_pixels": 331627,
+        "hair_present_pixels": 136830,
+        "present_in_baseline_hair": 133314
+      },
+      "frame": 11
+    },
+    {
+      "baseline": {
+        "baseline_hair_domain_pixels": 134614,
+        "domain_pixels": 559088,
+        "fallback_pixels": 268256,
+        "foreground_depth_pixels": 301289,
+        "hair_present_pixels": 134614,
+        "present_in_baseline_hair": 134614
+      },
+      "camera": "novel_0012",
+      "candidate": {
+        "baseline_hair_domain_pixels": 134614,
+        "domain_pixels": 559088,
+        "fallback_pixels": 260831,
+        "foreground_depth_pixels": 314513,
+        "hair_present_pixels": 136727,
+        "present_in_baseline_hair": 133232
+      },
+      "frame": 12
+    },
+    {
+      "baseline": {
+        "baseline_hair_domain_pixels": 134477,
+        "domain_pixels": 559088,
+        "fallback_pixels": 284149,
+        "foreground_depth_pixels": 285039,
+        "hair_present_pixels": 134477,
+        "present_in_baseline_hair": 134477
+      },
+      "camera": "novel_0013",
+      "candidate": {
+        "baseline_hair_domain_pixels": 134477,
+        "domain_pixels": 559088,
+        "fallback_pixels": 276900,
+        "foreground_depth_pixels": 298272,
+        "hair_present_pixels": 136642,
+        "present_in_baseline_hair": 133152
+      },
+      "frame": 13
+    },
+    {
+      "baseline": {
+        "baseline_hair_domain_pixels": 134495,
+        "domain_pixels": 559088,
+        "fallback_pixels": 298968,
+        "foreground_depth_pixels": 269728,
+        "hair_present_pixels": 134495,
+        "present_in_baseline_hair": 134495
+      },
+      "camera": "novel_0014",
+      "candidate": {
+        "baseline_hair_domain_pixels": 134495,
+        "domain_pixels": 559088,
+        "fallback_pixels": 291922,
+        "foreground_depth_pixels": 283065,
+        "hair_present_pixels": 136574,
+        "present_in_baseline_hair": 133160
+      },
+      "frame": 14
+    },
+    {
+      "baseline": {
+        "baseline_hair_domain_pixels": 134434,
+        "domain_pixels": 559088,
+        "fallback_pixels": 311309,
+        "foreground_depth_pixels": 256818,
+        "hair_present_pixels": 134434,
+        "present_in_baseline_hair": 134434
+      },
+      "camera": "novel_0015",
+      "candidate": {
+        "baseline_hair_domain_pixels": 134434,
+        "domain_pixels": 559088,
+        "fallback_pixels": 304364,
+        "foreground_depth_pixels": 270069,
+        "hair_present_pixels": 136496,
+        "present_in_baseline_hair": 133036
+      },
+      "frame": 15
+    }
+  ],
+  "videos": {
+    "baseline": {
+      "duration_seconds": 0.6666666666666666,
+      "encoder_binary": "/home/ubuntu/miniforge3/envs/gs2/bin/ffmpeg",
+      "encoder_library_path_override": null,
+      "fps": 24.0,
+      "frames": 16,
+      "sheets": [
+        {
+          "path": "/home/ubuntu/lookcloser_transfer/background_path_20261029/review/baseline/decoded_000.jpg",
+          "sha256": "6bb72e7c39f4e66df666667ee7aede6720601de615d66204a5e65b170b03d0ad"
+        }
+      ],
+      "video": "/home/ubuntu/lookcloser_transfer/background_path_20261029/review/baseline/video.mp4",
+      "video_sha256": "15c392906e5ca3df45936e1a8375e282765edfec140bdbeaa500bc78a41772c3"
+    },
+    "candidate": {
+      "duration_seconds": 0.6666666666666666,
+      "encoder_binary": "/home/ubuntu/miniforge3/envs/gs2/bin/ffmpeg",
+      "encoder_library_path_override": null,
+      "fps": 24.0,
+      "frames": 16,
+      "sheets": [
+        {
+          "path": "/home/ubuntu/lookcloser_transfer/background_path_20261029/review/candidate/decoded_000.jpg",
+          "sha256": "1ee2e8c14d41f64abaaec6000b73c690d9edf9392d8f113931be296784dffc43"
+        }
+      ],
+      "video": "/home/ubuntu/lookcloser_transfer/background_path_20261029/review/candidate/video.mp4",
+      "video_sha256": "6bcbc9a313e441ef81d467794d9df0116726b4a0d31fddaee000048cf47d9bc7"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "checkpoint_sha256": "7864de5b060be106c7b3557327870840a9f39036b2ca5e393a058c673c27ba4d",
+  "eval_all_lpips": 0.490131139755249,
+  "eval_all_psnr": 22.408554712931316,
+  "eval_all_ssim": 0.7767079671223959,
+  "eval_stride": 1,
+  "frozen_state_unchanged": true,
+  "per_view": [
+    {
+      "image": "frame_eval_D004_A005_12103C.png",
+      "lpips": 0.5436360239982605,
+      "psnr": 21.50541114807129,
+      "ssim": 0.7726082801818848
+    },
+    {
+      "image": "frame_eval_E004_B005_1210I7.png",
+      "lpips": 0.5102233290672302,
+      "psnr": 21.27765655517578,
+      "ssim": 0.7483128905296326
+    },
+    {
+      "image": "frame_eval_I004_D005_1210Q7.png",
+      "lpips": 0.41653406620025635,
+      "psnr": 24.442596435546875,
+      "ssim": 0.8092027306556702
+    }
+  ],
+  "selection": "native eval_all_psnr with LPIPS tie-break within .07 dB",
+  "step": 74999
+}

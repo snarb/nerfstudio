@@ -1,0 +1,667 @@
+{
+  "checkpoint_selection_unchanged": true,
+  "metric_domain": "stride3 native prediction; GT-composited masked tight hair/face crop for SSIM/LPIPS; PSNR only on semantic pixels",
+  "per_view": [
+    {
+      "arm": "control",
+      "camera": "D004_A005_12103C",
+      "lpips": 0.25196975469589233,
+      "pixels": 149948,
+      "prediction_sha256": "a007c5907d3ad8ade0911887f3350d9813a1880e46fe7a6f09f09e7e81127595",
+      "psnr": 26.435437202453613,
+      "roi": "hair",
+      "ssim": 0.783754289150238,
+      "step": 7999
+    },
+    {
+      "arm": "control",
+      "camera": "D004_A005_12103C",
+      "lpips": 0.18128320574760437,
+      "pixels": 144208,
+      "prediction_sha256": "a007c5907d3ad8ade0911887f3350d9813a1880e46fe7a6f09f09e7e81127595",
+      "psnr": 31.556713581085205,
+      "roi": "face",
+      "ssim": 0.9096288084983826,
+      "step": 7999
+    },
+    {
+      "arm": "control",
+      "camera": "E004_B005_1210I7",
+      "lpips": 0.2806403934955597,
+      "pixels": 169371,
+      "prediction_sha256": "91a0b0900ba4b6b04fc4f4e9d2abdfd171cf5b2b6145c67c9f740732264b4427",
+      "psnr": 24.859743118286133,
+      "roi": "hair",
+      "ssim": 0.7060663104057312,
+      "step": 7999
+    },
+    {
+      "arm": "control",
+      "camera": "E004_B005_1210I7",
+      "lpips": 0.21689647436141968,
+      "pixels": 176579,
+      "prediction_sha256": "91a0b0900ba4b6b04fc4f4e9d2abdfd171cf5b2b6145c67c9f740732264b4427",
+      "psnr": 29.938218593597412,
+      "roi": "face",
+      "ssim": 0.8746615648269653,
+      "step": 7999
+    },
+    {
+      "arm": "control",
+      "camera": "I004_D005_1210Q7",
+      "lpips": 0.1970486044883728,
+      "pixels": 143360,
+      "prediction_sha256": "d75bb42bc64a66e2c84d60f77a8bf6a479eee3a5a695ae207c3f4eae9ce3fa69",
+      "psnr": 23.435349464416504,
+      "roi": "hair",
+      "ssim": 0.7973707318305969,
+      "step": 7999
+    },
+    {
+      "arm": "control",
+      "camera": "I004_D005_1210Q7",
+      "lpips": 0.16706734895706177,
+      "pixels": 160480,
+      "prediction_sha256": "d75bb42bc64a66e2c84d60f77a8bf6a479eee3a5a695ae207c3f4eae9ce3fa69",
+      "psnr": 32.283339500427246,
+      "roi": "face",
+      "ssim": 0.903501570224762,
+      "step": 7999
+    },
+    {
+      "arm": "control",
+      "camera": "D004_A005_12103C",
+      "lpips": 0.24962526559829712,
+      "pixels": 149948,
+      "prediction_sha256": "b79e71313fb09bbc21e5143a2a26575c2f7adc8ce35ae340a22dd7dd6bc277ed",
+      "psnr": 26.457486152648926,
+      "roi": "hair",
+      "ssim": 0.7844648361206055,
+      "step": 9999
+    },
+    {
+      "arm": "control",
+      "camera": "D004_A005_12103C",
+      "lpips": 0.18557651340961456,
+      "pixels": 144208,
+      "prediction_sha256": "b79e71313fb09bbc21e5143a2a26575c2f7adc8ce35ae340a22dd7dd6bc277ed",
+      "psnr": 30.53173065185547,
+      "roi": "face",
+      "ssim": 0.9083910584449768,
+      "step": 9999
+    },
+    {
+      "arm": "control",
+      "camera": "E004_B005_1210I7",
+      "lpips": 0.27687782049179077,
+      "pixels": 169371,
+      "prediction_sha256": "9b1b23f2c3959abb8bf711c99af503c2f02c18b3a71fc0e910cec4dec925d65a",
+      "psnr": 24.804692268371582,
+      "roi": "hair",
+      "ssim": 0.7049744129180908,
+      "step": 9999
+    },
+    {
+      "arm": "control",
+      "camera": "E004_B005_1210I7",
+      "lpips": 0.2183533012866974,
+      "pixels": 176579,
+      "prediction_sha256": "9b1b23f2c3959abb8bf711c99af503c2f02c18b3a71fc0e910cec4dec925d65a",
+      "psnr": 29.974846839904785,
+      "roi": "face",
+      "ssim": 0.8748953342437744,
+      "step": 9999
+    },
+    {
+      "arm": "control",
+      "camera": "I004_D005_1210Q7",
+      "lpips": 0.19332049787044525,
+      "pixels": 143360,
+      "prediction_sha256": "674465f59bd63c0e79563631cd9de91a1bf87a3ea42cfc7353fe5781148c6be1",
+      "psnr": 23.564038276672363,
+      "roi": "hair",
+      "ssim": 0.7987396121025085,
+      "step": 9999
+    },
+    {
+      "arm": "control",
+      "camera": "I004_D005_1210Q7",
+      "lpips": 0.1675616055727005,
+      "pixels": 160480,
+      "prediction_sha256": "674465f59bd63c0e79563631cd9de91a1bf87a3ea42cfc7353fe5781148c6be1",
+      "psnr": 32.34894037246704,
+      "roi": "face",
+      "ssim": 0.9038663506507874,
+      "step": 9999
+    },
+    {
+      "arm": "boundary65",
+      "camera": "D004_A005_12103C",
+      "lpips": 0.2495836615562439,
+      "pixels": 149948,
+      "prediction_sha256": "d390e9596e068c740c1b53be32b977dd93acd2bf5f00ef85abd98eb76cce7b40",
+      "psnr": 26.396658420562744,
+      "roi": "hair",
+      "ssim": 0.7823505997657776,
+      "step": 7999
+    },
+    {
+      "arm": "boundary65",
+      "camera": "D004_A005_12103C",
+      "lpips": 0.18552938103675842,
+      "pixels": 144208,
+      "prediction_sha256": "d390e9596e068c740c1b53be32b977dd93acd2bf5f00ef85abd98eb76cce7b40",
+      "psnr": 30.71787118911743,
+      "roi": "face",
+      "ssim": 0.9073889255523682,
+      "step": 7999
+    },
+    {
+      "arm": "boundary65",
+      "camera": "E004_B005_1210I7",
+      "lpips": 0.27802562713623047,
+      "pixels": 169371,
+      "prediction_sha256": "6791a873b9694658aa26e064ffacdefae75908213a1615581f29f0076de54d2f",
+      "psnr": 24.741432666778564,
+      "roi": "hair",
+      "ssim": 0.7045159935951233,
+      "step": 7999
+    },
+    {
+      "arm": "boundary65",
+      "camera": "E004_B005_1210I7",
+      "lpips": 0.2159212827682495,
+      "pixels": 176579,
+      "prediction_sha256": "6791a873b9694658aa26e064ffacdefae75908213a1615581f29f0076de54d2f",
+      "psnr": 29.860737323760986,
+      "roi": "face",
+      "ssim": 0.874234676361084,
+      "step": 7999
+    },
+    {
+      "arm": "boundary65",
+      "camera": "I004_D005_1210Q7",
+      "lpips": 0.19587552547454834,
+      "pixels": 143360,
+      "prediction_sha256": "75de88cae312305753c1b8a2d7492837bf5eb6a3b4d1c4f38d7addb2a3998c28",
+      "psnr": 23.552241325378418,
+      "roi": "hair",
+      "ssim": 0.7973319888114929,
+      "step": 7999
+    },
+    {
+      "arm": "boundary65",
+      "camera": "I004_D005_1210Q7",
+      "lpips": 0.1669916957616806,
+      "pixels": 160480,
+      "prediction_sha256": "75de88cae312305753c1b8a2d7492837bf5eb6a3b4d1c4f38d7addb2a3998c28",
+      "psnr": 32.391061782836914,
+      "roi": "face",
+      "ssim": 0.9034945964813232,
+      "step": 7999
+    },
+    {
+      "arm": "boundary65",
+      "camera": "D004_A005_12103C",
+      "lpips": 0.251116007566452,
+      "pixels": 149948,
+      "prediction_sha256": "733d3b80736536a812486bb3429b415b476952851389e257bef97bc47f499ec2",
+      "psnr": 26.31436586380005,
+      "roi": "hair",
+      "ssim": 0.7820149064064026,
+      "step": 9999
+    },
+    {
+      "arm": "boundary65",
+      "camera": "D004_A005_12103C",
+      "lpips": 0.18514713644981384,
+      "pixels": 144208,
+      "prediction_sha256": "733d3b80736536a812486bb3429b415b476952851389e257bef97bc47f499ec2",
+      "psnr": 30.3259015083313,
+      "roi": "face",
+      "ssim": 0.90671306848526,
+      "step": 9999
+    },
+    {
+      "arm": "boundary65",
+      "camera": "E004_B005_1210I7",
+      "lpips": 0.27890482544898987,
+      "pixels": 169371,
+      "prediction_sha256": "a5af759a61a3aeb87d94109c0e6528bab398c8a3046ad140bcc4b9eea0e061cd",
+      "psnr": 24.726548194885254,
+      "roi": "hair",
+      "ssim": 0.7043266892433167,
+      "step": 9999
+    },
+    {
+      "arm": "boundary65",
+      "camera": "E004_B005_1210I7",
+      "lpips": 0.2172728031873703,
+      "pixels": 176579,
+      "prediction_sha256": "a5af759a61a3aeb87d94109c0e6528bab398c8a3046ad140bcc4b9eea0e061cd",
+      "psnr": 29.950625896453857,
+      "roi": "face",
+      "ssim": 0.8747170567512512,
+      "step": 9999
+    },
+    {
+      "arm": "boundary65",
+      "camera": "I004_D005_1210Q7",
+      "lpips": 0.19517512619495392,
+      "pixels": 143360,
+      "prediction_sha256": "a071a90085480bcbe9396f7091564619bfe3656a1060e2dcf9c8bbaee9a44a46",
+      "psnr": 23.488378524780273,
+      "roi": "hair",
+      "ssim": 0.797247588634491,
+      "step": 9999
+    },
+    {
+      "arm": "boundary65",
+      "camera": "I004_D005_1210Q7",
+      "lpips": 0.1678548902273178,
+      "pixels": 160480,
+      "prediction_sha256": "a071a90085480bcbe9396f7091564619bfe3656a1060e2dcf9c8bbaee9a44a46",
+      "psnr": 32.378408908843994,
+      "roi": "face",
+      "ssim": 0.9035862684249878,
+      "step": 9999
+    },
+    {
+      "arm": "frequency",
+      "camera": "D004_A005_12103C",
+      "lpips": 0.24985697865486145,
+      "pixels": 149948,
+      "prediction_sha256": "71aae43a845a58d6ce6a847892ea396fe2e5770c3bb0a14ef92ce18bf32c228c",
+      "psnr": 26.530375480651855,
+      "roi": "hair",
+      "ssim": 0.7842394113540649,
+      "step": 7999
+    },
+    {
+      "arm": "frequency",
+      "camera": "D004_A005_12103C",
+      "lpips": 0.17902518808841705,
+      "pixels": 144208,
+      "prediction_sha256": "71aae43a845a58d6ce6a847892ea396fe2e5770c3bb0a14ef92ce18bf32c228c",
+      "psnr": 31.589031219482422,
+      "roi": "face",
+      "ssim": 0.9099629521369934,
+      "step": 7999
+    },
+    {
+      "arm": "frequency",
+      "camera": "E004_B005_1210I7",
+      "lpips": 0.2763635814189911,
+      "pixels": 169371,
+      "prediction_sha256": "3f4b31342defbc369dc20f92dd5fa86ef1452e6c141d8a82fd8ebe0c78be34e8",
+      "psnr": 24.81980800628662,
+      "roi": "hair",
+      "ssim": 0.7052608132362366,
+      "step": 7999
+    },
+    {
+      "arm": "frequency",
+      "camera": "E004_B005_1210I7",
+      "lpips": 0.2159826159477234,
+      "pixels": 176579,
+      "prediction_sha256": "3f4b31342defbc369dc20f92dd5fa86ef1452e6c141d8a82fd8ebe0c78be34e8",
+      "psnr": 29.936747550964355,
+      "roi": "face",
+      "ssim": 0.8746305704116821,
+      "step": 7999
+    },
+    {
+      "arm": "frequency",
+      "camera": "I004_D005_1210Q7",
+      "lpips": 0.19438132643699646,
+      "pixels": 143360,
+      "prediction_sha256": "9dc83d958069834600ecdb14dbafb661fc49885e59c5cd651bfbe44892c384c9",
+      "psnr": 23.501789569854736,
+      "roi": "hair",
+      "ssim": 0.7982784509658813,
+      "step": 7999
+    },
+    {
+      "arm": "frequency",
+      "camera": "I004_D005_1210Q7",
+      "lpips": 0.16452346742153168,
+      "pixels": 160480,
+      "prediction_sha256": "9dc83d958069834600ecdb14dbafb661fc49885e59c5cd651bfbe44892c384c9",
+      "psnr": 32.391061782836914,
+      "roi": "face",
+      "ssim": 0.9035627245903015,
+      "step": 7999
+    },
+    {
+      "arm": "frequency",
+      "camera": "D004_A005_12103C",
+      "lpips": 0.2549717426300049,
+      "pixels": 149948,
+      "prediction_sha256": "276ca1ff26fcbc30b74e5edc70cabeb9d38f5d6458f79527e99b27824d986b55",
+      "psnr": 26.390461921691895,
+      "roi": "hair",
+      "ssim": 0.7832493782043457,
+      "step": 9999
+    },
+    {
+      "arm": "frequency",
+      "camera": "D004_A005_12103C",
+      "lpips": 0.18421024084091187,
+      "pixels": 144208,
+      "prediction_sha256": "276ca1ff26fcbc30b74e5edc70cabeb9d38f5d6458f79527e99b27824d986b55",
+      "psnr": 31.226513385772705,
+      "roi": "face",
+      "ssim": 0.9093354940414429,
+      "step": 9999
+    },
+    {
+      "arm": "frequency",
+      "camera": "E004_B005_1210I7",
+      "lpips": 0.27915579080581665,
+      "pixels": 169371,
+      "prediction_sha256": "1abcb1659ab782e98efc49e424f0b7f5df6187ead88aa7a4e73a7725a50b0705",
+      "psnr": 24.848408699035645,
+      "roi": "hair",
+      "ssim": 0.7060739398002625,
+      "step": 9999
+    },
+    {
+      "arm": "frequency",
+      "camera": "E004_B005_1210I7",
+      "lpips": 0.2210599184036255,
+      "pixels": 176579,
+      "prediction_sha256": "1abcb1659ab782e98efc49e424f0b7f5df6187ead88aa7a4e73a7725a50b0705",
+      "psnr": 30.013811588287354,
+      "roi": "face",
+      "ssim": 0.8752188086509705,
+      "step": 9999
+    },
+    {
+      "arm": "frequency",
+      "camera": "I004_D005_1210Q7",
+      "lpips": 0.19725240767002106,
+      "pixels": 143360,
+      "prediction_sha256": "a2eeb583fc1f86db5bad6519444e62e03402e20df5b1687f0fe63a837d82d921",
+      "psnr": 23.58713388442993,
+      "roi": "hair",
+      "ssim": 0.7974489331245422,
+      "step": 9999
+    },
+    {
+      "arm": "frequency",
+      "camera": "I004_D005_1210Q7",
+      "lpips": 0.16966581344604492,
+      "pixels": 160480,
+      "prediction_sha256": "a2eeb583fc1f86db5bad6519444e62e03402e20df5b1687f0fe63a837d82d921",
+      "psnr": 32.340354919433594,
+      "roi": "face",
+      "ssim": 0.9038543701171875,
+      "step": 9999
+    },
+    {
+      "arm": "frequency_boundary65",
+      "camera": "D004_A005_12103C",
+      "lpips": 0.253303587436676,
+      "pixels": 149948,
+      "prediction_sha256": "f2c5ea5e9d1deecf83d37911ca01408f982b88a3e9034f809ed1276d1d946af6",
+      "psnr": 26.386325359344482,
+      "roi": "hair",
+      "ssim": 0.7822456359863281,
+      "step": 7999
+    },
+    {
+      "arm": "frequency_boundary65",
+      "camera": "D004_A005_12103C",
+      "lpips": 0.18446093797683716,
+      "pixels": 144208,
+      "prediction_sha256": "f2c5ea5e9d1deecf83d37911ca01408f982b88a3e9034f809ed1276d1d946af6",
+      "psnr": 30.50234317779541,
+      "roi": "face",
+      "ssim": 0.9072640538215637,
+      "step": 7999
+    },
+    {
+      "arm": "frequency_boundary65",
+      "camera": "E004_B005_1210I7",
+      "lpips": 0.2782507538795471,
+      "pixels": 169371,
+      "prediction_sha256": "9d8c6e02ef71177cbaeea67a323220934fd49e7c668715ed30efe1290a5262d8",
+      "psnr": 24.7808575630188,
+      "roi": "hair",
+      "ssim": 0.7053480744361877,
+      "step": 7999
+    },
+    {
+      "arm": "frequency_boundary65",
+      "camera": "E004_B005_1210I7",
+      "lpips": 0.21547769010066986,
+      "pixels": 176579,
+      "prediction_sha256": "9d8c6e02ef71177cbaeea67a323220934fd49e7c668715ed30efe1290a5262d8",
+      "psnr": 29.950006008148193,
+      "roi": "face",
+      "ssim": 0.8744978308677673,
+      "step": 7999
+    },
+    {
+      "arm": "frequency_boundary65",
+      "camera": "I004_D005_1210Q7",
+      "lpips": 0.19557565450668335,
+      "pixels": 143360,
+      "prediction_sha256": "ab2e881f991a006f423f25f510646a05f157618ad3692b4e43a9c37ec94b4d2c",
+      "psnr": 23.540489673614502,
+      "roi": "hair",
+      "ssim": 0.7969606518745422,
+      "step": 7999
+    },
+    {
+      "arm": "frequency_boundary65",
+      "camera": "I004_D005_1210Q7",
+      "lpips": 0.16519123315811157,
+      "pixels": 160480,
+      "prediction_sha256": "ab2e881f991a006f423f25f510646a05f157618ad3692b4e43a9c37ec94b4d2c",
+      "psnr": 32.37299680709839,
+      "roi": "face",
+      "ssim": 0.9034826755523682,
+      "step": 7999
+    },
+    {
+      "arm": "frequency_boundary65",
+      "camera": "D004_A005_12103C",
+      "lpips": 0.252083957195282,
+      "pixels": 149948,
+      "prediction_sha256": "5a6b0e74c80c54ffe06847f705aec86cc0ca403e3e5539a72da5712b7c562c11",
+      "psnr": 26.39714241027832,
+      "roi": "hair",
+      "ssim": 0.7822490930557251,
+      "step": 9999
+    },
+    {
+      "arm": "frequency_boundary65",
+      "camera": "D004_A005_12103C",
+      "lpips": 0.1885252296924591,
+      "pixels": 144208,
+      "prediction_sha256": "5a6b0e74c80c54ffe06847f705aec86cc0ca403e3e5539a72da5712b7c562c11",
+      "psnr": 30.333280563354492,
+      "roi": "face",
+      "ssim": 0.9077799916267395,
+      "step": 9999
+    },
+    {
+      "arm": "frequency_boundary65",
+      "camera": "E004_B005_1210I7",
+      "lpips": 0.27731361985206604,
+      "pixels": 169371,
+      "prediction_sha256": "2dacdd5c5b98f8b428de80ade12e71ae751dc352a1f5aeffb45d49e5b8c07f58",
+      "psnr": 24.724957942962646,
+      "roi": "hair",
+      "ssim": 0.704211413860321,
+      "step": 9999
+    },
+    {
+      "arm": "frequency_boundary65",
+      "camera": "E004_B005_1210I7",
+      "lpips": 0.21618252992630005,
+      "pixels": 176579,
+      "prediction_sha256": "2dacdd5c5b98f8b428de80ade12e71ae751dc352a1f5aeffb45d49e5b8c07f58",
+      "psnr": 29.963860511779785,
+      "roi": "face",
+      "ssim": 0.8747841715812683,
+      "step": 9999
+    },
+    {
+      "arm": "frequency_boundary65",
+      "camera": "I004_D005_1210Q7",
+      "lpips": 0.1942419409751892,
+      "pixels": 143360,
+      "prediction_sha256": "1f86281c08def9918eaa8b60666b96319eb7ef00e3c2282361cf50087b24b7f4",
+      "psnr": 23.50454807281494,
+      "roi": "hair",
+      "ssim": 0.7976006865501404,
+      "step": 9999
+    },
+    {
+      "arm": "frequency_boundary65",
+      "camera": "I004_D005_1210Q7",
+      "lpips": 0.16532626748085022,
+      "pixels": 160480,
+      "prediction_sha256": "1f86281c08def9918eaa8b60666b96319eb7ef00e3c2282361cf50087b24b7f4",
+      "psnr": 32.3237943649292,
+      "roi": "face",
+      "ssim": 0.9039144515991211,
+      "step": 9999
+    }
+  ],
+  "prototype_geometry_improvement_not_established": true,
+  "reference_cameras_sha256": "4de73c22ba1ffe4782852fa675f371ef867a0206b7aa6273c8a2c5fa76e6698f",
+  "summary": [
+    {
+      "arm": "boundary65",
+      "lpips": 0.2411616047223409,
+      "psnr": 24.896777470906574,
+      "roi": "hair",
+      "ssim": 0.761399527390798,
+      "step": 7999
+    },
+    {
+      "arm": "boundary65",
+      "lpips": 0.18948078652222952,
+      "psnr": 30.989890098571777,
+      "roi": "face",
+      "ssim": 0.8950393994649252,
+      "step": 7999
+    },
+    {
+      "arm": "boundary65",
+      "lpips": 0.24173198640346527,
+      "psnr": 24.843097527821858,
+      "roi": "hair",
+      "ssim": 0.7611963947614034,
+      "step": 9999
+    },
+    {
+      "arm": "boundary65",
+      "lpips": 0.19009160995483398,
+      "psnr": 30.884978771209717,
+      "roi": "face",
+      "ssim": 0.895005464553833,
+      "step": 9999
+    },
+    {
+      "arm": "control",
+      "lpips": 0.24321958422660828,
+      "psnr": 24.910176595052082,
+      "roi": "hair",
+      "ssim": 0.7623971104621887,
+      "step": 7999
+    },
+    {
+      "arm": "control",
+      "lpips": 0.18841567635536194,
+      "psnr": 31.25942389170329,
+      "roi": "face",
+      "ssim": 0.8959306478500366,
+      "step": 7999
+    },
+    {
+      "arm": "control",
+      "lpips": 0.23994119465351105,
+      "psnr": 24.94207223256429,
+      "roi": "hair",
+      "ssim": 0.7627262870470682,
+      "step": 9999
+    },
+    {
+      "arm": "control",
+      "lpips": 0.1904971400896708,
+      "psnr": 30.951839288075764,
+      "roi": "face",
+      "ssim": 0.8957175811131796,
+      "step": 9999
+    },
+    {
+      "arm": "frequency",
+      "lpips": 0.24020062883694968,
+      "psnr": 24.950657685597736,
+      "roi": "hair",
+      "ssim": 0.7625928918520609,
+      "step": 7999
+    },
+    {
+      "arm": "frequency",
+      "lpips": 0.18651042381922403,
+      "psnr": 31.30561351776123,
+      "roi": "face",
+      "ssim": 0.896052082379659,
+      "step": 7999
+    },
+    {
+      "arm": "frequency",
+      "lpips": 0.24379331370194754,
+      "psnr": 24.942001501719158,
+      "roi": "hair",
+      "ssim": 0.7622574170430502,
+      "step": 9999
+    },
+    {
+      "arm": "frequency",
+      "lpips": 0.1916453242301941,
+      "psnr": 31.193559964497883,
+      "roi": "face",
+      "ssim": 0.8961362242698669,
+      "step": 9999
+    },
+    {
+      "arm": "frequency_boundary65",
+      "lpips": 0.24237666527430216,
+      "psnr": 24.902557531992596,
+      "roi": "hair",
+      "ssim": 0.761518120765686,
+      "step": 7999
+    },
+    {
+      "arm": "frequency_boundary65",
+      "lpips": 0.18837662041187286,
+      "psnr": 30.941781997680664,
+      "roi": "face",
+      "ssim": 0.8950815200805664,
+      "step": 7999
+    },
+    {
+      "arm": "frequency_boundary65",
+      "lpips": 0.24121317267417908,
+      "psnr": 24.87554947535197,
+      "roi": "hair",
+      "ssim": 0.7613537311553955,
+      "step": 9999
+    },
+    {
+      "arm": "frequency_boundary65",
+      "lpips": 0.19001134236653647,
+      "psnr": 30.873645146687824,
+      "roi": "face",
+      "ssim": 0.8954928716023763,
+      "step": 9999
+    }
+  ],
+  "uses_validation_rgb_for_metrics_only": true
+}

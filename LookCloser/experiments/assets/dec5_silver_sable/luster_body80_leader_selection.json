@@ -1,0 +1,58 @@
+{
+  "time": 1792223746.578172,
+  "status": "bounded_search_complete_with_documented_geometry_limitations",
+  "recommended_training": {
+    "arm": "cold_body80_fas50_threshold095_zero",
+    "step": 91128,
+    "metrics": {
+      "psnr": 28.968163172403973,
+      "ssim": 0.9119960504281245,
+      "lpips": 0.07282727087537448
+    },
+    "person_lpips_reduction_percent": 13.816481897354905,
+    "ancestry_training_minutes": 80.8179863969485,
+    "checkpoint": "/fsx/tmp/luster_000540_body_opt_20261016/runs/cold_body80_fas50_threshold095_zero/G091128/field/lookcloser/run/nerfstudio_models/step-000091128.ckpt",
+    "render": "/fsx/tmp/luster_000540_body_opt_20261016/evaluations/cold_body80_fas50_threshold095_zero/000091128/full_review/cam007.png"
+  },
+  "recommended_existing_checkpoint": {
+    "arm": "cold_body80_fas50_threshold095_zero",
+    "step": 106316,
+    "metrics": {
+      "psnr": 28.938582102457683,
+      "ssim": 0.9117295431808841,
+      "lpips": 0.07260231797893842
+    },
+    "person_lpips_reduction_percent": 14.082690307874868,
+    "ancestry_training_minutes": 94.58669601678848,
+    "checkpoint": "/fsx/tmp/luster_000540_body_opt_20261016/runs/cold_body80_fas50_threshold095_zero/G106316/field/lookcloser/run/nerfstudio_models/step-000106316.ckpt",
+    "render": "/fsx/tmp/luster_000540_body_opt_20261016/evaluations/cold_body80_fas50_threshold095_zero/000106316/full_review/cam007.png"
+  },
+  "numerical_best": {
+    "time": 1792188097.1258702,
+    "arm": "late_control",
+    "step": 108316,
+    "lpips": 0.07210023080309232,
+    "quality": "numerical_best_skin_and_fine_topology_gate_incomplete",
+    "full_recipe_validation": "Full schedule plus2000 control updates reviewed; skin grain/fine topology limitations remain",
+    "render": "/fsx/tmp/luster_000540_body_opt_20261016/evaluations/late_control/000108316/full_review/cam007.png"
+  },
+  "baseline": {
+    "psnr": 29.56973648071289,
+    "ssim": 0.9051045967253533,
+    "lpips": 0.08450255046288173
+  },
+  "reason": "Threshold .95 with legacy-zero grid gives near-best whole-person LPIPS while preserving substantially cleaner cheek than unknown-max numerical winner. Extra15188 updates gain only .00022495; all four late body/LR arms fail to improve parent materially.",
+  "limitations": [
+    "One seed on one frame; validation012/095/150 used in selection, not untouched test",
+    "Fine lace holes/eye shape remain wrong; geometry acceptance is not fully satisfied",
+    "Training ancestry times exclude 3h23m paired2D preparation, evaluation, review and abandoned trials",
+    "No transfer or full-video training"
+  ],
+  "preserved": [
+    "fixed common video AABB",
+    "noncumulative occupancy dilation one cell",
+    "unmasked RGB",
+    "all162 TRAIN cameras, heldout excluded"
+  ],
+  "completed": 1792223931.7125423
+}

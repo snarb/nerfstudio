@@ -1,0 +1,1288 @@
+{
+  "resumed_by_user_utc": "2026-10-28T13:41:00+00:00",
+  "resume_policy": "User asked to continue after idle interval; remaining 16 physical GPU-device-hour cap retained; finish evaluation of existing models",
+  "wall_deadline_elapsed": true,
+  "time": "2026-10-28T14:26:08.095474+00:00",
+  "prior_gpu_upper_hours": 1.6713130677,
+  "setup_margin_hours": 0.25,
+  "controllers": [
+    {
+      "host": "clever-shadow",
+      "controller": "model_smoke_control",
+      "start": 1793129815.6275263,
+      "stop": 1793129845.7147126,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "model_smoke_exp_control",
+      "start": 1793130541.5463018,
+      "stop": 1793130571.635249,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "b0_correspondence_control",
+      "start": 1793130695.012411,
+      "stop": 1793130725.1017237,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "hair95_control",
+      "start": 1793133453.395216,
+      "stop": 1793135017.0181508,
+      "status": "complete",
+      "returncode": -15,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "b0_density_mass_control",
+      "start": 1793131053.262897,
+      "stop": 1793131083.353977,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "subject50k_eval_control",
+      "start": 1793134468.2976782,
+      "stop": 1793134618.6625168,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "native_export_test_control",
+      "start": 1793131423.5650446,
+      "stop": 1793131453.63374,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "b0_final_reference_control",
+      "start": 1793131580.5976725,
+      "stop": 1793131610.6606293,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "hair20k_eval_control",
+      "start": 1793134492.5863273,
+      "stop": 1793134642.9407506,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "neuralvis20k_control",
+      "start": 1793133865.867543,
+      "stop": 1793135218.966069,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "runtime_smoke_control",
+      "start": 1793131891.1941981,
+      "stop": 1793131921.2561035,
+      "status": "complete",
+      "returncode": 1,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "paper20k_source_export_control",
+      "start": 1793133454.5673397,
+      "stop": 1793135168.4394553,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "runtime_smoke_v2_control",
+      "start": 1793132372.8251965,
+      "stop": 1793132432.9778051,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "paper_fas_control",
+      "start": 1793132433.1439202,
+      "stop": 1793132733.8224852,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "subject90_control",
+      "start": 1793132949.390938,
+      "stop": 1793133520.728513,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "paper_proxy_control",
+      "start": 1793133075.183937,
+      "stop": 1793133105.230089,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "subject90_long_control",
+      "start": 1793133528.1898422,
+      "stop": 1793137166.7421722,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "paper_continuation_control",
+      "start": 1793133308.3048625,
+      "stop": 1793133338.3706396,
+      "status": "complete",
+      "returncode": -15,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "paper20k_export_control",
+      "start": 1793133309.4585598,
+      "stop": 1793133369.5769663,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "paper_long_control",
+      "start": 1793133345.436332,
+      "stop": 1793137013.9523718,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "paper20k_receiver_control",
+      "start": 1793133356.0319328,
+      "stop": 1793133416.1713738,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "subject20k_eval_control",
+      "start": 1793133539.14265,
+      "stop": 1793133689.5017095,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "median_proxy_control",
+      "start": 1793134801.337148,
+      "stop": 1793134831.410742,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "subject50k_median_eval_control",
+      "start": 1793134935.816087,
+      "stop": 1793135086.1604218,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "median_pilot_control",
+      "start": 1793135149.9036381,
+      "stop": 1793135179.96643,
+      "status": "complete",
+      "returncode": 1,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "subject50k_source_export_control",
+      "start": 1793135150.576387,
+      "stop": 1793137496.113723,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "subject_selected_median_control",
+      "start": 1793135181.469576,
+      "stop": 1793135331.7966492,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "median_quota_matrix_control",
+      "start": 1793135811.5199018,
+      "stop": 1793136112.2089531,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "median_pilot_v2_control",
+      "start": 1793135233.792343,
+      "stop": 1793135775.0725079,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "head_bce5k_median_eval_control",
+      "start": 1793135750.3600254,
+      "stop": 1793135870.6122844,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "source_priority_v3_control",
+      "start": 1793137774.6312916,
+      "stop": 1793137955.4820251,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "bce_pilot_control",
+      "start": 1793136082.538638,
+      "stop": 1793136503.491716,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "shared_surface_eval_control",
+      "start": 1793137806.9754045,
+      "stop": 1793137897.2553265,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "neuralvis50k_control",
+      "start": 1793136153.085523,
+      "stop": 1793137566.275337,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "source_priority_control",
+      "start": 1793136872.141273,
+      "stop": 1793136932.2880325,
+      "status": "complete",
+      "returncode": -15,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "paper_final_control",
+      "start": 1793137816.4907057,
+      "stop": 1793139141.9282513,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "source_priority_v2_control",
+      "start": 1793137025.2068706,
+      "stop": 1793137205.5967555,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "subject90_final_control",
+      "start": 1793137184.0935826,
+      "stop": 1793137816.287787,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "bce5k_source_export_control",
+      "start": 1793137426.8168416,
+      "stop": 1793139203.0505214,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "joint_pilot_control",
+      "start": 1793137969.9847174,
+      "stop": 1793138331.3144784,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "subject75k_source_export_control",
+      "start": 1793138092.3024385,
+      "stop": 1793140592.9376068,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "subject75k_median_eval_control",
+      "start": 1793138093.4745352,
+      "stop": 1793138304.315977,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "marcher_convergence_control",
+      "start": 1793141359.9983177,
+      "stop": 1793141390.045621,
+      "status": "complete",
+      "returncode": 1,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "full75_receiver_control",
+      "start": 1793142155.402066,
+      "stop": 1793142727.1395595,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "subject75k_full_export_control",
+      "start": 1793140369.92057,
+      "stop": 1793142236.0624607,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "joint75_pilot_control",
+      "start": 1793140834.0225174,
+      "stop": 1793141466.3756459,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "marcher_convergence_v2_control",
+      "start": 1793141483.656443,
+      "stop": 1793141513.7850008,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "dense_selected_eval_control",
+      "start": 1793142176.2638652,
+      "stop": 1793142206.4735417,
+      "status": "complete",
+      "returncode": 1,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "dense_selected_eval_v2_control",
+      "start": 1793142195.25815,
+      "stop": 1793142315.5525873,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "isosurface_control",
+      "start": 1793142998.229871,
+      "stop": 1793143028.2986434,
+      "status": "complete",
+      "returncode": 1,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "dense_latest_eval_control",
+      "start": 1793142222.2778618,
+      "stop": 1793142342.6877408,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "isosurface_v2_control",
+      "start": 1793143056.0795407,
+      "stop": 1793143176.6767094,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "dense_joint_control",
+      "start": 1793142352.2702806,
+      "stop": 1793144999.6917057,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "semantic_sources_control",
+      "start": 1793142599.3313138,
+      "stop": 1793142629.425562,
+      "status": "complete",
+      "returncode": 1,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "bce_joint_control",
+      "start": 1793142632.273793,
+      "stop": 1793142662.3389387,
+      "status": "complete",
+      "returncode": 1,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "semantic_sources_v2_control",
+      "start": 1793142757.9157217,
+      "stop": 1793142848.1195664,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "bce_joint_v2_control",
+      "start": 1793142759.0979419,
+      "stop": 1793142849.3155491,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "iso_pilot_control",
+      "start": 1793143296.0290198,
+      "stop": 1793143597.2076008,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "split_selected_eval_control",
+      "start": 1793143345.007967,
+      "stop": 1793143525.5805643,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "split_latest_eval_control",
+      "start": 1793143345.0048907,
+      "stop": 1793143525.5605638,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "centered_eval_control",
+      "start": 1793144153.8599327,
+      "stop": 1793144514.9944506,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "head30_eval_control",
+      "start": 1793144261.0213966,
+      "stop": 1793144381.3173316,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "global_background_control",
+      "start": 1793144657.6076155,
+      "stop": 1793144747.8470435,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "foundation_stereo_control",
+      "start": 1793145345.3948708,
+      "stop": 1793145375.4396331,
+      "status": "complete",
+      "returncode": 1,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "dense_full_control",
+      "start": 1793145346.9332724,
+      "stop": 1793147513.6650999,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "foundation_stereo_v2_control",
+      "start": 1793145538.1593716,
+      "stop": 1793145568.2356653,
+      "status": "complete",
+      "returncode": 1,
+      "oom_evidence": true
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "foundation_stereo_coarse_control",
+      "start": 1793145812.923689,
+      "stop": 1793145842.9956112,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "fr_off_eval_control",
+      "start": 1793146098.060827,
+      "stop": 1793146398.9270551,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "head_layer_probe_control",
+      "start": 1793146786.384984,
+      "stop": 1793146816.4578578,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "foundation_stereo_full_control",
+      "start": 1793148438.727388,
+      "stop": 1793148468.7955556,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "scoped_head_targets_control",
+      "start": 1793149525.143899,
+      "stop": 1793149615.5096424,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "scoped_head_sources_control",
+      "start": 1793149526.7961357,
+      "stop": 1793150249.3182256,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "scoped_head_composite_control",
+      "start": 1793150065.6837583,
+      "stop": 1793150306.2387266,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "scoped_geometry_control",
+      "start": 1793150339.0523434,
+      "stop": 1793150369.1263711,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "visibility_control",
+      "start": 1793150381.9377224,
+      "stop": 1793150442.1169012,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "scoped_opaque_control",
+      "start": 1793150501.715755,
+      "stop": 1793150561.8696604,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "scoped_pilot_export_control",
+      "start": 1793150508.0611541,
+      "stop": 1793150839.175426,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "source_rgba_pilot_control",
+      "start": 1793151140.2036831,
+      "stop": 1793151230.432416,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "scoped_pilot_review_control",
+      "start": 1793150675.9037552,
+      "stop": 1793150976.8135946,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "intrinsic_probe_control",
+      "start": 1793150832.8361382,
+      "stop": 1793150862.9175627,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "scoped_source_rgba_control",
+      "start": 1793151045.0765157,
+      "stop": 1793151105.2616096,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "source_rgba_full_control",
+      "start": 1793151262.2049165,
+      "stop": 1793153156.6697927,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "target_multiview_control",
+      "start": 1793151670.5819151,
+      "stop": 1793151790.8566506,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "joint_head_eval_control",
+      "start": 1793152114.756529,
+      "stop": 1793152986.6729474,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "source_rgba_v2_static_control",
+      "start": 1793152288.5669415,
+      "stop": 1793152318.6372776,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "source_rgba_v2_pilot_control",
+      "start": 1793152755.8555584,
+      "stop": 1793152846.066592,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "joint_head_pilot_control",
+      "start": 1793153188.6720448,
+      "stop": 1793153489.3865302,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "native_uncertain_control",
+      "start": 1793153634.103681,
+      "stop": 1793153694.228304,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "view_independent_eval_control",
+      "start": 1793153683.5788548,
+      "stop": 1793153803.8566194,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "joint_depth_proxy_control",
+      "start": 1793159581.3316724,
+      "stop": 1793159611.4217842,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "boundary_uncertain_control",
+      "start": 1793153878.8647947,
+      "stop": 1793153908.9144628,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "native1055_frequency_last39_v2_control",
+      "start": 1793159161.6535976,
+      "stop": 1793161929.8478968,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "view_sources_control",
+      "start": 1793154201.746009,
+      "stop": 1793154833.2012286,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "joint_head_full_control",
+      "start": 1793154285.856723,
+      "stop": 1793156029.8156464,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "boundary_pilot_control",
+      "start": 1793155056.1302772,
+      "stop": 1793155116.2747455,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "native1055_frequency_last39_control",
+      "start": 1793157034.7170265,
+      "stop": 1793157064.7875648,
+      "status": "complete",
+      "returncode": 1,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "locked_test_control",
+      "start": 1793157789.4329681,
+      "stop": 1793158571.1725633,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "native1055_semantics_control",
+      "start": 1793157882.7269719,
+      "stop": 1793157912.800121,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "native1055_native_train_control",
+      "start": 1793162342.3313375,
+      "stop": 1793162763.2183466,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "native1055_occupancy_probe_control",
+      "start": 1793163233.1228359,
+      "stop": 1793163263.1997,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "native1055_quantile_parity_control",
+      "start": 1793163700.506433,
+      "stop": 1793163730.5578234,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "native1055_ray_background_control",
+      "start": 1793165633.6284833,
+      "stop": 1793165663.705514,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "native1055_reference_control",
+      "start": 1793166565.0614836,
+      "stop": 1793166595.1257985,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "native1055_background_separation_train_control",
+      "start": 1793167344.4084234,
+      "stop": 1793167374.475693,
+      "status": "complete",
+      "returncode": 2,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "native1055_background_separation_train_v2_control",
+      "start": 1793167779.6346204,
+      "stop": 1793168110.4127758,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "native1055_background_separated_export_control",
+      "start": 1793168545.2167158,
+      "stop": 1793169026.2761824,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "native1055_fg_separation_probe_control",
+      "start": 1793169104.35255,
+      "stop": 1793169134.4296758,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "native1055_bg_known_train_control",
+      "start": 1793169818.1164868,
+      "stop": 1793169908.3257437,
+      "status": "complete",
+      "returncode": 1,
+      "oom_evidence": false
+    },
+    {
+      "host": "clever-shadow",
+      "controller": "native1055_bg_known_train_v2_control",
+      "start": 1793170151.7956953,
+      "stop": 1793170362.2717254,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "dev3",
+      "controller": "dense_guidance_control",
+      "start": 1793140103.978667,
+      "stop": 1793140134.0503309,
+      "status": "complete",
+      "returncode": 1,
+      "oom_evidence": false
+    },
+    {
+      "host": "dev3",
+      "controller": "native1055_direct_control",
+      "start": 1793166200.1580515,
+      "stop": 1793166651.4235427,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "dev3",
+      "controller": "native1055_best_benchmark_control",
+      "start": 1793166188.6836708,
+      "stop": 1793167903.0303347,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "dev3",
+      "controller": "native1055_raybg_baselines_control",
+      "start": 1793170281.5071807,
+      "stop": 1793170552.2657783,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "dev3",
+      "controller": "head_bernoulli_control",
+      "start": 1793135115.3301387,
+      "stop": 1793137009.9153922,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "dev3",
+      "controller": "native1055_fg5k_evaluate_control",
+      "start": 1793194981.2018063,
+      "stop": 1793195131.5990589,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "dev3",
+      "controller": "density_centered_control",
+      "start": 1793143462.9839518,
+      "stop": 1793144094.3901258,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "dev3",
+      "controller": "head_joint_v2_control",
+      "start": 1793151274.6114688,
+      "stop": 1793152176.8567564,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "dev3",
+      "controller": "head_joint_control",
+      "start": 1793151213.052193,
+      "stop": 1793151243.1150007,
+      "status": "complete",
+      "returncode": 1,
+      "oom_evidence": false
+    },
+    {
+      "host": "dev3",
+      "controller": "native1055_frequency_first20_resume_control",
+      "start": 1793159928.1858299,
+      "stop": 1793160439.5156856,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "dev3",
+      "controller": "view_independent_control",
+      "start": 1793152198.1441894,
+      "stop": 1793153160.4381895,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "dev3",
+      "controller": "foreground_volume_control",
+      "start": 1793133856.9537213,
+      "stop": 1793134428.540364,
+      "status": "complete",
+      "returncode": -15,
+      "oom_evidence": false
+    },
+    {
+      "host": "dev3",
+      "controller": "view_native_best_control",
+      "start": 1793154286.4858594,
+      "stop": 1793154466.9147978,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "dev3",
+      "controller": "native1055_known_bg_separation_probe_v2_control",
+      "start": 1793197525.8307672,
+      "stop": 1793197567.817716,
+      "status": "active",
+      "returncode": null,
+      "oom_evidence": null
+    },
+    {
+      "host": "dev3",
+      "controller": "native1055_benchmark_control",
+      "start": 1793163180.221099,
+      "stop": 1793166187.3650184,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "dev3",
+      "controller": "fr_off_control",
+      "start": 1793144015.3542416,
+      "stop": 1793145759.4728758,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "dev3",
+      "controller": "native_cache_repeat_control",
+      "start": 1793161510.0706856,
+      "stop": 1793161540.160999,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "dev3",
+      "controller": "density_split_control",
+      "start": 1793142468.1624894,
+      "stop": 1793142498.2505305,
+      "status": "complete",
+      "returncode": 1,
+      "oom_evidence": false
+    },
+    {
+      "host": "dev3",
+      "controller": "native_cache_smoke_control",
+      "start": 1793161416.9492989,
+      "stop": 1793161447.044551,
+      "status": "complete",
+      "returncode": 1,
+      "oom_evidence": false
+    },
+    {
+      "host": "dev3",
+      "controller": "native1055_sparse_control",
+      "start": 1793157122.7617488,
+      "stop": 1793157152.8644395,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "dev3",
+      "controller": "native1055_frequency_first20_control",
+      "start": 1793157034.5451882,
+      "stop": 1793159922.438153,
+      "status": "complete",
+      "returncode": -15,
+      "oom_evidence": false
+    },
+    {
+      "host": "dev3",
+      "controller": "dense_global_eval_control",
+      "start": 1793141542.428996,
+      "stop": 1793141572.4914079,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "dev3",
+      "controller": "scoped_native_best_control",
+      "start": 1793151714.4676762,
+      "stop": 1793152015.3138802,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "dev3",
+      "controller": "native_hd_control",
+      "start": 1793142214.790953,
+      "stop": 1793142395.2622523,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "dev3",
+      "controller": "native_selected_cohort_control",
+      "start": 1793146184.1012726,
+      "stop": 1793146665.2974117,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "dev3",
+      "controller": "scoped_head_control",
+      "start": 1793148081.2278504,
+      "stop": 1793148893.1755812,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "dev3",
+      "controller": "head_volume_control",
+      "start": 1793134415.0104535,
+      "stop": 1793135106.6266456,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "dev3",
+      "controller": "dense_guidance_v2_control",
+      "start": 1793140214.666492,
+      "stop": 1793140605.5832965,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "dev3",
+      "controller": "head_appearance_refit_control",
+      "start": 1793150655.0566075,
+      "stop": 1793151045.9991229,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "dev3",
+      "controller": "density_split_v2_control",
+      "start": 1793142520.5782456,
+      "stop": 1793143182.1411123,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "dev3",
+      "controller": "native1055_portability_probe_control",
+      "start": 1793163346.0016823,
+      "stop": 1793163406.1912696,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    },
+    {
+      "host": "dev3",
+      "controller": "native1055_hd_train_control",
+      "start": 1793162203.7176144,
+      "stop": 1793163166.0220814,
+      "status": "complete",
+      "returncode": 0,
+      "oom_evidence": false
+    }
+  ],
+  "device_union_hours": {
+    "clever-shadow": 7.176044464839829,
+    "dev3": 5.591495512127876
+  },
+  "aggregate_gpu_upper_hours": 14.688853044667704,
+  "process_wall_sum_upper_hours": 21.702744708550174,
+  "maximum_gpu_hours": 16,
+  "deadline_utc": "2026-10-28T10:57:38+00:00",
+  "method": "Pinned preparation upper bound + setup margin + union of post-preparation controller intervals per physical GPU; includes CPU idle. Concurrent jobs on one GPU count once. Frequency preparation is not counted twice."
+}

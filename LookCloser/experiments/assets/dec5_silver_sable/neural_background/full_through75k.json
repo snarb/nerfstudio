@@ -1,0 +1,206 @@
+{
+  "rows": [
+    {
+      "step": 30376,
+      "regions": {
+        "hair": {
+          "psnr": 25.136057388039546,
+          "ssim": 0.7838919162750244,
+          "lpips": 0.21813322603702545,
+          "pixels": 123460,
+          "opacity_mean": 0.936531126499176,
+          "opacity_below_01_fraction": 0.0001133970516766564
+        },
+        "face_neck": {
+          "psnr": 32.12185298789349,
+          "ssim": 0.9263820052146912,
+          "lpips": 0.10843228548765182,
+          "pixels": 110467,
+          "opacity_mean": 0.994183361530304,
+          "opacity_below_01_fraction": 0.0043270841065657616
+        },
+        "boundary": {
+          "psnr": 22.088090416660666,
+          "ssim": 0.9564909934997559,
+          "lpips": 0.07985592633485794,
+          "pixels": 30036,
+          "opacity_mean": 0.6212959289550781,
+          "opacity_below_01_fraction": 0.0073245438806765215
+        },
+        "trusted_background": {
+          "psnr": 15.96487308102844,
+          "ssim": 0.8634564876556396,
+          "lpips": 0.40462028980255127,
+          "pixels": 1059081,
+          "opacity_mean": 0.03176473453640938,
+          "opacity_below_01_fraction": 0.9110049184151165
+        },
+        "clothing_hands_proxy": {
+          "psnr": 28.915016846365877,
+          "ssim": 0.8744199275970459,
+          "lpips": 0.1469961553812027,
+          "pixels": 441738,
+          "opacity_mean": 0.9956299662590027,
+          "opacity_below_01_fraction": 0.0009621087613019482
+        }
+      },
+      "prediction_sha256": "ceb75a0e07e5f14fd93bbe5ee2be449a055942f9a54f05e549a138ed2d750bb3"
+    },
+    {
+      "step": 45564,
+      "regions": {
+        "hair": {
+          "psnr": 25.023320623494495,
+          "ssim": 0.7821855545043945,
+          "lpips": 0.2109919786453247,
+          "pixels": 123460,
+          "opacity_mean": 0.9381004571914673,
+          "opacity_below_01_fraction": 8.099789405475458e-06
+        },
+        "face_neck": {
+          "psnr": 32.19638257230257,
+          "ssim": 0.9242357611656189,
+          "lpips": 0.09833893179893494,
+          "pixels": 110467,
+          "opacity_mean": 0.9942355751991272,
+          "opacity_below_01_fraction": 0.004263716766093041
+        },
+        "boundary": {
+          "psnr": 21.75645338949346,
+          "ssim": 0.9548091292381287,
+          "lpips": 0.0808195099234581,
+          "pixels": 30036,
+          "opacity_mean": 0.6332980394363403,
+          "opacity_below_01_fraction": 0.0013983220135836995
+        },
+        "trusted_background": {
+          "psnr": 15.978743647850733,
+          "ssim": 0.863936722278595,
+          "lpips": 0.4071071445941925,
+          "pixels": 1059081,
+          "opacity_mean": 0.029425181448459625,
+          "opacity_below_01_fraction": 0.9144022034197573
+        },
+        "clothing_hands_proxy": {
+          "psnr": 28.503126585598046,
+          "ssim": 0.8686873912811279,
+          "lpips": 0.14296738803386688,
+          "pixels": 441738,
+          "opacity_mean": 0.9958030581474304,
+          "opacity_below_01_fraction": 0.0008534470659078458
+        }
+      },
+      "prediction_sha256": "8827700e182eb22aecbbf0c87be581e386216d56d758f502c495a811e7b24c35"
+    },
+    {
+      "step": 60752,
+      "regions": {
+        "hair": {
+          "psnr": 24.86260205065399,
+          "ssim": 0.7794068455696106,
+          "lpips": 0.20622679591178894,
+          "pixels": 123460,
+          "opacity_mean": 0.9394689202308655,
+          "opacity_below_01_fraction": 1.6199578810950915e-05
+        },
+        "face_neck": {
+          "psnr": 32.219220029051286,
+          "ssim": 0.9218785166740417,
+          "lpips": 0.0956578478217125,
+          "pixels": 110467,
+          "opacity_mean": 0.9942193031311035,
+          "opacity_below_01_fraction": 0.004227506857251487
+        },
+        "boundary": {
+          "psnr": 21.28820657203784,
+          "ssim": 0.9524898529052734,
+          "lpips": 0.08443838357925415,
+          "pixels": 30036,
+          "opacity_mean": 0.6357114315032959,
+          "opacity_below_01_fraction": 0.0013983220135836995
+        },
+        "trusted_background": {
+          "psnr": 15.965343016161144,
+          "ssim": 0.8631567358970642,
+          "lpips": 0.4087463319301605,
+          "pixels": 1059081,
+          "opacity_mean": 0.02994522452354431,
+          "opacity_below_01_fraction": 0.9157429884966306
+        },
+        "clothing_hands_proxy": {
+          "psnr": 28.146924872311835,
+          "ssim": 0.8639982342720032,
+          "lpips": 0.1434098333120346,
+          "pixels": 441738,
+          "opacity_mean": 0.9959323406219482,
+          "opacity_below_01_fraction": 0.000810435144814347
+        }
+      },
+      "prediction_sha256": "0f5a4bae10c997bcdd9c11afaa3e4f52346e4082ed4f3e7960fd9af85abef5bf"
+    },
+    {
+      "step": 75940,
+      "regions": {
+        "hair": {
+          "psnr": 24.890869435761118,
+          "ssim": 0.7779708504676819,
+          "lpips": 0.19752036035060883,
+          "pixels": 123460,
+          "opacity_mean": 0.9388672113418579,
+          "opacity_below_01_fraction": 1.6199578810950915e-05
+        },
+        "face_neck": {
+          "psnr": 32.088563246879424,
+          "ssim": 0.9202502369880676,
+          "lpips": 0.09302886575460434,
+          "pixels": 110467,
+          "opacity_mean": 0.9942466020584106,
+          "opacity_below_01_fraction": 0.004164139516778766
+        },
+        "boundary": {
+          "psnr": 21.78520043948324,
+          "ssim": 0.9539020657539368,
+          "lpips": 0.07939470559358597,
+          "pixels": 30036,
+          "opacity_mean": 0.6367586255073547,
+          "opacity_below_01_fraction": 0.0005659874816886403
+        },
+        "trusted_background": {
+          "psnr": 15.963367778061631,
+          "ssim": 0.8626695275306702,
+          "lpips": 0.4089967906475067,
+          "pixels": 1059081,
+          "opacity_mean": 0.029950134456157684,
+          "opacity_below_01_fraction": 0.9151991207471383
+        },
+        "clothing_hands_proxy": {
+          "psnr": 28.373503720034677,
+          "ssim": 0.861112117767334,
+          "lpips": 0.14200088381767273,
+          "pixels": 441738,
+          "opacity_mean": 0.9958537220954895,
+          "opacity_below_01_fraction": 0.0007923248622486633
+        }
+      },
+      "prediction_sha256": "e37ea492d3c1b007902930d9a96317b39e2c45dbe0913c8498ddb84818dd96b8"
+    }
+  ],
+  "heldout_camera": "D004_A005_12103C",
+  "reference_sha256": "1226534e4f78a0f63ff06c2a68a89c038456e63badeda7877fb07d9b44f30f31",
+  "metric_domain": "Prediction raster; GT-composited masked tight crop for SSIM/LPIPS, PSNR on ROI pixels",
+  "reference_original_shape": [
+    960,
+    1920
+  ],
+  "evaluation_shape": [
+    960,
+    1920
+  ],
+  "reference_resized": false,
+  "boundary_radius_pixels": 5,
+  "boundary_radius_hd_pixels": 5,
+  "reference_used_for_metrics_only": true,
+  "fallible_semantics": true,
+  "checkpoint_selection_unchanged": true,
+  "no_independent_depth_ground_truth": true
+}

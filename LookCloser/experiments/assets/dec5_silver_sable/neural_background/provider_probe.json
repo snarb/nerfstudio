@@ -1,0 +1,18 @@
+{
+  "rays": 2604,
+  "max_rgb_error": 6.556510925292969e-07,
+  "rng_initialization_preserved": true,
+  "rng_prediction_preserved": true,
+  "parameters_and_buffers_frozen": true,
+  "normalized_camera_alignment_verified": true,
+  "source_background_dependency": {
+    "checkpoint": "/fsx/tmp/lookcloser_hair_001083_20261027_1330/local_20261028/sequence901_probe/neural_background/step-000019999.ckpt",
+    "checkpoint_sha256": "8d16758083e59f3000ab394b093d5a97708f1bcded8f390edf09eae6b6fd7829",
+    "config": "/fsx/tmp/lookcloser_hair_001083_20261027_1330/local_20261028/sequence901_probe/neural_background/training/dec5_background_volume/instant-ngp-bounded/fixed/config.yml",
+    "config_sha256": "9e78170e8812b9e398159a09580d311b991070e8649878429e13d6ad69ba2daf",
+    "source_metadata": "/fsx/tmp/lookcloser_hair_001083_20261027_1330/local_20261028/sequence901_probe/frame/semantic_data/transforms.json",
+    "source_metadata_sha256": "afcc41cf83f397bb2e63f2a2a07d4496b4235efc512fc6333e8049d633e36e1c",
+    "frozen": true,
+    "empty_subject_half_width": 0.18
+  }
+}

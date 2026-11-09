@@ -1,0 +1,349 @@
+{
+  "data_sha256": "71020e6b756a169d1b343a1a18b23c686ca42ba74b8c748f80bdb5fce29853f3",
+  "depth_or_alpha_ground_truth": false,
+  "frame_id": "001055",
+  "grid_axes": "z,y,x; normalized voxel centers",
+  "implementation_sha256": "964cd32e73f6e15f53ca61b26b2f6d268333c3aeeb1b4659cc28f3b6e76dbf16",
+  "known_background": "train probability >.98, eroded 16 HD pixels; no target RGB/masks",
+  "normalization": {
+    "rotation": [
+      [
+        0.9968604848084089,
+        0.008017558211736655,
+        0.07877051664047056
+      ],
+      [
+        0.008017507213633547,
+        0.9795249173904758,
+        -0.2011631131976266
+      ],
+      [
+        -0.07877054063761646,
+        0.20116315253993694,
+        0.9763854584507292
+      ]
+    ],
+    "scale": 0.10399167449674525,
+    "translation": [
+      0.1539148475165935,
+      -0.6615496017761174,
+      -0.009085617346116348
+    ]
+  },
+  "records": [
+    {
+      "camera": "A004_B005_1210RN",
+      "known_background_pixels": 799250,
+      "semantic_sha256": "95be25d0cef6b1c9434e6e704c393da97c631c48c316f9a97bc7a19d18ef65db"
+    },
+    {
+      "camera": "A004_C005_121008",
+      "known_background_pixels": 821716,
+      "semantic_sha256": "9a11e971cefa534a43698cdb85de564a522eadb388ec7b430ad1e6a371bd33dd"
+    },
+    {
+      "camera": "A004_D005_1210CH",
+      "known_background_pixels": 830154,
+      "semantic_sha256": "bcc213839f4d1244394b775b3289b3cadd9366749a27332ee35d1d55ccf4cca2"
+    },
+    {
+      "camera": "A004_E005_1210OU",
+      "known_background_pixels": 839324,
+      "semantic_sha256": "86ff5ea4b2a23ec326e48d8d5859487b549a967ad0b4b701f0d8e6d099493ec9"
+    },
+    {
+      "camera": "B004_B005_1210Z3",
+      "known_background_pixels": 780155,
+      "semantic_sha256": "cd70311b3646a53350ea529a241c04f22ac1b676c8c6a84544d1b174003c98ad"
+    },
+    {
+      "camera": "B004_C005_1210NK",
+      "known_background_pixels": 814774,
+      "semantic_sha256": "9f0687eb9acb81ed0180163a628f8758ceee58648a5baed9a3f1845fadf72e19"
+    },
+    {
+      "camera": "B004_D005_1210FT",
+      "known_background_pixels": 817694,
+      "semantic_sha256": "8420b4f4a69e47c33187e1f46057b384a8d6bbb93bedec8501020ecec2b81784"
+    },
+    {
+      "camera": "B004_E005_1210VE",
+      "known_background_pixels": 817879,
+      "semantic_sha256": "8d1ad3dda3db6b5da710ed5ba98ceffef399fa8bc0554832f61241e5cd91c812"
+    },
+    {
+      "camera": "C004_B005_1210ER",
+      "known_background_pixels": 800801,
+      "semantic_sha256": "0db4dd850f75af668f09a30c47e656d4b8c420f236874d0da7c1baca0b9eddb0"
+    },
+    {
+      "camera": "C004_C005_12104M",
+      "known_background_pixels": 802469,
+      "semantic_sha256": "8f6a1cc7d2df3f2440b8cc2c42cb949fae784d9f856fe1fac3639eaebbbfe7ef"
+    },
+    {
+      "camera": "C004_D005_12107I",
+      "known_background_pixels": 899966,
+      "semantic_sha256": "129813a6972b9650e21aa398ea8487d9a6c83fd1cbe171e2e648d09bf5bc8d65"
+    },
+    {
+      "camera": "C004_E005_1210X7",
+      "known_background_pixels": 869069,
+      "semantic_sha256": "c057c313eac7eecb0c780a7d5d8b7c4067eaf4d5ca430c0efe7a09697ca7e2f7"
+    },
+    {
+      "camera": "D004_B005_1210N4",
+      "known_background_pixels": 765614,
+      "semantic_sha256": "f0e975bec1b2afa800bf3b467a2066f5740939d1f05c046e29a73dbd3e55722b"
+    },
+    {
+      "camera": "D004_C005_1210ES",
+      "known_background_pixels": 803295,
+      "semantic_sha256": "bf2928ab9b2ab369aabfb1e8d7f5ebaa9aa2d6b358d27bdc75145ede713afb39"
+    },
+    {
+      "camera": "D004_D005_1210LZ",
+      "known_background_pixels": 796689,
+      "semantic_sha256": "2f9652f6a3e551df967c77655d44f19338519f299318f643f72863feb43bf080"
+    },
+    {
+      "camera": "D004_E005_1210GX",
+      "known_background_pixels": 755809,
+      "semantic_sha256": "58acb3b8efa56d6a49a1c193b0088558b417a40ff600b118310d3742d1a376fb"
+    },
+    {
+      "camera": "E004_A005_1210QB",
+      "known_background_pixels": 813646,
+      "semantic_sha256": "7d56503c388b0331109215cc483f8c2ca3112fbf712ba3d004ea884191c5a578"
+    },
+    {
+      "camera": "E004_C005_1210YM",
+      "known_background_pixels": 802242,
+      "semantic_sha256": "16533b1f326de12a353109fbcc4d7bac96c61851fa2f5b022a775ff241b23f89"
+    },
+    {
+      "camera": "E004_D005_1210L4",
+      "known_background_pixels": 792622,
+      "semantic_sha256": "d7acbfd209b96fc455ead45de1bce74b099e9c33ded983ef56f27a0eabe0b83d"
+    },
+    {
+      "camera": "E004_E005_1210WX",
+      "known_background_pixels": 792864,
+      "semantic_sha256": "bb38cd99311bdfd4c9adb526b8fd33f8b50d023b7e78093188342990fec3079a"
+    },
+    {
+      "camera": "F004_A005_12103K",
+      "known_background_pixels": 787184,
+      "semantic_sha256": "4c4fb070c9c95913d8eb0baad142cae68e448c624bfc5bb71e5d6ee190421eb0"
+    },
+    {
+      "camera": "F004_C005_121059",
+      "known_background_pixels": 792177,
+      "semantic_sha256": "5e2eb23f0288b371f19e9bd9cda24d02019831f397018dcbe18ce773817408a1"
+    },
+    {
+      "camera": "F004_D005_1210KW",
+      "known_background_pixels": 794709,
+      "semantic_sha256": "e5df407df33c73229f93135eb0d9453809005524c88224a365daa5c31c19140a"
+    },
+    {
+      "camera": "F004_E005_1210FP",
+      "known_background_pixels": 788299,
+      "semantic_sha256": "a126fafa14fa6a7b35206e33464fde0c5af94d443c662440285aa08f38baa429"
+    },
+    {
+      "camera": "G004_A005_121071",
+      "known_background_pixels": 782459,
+      "semantic_sha256": "d3a95b76a2f5a055f0192831a789d474c121abbc04fa0ff67c708fe7e7cc56ce"
+    },
+    {
+      "camera": "G004_B005_1210FG",
+      "known_background_pixels": 780137,
+      "semantic_sha256": "cd2a5e575f2e86cfb05fc56bff3c52fd20e0885d8e2537cd0c2c0f7c4a82f3a6"
+    },
+    {
+      "camera": "G004_C005_121037",
+      "known_background_pixels": 766433,
+      "semantic_sha256": "38caa6ee803886f5279b2c9b30daa719fe465324de4aac6d015ddb3cb77f8516"
+    },
+    {
+      "camera": "G004_D005_12107O",
+      "known_background_pixels": 791073,
+      "semantic_sha256": "6e0fbd3b7c2b75cfeadc86f2c9c5b849ebfe180757b443d728756fc5acd74afc"
+    },
+    {
+      "camera": "G004_E005_1211KO",
+      "known_background_pixels": 735441,
+      "semantic_sha256": "665ea04b63686b811a375c700d0563ed46d71eeff3a21ce532fbf08e5c9df4c7"
+    },
+    {
+      "camera": "H004_A005_1210M6",
+      "known_background_pixels": 793214,
+      "semantic_sha256": "8f97f53581873440b71487ab40c89c41f77b9f683e6cb1850c10d92f010319ba"
+    },
+    {
+      "camera": "H004_B005_1210EL",
+      "known_background_pixels": 777502,
+      "semantic_sha256": "9a3ae083cddf922b70d5ec6f7afa6e1eab4062446f28d02798d2ddd6b10e1d4e"
+    },
+    {
+      "camera": "H004_C005_1210SZ",
+      "known_background_pixels": 773134,
+      "semantic_sha256": "db701ae106a7088d9ec3b7320ddac5b0bfde2c8512e34ece22c62e8f54c10ba0"
+    },
+    {
+      "camera": "H004_D005_1210SF",
+      "known_background_pixels": 717776,
+      "semantic_sha256": "391dc77594a66f37032792a265aa25e1da8c977846d2f5ac588f16e85fafffb3"
+    },
+    {
+      "camera": "H004_E005_1210YK",
+      "known_background_pixels": 765404,
+      "semantic_sha256": "8b385d50c7d79ea11f01611642504c9379273b2338b35284544fb388528aa05a"
+    },
+    {
+      "camera": "I004_A005_121062",
+      "known_background_pixels": 790777,
+      "semantic_sha256": "fcd9bf96853a9b0c44188afc93a525b6b6f602dbb0cb0c1275f6ef8d502f59e7"
+    },
+    {
+      "camera": "I004_B005_1210T5",
+      "known_background_pixels": 745755,
+      "semantic_sha256": "3cc68a3d8981dad5c6b33fa7ad0943cfc118910c22f3f1daf6fc8a2b5b626589"
+    },
+    {
+      "camera": "I004_C005_1210BA",
+      "known_background_pixels": 760757,
+      "semantic_sha256": "09b8f7ecfa2c55686e978db9b664a32e0ef728c2c9f9603f1107a89d0ebc96d1"
+    },
+    {
+      "camera": "I004_E005_1210FW",
+      "known_background_pixels": 775084,
+      "semantic_sha256": "2a4bfd22a622d5a8f89ea70248a7c28259852235db2d7e7dfcab67db33be0ecf"
+    },
+    {
+      "camera": "J004_A005_121014",
+      "known_background_pixels": 784796,
+      "semantic_sha256": "84ead3e76b0f94e88673615b42ad193e95e9d28c2f099ea141017eb0c4f00a51"
+    },
+    {
+      "camera": "J004_B005_1210GR",
+      "known_background_pixels": 714967,
+      "semantic_sha256": "5aee82cc7299ae23d0da9d4f000add4a99291936bfe9e725689fec31b3b7be6d"
+    },
+    {
+      "camera": "J004_C005_1210I4",
+      "known_background_pixels": 801599,
+      "semantic_sha256": "2679e027bfcd5e82dbc48141c832a17e5ce46ec5a3954ac58be36dc2444a6f58"
+    },
+    {
+      "camera": "J004_E005_1210N7",
+      "known_background_pixels": 794769,
+      "semantic_sha256": "8af1b835069bcd9ef81e7525f2a22f99b588094b37de4854aea9381ae96a3e18"
+    },
+    {
+      "camera": "K004_A005_1210EF",
+      "known_background_pixels": 785386,
+      "semantic_sha256": "3cc376da103406fb6833cf012dbc904bb1bc9f9a68a4eb97974e2d6f1df0518d"
+    },
+    {
+      "camera": "K004_B005_1210DS",
+      "known_background_pixels": 766194,
+      "semantic_sha256": "a04c6b8aec3860f38e3e3fcb6c46858c309f8b2157905ba44a8ea28ed62fd209"
+    },
+    {
+      "camera": "K004_C005_1210BC",
+      "known_background_pixels": 826498,
+      "semantic_sha256": "d89a09191dcc95ff44ebb634d2a6d724978c9f4846500e6707eca25e8a5cfda6"
+    },
+    {
+      "camera": "K004_D005_121016",
+      "known_background_pixels": 779322,
+      "semantic_sha256": "ad1da1b93ac9754a952a96de99822561911a7e820cfcffc87bfd6a5d1f41f3dc"
+    },
+    {
+      "camera": "K004_E005_1210UF",
+      "known_background_pixels": 804740,
+      "semantic_sha256": "f176830c43fb738d117a29957da71d409586f844f555abccd86f64ae5eabebf7"
+    },
+    {
+      "camera": "L004_A005_1210YO",
+      "known_background_pixels": 805424,
+      "semantic_sha256": "044b74bf71aea21a8bdeee5628596db0fd9fdabe65652cae805e7944b9ec1f49"
+    },
+    {
+      "camera": "L004_C005_1210QQ",
+      "known_background_pixels": 798417,
+      "semantic_sha256": "2d8a5dabf079e5eef06bf56d466a758a997d1bd2e19043404801377fce792443"
+    },
+    {
+      "camera": "L004_D005_1210T4",
+      "known_background_pixels": 789256,
+      "semantic_sha256": "5572ef1b76aa771ff160dd6d819bdbbcb0f53c0cbf864fbb9b4930b627689118"
+    },
+    {
+      "camera": "L004_E005_1210RM",
+      "known_background_pixels": 789689,
+      "semantic_sha256": "f90af75d06d741b8da71b58b72b4f282a651e968cd113cdb2d313a021339bf67"
+    },
+    {
+      "camera": "M004_A005_1210WZ",
+      "known_background_pixels": 806242,
+      "semantic_sha256": "e2681144cd382e0ed4544da01e2ec901768c0bf0c039d6d77135692576a49624"
+    },
+    {
+      "camera": "M004_B005_12109O",
+      "known_background_pixels": 796159,
+      "semantic_sha256": "8418e3def738db51e05e0579a0c2a7c16808c3de98c6a974105a81c4f94bb2ac"
+    },
+    {
+      "camera": "M004_C005_1210A4",
+      "known_background_pixels": 820142,
+      "semantic_sha256": "86ce142db4ae88d66655acb503b9058863fb2f8e866abdf3e2d4277f5787dd86"
+    },
+    {
+      "camera": "M004_D005_1210R6",
+      "known_background_pixels": 835237,
+      "semantic_sha256": "38bedea2c829db5867f10bb717b888804c272e2c40eb61125ec6b9e330327869"
+    },
+    {
+      "camera": "M004_E005_12106V",
+      "known_background_pixels": 812576,
+      "semantic_sha256": "595c4c5610aac7898782d56eafbac5ff9da0fcbc1e664ab80e73e9e51147eecf"
+    },
+    {
+      "camera": "N004_A005_121003",
+      "known_background_pixels": 809409,
+      "semantic_sha256": "3826a49b9acae235e47cddd1a5d471b57f4bee167e76a5ea4dd0e523d7ebfd4c"
+    },
+    {
+      "camera": "N004_B005_1210MO",
+      "known_background_pixels": 792392,
+      "semantic_sha256": "505b89f6bc14d7adf9cdeec8620aa59ce0a115705e9dbf7c95d142c738a43c3c"
+    },
+    {
+      "camera": "N004_C005_1210AA",
+      "known_background_pixels": 822273,
+      "semantic_sha256": "8eebb248a6f945c146cc8cbf821c53e8d9d367c6cbcae7465ed6ec3736c2ec99"
+    }
+  ],
+  "resolution": 256,
+  "sparse_sha256": "4a153cabbfe8c5418f37bac21b751d6ff34c6b879a4232ac3efc5df0052f4fb0",
+  "training_hair_witness_audit": {
+    "3": {
+      "raw_carved_fraction": 0.0,
+      "raw_carved_points": 0,
+      "reliable_train_hair_points": 627,
+      "voxel_carved_fraction": 0.7956356406211853
+    },
+    "8": {
+      "raw_carved_fraction": 0.0,
+      "raw_carved_points": 0,
+      "reliable_train_hair_points": 627,
+      "voxel_carved_fraction": 0.7435888648033142
+    }
+  },
+  "uses_test_rgb": false,
+  "uses_validation_rgb": false,
+  "votes_sha256": "167dfda01ee1498fef53c369f904c982db0b4a2e3b2f4dc1f4a9b6dcc4fc747f"
+}

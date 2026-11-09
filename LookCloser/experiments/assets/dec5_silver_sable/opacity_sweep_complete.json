@@ -1,0 +1,45 @@
+{
+  "arms": [
+    [
+      "both001",
+      0.001,
+      0.001
+    ],
+    [
+      "both010",
+      0.01,
+      0.01
+    ],
+    [
+      "both030",
+      0.03,
+      0.03
+    ],
+    [
+      "both100",
+      0.1,
+      0.1
+    ],
+    [
+      "both200",
+      0.2,
+      0.2
+    ],
+    [
+      "source010",
+      0.01,
+      0.1
+    ],
+    [
+      "target010",
+      0.1,
+      0.01
+    ]
+  ],
+  "checkpoint_sha256": "3ac61004e5a3d070a6e27537c315e079331811c027dae486659dc348361c678f",
+  "opacity_is_not_semantic_alpha": true,
+  "same_field_rgb_sources_fallback_and_source_order": true,
+  "source_and_target_floor_isolated": true,
+  "uses_test_rgb": false,
+  "uses_validation_rgb": false
+}

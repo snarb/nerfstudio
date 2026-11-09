@@ -1,0 +1,110 @@
+{
+  "baseline": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/native_metrics_base.json",
+  "baseline_sha256": "452fb17c44e62f5b0a76c1f1ac4c3eff93ced4f4e549066e44adc3bd51b42290",
+  "candidates": [
+    {
+      "camera_popping_gain_20_percent": false,
+      "face_guard": true,
+      "hair_lpips_gain_5_percent": false,
+      "holes_gain_20_percent": false,
+      "independent_depth_proxy_improved": true,
+      "metrics": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/native_metrics_fine.json",
+      "metrics_sha256": "d21da07ccae0ea2657d3a2a942a3cac33bb0caab64c6070c3702d37e0caa343a",
+      "passes": false,
+      "silhouette_recall_guard": true
+    },
+    {
+      "camera_popping_gain_20_percent": false,
+      "face_guard": true,
+      "hair_lpips_gain_5_percent": false,
+      "holes_gain_20_percent": false,
+      "independent_depth_proxy_improved": true,
+      "metrics": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/native_metrics_orientation.json",
+      "metrics_sha256": "80f61e79595da78af23d7548f93c98361c21597be197d0afb6f15011d7fc7474",
+      "passes": false,
+      "silhouette_recall_guard": true
+    },
+    {
+      "camera_popping_gain_20_percent": false,
+      "face_guard": true,
+      "hair_lpips_gain_5_percent": false,
+      "holes_gain_20_percent": false,
+      "independent_depth_proxy_improved": true,
+      "metrics": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/native_metrics_no_orientation.json",
+      "metrics_sha256": "b652633ccde31ca92585bf01af42d9aadcb29c0fbd5c2ed8221169dadb402476",
+      "passes": false,
+      "silhouette_recall_guard": true
+    },
+    {
+      "camera_popping_gain_20_percent": false,
+      "face_guard": true,
+      "hair_lpips_gain_5_percent": false,
+      "holes_gain_20_percent": false,
+      "independent_depth_proxy_improved": false,
+      "metrics": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/native_metrics_layer_binary.json",
+      "metrics_sha256": "1b495f06d67af9b0dc07654679fa67bc1b642ed3e516aab297c4e69caa8da9a0",
+      "passes": false,
+      "silhouette_recall_guard": true
+    },
+    {
+      "camera_popping_gain_20_percent": false,
+      "face_guard": true,
+      "hair_lpips_gain_5_percent": false,
+      "holes_gain_20_percent": false,
+      "independent_depth_proxy_improved": false,
+      "metrics": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/native_metrics_layer_soft.json",
+      "metrics_sha256": "95ad34687f6913cf8e9e0ee87fe9bdb97538db1e9229f84f510096e88a57f974",
+      "passes": false,
+      "silhouette_recall_guard": true
+    },
+    {
+      "camera_popping_gain_20_percent": false,
+      "face_guard": true,
+      "hair_lpips_gain_5_percent": false,
+      "holes_gain_20_percent": false,
+      "independent_depth_proxy_improved": false,
+      "metrics": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/native_metrics_layer_fb.json",
+      "metrics_sha256": "4336f6eb065d26ba756663c15952b065e5d1427be70c12e078e672378ba0d29a",
+      "passes": false,
+      "silhouette_recall_guard": true
+    },
+    {
+      "camera_popping_gain_20_percent": false,
+      "face_guard": true,
+      "hair_lpips_gain_5_percent": false,
+      "holes_gain_20_percent": false,
+      "independent_depth_proxy_improved": false,
+      "metrics": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/native_metrics_layer_two-depth.json",
+      "metrics_sha256": "9b83132c38686bdfccbecfe8a0aa4d386e481aaf3c62c63bc9f149ddeaaaa98c",
+      "passes": false,
+      "silhouette_recall_guard": true
+    },
+    {
+      "camera_popping_gain_20_percent": false,
+      "face_guard": true,
+      "hair_lpips_gain_5_percent": false,
+      "holes_gain_20_percent": false,
+      "independent_depth_proxy_improved": true,
+      "metrics": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/native_metrics_front.json",
+      "metrics_sha256": "1d5190f0480182b32d3e4b7abed9c3d04a4d688f8cad0cae7c50bbf54414a9bb",
+      "passes": false,
+      "silhouette_recall_guard": true
+    },
+    {
+      "camera_popping_gain_20_percent": false,
+      "face_guard": true,
+      "hair_lpips_gain_5_percent": false,
+      "holes_gain_20_percent": false,
+      "independent_depth_proxy_improved": true,
+      "metrics": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/native_metrics_peak2.json",
+      "metrics_sha256": "228abf09ff47ca69326485b73f7822b48eedbfdca386f8edeaf3665d15215540",
+      "passes": false,
+      "silhouette_recall_guard": true
+    }
+  ],
+  "chosen_metrics": "/mnt/footage2/lookcloser_hair_001083_20261027_1330/native_metrics_base.json",
+  "chosen_metrics_sha256": "452fb17c44e62f5b0a76c1f1ac4c3eff93ced4f4e549066e44adc3bd51b42290",
+  "independent_test_rgb_used": false,
+  "status": "validation selection; repeat and visual path review still required",
+  "test_unlocked": false
+}

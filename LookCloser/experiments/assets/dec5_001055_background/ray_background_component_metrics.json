@@ -1,0 +1,104 @@
+{
+  "aggregate": {
+    "native_field": {
+      "lpips": 0.19539067645867667,
+      "psnr": 16.17968495686849,
+      "ssim": 0.7750596205393473
+    },
+    "ray_background": {
+      "lpips": 0.16594460606575012,
+      "psnr": 18.70260715484619,
+      "ssim": 0.876200258731842
+    }
+  },
+  "background_checkpoint_sha256": "5af17eabda7d1d2e154e94c0abe13cf930dd5926c5429ff82704a537532f95c2",
+  "background_request_sha256": "88427598419f20ee9824c04d2a9536d3595ff201120962e2037b4d3e42da23b7",
+  "component_go_gate": ">=5% BG LPIPS improvement and higher BG PSNR; only licenses one foreground/background separation training screen, not an accepted hair improvement",
+  "domain": "fallible GT-background reference probability >.95 inside fixed head ROI; not hair metrics",
+  "native_field_receipt_sha256": "7d8656d022c9b73edfc254de17dfd950b638f17c453cc330657688835986f026",
+  "per_view": [
+    {
+      "camera": "D004_A005_12103C",
+      "native_field": {
+        "crop": [
+          1166,
+          0,
+          3378,
+          2160
+        ],
+        "lpips": 0.2051863968372345,
+        "pixels": 1805405,
+        "psnr": 19.13971710205078,
+        "ssim": 0.8205272555351257
+      },
+      "ray_background": {
+        "crop": [
+          1166,
+          0,
+          3378,
+          2160
+        ],
+        "lpips": 0.17219337821006775,
+        "pixels": 1805405,
+        "psnr": 20.3799991607666,
+        "ssim": 0.9087124466896057
+      }
+    },
+    {
+      "camera": "E004_B005_1210I7",
+      "native_field": {
+        "crop": [
+          921,
+          0,
+          3840,
+          2160
+        ],
+        "lpips": 0.1986781805753708,
+        "pixels": 2417291,
+        "psnr": 16.931594848632812,
+        "ssim": 0.7737112641334534
+      },
+      "ray_background": {
+        "crop": [
+          921,
+          0,
+          3840,
+          2160
+        ],
+        "lpips": 0.1953359693288803,
+        "pixels": 2417291,
+        "psnr": 15.125775337219238,
+        "ssim": 0.7872942090034485
+      }
+    },
+    {
+      "camera": "I004_D005_1210Q7",
+      "native_field": {
+        "crop": [
+          522,
+          0,
+          3840,
+          2160
+        ],
+        "lpips": 0.18230745196342468,
+        "pixels": 2799057,
+        "psnr": 12.467742919921875,
+        "ssim": 0.7309403419494629
+      },
+      "ray_background": {
+        "crop": [
+          522,
+          0,
+          3840,
+          2160
+        ],
+        "lpips": 0.1303044706583023,
+        "pixels": 2799057,
+        "psnr": 20.602046966552734,
+        "ssim": 0.9325941205024719
+      }
+    }
+  ],
+  "uses_test_rgb": false,
+  "uses_validation_rgb_for_fitting": false
+}

@@ -1,0 +1,27 @@
+{
+  "provenance": {
+    "checkpoint": "/home/ubuntu/lookcloser_transfer/recipe_pilot_20261028/frames/000901/training_hd_preflight_v4/step-000091128.ckpt",
+    "checkpoint_sha256": "a84789ccac09b6e7acca30c5288191e9d1d06af285baa7bd3721632ddb2b0760",
+    "step": 91128,
+    "data_sha256": "afcc41cf83f397bb2e63f2a2a07d4496b4235efc512fc6333e8049d633e36e1c",
+    "background_sha256": "481d4ac7f9abc13daadfc5258eb6202009ce06cc092d55e7969ad3ca9421831c",
+    "feature_reweighting_strength": 0.3,
+    "eval_rays_per_chunk": 8192,
+    "optimizer_restored": false
+  },
+  "comparisons": {
+    "initial_config_phase": {
+      "strength": 1.0,
+      "rgb_max_absolute_difference": 0.2875749468803406,
+      "rgb_mean_absolute_difference": 0.001676762942224741
+    },
+    "restored_phase": {
+      "strength": 0.3,
+      "rgb_max_absolute_difference": 1.3113021850585938e-06,
+      "rgb_mean_absolute_difference": 3.135135884235751e-08
+    }
+  },
+  "reference_prediction_sha256": "683f1e09af2a1ef4e486f4e14765da1533cf52dbc6b41746b6ca73198386fed8",
+  "fitting": false,
+  "roundtrip_passes": true
+}

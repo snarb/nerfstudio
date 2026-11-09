@@ -1,0 +1,44 @@
+{
+  "rows": [
+    {
+      "checkpoint_sha256": "7864de5b060be106c7b3557327870840a9f39036b2ca5e393a058c673c27ba4d",
+      "eval_dense_anchor_median_relative": 0.0008933677783681482,
+      "eval_dense_anchor_p90_relative": 0.0033984304833354056,
+      "eval_dense_anchor_valid_fraction": 1.0,
+      "step": 74999
+    },
+    {
+      "checkpoint_sha256": "bd025e49cb5483461589d22e398772c2ea7c89d2e73dfaa0d2c704cc0d830427",
+      "eval_dense_anchor_median_relative": 0.000672260302725265,
+      "eval_dense_anchor_p90_relative": 0.002936807126415886,
+      "eval_dense_anchor_valid_fraction": 1.0,
+      "step": 75499
+    },
+    {
+      "checkpoint_sha256": "9ee26524b1405f5b3f50cb839e8ad9dfd905ed355d8085f38124bfde7b7e80f9",
+      "eval_dense_anchor_median_relative": 0.0005991317547374132,
+      "eval_dense_anchor_p90_relative": 0.002782623218839384,
+      "eval_dense_anchor_valid_fraction": 1.0,
+      "step": 76499
+    },
+    {
+      "checkpoint_sha256": "697e435306331cc9dc901ba8839faf10fa9b96c9d93d27756dd62f7d9eaf2434",
+      "eval_dense_anchor_median_relative": 0.0005313004089852647,
+      "eval_dense_anchor_p90_relative": 0.0026609204921317275,
+      "eval_dense_anchor_valid_fraction": 1.0,
+      "step": 77999
+    },
+    {
+      "checkpoint_sha256": "885daaf362e2043f28baf0a41cc9a87635819d869667dd6aff90429f4c272ca1",
+      "eval_dense_anchor_median_relative": 0.0005052928423484191,
+      "eval_dense_anchor_p90_relative": 0.0026238455447490467,
+      "eval_dense_anchor_valid_fraction": 1.0,
+      "step": 79999
+    }
+  ],
+  "state_unchanged": true,
+  "uses_test_rgb": false,
+  "uses_validation_rgb": false,
+  "validation": "all withheld anchors spanning 59 train cameras; depth labels withheld, RGB remains training RGB",
+  "validation_anchors": 13379
+}

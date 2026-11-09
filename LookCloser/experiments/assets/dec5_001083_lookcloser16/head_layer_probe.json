@@ -1,0 +1,133 @@
+{
+  "anchors_sha256": "fe8a300c783bcf3b1886dfa91a5bcd8dd784d622e7fb12bac9daf5e94f3c5d32",
+  "bounds_rule": "fit hair anchors min/max plus 10 percent of largest extent",
+  "checkpoint_sha256": "bd025e49cb5483461589d22e398772c2ea7c89d2e73dfaa0d2c704cc0d830427",
+  "dataset_sha256": "a137bb57be5a0e1fded48ed300070a04e95f32862e47249559b0372e7787451b",
+  "frozen_state_unchanged": true,
+  "head_bounds": [
+    [
+      -1.619225025177002,
+      6.1145853996276855,
+      -1.6373975276947021
+    ],
+    [
+      -1.085057020187378,
+      6.531091213226318,
+      -1.0579774379730225
+    ]
+  ],
+  "implementation_sha256": "035ba1737a8e41956e091e3bfc58ffff087a7e65ccf49a1ca6b45b8848fa1d8e",
+  "rows": [
+    {
+      "camera": "E004_C005_1210YM",
+      "empty_mean_mass": 0.3138313325446491,
+      "global_background_despite_head_layer_fraction": 0.297119140625,
+      "global_background_despite_head_mass_gt_point1_fraction": 0.2568359375,
+      "global_median_outside_head_fraction": 0.298583984375,
+      "head_opacity_mae": 0.16112885580025837,
+      "head_opacity_quantiles": [
+        0.0,
+        0.1704105017158568,
+        0.739653220269247,
+        0.9999943927242612,
+        1.000000539902416
+      ],
+      "head_valid_fraction": 0.99853515625,
+      "opaque_hair_mean_mass": 0.996808632084901,
+      "partition": "train",
+      "rays": 4096,
+      "soft_opacity_mae": 0.1645440167883847
+    },
+    {
+      "camera": "F004_C005_121059",
+      "empty_mean_mass": 0.3676723256873534,
+      "global_background_despite_head_layer_fraction": 0.221923828125,
+      "global_background_despite_head_mass_gt_point1_fraction": 0.19921875,
+      "global_median_outside_head_fraction": 0.22265625,
+      "head_opacity_mae": 0.19881141063747382,
+      "head_opacity_quantiles": [
+        0.006845427876953636,
+        0.22962045080379312,
+        0.8322376882743185,
+        0.999996066927231,
+        1.0000004376695897
+      ],
+      "head_valid_fraction": 0.999267578125,
+      "opaque_hair_mean_mass": 0.9963929916485841,
+      "partition": "train",
+      "rays": 4096,
+      "soft_opacity_mae": 0.21265094057525946
+    },
+    {
+      "camera": "G004_C005_121037",
+      "empty_mean_mass": 0.42284929868911214,
+      "global_background_despite_head_layer_fraction": 0.209716796875,
+      "global_background_despite_head_mass_gt_point1_fraction": 0.19873046875,
+      "global_median_outside_head_fraction": 0.209716796875,
+      "head_opacity_mae": 0.2174855365777078,
+      "head_opacity_quantiles": [
+        0.03364330927388437,
+        0.28077943089243007,
+        0.767792478390902,
+        0.9999881230740476,
+        1.000000490036162
+      ],
+      "head_valid_fraction": 1.0,
+      "opaque_hair_mean_mass": 0.9941458930340772,
+      "partition": "train",
+      "rays": 4096,
+      "soft_opacity_mae": 0.22153176517617618
+    },
+    {
+      "camera": "D004_A005_12103C",
+      "global_background_despite_head_layer_fraction": 0.086669921875,
+      "global_background_despite_head_mass_gt_point1_fraction": 0.072998046875,
+      "global_median_outside_head_fraction": 0.09716796875,
+      "head_opacity_quantiles": [
+        0.0,
+        0.3239087251995443,
+        0.9982950751612979,
+        0.9999985690488928,
+        1.00000047628176
+      ],
+      "head_valid_fraction": 0.989501953125,
+      "partition": "validation",
+      "rays": 4096
+    },
+    {
+      "camera": "E004_B005_1210I7",
+      "global_background_despite_head_layer_fraction": 0.123291015625,
+      "global_background_despite_head_mass_gt_point1_fraction": 0.107666015625,
+      "global_median_outside_head_fraction": 0.136474609375,
+      "head_opacity_quantiles": [
+        0.0,
+        0.3424067751993789,
+        0.9989433898303066,
+        0.9999987213035726,
+        1.0000007841692893
+      ],
+      "head_valid_fraction": 0.98681640625,
+      "partition": "validation",
+      "rays": 4096
+    },
+    {
+      "camera": "I004_D005_1210Q7",
+      "global_background_despite_head_layer_fraction": 0.11181640625,
+      "global_background_despite_head_mass_gt_point1_fraction": 0.1103515625,
+      "global_median_outside_head_fraction": 0.145751953125,
+      "head_opacity_quantiles": [
+        0.0,
+        0.37096520241361475,
+        0.97904293380801,
+        0.9999983159404194,
+        1.0000005700957653
+      ],
+      "head_valid_fraction": 0.966064453125,
+      "partition": "validation",
+      "rays": 4096
+    }
+  ],
+  "uses_test_rgb": false,
+  "uses_validation_rgb": false,
+  "withheld_anchor_coverage": 1.0
+}

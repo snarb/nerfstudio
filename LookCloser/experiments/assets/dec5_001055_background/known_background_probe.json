@@ -1,0 +1,101 @@
+{
+  "box_source": "train SfM points supported as hair/face by at least two train semantics; 0.5-99.5 percentiles plus 15 percent margin",
+  "coverage": [
+    {
+      "camera": "D004_A005_12103C",
+      "intersect_head_box": 16384,
+      "label": "hair",
+      "sampled_pixels": 16384
+    },
+    {
+      "camera": "D004_A005_12103C",
+      "intersect_head_box": 13669,
+      "label": "background",
+      "sampled_pixels": 16384
+    },
+    {
+      "camera": "E004_B005_1210I7",
+      "intersect_head_box": 16384,
+      "label": "hair",
+      "sampled_pixels": 16384
+    },
+    {
+      "camera": "E004_B005_1210I7",
+      "intersect_head_box": 10901,
+      "label": "background",
+      "sampled_pixels": 16384
+    },
+    {
+      "camera": "I004_D005_1210Q7",
+      "intersect_head_box": 16384,
+      "label": "hair",
+      "sampled_pixels": 16384
+    },
+    {
+      "camera": "I004_D005_1210Q7",
+      "intersect_head_box": 8095,
+      "label": "background",
+      "sampled_pixels": 16384
+    }
+  ],
+  "domain": "excluded semantic rays intersecting a train-derived head compartment; not true alpha or metric depth GT",
+  "head_box_raw_calibration": [
+    [
+      -1.818373457789421,
+      6.0517620277404784,
+      -1.6215475600957872
+    ],
+    [
+      -1.0147637563943863,
+      6.490751056671143,
+      -1.0600646811723708
+    ]
+  ],
+  "occupancy_bypassed": true,
+  "results": {
+    "candidate": {
+      "checkpoint_sha256": "e6b7cdba6bfdcae174ed0667e413299e66886078a97e9b7a9a6bd8cdfbbe2ee8",
+      "frozen_state_unchanged": true,
+      "groups": {
+        "background": {
+          "count": 1536,
+          "mean": 0.15848384012347583,
+          "median": 0.1408955231308937,
+          "over_point1": 0.6178385416666666,
+          "over_point5": 0.01953125
+        },
+        "hair": {
+          "count": 1536,
+          "mean": 0.9640360281531078,
+          "median": 0.9999733567237854,
+          "over_point1": 1.0,
+          "over_point5": 0.986328125
+        }
+      }
+    },
+    "parent": {
+      "checkpoint_sha256": "3ac61004e5a3d070a6e27537c315e079331811c027dae486659dc348361c678f",
+      "frozen_state_unchanged": true,
+      "groups": {
+        "background": {
+          "count": 1536,
+          "mean": 0.15524089492568313,
+          "median": 0.139834463596344,
+          "over_point1": 0.62109375,
+          "over_point5": 0.014322916666666666
+        },
+        "hair": {
+          "count": 1536,
+          "mean": 0.9639878157177009,
+          "median": 0.9999629557132721,
+          "over_point1": 1.0,
+          "over_point5": 0.986328125
+        }
+      }
+    }
+  },
+  "samples_per_ray": 2048,
+  "train_head_points": 1021,
+  "uses_test_rgb": false,
+  "uses_validation_rgb_for_fitting": false
+}

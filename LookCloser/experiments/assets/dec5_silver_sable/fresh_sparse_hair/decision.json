@@ -1,0 +1,1741 @@
+{
+  "points": 32,
+  "tracks": [
+    {
+      "observations": [
+        {
+          "camera": "E004_A005_1210QB",
+          "feature": 155,
+          "uv": [
+            1071.5299072265625,
+            233.2543182373047
+          ]
+        },
+        {
+          "camera": "F004_B005_1210O9",
+          "feature": 198,
+          "uv": [
+            1045.379638671875,
+            362.1137390136719
+          ]
+        },
+        {
+          "camera": "F004_A005_12103K",
+          "feature": 208,
+          "uv": [
+            1071.479736328125,
+            406.23284912109375
+          ]
+        },
+        {
+          "camera": "F004_C005_121059",
+          "feature": 309,
+          "uv": [
+            1001.9995727539062,
+            320.6404113769531
+          ]
+        }
+      ],
+      "max_reprojection_pixels": 0.9766216480049507
+    },
+    {
+      "observations": [
+        {
+          "camera": "E004_A005_1210QB",
+          "feature": 164,
+          "uv": [
+            1075.010986328125,
+            224.57037353515625
+          ]
+        },
+        {
+          "camera": "F004_B005_1210O9",
+          "feature": 204,
+          "uv": [
+            1048.457763671875,
+            352.58197021484375
+          ]
+        },
+        {
+          "camera": "F004_A005_12103K",
+          "feature": 214,
+          "uv": [
+            1074.7930908203125,
+            397.8599548339844
+          ]
+        },
+        {
+          "camera": "G004_B005_1210FG",
+          "feature": 232,
+          "uv": [
+            1083.499267578125,
+            282.55743408203125
+          ]
+        }
+      ],
+      "max_reprojection_pixels": 0.876119551092736
+    },
+    {
+      "observations": [
+        {
+          "camera": "E004_A005_1210QB",
+          "feature": 426,
+          "uv": [
+            1185.7366943359375,
+            370.50372314453125
+          ]
+        },
+        {
+          "camera": "F004_B005_1210O9",
+          "feature": 643,
+          "uv": [
+            1196.4334716796875,
+            499.9122009277344
+          ]
+        },
+        {
+          "camera": "F004_A005_12103K",
+          "feature": 542,
+          "uv": [
+            1191.4420166015625,
+            528.554931640625
+          ]
+        }
+      ],
+      "max_reprojection_pixels": 0.8847063660376234
+    },
+    {
+      "observations": [
+        {
+          "camera": "E004_A005_1210QB",
+          "feature": 444,
+          "uv": [
+            1195.8046875,
+            520.9893798828125
+          ]
+        },
+        {
+          "camera": "F004_B005_1210O9",
+          "feature": 694,
+          "uv": [
+            1214.1585693359375,
+            660.0875244140625
+          ]
+        },
+        {
+          "camera": "F004_C005_121059",
+          "feature": 793,
+          "uv": [
+            1198.27392578125,
+            606.900390625
+          ]
+        }
+      ],
+      "max_reprojection_pixels": 0.958797746841728
+    },
+    {
+      "observations": [
+        {
+          "camera": "E004_A005_1210QB",
+          "feature": 472,
+          "uv": [
+            1206.4666748046875,
+            495.701904296875
+          ]
+        },
+        {
+          "camera": "F004_A005_12103K",
+          "feature": 609,
+          "uv": [
+            1214.4183349609375,
+            655.2913208007812
+          ]
+        },
+        {
+          "camera": "G004_B005_1210FG",
+          "feature": 644,
+          "uv": [
+            1274.2998046875,
+            541.939453125
+          ]
+        }
+      ],
+      "max_reprojection_pixels": 1.042067549488518
+    },
+    {
+      "observations": [
+        {
+          "camera": "E004_A005_1210QB",
+          "feature": 533,
+          "uv": [
+            1224.6004638671875,
+            496.46807861328125
+          ]
+        },
+        {
+          "camera": "F004_A005_12103K",
+          "feature": 655,
+          "uv": [
+            1232.943115234375,
+            655.1253662109375
+          ]
+        },
+        {
+          "camera": "G004_A005_121071",
+          "feature": 636,
+          "uv": [
+            1272.9495849609375,
+            578.5327758789062
+          ]
+        }
+      ],
+      "max_reprojection_pixels": 1.4463924517560403
+    },
+    {
+      "observations": [
+        {
+          "camera": "E004_B005_1210I7",
+          "feature": 796,
+          "uv": [
+            1201.4591064453125,
+            652.1165771484375
+          ]
+        },
+        {
+          "camera": "F004_B005_1210O9",
+          "feature": 745,
+          "uv": [
+            1232.336669921875,
+            638.962646484375
+          ]
+        },
+        {
+          "camera": "G004_B005_1210FG",
+          "feature": 654,
+          "uv": [
+            1282.277099609375,
+            548.23828125
+          ]
+        }
+      ],
+      "max_reprojection_pixels": 1.4746864842710594
+    },
+    {
+      "observations": [
+        {
+          "camera": "E004_B005_1210I7",
+          "feature": 18,
+          "uv": [
+            871.1426391601562,
+            303.5246887207031
+          ]
+        },
+        {
+          "camera": "D004_C005_1210ES",
+          "feature": 19,
+          "uv": [
+            918.4511108398438,
+            255.0073699951172
+          ]
+        },
+        {
+          "camera": "E004_C005_1210YM",
+          "feature": 52,
+          "uv": [
+            935.472900390625,
+            280.79425048828125
+          ]
+        },
+        {
+          "camera": "F004_C005_121059",
+          "feature": 80,
+          "uv": [
+            824.5108032226562,
+            339.4490966796875
+          ]
+        }
+      ],
+      "max_reprojection_pixels": 0.8442698566534467
+    },
+    {
+      "observations": [
+        {
+          "camera": "E004_B005_1210I7",
+          "feature": 712,
+          "uv": [
+            1171.64453125,
+            540.633544921875
+          ]
+        },
+        {
+          "camera": "C004_C005_12104M",
+          "feature": 703,
+          "uv": [
+            1271.87744140625,
+            507.87017822265625
+          ]
+        },
+        {
+          "camera": "D004_D005_1210LZ",
+          "feature": 665,
+          "uv": [
+            1255.87939453125,
+            534.6275634765625
+          ]
+        }
+      ],
+      "max_reprojection_pixels": 0.951080814647526
+    },
+    {
+      "observations": [
+        {
+          "camera": "D004_B005_1210N4",
+          "feature": 83,
+          "uv": [
+            1123.7095947265625,
+            359.4245300292969
+          ]
+        },
+        {
+          "camera": "C004_B005_1210ER",
+          "feature": 46,
+          "uv": [
+            1047.6502685546875,
+            184.37744140625
+          ]
+        },
+        {
+          "camera": "B004_C005_1210NK",
+          "feature": 73,
+          "uv": [
+            1075.3255615234375,
+            361.1997985839844
+          ]
+        },
+        {
+          "camera": "B004_B005_1210Z3",
+          "feature": 79,
+          "uv": [
+            1019.5261840820312,
+            395.4389953613281
+          ]
+        },
+        {
+          "camera": "D004_C005_1210ES",
+          "feature": 145,
+          "uv": [
+            1062.049560546875,
+            286.3240966796875
+          ]
+        },
+        {
+          "camera": "C004_C005_12104M",
+          "feature": 140,
+          "uv": [
+            1068.296142578125,
+            305.7633056640625
+          ]
+        },
+        {
+          "camera": "D004_D005_1210LZ",
+          "feature": 149,
+          "uv": [
+            1074.2711181640625,
+            306.73614501953125
+          ]
+        }
+      ],
+      "max_reprojection_pixels": 1.1077909705745457
+    },
+    {
+      "observations": [
+        {
+          "camera": "D004_B005_1210N4",
+          "feature": 149,
+          "uv": [
+            1154.884033203125,
+            360.80462646484375
+          ]
+        },
+        {
+          "camera": "C004_B005_1210ER",
+          "feature": 100,
+          "uv": [
+            1078.6280517578125,
+            183.46556091308594
+          ]
+        },
+        {
+          "camera": "D004_C005_1210ES",
+          "feature": 212,
+          "uv": [
+            1092.41552734375,
+            284.9663391113281
+          ]
+        },
+        {
+          "camera": "C004_C005_12104M",
+          "feature": 214,
+          "uv": [
+            1099.6614990234375,
+            303.1716613769531
+          ]
+        },
+        {
+          "camera": "B004_C005_1210NK",
+          "feature": 110,
+          "uv": [
+            1106.189697265625,
+            357.5240478515625
+          ]
+        }
+      ],
+      "max_reprojection_pixels": 0.36988849747748664
+    },
+    {
+      "observations": [
+        {
+          "camera": "D004_B005_1210N4",
+          "feature": 159,
+          "uv": [
+            1156.8050537109375,
+            369.28204345703125
+          ]
+        },
+        {
+          "camera": "C004_B005_1210ER",
+          "feature": 104,
+          "uv": [
+            1080.507080078125,
+            189.8671875
+          ]
+        },
+        {
+          "camera": "B004_B005_1210Z3",
+          "feature": 143,
+          "uv": [
+            1053.1756591796875,
+            402.02923583984375
+          ]
+        }
+      ],
+      "max_reprojection_pixels": 1.070088531528125
+    },
+    {
+      "observations": [
+        {
+          "camera": "D004_B005_1210N4",
+          "feature": 178,
+          "uv": [
+            1163.7720947265625,
+            729.8619995117188
+          ]
+        },
+        {
+          "camera": "C004_B005_1210ER",
+          "feature": 182,
+          "uv": [
+            1112.913330078125,
+            532.2330932617188
+          ]
+        },
+        {
+          "camera": "C004_C005_12104M",
+          "feature": 304,
+          "uv": [
+            1133.848876953125,
+            659.897216796875
+          ]
+        },
+        {
+          "camera": "B004_B005_1210Z3",
+          "feature": 234,
+          "uv": [
+            1091.764892578125,
+            731.6080322265625
+          ]
+        }
+      ],
+      "max_reprojection_pixels": 0.8448080676831028
+    },
+    {
+      "observations": [
+        {
+          "camera": "D004_B005_1210N4",
+          "feature": 206,
+          "uv": [
+            1178.1959228515625,
+            362.5476989746094
+          ]
+        },
+        {
+          "camera": "C004_B005_1210ER",
+          "feature": 158,
+          "uv": [
+            1101.80517578125,
+            187.04345703125
+          ]
+        },
+        {
+          "camera": "D004_C005_1210ES",
+          "feature": 284,
+          "uv": [
+            1118.6541748046875,
+            283.7576904296875
+          ]
+        }
+      ],
+      "max_reprojection_pixels": 0.5990212826922995
+    },
+    {
+      "observations": [
+        {
+          "camera": "D004_B005_1210N4",
+          "feature": 221,
+          "uv": [
+            1185.000244140625,
+            362.38775634765625
+          ]
+        },
+        {
+          "camera": "C004_B005_1210ER",
+          "feature": 175,
+          "uv": [
+            1107.651123046875,
+            187.0365753173828
+          ]
+        },
+        {
+          "camera": "C004_C005_12104M",
+          "feature": 303,
+          "uv": [
+            1133.6329345703125,
+            302.7696838378906
+          ]
+        }
+      ],
+      "max_reprojection_pixels": 0.10923774665976582
+    },
+    {
+      "observations": [
+        {
+          "camera": "D004_B005_1210N4",
+          "feature": 287,
+          "uv": [
+            1208.7076416015625,
+            339.5723876953125
+          ]
+        },
+        {
+          "camera": "C004_B005_1210ER",
+          "feature": 230,
+          "uv": [
+            1130.2164306640625,
+            156.86354064941406
+          ]
+        },
+        {
+          "camera": "C004_C005_12104M",
+          "feature": 343,
+          "uv": [
+            1147.2774658203125,
+            276.51007080078125
+          ]
+        },
+        {
+          "camera": "B004_C005_1210NK",
+          "feature": 234,
+          "uv": [
+            1152.689208984375,
+            327.5113525390625
+          ]
+        }
+      ],
+      "max_reprojection_pixels": 0.21445889028957416
+    },
+    {
+      "observations": [
+        {
+          "camera": "D004_B005_1210N4",
+          "feature": 608,
+          "uv": [
+            1320.84814453125,
+            577.9296875
+          ]
+        },
+        {
+          "camera": "C004_B005_1210ER",
+          "feature": 525,
+          "uv": [
+            1254.7117919921875,
+            393.3927307128906
+          ]
+        },
+        {
+          "camera": "D004_C005_1210ES",
+          "feature": 692,
+          "uv": [
+            1273.7867431640625,
+            479.9293518066406
+          ]
+        },
+        {
+          "camera": "C004_C005_12104M",
+          "feature": 748,
+          "uv": [
+            1290.5516357421875,
+            499.9147033691406
+          ]
+        },
+        {
+          "camera": "B004_C005_1210NK",
+          "feature": 607,
+          "uv": [
+            1299.741455078125,
+            552.3880004882812
+          ]
+        },
+        {
+          "camera": "D004_D005_1210LZ",
+          "feature": 710,
+          "uv": [
+            1272.7716064453125,
+            527.92529296875
+          ]
+        }
+      ],
+      "max_reprojection_pixels": 0.8975045682697175
+    },
+    {
+      "observations": [
+        {
+          "camera": "D004_B005_1210N4",
+          "feature": 694,
+          "uv": [
+            1363.7684326171875,
+            541.4041137695312
+          ]
+        },
+        {
+          "camera": "C004_B005_1210ER",
+          "feature": 610,
+          "uv": [
+            1294.693603515625,
+            353.2835388183594
+          ]
+        },
+        {
+          "camera": "C004_C005_12104M",
+          "feature": 819,
+          "uv": [
+            1326.7513427734375,
+            459.2942199707031
+          ]
+        },
+        {
+          "camera": "B004_C005_1210NK",
+          "feature": 662,
+          "uv": [
+            1334.5009765625,
+            508.4136047363281
+          ]
+        }
+      ],
+      "max_reprojection_pixels": 0.7270687923389938
+    },
+    {
+      "observations": [
+        {
+          "camera": "D004_B005_1210N4",
+          "feature": 416,
+          "uv": [
+            1253.30029296875,
+            362.6037902832031
+          ]
+        },
+        {
+          "camera": "D004_C005_1210ES",
+          "feature": 451,
+          "uv": [
+            1185.894287109375,
+            284.5078125
+          ]
+        },
+        {
+          "camera": "C004_C005_12104M",
+          "feature": 469,
+          "uv": [
+            1194.695556640625,
+            295.32647705078125
+          ]
+        }
+      ],
+      "max_reprojection_pixels": 0.6216161124317391
+    },
+    {
+      "observations": [
+        {
+          "camera": "D004_B005_1210N4",
+          "feature": 318,
+          "uv": [
+            1216.6263427734375,
+            492.9333190917969
+          ]
+        },
+        {
+          "camera": "C004_C005_12104M",
+          "feature": 411,
+          "uv": [
+            1175.402587890625,
+            426.0482177734375
+          ]
+        },
+        {
+          "camera": "B004_C005_1210NK",
+          "feature": 317,
+          "uv": [
+            1183.17578125,
+            477.73419189453125
+          ]
+        }
+      ],
+      "max_reprojection_pixels": 0.47077685771209576
+    },
+    {
+      "observations": [
+        {
+          "camera": "D004_B005_1210N4",
+          "feature": 401,
+          "uv": [
+            1249.368408203125,
+            531.5477905273438
+          ]
+        },
+        {
+          "camera": "C004_C005_12104M",
+          "feature": 515,
+          "uv": [
+            1211.0035400390625,
+            460.4294128417969
+          ]
+        },
+        {
+          "camera": "D004_C005_1210ES",
+          "feature": 483,
+          "uv": [
+            1195.4898681640625,
+            443.79736328125
+          ]
+        },
+        {
+          "camera": "D004_D005_1210LZ",
+          "feature": 468,
+          "uv": [
+            1194.5091552734375,
+            479.68524169921875
+          ]
+        }
+      ],
+      "max_reprojection_pixels": 0.4816061850748967
+    },
+    {
+      "observations": [
+        {
+          "camera": "D004_B005_1210N4",
+          "feature": 423,
+          "uv": [
+            1255.224609375,
+            393.81024169921875
+          ]
+        },
+        {
+          "camera": "C004_C005_12104M",
+          "feature": 489,
+          "uv": [
+            1200.704345703125,
+            325.314208984375
+          ]
+        },
+        {
+          "camera": "B004_C005_1210NK",
+          "feature": 400,
+          "uv": [
+            1207.0379638671875,
+            376.708251953125
+          ]
+        }
+      ],
+      "max_reprojection_pixels": 0.15526780849561328
+    },
+    {
+      "observations": [
+        {
+          "camera": "D004_B005_1210N4",
+          "feature": 399,
+          "uv": [
+            1248.9715576171875,
+            370.6310119628906
+          ]
+        },
+        {
+          "camera": "B004_C005_1210NK",
+          "feature": 354,
+          "uv": [
+            1195.3782958984375,
+            351.944091796875
+          ]
+        },
+        {
+          "camera": "C004_B005_1210ER",
+          "feature": 338,
+          "uv": [
+            1171.7816162109375,
+            184.91159057617188
+          ]
+        }
+      ],
+      "max_reprojection_pixels": 0.44279583380517173
+    },
+    {
+      "observations": [
+        {
+          "camera": "F004_B005_1210O9",
+          "feature": 184,
+          "uv": [
+            1037.3388671875,
+            352.8152160644531
+          ]
+        },
+        {
+          "camera": "E004_C005_1210YM",
+          "feature": 264,
+          "uv": [
+            1099.4151611328125,
+            268.1494140625
+          ]
+        },
+        {
+          "camera": "D004_C005_1210ES",
+          "feature": 197,
+          "uv": [
+            1086.1490478515625,
+            286.323486328125
+          ]
+        }
+      ],
+      "max_reprojection_pixels": 0.3677682933498853
+    },
+    {
+      "observations": [
+        {
+          "camera": "F004_B005_1210O9",
+          "feature": 805,
+          "uv": [
+            1258.0897216796875,
+            491.91192626953125
+          ]
+        },
+        {
+          "camera": "F004_C005_121059",
+          "feature": 869,
+          "uv": [
+            1232.359619140625,
+            440.42059326171875
+          ]
+        },
+        {
+          "camera": "G004_B005_1210FG",
+          "feature": 697,
+          "uv": [
+            1302.6318359375,
+            403.6756896972656
+          ]
+        }
+      ],
+      "max_reprojection_pixels": 0.9596290723530483
+    },
+    {
+      "observations": [
+        {
+          "camera": "C004_B005_1210ER",
+          "feature": 252,
+          "uv": [
+            1134.0657958984375,
+            300.1059875488281
+          ]
+        },
+        {
+          "camera": "C004_C005_12104M",
+          "feature": 385,
+          "uv": [
+            1160.548828125,
+            414.908935546875
+          ]
+        },
+        {
+          "camera": "D004_C005_1210ES",
+          "feature": 358,
+          "uv": [
+            1149.2384033203125,
+            396.8670959472656
+          ]
+        },
+        {
+          "camera": "D004_D005_1210LZ",
+          "feature": 328,
+          "uv": [
+            1152.9012451171875,
+            427.8674621582031
+          ]
+        }
+      ],
+      "max_reprojection_pixels": 0.9236893853850564
+    },
+    {
+      "observations": [
+        {
+          "camera": "C004_B005_1210ER",
+          "feature": 88,
+          "uv": [
+            1074.7911376953125,
+            175.47064208984375
+          ]
+        },
+        {
+          "camera": "B004_B005_1210Z3",
+          "feature": 127,
+          "uv": [
+            1046.916015625,
+            387.9383239746094
+          ]
+        },
+        {
+          "camera": "B004_C005_1210NK",
+          "feature": 107,
+          "uv": [
+            1103.462890625,
+            350.61639404296875
+          ]
+        }
+      ],
+      "max_reprojection_pixels": 1.2079060155414145
+    },
+    {
+      "observations": [
+        {
+          "camera": "F004_A005_12103K",
+          "feature": 173,
+          "uv": [
+            1059.7855224609375,
+            470.91845703125
+          ]
+        },
+        {
+          "camera": "G004_B005_1210FG",
+          "feature": 221,
+          "uv": [
+            1078.804931640625,
+            360.94921875
+          ]
+        },
+        {
+          "camera": "G004_A005_121071",
+          "feature": 198,
+          "uv": [
+            1113.3218994140625,
+            403.7942810058594
+          ]
+        }
+      ],
+      "max_reprojection_pixels": 0.8435193522340282
+    },
+    {
+      "observations": [
+        {
+          "camera": "G004_B005_1210FG",
+          "feature": 130,
+          "uv": [
+            1024.776123046875,
+            661.24853515625
+          ]
+        },
+        {
+          "camera": "H004_B005_1210EL",
+          "feature": 113,
+          "uv": [
+            1001.6015014648438,
+            639.6143798828125
+          ]
+        },
+        {
+          "camera": "G004_A005_121071",
+          "feature": 85,
+          "uv": [
+            1032.24609375,
+            674.6907348632812
+          ]
+        }
+      ],
+      "max_reprojection_pixels": 0.7546231039805045
+    },
+    {
+      "observations": [
+        {
+          "camera": "D004_C005_1210ES",
+          "feature": 31,
+          "uv": [
+            945.8582153320312,
+            261.9703369140625
+          ]
+        },
+        {
+          "camera": "E004_C005_1210YM",
+          "feature": 68,
+          "uv": [
+            963.4024658203125,
+            280.8944091796875
+          ]
+        },
+        {
+          "camera": "F004_C005_121059",
+          "feature": 106,
+          "uv": [
+            853.0335083007812,
+            337.542724609375
+          ]
+        }
+      ],
+      "max_reprojection_pixels": 0.7648707981876753
+    },
+    {
+      "observations": [
+        {
+          "camera": "C004_C005_12104M",
+          "feature": 215,
+          "uv": [
+            1099.6614990234375,
+            303.1716613769531
+          ]
+        },
+        {
+          "camera": "B004_C005_1210NK",
+          "feature": 111,
+          "uv": [
+            1106.189697265625,
+            357.5240478515625
+          ]
+        },
+        {
+          "camera": "D004_D005_1210LZ",
+          "feature": 222,
+          "uv": [
+            1105.406982421875,
+            307.0296936035156
+          ]
+        },
+        {
+          "camera": "B004_B005_1210Z3",
+          "feature": 138,
+          "uv": [
+            1050.61962890625,
+            394.9184265136719
+          ]
+        }
+      ],
+      "max_reprojection_pixels": 1.1296280982418347
+    },
+    {
+      "observations": [
+        {
+          "camera": "C004_C005_12104M",
+          "feature": 320,
+          "uv": [
+            1139.01708984375,
+            294.09161376953125
+          ]
+        },
+        {
+          "camera": "B004_C005_1210NK",
+          "feature": 209,
+          "uv": [
+            1145.36279296875,
+            351.0310363769531
+          ]
+        },
+        {
+          "camera": "B004_B005_1210Z3",
+          "feature": 223,
+          "uv": [
+            1086.5120849609375,
+            393.688720703125
+          ]
+        }
+      ],
+      "max_reprojection_pixels": 1.4411170059277874
+    }
+  ],
+  "pairs": [
+    {
+      "cameras": [
+        "E004_A005_1210QB",
+        "E004_B005_1210I7"
+      ],
+      "accepted": 0,
+      "mutual_ratio_matches": 6
+    },
+    {
+      "cameras": [
+        "E004_A005_1210QB",
+        "F004_B005_1210O9"
+      ],
+      "accepted": 16,
+      "mutual_ratio_matches": 17,
+      "sampson_error_median_pixels": 0.28646010830367485,
+      "sampson_error_p10_pixels": 0.1717488871043665,
+      "epipolar_inliers": 16
+    },
+    {
+      "cameras": [
+        "E004_A005_1210QB",
+        "F004_A005_12103K"
+      ],
+      "accepted": 28,
+      "mutual_ratio_matches": 32,
+      "sampson_error_median_pixels": 0.9726110448937247,
+      "sampson_error_p10_pixels": 0.5971312704198872,
+      "epipolar_inliers": 28
+    },
+    {
+      "cameras": [
+        "E004_A005_1210QB",
+        "G004_B005_1210FG"
+      ],
+      "accepted": 0,
+      "mutual_ratio_matches": 7
+    },
+    {
+      "cameras": [
+        "E004_A005_1210QB",
+        "G004_A005_121071"
+      ],
+      "accepted": 0,
+      "mutual_ratio_matches": 2
+    },
+    {
+      "cameras": [
+        "E004_A005_1210QB",
+        "H004_B005_1210EL"
+      ],
+      "accepted": 0,
+      "mutual_ratio_matches": 0
+    },
+    {
+      "cameras": [
+        "E004_B005_1210I7",
+        "D004_B005_1210N4"
+      ],
+      "accepted": 1,
+      "mutual_ratio_matches": 13,
+      "sampson_error_median_pixels": 2.812850448289978,
+      "sampson_error_p10_pixels": 1.7041019393021712,
+      "epipolar_inliers": 1
+    },
+    {
+      "cameras": [
+        "E004_B005_1210I7",
+        "F004_B005_1210O9"
+      ],
+      "accepted": 10,
+      "mutual_ratio_matches": 28,
+      "sampson_error_median_pixels": 1.8807433432079683,
+      "sampson_error_p10_pixels": 0.8206591325918686,
+      "epipolar_inliers": 10
+    },
+    {
+      "cameras": [
+        "E004_B005_1210I7",
+        "C004_B005_1210ER"
+      ],
+      "accepted": 0,
+      "mutual_ratio_matches": 5
+    },
+    {
+      "cameras": [
+        "E004_B005_1210I7",
+        "F004_A005_12103K"
+      ],
+      "accepted": 0,
+      "mutual_ratio_matches": 0
+    },
+    {
+      "cameras": [
+        "E004_B005_1210I7",
+        "G004_B005_1210FG"
+      ],
+      "accepted": 0,
+      "mutual_ratio_matches": 1
+    },
+    {
+      "cameras": [
+        "E004_B005_1210I7",
+        "D004_C005_1210ES"
+      ],
+      "accepted": 16,
+      "mutual_ratio_matches": 18,
+      "sampson_error_median_pixels": 0.8857107897995246,
+      "sampson_error_p10_pixels": 0.3035048522893331,
+      "epipolar_inliers": 16
+    },
+    {
+      "cameras": [
+        "E004_B005_1210I7",
+        "C004_C005_12104M"
+      ],
+      "accepted": 2,
+      "mutual_ratio_matches": 8,
+      "sampson_error_median_pixels": 2.195379383248791,
+      "sampson_error_p10_pixels": 1.0183667993038354,
+      "epipolar_inliers": 2
+    },
+    {
+      "cameras": [
+        "E004_B005_1210I7",
+        "E004_C005_1210YM"
+      ],
+      "accepted": 0,
+      "mutual_ratio_matches": 13,
+      "sampson_error_median_pixels": 3.7002327517275764,
+      "sampson_error_p10_pixels": 1.8808555757220418,
+      "epipolar_inliers": 0
+    },
+    {
+      "cameras": [
+        "E004_B005_1210I7",
+        "B004_B005_1210Z3"
+      ],
+      "accepted": 0,
+      "mutual_ratio_matches": 2
+    },
+    {
+      "cameras": [
+        "E004_B005_1210I7",
+        "F004_C005_121059"
+      ],
+      "accepted": 0,
+      "mutual_ratio_matches": 0
+    },
+    {
+      "cameras": [
+        "E004_B005_1210I7",
+        "D004_D005_1210LZ"
+      ],
+      "accepted": 0,
+      "mutual_ratio_matches": 1
+    },
+    {
+      "cameras": [
+        "D004_B005_1210N4",
+        "C004_B005_1210ER"
+      ],
+      "accepted": 30,
+      "mutual_ratio_matches": 31,
+      "sampson_error_median_pixels": 0.3466843692100998,
+      "sampson_error_p10_pixels": 0.08283536670644402,
+      "epipolar_inliers": 30
+    },
+    {
+      "cameras": [
+        "D004_B005_1210N4",
+        "D004_C005_1210ES"
+      ],
+      "accepted": 12,
+      "mutual_ratio_matches": 16,
+      "sampson_error_median_pixels": 0.4533815257890077,
+      "sampson_error_p10_pixels": 0.1727423587818541,
+      "epipolar_inliers": 12
+    },
+    {
+      "cameras": [
+        "D004_B005_1210N4",
+        "C004_C005_12104M"
+      ],
+      "accepted": 28,
+      "mutual_ratio_matches": 28,
+      "sampson_error_median_pixels": 0.2751647982760231,
+      "sampson_error_p10_pixels": 0.07721828984660338,
+      "epipolar_inliers": 28
+    },
+    {
+      "cameras": [
+        "D004_B005_1210N4",
+        "B004_B005_1210Z3"
+      ],
+      "accepted": 0,
+      "mutual_ratio_matches": 5
+    },
+    {
+      "cameras": [
+        "D004_B005_1210N4",
+        "B004_C005_1210NK"
+      ],
+      "accepted": 9,
+      "mutual_ratio_matches": 10,
+      "sampson_error_median_pixels": 0.26145981476019436,
+      "sampson_error_p10_pixels": 0.024672197266617357,
+      "epipolar_inliers": 9
+    },
+    {
+      "cameras": [
+        "D004_B005_1210N4",
+        "D004_D005_1210LZ"
+      ],
+      "accepted": 0,
+      "mutual_ratio_matches": 1
+    },
+    {
+      "cameras": [
+        "F004_B005_1210O9",
+        "F004_A005_12103K"
+      ],
+      "accepted": 0,
+      "mutual_ratio_matches": 0
+    },
+    {
+      "cameras": [
+        "F004_B005_1210O9",
+        "G004_B005_1210FG"
+      ],
+      "accepted": 24,
+      "mutual_ratio_matches": 28,
+      "sampson_error_median_pixels": 0.5754190492344875,
+      "sampson_error_p10_pixels": 0.17576769657468322,
+      "epipolar_inliers": 24
+    },
+    {
+      "cameras": [
+        "F004_B005_1210O9",
+        "D004_C005_1210ES"
+      ],
+      "accepted": 0,
+      "mutual_ratio_matches": 5
+    },
+    {
+      "cameras": [
+        "F004_B005_1210O9",
+        "E004_C005_1210YM"
+      ],
+      "accepted": 20,
+      "mutual_ratio_matches": 23,
+      "sampson_error_median_pixels": 0.42795287335128557,
+      "sampson_error_p10_pixels": 0.030962359677935668,
+      "epipolar_inliers": 20
+    },
+    {
+      "cameras": [
+        "F004_B005_1210O9",
+        "G004_A005_121071"
+      ],
+      "accepted": 0,
+      "mutual_ratio_matches": 2
+    },
+    {
+      "cameras": [
+        "F004_B005_1210O9",
+        "F004_C005_121059"
+      ],
+      "accepted": 10,
+      "mutual_ratio_matches": 13,
+      "sampson_error_median_pixels": 0.7315451415851927,
+      "sampson_error_p10_pixels": 0.22097017706060676,
+      "epipolar_inliers": 10
+    },
+    {
+      "cameras": [
+        "F004_B005_1210O9",
+        "H004_B005_1210EL"
+      ],
+      "accepted": 0,
+      "mutual_ratio_matches": 2
+    },
+    {
+      "cameras": [
+        "C004_B005_1210ER",
+        "D004_C005_1210ES"
+      ],
+      "accepted": 0,
+      "mutual_ratio_matches": 6
+    },
+    {
+      "cameras": [
+        "C004_B005_1210ER",
+        "C004_C005_12104M"
+      ],
+      "accepted": 11,
+      "mutual_ratio_matches": 14,
+      "sampson_error_median_pixels": 0.701952645236497,
+      "sampson_error_p10_pixels": 0.16196112669450247,
+      "epipolar_inliers": 11
+    },
+    {
+      "cameras": [
+        "C004_B005_1210ER",
+        "B004_B005_1210Z3"
+      ],
+      "accepted": 15,
+      "mutual_ratio_matches": 27,
+      "sampson_error_median_pixels": 1.3724506554731362,
+      "sampson_error_p10_pixels": 0.93827012872215,
+      "epipolar_inliers": 15
+    },
+    {
+      "cameras": [
+        "C004_B005_1210ER",
+        "B004_C005_1210NK"
+      ],
+      "accepted": 16,
+      "mutual_ratio_matches": 17,
+      "sampson_error_median_pixels": 0.22657228969722312,
+      "sampson_error_p10_pixels": 0.08352312476110267,
+      "epipolar_inliers": 16
+    },
+    {
+      "cameras": [
+        "F004_A005_12103K",
+        "G004_B005_1210FG"
+      ],
+      "accepted": 8,
+      "mutual_ratio_matches": 10,
+      "sampson_error_median_pixels": 0.3076933548398544,
+      "sampson_error_p10_pixels": 0.16409465443988647,
+      "epipolar_inliers": 8
+    },
+    {
+      "cameras": [
+        "F004_A005_12103K",
+        "G004_A005_121071"
+      ],
+      "accepted": 6,
+      "mutual_ratio_matches": 33,
+      "sampson_error_median_pixels": 1.9970043979741583,
+      "sampson_error_p10_pixels": 1.1074281974181654,
+      "epipolar_inliers": 6
+    },
+    {
+      "cameras": [
+        "F004_A005_12103K",
+        "H004_B005_1210EL"
+      ],
+      "accepted": 0,
+      "mutual_ratio_matches": 3
+    },
+    {
+      "cameras": [
+        "G004_B005_1210FG",
+        "E004_C005_1210YM"
+      ],
+      "accepted": 0,
+      "mutual_ratio_matches": 7
+    },
+    {
+      "cameras": [
+        "G004_B005_1210FG",
+        "G004_A005_121071"
+      ],
+      "accepted": 0,
+      "mutual_ratio_matches": 7
+    },
+    {
+      "cameras": [
+        "G004_B005_1210FG",
+        "F004_C005_121059"
+      ],
+      "accepted": 12,
+      "mutual_ratio_matches": 16,
+      "sampson_error_median_pixels": 0.39580963657438933,
+      "sampson_error_p10_pixels": 0.04687705557360435,
+      "epipolar_inliers": 12
+    },
+    {
+      "cameras": [
+        "G004_B005_1210FG",
+        "H004_B005_1210EL"
+      ],
+      "accepted": 17,
+      "mutual_ratio_matches": 19,
+      "sampson_error_median_pixels": 0.8560390696349762,
+      "sampson_error_p10_pixels": 0.4324708696926518,
+      "epipolar_inliers": 17
+    },
+    {
+      "cameras": [
+        "D004_C005_1210ES",
+        "C004_C005_12104M"
+      ],
+      "accepted": 24,
+      "mutual_ratio_matches": 25,
+      "sampson_error_median_pixels": 0.2359753002434258,
+      "sampson_error_p10_pixels": 0.022670596956645604,
+      "epipolar_inliers": 24
+    },
+    {
+      "cameras": [
+        "D004_C005_1210ES",
+        "E004_C005_1210YM"
+      ],
+      "accepted": 18,
+      "mutual_ratio_matches": 20,
+      "sampson_error_median_pixels": 0.8445369677526562,
+      "sampson_error_p10_pixels": 0.28279535384662835,
+      "epipolar_inliers": 18
+    },
+    {
+      "cameras": [
+        "D004_C005_1210ES",
+        "B004_B005_1210Z3"
+      ],
+      "accepted": 0,
+      "mutual_ratio_matches": 0
+    },
+    {
+      "cameras": [
+        "D004_C005_1210ES",
+        "F004_C005_121059"
+      ],
+      "accepted": 0,
+      "mutual_ratio_matches": 5
+    },
+    {
+      "cameras": [
+        "D004_C005_1210ES",
+        "B004_C005_1210NK"
+      ],
+      "accepted": 0,
+      "mutual_ratio_matches": 5
+    },
+    {
+      "cameras": [
+        "D004_C005_1210ES",
+        "D004_D005_1210LZ"
+      ],
+      "accepted": 11,
+      "mutual_ratio_matches": 12,
+      "sampson_error_median_pixels": 0.318581596391354,
+      "sampson_error_p10_pixels": 0.0502395717419805,
+      "epipolar_inliers": 11
+    },
+    {
+      "cameras": [
+        "C004_C005_12104M",
+        "E004_C005_1210YM"
+      ],
+      "accepted": 0,
+      "mutual_ratio_matches": 1
+    },
+    {
+      "cameras": [
+        "C004_C005_12104M",
+        "B004_B005_1210Z3"
+      ],
+      "accepted": 0,
+      "mutual_ratio_matches": 5
+    },
+    {
+      "cameras": [
+        "C004_C005_12104M",
+        "B004_C005_1210NK"
+      ],
+      "accepted": 23,
+      "mutual_ratio_matches": 25,
+      "sampson_error_median_pixels": 0.1660683105079341,
+      "sampson_error_p10_pixels": 0.0415927817348785,
+      "epipolar_inliers": 23
+    },
+    {
+      "cameras": [
+        "C004_C005_12104M",
+        "D004_D005_1210LZ"
+      ],
+      "accepted": 17,
+      "mutual_ratio_matches": 20,
+      "sampson_error_median_pixels": 0.3939240605949464,
+      "sampson_error_p10_pixels": 0.05185377233173422,
+      "epipolar_inliers": 17
+    },
+    {
+      "cameras": [
+        "E004_C005_1210YM",
+        "F004_C005_121059"
+      ],
+      "accepted": 8,
+      "mutual_ratio_matches": 50,
+      "sampson_error_median_pixels": 3.4512123958341956,
+      "sampson_error_p10_pixels": 1.1147102673935467,
+      "epipolar_inliers": 8
+    },
+    {
+      "cameras": [
+        "E004_C005_1210YM",
+        "D004_D005_1210LZ"
+      ],
+      "accepted": 0,
+      "mutual_ratio_matches": 4
+    },
+    {
+      "cameras": [
+        "B004_B005_1210Z3",
+        "B004_C005_1210NK"
+      ],
+      "accepted": 6,
+      "mutual_ratio_matches": 8,
+      "sampson_error_median_pixels": 1.1372997297853547,
+      "sampson_error_p10_pixels": 0.701946377788892,
+      "epipolar_inliers": 6
+    },
+    {
+      "cameras": [
+        "G004_A005_121071",
+        "F004_C005_121059"
+      ],
+      "accepted": 0,
+      "mutual_ratio_matches": 2
+    },
+    {
+      "cameras": [
+        "G004_A005_121071",
+        "H004_B005_1210EL"
+      ],
+      "accepted": 15,
+      "mutual_ratio_matches": 18,
+      "sampson_error_median_pixels": 0.3749345743049629,
+      "sampson_error_p10_pixels": 0.10091784582615626,
+      "epipolar_inliers": 15
+    },
+    {
+      "cameras": [
+        "F004_C005_121059",
+        "H004_B005_1210EL"
+      ],
+      "accepted": 0,
+      "mutual_ratio_matches": 4
+    },
+    {
+      "cameras": [
+        "B004_C005_1210NK",
+        "D004_D005_1210LZ"
+      ],
+      "accepted": 0,
+      "mutual_ratio_matches": 5
+    }
+  ],
+  "features": [
+    {
+      "camera": "E004_A005_1210QB",
+      "features": 708,
+      "rgb_sha256": "e8f1b13d09fdcbf943191f0c2955469afe583b19ba15e7f212bfb834b3ef7807",
+      "semantic_sha256": "24eb7331ed68a60b76becaf737eb5b3223637cfe72a4e3105ec7ae38e2ef2edf"
+    },
+    {
+      "camera": "E004_B005_1210I7",
+      "features": 944,
+      "rgb_sha256": "1ffe4dfed52554063d6210266c633c404f23556aa473d3306dcc227c9944bdd5",
+      "semantic_sha256": "07d365b74ede17e533339fa13b019a1729ece3c8d66823e30380798915c49d8e"
+    },
+    {
+      "camera": "D004_B005_1210N4",
+      "features": 790,
+      "rgb_sha256": "f00dc7d2ce074a2ff2affe3394c9a14c30c7abb8ea6859293e4693216ae2d3b1",
+      "semantic_sha256": "373d74e8a00cf5c8bd23ee89ad430c41eb7ddb102e51bc1526f3ddb0e3cae1c8"
+    },
+    {
+      "camera": "F004_B005_1210O9",
+      "features": 899,
+      "rgb_sha256": "111cb0e28978f079f41f38f642326f5ae79f432bb190c0ae310d9d0573e92140",
+      "semantic_sha256": "8cc8d7b8a78faf906d61196440d28b3126719ab0ae6f1bf6998397749788d1cf"
+    },
+    {
+      "camera": "C004_B005_1210ER",
+      "features": 700,
+      "rgb_sha256": "fc1051c5bac4225b549674039f892051c4687d488d34e8d104f7fc556d06c04f",
+      "semantic_sha256": "7f8fc51999a886b3bb65b3308ff46658491674dfded9c282d452645cc2f65599"
+    },
+    {
+      "camera": "F004_A005_12103K",
+      "features": 873,
+      "rgb_sha256": "77a005a20ae00a857776165c564807efbacce110500002299f868fd6719b21e7",
+      "semantic_sha256": "ffbef90c84ef0d2b3b918d5bd7ea2f8dd48de37882f0b2db5b3730b3f0668faa"
+    },
+    {
+      "camera": "G004_B005_1210FG",
+      "features": 776,
+      "rgb_sha256": "a6cea14fb876eb702f49576d171df7438ccb5aab08febad15a173cac1ac22382",
+      "semantic_sha256": "5b85f77bae3449cd68d4d44c548056d9109cf565ec949f31d39b3918593d18fe"
+    },
+    {
+      "camera": "D004_C005_1210ES",
+      "features": 843,
+      "rgb_sha256": "33fdd581a6187e0c6e0699414e9c05001649328424f6d6bb3fe4d9026f8601b7",
+      "semantic_sha256": "8c84382e0456cdcea3563cf46d12037b899761da579cdd08b674e09f006eb3a2"
+    },
+    {
+      "camera": "C004_C005_12104M",
+      "features": 865,
+      "rgb_sha256": "e10c34858bbf750c8015bc4da58cc9dfa052298485995caf7ad4f02296b39ca9",
+      "semantic_sha256": "f01a27c5a91f633001f27980e5c863ecafd7caa83368a6dec5491507f1ddc77b"
+    },
+    {
+      "camera": "E004_C005_1210YM",
+      "features": 980,
+      "rgb_sha256": "dee8411f5d0ddb94f81706d0a1b2515d8f7611b77c78b49985bb7eef7d25517c",
+      "semantic_sha256": "a2608aeca3f4596eaa895c5188203ab7961dfabeb800c04f28308b7f3f750cea"
+    },
+    {
+      "camera": "B004_B005_1210Z3",
+      "features": 784,
+      "rgb_sha256": "54a68ba208bb6f236aefcbe55b629e1655a75e69513974e36e9bd9b76d8a08fb",
+      "semantic_sha256": "33dbb5b0c19479a309691b3e75a44b651b555933e58eb31b9c5a096d099264bc"
+    },
+    {
+      "camera": "G004_A005_121071",
+      "features": 893,
+      "rgb_sha256": "35afdfdc61f70340eac4bac8bf6c634d5c8a0c240a2cf18ed3a5a313af06e30a",
+      "semantic_sha256": "cadc5bc2c3bff347f889ffc1d7c1a12b46fcfd2242410f88a2ec8b9d0b5ee47c"
+    },
+    {
+      "camera": "F004_C005_121059",
+      "features": 957,
+      "rgb_sha256": "31e9207b2b7e34327cc3ce398058856c7c0953695f07573fb75be0a1f1d72de5",
+      "semantic_sha256": "9ed9d6a38096a88ba6e0c9652b6865b5fb0c0c2e9fb318dc586732c6ad742384"
+    },
+    {
+      "camera": "H004_B005_1210EL",
+      "features": 842,
+      "rgb_sha256": "e197133a1af383758d3120ac4e77247bb7c6f21d72f9948f24d3acf66f69535a",
+      "semantic_sha256": "ab692dfd952960bc4b857fa029e57eb5ffb33c2c8069525749aea8f09c7f8a3a"
+    },
+    {
+      "camera": "B004_C005_1210NK",
+      "features": 701,
+      "rgb_sha256": "27b7461255bcb37143e026cb2348972e6dbb0dc2928c6df9dee28aa3d956af4a",
+      "semantic_sha256": "997a3dc26f695fb5155e142cbf2c9971143bdd58f3a1ae34df0d430da8614e20"
+    },
+    {
+      "camera": "D004_D005_1210LZ",
+      "features": 792,
+      "rgb_sha256": "0e69c55d271e14e6b5c31adf549daa589dba1b8198021270b079d51764ef2adb",
+      "semantic_sha256": "a04592cdce71e892b4114aa708442fe8a56bf29a2e7230a213415a5db170fb37"
+    }
+  ],
+  "ambiguous_camera_tracks_rejected": 0,
+  "minimum_views": 3,
+  "maximum_reprojection_pixels": 1.5,
+  "minimum_parallax_degrees": 3,
+  "data_sha256": "afcc41cf83f397bb2e63f2a2a07d4496b4235efc512fc6333e8049d633e36e1c",
+  "points_sha256": "64e0072c40aff6f2871705ddcda0035da0fa9a662234d098bc79574d415e94fb",
+  "uses_validation_rgb": false,
+  "uses_test_rgb": false,
+  "poses_refined": false,
+  "inherited_geometry": false,
+  "independent_depth_ground_truth": false,
+  "production_promoted": false,
+  "decision": "Insufficient coverage: 32 reliable points across16 views; no NeRF prior added and no fitting launched"
+}

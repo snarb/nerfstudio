@@ -79,6 +79,8 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--base-prediction-exr", type=Path, default=None)
+    parser.add_argument('--hair-override-manifest', type=Path, default=None,
+                        help='Opt-in hash-bound camera-z hair override; optional prewarped linear two-layer RGB.')
     parser.add_argument("--ground-truth-exr", type=Path, default=None)
     parser.add_argument(
         "--skip-ground-truth-copy", action="store_true",
@@ -1315,6 +1317,24 @@ def main() -> int:
         boundary_radius=args.depth_hole_fill_boundary_radius,
         max_relative_plane_rmse=args.depth_hole_fill_max_relative_plane_rmse,
     )
+    hair_arrays, hair_receipt = None, None
+    if args.hair_override_manifest is not None:
+        # Global graph/seam operations can spread a local depth edit outside its ROI.
+        if (list(args.aggregation_modes) != ['nearest-fill'] or args.hard_source_seam_leveling
+                or args.nearest_fill_color_continuity or args.nearest_fill_primary_color_continuation
+                or args.detail_transfer_sigmas):
+            raise ValueError('Hair override requires plain local nearest-fill without seam/detail corrections')
+        from hair_depth_override import load_override
+        target_depth_array, hair_arrays, hair_receipt = load_override(
+            args.hair_override_manifest, target_depth_array,
+            base_depth_path=depth_by_image[target_image], mesh_manifest_path=args.mesh_depth_manifest,
+            image_name=target_image.name)
+        if hair_receipt['two_layers']:
+            if any(Path(p).suffix.lower() != '.exr' for p in train.image_filenames):
+                raise ValueError('Prewarped scene-linear layers require linear EXR source RGB')
+            if (args.camera_color_calibration or args.angular_surface_color or args.mesh_camera_color
+                    or args.surface_texture_registration):
+                raise ValueError('Prewarped layers must match the unchanged raw linear source color pipeline')
     target_depth = torch.from_numpy(target_depth_array).to(device)
     target_depth = target_depth * float(target.dataparser_scale)
     target_surface_mask = target_depth > 0.0
@@ -1755,6 +1775,10 @@ def main() -> int:
                 selection_fractions = source_selection_fractions(selection, count)
                 for alpha in sorted(set(args.blend_alphas)):
                     prediction = torch.where(valid, base * (1.0 - alpha) + blend * alpha, base)
+                    if hair_arrays is not None:
+                        from hair_depth_override import apply_layers
+                        mixed, layer_gate = apply_layers(prediction.permute(1, 2, 0).cpu().numpy(), hair_arrays)
+                        prediction = torch.as_tensor(mixed, device=device).permute(2, 0, 1)
                     alpha_token = f"{alpha:.3f}".rstrip("0").rstrip(".").replace(".", "p")
                     name = variant_stem if alpha == 1.0 else f"{variant_stem}_a{alpha_token}"
                     write_prediction(args.output_dir, name, prediction, ground_truth)
@@ -1772,6 +1796,7 @@ def main() -> int:
                             "source_rank_fraction_on_valid": selection_fractions,
                             "primary_color_continuation": continuation,
                             "hard_source_seam_leveling":seam_leveling,
+                            **({'hair_override':hair_receipt} if hair_receipt is not None else {}),
                         }
                     )
                     variant_metric_masks[name] = valid[0]

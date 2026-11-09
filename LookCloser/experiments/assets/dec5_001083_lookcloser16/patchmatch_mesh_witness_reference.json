@@ -1,0 +1,116 @@
+{
+  "aggregate": {
+    "/mnt/footage2/lookcloser_hair_001083_20261027_1330/center_tsdf_base/mesh.ply": {
+      "median_absolute_relative": 0.00042075761055601233,
+      "p90_absolute_relative": 0.0010641485734651916,
+      "valid_fraction": 1.0
+    },
+    "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/subject50k_shared_surface/mesh.ply": {
+      "median_absolute_relative": 0.0004216234531496418,
+      "p90_absolute_relative": 0.0051808008036082305,
+      "valid_fraction": 1.0
+    },
+    "patchmatch_bilinear": {
+      "median_absolute_relative": 0.00018441047517534892,
+      "p90_absolute_relative": 0.00046983146913749386,
+      "valid_fraction": 1.0
+    },
+    "patchmatch_nearest": {
+      "median_absolute_relative": 0.00018277362815110235,
+      "p90_absolute_relative": 0.0004941126623432391,
+      "valid_fraction": 1.0
+    }
+  },
+  "depth_convention": "camera-z in calibration units",
+  "implementation_sha256": "0d7d619ea8ae7d211f3ed7bfa0c923c357dccd18e445eca32b8497db5d3a19bb",
+  "invalid_depth_relative_penalty": 1.0,
+  "matching_receipt_sha256": "9a6911e79efbed105e06aa5534a944bf5b8c17d5f0add06fccf4dea94cabbbca",
+  "meshes_sha256": {
+    "/mnt/footage2/lookcloser_hair_001083_20261027_1330/center_tsdf_base/mesh.ply": "663c3589c8c4d97308de6320fa382654bab626aed65feecbd4a3be9698e3687f",
+    "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/subject50k_shared_surface/mesh.ply": "5e63ea0edc4bfa7fd70c70e59abb8a6a8aa7bd18116e1485f4883d146eff8dc5"
+  },
+  "proxy": "same 133 independent-detector triangulated train-RGB points; not independent 3D GT",
+  "records": [
+    {
+      "camera": "F004_C005_121059",
+      "metrics": {
+        "/mnt/footage2/lookcloser_hair_001083_20261027_1330/center_tsdf_base/mesh.ply": {
+          "median_absolute_relative": 0.00041162349971084715,
+          "p90_absolute_relative": 0.0010281629812527084,
+          "valid_fraction": 1.0
+        },
+        "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/subject50k_shared_surface/mesh.ply": {
+          "median_absolute_relative": 0.00046312436764954154,
+          "p90_absolute_relative": 0.005015394563664569,
+          "valid_fraction": 1.0
+        },
+        "patchmatch_bilinear": {
+          "median_absolute_relative": 0.00019005666890679738,
+          "p90_absolute_relative": 0.0004788586761522028,
+          "valid_fraction": 1.0
+        },
+        "patchmatch_nearest": {
+          "median_absolute_relative": 0.00020737469558639555,
+          "p90_absolute_relative": 0.0005162101615804656,
+          "valid_fraction": 1.0
+        }
+      },
+      "witnesses": 133
+    },
+    {
+      "camera": "G004_C005_121037",
+      "metrics": {
+        "/mnt/footage2/lookcloser_hair_001083_20261027_1330/center_tsdf_base/mesh.ply": {
+          "median_absolute_relative": 0.00043532747354847306,
+          "p90_absolute_relative": 0.0010971962950719915,
+          "valid_fraction": 1.0
+        },
+        "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/subject50k_shared_surface/mesh.ply": {
+          "median_absolute_relative": 0.00041514864659063125,
+          "p90_absolute_relative": 0.005603990506319593,
+          "valid_fraction": 1.0
+        },
+        "patchmatch_bilinear": {
+          "median_absolute_relative": 0.00016264352248566272,
+          "p90_absolute_relative": 0.0004651255664570593,
+          "valid_fraction": 1.0
+        },
+        "patchmatch_nearest": {
+          "median_absolute_relative": 0.00017853467214298046,
+          "p90_absolute_relative": 0.00047670788612105494,
+          "valid_fraction": 1.0
+        }
+      },
+      "witnesses": 133
+    },
+    {
+      "camera": "E004_C005_1210YM",
+      "metrics": {
+        "/mnt/footage2/lookcloser_hair_001083_20261027_1330/center_tsdf_base/mesh.ply": {
+          "median_absolute_relative": 0.00042949115119353024,
+          "p90_absolute_relative": 0.0009998287198148374,
+          "valid_fraction": 1.0
+        },
+        "/mnt/footage2/lookcloser_hair_001083_20261027_1330/lc16/subject50k_shared_surface/mesh.ply": {
+          "median_absolute_relative": 0.000404374518002938,
+          "p90_absolute_relative": 0.004730046194576139,
+          "valid_fraction": 1.0
+        },
+        "patchmatch_bilinear": {
+          "median_absolute_relative": 0.0001946177625896494,
+          "p90_absolute_relative": 0.00045302891346022387,
+          "valid_fraction": 1.0
+        },
+        "patchmatch_nearest": {
+          "median_absolute_relative": 0.00019091182342959585,
+          "p90_absolute_relative": 0.00047285066878972225,
+          "valid_fraction": 1.0
+        }
+      },
+      "witnesses": 133
+    }
+  ],
+  "uses_test_rgb": false,
+  "uses_validation_rgb": false,
+  "witness_sha256": "f591ac368a121121573ac6b6a920910496ae6b0aa6b1d3b87edb19563f97d111"
+}

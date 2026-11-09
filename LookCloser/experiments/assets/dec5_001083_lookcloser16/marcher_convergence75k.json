@@ -1,0 +1,343 @@
+{
+  "aggregate": {
+    "adaptive2048_expected": {
+      "median_absolute_relative": 0.0011640540927389826,
+      "p90_absolute_relative": 0.0035255081423154234
+    },
+    "adaptive2048_median": {
+      "median_absolute_relative": 0.0003622614631574012,
+      "p90_absolute_relative": 0.0033154664347825476
+    },
+    "adaptive8192_dilate1_expected": {
+      "median_absolute_relative": 0.0011575078986142883,
+      "p90_absolute_relative": 0.003504985727926753
+    },
+    "adaptive8192_dilate1_median": {
+      "median_absolute_relative": 0.00036307415820241695,
+      "p90_absolute_relative": 0.003266641229788467
+    },
+    "adaptive8192_expected": {
+      "median_absolute_relative": 0.0011652348465634968,
+      "p90_absolute_relative": 0.003525823991490087
+    },
+    "adaptive8192_median": {
+      "median_absolute_relative": 0.0003622614631574012,
+      "p90_absolute_relative": 0.0033154664347825476
+    },
+    "uniform16384_expected": {
+      "median_absolute_relative": 0.0008252537397169683,
+      "p90_absolute_relative": 0.003399397832875623
+    },
+    "uniform16384_median": {
+      "median_absolute_relative": 0.0003644246108211155,
+      "p90_absolute_relative": 0.0031211156319662
+    },
+    "uniform4096_expected": {
+      "median_absolute_relative": 0.0008313437054006454,
+      "p90_absolute_relative": 0.003398992356996668
+    },
+    "uniform4096_median": {
+      "median_absolute_relative": 0.0003596942184789022,
+      "p90_absolute_relative": 0.0032021067124799038
+    }
+  },
+  "caveat": "fixed noisy triangulated train-RGB hair witnesses, not independent 3D GT",
+  "checkpoint_sha256": "7864de5b060be106c7b3557327870840a9f39036b2ca5e393a058c673c27ba4d",
+  "culling": {
+    "density_median_culled": null,
+    "density_median_occupied": 895.0459594726562,
+    "global_occupied_fraction": 0.3267531394958496,
+    "witness_occupied_fraction": 1.0
+  },
+  "implementation_sha256": "bad7a4254f6b6d1e7a0bdae1c63c793fcb45868ad1e3312adea88f1a6dbcc7b7",
+  "records": [
+    {
+      "camera": "F004_C005_121059",
+      "metrics": {
+        "expected": {
+          "median_absolute_relative": 0.0013466022336809172,
+          "p90_absolute_relative": 0.003592747054358349,
+          "valid_fraction": 1.0
+        },
+        "median": {
+          "median_absolute_relative": 0.00041697194859953196,
+          "p90_absolute_relative": 0.0033428764562365523,
+          "valid_fraction": 1.0
+        }
+      },
+      "mode": "adaptive2048",
+      "samples_max": 1925,
+      "samples_mean": 1060.0301513671875,
+      "saturation": 0.0
+    },
+    {
+      "camera": "G004_C005_121037",
+      "metrics": {
+        "expected": {
+          "median_absolute_relative": 0.0011034137339774317,
+          "p90_absolute_relative": 0.00384470073710553,
+          "valid_fraction": 1.0
+        },
+        "median": {
+          "median_absolute_relative": 0.0003678194359667152,
+          "p90_absolute_relative": 0.0037836860058340026,
+          "valid_fraction": 1.0
+        }
+      },
+      "mode": "adaptive2048",
+      "samples_max": 1636,
+      "samples_mean": 1083.744384765625,
+      "saturation": 0.0
+    },
+    {
+      "camera": "E004_C005_1210YM",
+      "metrics": {
+        "expected": {
+          "median_absolute_relative": 0.0009200086692203852,
+          "p90_absolute_relative": 0.002842202958448742,
+          "valid_fraction": 1.0
+        },
+        "median": {
+          "median_absolute_relative": 0.0003398980828374491,
+          "p90_absolute_relative": 0.0019000049064300964,
+          "valid_fraction": 1.0
+        }
+      },
+      "mode": "adaptive2048",
+      "samples_max": 1803,
+      "samples_mean": 846.8721923828125,
+      "saturation": 0.0
+    },
+    {
+      "camera": "F004_C005_121059",
+      "metrics": {
+        "expected": {
+          "median_absolute_relative": 0.0013476515027629843,
+          "p90_absolute_relative": 0.0035938973370479724,
+          "valid_fraction": 1.0
+        },
+        "median": {
+          "median_absolute_relative": 0.00041697194859953196,
+          "p90_absolute_relative": 0.0033428764562365523,
+          "valid_fraction": 1.0
+        }
+      },
+      "mode": "adaptive8192",
+      "samples_max": 1925,
+      "samples_mean": 1060.0301513671875,
+      "saturation": 0.0
+    },
+    {
+      "camera": "G004_C005_121037",
+      "metrics": {
+        "expected": {
+          "median_absolute_relative": 0.0011030353988828487,
+          "p90_absolute_relative": 0.003844022198170841,
+          "valid_fraction": 1.0
+        },
+        "median": {
+          "median_absolute_relative": 0.0003678194359667152,
+          "p90_absolute_relative": 0.0037836860058340026,
+          "valid_fraction": 1.0
+        }
+      },
+      "mode": "adaptive8192",
+      "samples_max": 1636,
+      "samples_mean": 1083.744384765625,
+      "saturation": 0.0
+    },
+    {
+      "camera": "E004_C005_1210YM",
+      "metrics": {
+        "expected": {
+          "median_absolute_relative": 0.0009192768124054884,
+          "p90_absolute_relative": 0.002842081217534559,
+          "valid_fraction": 1.0
+        },
+        "median": {
+          "median_absolute_relative": 0.0003398980828374491,
+          "p90_absolute_relative": 0.0019000049064300964,
+          "valid_fraction": 1.0
+        }
+      },
+      "mode": "adaptive8192",
+      "samples_max": 1803,
+      "samples_mean": 846.8721923828125,
+      "saturation": 0.0
+    },
+    {
+      "camera": "F004_C005_121059",
+      "metrics": {
+        "expected": {
+          "median_absolute_relative": 0.0013143372094073533,
+          "p90_absolute_relative": 0.003554471516158267,
+          "valid_fraction": 1.0
+        },
+        "median": {
+          "median_absolute_relative": 0.0004157156306612068,
+          "p90_absolute_relative": 0.003269434847877795,
+          "valid_fraction": 1.0
+        }
+      },
+      "mode": "adaptive8192_dilate1",
+      "samples_max": 2196,
+      "samples_mean": 1215.18798828125,
+      "saturation": 0.0
+    },
+    {
+      "camera": "G004_C005_121037",
+      "metrics": {
+        "expected": {
+          "median_absolute_relative": 0.001102595346706201,
+          "p90_absolute_relative": 0.003836357278424737,
+          "valid_fraction": 1.0
+        },
+        "median": {
+          "median_absolute_relative": 0.00036773062381306656,
+          "p90_absolute_relative": 0.0037750307389237555,
+          "valid_fraction": 1.0
+        }
+      },
+      "mode": "adaptive8192_dilate1",
+      "samples_max": 1768,
+      "samples_mean": 1243.383544921875,
+      "saturation": 0.0
+    },
+    {
+      "camera": "E004_C005_1210YM",
+      "metrics": {
+        "expected": {
+          "median_absolute_relative": 0.0009003266228915548,
+          "p90_absolute_relative": 0.002818320480802855,
+          "valid_fraction": 1.0
+        },
+        "median": {
+          "median_absolute_relative": 0.0003380826697605286,
+          "p90_absolute_relative": 0.0018861598378988092,
+          "valid_fraction": 1.0
+        }
+      },
+      "mode": "adaptive8192_dilate1",
+      "samples_max": 1875,
+      "samples_mean": 1007.7894897460938,
+      "saturation": 0.0
+    },
+    {
+      "camera": "F004_C005_121059",
+      "metrics": {
+        "expected": {
+          "median_absolute_relative": 0.0011377039115091228,
+          "p90_absolute_relative": 0.003439710189414437,
+          "valid_fraction": 1.0
+        },
+        "median": {
+          "median_absolute_relative": 0.00041058019658835157,
+          "p90_absolute_relative": 0.0030565569573304994,
+          "valid_fraction": 1.0
+        }
+      },
+      "mode": "uniform4096",
+      "samples_max": 4096,
+      "samples_mean": 4096,
+      "saturation": 0.0
+    },
+    {
+      "camera": "G004_C005_121037",
+      "metrics": {
+        "expected": {
+          "median_absolute_relative": 0.0012820987209376511,
+          "p90_absolute_relative": 0.0035253863837071365,
+          "valid_fraction": 1.0
+        },
+        "median": {
+          "median_absolute_relative": 0.0003628636665778138,
+          "p90_absolute_relative": 0.003658314046488824,
+          "valid_fraction": 1.0
+        }
+      },
+      "mode": "uniform4096",
+      "samples_max": 4096,
+      "samples_mean": 4096,
+      "saturation": 0.0
+    },
+    {
+      "camera": "E004_C005_1210YM",
+      "metrics": {
+        "expected": {
+          "median_absolute_relative": 0.0005137061608168346,
+          "p90_absolute_relative": 0.002664522937736414,
+          "valid_fraction": 1.0
+        },
+        "median": {
+          "median_absolute_relative": 0.00032803674486957756,
+          "p90_absolute_relative": 0.001912712072044106,
+          "valid_fraction": 1.0
+        }
+      },
+      "mode": "uniform4096",
+      "samples_max": 4096,
+      "samples_mean": 4096,
+      "saturation": 0.0
+    },
+    {
+      "camera": "F004_C005_121059",
+      "metrics": {
+        "expected": {
+          "median_absolute_relative": 0.0011440438581364753,
+          "p90_absolute_relative": 0.0034614181046655817,
+          "valid_fraction": 1.0
+        },
+        "median": {
+          "median_absolute_relative": 0.0004212486603697737,
+          "p90_absolute_relative": 0.003239850724810674,
+          "valid_fraction": 1.0
+        }
+      },
+      "mode": "uniform16384",
+      "samples_max": 16384,
+      "samples_mean": 16384,
+      "saturation": 0.0
+    },
+    {
+      "camera": "G004_C005_121037",
+      "metrics": {
+        "expected": {
+          "median_absolute_relative": 0.0012738800576560956,
+          "p90_absolute_relative": 0.003580184136866038,
+          "valid_fraction": 1.0
+        },
+        "median": {
+          "median_absolute_relative": 0.00037940621699177686,
+          "p90_absolute_relative": 0.003707502669328907,
+          "valid_fraction": 1.0
+        }
+      },
+      "mode": "uniform16384",
+      "samples_max": 16384,
+      "samples_mean": 16384,
+      "saturation": 0.0
+    },
+    {
+      "camera": "E004_C005_1210YM",
+      "metrics": {
+        "expected": {
+          "median_absolute_relative": 0.0005297368097957881,
+          "p90_absolute_relative": 0.0026603269532871356,
+          "valid_fraction": 1.0
+        },
+        "median": {
+          "median_absolute_relative": 0.00033693924943361604,
+          "p90_absolute_relative": 0.0018813938420578046,
+          "valid_fraction": 1.0
+        }
+      },
+      "mode": "uniform16384",
+      "samples_max": 16384,
+      "samples_mean": 16384,
+      "saturation": 0.0
+    }
+  ],
+  "state_unchanged": true,
+  "uses_test_rgb": false,
+  "uses_validation_rgb": false
+}

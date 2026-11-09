@@ -1,0 +1,30 @@
+{
+  "rows": [
+    {
+      "camera": "D004_A005_12103C",
+      "old_face_excluded": 0.28741858073363047,
+      "new_face_excluded": 0.0,
+      "new_hair_excluded": 0.0,
+      "old_pixels": 3245020,
+      "new_pixels": 5095489
+    },
+    {
+      "camera": "E004_B005_1210I7",
+      "old_face_excluded": 0.4094923538059146,
+      "new_face_excluded": 0.0,
+      "new_hair_excluded": 0.0,
+      "old_pixels": 3885036,
+      "new_pixels": 6326447
+    },
+    {
+      "camera": "I004_D005_1210Q7",
+      "old_face_excluded": 0.35042706315829275,
+      "new_face_excluded": 0.0,
+      "new_hair_excluded": 0.0,
+      "old_pixels": 5035436,
+      "new_pixels": 7631290
+    }
+  ],
+  "uses_reference_for_coverage_audit_only": true,
+  "construction_uses_target_images": false
+}

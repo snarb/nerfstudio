@@ -1,0 +1,169 @@
+{
+  "aggregate": {
+    "expected": {
+      "median_absolute_relative": 0.0014817026838546605,
+      "p90_absolute_relative": 0.0028893206195551163
+    },
+    "front": {
+      "median_absolute_relative": 0.0011105739411933473,
+      "p90_absolute_relative": 0.00257459461133412
+    },
+    "native_expected": {
+      "median_absolute_relative": 0.0017489170391114214,
+      "p90_absolute_relative": 0.0039226885742432785
+    },
+    "peak1": {
+      "median_absolute_relative": 0.00029881647040937815,
+      "p90_absolute_relative": 0.0008091467339560336
+    },
+    "peak1_subpixel": {
+      "median_absolute_relative": 0.0003007193952134213,
+      "p90_absolute_relative": 0.0008040456003899244
+    }
+  },
+  "checkpoint_sha256": "f5207a2d84b0a3688f799a8fbe3a454922f2bface1cc17156877648b0cd61414",
+  "depth_convention": "camera-z in calibration units",
+  "implementation_sha256": "0b525a1aa36f0d97e1d42a572ec5a626ba294fcc6039a5d9e196b36796e1b34c",
+  "invalid_depth_relative_penalty": 1.0,
+  "matching_receipt_sha256": "9a6911e79efbed105e06aa5534a944bf5b8c17d5f0add06fccf4dea94cabbbca",
+  "median_weight_mass_before_near_behind_witness": [
+    0.03285454213619232,
+    0.9355963468551636,
+    0.034501273185014725
+  ],
+  "native_ray_sampling_mode": "adaptive",
+  "probe_ray_sampling_mode": "fixed",
+  "profiles_sha256": "de3d950573645f13a8fb92b8d3b3163b2509b171e794826db850cd89eda15cf7",
+  "proxy": "independent-detector triangulated train-RGB witnesses, not independent 3D ground truth",
+  "records": [
+    {
+      "camera": "F004_C005_121059",
+      "median_weight_mass_before_near_behind_witness": [
+        0.035932768136262894,
+        0.9294827580451965,
+        0.03732944652438164
+      ],
+      "metrics": {
+        "expected": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.0014853856163058222,
+          "p90_absolute_relative": 0.0029780694426529007,
+          "valid_fraction": 1.0
+        },
+        "front": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.0010936791543537216,
+          "p90_absolute_relative": 0.0025950115517003134,
+          "valid_fraction": 1.0
+        },
+        "native_expected": {
+          "median_absolute_relative": 0.0019514678557137751,
+          "p90_absolute_relative": 0.004344150456249167,
+          "valid_fraction": 1.0
+        },
+        "peak1": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.0003392982148569623,
+          "p90_absolute_relative": 0.000766453579185319,
+          "valid_fraction": 1.0
+        },
+        "peak1_subpixel": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.0003411599929801796,
+          "p90_absolute_relative": 0.0007430713426279146,
+          "valid_fraction": 1.0
+        }
+      },
+      "opacity_median": 0.9999940991401672,
+      "witnesses": 133
+    },
+    {
+      "camera": "G004_C005_121037",
+      "median_weight_mass_before_near_behind_witness": [
+        0.029259201139211655,
+        0.9396169781684875,
+        0.034171655774116516
+      ],
+      "metrics": {
+        "expected": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.000991395646145977,
+          "p90_absolute_relative": 0.0022638923123454013,
+          "valid_fraction": 1.0
+        },
+        "front": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.0010494415423940155,
+          "p90_absolute_relative": 0.0026276872738595423,
+          "valid_fraction": 1.0
+        },
+        "native_expected": {
+          "median_absolute_relative": 0.0018862819717248825,
+          "p90_absolute_relative": 0.0035964313555978023,
+          "valid_fraction": 1.0
+        },
+        "peak1": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.000307778517515887,
+          "p90_absolute_relative": 0.0009533658224949757,
+          "valid_fraction": 1.0
+        },
+        "peak1_subpixel": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.0003003644391920396,
+          "p90_absolute_relative": 0.0009394693303334538,
+          "valid_fraction": 1.0
+        }
+      },
+      "opacity_median": 0.9999856948852539,
+      "witnesses": 133
+    },
+    {
+      "camera": "E004_C005_1210YM",
+      "median_weight_mass_before_near_behind_witness": [
+        0.03720860928297043,
+        0.9343999624252319,
+        0.029979685321450233
+      ],
+      "metrics": {
+        "expected": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.0020605308122792565,
+          "p90_absolute_relative": 0.0030625150700365473,
+          "valid_fraction": 1.0
+        },
+        "front": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.0011978993927325547,
+          "p90_absolute_relative": 0.0023248183075551235,
+          "valid_fraction": 1.0
+        },
+        "native_expected": {
+          "median_absolute_relative": 0.0013931670787461943,
+          "p90_absolute_relative": 0.003870827692249165,
+          "valid_fraction": 1.0
+        },
+        "peak1": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.0002845269211383649,
+          "p90_absolute_relative": 0.000752897593233812,
+          "valid_fraction": 1.0
+        },
+        "peak1_subpixel": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.00029024792639653824,
+          "p90_absolute_relative": 0.000756468304549918,
+          "valid_fraction": 1.0
+        }
+      },
+      "opacity_median": 0.9999954700469971,
+      "witnesses": 133
+    }
+  ],
+  "samples": 4096,
+  "step": 19999,
+  "uses_test_rgb": false,
+  "uses_validation_rgb": false,
+  "witness_sha256": "f591ac368a121121573ac6b6a920910496ae6b0aa6b1d3b87edb19563f97d111",
+  "witness_window_relative": 0.01
+}

@@ -1,0 +1,22 @@
+{
+  "images": [
+    {
+      "camera": "F004_B005_1210O9",
+      "png_sha256": "fef862744e7e4a83053afac2ccde595d7ac04b2a38eb66ae2c56cf07b5bbe335",
+      "source_sha256": "98460c74fe1de475b0aaef55852661f6b5d94b204b67c466f8b1346a172339ea"
+    },
+    {
+      "camera": "J004_D005_1210TA",
+      "png_sha256": "be1e736c5dd1fc7a3354bcda92971f1ad963bd5352b4f19c970526512e20de91",
+      "source_sha256": "a3c1b6ab8829e65cef91aff675409ecc59dc68fdb0d311e50dd6d06e1c9ba055"
+    },
+    {
+      "camera": "L004_B005_12106A",
+      "png_sha256": "f3497bccf5c43540829bb6da24abb9b01d294077179f2ebd9f6b5525d5ed33b2",
+      "source_sha256": "acf9c0693c6707d617040aa1925dd182d133c4946c478ce7b0f11ffbaf366f90"
+    }
+  ],
+  "policy": "locked test readout; do not tune or retrain from these results",
+  "prediction_receipt_sha256": "1ce7083a26e2794490caae31ee35d711bc625516ef92b288fb7d903c98e7e821",
+  "selection_sha256": "4f15c0ff47379a77df4fe13ea434316ff59f84235ca03ef96d68503a29074fda"
+}

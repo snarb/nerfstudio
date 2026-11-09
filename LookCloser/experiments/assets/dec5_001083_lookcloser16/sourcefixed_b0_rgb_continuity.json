@@ -1,0 +1,553 @@
+{
+  "aggregate": {
+    "dynamic": {
+      "boundary": {
+        "mae": 0.01621137000620365,
+        "median": 0.006377647165209055,
+        "p95": 0.06425654217600822,
+        "pixels": 643779
+      },
+      "hair": {
+        "mae": 0.012363296933472157,
+        "median": 0.004813879728317261,
+        "p95": 0.051082524470984936,
+        "pixels": 2313486
+      },
+      "interior": {
+        "mae": 0.010879616253077984,
+        "median": 0.004370903130620718,
+        "p95": 0.04573300108313549,
+        "pixels": 1669707
+      }
+    },
+    "fixed": {
+      "boundary": {
+        "mae": 0.014700610190629959,
+        "median": 0.005856821779161692,
+        "p95": 0.05696486383676529,
+        "pixels": 643779
+      },
+      "hair": {
+        "mae": 0.009429961442947388,
+        "median": 0.004003261681646109,
+        "p95": 0.0350490165874362,
+        "pixels": 2313486
+      },
+      "interior": {
+        "mae": 0.007397788111120462,
+        "median": 0.0035500924568623304,
+        "p95": 0.025153184309601784,
+        "pixels": 1669707
+      }
+    }
+  },
+  "all_geometry_and_roi_exact": true,
+  "domain": "fixed dynamic-source visible hair; train-projected semantic proxy, no GT alpha",
+  "dynamic_receipt_sha256": "3de2d1360f38a7646d1d2ca4f9763e17c26923ad51e6cd4085fbc12239b9acc9",
+  "fixed_receipt_sha256": "2bf7f86463f9e65606af1ced65a7d9a14781bd4ef413b07d037d55c126661019",
+  "frame_count": 16,
+  "implementation_sha256": "8fdf8ce2aebf0fbbfaf80b89abecda8c87fd180cc3b5d9dcbe433667a83a8a95",
+  "metric_kind": "estimated-motion photometric continuity; not novel-view GT fidelity",
+  "motion": "same frozen receiver geometry in both arms, common occlusion veto",
+  "path_sha256": "d8a84b9dbeb65b446a7f21bb9edfb1dec686d691eb9862d14f9fbe63f2901533",
+  "per_pair": [
+    {
+      "dynamic": {
+        "boundary": {
+          "mae": 0.014537820592522621
+        },
+        "hair": {
+          "mae": 0.008760283701121807
+        },
+        "interior": {
+          "mae": 0.006569762714207172
+        }
+      },
+      "fixed": {
+        "boundary": {
+          "mae": 0.01524319313466549
+        },
+        "hair": {
+          "mae": 0.009590037167072296
+        },
+        "interior": {
+          "mae": 0.007446673233062029
+        }
+      },
+      "pair": [
+        0,
+        1
+      ],
+      "pixels": {
+        "boundary": 42297,
+        "hair": 153856,
+        "interior": 111559
+      }
+    },
+    {
+      "dynamic": {
+        "boundary": {
+          "mae": 0.01457752101123333
+        },
+        "hair": {
+          "mae": 0.00878326129168272
+        },
+        "interior": {
+          "mae": 0.006583219859749079
+        }
+      },
+      "fixed": {
+        "boundary": {
+          "mae": 0.015203772112727165
+        },
+        "hair": {
+          "mae": 0.009634489193558693
+        },
+        "interior": {
+          "mae": 0.007519869599491358
+        }
+      },
+      "pair": [
+        1,
+        2
+      ],
+      "pixels": {
+        "boundary": 42362,
+        "hair": 153931,
+        "interior": 111569
+      }
+    },
+    {
+      "dynamic": {
+        "boundary": {
+          "mae": 0.014323918148875237
+        },
+        "hair": {
+          "mae": 0.008678932674229145
+        },
+        "interior": {
+          "mae": 0.006549046374857426
+        }
+      },
+      "fixed": {
+        "boundary": {
+          "mae": 0.014947528019547462
+        },
+        "hair": {
+          "mae": 0.009478754363954067
+        },
+        "interior": {
+          "mae": 0.007415353320538998
+        }
+      },
+      "pair": [
+        2,
+        3
+      ],
+      "pixels": {
+        "boundary": 42156,
+        "hair": 153885,
+        "interior": 111729
+      }
+    },
+    {
+      "dynamic": {
+        "boundary": {
+          "mae": 0.014253459870815277
+        },
+        "hair": {
+          "mae": 0.00863856915384531
+        },
+        "interior": {
+          "mae": 0.006493141874670982
+        }
+      },
+      "fixed": {
+        "boundary": {
+          "mae": 0.014856630004942417
+        },
+        "hair": {
+          "mae": 0.009472903795540333
+        },
+        "interior": {
+          "mae": 0.007415803149342537
+        }
+      },
+      "pair": [
+        3,
+        4
+      ],
+      "pixels": {
+        "boundary": 42572,
+        "hair": 153989,
+        "interior": 111417
+      }
+    },
+    {
+      "dynamic": {
+        "boundary": {
+          "mae": 0.02532390132546425
+        },
+        "hair": {
+          "mae": 0.029740771278738976
+        },
+        "interior": {
+          "mae": 0.03144150972366333
+        }
+      },
+      "fixed": {
+        "boundary": {
+          "mae": 0.014962464570999146
+        },
+        "hair": {
+          "mae": 0.00949971005320549
+        },
+        "interior": {
+          "mae": 0.007396251894533634
+        }
+      },
+      "pair": [
+        4,
+        5
+      ],
+      "pixels": {
+        "boundary": 42830,
+        "hair": 154061,
+        "interior": 111231
+      }
+    },
+    {
+      "dynamic": {
+        "boundary": {
+          "mae": 0.014441819861531258
+        },
+        "hair": {
+          "mae": 0.009114459156990051
+        },
+        "interior": {
+          "mae": 0.007055270951241255
+        }
+      },
+      "fixed": {
+        "boundary": {
+          "mae": 0.014725628308951855
+        },
+        "hair": {
+          "mae": 0.009408415295183659
+        },
+        "interior": {
+          "mae": 0.0073531498201191425
+        }
+      },
+      "pair": [
+        5,
+        6
+      ],
+      "pixels": {
+        "boundary": 42959,
+        "hair": 154099,
+        "interior": 111140
+      }
+    },
+    {
+      "dynamic": {
+        "boundary": {
+          "mae": 0.01456280518323183
+        },
+        "hair": {
+          "mae": 0.009230643510818481
+        },
+        "interior": {
+          "mae": 0.007180759217590094
+        }
+      },
+      "fixed": {
+        "boundary": {
+          "mae": 0.01483485009521246
+        },
+        "hair": {
+          "mae": 0.009500659070909023
+        },
+        "interior": {
+          "mae": 0.00744999386370182
+        }
+      },
+      "pair": [
+        6,
+        7
+      ],
+      "pixels": {
+        "boundary": 42831,
+        "hair": 154243,
+        "interior": 111412
+      }
+    },
+    {
+      "dynamic": {
+        "boundary": {
+          "mae": 0.016721421852707863
+        },
+        "hair": {
+          "mae": 0.011869583278894424
+        },
+        "interior": {
+          "mae": 0.01000157929956913
+        }
+      },
+      "fixed": {
+        "boundary": {
+          "mae": 0.014464211650192738
+        },
+        "hair": {
+          "mae": 0.009353662841022015
+        },
+        "interior": {
+          "mae": 0.0073860520496964455
+        }
+      },
+      "pair": [
+        7,
+        8
+      ],
+      "pixels": {
+        "boundary": 42872,
+        "hair": 154225,
+        "interior": 111353
+      }
+    },
+    {
+      "dynamic": {
+        "boundary": {
+          "mae": 0.014628271572291851
+        },
+        "hair": {
+          "mae": 0.009364807978272438
+        },
+        "interior": {
+          "mae": 0.007327817380428314
+        }
+      },
+      "fixed": {
+        "boundary": {
+          "mae": 0.014628271572291851
+        },
+        "hair": {
+          "mae": 0.009364807978272438
+        },
+        "interior": {
+          "mae": 0.007327817380428314
+        }
+      },
+      "pair": [
+        8,
+        9
+      ],
+      "pixels": {
+        "boundary": 43042,
+        "hair": 154260,
+        "interior": 111218
+      }
+    },
+    {
+      "dynamic": {
+        "boundary": {
+          "mae": 0.014705558307468891
+        },
+        "hair": {
+          "mae": 0.0094008669257164
+        },
+        "interior": {
+          "mae": 0.007330324500799179
+        }
+      },
+      "fixed": {
+        "boundary": {
+          "mae": 0.014705558307468891
+        },
+        "hair": {
+          "mae": 0.0094008669257164
+        },
+        "interior": {
+          "mae": 0.007330324500799179
+        }
+      },
+      "pair": [
+        9,
+        10
+      ],
+      "pixels": {
+        "boundary": 43318,
+        "hair": 154298,
+        "interior": 110980
+      }
+    },
+    {
+      "dynamic": {
+        "boundary": {
+          "mae": 0.014500896446406841
+        },
+        "hair": {
+          "mae": 0.009353899396955967
+        },
+        "interior": {
+          "mae": 0.00735838059335947
+        }
+      },
+      "fixed": {
+        "boundary": {
+          "mae": 0.014500896446406841
+        },
+        "hair": {
+          "mae": 0.009353899396955967
+        },
+        "interior": {
+          "mae": 0.00735838059335947
+        }
+      },
+      "pair": [
+        10,
+        11
+      ],
+      "pixels": {
+        "boundary": 43164,
+        "hair": 154496,
+        "interior": 111332
+      }
+    },
+    {
+      "dynamic": {
+        "boundary": {
+          "mae": 0.025505008175969124
+        },
+        "hair": {
+          "mae": 0.03028285875916481
+        },
+        "interior": {
+          "mae": 0.032133229076862335
+        }
+      },
+      "fixed": {
+        "boundary": {
+          "mae": 0.014365846291184425
+        },
+        "hair": {
+          "mae": 0.00934584904462099
+        },
+        "interior": {
+          "mae": 0.007401694543659687
+        }
+      },
+      "pair": [
+        11,
+        12
+      ],
+      "pixels": {
+        "boundary": 43132,
+        "hair": 154503,
+        "interior": 111371
+      }
+    },
+    {
+      "dynamic": {
+        "boundary": {
+          "mae": 0.015123913064599037
+        },
+        "hair": {
+          "mae": 0.01073641236871481
+        },
+        "interior": {
+          "mae": 0.009019378572702408
+        }
+      },
+      "fixed": {
+        "boundary": {
+          "mae": 0.014467126689851284
+        },
+        "hair": {
+          "mae": 0.00939610693603754
+        },
+        "interior": {
+          "mae": 0.007411579601466656
+        }
+      },
+      "pair": [
+        12,
+        13
+      ],
+      "pixels": {
+        "boundary": 43463,
+        "hair": 154523,
+        "interior": 111060
+      }
+    },
+    {
+      "dynamic": {
+        "boundary": {
+          "mae": 0.014962681569159031
+        },
+        "hair": {
+          "mae": 0.01069710124284029
+        },
+        "interior": {
+          "mae": 0.009040329605340958
+        }
+      },
+      "fixed": {
+        "boundary": {
+          "mae": 0.014368463307619095
+        },
+        "hair": {
+          "mae": 0.009314313530921936
+        },
+        "interior": {
+          "mae": 0.007351257372647524
+        }
+      },
+      "pair": [
+        13,
+        14
+      ],
+      "pixels": {
+        "boundary": 43224,
+        "hair": 154510,
+        "interior": 111286
+      }
+    },
+    {
+      "dynamic": {
+        "boundary": {
+          "mae": 0.01494805421680212
+        },
+        "hair": {
+          "mae": 0.010769140906631947
+        },
+        "interior": {
+          "mae": 0.009130049496889114
+        }
+      },
+      "fixed": {
+        "boundary": {
+          "mae": 0.014269990846514702
+        },
+        "hair": {
+          "mae": 0.009336755611002445
+        },
+        "interior": {
+          "mae": 0.007401798386126757
+        }
+      },
+      "pair": [
+        14,
+        15
+      ],
+      "pixels": {
+        "boundary": 43557,
+        "hair": 154607,
+        "interior": 111050
+      }
+    }
+  ],
+  "rgb": "final display RGB in [0,1], all channels equally weighted",
+  "uses_test_rgb": false,
+  "uses_validation_rgb": false
+}

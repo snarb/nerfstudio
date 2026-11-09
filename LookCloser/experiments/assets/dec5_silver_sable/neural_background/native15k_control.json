@@ -1,0 +1,68 @@
+{
+  "rows": [
+    {
+      "step": 15188,
+      "regions": {
+        "hair": {
+          "psnr": 22.508736974666533,
+          "ssim": 0.773600697517395,
+          "lpips": 0.3359665870666504,
+          "pixels": 1264419,
+          "opacity_mean": 0.933003842830658,
+          "opacity_below_01_fraction": 0.0012930840172442838
+        },
+        "face_neck": {
+          "psnr": 30.377584314028216,
+          "ssim": 0.8979431986808777,
+          "lpips": 0.2879084050655365,
+          "pixels": 1131230,
+          "opacity_mean": 0.99433833360672,
+          "opacity_below_01_fraction": 0.004477427225232711
+        },
+        "boundary": {
+          "psnr": 17.537472370530732,
+          "ssim": 0.9594722390174866,
+          "lpips": 0.11678464710712433,
+          "pixels": 307284,
+          "opacity_mean": 0.5939159989356995,
+          "opacity_below_01_fraction": 0.033337238515510084
+        },
+        "trusted_background": {
+          "psnr": 12.892722741242421,
+          "ssim": 0.8178945779800415,
+          "lpips": 0.3532024025917053,
+          "pixels": 10847419,
+          "opacity_mean": 0.03168945759534836,
+          "opacity_below_01_fraction": 0.9304065787446765
+        },
+        "clothing_hands_proxy": {
+          "psnr": 25.481926786831565,
+          "ssim": 0.8389748930931091,
+          "lpips": 0.28472718596458435,
+          "pixels": 4523546,
+          "opacity_mean": 0.9911862015724182,
+          "opacity_below_01_fraction": 0.005946220067177387
+        }
+      },
+      "prediction_sha256": "538524d8003c4c354e2b12082183284738f2daf72236c77ea6faee3ca063beb5"
+    }
+  ],
+  "heldout_camera": "D004_A005_12103C",
+  "reference_sha256": "1226534e4f78a0f63ff06c2a68a89c038456e63badeda7877fb07d9b44f30f31",
+  "metric_domain": "Prediction raster; GT-composited masked tight crop for SSIM/LPIPS, PSNR on ROI pixels",
+  "reference_original_shape": [
+    960,
+    1920
+  ],
+  "evaluation_shape": [
+    3072,
+    6144
+  ],
+  "reference_resized": true,
+  "boundary_radius_pixels": 16,
+  "boundary_radius_hd_pixels": 5,
+  "reference_used_for_metrics_only": true,
+  "fallible_semantics": true,
+  "checkpoint_selection_unchanged": true,
+  "no_independent_depth_ground_truth": true
+}

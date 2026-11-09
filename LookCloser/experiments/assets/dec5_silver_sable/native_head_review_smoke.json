@@ -1,0 +1,41 @@
+{
+  "videos": {
+    "best": {
+      "path": "/fsx/tmp/lookcloser_hair_001083_20261027_1330/local_20261028/sequence901_probe/native_head_smoke/best/gt_vs_native_head.mp4",
+      "decoded_frames": 1,
+      "display_fps": 24,
+      "sha256": "97c911711c695f5eab0ea9320d99c72b739370e61494842ef31995dfb1723bc9",
+      "encoded_shape": [
+        3848,
+        2618
+      ]
+    },
+    "final106316": {
+      "path": "/fsx/tmp/lookcloser_hair_001083_20261027_1330/local_20261028/sequence901_probe/native_head_smoke/final106316/gt_vs_native_head.mp4",
+      "decoded_frames": 1,
+      "display_fps": 24,
+      "sha256": "440ce225d1f2cee2200fee42928e594c6b8eec4b868e546264570889889a085b",
+      "encoded_shape": [
+        3848,
+        2618
+      ]
+    }
+  },
+  "crop_native_xyxy": [
+    1872,
+    848,
+    4458,
+    2772
+  ],
+  "source_resolution": [
+    6144,
+    3072
+  ],
+  "prediction_resized": false,
+  "crop_fixed_across_time": true,
+  "reference_used_for_evaluation_only": true,
+  "reference_sha256": "1226534e4f78a0f63ff06c2a68a89c038456e63badeda7877fb07d9b44f30f31",
+  "checkpoint_selection_changed": false,
+  "capture_timing_calibrated": false,
+  "individual_hair_depth_ground_truth": false
+}

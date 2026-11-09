@@ -1,0 +1,2413 @@
+{
+  "aggregate": {
+    "baseline": {
+      "anchors": 67766710,
+      "depth_exposure_dropouts": 865070,
+      "depth_exposure_dropouts_fraction": 0.012765412397916322,
+      "next_present_pixels": 16586229,
+      "present_pixels": 16612982,
+      "present_pixels_fraction": 0.2451496022161914,
+      "source_switches": 42378,
+      "source_switches_fraction": 0.0006253512971191903,
+      "visibility_toggles": 94445,
+      "visibility_toggles_fraction": 0.0013936784005007768
+    },
+    "candidate": {
+      "anchors": 67766710,
+      "depth_exposure_dropouts": 843493,
+      "depth_exposure_dropouts_fraction": 0.0124470112242427,
+      "next_present_pixels": 16571737,
+      "present_pixels": 16576635,
+      "present_pixels_fraction": 0.24461324741897608,
+      "source_switches": 12773,
+      "source_switches_fraction": 0.00018848487701409732,
+      "visibility_toggles": 72742,
+      "visibility_toggles_fraction": 0.0010734179068158983
+    }
+  },
+  "baseline_receipt_sha256": "b2f166cd0078bfef9944189d4d94ce7b1bfc74e3ee10fce9bd16a8a5a3eb68e9",
+  "camera_path_only": true,
+  "candidate_receipt_sha256": "b21b28e7df6b0b51a5ec836aa930562422922b259ad912c0fd0088c1eaff89a2",
+  "depth_transport": "candidate previous depth; frozen baseline image correspondences/domain/occlusion veto",
+  "frame_count": 96,
+  "human_continuous_playback_claimed": false,
+  "metric_kind": "fixed-baseline warped coverage and source-switch proxies, no strand GT",
+  "missing_candidate_pixels_excluded": false,
+  "path_sha256": "59bbe74c4b880b0cef11cba88865b319184b3c3624efb6ca646c86c634333962",
+  "per_pair": [
+    {
+      "baseline": {
+        "anchors": 719485,
+        "depth_exposure_dropouts": 8466,
+        "next_present_pixels": 168519,
+        "present_pixels": 168884,
+        "source_switches": 720,
+        "visibility_toggles": 945
+      },
+      "candidate": {
+        "anchors": 719485,
+        "depth_exposure_dropouts": 8221,
+        "next_present_pixels": 168448,
+        "present_pixels": 168565,
+        "source_switches": 265,
+        "visibility_toggles": 661
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        0,
+        1
+      ],
+      "unknown_reference_pixels": 1323963
+    },
+    {
+      "baseline": {
+        "anchors": 719795,
+        "depth_exposure_dropouts": 8303,
+        "next_present_pixels": 168695,
+        "present_pixels": 169080,
+        "source_switches": 678,
+        "visibility_toggles": 993
+      },
+      "candidate": {
+        "anchors": 719795,
+        "depth_exposure_dropouts": 8051,
+        "next_present_pixels": 168604,
+        "present_pixels": 168745,
+        "source_switches": 211,
+        "visibility_toggles": 707
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        1,
+        2
+      ],
+      "unknown_reference_pixels": 1324555
+    },
+    {
+      "baseline": {
+        "anchors": 720006,
+        "depth_exposure_dropouts": 8469,
+        "next_present_pixels": 168663,
+        "present_pixels": 169106,
+        "source_switches": 655,
+        "visibility_toggles": 1041
+      },
+      "candidate": {
+        "anchors": 720006,
+        "depth_exposure_dropouts": 8179,
+        "next_present_pixels": 168623,
+        "present_pixels": 168761,
+        "source_switches": 212,
+        "visibility_toggles": 722
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        2,
+        3
+      ],
+      "unknown_reference_pixels": 1325022
+    },
+    {
+      "baseline": {
+        "anchors": 719973,
+        "depth_exposure_dropouts": 8368,
+        "next_present_pixels": 168736,
+        "present_pixels": 169065,
+        "source_switches": 681,
+        "visibility_toggles": 971
+      },
+      "candidate": {
+        "anchors": 719973,
+        "depth_exposure_dropouts": 8140,
+        "next_present_pixels": 168664,
+        "present_pixels": 168749,
+        "source_switches": 214,
+        "visibility_toggles": 663
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        3,
+        4
+      ],
+      "unknown_reference_pixels": 1325811
+    },
+    {
+      "baseline": {
+        "anchors": 720390,
+        "depth_exposure_dropouts": 8068,
+        "next_present_pixels": 168893,
+        "present_pixels": 169244,
+        "source_switches": 589,
+        "visibility_toggles": 985
+      },
+      "candidate": {
+        "anchors": 720390,
+        "depth_exposure_dropouts": 7800,
+        "next_present_pixels": 168858,
+        "present_pixels": 168910,
+        "source_switches": 147,
+        "visibility_toggles": 678
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        4,
+        5
+      ],
+      "unknown_reference_pixels": 1326318
+    },
+    {
+      "baseline": {
+        "anchors": 720683,
+        "depth_exposure_dropouts": 8405,
+        "next_present_pixels": 169219,
+        "present_pixels": 169593,
+        "source_switches": 618,
+        "visibility_toggles": 990
+      },
+      "candidate": {
+        "anchors": 720683,
+        "depth_exposure_dropouts": 8153,
+        "next_present_pixels": 169184,
+        "present_pixels": 169279,
+        "source_switches": 192,
+        "visibility_toggles": 679
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        5,
+        6
+      ],
+      "unknown_reference_pixels": 1326570
+    },
+    {
+      "baseline": {
+        "anchors": 720477,
+        "depth_exposure_dropouts": 8149,
+        "next_present_pixels": 168913,
+        "present_pixels": 169195,
+        "source_switches": 537,
+        "visibility_toggles": 952
+      },
+      "candidate": {
+        "anchors": 720477,
+        "depth_exposure_dropouts": 7907,
+        "next_present_pixels": 168847,
+        "present_pixels": 168883,
+        "source_switches": 158,
+        "visibility_toggles": 652
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        6,
+        7
+      ],
+      "unknown_reference_pixels": 1327205
+    },
+    {
+      "baseline": {
+        "anchors": 720335,
+        "depth_exposure_dropouts": 7812,
+        "next_present_pixels": 168928,
+        "present_pixels": 169255,
+        "source_switches": 614,
+        "visibility_toggles": 1029
+      },
+      "candidate": {
+        "anchors": 720335,
+        "depth_exposure_dropouts": 7544,
+        "next_present_pixels": 168892,
+        "present_pixels": 168908,
+        "source_switches": 173,
+        "visibility_toggles": 712
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        7,
+        8
+      ],
+      "unknown_reference_pixels": 1327878
+    },
+    {
+      "baseline": {
+        "anchors": 720656,
+        "depth_exposure_dropouts": 8176,
+        "next_present_pixels": 169309,
+        "present_pixels": 169621,
+        "source_switches": 585,
+        "visibility_toggles": 1008
+      },
+      "candidate": {
+        "anchors": 720656,
+        "depth_exposure_dropouts": 7939,
+        "next_present_pixels": 169242,
+        "present_pixels": 169292,
+        "source_switches": 141,
+        "visibility_toggles": 730
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        8,
+        9
+      ],
+      "unknown_reference_pixels": 1328587
+    },
+    {
+      "baseline": {
+        "anchors": 720620,
+        "depth_exposure_dropouts": 8126,
+        "next_present_pixels": 169155,
+        "present_pixels": 169533,
+        "source_switches": 531,
+        "visibility_toggles": 1046
+      },
+      "candidate": {
+        "anchors": 720620,
+        "depth_exposure_dropouts": 7880,
+        "next_present_pixels": 169107,
+        "present_pixels": 169203,
+        "source_switches": 124,
+        "visibility_toggles": 726
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        9,
+        10
+      ],
+      "unknown_reference_pixels": 1328871
+    },
+    {
+      "baseline": {
+        "anchors": 720505,
+        "depth_exposure_dropouts": 7780,
+        "next_present_pixels": 169121,
+        "present_pixels": 169463,
+        "source_switches": 577,
+        "visibility_toggles": 1010
+      },
+      "candidate": {
+        "anchors": 720505,
+        "depth_exposure_dropouts": 7556,
+        "next_present_pixels": 169040,
+        "present_pixels": 169123,
+        "source_switches": 135,
+        "visibility_toggles": 739
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        10,
+        11
+      ],
+      "unknown_reference_pixels": 1329503
+    },
+    {
+      "baseline": {
+        "anchors": 720690,
+        "depth_exposure_dropouts": 8142,
+        "next_present_pixels": 169497,
+        "present_pixels": 169823,
+        "source_switches": 571,
+        "visibility_toggles": 1022
+      },
+      "candidate": {
+        "anchors": 720690,
+        "depth_exposure_dropouts": 7916,
+        "next_present_pixels": 169447,
+        "present_pixels": 169487,
+        "source_switches": 142,
+        "visibility_toggles": 756
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        11,
+        12
+      ],
+      "unknown_reference_pixels": 1329610
+    },
+    {
+      "baseline": {
+        "anchors": 720746,
+        "depth_exposure_dropouts": 8496,
+        "next_present_pixels": 169382,
+        "present_pixels": 169772,
+        "source_switches": 512,
+        "visibility_toggles": 1028
+      },
+      "candidate": {
+        "anchors": 720746,
+        "depth_exposure_dropouts": 8292,
+        "next_present_pixels": 169315,
+        "present_pixels": 169460,
+        "source_switches": 122,
+        "visibility_toggles": 771
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        12,
+        13
+      ],
+      "unknown_reference_pixels": 1330156
+    },
+    {
+      "baseline": {
+        "anchors": 720583,
+        "depth_exposure_dropouts": 8216,
+        "next_present_pixels": 169319,
+        "present_pixels": 169650,
+        "source_switches": 552,
+        "visibility_toggles": 1023
+      },
+      "candidate": {
+        "anchors": 720583,
+        "depth_exposure_dropouts": 7973,
+        "next_present_pixels": 169222,
+        "present_pixels": 169300,
+        "source_switches": 144,
+        "visibility_toggles": 752
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        13,
+        14
+      ],
+      "unknown_reference_pixels": 1330575
+    },
+    {
+      "baseline": {
+        "anchors": 720307,
+        "depth_exposure_dropouts": 8418,
+        "next_present_pixels": 169431,
+        "present_pixels": 169829,
+        "source_switches": 528,
+        "visibility_toggles": 1038
+      },
+      "candidate": {
+        "anchors": 720307,
+        "depth_exposure_dropouts": 8207,
+        "next_present_pixels": 169320,
+        "present_pixels": 169460,
+        "source_switches": 143,
+        "visibility_toggles": 790
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        14,
+        15
+      ],
+      "unknown_reference_pixels": 1331245
+    },
+    {
+      "baseline": {
+        "anchors": 720800,
+        "depth_exposure_dropouts": 8990,
+        "next_present_pixels": 169806,
+        "present_pixels": 170160,
+        "source_switches": 511,
+        "visibility_toggles": 1042
+      },
+      "candidate": {
+        "anchors": 720800,
+        "depth_exposure_dropouts": 8777,
+        "next_present_pixels": 169729,
+        "present_pixels": 169788,
+        "source_switches": 134,
+        "visibility_toggles": 805
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        15,
+        16
+      ],
+      "unknown_reference_pixels": 1331433
+    },
+    {
+      "baseline": {
+        "anchors": 720231,
+        "depth_exposure_dropouts": 8710,
+        "next_present_pixels": 169718,
+        "present_pixels": 170019,
+        "source_switches": 553,
+        "visibility_toggles": 1007
+      },
+      "candidate": {
+        "anchors": 720231,
+        "depth_exposure_dropouts": 8487,
+        "next_present_pixels": 169577,
+        "present_pixels": 169644,
+        "source_switches": 136,
+        "visibility_toggles": 779
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        16,
+        17
+      ],
+      "unknown_reference_pixels": 1331663
+    },
+    {
+      "baseline": {
+        "anchors": 720121,
+        "depth_exposure_dropouts": 8678,
+        "next_present_pixels": 169745,
+        "present_pixels": 170088,
+        "source_switches": 487,
+        "visibility_toggles": 1001
+      },
+      "candidate": {
+        "anchors": 720121,
+        "depth_exposure_dropouts": 8443,
+        "next_present_pixels": 169631,
+        "present_pixels": 169703,
+        "source_switches": 124,
+        "visibility_toggles": 770
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        17,
+        18
+      ],
+      "unknown_reference_pixels": 1332209
+    },
+    {
+      "baseline": {
+        "anchors": 720351,
+        "depth_exposure_dropouts": 9075,
+        "next_present_pixels": 170145,
+        "present_pixels": 170403,
+        "source_switches": 514,
+        "visibility_toggles": 1042
+      },
+      "candidate": {
+        "anchors": 720351,
+        "depth_exposure_dropouts": 8826,
+        "next_present_pixels": 170052,
+        "present_pixels": 170021,
+        "source_switches": 140,
+        "visibility_toggles": 771
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        18,
+        19
+      ],
+      "unknown_reference_pixels": 1332490
+    },
+    {
+      "baseline": {
+        "anchors": 719493,
+        "depth_exposure_dropouts": 9078,
+        "next_present_pixels": 169883,
+        "present_pixels": 170264,
+        "source_switches": 475,
+        "visibility_toggles": 1091
+      },
+      "candidate": {
+        "anchors": 719493,
+        "depth_exposure_dropouts": 8828,
+        "next_present_pixels": 169794,
+        "present_pixels": 169910,
+        "source_switches": 131,
+        "visibility_toggles": 828
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        19,
+        20
+      ],
+      "unknown_reference_pixels": 1333048
+    },
+    {
+      "baseline": {
+        "anchors": 719643,
+        "depth_exposure_dropouts": 9074,
+        "next_present_pixels": 170129,
+        "present_pixels": 170416,
+        "source_switches": 524,
+        "visibility_toggles": 969
+      },
+      "candidate": {
+        "anchors": 719643,
+        "depth_exposure_dropouts": 8863,
+        "next_present_pixels": 170000,
+        "present_pixels": 170071,
+        "source_switches": 164,
+        "visibility_toggles": 787
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        20,
+        21
+      ],
+      "unknown_reference_pixels": 1333510
+    },
+    {
+      "baseline": {
+        "anchors": 719864,
+        "depth_exposure_dropouts": 9103,
+        "next_present_pixels": 170442,
+        "present_pixels": 170793,
+        "source_switches": 445,
+        "visibility_toggles": 1041
+      },
+      "candidate": {
+        "anchors": 719864,
+        "depth_exposure_dropouts": 8868,
+        "next_present_pixels": 170301,
+        "present_pixels": 170411,
+        "source_switches": 115,
+        "visibility_toggles": 790
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        21,
+        22
+      ],
+      "unknown_reference_pixels": 1333709
+    },
+    {
+      "baseline": {
+        "anchors": 719350,
+        "depth_exposure_dropouts": 9328,
+        "next_present_pixels": 170380,
+        "present_pixels": 170750,
+        "source_switches": 479,
+        "visibility_toggles": 1034
+      },
+      "candidate": {
+        "anchors": 719350,
+        "depth_exposure_dropouts": 9103,
+        "next_present_pixels": 170245,
+        "present_pixels": 170350,
+        "source_switches": 130,
+        "visibility_toggles": 795
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        22,
+        23
+      ],
+      "unknown_reference_pixels": 1334235
+    },
+    {
+      "baseline": {
+        "anchors": 719196,
+        "depth_exposure_dropouts": 9084,
+        "next_present_pixels": 170419,
+        "present_pixels": 170773,
+        "source_switches": 455,
+        "visibility_toggles": 1000
+      },
+      "candidate": {
+        "anchors": 719196,
+        "depth_exposure_dropouts": 8842,
+        "next_present_pixels": 170310,
+        "present_pixels": 170385,
+        "source_switches": 129,
+        "visibility_toggles": 775
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        23,
+        24
+      ],
+      "unknown_reference_pixels": 1334650
+    },
+    {
+      "baseline": {
+        "anchors": 720010,
+        "depth_exposure_dropouts": 9781,
+        "next_present_pixels": 171031,
+        "present_pixels": 171416,
+        "source_switches": 464,
+        "visibility_toggles": 1043
+      },
+      "candidate": {
+        "anchors": 720010,
+        "depth_exposure_dropouts": 9521,
+        "next_present_pixels": 170919,
+        "present_pixels": 171049,
+        "source_switches": 131,
+        "visibility_toggles": 800
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        24,
+        25
+      ],
+      "unknown_reference_pixels": 1334950
+    },
+    {
+      "baseline": {
+        "anchors": 719332,
+        "depth_exposure_dropouts": 9388,
+        "next_present_pixels": 170935,
+        "present_pixels": 171267,
+        "source_switches": 461,
+        "visibility_toggles": 998
+      },
+      "candidate": {
+        "anchors": 719332,
+        "depth_exposure_dropouts": 9153,
+        "next_present_pixels": 170798,
+        "present_pixels": 170885,
+        "source_switches": 117,
+        "visibility_toggles": 753
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        25,
+        26
+      ],
+      "unknown_reference_pixels": 1335403
+    },
+    {
+      "baseline": {
+        "anchors": 719324,
+        "depth_exposure_dropouts": 9482,
+        "next_present_pixels": 171178,
+        "present_pixels": 171508,
+        "source_switches": 428,
+        "visibility_toggles": 1000
+      },
+      "candidate": {
+        "anchors": 719324,
+        "depth_exposure_dropouts": 9212,
+        "next_present_pixels": 171034,
+        "present_pixels": 171091,
+        "source_switches": 116,
+        "visibility_toggles": 755
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        26,
+        27
+      ],
+      "unknown_reference_pixels": 1335586
+    },
+    {
+      "baseline": {
+        "anchors": 719743,
+        "depth_exposure_dropouts": 9621,
+        "next_present_pixels": 171472,
+        "present_pixels": 171874,
+        "source_switches": 482,
+        "visibility_toggles": 1016
+      },
+      "candidate": {
+        "anchors": 719743,
+        "depth_exposure_dropouts": 9345,
+        "next_present_pixels": 171370,
+        "present_pixels": 171455,
+        "source_switches": 150,
+        "visibility_toggles": 729
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        27,
+        28
+      ],
+      "unknown_reference_pixels": 1335987
+    },
+    {
+      "baseline": {
+        "anchors": 719390,
+        "depth_exposure_dropouts": 9634,
+        "next_present_pixels": 171395,
+        "present_pixels": 171670,
+        "source_switches": 417,
+        "visibility_toggles": 921
+      },
+      "candidate": {
+        "anchors": 719390,
+        "depth_exposure_dropouts": 9412,
+        "next_present_pixels": 171215,
+        "present_pixels": 171282,
+        "source_switches": 107,
+        "visibility_toggles": 727
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        28,
+        29
+      ],
+      "unknown_reference_pixels": 1336314
+    },
+    {
+      "baseline": {
+        "anchors": 719242,
+        "depth_exposure_dropouts": 9852,
+        "next_present_pixels": 171657,
+        "present_pixels": 171949,
+        "source_switches": 404,
+        "visibility_toggles": 962
+      },
+      "candidate": {
+        "anchors": 719242,
+        "depth_exposure_dropouts": 9596,
+        "next_present_pixels": 171506,
+        "present_pixels": 171534,
+        "source_switches": 102,
+        "visibility_toggles": 712
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        29,
+        30
+      ],
+      "unknown_reference_pixels": 1336607
+    },
+    {
+      "baseline": {
+        "anchors": 719239,
+        "depth_exposure_dropouts": 9605,
+        "next_present_pixels": 171773,
+        "present_pixels": 172007,
+        "source_switches": 453,
+        "visibility_toggles": 938
+      },
+      "candidate": {
+        "anchors": 719239,
+        "depth_exposure_dropouts": 9379,
+        "next_present_pixels": 171568,
+        "present_pixels": 171605,
+        "source_switches": 154,
+        "visibility_toggles": 687
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        30,
+        31
+      ],
+      "unknown_reference_pixels": 1336985
+    },
+    {
+      "baseline": {
+        "anchors": 719432,
+        "depth_exposure_dropouts": 9859,
+        "next_present_pixels": 171990,
+        "present_pixels": 172251,
+        "source_switches": 422,
+        "visibility_toggles": 859
+      },
+      "candidate": {
+        "anchors": 719432,
+        "depth_exposure_dropouts": 9632,
+        "next_present_pixels": 171779,
+        "present_pixels": 171837,
+        "source_switches": 119,
+        "visibility_toggles": 670
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        31,
+        32
+      ],
+      "unknown_reference_pixels": 1337132
+    },
+    {
+      "baseline": {
+        "anchors": 719258,
+        "depth_exposure_dropouts": 9833,
+        "next_present_pixels": 172037,
+        "present_pixels": 172273,
+        "source_switches": 443,
+        "visibility_toggles": 932
+      },
+      "candidate": {
+        "anchors": 719258,
+        "depth_exposure_dropouts": 9603,
+        "next_present_pixels": 171834,
+        "present_pixels": 171861,
+        "source_switches": 142,
+        "visibility_toggles": 667
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        32,
+        33
+      ],
+      "unknown_reference_pixels": 1337472
+    },
+    {
+      "baseline": {
+        "anchors": 719232,
+        "depth_exposure_dropouts": 9445,
+        "next_present_pixels": 172103,
+        "present_pixels": 172321,
+        "source_switches": 430,
+        "visibility_toggles": 904
+      },
+      "candidate": {
+        "anchors": 719232,
+        "depth_exposure_dropouts": 9208,
+        "next_present_pixels": 171878,
+        "present_pixels": 171882,
+        "source_switches": 119,
+        "visibility_toggles": 678
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        33,
+        34
+      ],
+      "unknown_reference_pixels": 1337755
+    },
+    {
+      "baseline": {
+        "anchors": 719302,
+        "depth_exposure_dropouts": 9740,
+        "next_present_pixels": 172413,
+        "present_pixels": 172629,
+        "source_switches": 443,
+        "visibility_toggles": 860
+      },
+      "candidate": {
+        "anchors": 719302,
+        "depth_exposure_dropouts": 9509,
+        "next_present_pixels": 172181,
+        "present_pixels": 172198,
+        "source_switches": 128,
+        "visibility_toggles": 641
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        34,
+        35
+      ],
+      "unknown_reference_pixels": 1337887
+    },
+    {
+      "baseline": {
+        "anchors": 718954,
+        "depth_exposure_dropouts": 9379,
+        "next_present_pixels": 172318,
+        "present_pixels": 172491,
+        "source_switches": 413,
+        "visibility_toggles": 831
+      },
+      "candidate": {
+        "anchors": 718954,
+        "depth_exposure_dropouts": 9170,
+        "next_present_pixels": 172092,
+        "present_pixels": 172071,
+        "source_switches": 123,
+        "visibility_toggles": 613
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        35,
+        36
+      ],
+      "unknown_reference_pixels": 1338332
+    },
+    {
+      "baseline": {
+        "anchors": 718838,
+        "depth_exposure_dropouts": 9377,
+        "next_present_pixels": 172579,
+        "present_pixels": 172740,
+        "source_switches": 407,
+        "visibility_toggles": 857
+      },
+      "candidate": {
+        "anchors": 718838,
+        "depth_exposure_dropouts": 9164,
+        "next_present_pixels": 172345,
+        "present_pixels": 172295,
+        "source_switches": 125,
+        "visibility_toggles": 640
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        36,
+        37
+      ],
+      "unknown_reference_pixels": 1338421
+    },
+    {
+      "baseline": {
+        "anchors": 718522,
+        "depth_exposure_dropouts": 9421,
+        "next_present_pixels": 172647,
+        "present_pixels": 172748,
+        "source_switches": 389,
+        "visibility_toggles": 807
+      },
+      "candidate": {
+        "anchors": 718522,
+        "depth_exposure_dropouts": 9226,
+        "next_present_pixels": 172389,
+        "present_pixels": 172322,
+        "source_switches": 126,
+        "visibility_toggles": 605
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        37,
+        38
+      ],
+      "unknown_reference_pixels": 1338631
+    },
+    {
+      "baseline": {
+        "anchors": 718495,
+        "depth_exposure_dropouts": 9302,
+        "next_present_pixels": 172607,
+        "present_pixels": 172743,
+        "source_switches": 411,
+        "visibility_toggles": 810
+      },
+      "candidate": {
+        "anchors": 718495,
+        "depth_exposure_dropouts": 9109,
+        "next_present_pixels": 172371,
+        "present_pixels": 172301,
+        "source_switches": 126,
+        "visibility_toggles": 618
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        38,
+        39
+      ],
+      "unknown_reference_pixels": 1338873
+    },
+    {
+      "baseline": {
+        "anchors": 718104,
+        "depth_exposure_dropouts": 9080,
+        "next_present_pixels": 172789,
+        "present_pixels": 172907,
+        "source_switches": 391,
+        "visibility_toggles": 832
+      },
+      "candidate": {
+        "anchors": 718104,
+        "depth_exposure_dropouts": 8868,
+        "next_present_pixels": 172570,
+        "present_pixels": 172489,
+        "source_switches": 106,
+        "visibility_toggles": 619
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        39,
+        40
+      ],
+      "unknown_reference_pixels": 1339052
+    },
+    {
+      "baseline": {
+        "anchors": 718316,
+        "depth_exposure_dropouts": 9316,
+        "next_present_pixels": 172898,
+        "present_pixels": 173023,
+        "source_switches": 419,
+        "visibility_toggles": 799
+      },
+      "candidate": {
+        "anchors": 718316,
+        "depth_exposure_dropouts": 9111,
+        "next_present_pixels": 172674,
+        "present_pixels": 172596,
+        "source_switches": 120,
+        "visibility_toggles": 592
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        40,
+        41
+      ],
+      "unknown_reference_pixels": 1339206
+    },
+    {
+      "baseline": {
+        "anchors": 717631,
+        "depth_exposure_dropouts": 9047,
+        "next_present_pixels": 172837,
+        "present_pixels": 172907,
+        "source_switches": 386,
+        "visibility_toggles": 780
+      },
+      "candidate": {
+        "anchors": 717631,
+        "depth_exposure_dropouts": 8851,
+        "next_present_pixels": 172632,
+        "present_pixels": 172501,
+        "source_switches": 113,
+        "visibility_toggles": 593
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        41,
+        42
+      ],
+      "unknown_reference_pixels": 1339501
+    },
+    {
+      "baseline": {
+        "anchors": 717897,
+        "depth_exposure_dropouts": 9110,
+        "next_present_pixels": 173086,
+        "present_pixels": 173134,
+        "source_switches": 335,
+        "visibility_toggles": 804
+      },
+      "candidate": {
+        "anchors": 717897,
+        "depth_exposure_dropouts": 8959,
+        "next_present_pixels": 172840,
+        "present_pixels": 172724,
+        "source_switches": 100,
+        "visibility_toggles": 614
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        42,
+        43
+      ],
+      "unknown_reference_pixels": 1339659
+    },
+    {
+      "baseline": {
+        "anchors": 717469,
+        "depth_exposure_dropouts": 9072,
+        "next_present_pixels": 173141,
+        "present_pixels": 173250,
+        "source_switches": 361,
+        "visibility_toggles": 817
+      },
+      "candidate": {
+        "anchors": 717469,
+        "depth_exposure_dropouts": 8853,
+        "next_present_pixels": 172951,
+        "present_pixels": 172841,
+        "source_switches": 101,
+        "visibility_toggles": 570
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        43,
+        44
+      ],
+      "unknown_reference_pixels": 1339802
+    },
+    {
+      "baseline": {
+        "anchors": 717370,
+        "depth_exposure_dropouts": 8613,
+        "next_present_pixels": 173270,
+        "present_pixels": 173296,
+        "source_switches": 348,
+        "visibility_toggles": 768
+      },
+      "candidate": {
+        "anchors": 717370,
+        "depth_exposure_dropouts": 8450,
+        "next_present_pixels": 173042,
+        "present_pixels": 172896,
+        "source_switches": 92,
+        "visibility_toggles": 572
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        44,
+        45
+      ],
+      "unknown_reference_pixels": 1340205
+    },
+    {
+      "baseline": {
+        "anchors": 717683,
+        "depth_exposure_dropouts": 8866,
+        "next_present_pixels": 173736,
+        "present_pixels": 173803,
+        "source_switches": 397,
+        "visibility_toggles": 787
+      },
+      "candidate": {
+        "anchors": 717683,
+        "depth_exposure_dropouts": 8673,
+        "next_present_pixels": 173534,
+        "present_pixels": 173405,
+        "source_switches": 114,
+        "visibility_toggles": 599
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        45,
+        46
+      ],
+      "unknown_reference_pixels": 1340368
+    },
+    {
+      "baseline": {
+        "anchors": 717155,
+        "depth_exposure_dropouts": 8583,
+        "next_present_pixels": 173534,
+        "present_pixels": 173594,
+        "source_switches": 362,
+        "visibility_toggles": 810
+      },
+      "candidate": {
+        "anchors": 717155,
+        "depth_exposure_dropouts": 8403,
+        "next_present_pixels": 173341,
+        "present_pixels": 173209,
+        "source_switches": 101,
+        "visibility_toggles": 604
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        46,
+        47
+      ],
+      "unknown_reference_pixels": 1340498
+    },
+    {
+      "baseline": {
+        "anchors": 717170,
+        "depth_exposure_dropouts": 8573,
+        "next_present_pixels": 174170,
+        "present_pixels": 174187,
+        "source_switches": 373,
+        "visibility_toggles": 801
+      },
+      "candidate": {
+        "anchors": 717170,
+        "depth_exposure_dropouts": 8395,
+        "next_present_pixels": 173939,
+        "present_pixels": 173807,
+        "source_switches": 100,
+        "visibility_toggles": 576
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        47,
+        48
+      ],
+      "unknown_reference_pixels": 1340948
+    },
+    {
+      "baseline": {
+        "anchors": 716951,
+        "depth_exposure_dropouts": 8473,
+        "next_present_pixels": 174122,
+        "present_pixels": 174205,
+        "source_switches": 393,
+        "visibility_toggles": 825
+      },
+      "candidate": {
+        "anchors": 716951,
+        "depth_exposure_dropouts": 8280,
+        "next_present_pixels": 173902,
+        "present_pixels": 173802,
+        "source_switches": 117,
+        "visibility_toggles": 626
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        48,
+        49
+      ],
+      "unknown_reference_pixels": 1341054
+    },
+    {
+      "baseline": {
+        "anchors": 716590,
+        "depth_exposure_dropouts": 8565,
+        "next_present_pixels": 174118,
+        "present_pixels": 174218,
+        "source_switches": 371,
+        "visibility_toggles": 834
+      },
+      "candidate": {
+        "anchors": 716590,
+        "depth_exposure_dropouts": 8348,
+        "next_present_pixels": 173936,
+        "present_pixels": 173823,
+        "source_switches": 101,
+        "visibility_toggles": 613
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        49,
+        50
+      ],
+      "unknown_reference_pixels": 1341309
+    },
+    {
+      "baseline": {
+        "anchors": 716799,
+        "depth_exposure_dropouts": 8450,
+        "next_present_pixels": 174764,
+        "present_pixels": 174807,
+        "source_switches": 383,
+        "visibility_toggles": 813
+      },
+      "candidate": {
+        "anchors": 716799,
+        "depth_exposure_dropouts": 8266,
+        "next_present_pixels": 174543,
+        "present_pixels": 174401,
+        "source_switches": 121,
+        "visibility_toggles": 636
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        50,
+        51
+      ],
+      "unknown_reference_pixels": 1341631
+    },
+    {
+      "baseline": {
+        "anchors": 716327,
+        "depth_exposure_dropouts": 8414,
+        "next_present_pixels": 174699,
+        "present_pixels": 174760,
+        "source_switches": 390,
+        "visibility_toggles": 829
+      },
+      "candidate": {
+        "anchors": 716327,
+        "depth_exposure_dropouts": 8210,
+        "next_present_pixels": 174498,
+        "present_pixels": 174355,
+        "source_switches": 99,
+        "visibility_toggles": 617
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        51,
+        52
+      ],
+      "unknown_reference_pixels": 1342027
+    },
+    {
+      "baseline": {
+        "anchors": 716268,
+        "depth_exposure_dropouts": 8339,
+        "next_present_pixels": 174892,
+        "present_pixels": 175010,
+        "source_switches": 449,
+        "visibility_toggles": 882
+      },
+      "candidate": {
+        "anchors": 716268,
+        "depth_exposure_dropouts": 8094,
+        "next_present_pixels": 174736,
+        "present_pixels": 174591,
+        "source_switches": 102,
+        "visibility_toggles": 643
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        52,
+        53
+      ],
+      "unknown_reference_pixels": 1342222
+    },
+    {
+      "baseline": {
+        "anchors": 716081,
+        "depth_exposure_dropouts": 8375,
+        "next_present_pixels": 175299,
+        "present_pixels": 175400,
+        "source_switches": 396,
+        "visibility_toggles": 861
+      },
+      "candidate": {
+        "anchors": 716081,
+        "depth_exposure_dropouts": 8171,
+        "next_present_pixels": 175140,
+        "present_pixels": 175016,
+        "source_switches": 115,
+        "visibility_toggles": 654
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        53,
+        54
+      ],
+      "unknown_reference_pixels": 1342626
+    },
+    {
+      "baseline": {
+        "anchors": 715907,
+        "depth_exposure_dropouts": 8573,
+        "next_present_pixels": 175474,
+        "present_pixels": 175603,
+        "source_switches": 367,
+        "visibility_toggles": 871
+      },
+      "candidate": {
+        "anchors": 715907,
+        "depth_exposure_dropouts": 8344,
+        "next_present_pixels": 175336,
+        "present_pixels": 175242,
+        "source_switches": 102,
+        "visibility_toggles": 626
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        54,
+        55
+      ],
+      "unknown_reference_pixels": 1342829
+    },
+    {
+      "baseline": {
+        "anchors": 715416,
+        "depth_exposure_dropouts": 8402,
+        "next_present_pixels": 175615,
+        "present_pixels": 175727,
+        "source_switches": 434,
+        "visibility_toggles": 894
+      },
+      "candidate": {
+        "anchors": 715416,
+        "depth_exposure_dropouts": 8172,
+        "next_present_pixels": 175462,
+        "present_pixels": 175338,
+        "source_switches": 101,
+        "visibility_toggles": 724
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        55,
+        56
+      ],
+      "unknown_reference_pixels": 1343243
+    },
+    {
+      "baseline": {
+        "anchors": 715537,
+        "depth_exposure_dropouts": 8573,
+        "next_present_pixels": 176063,
+        "present_pixels": 176181,
+        "source_switches": 427,
+        "visibility_toggles": 876
+      },
+      "candidate": {
+        "anchors": 715537,
+        "depth_exposure_dropouts": 8365,
+        "next_present_pixels": 175934,
+        "present_pixels": 175829,
+        "source_switches": 118,
+        "visibility_toggles": 639
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        56,
+        57
+      ],
+      "unknown_reference_pixels": 1343488
+    },
+    {
+      "baseline": {
+        "anchors": 714929,
+        "depth_exposure_dropouts": 8485,
+        "next_present_pixels": 176128,
+        "present_pixels": 176274,
+        "source_switches": 398,
+        "visibility_toggles": 926
+      },
+      "candidate": {
+        "anchors": 714929,
+        "depth_exposure_dropouts": 8239,
+        "next_present_pixels": 176007,
+        "present_pixels": 175893,
+        "source_switches": 103,
+        "visibility_toggles": 674
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        57,
+        58
+      ],
+      "unknown_reference_pixels": 1343996
+    },
+    {
+      "baseline": {
+        "anchors": 715013,
+        "depth_exposure_dropouts": 8776,
+        "next_present_pixels": 176482,
+        "present_pixels": 176642,
+        "source_switches": 412,
+        "visibility_toggles": 944
+      },
+      "candidate": {
+        "anchors": 715013,
+        "depth_exposure_dropouts": 8514,
+        "next_present_pixels": 176361,
+        "present_pixels": 176263,
+        "source_switches": 100,
+        "visibility_toggles": 720
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        58,
+        59
+      ],
+      "unknown_reference_pixels": 1344133
+    },
+    {
+      "baseline": {
+        "anchors": 714655,
+        "depth_exposure_dropouts": 8872,
+        "next_present_pixels": 176675,
+        "present_pixels": 176830,
+        "source_switches": 425,
+        "visibility_toggles": 941
+      },
+      "candidate": {
+        "anchors": 714655,
+        "depth_exposure_dropouts": 8622,
+        "next_present_pixels": 176523,
+        "present_pixels": 176450,
+        "source_switches": 117,
+        "visibility_toggles": 717
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        59,
+        60
+      ],
+      "unknown_reference_pixels": 1344683
+    },
+    {
+      "baseline": {
+        "anchors": 714583,
+        "depth_exposure_dropouts": 8988,
+        "next_present_pixels": 176965,
+        "present_pixels": 177240,
+        "source_switches": 494,
+        "visibility_toggles": 1005
+      },
+      "candidate": {
+        "anchors": 714583,
+        "depth_exposure_dropouts": 8684,
+        "next_present_pixels": 176852,
+        "present_pixels": 176819,
+        "source_switches": 121,
+        "visibility_toggles": 743
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        60,
+        61
+      ],
+      "unknown_reference_pixels": 1344909
+    },
+    {
+      "baseline": {
+        "anchors": 714137,
+        "depth_exposure_dropouts": 8774,
+        "next_present_pixels": 177018,
+        "present_pixels": 177270,
+        "source_switches": 390,
+        "visibility_toggles": 934
+      },
+      "candidate": {
+        "anchors": 714137,
+        "depth_exposure_dropouts": 8526,
+        "next_present_pixels": 176860,
+        "present_pixels": 176895,
+        "source_switches": 99,
+        "visibility_toggles": 717
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        61,
+        62
+      ],
+      "unknown_reference_pixels": 1345392
+    },
+    {
+      "baseline": {
+        "anchors": 713693,
+        "depth_exposure_dropouts": 9042,
+        "next_present_pixels": 177190,
+        "present_pixels": 177484,
+        "source_switches": 476,
+        "visibility_toggles": 1048
+      },
+      "candidate": {
+        "anchors": 713693,
+        "depth_exposure_dropouts": 8742,
+        "next_present_pixels": 177044,
+        "present_pixels": 177066,
+        "source_switches": 101,
+        "visibility_toggles": 828
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        62,
+        63
+      ],
+      "unknown_reference_pixels": 1345705
+    },
+    {
+      "baseline": {
+        "anchors": 713411,
+        "depth_exposure_dropouts": 9021,
+        "next_present_pixels": 177345,
+        "present_pixels": 177660,
+        "source_switches": 376,
+        "visibility_toggles": 1035
+      },
+      "candidate": {
+        "anchors": 713411,
+        "depth_exposure_dropouts": 8751,
+        "next_present_pixels": 177228,
+        "present_pixels": 177282,
+        "source_switches": 95,
+        "visibility_toggles": 750
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        63,
+        64
+      ],
+      "unknown_reference_pixels": 1346040
+    },
+    {
+      "baseline": {
+        "anchors": 713064,
+        "depth_exposure_dropouts": 9289,
+        "next_present_pixels": 177726,
+        "present_pixels": 178084,
+        "source_switches": 419,
+        "visibility_toggles": 988
+      },
+      "candidate": {
+        "anchors": 713064,
+        "depth_exposure_dropouts": 9017,
+        "next_present_pixels": 177571,
+        "present_pixels": 177682,
+        "source_switches": 120,
+        "visibility_toggles": 797
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        64,
+        65
+      ],
+      "unknown_reference_pixels": 1346628
+    },
+    {
+      "baseline": {
+        "anchors": 712583,
+        "depth_exposure_dropouts": 9072,
+        "next_present_pixels": 177672,
+        "present_pixels": 178064,
+        "source_switches": 444,
+        "visibility_toggles": 1002
+      },
+      "candidate": {
+        "anchors": 712583,
+        "depth_exposure_dropouts": 8843,
+        "next_present_pixels": 177518,
+        "present_pixels": 177696,
+        "source_switches": 119,
+        "visibility_toggles": 758
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        65,
+        66
+      ],
+      "unknown_reference_pixels": 1346971
+    },
+    {
+      "baseline": {
+        "anchors": 712299,
+        "depth_exposure_dropouts": 9308,
+        "next_present_pixels": 178110,
+        "present_pixels": 178505,
+        "source_switches": 440,
+        "visibility_toggles": 1009
+      },
+      "candidate": {
+        "anchors": 712299,
+        "depth_exposure_dropouts": 9033,
+        "next_present_pixels": 177965,
+        "present_pixels": 178120,
+        "source_switches": 116,
+        "visibility_toggles": 801
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        66,
+        67
+      ],
+      "unknown_reference_pixels": 1347363
+    },
+    {
+      "baseline": {
+        "anchors": 711734,
+        "depth_exposure_dropouts": 9095,
+        "next_present_pixels": 177911,
+        "present_pixels": 178283,
+        "source_switches": 406,
+        "visibility_toggles": 1084
+      },
+      "candidate": {
+        "anchors": 711734,
+        "depth_exposure_dropouts": 8847,
+        "next_present_pixels": 177747,
+        "present_pixels": 177874,
+        "source_switches": 119,
+        "visibility_toggles": 825
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        67,
+        68
+      ],
+      "unknown_reference_pixels": 1347832
+    },
+    {
+      "baseline": {
+        "anchors": 711222,
+        "depth_exposure_dropouts": 9176,
+        "next_present_pixels": 178218,
+        "present_pixels": 178573,
+        "source_switches": 375,
+        "visibility_toggles": 1055
+      },
+      "candidate": {
+        "anchors": 711222,
+        "depth_exposure_dropouts": 8941,
+        "next_present_pixels": 178047,
+        "present_pixels": 178200,
+        "source_switches": 81,
+        "visibility_toggles": 837
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        68,
+        69
+      ],
+      "unknown_reference_pixels": 1348202
+    },
+    {
+      "baseline": {
+        "anchors": 710527,
+        "depth_exposure_dropouts": 9454,
+        "next_present_pixels": 178169,
+        "present_pixels": 178559,
+        "source_switches": 445,
+        "visibility_toggles": 1090
+      },
+      "candidate": {
+        "anchors": 710527,
+        "depth_exposure_dropouts": 9210,
+        "next_present_pixels": 178012,
+        "present_pixels": 178161,
+        "source_switches": 109,
+        "visibility_toggles": 869
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        69,
+        70
+      ],
+      "unknown_reference_pixels": 1348759
+    },
+    {
+      "baseline": {
+        "anchors": 710220,
+        "depth_exposure_dropouts": 9169,
+        "next_present_pixels": 178497,
+        "present_pixels": 178785,
+        "source_switches": 377,
+        "visibility_toggles": 1092
+      },
+      "candidate": {
+        "anchors": 710220,
+        "depth_exposure_dropouts": 8943,
+        "next_present_pixels": 178302,
+        "present_pixels": 178395,
+        "source_switches": 109,
+        "visibility_toggles": 895
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        70,
+        71
+      ],
+      "unknown_reference_pixels": 1349158
+    },
+    {
+      "baseline": {
+        "anchors": 710000,
+        "depth_exposure_dropouts": 9462,
+        "next_present_pixels": 178939,
+        "present_pixels": 179149,
+        "source_switches": 398,
+        "visibility_toggles": 1064
+      },
+      "candidate": {
+        "anchors": 710000,
+        "depth_exposure_dropouts": 9220,
+        "next_present_pixels": 178759,
+        "present_pixels": 178729,
+        "source_switches": 99,
+        "visibility_toggles": 858
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        71,
+        72
+      ],
+      "unknown_reference_pixels": 1349703
+    },
+    {
+      "baseline": {
+        "anchors": 708956,
+        "depth_exposure_dropouts": 9381,
+        "next_present_pixels": 178947,
+        "present_pixels": 179136,
+        "source_switches": 406,
+        "visibility_toggles": 1067
+      },
+      "candidate": {
+        "anchors": 708956,
+        "depth_exposure_dropouts": 9148,
+        "next_present_pixels": 178761,
+        "present_pixels": 178732,
+        "source_switches": 115,
+        "visibility_toggles": 863
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        72,
+        73
+      ],
+      "unknown_reference_pixels": 1350137
+    },
+    {
+      "baseline": {
+        "anchors": 708721,
+        "depth_exposure_dropouts": 9437,
+        "next_present_pixels": 179264,
+        "present_pixels": 179479,
+        "source_switches": 416,
+        "visibility_toggles": 1171
+      },
+      "candidate": {
+        "anchors": 708721,
+        "depth_exposure_dropouts": 9189,
+        "next_present_pixels": 179099,
+        "present_pixels": 179089,
+        "source_switches": 123,
+        "visibility_toggles": 952
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        73,
+        74
+      ],
+      "unknown_reference_pixels": 1350826
+    },
+    {
+      "baseline": {
+        "anchors": 707593,
+        "depth_exposure_dropouts": 9358,
+        "next_present_pixels": 179313,
+        "present_pixels": 179452,
+        "source_switches": 380,
+        "visibility_toggles": 1133
+      },
+      "candidate": {
+        "anchors": 707593,
+        "depth_exposure_dropouts": 9132,
+        "next_present_pixels": 179147,
+        "present_pixels": 179051,
+        "source_switches": 120,
+        "visibility_toggles": 920
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        74,
+        75
+      ],
+      "unknown_reference_pixels": 1351238
+    },
+    {
+      "baseline": {
+        "anchors": 707267,
+        "depth_exposure_dropouts": 9508,
+        "next_present_pixels": 179432,
+        "present_pixels": 179634,
+        "source_switches": 387,
+        "visibility_toggles": 1120
+      },
+      "candidate": {
+        "anchors": 707267,
+        "depth_exposure_dropouts": 9301,
+        "next_present_pixels": 179296,
+        "present_pixels": 179263,
+        "source_switches": 115,
+        "visibility_toggles": 945
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        75,
+        76
+      ],
+      "unknown_reference_pixels": 1351810
+    },
+    {
+      "baseline": {
+        "anchors": 706399,
+        "depth_exposure_dropouts": 9312,
+        "next_present_pixels": 179518,
+        "present_pixels": 179686,
+        "source_switches": 416,
+        "visibility_toggles": 1126
+      },
+      "candidate": {
+        "anchors": 706399,
+        "depth_exposure_dropouts": 9082,
+        "next_present_pixels": 179366,
+        "present_pixels": 179334,
+        "source_switches": 139,
+        "visibility_toggles": 894
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        76,
+        77
+      ],
+      "unknown_reference_pixels": 1352370
+    },
+    {
+      "baseline": {
+        "anchors": 705664,
+        "depth_exposure_dropouts": 9382,
+        "next_present_pixels": 179691,
+        "present_pixels": 179924,
+        "source_switches": 390,
+        "visibility_toggles": 1127
+      },
+      "candidate": {
+        "anchors": 705664,
+        "depth_exposure_dropouts": 9171,
+        "next_present_pixels": 179529,
+        "present_pixels": 179536,
+        "source_switches": 138,
+        "visibility_toggles": 921
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        77,
+        78
+      ],
+      "unknown_reference_pixels": 1352849
+    },
+    {
+      "baseline": {
+        "anchors": 704958,
+        "depth_exposure_dropouts": 9372,
+        "next_present_pixels": 179616,
+        "present_pixels": 179919,
+        "source_switches": 454,
+        "visibility_toggles": 1141
+      },
+      "candidate": {
+        "anchors": 704958,
+        "depth_exposure_dropouts": 9110,
+        "next_present_pixels": 179470,
+        "present_pixels": 179523,
+        "source_switches": 166,
+        "visibility_toggles": 919
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        78,
+        79
+      ],
+      "unknown_reference_pixels": 1353588
+    },
+    {
+      "baseline": {
+        "anchors": 703563,
+        "depth_exposure_dropouts": 9263,
+        "next_present_pixels": 179682,
+        "present_pixels": 179894,
+        "source_switches": 384,
+        "visibility_toggles": 1104
+      },
+      "candidate": {
+        "anchors": 703563,
+        "depth_exposure_dropouts": 9083,
+        "next_present_pixels": 179494,
+        "present_pixels": 179521,
+        "source_switches": 117,
+        "visibility_toggles": 935
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        79,
+        80
+      ],
+      "unknown_reference_pixels": 1354320
+    },
+    {
+      "baseline": {
+        "anchors": 702714,
+        "depth_exposure_dropouts": 9275,
+        "next_present_pixels": 179763,
+        "present_pixels": 180055,
+        "source_switches": 383,
+        "visibility_toggles": 1160
+      },
+      "candidate": {
+        "anchors": 702714,
+        "depth_exposure_dropouts": 9047,
+        "next_present_pixels": 179593,
+        "present_pixels": 179667,
+        "source_switches": 150,
+        "visibility_toggles": 946
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        80,
+        81
+      ],
+      "unknown_reference_pixels": 1354992
+    },
+    {
+      "baseline": {
+        "anchors": 701893,
+        "depth_exposure_dropouts": 9490,
+        "next_present_pixels": 179875,
+        "present_pixels": 180261,
+        "source_switches": 391,
+        "visibility_toggles": 1196
+      },
+      "candidate": {
+        "anchors": 701893,
+        "depth_exposure_dropouts": 9247,
+        "next_present_pixels": 179739,
+        "present_pixels": 179889,
+        "source_switches": 152,
+        "visibility_toggles": 958
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        81,
+        82
+      ],
+      "unknown_reference_pixels": 1355574
+    },
+    {
+      "baseline": {
+        "anchors": 700705,
+        "depth_exposure_dropouts": 9116,
+        "next_present_pixels": 179869,
+        "present_pixels": 180139,
+        "source_switches": 356,
+        "visibility_toggles": 1046
+      },
+      "candidate": {
+        "anchors": 700705,
+        "depth_exposure_dropouts": 8923,
+        "next_present_pixels": 179686,
+        "present_pixels": 179769,
+        "source_switches": 152,
+        "visibility_toggles": 911
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        82,
+        83
+      ],
+      "unknown_reference_pixels": 1356471
+    },
+    {
+      "baseline": {
+        "anchors": 699955,
+        "depth_exposure_dropouts": 9452,
+        "next_present_pixels": 180063,
+        "present_pixels": 180515,
+        "source_switches": 370,
+        "visibility_toggles": 1180
+      },
+      "candidate": {
+        "anchors": 699955,
+        "depth_exposure_dropouts": 9238,
+        "next_present_pixels": 179888,
+        "present_pixels": 180149,
+        "source_switches": 121,
+        "visibility_toggles": 991
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        83,
+        84
+      ],
+      "unknown_reference_pixels": 1357091
+    },
+    {
+      "baseline": {
+        "anchors": 698719,
+        "depth_exposure_dropouts": 9462,
+        "next_present_pixels": 179865,
+        "present_pixels": 180339,
+        "source_switches": 362,
+        "visibility_toggles": 1124
+      },
+      "candidate": {
+        "anchors": 698719,
+        "depth_exposure_dropouts": 9238,
+        "next_present_pixels": 179715,
+        "present_pixels": 179964,
+        "source_switches": 165,
+        "visibility_toggles": 889
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        84,
+        85
+      ],
+      "unknown_reference_pixels": 1357688
+    },
+    {
+      "baseline": {
+        "anchors": 698079,
+        "depth_exposure_dropouts": 9688,
+        "next_present_pixels": 180301,
+        "present_pixels": 180823,
+        "source_switches": 407,
+        "visibility_toggles": 1130
+      },
+      "candidate": {
+        "anchors": 698079,
+        "depth_exposure_dropouts": 9488,
+        "next_present_pixels": 180137,
+        "present_pixels": 180464,
+        "source_switches": 181,
+        "visibility_toggles": 943
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        85,
+        86
+      ],
+      "unknown_reference_pixels": 1358560
+    },
+    {
+      "baseline": {
+        "anchors": 696860,
+        "depth_exposure_dropouts": 9576,
+        "next_present_pixels": 180206,
+        "present_pixels": 180699,
+        "source_switches": 432,
+        "visibility_toggles": 1157
+      },
+      "candidate": {
+        "anchors": 696860,
+        "depth_exposure_dropouts": 9374,
+        "next_present_pixels": 180051,
+        "present_pixels": 180336,
+        "source_switches": 170,
+        "visibility_toggles": 965
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        86,
+        87
+      ],
+      "unknown_reference_pixels": 1359121
+    },
+    {
+      "baseline": {
+        "anchors": 696300,
+        "depth_exposure_dropouts": 9854,
+        "next_present_pixels": 180561,
+        "present_pixels": 181116,
+        "source_switches": 396,
+        "visibility_toggles": 1157
+      },
+      "candidate": {
+        "anchors": 696300,
+        "depth_exposure_dropouts": 9655,
+        "next_present_pixels": 180397,
+        "present_pixels": 180752,
+        "source_switches": 158,
+        "visibility_toggles": 963
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        87,
+        88
+      ],
+      "unknown_reference_pixels": 1359880
+    },
+    {
+      "baseline": {
+        "anchors": 695154,
+        "depth_exposure_dropouts": 10127,
+        "next_present_pixels": 180639,
+        "present_pixels": 181182,
+        "source_switches": 412,
+        "visibility_toggles": 1165
+      },
+      "candidate": {
+        "anchors": 695154,
+        "depth_exposure_dropouts": 9939,
+        "next_present_pixels": 180463,
+        "present_pixels": 180803,
+        "source_switches": 168,
+        "visibility_toggles": 986
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        88,
+        89
+      ],
+      "unknown_reference_pixels": 1360749
+    },
+    {
+      "baseline": {
+        "anchors": 694404,
+        "depth_exposure_dropouts": 10261,
+        "next_present_pixels": 180952,
+        "present_pixels": 181431,
+        "source_switches": 430,
+        "visibility_toggles": 1175
+      },
+      "candidate": {
+        "anchors": 694404,
+        "depth_exposure_dropouts": 10045,
+        "next_present_pixels": 180788,
+        "present_pixels": 181054,
+        "source_switches": 180,
+        "visibility_toggles": 980
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        89,
+        90
+      ],
+      "unknown_reference_pixels": 1361389
+    },
+    {
+      "baseline": {
+        "anchors": 693523,
+        "depth_exposure_dropouts": 10489,
+        "next_present_pixels": 180948,
+        "present_pixels": 181508,
+        "source_switches": 396,
+        "visibility_toggles": 1128
+      },
+      "candidate": {
+        "anchors": 693523,
+        "depth_exposure_dropouts": 10303,
+        "next_present_pixels": 180760,
+        "present_pixels": 181125,
+        "source_switches": 184,
+        "visibility_toggles": 949
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        90,
+        91
+      ],
+      "unknown_reference_pixels": 1362320
+    },
+    {
+      "baseline": {
+        "anchors": 692503,
+        "depth_exposure_dropouts": 10533,
+        "next_present_pixels": 181116,
+        "present_pixels": 181702,
+        "source_switches": 410,
+        "visibility_toggles": 1174
+      },
+      "candidate": {
+        "anchors": 692503,
+        "depth_exposure_dropouts": 10318,
+        "next_present_pixels": 180944,
+        "present_pixels": 181320,
+        "source_switches": 197,
+        "visibility_toggles": 962
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        91,
+        92
+      ],
+      "unknown_reference_pixels": 1363170
+    },
+    {
+      "baseline": {
+        "anchors": 691857,
+        "depth_exposure_dropouts": 10665,
+        "next_present_pixels": 181415,
+        "present_pixels": 181922,
+        "source_switches": 404,
+        "visibility_toggles": 1145
+      },
+      "candidate": {
+        "anchors": 691857,
+        "depth_exposure_dropouts": 10483,
+        "next_present_pixels": 181216,
+        "present_pixels": 181539,
+        "source_switches": 188,
+        "visibility_toggles": 967
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        92,
+        93
+      ],
+      "unknown_reference_pixels": 1363987
+    },
+    {
+      "baseline": {
+        "anchors": 691000,
+        "depth_exposure_dropouts": 10713,
+        "next_present_pixels": 181446,
+        "present_pixels": 181972,
+        "source_switches": 426,
+        "visibility_toggles": 1192
+      },
+      "candidate": {
+        "anchors": 691000,
+        "depth_exposure_dropouts": 10496,
+        "next_present_pixels": 181239,
+        "present_pixels": 181579,
+        "source_switches": 210,
+        "visibility_toggles": 998
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        93,
+        94
+      ],
+      "unknown_reference_pixels": 1364744
+    },
+    {
+      "baseline": {
+        "anchors": 690569,
+        "depth_exposure_dropouts": 10716,
+        "next_present_pixels": 181613,
+        "present_pixels": 182114,
+        "source_switches": 455,
+        "visibility_toggles": 1181
+      },
+      "candidate": {
+        "anchors": 690569,
+        "depth_exposure_dropouts": 10504,
+        "next_present_pixels": 181422,
+        "present_pixels": 181710,
+        "source_switches": 222,
+        "visibility_toggles": 946
+      },
+      "occlusion_policy": "frozen baseline near-surface veto",
+      "pair": [
+        94,
+        95
+      ],
+      "unknown_reference_pixels": 1365631
+    }
+  ],
+  "physical_time_stability_established": false,
+  "pilot": false,
+  "problem_patches": [
+    {
+      "frames": [
+        73,
+        74
+      ],
+      "original_box": [
+        838,
+        257,
+        998,
+        417
+      ],
+      "path": "/fsx/tmp/lookcloser_hair_001083_20261027_1330/local_20261028/opacity_full96/review/problem_patch_0.jpg",
+      "sha256": "763eb560d7120c5b89c83ea4d974ce95410a75b46ea2e8174a215de74f02f43e"
+    },
+    {
+      "frames": [
+        81,
+        82
+      ],
+      "original_box": [
+        1347,
+        589,
+        1507,
+        749
+      ],
+      "path": "/fsx/tmp/lookcloser_hair_001083_20261027_1330/local_20261028/opacity_full96/review/problem_patch_1.jpg",
+      "sha256": "d0e4a8fbd492abe0e14315cb4f8a194efa44a72b2a180e9fec4c1b8e5b275b0b"
+    },
+    {
+      "frames": [
+        83,
+        84
+      ],
+      "original_box": [
+        1333,
+        558,
+        1493,
+        718
+      ],
+      "path": "/fsx/tmp/lookcloser_hair_001083_20261027_1330/local_20261028/opacity_full96/review/problem_patch_2.jpg",
+      "sha256": "79abbbd29564145a5b3c02d89e2bd6a7405716509adfe22a2bc5c3340800b900"
+    }
+  ],
+  "videos": {
+    "baseline": {
+      "duration_seconds": 4.0,
+      "encoder_binary": "/home/pavlo/.conda/envs/lookcloser-jpeg/bin/ffmpeg",
+      "encoder_library_path_override": null,
+      "fps": 24.0,
+      "frames": 96,
+      "sheets": [
+        {
+          "path": "/fsx/tmp/lookcloser_hair_001083_20261027_1330/local_20261028/opacity_full96/review/baseline/decoded_000.jpg",
+          "sha256": "12223733b2f0df012622a4d340996227ed22da6e9f373cb48b36ef65f47adaed"
+        },
+        {
+          "path": "/fsx/tmp/lookcloser_hair_001083_20261027_1330/local_20261028/opacity_full96/review/baseline/decoded_032.jpg",
+          "sha256": "5a66052e5fccb83e9cef862f69ac485e898024857fe5a3f4a33f50d0a16ba64f"
+        },
+        {
+          "path": "/fsx/tmp/lookcloser_hair_001083_20261027_1330/local_20261028/opacity_full96/review/baseline/decoded_064.jpg",
+          "sha256": "cad3a1ff7a72f723f128d2170589d76bb4d79ea02672f4b05180dcc60cd36ec9"
+        }
+      ],
+      "video": "/fsx/tmp/lookcloser_hair_001083_20261027_1330/local_20261028/opacity_full96/review/baseline/video.mp4",
+      "video_sha256": "b8db5fea83673891025fc713024cb5ec3a1681fcbb1606527ed98108a1cd2d5d"
+    },
+    "candidate": {
+      "duration_seconds": 4.0,
+      "encoder_binary": "/home/pavlo/.conda/envs/lookcloser-jpeg/bin/ffmpeg",
+      "encoder_library_path_override": null,
+      "fps": 24.0,
+      "frames": 96,
+      "sheets": [
+        {
+          "path": "/fsx/tmp/lookcloser_hair_001083_20261027_1330/local_20261028/opacity_full96/review/candidate/decoded_000.jpg",
+          "sha256": "63bbd415c55097d860238e75573356ac1ab35b3342bef25e7e34161acf4289b4"
+        },
+        {
+          "path": "/fsx/tmp/lookcloser_hair_001083_20261027_1330/local_20261028/opacity_full96/review/candidate/decoded_032.jpg",
+          "sha256": "913746c280df143c277ad8dd2cbf5dbf5f781a47cceeec2e9f066c7ffb2f5565"
+        },
+        {
+          "path": "/fsx/tmp/lookcloser_hair_001083_20261027_1330/local_20261028/opacity_full96/review/candidate/decoded_064.jpg",
+          "sha256": "7c57f5b77bf5a77b2c0358a59cd76af9c1067ca9dd2e0cb5a4662a601990f802"
+        }
+      ],
+      "video": "/fsx/tmp/lookcloser_hair_001083_20261027_1330/local_20261028/opacity_full96/review/candidate/video.mp4",
+      "video_sha256": "6f92112baa16753904fb841c37915fa33bc69f279b613e5e56c861bfe01891d4"
+    }
+  }
+}

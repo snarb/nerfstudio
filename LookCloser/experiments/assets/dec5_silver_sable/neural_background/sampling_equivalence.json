@@ -1,0 +1,32 @@
+{
+  "pixel_allocation_and_policy_audits_identical": true,
+  "known_background_counts_identical": true,
+  "geometry_dependent_field_queries_by_class": {
+    "control": [
+      1342763371,
+      8199661650,
+      603314697,
+      80518540
+    ],
+    "volume": [
+      1346980392,
+      8238289440,
+      610033851,
+      81124688
+    ]
+  },
+  "sampling_counts": {
+    "background": 5256004,
+    "batches": 5000,
+    "hair": 2317147,
+    "person_nonhair": 12705258,
+    "rays": 20480000,
+    "uncertain": 201591
+  },
+  "known_background_counts": {
+    "batches": 5000,
+    "known_bg_rays": 2875055,
+    "total_rays": 20480000
+  },
+  "protocol": "All sampler audit fields except geometry-dependent adaptive field-query counts agree; equal update count, not query-count matched"
+}

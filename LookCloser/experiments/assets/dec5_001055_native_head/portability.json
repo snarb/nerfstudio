@@ -1,0 +1,21 @@
+{
+  "samples": 3076,
+  "same_checkpoint": true,
+  "same_observations": true,
+  "median_depth_cross_device_difference": {
+    "native": {
+      "relative_median": 2.0440458696941435e-07,
+      "relative_p99": 3.83193595826413e-06,
+      "relative_max": 2.0910020057459438e-05
+    },
+    "all_cells": {
+      "relative_median": 2.0326363628175266e-07,
+      "relative_p99": 3.9454385715308624e-06,
+      "relative_max": 0.00014650150975969352
+    }
+  },
+  "devices": [
+    "RTX PRO 6000/gs2",
+    "L40S/nerfstudio"
+  ]
+}

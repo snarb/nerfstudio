@@ -1,0 +1,104 @@
+{
+  "results": [
+    {
+      "statistic": "q1000",
+      "metrics": {
+        "boundary": {
+          "lpips": 0.04568212106823921,
+          "psnr": 17.688079833984375,
+          "ssim": 0.4581356942653656
+        },
+        "clothing_hands_proxy": {
+          "lpips": 0.20078349113464355,
+          "psnr": 25.527423858642578,
+          "ssim": 0.5512310862541199
+        },
+        "face_neck": {
+          "lpips": 0.11918964982032776,
+          "psnr": 26.65294647216797,
+          "ssim": 0.7032008171081543
+        },
+        "full_frame": {
+          "lpips": 0.5097444653511047,
+          "psnr": 16.44538116455078,
+          "ssim": 0.6505603194236755
+        },
+        "hair": {
+          "lpips": 0.20260301232337952,
+          "psnr": 19.323345184326172,
+          "ssim": 0.28024256229400635
+        },
+        "halo_fraction": 0.00019776525264511026,
+        "holes_fraction": 0.0016399250898415751,
+        "interior": {
+          "lpips": 0.19137704372406006,
+          "psnr": 19.502899169921875,
+          "ssim": 0.27149713039398193
+        },
+        "reprojection_error_hair": 3.9201741218566895,
+        "silhouette_recall": 0.952021055828314,
+        "witness_deficit_fraction": 0.011226400769347573
+      }
+    },
+    {
+      "statistic": "expected",
+      "metrics": {
+        "boundary": {
+          "lpips": 0.03998115658760071,
+          "psnr": 18.995389938354492,
+          "ssim": 0.48267149925231934
+        },
+        "clothing_hands_proxy": {
+          "lpips": 0.21145790815353394,
+          "psnr": 25.356767654418945,
+          "ssim": 0.5562872886657715
+        },
+        "face_neck": {
+          "lpips": 0.1194598525762558,
+          "psnr": 26.73377227783203,
+          "ssim": 0.7063332200050354
+        },
+        "full_frame": {
+          "lpips": 0.5115603804588318,
+          "psnr": 16.479896545410156,
+          "ssim": 0.6526011824607849
+        },
+        "hair": {
+          "lpips": 0.18841566145420074,
+          "psnr": 21.251039505004883,
+          "ssim": 0.281030535697937
+        },
+        "halo_fraction": 0.0005108935693332015,
+        "holes_fraction": 0.004111960317862024,
+        "interior": {
+          "lpips": 0.1752937138080597,
+          "psnr": 21.403696060180664,
+          "ssim": 0.2700275480747223
+        },
+        "reprojection_error_hair": 4.175540924072266,
+        "silhouette_recall": 0.9836918560510199,
+        "witness_deficit_fraction": 0.015476033810801235
+      }
+    },
+    {
+      "statistic": "median",
+      "skipped": "Not cached; no additional field queries",
+      "missing_maps": [
+        "source_0100/E004_A005_1210QB",
+        "source_0100/E004_B005_1210I7",
+        "source_0100/D004_B005_1210N4",
+        "source_0100/F004_B005_1210O9",
+        "source_0100/C004_B005_1210ER",
+        "source_0100/F004_A005_12103K",
+        "source_0100/G004_B005_1210FG",
+        "source_0100/D004_C005_1210ES",
+        "target_0100/D004_A005_12103C"
+      ]
+    }
+  ],
+  "frozen_checkpoint": true,
+  "identical_source_rgb_and_fallback": true,
+  "minimum_opacity": 0.1,
+  "no_additional_training": true,
+  "no_depth_ground_truth": true
+}

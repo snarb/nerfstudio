@@ -1,0 +1,58 @@
+{
+  "rows": [
+    {
+      "step": 20188,
+      "regions": {
+        "hair": {
+          "psnr": 24.140857436260607,
+          "ssim": 0.7782705426216125,
+          "lpips": 0.21996361017227173,
+          "pixels": 123460,
+          "opacity_mean": 0.9262804985046387,
+          "opacity_below_01_fraction": 0.0031751174469463795
+        },
+        "face_neck": {
+          "psnr": 29.632267875465622,
+          "ssim": 0.9193447232246399,
+          "lpips": 0.12391988933086395,
+          "pixels": 110467,
+          "opacity_mean": 0.9946098327636719,
+          "opacity_below_01_fraction": 0.0027519530719581414
+        },
+        "boundary": {
+          "psnr": 18.765624904266904,
+          "ssim": 0.9467960596084595,
+          "lpips": 0.09862938523292542,
+          "pixels": 30036,
+          "opacity_mean": 0.5699391961097717,
+          "opacity_below_01_fraction": 0.07667465707817286
+        },
+        "trusted_background": {
+          "psnr": 14.7592554033595,
+          "ssim": 0.8487842679023743,
+          "lpips": 0.40487968921661377,
+          "pixels": 1059081,
+          "opacity_mean": 0.02366853877902031,
+          "opacity_below_01_fraction": 0.935483688216482
+        },
+        "clothing_hands_proxy": {
+          "psnr": 28.14650218916014,
+          "ssim": 0.8621696829795837,
+          "lpips": 0.16535155475139618,
+          "pixels": 441738,
+          "opacity_mean": 0.9943533539772034,
+          "opacity_below_01_fraction": 0.0027889835151152947
+        }
+      },
+      "prediction_sha256": "7dd31c1caee14de847fa7b13454e3a7e99eefc80cea1029508d177fdca3715ac"
+    }
+  ],
+  "heldout_camera": "D004_A005_12103C",
+  "reference_sha256": "1226534e4f78a0f63ff06c2a68a89c038456e63badeda7877fb07d9b44f30f31",
+  "metric_domain": "HD native pilot raster; GT-composited masked tight crop for SSIM/LPIPS, PSNR on ROI pixels",
+  "boundary_radius_hd_pixels": 5,
+  "reference_used_for_metrics_only": true,
+  "fallible_semantics": true,
+  "checkpoint_selection_unchanged": true,
+  "no_independent_depth_ground_truth": true
+}

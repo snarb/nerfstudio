@@ -1,0 +1,13 @@
+{
+  "background_seed": 42,
+  "different_prior_seeds": [
+    1,
+    2026
+  ],
+  "fit_steps": 5000,
+  "actual_train_cameras": 64,
+  "all_parameter_tensors_equal": true,
+  "max_parameter_difference": 0.0,
+  "foreground_reseed_after_fit": true,
+  "legacy_none_seed_weights_unchanged": true
+}

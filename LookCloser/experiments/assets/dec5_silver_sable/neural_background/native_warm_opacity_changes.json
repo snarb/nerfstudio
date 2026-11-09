@@ -1,0 +1,14 @@
+{
+  "restored_pixels": 1276,
+  "newly_missing_pixels": 8,
+  "metrics_only_gt_reference": true,
+  "opacity_is_not_ground_truth_alpha": true,
+  "restored_rgb_mae": {
+    "control": 0.17277595400810242,
+    "warm": 0.07995690405368805
+  },
+  "newly_missing_rgb_mae": {
+    "control": 0.3176749050617218,
+    "warm": 0.09463759511709213
+  }
+}

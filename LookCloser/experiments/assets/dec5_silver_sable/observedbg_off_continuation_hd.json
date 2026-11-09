@@ -1,0 +1,50 @@
+{
+  "rows": [
+    {
+      "step": 20188,
+      "regions": {
+        "hair": {
+          "psnr": 23.74704417923452,
+          "ssim": 0.7718775272369385,
+          "lpips": 0.24033726751804352,
+          "pixels": 123460,
+          "opacity_mean": 0.931679904460907,
+          "opacity_below_01_fraction": 0.0008909768346023004
+        },
+        "face_neck": {
+          "psnr": 29.591144394648655,
+          "ssim": 0.9151867032051086,
+          "lpips": 0.13577938079833984,
+          "pixels": 110467,
+          "opacity_mean": 0.9946247935295105,
+          "opacity_below_01_fraction": 0.00374772556510089
+        },
+        "boundary": {
+          "psnr": 18.328037423050606,
+          "ssim": 0.9440773725509644,
+          "lpips": 0.11584988981485367,
+          "pixels": 30036,
+          "opacity_mean": 0.5841760635375977,
+          "opacity_below_01_fraction": 0.04844186975629245
+        },
+        "trusted_background": {
+          "psnr": 14.768339928459707,
+          "ssim": 0.8485966324806213,
+          "lpips": 0.4082452952861786,
+          "pixels": 1059081,
+          "opacity_mean": 0.025227095931768417,
+          "opacity_below_01_fraction": 0.9304585768227359
+        }
+      },
+      "prediction_sha256": "9eec42b0407f2c85e1f83330ff06dcd6a4d277a43054eb33aba14825d5ab62a1"
+    }
+  ],
+  "heldout_camera": "D004_A005_12103C",
+  "reference_sha256": "1226534e4f78a0f63ff06c2a68a89c038456e63badeda7877fb07d9b44f30f31",
+  "metric_domain": "HD native pilot raster; GT-composited masked tight crop for SSIM/LPIPS, PSNR on ROI pixels",
+  "boundary_radius_hd_pixels": 5,
+  "reference_used_for_metrics_only": true,
+  "fallible_semantics": true,
+  "checkpoint_selection_unchanged": true,
+  "no_independent_depth_ground_truth": true
+}

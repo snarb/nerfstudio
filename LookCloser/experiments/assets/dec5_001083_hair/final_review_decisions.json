@@ -1,0 +1,26 @@
+{
+  "/mnt/footage2/lookcloser_hair_001083_20261027_1330/p_metrics_gate.json": {
+    "accepted": false,
+    "evidence": [
+      "/mnt/footage2/lookcloser_hair_001083_20261027_1330/pilot_final_review_gate/metrics.json",
+      "/mnt/footage2/lookcloser_hair_001083_20261027_1330/pilot_final_head_gate/complete.json"
+    ],
+    "reason": "Central 16-pose pilot visibility toggles are 1.0133x B0; no camera stability gain. Peak variants also introduce visible yellow patches/strand banding absent from control. Gated variant fails material RGB/holes thresholds."
+  },
+  "/mnt/footage2/lookcloser_hair_001083_20261027_1330/p_metrics_peak1.json": {
+    "accepted": false,
+    "evidence": [
+      "/mnt/footage2/lookcloser_hair_001083_20261027_1330/pilot_final_review_peak1/metrics.json",
+      "/mnt/footage2/lookcloser_hair_001083_20261027_1330/pilot_final_head_peak1/complete.json"
+    ],
+    "reason": "Central 16-pose pilot visibility toggles are 2.1354x B0; no camera stability gain. Peak variants also introduce visible yellow patches/strand banding absent from control. Gated variant fails material RGB/holes thresholds."
+  },
+  "/mnt/footage2/lookcloser_hair_001083_20261027_1330/p_metrics_subpixel.json": {
+    "accepted": false,
+    "evidence": [
+      "/mnt/footage2/lookcloser_hair_001083_20261027_1330/pilot_final_review_subpixel/metrics.json",
+      "/mnt/footage2/lookcloser_hair_001083_20261027_1330/pilot_final_head_subpixel/complete.json"
+    ],
+    "reason": "Central 16-pose pilot visibility toggles are 2.0302x B0; no camera stability gain. Peak variants also introduce visible yellow patches/strand banding absent from control. Gated variant fails material RGB/holes thresholds."
+  }
+}

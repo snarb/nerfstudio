@@ -1,0 +1,13 @@
+{
+  "keys": [
+    "_model.freq_grid.grid",
+    "_model.field.freq_grid.grid",
+    "_model.field.encoding.params",
+    "_model.field.mlp_geo.params",
+    "_model.field.direction_encoding.params",
+    "_model.field.mlp_color.params",
+    "_model.adaptive_sampler.freq_grid.grid"
+  ],
+  "latest_step": 84999,
+  "original_weights_unchanged": true
+}

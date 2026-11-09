@@ -1,0 +1,16 @@
+{
+  "source_cameras": [
+    "E004_A005_1210QB",
+    "E004_B005_1210I7"
+  ],
+  "features": [
+    1398,
+    1528
+  ],
+  "source_rgb_only_train": true,
+  "mutual_ratio_matches": 106,
+  "sampson_error_median_pixels": 0.660029818657741,
+  "sampson_error_p10_pixels": 0.132960036343162,
+  "epipolar_inliers": 84,
+  "triangulated_points": 84
+}

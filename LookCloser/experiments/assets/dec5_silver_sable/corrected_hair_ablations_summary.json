@@ -1,0 +1,123 @@
+{
+  "rows": [
+    {
+      "arm": "control",
+      "step": 20188,
+      "regions": {
+        "hair": {
+          "psnr": 24.36706555009231,
+          "ssim": 0.778508186340332,
+          "lpips": 0.2577536106109619,
+          "pixels": 123460,
+          "opacity_mean": 0.9337345957756042,
+          "opacity_below_01_fraction": 0.0011582698849829905
+        },
+        "face_neck": {
+          "psnr": 30.048573534229547,
+          "ssim": 0.9255340099334717,
+          "lpips": 0.12888604402542114,
+          "pixels": 110467,
+          "opacity_mean": 0.9944996237754822,
+          "opacity_below_01_fraction": 0.003114052160373686
+        },
+        "boundary": {
+          "psnr": 19.000331471178946,
+          "ssim": 0.9478846788406372,
+          "lpips": 0.10151177644729614,
+          "pixels": 30036,
+          "opacity_mean": 0.5951574444770813,
+          "opacity_below_01_fraction": 0.039552536955653216
+        },
+        "trusted_background": {
+          "psnr": 14.772140431774488,
+          "ssim": 0.8497050404548645,
+          "lpips": 0.40784889459609985,
+          "pixels": 1059081,
+          "opacity_mean": 0.024606307968497276,
+          "opacity_below_01_fraction": 0.9321940437039282
+        }
+      },
+      "prediction_sha256": "6d22e0c7b987920ebf559320a132f2fe24fbece7bd27514f6fb0ba150a8e67fa"
+    },
+    {
+      "arm": "hair_mix",
+      "step": 20188,
+      "regions": {
+        "hair": {
+          "psnr": 24.140857436260607,
+          "ssim": 0.7782705426216125,
+          "lpips": 0.21996361017227173,
+          "pixels": 123460,
+          "opacity_mean": 0.9262804985046387,
+          "opacity_below_01_fraction": 0.0031751174469463795
+        },
+        "face_neck": {
+          "psnr": 29.632267875465622,
+          "ssim": 0.9193447232246399,
+          "lpips": 0.12391988933086395,
+          "pixels": 110467,
+          "opacity_mean": 0.9946098327636719,
+          "opacity_below_01_fraction": 0.0027519530719581414
+        },
+        "boundary": {
+          "psnr": 18.765624904266904,
+          "ssim": 0.9467960596084595,
+          "lpips": 0.09862938523292542,
+          "pixels": 30036,
+          "opacity_mean": 0.5699391961097717,
+          "opacity_below_01_fraction": 0.07667465707817286
+        },
+        "trusted_background": {
+          "psnr": 14.7592554033595,
+          "ssim": 0.8487842679023743,
+          "lpips": 0.40487968921661377,
+          "pixels": 1059081,
+          "opacity_mean": 0.02366853877902031,
+          "opacity_below_01_fraction": 0.935483688216482
+        }
+      },
+      "prediction_sha256": "7dd31c1caee14de847fa7b13454e3a7e99eefc80cea1029508d177fdca3715ac"
+    },
+    {
+      "arm": "frequency_gate01",
+      "step": 20188,
+      "regions": {
+        "hair": {
+          "psnr": 24.331717841430006,
+          "ssim": 0.7788631319999695,
+          "lpips": 0.25357648730278015,
+          "pixels": 123460,
+          "opacity_mean": 0.9323551058769226,
+          "opacity_below_01_fraction": 0.0011582698849829905
+        },
+        "face_neck": {
+          "psnr": 30.102708617860216,
+          "ssim": 0.9252579808235168,
+          "lpips": 0.1281779706478119,
+          "pixels": 110467,
+          "opacity_mean": 0.9945306181907654,
+          "opacity_below_01_fraction": 0.003114052160373686
+        },
+        "boundary": {
+          "psnr": 19.017317343485146,
+          "ssim": 0.9480865001678467,
+          "lpips": 0.10079122334718704,
+          "pixels": 30036,
+          "opacity_mean": 0.5926312208175659,
+          "opacity_below_01_fraction": 0.03818750832334532
+        },
+        "trusted_background": {
+          "psnr": 14.771204069550272,
+          "ssim": 0.8490636944770813,
+          "lpips": 0.40732255578041077,
+          "pixels": 1059081,
+          "opacity_mean": 0.025778280571103096,
+          "opacity_below_01_fraction": 0.9304944569867649
+        }
+      },
+      "prediction_sha256": "616a2579608ef09c728354bcededec3345870e0b8b0d3a72f022326eccb08325"
+    }
+  ],
+  "finished": true,
+  "parent_sha256": "597e6cfbe2a0b53ad4b14f5ab865ec747ab8add2b835ad765088445c6108ed20"
+}

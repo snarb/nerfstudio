@@ -1,0 +1,169 @@
+{
+  "aggregate": {
+    "expected": {
+      "median_absolute_relative": 0.058684903218670974,
+      "p90_absolute_relative": 0.08264540486717965
+    },
+    "front": {
+      "median_absolute_relative": 0.3367081723161607,
+      "p90_absolute_relative": 0.45520932042021456
+    },
+    "native_expected": {
+      "median_absolute_relative": 0.05817205515715152,
+      "p90_absolute_relative": 0.08402830974844624
+    },
+    "peak1": {
+      "median_absolute_relative": 0.000671384236537823,
+      "p90_absolute_relative": 0.0032278079989246982
+    },
+    "peak1_subpixel": {
+      "median_absolute_relative": 0.0005955412384588452,
+      "p90_absolute_relative": 0.003343777265158141
+    }
+  },
+  "checkpoint_sha256": "9cbfb93591d0514398db48b6f049dc7701747514c48cd44770ebd1c0ecebdc36",
+  "depth_convention": "camera-z in calibration units",
+  "implementation_sha256": "0e104c0d018c79bdbc795f772cff7492d02f648c9538722f957a51cfee12165a",
+  "invalid_depth_relative_penalty": 1.0,
+  "matching_receipt_sha256": "9a6911e79efbed105e06aa5534a944bf5b8c17d5f0add06fccf4dea94cabbbca",
+  "median_weight_mass_before_near_behind_witness": [
+    0.23021544516086578,
+    0.6402552127838135,
+    0.13024844229221344
+  ],
+  "native_ray_sampling_mode": "fixed",
+  "probe_ray_sampling_mode": "fixed",
+  "profiles_sha256": "306af5455d57b250188736f3471f48584c3138be3eb0cf0276d8e0a770afa015",
+  "proxy": "independent-detector triangulated train-RGB witnesses, not independent 3D ground truth",
+  "records": [
+    {
+      "camera": "F004_C005_121059",
+      "median_weight_mass_before_near_behind_witness": [
+        0.24955113232135773,
+        0.6211605668067932,
+        0.13157258927822113
+      ],
+      "metrics": {
+        "expected": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.07378222612424382,
+          "p90_absolute_relative": 0.08891504157985575,
+          "valid_fraction": 1.0
+        },
+        "front": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.4124112370715845,
+          "p90_absolute_relative": 0.4914973686161374,
+          "valid_fraction": 1.0
+        },
+        "native_expected": {
+          "median_absolute_relative": 0.07165260500573079,
+          "p90_absolute_relative": 0.08843020903109487,
+          "valid_fraction": 1.0
+        },
+        "peak1": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.0009464514183774687,
+          "p90_absolute_relative": 0.003519765344823955,
+          "valid_fraction": 1.0
+        },
+        "peak1_subpixel": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.0007543889434013287,
+          "p90_absolute_relative": 0.0036250811795652464,
+          "valid_fraction": 1.0
+        }
+      },
+      "opacity_median": 0.9999994039535522,
+      "witnesses": 133
+    },
+    {
+      "camera": "G004_C005_121037",
+      "median_weight_mass_before_near_behind_witness": [
+        0.2326527237892151,
+        0.638666570186615,
+        0.12870147824287415
+      ],
+      "metrics": {
+        "expected": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.0520047545340168,
+          "p90_absolute_relative": 0.06387349599070223,
+          "valid_fraction": 1.0
+        },
+        "front": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.18193268047542768,
+          "p90_absolute_relative": 0.4050205687744639,
+          "valid_fraction": 1.0
+        },
+        "native_expected": {
+          "median_absolute_relative": 0.05435862084185942,
+          "p90_absolute_relative": 0.06716586575787206,
+          "valid_fraction": 1.0
+        },
+        "peak1": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.0007555965966237544,
+          "p90_absolute_relative": 0.0031563303344427423,
+          "valid_fraction": 1.0
+        },
+        "peak1_subpixel": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.0005947907020894687,
+          "p90_absolute_relative": 0.0032842467178980997,
+          "valid_fraction": 1.0
+        }
+      },
+      "opacity_median": 0.999999463558197,
+      "witnesses": 133
+    },
+    {
+      "camera": "E004_C005_1210YM",
+      "median_weight_mass_before_near_behind_witness": [
+        0.20953747630119324,
+        0.6603029370307922,
+        0.13288867473602295
+      ],
+      "metrics": {
+        "expected": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.05526285104296804,
+          "p90_absolute_relative": 0.06043943255960948,
+          "valid_fraction": 1.0
+        },
+        "front": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.31054354127290584,
+          "p90_absolute_relative": 0.3391979341607241,
+          "valid_fraction": 1.0
+        },
+        "native_expected": {
+          "median_absolute_relative": 0.054843209426352915,
+          "p90_absolute_relative": 0.060093144653588164,
+          "valid_fraction": 1.0
+        },
+        "peak1": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.0004895853198018355,
+          "p90_absolute_relative": 0.002504338253234859,
+          "valid_fraction": 1.0
+        },
+        "peak1_subpixel": {
+          "depth_over_5percent_behind_fraction": 0.0,
+          "median_absolute_relative": 0.00043004566734474863,
+          "p90_absolute_relative": 0.0024735111498295757,
+          "valid_fraction": 1.0
+        }
+      },
+      "opacity_median": 0.9999995231628418,
+      "witnesses": 133
+    }
+  ],
+  "samples": 4096,
+  "step": 13999,
+  "uses_test_rgb": false,
+  "uses_validation_rgb": false,
+  "witness_sha256": "f591ac368a121121573ac6b6a920910496ae6b0aa6b1d3b87edb19563f97d111",
+  "witness_window_relative": 0.01
+}

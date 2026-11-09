@@ -1,0 +1,8 @@
+{
+  "all_point_rgb_exact": true,
+  "latest_step": 84999,
+  "original_weights_and_scope_unchanged": true,
+  "outside_density_exact": true,
+  "points": 2560,
+  "source_manifest_sha256": "852802655912d4c7d3a3b02ff7b3f08ea1b06742570ee872cef92bd9c3e0917c"
+}

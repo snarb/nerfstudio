@@ -1,0 +1,80 @@
+{
+  "checkpoint_sha256": "60e79bde9c6a00acea551625ff814fe06e5a6806e2c0c9829baee248de87c5f1",
+  "checkpoint_source": "official NVlabs FoundationStereo linked public weights, ViT-large 23-51-11",
+  "depth_units": "original calibration, no relative-scale fitting",
+  "gpu_cap_gib": 60.0,
+  "implementation_sha256": "8b784e656598023b3802ddb53dedf150624a6b7d3c6bf808728173ce76a37189",
+  "input_scale": 1.0,
+  "license": "NVIDIA non-commercial research license; separate experiment only",
+  "official_repository": "https://github.com/NVlabs/FoundationStereo",
+  "proxy": "133 reconstructed train-image hair witnesses, not independent 3D GT",
+  "redundant_timm_pretrained_initialization_download_disabled": true,
+  "rows": [
+    {
+      "actual_input_shape": [
+        791,
+        998
+      ],
+      "effective_xy_scale": [
+        1.0,
+        1.0
+      ],
+      "left": "E004_C005_1210YM",
+      "median_relative": 0.00028743892991000094,
+      "p90_relative": 0.0008132413286062376,
+      "pair": 0,
+      "patchmatch_median_relative": 0.0001620098645392452,
+      "patchmatch_p90_relative": 0.00041587565152021485,
+      "peak_cuda_bytes": 53669435392,
+      "right": "F004_C005_121059",
+      "seconds": 2.3831374645233154,
+      "upsampled_disparity": false,
+      "valid_fraction": 1.0
+    },
+    {
+      "actual_input_shape": [
+        681,
+        895
+      ],
+      "effective_xy_scale": [
+        1.0,
+        1.0
+      ],
+      "left": "F004_C005_121059",
+      "median_relative": 0.0004748724755800436,
+      "p90_relative": 0.0009485205271154762,
+      "pair": 1,
+      "patchmatch_median_relative": 0.00021087343563770097,
+      "patchmatch_p90_relative": 0.00048175372862690574,
+      "peak_cuda_bytes": 41680858112,
+      "right": "G004_C005_121037",
+      "seconds": 1.2734558582305908,
+      "upsampled_disparity": false,
+      "valid_fraction": 1.0
+    },
+    {
+      "actual_input_shape": [
+        677,
+        855
+      ],
+      "effective_xy_scale": [
+        1.0,
+        1.0
+      ],
+      "left": "E004_C005_1210YM",
+      "median_relative": 0.00021757741181705232,
+      "p90_relative": 0.0006349562437094512,
+      "pair": 2,
+      "patchmatch_median_relative": 0.0001620098645392452,
+      "patchmatch_p90_relative": 0.00041587565152021485,
+      "peak_cuda_bytes": 40248782848,
+      "right": "G004_C005_121037",
+      "seconds": 1.1641738414764404,
+      "upsampled_disparity": false,
+      "valid_fraction": 1.0
+    }
+  ],
+  "strict_all_parameters_loaded": true,
+  "uses_test_rgb": false,
+  "uses_validation_rgb": false
+}
