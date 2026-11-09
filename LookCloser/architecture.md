@@ -2211,3 +2211,15 @@ fields can have invisible density and unreliable depth. Independent COLMAP
 points and floor witnesses provide separate geometry checks.
 Variable-resolution dynamic batches round ray counts upward to an even value,
 matching the sampler's even-batch requirement.
+# Native Marshawn sequence campaign
+
+`scripts/marshawn_sequence/` adds isolated native PQ preparation, four-person SAM
+domains, TRAIN-only whole-cell admission, source-bound frequency variants and a
+checkpointed worker. Canonical physical V3 geometry is separate from the common
+historical model-unit scale0.2217203609534452; camera rotations/intrinsics remain
+unchanged. A persisted six-hour coordinator and per-GPU systemd executors manage
+independent cold trajectories and then72-camera final-frame jobs. Own resume
+restores optimizer/grid/RNG state;128-attempt reservations conservatively charge
+replay. Evaluation uses native actor ROIs with checked crop-ray parity, identical
+neutral exteriors for metrics and separately saved raw field patches. Native
+images already cache in RAM; optional packed GPU gathering preserves camera IDs.

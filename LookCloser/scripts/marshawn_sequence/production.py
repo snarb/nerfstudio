@@ -1,0 +1,77 @@
+"""One independent final frame, including native preparation and durable training."""
+import argparse
+import os
+import subprocess
+import sys
+from pathlib import Path
+from common import atomic,read,sha
+
+
+def run(root,frame):
+    root=Path(root);settings=read(root/'settings.json');recipe=read(root/'selected_recipe.json')
+    tools=Path(__file__).parent;local=root/'frames'/f'{frame:06d}';local.mkdir(parents=True,exist_ok=True)
+    native=local/'native';dataset=local/'data';output=local/'train'
+    def command(args):
+        subprocess.run([str(x) for x in args],check=True)
+    if not (native/'native_ready.json').exists() or settings.get('source_owners') and not (native/'transfer_complete.json').exists():
+        if settings.get('source_owners'):
+            from campaign import Host
+            owner=Host(settings['source_owners'][0 if frame<=1111 else 1]);owner_settings=owner.get(owner.root/'settings.json')
+            prepare_command=[owner_settings['python'],str(Path(owner_settings['tools'])/'producer.py'),'--root',str(owner.root),'--frame',str(frame)]
+            if recipe['parameters'].get('format')=='exr':prepare_command.append('--linear')
+            import shlex
+            # The producer is itself detached from the SSH connection and commits a receipt.
+            receipt=owner.root/'prepared'/f'{frame:06d}'/'producer_complete.json'
+            if not owner.get(receipt):
+                log=owner.root/('producer_%06d.log'%frame)
+                owner.command('nohup env PYTHONPATH='+shlex.quote(owner_settings['dependency_path'])+' '+shlex.join(prepare_command)+' > '+shlex.quote(str(log))+' 2>&1 < /dev/null &')
+            import time
+            deadline=time.time()+1800
+            while not owner.get(receipt):
+                if time.time()>deadline:raise TimeoutError('CPU source producer did not finalize')
+                time.sleep(15)
+            native.mkdir(exist_ok=True)
+            process=subprocess.Popen(owner.argv('tar -C '+shlex.quote(str(receipt.parent))+' -cf - .'),stdout=subprocess.PIPE)
+            receiver=subprocess.run(['tar','-C',str(native),'-xf','-'],stdin=process.stdout)
+            process.stdout.close();code=process.wait()
+            if receiver.returncode or code:raise RuntimeError('Native source transfer failed; retry preserves source receipt')
+            atomic(native/'transfer_complete.json',owner.get(receipt))
+        else:command([settings['python'],tools/'prepare.py','--frame',frame,'--output',native,'--box',root/'box.json','--split',root/'split.json'])
+    sam_env=dict(os.environ,PYTHONPATH=settings.get('sam_dependency_path',settings['dependency_path']))
+    sam_command=[settings['sam_python'],str(tools/'parts.py'),'--data',str(native)]
+    if settings.get('sam_checkpoint'):sam_command+=['--checkpoint',settings['sam_checkpoint']]
+    subprocess.run(sam_command,check=True,env=sam_env)
+    seeds=native/'points3D.txt'
+    if not seeds.exists():seeds=Path(f'/tmp/marshawn_seeds_908_1268/{frame:06d}/sparse/text/points3D.txt')
+    command([settings['python'],tools/'qualify_parts.py','--data',native,'--seeds',seeds])
+    if recipe['parameters']['frequency_source_policy']!='uniform16':
+        # Final training includes former heldout cameras: generate their maps too.
+        tf=read(native/'transforms.json');tf['train_filenames']=[f['file_path'] for f in tf['frames']];atomic(native/'transforms.json',tf)
+        command([settings['python'],tools/'frequency.py','--data',native,'--source-code',settings['source_code']])
+    from assets import assemble,admission,exr_variant,scale_variant,resolution_variant
+    sys.path[:0]=[settings['source_code'],str(Path(settings['source_code'])/'LookCloser/scripts')]
+    assemble(native,dataset,recipe['parameters']['frequency_source_policy'],all_train=True);admission(dataset)
+    units=recipe['parameters'].get('model_units_scale',settings.get('model_units_scale',1.))
+    if units!=1:
+        scale_variant(dataset,local/'data_model',units);dataset=local/'data_model'
+    if recipe['parameters'].get('max_res',8192)!=8192:
+        resolution_variant(dataset,local/'data_resolution',recipe['parameters']['max_res']);dataset=local/'data_resolution'
+    if recipe['parameters'].get('format')=='exr':
+        exr_variant(dataset,local/'data_exr');dataset=local/'data_exr'
+    else:
+        # Linear masters can be recreated from immutable PNG16 sources; bounded staging footprint.
+        for p in (native/'linear').glob('*.npy'):p.unlink()
+    from campaign import make_spec
+    spec_path=make_spec(root,recipe['parameters'],dataset,output,recipe['steps'],allow_plateau=False)
+    command([settings['python'],tools/'worker.py','--spec',spec_path])
+    result=read(output/'stage_complete.json')
+    rows=[r for r in read(output/'metrics.json') if r['cap']==recipe.get('selected_inference_cap',10)]
+    if not rows:raise ValueError('Frozen inference cap has no committed evaluation')
+    best=min(rows,key=lambda r:(r['metrics']['lpips'],-r['metrics']['psnr']))
+    ckpt=output/'checkpoints'/('step-%09d.ckpt'%best['step'])
+    if not ckpt.exists():raise ValueError('Selected scored checkpoint is missing')
+    atomic(local/'frame_complete.json',dict(frame=frame,recipe_sha256=sha(root/'selected_recipe.json'),aabb_sha256=sha(root/'box.json'),train_cameras=72,in_sample_metrics=True,completed_iterations=result['completed_iterations'],selected=best,checkpoint=str(ckpt),checkpoint_sha256=sha(ckpt),cold_provenance_sha256=sha(output/'cold_provenance.json')))
+
+
+if __name__=='__main__':
+    p=argparse.ArgumentParser();p.add_argument('--root',required=True);p.add_argument('--frame',type=int,required=True);a=p.parse_args();run(a.root,a.frame)
