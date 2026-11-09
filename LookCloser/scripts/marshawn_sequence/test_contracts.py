@@ -52,4 +52,21 @@ class CacheTests(unittest.TestCase):
         with self.assertRaises(ValueError):gather(batch,torch.tensor([[9,4,0]]))
 
 
+class ExportRecoveryTests(unittest.TestCase):
+    def test_recovery_after_tensor_commit_before_manifest(self):
+        import torch
+        from archive import export
+        with tempfile.TemporaryDirectory(prefix='marshawn_export_test_') as directory:
+            root=Path(directory);checkpoint=root/'source.ckpt'
+            torch.save(dict(step=12,pipeline={'field':torch.arange(17,dtype=torch.float32)},optimizers={'discard':torch.ones(32)}),checkpoint)
+            selection=dict(cap=10,metrics=dict(psnr=30.,ssim=.9,lpips=.1))
+            path=export(root,checkpoint,selection)
+            (root/'model/manifest.json').unlink()  # Simulate interrupted receipt write.
+            self.assertEqual(export(root,checkpoint,selection),path)
+            self.assertTrue(read(root/'model/manifest.json')['all_pipeline_tensors_roundtrip_equal'])
+            self.assertNotIn('optimizers',torch.load(path,weights_only=False))
+            torch.save(dict(step=13,pipeline={'field':torch.zeros(17)}),checkpoint)
+            with self.assertRaises(ValueError):export(root,checkpoint,selection)
+
+
 if __name__=='__main__':unittest.main()

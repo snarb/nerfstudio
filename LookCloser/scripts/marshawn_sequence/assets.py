@@ -174,11 +174,11 @@ def scale_variant(source,output,scale):
 def resolution_variant(source,output,max_res):
     """Uniform16 remains the exact minimum scalar under a new consumer ladder."""
     src,out=Path(source),Path(output);out.mkdir(parents=True,exist_ok=True)
-    if (out/'ready.json').exists():return read(out/'ready.json')
+    if (out/'ready.json').exists() and (out/'admission/manifest.json').exists():return read(out/'ready.json')
     ready=read(src/'ready.json')
     if ready['frequency_source_policy']!='uniform16':raise ValueError('Resolution ablation requires uniform16; learned fitter schedules are separate')
     for name in ('images','masks','linear','parts','semantics','heads','cores'):
-        (out/name).symlink_to((src/name).resolve(),target_is_directory=True)
+        if not (out/name).is_symlink():(out/name).symlink_to((src/name).resolve(),target_is_directory=True)
     for name in ('transforms.json','box.json'):shutil.copy2(src/name,out/name)
     (out/'lookcloser_frequencies').mkdir(exist_ok=True)
     for path in (src/'lookcloser_frequencies').glob('*.pt'):

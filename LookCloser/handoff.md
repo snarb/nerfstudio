@@ -221,3 +221,39 @@ counts are zero on both machines. Driver logs report completion at07:36:45 PST
 (WS07) and07:12:03 PST (WS08). No SAM mask workers remain. Each GPU has only
 an idle CUDA MPS server using68MiB in the compute-process listing. This was a
 filename/nonempty-file completeness check, not a full mask-decode or quality audit.
+
+## Active native sequence campaign — 2026-11-09
+
+User authorized six hours of first-frame tuning, then autonomous cold training of
+all361 frames908–1268 on all72 cameras. V3 physical box remains accepted.
+Three tuning heldouts are CB/GC/NB; final training includes them and labels its
+checks in-sample. Primary selection is equal-person, equal-view masked AlexLPIPS.
+Use native actor crops without resizing. Recovered historical model units are
+0.2217203609534452 per rig unit (66-camera registration RMS4.69e-8); scale centers
+and box uniformly, never rotation axes or intrinsics.
+
+Tuning clock: 11:08:12–17:08:12 PST, persisted in `campaign_state.json` on Silver.
+Coordinator: `/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109`, systemd
+`marshawn908-controller.service`. Eight Silver GPU agents plus WS07, WS08, Olive,
+and Clever are active. Olive exposes one GPU in this login, despite an advertised
+eight. Dev3 L40S has insufficient RAM for the current native training cache;
+inference-only reload qualification is being prepared separately.
+
+WS07 root `/home/pavlo/marshawn_campaign_20261109`; WS08 root
+`/home/nvuser/lookcloser/campaigns/marshawn908_20261109`. Persistent seed copies
+are under each root's `seed_points/`. Source ownership constrains final NVIDIA
+allocation. All other machines fetch native prepared frames from the source
+owners via calm-otter and keep independent per-frame outputs. Agents survive
+SSH/controller loss and log GPU/process/progress checks every5min. Keep manual
+supervision active at least hourly. Do not reset the tuning clock on restart.
+
+The reference runtime's1531 source files match the historical seal byte-for-byte.
+Worker/runtime/common and frozen source hashes bind scientific trajectories;
+operational controller fixes do not invalidate weights. Failed metadata/env
+preparation attempts are not scientific measurements. Warm technical weights
+are never used for tuning/final starts. Follow
+`experiments/marshawn_908_1268_tuned_recipe.md` for intermediate/final results;
+it will be replaced by the controller's measured selection after the deadline.
+Do not claim the final recipe or sequence is finished while tuning is active.
+
+Early 8k review: https://drive.google.com/file/d/12FJ60o7WpBqlfhAVEV_Xwh3p7GDL_r0b/view

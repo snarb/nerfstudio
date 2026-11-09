@@ -2223,3 +2223,10 @@ restores optimizer/grid/RNG state;128-attempt reservations conservatively charge
 replay. Evaluation uses native actor ROIs with checked crop-ray parity, identical
 neutral exteriors for metrics and separately saved raw field patches. Native
 images already cache in RAM; optional packed GPU gathering preserves camera IDs.
+
+Completed-frame tensor exports omit optimizer/RNG state and verify exact tensor
+roundtrips. Completion/export/archive receipts make finalization retryable;
+resumable checkpoints are released only after a durable completion. Clever's
+limited staging disk archives models/data to Silver with SHA verification before
+pruning its own frame directory. Inference reloads avoid the native training
+image cache. Production dispatch constrains NVIDIA jobs to locally owned frames.

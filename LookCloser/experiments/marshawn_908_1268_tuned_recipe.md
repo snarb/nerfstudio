@@ -76,3 +76,13 @@ Pending measured selection. After freezing this file and the machine-readable
 recipe,all361frames908–1268 cold-start with72TRAIN cameras,including former
 heldout views. Their monitoring metrics are explicitly in-sample.120fps remains
 assumed; frame-index selection does not depend on that assumption.
+
+### Live campaign, 9 November 2026 11:41 PST
+
+Six-hour tuning interval: 11:08:12–17:08:12 PST. Twelve GPUs are now enrolled: WS07/WS08, eight Silver GPUs, one accessible Olive GPU, one Clever GPU. Dev3 is reserved for inference qualification because its 30 GiB RAM cannot safely hold the native training cache.
+
+At matched 16,000 steps, actor LPIPS: uniform GB300 0.19413; uniform Silver 0.19848; GPU-resident RGB Silver 0.19603; learned .95 0.19497; learned .90 0.19489; half coarse step 0.18631; doubled coarse step 0.21027; 2048 ray samples 0.19402; max3 allocator 0.19580. These are intermediate measurements, not a frozen recipe. CUDA architectures/software differ; comparisons across hosts are not claimed bit-identical.
+
+Early raw renders retain contour haze. Source masks, not composited previews, remain the first check for contour/hair artifacts. Intermediate review: https://drive.google.com/file/d/12FJ60o7WpBqlfhAVEV_Xwh3p7GDL_r0b/view .
+
+Controller: silver-sable `/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109`; service `marshawn908-controller.service`. Agents and 5-minute process/GPU checks are independent systemd services. Production allocation respects source frame ownership on NVIDIA workstations. Clever exports completed model tensors to Silver before pruning its own staging data. Optimizer checkpoints are only released after a durable completion receipt; exports verify every saved pipeline tensor exactly. Optional inference reload utility avoids training-image caches.

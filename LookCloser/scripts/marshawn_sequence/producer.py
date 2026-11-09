@@ -14,7 +14,7 @@ def produce(root,frame,linear=False):
     sys.path[:0]=[settings['source_code']]
     from prepare import prepare
     ready=prepare(frame,folder,root/'box.json',root/'split.json',workers=3,retain_linear=linear)
-    source=Path('/tmp/marshawn_seeds_908_1268')/f'{frame:06d}'/'sparse/text/points3D.txt'
+    source=Path(settings.get('seed_root',str(root/'seed_points')))/f'{frame:06d}'/'sparse/text/points3D.txt'
     if not source.exists():raise FileNotFoundError('Required original seed cloud '+str(source))
     shutil.copy2(source,folder/'points3D.txt')
     atomic(folder/'producer_complete.json',dict(frame=frame,native_ready_sha256=sha(folder/'native_ready.json'),seed_sha256=sha(folder/'points3D.txt'),source_owner=__import__('socket').gethostname(),retain_linear=linear,total_native_pixels=sum(r['camera_row']['w']*r['camera_row']['h'] for r in ready['records'])))

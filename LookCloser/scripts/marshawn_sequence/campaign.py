@@ -32,8 +32,9 @@ ARMS=[
     ('frequency512',dict(frequency_source_policy='uniform16',frequency_grid_update_interval=512)),
     ('rig_units',dict(frequency_source_policy='uniform16',model_units_scale=1.)),
     ('batch16384',dict(frequency_source_policy='uniform16',train_rays_per_batch=16384)),
+    ('learned095_arm_half',dict(frequency_source_policy='ssim095',coarse_step=.00078125)),
 ]
-_priority=['uniform','uniform_repeat','uniform_gpu','learned095','learned090','arm_half','arm_double','arm_2048','resolution16384','arm_max3','fr_initial03','frequency512','batch16384','head20','rig_units','exr','uniform_clever']
+_priority=['uniform','uniform_repeat','uniform_gpu','learned095','learned090','arm_half','arm_double','arm_2048','resolution16384','arm_max3','fr_initial03','frequency512','batch16384','head20','rig_units','exr','learned095_arm_half','uniform_clever']
 ARMS.sort(key=lambda row:_priority.index(row[0]))
 
 
@@ -84,7 +85,11 @@ class Host:
         dataset=self.root/'variants'/(prefix+parameters['frequency_source_policy'])
         if parameters.get('model_units_scale')==1.:dataset=self.root/'variants'/'uniform16'
         if parameters.get('format')=='exr':dataset=self.root/'variants'/(prefix+'exr')
-        if parameters.get('max_res',8192)!=8192:dataset=self.root/'variants'/(prefix+parameters['frequency_source_policy']+'_res'+str(parameters['max_res']))
+        if parameters.get('max_res',8192)!=8192:
+            source_dataset=dataset
+            dataset=self.root/'variants'/(prefix+parameters['frequency_source_policy']+'_res'+str(parameters['max_res']))
+            build='from assets import resolution_variant;resolution_variant('+repr(str(source_dataset))+','+repr(str(dataset))+','+repr(parameters['max_res'])+')'
+            self.command('PYTHONPATH='+shlex.quote(settings['tools']+':'+settings['dependency_path'])+' '+shlex.quote(settings['python'])+' -c '+shlex.quote(build),timeout=120)
         output=self.root/'tuning'/name
         expression='from campaign import make_spec;make_spec('+repr(str(self.root))+','+repr(parameters)+','+repr(str(dataset))+','+repr(str(output))+','+repr(target)+')'
         self.command('PYTHONPATH='+shlex.quote(settings['tools'])+' '+shlex.quote(settings['python'])+' -c '+shlex.quote(expression))
@@ -115,7 +120,9 @@ def run(root):
                 if active:
                     row=statuses[i]['jobs'][active]
                     # Signal only the process whose immutable identity the agent owns.
-                    h.command('kill -TERM '+str(row['process']['pid']))
+                    settings=h.get(h.root/'settings.json')
+                    script='import sys,os,signal;sys.path.insert(0,'+repr(settings['tools'])+');from agent import identity;p='+repr(row['process'])+';os.kill(p["pid"],signal.SIGTERM) if identity(p["pid"])==p else None'
+                    h.command('python3 -c '+shlex.quote(script))
             state['phase']='finalize';atomic(state_path,state);break
         if state['phase']=='screen':
             for i,h in enumerate(hosts):
@@ -190,22 +197,63 @@ def run(root):
             c['exr_detail_adoption_check']=dict(passed=passed,shared_views=sorted(shared),policy='>=2% actor LPIPS improvement; >=2% head detail improvement in at least2views; no head view regresses>5%; common SDR reference')
             return passed
         eligible=[c for c in candidates if exr_qualifies(c)]
-        chosen=min(eligible,key=lambda c:c['result']['metrics']['lpips'])
+        best_lpips=min(c['result']['metrics']['lpips'] for c in eligible)
+        tied=[c for c in eligible if c['result']['metrics']['lpips']<=best_lpips*1.005]
+        absolute_best=min(eligible,key=lambda c:c['result']['metrics']['lpips'])
+        def reasonable_detail(c):
+            a=c['result'].get('head_lpips_by_view',{});b=absolute_best['result'].get('head_lpips_by_view',{})
+            return all(a.get(v,float('inf'))<=value*1.05 for v,value in b.items())
+        tied=[c for c in tied if reasonable_detail(c)] or [absolute_best]
+        def estimated_training_seconds(c):
+            p=hosts[c['host']].get(hosts[c['host']].root/'tuning'/c['name']/'progress.json',{})
+            return (c['result']['step']+1)*p.get('elapsed_seconds',3600)/max(1,p.get('completed_iterations',32000))
+        chosen=min(tied,key=lambda c:(estimated_training_seconds(c),c['result']['metrics']['lpips']))
         recipe=dict(parameters=chosen['parameters'],steps=chosen['result']['step']+1,selection=chosen,all_candidates=candidates,primary='equal visible-person masked AlexLPIPS then equal heldout views',plateau_confirmed=False,limit=150000,source_frame=908,final_train_cameras=72)
         recipe['parameters'].setdefault('model_units_scale',read(root/'settings.json').get('model_units_scale',1.))
+        trajectory=hosts[chosen['host']].get(hosts[chosen['host']].root/'tuning'/chosen['name']/'stage_complete.json',{})
+        recipe['plateau_confirmed']=bool(trajectory.get('plateau',False))
+        recipe['trajectory_completed_iterations']=trajectory.get('completed_iterations')
         recipe['selected_inference_cap']=chosen['result']['cap']
+        recipe['selection_tolerance']=dict(relative_actor_lpips=.005,max_head_view_regression=.05,tie_break='estimated training wall time')
+        # Gather changes are mathematically equivalent (contract-tested), but memory
+        # use alone does not justify deployment. Compare matched hardware/cold runs.
+        cache_check=dict(adopted=False,minimum_speedup=.05,reason='No completed matched 32k cache pair')
+        if all(n in state['assignments'] for n in ('uniform_repeat','uniform_gpu')):
+            pair={}
+            for name in ('uniform_repeat','uniform_gpu'):
+                h=hosts[state['assignments'][name]]
+                job=h.get(h.agent_root/'agent_state.json',{}).get('jobs',{}).get(name+'_screen',{})
+                matched=[m for m in metrics(h,name) if m['step']+1==32000 and m['cap']==10]
+                if matched and job.get('status')=='complete' and job.get('finished',0)>job.get('started',0):
+                    pair[name]=(job['finished']-job['started'])/32000
+            if len(pair)==2:
+                speedup=pair['uniform_repeat']/pair['uniform_gpu']-1
+                cache_check.update(adopted=speedup>=.05,speedup=speedup,seconds_per_step=pair,reason='Matched cold native runs on Silver; includes checkpoint/evaluation overhead')
+        recipe['gpu_cache_benchmark']=cache_check
+        recipe['parameters']['gpu_cache']=cache_check['adopted']
         for h in hosts:h.put(h.root/'selected_recipe.json',recipe)
         atomic(root/'selected_recipe.json',recipe)
         text='# Marshawn908–1268 selected native recipe\n\nPrimary: masked actor AlexLPIPS, without background.\n\nSelected parameters:\n```json\n'+json.dumps(recipe['parameters'],indent=2)+'\n```\n\nSteps: '+str(recipe['steps'])+'. Native crops without resize; accepted V3 box.\n\n|Arm|Host|Step|LPIPS|PSNR|SSIM|\n|---|---|---:|---:|---:|---:|\n'
         for c in candidates:
             m=c['result']['metrics'];text+='|%s|%s|%s|%.6f|%.4f|%.4f|\n'%(c['name'],c['host'],c['result']['step']+1,m['lpips'],m['psnr'],m['ssim'])
         text+='\nAll final models cold-start on72TRAIN cameras; metrics on former heldout cameras are in-sample. Maximum150000attempts including recovery replay. FPS120 remains assumed. Plateau is only asserted if the saved late trajectory passes the two-signal test. EXR sources are decoded from PQ16, not independent higher-information originals.\n'
+        text+='\nInference cap: '+str(recipe['selected_inference_cap'])+'. Plateau confirmed: '+str(recipe['plateau_confirmed'])+'. Trajectory completed iterations: '+str(recipe['trajectory_completed_iterations'])+'.\n'
+        text+='\nGPU image cache benchmark:\n```json\n'+json.dumps(cache_check,indent=2)+'\n```\n'
+        exr_checks=[c.get('exr_detail_adoption_check') for c in candidates if c.get('exr_detail_adoption_check')]
+        text+='\nEXR detail adoption checks passed: '+str(sum(c['passed'] for c in exr_checks))+' / '+str(len(exr_checks))+'. Full head/view evidence and fixed-reference policy are recorded in selected_recipe.json.\n'
         (root/'selected_recipe.md').write_text(text)
+        for host in hosts:
+            if host.row['name']=='ws07':
+                destination='/home/pavlo/nerfstudio/LookCloser/experiments/marshawn_908_1268_tuned_recipe.md'
+                command='python3 -c '+shlex.quote('import sys;from pathlib import Path;Path('+repr(destination)+').write_text(sys.stdin.read())')
+                host.command(command,input=text)
         state['phase']='production';atomic(state_path,state)
     if state['phase']=='production':
         allocation={i:[] for i in range(len(hosts))};loads={i:0. for i in range(len(hosts))}
         for f in range(908,1269):
-            index=min(range(len(hosts)),key=lambda i:(loads[i],i));allocation[index].append(f)
+            eligible=[i for i,h in enumerate(hosts) if h.row.get('frame_range',[908,1268])[0]<=f<=h.row.get('frame_range',[908,1268])[1]]
+            if not eligible:raise ValueError('No source-capable production host for frame '+str(f))
+            index=min(eligible,key=lambda i:(loads[i],i));allocation[index].append(f)
             loads[index]+=1./hosts[index].row.get('production_weight',1.)
         for i,h in enumerate(hosts):
             s=h.get(h.root/'settings.json');frames=allocation[i]

@@ -11,6 +11,19 @@ def run(root,frame):
     root=Path(root);settings=read(root/'settings.json');recipe=read(root/'selected_recipe.json')
     tools=Path(__file__).parent;local=root/'frames'/f'{frame:06d}';local.mkdir(parents=True,exist_ok=True)
     native=local/'native';dataset=local/'data';output=local/'train'
+    def finish(completion):
+        from archive import relocate
+        if settings.get('archive_to'):
+            completion=relocate(root,frame,completion,settings['archive_to'])
+        atomic(local/'frame_complete.json',completion)
+        # Only release resumable optimizer states after a durable final receipt.
+        for old in (output/'checkpoints').glob('*.ckpt'):old.unlink()
+        for p in (native/'linear').glob('*.npy'):p.unlink()
+    if (local/'frame_complete.json').exists():return
+    if (local/'archive_receipt.json').exists():
+        atomic(local/'frame_complete.json',read(local/'archive_receipt.json'));return
+    if (local/'export_complete.json').exists():
+        finish(read(local/'export_complete.json'));return
     def command(args):
         subprocess.run([str(x) for x in args],check=True)
     if not (native/'native_ready.json').exists() or settings.get('source_owners') and not (native/'transfer_complete.json').exists():
@@ -42,7 +55,7 @@ def run(root,frame):
     if settings.get('sam_checkpoint'):sam_command+=['--checkpoint',settings['sam_checkpoint']]
     subprocess.run(sam_command,check=True,env=sam_env)
     seeds=native/'points3D.txt'
-    if not seeds.exists():seeds=Path(f'/tmp/marshawn_seeds_908_1268/{frame:06d}/sparse/text/points3D.txt')
+    if not seeds.exists():seeds=Path(settings.get('seed_root',str(root/'seed_points')))/f'{frame:06d}/sparse/text/points3D.txt'
     command([settings['python'],tools/'qualify_parts.py','--data',native,'--seeds',seeds])
     if recipe['parameters']['frequency_source_policy']!='uniform16':
         # Final training includes former heldout cameras: generate their maps too.
@@ -70,7 +83,14 @@ def run(root,frame):
     best=min(rows,key=lambda r:(r['metrics']['lpips'],-r['metrics']['psnr']))
     ckpt=output/'checkpoints'/('step-%09d.ckpt'%best['step'])
     if not ckpt.exists():raise ValueError('Selected scored checkpoint is missing')
-    atomic(local/'frame_complete.json',dict(frame=frame,recipe_sha256=sha(root/'selected_recipe.json'),aabb_sha256=sha(root/'box.json'),train_cameras=72,in_sample_metrics=True,completed_iterations=result['completed_iterations'],selected=best,checkpoint=str(ckpt),checkpoint_sha256=sha(ckpt),cold_provenance_sha256=sha(output/'cold_provenance.json')))
+    from archive import export
+    model=export(local,ckpt,best)
+    completion=dict(frame=frame,recipe_sha256=sha(root/'selected_recipe.json'),aabb_sha256=sha(root/'box.json'),train_cameras=72,in_sample_metrics=True,completed_iterations=result['completed_iterations'],selected=best,checkpoint=str(model),checkpoint_sha256=sha(model),cold_provenance_sha256=sha(output/'cold_provenance.json'),inference_only_export=True)
+    atomic(local/'export_complete.json',completion)
+    if spec_path.exists():
+        spec=read(spec_path)
+        if spec.get('sampling_memmap'):__import__('shutil').rmtree(spec['sampling_memmap'],ignore_errors=True)
+    finish(completion)
 
 
 if __name__=='__main__':
