@@ -1,5 +1,6 @@
 """One independent final frame, including native preparation and durable training."""
 import argparse
+import fcntl
 import os
 import subprocess
 import sys
@@ -10,6 +11,8 @@ from common import atomic,read,sha
 def run(root,frame):
     root=Path(root);settings=read(root/'settings.json');recipe=read(root/'selected_recipe.json')
     tools=Path(__file__).parent;local=root/'frames'/f'{frame:06d}';local.mkdir(parents=True,exist_ok=True)
+    frame_lease=(local/'frame.lock').open('a+')
+    fcntl.flock(frame_lease,fcntl.LOCK_EX|fcntl.LOCK_NB)
     native=local/'native';dataset=local/'data';output=local/'train'
     def finish(completion):
         from archive import relocate

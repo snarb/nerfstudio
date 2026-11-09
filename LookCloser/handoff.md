@@ -279,3 +279,29 @@ rejected crew. RGB/actor/head labels and admission grid remain unchanged.
 Qualified stored arrays match the actual helper on CB/GC/NB/CC. Historical
 half/default/learned-half controls are now assigned; original deadline17:08:12
 is unchanged. Keep every source run/profile labelled in the final comparison.
+
+Operational update14:06 PST: use the durable private reverse proxy on WS07
+localhost:22223 (`marshawn-ws07-proxy.service` on calm-otter). The old manual
+22222 tunnel is no longer required for supervision; Silver's source-access path
+already uses calm's Tailscale address directly.
+
+Clever finished the32k resolution16384 control, then its qualified Python path
+was removed externally. Another CA4D job owns its GPU; do not kill it. Clever is
+`tuning_disabled`/`production_disabled` in fleet.json, preserving its measured
+checkpoints and scores. CPU dependencies were staged in its campaign
+`runtime_deps/` using the still-present SAM Python; GPU qualification is deferred
+until the foreign job finishes. Main11GPU training continues. Per-host
+preparation failures back off instead of crashing the entire scheduler.
+
+Inferior linear controls arm_2048 and fr_initial03 were deliberately stopped
+after their committed80k comparisons; `planned_pruning` records identities and
+reasons. Their agent failed-status entries are planned preemption, not NaN/OOM.
+Fresh `power_quarter`/`power_quarter_background` runs occupy Silver GPUs6/7.
+All earlier measurements remain available. Whole-frame leases and late receipt
+reconciliation harden executor crash recovery; regression checks passed.
+
+The selected validation step and final training budget are separate: if the
+winning trajectory has no confirmed late two-signal plateau, final frames may
+use the150k-attempt ceiling and retain their best scored checkpoint. Never
+relabel a shorter validation measurement as a150k observation. The coordinator
+reuses the actual worker plateau function on committed metrics.

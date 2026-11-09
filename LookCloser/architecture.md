@@ -2248,3 +2248,8 @@ recompute from qualified actors, preserving RGB/labels/admission geometry and
 rebinding semantic/head/core manifests. Source-owner staging is released only
 after the receiving native manifest/seed SHA acknowledgement; original RGB16 and
 persistent seed clouds are never deleted.
+Whole-frame leases prevent concurrent preparation/export of one frame. Executors
+can reconcile late completion receipts after losing a parent. Per-host preparation
+faults back off; explicit unavailable-host flags preserve measurements while
+excluding that host from new tuning/production allocation. The measured validation
+step is distinct from the final150k ceiling when no plateau has been confirmed.

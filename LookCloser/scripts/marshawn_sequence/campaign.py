@@ -40,8 +40,10 @@ ARMS=[
     ('reference_uniform',dict(frequency_source_policy='uniform16',confidence_profile='historical_power')),
     ('reference_learned_half',dict(frequency_source_policy='ssim095',coarse_step=.00078125,confidence_profile='historical_power')),
     ('reference_background',dict(frequency_source_policy='uniform16',coarse_step=.00078125,confidence_profile='historical_power',background_opacity_prior=.01)),
+    ('power_quarter',dict(frequency_source_policy='uniform16',coarse_step=.000390625,confidence_profile='historical_power')),
+    ('power_quarter_background',dict(frequency_source_policy='uniform16',coarse_step=.000390625,confidence_profile='historical_power',background_opacity_prior=.01)),
 ]
-_priority=['uniform','uniform_repeat','uniform_gpu','learned095','learned090','arm_half','arm_double','arm_2048','resolution16384','arm_max3','fr_initial03','frequency512','batch16384','head20','rig_units','exr','confidence32','learned095_arm_half','uniform_clever','arm_quarter','clear_background','reference_half','reference_uniform','reference_learned_half','reference_background']
+_priority=['uniform','uniform_repeat','uniform_gpu','learned095','learned090','arm_half','arm_double','arm_2048','resolution16384','arm_max3','fr_initial03','frequency512','batch16384','head20','rig_units','exr','confidence32','learned095_arm_half','uniform_clever','arm_quarter','clear_background','reference_half','reference_uniform','reference_learned_half','reference_background','power_quarter','power_quarter_background']
 ARMS.sort(key=lambda row:_priority.index(row[0]))
 
 
@@ -85,7 +87,7 @@ class Host:
         return r.stdout
     def get(self,path,default=None):
         try:return json.loads(self.command('cat '+shlex.quote(str(path))))
-        except (RuntimeError,json.JSONDecodeError):return default
+        except (RuntimeError,json.JSONDecodeError,subprocess.TimeoutExpired,OSError):return default
     def put(self,path,value):
         content=json.dumps(value,indent=2)+'\n'
         command='python3 -c '+shlex.quote('import os,sys;from pathlib import Path;p=Path('+repr(str(path))+');p.parent.mkdir(parents=True,exist_ok=True);t=p.with_suffix(".controller.tmp");t.write_text(sys.stdin.read());os.replace(t,p)')
@@ -152,6 +154,13 @@ def run(root):
     fleet=read(root/'fleet.json');hosts=[Host(h) for h in fleet['hosts']]
     state_path=root/'campaign_state.json'
     state=read(state_path) if state_path.exists() else dict(phase='prepared',assignments={},jobs={})
+    def prepare_job(index,name,parameters,target,round_name):
+        fault=state.get('host_preparation_faults',{}).get(str(index),{})
+        if time.time()<fault.get('retry_after',0):return None
+        try:return hosts[index].worker_job(name,parameters,target,round_name)
+        except (RuntimeError,subprocess.TimeoutExpired,OSError,ValueError,TypeError,AttributeError) as error:
+            state.setdefault('host_preparation_faults',{})[str(index)]=dict(time=time.time(),retry_after=time.time()+300,arm=name,error=str(error)[-2000:],classification='preparation/access failure; existing scientific artifacts retained')
+            atomic(state_path,state);return None
     if state['phase']=='prepared':
         if not all(h.get(h.root/'preflight_complete.json',{}).get('passed') for h in hosts):raise ValueError('All hosts need real preflight completion before tuning clock')
         state.update(phase='screen',started=time.time(),deadline=time.time()+21600);atomic(state_path,state)
@@ -173,6 +182,7 @@ def run(root):
             state['phase']='finalize';atomic(state_path,state);break
         if state['phase']=='screen':
             for i,h in enumerate(hosts):
+                if h.row.get('tuning_disabled'):continue
                 status=statuses[i]
                 if status.get('active'):continue
                 previous=[k for k,v in state['assignments'].items() if v==i]
@@ -180,18 +190,22 @@ def run(root):
                 if unseen:
                     h.put(h.agent_root/'queue.json',dict(jobs=[state['jobs'][name] for name in unseen]));continue
                 if any(status.get('jobs',{}).get(name+'_screen',{}).get('status') not in ('complete','failed') for name in previous):continue
-                pending=[(n,p) for n,p in ARMS if n not in state['assignments'] and (p.get('format','png') in h.row.get('formats',['png'])) and (n!='arm_quarter' or h.row['name']=='ws07')]
+                reserved={'arm_quarter':'ws07','power_quarter':'silver6','power_quarter_background':'silver7'}
+                pending=[(n,p) for n,p in ARMS if n not in state['assignments'] and (p.get('format','png') in h.row.get('formats',['png'])) and (n not in reserved or h.row['name']==reserved[n])]
                 if not pending:
-                    if str(i) not in state.get('early_extensions',{}):
-                        scored=[(r['metrics']['lpips'],name) for name in previous for r in metrics(h,name) if r['step']+1==32000 and r['cap']==10]
-                        if scored:
-                            _,name=min(scored);job=h.worker_job(name,dict(ARMS)[name],150000,'early150000')
+                    scored=[(r['metrics']['lpips'],name) for name in previous for r in metrics(h,name) if r['step']+1==32000 and r['cap']==10]
+                    if scored:
+                        _,name=min(scored)
+                        if state.get('early_extensions',{}).get(str(i))!=name:
+                            job=prepare_job(i,name,dict(ARMS)[name],150000,'early150000')
+                            if job is None:continue
                             state.setdefault('early_extensions',{})[str(i)]=name;state['jobs'][name+'_early150000']=job;atomic(state_path,state)
                             h.put(h.agent_root/'queue.json',dict(jobs=[job]))
                     continue
                 # Reserve at least2h for longer trajectories; never silently drop scientific comparisons.
                 if now-state['started']>4*3600:continue
-                name,parameters=pending[0];job=h.worker_job(name,parameters,32000,'screen')
+                name,parameters=pending[0];job=prepare_job(i,name,parameters,32000,'screen')
+                if job is None:continue
                 state['assignments'][name]=i;state['jobs'][name]=job;atomic(state_path,state)
                 h.put(h.agent_root/'queue.json',dict(jobs=[job]))
             exhausted=len(state['assignments'])==len(ARMS) and all(not s.get('active') for s in statuses.values())
@@ -204,23 +218,29 @@ def run(root):
                 if not candidates:raise ValueError('No matched32k candidate; do not launch production')
                 candidates.sort();used=set()
                 for _,name,index in candidates:
+                    if hosts[index].row.get('tuning_disabled'):continue
                     if index in used:continue
                     h=hosts[index];used.add(index);p=dict(dict(ARMS)[name]);progress=h.get(h.root/'tuning'/name/'progress.json',{})
                     seconds_per_step=progress.get('elapsed_seconds',3600)/max(1,progress.get('completed_iterations',32000))
                     feasible=32000+int((state['deadline']-now)*.65/max(.001,seconds_per_step))
                     target=min(150000,max(32000,16000*(feasible//16000)))
-                    job=h.worker_job(name,p,target,'extend');h.put(h.agent_root/'queue.json',dict(jobs=[job]));state['jobs'][name+'_extend']=job
+                    job=prepare_job(index,name,p,target,'extend')
+                    if job is None:continue
+                    h.put(h.agent_root/'queue.json',dict(jobs=[job]));state['jobs'][name+'_extend']=job
                 state['phase']='extend';atomic(state_path,state)
         elif all(not s.get('active') for s in statuses.values()):
             # A completed stage may leave budget for one more16k continuation of each host's leader.
             for i,h in enumerate(hosts):
+                if h.row.get('tuning_disabled'):continue
                 names=[name for name,index in state['assignments'].items() if index==i]
                 candidates=[(r['metrics']['lpips'],n,r) for n in names for r in metrics(h,n) if r['cap']==10]
                 if not candidates:continue
                 _,name,best=min(candidates);progress=h.get(h.root/'tuning'/name/'progress.json',{})
                 done=progress.get('completed_iterations',32000);sps=progress.get('elapsed_seconds',3600)/max(1,done)
                 if done<150000 and state['deadline']-now>16000*sps*1.5:
-                    target=min(150000,done+16000);job=h.worker_job(name,dict(ARMS)[name],target,'extend'+str(target));h.put(h.agent_root/'queue.json',dict(jobs=[job]))
+                    target=min(150000,done+16000);job=prepare_job(i,name,dict(ARMS)[name],target,'extend'+str(target))
+                    if job is None:continue
+                    h.put(h.agent_root/'queue.json',dict(jobs=[job]))
         with (root/'controller_checks.jsonl').open('a') as stream:stream.write(json.dumps(dict(time=now,phase=state['phase'],agents=statuses))+'\n')
         time.sleep(30)
     if state['phase']=='finalize':
@@ -282,8 +302,19 @@ def run(root):
         recipe['tuning_heldout']=read(root/'split.json')['heldout']
         recipe['tuning_started']=state['started'];recipe['tuning_deadline']=state['deadline']
         trajectory=hosts[chosen['host']].get(hosts[chosen['host']].root/'tuning'/chosen['name']/'stage_complete.json',{})
-        recipe['plateau_confirmed']=bool(trajectory.get('plateau',False))
-        recipe['trajectory_completed_iterations']=trajectory.get('completed_iterations')
+        selected_host=hosts[chosen['host']];selected_settings=selected_host.get(selected_host.root/'settings.json')
+        metric_path=selected_host.root/'tuning'/chosen['name']/'metrics.json'
+        expression='from common import read;from worker import plateau;print(int(plateau(read('+repr(str(metric_path))+'))))'
+        recipe['plateau_confirmed']=selected_host.command('PYTHONPATH='+shlex.quote(selected_settings['tools']+':'+selected_settings['dependency_path'])+' '+shlex.quote(selected_settings['python'])+' -c '+shlex.quote(expression)).strip()=='1'
+        latest=selected_host.get(selected_host.root/'tuning'/chosen['name']/'latest.json',{})
+        recipe['trajectory_completed_iterations']=max(trajectory.get('completed_iterations',0),latest.get('step',-1)+1)
+        recipe['selected_validation_step']=chosen['result']['step']+1
+        if recipe['plateau_confirmed']:
+            recipe['steps']=max(recipe['selected_validation_step'],max(r['step']+1 for r in metrics(selected_host,chosen['name'])))
+            recipe['final_step_policy']='Observed late two-signal plateau; score and retain the best per-frame checkpoint through the observed trajectory length'
+        else:
+            recipe['steps']=150000
+            recipe['final_step_policy']='Plateau not confirmed; allow the150k attempt ceiling and retain the best scored per-frame checkpoint; winning validation step is reported separately, not relabelled as a150k measurement'
         recipe['selected_inference_cap']=chosen['result']['cap']
         recipe['selection_tolerance']=dict(relative_actor_lpips=.005,max_head_view_regression=.05,tie_break='sampled trusted-background opacity, then estimated training wall time' if background_tie_break else 'estimated training wall time')
         # Gather changes are mathematically equivalent (contract-tested), but memory
@@ -315,6 +346,7 @@ def run(root):
         text+='\nAll final models cold-start on72TRAIN cameras; metrics on former heldout cameras are in-sample. Maximum150000attempts including recovery replay. FPS120 remains assumed. Plateau is only asserted if the saved late trajectory passes the two-signal test. EXR sources are decoded from PQ16, not independent higher-information originals.\n'
         text+='\nConfidence-port correction: early runs used a linear outside taper. The historical recipe uses exponent log(0.1)/log(0.5), giving weight0.1 at half width. Reference arms recompute the sealed helper on qualified actors, also removing confidence halos from rejected crew. Early linear runs remain explicitly labelled alternative measurements, not exact historical-recipe baselines.\n'
         text+='\nInference cap: '+str(recipe['selected_inference_cap'])+'. Plateau confirmed: '+str(recipe['plateau_confirmed'])+'. Trajectory completed iterations: '+str(recipe['trajectory_completed_iterations'])+'.\n'
+        text+='\nWinning validation checkpoint: '+str(recipe['selected_validation_step'])+'steps. Final training policy: '+recipe['final_step_policy']+'.\n'
         text+='\nEffective training settings:\n```json\n'+json.dumps(recipe['effective_hyperparameters'],indent=2)+'\n```\n'
         text+='\nFixed tuning heldouts: '+', '.join(recipe['tuning_heldout'])+'. Canonical physical rig geometry (apply world_to_box before testing aabb; then apply the isotropic model-unit scale above):\n```json\n'+json.dumps(recipe['canonical_geometry'],indent=2)+'\n```\n'
         text+='\nRig calibration: 1.0805units/metre. Physical box dimensions: '+', '.join('%.4fm'%d for d in recipe['physical_box_dimensions_metres'])+'.\n'
@@ -329,7 +361,10 @@ def run(root):
                 host.command(command,input=text)
         state['phase']='production';atomic(state_path,state)
     if state['phase']=='production':
-        allocation=allocate_frames(hosts)
+        enabled=[i for i,h in enumerate(hosts) if not h.row.get('production_disabled')]
+        local_allocation=allocate_frames([hosts[i] for i in enabled])
+        allocation={i:[] for i in range(len(hosts))}
+        allocation.update({enabled[i]:frames for i,frames in local_allocation.items()})
         state['production_allocation']={hosts[i].row['name']:frames for i,frames in allocation.items()};atomic(state_path,state)
         for i,h in enumerate(hosts):
             s=h.get(h.root/'settings.json');frames=allocation[i]

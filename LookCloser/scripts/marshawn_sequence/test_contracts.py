@@ -12,6 +12,22 @@ from common import atomic,read
 
 
 class ExecutorTests(unittest.TestCase):
+    def test_late_child_completion_reconciles_failed_parent(self):
+        with tempfile.TemporaryDirectory(prefix='marshawn_late_receipt_') as directory:
+            root=Path(directory);marker=root/'done.json'
+            atomic(root/'queue.json',dict(jobs=[dict(id='late',command=[sys.executable,'-c','raise RuntimeError("must not relaunch")'],completion=str(marker),max_attempts=1)]))
+            atomic(root/'agent_state.json',dict(jobs={'late':dict(status='failed',attempts=1,job=read(root/'queue.json')['jobs'][0])}))
+            atomic(marker,{})
+            log=(root/'test.log').open('ab');p=subprocess.Popen([sys.executable,str(Path(__file__).with_name('agent.py')),'--root',str(root)],stdout=log,stderr=log)
+            try:
+                deadline=time.time()+10
+                while time.time()<deadline:
+                    if read(root/'agent_state.json')['jobs']['late']['status']=='complete':break
+                    time.sleep(.2)
+                state=read(root/'agent_state.json')['jobs']['late']
+                self.assertEqual(state['status'],'complete');self.assertTrue(state['completion_reconciled']);self.assertEqual(state['attempts'],1)
+            finally:p.terminate();p.wait(timeout=10);log.close()
+
     def test_agent_crash_does_not_duplicate_live_worker(self):
         with tempfile.TemporaryDirectory(prefix='marshawn_executor_test_') as directory:
             root=Path(directory);marker=root/'done.json';calls=root/'calls.txt'

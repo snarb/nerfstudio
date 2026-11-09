@@ -17,6 +17,14 @@ def identity(pid):
     except (FileNotFoundError,ProcessLookupError):return None
 
 
+def completed(job):
+    try:receipt=read(Path(job['completion']))
+    except (OSError,ValueError,TypeError):return False
+    if not job.get('target'):return True
+    exhausted=bool(job.get('max_optimizer_attempts') and receipt.get('attempt_budget',{}).get('reserved_attempts',0)>=job['max_optimizer_attempts'])
+    return receipt.get('completed_iterations',0)>=job['target'] or receipt.get('plateau',False) or exhausted
+
+
 def run(root):
     root=Path(root);root.mkdir(parents=True,exist_ok=True)
     lock=(root/'agent.lock').open('a+');fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
@@ -38,12 +46,7 @@ def run(root):
             if process is not None:code=process.poll()
             else:code=None if identity(row['process']['pid'])==row['process'] else -999
             if code is not None:
-                done=Path(row['job']['completion'])
-                valid=done.exists()
-                if valid and row['job'].get('target'):
-                    receipt=read(done)
-                    exhausted=bool(row['job'].get('max_optimizer_attempts') and receipt.get('attempt_budget',{}).get('reserved_attempts',0)>=row['job']['max_optimizer_attempts'])
-                    valid=receipt.get('completed_iterations',0)>=row['job']['target'] or receipt.get('plateau',False) or exhausted
+                valid=completed(row['job'])
                 row.update(status='complete' if valid and code in (0,-999) else 'failed',exit_code=code,finished=now)
                 if row['status']=='failed' and row['job'].get('retry_backoff_seconds'):
                     row['next_retry_at']=now+min(900,row['job']['retry_backoff_seconds']*2**(row['attempts']-1))
@@ -52,6 +55,8 @@ def run(root):
             for job in queue['jobs']:
                 key=job['id'];old=state['jobs'].get(key)
                 if old and old['status']=='complete':continue
+                if old and old['status']!='running' and completed(job):
+                    old.update(status='complete',completion_reconciled=True,finished=now);atomic(root/'agent_state.json',state);continue
                 if old and old.get('attempts',0)>=job.get('max_attempts',3):continue
                 if old and now<old.get('next_retry_at',0):continue
                 if any(state['jobs'].get(d,{}).get('status')!='complete' for d in job.get('dependencies',[])):continue
