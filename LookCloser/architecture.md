@@ -2250,3 +2250,8 @@ with reconstruction assertions, hashes and change masks. Existing training and
 historical movie scripts are unchanged. This fixes tested contour rims, not
 opaque false geometry or bad mattes. See
 [validation and usage](experiments/layered_dof_boundary_fix.md).
+
+
+## Shared native-detail validation fixes
+
+Packed distortion accumulates global prefixes in FP64 and returns the weight dtype. Eval-only occupancy dilation covers constant-step traversal and restores its noncumulative state. Pipeline loading restores feature-reweighting strength from the checkpoint phase, including eval-only loads. Frequency projection has optional normalized-image/Jacobian controls with explicit unit tests; legacy projection remains default. `mask_visual_hull_aabb.py` provides conservative calibrated mask-volume bounds with UNKNOWN visibility and explicit margins. General evidence limits are documented in `docs/frequency_sampling_occupancy_lessons.md`; scene-specific recipes remain on scene branches.

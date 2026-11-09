@@ -18,6 +18,7 @@ from nerfstudio.data.datamanagers.base_datamanager import DataManager, DataManag
 from nerfstudio.engine.callbacks import TrainingCallback, TrainingCallbackAttributes, TrainingCallbackLocation
 from nerfstudio.fields.lookcloser_field import TCNNNetworkJITScope
 from nerfstudio.models.lookcloser import LookCloserModel
+from nerfstudio.model_components.lookcloser_grid import normalized_frequency_focal
 from nerfstudio.pipelines.base_pipeline import VanillaPipeline, VanillaPipelineConfig
 from nerfstudio.utils import profiler
 from nerfstudio.utils.lookcloser_rng import fork_seeded_rng, stream_seed
@@ -41,6 +42,9 @@ class LookCloserPipelineConfig(VanillaPipelineConfig):
 
     enable_frequency_grid: bool = True
     """Whether to load 2D maps and run periodic 3D frequency-grid updates."""
+
+    frequency_projection_mode: Literal['legacy', 'normalized_image', 'normalized_jacobian'] = 'legacy'
+    """Opt-in unit-consistent UV frequency projection; legacy preserves archived experiments."""
 
     grid_update_interval: int = 1024
     """Step interval for updating the 3D frequency grid using dense depth rendering."""
@@ -206,6 +210,7 @@ class LookCloserPipeline(VanillaPipeline):
         if fr_switch_values[1] is not None and fr_switch_values[1] < 0:
             raise ValueError("feature_reweighting_after_switch must be non-negative")
         self._feature_reweighting_switch_applied = False
+        self._initial_feature_reweighting_strength = float(self.model.field.feature_reweighting_strength)
         # A checkpoint resume may clear the target-dependent frequency grid
         # while preserving model and optimizer state.  Keep its update cadence
         # local to that resume, just like the occupancy warmup.
@@ -366,13 +371,23 @@ class LookCloserPipeline(VanillaPipeline):
             ),
             "fas_sample_count_state": torch.zeros((), dtype=torch.int64, device=self.device),
         }
-        normalized_keys = {key.removeprefix("module.") for key in loaded_state}
+        normalized_keys = {key[len("module."):] if key.startswith("module.") else key for key in loaded_state}
         if any(name not in normalized_keys for name in required_buffers):
             loaded_state = dict(loaded_state)
             for name, value in required_buffers.items():
                 if name not in normalized_keys:
                     loaded_state[name] = value
         super().load_pipeline(loaded_state, step)
+        # Training callbacks alone are insufficient: an eval-only reload must
+        # use the same feature weights as the checkpoint's training phase.
+        switch_step = self.config.feature_reweighting_switch_step
+        strength = self.config.feature_reweighting_after_switch
+        if switch_step is not None and strength is not None:
+            applied = step >= switch_step
+            restored_strength = strength if applied else self._initial_feature_reweighting_strength
+            self.model.config.feature_reweighting_strength = restored_strength
+            self.model.field.feature_reweighting_strength = restored_strength
+            self._feature_reweighting_switch_applied = applied
         self._dynamic_samples_per_ray_ema_value = float(self.dynamic_samples_per_ray_ema.item())
         pixel_sampler = self.datamanager.train_pixel_sampler
         if pixel_sampler is not None and hasattr(pixel_sampler, "sample_count"):
@@ -878,6 +893,7 @@ class LookCloserPipeline(VanillaPipeline):
         # Clamp to be safe
         rand_y = torch.minimum(torch.clamp_min(rand_y, 0), H - 1)
         rand_x = torch.minimum(torch.clamp_min(rand_x, 0), W - 1)
+        support_valid = None
 
         # --- 2. Retrieve f_2D ---
         # Since maps vary in size, we can't batch lookup easily.
@@ -913,7 +929,11 @@ class LookCloserPipeline(VanillaPipeline):
         coords = torch.stack([rand_y, rand_x], dim=-1).to(self.device)  # (N, 2)
         camera_indices = camera_indices_cpu.to(self.device).unsqueeze(-1)  # (N, 1)
 
-        ray_bundle = cameras.generate_rays(
+        normalized_projection = self.config.frequency_projection_mode in ('normalized_image', 'normalized_jacobian')
+        if normalized_projection:
+            coords = coords+.5
+        render_cameras = cameras.to(self.device) if normalized_projection else cameras
+        ray_bundle = render_cameras.generate_rays(
             camera_indices=camera_indices,
             coords=coords,
             keep_shape=False  # Flatten
@@ -939,11 +959,39 @@ class LookCloserPipeline(VanillaPipeline):
         # pos = o + d * depth
         positions = ray_bundle.origins + ray_bundle.directions * depth.unsqueeze(-1)
 
+        if self.config.frequency_projection_mode == 'normalized_jacobian':
+            from nerfstudio.utils.lookcloser_projection import normalized_frequency_resolution
+            encoding_box = getattr(self.model.field, 'encoding_aabb', None)
+            if encoding_box is None:
+                encoding_box = self.model.field.aabb
+            resolution, valid = normalized_frequency_resolution(
+                positions, render_cameras.camera_to_worlds[camera_indices_cpu.to(self.device)],
+                torch.stack((fx, fy), -1), torch.stack((W, H), -1).to(self.device),
+                encoding_box, f2d_tensor)
+            bounds = self.model.field.aabb
+            valid &= ((positions >= bounds[0]) & (positions <= bounds[1])).all(-1)
+            valid &= outputs['accumulation'].reshape(-1) >= (.9 if support_valid is not None else .1)
+            if support_valid is not None:
+                valid &= support_valid.to(self.device)
+            if valid.any():
+                self.model.freq_grid.update_max(positions[valid], self.model.freq_grid.freq_to_level(resolution[valid]))
+            return
+
+        projection_depth = depth
+        if normalized_projection:
+            focals = normalized_frequency_focal(fx,fy,W.to(self.device),H.to(self.device),
+                                                self.model.freq_grid.aabb_size_buf.max())
+            forward = -render_cameras.camera_to_worlds[rand_img_indices.to(self.device),:3,2]
+            projection_depth = depth*(ray_bundle.directions*forward).sum(-1)
+            valid = (torch.isfinite(positions).all(-1)&torch.isfinite(projection_depth)&(projection_depth>0)
+                     &(outputs['accumulation'].reshape(-1)>.1))
+            positions,projection_depth,focals,f2d_tensor = (x[valid] for x in (positions,projection_depth,focals,f2d_tensor))
+
         # Call model's grid update
         self.model.freq_grid.update_step(
             step=step,
             positions=positions,
-            rendered_depth=depth,
+            rendered_depth=projection_depth,
             focals=focals,
             patch_f2d=f2d_tensor
         )

@@ -12,6 +12,17 @@ from nerfstudio.data.scene_box import SceneBox
 from nerfstudio.utils.rich_utils import CONSOLE
 
 
+def normalized_frequency_focal(fx, fy, width, height, aabb_span):
+    """Convert pixel focal lengths to normalized-image / normalized-AABB units.
+
+    The 2D regressor's hash resolution is per unit UV, whereas camera focal
+    lengths are in pixels and the 3D hash resolution is per unit AABB.
+    Dividing this effective focal by camera-z therefore preserves image-resize
+    and scene-similarity invariance of the projected frequency resolution.
+    """
+    return .5*(fx/width+fy/height)*aabb_span
+
+
 class FrequencyGridManager(nn.Module):
     """
     Manages the frequency voxel grid for LookCloser (FA-NeRF).
@@ -298,6 +309,16 @@ class FrequencyGridManager(nn.Module):
         """
         if not self.enabled:
             return
+        # Experimental surface models have explicit miss rays. A miss is not a
+        # 2D/3D correspondence and must not stamp the camera origin into the grid.
+        if getattr(self, "skip_invalid_depth_updates", False):
+            valid = torch.isfinite(rendered_depth.reshape(-1)) & (rendered_depth.reshape(-1) > 0)
+            valid &= torch.isfinite(positions).all(-1)
+            if not valid.any():
+                return
+            positions, rendered_depth, focals, patch_f2d = (
+                value[valid] for value in (positions, rendered_depth, focals, patch_f2d)
+            )
         # Calculate f_3D
         # f_3D = f_2D * (focal / depth)
 
