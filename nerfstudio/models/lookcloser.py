@@ -96,6 +96,8 @@ class LookCloserModelConfig(ModelConfig):
     """Blend strength for feature re-weighting; 1.0 preserves Eq. 6, 0.0 is identity."""
     separate_density_encoding: bool = False
     """Experimental independent density hash/MLP; default preserves shared fields."""
+    density_geometry_roi_transform: Optional[Tuple[Tuple[float, ...], ...]] = None
+    """Optional world-to-unit-head-box affine; density outside uses the original frozen branch."""
 
     geo_feat_dim: int = 15
     """Geometry feature dimension emitted by the density MLP."""
@@ -132,6 +134,8 @@ class LookCloserModelConfig(ModelConfig):
     """Exponential evaluates logits in FP32 to prevent TCNN FP16 overflow."""
     correct_sh_directions: bool = False
     """Map unit directions to the [0, 1] domain expected by TCNN SH encoding."""
+    use_view_directions: bool = True
+    """False tests view-independent appearance as a geometry-training control."""
     eval_use_training_near_plane: bool = False
     """Keep the configured near plane during evaluation; False preserves archived rendering."""
 
@@ -534,6 +538,7 @@ class LookCloserModel(Model):
             enable_feature_reweighting=self.config.enable_feature_reweighting,
             feature_reweighting_strength=self.config.feature_reweighting_strength,
             separate_density_encoding=self.config.separate_density_encoding,
+            density_geometry_roi_transform=self.config.density_geometry_roi_transform,
             rgb_output_parameterization=self.config.rgb_output_parameterization,
             hdr_linear_scale=self.hdr_linear_scale,
             hdr_initial_radiance=self.hdr_initial_radiance,
@@ -544,6 +549,7 @@ class LookCloserModel(Model):
             pq_code_temperature=self.config.pq_code_temperature,
             density_activation=self.config.density_activation,
             correct_sh_directions=self.config.correct_sh_directions,
+            use_view_directions=self.config.use_view_directions,
         )
 
         # 3. Renderers

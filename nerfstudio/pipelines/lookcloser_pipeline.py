@@ -894,6 +894,9 @@ class LookCloserPipeline(VanillaPipeline):
         rand_y = torch.minimum(torch.clamp_min(rand_y, 0), H - 1)
         rand_x = torch.minimum(torch.clamp_min(rand_x, 0), W - 1)
         support_valid = None
+        support_sampler = getattr(self, 'dec5_frequency_sampler', None)
+        if support_sampler is not None:
+            rand_y, rand_x, support_valid = support_sampler(camera_indices_cpu)
 
         # --- 2. Retrieve f_2D ---
         # Since maps vary in size, we can't batch lookup easily.

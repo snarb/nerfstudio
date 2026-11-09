@@ -66,8 +66,10 @@ class LookCloserField(Field):
             pq_code_temperature: float = 1.0,
             density_activation: Literal["softplus", "trunc_exp"] = "softplus",
             correct_sh_directions: bool = False,
+            use_view_directions: bool = True,
             spatial_distortion=None,
             separate_density_encoding: bool = False,
+            density_geometry_roi_transform: Optional[Tuple[Tuple[float, ...], ...]] = None,
     ) -> None:
         super().__init__()
         if not TCNN_EXISTS:
@@ -82,6 +84,7 @@ class LookCloserField(Field):
         self.register_buffer("aabb", aabb)
         self.density_activation = density_activation
         self.correct_sh_directions = correct_sh_directions
+        self.use_view_directions = use_view_directions
         self.geo_feat_dim = geo_feat_dim
         self.num_levels = num_levels
         self.features_per_level = features_per_level
@@ -171,6 +174,12 @@ class LookCloserField(Field):
         )
         self.density_geometry_encoding = None
         self.density_geometry_mlp = None
+        roi_transform = None
+        if density_geometry_roi_transform is not None:
+            roi_transform = torch.as_tensor(density_geometry_roi_transform, dtype=torch.float32)
+            if not separate_density_encoding or roi_transform.shape != (3, 4) or not torch.isfinite(roi_transform).all():
+                raise ValueError("Density ROI requires a separate branch and a finite 3x4 world-to-unit-box transform")
+        self.register_buffer("density_geometry_roi_transform", roi_transform)
         if separate_density_encoding:
             # Clone compatible learned modules; a converted checkpoint supplies
             # matching weights and Adam state. RGB retains the original branch.
@@ -190,7 +199,15 @@ class LookCloserField(Field):
             weights = (self._get_discrete_feature_weights(levels) if discrete else
                        self.get_weights(levels, batch_size=len(normalized)))
             features = features * weights
-        return self.density_geometry_mlp(features)[..., :1]
+        logits = self.density_geometry_mlp(features)[..., :1]
+        transform = self.density_geometry_roi_transform
+        if transform is not None:
+            # Elementwise FP32 affine evaluation avoids autocast changing the
+            # spatial gate. The original branch remains exact outside the box.
+            unit = (world.float()[:, None, :] * transform[None, :, :3]).sum(-1) + transform[:, 3]
+            inside = ((unit >= 0) & (unit <= 1)).all(-1, keepdim=True)
+            logits = torch.where(inside, logits, color_h[..., :1])
+        return logits
 
     def _activate_rgb(self, raw_rgb: Tensor) -> Tensor:
         if self.rgb_output_parameterization == "sigmoid":
@@ -340,6 +357,9 @@ class LookCloserField(Field):
         return density
 
     def encode_directions(self, directions: Tensor) -> Tensor:
+        if not self.use_view_directions:
+            directions = torch.zeros_like(directions)
+            directions[..., 2] = 1.
         if self.correct_sh_directions:
             directions = (directions + 1.) * .5
         return self.direction_encoding(directions)

@@ -31,7 +31,10 @@ def test_projected_frequency_is_invariant_to_image_resize_and_scene_similarity()
 
 
 def test_subject_samples_recollate_rgb_for_noncontiguous_cached_camera_ids(tmp_path):
-    dataset=SimpleNamespace(image_filenames=[Path('frame_train_camera%d.png'%i) for i in range(59)])
+    dataset=SimpleNamespace(
+        image_filenames=[Path('frame_train_camera%d.png'%i) for i in range(59)],
+        cameras=SimpleNamespace(height=torch.full((59,1),16),width=torch.full((59,1),16)),
+    )
     for i in range(59):
         p=np.zeros((16,16,3),np.uint16);p[...,2]=65535
         p[2:6,2:6]=[65535,0,0];p[8:12,8:12]=[0,65535,0]
