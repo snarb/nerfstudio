@@ -1088,13 +1088,19 @@ class LookCloserModel(Model):
         ray_indices: torch.Tensor,
         num_rays: int,
     ) -> torch.Tensor:
-        """Linear-time Mip-NeRF 360 distortion loss for packed, ray-sorted samples."""
+        """Linear-time Mip-NeRF 360 distortion for packed, ray-sorted samples.
+
+        Global prefixes must use FP64: subtracting an opaque preceding batch
+        from FP32 prefixes can make a thin ray's nonnegative objective negative
+        and reverse its gradients. Return the original weight dtype so this
+        precision fix does not change the trainer's mixed-precision contract.
+        """
         if weights.numel() == 0:
             return weights.new_zeros((num_rays, 1))
 
-        starts = spacing_starts.reshape(-1)
-        ends = spacing_ends.reshape(-1)
-        w = weights.reshape(-1)
+        starts = spacing_starts.reshape(-1).to(torch.float64)
+        ends = spacing_ends.reshape(-1).to(torch.float64)
+        w = weights.reshape(-1).to(torch.float64)
         mid = 0.5 * (starts + ends)
         interval = (ends - starts).clamp_min(0.0)
 
@@ -1118,9 +1124,9 @@ class LookCloserModel(Model):
         intra = (w**2) * interval / 3.0
 
         per_sample = inter + intra
-        per_ray = torch.zeros((num_rays,), dtype=weights.dtype, device=weights.device)
+        per_ray = torch.zeros((num_rays,), dtype=w.dtype, device=weights.device)
         per_ray.scatter_add_(0, ray_indices, per_sample)
-        return per_ray[:, None]
+        return per_ray[:, None].to(weights.dtype)
 
     @staticmethod
     def _dense_distortion_loss(
@@ -1274,6 +1280,7 @@ class LookCloserModel(Model):
     def occupancy_ray_marching(self, ray_bundle: RayBundle) -> Dict[str, torch.Tensor]:
         """Packed constant-step nerfacc occupancy traversal without frequency-aware subdivision."""
         assert self.config.render_step_size is not None
+        self._ensure_eval_occupancy_dilation()
         rays_o = ray_bundle.origins.contiguous()
         rays_d = ray_bundle.directions.contiguous()
         num_rays = len(ray_bundle)

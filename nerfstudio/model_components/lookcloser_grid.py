@@ -12,6 +12,17 @@ from nerfstudio.data.scene_box import SceneBox
 from nerfstudio.utils.rich_utils import CONSOLE
 
 
+def normalized_frequency_focal(fx, fy, width, height, aabb_span):
+    """Convert pixel focal lengths to normalized-image / normalized-AABB units.
+
+    The 2D regressor's hash resolution is per unit UV, whereas camera focal
+    lengths are in pixels and the 3D hash resolution is per unit AABB.
+    Dividing this effective focal by camera-z therefore preserves image-resize
+    and scene-similarity invariance of the projected frequency resolution.
+    """
+    return .5*(fx/width+fy/height)*aabb_span
+
+
 class FrequencyGridManager(nn.Module):
     """
     Manages the frequency voxel grid for LookCloser (FA-NeRF).
