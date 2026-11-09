@@ -103,7 +103,7 @@ The candidate also handles CUDA camera-ID/index metadata with CPU image storage.
 | H shorter schedule |29.705287|0.699527|0.171812|
 | I HD training, native evaluation |29.067315|0.655165|0.194555|
 
-B improves LPIPS by 19.83% relative to the matched HD control, with +0.718 dB PSNR and +0.0554 SSIM. Root inspected unscaled native face/cloth comparisons. The shorter LR50k/FR20k bundle loses its early advantage; it is not selected. Coarser traversal and the 524288-point budget also lose quality. Smaller marching steps and a higher cap do not improve masked LPIPS at this gate, although their opacity behavior differs. A/B continue to 80k to observe the original FR75941 phase; D continues to50k for geometry comparison. These remain intermediate results, not a saturation claim.
+B improves LPIPS by19.83% versus HD, with+0.718dB PSNR/+0.0554SSIM; this contrast also includes the corrected allocator (B=True,I=False). The cleaner input-resolution contrast is A versus I, both allocator=False: LPIPS.15652680 versus.19455518,19.5463% lower, PSNR+.7151dB/SSIM+.05456. Root inspected unscaled native face/cloth comparisons. The shorter LR50k/FR20k bundle loses its early advantage; it is not selected. Coarser traversal and the 524288-point budget also lose quality. Smaller marching steps and a higher cap do not improve masked LPIPS at this gate, although their opacity behavior differs. A/B continue to 80k to observe the original FR75941 phase; D continues to50k for geometry comparison. These remain intermediate results, not a saturation claim.
 
 Native source versus HD comparison: [grey face](/fsx/tmp/marshawn_native_crop_tuning_20261108/review/32k_native_vs_HD/grey_head_comparison_1to1.png). Fixed novel views are also rendered from the same interpolated cameras. The HD control still contains substantial floor/background residue; actor metrics do not certify clean isolated geometry. [Novel control](/fsx/tmp/marshawn_native_crop_tuning_20261108/review/novel_032000/I_HD/contact.jpg).
 
@@ -217,3 +217,37 @@ The read-only checkpoint evaluator reproduces original B50 float metrics within3
 A private, inactive v8 builder also removes the native NN-ready prerequisite from fast proxies: freshly generated maps match P/Q on all66 cameras with forbidden NN paths poisoned. Original HD geometry READY metadata is still required, so this is not yet a complete new-frame production replacement. [Scope and remaining dependency](/fsx/tmp/marshawn_native_crop_tuning_20261108/operations/pure_proxy_v8/REPORT.md). Existing P/Q retain v4 and their original dependencies.
 
 The13:37 root supervision confirms ten actual field GPU contexts, live expected workers/controllers, current progress and no recent OOM/CUDA traceback evidence. [Hourly receipt](/fsx/tmp/marshawn_native_crop_tuning_20261108/operations/ROOT_supervision_1337.json). No old video job was restarted.
+
+### Final reference endpoints, opacity prior and user stop — 2026-11-08
+
+The completed A/B/P/Q endpoints below all use **66 TRAIN cameras with DC/HC/KA in-sample monitoring**. They are not held-out results. Each endpoint is140000 completed attempts, checkpoint step139999.
+
+| Arm | PSNR | SSIM | LPIPS |
+|---|---:|---:|---:|
+| A native reference |30.687317|.755608|.107840|
+| B corrected allocation |30.652963|.754867|.108218|
+| P uniform16 |30.805681|.765451|.103605|
+| Q gradient rank |30.847323|.764528|.104445|
+
+P reduces whole-actor LPIPS by **4.2625%** relative to B at the same140k endpoint, with higher PSNR/SSIM. Its HC black-cloth diagnostic mean alpha is.993735 versus B.986770; the fraction below.9 is.4811% versus2.1123%. This makes P a useful aggregate/opacity reference among these terminal runs, without certifying physical geometry or clean novel-view foreground. Its local grey-face patch remains worse: LPIPS.188528 versus B.179494 and A.169462. P black-face LPIPS.303554 is close to B.305610. The local patch domain uses saved native PNGs and differs from whole-actor float-render scoring. [P140 metrics](/fsx/tmp/marshawn_native_crop_tuning_20261108/review/arms/P_uniform16/renders/step-000139999/metrics.json), [Q140 metrics](/fsx/tmp/marshawn_native_crop_tuning_20261108/review/arms/Q_gradient_rank/renders/step-000139999/metrics.json), [fixed patch evidence](/fsx/tmp/marshawn_native_crop_tuning_20261108/review/detail_patch_metrics.json).
+
+The32k B-versus-HD result is19.8286% lower LPIPS, including the allocator change. A-versus-I isolates the native-input mode more cleanly: **19.5463% lower LPIPS**, .15652680 versus.19455518, on the same native evaluation targets with both allocator=False. This is the recorded66-camera in-sample protocol; it is not a held-out generalization or current63-recipe HD comparison.
+
+The opaque-core prior has now reached matched16k and32k gates. AA/AB are the W parent plus coefficients.1/.01, respectively. The alpha column is the same65474-pixel HC black-cloth diagnostic intersection, read from the saved16-bit alpha PNGs; it is not alpha ground truth.
+
+| Arm | Iterations | PSNR | SSIM | LPIPS | Cloth mean alpha |
+|---|---:|---:|---:|---:|---:|
+| W parent |16000|30.423760|.731943|.144080|.763699|
+| AA coefficient.1 |16000|30.095849|.721927|.147696|.999914|
+| AB coefficient.01 |16000|30.277860|.727186|.144649|.999735|
+| W parent |32000|30.732412|.752570|.121975|—|
+| AA coefficient.1 |32000|30.704555|.752463|.119048|.999942|
+| AB coefficient.01 |32000|30.785918|.753021|.119277|.999775|
+
+At16k AB is close to the parent on image quality (.000569 higher LPIPS), while AA is.003617 higher. Both remove the declared cloth deficit in this region: no selected pixels remain below alpha.9, versus88.8673% for W16k. At32k both improve aggregate LPIPS relative to W32k, while remaining close on PSNR/SSIM. This is evidence for the explicit opaque-core assumption on the diagnostic, not a measured physical-alpha target, resolved hair/matting quality, or a selected production recipe. The KA grey-actor eroded-mask diagnostic still triggers in both32k evaluations. [AA16 metrics](/fsx/tmp/marshawn_native_crop_tuning_20261108/review/arms/AA_core01/renders/step-000015999/metrics.json), [AB16 metrics](/fsx/tmp/marshawn_native_crop_tuning_20261108/review/arms/AB_core001/renders/step-000015999/metrics.json), [AA32 metrics](/fsx/tmp/marshawn_native_crop_tuning_20261108/arms/AA_core01/renders/step-000031999/metrics.json), [AB32 metrics](/fsx/tmp/marshawn_native_crop_tuning_20261108/review/arms/AB_core001/renders/step-000031999/metrics.json).
+
+AA's first worker failed with a tiny-cuda-nn `CUDA_ERROR_OUT_OF_MEMORY`. One authorized retry resumed its own step17999 checkpoint with unchanged scientific spec, code, data and stage plan; the saved RNG signatures match exactly. The retry subsequently exited successfully and the owned run reached its32000 stage pause. This is an own-checkpoint recovery, not a fresh independent trial or transferred field. [Restoration proof](/fsx/tmp/marshawn_native_crop_tuning_20261108/ops/AA_single_OOM_retry/actual_restore_proof.json), [successful worker receipt](/fsx/tmp/marshawn_native_crop_tuning_20261108/jobs/AA_core01_single_OOM_retry_from018000/receipt.json), [32k stage receipt](/fsx/tmp/marshawn_native_crop_tuning_20261108/arms/AA_core01/stage_paused.json).
+
+**Current instruction supersedes the earlier active-run status:** training and automatic continuations are stopped, with artifacts preserved. The recorded host audits show no remaining owned training GPU processes. Future tuning must use a separate **63 TRAIN / DC, HC and KA held-out EVAL** campaign; none of the existing66-TRAIN scores becomes held-out by relabelling it. The isolated all66 resize-SSIM candidate is CPU-qualified but parked and must not launch unchanged under the new split. Existing P/Q measurements retain their original v4 NN-reference dependency; later independent-source prototypes do not retroactively change those runs. [User stop](/fsx/tmp/marshawn_native_crop_tuning_20261108/STOP.json), [stop audit directory](/fsx/tmp/marshawn_native_crop_tuning_20261108/ops/stop_66train_20261108), [parked CPU candidate](/fsx/tmp/marshawn_native_crop_tuning_20261108/operations/resize_ssim_v10/parked.json).
+
+The immediate priority is the requested cleanup of the previously delivered native3840×2024 videos: accurately segment the two actors, retain body colours, and make the exterior black without outside-body flicker. The30 unique original LookCloser/hybrid/fixed-IC PNGs are source-bound under `/fsx/tmp/marshawn_4k_actor_cutout_20261108`; reviewed DL masks/matting and final temporal review are separate from NeRF training. The prepared CPU compositor/encoder preserves opaque RGB, writes16-bit alpha and lossless PNG masters, and has passed synthetic full4K checks. This report does not claim that the actual cleaned videos are complete. [Exact source inventory](/fsx/tmp/marshawn_4k_actor_cutout_20261108/inputs/source_manifest.json), [helper qualification](/fsx/tmp/marshawn_4k_actor_cutout_20261108/compositor_encoder_ready.json).

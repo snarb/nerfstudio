@@ -1,0 +1,23 @@
+{
+  "scope": "Saved strict63 numeric records, not all queued/failed/neverstarted jobs or independent visual certification of every row.",
+  "arms_with_saved_metrics": 117,
+  "unique_arm_update_gates": 496,
+  "source_metrics_JSON_files": 589,
+  "topic_report_artifact_paths": 227,
+  "source_snapshot": "/fsx/tmp/marshawn_native63_24h_20261108/review/final_report_metrics_CPU_20261109_STOP/snapshot.json",
+  "source_snapshot_SHA": "547cf99044aedbd2a2ae29499f92cc8e39c3e72d79cc9ed90219150ea080dd4a",
+  "completeness_proof": "/fsx/tmp/marshawn_native63_24h_20261108/review/final_MD_completeness_STOP_CPU/PROOF.json",
+  "completeness_proof_SHA": "d5baf42128201f6435af011ea0102f3a2a054067006012981f2551caf80dc733",
+  "files_sha256": {
+    "FINAL_TRAJECTORY_INVENTORY.json": "6a6ffbb5f73d3ae07d929d505d37cf52ae003337a6aff392b948acdb8dd5edae",
+    "all117_saved_arms.csv": "432b58c802dc4d7becc5c6c3b718ac1eb8612880f22b59f6e5bed615e19e49e4",
+    "FINAL_STOP_PROOF.json": "3c48515ba2f514c5c694ee7c3ca752e038b53682e0ca56f221bc20bef0eacc52",
+    "all_saved_metrics.csv": "0b56eda7d9f78977e3ad9b7e0c274dd484363a9e4ab77db18749fdaa9fbe4ae3",
+    "all_report_artifacts.csv": "75db72ea4ac2715188e00c964636a08d98ac7873ec5032f288531ffffaf2c556",
+    "CHECKLIST.md": "eaddc19039fc978d3f3ab43664d705dbce78ab366baaa2bacbc82537640095b8",
+    "DEDICATED_CONTROLLERS_CLOSED.json": "c08dc35dd84902595ed76e446b844f7826325ba1cb1b368909c884c84bfd82c9"
+  },
+  "final_stop_proof_SHA": "3c48515ba2f514c5c694ee7c3ca752e038b53682e0ca56f221bc20bef0eacc52",
+  "final_trajectory_inventory_SHA": "6a6ffbb5f73d3ae07d929d505d37cf52ae003337a6aff392b948acdb8dd5edae",
+  "snapshot_and_final_stop_are_distinct": true
+}

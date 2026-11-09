@@ -1,0 +1,34 @@
+{
+  "source_probe": "/fsx/tmp/marshawn_001660_hd/final_pair/actual_cuda_probe.json",
+  "probe_passed": true,
+  "optimizer_updates_in_probe": 0,
+  "exact_runtime_bytes": true,
+  "import_policy": "Original sibling module names retained; put this directory on PYTHONPATH. Immutable FSX configs remain authoritative.",
+  "files": [
+    {
+      "file": "marshawn_final_pipeline.py",
+      "sha256": "167ea693db59a08107ef5bc3f7200e300c47391afbeb35655b64865c633e56f3",
+      "original_runtime": "/fsx/tmp/marshawn_001660_hd/final_pair/code/marshawn_final_pipeline.py"
+    },
+    {
+      "file": "marshawn_los_objective_frozen.py",
+      "sha256": "fcf86aba79cb9b606380a719a418e6e233adec370a5a50f95e7023ba04b55301",
+      "original_runtime": "/fsx/tmp/marshawn_001660_hd/final_pair/code/marshawn_los_objective_frozen.py"
+    },
+    {
+      "file": "marshawn_surface_band_objective.py",
+      "sha256": "70792b85babedd751037687fd7146a06ae48d9ef765d43e08c38dcee087114dd",
+      "original_runtime": "/fsx/tmp/marshawn_001660_hd/final_pair/code/marshawn_surface_band_objective.py"
+    },
+    {
+      "file": "run_final_pair.py",
+      "sha256": "b2b50695bebe6f7e02e9750db28f0914131d94e041803a871072a0951a33a48b",
+      "original_runtime": "/fsx/tmp/marshawn_001660_hd/final_pair/code/run_final_pair.py"
+    },
+    {
+      "file": "staged_native_hash.py",
+      "sha256": "8a9ecb9b69403a46c0e2dd4d5a1e75521e8f99d1463147432886efec65fa0756",
+      "original_runtime": "/fsx/tmp/marshawn_001660_hd/final_pair/code/staged_native_hash.py"
+    }
+  ]
+}

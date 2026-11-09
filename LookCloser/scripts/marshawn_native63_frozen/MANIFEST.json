@@ -1,0 +1,21 @@
+{
+  "status": "FROZEN_PROVENANCE_NO_LAUNCH",
+  "worker": "train_native_crop.py",
+  "files_sha256": {
+    "native63_eval_durability.py": "f1a0856d81eedb352a557a6cecab9b4d214520dd65386cdf17e1e3f4de68efb4",
+    "native_crop_sampling.py": "7be3e8680e6dc4b02d611b50ce5c84ef1a84e1f180aeab5fb57bab5300bbe042",
+    "native63_geometry.py": "3b6fc8b21ade405aa922b9c88c24b34a91e86d26fdbb0564d5141fdcccf152d8",
+    "train_native_crop.py": "5324c6bd4e2ac68d95a6db6a88ce0e9d74662fb5882e3740e7c87b164f3e8d94",
+    "native_crop_opaque_core_prior.py": "bc0371d8bc5fd71abfaba92236711237ca93affa515df171b20953591c6bd88a",
+    "native63_semantic_admission.py": "8267d5e7619461a95b368ec6db104c226da03dd259d3def38ca4e335432f423f",
+    "native63_sampling_experiment.py": "db0b2a7465d4d8dde445180702cc4f56f4d6bd9e4de6574fd4fe9160242ed3d7",
+    "heldout_quality.py": "4e878c26b6c2c3c5dfdc28b2c62b4d37394e1c8e47f966e1892d1255ed0e52f4",
+    "native63_data.py": "fb1a3b42766a6437d26966e620b2ea23164fbc16c0ba2669cde90aa93b601344",
+    "native_crop_sampling_v2.py": "3cd0215df0ae907efe52ab118ce8a955e9a138e85121056f413434fcd585cd99"
+  },
+  "base_source_seal_SHA": "d873cd61ad5c00f9501f2f6c477cb42f962d4d15591f5785830e0aeae381ec14",
+  "external_base_source": "/cache/ubuntu/lookcloser/campaigns/marshawn_video_1660_2015_24fps_140k_20261107/code",
+  "checkpoint_SHA": "468bbf38fbcac82cb1dd681ded87688ee92ae5f4bc6035bd031cb32f48d847d3",
+  "no_weights_or_dataset_in_Git": true,
+  "original_native_paths_preserved": true
+}

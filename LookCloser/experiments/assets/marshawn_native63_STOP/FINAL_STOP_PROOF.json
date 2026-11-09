@@ -1,0 +1,259 @@
+{
+  "time": 1794229460.7095017,
+  "status": "ALL_OWNED_TRAINING_FINITE_AND_ADMISSIONS_STOPPED_BY_EXPLICIT_USER_REQUEST",
+  "all4hosts_verified": true,
+  "all11_requested_owned_GPU_slots_no_our_contexts": true,
+  "all_actual_GPU_contexts_empty": true,
+  "no_foreign_signals": true,
+  "no_new_admissions_or_restarts": true,
+  "STOPs_preserved_old_video_STOP_untouched": true,
+  "old_capability_authorities_superseded_by_user_stop": true,
+  "hosts": {
+    "olive": {
+      "actual_time": 1794229356.4063063,
+      "proof_path": "/fsx/tmp/marshawn_native63_24h_20261108/ops/USER_STOP_20261109_1252/final_olive.json",
+      "proof_SHA": "9121ee46a20ecbd40a88849b7a0ee4e949c7ccc03eab3b1a164d5cdd01fbe1be",
+      "owned_live_workers": 0,
+      "owned_live_supervisors": 0,
+      "known_admission_CPU_alive": 0,
+      "actual_GPU_contexts": "",
+      "STOP_present": true,
+      "deadline_guard_closures": []
+    },
+    "silver": {
+      "actual_time": 1794229356.7210712,
+      "proof_path": "/fsx/tmp/marshawn_native63_24h_20261108/ops/USER_STOP_20261109_1252/final_silver.json",
+      "proof_SHA": "b075ce31f7badde6bae5d2d4fc3af5a7913b6a5117bd840a4ec03838c81d4a38",
+      "owned_live_workers": 0,
+      "owned_live_supervisors": 0,
+      "known_admission_CPU_alive": 0,
+      "actual_GPU_contexts": "",
+      "STOP_present": true,
+      "deadline_guard_closures": []
+    },
+    "dev3": {
+      "actual_time": 1794229356.4090567,
+      "proof_path": "/fsx/tmp/marshawn_native63_24h_20261108/ops/USER_STOP_20261109_1252/final_dev3.json",
+      "proof_SHA": "27dbbe5ee15f580f3ed26e9b3807bf2f07729fc6c2b35934211964c3351bdb38",
+      "owned_live_workers": 0,
+      "owned_live_supervisors": 0,
+      "known_admission_CPU_alive": 0,
+      "actual_GPU_contexts": "",
+      "STOP_present": true,
+      "deadline_guard_closures": []
+    },
+    "clever": {
+      "actual_time": 1794229356.543986,
+      "proof_path": "/fsx/tmp/marshawn_native63_24h_20261108/ops/USER_STOP_20261109_1252/final_clever.json",
+      "proof_SHA": "2de843816fbf045f209dfc6433a45b9161c53368e36949f9fdc50f11e3dd84c6",
+      "owned_live_workers": 0,
+      "owned_live_supervisors": 0,
+      "known_admission_CPU_alive": 0,
+      "actual_GPU_contexts": "",
+      "STOP_present": true,
+      "deadline_guard_closures": []
+    }
+  },
+  "final_checkpoints_and_pending_inventory": [
+    {
+      "host": "olive",
+      "job": "P_B8beta99_SAM15_core001_hash25_coarseHalf_continue080000",
+      "step": 52923,
+      "checkpoint_step": 52932,
+      "checkpoint_SHA": "708a67277e37c48644d6b0686b99ac24dd36d88af8a705b391524e3386b364f3",
+      "last_committed_eval_step": 49999,
+      "pending_eval": false,
+      "raw_status": "failed",
+      "returncode": 143
+    },
+    {
+      "host": "olive",
+      "job": "P_B8beta99_SAM15_core001_hash25_coarseHalf_olive_cold032000",
+      "step": 52923,
+      "checkpoint_step": 52932,
+      "checkpoint_SHA": "708a67277e37c48644d6b0686b99ac24dd36d88af8a705b391524e3386b364f3",
+      "last_committed_eval_step": 49999,
+      "pending_eval": false,
+      "raw_status": "complete",
+      "returncode": 0
+    },
+    {
+      "host": "silver",
+      "job": "NN_shared90_SAM15_B8beta99_hash25_core001_t0_silver_cold032000",
+      "step": 70855,
+      "checkpoint_step": 70855,
+      "checkpoint_SHA": "c11ce22178f807d1bf45e3e6b236f36c2f47f4b624a3e10d9dea44643057564c",
+      "last_committed_eval_step": 49999,
+      "pending_eval": false,
+      "raw_status": "complete",
+      "returncode": 0
+    },
+    {
+      "host": "silver",
+      "job": "NN_shared98_SAM15_B8beta99_hash25_core001_t0_silver_cold032000",
+      "step": 71165,
+      "checkpoint_step": 71165,
+      "checkpoint_SHA": "18975ccb9228afed9b5d0c98d1e7ef4766592b5bed5c0c6f73e35fff5fca6389",
+      "last_committed_eval_step": 49999,
+      "pending_eval": false,
+      "raw_status": "complete",
+      "returncode": 0
+    },
+    {
+      "host": "silver",
+      "job": "P_B8beta99_SAM15_core001_hash25_ARM12toFull50000_silver_cold032000",
+      "step": 75352,
+      "checkpoint_step": 75352,
+      "checkpoint_SHA": "1877f2e3acaf4471b18b92e0a7569b9f9fb994d0d5e72b22553a661c17b78a84",
+      "last_committed_eval_step": 49999,
+      "pending_eval": false,
+      "raw_status": "complete",
+      "returncode": 0
+    },
+    {
+      "host": "silver",
+      "job": "NN_FAS0_seed43_fallback140000",
+      "step": 139999,
+      "checkpoint_step": 139999,
+      "checkpoint_SHA": "a7aa50147c0ce90b5038bbdf494f82b382ed5f9a879608deb61798fcc9e8510b",
+      "last_committed_eval_step": 139999,
+      "pending_eval": false,
+      "raw_status": "complete",
+      "returncode": 0
+    },
+    {
+      "host": "silver",
+      "job": "NN_shared90_SAM15_B8beta99_hash25_core001_t0_continue080000",
+      "step": 70855,
+      "checkpoint_step": 70855,
+      "checkpoint_SHA": "c11ce22178f807d1bf45e3e6b236f36c2f47f4b624a3e10d9dea44643057564c",
+      "last_committed_eval_step": 49999,
+      "pending_eval": false,
+      "raw_status": "failed",
+      "returncode": 143
+    },
+    {
+      "host": "silver",
+      "job": "NN_shared98_SAM15_B8beta99_hash25_core001_t0_continue080000",
+      "step": 71165,
+      "checkpoint_step": 71165,
+      "checkpoint_SHA": "18975ccb9228afed9b5d0c98d1e7ef4766592b5bed5c0c6f73e35fff5fca6389",
+      "last_committed_eval_step": 49999,
+      "pending_eval": false,
+      "raw_status": "failed",
+      "returncode": 143
+    },
+    {
+      "host": "silver",
+      "job": "P_B8beta99_SAM15_core001_hash25_ARM12toFull50000_continue080000",
+      "step": 75352,
+      "checkpoint_step": 75352,
+      "checkpoint_SHA": "1877f2e3acaf4471b18b92e0a7569b9f9fb994d0d5e72b22553a661c17b78a84",
+      "last_committed_eval_step": 49999,
+      "pending_eval": false,
+      "raw_status": "failed",
+      "returncode": 143
+    },
+    {
+      "host": "silver",
+      "job": "P_B8beta99_SAM30_core001_hash25_continue080000",
+      "step": 71700,
+      "checkpoint_step": 71758,
+      "checkpoint_SHA": "dace9d003751498e3dff305157986c5d87684ba39e2014c3055977b420d8352a",
+      "last_committed_eval_step": 49999,
+      "pending_eval": false,
+      "raw_status": "failed",
+      "returncode": 143
+    },
+    {
+      "host": "silver",
+      "job": "P_B8beta99_SAM15_core001_hash26_continue100000",
+      "step": 102426,
+      "checkpoint_step": 102426,
+      "checkpoint_SHA": "9b032ea69462608bf0ef248a9cefa01ae1148f97aa3eca3f955596230108a402",
+      "last_committed_eval_step": 99999,
+      "pending_eval": false,
+      "raw_status": "complete",
+      "returncode": 0
+    },
+    {
+      "host": "silver",
+      "job": "P_B8beta99_SAM15_core001_hash25_HD4_silver_cold032000",
+      "step": 22286,
+      "checkpoint_step": 22383,
+      "checkpoint_SHA": "afa8bde3d120647d93fe003260d4001d347cdfd5d2c209fe122104bc8678dc80",
+      "last_committed_eval_step": 15999,
+      "pending_eval": false,
+      "raw_status": "failed",
+      "returncode": 143
+    },
+    {
+      "host": "silver",
+      "job": "P_B8beta99_SAM15_core001_hash24_ARM12toFull50000_continue140000",
+      "step": 139733,
+      "checkpoint_step": 139796,
+      "checkpoint_SHA": "bd8bdb3af2b711fc83655bae76407f3bd525de6962e5620e775357f447363db6",
+      "last_committed_eval_step": 119999,
+      "pending_eval": false,
+      "raw_status": "failed",
+      "returncode": 143
+    },
+    {
+      "host": "silver",
+      "job": "P_B8beta99_SAM15_core001_hash26_continue120000",
+      "step": 102426,
+      "checkpoint_step": 102426,
+      "checkpoint_SHA": "9b032ea69462608bf0ef248a9cefa01ae1148f97aa3eca3f955596230108a402",
+      "last_committed_eval_step": 99999,
+      "pending_eval": false,
+      "raw_status": "failed",
+      "returncode": 143
+    },
+    {
+      "host": "silver",
+      "job": "NN_B8beta99_hash24_core001_t05_continue120000",
+      "step": 99999,
+      "checkpoint_step": 99999,
+      "checkpoint_SHA": "6e29ec8e5144e229de2798783779aba693b8f845cdf5d55b72256e2859066cd0",
+      "last_committed_eval_step": 99999,
+      "pending_eval": false,
+      "raw_status": "failed",
+      "returncode": -15
+    },
+    {
+      "host": "dev3",
+      "job": "Q_seed43_fallback140000",
+      "step": 139999,
+      "checkpoint_step": 139999,
+      "checkpoint_SHA": "8cd204ffd11e3487a8cc919d3750345e53916871f2b31af78563d188042bbb61",
+      "last_committed_eval_step": 139999,
+      "pending_eval": false,
+      "raw_status": "complete",
+      "returncode": 0
+    },
+    {
+      "host": "dev3",
+      "job": "DEV3_cap12_own80000_science_v2",
+      "step": 53074,
+      "checkpoint_step": 53074,
+      "checkpoint_SHA": "9013e0ee185f2714bb9e52dd50f2e5b6fb9ee3321790fc16ad554343edb4de2c",
+      "last_committed_eval_step": 49999,
+      "pending_eval": false,
+      "raw_status": "failed",
+      "returncode": 143
+    },
+    {
+      "host": "clever",
+      "job": "P_B8beta99_SAM15_core001_hash25_ARMmax12_Clever_cold032000",
+      "step": 27594,
+      "checkpoint_step": 27646,
+      "checkpoint_SHA": "47274e42b46fcf4de0cc636b0e6065c57da605db0e02e34a7996da062a1be8f8",
+      "last_committed_eval_step": 15999,
+      "pending_eval": false,
+      "raw_status": "failed",
+      "returncode": 143
+    }
+  ],
+  "CP_tensor_payloads_not_loaded": true,
+  "first_auxiliary_helper_errors_preserved_not_science_failures": true
+}

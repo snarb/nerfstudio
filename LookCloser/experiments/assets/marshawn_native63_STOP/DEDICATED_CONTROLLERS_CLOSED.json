@@ -1,0 +1,57 @@
+{
+  "time": 1794229722.547366,
+  "all_closed": true,
+  "controllers": [
+    {
+      "path": "/fsx/tmp/marshawn_native63_24h_20261108/ops/DEV3_cap12_own80_v2_admission/dispatch/controller.json",
+      "process": {
+        "pid": 2959513,
+        "start": "260086173",
+        "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+        "state": "R"
+      },
+      "alive": false
+    },
+    {
+      "path": "/fsx/tmp/marshawn_native63_24h_20261108/ops/Clever_hash25_constantcap12_CPU/admission/dispatch/controller.json",
+      "process": {
+        "pid": 2962969,
+        "start": "260177718",
+        "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+        "state": "R"
+      },
+      "alive": false
+    },
+    {
+      "path": "/fsx/tmp/marshawn_native63_24h_20261108/ops/frozen_hash25_140_caps8_9_finite/dispatch/controller.json",
+      "process": {
+        "pid": 2967709,
+        "start": "260302109",
+        "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+        "state": "R"
+      },
+      "alive": false
+    },
+    {
+      "path": "/fsx/tmp/marshawn_native63_24h_20261108/ops/HD63_adaptive_observer_v2_finite/dispatch/controller.json",
+      "process": {
+        "pid": 2960438,
+        "start": "260109808",
+        "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+        "state": "R"
+      },
+      "alive": false
+    },
+    {
+      "path": "/fsx/tmp/marshawn_native63_24h_20261108/ops/fixed_novel3_hash25_140_default_cap10_finite/dispatch/controller.json",
+      "process": {
+        "pid": 2959470,
+        "start": "260083686",
+        "boot": "362be899-240f-4c95-a4fd-1275283673e0",
+        "state": "R"
+      },
+      "alive": false
+    }
+  ],
+  "all_core_CPU_identities_already_closed_in_final4host_proofs": true
+}

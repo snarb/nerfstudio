@@ -2191,3 +2191,8 @@ The native sampler now packs variable-size CPU rasters with camera-specific offs
 ## Shared native-detail validation fixes
 
 Packed distortion accumulates global prefixes in FP64 and returns the weight dtype. Eval-only occupancy dilation covers constant-step traversal and restores its noncumulative state. Pipeline loading restores feature-reweighting strength from the checkpoint phase, including eval-only loads. Frequency projection has optional normalized-image/Jacobian controls with explicit unit tests; legacy projection remains default. `mask_visual_hull_aabb.py` provides conservative calibrated mask-volume bounds with UNKNOWN visibility and explicit margins. General evidence limits are documented in `docs/frequency_sampling_occupancy_lessons.md`; scene-specific recipes remain on scene branches.
+
+
+## Frozen Marshawn native63 campaign
+
+The scene branch records the final report, cold-training recipe, geometry transforms and stopped-run inventory in `experiments/marshawn_native63_final_results.md`. Exact selected runtime helpers and base source checksums are in `scripts/marshawn_native63_frozen/`; data and weights remain external. Scene-specific experimental scripts are not accepted defaults.

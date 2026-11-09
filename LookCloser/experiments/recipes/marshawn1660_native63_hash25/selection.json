@@ -1,0 +1,43 @@
+{
+  "status": "FROZEN_AFTER_EXPLICIT_USER_STOP_NO_LAUNCH",
+  "training_arm": "P_B8beta99_SAM15_core001_hash25",
+  "actual_optimizer_updates": 140000,
+  "checkpoint_step_zero_based": 139999,
+  "checkpoint_SHA": "468bbf38fbcac82cb1dd681ded87688ee92ae5f4bc6035bd031cb32f48d847d3",
+  "terminal_config_SHA": "4f74fbe4d6eaaa0013b870f357e1db384c44f797fae484a915dc29d8085baf0b",
+  "training_spec_SHA": "4241952ed60d6c56464a81dab5aa81c19679fef6b986c419b9531aba78c001af",
+  "dataset_split": {
+    "train": 63,
+    "validation": [
+      "DC",
+      "HC",
+      "KA"
+    ],
+    "final66_trained": false
+  },
+  "inference_overrides": {
+    "adaptive_max_frequency_level": 10
+  },
+  "selected_metrics": {
+    "psnr": 27.100271729835274,
+    "ssim": 0.5791039218505224,
+    "lpips": 0.09514482940236728
+  },
+  "training_model_loop_minutes": 297.730558,
+  "initialization": "Each independent field/frame starts cold. New output and stage paths; build_config(spec,resume=None); never reuse an existing output or train serialized terminal config containing its old resume pointer.",
+  "terminal_config_is_provenance_not_cold_launcher": true,
+  "source_seal_SHA": "d873cd61ad5c00f9501f2f6c477cb42f962d4d15591f5785830e0aeae381ec14",
+  "worker_SHA": "5324c6bd4e2ac68d95a6db6a88ce0e9d74662fb5882e3740e7c87b164f3e8d94",
+  "archive": "/fsx/tmp/marshawn_native63_24h_20261108/delivery/model_archive/P_B8beta99_SAM15_core001_hash25_140k_native63",
+  "numeric_global_minimum": {
+    "inference_cap": 9,
+    "lpips": 0.094086626,
+    "selected_for_detail": false,
+    "reason": "HC faces and boot regress versus10; no temporal certificate."
+  },
+  "files_sha256": {
+    "terminal_config_native_PROVENANCE_ONLY.yml": "4f74fbe4d6eaaa0013b870f357e1db384c44f797fae484a915dc29d8085baf0b",
+    "training_spec_native_PROVENANCE.json": "4241952ed60d6c56464a81dab5aa81c19679fef6b986c419b9531aba78c001af",
+    "geometry.json": "b013a5b7e01fe6e6894158a669227ef7408ac5e2892f31556f070ea526188f2e"
+  }
+}

@@ -1,0 +1,7 @@
+# Encoded versus linear-light same-packet diagnostic
+
+Existing radial R0 8k TRAIN MVS52×4 packed RGB/weights were replayed entirely on CPU: invert fixed Reinhard+sRGB for each sample, integrate with unchanged weights, then apply the same display transform. Native reconstruction error was≤5.30e−8. No NN update or new image fitting occurred.
+
+Saturated sample RGB=1 makes inverse radiance undefined: only253/624 channels and41/208 complete rays can be evaluated without an invented cap. On these exact subsets, linear-light replay worsened channel MAE .010364→.011486 and complete-ray MAE .010268→.010673. Most Jensen brightening was small (median.000388,p90.003267), but some near-white tails produced larger changes. No simple inference compositing fix is supported; training a physical field remains a distinct experiment that this biased subset cannot rule out. Old pre-radial KA profiles were not substituted for the unavailable matching q0/q7 cache.
+
+[Detailed bound/source report](/fsx/tmp/marshawn_001660_hd/report/tone_compositing_replay_8k_NOAPPLY/summary.md), [actual colour comparisons](/fsx/tmp/marshawn_001660_hd/report/tone_compositing_replay_8k_NOAPPLY/finite_TRAIN_color_comparison.png), [CPU replay helper](/home/pavlo/repos/nerfstudio/LookCloser/scripts/audit_marshawn_tone_compositing_replay.py). Five math/edge-case checks passed. No calibration, frequency maps, training configuration or model changed.

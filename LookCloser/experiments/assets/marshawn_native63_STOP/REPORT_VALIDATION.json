@@ -1,0 +1,18 @@
+{
+  "time": 1794229834.3034418,
+  "all_four_hosts_stopped": true,
+  "metrics_snapshot_rows": 496,
+  "saved_arm_names": 117,
+  "report_artifact_paths": 227,
+  "links_checked": 214,
+  "missing_links": [],
+  "frozen_recipe_exact_native_spec_and_config_verified": true,
+  "all_report_files_sha256": {
+    "marshawn_native63_final_results.md": "64e2b96d7299d61d5250134149abce1895916efc5ebbc5a993540d0dd85b98bf",
+    "marshawn_native63_frozen_recipe.md": "c487ef6098864fb7437d0c5199bc3b9c41dc93fee510366c1eeb38a296aee943",
+    "lookcloser_native_frequency_sampling_lessons.md": "d15e37588093de35061b4b42dcecfc9d814498b7f32f4815be890a22e7e25b38",
+    "marshawn_native63_24h.md": "7817bc87f7aafa8bfb8fb470f7eafea5c83373cf27306a2fae7553263afe89e8"
+  },
+  "selected_full_archive_complete": true,
+  "no_new_training_or_GPU_evaluation": true
+}
