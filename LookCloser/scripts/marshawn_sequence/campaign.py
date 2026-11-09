@@ -195,6 +195,8 @@ def run(root):
                 active=statuses[i].get('active')
                 if active:
                     row=statuses[i]['jobs'][active]
+                    state.setdefault('deadline_stop_requests',[]).append(dict(host=h.row['name'],job=active,process=row['process'],requested_at=time.time(),classification='Planned end of fixed tuning window; an unmet150k continuation target is not a numerical failure'))
+                    atomic(state_path,state)
                     # Signal only the process whose immutable identity the agent owns.
                     settings=h.get(h.root/'settings.json')
                     script='import sys,os,signal;sys.path.insert(0,'+repr(settings['tools'])+');from agent import identity;p='+repr(row['process'])+';os.kill(p["pid"],signal.SIGTERM) if identity(p["pid"])==p else None'
@@ -367,7 +369,7 @@ def run(root):
         atomic(root/'selected_recipe.json',recipe)
         text='# Marshawn908–1268 selected native recipe\n\nPrimary: masked actor AlexLPIPS, without background.\n\nSelected parameters:\n```json\n'+json.dumps(recipe['parameters'],indent=2)+'\n```\n\nSteps: '+str(recipe['steps'])+'. Native crops without resize; accepted V3 box.\n\n|Arm|Confidence|Host|Step|LPIPS|PSNR|SSIM|\n|---|---|---|---:|---:|---:|---:|\n'
         for c in candidates:
-            m=c['result']['metrics'];text+='|%s|%s/W%d|%s|%s|%.6f|%.4f|%.4f|\n'%(c['name'],c['parameters'].get('confidence_profile','linear'),c['parameters'].get('confidence_width',64),c['host'],c['result']['step']+1,m['lpips'],m['psnr'],m['ssim'])
+            m=c['result']['metrics'];text+='|%s|%s/W%d|%s|%s|%.6f|%.4f|%.4f|\n'%(c['name'],c['parameters'].get('confidence_profile','linear'),c['parameters'].get('confidence_width',64),hosts[c['host']].row['name'],c['result']['step']+1,m['lpips'],m['psnr'],m['ssim'])
         text+='\nAll final models cold-start on72TRAIN cameras; metrics on former heldout cameras are in-sample. Maximum150000attempts including recovery replay. FPS120 remains assumed. Plateau is only asserted if the saved late trajectory passes the two-signal test. EXR sources are decoded from PQ16, not independent higher-information originals.\n'
         text+='\nConfidence-port correction: early runs used a linear outside taper. The historical recipe uses exponent log(0.1)/log(0.5), giving weight0.1 at half width. Reference arms recompute the sealed helper on qualified actors, also removing confidence halos from rejected crew. Early linear runs remain explicitly labelled alternative measurements, not exact historical-recipe baselines.\n'
         text+='\nInference cap: '+str(recipe['selected_inference_cap'])+'. Plateau confirmed: '+str(recipe['plateau_confirmed'])+'. Trajectory completed iterations: '+str(recipe['trajectory_completed_iterations'])+'.\n'

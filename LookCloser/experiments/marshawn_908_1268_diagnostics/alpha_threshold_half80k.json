@@ -1,0 +1,115 @@
+{
+  "diagnostic": true,
+  "checkpoint_step": 80000,
+  "rows": [
+    {
+      "alpha_thre": 0.0,
+      "actor_lpips": 0.14826786269744238,
+      "head_lpips_by_view": {
+        "CB": 0.10411314386874437,
+        "GC": 0.12268277257680893,
+        "NB": 0.10376108065247536
+      },
+      "psnr": 29.426317397511408,
+      "ssim": 0.6940914541482925,
+      "background": {
+        "mean_opacity_equal_views": 0.2573473205169042,
+        "by_view": {
+          "CB": {
+            "mean_opacity": 0.22856873273849487,
+            "p95_opacity": 0.9983978271484375,
+            "sampled_background_rays": 47878,
+            "alpha_sha256": "dc882baa589faf454c38a1a4fcb387798a2dcd4c4c64155a2ec00171b576e20a"
+          },
+          "GC": {
+            "mean_opacity": 0.22328488528728485,
+            "p95_opacity": 0.8942809224128723,
+            "sampled_background_rays": 34235,
+            "alpha_sha256": "014b5bb3ffc77266161193efa2652d7379cc736da1f899a9633075e8c808cd67"
+          },
+          "NB": {
+            "mean_opacity": 0.32018834352493286,
+            "p95_opacity": 1.0,
+            "sampled_background_rays": 42133,
+            "alpha_sha256": "d919f8c059e3ef42638ce35a2a8babd3436646801f809ed5a40c01cf8d5e43fd"
+          }
+        },
+        "stride": 8,
+        "domain": "auxiliary sampled trusted background within identical native actor ROIs; unqueried exterior excluded; not a full-scene geometry certificate"
+      }
+    },
+    {
+      "alpha_thre": 0.001,
+      "actor_lpips": 0.14826788939535618,
+      "head_lpips_by_view": {
+        "CB": 0.10411296179518104,
+        "GC": 0.12268291413784027,
+        "NB": 0.10376070253551006
+      },
+      "psnr": 29.426317464946653,
+      "ssim": 0.6940914591153463,
+      "background": {
+        "mean_opacity_equal_views": 0.25734732548395794,
+        "by_view": {
+          "CB": {
+            "mean_opacity": 0.22856873273849487,
+            "p95_opacity": 0.9983978271484375,
+            "sampled_background_rays": 47878,
+            "alpha_sha256": "273301b2bbc34d82792c0df14811783426245310b370f60a0652e43ec6b7942b"
+          },
+          "GC": {
+            "mean_opacity": 0.22328490018844604,
+            "p95_opacity": 0.8942809224128723,
+            "sampled_background_rays": 34235,
+            "alpha_sha256": "0a805cc1e68a4f451e6a2a440ea2a45e84bfff620a636c054fb5240cd442473d"
+          },
+          "NB": {
+            "mean_opacity": 0.32018834352493286,
+            "p95_opacity": 1.0,
+            "sampled_background_rays": 42133,
+            "alpha_sha256": "70bfb035169e62cdd7047481a1ddd7fe98120e9a08391841bda41b907c37b134"
+          }
+        },
+        "stride": 8,
+        "domain": "auxiliary sampled trusted background within identical native actor ROIs; unqueried exterior excluded; not a full-scene geometry certificate"
+      }
+    },
+    {
+      "alpha_thre": 0.003,
+      "actor_lpips": 0.14826783537864685,
+      "head_lpips_by_view": {
+        "CB": 0.10411337716504931,
+        "GC": 0.12268305569887161,
+        "NB": 0.1037608627229929
+      },
+      "psnr": 29.42631740798272,
+      "ssim": 0.6940914690494537,
+      "background": {
+        "mean_opacity_equal_views": 0.2573473205169042,
+        "by_view": {
+          "CB": {
+            "mean_opacity": 0.22856873273849487,
+            "p95_opacity": 0.9983978271484375,
+            "sampled_background_rays": 47878,
+            "alpha_sha256": "1a682ad6b3fcd99f6f7781d6b6db0512e1e4860b1e0ea723c6b8fb0fd1d6cf58"
+          },
+          "GC": {
+            "mean_opacity": 0.22328488528728485,
+            "p95_opacity": 0.8942809224128723,
+            "sampled_background_rays": 34235,
+            "alpha_sha256": "f6b5431401d4872b37a4315def88a6f7abc03af97eeaf3f7c8bdcf7e464914ef"
+          },
+          "NB": {
+            "mean_opacity": 0.32018834352493286,
+            "p95_opacity": 1.0,
+            "sampled_background_rays": 42133,
+            "alpha_sha256": "cc65cb6246ae66589f327901afcb63b9d8609b931beb3b2c3c76d815106a1032"
+          }
+        },
+        "stride": 8,
+        "domain": "auxiliary sampled trusted background within identical native actor ROIs; unqueried exterior excluded; not a full-scene geometry certificate"
+      }
+    }
+  ],
+  "source": "Same exported field tensors; inference-only alpha_thre mutation; training and selection unchanged"
+}
