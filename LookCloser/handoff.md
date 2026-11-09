@@ -305,3 +305,5 @@ winning trajectory has no confirmed late two-signal plateau, final frames may
 use the150k-attempt ceiling and retain their best scored checkpoint. Never
 relabel a shorter validation measurement as a150k observation. The coordinator
 reuses the actual worker plateau function on committed metrics.
+
+HPO operational update14:24PST: added `reference_background_strong` (historical power W64, half coarse step, conservative background prior0.1) onSilver2, replacing the measured inferior default-step power control. The live late80k GC raw actor overview still has opacity haze. Late raw full-FOV/novel Dev3 checks are being staged by `/tmp/late_visual_marshawn.py` onSilver; log `late_visual.log`. Canonical geometry and six-hour deadline remain unchanged.

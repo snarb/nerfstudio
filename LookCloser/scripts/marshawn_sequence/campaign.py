@@ -42,8 +42,9 @@ ARMS=[
     ('reference_background',dict(frequency_source_policy='uniform16',coarse_step=.00078125,confidence_profile='historical_power',background_opacity_prior=.01)),
     ('power_quarter',dict(frequency_source_policy='uniform16',coarse_step=.000390625,confidence_profile='historical_power')),
     ('power_quarter_background',dict(frequency_source_policy='uniform16',coarse_step=.000390625,confidence_profile='historical_power',background_opacity_prior=.01)),
+    ('reference_background_strong',dict(frequency_source_policy='uniform16',coarse_step=.00078125,confidence_profile='historical_power',background_opacity_prior=.1)),
 ]
-_priority=['uniform','uniform_repeat','uniform_gpu','learned095','learned090','arm_half','arm_double','arm_2048','resolution16384','arm_max3','fr_initial03','frequency512','batch16384','head20','rig_units','exr','confidence32','learned095_arm_half','uniform_clever','arm_quarter','clear_background','reference_half','reference_uniform','reference_learned_half','reference_background','power_quarter','power_quarter_background']
+_priority=['uniform','uniform_repeat','uniform_gpu','learned095','learned090','arm_half','arm_double','arm_2048','resolution16384','arm_max3','fr_initial03','frequency512','batch16384','head20','rig_units','exr','confidence32','learned095_arm_half','uniform_clever','arm_quarter','clear_background','reference_half','reference_uniform','reference_learned_half','reference_background','power_quarter','power_quarter_background','reference_background_strong']
 ARMS.sort(key=lambda row:_priority.index(row[0]))
 
 
@@ -190,7 +191,7 @@ def run(root):
                 if unseen:
                     h.put(h.agent_root/'queue.json',dict(jobs=[state['jobs'][name] for name in unseen]));continue
                 if any(status.get('jobs',{}).get(name+'_screen',{}).get('status') not in ('complete','failed') for name in previous):continue
-                reserved={'arm_quarter':'ws07','power_quarter':'silver6','power_quarter_background':'silver7'}
+                reserved={'arm_quarter':'ws07','power_quarter':'silver6','power_quarter_background':'silver7','reference_background_strong':'silver2'}
                 pending=[(n,p) for n,p in ARMS if n not in state['assignments'] and (p.get('format','png') in h.row.get('formats',['png'])) and (n not in reserved or h.row['name']==reserved[n])]
                 if not pending:
                     scored=[(r['metrics']['lpips'],name) for name in previous for r in metrics(h,name) if r['step']+1==32000 and r['cap']==10]
