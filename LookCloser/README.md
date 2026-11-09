@@ -17,6 +17,38 @@ artifacts in Luster and EXR investigations. Expand binary occupied cells inside 
 do not accumulate dilation or enlarge the video box. Extra depth layers are a separate source of
 dark contributions. These are diagnostic findings, not changes to the frozen leader defaults.
 
+## Environment on the Pavlo workstation
+
+Activate the installed training environment on this machine:
+
+```bash
+conda activate /home/pavlo/.conda/envs/nerfstudio
+```
+
+It uses Python 3.11, PyTorch 2.7.1 / torchvision 0.22.1 with CUDA 12.8,
+the CUDA 12.8.1 toolkit, and tiny-cuda-nn 2.0 (commit
+`3daa6e5b8b8e0fa17971a1a20acfbb3754494b38`, compiled for GPU architecture 120).
+Nerfstudio is installed editable from the parent checkout, with its declared
+dependencies, pytest/pytest-xdist, LPIPS, OpenEXR and PyMaxflow 1.3.2.
+The environment sets `CUDA_HOME` and `CPATH` for Conda's CUDA header layout;
+setuptools is kept below 81 for tiny-cuda-nn's build tooling.
+
+The exact `scripts/requirements-leader-jpeg.txt` pins are installed separately:
+
+```bash
+conda activate /home/pavlo/.conda/envs/lookcloser-jpeg
+```
+
+This environment uses Python 3.12 and FFmpeg 5.0.1. Pass
+`--ffmpeg /home/pavlo/.conda/envs/lookcloser-jpeg/bin/ffmpeg` to the temporal
+EXR converter. Its NumPy 2 pin is incompatible with the training environment's
+dependencies. Historical `/home/ubuntu/...` environment and data paths refer
+to the previous machine and must be replaced with local paths when running scripts.
+
+## Saved scene experiments
+
+See the [scene experiment index](docs/scene_experiment_index.md) for the preserved DEC5, Marshawn and Luster branches. Shared findings and validation limits are in [frequency, sampling and occupancy lessons](docs/frequency_sampling_occupancy_lessons.md). Scene-specific experimental extensions are not new defaults.
+
 ## Selected geometry backend for the DEC5 rig
 
 The selected no-training actor geometry path is **fixed-pose COLMAP PatchMatch -> continuous
