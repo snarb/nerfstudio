@@ -2237,3 +2237,7 @@ Final allocation reserves whole-cut weighted quotas before source constraints;
 production network retries back off without resetting optimizer-attempt budgets.
 Full HD diagnostics undo native crop origins, verify ray parity, render the
 original calibrated FOV, and export raw RGB/straight alpha without GT masking.
+A separately source-bound background-prior worker adds an optional weak empty-ray
+opacity penalty on conservative TRAIN background only. Original RGB/labels and
+baseline numerical code stay immutable. A native-ROI opacity diagnostic provides
+a secondary tie-break; body/head LPIPS remains the quality gate.

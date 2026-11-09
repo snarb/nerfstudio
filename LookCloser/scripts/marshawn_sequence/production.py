@@ -78,7 +78,8 @@ def run(root,frame):
         for p in (native/'linear').glob('*.npy'):p.unlink()
     from campaign import make_spec
     spec_path=make_spec(root,recipe['parameters'],dataset,output,recipe['steps'],allow_plateau=False)
-    command([settings['python'],tools/'worker.py','--spec',spec_path])
+    worker='worker_background.py' if recipe['parameters'].get('background_opacity_prior') else 'worker.py'
+    command([settings['python'],tools/worker,'--spec',spec_path])
     result=read(output/'stage_complete.json')
     rows=[r for r in read(output/'metrics.json') if r['cap']==recipe.get('selected_inference_cap',10)]
     if not rows:raise ValueError('Frozen inference cap has no committed evaluation')

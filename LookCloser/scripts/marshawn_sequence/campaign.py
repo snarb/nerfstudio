@@ -35,8 +35,9 @@ ARMS=[
     ('learned095_arm_half',dict(frequency_source_policy='ssim095',coarse_step=.00078125)),
     ('confidence32',dict(frequency_source_policy='uniform16',confidence_width=32)),
     ('arm_quarter',dict(frequency_source_policy='uniform16',coarse_step=.000390625)),
+    ('clear_background',dict(frequency_source_policy='uniform16',coarse_step=.00078125,background_opacity_prior=.01)),
 ]
-_priority=['uniform','uniform_repeat','uniform_gpu','learned095','learned090','arm_half','arm_double','arm_2048','resolution16384','arm_max3','fr_initial03','frequency512','batch16384','head20','rig_units','exr','confidence32','learned095_arm_half','uniform_clever','arm_quarter']
+_priority=['uniform','uniform_repeat','uniform_gpu','learned095','learned090','arm_half','arm_double','arm_2048','resolution16384','arm_max3','fr_initial03','frequency512','batch16384','head20','rig_units','exr','confidence32','learned095_arm_half','uniform_clever','arm_quarter','clear_background']
 ARMS.sort(key=lambda row:_priority.index(row[0]))
 
 
@@ -51,6 +52,7 @@ def make_spec(root,parameters,data,output,target,allow_plateau=False):
         spec['gpu_cache']=True
     # Only source bytes used by runtime/helpers are sealed; historical unavailable helpers are not fabricated.
     files=[Path(s['tools'])/name for name in ('common.py','runtime.py','worker.py')]+[p for p in Path(s['frozen_helpers']).glob('*.py')]
+    if parameters.get('background_opacity_prior'):files.append(Path(s['tools'])/'worker_background.py')
     files+=[p for p in Path(s['source_code']).rglob('*.py')]
     spec['code_sha256']={str(p):sha(p) for p in sorted(files)}
     path=output/'spec.json'
@@ -99,7 +101,8 @@ class Host:
         output=self.root/'tuning'/name
         expression='from campaign import make_spec;make_spec('+repr(str(self.root))+','+repr(parameters)+','+repr(str(dataset))+','+repr(str(output))+','+repr(target)+')'
         self.command('PYTHONPATH='+shlex.quote(settings['tools'])+' '+shlex.quote(settings['python'])+' -c '+shlex.quote(expression))
-        return dict(id=name+'_'+round_name,command=[settings['python'],str(Path(settings['tools'])/'worker.py'),'--spec',str(output/'spec.json')],completion=str(output/'stage_complete.json'),progress=str(output/'progress.json'),target=target,max_optimizer_attempts=150000,env={'PYTHONPATH':settings['dependency_path'],'CUDA_VISIBLE_DEVICES':str(self.row.get('gpu',0))})
+        worker='worker_background.py' if parameters.get('background_opacity_prior') else 'worker.py'
+        return dict(id=name+'_'+round_name,command=[settings['python'],str(Path(settings['tools'])/worker),'--spec',str(output/'spec.json')],completion=str(output/'stage_complete.json'),progress=str(output/'progress.json'),target=target,max_optimizer_attempts=150000,env={'PYTHONPATH':settings['dependency_path'],'CUDA_VISIBLE_DEVICES':str(self.row.get('gpu',0))})
 
 
 def metrics(host,name):return host.get(host.root/'tuning'/name/'metrics.json',[])
@@ -239,9 +242,20 @@ def run(root):
             return all(a.get(v,float('inf'))<=value*1.05 for v,value in b.items())
         tied=[c for c in tied if reasonable_detail(c)] or [absolute_best]
         def estimated_training_seconds(c):
-            p=hosts[c['host']].get(hosts[c['host']].root/'tuning'/c['name']/'progress.json',{})
-            return (c['result']['step']+1)*p.get('elapsed_seconds',3600)/max(1,p.get('completed_iterations',32000))
-        chosen=min(tied,key=lambda c:(estimated_training_seconds(c),c['result']['metrics']['lpips']))
+            h=hosts[c['host']];job=h.get(h.agent_root/'agent_state.json',{}).get('jobs',{}).get(c['name']+'_screen',{})
+            if job.get('status')=='complete' and job.get('finished',0)>job.get('started',0):
+                return (c['result']['step']+1)*(job['finished']-job['started'])/32000
+            return float('inf')
+        background_tie_break=any(c['parameters'].get('background_opacity_prior') for c in tied)
+        if background_tie_break:
+            for c in tied:
+                h=hosts[c['host']];s=h.get(h.root/'settings.json');run_spec=h.get(h.root/'tuning'/c['name']/'spec.json')
+                command=[s['python'],str(Path(s['tools'])/'alpha_review.py'),'--data',run_spec['data'],'--render',c['result']['raw_render_directory']]
+                c['background_leakage']=json.loads(h.command('PYTHONPATH='+shlex.quote(s['tools']+':'+s['dependency_path'])+' '+shlex.join(command),timeout=180))
+        def choice_key(c):
+            leakage=c.get('background_leakage',{}).get('mean_opacity_equal_views')
+            return ((leakage if leakage is not None else float('inf')) if background_tie_break else 0.,estimated_training_seconds(c),c['result']['metrics']['lpips'])
+        chosen=min(tied,key=choice_key)
         recipe=dict(parameters=dict(chosen['parameters']),steps=chosen['result']['step']+1,selection=chosen,all_candidates=candidates,primary='equal visible-person masked AlexLPIPS then equal heldout views',plateau_confirmed=False,limit=150000,source_frame=908,final_train_cameras=72)
         recipe['parameters'].setdefault('model_units_scale',read(root/'settings.json').get('model_units_scale',1.))
         canonical=read(root/'box.json')
@@ -255,7 +269,7 @@ def run(root):
         recipe['plateau_confirmed']=bool(trajectory.get('plateau',False))
         recipe['trajectory_completed_iterations']=trajectory.get('completed_iterations')
         recipe['selected_inference_cap']=chosen['result']['cap']
-        recipe['selection_tolerance']=dict(relative_actor_lpips=.005,max_head_view_regression=.05,tie_break='estimated training wall time')
+        recipe['selection_tolerance']=dict(relative_actor_lpips=.005,max_head_view_regression=.05,tie_break='sampled trusted-background opacity, then estimated training wall time' if background_tie_break else 'estimated training wall time')
         # Gather changes are mathematically equivalent (contract-tested), but memory
         # use alone does not justify deployment. Compare matched hardware/cold runs.
         cache_check=dict(adopted=False,minimum_speedup=.05,reason='No completed matched 32k cache pair')
@@ -274,6 +288,7 @@ def run(root):
         recipe['parameters']['gpu_cache']=cache_check['adopted']
         p=recipe['parameters']
         recipe['effective_hyperparameters']=dict(hash_levels=16,hash_features_per_level=2,log2_hashmap_size=25,max_res=p.get('max_res',8192),sh_degree=4,correct_sh_directions=True,density_activation='trunc_exp',train_rays_per_batch=p.get('train_rays_per_batch',8192),sampling='body80 with exact rounded proposal expectation, no 1/q correction',head_fraction=p.get('head_fraction',.15),confidence_width_native=p.get('confidence_width',64),opaque_core_erosion_native_pixels=32,opaque_core_prior=.01,adam_betas=[.9,.99],learning_rate=.01,learning_rate_final=.0001,learning_rate_horizon=200000,warmup_steps=4096,distortion_weight_start=.01,distortion_weight_final=.1,distortion_ramp=[4096,12288],fr_initial=p.get('fr_initial',1.),fr_switch_step=75941,fr_after_switch=.3,coarse_step=p.get('coarse_step',.0015625),minimum_step=.0001,maximum_step=.1,max_samples_per_ray=p.get('max_steps_per_ray',1024),corrected_arm_allocator=True,interval_level_mode=p.get('adaptive_interval_level_mode','midpoint'),occupancy_resolution=128,occupancy_ema=.95,occupancy_threshold=.01,occupancy_update_interval=16,occupancy_dilation_radius=0,frequency_grid_update_interval=p.get('frequency_grid_update_interval',1024),frequency_projection='legacy',frequency_probe_train_rays=2048,frequency_source_policy=p['frequency_source_policy'],native_rgb_resize=False,seed=42)
+        recipe['effective_hyperparameters']['background_opacity_prior']=p.get('background_opacity_prior',0.)
         for h in hosts:h.put(h.root/'selected_recipe.json',recipe)
         atomic(root/'selected_recipe.json',recipe)
         text='# Marshawn908–1268 selected native recipe\n\nPrimary: masked actor AlexLPIPS, without background.\n\nSelected parameters:\n```json\n'+json.dumps(recipe['parameters'],indent=2)+'\n```\n\nSteps: '+str(recipe['steps'])+'. Native crops without resize; accepted V3 box.\n\n|Arm|Host|Step|LPIPS|PSNR|SSIM|\n|---|---|---:|---:|---:|---:|\n'

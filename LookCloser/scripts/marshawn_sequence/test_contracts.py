@@ -81,4 +81,19 @@ class SequenceAllocationTests(unittest.TestCase):
         self.assertTrue(all(1112<=f<=1268 for f in allocation[1]))
 
 
+class TrustedBackgroundTests(unittest.TestCase):
+    def test_hair_uncertainty_other_people_and_sensor_edges_are_protected(self):
+        import numpy as np
+        from worker_background import trusted_background
+        actor=np.zeros((500,500),bool);actor[250,250]=True
+        valid=np.ones_like(actor);valid[100,103]=False
+        alpha=np.zeros(actor.shape,np.uint8);alpha[250,250]=255;alpha[100,102]=1
+        unknown=np.zeros_like(actor);unknown[100,101]=True
+        mask=trusted_background(dict(black=actor,grey=np.zeros_like(actor),valid=valid,soft_alpha=alpha),unknown)
+        self.assertTrue(mask[100,100]);self.assertFalse(mask[250,250])
+        self.assertFalse(mask[186,186]);self.assertFalse(mask[100,101])
+        self.assertFalse(mask[100,102]);self.assertFalse(mask[100,103])
+        self.assertFalse(mask[63,100]);self.assertFalse(mask[450,100])
+
+
 if __name__=='__main__':unittest.main()
