@@ -2196,3 +2196,18 @@ Packed distortion accumulates global prefixes in FP64 and returns the weight dty
 ## Frozen Marshawn native63 campaign
 
 The scene branch records the final report, cold-training recipe, geometry transforms and stopped-run inventory in `experiments/marshawn_native63_final_results.md`. Exact selected runtime helpers and base source checksums are in `scripts/marshawn_native63_frozen/`; data and weights remain external. Scene-specific experimental scripts are not accepted defaults.
+
+## Marshawn diagnostic AABB review
+
+Full-HD PQ previews preserve calibrated undistorted camera geometry; their tone
+mapping is diagnostic, not the production photometric recipe. Short bounded-NGP
+teachers can use performer-masked backgrounds and separate stage bounds. The
+candidate box is applied only when partitioning a fixed checkpoint's density.
+`render_aabb_review.py` verifies native-compositor parity and additive
+inside/outside contributions. Its optional train-view selection is labelled in
+the receipt and must not be treated as held-out evaluation. Source-photo cuts
+from learned opacity depth remain conditional diagnostics; black-background
+fields can have invisible density and unreliable depth. Independent COLMAP
+points and floor witnesses provide separate geometry checks.
+Variable-resolution dynamic batches round ray counts upward to an even value,
+matching the sampler's even-batch requirement.

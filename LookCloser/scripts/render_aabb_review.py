@@ -93,7 +93,8 @@ def main(a):
     box = torch.tensor(bounds, device=model.device, dtype=torch.float32)
     frame = torch.tensor(world_to_box, device=model.device, dtype=torch.float32)
     names = ['full', 'inside', 'outside', 'inside_contribution', 'outside_contribution']
-    ds = pipeline.datamanager.eval_dataset
+    ds = (pipeline.datamanager.train_dataset if a.dataset_split == 'train'
+          else pipeline.datamanager.eval_dataset)
     candidates=[i for i,p in enumerate(ds.image_filenames)
                 if str(i)==a.camera or p.stem==a.camera or p.stem.endswith('_'+a.camera)]
     if len(candidates)!=1:
@@ -220,6 +221,7 @@ def main(a):
         tolerance=tolerance,hidden=a.hidden_edges)
     inside_overlay.save(a.output/(a.camera+'_inside_box_visible.png'))
     receipt=dict(kind='ACTUAL_FIELD_AABB_PARTITION_NO_TRAINING',camera=a.camera,
+        dataset_split=a.dataset_split,
         aabb=bounds.tolist(),world_to_box=world_to_box.tolist(),
         camera_box_frame=box_camera,box_sha256=sha(a.box),checkpoint=str(actual),
         checkpoint_sha256=a.checkpoint_sha256,step=step,source_helper_sha256=helper_sha,
@@ -243,6 +245,8 @@ if __name__=='__main__':
     for name in ['config','checkpoint','box','output']:p.add_argument('--'+name,type=Path,required=True)
     p.add_argument('--checkpoint-sha256',required=True)
     p.add_argument('--camera',required=True);p.add_argument('--chunk',type=int,default=512)
+    p.add_argument('--dataset-split',choices=['eval','train'],default='eval',
+                   help='Use train views only as labelled geometric diagnostics, not held-out evaluation')
     p.add_argument('--python-path',type=Path,action='append',default=[])
     p.add_argument('--queries',type=Path,help='Optional JSON mapping label to [x,y] trace pixel')
     p.add_argument('--crop',type=int,nargs=4)

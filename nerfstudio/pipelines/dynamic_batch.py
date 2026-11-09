@@ -74,6 +74,8 @@ class DynamicBatchPipeline(VanillaPipeline):
         self.dynamic_num_rays_per_batch = int(
             self.dynamic_num_rays_per_batch * (self.config.target_num_samples / num_samples_per_batch)
         )
+        # Variable-resolution pixel sampling allocates rays in pairs.
+        self.dynamic_num_rays_per_batch = max(2, 2 * ((self.dynamic_num_rays_per_batch + 1) // 2))
 
     def get_train_loss_dict(self, step: int):
         model_outputs, loss_dict, metrics_dict = super().get_train_loss_dict(step)

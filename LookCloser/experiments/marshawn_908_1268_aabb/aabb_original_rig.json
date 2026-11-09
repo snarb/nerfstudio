@@ -1,0 +1,97 @@
+{
+  "aabb": [
+    [
+      -0.41,
+      -1.2,
+      -0.15
+    ],
+    [
+      3.41,
+      5.14,
+      1.77
+    ]
+  ],
+  "world_to_box": [
+    [
+      0.6478439998448969,
+      -0.31083015727912405,
+      0.6954730513763996,
+      0.0
+    ],
+    [
+      -0.7600046002119942,
+      -0.201556873214209,
+      0.6178736396033724,
+      0.0
+    ],
+    [
+      -0.05187638693636899,
+      -0.9288484484489095,
+      -0.36680976035607593,
+      1.8163470591461168
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "box_to_world": [
+    [
+      0.6478439998448972,
+      -0.760004600211994,
+      -0.051876386936369014,
+      0.0942255228509999
+    ],
+    [
+      -0.31083015727912416,
+      -0.20155687321420906,
+      -0.9288484484489095,
+      1.6871111477326102
+    ],
+    [
+      0.6954730513763997,
+      0.6178736396033724,
+      -0.36680976035607593,
+      0.6662538294888504
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "coordinate_system": "original COLMAP rig -> floor-aligned rotated box frame",
+  "dimensions_rig_units": [
+    3.8200000000000003,
+    6.34,
+    1.92
+  ],
+  "dimensions_metres": [
+    3.5354002776492366,
+    5.867653863951874,
+    1.776955113373438
+  ],
+  "rig_units_per_metre": 1.0805,
+  "sample_frames": [
+    908,
+    968,
+    1028,
+    1088,
+    1148,
+    1208,
+    1268
+  ],
+  "interval_frames": [
+    908,
+    1268
+  ],
+  "fps_assumed": 120,
+  "fps_verified": false,
+  "floor_fit": "12 current-image triangulated floor witnesses; normal estimated, not surveyed",
+  "status": "REVIEW_READY_V3_NOT_A_DENSE_GEOMETRY_CERTIFICATE",
+  "scope": "four fight performers and attached sticks, excludes crew masks; a single rectangular volume cannot semantically exclude anyone walking inside it",
+  "teacher_box_file": "floor_yaw_box_v3.json"
+}

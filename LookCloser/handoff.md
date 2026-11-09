@@ -183,3 +183,30 @@ CUDA_VISIBLE_DEVICES='' python LookCloser/scripts/marshawn_native63_frozen/train
 ## Минимальный deliverable следующей сессии
 
 `DATA_AUDIT` + `AABB_ACCEPTANCE` с source-bound визуализацией + exact adapted recipe/spec/hashes + `PILOT_ACCEPTANCE` одного полностью проверенного кадра + только затем автономная video queue с per-frame cold proof,140k cap, актуальными метриками/рендерами и checkpoints. Сохранить evidence/inference/unknown отдельно, как в исходных итоговых отчётах.
+
+## WS07/WS08 continuation — 2026-11-09, frames908–1268
+
+Current work is a **new AABB review**, not the production LookCloser pilot.
+User's default here is Full HD; four fight performers including fallen actors,
+crew excluded semantically.120fps is inherited/assumed, not independently verified.
+Read `experiments/marshawn_ws07_initial_aabb.md` and
+`experiments/marshawn_908_1268_aabb/aabb_original_rig.json` before continuing.
+V1/V2 boxes were withdrawn; V3 lower-Y correction uses NC to recover fourth-actor
+boundary evidence missed by the other camera rasters. Practical V3 dimensions
+3.5354×5.8677×1.7770m, floor-aligned rigid frame; not original-world axis bounds.
+
+Seven short diagnostic bounded-NGP teachers and28 checkpoint partition renders
+finished. DC/HC/KA held out; NC is an explicitly labelled training-view diagnostic.
+Teacher backgrounds are masked, and learned depth has artifacts: these are not
+accepted production LookCloser models or a dense geometry certificate. All361
+frames were audited against72 coarse masks and original per-frame COLMAP seeds;
+raw low-support outside witnesses and limitations are retained in the report.
+No training remains active; original SAM workers were not killed.
+
+Review folder: https://drive.google.com/drive/folders/1n70r-bKJ2fEnRUIa4ytPZbVXr6lT0jZG
+Archive: https://drive.google.com/file/d/1vMLc-ecQ7JosAN9h1R3oTflJ5xTmIQJ4/view
+Artifacts local WS07: `LookCloser/lookcloser_debug_outputs/marshawn_ws07_aabb/`.
+Teachers on WS08: `/home/nvuser/lookcloser/logs/aabb_geometry_20261109/stage_campaign/`.
+Proceed through the AABB visual gate and exact adapted recipe/pilot before any
+production video queue. Do not silently reuse the early silhouette box or declare
+zero sparse outliers by filtering away occluded actor regions.
