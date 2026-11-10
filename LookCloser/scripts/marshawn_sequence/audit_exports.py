@@ -65,6 +65,8 @@ def audit(root, queue=None, frames_dir=None):
             stage = read(folder / 'train/stage_complete.json')
             evaluations = read(folder / 'train/metrics.json')
             require(completion['frame'] == frame, 'Frame identity differs')
+            require(native['frame'] == ready['frame'] == frame and
+                    all(row['frame'] == frame for row in native['records']), 'Input data belongs to another frame')
             require(completion['recipe_sha256'] == recipe_sha, 'Recipe differs')
             require(completion['aabb_sha256'] == box_sha, 'AABB differs')
             require(completion['train_cameras'] == ready['train'] == 72, 'Not all72TRAIN')

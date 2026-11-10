@@ -1,0 +1,125 @@
+{
+  "time": 1794295187.2236218,
+  "frames": [
+    {
+      "frame": 909,
+      "status": "verified",
+      "model_sha256": "e6fad4b335f8ac14ea8a0174cd35d81719cebb19f02fa2c0aca1f0b7096b5a50",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.57232428309744,
+        "ssim": 0.8012827618254555,
+        "lpips": 0.11200050740606254
+      },
+      "gpu": 0,
+      "input_frame_identity_verified": true,
+      "fullhd_novel_receipts_verified": true
+    },
+    {
+      "frame": 910,
+      "status": "verified",
+      "model_sha256": "4f1d261cd8a0f92cdcc71454eac346239f9548eb738632b985b15b4f0cfef341",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.61159243923681,
+        "ssim": 0.8013846278190613,
+        "lpips": 0.11530866018599933
+      },
+      "gpu": 1,
+      "input_frame_identity_verified": true,
+      "fullhd_novel_receipts_verified": true
+    },
+    {
+      "frame": 911,
+      "status": "verified",
+      "model_sha256": "b8feeb80708a75172698e7b6c79f552dcaa03341719690d92cfc547208b2dc58",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.5929262004278,
+        "ssim": 0.7995186067289777,
+        "lpips": 0.11611151902212037
+      },
+      "gpu": 2,
+      "input_frame_identity_verified": true,
+      "fullhd_novel_receipts_verified": true
+    },
+    {
+      "frame": 912,
+      "status": "verified",
+      "model_sha256": "ac6b7294a616499bcb8d311e82b6f93940cac86419afc771b0f8fd394566a479",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.6094875804397,
+        "ssim": 0.8003905432091819,
+        "lpips": 0.11615801664690177
+      },
+      "gpu": 3,
+      "input_frame_identity_verified": true,
+      "fullhd_novel_receipts_verified": true
+    },
+    {
+      "frame": 914,
+      "status": "verified",
+      "model_sha256": "d6c9831fbeb6c9ee9e42d339315fd138ae7e8a21a6165760589d0ea1e4e97a79",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.669783216915995,
+        "ssim": 0.8027197023232778,
+        "lpips": 0.11267717844910091
+      },
+      "gpu": 4,
+      "input_frame_identity_verified": true,
+      "fullhd_novel_receipts_verified": true
+    },
+    {
+      "frame": 915,
+      "status": "verified",
+      "model_sha256": "0267696bbb56b02cfd9dc0c47332f36b11e53857def8013daba8552b837e6636",
+      "selected_iterations": 144000,
+      "metrics": {
+        "psnr": 32.63176500737769,
+        "ssim": 0.8015634020169576,
+        "lpips": 0.11348708967367808
+      },
+      "gpu": 5,
+      "input_frame_identity_verified": true,
+      "fullhd_novel_receipts_verified": true
+    },
+    {
+      "frame": 916,
+      "status": "verified",
+      "model_sha256": "69443e4b898a8ebc35f9c9d5e463eeb592ad282bc4bd93675ba251bab83e6213",
+      "selected_iterations": 144000,
+      "metrics": {
+        "psnr": 32.66155320578333,
+        "ssim": 0.8017080773909887,
+        "lpips": 0.11505000748568112
+      },
+      "gpu": 6,
+      "input_frame_identity_verified": true,
+      "fullhd_novel_receipts_verified": true
+    },
+    {
+      "frame": 918,
+      "status": "verified",
+      "model_sha256": "b6d3279a9e2ed71e5de6d9d61586062e7240782665e181d3a76c8519985469b9",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.71291399168627,
+        "ssim": 0.8039370675881704,
+        "lpips": 0.11294406404097874
+      },
+      "gpu": 7,
+      "input_frame_identity_verified": true,
+      "fullhd_novel_receipts_verified": true
+    }
+  ],
+  "all72_train": true,
+  "in_sample": true,
+  "models_streamed_sha_verified": true,
+  "native_crop_and_cold_start_receipts_verified": true,
+  "render_receipts_model_sha_match": true,
+  "visual_review": "All8 contacts reviewed across CB/GC/NB and0.25SLERP novel poses; four performers represented with source-FOV occlusion/cutoff, substantial contour halos/background fragments remain",
+  "drive_pdf": "https://drive.google.com/file/d/1zyLbyRfg_rgaYcr5VwDCOXKA76T3Z8xT/view",
+  "pdf_sha256": "b0f79f48d9a60cea90c9935297920fa2c73b454d972f0357a3d13ae141cdc4b1"
+}
