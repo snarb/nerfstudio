@@ -1,0 +1,20 @@
+{
+  "frame": 919,
+  "status": "verified",
+  "model_sha256": "9e39a79476d4b11f254ed44a33e716c50fa77cf99cdcfc72ee09eea2bd8e41bd",
+  "selected_iterations": 150000,
+  "metrics": {
+    "psnr": 32.629584173030395,
+    "ssim": 0.8006098485655255,
+    "lpips": 0.11173696795271502
+  },
+  "time": 1794298573.14922,
+  "passed": true,
+  "train_cameras": 72,
+  "in_sample": true,
+  "completed_iterations": 150000,
+  "model_sha256_verified": true,
+  "fullhd_and_novel_reviewed": true,
+  "artifact_root": "/fsx/tmp/marshawn908_20261109/olive/frames/000919",
+  "drive_contact": "https://drive.google.com/file/d/1xR9crAA1KfGktum3D01fAnj5aMBwVw12/view"
+}

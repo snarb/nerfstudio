@@ -38,38 +38,11 @@ def run(root,frame):
     wait_for_existing_worker(output)
     def command(args):
         subprocess.run([str(x) for x in args],check=True)
-    if not (native/'native_ready.json').exists() or settings.get('source_owners') and not (native/'transfer_complete.json').exists():
-        if settings.get('source_owners'):
-            from campaign import Host
-            owner=Host(settings['source_owners'][0 if frame<=1111 else 1]);owner_settings=owner.get(owner.root/'settings.json')
-            owner_tools=Path(owner_settings.get('production_tools',owner_settings['tools']))
-            prepare_command=[owner_settings['python'],str(owner_tools/'producer.py'),'--root',str(owner.root),'--frame',str(frame)]
-            if recipe['parameters'].get('format')=='exr':prepare_command.append('--linear')
-            import shlex
-            # The producer is itself detached from the SSH connection and commits a receipt.
-            receipt=owner.root/'prepared'/f'{frame:06d}'/'producer_complete.json'
-            if not owner.get(receipt):
-                log=owner.root/('producer_%06d.log'%frame)
-                owner.command('nohup env PYTHONPATH='+shlex.quote(owner_settings['dependency_path'])+' '+shlex.join(prepare_command)+' > '+shlex.quote(str(log))+' 2>&1 < /dev/null &')
-            import time
-            deadline=time.time()+1800
-            while not owner.get(receipt):
-                if time.time()>deadline:raise TimeoutError('CPU source producer did not finalize')
-                time.sleep(15)
-            native.mkdir(exist_ok=True)
-            process=subprocess.Popen(owner.argv('tar -C '+shlex.quote(str(receipt.parent))+' -cf - .'),stdout=subprocess.PIPE)
-            receiver=subprocess.run(['tar','-C',str(native),'-xf','-'],stdin=process.stdout)
-            process.stdout.close();code=process.wait()
-            if receiver.returncode or code:raise RuntimeError('Native source transfer failed; retry preserves source receipt')
-            transfer_receipt=owner.get(receipt)
-            if sha(native/'native_ready.json')!=transfer_receipt['native_ready_sha256'] or sha(native/'points3D.txt')!=transfer_receipt['seed_sha256']:raise ValueError('Transferred native manifest/seed checksum differs')
-            atomic(native/'transfer_complete.json',transfer_receipt)
-            # Only derivatives are released: source RGB16 and persistent seeds stay.
-            release=[owner_settings['python'],str(owner_tools/'producer.py'),'--root',str(owner.root),'--frame',str(frame),'--release','--expected-ready-sha',transfer_receipt['native_ready_sha256']]
-            try:owner.command(shlex.join(release),timeout=120)
-            except (RuntimeError,subprocess.TimeoutExpired) as error:
-                atomic(native/'source_cache_release_pending.json',dict(frame=frame,error=str(error)))
-        else:command([settings['python'],tools/'prepare.py','--frame',frame,'--output',native,'--box',root/'box.json','--split',root/'split.json'])
+    if settings.get('source_owners'):
+        from native_transfer import ensure_native
+        ensure_native(root,frame)
+    elif not (native/'native_ready.json').exists():
+        command([settings['python'],tools/'prepare.py','--frame',frame,'--output',native,'--box',root/'box.json','--split',root/'split.json'])
     sam_env=dict(os.environ,PYTHONPATH=settings.get('sam_dependency_path',settings['dependency_path']))
     sam_command=[settings['sam_python'],str(tools/'parts.py'),'--data',str(native)]
     if settings.get('sam_checkpoint'):sam_command+=['--checkpoint',settings['sam_checkpoint']]

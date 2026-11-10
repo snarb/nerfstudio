@@ -6,7 +6,7 @@ Independent export verification and visual review after the six-hour tuning camp
 
 ## Results
 
-Verified snapshot: 2026-11-10T07:19:47.223622+00:00. Eleven verified exports; the361-frame campaign remains incomplete.
+Verified snapshot: 2026-11-10T08:16:13.149748+00:00. Twelve verified exports; the361-frame campaign remains incomplete.
 
 | Frame | Selected iterations | PSNR(dB) | SSIM | Actor LPIPS |
 |---|---:|---:|---:|---:|
@@ -19,6 +19,7 @@ Verified snapshot: 2026-11-10T07:19:47.223622+00:00. Eleven verified exports; th
 | 915 | 144000 | 32.631765 | 0.801563 | 0.113487 |
 | 916 | 144000 | 32.661553 | 0.801708 | 0.115050 |
 | 918 | 150000 | 32.712914 | 0.803937 | 0.112944 |
+| 919 | 150000 | 32.629584 | 0.800610 | 0.111737 |
 | 1102 | 150000 | 32.668340 | 0.798791 | 0.140155 |
 | 1112 | 144000 | 32.774396 | 0.798674 | 0.137925 |
 
@@ -31,3 +32,5 @@ The eight Silver models completed150000iterations. Frames915/916 selected144000;
 Four performers remain represented, with source-FOV occlusion/cutoff where applicable. Significant contour halos and unsupported background fragments persist; these results do not establish a clean matte. Native head/source-mask diagnostic patches remain linked in the selected-recipe notes. Continue the frozen sequence campaign and audit each new export; choosing144000 uniformly would miss improvements observed at150000 in six of these eight frames.
 
 Silver artifacts: `/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/<frame>/model/inference.ckpt`; full-resolution review assets: `final_reviews/<frame>/{fullhd,novel}/`. The relocated Clever1102 model is under `external_models/clever/001102/model/`. All eight Silver queues advanced automatically to their next frames; use live controller state for current progress rather than this historical snapshot.
+
+Olive919 completed150000iterations and selected150000 cap10. [Independent export audit](marshawn_908_1268_diagnostics/frame919_completed_model_audit.json); [six reviewed Full HD/novel views on Drive](https://drive.google.com/file/d/1xR9crAA1KfGktum3D01fAnj5aMBwVw12/view). Four performers remain represented; contour halos persist. Olive advanced automatically to930. Receiving-side native transfer overlap is documented in [prefetch checks](marshawn_908_1268_native_prefetch.md).
