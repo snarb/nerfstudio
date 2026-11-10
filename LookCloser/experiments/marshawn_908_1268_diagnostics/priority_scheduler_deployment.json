@@ -1,0 +1,181 @@
+{
+  "time": 1794303964.1433065,
+  "deployed": [
+    {
+      "host": "ws07",
+      "tools": "/home/pavlo/marshawn_campaign_20261109/production_tools",
+      "sealed_hashes": {
+        "common.py": "b437e49fdfa5900e7eb36b50b5356db1e3480c7be65079efe391e7a2a68a7fce",
+        "runtime.py": "f279402275d1b932b96bf611c996c45ecf7ff190e1cf9b04879b736083b7ed85",
+        "worker.py": "d0c27b795f72178005da956c60f34b6390b36a211dda77ab4a53e3865c6529bd",
+        "worker_background.py": "6ffb5f175bcbd1754d9d862750d8bc43eb561ab4ded341d9ddc8c22f552b2874"
+      }
+    },
+    {
+      "host": "silver0",
+      "tools": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/tools",
+      "sealed_hashes": {
+        "common.py": "b437e49fdfa5900e7eb36b50b5356db1e3480c7be65079efe391e7a2a68a7fce",
+        "runtime.py": "f279402275d1b932b96bf611c996c45ecf7ff190e1cf9b04879b736083b7ed85",
+        "worker.py": "d0c27b795f72178005da956c60f34b6390b36a211dda77ab4a53e3865c6529bd",
+        "worker_background.py": "6ffb5f175bcbd1754d9d862750d8bc43eb561ab4ded341d9ddc8c22f552b2874"
+      }
+    },
+    {
+      "host": "ws08",
+      "tools": "/home/nvuser/lookcloser/campaigns/marshawn908_20261109/tools",
+      "sealed_hashes": {
+        "common.py": "b437e49fdfa5900e7eb36b50b5356db1e3480c7be65079efe391e7a2a68a7fce",
+        "runtime.py": "f279402275d1b932b96bf611c996c45ecf7ff190e1cf9b04879b736083b7ed85",
+        "worker.py": "d0c27b795f72178005da956c60f34b6390b36a211dda77ab4a53e3865c6529bd",
+        "worker_background.py": "6ffb5f175bcbd1754d9d862750d8bc43eb561ab4ded341d9ddc8c22f552b2874"
+      }
+    },
+    {
+      "host": "clever",
+      "tools": "/mnt/footage/marshawn908_20261109/tools",
+      "sealed_hashes": {
+        "common.py": "b437e49fdfa5900e7eb36b50b5356db1e3480c7be65079efe391e7a2a68a7fce",
+        "runtime.py": "f279402275d1b932b96bf611c996c45ecf7ff190e1cf9b04879b736083b7ed85",
+        "worker.py": "d0c27b795f72178005da956c60f34b6390b36a211dda77ab4a53e3865c6529bd",
+        "worker_background.py": "6ffb5f175bcbd1754d9d862750d8bc43eb561ab4ded341d9ddc8c22f552b2874"
+      }
+    },
+    {
+      "host": "olive",
+      "tools": "/fsx/tmp/marshawn908_20261109/olive/tools",
+      "sealed_hashes": {
+        "common.py": "b437e49fdfa5900e7eb36b50b5356db1e3480c7be65079efe391e7a2a68a7fce",
+        "runtime.py": "f279402275d1b932b96bf611c996c45ecf7ff190e1cf9b04879b736083b7ed85",
+        "worker.py": "d0c27b795f72178005da956c60f34b6390b36a211dda77ab4a53e3865c6529bd",
+        "worker_background.py": "6ffb5f175bcbd1754d9d862750d8bc43eb561ab4ded341d9ddc8c22f552b2874"
+      }
+    }
+  ],
+  "workers": [
+    {
+      "host": "ws07",
+      "active": "frame000913",
+      "parent_identity": {
+        "pid": 1833633,
+        "start_ticks": "63325135",
+        "boot_id": "7a39d4d7-ee42-4d78-a3cd-6b0d05e6484b"
+      },
+      "alive": true
+    },
+    {
+      "host": "silver0",
+      "active": "frame000920",
+      "parent_identity": {
+        "pid": 3034181,
+        "start_ticks": "32326611",
+        "boot_id": "3cd2faca-15ef-4b7e-9767-20e0b80af902"
+      },
+      "alive": true
+    },
+    {
+      "host": "silver1",
+      "active": "frame000921",
+      "parent_identity": {
+        "pid": 3034380,
+        "start_ticks": "32327924",
+        "boot_id": "3cd2faca-15ef-4b7e-9767-20e0b80af902"
+      },
+      "alive": true
+    },
+    {
+      "host": "silver2",
+      "active": "frame000923",
+      "parent_identity": {
+        "pid": 3034151,
+        "start_ticks": "32326144",
+        "boot_id": "3cd2faca-15ef-4b7e-9767-20e0b80af902"
+      },
+      "alive": true
+    },
+    {
+      "host": "silver3",
+      "active": "frame000924",
+      "parent_identity": {
+        "pid": 3033515,
+        "start_ticks": "32323464",
+        "boot_id": "3cd2faca-15ef-4b7e-9767-20e0b80af902"
+      },
+      "alive": true
+    },
+    {
+      "host": "silver4",
+      "active": "frame000925",
+      "parent_identity": {
+        "pid": 3031251,
+        "start_ticks": "32310205",
+        "boot_id": "3cd2faca-15ef-4b7e-9767-20e0b80af902"
+      },
+      "alive": true
+    },
+    {
+      "host": "silver5",
+      "active": "frame000926",
+      "parent_identity": {
+        "pid": 3034894,
+        "start_ticks": "32335503",
+        "boot_id": "3cd2faca-15ef-4b7e-9767-20e0b80af902"
+      },
+      "alive": true
+    },
+    {
+      "host": "silver6",
+      "active": "frame000928",
+      "parent_identity": {
+        "pid": 3035108,
+        "start_ticks": "32336918",
+        "boot_id": "3cd2faca-15ef-4b7e-9767-20e0b80af902"
+      },
+      "alive": true
+    },
+    {
+      "host": "silver7",
+      "active": "frame000929",
+      "parent_identity": {
+        "pid": 3032912,
+        "start_ticks": "32321235",
+        "boot_id": "3cd2faca-15ef-4b7e-9767-20e0b80af902"
+      },
+      "alive": true
+    },
+    {
+      "host": "ws08",
+      "active": "frame001116",
+      "parent_identity": {
+        "pid": 1591906,
+        "start_ticks": "63235997",
+        "boot_id": "9f9b5315-fe65-427a-b2c8-c862f498aff2"
+      },
+      "alive": true
+    },
+    {
+      "host": "clever",
+      "active": "frame001106",
+      "parent_identity": {
+        "pid": 2556830,
+        "start_ticks": "19786457",
+        "boot_id": "e79105f8-0f23-4f40-b1f5-114687283972"
+      },
+      "alive": true
+    },
+    {
+      "host": "olive",
+      "active": "frame000930",
+      "parent_identity": {
+        "pid": 3029953,
+        "start_ticks": "267199367",
+        "boot_id": "362be899-240f-4c95-a4fd-1275283673e0"
+      },
+      "alive": true
+    }
+  ],
+  "recipe_unchanged": true,
+  "tuning_clock_unchanged": true,
+  "barrier_installed": true,
+  "service": "marshawn908-priority.service"
+}

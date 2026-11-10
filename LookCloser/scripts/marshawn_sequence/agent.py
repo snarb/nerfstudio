@@ -25,6 +25,11 @@ def completed(job):
     return receipt.get('completed_iterations',0)>=job['target'] or receipt.get('plateau',False) or exhausted
 
 
+def start_allowed(job,old=None):
+    """A campaign gate blocks new jobs; already-started recovery stays eligible."""
+    return bool(old) or not job.get('start_gate') or Path(job['start_gate']).is_file()
+
+
 def run(root):
     root=Path(root);root.mkdir(parents=True,exist_ok=True)
     lock=(root/'agent.lock').open('a+');fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
@@ -51,10 +56,11 @@ def run(root):
                 if row['status']=='failed' and row['job'].get('retry_backoff_seconds'):
                     row['next_retry_at']=now+min(900,row['job']['retry_backoff_seconds']*2**(row['attempts']-1))
                 atomic(root/'agent_state.json',state);process=None;active=None
-        if not active:
+        if not active and not (root/'SCHEDULING').exists():
             for job in queue['jobs']:
                 key=job['id'];old=state['jobs'].get(key)
                 if old and old['status']=='complete':continue
+                if not start_allowed(job,old):continue
                 if old and old['status']!='running' and completed(job):
                     old.update(status='complete',completion_reconciled=True,finished=now);atomic(root/'agent_state.json',state);continue
                 if old and old.get('attempts',0)>=job.get('max_attempts',3):continue
