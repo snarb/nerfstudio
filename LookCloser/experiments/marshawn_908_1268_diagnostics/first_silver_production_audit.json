@@ -1,0 +1,78 @@
+{
+  "time": 1794276673.7297983,
+  "passed": true,
+  "checks": [
+    {
+      "frame": 909,
+      "pid": 2912475,
+      "step": 8304,
+      "train_cameras": 72,
+      "cold": true,
+      "parameters_match": true,
+      "lpips8k": 0.19495693180296156
+    },
+    {
+      "frame": 910,
+      "pid": 2912142,
+      "step": 8304,
+      "train_cameras": 72,
+      "cold": true,
+      "parameters_match": true,
+      "lpips8k": 0.20248727583222917
+    },
+    {
+      "frame": 911,
+      "pid": 2911134,
+      "step": 8612,
+      "train_cameras": 72,
+      "cold": true,
+      "parameters_match": true,
+      "lpips8k": 0.20247610699799326
+    },
+    {
+      "frame": 912,
+      "pid": 2910931,
+      "step": 8291,
+      "train_cameras": 72,
+      "cold": true,
+      "parameters_match": true,
+      "lpips8k": 0.20171440061595705
+    },
+    {
+      "frame": 914,
+      "pid": 2910937,
+      "step": 8589,
+      "train_cameras": 72,
+      "cold": true,
+      "parameters_match": true,
+      "lpips8k": 0.1980231673353248
+    },
+    {
+      "frame": 915,
+      "pid": 2911080,
+      "step": 8301,
+      "train_cameras": 72,
+      "cold": true,
+      "parameters_match": true,
+      "lpips8k": 0.19927109322614142
+    },
+    {
+      "frame": 916,
+      "pid": 2911491,
+      "step": 8301,
+      "train_cameras": 72,
+      "cold": true,
+      "parameters_match": true,
+      "lpips8k": 0.19819573540654448
+    },
+    {
+      "frame": 918,
+      "pid": 2910933,
+      "step": 8609,
+      "train_cameras": 72,
+      "cold": true,
+      "parameters_match": true,
+      "lpips8k": 0.19601060657037628
+    }
+  ]
+}
