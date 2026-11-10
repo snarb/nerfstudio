@@ -197,3 +197,7 @@ Audited independent export, selected iterations 150000. Actor metrics: {'psnr': 
 ### Frame 1258 final review — 2026-11-10
 
 First audited main-queue export trained cold with the three-vote admission recipe; selected iterations 144000. Actor metrics: {'psnr': 32.41546822508791, 'ssim': 0.7950127555264367, 'lpips': 0.1273352113655872}. Six Full HD views inspected; performers visible, contour halos and sparse background fragments persist. [Evidence](marshawn_908_1268_diagnostics/frame1258_final_review/visual_inspection.json), [views](marshawn_908_1268_diagnostics/frame1258_final_review/final_contact.jpg). Reviewed39 total, sparse24 20/72; repaired923/988 pending.
+
+### Frame 1163 final review — 2026-11-10
+
+Audited independent export. Actor PSNR 32.80689, SSIM 0.809141, LPIPS 0.123702. Four performers visible in six Full HD views. Contour halos and conspicuous floating background fragments persist. [Evidence](marshawn_908_1268_diagnostics/frame1163_final_review/visual_inspection.json), [views](marshawn_908_1268_diagnostics/frame1163_final_review/final_contact.jpg). Reviewed 40 total and 21/72 on the 24 fps grid.

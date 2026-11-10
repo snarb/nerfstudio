@@ -1,0 +1,10 @@
+{
+  "frame": 1163,
+  "time": "2026-11-10T23:47:01.326082+00:00",
+  "model_sha256": "b7f7f1b67e7ab9d90909eb3672c259d03e7fc97bc6267b7ec6f33244a7b85221",
+  "visual_reviewed": true,
+  "observations": [
+    "Six Full HD views inspected. Four performers visible without obvious box truncation.",
+    "Contour halos and conspicuous floating background fragments above the actors persist in real and interpolated views."
+  ]
+}
