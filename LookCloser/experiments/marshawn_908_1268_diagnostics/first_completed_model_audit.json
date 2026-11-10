@@ -1,0 +1,18 @@
+{
+  "time": 1794289123.2577057,
+  "frame": 1112,
+  "passed": true,
+  "model_sha256_verified": true,
+  "train_cameras": 72,
+  "completed_iterations": 150000,
+  "selected_iterations": 144000,
+  "model_sha256": "6587e9e294dd434efa1fec24b454f3268b4c63ac92e0818a8df55200df96a4b7",
+  "metrics": {
+    "psnr": 32.774396424463895,
+    "ssim": 0.7986739393737582,
+    "lpips": 0.13792493782109685
+  },
+  "in_sample": true,
+  "tensor_roundtrip_verified": true,
+  "next_frame": 1116
+}
