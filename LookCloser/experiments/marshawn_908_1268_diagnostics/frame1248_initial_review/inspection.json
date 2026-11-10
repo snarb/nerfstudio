@@ -1,0 +1,14 @@
+{
+  "frame": 1248,
+  "step": 8000,
+  "render_cap": "default",
+  "source_mask": "/raid/lookcloser/masks8k/001248/GC_001248.png",
+  "source_mask_sha256": "43e96d8f093eff957b77ca9e4a85d807a95737546476edb25e31e995e942d15f",
+  "observations": [
+    "Four fighting performers visible in GC initial review.",
+    "Broad contour halos and floor fragments remain in early render.",
+    "Actual full-resolution source soft alpha has broad gray edge bands and rectangular seams; mask contribution supported, exclusive causality not established.",
+    "Review canvas rectangles are query boundaries, not proof of AABB clipping."
+  ],
+  "training_inputs_changed": false
+}
