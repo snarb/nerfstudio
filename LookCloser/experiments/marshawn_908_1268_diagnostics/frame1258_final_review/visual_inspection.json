@@ -1,0 +1,10 @@
+{
+  "frame": 1258,
+  "time": "2026-11-10T23:05:37.244631+00:00",
+  "model_sha256": "530bb4619158962ac9579678b57e24dc329aa0fd339b900027b31a04237b9198",
+  "visual_reviewed": true,
+  "observations": [
+    "Six real/interpolated Full HD views inspected. Four performers visible without obvious box truncation.",
+    "Contour halos and sparse background fragments persist. This is a new frame and not a paired quality comparison."
+  ]
+}

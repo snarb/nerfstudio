@@ -193,3 +193,7 @@ Audited independent export, selected iterations 150000. Actor metrics: {'psnr': 
 ### Frame 1038 final review — 2026-11-10
 
 Audited independent export, selected iterations 150000. Actor metrics: {'psnr': 32.597246172190154, 'ssim': 0.7923610111077627, 'lpips': 0.14869357893864313}. Six views inspected; four performers visible, bat broadly continuous in GC, halos and background/floor fragments persist. [Evidence](marshawn_908_1268_diagnostics/frame1038_final_review/visual_inspection.json), [views](marshawn_908_1268_diagnostics/frame1038_final_review/final_contact.jpg). Reviewed38 total, sparse24 19/72; repaired923/988 pending. Frame938 automatic retry confirmed running (step9608).
+
+### Frame 1258 final review — 2026-11-10
+
+First audited main-queue export trained cold with the three-vote admission recipe; selected iterations 144000. Actor metrics: {'psnr': 32.41546822508791, 'ssim': 0.7950127555264367, 'lpips': 0.1273352113655872}. Six Full HD views inspected; performers visible, contour halos and sparse background fragments persist. [Evidence](marshawn_908_1268_diagnostics/frame1258_final_review/visual_inspection.json), [views](marshawn_908_1268_diagnostics/frame1258_final_review/final_contact.jpg). Reviewed39 total, sparse24 20/72; repaired923/988 pending.
