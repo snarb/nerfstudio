@@ -1,0 +1,18 @@
+{
+  "frame": 928,
+  "checkpoint_sha256": "8fc7e7c5f9eee38d01c055893faa5e10bae4710c66109f76e739bb7704f89c61",
+  "reviewed_views": [
+    "CB",
+    "GC",
+    "NB",
+    "CB novel .25",
+    "GC novel .25",
+    "NB novel .25"
+  ],
+  "observations": [
+    "Four fighting performers represented across views with expected occlusions.",
+    "Contour halos and background/floor fragments persist.",
+    "Bat-specific geometry defect investigation is separately active; this review does not certify defect-free props.",
+    "Original camera field-of-view boundaries are not proof of AABB clipping."
+  ]
+}

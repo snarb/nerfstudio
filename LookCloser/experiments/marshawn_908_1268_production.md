@@ -121,3 +121,7 @@ Completed150,000 iterations, selected150000, cap10. All72 cameras train; in-samp
 ### Twenty-first verified model: 924
 
 Completed150,000 iterations, selected150000, cap10. All72 cameras train; in-sample PSNR31.7869 dB, SSIM0.767708, actor LPIPS0.125324. Export SHA256 `e6eb793ac0f1b8b24b8a06e677f975fdfc121099a1745fd96ef7b27503b8d7e0` verified. Six FullHD camera/novel views inspected with matching receipts. Contour halos and background/floor fragments remain. Evidence: [review](marshawn_908_1268_diagnostics/frame924_final_review/final_contact.jpg), [audit](marshawn_908_1268_diagnostics/frame924_final_review/export_audit.json). Verified and reviewed21/361; sparse24 verified and reviewed4/72.
+
+### Twenty-second verified model: 928
+
+Completed150,000 iterations, selected150000, cap10. All72 cameras train; in-sample PSNR32.5065 dB, SSIM0.801264, actor LPIPS0.113716. Export SHA256 `8fc7e7c5f9eee38d01c055893faa5e10bae4710c66109f76e739bb7704f89c61` verified. Six FullHD camera/novel views inspected with matching receipts. Contour halos and background/floor fragments remain; bat-specific geometry investigation remains open, so this is not defect-free-prop certification. Evidence: [review](marshawn_908_1268_diagnostics/frame928_final_review/final_contact.jpg), [audit](marshawn_908_1268_diagnostics/frame928_final_review/export_audit.json). Verified and reviewed22/361; sparse24 reviewed5/72.

@@ -1,0 +1,142 @@
+{
+  "time": 1794316280.939705,
+  "expected": 29,
+  "verified": 2,
+  "pending": 27,
+  "failed": 0,
+  "unique_model_bytes": true,
+  "complete": false,
+  "scope": "Persisted export evidence and streamed SHA; visual review remains separate",
+  "results": [
+    {
+      "frame": 916,
+      "status": "verified",
+      "model_sha256": "69443e4b898a8ebc35f9c9d5e463eeb592ad282bc4bd93675ba251bab83e6213",
+      "selected_iterations": 144000,
+      "metrics": {
+        "psnr": 32.66155320578333,
+        "ssim": 0.8017080773909887,
+        "lpips": 0.11505000748568112
+      }
+    },
+    {
+      "frame": 928,
+      "status": "verified",
+      "model_sha256": "8fc7e7c5f9eee38d01c055893faa5e10bae4710c66109f76e739bb7704f89c61",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.50654890081804,
+        "ssim": 0.8012642860412598,
+        "lpips": 0.11371609133978684
+      }
+    },
+    {
+      "frame": 983,
+      "status": "pending"
+    },
+    {
+      "frame": 1018,
+      "status": "pending"
+    },
+    {
+      "frame": 1028,
+      "status": "pending"
+    },
+    {
+      "frame": 1143,
+      "status": "pending"
+    },
+    {
+      "frame": 1168,
+      "status": "pending"
+    },
+    {
+      "frame": 1215,
+      "status": "pending"
+    },
+    {
+      "frame": 939,
+      "status": "pending"
+    },
+    {
+      "frame": 951,
+      "status": "pending"
+    },
+    {
+      "frame": 962,
+      "status": "pending"
+    },
+    {
+      "frame": 972,
+      "status": "pending"
+    },
+    {
+      "frame": 995,
+      "status": "pending"
+    },
+    {
+      "frame": 1006,
+      "status": "pending"
+    },
+    {
+      "frame": 1039,
+      "status": "pending"
+    },
+    {
+      "frame": 1051,
+      "status": "pending"
+    },
+    {
+      "frame": 1062,
+      "status": "pending"
+    },
+    {
+      "frame": 1074,
+      "status": "pending"
+    },
+    {
+      "frame": 1084,
+      "status": "pending"
+    },
+    {
+      "frame": 1095,
+      "status": "pending"
+    },
+    {
+      "frame": 1107,
+      "status": "pending"
+    },
+    {
+      "frame": 1120,
+      "status": "pending"
+    },
+    {
+      "frame": 1132,
+      "status": "pending"
+    },
+    {
+      "frame": 1155,
+      "status": "pending"
+    },
+    {
+      "frame": 1180,
+      "status": "pending"
+    },
+    {
+      "frame": 1204,
+      "status": "pending"
+    },
+    {
+      "frame": 1216,
+      "status": "pending"
+    },
+    {
+      "frame": 1229,
+      "status": "pending"
+    },
+    {
+      "frame": 1241,
+      "status": "pending"
+    }
+  ]
+}
