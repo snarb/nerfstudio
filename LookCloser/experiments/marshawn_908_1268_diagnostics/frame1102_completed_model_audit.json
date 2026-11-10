@@ -1,0 +1,21 @@
+{
+  "frame": 1102,
+  "status": "verified",
+  "model_sha256": "e114020a687a9c12e09ae1d36b6df585ddd8e7635fed5814892790ad3bcdac83",
+  "selected_iterations": 150000,
+  "metrics": {
+    "psnr": 32.66833990914183,
+    "ssim": 0.7987905701001484,
+    "lpips": 0.1401551109738648
+  },
+  "time": 1794294429.182762,
+  "passed": true,
+  "archive_host": "silver-sable",
+  "artifact_root": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/clever/001102",
+  "train_cameras": 72,
+  "in_sample": true,
+  "completed_iterations": 150000,
+  "model_sha256_verified": true,
+  "fullhd_and_novel_reviewed": true,
+  "drive_contact": "https://drive.google.com/file/d/1JbCgihkv5kxRMqmR9dzDkUfrZQttp9Hm/view"
+}
