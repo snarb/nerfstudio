@@ -1,0 +1,305 @@
+{
+  "time": 1794301955.1603255,
+  "priority_frames": [
+    908,
+    913,
+    918,
+    923,
+    928,
+    933,
+    938,
+    943,
+    948,
+    953,
+    958,
+    963,
+    968,
+    973,
+    978,
+    983,
+    988,
+    993,
+    998,
+    1003,
+    1008,
+    1013,
+    1018,
+    1023,
+    1028,
+    1033,
+    1038,
+    1043,
+    1048,
+    1053,
+    1058,
+    1063,
+    1068,
+    1073,
+    1078,
+    1083,
+    1088,
+    1093,
+    1098,
+    1103,
+    1108,
+    1113,
+    1118,
+    1123,
+    1128,
+    1133,
+    1138,
+    1143,
+    1148,
+    1153,
+    1158,
+    1163,
+    1168,
+    1173,
+    1178,
+    1183,
+    1188,
+    1193,
+    1198,
+    1203,
+    1208,
+    1213,
+    1218,
+    1223,
+    1228,
+    1233,
+    1238,
+    1243,
+    1248,
+    1253,
+    1258,
+    1263
+  ],
+  "policy": "Per-worker priority; running jobs uninterrupted; ownership unchanged",
+  "hosts": [
+    {
+      "name": "ws07",
+      "total": 41,
+      "active": "frame000913",
+      "active_identity_unchanged": true,
+      "priority_unstarted": [
+        988,
+        993,
+        998,
+        1073,
+        1078,
+        1083
+      ],
+      "next_unstarted": [
+        988,
+        993,
+        998
+      ]
+    },
+    {
+      "name": "silver0",
+      "total": 29,
+      "active": "frame000920",
+      "active_identity_unchanged": true,
+      "priority_unstarted": [
+        943,
+        1043,
+        1088,
+        1208,
+        1233
+      ],
+      "next_unstarted": [
+        943,
+        1043,
+        1088
+      ]
+    },
+    {
+      "name": "silver1",
+      "total": 29,
+      "active": "frame000921",
+      "active_identity_unchanged": true,
+      "priority_unstarted": [
+        933,
+        1033,
+        1113,
+        1173
+      ],
+      "next_unstarted": [
+        933,
+        1033,
+        1113
+      ]
+    },
+    {
+      "name": "silver2",
+      "total": 29,
+      "active": "frame000923",
+      "active_identity_unchanged": true,
+      "priority_unstarted": [
+        978,
+        1013,
+        1023,
+        1068,
+        1138,
+        1198,
+        1223
+      ],
+      "next_unstarted": [
+        978,
+        1013,
+        1023
+      ]
+    },
+    {
+      "name": "silver3",
+      "total": 29,
+      "active": "frame000924",
+      "active_identity_unchanged": true,
+      "priority_unstarted": [
+        958,
+        968,
+        1003,
+        1058,
+        1103,
+        1128
+      ],
+      "next_unstarted": [
+        958,
+        968,
+        1003
+      ]
+    },
+    {
+      "name": "silver4",
+      "total": 29,
+      "active": "frame000925",
+      "active_identity_unchanged": true,
+      "priority_unstarted": [
+        948,
+        1048,
+        1093,
+        1153,
+        1178,
+        1213,
+        1238
+      ],
+      "next_unstarted": [
+        948,
+        1048,
+        1093
+      ]
+    },
+    {
+      "name": "silver5",
+      "total": 29,
+      "active": "frame000926",
+      "active_identity_unchanged": true,
+      "priority_unstarted": [
+        938,
+        1038,
+        1118
+      ],
+      "next_unstarted": [
+        938,
+        1038,
+        1118
+      ]
+    },
+    {
+      "name": "silver6",
+      "total": 29,
+      "active": "frame000928",
+      "active_identity_unchanged": true,
+      "priority_unstarted": [
+        983,
+        1018,
+        1028,
+        1143,
+        1168,
+        1193
+      ],
+      "next_unstarted": [
+        983,
+        1018,
+        1028
+      ]
+    },
+    {
+      "name": "silver7",
+      "total": 29,
+      "active": "frame000929",
+      "active_identity_unchanged": true,
+      "priority_unstarted": [
+        963,
+        973,
+        1008,
+        1063,
+        1108,
+        1133,
+        1218
+      ],
+      "next_unstarted": [
+        963,
+        973,
+        1008
+      ]
+    },
+    {
+      "name": "ws08",
+      "total": 41,
+      "active": "frame001116",
+      "active_identity_unchanged": true,
+      "priority_unstarted": [
+        1123,
+        1148,
+        1163,
+        1188,
+        1203,
+        1228,
+        1243,
+        1253
+      ],
+      "next_unstarted": [
+        1123,
+        1148,
+        1163
+      ]
+    },
+    {
+      "name": "clever",
+      "total": 24,
+      "active": "frame001106",
+      "active_identity_unchanged": true,
+      "priority_unstarted": [
+        1248,
+        1258,
+        1263
+      ],
+      "next_unstarted": [
+        1248,
+        1258,
+        1263
+      ]
+    },
+    {
+      "name": "olive",
+      "total": 23,
+      "active": "frame000930",
+      "active_identity_unchanged": true,
+      "priority_unstarted": [
+        953,
+        1053,
+        1098,
+        1158,
+        1183
+      ],
+      "next_unstarted": [
+        953,
+        1053,
+        1098
+      ]
+    }
+  ],
+  "unique_frames": 361,
+  "verified": true
+}

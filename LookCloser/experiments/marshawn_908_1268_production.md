@@ -51,3 +51,11 @@ Frames920,921,923,924,925,926,928,929 passed initial visual inspection at8k cap1
 | 929 | 30.938008 | 0.737273 | 0.209951 |
 
 The export audit accepts the nominal target or a documented exhausted150000 reserved-attempt ceiling after crash replay. Premature completion, zero steps and over-budget values are rejected. Six boundary canaries and a real completed export passed this protocol check; the twelve current models all completed150000 iterations.
+
+### 24 fps preview scheduling — 2026-11-10 01:12 PST
+
+User requested earlier coverage of the whole three-second interval. All twelve live queues now prioritize the 72 frames `908 + 5*k`, `k=0..71` (908–1263), corresponding to 24 fps playback from the 120 fps source. Frame1268 remains in the dense remainder; it is the exclusive three-second endpoint for this preview.
+
+Only ordering changed: job descriptors, ownership, recipe, numerical runtime and active process identities remain unchanged. Backups were saved beside each queue. Readback verified exactly361 unique frames908–1268 and sparse-first order among unstarted jobs on every worker. Existing twelve jobs continue uninterrupted. Two priority models (908,918) are already verified complete; three (913,923,928) are currently training, with67 not yet started. Workers return to their dense remainder after their own sparse jobs, avoiding idle GPUs while other workers finish sparse coverage. This is per-worker priority rather than a global barrier; no completion-time improvement is claimed before measurement.
+
+Receipt: [sparse24_queue_applied.json](marshawn_908_1268_diagnostics/sparse24_queue_applied.json). Receiver prefetch follows the updated queue order automatically; previously prefetched frames remain on their original owners.
