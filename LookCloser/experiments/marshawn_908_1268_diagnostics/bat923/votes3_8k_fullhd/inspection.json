@@ -1,0 +1,21 @@
+{
+  "frame": 923,
+  "iterations": 8000,
+  "admission_background_votes": 3,
+  "checkpoint_sha256": "55b6e06d289cf92fa90a5a597bb186576b6b96babe219ee2b4f021a5c8ca0741",
+  "views": [
+    "CB",
+    "GC",
+    "NB",
+    "CB novel .25",
+    "GC novel .25",
+    "NB novel .25"
+  ],
+  "observations": [
+    "Original GC bat gap is absent in full-FOV and slight novel GC view at this early gate.",
+    "All four performers represented across viewpoints and expected occlusions.",
+    "Contour halos and detached floor/background fragments remain; not a clean-matte claim.",
+    "No global background fog observed, unlike the all-admission-disabled control.",
+    "Final16k and sequence-wide validation remain pending."
+  ]
+}
