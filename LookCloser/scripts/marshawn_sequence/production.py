@@ -10,6 +10,7 @@ from common import atomic,read,sha
 
 def run(root,frame):
     root=Path(root);settings=read(root/'settings.json');recipe=read(root/'selected_recipe.json')
+    if settings.get('production_torch_extensions_dir'):os.environ['TORCH_EXTENSIONS_DIR']=settings['production_torch_extensions_dir']
     tools=Path(__file__).parent;local=root/'frames'/f'{frame:06d}';local.mkdir(parents=True,exist_ok=True)
     frame_lease=(local/'frame.lock').open('a+')
     fcntl.flock(frame_lease,fcntl.LOCK_EX|fcntl.LOCK_NB)
@@ -33,7 +34,8 @@ def run(root,frame):
         if settings.get('source_owners'):
             from campaign import Host
             owner=Host(settings['source_owners'][0 if frame<=1111 else 1]);owner_settings=owner.get(owner.root/'settings.json')
-            prepare_command=[owner_settings['python'],str(Path(owner_settings['tools'])/'producer.py'),'--root',str(owner.root),'--frame',str(frame)]
+            owner_tools=Path(owner_settings.get('production_tools',owner_settings['tools']))
+            prepare_command=[owner_settings['python'],str(owner_tools/'producer.py'),'--root',str(owner.root),'--frame',str(frame)]
             if recipe['parameters'].get('format')=='exr':prepare_command.append('--linear')
             import shlex
             # The producer is itself detached from the SSH connection and commits a receipt.
@@ -55,7 +57,7 @@ def run(root,frame):
             if sha(native/'native_ready.json')!=transfer_receipt['native_ready_sha256'] or sha(native/'points3D.txt')!=transfer_receipt['seed_sha256']:raise ValueError('Transferred native manifest/seed checksum differs')
             atomic(native/'transfer_complete.json',transfer_receipt)
             # Only derivatives are released: source RGB16 and persistent seeds stay.
-            release=[owner_settings['python'],str(Path(owner_settings['tools'])/'producer.py'),'--root',str(owner.root),'--frame',str(frame),'--release','--expected-ready-sha',transfer_receipt['native_ready_sha256']]
+            release=[owner_settings['python'],str(owner_tools/'producer.py'),'--root',str(owner.root),'--frame',str(frame),'--release','--expected-ready-sha',transfer_receipt['native_ready_sha256']]
             try:owner.command(shlex.join(release),timeout=120)
             except (RuntimeError,subprocess.TimeoutExpired) as error:
                 atomic(native/'source_cache_release_pending.json',dict(frame=frame,error=str(error)))
@@ -90,6 +92,8 @@ def run(root,frame):
         for p in (native/'linear').glob('*.npy'):p.unlink()
     from campaign import make_spec
     spec_path=make_spec(root,recipe['parameters'],dataset,output,recipe['steps'],allow_plateau=False)
+    bound=read(spec_path)
+    if bound.get('nerfacc_extension_sha256') and sha(bound['nerfacc_extension'])!=bound['nerfacc_extension_sha256']:raise ValueError('Production runtime extension changed before worker launch')
     worker='worker_background.py' if recipe['parameters'].get('background_opacity_prior') else 'worker.py'
     command([settings['python'],tools/worker,'--spec',spec_path])
     result=read(output/'stage_complete.json')

@@ -2255,3 +2255,5 @@ excluding that host from new tuning/production allocation. The measured validati
 step is distinct from the final150k ceiling when no plateau has been confirmed.
 
 The Marshawn campaign selects continued finalists at their latest shared committed evaluation gate, then selects the winning arm/cap's own best checkpoint. This separates unequal launch times from hyperparameter quality; the production iteration ceiling remains a separate plateau decision.
+
+Production can select campaign-owned tools, helper snapshots and byte-identical CUDA modules while69-camera HPO keeps its original immutable paths. All72-camera specs seal the extension hash; the launcher and inference loader check it. A campaign-owned Torch extension directory and explicit `nerfacc.csrc` load bypass transient JIT caches. WS07's agent also runs from its campaign snapshot. Source-owner CPU producers use the deployed production tools. Silver's SAM source/dependencies/weights are copied into the active campaign.

@@ -1,0 +1,70 @@
+{
+  "time": 1794268665.2821794,
+  "results": [
+    {
+      "passed": true,
+      "cpu_only": true,
+      "gpu_qualification": false,
+      "python": "3.10.19 (main, Dec  9 2025, 19:00:08) [Clang 21.1.4 ]",
+      "torch": "2.9.1+cu130",
+      "loaded_backend": "/home/pavlo/marshawn_campaign_20261109/ops/nerfacc_cuda.so",
+      "backend_sha256": "4d4c526acdb3597008e290e52bfe1667258360e6f6719fca556dca23ceaf4f0f",
+      "jit_bypassed_by_explicit_csrc": true,
+      "torch_extensions_dir": "/home/pavlo/marshawn_campaign_20261109/ops/torch_extensions",
+      "host": "ws07",
+      "production_disabled": false
+    },
+    {
+      "passed": true,
+      "cpu_only": true,
+      "gpu_qualification": false,
+      "python": "3.11.16 (main, Sep  2 2026, 23:39:52) [GCC 15.3.0]",
+      "torch": "2.7.1+cu128",
+      "loaded_backend": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/ops/nerfacc_cuda.so",
+      "backend_sha256": "eed29f77951cffd6117b9da43534b8542096baf485c5a716c5b2d55654f4b80a",
+      "jit_bypassed_by_explicit_csrc": true,
+      "torch_extensions_dir": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/ops/torch_extensions",
+      "host": "silver0",
+      "production_disabled": false
+    },
+    {
+      "passed": true,
+      "cpu_only": true,
+      "gpu_qualification": false,
+      "python": "3.10.19 (main, Dec  9 2025, 19:00:08) [Clang 21.1.4 ]",
+      "torch": "2.9.1+cu130",
+      "loaded_backend": "/home/nvuser/lookcloser/campaigns/marshawn908_20261109/ops/nerfacc_cuda.so",
+      "backend_sha256": "edd61eceae134f3f068d293cc40fb9911de1d831f772890e4fe8423ec6e72c47",
+      "jit_bypassed_by_explicit_csrc": true,
+      "torch_extensions_dir": "/home/nvuser/lookcloser/campaigns/marshawn908_20261109/ops/torch_extensions",
+      "host": "ws08",
+      "production_disabled": false
+    },
+    {
+      "passed": true,
+      "cpu_only": true,
+      "gpu_qualification": false,
+      "python": "3.11.17 (main, Oct  1 2026, 20:58:47) [Clang 22.1.3 ]",
+      "torch": "2.7.1+cu128",
+      "loaded_backend": "/mnt/footage/marshawn908_20261109/ops/nerfacc_cuda.so",
+      "backend_sha256": "eed29f77951cffd6117b9da43534b8542096baf485c5a716c5b2d55654f4b80a",
+      "jit_bypassed_by_explicit_csrc": true,
+      "torch_extensions_dir": "/mnt/footage/marshawn908_20261109/ops/torch_extensions",
+      "host": "clever",
+      "production_disabled": true
+    },
+    {
+      "passed": true,
+      "cpu_only": true,
+      "gpu_qualification": false,
+      "python": "3.11.16 (main, Sep  2 2026, 23:39:52) [GCC 15.3.0]",
+      "torch": "2.7.1+cu128",
+      "loaded_backend": "/fsx/tmp/marshawn908_20261109/olive/ops/nerfacc_cuda.so",
+      "backend_sha256": "8db5889a30f365070be032380c8b0b72703f2467d6c28ec9533c7b3d1ea340d2",
+      "jit_bypassed_by_explicit_csrc": true,
+      "torch_extensions_dir": "/fsx/tmp/marshawn908_20261109/olive/ops/torch_extensions",
+      "host": "olive",
+      "production_disabled": false
+    }
+  ]
+}

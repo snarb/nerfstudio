@@ -48,15 +48,27 @@ _priority=['uniform','uniform_repeat','uniform_gpu','learned095','learned090','a
 ARMS.sort(key=lambda row:_priority.index(row[0]))
 
 
+def runtime_settings(settings,production=False):
+    result=dict(settings)
+    if production:
+        for key in ('tools','frozen_helpers','nerfacc_extension','nerfacc_extension_sha256','torch_extensions_dir'):
+            if settings.get('production_'+key) is not None:result[key]=settings['production_'+key]
+    return result
+
+
 def make_spec(root,parameters,data,output,target,allow_plateau=False):
     root=Path(root);s=read(root/'settings.json');data=Path(data);output=Path(output);output.mkdir(parents=True,exist_ok=True)
     parameters={'model_units_scale':s.get('model_units_scale',1.),**parameters}
     ready=read(data/'ready.json')
+    s=runtime_settings(s,production=ready['train']==72)
     if abs(ready.get('model_units_scale',1.)-parameters['model_units_scale'])>1e-10:raise ValueError('Dataset/spec model units differ')
     if ready.get('confidence_profile','linear')!=parameters.get('confidence_profile','linear'):raise ValueError('Dataset/spec confidence profiles differ')
     if ready.get('confidence_width_native',64)!=parameters.get('confidence_width',64):raise ValueError('Dataset/spec confidence widths differ')
     stage=output/'stage.json';atomic(stage,dict(stop_after_iterations=target))
     spec=dict(parameters,data=str(data),output=str(output),stage_plan=str(stage),source_code=s['source_code'],frozen_helpers=s['frozen_helpers'],nerfacc_extension=s['nerfacc_extension'],hard_max_iterations=150000,head_fraction=parameters.get('head_fraction',.15),head_proxy_manifest=str(data/'heads/manifest.json'),head_proxy_manifest_sha256=sha(data/'heads/manifest.json'),semantic_admission=dict(manifest=str(data/'admission/manifest.json'),manifest_sha256=sha(data/'admission/manifest.json')),gpu_cache=parameters.get('gpu_cache',s.get('gpu_cache',False)),allow_plateau=allow_plateau)
+    if s.get('nerfacc_extension_sha256'):
+        spec['nerfacc_extension_sha256']=s['nerfacc_extension_sha256']
+        if sha(spec['nerfacc_extension'])!=spec['nerfacc_extension_sha256']:raise ValueError('Sealed production extension changed')
     if s.get('sampling_memmap_root'):
         spec['sampling_memmap']=str(Path(s['sampling_memmap_root'])/__import__('hashlib').sha256(str(output).encode()).hexdigest()[:16])
         spec['gpu_cache']=True
@@ -396,7 +408,9 @@ def run(root):
         state['production_allocation']={hosts[i].row['name']:frames for i,frames in allocation.items()};atomic(state_path,state)
         for i,h in enumerate(hosts):
             s=h.get(h.root/'settings.json');frames=allocation[i]
-            jobs=[dict(id='frame%06d'%f,command=[s['python'],str(Path(s['tools'])/'production.py'),'--root',str(h.root),'--frame',str(f)],completion=str(h.root/'frames'/f'{f:06d}'/'frame_complete.json'),progress=str(h.root/'frames'/f'{f:06d}'/'train/progress.json'),max_attempts=12,retry_backoff_seconds=60,env={'PYTHONPATH':s['dependency_path'],'CUDA_VISIBLE_DEVICES':str(h.row.get('gpu',0))}) for f in frames]
+            environment={'PYTHONPATH':s['dependency_path'],'CUDA_VISIBLE_DEVICES':str(h.row.get('gpu',0))}
+            if s.get('production_torch_extensions_dir'):environment['TORCH_EXTENSIONS_DIR']=s['production_torch_extensions_dir']
+            jobs=[dict(id='frame%06d'%f,command=[s['python'],str(Path(s.get('production_tools',s['tools']))/'production.py'),'--root',str(h.root),'--frame',str(f)],completion=str(h.root/'frames'/f'{f:06d}'/'frame_complete.json'),progress=str(h.root/'frames'/f'{f:06d}'/'train/progress.json'),max_attempts=12,retry_backoff_seconds=60,env=environment) for f in frames]
             h.put(h.agent_root/'queue.json',dict(jobs=jobs))
         state['phase']='production_dispatched';atomic(state_path,state)
     # Controller remains an independent watcher until every assigned frame finalizes/quarantines.

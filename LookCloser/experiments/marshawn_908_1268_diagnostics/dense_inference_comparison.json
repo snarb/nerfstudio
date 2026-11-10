@@ -1,0 +1,126 @@
+{
+  "diagnostic": true,
+  "source": "Exact exported weights; only inference step and ray budget vary; fixed masks/native RGB; no training mutation",
+  "rows": [
+    {
+      "model": "power_quarter_32000",
+      "checkpoint_sha256": "ada287f9c953a7ce818a78a6ff2479f34d8b315be65ba5d5b3263c448f177aa8",
+      "checkpoint_step": 32000,
+      "case": "trained",
+      "training_coarse_step": 0.000390625,
+      "inference_coarse_step": 0.000390625,
+      "inference_max_steps_per_ray": 1024,
+      "cap": 10,
+      "actor_lpips": 0.15782061840097109,
+      "head_lpips_by_view": {
+        "CB": 0.11074740346521139,
+        "GC": 0.13265663851052523,
+        "NB": 0.1103041445215543
+      },
+      "psnr": 29.569778324740422,
+      "ssim": 0.7001347045103709,
+      "native_evaluation_seconds": 128.35936289466918,
+      "raw_render_directory": "/opt/dlami/nvme/marshawn908_inference_20261109/dense_render_diagnostic/power_quarter_32000/trained/renders/000031999_cap10"
+    },
+    {
+      "model": "power_quarter_32000",
+      "checkpoint_sha256": "ada287f9c953a7ce818a78a6ff2479f34d8b315be65ba5d5b3263c448f177aa8",
+      "checkpoint_step": 32000,
+      "case": "half_step_2048",
+      "training_coarse_step": 0.000390625,
+      "inference_coarse_step": 0.0001953125,
+      "inference_max_steps_per_ray": 2048,
+      "cap": 10,
+      "actor_lpips": 0.15910564363002777,
+      "head_lpips_by_view": {
+        "CB": 0.11215159110724926,
+        "GC": 0.13536737859249115,
+        "NB": 0.11249474622309208
+      },
+      "psnr": 29.587508483793084,
+      "ssim": 0.7015643020470937,
+      "native_evaluation_seconds": 160.0033566504717,
+      "raw_render_directory": "/opt/dlami/nvme/marshawn908_inference_20261109/dense_render_diagnostic/power_quarter_32000/half_step_2048/renders/000031999_cap10"
+    },
+    {
+      "model": "power_quarter_32000",
+      "checkpoint_sha256": "ada287f9c953a7ce818a78a6ff2479f34d8b315be65ba5d5b3263c448f177aa8",
+      "checkpoint_step": 32000,
+      "case": "minimum_step_4096",
+      "training_coarse_step": 0.000390625,
+      "inference_coarse_step": 0.0001,
+      "inference_max_steps_per_ray": 4096,
+      "cap": 10,
+      "actor_lpips": 0.15974010402957597,
+      "head_lpips_by_view": {
+        "CB": 0.11239829566329718,
+        "GC": 0.13571042008697987,
+        "NB": 0.11311492882668972
+      },
+      "psnr": 29.592307880007496,
+      "ssim": 0.7019733736912409,
+      "native_evaluation_seconds": 247.99881259910762,
+      "raw_render_directory": "/opt/dlami/nvme/marshawn908_inference_20261109/dense_render_diagnostic/power_quarter_32000/minimum_step_4096/renders/000031999_cap10"
+    },
+    {
+      "model": "arm_half_80000",
+      "checkpoint_sha256": "97994648dce8a4b841ee7afee90e4291349c408a5920270ed7084c137e431924",
+      "checkpoint_step": 80000,
+      "case": "trained",
+      "training_coarse_step": 0.00078125,
+      "inference_coarse_step": 0.00078125,
+      "inference_max_steps_per_ray": 1024,
+      "cap": 10,
+      "actor_lpips": 0.14826791919767857,
+      "head_lpips_by_view": {
+        "CB": 0.10411286214366555,
+        "GC": 0.12268342822790146,
+        "NB": 0.103761350736022
+      },
+      "psnr": 29.42631746823935,
+      "ssim": 0.6940914889176687,
+      "native_evaluation_seconds": 112.63475591689348,
+      "raw_render_directory": "/opt/dlami/nvme/marshawn908_inference_20261109/dense_render_diagnostic/arm_half_80000/trained/renders/000079999_cap10"
+    },
+    {
+      "model": "arm_half_80000",
+      "checkpoint_sha256": "97994648dce8a4b841ee7afee90e4291349c408a5920270ed7084c137e431924",
+      "checkpoint_step": 80000,
+      "case": "half_step_2048",
+      "training_coarse_step": 0.00078125,
+      "inference_coarse_step": 0.000390625,
+      "inference_max_steps_per_ray": 2048,
+      "cap": 10,
+      "actor_lpips": 0.15087522938847542,
+      "head_lpips_by_view": {
+        "CB": 0.10624280432239175,
+        "GC": 0.1251668557524681,
+        "NB": 0.1046040498962005
+      },
+      "psnr": 29.463581231584666,
+      "ssim": 0.6969929883877436,
+      "native_evaluation_seconds": 128.26077924855053,
+      "raw_render_directory": "/opt/dlami/nvme/marshawn908_inference_20261109/dense_render_diagnostic/arm_half_80000/half_step_2048/renders/000079999_cap10"
+    },
+    {
+      "model": "arm_half_80000",
+      "checkpoint_sha256": "97994648dce8a4b841ee7afee90e4291349c408a5920270ed7084c137e431924",
+      "checkpoint_step": 80000,
+      "case": "minimum_step_4096",
+      "training_coarse_step": 0.00078125,
+      "inference_coarse_step": 0.0001,
+      "inference_max_steps_per_ray": 4096,
+      "cap": 10,
+      "actor_lpips": 0.15270641694466272,
+      "head_lpips_by_view": {
+        "CB": 0.10710003413259983,
+        "GC": 0.12803918682038784,
+        "NB": 0.10788186391194661
+      },
+      "psnr": 29.480966955442742,
+      "ssim": 0.6983776291211446,
+      "native_evaluation_seconds": 252.18859807774425,
+      "raw_render_directory": "/opt/dlami/nvme/marshawn908_inference_20261109/dense_render_diagnostic/arm_half_80000/minimum_step_4096/renders/000079999_cap10"
+    }
+  ]
+}

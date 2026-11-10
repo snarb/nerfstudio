@@ -1,6 +1,7 @@
 """Reload exported tensors without training-image caches or optimizer allocation."""
 import argparse
 import copy
+import os
 from pathlib import Path
 from types import SimpleNamespace
 import torch
@@ -9,11 +10,15 @@ from runtime import bootstrap,config
 
 
 def load_pipeline(root,spec_path,checkpoint,output,data_override=None):
-    root=Path(root);settings=read(root/'settings.json');spec=read(spec_path)
+    from campaign import runtime_settings
+    root=Path(root);settings=runtime_settings(read(root/'settings.json'),production=True);spec=read(spec_path)
+    if settings.get('torch_extensions_dir'):os.environ['TORCH_EXTENSIONS_DIR']=settings['torch_extensions_dir']
     # Relocated artifacts use the receiving host's qualified runtime, while model
     # parameters and the selected source checkpoint remain explicitly recorded.
     for key in ('source_code','frozen_helpers','nerfacc_extension'):
         spec[key]=settings.get(key)
+    spec['nerfacc_extension_sha256']=settings.get('nerfacc_extension_sha256')
+    if spec['nerfacc_extension_sha256'] and sha(spec['nerfacc_extension'])!=spec['nerfacc_extension_sha256']:raise ValueError('Receiving runtime extension changed')
     local_data=root/'variants'/Path(spec['data']).name
     if local_data.exists():spec['data']=str(local_data)
     if data_override:spec['data']=str(Path(data_override).resolve())

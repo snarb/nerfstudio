@@ -130,6 +130,18 @@ class HistoricalConfidenceTests(unittest.TestCase):
 
 
 class ComparisonTests(unittest.TestCase):
+    def test_production_runtime_snapshot_leaves_hpo_paths_identical(self):
+        from campaign import runtime_settings
+        settings=dict(tools='repo/tools',frozen_helpers='repo/helpers',nerfacc_extension='cache/extension.so',production_tools='campaign/tools',production_frozen_helpers='campaign/helpers',production_nerfacc_extension='campaign/ops/extension.so',production_nerfacc_extension_sha256='expected')
+        self.assertEqual(runtime_settings(settings),settings)
+        deployed=runtime_settings(settings,production=True)
+        self.assertEqual(deployed['tools'],'campaign/tools')
+        self.assertEqual(deployed['frozen_helpers'],'campaign/helpers')
+        self.assertEqual(deployed['nerfacc_extension'],'campaign/ops/extension.so')
+        self.assertEqual(deployed['nerfacc_extension_sha256'],'expected')
+        self.assertNotIn('nerfacc_extension_sha256',settings)
+        self.assertEqual(settings['tools'],'repo/tools')
+
     def test_unequal_training_lengths_use_latest_shared_finalist_gate(self):
         from campaign import matched_finalist_candidates
         def row(name,step,value,cap=10):
