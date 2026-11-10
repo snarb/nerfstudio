@@ -1,0 +1,16 @@
+{
+  "time": 1794306260.5821576,
+  "frame": 913,
+  "model_sha256": "4afdca7e52fdc0088d91d5c1f6575fe31645bab3442ab23d058358f79f5c2731",
+  "views": [
+    "CB",
+    "GC",
+    "NB"
+  ],
+  "novel_fraction": 0.25,
+  "output_size": [
+    1920,
+    1080
+  ],
+  "inspection": "Six RGB views and straight-alpha composites inspected. Actor placement appears consistent; broad contour halos and background/floor fragments persist, especially around silhouettes and between actors. No clean-matte claim; image FOV boundaries do not independently establish AABB clipping."
+}
