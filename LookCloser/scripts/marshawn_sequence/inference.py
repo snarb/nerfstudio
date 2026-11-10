@@ -9,6 +9,17 @@ from common import read,atomic,sha
 from runtime import bootstrap,config
 
 
+def resolve_data(root,spec_path,source_data,data_override=None):
+    if data_override:return Path(data_override).resolve()
+    source=Path(source_data)
+    # Completed frames retain their dataset beside train/spec.json when archived.
+    # Prefer that exact frame over an unrelated host's similarly named variant.
+    sibling=Path(spec_path).resolve().parent.parent/source.name
+    if (sibling/'ready.json').is_file():return sibling
+    local=Path(root)/'variants'/source.name
+    return local if local.exists() else source
+
+
 def load_pipeline(root,spec_path,checkpoint,output,data_override=None):
     from campaign import runtime_settings
     root=Path(root);settings=runtime_settings(read(root/'settings.json'),production=True);spec=read(spec_path)
@@ -19,10 +30,7 @@ def load_pipeline(root,spec_path,checkpoint,output,data_override=None):
         spec[key]=settings.get(key)
     spec['nerfacc_extension_sha256']=settings.get('nerfacc_extension_sha256')
     if spec['nerfacc_extension_sha256'] and sha(spec['nerfacc_extension'])!=spec['nerfacc_extension_sha256']:raise ValueError('Receiving runtime extension changed')
-    local_data=root/'variants'/Path(spec['data']).name
-    if local_data.exists():spec['data']=str(local_data)
-    if data_override:spec['data']=str(Path(data_override).resolve())
-    data=Path(spec['data'])
+    data=resolve_data(root,spec_path,spec['data'],data_override);spec['data']=str(data)
     spec['semantic_admission']=dict(manifest=str(data/'admission/manifest.json'),manifest_sha256=sha(data/'admission/manifest.json'))
     spec=copy.deepcopy(spec);spec['output']=str(output)
     bootstrap(spec)
