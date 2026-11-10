@@ -8,6 +8,13 @@ from pathlib import Path
 from common import atomic,read,sha
 
 
+def wait_for_existing_worker(output):
+    """A crashed orchestration parent must rejoin its surviving neural child."""
+    path=Path(output)/'worker.lock'
+    if path.exists():
+        with path.open('a+') as lease:fcntl.flock(lease,fcntl.LOCK_EX)
+
+
 def run(root,frame):
     root=Path(root);settings=read(root/'settings.json');recipe=read(root/'selected_recipe.json')
     if settings.get('production_torch_extensions_dir'):os.environ['TORCH_EXTENSIONS_DIR']=settings['production_torch_extensions_dir']
@@ -28,6 +35,7 @@ def run(root,frame):
         atomic(local/'frame_complete.json',read(local/'archive_receipt.json'));return
     if (local/'export_complete.json').exists():
         finish(read(local/'export_complete.json'));return
+    wait_for_existing_worker(output)
     def command(args):
         subprocess.run([str(x) for x in args],check=True)
     if not (native/'native_ready.json').exists() or settings.get('source_owners') and not (native/'transfer_complete.json').exists():
@@ -95,7 +103,9 @@ def run(root,frame):
     bound=read(spec_path)
     if bound.get('nerfacc_extension_sha256') and sha(bound['nerfacc_extension'])!=bound['nerfacc_extension_sha256']:raise ValueError('Production runtime extension changed before worker launch')
     worker='worker_background.py' if recipe['parameters'].get('background_opacity_prior') else 'worker.py'
-    command([settings['python'],tools/worker,'--spec',spec_path])
+    from agent import completed
+    if not completed(dict(completion=str(output/'stage_complete.json'),target=recipe['steps'],max_optimizer_attempts=150000)):
+        command([settings['python'],tools/worker,'--spec',spec_path])
     result=read(output/'stage_complete.json')
     rows=[r for r in read(output/'metrics.json') if r['cap']==recipe.get('selected_inference_cap',10)]
     if not rows:raise ValueError('Frozen inference cap has no committed evaluation')

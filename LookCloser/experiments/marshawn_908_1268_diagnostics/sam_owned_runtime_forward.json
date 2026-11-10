@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "real_cuda_forward": true,
+  "physical_gpu": 4,
+  "torch": "2.7.1+cu128",
+  "checkpoint_sha256": "9999e2341ceef5e136daa386eecb55cb414446a00ac2b55eb2dfd2f7c3cf8c9e",
+  "source_image_sha256": "1aee1e44bbbe4d545d7dc526cf6a6fb0e3351e2df7e07205e044e876a1425987",
+  "source_image_size": [
+    7597,
+    3367
+  ],
+  "accepted_instances": 8,
+  "foreground_pixels": 3845195,
+  "max_allocated_bytes": 6955239936,
+  "training_data_mutated": false
+}

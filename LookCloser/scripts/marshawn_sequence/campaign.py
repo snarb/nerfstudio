@@ -192,7 +192,7 @@ def run(root):
         if (root/'STOP').exists():
             for h in hosts:h.put(h.agent_root/'queue.json',dict(jobs=[]))
             atomic(state_path,dict(state,stopped=True));return
-        now=time.time();statuses={i:h.get(h.agent_root/'agent_state.json',{}) for i,h in enumerate(hosts)}
+        now=time.time();statuses={i:({} if h.row.get('tuning_disabled') else h.get(h.agent_root/'agent_state.json',{})) for i,h in enumerate(hosts)}
         if now>=state['deadline']:
             finalists=[]
             for i,h in enumerate(hosts):
@@ -203,6 +203,7 @@ def run(root):
                 if name:finalists.append(name)
             state['comparison_finalists']=sorted(set(finalists));atomic(state_path,state)
             for i,h in enumerate(hosts):
+                if h.row.get('tuning_disabled'):continue
                 h.put(h.agent_root/'queue.json',dict(jobs=[]))
                 active=statuses[i].get('active')
                 if active:
@@ -280,7 +281,7 @@ def run(root):
     if state['phase']=='finalize':
         # Let any checkpoint/evaluation already in progress finish before reading committed metrics.
         for _ in range(40):
-            if all(not h.get(h.agent_root/'agent_state.json',{}).get('active') for h in hosts):break
+            if all(not h.get(h.agent_root/'agent_state.json',{}).get('active') for h in hosts if not h.row.get('tuning_disabled')):break
             time.sleep(15)
         candidates=[]
         for name,index in state['assignments'].items():
@@ -377,7 +378,8 @@ def run(root):
         recipe['effective_hyperparameters']['background_opacity_prior']=p.get('background_opacity_prior',0.)
         recipe['effective_hyperparameters']['confidence_profile']=p['confidence_profile']
         recipe['effective_hyperparameters']['confidence_exponent']=math.log(.1)/math.log(.5) if p['confidence_profile']=='historical_power' else 1.
-        for h in hosts:h.put(h.root/'selected_recipe.json',recipe)
+        for h in hosts:
+            if not h.row.get('production_disabled'):h.put(h.root/'selected_recipe.json',recipe)
         atomic(root/'selected_recipe.json',recipe)
         text='# Marshawn908–1268 selected native recipe\n\nPrimary: masked actor AlexLPIPS, without background.\n\nSelected parameters:\n```json\n'+json.dumps(recipe['parameters'],indent=2)+'\n```\n\nSteps: '+str(recipe['steps'])+'. Native crops without resize; accepted V3 box.\n\n|Arm|Confidence|Host|Step|LPIPS|PSNR|SSIM|\n|---|---|---|---:|---:|---:|---:|\n'
         for c in candidates:
@@ -407,6 +409,7 @@ def run(root):
         allocation.update({enabled[i]:frames for i,frames in local_allocation.items()})
         state['production_allocation']={hosts[i].row['name']:frames for i,frames in allocation.items()};atomic(state_path,state)
         for i,h in enumerate(hosts):
+            if h.row.get('production_disabled'):continue
             s=h.get(h.root/'settings.json');frames=allocation[i]
             environment={'PYTHONPATH':s['dependency_path'],'CUDA_VISIBLE_DEVICES':str(h.row.get('gpu',0))}
             if s.get('production_torch_extensions_dir'):environment['TORCH_EXTENSIONS_DIR']=s['production_torch_extensions_dir']
@@ -415,7 +418,7 @@ def run(root):
         state['phase']='production_dispatched';atomic(state_path,state)
     # Controller remains an independent watcher until every assigned frame finalizes/quarantines.
     while state['phase']=='production_dispatched':
-        checks=[h.get(h.agent_root/'agent_state.json',{}) for h in hosts]
+        checks=[h.get(h.agent_root/'agent_state.json',{}) for h in hosts if not h.row.get('production_disabled')]
         completed=sum(sum(1 for k,v in s.get('jobs',{}).items() if k.startswith('frame') and v['status']=='complete') for s in checks)
         quarantined=sum(sum(1 for k,v in s.get('jobs',{}).items() if k.startswith('frame') and v['status']=='failed' and v['attempts']>=v['job'].get('max_attempts',3)) for s in checks)
         atomic(root/'sequence_progress.json',dict(time=time.time(),completed=completed,quarantined=quarantined,total=361))

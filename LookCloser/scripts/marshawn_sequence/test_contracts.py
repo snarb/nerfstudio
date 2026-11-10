@@ -129,6 +129,26 @@ class HistoricalConfidenceTests(unittest.TestCase):
         self.assertEqual(float(weight[100,100]),0.)
 
 
+class ProductionRecoveryTests(unittest.TestCase):
+    def test_orphan_worker_is_rejoined_before_retrying_neural_training(self):
+        from production import wait_for_existing_worker
+        from agent import completed
+        with tempfile.TemporaryDirectory(prefix='marshawn_orphan_worker_') as directory:
+            root=Path(directory);marker=root/'locked';receipt=root/'stage_complete.json'
+            script='import fcntl,time,json;from pathlib import Path;r=Path('+repr(str(root))+');lease=(r/"worker.lock").open("a+");fcntl.flock(lease,fcntl.LOCK_EX);(r/"locked").write_text("yes");time.sleep(1);(r/"stage_complete.json").write_text(json.dumps(dict(completed_iterations=150000)))'
+            child=subprocess.Popen([sys.executable,'-c',script],start_new_session=True)
+            try:
+                deadline=time.time()+10
+                while not marker.exists() and time.time()<deadline:time.sleep(.02)
+                self.assertTrue(marker.exists());self.assertFalse(receipt.exists())
+                start=time.monotonic();wait_for_existing_worker(root)
+                self.assertGreater(time.monotonic()-start,.5)
+                self.assertTrue(completed(dict(completion=str(receipt),target=150000,max_optimizer_attempts=150000)))
+                child.wait(timeout=5)
+            finally:
+                if child.poll() is None:child.terminate();child.wait(timeout=5)
+
+
 class ComparisonTests(unittest.TestCase):
     def test_production_runtime_snapshot_leaves_hpo_paths_identical(self):
         from campaign import runtime_settings
