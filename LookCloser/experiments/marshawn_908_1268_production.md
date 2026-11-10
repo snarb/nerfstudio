@@ -99,3 +99,5 @@ Six FullHD RGB/RGBA views (CB/GC/NB calibrated and0.25interpolated) were rendere
 ### Sixteenth verified model: 925
 
 Completed 150,000 iterations; selected 150,000, cap 10. All 72 cameras train; metrics are in-sample: PSNR 32.5823 dB, SSIM 0.799624, equal-person/equal-view LPIPS 0.118150. Inference SHA256 `68978d28760d83fda3a54d7cc59bd46f4789c903200456356cd4c709c117b33e`. Streamed export audit passed; six final FullHD camera/novel views inspected, render receipts match the exported model. Contour halos and background/floor fragments persist. Evidence: [review](marshawn_908_1268_diagnostics/frame925_final_review/final_contact.jpg), [audit](marshawn_908_1268_diagnostics/frame925_final_review/export_audit.json). Silver GPU4 automatically advanced to sparse24 frame948. Total verified and reviewed: 16/361; sparse24 remains 3/72 because925 is outside the sparse cadence.
+
+Frame925 six-view final review uploaded via Google Drive connector: https://drive.google.com/file/d/1IVEuwlu2CG9AJfQ2ujDTJSVLIQVeFiK4/view .
