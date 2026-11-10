@@ -59,7 +59,9 @@ def audit(root, queue=None, frames_dir=None):
             provenance = read(cold_path)
             budget = read(folder / 'train/attempt_budget.json')
             native = read(folder / 'native/native_ready.json')
-            ready = read(folder / Path(spec['data']).name / 'ready.json')
+            dataset = folder / Path(spec['data']).name
+            ready = read(dataset / 'ready.json')
+            transforms = read(dataset / 'transforms.json')
             stage = read(folder / 'train/stage_complete.json')
             evaluations = read(folder / 'train/metrics.json')
             require(completion['frame'] == frame, 'Frame identity differs')
@@ -67,6 +69,17 @@ def audit(root, queue=None, frames_dir=None):
             require(completion['aabb_sha256'] == box_sha, 'AABB differs')
             require(completion['train_cameras'] == ready['train'] == 72, 'Not all72TRAIN')
             require(len(native['records']) == 72 and native['native_no_resize'], 'Native72-camera preparation absent')
+            filenames = [row['file_path'] for row in transforms['frames']]
+            require(len(filenames) == len(set(filenames)) == 72 and
+                    len(transforms['train_filenames']) == 72 and
+                    set(transforms['train_filenames']) == set(filenames), 'Actual train split is not all72 images')
+            require(sha(dataset / 'transforms.json') == ready['transforms_sha256'], 'Transforms checksum differs')
+            source_rows = {row['camera']: row for row in native['records']}
+            require(len(source_rows) == 72, 'Native camera IDs repeat')
+            require({row['physical_camera'] for row in transforms['frames']} == set(source_rows), 'Physical camera coverage differs')
+            for row in transforms['frames']:
+                x0, y0, x1, y1 = source_rows[row['physical_camera']]['native_crop_xyxy']
+                require(row['w'] == x1 - x0 and row['h'] == y1 - y0, 'Training crop dimensions changed')
             require(ready.get('in_sample') and completion['in_sample_metrics'], 'Final metric domain differs')
             require(completion['completed_iterations'] == recipe['steps'] <= 150000, 'Iteration target differs')
             require(stage['completed_iterations'] == completion['completed_iterations'] and not stage['technical'], 'Stage completion differs')
