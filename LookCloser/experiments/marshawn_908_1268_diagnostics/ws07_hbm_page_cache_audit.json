@@ -1,0 +1,17 @@
+{
+  "time": 1794292508.4700718,
+  "gpu_numa_id": 1,
+  "fb_used_MiB": 237093,
+  "fb_free_MiB": 18396,
+  "compute_process_sum_MiB": 23590,
+  "node1_file_pages_MiB": 213475.9375,
+  "node1_inactive_file_MiB": 213472.3125,
+  "unexplained_difference_MiB": 27.0625,
+  "interpretation": "GPU NUMA node filesystem cache explains almost all NVML usage beyond live CUDA processes",
+  "source": [
+    "nvidia-smi topo -m",
+    "nvidia-smi memory and compute-process queries",
+    "/sys/devices/system/node/node1/meminfo"
+  ],
+  "training_process_preserved": true
+}
