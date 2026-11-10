@@ -1,0 +1,15 @@
+{
+  "time": 1794275176.971727,
+  "frame": 908,
+  "passed": true,
+  "train_cameras": 72,
+  "head_and_admission_cameras": 72,
+  "native_rgb_resize": false,
+  "all_selected_parameters_match": true,
+  "sealed_source_and_extension_sha_verified": true,
+  "cold_provenance_present": true,
+  "optimizer_attempt_limit": 150000,
+  "monitoring_is_in_sample": true,
+  "recipe_sha256": "0fb8447277238890dce1c710bd5e390c4a7246cca0175442efb27a9d7fde5f11",
+  "spec_sha256": "229b7efa35c9d86fb24d0b895b714a20407d154d0b0c06e82cca23ee5252a920"
+}

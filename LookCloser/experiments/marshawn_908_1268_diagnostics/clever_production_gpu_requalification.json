@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "real_cuda_neural_forward_backward": true,
+  "checkpoint_step": 31999,
+  "rays": 256,
+  "gradient_tensors": 4,
+  "peak_memory_bytes": 9850525696,
+  "torch": "2.7.1+cu128",
+  "seconds": 7.331686496734619,
+  "training_data_mutated": false,
+  "real_cuda_sam_forward": true,
+  "sam_instances": 8,
+  "sam_checkpoint_sha256": "9999e2341ceef5e136daa386eecb55cb414446a00ac2b55eb2dfd2f7c3cf8c9e",
+  "time": 1794275047.7123547
+}
