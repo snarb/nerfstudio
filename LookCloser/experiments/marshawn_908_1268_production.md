@@ -167,3 +167,17 @@ Audited independent export, selected iterations 150000. Actor metrics: {'psnr': 
 Audited independent export, selected iterations 150000. Actor metrics: {'psnr': 32.63079192765056, 'ssim': 0.7984894663095474, 'lpips': 0.12992210375765958}. All six views reviewed; performers visible, contour halos and background/floor fragments persist. [Evidence](marshawn_908_1268_diagnostics/frame978_final_review/visual_inspection.json), [views](marshawn_908_1268_diagnostics/frame978_final_review/final_contact.jpg).
 
 After these reviews: 32 reviewed frame exports, 13/72 sparse24 frame IDs. Legacy923/988 corrected versions still pending. Scope remains361 independent frame models.
+
+### Frame 963 final review — 2026-11-10
+
+Audited independent export, selected iterations 150000. Actor metrics: {'psnr': 32.613140365448935, 'ssim': 0.8046275476614634, 'lpips': 0.1209171125665307}. CB/GC/NB and three interpolated views inspected. Performers visible; no evident box truncation. Halos and background/floor fragments persist. Thin props not certified from thumbnail. [Evidence](marshawn_908_1268_diagnostics/frame963_final_review/visual_inspection.json), [views](marshawn_908_1268_diagnostics/frame963_final_review/final_contact.jpg).
+
+### Frame 983 final review — 2026-11-10
+
+Audited independent export, selected iterations 150000. Actor metrics: {'psnr': 32.6591784506632, 'ssim': 0.7985668728748957, 'lpips': 0.13769685725371042}. CB/GC/NB and three interpolated views inspected. Performers visible; no evident box truncation. Halos and background/floor fragments persist. Thin props not certified from thumbnail. [Evidence](marshawn_908_1268_diagnostics/frame983_final_review/visual_inspection.json), [views](marshawn_908_1268_diagnostics/frame983_final_review/final_contact.jpg).
+
+### Frame 1148 final review — 2026-11-10
+
+Audited independent export, selected iterations 150000. Actor metrics: {'psnr': 32.89655164239553, 'ssim': 0.8125707258780798, 'lpips': 0.1284052688214514}. CB/GC/NB and three interpolated views inspected. Performers visible; no evident box truncation. Halos and background/floor fragments persist. Thin props not certified from thumbnail. Broad floating horizontal background fragments above actors are conspicuous in real and novel views; retained as visible quality limitation, not clean alpha. [Evidence](marshawn_908_1268_diagnostics/frame1148_final_review/visual_inspection.json), [views](marshawn_908_1268_diagnostics/frame1148_final_review/final_contact.jpg).
+
+Reviewed total35, sparse24 16/72; corrected923/988 pending. Frame1258 actual immutable binding and training dataset confirmed votes3 (recipe bcaec09a…), first end-to-end main-fleet cold start using repaired admission.

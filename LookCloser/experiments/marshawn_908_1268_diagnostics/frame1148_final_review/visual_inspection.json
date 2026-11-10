@@ -1,0 +1,11 @@
+{
+  "frame": 1148,
+  "time": "2026-11-10T19:29:28.536513+00:00",
+  "model_sha256": "20a35acbfcf8a83f2269f3090affe4fcf7ba966b288eda9e09c9089374398437",
+  "visual_reviewed": true,
+  "observations": [
+    "CB/GC/NB and three interpolated views inspected. Performers visible; no evident box truncation.",
+    "Halos and background/floor fragments persist. Thin props not certified from thumbnail.",
+    "Broad floating horizontal background fragments above actors are conspicuous in real and novel views; retained as visible quality limitation, not clean alpha."
+  ]
+}

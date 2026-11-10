@@ -1,0 +1,10 @@
+{
+  "frame": 963,
+  "time": "2026-11-10T19:29:28.535456+00:00",
+  "model_sha256": "caea0ad5b72e85d50e29adb7d4662030f9fbc2adffb5035bc903c6c1230b3e76",
+  "visual_reviewed": true,
+  "observations": [
+    "CB/GC/NB and three interpolated views inspected. Performers visible; no evident box truncation.",
+    "Halos and background/floor fragments persist. Thin props not certified from thumbnail."
+  ]
+}
