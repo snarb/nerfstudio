@@ -145,3 +145,7 @@ Completed150,000 iterations, selected150000, cap10. All72 cameras train; in-samp
 ### Frame 1248 final review — 2026-11-10
 
 Independent 150,000-step model exported and audited; actor PSNR 32.45573, SSIM 0.794881, LPIPS 0.137011. Reviewed CB/GC/NB and three interpolated Full HD views. Four performers remain visible; contour halos and background fragments persist. Thin prop integrity is not certified by the contact sheet. Model SHA256 `4fd59441329694ab6d311a1e3781c67ea4905c75bdb95f263739856f5c2890a3`. [Evidence](marshawn_908_1268_diagnostics/frame1248_final_review/visual_inspection.json), [six views](marshawn_908_1268_diagnostics/frame1248_final_review/final_contact.jpg). Total reviewed exports: 27; sparse 24 fps frames: 8/72, including legacy 923/988 pending corrected versions. Clever-shadow advanced to priority frame 1258.
+
+### Frame 948 final review — 2026-11-10
+
+Export audited and six Full HD views reviewed. Metrics: {'psnr': 32.94952883371073, 'ssim': 0.8092843476268979, 'lpips': 0.13353320894141993}. Selected iterations 150000. Four performers visible; bat appears continuous at contact-sheet scale. Halos and floating background/floor fragments persist. [Evidence](marshawn_908_1268_diagnostics/frame948_final_review/visual_inspection.json), [views](marshawn_908_1268_diagnostics/frame948_final_review/final_contact.jpg). Reviewed total 28, sparse24 9/72; corrected923/988 pending.

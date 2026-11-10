@@ -1,0 +1,10 @@
+{
+  "frame": 948,
+  "time": "2026-11-10T18:41:32.158476+00:00",
+  "model_sha256": "5cde9ea068a64dea0371336008addb59aef920d049d21925bb2a6bd90d0c61e2",
+  "visual_reviewed": true,
+  "observations": [
+    "Reviewed CB/GC/NB and interpolated views; four performers visible, bat appears continuous at contact-sheet scale.",
+    "Halos, floating background fragments, floor fragments persist; no artifact-free claim."
+  ]
+}
