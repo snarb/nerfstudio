@@ -1,0 +1,10 @@
+{
+  "frame": 1038,
+  "time": "2026-11-10T22:29:19.870923+00:00",
+  "model_sha256": "ad28f2805be2e2a0f5e46bc0cad4d68969f255bbf0443928ef776a237dbb6d66",
+  "visual_reviewed": true,
+  "observations": [
+    "Six calibrated/interpolated views inspected; four performers visible, no evident box truncation.",
+    "Bat broadly continuous in GC; contour halos and background/floor fragments remain."
+  ]
+}
