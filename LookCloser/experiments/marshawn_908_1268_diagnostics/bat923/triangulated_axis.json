@@ -1,0 +1,21 @@
+{
+  "fit_cameras": [
+    "JE",
+    "NB"
+  ],
+  "origin": [
+    0.06613656391754179,
+    0.8645972900920099,
+    0.2482917520068512
+  ],
+  "direction": [
+    -0.18030578236647543,
+    0.2785991748768572,
+    0.9433304429536595
+  ],
+  "plane_residual": [
+    0.0,
+    -1.1102230246251565e-16
+  ],
+  "note": "3D axis from image-line backprojection, independent of field density; longitudinal origin only anchored near diagnostic area."
+}
