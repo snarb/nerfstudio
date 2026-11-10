@@ -1,0 +1,54 @@
+{
+  "background_votes": 3,
+  "added_cells": 22384,
+  "old_admitted": 175745,
+  "new_admitted": 198129,
+  "removed_cells": 0,
+  "bat_cells": [
+    {
+      "cell": [
+        21,
+        104,
+        106
+      ],
+      "old": false,
+      "new": true
+    },
+    {
+      "cell": [
+        21,
+        104,
+        107
+      ],
+      "old": false,
+      "new": true
+    },
+    {
+      "cell": [
+        23,
+        103,
+        88
+      ],
+      "old": false,
+      "new": true
+    },
+    {
+      "cell": [
+        23,
+        103,
+        89
+      ],
+      "old": false,
+      "new": true
+    },
+    {
+      "cell": [
+        23,
+        103,
+        90
+      ],
+      "old": false,
+      "new": true
+    }
+  ]
+}
