@@ -1,0 +1,13 @@
+{
+  "time": 1794308316.2487788,
+  "frame": 988,
+  "view": "GC",
+  "review_step": 7999,
+  "review_cap": "default",
+  "mask_sha256": "5abd9dcb7f27f3926d28a98cd8a63933261d3d7c7882a3e11df9c14ea3caa305",
+  "pixels_ge16": 4134834,
+  "pixels_ge128": 3719440,
+  "pixels_ge250": 2017976,
+  "inspection": "Initial GC render: actor pose agrees; early detail blur, contour halos and floor/background fragments. Rectangular query-domain edges are not an AABB clipping test. Source alpha preview inspected separately; no input or recipe mutation.",
+  "source_mask_inspection": "Wide gray bands and rectangular seams are visible around silhouettes and blurred limbs. They plausibly contribute to learned floor/background fragments; one view does not isolate all causes."
+}
