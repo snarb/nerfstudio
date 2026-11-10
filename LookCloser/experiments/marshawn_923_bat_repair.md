@@ -59,3 +59,5 @@ Votes3 geometry-only audit verifies all five measured rejected bat-axis cells be
 ### Votes3 cold8k visual gate passes bat continuity
 
 [Matched native GC8k cap10](marshawn_908_1268_diagnostics/bat923/votes3_8000_cap10_compare.jpg): the bat is continuous at the original gap in the votes3-trained model, unlike both earlier ablations. In-sample equal-actor/equal-view PSNR31.031643 dB, SSIM0.739003, LPIPS0.198720 vs original30.929717/0.738227/0.200044. This is a small early actor-metric gain, not proof of final plateau or sequence-wide quality. FullHD CB/GC/NB and0.25 novel views launched from the committed8k checkpoint in `votes3_trial/fullhd8k`, `novel8k`; final16k comparison remains required before recipe promotion. Other source settings, original RGB and72-camera membership are unchanged.
+
+The successful original/votes3 cold8k comparison is available on Google Drive, uploaded via connector: https://drive.google.com/file/d/1PkJ2uO9d5z9VXjpRZkTOO2Y5rMe4OKJA/view . This shows trained output, distinct from the earlier same-checkpoint local-gate diagnostic.
