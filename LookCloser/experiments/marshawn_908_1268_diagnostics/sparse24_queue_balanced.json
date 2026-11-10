@@ -1,0 +1,53 @@
+{
+  "time": 1794303285.332314,
+  "verified": true,
+  "unique_frames": 361,
+  "active_identities_unchanged": true,
+  "changes": [
+    {
+      "priority_frame": 1198,
+      "donor": "silver2",
+      "destination": "silver5",
+      "dense_frame_swapped": 1240
+    },
+    {
+      "priority_frame": 1223,
+      "donor": "silver2",
+      "destination": "silver5",
+      "dense_frame_swapped": 1227
+    },
+    {
+      "priority_frame": 1238,
+      "donor": "silver4",
+      "destination": "silver1",
+      "dense_frame_swapped": 1234
+    },
+    {
+      "priority_frame": 1218,
+      "donor": "silver7",
+      "destination": "silver0",
+      "dense_frame_swapped": 1220
+    },
+    {
+      "priority_frame": 1193,
+      "donor": "silver6",
+      "destination": "silver5",
+      "dense_frame_swapped": 1215
+    }
+  ],
+  "priority_unstarted": {
+    "ws07": 6,
+    "silver0": 6,
+    "silver1": 5,
+    "silver2": 5,
+    "silver3": 6,
+    "silver4": 6,
+    "silver5": 6,
+    "silver6": 5,
+    "silver7": 6,
+    "ws08": 8,
+    "clever": 3,
+    "olive": 5
+  },
+  "policy": "Same-host GPU balancing; unstarted and unstaged frames only; swap dense tails to retain queue sizes; numerical descriptors unchanged"
+}
