@@ -1,0 +1,16 @@
+{
+  "time": 1794305190.2917655,
+  "frame": 1116,
+  "model_sha256": "2043f5af8d6f9d7a0449d7722effb42b5229d44415df1499524f6ebf9396ad79",
+  "views": [
+    "CB",
+    "GC",
+    "NB"
+  ],
+  "novel_fraction": 0.25,
+  "output_size": [
+    1920,
+    1080
+  ],
+  "visual_review": "Six RGB views and straight-alpha gray composites inspected. Actors and pose look consistent across calibrated and interpolated views; prominent contour halos, unsupported opacity/background fragments remain. No clean-matte claim. View/FOV boundary cropping is not independent evidence of AABB clipping."
+}
