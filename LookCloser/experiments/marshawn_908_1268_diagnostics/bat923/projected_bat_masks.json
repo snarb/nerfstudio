@@ -1,0 +1,699 @@
+{
+  "point": [
+    0.06316888332366943,
+    0.8634947538375854,
+    0.2594606876373291
+  ],
+  "rows": [
+    {
+      "camera": "AE",
+      "x": 1983,
+      "y": 990,
+      "alpha": 0,
+      "actor": false,
+      "crew": false,
+      "unknown": false,
+      "depth": 0.6460873876417558
+    },
+    {
+      "camera": "BD",
+      "x": 791,
+      "y": 182,
+      "alpha": 0,
+      "actor": false,
+      "crew": false,
+      "unknown": false,
+      "depth": 0.6257336059209656
+    },
+    {
+      "camera": "JE",
+      "x": 1706,
+      "y": 1077,
+      "alpha": 0,
+      "actor": false,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.3463223622671696
+    },
+    {
+      "camera": "KD",
+      "x": 196,
+      "y": 519,
+      "alpha": 0,
+      "actor": false,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.3502075182663547
+    },
+    {
+      "camera": "AA",
+      "x": 1309,
+      "y": 1582,
+      "alpha": 32,
+      "actor": false,
+      "crew": false,
+      "unknown": false,
+      "depth": 0.7919633064145266
+    },
+    {
+      "camera": "BA",
+      "x": 1345,
+      "y": 1218,
+      "alpha": 112,
+      "actor": false,
+      "crew": false,
+      "unknown": false,
+      "depth": 0.823548798613257
+    },
+    {
+      "camera": "BC",
+      "x": 1601,
+      "y": 912,
+      "alpha": 134,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 0.6804879240876952
+    },
+    {
+      "camera": "DD",
+      "x": 1223,
+      "y": 814,
+      "alpha": 135,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 0.7973866005794308
+    },
+    {
+      "camera": "KE",
+      "x": 3985,
+      "y": 1128,
+      "alpha": 165,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.3354660891263423
+    },
+    {
+      "camera": "OA",
+      "x": 4619,
+      "y": 538,
+      "alpha": 173,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.3608415686468325
+    },
+    {
+      "camera": "EB",
+      "x": 1098,
+      "y": 712,
+      "alpha": 176,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 0.9191822794637238
+    },
+    {
+      "camera": "EE",
+      "x": 911,
+      "y": 723,
+      "alpha": 179,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 0.880220438719125
+    },
+    {
+      "camera": "OD",
+      "x": 5276,
+      "y": 521,
+      "alpha": 192,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.3003148871407786
+    },
+    {
+      "camera": "CC",
+      "x": 1855,
+      "y": 813,
+      "alpha": 194,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 0.7719844724961414
+    },
+    {
+      "camera": "BB",
+      "x": 1636,
+      "y": 1101,
+      "alpha": 212,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 0.7035050817490868
+    },
+    {
+      "camera": "EC",
+      "x": 970,
+      "y": 738,
+      "alpha": 213,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 0.8815629329522517
+    },
+    {
+      "camera": "CD",
+      "x": 2315,
+      "y": 842,
+      "alpha": 216,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 0.7643346493365488
+    },
+    {
+      "camera": "MB",
+      "x": 4490,
+      "y": 551,
+      "alpha": 216,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.3329555126751964
+    },
+    {
+      "camera": "AB",
+      "x": 1483,
+      "y": 1308,
+      "alpha": 219,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 0.6926328585358236
+    },
+    {
+      "camera": "FE",
+      "x": 1285,
+      "y": 646,
+      "alpha": 221,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 0.9923276079051968
+    },
+    {
+      "camera": "NE",
+      "x": 5633,
+      "y": 788,
+      "alpha": 224,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.2616424584629014
+    },
+    {
+      "camera": "MD",
+      "x": 1741,
+      "y": 514,
+      "alpha": 225,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.3179136938972804
+    },
+    {
+      "camera": "DC",
+      "x": 1322,
+      "y": 808,
+      "alpha": 230,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 0.8285426466015272
+    },
+    {
+      "camera": "ND",
+      "x": 5427,
+      "y": 527,
+      "alpha": 230,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.2874265504485443
+    },
+    {
+      "camera": "ED",
+      "x": 470,
+      "y": 802,
+      "alpha": 231,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 0.8173852627656821
+    },
+    {
+      "camera": "FB",
+      "x": 712,
+      "y": 127,
+      "alpha": 232,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 0.8992360852640646
+    },
+    {
+      "camera": "AC",
+      "x": 1611,
+      "y": 939,
+      "alpha": 233,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 0.6533049093696527
+    },
+    {
+      "camera": "ME",
+      "x": 5013,
+      "y": 988,
+      "alpha": 233,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.2694942119098238
+    },
+    {
+      "camera": "FD",
+      "x": 1176,
+      "y": 667,
+      "alpha": 234,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 0.9844691503945339
+    },
+    {
+      "camera": "MA",
+      "x": 4426,
+      "y": 563,
+      "alpha": 234,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.3303885906675512
+    },
+    {
+      "camera": "FA",
+      "x": 667,
+      "y": 430,
+      "alpha": 236,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.0722420737163587
+    },
+    {
+      "camera": "HD",
+      "x": 582,
+      "y": 556,
+      "alpha": 236,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.2232006814149774
+    },
+    {
+      "camera": "DB",
+      "x": 1276,
+      "y": 729,
+      "alpha": 237,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 0.8929032675949196
+    },
+    {
+      "camera": "NB",
+      "x": 4935,
+      "y": 798,
+      "alpha": 238,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.265317649735208
+    },
+    {
+      "camera": "HC",
+      "x": 471,
+      "y": 566,
+      "alpha": 239,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.239695705030844
+    },
+    {
+      "camera": "EA",
+      "x": 859,
+      "y": 665,
+      "alpha": 240,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 0.9897505494893467
+    },
+    {
+      "camera": "NC",
+      "x": 5341,
+      "y": 575,
+      "alpha": 240,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.2098116488903434
+    },
+    {
+      "camera": "DA",
+      "x": 1082,
+      "y": 615,
+      "alpha": 241,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 0.9170563691838359
+    },
+    {
+      "camera": "NA",
+      "x": 4762,
+      "y": 563,
+      "alpha": 243,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.3077497372317926
+    },
+    {
+      "camera": "FC",
+      "x": 875,
+      "y": 649,
+      "alpha": 244,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.0288710187523977
+    },
+    {
+      "camera": "MC",
+      "x": 5145,
+      "y": 699,
+      "alpha": 244,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.27017865658675
+    },
+    {
+      "camera": "ID",
+      "x": 504,
+      "y": 551,
+      "alpha": 245,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.247353552360489
+    },
+    {
+      "camera": "GA",
+      "x": 566,
+      "y": 615,
+      "alpha": 246,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.150484531764742
+    },
+    {
+      "camera": "GB",
+      "x": 683,
+      "y": 524,
+      "alpha": 246,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.0868780823539386
+    },
+    {
+      "camera": "GC",
+      "x": 649,
+      "y": 622,
+      "alpha": 246,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.1059222744126829
+    },
+    {
+      "camera": "GD",
+      "x": 731,
+      "y": 628,
+      "alpha": 246,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.084231446407421
+    },
+    {
+      "camera": "LA",
+      "x": 2682,
+      "y": 315,
+      "alpha": 246,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.3508708688621252
+    },
+    {
+      "camera": "IA",
+      "x": 336,
+      "y": 384,
+      "alpha": 247,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.2592410575733164
+    },
+    {
+      "camera": "CA",
+      "x": 1146,
+      "y": 1024,
+      "alpha": 248,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 0.8838439402214746
+    },
+    {
+      "camera": "IC",
+      "x": 398,
+      "y": 558,
+      "alpha": 248,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.274189709904984
+    },
+    {
+      "camera": "GE",
+      "x": 828,
+      "y": 718,
+      "alpha": 249,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.1223512430125953
+    },
+    {
+      "camera": "IB",
+      "x": 416,
+      "y": 589,
+      "alpha": 249,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.2343809234874268
+    },
+    {
+      "camera": "IE",
+      "x": 401,
+      "y": 984,
+      "alpha": 249,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.2591745617981482
+    },
+    {
+      "camera": "KB",
+      "x": 226,
+      "y": 477,
+      "alpha": 249,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.3042435601672409
+    },
+    {
+      "camera": "LD",
+      "x": 979,
+      "y": 540,
+      "alpha": 249,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.3316532915508803
+    },
+    {
+      "camera": "CB",
+      "x": 1458,
+      "y": 906,
+      "alpha": 250,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 0.7649172562086176
+    },
+    {
+      "camera": "HE",
+      "x": 536,
+      "y": 911,
+      "alpha": 250,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.2434178862392158
+    },
+    {
+      "camera": "JC",
+      "x": 249,
+      "y": 527,
+      "alpha": 250,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.3454734208748376
+    },
+    {
+      "camera": "LB",
+      "x": 2653,
+      "y": 542,
+      "alpha": 250,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.3467022752121267
+    },
+    {
+      "camera": "JA",
+      "x": 245,
+      "y": 301,
+      "alpha": 252,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.3157036439025387
+    },
+    {
+      "camera": "JD",
+      "x": 287,
+      "y": 530,
+      "alpha": 252,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.3396046151355565
+    },
+    {
+      "camera": "HA",
+      "x": 387,
+      "y": 524,
+      "alpha": 253,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.243421922635946
+    },
+    {
+      "camera": "JB",
+      "x": 263,
+      "y": 567,
+      "alpha": 253,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.314672389301843
+    },
+    {
+      "camera": "AD",
+      "x": 1955,
+      "y": 1051,
+      "alpha": 254,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 0.616033512228673
+    },
+    {
+      "camera": "BE",
+      "x": 2040,
+      "y": 895,
+      "alpha": 255,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 0.704756656759036
+    },
+    {
+      "camera": "CE",
+      "x": 1523,
+      "y": 783,
+      "alpha": 255,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 0.8042539749807612
+    },
+    {
+      "camera": "DE",
+      "x": 1685,
+      "y": 767,
+      "alpha": 255,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 0.838941699577046
+    },
+    {
+      "camera": "KC",
+      "x": 494,
+      "y": 530,
+      "alpha": 255,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.3381503189106496
+    },
+    {
+      "camera": "LC",
+      "x": 1254,
+      "y": 532,
+      "alpha": 255,
+      "actor": true,
+      "crew": false,
+      "unknown": false,
+      "depth": 1.3382388371636367
+    }
+  ]
+}
