@@ -141,3 +141,7 @@ Completed150,000 iterations, selected150000, cap10. All72 cameras train; in-samp
 ### Twenty-sixth verified model: 988
 
 Completed150,000 iterations, selected150000, cap10. All72 cameras train; in-sample PSNR32.5857 dB, SSIM0.796479, actor LPIPS0.145550. Export SHA256 `74698bf954785a3d5203928034e4f6a39b323716fc59ef055547c725e3763a08` verified. Six FullHD camera/novel views inspected with matching receipts. Halos, floor/background fragments and incomplete GC bat reconstruction remain; this is not defect-free geometry certification. Evidence: [review](marshawn_908_1268_diagnostics/frame988_final_review/final_contact.jpg), [audit](marshawn_908_1268_diagnostics/frame988_final_review/export_audit.json). Reviewed26/361; sparse24 reviewed7/72. WS07 advanced993.
+
+### Frame 1248 final review — 2026-11-10
+
+Independent 150,000-step model exported and audited; actor PSNR 32.45573, SSIM 0.794881, LPIPS 0.137011. Reviewed CB/GC/NB and three interpolated Full HD views. Four performers remain visible; contour halos and background fragments persist. Thin prop integrity is not certified by the contact sheet. Model SHA256 `4fd59441329694ab6d311a1e3781c67ea4905c75bdb95f263739856f5c2890a3`. [Evidence](marshawn_908_1268_diagnostics/frame1248_final_review/visual_inspection.json), [six views](marshawn_908_1268_diagnostics/frame1248_final_review/final_contact.jpg). Total reviewed exports: 27; sparse 24 fps frames: 8/72, including legacy 923/988 pending corrected versions. Clever-shadow advanced to priority frame 1258.

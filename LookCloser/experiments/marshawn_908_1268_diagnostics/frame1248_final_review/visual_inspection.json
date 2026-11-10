@@ -1,0 +1,17 @@
+{
+  "frame": 1248,
+  "time": "2026-11-10T17:54:18.279725+00:00",
+  "model_sha256": "4fd59441329694ab6d311a1e3781c67ea4905c75bdb95f263739856f5c2890a3",
+  "views": [
+    "CB",
+    "GC",
+    "NB"
+  ],
+  "novel_fraction": 0.25,
+  "visual_reviewed": true,
+  "observations": [
+    "Four performers visible in six views; no evident AABB truncation in contact sheet.",
+    "Persistent contour halos and floor/background fragments; accepted for review, not artifact-free.",
+    "Thin prop integrity cannot be certified from this thumbnail."
+  ]
+}
