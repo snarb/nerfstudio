@@ -1,0 +1,20 @@
+{
+  "time": 1794307133.4674323,
+  "frame": 1123,
+  "view": "GC",
+  "review_step": 7999,
+  "review_cap": "default",
+  "source_mask_sha256": "b2e06c7287726d758a9a711b35620fa0ce3e57579584e3c8de7cd603206fa22b",
+  "pixels_ge16": 3631792,
+  "pixels_ge128": 3251400,
+  "pixels_ge250": 1735544,
+  "latest_cap10": {
+    "step": 7999,
+    "metrics": {
+      "psnr": 30.848110879839577,
+      "ssim": 0.7404053111871084,
+      "lpips": 0.24361184280779624
+    }
+  },
+  "inspection": "Early default-cap GC comparison: actor pose agrees, broad background bands and halos around heads/hair/legs. Actual source soft alpha has wide gray bands and rectangular seams, supporting a mask contribution. Early single-view review does not isolate all causes or establish final quality."
+}
