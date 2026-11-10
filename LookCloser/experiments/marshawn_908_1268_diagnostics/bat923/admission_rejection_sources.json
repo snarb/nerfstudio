@@ -1,0 +1,1759 @@
+{
+  "cells": [
+    [
+      21,
+      104,
+      106
+    ],
+    [
+      21,
+      104,
+      107
+    ],
+    [
+      23,
+      103,
+      88
+    ],
+    [
+      23,
+      103,
+      89
+    ],
+    [
+      23,
+      103,
+      90
+    ]
+  ],
+  "records": [
+    {
+      "camera": "AA",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "AB",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "AC",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "AD",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "AE",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "BA",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "BB",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "BC",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "BD",
+      "foreground": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "clear_background": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "unknown": [
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "BE",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "CA",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "CB",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "CC",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "camera": "CD",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "CE",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "DA",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "DB",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "camera": "DC",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "DD",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "DE",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "EA",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "EB",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "EC",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "ED",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "EE",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "FA",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "FB",
+      "foreground": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "FC",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "FD",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "FE",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "GA",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "GB",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "GC",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "GD",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "GE",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "HA",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "HB",
+      "foreground": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "camera": "HC",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "HD",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "HE",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "IA",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "IB",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "IC",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "ID",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "camera": "IE",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "JA",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "JB",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "JC",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "camera": "JD",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "camera": "JE",
+      "foreground": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "clear_background": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "KA",
+      "foreground": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "camera": "KB",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "KC",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "camera": "KD",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "camera": "KE",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "LA",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "LB",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "LC",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "LD",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "LE",
+      "foreground": [
+        1,
+        1,
+        0,
+        0,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "camera": "MA",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "MB",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "MC",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "camera": "MD",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "camera": "ME",
+      "foreground": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "NA",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        1,
+        1
+      ]
+    },
+    {
+      "camera": "NB",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "camera": "NC",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "camera": "ND",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "camera": "NE",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "OA",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "camera": "OD",
+      "foreground": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "clear_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "unknown": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}
