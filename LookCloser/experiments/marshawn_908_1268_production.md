@@ -105,3 +105,7 @@ Frame925 six-view final review uploaded via Google Drive connector: https://driv
 ### Seventeenth verified model: 929
 
 Completed and selected 150,000 iterations, cap10. All72 cameras train; in-sample PSNR32.6221 dB, SSIM0.800991, actor LPIPS0.121128. Export SHA256 `42d96d05a090f8812deb173c8182fa795bda9669b479238ed5c31ce37eb11a57` verified. Six FullHD camera/novel views inspected; matching render receipts saved. Contour halos and background/floor fragments remain. Evidence: [review](marshawn_908_1268_diagnostics/frame929_final_review/final_contact.jpg), [audit](marshawn_908_1268_diagnostics/frame929_final_review/export_audit.json). GPU7 advanced automatically to sparse24 frame963. Verified and reviewed17/361, sparse24 remains3/72.
+
+### Eighteenth verified model: 920
+
+Completed150,000 iterations, selected144,000 at cap10. All72 cameras train; in-sample PSNR31.8691 dB, SSIM0.776448, actor LPIPS0.121228. Export SHA256 `4ed578e36e9709d0e103c8d6ce0ced8c3ea71163aec2d7ead9ff37a564aa5716` verified. Six FullHD camera/novel views inspected with matching receipts. Prominent contour halos and background/floor fragments persist. Evidence: [review](marshawn_908_1268_diagnostics/frame920_final_review/final_contact.jpg), [audit](marshawn_908_1268_diagnostics/frame920_final_review/export_audit.json). Verified and reviewed18/361.
