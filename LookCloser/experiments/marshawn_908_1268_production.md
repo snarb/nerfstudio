@@ -133,3 +133,7 @@ Completed150,000 iterations, selected150000, cap10. All72 cameras train; in-samp
 ### Twenty-fourth verified model: 930
 
 Completed150,000 iterations, selected150000, cap10. All72 cameras train; in-sample PSNR32.5330 dB, SSIM0.800252, actor LPIPS0.116981. Export SHA256 `f0b68e05d5336900584bf9dcbf4f7426b62a21c7cffa4b4e362cafcec0966a45` verified. Six FullHD camera/novel views inspected with matching receipts. Contour halos and background/floor fragments remain; bat-specific defect investigation is open. Evidence: [review](marshawn_908_1268_diagnostics/frame930_final_review/final_contact.jpg), [audit](marshawn_908_1268_diagnostics/frame930_final_review/export_audit.json). Reviewed24/361; sparse24 reviewed5/72. Olive automatically advanced to953.
+
+### Twenty-fifth verified model: 1123
+
+Completed150,000 iterations, selected150000, cap10. All72 cameras train; in-sample PSNR32.4329 dB, SSIM0.803660, actor LPIPS0.142440. Export SHA256 `248f39a3fa67ec785219b33921659ceac1eef4f23c32eacf462530d788a75626` verified. Six FullHD camera/novel views inspected with matching receipts. Contour halos, floor and detached overhead/background fragments remain; hard-admission prop defect investigation is open. Evidence: [review](marshawn_908_1268_diagnostics/frame1123_final_review/final_contact.jpg), [audit](marshawn_908_1268_diagnostics/frame1123_final_review/export_audit.json). Reviewed25/361; sparse24 reviewed6/72. WS08 advanced1148.

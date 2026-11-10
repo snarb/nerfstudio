@@ -1,0 +1,18 @@
+{
+  "frame": 1123,
+  "checkpoint_sha256": "248f39a3fa67ec785219b33921659ceac1eef4f23c32eacf462530d788a75626",
+  "reviewed_views": [
+    "CB",
+    "GC",
+    "NB",
+    "CB novel .25",
+    "GC novel .25",
+    "NB novel .25"
+  ],
+  "observations": [
+    "Four fighting performers represented across views with overlap and expected occlusions.",
+    "Contour halos, floor fragments and detached overhead/background fragments remain.",
+    "Known hard semantic-admission prop defect remains open across sequence; no defect-free geometry claim.",
+    "Original camera field-of-view boundaries are not proof of AABB clipping."
+  ]
+}

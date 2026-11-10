@@ -1,0 +1,197 @@
+{
+  "time": 1794322059.207529,
+  "expected": 41,
+  "verified": 3,
+  "pending": 38,
+  "failed": 0,
+  "unique_model_bytes": true,
+  "complete": false,
+  "scope": "Persisted export evidence and streamed SHA; visual review remains separate",
+  "results": [
+    {
+      "frame": 1112,
+      "status": "verified",
+      "model_sha256": "6587e9e294dd434efa1fec24b454f3268b4c63ac92e0818a8df55200df96a4b7",
+      "selected_iterations": 144000,
+      "metrics": {
+        "psnr": 32.774396424463895,
+        "ssim": 0.7986739393737582,
+        "lpips": 0.13792493782109685
+      }
+    },
+    {
+      "frame": 1116,
+      "status": "verified",
+      "model_sha256": "2043f5af8d6f9d7a0449d7722effb42b5229d44415df1499524f6ebf9396ad79",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.762859874153484,
+        "ssim": 0.802186412943734,
+        "lpips": 0.1310439058062103
+      }
+    },
+    {
+      "frame": 1123,
+      "status": "verified",
+      "model_sha256": "248f39a3fa67ec785219b33921659ceac1eef4f23c32eacf462530d788a75626",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.43291283452931,
+        "ssim": 0.8036597867806753,
+        "lpips": 0.14244021682275665
+      }
+    },
+    {
+      "frame": 1148,
+      "status": "pending"
+    },
+    {
+      "frame": 1163,
+      "status": "pending"
+    },
+    {
+      "frame": 1188,
+      "status": "pending"
+    },
+    {
+      "frame": 1203,
+      "status": "pending"
+    },
+    {
+      "frame": 1228,
+      "status": "pending"
+    },
+    {
+      "frame": 1243,
+      "status": "pending"
+    },
+    {
+      "frame": 1253,
+      "status": "pending"
+    },
+    {
+      "frame": 1119,
+      "status": "pending"
+    },
+    {
+      "frame": 1127,
+      "status": "pending"
+    },
+    {
+      "frame": 1130,
+      "status": "pending"
+    },
+    {
+      "frame": 1134,
+      "status": "pending"
+    },
+    {
+      "frame": 1137,
+      "status": "pending"
+    },
+    {
+      "frame": 1141,
+      "status": "pending"
+    },
+    {
+      "frame": 1145,
+      "status": "pending"
+    },
+    {
+      "frame": 1152,
+      "status": "pending"
+    },
+    {
+      "frame": 1156,
+      "status": "pending"
+    },
+    {
+      "frame": 1159,
+      "status": "pending"
+    },
+    {
+      "frame": 1166,
+      "status": "pending"
+    },
+    {
+      "frame": 1170,
+      "status": "pending"
+    },
+    {
+      "frame": 1174,
+      "status": "pending"
+    },
+    {
+      "frame": 1177,
+      "status": "pending"
+    },
+    {
+      "frame": 1181,
+      "status": "pending"
+    },
+    {
+      "frame": 1185,
+      "status": "pending"
+    },
+    {
+      "frame": 1192,
+      "status": "pending"
+    },
+    {
+      "frame": 1195,
+      "status": "pending"
+    },
+    {
+      "frame": 1199,
+      "status": "pending"
+    },
+    {
+      "frame": 1206,
+      "status": "pending"
+    },
+    {
+      "frame": 1210,
+      "status": "pending"
+    },
+    {
+      "frame": 1214,
+      "status": "pending"
+    },
+    {
+      "frame": 1217,
+      "status": "pending"
+    },
+    {
+      "frame": 1221,
+      "status": "pending"
+    },
+    {
+      "frame": 1224,
+      "status": "pending"
+    },
+    {
+      "frame": 1232,
+      "status": "pending"
+    },
+    {
+      "frame": 1235,
+      "status": "pending"
+    },
+    {
+      "frame": 1239,
+      "status": "pending"
+    },
+    {
+      "frame": 1246,
+      "status": "pending"
+    },
+    {
+      "frame": 1250,
+      "status": "pending"
+    },
+    {
+      "frame": 1257,
+      "status": "pending"
+    }
+  ]
+}
