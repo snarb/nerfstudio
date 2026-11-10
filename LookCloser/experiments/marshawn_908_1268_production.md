@@ -181,3 +181,7 @@ Audited independent export, selected iterations 150000. Actor metrics: {'psnr': 
 Audited independent export, selected iterations 150000. Actor metrics: {'psnr': 32.89655164239553, 'ssim': 0.8125707258780798, 'lpips': 0.1284052688214514}. CB/GC/NB and three interpolated views inspected. Performers visible; no evident box truncation. Halos and background/floor fragments persist. Thin props not certified from thumbnail. Broad floating horizontal background fragments above actors are conspicuous in real and novel views; retained as visible quality limitation, not clean alpha. [Evidence](marshawn_908_1268_diagnostics/frame1148_final_review/visual_inspection.json), [views](marshawn_908_1268_diagnostics/frame1148_final_review/final_contact.jpg).
 
 Reviewed total35, sparse24 16/72; corrected923/988 pending. Frame1258 actual immutable binding and training dataset confirmed votes3 (recipe bcaec09a…), first end-to-end main-fleet cold start using repaired admission.
+
+### Frame 993 final review — 2026-11-10
+
+Audited independent export, selected iterations 150000. Actor metrics: {'psnr': 32.58373661407237, 'ssim': 0.7948969006538391, 'lpips': 0.15934432173768678}. Six views inspected; four performers visible, halos and background/floor fragments persist. Thin-prop integrity not certified from thumbnail. [Evidence](marshawn_908_1268_diagnostics/frame993_final_review/visual_inspection.json), [views](marshawn_908_1268_diagnostics/frame993_final_review/final_contact.jpg). Total reviewed36, sparse24 17/72, repaired923/988 still pending.

@@ -1,0 +1,10 @@
+{
+  "frame": 993,
+  "time": "2026-11-10T19:45:03.622967+00:00",
+  "model_sha256": "4278e2572b5e32f72e2c4b3618a831b39d420a73ed1ae9b9565d3dc9d5aa08a0",
+  "visual_reviewed": true,
+  "observations": [
+    "Six real/interpolated views inspected; four performers visible without evident box truncation.",
+    "Contour halos and floating background/floor fragments remain. Thin-prop integrity not certified from thumbnail."
+  ]
+}
