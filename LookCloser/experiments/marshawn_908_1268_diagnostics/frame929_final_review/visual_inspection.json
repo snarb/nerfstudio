@@ -1,0 +1,17 @@
+{
+  "frame": 929,
+  "checkpoint_sha256": "42d96d05a090f8812deb173c8182fa795bda9669b479238ed5c31ce37eb11a57",
+  "reviewed_views": [
+    "CB",
+    "GC",
+    "NB",
+    "CB novel .25",
+    "GC novel .25",
+    "NB novel .25"
+  ],
+  "observations": [
+    "Four fighting performers represented across views with expected occlusions.",
+    "Prominent contour halos and background/floor fragments persist.",
+    "Original camera field-of-view boundaries are not proof of AABB clipping."
+  ]
+}
