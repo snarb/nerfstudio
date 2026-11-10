@@ -417,6 +417,7 @@ def run(root):
             h.put(h.agent_root/'queue.json',dict(jobs=jobs))
         state['phase']='production_dispatched';atomic(state_path,state)
     # Controller remains an independent watcher until every assigned frame finalizes/quarantines.
+    last_prefetch=0
     while state['phase']=='production_dispatched':
         checks=[h.get(h.agent_root/'agent_state.json',{}) for h in hosts if not h.row.get('production_disabled')]
         completed=sum(sum(1 for k,v in s.get('jobs',{}).items() if k.startswith('frame') and v['status']=='complete') for s in checks)
@@ -424,6 +425,9 @@ def run(root):
         atomic(root/'sequence_progress.json',dict(time=time.time(),completed=completed,quarantined=quarantined,total=361))
         if completed+quarantined==361:
             state.update(phase='complete' if not quarantined else 'complete_with_quarantine',completed=completed,quarantined=quarantined);atomic(state_path,state);return
+        if time.time()-last_prefetch>=300:
+            from preparation_prefetch import prefetch
+            prefetch(root,hosts);last_prefetch=time.time()
         time.sleep(60)
 
 

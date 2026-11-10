@@ -6,10 +6,13 @@ import shutil
 from common import read,atomic,sha
 
 
-def produce(root,frame,linear=False):
+def produce(root,frame,linear=False,nonblocking=False):
     root=Path(root);settings=read(root/'settings.json');folder=root/'prepared'/f'{frame:06d}'
     folder.parent.mkdir(parents=True,exist_ok=True)
-    lock=folder.with_suffix('.lock').open('a+');fcntl.flock(lock,fcntl.LOCK_EX)
+    lock=folder.with_suffix('.lock').open('a+')
+    try:fcntl.flock(lock,fcntl.LOCK_EX | (fcntl.LOCK_NB if nonblocking else 0))
+    except BlockingIOError:return
+    if nonblocking and (folder/'producer_complete.json').exists():return
     import sys
     sys.path[:0]=[settings['source_code']]
     from prepare import prepare
@@ -36,6 +39,6 @@ def release(root,frame,expected_ready_sha):
 
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser();p.add_argument('--root',required=True);p.add_argument('--frame',type=int,required=True);p.add_argument('--linear',action='store_true');p.add_argument('--release',action='store_true');p.add_argument('--expected-ready-sha');a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--root',required=True);p.add_argument('--frame',type=int,required=True);p.add_argument('--linear',action='store_true');p.add_argument('--nonblocking',action='store_true');p.add_argument('--release',action='store_true');p.add_argument('--expected-ready-sha');a=p.parse_args()
     if a.release:release(a.root,a.frame,a.expected_ready_sha)
-    else:produce(a.root,a.frame,a.linear)
+    else:produce(a.root,a.frame,a.linear,a.nonblocking)
