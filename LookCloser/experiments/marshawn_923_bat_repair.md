@@ -55,3 +55,7 @@ Same-checkpoint local-gate causal comparison uploaded through the Google Drive c
 Both initial ablations completed16k and failed the matched cap10 bat-continuity visual gate: [final controls](marshawn_908_1268_diagnostics/bat923/failed_ablations16000_cap10.jpg). In-sample actor LPIPS original0.173685, guard0.174897, guard+noCB0.173685. Their diagnostic runs are finished, not promoted.
 
 Votes3 geometry-only audit verifies all five measured rejected bat-axis cells become admitted, with zero parent-admitted cells removed. [Grid audit](marshawn_908_1268_diagnostics/bat923/votes3_geometry_audit.json). This proves the candidate removes the identified hard prohibition; trained appearance/background quality still requires the8k/16k gates.
+
+### Votes3 cold8k visual gate passes bat continuity
+
+[Matched native GC8k cap10](marshawn_908_1268_diagnostics/bat923/votes3_8000_cap10_compare.jpg): the bat is continuous at the original gap in the votes3-trained model, unlike both earlier ablations. In-sample equal-actor/equal-view PSNR31.031643 dB, SSIM0.739003, LPIPS0.198720 vs original30.929717/0.738227/0.200044. This is a small early actor-metric gain, not proof of final plateau or sequence-wide quality. FullHD CB/GC/NB and0.25 novel views launched from the committed8k checkpoint in `votes3_trial/fullhd8k`, `novel8k`; final16k comparison remains required before recipe promotion. Other source settings, original RGB and72-camera membership are unchanged.
