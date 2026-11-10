@@ -1,0 +1,80 @@
+{
+  "time": 1794299361.5740604,
+  "in_sample": true,
+  "all72_train": true,
+  "rows": [
+    {
+      "frame": 920,
+      "iterations": 8000,
+      "metrics": {
+        "psnr": 30.241198696590242,
+        "ssim": 0.7144275277853013,
+        "lpips": 0.20553166096409162
+      }
+    },
+    {
+      "frame": 921,
+      "iterations": 8000,
+      "metrics": {
+        "psnr": 30.350387990882897,
+        "ssim": 0.7168886446290545,
+        "lpips": 0.21028946331805654
+      }
+    },
+    {
+      "frame": 923,
+      "iterations": 8000,
+      "metrics": {
+        "psnr": 30.92971709038017,
+        "ssim": 0.7382268640730115,
+        "lpips": 0.20004425218535793
+      }
+    },
+    {
+      "frame": 924,
+      "iterations": 8000,
+      "metrics": {
+        "psnr": 30.27677999624647,
+        "ssim": 0.7101888762580023,
+        "lpips": 0.20771809650792017
+      }
+    },
+    {
+      "frame": 925,
+      "iterations": 8000,
+      "metrics": {
+        "psnr": 30.96609519339195,
+        "ssim": 0.7385263972812228,
+        "lpips": 0.20216333203845552
+      }
+    },
+    {
+      "frame": 926,
+      "iterations": 8000,
+      "metrics": {
+        "psnr": 30.96716661297874,
+        "ssim": 0.7386345697773827,
+        "lpips": 0.2054489366710186
+      }
+    },
+    {
+      "frame": 928,
+      "iterations": 8000,
+      "metrics": {
+        "psnr": 30.90893298887774,
+        "ssim": 0.7397439976533254,
+        "lpips": 0.19596149834493795
+      }
+    },
+    {
+      "frame": 929,
+      "iterations": 8000,
+      "metrics": {
+        "psnr": 30.93800768584042,
+        "ssim": 0.7372727725240918,
+        "lpips": 0.20995067536003062
+      }
+    }
+  ],
+  "visual_review": "All8 GC source/ROI comparisons inspected at8k; four performers represented with source occlusion/FOV cutoff, early blur and contour halos persist; sampled ROI rectangles are not AABB evidence"
+}

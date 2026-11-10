@@ -25,6 +25,12 @@ def sha(path):
     return digest.hexdigest()
 
 
+def iteration_budget_valid(completed, target, reserved):
+    """Crash replay reservations may exhaust the ceiling before nominal target."""
+    return (0 < completed <= target <= 150000 and completed <= reserved <= 150000
+            and (completed == target or reserved == 150000))
+
+
 def audit(root, queue=None, frames_dir=None):
     root = Path(root)
     frames_dir = Path(frames_dir) if frames_dir else root / 'frames'
@@ -83,10 +89,9 @@ def audit(root, queue=None, frames_dir=None):
                 x0, y0, x1, y1 = source_rows[row['physical_camera']]['native_crop_xyxy']
                 require(row['w'] == x1 - x0 and row['h'] == y1 - y0, 'Training crop dimensions changed')
             require(ready.get('in_sample') and completion['in_sample_metrics'], 'Final metric domain differs')
-            require(completion['completed_iterations'] == recipe['steps'] <= 150000, 'Iteration target differs')
+            require(iteration_budget_valid(completion['completed_iterations'], recipe['steps'], budget['reserved_attempts']), 'Target unfinished without exhausted attempt ceiling')
             require(stage['completed_iterations'] == completion['completed_iterations'] and not stage['technical'], 'Stage completion differs')
             require(all(spec.get(key) == value for key, value in recipe['parameters'].items()), 'Training parameters differ')
-            require(completion['completed_iterations'] <= budget['reserved_attempts'] <= 150000, 'Attempt ceiling differs')
             require(spec['hard_max_iterations'] <= 150000, 'Spec exceeds ceiling')
             require(cold['cold'] and all(v == 0 for v in cold['optimizer_states'].values()), 'Cold optimizer evidence absent')
             require(all(cold[k] == 0 for k in ('occupied', 'nonzero_ema', 'nonzero_frequency')), 'Cold grid evidence absent')

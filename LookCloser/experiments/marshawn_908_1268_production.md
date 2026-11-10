@@ -34,3 +34,20 @@ Four performers remain represented, with source-FOV occlusion/cutoff where appli
 Silver artifacts: `/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/<frame>/model/inference.ckpt`; full-resolution review assets: `final_reviews/<frame>/{fullhd,novel}/`. The relocated Clever1102 model is under `external_models/clever/001102/model/`. All eight Silver queues advanced automatically to their next frames; use live controller state for current progress rather than this historical snapshot.
 
 Olive919 completed150000iterations and selected150000 cap10. [Independent export audit](marshawn_908_1268_diagnostics/frame919_completed_model_audit.json); [six reviewed Full HD/novel views on Drive](https://drive.google.com/file/d/1xR9crAA1KfGktum3D01fAnj5aMBwVw12/view). Four performers remain represented; contour halos persist. Olive advanced automatically to930. Receiving-side native transfer overlap is documented in [prefetch checks](marshawn_908_1268_native_prefetch.md).
+
+### Second Silver batch initial review
+
+Frames920,921,923,924,925,926,928,929 passed initial visual inspection at8k cap10. [GC comparisons1](marshawn_908_1268_diagnostics/second_batch_GC_initial8000_page1.jpg), [GC comparisons2](marshawn_908_1268_diagnostics/second_batch_GC_initial8000_page2.jpg); [metric snapshot](marshawn_908_1268_diagnostics/second_batch_initial_review.json). Four performers remain represented; early blur/contour halos persist. These sampled ROI views do not establish full-FOV/AABB coverage. All72TRAIN; metrics are in-sample.
+
+| Frame | PSNR(dB) | SSIM | Actor LPIPS |
+|---|---:|---:|---:|
+| 920 | 30.241199 | 0.714428 | 0.205532 |
+| 921 | 30.350388 | 0.716889 | 0.210289 |
+| 923 | 30.929717 | 0.738227 | 0.200044 |
+| 924 | 30.276780 | 0.710189 | 0.207718 |
+| 925 | 30.966095 | 0.738526 | 0.202163 |
+| 926 | 30.967167 | 0.738635 | 0.205449 |
+| 928 | 30.908933 | 0.739744 | 0.195961 |
+| 929 | 30.938008 | 0.737273 | 0.209951 |
+
+The export audit accepts the nominal target or a documented exhausted150000 reserved-attempt ceiling after crash replay. Premature completion, zero steps and over-budget values are rejected. Six boundary canaries and a real completed export passed this protocol check; the twelve current models all completed150000 iterations.
