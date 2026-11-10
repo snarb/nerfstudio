@@ -1,0 +1,10 @@
+{
+  "frame": 953,
+  "time": "2026-11-10T20:31:53.108226+00:00",
+  "model_sha256": "6a99ec4e6605a3fe3763153f29ee357a37ab6a5464cccbd53e9ca23a5069e314",
+  "visual_reviewed": true,
+  "observations": [
+    "Six real/interpolated views inspected; four performers visible without evident box truncation.",
+    "Bat broadly continuous at contact-sheet scale. Contour halos and floating background/floor fragments remain; no full-resolution thin-prop certification."
+  ]
+}

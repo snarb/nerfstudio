@@ -185,3 +185,7 @@ Reviewed total35, sparse24 16/72; corrected923/988 pending. Frame1258 actual imm
 ### Frame 993 final review — 2026-11-10
 
 Audited independent export, selected iterations 150000. Actor metrics: {'psnr': 32.58373661407237, 'ssim': 0.7948969006538391, 'lpips': 0.15934432173768678}. Six views inspected; four performers visible, halos and background/floor fragments persist. Thin-prop integrity not certified from thumbnail. [Evidence](marshawn_908_1268_diagnostics/frame993_final_review/visual_inspection.json), [views](marshawn_908_1268_diagnostics/frame993_final_review/final_contact.jpg). Total reviewed36, sparse24 17/72, repaired923/988 still pending.
+
+### Frame 953 final review — 2026-11-10
+
+Audited independent export, selected iterations 150000. Actor metrics: {'psnr': 33.02775761470562, 'ssim': 0.8119279791911443, 'lpips': 0.1329596479319864}. Six views inspected; four performers visible, halos and background/floor fragments persist. [Evidence](marshawn_908_1268_diagnostics/frame953_final_review/visual_inspection.json), [views](marshawn_908_1268_diagnostics/frame953_final_review/final_contact.jpg). Reviewed37 total, sparse24 18/72; repaired923/988 pending.
