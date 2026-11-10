@@ -1,0 +1,15 @@
+{
+  "time": 1794302580.7502065,
+  "frame": 930,
+  "view": "GC",
+  "training_step": 15999,
+  "mask_sha256": "9081a199eaa3d5711b7281ad86ccb9741a7f9a7e32876ca21f476fc54aa00eb4",
+  "mask_size": [
+    8491,
+    4370
+  ],
+  "pixels_ge16": 3700386,
+  "pixels_ge128": 3351675,
+  "pixels_ge250": 1663417,
+  "inspection": "Broad gray transition bands and rectangular seams visible in source soft alpha. Intermediate raw render has surrounding floor/background and contour halos. Source mask plausibly contributes; this single-view inspection does not isolate all causes. Frozen production inputs and recipe unchanged."
+}
