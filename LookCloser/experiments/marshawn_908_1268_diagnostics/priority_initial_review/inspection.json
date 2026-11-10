@@ -1,0 +1,21 @@
+{
+  "frames": [
+    943,
+    933,
+    978,
+    958,
+    948,
+    983,
+    963
+  ],
+  "step": 8000,
+  "cap": 10,
+  "view": "GC",
+  "observations": [
+    "Queried person regions reconstruct performer appearance at this early gate.",
+    "Rectangular cuts in these overview canvases are unqueried ROI exterior, not demonstrated model/AABB clipping; only final full-FOV renders certify coverage.",
+    "Soft contour halos and floor fragments persist.",
+    "Overlapping main performers have partial instance ROIs; these thumbnails do not certify complete limb/prop reconstruction.",
+    "Separate frame923 bat defect experiments remain active."
+  ]
+}
