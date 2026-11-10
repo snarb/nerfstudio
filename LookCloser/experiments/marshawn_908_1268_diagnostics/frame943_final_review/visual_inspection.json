@@ -1,0 +1,11 @@
+{
+  "frame": 943,
+  "time": "2026-11-10T18:57:14.054026+00:00",
+  "model_sha256": "9cda70221001dc9eba5c3f6798f0e19aae39a02cd18ea19b84d08cc89e80c5d4",
+  "visual_reviewed": true,
+  "observations": [
+    "CB/GC/NB and interpolated Full HD views reviewed using six-view contact sheet.",
+    "Four performers visible with no evident box truncation; visible bat broadly continuous at thumbnail scale, no full-resolution thin-prop certification.",
+    "Contour halos and floating background/floor fragments persist."
+  ]
+}

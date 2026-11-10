@@ -149,3 +149,21 @@ Independent 150,000-step model exported and audited; actor PSNR 32.45573, SSIM 0
 ### Frame 948 final review — 2026-11-10
 
 Export audited and six Full HD views reviewed. Metrics: {'psnr': 32.94952883371073, 'ssim': 0.8092843476268979, 'lpips': 0.13353320894141993}. Selected iterations 150000. Four performers visible; bat appears continuous at contact-sheet scale. Halos and floating background/floor fragments persist. [Evidence](marshawn_908_1268_diagnostics/frame948_final_review/visual_inspection.json), [views](marshawn_908_1268_diagnostics/frame948_final_review/final_contact.jpg). Reviewed total 28, sparse24 9/72; corrected923/988 pending.
+
+### Frame 933 final review — 2026-11-10
+
+Audited independent export, selected iterations 150000. Actor metrics: {'psnr': 32.86719777516944, 'ssim': 0.8096945716275109, 'lpips': 0.12718014832999971}. All six views reviewed; performers visible, contour halos and background/floor fragments persist. [Evidence](marshawn_908_1268_diagnostics/frame933_final_review/visual_inspection.json), [views](marshawn_908_1268_diagnostics/frame933_final_review/final_contact.jpg).
+
+### Frame 943 final review — 2026-11-10
+
+Audited independent export, selected iterations 150000. Actor metrics: {'psnr': 32.890083066041775, 'ssim': 0.8113675779766507, 'lpips': 0.13845400429434246}. All six views reviewed; performers visible, contour halos and background/floor fragments persist. [Evidence](marshawn_908_1268_diagnostics/frame943_final_review/visual_inspection.json), [views](marshawn_908_1268_diagnostics/frame943_final_review/final_contact.jpg).
+
+### Frame 958 final review — 2026-11-10
+
+Audited independent export, selected iterations 150000. Actor metrics: {'psnr': 32.87865943734685, 'ssim': 0.8071454879310397, 'lpips': 0.12992331820229688}. All six views reviewed; performers visible, contour halos and background/floor fragments persist. [Evidence](marshawn_908_1268_diagnostics/frame958_final_review/visual_inspection.json), [views](marshawn_908_1268_diagnostics/frame958_final_review/final_contact.jpg).
+
+### Frame 978 final review — 2026-11-10
+
+Audited independent export, selected iterations 150000. Actor metrics: {'psnr': 32.63079192765056, 'ssim': 0.7984894663095474, 'lpips': 0.12992210375765958}. All six views reviewed; performers visible, contour halos and background/floor fragments persist. [Evidence](marshawn_908_1268_diagnostics/frame978_final_review/visual_inspection.json), [views](marshawn_908_1268_diagnostics/frame978_final_review/final_contact.jpg).
+
+After these reviews: 32 reviewed frame exports, 13/72 sparse24 frame IDs. Legacy923/988 corrected versions still pending. Scope remains361 independent frame models.
