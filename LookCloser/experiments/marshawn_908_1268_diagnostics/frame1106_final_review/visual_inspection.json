@@ -1,0 +1,16 @@
+{
+  "time": 1794313097.1285217,
+  "frame": 1106,
+  "model_sha256": "bb24be7c52fa6916e020e5e49facafa2c0720bdd8f2304d5fd40611dd230695f",
+  "views": [
+    "CB",
+    "GC",
+    "NB"
+  ],
+  "novel_fraction": 0.25,
+  "output_size": [
+    1920,
+    1080
+  ],
+  "inspection": "Six RGB views and straight-alpha composites inspected. Actor pose/layout is consistent across calibrated and interpolated views. Broad halos, hair/contour artifacts and unsupported background/floor fragments remain. No clean-matte claim; native-FOV boundaries are not an independent AABB containment test."
+}
