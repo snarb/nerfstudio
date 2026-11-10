@@ -1,0 +1,18 @@
+{
+  "frame": 988,
+  "checkpoint_sha256": "74698bf954785a3d5203928034e4f6a39b323716fc59ef055547c725e3763a08",
+  "reviewed_views": [
+    "CB",
+    "GC",
+    "NB",
+    "CB novel .25",
+    "GC novel .25",
+    "NB novel .25"
+  ],
+  "observations": [
+    "Four fighting performers represented across views with overlap and expected occlusions.",
+    "Contour halos, floor and detached background fragments remain.",
+    "Bat reconstruction is incomplete in GC; known hard-admission prop defect remains open across sequence.",
+    "Original camera field-of-view boundaries are not proof of AABB clipping."
+  ]
+}
