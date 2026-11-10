@@ -59,6 +59,25 @@ def build(source, output, votes):
     return manifest
 
 
+def ensure(source, output, votes):
+    """Publish a complete derivative atomically; interrupted builds are never used."""
+    import os
+    src, out = Path(source).resolve(), Path(output).resolve()
+    manifest = out/'admission/manifest.json'
+    if manifest.exists():
+        value = read(manifest)
+        if (value['background_votes'] != votes
+                or value['parent_manifest_sha256'] != sha(src/'admission/manifest.json')
+                or value['grid_sha256'] != sha(out/'admission/grid.npz')):
+            raise ValueError('Existing admission derivative differs')
+        return value
+    if out.exists(): raise ValueError('Incomplete canonical admission derivative')
+    temp = out.with_name(out.name + '.building.' + str(os.getpid()))
+    value = build(src, temp, votes)
+    temp.rename(out)
+    return value
+
+
 if __name__ == '__main__':
     p=argparse.ArgumentParser();p.add_argument('--source',required=True);p.add_argument('--output',required=True);p.add_argument('--votes',type=int,required=True)
     a=p.parse_args();print(build(a.source,a.output,a.votes),flush=True)

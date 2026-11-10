@@ -16,11 +16,13 @@ def wait_for_existing_worker(output):
 
 
 def run(root,frame):
-    root=Path(root);settings=read(root/'settings.json');recipe=read(root/'selected_recipe.json')
+    root=Path(root);settings=read(root/'settings.json')
     if settings.get('production_torch_extensions_dir'):os.environ['TORCH_EXTENSIONS_DIR']=settings['production_torch_extensions_dir']
     tools=Path(__file__).parent;local=root/'frames'/f'{frame:06d}';local.mkdir(parents=True,exist_ok=True)
     frame_lease=(local/'frame.lock').open('a+')
     fcntl.flock(frame_lease,fcntl.LOCK_EX|fcntl.LOCK_NB)
+    from recipe_binding import bind_recipe
+    recipe,recipe_sha=bind_recipe(root,local,settings)
     native=local/'native';dataset=local/'data';output=local/'train'
     def finish(completion):
         from archive import relocate
@@ -71,6 +73,11 @@ def run(root,frame):
     else:
         # Linear masters can be recreated from immutable PNG16 sources; bounded staging footprint.
         for p in (native/'linear').glob('*.npy'):p.unlink()
+    votes=recipe['parameters'].get('admission_background_votes',2)
+    if votes!=2:
+        from admission_vote_variant import ensure
+        ensure(dataset,local/'data_admission_votes3',votes)
+        dataset=local/'data_admission_votes3'
     from campaign import make_spec
     spec_path=make_spec(root,recipe['parameters'],dataset,output,recipe['steps'],allow_plateau=False)
     bound=read(spec_path)
@@ -87,7 +94,7 @@ def run(root,frame):
     if not ckpt.exists():raise ValueError('Selected scored checkpoint is missing')
     from archive import export
     model=export(local,ckpt,best)
-    completion=dict(frame=frame,recipe_sha256=sha(root/'selected_recipe.json'),aabb_sha256=sha(root/'box.json'),train_cameras=72,in_sample_metrics=True,completed_iterations=result['completed_iterations'],selected=best,checkpoint=str(model),checkpoint_sha256=sha(model),cold_provenance_sha256=sha(output/'cold_provenance.json'),inference_only_export=True)
+    completion=dict(frame=frame,recipe_sha256=recipe_sha,aabb_sha256=sha(root/'box.json'),train_cameras=72,in_sample_metrics=True,completed_iterations=result['completed_iterations'],selected=best,checkpoint=str(model),checkpoint_sha256=sha(model),cold_provenance_sha256=sha(output/'cold_provenance.json'),inference_only_export=True)
     atomic(local/'export_complete.json',completion)
     if spec_path.exists():
         spec=read(spec_path)

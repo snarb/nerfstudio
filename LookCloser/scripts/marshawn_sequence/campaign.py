@@ -75,6 +75,7 @@ def make_spec(root,parameters,data,output,target,allow_plateau=False):
     # Only source bytes used by runtime/helpers are sealed; historical unavailable helpers are not fabricated.
     files=[Path(s['tools'])/name for name in ('common.py','runtime.py','worker.py')]+[p for p in Path(s['frozen_helpers']).glob('*.py')]
     if parameters.get('background_opacity_prior'):files.append(Path(s['tools'])/'worker_background.py')
+    if parameters.get('admission_background_votes',2)>2:files.append(Path(s['tools'])/'admission_vote_variant.py')
     files+=[p for p in Path(s['source_code']).rglob('*.py')]
     spec['code_sha256']={str(p):sha(p) for p in sorted(files)}
     path=output/'spec.json'

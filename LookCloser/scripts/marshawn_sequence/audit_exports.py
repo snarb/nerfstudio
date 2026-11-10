@@ -31,11 +31,30 @@ def iteration_budget_valid(completed, target, reserved):
             and (completed == target or reserved == 150000))
 
 
+def approved_recipes(root):
+    """Only explicitly registered source files may define a production recipe."""
+    root = Path(root).resolve()
+    baseline = root / 'selected_recipe.json'
+    result = {sha(baseline): read(baseline)}
+    registry = root / 'approved_recipes.json'
+    if registry.exists():
+        for entry in read(registry)['recipes']:
+            path = (root / entry['path']).resolve()
+            path.relative_to(root)
+            if sha(path) != entry['sha256']:
+                raise ValueError('Approved recipe source changed')
+            recipe = read(path)
+            if entry['sha256'] in result and result[entry['sha256']] != recipe:
+                raise ValueError('Conflicting recipe registration')
+            result[entry['sha256']] = recipe
+    return result
+
+
 def audit(root, queue=None, frames_dir=None):
     root = Path(root)
     frames_dir = Path(frames_dir) if frames_dir else root / 'frames'
-    recipe = read(root / 'selected_recipe.json')
-    recipe_sha = sha(root / 'selected_recipe.json')
+    recipes = approved_recipes(root)
+    baseline_sha = sha(root / 'selected_recipe.json')
     box_sha = sha(root / 'box.json')
     frames = []
     for job in read(queue or root / 'queue.json')['jobs']:
@@ -73,7 +92,16 @@ def audit(root, queue=None, frames_dir=None):
             require(completion['frame'] == frame, 'Frame identity differs')
             require(native['frame'] == ready['frame'] == frame and
                     all(row['frame'] == frame for row in native['records']), 'Input data belongs to another frame')
-            require(completion['recipe_sha256'] == recipe_sha, 'Recipe differs')
+            recipe_sha = completion['recipe_sha256']
+            require(recipe_sha in recipes, 'Recipe is not explicitly approved')
+            recipe = recipes[recipe_sha]
+            binding_path = folder / 'recipe_binding.json'
+            if binding_path.exists():
+                binding = read(binding_path)
+                require(binding['recipe_sha256'] == recipe_sha and binding['recipe'] == recipe,
+                        'Frame recipe binding differs')
+            else:
+                require(recipe_sha == baseline_sha, 'Versioned recipe lacks frame binding')
             require(completion['aabb_sha256'] == box_sha, 'AABB differs')
             require(completion['train_cameras'] == ready['train'] == 72, 'Not all72TRAIN')
             require(len(native['records']) == 72 and native['native_no_resize'], 'Native72-camera preparation absent')
@@ -92,6 +120,12 @@ def audit(root, queue=None, frames_dir=None):
             require(iteration_budget_valid(completion['completed_iterations'], recipe['steps'], budget['reserved_attempts']), 'Target unfinished without exhausted attempt ceiling')
             require(stage['completed_iterations'] == completion['completed_iterations'] and not stage['technical'], 'Stage completion differs')
             require(all(spec.get(key) == value for key, value in recipe['parameters'].items()), 'Training parameters differ')
+            admission = read(dataset / 'admission/manifest.json')
+            require(sha(dataset / 'admission/manifest.json') == spec['semantic_admission']['manifest_sha256'],
+                    'Admission manifest binding differs')
+            require(sha(dataset / 'admission/grid.npz') == admission['grid_sha256'], 'Admission grid bytes differ')
+            require(admission.get('background_votes', 2) == recipe['parameters'].get('admission_background_votes', 2),
+                    'Admission vote threshold differs')
             require(spec['hard_max_iterations'] <= 150000, 'Spec exceeds ceiling')
             require(cold['cold'] and all(v == 0 for v in cold['optimizer_states'].values()), 'Cold optimizer evidence absent')
             require(all(cold[k] == 0 for k in ('occupied', 'nonzero_ema', 'nonzero_frequency')), 'Cold grid evidence absent')

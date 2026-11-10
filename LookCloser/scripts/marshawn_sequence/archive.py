@@ -56,7 +56,7 @@ def relocate(root,frame,completion,archive_definition):
     result=dict(completion,checkpoint=str(remote_model),artifact_root=str(dest),archive_ssh=archive_definition.get('ssh'))
     host.put(dest/'frame_complete.json',result)
     atomic(frame_root/'archive_receipt.json',result)
-    for name in ('native','data','data_confidence','data_model','data_resolution','data_exr','train','model'):
+    for name in ('native','data','data_confidence','data_model','data_resolution','data_exr','data_admission_votes3','train','model'):
         path=frame_root/name
         if path.is_dir() and not path.is_symlink():shutil.rmtree(path)
     return result
