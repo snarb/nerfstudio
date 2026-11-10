@@ -4,13 +4,23 @@ import unittest
 from pathlib import Path
 from agent import start_allowed
 from common import atomic,read
-from priority_scheduler import plan,recover,PRIORITY
+from priority_scheduler import plan,recover,PRIORITY,pending_quality_receipts
 
 
 def job(f,root='/fleet'):
  return dict(id=f'frame{f:06d}',command=['python','production.py','--root',root,'--frame',str(f)],completion=f'{root}/frames/{f:06d}/frame_complete.json',progress=f'{root}/frames/{f:06d}/train/progress.json',env={'CUDA_VISIBLE_DEVICES':'0'})
 
 class SchedulingTests(unittest.TestCase):
+ def test_known_quality_repairs_hold_release_until_reviewed(self):
+  with tempfile.TemporaryDirectory() as d:
+   root=Path(d);p=root/'quality923.json'
+   self.assertEqual(pending_quality_receipts(root),[])
+   atomic(root/'priority_quality_requirements.json',dict(required=[dict(frame=923,recipe_sha256='approved',receipt=str(p))]))
+   self.assertEqual(pending_quality_receipts(root),[923])
+   atomic(p,dict(frame=923,recipe_sha256='approved',export_verified=True,visual_reviewed=False))
+   self.assertEqual(pending_quality_receipts(root),[923])
+   atomic(p,dict(frame=923,recipe_sha256='approved',export_verified=True,visual_reviewed=True))
+   self.assertEqual(pending_quality_receipts(root),[])
  def test_gate_blocks_new_but_keeps_recovery(self):
   with tempfile.TemporaryDirectory() as d:
    j=dict(start_gate=str(Path(d)/'gate'));self.assertFalse(start_allowed(j));self.assertTrue(start_allowed(j,dict(status='failed')));atomic(j['start_gate'],{'complete':True});self.assertTrue(start_allowed(j))

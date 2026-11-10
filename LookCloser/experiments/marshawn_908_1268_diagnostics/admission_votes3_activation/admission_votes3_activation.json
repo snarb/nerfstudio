@@ -1,0 +1,40 @@
+{
+  "time": 1794326978.9638305,
+  "recipe_sha256": "bcaec09aa472f8baa43f998b0af54de555cd90b48619ef67cc7f8d48fb665ae7",
+  "activated_for_new_cold_frames": true,
+  "legacy_exports_reverified": 26,
+  "roots": [
+    {
+      "root": "/home/pavlo/marshawn_campaign_20261109",
+      "active_recipe_sha256": "bcaec09aa472f8baa43f998b0af54de555cd90b48619ef67cc7f8d48fb665ae7",
+      "new_cold_frame_canary": true,
+      "baseline_recipe_sha256": "0fb8447277238890dce1c710bd5e390c4a7246cca0175442efb27a9d7fde5f11"
+    },
+    {
+      "root": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109",
+      "active_recipe_sha256": "bcaec09aa472f8baa43f998b0af54de555cd90b48619ef67cc7f8d48fb665ae7",
+      "new_cold_frame_canary": true,
+      "baseline_recipe_sha256": "0fb8447277238890dce1c710bd5e390c4a7246cca0175442efb27a9d7fde5f11"
+    },
+    {
+      "root": "/home/nvuser/lookcloser/campaigns/marshawn908_20261109",
+      "active_recipe_sha256": "bcaec09aa472f8baa43f998b0af54de555cd90b48619ef67cc7f8d48fb665ae7",
+      "new_cold_frame_canary": true,
+      "baseline_recipe_sha256": "0fb8447277238890dce1c710bd5e390c4a7246cca0175442efb27a9d7fde5f11"
+    },
+    {
+      "root": "/mnt/footage/marshawn908_20261109",
+      "active_recipe_sha256": "bcaec09aa472f8baa43f998b0af54de555cd90b48619ef67cc7f8d48fb665ae7",
+      "new_cold_frame_canary": true,
+      "baseline_recipe_sha256": "0fb8447277238890dce1c710bd5e390c4a7246cca0175442efb27a9d7fde5f11"
+    },
+    {
+      "root": "/fsx/tmp/marshawn908_20261109/olive",
+      "active_recipe_sha256": "bcaec09aa472f8baa43f998b0af54de555cd90b48619ef67cc7f8d48fb665ae7",
+      "new_cold_frame_canary": true,
+      "baseline_recipe_sha256": "0fb8447277238890dce1c710bd5e390c4a7246cca0175442efb27a9d7fde5f11"
+    }
+  ],
+  "active_jobs_kept_legacy": true,
+  "global_sparse24_policy_unchanged": true
+}

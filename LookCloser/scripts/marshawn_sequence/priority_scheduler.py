@@ -67,6 +67,22 @@ def recover(root,hosts):
     import shlex
     for h in hosts.values():h.command('rm -f '+shlex.quote(str(h.agent_root/'SCHEDULING')))
 
+def pending_quality_receipts(root):
+    path=Path(root)/'priority_quality_requirements.json'
+    if not path.exists():return []
+    missing=[]
+    for item in read(path)['required']:
+        try:
+            receipt=read(Path(item['receipt']))
+            valid=(receipt.get('frame')==item['frame']
+                   and receipt.get('recipe_sha256')==item['recipe_sha256']
+                   and receipt.get('export_verified') is True
+                   and receipt.get('visual_reviewed') is True)
+        except (OSError,ValueError,TypeError):valid=False
+        if not valid:missing.append(item['frame'])
+    return missing
+
+
 def tick(root):
     rows=read(root/'fleet.json')['hosts'];hosts={row['name']:Host(row) for row in rows if not row.get('production_disabled')}
     recover(root,hosts)
@@ -80,7 +96,8 @@ def tick(root):
                 receipt=hosts[n].get(Path(v['job']['completion']))
                 if not receipt:raise ValueError('Missing completion receipt: '+k)
                 done.add(int(k[5:]))
-    if done==PRIORITY:
+    quality_pending=pending_quality_receipts(root)
+    if done==PRIORITY and not quality_pending:
         receipt=dict(time=time.time(),frames=sorted(done),count=72,policy='All sparse24 jobs complete with completion receipts; detailed export/visual audits remain separate')
         for h in hosts.values():
             if not h.get(h.root/'sparse24_complete.json'):h.put(h.root/'sparse24_complete.json',receipt)
@@ -104,7 +121,7 @@ def tick(root):
         tx=dict(time=time.time(),changes=changes,moves=moves,committed=False)
         atomic(root/'priority_queue_transaction.json',tx);recover(root,hosts)
         with (root/'priority_queue_history.jsonl').open('a') as f:f.write(json.dumps(dict(time=time.time(),moves=moves,queues_changed=sorted(changes)))+'\n')
-    status=dict(time=time.time(),released=False,completed=len(done),total=72,moves=moves,pending={n:len(pending(new[n],states[n])) for n in hosts})
+    status=dict(time=time.time(),released=False,completed=len(done),total=72,moves=moves,pending={n:len(pending(new[n],states[n])) for n in hosts},quality_repairs_pending=quality_pending)
     atomic(root/'priority_scheduler_status.json',status);return False
 
 def run(root,once=False):

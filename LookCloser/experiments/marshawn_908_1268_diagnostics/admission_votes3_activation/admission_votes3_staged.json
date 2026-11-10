@@ -1,0 +1,68 @@
+{
+  "time": 1794326843.690882,
+  "recipe_sha256": "bcaec09aa472f8baa43f998b0af54de555cd90b48619ef67cc7f8d48fb665ae7",
+  "roots": [
+    {
+      "root": "/home/pavlo/marshawn_campaign_20261109",
+      "tools": "/home/pavlo/marshawn_campaign_20261109/production_tools",
+      "active_frames_pinned_legacy": [
+        993
+      ],
+      "sealed_unchanged": true,
+      "recipe_sha256": "bcaec09aa472f8baa43f998b0af54de555cd90b48619ef67cc7f8d48fb665ae7",
+      "activated": false,
+      "active_parent_identities_unchanged": true
+    },
+    {
+      "root": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109",
+      "tools": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/tools",
+      "active_frames_pinned_legacy": [
+        943,
+        933,
+        978,
+        958,
+        948,
+        1038,
+        983,
+        963
+      ],
+      "sealed_unchanged": true,
+      "recipe_sha256": "bcaec09aa472f8baa43f998b0af54de555cd90b48619ef67cc7f8d48fb665ae7",
+      "activated": false,
+      "active_parent_identities_unchanged": true
+    },
+    {
+      "root": "/home/nvuser/lookcloser/campaigns/marshawn908_20261109",
+      "tools": "/home/nvuser/lookcloser/campaigns/marshawn908_20261109/tools",
+      "active_frames_pinned_legacy": [
+        1148
+      ],
+      "sealed_unchanged": true,
+      "recipe_sha256": "bcaec09aa472f8baa43f998b0af54de555cd90b48619ef67cc7f8d48fb665ae7",
+      "activated": false,
+      "active_parent_identities_unchanged": true
+    },
+    {
+      "root": "/mnt/footage/marshawn908_20261109",
+      "tools": "/mnt/footage/marshawn908_20261109/tools",
+      "active_frames_pinned_legacy": [
+        1248
+      ],
+      "sealed_unchanged": true,
+      "recipe_sha256": "bcaec09aa472f8baa43f998b0af54de555cd90b48619ef67cc7f8d48fb665ae7",
+      "activated": false,
+      "active_parent_identities_unchanged": true
+    },
+    {
+      "root": "/fsx/tmp/marshawn908_20261109/olive",
+      "tools": "/fsx/tmp/marshawn908_20261109/olive/tools",
+      "active_frames_pinned_legacy": [
+        953
+      ],
+      "sealed_unchanged": true,
+      "recipe_sha256": "bcaec09aa472f8baa43f998b0af54de555cd90b48619ef67cc7f8d48fb665ae7",
+      "activated": false,
+      "active_parent_identities_unchanged": true
+    }
+  ]
+}

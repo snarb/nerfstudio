@@ -1,0 +1,90 @@
+{
+  "time": 1794326898.4638574,
+  "verified": 26,
+  "roots": [
+    {
+      "host": "ws07",
+      "verified": 3,
+      "failed": 0,
+      "expected": 41,
+      "errors": []
+    },
+    {
+      "host": "silver0",
+      "verified": 2,
+      "failed": 0,
+      "expected": 29,
+      "errors": []
+    },
+    {
+      "host": "silver1",
+      "verified": 2,
+      "failed": 0,
+      "expected": 29,
+      "errors": []
+    },
+    {
+      "host": "silver2",
+      "verified": 2,
+      "failed": 0,
+      "expected": 29,
+      "errors": []
+    },
+    {
+      "host": "silver3",
+      "verified": 2,
+      "failed": 0,
+      "expected": 29,
+      "errors": []
+    },
+    {
+      "host": "silver4",
+      "verified": 2,
+      "failed": 0,
+      "expected": 29,
+      "errors": []
+    },
+    {
+      "host": "silver5",
+      "verified": 2,
+      "failed": 0,
+      "expected": 29,
+      "errors": []
+    },
+    {
+      "host": "silver6",
+      "verified": 2,
+      "failed": 0,
+      "expected": 29,
+      "errors": []
+    },
+    {
+      "host": "silver7",
+      "verified": 2,
+      "failed": 0,
+      "expected": 29,
+      "errors": []
+    },
+    {
+      "host": "ws08",
+      "verified": 3,
+      "failed": 0,
+      "expected": 41,
+      "errors": []
+    },
+    {
+      "host": "clever",
+      "verified": 2,
+      "failed": 0,
+      "expected": 24,
+      "errors": []
+    },
+    {
+      "host": "olive",
+      "verified": 2,
+      "failed": 0,
+      "expected": 23,
+      "errors": []
+    }
+  ]
+}
