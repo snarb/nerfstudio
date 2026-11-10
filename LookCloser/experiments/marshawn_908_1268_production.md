@@ -109,3 +109,11 @@ Completed and selected 150,000 iterations, cap10. All72 cameras train; in-sample
 ### Eighteenth verified model: 920
 
 Completed150,000 iterations, selected144,000 at cap10. All72 cameras train; in-sample PSNR31.8691 dB, SSIM0.776448, actor LPIPS0.121228. Export SHA256 `4ed578e36e9709d0e103c8d6ce0ced8c3ea71163aec2d7ead9ff37a564aa5716` verified. Six FullHD camera/novel views inspected with matching receipts. Prominent contour halos and background/floor fragments persist. Evidence: [review](marshawn_908_1268_diagnostics/frame920_final_review/final_contact.jpg), [audit](marshawn_908_1268_diagnostics/frame920_final_review/export_audit.json). Verified and reviewed18/361.
+
+### Nineteenth verified model: 921
+
+Completed150,000 iterations, selected150000, cap10. All72 cameras train; in-sample PSNR31.8378 dB, SSIM0.774087, actor LPIPS0.124900. Export SHA256 `a2cede0f24ee51c5689eab568edb2419376b0955947c7189bbc1b94b7b5a10cb` verified. Six FullHD camera/novel views inspected with matching receipts. Prominent contour halos and background/floor fragments remain. Evidence: [review](marshawn_908_1268_diagnostics/frame921_final_review/final_contact.jpg), [audit](marshawn_908_1268_diagnostics/frame921_final_review/export_audit.json).
+
+### Twentieth verified model: 923
+
+Completed150,000 iterations, selected150000, cap10. All72 cameras train; in-sample PSNR32.5700 dB, SSIM0.798978, actor LPIPS0.115894. Export SHA256 `8fb88faa19fb3bb6a7e98b0b5246540c7ef2a76f5cc25a051e4b4ed2c767aac0` verified. Six FullHD camera/novel views inspected with matching receipts. Prominent contour halos and background/floor fragments remain. Evidence: [review](marshawn_908_1268_diagnostics/frame923_final_review/final_contact.jpg), [audit](marshawn_908_1268_diagnostics/frame923_final_review/export_audit.json).
