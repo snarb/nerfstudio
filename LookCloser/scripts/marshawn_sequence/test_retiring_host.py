@@ -1,4 +1,5 @@
 import tempfile
+import hashlib
 import unittest
 from pathlib import Path
 
@@ -27,6 +28,27 @@ class RetirementTests(unittest.TestCase):
             self.assertEqual(set(state['jobs']), {'frame000908'})
             self.assertIsNone(state['active'])
             self.assertTrue(RetiringHost(dict(name='ws07', root='/source', local=True), campaign).offline)
+
+    def test_completed_weights_are_usable_during_optimizer_copy(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            campaign = Path(temporary) / 'campaigns' / 'scene'
+            host = RetiringHost(dict(name='ws07', root='/source', local=True), campaign)
+            payload = b'checkpoint fixture'
+            digest = hashlib.sha256(payload).hexdigest()
+            completion = '/source/frames/000908/frame_complete.json'
+            atomic(host.cached_path('/source/queue.json'), dict(jobs=[]))
+            atomic(host.cached_path('/source/agent_state.json'), dict(jobs={
+                'frame000908': dict(status='complete', job=dict(completion=completion))}))
+            atomic(host.cached_path(completion), dict(checkpoint_sha256=digest))
+            path = '/source/frames/000908/model/inference.ckpt'
+            folder = host.backup / 'ws07'
+            checkpoint = folder / 'filesystem' / path.lstrip('/')
+            checkpoint.parent.mkdir(parents=True)
+            checkpoint.write_bytes(payload)
+            atomic(folder / 'source_inventory.json', dict(records=[
+                dict(path=path, size=len(payload), sha256=digest)]))
+            host.activate()
+            self.assertIn('frame000908', host.get('/source/agent_state.json')['jobs'])
 
 
 if __name__ == '__main__':
