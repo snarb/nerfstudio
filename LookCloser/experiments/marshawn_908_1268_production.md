@@ -201,3 +201,17 @@ First audited main-queue export trained cold with the three-vote admission recip
 ### Frame 1163 final review — 2026-11-10
 
 Audited independent export. Actor PSNR 32.80689, SSIM 0.809141, LPIPS 0.123702. Four performers visible in six Full HD views. Contour halos and conspicuous floating background fragments persist. [Evidence](marshawn_908_1268_diagnostics/frame1163_final_review/visual_inspection.json), [views](marshawn_908_1268_diagnostics/frame1163_final_review/final_contact.jpg). Reviewed 40 total and 21/72 on the 24 fps grid.
+
+### Frame 998 final review
+
+Audited independent export at 144000 iterations. Actor metrics {'psnr': 32.539058220557756, 'ssim': 0.7949514587720236, 'lpips': 0.1605624184012413}. Six Full HD views inspected. Four performers visible without obvious box truncation. Contour halos and floating background fragments persist. [Views](marshawn_908_1268_diagnostics/frame998_final_review/final_contact.jpg).
+
+### Frame 1033 final review
+
+Audited independent export at 144000 iterations. Actor metrics {'psnr': 32.53308881242764, 'ssim': 0.7905687093734741, 'lpips': 0.14621592064698538}. Six Full HD views inspected. Four performers visible without obvious box truncation. Contour halos and floating background fragments persist. [Views](marshawn_908_1268_diagnostics/frame1033_final_review/final_contact.jpg).
+
+### Frame 1048 final review
+
+Audited independent export at 150000 iterations. Actor metrics {'psnr': 32.560969255465814, 'ssim': 0.7896863718827566, 'lpips': 0.14435973080495992}. Six Full HD views inspected. Four performers visible without obvious box truncation. Contour halos and floating background fragments persist. [Views](marshawn_908_1268_diagnostics/frame1048_final_review/final_contact.jpg).
+
+Reviewed 43 model exports, including 24 of 72 priority frames. Corrected versions of 923 and 988 are pending.

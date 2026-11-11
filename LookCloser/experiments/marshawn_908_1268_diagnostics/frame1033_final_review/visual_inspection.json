@@ -1,0 +1,10 @@
+{
+  "frame": 1033,
+  "time": "2026-11-11T00:18:39.282003+00:00",
+  "model_sha256": "7b41ddf3784cd91e83d4e06ac7d967f8340a5bc26794ea3c0b4f5ac42c63ecf2",
+  "visual_reviewed": true,
+  "observations": [
+    "Six Full HD views inspected. Four performers visible without obvious box truncation.",
+    "Contour halos and floating background fragments persist."
+  ]
+}
