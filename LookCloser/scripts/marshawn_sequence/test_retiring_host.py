@@ -50,6 +50,24 @@ class RetirementTests(unittest.TestCase):
             host.activate()
             self.assertIn('frame000908', host.get('/source/agent_state.json')['jobs'])
 
+    def test_export_created_after_snapshot_is_found_in_archive(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            campaign = Path(temporary) / 'campaigns' / 'scene'
+            host = RetiringHost(dict(name='ws08', root='/source', local=True), campaign)
+            payload = b'new export'
+            digest = hashlib.sha256(payload).hexdigest()
+            completion = '/source/frames/001243/frame_complete.json'
+            atomic(host.cached_path('/source/queue.json'), dict(jobs=[]))
+            atomic(host.cached_path('/source/agent_state.json'), dict(jobs={
+                'frame001243': dict(status='complete', job=dict(completion=completion))}))
+            atomic(host.cached_path(completion), dict(checkpoint_sha256=digest))
+            archive = host.archive / '001243'
+            atomic(archive / 'model/manifest.json', dict(sha256=digest))
+            atomic(archive / 'support_preserved.json', dict(weights_present=True))
+            (archive / 'model/inference.ckpt').write_bytes(payload)
+            host.activate()
+            self.assertIn('frame001243', host.get('/source/agent_state.json')['jobs'])
+
 
 if __name__ == '__main__':
     unittest.main()

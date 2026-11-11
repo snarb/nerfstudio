@@ -14,6 +14,7 @@ class RetiringHost(Host):
         self.enabled = row['name'] in ('ws07', 'ws08')
         self.cache = Path(campaign_root) / 'evacuated_hosts' / row['name']
         self.backup = Path(campaign_root).parent.parent / 'emergency_workstations_20261111'
+        self.archive = Path(campaign_root) / 'external_models' / row['name']
         self.offline = self.enabled and (self.cache / 'offline.json').exists()
 
     def cached_path(self, path):
@@ -51,6 +52,22 @@ class RetiringHost(Host):
                         digest.update(chunk)
                 if digest.hexdigest() == record['sha256']:
                     verified.add(record['sha256'])
+        # Later exports may already be preserved with their exact datasets,
+        # even when they were created after the original checkpoint snapshot.
+        for manifest in self.archive.glob('*/model/manifest.json'):
+            expected = read(manifest)['sha256']
+            if expected in verified:
+                continue
+            preservation = manifest.parent.parent / 'support_preserved.json'
+            checkpoint = manifest.parent / 'inference.ckpt'
+            if not preservation.exists() or not read(preservation).get('weights_present') or not checkpoint.exists():
+                continue
+            digest = hashlib.sha256()
+            with checkpoint.open('rb') as stream:
+                for chunk in iter(lambda: stream.read(8 * 1024 * 1024), b''):
+                    digest.update(chunk)
+            if digest.hexdigest() == expected:
+                verified.add(expected)
         state = read(state_path)
         retained = {}
         for key, value in state.get('jobs', {}).items():

@@ -1,0 +1,131 @@
+{
+  "time": 1794423617.033931,
+  "records": [
+    {
+      "frame": 913,
+      "host": "ws07",
+      "time": 1794419935.4524977,
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/000913",
+      "weights_present": true
+    },
+    {
+      "frame": 998,
+      "host": "ws07",
+      "time": 1794419898.15874,
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/000998",
+      "weights_present": true
+    },
+    {
+      "frame": 1108,
+      "host": "ws07",
+      "time": 1794419946.7140508,
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108",
+      "weights_present": false
+    },
+    {
+      "frame": 1078,
+      "host": "ws07",
+      "time": 1794419985.950365,
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001078",
+      "weights_present": true
+    },
+    {
+      "frame": 993,
+      "host": "ws07",
+      "time": 1794420542.5799692,
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/000993",
+      "weights_present": true
+    },
+    {
+      "frame": 1073,
+      "host": "ws07",
+      "time": 1794420613.5784478,
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001073",
+      "weights_present": true
+    },
+    {
+      "frame": 1083,
+      "host": "ws07",
+      "time": 1794420550.510611,
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001083",
+      "weights_present": true
+    },
+    {
+      "frame": 908,
+      "host": "ws07",
+      "time": 1794420617.3725557,
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/000908",
+      "weights_present": true
+    },
+    {
+      "frame": 988,
+      "host": "ws07",
+      "time": 1794420943.753558,
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/000988",
+      "weights_present": true
+    },
+    {
+      "frame": 1123,
+      "host": "ws08",
+      "time": 1794421028.323753,
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws08/001123",
+      "weights_present": true
+    },
+    {
+      "frame": 1203,
+      "host": "ws08",
+      "time": 1794421034.9785805,
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws08/001203",
+      "weights_present": true
+    },
+    {
+      "frame": 1243,
+      "host": "ws08",
+      "time": 1794421866.6176243,
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws08/001243",
+      "weights_present": true
+    },
+    {
+      "frame": 1116,
+      "host": "ws08",
+      "time": 1794423562.009873,
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws08/001116",
+      "weights_present": true
+    },
+    {
+      "frame": 1188,
+      "host": "ws08",
+      "time": 1794421489.5060468,
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws08/001188",
+      "weights_present": true
+    },
+    {
+      "frame": 1228,
+      "host": "ws08",
+      "time": 1794421583.8525789,
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws08/001228",
+      "weights_present": true
+    },
+    {
+      "frame": 1148,
+      "host": "ws08",
+      "time": 1794421490.0354056,
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws08/001148",
+      "weights_present": true
+    },
+    {
+      "frame": 1112,
+      "host": "ws08",
+      "time": 1794423617.032814,
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws08/001112",
+      "weights_present": true
+    },
+    {
+      "frame": 1163,
+      "host": "ws08",
+      "time": 1794421923.0663764,
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws08/001163",
+      "weights_present": true
+    }
+  ]
+}
