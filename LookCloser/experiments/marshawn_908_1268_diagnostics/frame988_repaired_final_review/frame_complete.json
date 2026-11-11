@@ -1,0 +1,503 @@
+{
+  "frame": 988,
+  "recipe_sha256": "bcaec09aa472f8baa43f998b0af54de555cd90b48619ef67cc7f8d48fb665ae7",
+  "aabb_sha256": "ed0007a34a7328845ef651be50e007bcf6efd996b904229b6786d6d7ff4fc5a3",
+  "train_cameras": 72,
+  "in_sample_metrics": true,
+  "completed_iterations": 150000,
+  "selected": {
+    "step": 149999,
+    "cap": 10,
+    "metrics": {
+      "psnr": 32.56073449436372,
+      "ssim": 0.7951042254765829,
+      "lpips": 0.1459352740397056,
+      "validation_loss": 0.020824503774444263
+    },
+    "by_view": {
+      "CB": {
+        "psnr": 32.67592449392936,
+        "ssim": 0.8050284832715988,
+        "lpips": 0.11280450411140919,
+        "validation_loss": 0.020572890993207693
+      },
+      "GC": {
+        "psnr": 32.036774151683574,
+        "ssim": 0.7794757932424545,
+        "lpips": 0.18039432168006897,
+        "validation_loss": 0.021646815352141857
+      },
+      "NB": {
+        "psnr": 32.96950483747823,
+        "ssim": 0.8008083999156952,
+        "lpips": 0.14460699632763863,
+        "validation_loss": 0.020253804977983236
+      }
+    },
+    "records": [
+      {
+        "view": "CB",
+        "person": 1,
+        "psnr": 34.30676888140595,
+        "ssim": 0.850270688533783,
+        "lpips": 0.10569613426923752,
+        "validation_loss": 0.018065592274069786,
+        "actor_pixels": 897152,
+        "crop_xyxy": [
+          128,
+          181,
+          1337,
+          2240
+        ],
+        "crop_pixels": 2489331,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      },
+      {
+        "view": "CB",
+        "person": 2,
+        "psnr": 32.419685731361916,
+        "ssim": 0.7960605025291443,
+        "lpips": 0.10330040752887726,
+        "validation_loss": 0.021020246669650078,
+        "actor_pixels": 495486,
+        "crop_xyxy": [
+          4753,
+          824,
+          6133,
+          1831
+        ],
+        "crop_pixels": 1389660,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      },
+      {
+        "view": "CB",
+        "person": 3,
+        "psnr": 31.719945502984082,
+        "ssim": 0.7790685892105103,
+        "lpips": 0.12221670150756836,
+        "validation_loss": 0.022218529134988785,
+        "actor_pixels": 485669,
+        "crop_xyxy": [
+          3174,
+          134,
+          4107,
+          1339
+        ],
+        "crop_pixels": 1124265,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      },
+      {
+        "view": "CB",
+        "person": 4,
+        "psnr": 32.25729785996548,
+        "ssim": 0.7947141528129578,
+        "lpips": 0.12000477313995361,
+        "validation_loss": 0.020987195894122124,
+        "actor_pixels": 573042,
+        "crop_xyxy": [
+          3557,
+          837,
+          5229,
+          1855
+        ],
+        "crop_pixels": 1702096,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      },
+      {
+        "view": "GC",
+        "person": 1,
+        "psnr": 32.803181506736244,
+        "ssim": 0.8211632966995239,
+        "lpips": 0.13364532589912415,
+        "validation_loss": 0.02023366652429104,
+        "actor_pixels": 539998,
+        "crop_xyxy": [
+          129,
+          119,
+          886,
+          1684
+        ],
+        "crop_pixels": 1184705,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      },
+      {
+        "view": "GC",
+        "person": 2,
+        "psnr": 30.815422535792454,
+        "ssim": 0.7377078533172607,
+        "lpips": 0.1636432260274887,
+        "validation_loss": 0.024045974016189575,
+        "actor_pixels": 915785,
+        "crop_xyxy": [
+          2745,
+          731,
+          4054,
+          2091
+        ],
+        "crop_pixels": 1780240,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      },
+      {
+        "view": "GC",
+        "person": 3,
+        "psnr": 32.54366480925824,
+        "ssim": 0.7805472612380981,
+        "lpips": 0.29733040928840637,
+        "validation_loss": 0.020901182666420937,
+        "actor_pixels": 876445,
+        "crop_xyxy": [
+          4919,
+          2400,
+          6019,
+          3491
+        ],
+        "crop_pixels": 1200100,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      },
+      {
+        "view": "GC",
+        "person": 4,
+        "psnr": 31.98482775494736,
+        "ssim": 0.7784847617149353,
+        "lpips": 0.12695832550525665,
+        "validation_loss": 0.02140643820166588,
+        "actor_pixels": 1309794,
+        "crop_xyxy": [
+          2412,
+          1794,
+          4636,
+          3407
+        ],
+        "crop_pixels": 3587312,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      },
+      {
+        "view": "NB",
+        "person": 1,
+        "psnr": 33.63076057177048,
+        "ssim": 0.8307656645774841,
+        "lpips": 0.13119058310985565,
+        "validation_loss": 0.019285518676042557,
+        "actor_pixels": 509917,
+        "crop_xyxy": [
+          4628,
+          117,
+          5329,
+          1649
+        ],
+        "crop_pixels": 1073932,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      },
+      {
+        "view": "NB",
+        "person": 2,
+        "psnr": 33.07936444548804,
+        "ssim": 0.8011295199394226,
+        "lpips": 0.14453133940696716,
+        "validation_loss": 0.020135188475251198,
+        "actor_pixels": 1081911,
+        "crop_xyxy": [
+          120,
+          2406,
+          1625,
+          3811
+        ],
+        "crop_pixels": 2114525,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      },
+      {
+        "view": "NB",
+        "person": 3,
+        "psnr": 32.63239661454549,
+        "ssim": 0.7837004065513611,
+        "lpips": 0.16380523145198822,
+        "validation_loss": 0.020681461319327354,
+        "actor_pixels": 1324615,
+        "crop_xyxy": [
+          2592,
+          1113,
+          4074,
+          3042
+        ],
+        "crop_pixels": 2858778,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      },
+      {
+        "view": "NB",
+        "person": 4,
+        "psnr": 32.53549771810892,
+        "ssim": 0.7876380085945129,
+        "lpips": 0.13890083134174347,
+        "validation_loss": 0.020913051441311836,
+        "actor_pixels": 749098,
+        "crop_xyxy": [
+          1436,
+          1848,
+          3397,
+          2789
+        ],
+        "crop_pixels": 1845301,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      }
+    ],
+    "details": [
+      {
+        "view": "CB",
+        "person": 1,
+        "region": "SAM head/hair/face",
+        "psnr": 37.27106528329167,
+        "ssim": 0.9145998954772949,
+        "lpips": 0.10756871849298477,
+        "validation_loss": 0.014930857345461845,
+        "actor_pixels": 86302,
+        "crop_xyxy": [
+          643,
+          181,
+          1035,
+          560
+        ],
+        "crop_pixels": 148568,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      },
+      {
+        "view": "CB",
+        "person": 2,
+        "region": "SAM head/hair/face",
+        "psnr": 39.83698709829064,
+        "ssim": 0.9698827862739563,
+        "lpips": 0.0037376240361481905,
+        "validation_loss": 0.01284139696508646,
+        "actor_pixels": 16808,
+        "crop_xyxy": [
+          4792,
+          857,
+          5081,
+          1143
+        ],
+        "crop_pixels": 82654,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      },
+      {
+        "view": "CB",
+        "person": 3,
+        "region": "SAM head/hair/face",
+        "psnr": 34.97198455252041,
+        "ssim": 0.9033656716346741,
+        "lpips": 0.027124736458063126,
+        "validation_loss": 0.0170301403850317,
+        "actor_pixels": 45303,
+        "crop_xyxy": [
+          3691,
+          334,
+          4081,
+          759
+        ],
+        "crop_pixels": 165750,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      },
+      {
+        "view": "CB",
+        "person": 4,
+        "region": "SAM head/hair/face",
+        "psnr": 34.98732535295978,
+        "ssim": 0.8830591440200806,
+        "lpips": 0.07853596657514572,
+        "validation_loss": 0.017261328175663948,
+        "actor_pixels": 66338,
+        "crop_xyxy": [
+          3557,
+          1295,
+          3898,
+          1646
+        ],
+        "crop_pixels": 119691,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      },
+      {
+        "view": "GC",
+        "person": 1,
+        "region": "SAM head/hair/face",
+        "psnr": 36.59362824647369,
+        "ssim": 0.9160283207893372,
+        "lpips": 0.06377454847097397,
+        "validation_loss": 0.015592493116855621,
+        "actor_pixels": 45941,
+        "crop_xyxy": [
+          367,
+          119,
+          612,
+          424
+        ],
+        "crop_pixels": 74725,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      },
+      {
+        "view": "GC",
+        "person": 2,
+        "region": "SAM head/hair/face",
+        "psnr": 34.024682150577746,
+        "ssim": 0.8705648183822632,
+        "lpips": 0.02930663526058197,
+        "validation_loss": 0.01864631101489067,
+        "actor_pixels": 71476,
+        "crop_xyxy": [
+          2916,
+          918,
+          3448,
+          1460
+        ],
+        "crop_pixels": 288344,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      },
+      {
+        "view": "GC",
+        "person": 3,
+        "region": "SAM head/hair/face",
+        "psnr": 36.27930755941728,
+        "ssim": 0.9057449102401733,
+        "lpips": 0.015925373882055283,
+        "validation_loss": 0.015827160328626633,
+        "actor_pixels": 52778,
+        "crop_xyxy": [
+          5461,
+          2497,
+          5868,
+          3028
+        ],
+        "crop_pixels": 216117,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      },
+      {
+        "view": "GC",
+        "person": 4,
+        "region": "SAM head/hair/face",
+        "psnr": 34.28238763004772,
+        "ssim": 0.8662218451499939,
+        "lpips": 0.04125809669494629,
+        "validation_loss": 0.018225466832518578,
+        "actor_pixels": 96411,
+        "crop_xyxy": [
+          2533,
+          2059,
+          3630,
+          2441
+        ],
+        "crop_pixels": 419054,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      },
+      {
+        "view": "NB",
+        "person": 1,
+        "region": "SAM head/hair/face",
+        "psnr": 36.20475617863328,
+        "ssim": 0.9117934107780457,
+        "lpips": 0.06574305891990662,
+        "validation_loss": 0.015727875754237175,
+        "actor_pixels": 47542,
+        "crop_xyxy": [
+          4949,
+          117,
+          5220,
+          417
+        ],
+        "crop_pixels": 81300,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      },
+      {
+        "view": "NB",
+        "person": 2,
+        "region": "SAM head/hair/face",
+        "psnr": 33.59094652936869,
+        "ssim": 0.818847119808197,
+        "lpips": 0.11092215776443481,
+        "validation_loss": 0.019511383026838303,
+        "actor_pixels": 137559,
+        "crop_xyxy": [
+          1039,
+          3096,
+          1502,
+          3629
+        ],
+        "crop_pixels": 246779,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      },
+      {
+        "view": "NB",
+        "person": 3,
+        "region": "SAM head/hair/face",
+        "psnr": 38.024402393263486,
+        "ssim": 0.9414730668067932,
+        "lpips": 0.013899881392717361,
+        "validation_loss": 0.014053970575332642,
+        "actor_pixels": 32370,
+        "crop_xyxy": [
+          2910,
+          1113,
+          3316,
+          1508
+        ],
+        "crop_pixels": 160370,
+        "domain": "fixed GT actor crop; identical RGB0.5 exterior; AlexNet LPIPS without resize",
+        "validation_loss_definition": "mean RGB Charbonnier sqrt(error^2 + 1e-4) on actor pixels",
+        "ssim_domain": "actor centers on neutral-composited crop; includes contour windows"
+      }
+    ],
+    "head_lpips_by_view": {
+      "CB": 0.05424176139058545,
+      "GC": 0.03756616357713938,
+      "NB": 0.06352169935901959
+    },
+    "raw_render_directory": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/repairs_votes3_20261110/frames/000988/train/renders/000149999_cap10",
+    "domain": "native RGB; fixed source SAM person masks; RGB0.5 exterior; equal visible people per view then equal views; camera-local IDs",
+    "in_sample": true,
+    "checkpoint_sha256": "4605b2d923c8920897f9ccf67ca39499fca646b8ba0c621bce60d0ad70ad6839"
+  },
+  "checkpoint": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/repairs_votes3_20261110/frames/000988/model/inference.ckpt",
+  "checkpoint_sha256": "2a19cef44182e27a721f4e85a099ebf71a195c43d4f07bf429a62dbf5da21a52",
+  "cold_provenance_sha256": "9e8ca16f1174afd3a426a648373ff3447f37e925ca6cf98953ce92dc472a31a5",
+  "inference_only_export": true
+}

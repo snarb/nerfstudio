@@ -85,3 +85,7 @@ Global sparse24 release additionally waits for explicit export+visual quality re
 ### Final independent 150k model
 
 The repaired model completed training and passed export auditing. Six Full HD calibrated/interpolated views were inspected. The original gap in the GC bat is filled and the bat is continuous. Contour halos and floating background fragments persist. The repaired model SHA256 is 048320d107643858fef5b134d738cf43c58c932649bd3c7b0edaace718b94919. The matching quality receipt was published to the repair queue. [Full HD GC](marshawn_908_1268_diagnostics/frame923_repaired_final_review/final_review/fullhd/GC_raw_fullhd.png).
+
+### Final frame 988 repair
+
+Independent retraining completed at 150k. Export and six Full HD views passed review. The bat is continuous in full-resolution GC across the previously missing section. Contour halos and floating background fragments persist. Published the matching quality receipt for the global priority scheduler. [GC](marshawn_908_1268_diagnostics/frame988_repaired_final_review/final_review/fullhd/GC_raw_fullhd.png).
