@@ -1,0 +1,32 @@
+[
+  {
+    "view": "CB",
+    "max_abs_code": 1,
+    "mean_abs_code": 1.4467592592592592e-06,
+    "fraction_channels_different": 1.446759259282615e-06,
+    "canvas": [
+      1920,
+      1080
+    ]
+  },
+  {
+    "view": "GC",
+    "max_abs_code": 1,
+    "mean_abs_code": 6.430041152263375e-07,
+    "fraction_channels_different": 6.430041151750387e-07,
+    "canvas": [
+      1920,
+      1080
+    ]
+  },
+  {
+    "view": "NB",
+    "max_abs_code": 1,
+    "mean_abs_code": 6.430041152263375e-07,
+    "fraction_channels_different": 6.430041151750387e-07,
+    "canvas": [
+      1920,
+      1080
+    ]
+  }
+]

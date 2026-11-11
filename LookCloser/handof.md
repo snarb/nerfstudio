@@ -192,3 +192,9 @@ python3 tools/audit_exports.py --root "$PWD" --queue agents/gpu0/queue.json --ou
 7. Для остальных кадров исходной кампании проверить источники данных перед продолжением. Сохранённый перенос гарантирует входные данные для 72 кадров сетки 24 fps.
 
 Пароли, токены GitHub и облачные ключи в этот документ не включены.
+
+## Проверка восстановления экспортов на silver-sable
+
+Дополнительно работает `marshawn-emergency-frame-support.service`. Она сохраняет точные admission grids, frequency maps, semantic/head/core arrays, recipe и runtime manifests в `external_models/ws07/<frame>` и `external_models/ws08/<frame>`. RGB и sampling masks используют уже проверенные канонические native datasets. Проверять `support_preserved.json` для каждого архива и `emergency_workstations_20261111/frame_support_complete.json` для завершения прохода. Сервис ещё работал на момент этой записи.
+
+Модель 998 восстановлена из перенесённой копии на silver-sable. Три исходных Full HD вида WS07 сравнивались с новыми CB/GC/NB. Максимальное отклонение один код 8-bit RGB, различаются 17 цветовых компонентов из 18,662,400. Результаты находятся в `external_models/ws07/000998/restoration_check/` и в git-отчёте `experiments/marshawn_workstation_backup_20261111/restoration998/`.
