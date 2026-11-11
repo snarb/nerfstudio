@@ -1,0 +1,805 @@
+{
+  "scope": "Preferred sparse24 model identities from persisted export and visual-review evidence; live storage presence is a separate audit",
+  "fps": 24,
+  "source_fps": 120,
+  "frames": [
+    {
+      "frame": 908,
+      "model_sha256": "e56b810da9921b2a587655d151eaca3aac3aeb13410dca3bfeaf12b2ef2fef0b",
+      "selected_iterations": 144000,
+      "metrics": {
+        "psnr": 32.535929782240224,
+        "ssim": 0.7991723716259003,
+        "lpips": 0.10805775721867879
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame908_completed_model_audit.json"
+    },
+    {
+      "frame": 913,
+      "model_sha256": "4afdca7e52fdc0088d91d5c1f6575fe31645bab3442ab23d058358f79f5c2731",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.66352667613656,
+        "ssim": 0.8026441286007563,
+        "lpips": 0.11508328074382411
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame913_final_review/export_audit.json"
+    },
+    {
+      "frame": 918,
+      "model_sha256": "b6d3279a9e2ed71e5de6d9d61586062e7240782665e181d3a76c8519985469b9",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.71291399168627,
+        "ssim": 0.8039370675881704,
+        "lpips": 0.11294406404097874
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/silver_first8_completed_model_audit.json"
+    },
+    {
+      "frame": 923,
+      "model_sha256": "048320d107643858fef5b134d738cf43c58c932649bd3c7b0edaace718b94919",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.59037110604479,
+        "ssim": 0.7988921304543813,
+        "lpips": 0.11530865107973416
+      },
+      "preferred_repair": true,
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame923_repaired_final_review/frame_complete.json"
+    },
+    {
+      "frame": 928,
+      "model_sha256": "8fc7e7c5f9eee38d01c055893faa5e10bae4710c66109f76e739bb7704f89c61",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.50654890081804,
+        "ssim": 0.8012642860412598,
+        "lpips": 0.11371609133978684
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame928_final_review/export_audit.json"
+    },
+    {
+      "frame": 933,
+      "model_sha256": "d30272ea247c00784fc625c693e04436c6b16bcfdd29aadecb9da6a33107fd61",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.86719777516944,
+        "ssim": 0.8096945716275109,
+        "lpips": 0.12718014832999971
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame933_final_review/export_audit.json"
+    },
+    {
+      "frame": 938,
+      "model_sha256": "b279700566b0fcc2123cb030078d408d1d193aab690a249f1a5fc414017789ab",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.896946437026735,
+        "ssim": 0.8098267631398307,
+        "lpips": 0.13171767443418503
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame938_final_review/export_audit.json"
+    },
+    {
+      "frame": 943,
+      "model_sha256": "9cda70221001dc9eba5c3f6798f0e19aae39a02cd18ea19b84d08cc89e80c5d4",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.890083066041775,
+        "ssim": 0.8113675779766507,
+        "lpips": 0.13845400429434246
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame943_final_review/export_audit.json"
+    },
+    {
+      "frame": 948,
+      "model_sha256": "5cde9ea068a64dea0371336008addb59aef920d049d21925bb2a6bd90d0c61e2",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.94952883371073,
+        "ssim": 0.8092843476268979,
+        "lpips": 0.13353320894141993
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame948_final_review/export_audit.json"
+    },
+    {
+      "frame": 953,
+      "model_sha256": "6a99ec4e6605a3fe3763153f29ee357a37ab6a5464cccbd53e9ca23a5069e314",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 33.02775761470562,
+        "ssim": 0.8119279791911443,
+        "lpips": 0.1329596479319864
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame953_final_review/export_audit.json"
+    },
+    {
+      "frame": 958,
+      "model_sha256": "e5d7956094fd7b287a222c4d6aa1cc28a23b94cde636d5984eed8b329dbc94a5",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.87865943734685,
+        "ssim": 0.8071454879310397,
+        "lpips": 0.12992331820229688
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame958_final_review/export_audit.json"
+    },
+    {
+      "frame": 963,
+      "model_sha256": "caea0ad5b72e85d50e29adb7d4662030f9fbc2adffb5035bc903c6c1230b3e76",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.613140365448935,
+        "ssim": 0.8046275476614634,
+        "lpips": 0.1209171125665307
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame963_final_review/export_audit.json"
+    },
+    {
+      "frame": 968,
+      "model_sha256": "3a03b5f3406173c575674539c01cd615dc10f00a49c052baf350e95682757416",
+      "selected_iterations": 144000,
+      "metrics": {
+        "psnr": 32.67955525757292,
+        "ssim": 0.8025645464658737,
+        "lpips": 0.11468589895715316
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame968_final_review/export_audit.json"
+    },
+    {
+      "frame": 973,
+      "model_sha256": "9b2694bbf43fd5862130619cbb28f8f0df1817623c4be2a8f0331bb29dce1a8f",
+      "selected_iterations": 144000,
+      "metrics": {
+        "psnr": 32.63195596100858,
+        "ssim": 0.8010961016019186,
+        "lpips": 0.1132686057438453
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame973_final_review/export_audit.json"
+    },
+    {
+      "frame": 978,
+      "model_sha256": "72a85b358e1e54178063d785fc10cb5c71ddaf4351b3a5a3729ad4f174eef9a2",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.63079192765056,
+        "ssim": 0.7984894663095474,
+        "lpips": 0.12992210375765958
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame978_final_review/export_audit.json"
+    },
+    {
+      "frame": 983,
+      "model_sha256": "355ac92e83e1fb8425a4a961f7425658730c254452d7e59d13fe54b8f65d0738",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.6591784506632,
+        "ssim": 0.7985668728748957,
+        "lpips": 0.13769685725371042
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame983_final_review/export_audit.json"
+    },
+    {
+      "frame": 988,
+      "model_sha256": "2a19cef44182e27a721f4e85a099ebf71a195c43d4f07bf429a62dbf5da21a52",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.56073449436372,
+        "ssim": 0.7951042254765829,
+        "lpips": 0.1459352740397056
+      },
+      "preferred_repair": true,
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame988_repaired_final_review/frame_complete.json"
+    },
+    {
+      "frame": 993,
+      "model_sha256": "4278e2572b5e32f72e2c4b3618a831b39d420a73ed1ae9b9565d3dc9d5aa08a0",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.58373661407237,
+        "ssim": 0.7948969006538391,
+        "lpips": 0.15934432173768678
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame993_final_review/export_audit.json"
+    },
+    {
+      "frame": 998,
+      "model_sha256": "3365697a20fba27b938fd55c336f7dfc770e5ae6c114320c7bf4650aef30a741",
+      "selected_iterations": 144000,
+      "metrics": {
+        "psnr": 32.539058220557756,
+        "ssim": 0.7949514587720236,
+        "lpips": 0.1605624184012413
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame998_final_review/export_audit.json"
+    },
+    {
+      "frame": 1003,
+      "model_sha256": "ed9e6cf977e1ae8152825506fb89c2e1b2890ba89755309c5ce50b5e77a01ec4",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.531059685671,
+        "ssim": 0.792578806479772,
+        "lpips": 0.15808398587008318
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1003_final_review/export_audit.json"
+    },
+    {
+      "frame": 1008,
+      "model_sha256": "b09c2d18938e6a782f49a050e5ae66ff8b5f456a60b880ce29a2583a0b3f053c",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.5299525928969,
+        "ssim": 0.7935556968053182,
+        "lpips": 0.15480650402605534
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1008_final_review/export_audit.json"
+    },
+    {
+      "frame": 1013,
+      "model_sha256": "d78799b05fe9dfef80a9ce158a0f315113fb81800f18f1d112a270843ac62052",
+      "selected_iterations": 144000,
+      "metrics": {
+        "psnr": 32.466334541832964,
+        "ssim": 0.7917343278725942,
+        "lpips": 0.1448110161970059
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1013_final_review/export_audit.json"
+    },
+    {
+      "frame": 1018,
+      "model_sha256": "58268174eb863075587f54501e2ec3c4b594568e9e4ea0604703d35e197614fa",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.48664466626032,
+        "ssim": 0.7922541201114655,
+        "lpips": 0.13859394068519273
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1018_final_review/export_audit.json"
+    },
+    {
+      "frame": 1023,
+      "model_sha256": "8aec2b7bbce4229cd4f63e55d08a6b983e551c43cdd1918e672e4626c16099a4",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.545721997992416,
+        "ssim": 0.7931173493464788,
+        "lpips": 0.1361683364957571
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1023_final_review/export_audit.json"
+    },
+    {
+      "frame": 1028,
+      "model_sha256": "25c1c7c4845c1965213b617c0c108d50e49c4a45f2c15c32abf8e7d436505499",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.567322458874045,
+        "ssim": 0.7927231540282568,
+        "lpips": 0.13976100335518518
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1028_final_review/export_audit.json"
+    },
+    {
+      "frame": 1033,
+      "model_sha256": "7b41ddf3784cd91e83d4e06ac7d967f8340a5bc26794ea3c0b4f5ac42c63ecf2",
+      "selected_iterations": 144000,
+      "metrics": {
+        "psnr": 32.53308881242764,
+        "ssim": 0.7905687093734741,
+        "lpips": 0.14621592064698538
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1033_final_review/export_audit.json"
+    },
+    {
+      "frame": 1038,
+      "model_sha256": "ad28f2805be2e2a0f5e46bc0cad4d68969f255bbf0443928ef776a237dbb6d66",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.597246172190154,
+        "ssim": 0.7923610111077627,
+        "lpips": 0.14869357893864313
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1038_final_review/export_audit.json"
+    },
+    {
+      "frame": 1043,
+      "model_sha256": "a095131fac55a6a09f671c1c426089ed805dd5593702563751f64212d7d93d1a",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.61882428359678,
+        "ssim": 0.7919205576181412,
+        "lpips": 0.14644072080651918
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1043_final_review/export_audit.json"
+    },
+    {
+      "frame": 1048,
+      "model_sha256": "796719073fb2f98f0f930972c28e9205e226d6ecec4d41c1b75a8c5cf1176251",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.560969255465814,
+        "ssim": 0.7896863718827566,
+        "lpips": 0.14435973080495992
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1048_final_review/export_audit.json"
+    },
+    {
+      "frame": 1053,
+      "model_sha256": "fdbf2af87c16b7fe2ed5c6ce52c8f28482775b64d43a3a901d23479db2781e2c",
+      "selected_iterations": 144000,
+      "metrics": {
+        "psnr": 32.61182941101117,
+        "ssim": 0.790805384516716,
+        "lpips": 0.1396927752842506
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1053_final_review/export_audit.json"
+    },
+    {
+      "frame": 1058,
+      "model_sha256": "0898f0f38bf04f9197ba088fad47d4a2b1c13ad5a9493b137e10ac310e3a5542",
+      "selected_iterations": 144000,
+      "metrics": {
+        "psnr": 32.561937408184285,
+        "ssim": 0.79100068906943,
+        "lpips": 0.13666661766668162
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1058_final_review/export_audit.json"
+    },
+    {
+      "frame": 1063,
+      "model_sha256": "7bec5c573088baafda3c88ad62c6b7a7628c93d4f8476f69b212add044118cb5",
+      "selected_iterations": 128000,
+      "metrics": {
+        "psnr": 32.60621491938653,
+        "ssim": 0.7921509097019831,
+        "lpips": 0.13268741282323995
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1063_final_review/export_audit.json"
+    },
+    {
+      "frame": 1068,
+      "model_sha256": "98945b1d2b3fc58bc7c4a300ddb5ecb422336e680f488206ae19eec661cb065d",
+      "selected_iterations": 144000,
+      "metrics": {
+        "psnr": 32.65147884304883,
+        "ssim": 0.7942131658395132,
+        "lpips": 0.1310582741474112
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1068_final_review/export_audit.json"
+    },
+    {
+      "frame": 1073,
+      "model_sha256": "a67c61a370a7156ee600045161b8e939ddbe76f63f01d8873d7af00268c9f08d",
+      "selected_iterations": 144000,
+      "metrics": {
+        "psnr": 32.693170872427515,
+        "ssim": 0.795014942685763,
+        "lpips": 0.12852260284125805
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1073_final_review/export_audit.json"
+    },
+    {
+      "frame": 1078,
+      "model_sha256": "38b7463ce239100c868a1d1b57cfbf87647f65eb75a5bf2d7c10f9b14d063b51",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.71407243338711,
+        "ssim": 0.7974197516838709,
+        "lpips": 0.12428967375308275
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1078_final_review/export_audit.json"
+    },
+    {
+      "frame": 1083,
+      "model_sha256": "76ff033991b571b29d89d562257fa20f4e972a1a9bfc869a834ba8060302be64",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.661457313576044,
+        "ssim": 0.7976908634106318,
+        "lpips": 0.12177858377496402
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1083_final_review/export_audit.json"
+    },
+    {
+      "frame": 1088,
+      "model_sha256": "f095237f80624df97f692a57a03b640713552bfc8227c865d83a34fba3938f10",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.6995867270635,
+        "ssim": 0.7973837107419968,
+        "lpips": 0.12178522255271673
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1088_final_review/export_audit.json"
+    },
+    {
+      "frame": 1093,
+      "model_sha256": "7a3910a797a7d21fc33261795e97c16aca1f561130230185e18b566f786db272",
+      "selected_iterations": 144000,
+      "metrics": {
+        "psnr": 32.7151704563641,
+        "ssim": 0.7980637649695078,
+        "lpips": 0.12587839473659793
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1093_final_review/export_audit.json"
+    },
+    {
+      "frame": 1098,
+      "model_sha256": "f7bcaf87903d57651bd423f83d5b65b6b1a9f7b77274ed5b98108aea20c1f072",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.72450275928244,
+        "ssim": 0.801527147491773,
+        "lpips": 0.12127740603561203
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1098_final_review/export_audit.json"
+    },
+    {
+      "frame": 1103,
+      "model_sha256": "5d059ad47191878c5c8342ab5dd087c32e5eaae1285aab2527c93ca403777669",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.70529223799346,
+        "ssim": 0.8015626718600591,
+        "lpips": 0.12662920635193586
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1103_final_review/export_audit.json"
+    },
+    {
+      "frame": 1108,
+      "model_sha256": "30f05a18e8728562a857cb914aa0a27c7e8fa096551f4ef3d813f1de59c46204",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.710171566226585,
+        "ssim": 0.7989943623542786,
+        "lpips": 0.1214909905878206
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1108_final_review/export_audit.json"
+    },
+    {
+      "frame": 1113,
+      "model_sha256": "34153c9eb7260494f20d520d4a6f56521806ab25a05636111ec5ec77137b4c78",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.808582697664896,
+        "ssim": 0.8013776292403539,
+        "lpips": 0.1389852627283997
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1113_final_review/export_audit.json"
+    },
+    {
+      "frame": 1118,
+      "model_sha256": "fe8cb4cd8220ab6f1f03e2b0cbca1dea490d3bd7d55fc9c073183da8656a6dbd",
+      "selected_iterations": 144000,
+      "metrics": {
+        "psnr": 32.81514187411731,
+        "ssim": 0.8028285255034765,
+        "lpips": 0.13165606372058392
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1118_final_review/export_audit.json"
+    },
+    {
+      "frame": 1123,
+      "model_sha256": "248f39a3fa67ec785219b33921659ceac1eef4f23c32eacf462530d788a75626",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.43291283452931,
+        "ssim": 0.8036597867806753,
+        "lpips": 0.14244021682275665
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1123_final_review/export_audit.json"
+    },
+    {
+      "frame": 1128,
+      "model_sha256": "4a4a2775325d0126459c6ee2fbb185da299b845e36c818129624933c9e3e84b8",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.64111407452586,
+        "ssim": 0.8041323506169848,
+        "lpips": 0.12141432085384925
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1128_final_review/export_audit.json"
+    },
+    {
+      "frame": 1133,
+      "model_sha256": "ec366c660e6d078c1c8284a7380c5a1314f47dc6857f3bd9bf0e74a708296fe3",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.979208732653525,
+        "ssim": 0.8159921401076846,
+        "lpips": 0.115452484253587
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1133_final_review/export_audit.json"
+    },
+    {
+      "frame": 1138,
+      "model_sha256": "5e70fac2eb2c7f255d3c102ec8985cc18fdb3c943d633b0a4e87cb09a45d42e3",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.822458564485125,
+        "ssim": 0.8126480364137225,
+        "lpips": 0.12023874444680083
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1138_final_review/export_audit.json"
+    },
+    {
+      "frame": 1143,
+      "model_sha256": "e962e14e5551ea2c91dfce71658520611f6538b0f83ef9a4b47b13cceb053028",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.77877265194895,
+        "ssim": 0.8117487049765058,
+        "lpips": 0.12381116725090476
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1143_final_review/export_audit.json"
+    },
+    {
+      "frame": 1148,
+      "model_sha256": "20a35acbfcf8a83f2269f3090affe4fcf7ba966b288eda9e09c9089374398437",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.89655164239553,
+        "ssim": 0.8125707258780798,
+        "lpips": 0.1284052688214514
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1148_final_review/export_audit.json"
+    },
+    {
+      "frame": 1153,
+      "model_sha256": "10d2bc4e87d5e678f17cad0165beb7800349a364151e1c48ada2c8862e3c8ae1",
+      "selected_iterations": 144000,
+      "metrics": {
+        "psnr": 32.93148448397283,
+        "ssim": 0.8142245494657092,
+        "lpips": 0.12350408505234452
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1153_final_review/export_audit.json"
+    },
+    {
+      "frame": 1158,
+      "model_sha256": "4da36cca32d3f161e00eee41df7ca02294e9056f759c3af50814519ec23a9adb",
+      "selected_iterations": 144000,
+      "metrics": {
+        "psnr": 32.97919718263296,
+        "ssim": 0.8146140144930946,
+        "lpips": 0.12335850857198238
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1158_final_review/export_audit.json"
+    },
+    {
+      "frame": 1163,
+      "model_sha256": "b7f7f1b67e7ab9d90909eb3672c259d03e7fc97bc6267b7ec6f33244a7b85221",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.806888435253846,
+        "ssim": 0.8091410183244281,
+        "lpips": 0.12370212823152542
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1163_final_review/export_audit.json"
+    },
+    {
+      "frame": 1168,
+      "model_sha256": "956f60cc481d215976f2057585bbe7653f55b9203c5d5d32153c79bdddaf0f2a",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.829277825544835,
+        "ssim": 0.810151724351777,
+        "lpips": 0.12648650683048698
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1168_final_review/export_audit.json"
+    },
+    {
+      "frame": 1173,
+      "model_sha256": "250d704268b7988367d1fba847089b5cf00ec7b694020eebb0962f20271b4a2a",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.85323954944465,
+        "ssim": 0.8105226589573754,
+        "lpips": 0.12541806868587932
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1173_final_review/export_audit.json"
+    },
+    {
+      "frame": 1178,
+      "model_sha256": "ffa69ddf81e132bf820e89adcf616408c6ccb43f04f779feb35dde55fb1e982b",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.86018084225704,
+        "ssim": 0.8107627597120074,
+        "lpips": 0.12676060277347764
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1178_final_review/export_audit.json"
+    },
+    {
+      "frame": 1183,
+      "model_sha256": "4be954f2a4ca2e8daaea08252ff86151cfaeed044358822e447373d6ca40c1dc",
+      "selected_iterations": 144000,
+      "metrics": {
+        "psnr": 32.72216438735072,
+        "ssim": 0.8058824688196182,
+        "lpips": 0.12929078652006057
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1183_final_review/export_audit.json"
+    },
+    {
+      "frame": 1188,
+      "model_sha256": "859bd4b9ed0671c239759b04a17c9c7a3752ed0f03559f6df3d426d773c1cc91",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.71634331877562,
+        "ssim": 0.8063778926928838,
+        "lpips": 0.1260767701185412
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1188_final_review/export_audit.json"
+    },
+    {
+      "frame": 1193,
+      "model_sha256": "65895e312b3b808439c93fd31a8a1c7ed0002014d7fa0d9de1d24b62d5bf301c",
+      "selected_iterations": 144000,
+      "metrics": {
+        "psnr": 32.66531425975298,
+        "ssim": 0.8055627759959963,
+        "lpips": 0.124016927762164
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1193_final_review/export_audit.json"
+    },
+    {
+      "frame": 1198,
+      "model_sha256": "2ffd0632521de9fc0e2334c6d343c88a0dbfa1e64bdedf7d0c0040e0ba2a964b",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.65338902132962,
+        "ssim": 0.803149218360583,
+        "lpips": 0.13139673534573781
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1198_final_review/export_audit.json"
+    },
+    {
+      "frame": 1203,
+      "model_sha256": "b2cf7501e42a6be2f13431e344701830585ba24e95c2cbbf5542370790f6d334",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.35843142353453,
+        "ssim": 0.799080568883154,
+        "lpips": 0.12843881630235246
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1203_final_review/export_audit.json"
+    },
+    {
+      "frame": 1208,
+      "model_sha256": "d1a82d46d0fe311e05c22be1aadd114195e3b6509da297af8411ec6970695c90",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.41903337102762,
+        "ssim": 0.7997766418589486,
+        "lpips": 0.12938686760349405
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1208_final_review/export_audit.json"
+    },
+    {
+      "frame": 1213,
+      "model_sha256": "82959b900470cf1e937401928c52104f06b0603719c5097c258db11abea11379",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.55617933688339,
+        "ssim": 0.7990562650892469,
+        "lpips": 0.13001836774249872
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1213_final_review/export_audit.json"
+    },
+    {
+      "frame": 1218,
+      "model_sha256": "4dfdfd486c541055bd7040bf5ede1a86ccc9b2ada10ebaf5557ebe7689fdf55b",
+      "selected_iterations": 144000,
+      "metrics": {
+        "psnr": 32.51981519533418,
+        "ssim": 0.7978924446635776,
+        "lpips": 0.13034187288333973
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1218_final_review/export_audit.json"
+    },
+    {
+      "frame": 1223,
+      "model_sha256": "3ca2d2684b7cd83c90500ccd0b940944babd981f635eec6f5a2f1899a2f68e2c",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.47201196747137,
+        "ssim": 0.7947795556651222,
+        "lpips": 0.13032621890306473
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1223_final_review/export_audit.json"
+    },
+    {
+      "frame": 1228,
+      "model_sha256": "2ab38496aa30a95593173f710336fa8968295646238ed62e28b27677aeb9b1e2",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.468084905297125,
+        "ssim": 0.795336072643598,
+        "lpips": 0.13231724459264013
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1228_final_review/export_audit.json"
+    },
+    {
+      "frame": 1233,
+      "model_sha256": "a43dfd05b1540fc6cb4edff4bd2d00aec29e3403f68c534fe3f21767d5c4e31c",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.41896373057977,
+        "ssim": 0.7934640281730228,
+        "lpips": 0.1349914607902368
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1233_final_review/export_audit.json"
+    },
+    {
+      "frame": 1238,
+      "model_sha256": "2691122a89ca3209c12c9365623a946f78ebb76d98f36750d45323ab865268d4",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.506231792026654,
+        "ssim": 0.7959581663211187,
+        "lpips": 0.12930742858184707
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1238_final_review/export_audit.json"
+    },
+    {
+      "frame": 1243,
+      "model_sha256": "8221a22f7fbce6513aa933916a699000081a630ec0897a323c2a7d485232f0da",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.36542910285356,
+        "ssim": 0.7924566434489356,
+        "lpips": 0.13653244326512018
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1243_final_review/export_audit.json"
+    },
+    {
+      "frame": 1248,
+      "model_sha256": "4fd59441329694ab6d311a1e3781c67ea4905c75bdb95f263739856f5c2890a3",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.45572987133829,
+        "ssim": 0.7948812378777398,
+        "lpips": 0.13701144750747415
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1248_final_review/export_audit.json"
+    },
+    {
+      "frame": 1253,
+      "model_sha256": "378ae893b0d4ececd10201341e81f78c44b852ba9dfaf19763c2787991eb8f8b",
+      "selected_iterations": 144000,
+      "metrics": {
+        "psnr": 32.437714188130535,
+        "ssim": 0.7946743485000399,
+        "lpips": 0.1337661591048042
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1253_final_review/export_audit.json"
+    },
+    {
+      "frame": 1258,
+      "model_sha256": "530bb4619158962ac9579678b57e24dc329aa0fd339b900027b31a04237b9198",
+      "selected_iterations": 144000,
+      "metrics": {
+        "psnr": 32.41546822508791,
+        "ssim": 0.7950127555264367,
+        "lpips": 0.1273352113655872
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1258_final_review/export_audit.json"
+    },
+    {
+      "frame": 1263,
+      "model_sha256": "47336828283fa4c268d816f6c66377d468720c2f8f54ddda22ad8556954c3d47",
+      "selected_iterations": 150000,
+      "metrics": {
+        "psnr": 32.37120870275098,
+        "ssim": 0.7938785403966904,
+        "lpips": 0.12772330755574834
+      },
+      "evidence": "experiments/marshawn_908_1268_diagnostics/frame1263_final_review/export_audit.json"
+    }
+  ],
+  "repairs_override_original": [
+    923,
+    988
+  ]
+}
