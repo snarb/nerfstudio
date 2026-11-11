@@ -22,7 +22,8 @@ def preserve(item):
     archive=ROOT/'external_models'/row['name']/f'{frame:06d}'
     archive.mkdir(parents=True,exist_ok=True)
     receipt=archive/'support_preserved.json'
-    if receipt.exists():return read(receipt)
+    if receipt.exists() and read(receipt).get('weights_present'):
+        return read(receipt)
     command=['tar','-C',str(source),'--exclude=*.ckpt','--exclude=*.png','--exclude=*.jpg','--exclude=*.log','--exclude=linear','--exclude=train/checkpoints','--exclude=train/worker','--exclude=events.out.tfevents.*','-cf','-','.']
     process=subprocess.Popen(host.argv(shlex.join(command)),stdout=subprocess.PIPE)
     receiver=subprocess.run(['tar','-C',str(archive),'-xf','-'],stdin=process.stdout)
