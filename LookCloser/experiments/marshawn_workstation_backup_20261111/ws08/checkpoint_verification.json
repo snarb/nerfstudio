@@ -1,0 +1,14 @@
+{
+  "time": 1794403454.7308917,
+  "verified": 8,
+  "errors": [],
+  "inventory_errors": [
+    "latest checkpoint missing /home/nvuser/lookcloser/campaigns/marshawn908_20261109/frames/001123/train/checkpoints/step-000149999.ckpt",
+    "latest checkpoint missing /home/nvuser/lookcloser/campaigns/marshawn908_20261109/frames/001203/train/checkpoints/step-000149999.ckpt",
+    "latest checkpoint missing /home/nvuser/lookcloser/campaigns/marshawn908_20261109/frames/001116/train/checkpoints/step-000149999.ckpt",
+    "latest checkpoint missing /home/nvuser/lookcloser/campaigns/marshawn908_20261109/frames/001188/train/checkpoints/step-000149999.ckpt",
+    "latest checkpoint missing /home/nvuser/lookcloser/campaigns/marshawn908_20261109/frames/001148/train/checkpoints/step-000149999.ckpt",
+    "latest checkpoint missing /home/nvuser/lookcloser/campaigns/marshawn908_20261109/frames/001112/train/checkpoints/step-000149999.ckpt",
+    "latest checkpoint missing /home/nvuser/lookcloser/campaigns/marshawn908_20261109/frames/001163/train/checkpoints/step-000149999.ckpt"
+  ]
+}

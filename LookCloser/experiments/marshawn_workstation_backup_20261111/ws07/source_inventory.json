@@ -1,0 +1,54 @@
+{
+  "records": [
+    {
+      "path": "/home/pavlo/marshawn_campaign_20261109/frames/000908/model/inference.ckpt",
+      "size": 2466753420,
+      "sha256": "e56b810da9921b2a587655d151eaca3aac3aeb13410dca3bfeaf12b2ef2fef0b"
+    },
+    {
+      "path": "/home/pavlo/marshawn_campaign_20261109/frames/000913/model/inference.ckpt",
+      "size": 2466753420,
+      "sha256": "4afdca7e52fdc0088d91d5c1f6575fe31645bab3442ab23d058358f79f5c2731"
+    },
+    {
+      "path": "/home/pavlo/marshawn_campaign_20261109/frames/000988/model/inference.ckpt",
+      "size": 2466753420,
+      "sha256": "74698bf954785a3d5203928034e4f6a39b323716fc59ef055547c725e3763a08"
+    },
+    {
+      "path": "/home/pavlo/marshawn_campaign_20261109/frames/000993/model/inference.ckpt",
+      "size": 2466753420,
+      "sha256": "4278e2572b5e32f72e2c4b3618a831b39d420a73ed1ae9b9565d3dc9d5aa08a0"
+    },
+    {
+      "path": "/home/pavlo/marshawn_campaign_20261109/frames/000998/model/inference.ckpt",
+      "size": 2466753420,
+      "sha256": "3365697a20fba27b938fd55c336f7dfc770e5ae6c114320c7bf4650aef30a741"
+    },
+    {
+      "path": "/home/pavlo/marshawn_campaign_20261109/frames/001073/model/inference.ckpt",
+      "size": 2466753420,
+      "sha256": "a67c61a370a7156ee600045161b8e939ddbe76f63f01d8873d7af00268c9f08d"
+    },
+    {
+      "path": "/home/pavlo/marshawn_campaign_20261109/frames/001078/model/inference.ckpt",
+      "size": 2466753420,
+      "sha256": "38b7463ce239100c868a1d1b57cfbf87647f65eb75a5bf2d7c10f9b14d063b51"
+    },
+    {
+      "path": "/home/pavlo/marshawn_campaign_20261109/frames/001083/train/checkpoints/step-000127999.ckpt",
+      "size": 7338795649,
+      "sha256": "7cfb512e6cd9d611fe1cd05e634cf4ac97d6287df804be35b8f84ca2e6453f21"
+    }
+  ],
+  "errors": [
+    "latest checkpoint missing /home/pavlo/marshawn_campaign_20261109/frames/000913/train/checkpoints/step-000149999.ckpt",
+    "latest checkpoint missing /home/pavlo/marshawn_campaign_20261109/frames/000998/train/checkpoints/step-000149999.ckpt",
+    "latest checkpoint missing /home/pavlo/marshawn_campaign_20261109/frames/001078/train/checkpoints/step-000149999.ckpt",
+    "latest checkpoint missing /home/pavlo/marshawn_campaign_20261109/frames/000993/train/checkpoints/step-000149999.ckpt",
+    "latest checkpoint missing /home/pavlo/marshawn_campaign_20261109/frames/001073/train/checkpoints/step-000149999.ckpt",
+    "latest checkpoint missing /home/pavlo/marshawn_campaign_20261109/frames/000908/train/checkpoints/step-000149999.ckpt",
+    "latest checkpoint missing /home/pavlo/marshawn_campaign_20261109/frames/000988/train/checkpoints/step-000149999.ckpt"
+  ],
+  "policy": "latest full checkpoint per frame plus selected inference export"
+}

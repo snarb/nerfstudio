@@ -1,0 +1,64 @@
+{
+  "time": 1794402704.9940393,
+  "verified": 14,
+  "required": 14,
+  "complete": true,
+  "files": [
+    {
+      "host": "ws07",
+      "path": "/home/pavlo/marshawn_campaign_20261109/frames/000908/model/inference.ckpt"
+    },
+    {
+      "host": "ws07",
+      "path": "/home/pavlo/marshawn_campaign_20261109/frames/000913/model/inference.ckpt"
+    },
+    {
+      "host": "ws07",
+      "path": "/home/pavlo/marshawn_campaign_20261109/frames/000988/model/inference.ckpt"
+    },
+    {
+      "host": "ws07",
+      "path": "/home/pavlo/marshawn_campaign_20261109/frames/000993/model/inference.ckpt"
+    },
+    {
+      "host": "ws07",
+      "path": "/home/pavlo/marshawn_campaign_20261109/frames/000998/model/inference.ckpt"
+    },
+    {
+      "host": "ws07",
+      "path": "/home/pavlo/marshawn_campaign_20261109/frames/001073/model/inference.ckpt"
+    },
+    {
+      "host": "ws07",
+      "path": "/home/pavlo/marshawn_campaign_20261109/frames/001078/model/inference.ckpt"
+    },
+    {
+      "host": "ws08",
+      "path": "/home/nvuser/lookcloser/campaigns/marshawn908_20261109/frames/001112/model/inference.ckpt"
+    },
+    {
+      "host": "ws08",
+      "path": "/home/nvuser/lookcloser/campaigns/marshawn908_20261109/frames/001116/model/inference.ckpt"
+    },
+    {
+      "host": "ws08",
+      "path": "/home/nvuser/lookcloser/campaigns/marshawn908_20261109/frames/001123/model/inference.ckpt"
+    },
+    {
+      "host": "ws08",
+      "path": "/home/nvuser/lookcloser/campaigns/marshawn908_20261109/frames/001148/model/inference.ckpt"
+    },
+    {
+      "host": "ws08",
+      "path": "/home/nvuser/lookcloser/campaigns/marshawn908_20261109/frames/001163/model/inference.ckpt"
+    },
+    {
+      "host": "ws08",
+      "path": "/home/nvuser/lookcloser/campaigns/marshawn908_20261109/frames/001188/model/inference.ckpt"
+    },
+    {
+      "host": "ws08",
+      "path": "/home/nvuser/lookcloser/campaigns/marshawn908_20261109/frames/001203/model/inference.ckpt"
+    }
+  ]
+}
