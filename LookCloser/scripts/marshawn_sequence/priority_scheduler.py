@@ -26,13 +26,14 @@ def relocate(job,template,root):
     out.pop('start_gate',None)
     return out
 
-def plan(queues,states,roots):
+def plan(queues,states,roots,unavailable=()):
     result=copy.deepcopy(queues);moves=[]
     for name,q in result.items():
         for j in q['jobs']:
             if frame(j) not in PRIORITY:j['start_gate']=str(roots[name]/'sparse24_complete.json')
     # Take distant work first, keeping each donor's next/prepared task when possible.
     for receiver in result:
+        if receiver in unavailable:continue
         if pending(result[receiver],states[receiver]):continue
         idle=not states[receiver].get('active')
         candidates=[]
@@ -84,7 +85,8 @@ def pending_quality_receipts(root):
 
 
 def tick(root):
-    rows=read(root/'fleet.json')['hosts'];hosts={row['name']:Host(row) for row in rows if not row.get('production_disabled')}
+    from retiring_host import RetiringHost
+    rows=read(root/'fleet.json')['hosts'];hosts={row['name']:RetiringHost(row,root) for row in rows if not row.get('production_disabled')}
     recover(root,hosts)
     queues={n:h.get(h.agent_root/'queue.json') for n,h in hosts.items()}
     states={n:h.get(h.agent_root/'agent_state.json') for n,h in hosts.items()}
@@ -103,7 +105,7 @@ def tick(root):
             if not h.get(h.root/'sparse24_complete.json'):h.put(h.root/'sparse24_complete.json',receipt)
         atomic(root/'priority_scheduler_status.json',dict(receipt,released=True));return True
     if any(h.get(h.root/'sparse24_complete.json') for h in hosts.values()):raise ValueError('Premature global gate exists')
-    new,moves=plan(queues,states,{n:h.root for n,h in hosts.items()})
+    new,moves=plan(queues,states,{n:h.root for n,h in hosts.items()},unavailable={n for n,h in hosts.items() if h.offline})
     changes={n:dict(before=queues[n],after=new[n]) for n in hosts if queues[n]!=new[n]}
     if changes:
         import shlex

@@ -36,9 +36,14 @@
       "sha256": "38b7463ce239100c868a1d1b57cfbf87647f65eb75a5bf2d7c10f9b14d063b51"
     },
     {
-      "path": "/home/pavlo/marshawn_campaign_20261109/frames/001083/train/checkpoints/step-000127999.ckpt",
-      "size": 7338795649,
-      "sha256": "7cfb512e6cd9d611fe1cd05e634cf4ac97d6287df804be35b8f84ca2e6453f21"
+      "path": "/home/pavlo/marshawn_campaign_20261109/frames/001083/model/inference.ckpt",
+      "size": 2466753420,
+      "sha256": "76ff033991b571b29d89d562257fa20f4e972a1a9bfc869a834ba8060302be64"
+    },
+    {
+      "path": "/home/pavlo/marshawn_campaign_20261109/frames/001108/train/checkpoints/step-000079999.ckpt",
+      "size": 7338795713,
+      "sha256": "6e66feffed5da011c215b2723972746e8939462862c70ae9d961c68a13594def"
     }
   ],
   "errors": [
@@ -47,6 +52,7 @@
     "latest checkpoint missing /home/pavlo/marshawn_campaign_20261109/frames/001078/train/checkpoints/step-000149999.ckpt",
     "latest checkpoint missing /home/pavlo/marshawn_campaign_20261109/frames/000993/train/checkpoints/step-000149999.ckpt",
     "latest checkpoint missing /home/pavlo/marshawn_campaign_20261109/frames/001073/train/checkpoints/step-000149999.ckpt",
+    "latest checkpoint missing /home/pavlo/marshawn_campaign_20261109/frames/001083/train/checkpoints/step-000149999.ckpt",
     "latest checkpoint missing /home/pavlo/marshawn_campaign_20261109/frames/000908/train/checkpoints/step-000149999.ckpt",
     "latest checkpoint missing /home/pavlo/marshawn_campaign_20261109/frames/000988/train/checkpoints/step-000149999.ckpt"
   ],
