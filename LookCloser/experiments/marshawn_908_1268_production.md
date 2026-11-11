@@ -407,3 +407,7 @@ Audited independent export at 150000 iterations. Actor metrics {'psnr': 32.55617
 ### Frame 1218 final review
 
 Audited independent export at 144000 iterations. Actor metrics {'psnr': 32.51981519533418, 'ssim': 0.7978924446635776, 'lpips': 0.13034187288333973}. Six Full HD views inspected. Four performers visible without obvious box truncation. Contour halos and floating background fragments persist. [Views](marshawn_908_1268_diagnostics/frame1218_final_review/final_contact.jpg).
+
+### Complete sparse24 GC preview
+
+All72 selected GC images assembled at Full HD,24fps,3seconds; each source render receipt matches its selected model SHA. Repaired923/988 explicitly override original exports. Twelve temporal samples visually inspected: scene/performer layout consistent, contour halos and background fragments persist. [Video](https://drive.google.com/file/d/11MyVEOnvsiXGFrcAR0hnQdUFlSLoD9h0/view), [provenance](marshawn_908_1268_sparse24_preview_receipt.json).

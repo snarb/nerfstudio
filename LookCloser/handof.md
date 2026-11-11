@@ -220,3 +220,7 @@ python3 tools/audit_exports.py --root "$PWD" --queue agents/gpu0/queue.json --ou
 ## Сбор весов на одном хосте
 
 Storage audit `sparse24_storage_audit.json` на silver-sable подтвердил SHA 67/72 выбранных весов. Пять отсутствующих на этом хосте моделей находятся на Olive: 953, 1053, 1098, 1158, 1183. Для них запущена `marshawn-sparse24-olive-archive.service`, два worker, Restart=on-failure. Цель `external_models/olive/<frame>`; итог `emergency_workstations_20261111/frame_support_olive.json`. После завершения повторить потоковый SHA audit всех 72. Наличие исходных весов на Olive подтверждалось финальными рендерами, но это не заменяет подтверждение их копии на silver-sable. Перенос data361 дошёл до 18 проверенных кадров на 23:02 UTC.
+
+## Готовое превью 24 fps
+
+Собраны все 72 выбранных GC рендера в `/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/operations/sparse24_review_20261111/Marshawn908_1263_GC_24fps_fullhd.mp4`. 1920×1080, 24 fps, 3 секунды; совпадение render receipt/model SHA проверено для каждого кадра, исправленные 923/988 включены. Receipt с SHA видео и изображений: `experiments/marshawn_908_1268_sparse24_preview_receipt.json`. Google Drive: https://drive.google.com/file/d/11MyVEOnvsiXGFrcAR0hnQdUFlSLoD9h0/view . Контакт из 12 временных срезов просмотрен: ориентация и расположение исполнителей согласованы, контурные и фоновые артефакты присутствуют. Это review preview, не clean matte.

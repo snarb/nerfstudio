@@ -1,0 +1,522 @@
+{
+  "time": 1794439338.5132334,
+  "frames": 72,
+  "fps": 24,
+  "duration_seconds": 3,
+  "width": 1920,
+  "height": 1080,
+  "calibrated_camera": "GC",
+  "training_rgb_resized": false,
+  "video": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/operations/sparse24_review_20261111/Marshawn908_1263_GC_24fps_fullhd.mp4",
+  "video_sha256": "eb15ba8fa864c2b9f10c92ca4dfbddc9ac9fcedfaf7edeb2557907b703549b22",
+  "preferred_repaired_frames": [
+    923,
+    988
+  ],
+  "rows": [
+    {
+      "frame": 908,
+      "index": 0,
+      "model_sha256": "e56b810da9921b2a587655d151eaca3aac3aeb13410dca3bfeaf12b2ef2fef0b",
+      "image_sha256": "161718ee33753733d143120e8efaefc079a52316b9397002fbe478558021771c",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/operations/sparse24_review_20261111/input/000908/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 913,
+      "index": 1,
+      "model_sha256": "4afdca7e52fdc0088d91d5c1f6575fe31645bab3442ab23d058358f79f5c2731",
+      "image_sha256": "1d60b55d92e6934958849be390960b8215f5dede023bca884e4d489d5093f692",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/operations/sparse24_review_20261111/input/000913/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 918,
+      "index": 2,
+      "model_sha256": "b6d3279a9e2ed71e5de6d9d61586062e7240782665e181d3a76c8519985469b9",
+      "image_sha256": "5a3f1da9a6ff3ea51da8f7bb2b3f0f60fd7ff95522fee5ffd9b37bdb567c2984",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/000918/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 923,
+      "index": 3,
+      "model_sha256": "048320d107643858fef5b134d738cf43c58c932649bd3c7b0edaace718b94919",
+      "image_sha256": "2e71649c86058a3fd653768581766f93ac8c64f243b696699e9e1ab2ed7588db",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/repairs_votes3_20261110/frames/000923/final_review/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 928,
+      "index": 4,
+      "model_sha256": "8fc7e7c5f9eee38d01c055893faa5e10bae4710c66109f76e739bb7704f89c61",
+      "image_sha256": "593e61eccd7619ed80c9969c4453ded584f778a38fbde25068dbde54b3dd26a5",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/000928/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 933,
+      "index": 5,
+      "model_sha256": "d30272ea247c00784fc625c693e04436c6b16bcfdd29aadecb9da6a33107fd61",
+      "image_sha256": "790e62908ef9fe0bd343f6c6e5b0a049f1236e4b819aeb02ff434396bcfe73f8",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/000933/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 938,
+      "index": 6,
+      "model_sha256": "b279700566b0fcc2123cb030078d408d1d193aab690a249f1a5fc414017789ab",
+      "image_sha256": "ff41d680c59f5772020d802c2456485d629ef6347606eca7c5258270ea1a0d59",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/000938/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 943,
+      "index": 7,
+      "model_sha256": "9cda70221001dc9eba5c3f6798f0e19aae39a02cd18ea19b84d08cc89e80c5d4",
+      "image_sha256": "af2b4e7d41c0be0c6556d968e427c1cf4d46ea57330046cf26c042fbf29f2910",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/000943/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 948,
+      "index": 8,
+      "model_sha256": "5cde9ea068a64dea0371336008addb59aef920d049d21925bb2a6bd90d0c61e2",
+      "image_sha256": "9efde2134ced14817f2da91410180f53114f6d2364b0b5019ce47d709a19df4f",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/000948/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 953,
+      "index": 9,
+      "model_sha256": "6a99ec4e6605a3fe3763153f29ee357a37ab6a5464cccbd53e9ca23a5069e314",
+      "image_sha256": "6dff42dddf6bd9779ccf8821fa459ff5269179a65397b96b675c19d0383c2564",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/operations/sparse24_review_20261111/input/000953/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 958,
+      "index": 10,
+      "model_sha256": "e5d7956094fd7b287a222c4d6aa1cc28a23b94cde636d5984eed8b329dbc94a5",
+      "image_sha256": "00cc792f89685368fddc53ec1b0d208e64494cb80c428f6d87956d74eebab7ee",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/000958/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 963,
+      "index": 11,
+      "model_sha256": "caea0ad5b72e85d50e29adb7d4662030f9fbc2adffb5035bc903c6c1230b3e76",
+      "image_sha256": "a327aff43c1e4e735511f52a48485cc61d0e249076c48cbfcb812d3a0b82cbd4",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/000963/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 968,
+      "index": 12,
+      "model_sha256": "3a03b5f3406173c575674539c01cd615dc10f00a49c052baf350e95682757416",
+      "image_sha256": "d8c93193d9b130a089bb7dba876769bc3cdea7a0decde79459c75c8d8724ea6e",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/000968/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 973,
+      "index": 13,
+      "model_sha256": "9b2694bbf43fd5862130619cbb28f8f0df1817623c4be2a8f0331bb29dce1a8f",
+      "image_sha256": "e098590298f7bd0b3d5a473a6fbc7ff62ae8d470eec80537b42079ef9a69ea57",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/000973/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 978,
+      "index": 14,
+      "model_sha256": "72a85b358e1e54178063d785fc10cb5c71ddaf4351b3a5a3729ad4f174eef9a2",
+      "image_sha256": "afd1510eb84d063358c153a09ab8fd14b071bb28fc63215368070d7f1d664158",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/000978/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 983,
+      "index": 15,
+      "model_sha256": "355ac92e83e1fb8425a4a961f7425658730c254452d7e59d13fe54b8f65d0738",
+      "image_sha256": "107ece50b366b6462b7db4f56b143b1dbdb98fc70012af7019f59968e473d131",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/000983/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 988,
+      "index": 16,
+      "model_sha256": "2a19cef44182e27a721f4e85a099ebf71a195c43d4f07bf429a62dbf5da21a52",
+      "image_sha256": "3b9566c3beed6a9485994f7072bfc3df8407322e444578ca89bc4f91dde048d5",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/repairs_votes3_20261110/frames/000988/final_review/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 993,
+      "index": 17,
+      "model_sha256": "4278e2572b5e32f72e2c4b3618a831b39d420a73ed1ae9b9565d3dc9d5aa08a0",
+      "image_sha256": "68d37cf5fee3ce0a2dd49b6fcfaf3f31346e769f666cba168e3e0850bdc1a2de",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/operations/sparse24_review_20261111/input/000993/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 998,
+      "index": 18,
+      "model_sha256": "3365697a20fba27b938fd55c336f7dfc770e5ae6c114320c7bf4650aef30a741",
+      "image_sha256": "2152ff8a0a6359a8133bf0b02b844c2f388524b6b3f334d877de43603d4df787",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/000998/restoration_check/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1003,
+      "index": 19,
+      "model_sha256": "ed9e6cf977e1ae8152825506fb89c2e1b2890ba89755309c5ce50b5e77a01ec4",
+      "image_sha256": "4d19a66de41d1df9afd4b32a6fb8cd1ae4c7507f3187febf8641b5bd8498f3fa",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001003/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1008,
+      "index": 20,
+      "model_sha256": "b09c2d18938e6a782f49a050e5ae66ff8b5f456a60b880ce29a2583a0b3f053c",
+      "image_sha256": "2282d2bc230d4e257e301cbfbd1337d3f86ebadaf932d9376adfb9562492e515",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001008/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1013,
+      "index": 21,
+      "model_sha256": "d78799b05fe9dfef80a9ce158a0f315113fb81800f18f1d112a270843ac62052",
+      "image_sha256": "336537c88599c1bd4ffc3cc84b81aaccea5c3455da2e264ee6bd17dd87b1ac2c",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001013/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1018,
+      "index": 22,
+      "model_sha256": "58268174eb863075587f54501e2ec3c4b594568e9e4ea0604703d35e197614fa",
+      "image_sha256": "740a5c4a9927587e6f53a39d656ebffd92295421e0328272a9c8f651dddd45f2",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001018/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1023,
+      "index": 23,
+      "model_sha256": "8aec2b7bbce4229cd4f63e55d08a6b983e551c43cdd1918e672e4626c16099a4",
+      "image_sha256": "9bc047d0a319e11820845368f7326997f6056cc2625a665d7cb8883f51796a5b",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001023/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1028,
+      "index": 24,
+      "model_sha256": "25c1c7c4845c1965213b617c0c108d50e49c4a45f2c15c32abf8e7d436505499",
+      "image_sha256": "7a701b10ed28aaa11220a55a5e83213f55a133659ff11ef2ce080dea8778519f",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001028/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1033,
+      "index": 25,
+      "model_sha256": "7b41ddf3784cd91e83d4e06ac7d967f8340a5bc26794ea3c0b4f5ac42c63ecf2",
+      "image_sha256": "92e87f72d08a15cfa70acde515baa0870253a9c0035478ed07952b64c16efe9a",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001033/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1038,
+      "index": 26,
+      "model_sha256": "ad28f2805be2e2a0f5e46bc0cad4d68969f255bbf0443928ef776a237dbb6d66",
+      "image_sha256": "99440c5ccea40b531b85953f4cf64f92094317af292987f9203eb5d6e1ee5e2b",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001038/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1043,
+      "index": 27,
+      "model_sha256": "a095131fac55a6a09f671c1c426089ed805dd5593702563751f64212d7d93d1a",
+      "image_sha256": "4b75a019a45a2a716c08964d4d409b42d814ba773cd6581b5f30ed5964317127",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001043/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1048,
+      "index": 28,
+      "model_sha256": "796719073fb2f98f0f930972c28e9205e226d6ecec4d41c1b75a8c5cf1176251",
+      "image_sha256": "8141d94a481cde4c237eb4390cdff5da2ead55784144c65f3d4737390dbf0086",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001048/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1053,
+      "index": 29,
+      "model_sha256": "fdbf2af87c16b7fe2ed5c6ce52c8f28482775b64d43a3a901d23479db2781e2c",
+      "image_sha256": "aca5ee15dc3ae062b8e3a9e53a219270754d5da985930443822f836d4b3ba133",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/operations/sparse24_review_20261111/input/001053/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1058,
+      "index": 30,
+      "model_sha256": "0898f0f38bf04f9197ba088fad47d4a2b1c13ad5a9493b137e10ac310e3a5542",
+      "image_sha256": "7801aecc3273e21a7eafe279df668b82a3a09248d5089b4963f7c7d4fa6d4377",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001058/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1063,
+      "index": 31,
+      "model_sha256": "7bec5c573088baafda3c88ad62c6b7a7628c93d4f8476f69b212add044118cb5",
+      "image_sha256": "8a8c0ad524448f1e5e41f0688018edced7774862b4a354d2df646357745259cc",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001063/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1068,
+      "index": 32,
+      "model_sha256": "98945b1d2b3fc58bc7c4a300ddb5ecb422336e680f488206ae19eec661cb065d",
+      "image_sha256": "7d574ff7da7d6ffebdbf1ea01f4ea358d9c5b792c057a1f33af406fab7432eac",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001068/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1073,
+      "index": 33,
+      "model_sha256": "a67c61a370a7156ee600045161b8e939ddbe76f63f01d8873d7af00268c9f08d",
+      "image_sha256": "fdbaab02402f7f9d5687dbba3b1fd38462e9801a56420d3a51cc7d2ded7c8879",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/operations/sparse24_review_20261111/input/001073/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1078,
+      "index": 34,
+      "model_sha256": "38b7463ce239100c868a1d1b57cfbf87647f65eb75a5bf2d7c10f9b14d063b51",
+      "image_sha256": "9a3ab008553a4af1331faf3a2fef652562dbd1f4312fedfd7986ffcf4ea15867",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/operations/sparse24_review_20261111/input/001078/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1083,
+      "index": 35,
+      "model_sha256": "76ff033991b571b29d89d562257fa20f4e972a1a9bfc869a834ba8060302be64",
+      "image_sha256": "f9cbe81777cbbf4d4033911228e976bf232b4d658d4bc5fe7dbc533b851bc00c",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001083/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1088,
+      "index": 36,
+      "model_sha256": "f095237f80624df97f692a57a03b640713552bfc8227c865d83a34fba3938f10",
+      "image_sha256": "506ed9f909ff087b80f01f615f6e44dc6c57cd324f46c28792fe7ea3d48e48af",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001088/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1093,
+      "index": 37,
+      "model_sha256": "7a3910a797a7d21fc33261795e97c16aca1f561130230185e18b566f786db272",
+      "image_sha256": "e454545c7b5007586623c53302a491187ae7d340525c4482748518c82c25d85f",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001093/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1098,
+      "index": 38,
+      "model_sha256": "f7bcaf87903d57651bd423f83d5b65b6b1a9f7b77274ed5b98108aea20c1f072",
+      "image_sha256": "f4369e02c67dbe8129c4b601fb5636a8f6319114fdcd47d954acfdba72b0410c",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/operations/sparse24_review_20261111/input/001098/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1103,
+      "index": 39,
+      "model_sha256": "5d059ad47191878c5c8342ab5dd087c32e5eaae1285aab2527c93ca403777669",
+      "image_sha256": "3c30b02874ec82bb7c84377dd8064836c51c713786d7872a2d2a732637ff0dc5",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001103/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1108,
+      "index": 40,
+      "model_sha256": "30f05a18e8728562a857cb914aa0a27c7e8fa096551f4ef3d813f1de59c46204",
+      "image_sha256": "7af4fa31ef23cb379cd1ce46060a40c333fb8e1b784cb01e2cabee6df6f76437",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/operations/sparse24_review_20261111/input/001108/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1113,
+      "index": 41,
+      "model_sha256": "34153c9eb7260494f20d520d4a6f56521806ab25a05636111ec5ec77137b4c78",
+      "image_sha256": "1110868938310137369b1b572f184426fe68d42667ae9ca43dde21cf1d843d63",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001113/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1118,
+      "index": 42,
+      "model_sha256": "fe8cb4cd8220ab6f1f03e2b0cbca1dea490d3bd7d55fc9c073183da8656a6dbd",
+      "image_sha256": "ee7bb7d155ea3d54a42a52706b381b89802dfcffe2c73d8eca1ada43a7149e78",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001118/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1123,
+      "index": 43,
+      "model_sha256": "248f39a3fa67ec785219b33921659ceac1eef4f23c32eacf462530d788a75626",
+      "image_sha256": "61315d397549fb5cda2b44b03977d5b3479a7e96ea70faa29f5179e860d2cbcb",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/operations/sparse24_review_20261111/input/001123/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1128,
+      "index": 44,
+      "model_sha256": "4a4a2775325d0126459c6ee2fbb185da299b845e36c818129624933c9e3e84b8",
+      "image_sha256": "cb7e06e81f65a6aa674563060d10825577e2de4f0133e0671edae4b49a2283a0",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001128/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1133,
+      "index": 45,
+      "model_sha256": "ec366c660e6d078c1c8284a7380c5a1314f47dc6857f3bd9bf0e74a708296fe3",
+      "image_sha256": "469cde1cd2d719203e68369b1078bf1ebceb13fb552bcd1d26580123af4441bf",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001133/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1138,
+      "index": 46,
+      "model_sha256": "5e70fac2eb2c7f255d3c102ec8985cc18fdb3c943d633b0a4e87cb09a45d42e3",
+      "image_sha256": "c8aa6da1b2b38dee97efc54486dac28e3dd5172232977b7d236075f8d8b235ef",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001138/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1143,
+      "index": 47,
+      "model_sha256": "e962e14e5551ea2c91dfce71658520611f6538b0f83ef9a4b47b13cceb053028",
+      "image_sha256": "568281bc16b51fc135f8eb1e4902d3f4b238113ef5fd74ab1db928a67fab8886",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001143/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1148,
+      "index": 48,
+      "model_sha256": "20a35acbfcf8a83f2269f3090affe4fcf7ba966b288eda9e09c9089374398437",
+      "image_sha256": "f2f8b14a72376aef6e788104f682c0bc221ab3d7a8ec2fff3ac1d5c4c6c49022",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/operations/sparse24_review_20261111/input/001148/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1153,
+      "index": 49,
+      "model_sha256": "10d2bc4e87d5e678f17cad0165beb7800349a364151e1c48ada2c8862e3c8ae1",
+      "image_sha256": "83dc5e46c245ff0d256ce7688e9a8531468628a17ce65bdce6d9b4e8d215ea64",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001153/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1158,
+      "index": 50,
+      "model_sha256": "4da36cca32d3f161e00eee41df7ca02294e9056f759c3af50814519ec23a9adb",
+      "image_sha256": "b317ae35b2fce9e89370b2dcb017997911995057ef7b8194b910c87dd3b90be4",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/operations/sparse24_review_20261111/input/001158/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1163,
+      "index": 51,
+      "model_sha256": "b7f7f1b67e7ab9d90909eb3672c259d03e7fc97bc6267b7ec6f33244a7b85221",
+      "image_sha256": "7cf2f6e08bc9dbe17d9dbdb11b88e284768ecf1ab1a116ef7f8a78ed954c4c0c",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/operations/sparse24_review_20261111/input/001163/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1168,
+      "index": 52,
+      "model_sha256": "956f60cc481d215976f2057585bbe7653f55b9203c5d5d32153c79bdddaf0f2a",
+      "image_sha256": "6327df3eb1d7076c9d03339ce6b97c17d2755d5b36d40586a2eb65039d5d28e8",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001168/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1173,
+      "index": 53,
+      "model_sha256": "250d704268b7988367d1fba847089b5cf00ec7b694020eebb0962f20271b4a2a",
+      "image_sha256": "d101390cce296bf4881e78ab36c2440363f1a4266c416a4f4e184f905ea37ff4",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001173/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1178,
+      "index": 54,
+      "model_sha256": "ffa69ddf81e132bf820e89adcf616408c6ccb43f04f779feb35dde55fb1e982b",
+      "image_sha256": "cf9fa8d226eb77ab62865b562cc0a59b7df00276fc8f08e965127929b0c0ca4c",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001178/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1183,
+      "index": 55,
+      "model_sha256": "4be954f2a4ca2e8daaea08252ff86151cfaeed044358822e447373d6ca40c1dc",
+      "image_sha256": "934ea7a477019b46084056b6ae30aee65235b5cca9b307c0f172f943d55b05f5",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/operations/sparse24_review_20261111/input/001183/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1188,
+      "index": 56,
+      "model_sha256": "859bd4b9ed0671c239759b04a17c9c7a3752ed0f03559f6df3d426d773c1cc91",
+      "image_sha256": "4aadfd8a16d5c6866c1c37fcf2a56976fb96082175fc8aed726a3b955973a6f1",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/operations/sparse24_review_20261111/input/001188/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1193,
+      "index": 57,
+      "model_sha256": "65895e312b3b808439c93fd31a8a1c7ed0002014d7fa0d9de1d24b62d5bf301c",
+      "image_sha256": "02e6dcf34f82f2bae47ada0d566a96740783b7eff927d6a64fbcfb9195f8b0f0",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001193/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1198,
+      "index": 58,
+      "model_sha256": "2ffd0632521de9fc0e2334c6d343c88a0dbfa1e64bdedf7d0c0040e0ba2a964b",
+      "image_sha256": "4775987e27dfd194eab007a0ce70e6a9f9fecf1f8a2ee28e7d53c578e38738f4",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001198/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1203,
+      "index": 59,
+      "model_sha256": "b2cf7501e42a6be2f13431e344701830585ba24e95c2cbbf5542370790f6d334",
+      "image_sha256": "c4f6aa5e9cb2a78210289a6ab770f1a32b8d2db109024fd915273e9b46fd6725",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/operations/sparse24_review_20261111/input/001203/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1208,
+      "index": 60,
+      "model_sha256": "d1a82d46d0fe311e05c22be1aadd114195e3b6509da297af8411ec6970695c90",
+      "image_sha256": "505b9e024625f4ba9cdb94bb3b4c728f56e789989a8b1ccd747cba88faebc394",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001208/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1213,
+      "index": 61,
+      "model_sha256": "82959b900470cf1e937401928c52104f06b0603719c5097c258db11abea11379",
+      "image_sha256": "453f41e3f7a95d56a862516349aa5d4bcf610c4078fc86d6941da724c1b3aba3",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001213/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1218,
+      "index": 62,
+      "model_sha256": "4dfdfd486c541055bd7040bf5ede1a86ccc9b2ada10ebaf5557ebe7689fdf55b",
+      "image_sha256": "fcb34a23eb6a1bfce3b3f6b825d37df32a896fb8bff4c314e85075897504ce90",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001218/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1223,
+      "index": 63,
+      "model_sha256": "3ca2d2684b7cd83c90500ccd0b940944babd981f635eec6f5a2f1899a2f68e2c",
+      "image_sha256": "f964533bae7def05272efe49059127694258dc078b4040e5daefec6621ed0aae",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001223/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1228,
+      "index": 64,
+      "model_sha256": "2ab38496aa30a95593173f710336fa8968295646238ed62e28b27677aeb9b1e2",
+      "image_sha256": "57a67119b6903373f1fa3412d17621f6b96b09c773eac227c40c3931fc371f6a",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001228/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1233,
+      "index": 65,
+      "model_sha256": "a43dfd05b1540fc6cb4edff4bd2d00aec29e3403f68c534fe3f21767d5c4e31c",
+      "image_sha256": "27934bc0bbcc80366228ca9b7ca43d3c2ec827b44682e692b71ae973c9618a50",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001233/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1238,
+      "index": 66,
+      "model_sha256": "2691122a89ca3209c12c9365623a946f78ebb76d98f36750d45323ab865268d4",
+      "image_sha256": "8b1bea150832f75ae61500a6e0b70ccf37f60cbedeed9f7fd75e6c53b5bbc170",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001238/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1243,
+      "index": 67,
+      "model_sha256": "8221a22f7fbce6513aa933916a699000081a630ec0897a323c2a7d485232f0da",
+      "image_sha256": "cb12655d6611b1855c370dfa602894b0d3a626c58376e124925e9f31faa95017",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001243/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1248,
+      "index": 68,
+      "model_sha256": "4fd59441329694ab6d311a1e3781c67ea4905c75bdb95f263739856f5c2890a3",
+      "image_sha256": "6f4959eca51040de63303ae76b2fee4a8f09f388cd112fc40b0b4c47b81688c6",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001248/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1253,
+      "index": 69,
+      "model_sha256": "378ae893b0d4ececd10201341e81f78c44b852ba9dfaf19763c2787991eb8f8b",
+      "image_sha256": "3ed16293fd98565417f9bf8e6030ee9a29741c7b59910717ed93c344e0674ffb",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001253/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1258,
+      "index": 70,
+      "model_sha256": "530bb4619158962ac9579678b57e24dc329aa0fd339b900027b31a04237b9198",
+      "image_sha256": "697a9c7279d844fd6d56034af56148bf61e753c9e38f0ba5099d7a39a978e4cd",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001258/fullhd/GC_raw_fullhd.png"
+    },
+    {
+      "frame": 1263,
+      "index": 71,
+      "model_sha256": "47336828283fa4c268d816f6c66377d468720c2f8f54ddda22ad8556954c3d47",
+      "image_sha256": "14e6031a9b8cb1c3a442241e20ded62cac836405ff7ef87117cc10b7105f9613",
+      "source": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/final_reviews/001263/fullhd/GC_raw_fullhd.png"
+    }
+  ]
+}
