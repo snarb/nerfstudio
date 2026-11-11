@@ -224,3 +224,11 @@ Storage audit `sparse24_storage_audit.json` на silver-sable подтверди
 ## Готовое превью 24 fps
 
 Собраны все 72 выбранных GC рендера в `/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/operations/sparse24_review_20261111/Marshawn908_1263_GC_24fps_fullhd.mp4`. 1920×1080, 24 fps, 3 секунды; совпадение render receipt/model SHA проверено для каждого кадра, исправленные 923/988 включены. Receipt с SHA видео и изображений: `experiments/marshawn_908_1268_sparse24_preview_receipt.json`. Google Drive: https://drive.google.com/file/d/11MyVEOnvsiXGFrcAR0hnQdUFlSLoD9h0/view . Контакт из 12 временных срезов просмотрен: ориентация и расположение исполнителей согласованы, контурные и фоновые артефакты присутствуют. Это review preview, не clean matte.
+
+## Обновление после остановки workstation
+
+Службы `marshawn-sequence-agent.service` на WS07/WS08 остановлены TERM примерно 23:26 UTC, фактические нейронные процессы 917/1119 отсутствуют. Источники данных ещё доступны, службы не перезапускались. Старые agent_state/progress сами по себе не доказывают живое обучение.
+
+На silver-sable теперь повторно подтверждены все 72 выбранных веса по потоковому SHA, включая пять экспортов Olive; `sparse24_storage_audit.json` имеет verified=72, missing=[] (проверять results).
+
+Добавлен `tools/dense_scheduler.py`, служба `marshawn908-dense-scheduler.service`: работает после sparse24 gate, сохраняет 361 уникальный frame ID, использует существующие durable queue transactions. На остановленных workstation сначала обновляет queue/state/completion cache, затем retirement сохраняет только подтверждённые архивами завершения. Незавершённые кадры снова доступны work stealing. Чужие активные GPU jobs не переносит и не перезапускает. Нейронные файлы и рецепты не менялись. 11 unit tests пройдены: три dense scheduling, пять priority и три retirement.

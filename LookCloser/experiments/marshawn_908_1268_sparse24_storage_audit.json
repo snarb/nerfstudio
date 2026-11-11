@@ -1,5 +1,5 @@
 {
-  "time": 1794437257.7020142,
+  "time": 1794440419.3785758,
   "scope": "Preferred sparse24 weights physically present on silver-sable and streamed SHA256",
   "results": [
     {
@@ -59,8 +59,8 @@
     {
       "frame": 953,
       "model_sha256": "6a99ec4e6605a3fe3763153f29ee357a37ab6a5464cccbd53e9ca23a5069e314",
-      "path": null,
-      "status": "missing_on_silver"
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/olive/000953/model/inference.ckpt",
+      "status": "verified"
     },
     {
       "frame": 958,
@@ -179,8 +179,8 @@
     {
       "frame": 1053,
       "model_sha256": "fdbf2af87c16b7fe2ed5c6ce52c8f28482775b64d43a3a901d23479db2781e2c",
-      "path": null,
-      "status": "missing_on_silver"
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/olive/001053/model/inference.ckpt",
+      "status": "verified"
     },
     {
       "frame": 1058,
@@ -233,8 +233,8 @@
     {
       "frame": 1098,
       "model_sha256": "f7bcaf87903d57651bd423f83d5b65b6b1a9f7b77274ed5b98108aea20c1f072",
-      "path": null,
-      "status": "missing_on_silver"
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/olive/001098/model/inference.ckpt",
+      "status": "verified"
     },
     {
       "frame": 1103,
@@ -305,8 +305,8 @@
     {
       "frame": 1158,
       "model_sha256": "4da36cca32d3f161e00eee41df7ca02294e9056f759c3af50814519ec23a9adb",
-      "path": null,
-      "status": "missing_on_silver"
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/olive/001158/model/inference.ckpt",
+      "status": "verified"
     },
     {
       "frame": 1163,
@@ -335,8 +335,8 @@
     {
       "frame": 1183,
       "model_sha256": "4be954f2a4ca2e8daaea08252ff86151cfaeed044358822e447373d6ca40c1dc",
-      "path": null,
-      "status": "missing_on_silver"
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/olive/001183/model/inference.ckpt",
+      "status": "verified"
     },
     {
       "frame": 1188,
@@ -435,5 +435,5 @@
       "status": "verified"
     }
   ],
-  "verified": 67
+  "verified": 72
 }
