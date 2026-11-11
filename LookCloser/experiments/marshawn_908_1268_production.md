@@ -215,3 +215,19 @@ Audited independent export at 144000 iterations. Actor metrics {'psnr': 32.53308
 Audited independent export at 150000 iterations. Actor metrics {'psnr': 32.560969255465814, 'ssim': 0.7896863718827566, 'lpips': 0.14435973080495992}. Six Full HD views inspected. Four performers visible without obvious box truncation. Contour halos and floating background fragments persist. [Views](marshawn_908_1268_diagnostics/frame1048_final_review/final_contact.jpg).
 
 Reviewed 43 model exports, including 24 of 72 priority frames. Corrected versions of 923 and 988 are pending.
+
+### Frame 1043 final review
+
+Audited independent export at 150000 iterations. Actor metrics {'psnr': 32.61882428359678, 'ssim': 0.7919205576181412, 'lpips': 0.14644072080651918}. Six Full HD views inspected. Four performers visible without obvious box truncation. Contour halos and floating background fragments persist. [Views](marshawn_908_1268_diagnostics/frame1043_final_review/final_contact.jpg).
+
+### Frame 1013 final review
+
+Audited independent export at 144000 iterations. Actor metrics {'psnr': 32.466334541832964, 'ssim': 0.7917343278725942, 'lpips': 0.1448110161970059}. Six Full HD views inspected. Four performers visible without obvious box truncation. Contour halos and floating background fragments persist. [Views](marshawn_908_1268_diagnostics/frame1013_final_review/final_contact.jpg).
+
+### Frame 968 final review
+
+Audited independent export at 144000 iterations. Actor metrics {'psnr': 32.67955525757292, 'ssim': 0.8025645464658737, 'lpips': 0.11468589895715316}. Six Full HD views inspected. Four performers visible without obvious box truncation. Contour halos and floating background fragments persist. [Views](marshawn_908_1268_diagnostics/frame968_final_review/final_contact.jpg).
+
+### Frame 1018 final review
+
+Audited independent export at 150000 iterations. Actor metrics {'psnr': 32.48664466626032, 'ssim': 0.7922541201114655, 'lpips': 0.13859394068519273}. Six Full HD views inspected. Four performers visible without obvious box truncation. Contour halos and floating background fragments persist. [Views](marshawn_908_1268_diagnostics/frame1018_final_review/final_contact.jpg).

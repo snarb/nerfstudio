@@ -1,0 +1,70 @@
+{
+  "step": 149999,
+  "checkpoint_sha256": "58268174eb863075587f54501e2ec3c4b594568e9e4ea0604703d35e197614fa",
+  "cap": 10,
+  "output_canvas": [
+    1920,
+    1080
+  ],
+  "training_rgb_resized": false,
+  "rgba": "straight alpha; EXR unpremultiplied before display curve",
+  "views": [
+    {
+      "camera": "CB",
+      "source_canvas": [
+        8471,
+        4368
+      ],
+      "render_size": [
+        1920,
+        990
+      ],
+      "letterbox_origin": [
+        0,
+        45
+      ],
+      "base_crop_uncrop_ray_parity": true,
+      "interpolation": null,
+      "raw_field": true,
+      "ground_truth_masking": false
+    },
+    {
+      "camera": "GC",
+      "source_canvas": [
+        8491,
+        4370
+      ],
+      "render_size": [
+        1920,
+        988
+      ],
+      "letterbox_origin": [
+        0,
+        46
+      ],
+      "base_crop_uncrop_ray_parity": true,
+      "interpolation": null,
+      "raw_field": true,
+      "ground_truth_masking": false
+    },
+    {
+      "camera": "NB",
+      "source_canvas": [
+        8468,
+        4368
+      ],
+      "render_size": [
+        1920,
+        990
+      ],
+      "letterbox_origin": [
+        0,
+        45
+      ],
+      "base_crop_uncrop_ray_parity": true,
+      "interpolation": null,
+      "raw_field": true,
+      "ground_truth_masking": false
+    }
+  ]
+}
