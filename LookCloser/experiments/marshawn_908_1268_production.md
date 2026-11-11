@@ -335,3 +335,19 @@ Audited independent export at 150000 iterations. Actor metrics {'psnr': 32.50623
 ### Frame 1178 final review
 
 Audited independent export at 150000 iterations. Actor metrics {'psnr': 32.86018084225704, 'ssim': 0.8107627597120074, 'lpips': 0.12676060277347764}. Six Full HD views inspected. Four performers visible without obvious box truncation. Contour halos and floating background fragments persist. [Views](marshawn_908_1268_diagnostics/frame1178_final_review/final_contact.jpg).
+
+### Frame 1138 final review
+
+Audited independent export at 150000 iterations. Actor metrics {'psnr': 32.822458564485125, 'ssim': 0.8126480364137225, 'lpips': 0.12023874444680083}. Six Full HD views inspected. Four performers visible without obvious box truncation. Contour halos and floating background fragments persist. [Views](marshawn_908_1268_diagnostics/frame1138_final_review/final_contact.jpg).
+
+### Frame 1103 final review
+
+Audited independent export at 150000 iterations. Actor metrics {'psnr': 32.70529223799346, 'ssim': 0.8015626718600591, 'lpips': 0.12662920635193586}. Six Full HD views inspected. Four performers visible without obvious box truncation. Contour halos and floating background fragments persist. [Views](marshawn_908_1268_diagnostics/frame1103_final_review/final_contact.jpg).
+
+### Frame 1168 final review
+
+Audited independent export at 150000 iterations. Actor metrics {'psnr': 32.829277825544835, 'ssim': 0.810151724351777, 'lpips': 0.12648650683048698}. Six Full HD views inspected. Four performers visible without obvious box truncation. Contour halos and floating background fragments persist. [Views](marshawn_908_1268_diagnostics/frame1168_final_review/final_contact.jpg).
+
+### Frame 1233 final review
+
+Audited independent export at 150000 iterations. Actor metrics {'psnr': 32.41896373057977, 'ssim': 0.7934640281730228, 'lpips': 0.1349914607902368}. Six Full HD views inspected. Four performers visible without obvious box truncation. Contour halos and floating background fragments persist. [Views](marshawn_908_1268_diagnostics/frame1233_final_review/final_contact.jpg).
