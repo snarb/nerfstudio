@@ -39,6 +39,12 @@ def preserve(item):
         link.unlink()
         link.symlink_to(os.path.relpath(destination,link.parent))
     native=ROOT/'frames'/f'{frame:06d}'/'native'
+    if not (native/'native_ready.json').exists():
+        command=['tar','-C',str(source/'native'),'--exclude=linear','-cf','-','.']
+        process=subprocess.Popen(host.argv(shlex.join(command)),stdout=subprocess.PIPE)
+        receiver=subprocess.run(['tar','-C',str(archive/'native'),'-xf','-'],stdin=process.stdout)
+        process.stdout.close()
+        if receiver.returncode or process.wait():raise RuntimeError('Additional completed-frame RGB transfer failed')
     for name in ['images','masks']:
         destination=archive/'native'/name
         if destination.is_dir() and not destination.is_symlink() and not any(destination.iterdir()):destination.rmdir()
@@ -64,7 +70,7 @@ items=[]
 for row in rows:
     code='from pathlib import Path;import json;root=Path('+repr(str(Path(row['root'])/'frames'))+');print(json.dumps([int(p.name) for p in root.iterdir() if (p/"train/spec.json").is_file()]))'
     for frame in json.loads(Host(row).command('python3 -c '+shlex.quote(code),timeout=60)):
-        if frame in range(908,1268,5):items.append((row,frame))
+        if 908<=frame<=1268:items.append((row,frame))
 with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
     results=list(pool.map(preserve,items))
 atomic(BACKUP/'frame_support_complete.json',dict(time=time.time(),records=results))
