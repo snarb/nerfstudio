@@ -1,6 +1,6 @@
 {
-  "time": 1794403454.7011867,
-  "verified": 8,
+  "time": 1794413690.3928676,
+  "verified": 9,
   "errors": [],
   "inventory_errors": [
     "latest checkpoint missing /home/pavlo/marshawn_campaign_20261109/frames/000913/train/checkpoints/step-000149999.ckpt",
@@ -8,6 +8,7 @@
     "latest checkpoint missing /home/pavlo/marshawn_campaign_20261109/frames/001078/train/checkpoints/step-000149999.ckpt",
     "latest checkpoint missing /home/pavlo/marshawn_campaign_20261109/frames/000993/train/checkpoints/step-000149999.ckpt",
     "latest checkpoint missing /home/pavlo/marshawn_campaign_20261109/frames/001073/train/checkpoints/step-000149999.ckpt",
+    "latest checkpoint missing /home/pavlo/marshawn_campaign_20261109/frames/001083/train/checkpoints/step-000149999.ckpt",
     "latest checkpoint missing /home/pavlo/marshawn_campaign_20261109/frames/000908/train/checkpoints/step-000149999.ckpt",
     "latest checkpoint missing /home/pavlo/marshawn_campaign_20261109/frames/000988/train/checkpoints/step-000149999.ckpt"
   ]
