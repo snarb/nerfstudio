@@ -216,3 +216,7 @@ python3 tools/audit_exports.py --root "$PWD" --queue agents/gpu0/queue.json --ou
 ## Финальный просмотр sparse24
 
 1213 и 1218 проверены в шести Full HD видах, явного обрезания людей боксом нет, ореолы и фоновые фрагменты остаются. Для всех 72 кадров собран индекс предпочтительных модельных SHA в `experiments/marshawn_908_1268_sparse24_selected_models.json`, копия на silver-sable в корне кампании. Он явно выбирает исправленные 923/988. Индекс основан на сохранённых export/visual-review доказательствах; актуальное наличие всех весов на одном хосте требует отдельного storage audit. Исходная цель 361 модели ещё не завершена.
+
+## Сбор весов на одном хосте
+
+Storage audit `sparse24_storage_audit.json` на silver-sable подтвердил SHA 67/72 выбранных весов. Пять отсутствующих на этом хосте моделей находятся на Olive: 953, 1053, 1098, 1158, 1183. Для них запущена `marshawn-sparse24-olive-archive.service`, два worker, Restart=on-failure. Цель `external_models/olive/<frame>`; итог `emergency_workstations_20261111/frame_support_olive.json`. После завершения повторить потоковый SHA audit всех 72. Наличие исходных весов на Olive подтверждалось финальными рендерами, но это не заменяет подтверждение их копии на silver-sable. Перенос data361 дошёл до 18 проверенных кадров на 23:02 UTC.

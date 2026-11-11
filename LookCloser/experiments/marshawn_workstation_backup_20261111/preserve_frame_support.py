@@ -8,12 +8,19 @@ import shutil
 import subprocess
 import sys
 import time
+import argparse
 
 ROOT=Path('/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109')
 BACKUP=ROOT.parent.parent/'emergency_workstations_20261111'
 sys.path.insert(0,str(ROOT/'tools'))
 from campaign import Host
 from common import atomic,read,sha
+
+parser=argparse.ArgumentParser()
+parser.add_argument('--hosts',nargs='+',default=['ws07','ws08'])
+parser.add_argument('--frames',nargs='+',type=int)
+parser.add_argument('--workers',type=int,default=4)
+options=parser.parse_args()
 
 def preserve(item):
     row,frame=item
@@ -59,19 +66,31 @@ def preserve(item):
             if not model.exists():os.link(original_backup,model)
         elif not model.exists():
             shell=BACKUP/('ssh_'+row['name'])
-            subprocess.run(['rsync','-az','--partial','-e',str(shell),row['ssh']+':'+str(source/'model/inference.ckpt'),str(model)],check=True)
+            if shell.exists():
+                subprocess.run(['rsync','-az','--partial','-e',str(shell),row['ssh']+':'+str(source/'model/inference.ckpt'),str(model)],check=True)
+            else:
+                temporary=archive/'model/inference.ckpt.partial'
+                process=subprocess.Popen(host.argv('gzip -c '+shlex.quote(str(source/'model/inference.ckpt'))),stdout=subprocess.PIPE)
+                with temporary.open('wb') as output:
+                    receiver=subprocess.run(['gzip','-d'],stdin=process.stdout,stdout=output)
+                process.stdout.close()
+                if receiver.returncode or process.wait():raise RuntimeError('Model transfer failed')
+                if sha(temporary)!=info['sha256']:raise ValueError('Transferred model checksum differs')
+                temporary.replace(model)
         if sha(model)!=info['sha256']:raise ValueError('Preserved model checksum differs')
     result=dict(frame=frame,host=row['name'],time=time.time(),path=str(archive),weights_present=(archive/'model/inference.ckpt').is_file())
     atomic(receipt,result)
     print('FRAME_SUPPORT_PRESERVED',row['name'],frame,flush=True)
     return result
 
-rows=[r for r in read(ROOT/'fleet.json')['hosts'] if r['name'] in ['ws07','ws08']]
+rows=[r for r in read(ROOT/'fleet.json')['hosts'] if r['name'] in options.hosts]
+if set(options.hosts)!={r['name'] for r in rows}:raise ValueError('Unknown host')
 items=[]
 for row in rows:
     code='from pathlib import Path;import json;root=Path('+repr(str(Path(row['root'])/'frames'))+');print(json.dumps([int(p.name) for p in root.iterdir() if (p/"train/spec.json").is_file()]))'
     for frame in json.loads(Host(row).command('python3 -c '+shlex.quote(code),timeout=60)):
-        if 908<=frame<=1268:items.append((row,frame))
-with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+        if 908<=frame<=1268 and (not options.frames or frame in options.frames):items.append((row,frame))
+with concurrent.futures.ThreadPoolExecutor(max_workers=options.workers) as pool:
     results=list(pool.map(preserve,items))
-atomic(BACKUP/'frame_support_complete.json',dict(time=time.time(),records=results))
+name='frame_support_complete.json' if options.hosts==['ws07','ws08'] else 'frame_support_'+'_'.join(options.hosts)+'.json'
+atomic(BACKUP/name,dict(time=time.time(),records=results))

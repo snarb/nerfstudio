@@ -1,0 +1,439 @@
+{
+  "time": 1794437257.7020142,
+  "scope": "Preferred sparse24 weights physically present on silver-sable and streamed SHA256",
+  "results": [
+    {
+      "frame": 908,
+      "model_sha256": "e56b810da9921b2a587655d151eaca3aac3aeb13410dca3bfeaf12b2ef2fef0b",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/000908/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 913,
+      "model_sha256": "4afdca7e52fdc0088d91d5c1f6575fe31645bab3442ab23d058358f79f5c2731",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/000913/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 918,
+      "model_sha256": "b6d3279a9e2ed71e5de6d9d61586062e7240782665e181d3a76c8519985469b9",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/000918/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 923,
+      "model_sha256": "048320d107643858fef5b134d738cf43c58c932649bd3c7b0edaace718b94919",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/repairs_votes3_20261110/frames/000923/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 928,
+      "model_sha256": "8fc7e7c5f9eee38d01c055893faa5e10bae4710c66109f76e739bb7704f89c61",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/000928/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 933,
+      "model_sha256": "d30272ea247c00784fc625c693e04436c6b16bcfdd29aadecb9da6a33107fd61",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/000933/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 938,
+      "model_sha256": "b279700566b0fcc2123cb030078d408d1d193aab690a249f1a5fc414017789ab",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/000938/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 943,
+      "model_sha256": "9cda70221001dc9eba5c3f6798f0e19aae39a02cd18ea19b84d08cc89e80c5d4",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/000943/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 948,
+      "model_sha256": "5cde9ea068a64dea0371336008addb59aef920d049d21925bb2a6bd90d0c61e2",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/000948/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 953,
+      "model_sha256": "6a99ec4e6605a3fe3763153f29ee357a37ab6a5464cccbd53e9ca23a5069e314",
+      "path": null,
+      "status": "missing_on_silver"
+    },
+    {
+      "frame": 958,
+      "model_sha256": "e5d7956094fd7b287a222c4d6aa1cc28a23b94cde636d5984eed8b329dbc94a5",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/000958/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 963,
+      "model_sha256": "caea0ad5b72e85d50e29adb7d4662030f9fbc2adffb5035bc903c6c1230b3e76",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/000963/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 968,
+      "model_sha256": "3a03b5f3406173c575674539c01cd615dc10f00a49c052baf350e95682757416",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/000968/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 973,
+      "model_sha256": "9b2694bbf43fd5862130619cbb28f8f0df1817623c4be2a8f0331bb29dce1a8f",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/000973/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 978,
+      "model_sha256": "72a85b358e1e54178063d785fc10cb5c71ddaf4351b3a5a3729ad4f174eef9a2",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/000978/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 983,
+      "model_sha256": "355ac92e83e1fb8425a4a961f7425658730c254452d7e59d13fe54b8f65d0738",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/000983/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 988,
+      "model_sha256": "2a19cef44182e27a721f4e85a099ebf71a195c43d4f07bf429a62dbf5da21a52",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/repairs_votes3_20261110/frames/000988/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 993,
+      "model_sha256": "4278e2572b5e32f72e2c4b3618a831b39d420a73ed1ae9b9565d3dc9d5aa08a0",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/000993/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 998,
+      "model_sha256": "3365697a20fba27b938fd55c336f7dfc770e5ae6c114320c7bf4650aef30a741",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/000998/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1003,
+      "model_sha256": "ed9e6cf977e1ae8152825506fb89c2e1b2890ba89755309c5ce50b5e77a01ec4",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/001003/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1008,
+      "model_sha256": "b09c2d18938e6a782f49a050e5ae66ff8b5f456a60b880ce29a2583a0b3f053c",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/001008/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1013,
+      "model_sha256": "d78799b05fe9dfef80a9ce158a0f315113fb81800f18f1d112a270843ac62052",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/001013/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1018,
+      "model_sha256": "58268174eb863075587f54501e2ec3c4b594568e9e4ea0604703d35e197614fa",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/001018/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1023,
+      "model_sha256": "8aec2b7bbce4229cd4f63e55d08a6b983e551c43cdd1918e672e4626c16099a4",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/001023/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1028,
+      "model_sha256": "25c1c7c4845c1965213b617c0c108d50e49c4a45f2c15c32abf8e7d436505499",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/001028/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1033,
+      "model_sha256": "7b41ddf3784cd91e83d4e06ac7d967f8340a5bc26794ea3c0b4f5ac42c63ecf2",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/001033/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1038,
+      "model_sha256": "ad28f2805be2e2a0f5e46bc0cad4d68969f255bbf0443928ef776a237dbb6d66",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/001038/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1043,
+      "model_sha256": "a095131fac55a6a09f671c1c426089ed805dd5593702563751f64212d7d93d1a",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/001043/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1048,
+      "model_sha256": "796719073fb2f98f0f930972c28e9205e226d6ecec4d41c1b75a8c5cf1176251",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/001048/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1053,
+      "model_sha256": "fdbf2af87c16b7fe2ed5c6ce52c8f28482775b64d43a3a901d23479db2781e2c",
+      "path": null,
+      "status": "missing_on_silver"
+    },
+    {
+      "frame": 1058,
+      "model_sha256": "0898f0f38bf04f9197ba088fad47d4a2b1c13ad5a9493b137e10ac310e3a5542",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/001058/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1063,
+      "model_sha256": "7bec5c573088baafda3c88ad62c6b7a7628c93d4f8476f69b212add044118cb5",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/001063/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1068,
+      "model_sha256": "98945b1d2b3fc58bc7c4a300ddb5ecb422336e680f488206ae19eec661cb065d",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/001068/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1073,
+      "model_sha256": "a67c61a370a7156ee600045161b8e939ddbe76f63f01d8873d7af00268c9f08d",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001073/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1078,
+      "model_sha256": "38b7463ce239100c868a1d1b57cfbf87647f65eb75a5bf2d7c10f9b14d063b51",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001078/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1083,
+      "model_sha256": "76ff033991b571b29d89d562257fa20f4e972a1a9bfc869a834ba8060302be64",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001083/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1088,
+      "model_sha256": "f095237f80624df97f692a57a03b640713552bfc8227c865d83a34fba3938f10",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/001088/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1093,
+      "model_sha256": "7a3910a797a7d21fc33261795e97c16aca1f561130230185e18b566f786db272",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/001093/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1098,
+      "model_sha256": "f7bcaf87903d57651bd423f83d5b65b6b1a9f7b77274ed5b98108aea20c1f072",
+      "path": null,
+      "status": "missing_on_silver"
+    },
+    {
+      "frame": 1103,
+      "model_sha256": "5d059ad47191878c5c8342ab5dd087c32e5eaae1285aab2527c93ca403777669",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/001103/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1108,
+      "model_sha256": "30f05a18e8728562a857cb914aa0a27c7e8fa096551f4ef3d813f1de59c46204",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1113,
+      "model_sha256": "34153c9eb7260494f20d520d4a6f56521806ab25a05636111ec5ec77137b4c78",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/001113/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1118,
+      "model_sha256": "fe8cb4cd8220ab6f1f03e2b0cbca1dea490d3bd7d55fc9c073183da8656a6dbd",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/001118/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1123,
+      "model_sha256": "248f39a3fa67ec785219b33921659ceac1eef4f23c32eacf462530d788a75626",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws08/001123/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1128,
+      "model_sha256": "4a4a2775325d0126459c6ee2fbb185da299b845e36c818129624933c9e3e84b8",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/001128/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1133,
+      "model_sha256": "ec366c660e6d078c1c8284a7380c5a1314f47dc6857f3bd9bf0e74a708296fe3",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/001133/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1138,
+      "model_sha256": "5e70fac2eb2c7f255d3c102ec8985cc18fdb3c943d633b0a4e87cb09a45d42e3",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/001138/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1143,
+      "model_sha256": "e962e14e5551ea2c91dfce71658520611f6538b0f83ef9a4b47b13cceb053028",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/001143/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1148,
+      "model_sha256": "20a35acbfcf8a83f2269f3090affe4fcf7ba966b288eda9e09c9089374398437",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws08/001148/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1153,
+      "model_sha256": "10d2bc4e87d5e678f17cad0165beb7800349a364151e1c48ada2c8862e3c8ae1",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/001153/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1158,
+      "model_sha256": "4da36cca32d3f161e00eee41df7ca02294e9056f759c3af50814519ec23a9adb",
+      "path": null,
+      "status": "missing_on_silver"
+    },
+    {
+      "frame": 1163,
+      "model_sha256": "b7f7f1b67e7ab9d90909eb3672c259d03e7fc97bc6267b7ec6f33244a7b85221",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws08/001163/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1168,
+      "model_sha256": "956f60cc481d215976f2057585bbe7653f55b9203c5d5d32153c79bdddaf0f2a",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/001168/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1173,
+      "model_sha256": "250d704268b7988367d1fba847089b5cf00ec7b694020eebb0962f20271b4a2a",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/001173/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1178,
+      "model_sha256": "ffa69ddf81e132bf820e89adcf616408c6ccb43f04f779feb35dde55fb1e982b",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/001178/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1183,
+      "model_sha256": "4be954f2a4ca2e8daaea08252ff86151cfaeed044358822e447373d6ca40c1dc",
+      "path": null,
+      "status": "missing_on_silver"
+    },
+    {
+      "frame": 1188,
+      "model_sha256": "859bd4b9ed0671c239759b04a17c9c7a3752ed0f03559f6df3d426d773c1cc91",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws08/001188/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1193,
+      "model_sha256": "65895e312b3b808439c93fd31a8a1c7ed0002014d7fa0d9de1d24b62d5bf301c",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/001193/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1198,
+      "model_sha256": "2ffd0632521de9fc0e2334c6d343c88a0dbfa1e64bdedf7d0c0040e0ba2a964b",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/clever/001198/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1203,
+      "model_sha256": "b2cf7501e42a6be2f13431e344701830585ba24e95c2cbbf5542370790f6d334",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws08/001203/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1208,
+      "model_sha256": "d1a82d46d0fe311e05c22be1aadd114195e3b6509da297af8411ec6970695c90",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/001208/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1213,
+      "model_sha256": "82959b900470cf1e937401928c52104f06b0603719c5097c258db11abea11379",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/001213/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1218,
+      "model_sha256": "4dfdfd486c541055bd7040bf5ede1a86ccc9b2ada10ebaf5557ebe7689fdf55b",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/001218/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1223,
+      "model_sha256": "3ca2d2684b7cd83c90500ccd0b940944babd981f635eec6f5a2f1899a2f68e2c",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/clever/001223/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1228,
+      "model_sha256": "2ab38496aa30a95593173f710336fa8968295646238ed62e28b27677aeb9b1e2",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws08/001228/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1233,
+      "model_sha256": "a43dfd05b1540fc6cb4edff4bd2d00aec29e3403f68c534fe3f21767d5c4e31c",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/001233/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1238,
+      "model_sha256": "2691122a89ca3209c12c9365623a946f78ebb76d98f36750d45323ab865268d4",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/frames/001238/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1243,
+      "model_sha256": "8221a22f7fbce6513aa933916a699000081a630ec0897a323c2a7d485232f0da",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws08/001243/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1248,
+      "model_sha256": "4fd59441329694ab6d311a1e3781c67ea4905c75bdb95f263739856f5c2890a3",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/clever/001248/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1253,
+      "model_sha256": "378ae893b0d4ececd10201341e81f78c44b852ba9dfaf19763c2787991eb8f8b",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/clever/001253/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1258,
+      "model_sha256": "530bb4619158962ac9579678b57e24dc329aa0fd339b900027b31a04237b9198",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/clever/001258/model/inference.ckpt",
+      "status": "verified"
+    },
+    {
+      "frame": 1263,
+      "model_sha256": "47336828283fa4c268d816f6c66377d468720c2f8f54ddda22ad8556954c3d47",
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/clever/001263/model/inference.ckpt",
+      "status": "verified"
+    }
+  ],
+  "verified": 67
+}
