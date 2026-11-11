@@ -18,7 +18,9 @@ The user additionally requested training data for all 72 frames in the 24 fps gr
 
 Canonical datasets are under `campaigns/marshawn908_20261109/frames/<frame>/native/`. Each dataset must contain 72 cameras. RGB crops retain source pixel resolution. RGB and semantic files are checked against their native manifest. Cameras, sampling masks and seed points are checked for availability. These datasets support the selected PNG recipe and accepted AABB.
 
-Completion requires `data24_complete.json` with 72 verified datasets. That receipt has not yet been observed.
+Dataset evacuation completed. The receipt contains exactly the 72 requested frames and 5,184 camera records, with verified RGB and semantic checksums. These native datasets are available through the normal training entry point on silver-sable. [Completion receipt](marshawn_workstation_backup_20261111/data24_complete.json).
+
+A final checkpoint delta scan found eight current model/checkpoint files on WS07 and nine on WS08. Transfer and verification of this refreshed inventory are in progress. The previous sixteen-file snapshot remains preserved.
 
 ## Transfer operation
 
