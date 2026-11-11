@@ -21,6 +21,15 @@
 
 ## Где запускать на silver-sable
 
+Подготовлен checkout ветки для новой сессии:
+
+```bash
+cd /cache/ubuntu/lookcloser/nerfstudio_handoff_20261111/LookCloser
+# Запустить Codex и попросить прочитать handof.md.
+```
+
+Дополнительная независимая копия handoff находится в `/cache/ubuntu/lookcloser/handoff_20261111/handof.md`.
+
 Хост `ubuntu@silver-sable`, Tailscale `100.67.28.20`. Основной каталог:
 
 ```
