@@ -1,0 +1,9 @@
+{
+  "frame": 923,
+  "recipe_sha256": "bcaec09aa472f8baa43f998b0af54de555cd90b48619ef67cc7f8d48fb665ae7",
+  "checkpoint_sha256": "048320d107643858fef5b134d738cf43c58c932649bd3c7b0edaace718b94919",
+  "export_verified": true,
+  "render_ready": true,
+  "visual_reviewed": false,
+  "frame_completion_sha256": "9e00942d2f4e328a0831eeb827bbe4e4622771a4cd82289e1326d7696e60344a"
+}
