@@ -1,4 +1,5 @@
 import concurrent.futures
+import argparse
 import fcntl
 import hashlib
 import json
@@ -12,6 +13,12 @@ BACKUP=Path('/cache/ubuntu/lookcloser/emergency_workstations_20261111')
 sys.path.insert(0,str(ROOT/'tools'))
 from common import atomic,read,sha
 from native_transfer import ensure_native
+
+parser=argparse.ArgumentParser()
+parser.add_argument('--all-frames',action='store_true')
+parser.add_argument('--workers',type=int,default=4)
+args=parser.parse_args()
+receipt_group='data361' if args.all_frames else 'data24'
 
 def validate(native,frame):
     ready=read(native/'native_ready.json')
@@ -34,6 +41,8 @@ def validate(native,frame):
     return dict(frame=frame,cameras=72,native_no_resize=True,native_ready_sha256=sha(native/'native_ready.json'),seed_sha256=sha(native/'points3D.txt'),path=str(native),time=time.time())
 
 def transfer(frame):
+    if shutil.disk_usage(ROOT).free < 500 * 1024**3:
+        raise RuntimeError('Evacuation waits for at least 500 GiB free space')
     folder=ROOT/'frames'/f'{frame:06d}'
     folder.mkdir(parents=True,exist_ok=True)
     native=folder/'native'
@@ -65,7 +74,7 @@ def transfer(frame):
         if not (native/'transfer_complete.json').exists():
             atomic(native/'transfer_complete.json',receipt)
         atomic(native/'source_cache_released.json',dict(frame=frame,native_ready_sha256=receipt['native_ready_sha256'],adopted_verified_local_copy=True))
-    atomic(BACKUP/'data24'/f'{frame:06d}.json',receipt)
+    atomic(BACKUP/receipt_group/f'{frame:06d}.json',receipt)
     print('DATA24_VERIFIED',frame,flush=True)
     return receipt
 
@@ -74,8 +83,8 @@ while not all((BACKUP/name/'checkpoint_verification.json').exists() for name in 
 for name in ['ws07','ws08']:
     if read(BACKUP/name/'checkpoint_verification.json')['errors']:
         raise ValueError('Checkpoint backup verification failed')
-(BACKUP/'data24').mkdir(exist_ok=True)
-frames=list(range(908,1268,5))
-with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+(BACKUP/receipt_group).mkdir(exist_ok=True)
+frames=list(range(908,1269)) if args.all_frames else list(range(908,1268,5))
+with concurrent.futures.ThreadPoolExecutor(max_workers=args.workers) as pool:
     receipts=list(pool.map(transfer,frames))
-atomic(BACKUP/'data24_complete.json',dict(time=time.time(),frames=frames,total=72,verified=len(receipts),records=receipts))
+atomic(BACKUP/(receipt_group+'_complete.json'),dict(time=time.time(),frames=frames,total=len(frames),verified=len(receipts),records=receipts))

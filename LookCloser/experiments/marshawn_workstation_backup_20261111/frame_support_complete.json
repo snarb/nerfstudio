@@ -1,5 +1,5 @@
 {
-  "time": 1794423617.033931,
+  "time": 1794436045.437275,
   "records": [
     {
       "frame": 913,
@@ -18,9 +18,9 @@
     {
       "frame": 1108,
       "host": "ws07",
-      "time": 1794419946.7140508,
+      "time": 1794435545.7210572,
       "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108",
-      "weights_present": false
+      "weights_present": true
     },
     {
       "frame": 1078,
