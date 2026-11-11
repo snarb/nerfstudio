@@ -1,0 +1,91 @@
+{
+  "step": 149999,
+  "checkpoint_sha256": "e962e14e5551ea2c91dfce71658520611f6538b0f83ef9a4b47b13cceb053028",
+  "cap": 10,
+  "output_canvas": [
+    1920,
+    1080
+  ],
+  "training_rgb_resized": false,
+  "rgba": "straight alpha; EXR unpremultiplied before display curve",
+  "views": [
+    {
+      "camera": "CB",
+      "source_canvas": [
+        8471,
+        4368
+      ],
+      "render_size": [
+        1920,
+        990
+      ],
+      "letterbox_origin": [
+        0,
+        45
+      ],
+      "base_crop_uncrop_ray_parity": true,
+      "interpolation": {
+        "reference": "CB",
+        "neighbour": "CA",
+        "fraction": 0.25,
+        "rotation": "SLERP",
+        "translation": "linear",
+        "ground_truth_available": false
+      },
+      "raw_field": true,
+      "ground_truth_masking": false
+    },
+    {
+      "camera": "GC",
+      "source_canvas": [
+        8491,
+        4370
+      ],
+      "render_size": [
+        1920,
+        988
+      ],
+      "letterbox_origin": [
+        0,
+        46
+      ],
+      "base_crop_uncrop_ray_parity": true,
+      "interpolation": {
+        "reference": "GC",
+        "neighbour": "GD",
+        "fraction": 0.25,
+        "rotation": "SLERP",
+        "translation": "linear",
+        "ground_truth_available": false
+      },
+      "raw_field": true,
+      "ground_truth_masking": false
+    },
+    {
+      "camera": "NB",
+      "source_canvas": [
+        8468,
+        4368
+      ],
+      "render_size": [
+        1920,
+        990
+      ],
+      "letterbox_origin": [
+        0,
+        45
+      ],
+      "base_crop_uncrop_ray_parity": true,
+      "interpolation": {
+        "reference": "NB",
+        "neighbour": "MC",
+        "fraction": 0.25,
+        "rotation": "SLERP",
+        "translation": "linear",
+        "ground_truth_available": false
+      },
+      "raw_field": true,
+      "ground_truth_masking": false
+    }
+  ]
+}
