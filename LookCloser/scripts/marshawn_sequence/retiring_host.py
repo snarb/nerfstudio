@@ -1,5 +1,5 @@
 """Keep the scheduling ledger available after an evacuated workstation disappears."""
-import json
+import hashlib
 import shlex
 import time
 from pathlib import Path
@@ -36,6 +36,21 @@ class RetiringHost(Host):
             records = read(inventory)['records']
             if not check['errors'] and check['verified'] == len(records):
                 verified = {r['sha256'] for r in records if '/model/' in r['path']}
+        # A newer optimizer snapshot can still be transferring while earlier
+        # inference exports are already durable. Verify those files directly.
+        if inventory.exists() and not verified:
+            for record in read(inventory)['records']:
+                if '/model/' not in record['path']:
+                    continue
+                checkpoint = folder / 'filesystem' / record['path'].lstrip('/')
+                if not checkpoint.is_file() or checkpoint.stat().st_size != record['size']:
+                    continue
+                digest = hashlib.sha256()
+                with checkpoint.open('rb') as stream:
+                    for chunk in iter(lambda: stream.read(8 * 1024 * 1024), b''):
+                        digest.update(chunk)
+                if digest.hexdigest() == record['sha256']:
+                    verified.add(record['sha256'])
         state = read(state_path)
         retained = {}
         for key, value in state.get('jobs', {}).items():
