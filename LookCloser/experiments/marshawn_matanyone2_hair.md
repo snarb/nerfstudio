@@ -79,3 +79,16 @@ CUDA_VISIBLE_DEVICES=7 TORCH_HOME="$E/torch_cache" HF_HOME="$E/hf_cache" \
 ```
 
 For the other variants change `--prompt` and `--out` to `official_close10`/`native_official_close10` or `corrected_close10`/`native_corrected_close10`. For exact dependency reproduction use the frozen environment file. Initial system `python3 -m venv` failed because ensurepip was absent; isolated uv creation worked. The first installation cache hit a space error under `/home/ubuntu/.cache/uv`; assigning experiment-local `UV_CACHE_DIR` and `TMPDIR` resolved it. Neither issue invalidated inference. The existing nerfstudio/NeRF environments were untouched.
+
+## User-selected delivery
+
+The user subsequently preferred the MatAnyone2 soft-prompt appearance and explicitly
+requested the complete flight with that variant. Published84-frame3.5sFullHD24fps
+video: https://drive.google.com/file/d/1FUtvZFMSrzmXwKKuWqW-vdu5JTPtbgxQ/view .
+The70strict NeRF frames are retained; all14BC photographic tail frames now use
+the native MatAnyone2 soft alpha, without manual corrections or SAM temporal median.
+Silver output: `operations/flying_matanyone2_20261112/`.
+SHA256: `c5f8fe52b9f757ffa7d7538b621ffb69c409c9a93b3e19e721037743d8db9b14`.
+All84encoded frames decoded successfully. The dark region interpretation remains
+visually ambiguous without a trusted semantic annotation; earlier clothing rejection
+was a conservative interpretation, not a ground-truth segmentation measurement.
