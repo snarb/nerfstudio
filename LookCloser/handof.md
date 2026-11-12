@@ -347,3 +347,15 @@ This supersedes region-based body reduction; preserves the accepted low trajecto
 Drive: https://drive.google.com/file/d/1VxwHr-Sb7OQgrU0DFGdnElIf7_cbR-R-/view
 Residual contour haze remains. Separate heuristic raw-torso restoration is logged;
 MatAnyone protected pixels are checked for exact equality before restoration.
+
+### 2026-11-12: preserve pre-depth-gate RGB at occlusions
+Latest video: https://drive.google.com/file/d/1-CJU3tdGPJMCCSHDY4WUVb8BfvlytwoJ/view
+Silver: `operations/flying_union_interior_20261112/`.
+Code/report: `restore_union_interior.py`,
+`experiments/marshawn_union_interior_preservation.md`.
+Confirmed bat deletion (index 5), bat black outlines (13–16), hat/body black seam
+(50–51) originated in strict depth gating, before MatAnyone. Restore raw RGB in
+positive-only union interiors; preserve exterior cleanup. Tests and pixel
+invariants passed; visual patch checks confirm these improvements. User's reported
+half-shoulder loss at 3s not yet uniquely identified; requested screenshot, do not
+claim all defects resolved. No model changes or training.
