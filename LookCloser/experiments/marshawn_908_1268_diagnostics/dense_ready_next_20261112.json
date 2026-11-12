@@ -1,0 +1,46 @@
+{
+  "time": "2026-11-12T10:24:00.094754+00:00",
+  "scope": "Post-deployment readback of first unstarted job on each Silver queue; current active jobs unchanged",
+  "jobs": [
+    {
+      "gpu": 0,
+      "frame": 1124,
+      "local_native_ready": true
+    },
+    {
+      "gpu": 1,
+      "frame": 1125,
+      "local_native_ready": true
+    },
+    {
+      "gpu": 2,
+      "frame": 945,
+      "local_native_ready": true
+    },
+    {
+      "gpu": 3,
+      "frame": 1115,
+      "local_native_ready": true
+    },
+    {
+      "gpu": 4,
+      "frame": 1117,
+      "local_native_ready": true
+    },
+    {
+      "gpu": 5,
+      "frame": 1131,
+      "local_native_ready": true
+    },
+    {
+      "gpu": 6,
+      "frame": 1120,
+      "local_native_ready": true
+    },
+    {
+      "gpu": 7,
+      "frame": 1121,
+      "local_native_ready": true
+    }
+  ]
+}
