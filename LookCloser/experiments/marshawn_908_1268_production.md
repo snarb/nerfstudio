@@ -447,3 +447,7 @@ Audited independent export at 150000 iterations. Actor metrics {'psnr': 32.55001
 ### Frame 1220 final review
 
 Audited independent export at 150000 iterations. Actor metrics {'psnr': 32.52843173729871, 'ssim': 0.798633047276073, 'lpips': 0.12959767671095002}. Six Full HD views inspected. Four performers visible without obvious box truncation. Contour halos and floating background fragments persist. [Views](marshawn_908_1268_diagnostics/frame1220_final_review/final_contact.jpg).
+
+### Frame 942 final review
+
+Audited independent export at 150000 iterations. Actor metrics {'psnr': 32.89056380213648, 'ssim': 0.8100627329614426, 'lpips': 0.13541696717341742}. Six Full HD views inspected. Four performers visible without obvious box truncation. Contour halos and floating background fragments persist. [Views](marshawn_908_1268_diagnostics/frame942_final_review/final_contact.jpg).
