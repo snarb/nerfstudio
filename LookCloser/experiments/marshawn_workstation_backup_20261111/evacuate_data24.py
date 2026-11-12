@@ -17,6 +17,8 @@ from native_transfer import ensure_native
 parser=argparse.ArgumentParser()
 parser.add_argument('--all-frames',action='store_true')
 parser.add_argument('--workers',type=int,default=4)
+parser.add_argument('--first',type=int,default=908)
+parser.add_argument('--last',type=int,default=1268)
 args=parser.parse_args()
 receipt_group='data361' if args.all_frames else 'data24'
 
@@ -66,11 +68,11 @@ def transfer(frame):
                     temporary.replace(native)
         else:
             ensure_native(ROOT,frame)
-    receipt=validate(native,frame)
     # Existing native data may originate from a local source or verified archive.
     # Persist the same admission receipt expected by the normal training entry.
     with (folder/'native_transfer.lock').open('a+') as lease:
         fcntl.flock(lease,fcntl.LOCK_EX)
+        receipt=validate(native,frame)
         if not (native/'transfer_complete.json').exists():
             atomic(native/'transfer_complete.json',receipt)
         atomic(native/'source_cache_released.json',dict(frame=frame,native_ready_sha256=receipt['native_ready_sha256'],adopted_verified_local_copy=True))
@@ -85,6 +87,9 @@ for name in ['ws07','ws08']:
         raise ValueError('Checkpoint backup verification failed')
 (BACKUP/receipt_group).mkdir(exist_ok=True)
 frames=list(range(908,1269)) if args.all_frames else list(range(908,1268,5))
+frames=[f for f in frames if args.first<=f<=args.last]
+if not frames:raise ValueError('Empty evacuation frame range')
 with concurrent.futures.ThreadPoolExecutor(max_workers=args.workers) as pool:
     receipts=list(pool.map(transfer,frames))
-atomic(BACKUP/(receipt_group+'_complete.json'),dict(time=time.time(),frames=frames,total=len(frames),verified=len(receipts),records=receipts))
+suffix='' if (args.first,args.last)==(908,1268) else f'_{args.first}_{args.last}'
+atomic(BACKUP/(receipt_group+suffix+'_complete.json'),dict(time=time.time(),frames=frames,total=len(frames),verified=len(receipts),records=receipts))
