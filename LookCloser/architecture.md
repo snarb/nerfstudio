@@ -2302,3 +2302,11 @@ renderer hashes guard resumable eight-GPU rendering; delivery checks source time
 rotation validity, crop-ray parity, exact splice and unchanged checkpoint hashes.
 The photographic tail is identified separately from neural rendering. No training
 services are started by this workflow.
+
+Previous-flight cleanup can intersect temporal MatAnyone2 alpha with the existing
+strict render in reviewed body/lying-actor regions. Two independently generated
+uint16 reduction factors combine by minimum, with explicit time-varying head,
+hair and prop guards overriding both. Actual-frame checks enforce unchanged
+protected pixels and prohibit added RGB/background. Camera records and the
+selected native photographic tail are reused; multiview silhouette carving
+remains a rejected diagnostic rather than an inference default.
