@@ -1,0 +1,14 @@
+{
+  "time": 1794480104.7596192,
+  "scope": "Final user scope72 sparse24 models; dense remainder cancelled",
+  "models_present": 72,
+  "model_selection_matches_full_sha_audit": true,
+  "native_datasets_present": 72,
+  "native_camera_views_present": 5184,
+  "video_seconds": 3,
+  "fps": 24,
+  "repairs_override_original": [
+    923,
+    988
+  ]
+}

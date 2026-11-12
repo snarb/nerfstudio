@@ -1,0 +1,34 @@
+{
+  "time": 1794480012.0873506,
+  "reason": "User narrowed final scope to72 sparse24 models and requested stop everywhere",
+  "hosts": [
+    {
+      "host": "ws07",
+      "remaining_processes": [],
+      "running_units": ""
+    },
+    {
+      "host": "silver0",
+      "remaining_processes": [],
+      "running_units": ""
+    },
+    {
+      "host": "ws08",
+      "remaining_processes": [],
+      "running_units": ""
+    },
+    {
+      "host": "clever",
+      "remaining_processes": [],
+      "running_units": ""
+    },
+    {
+      "host": "olive",
+      "remaining_processes": [],
+      "running_units": ""
+    }
+  ],
+  "selected_models_present": 72,
+  "previous_streamed_sha_verified": 72,
+  "all_training_stopped": true
+}
