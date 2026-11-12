@@ -71,7 +71,11 @@ NeRF очищен depth/opacity gate; финальныйGT использует 
 `operations/matanyone2_hair_20261112/`, отдельноеокружение и officialweights.
 Его результаты не применены к опубликованномувидео автоматически: MatAnyone2
 улучшил внешнийконтур, но first-frameSAMошибки могут сохранять фонмеждуволосами.
-Смотрите отдельный `experiments/marshawn_matanyone2_hair.md`, когда он завершён.
+Тест завершён на17nativeкадрах1251..1267: обычныйprompt оставляетфонвпросвете,
+softprompt улучшаетпросвет, но вырезаетчастьтёмногорукава. Поэтому MatAnyone2
+не принят длязаменыфинальногоматтинга целиком. Сравнение24fpsс4повторами:
+https://drive.google.com/file/d/1vxdpxnjRqP6l1TfPBMaLpjOqN54n9Nls/view .
+Смотрите `experiments/marshawn_matanyone2_hair.md`.
 
 ## Репозиторий
 
