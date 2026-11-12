@@ -57,7 +57,7 @@ def assemble(out):
     print('ASSEMBLED',str(target),flush=True)
 
 
-def run(root,out,gpus):
+def run(root,out,gpus,reuse_gt=False):
     root,out=Path(root),Path(out)
     lock=(out/'delivery.lock').open('a');fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
     python=json.loads((root/'settings.json').read_text())['python']
@@ -83,7 +83,10 @@ def run(root,out,gpus):
             print('FINISHED',index,'gpu',gpu,flush=True)
     with concurrent.futures.ThreadPoolExecutor(len(gpus)) as pool:
         list(pool.map(worker,gpus))
-    subprocess.run([python,str(root/'tools/flying_gt.py'),'--output',str(out)],check=True)
+    if not reuse_gt:
+        subprocess.run([python,str(root/'tools/flying_gt.py'),'--output',str(out)],check=True)
+    else:
+        assert all((out/'gt'/f'{i:03}.png').is_file() for i in range(70,84))
     for i in range(70):
         r=json.loads((out/'neural'/f'{i:03}'/'receipt.json').read_text())
         assert r['path_sha256']==path_sha and r['renderer_sha256']==code_sha
@@ -92,6 +95,6 @@ def run(root,out,gpus):
 
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--root',required=True);p.add_argument('--output',required=True)
-    p.add_argument('--gpus',default='0,1,2,3,4,5,6,7');p.add_argument('--assemble-only',action='store_true');a=p.parse_args()
+    p.add_argument('--reuse-gt',action='store_true');p.add_argument('--gpus',default='0,1,2,3,4,5,6,7');p.add_argument('--assemble-only',action='store_true');a=p.parse_args()
     if a.assemble_only:assemble(Path(a.output))
-    else:run(a.root,a.output,[int(v) for v in a.gpus.split(',')])
+    else:run(a.root,a.output,[int(v) for v in a.gpus.split(',')],a.reuse_gt)

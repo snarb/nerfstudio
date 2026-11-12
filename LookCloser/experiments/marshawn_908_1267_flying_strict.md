@@ -98,3 +98,30 @@ references that audit instead of pretending to rehash unchanged weights again.
 A separate user-requested MatAnyone2 test runs in an isolated environment. It
 is not applied to this delivery without a quality gate; initial tests improved
 the outer halo but retained foreground-labelled background in a hair gap.
+
+## Wider early orbit requested by user
+
+`flying_path_wide.py` starts at IC and follows IC→HC→GC→FC→EC→DD→CD→BC.
+The azimuth span increases70.04°→96.65°. Angular-distance knots remove the old
+uneven parameter spacing. The beta(2,3) CDF6q²−8q³+3q⁴ gives zero endpoint
+velocity and68.75%angular travel by halfway. Radius expands smoothly up to15%
+through the middle, returning to the exact calibrated BC endpoint.
+
+Measured camera travel increases6.09m→8.10m; first-second travel1.98m→3.29m.
+Peak discrete speed4.17m/s→5.24m/s; final inter-frame step falls13.77mm→0.135mm.
+All rotations remain orthonormal and the final pose/intrinsics match the native
+BC crop exactly. The14GT records are byte-equivalent as parsed JSON to the prior
+path. The MatAnyone2 soft tail frames are reused unchanged; `--reuse-gt` prevents
+replacement by the default SAM generator. EightGPU inference remains resumable.
+
+Output on Silver: `operations/flying_wide_mat2_20261112/` with `path.json`,
+`path_comparison.json`, pilot/full contacts and delivery receipt. All70neural
+views are regenerated. The wider views can expose existing peripheral-limb
+reconstruction defects; this changes the camera, not the underlying geometry.
+
+[Wider orbit delivery](https://drive.google.com/file/d/1DaOosWPbLYJzocSTMZGQommBzFkeM5MR/view).
+84frames decoded,24fps,3.5s,1920×1080,H.264. SHA256:
+`86615111a9a017239ef5137d384e5d0f9dcb954a5f744225b3176f3c1227650e`.
+All84frames inspected in contacts. Wider early views expose visible fragmentation
+on the peripheral reclining actor, especiallyindices0–16; this remains a limitation.
+The selected MatAnyone photographic tail is unchanged.
