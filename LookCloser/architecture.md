@@ -1,5 +1,19 @@
 # LookCloser architecture
 
+## Marshawn inference-only depth cleanup
+
+`scripts/marshawn_sequence/render_depth_cleanup.py` reuses frozen checkpoint
+inference and calibrated FullHD cameras. A second render attenuates sample
+density before integration using a band around connected opaque-region depth
+and a soft projected-distance envelope. Existing semantic admission remains
+active; weights, source masks and training services are unchanged. This is
+view-conditioned depth-plus-opacity cleanup, not semantic3D recovery.
+`prepare_depth_temporal.py` motion-aligns neighbouring support guides with
+forward/backward and depth checks, limiting changes to2px without RGB blending.
+The restartable eight-GPU delivery runner writes soft/strict72-frame videos,
+checkpoint-bound receipts and a before/after comparison. See
+`experiments/marshawn_908_1268_depth_cleanup.md` for settings and limitations.
+
 ## Experimental Luster opacity controls
 
 An opt-in train-only two-landmark cord fit can refine volumetric ray sampling

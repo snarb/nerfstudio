@@ -12,6 +12,34 @@
 
 Ниже сохранены технические подробности и исторические записи более широкой, теперь отменённой кампании. Они не являются инструкцией продолжать обучение. Дополнительные готовые модели/частичные checkpoints сохранены, но не входят в требуемую финальную последовательность.
 
+## Дополнение 12 ноября: очистка видео при рендере
+
+По новой просьбе пользователя добавлен только inference: очистка GC-видео по
+глубине и непрозрачности NeRF, с ограниченной стабилизацией между кадрами.
+Обучение не возобновлялось; STOP markers и отключённые training services
+сохраняются. Скрипт воспроизведения:
+`tools/run_depth_cleanup_delivery.py --root <campaign> --output <campaign>/operations/depth_cleanup_20261112`.
+Исходные72 выбранные модели сохранены. Метод использует connected opacity
+support и фильтрацию плотности вдоль луча; не применяет новый SAM-контур
+к итоговому RGB. Подробнее: `experiments/marshawn_908_1268_depth_cleanup.md`.
+
+Готовая версияv3,72 кадра,3сек,24fps,FullHD:
+- Строгая очистка: https://drive.google.com/file/d/15V-WUiZyW894oisYI2v-f03ciHZ1sxo7/view
+- Мягкая очистка: https://drive.google.com/file/d/1VI8j_nOWsuOQUhqZYMorix0-qeH1gfzt/view
+- До/после: https://drive.google.com/file/d/1OBMX7olpLLZh6J2KTumL9fuY0ul_OxLz/view
+
+На Silver файлы`Marshawn908_1263_GC_24fps_{depth_strict,depth_soft,comparison}_v3.mp4`
+лежат в`operations/depth_cleanup_20261112/`. Смотрите именноv3: ранние версии
+оставляли отдельные фоновые островки над головой. Некоторые тонкие цветные
+контуры остаются; строгая версия может сокращать самые слабые пряди.
+
+При восстановлении1108 обнаружены пустые файлы вместо архивных symlinks и
+один усечённый confidence-semantic`EA.npz`. Ссылки восстановлены по исходному
+дереву WS07,EA повторно скопирован с проверкой SHA из admission manifest.
+На Silver сохранён`external_models/ws07/001108/render_support_repair_20261112.json`.
+Модель и admission grid не менялись; raw-рендер всех72 кадров отличается от
+предыдущего экспорта максимум на1 уровень8-bitRGB.
+
 ## Репозиторий
 
 - GitHub — https://github.com/snarb/nerfstudio

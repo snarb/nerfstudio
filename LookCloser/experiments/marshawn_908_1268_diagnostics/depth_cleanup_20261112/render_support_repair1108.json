@@ -1,0 +1,813 @@
+{
+  "time": 1794481921.3968124,
+  "reason": "Restore archived zero placeholders to verified evacuated native directories",
+  "frame": 1108,
+  "semantic_SHA_verified": 72,
+  "changes": [
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_admission_votes3/lookcloser_frequencies",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/lookcloser_frequencies",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_admission_votes3/lookcloser_frequencies.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_admission_votes3/cores",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_admission_votes3/cores.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_admission_votes3/parts",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/native/parts",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_admission_votes3/parts.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_admission_votes3/heads",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_admission_votes3/heads.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_admission_votes3/images",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/native/images",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_admission_votes3/images.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_admission_votes3/semantics",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/semantics",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_admission_votes3/semantics.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_admission_votes3/masks",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/native/masks",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_admission_votes3/masks.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_model/lookcloser_frequencies",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/lookcloser_frequencies",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_model/lookcloser_frequencies.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_model/cores",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_model/cores.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_model/parts",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/native/parts",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_model/parts.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_model/heads",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_model/heads.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_model/images",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/native/images",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_model/images.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_model/semantics",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/semantics",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_model/semantics.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_model/masks",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/native/masks",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_model/masks.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/lookcloser_frequencies",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/lookcloser_frequencies",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/lookcloser_frequencies.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/parts",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/native/parts",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/parts.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/images",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/native/images",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/images.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/BB.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/BB.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/BB.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/BE.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/BE.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/BE.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/NE.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/NE.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/NE.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/DA.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/DA.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/DA.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/CE.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/CE.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/CE.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/AC.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/AC.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/AC.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/ED.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/ED.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/ED.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/CA.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/CA.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/CA.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/KE.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/KE.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/KE.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/AD.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/AD.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/AD.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/ND.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/ND.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/ND.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/OD.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/OD.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/OD.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/ID.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/ID.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/ID.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/FC.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/FC.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/FC.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/MA.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/MA.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/MA.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/LD.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/LD.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/LD.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/DE.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/DE.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/DE.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/EE.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/EE.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/EE.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/KA.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/KA.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/KA.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/KB.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/KB.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/KB.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/HA.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/HA.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/HA.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/HE.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/HE.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/HE.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/IC.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/IC.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/IC.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/FB.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/FB.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/FB.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/NA.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/NA.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/NA.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/JA.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/JA.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/JA.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/CB.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/CB.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/CB.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/HC.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/HC.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/HC.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/JB.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/JB.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/JB.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/DC.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/DC.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/DC.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/DD.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/DD.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/DD.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/GA.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/GA.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/GA.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/IB.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/IB.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/IB.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/LE.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/LE.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/LE.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/HD.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/HD.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/HD.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/JC.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/JC.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/JC.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/GC.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/GC.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/GC.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/GB.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/GB.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/GB.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/KC.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/KC.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/KC.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/JD.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/JD.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/JD.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/ME.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/ME.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/ME.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/AA.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/AA.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/AA.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/EA.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/EA.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/EA.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/LA.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/LA.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/LA.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/NC.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/NC.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/NC.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/DB.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/DB.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/DB.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/KD.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/KD.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/KD.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/IE.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/IE.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/IE.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/AE.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/AE.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/AE.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/GD.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/GD.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/GD.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/BD.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/BD.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/BD.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/HB.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/HB.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/HB.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/FA.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/FA.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/FA.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/BA.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/BA.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/BA.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/JE.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/JE.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/JE.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/OA.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/OA.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/OA.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/BC.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/BC.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/BC.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/GE.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/GE.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/GE.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/AB.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/AB.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/AB.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/FD.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/FD.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/FD.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/CC.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/CC.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/CC.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/EB.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/EB.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/EB.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/NB.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/NB.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/NB.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/IA.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/IA.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/IA.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/LB.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/LB.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/LB.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/LC.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/LC.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/LC.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/FE.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/FE.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/FE.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/MD.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/MD.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/MD.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/MC.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/MC.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/MC.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/EC.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/EC.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/EC.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/CD.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/CD.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/CD.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/MB.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/cores/MB.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/cores/MB.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/BB.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/BB.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/BB.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/BE.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/BE.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/BE.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/NE.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/NE.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/NE.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/DA.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/DA.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/DA.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/CE.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/CE.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/CE.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/AC.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/AC.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/AC.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/ED.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/ED.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/ED.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/CA.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/CA.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/CA.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/KE.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/KE.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/KE.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/AD.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/AD.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/AD.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/ND.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/ND.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/ND.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/OD.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/OD.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/OD.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/ID.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/ID.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/ID.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/FC.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/FC.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/FC.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/MA.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/MA.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/MA.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/LD.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/LD.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/LD.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/DE.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/DE.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/DE.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/EE.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/EE.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/EE.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/KA.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/KA.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/KA.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/KB.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/KB.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/KB.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/HA.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/HA.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/HA.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/HE.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/HE.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/HE.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/IC.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/IC.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/IC.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/FB.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/FB.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/FB.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/NA.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/NA.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/NA.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/JA.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/JA.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/JA.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/CB.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/CB.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/CB.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/HC.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/HC.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/HC.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/JB.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/JB.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/JB.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/DC.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/DC.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/DC.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/DD.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/DD.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/DD.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/GA.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/GA.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/GA.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/IB.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/IB.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/IB.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/LE.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/LE.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/LE.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/HD.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/HD.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/HD.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/JC.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/JC.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/JC.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/GC.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/GC.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/GC.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/GB.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/GB.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/GB.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/KC.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/KC.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/KC.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/JD.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/JD.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/JD.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/ME.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/ME.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/ME.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/AA.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/AA.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/AA.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/EA.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/EA.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/EA.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/LA.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/LA.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/LA.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/NC.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/NC.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/NC.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/DB.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/DB.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/DB.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/KD.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/KD.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/KD.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/IE.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/IE.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/IE.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/AE.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/AE.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/AE.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/GD.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/GD.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/GD.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/BD.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/BD.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/BD.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/HB.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/HB.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/HB.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/FA.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/FA.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/FA.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/BA.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/BA.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/BA.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/JE.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/JE.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/JE.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/OA.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/OA.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/OA.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/BC.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/BC.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/BC.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/GE.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/GE.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/GE.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/AB.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/AB.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/AB.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/FD.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/FD.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/FD.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/CC.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/CC.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/CC.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/EB.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/EB.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/EB.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/NB.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/NB.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/NB.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/IA.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/IA.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/IA.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/LB.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/LB.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/LB.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/LC.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/LC.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/LC.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/FE.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/FE.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/FE.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/MD.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/MD.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/MD.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/MC.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/MC.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/MC.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/EC.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/EC.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/EC.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/CD.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/CD.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/CD.npz.zero_placeholder_20261112"
+    },
+    {
+      "path": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/MB.npz",
+      "target": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data/heads/MB.npz",
+      "placeholder_backup": "/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109/external_models/ws07/001108/data_confidence/heads/MB.npz.zero_placeholder_20261112"
+    }
+  ]
+}
