@@ -29,3 +29,21 @@ Service `marshawn-emergency-backup.service` performs restartable transfers. Eigh
 The S3 alternative returned `403 AccessDenied` for PutObject on both accounts. Transfer therefore uses SSH to silver-sable.
 
 [Backup script](marshawn_workstation_backup_20261111/backup.py), [model verifier](marshawn_workstation_backup_20261111/verify_models.py), and [dataset evacuation](marshawn_workstation_backup_20261111/evacuate_data24.py) are retained with the evidence.
+
+### WS07 bulk transport diagnosis, 2026-11-12
+
+Receiver `/proc/<tar>/io` counters increased across13seconds: approximately30–55KiB/s per existing WS07 stream. These are live transfers, not dead handles. Source TCP statistics showed substantial retransmission (about6% of sent bytes on sampled long connections) and small congestion windows. The WS08 stream continued at a higher rate.
+
+Read-only binary probes on calm-otter measured the WS07 leg. Every completed probe returned the exact requested zero bytes; none changed training or source files.
+
+| Probe | Payload | Seconds |
+| --- | ---: | ---: |
+| Default SSH | 1MiB | 12.55 |
+| IPQoS=none | 1MiB | 20.80 |
+| TCP MSS960 | 1MiB | 18.71 |
+| TCP MSS512 | 1MiB | 27.53 |
+| Raw PTY | 1MiB | 3.93 |
+| Default SSH confirmation | 4MiB | 44.73 |
+| Raw PTY confirmation | 4MiB | 52.01 |
+
+The small raw-PTY result did not reproduce at4MiB; no transport variation was deployed. Existing SHA-verified transfer services continue. This experiment does not justify killing live transfers or changing system-wide network settings.
