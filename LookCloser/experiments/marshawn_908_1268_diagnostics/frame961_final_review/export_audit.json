@@ -1,0 +1,11 @@
+{
+  "frame": 961,
+  "status": "verified",
+  "model_sha256": "e4111376c986e9f04ab5767767b96a0ff90dbcec1225a4fd12dfbf81e87af616",
+  "selected_iterations": 144000,
+  "metrics": {
+    "psnr": 32.59849038480043,
+    "ssim": 0.8017373234033585,
+    "lpips": 0.12034111469984055
+  }
+}

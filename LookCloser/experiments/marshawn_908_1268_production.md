@@ -451,3 +451,35 @@ Audited independent export at 150000 iterations. Actor metrics {'psnr': 32.52843
 ### Frame 942 final review
 
 Audited independent export at 150000 iterations. Actor metrics {'psnr': 32.89056380213648, 'ssim': 0.8100627329614426, 'lpips': 0.13541696717341742}. Six Full HD views inspected. Four performers visible without obvious box truncation. Contour halos and floating background fragments persist. [Views](marshawn_908_1268_diagnostics/frame942_final_review/final_contact.jpg).
+
+### Frame 954 final review
+
+Audited independent export at 144000 iterations. Actor metrics {'psnr': 32.930331215731556, 'ssim': 0.8082208981116613, 'lpips': 0.13863815429310003}. Six Full HD views inspected. Four performers visible without obvious box truncation. Contour halos and floating background fragments persist. [Views](marshawn_908_1268_diagnostics/frame954_final_review/final_contact.jpg).
+
+### Frame 956 final review
+
+Audited independent export at 150000 iterations. Actor metrics {'psnr': 32.9648852732353, 'ssim': 0.8098106384277344, 'lpips': 0.131020225584507}. Six Full HD views inspected. Four performers visible without obvious box truncation. Contour halos and floating background fragments persist. [Views](marshawn_908_1268_diagnostics/frame956_final_review/final_contact.jpg).
+
+### Frame 1227 final review
+
+Audited independent export at 150000 iterations. Actor metrics {'psnr': 32.42516215366663, 'ssim': 0.7932394428385628, 'lpips': 0.1364466705256038}. Six Full HD views inspected. Four performers visible without obvious box truncation. Contour halos and floating background fragments persist. [Views](marshawn_908_1268_diagnostics/frame1227_final_review/final_contact.jpg).
+
+### Frame 947 final review
+
+Audited independent export at 150000 iterations. Actor metrics {'psnr': 32.98140144093373, 'ssim': 0.8105915122561985, 'lpips': 0.1329179863548941}. Six Full HD views inspected. Four performers visible without obvious box truncation. Contour halos and floating background fragments persist. [Views](marshawn_908_1268_diagnostics/frame947_final_review/final_contact.jpg).
+
+### Frame 937 final review
+
+Audited independent export at 150000 iterations. Actor metrics {'psnr': 32.92767978244998, 'ssim': 0.8100480801529354, 'lpips': 0.12665407732129097}. Six Full HD views inspected. Four performers visible without obvious box truncation. Contour halos and floating background fragments persist. [Views](marshawn_908_1268_diagnostics/frame937_final_review/final_contact.jpg).
+
+### Frame 961 final review
+
+Audited independent export at 144000 iterations. Actor metrics {'psnr': 32.59849038480043, 'ssim': 0.8017373234033585, 'lpips': 0.12034111469984055}. Six Full HD views inspected. Four performers visible without obvious box truncation. Contour halos and floating background fragments persist. [Views](marshawn_908_1268_diagnostics/frame961_final_review/final_contact.jpg).
+
+### Frame 939 final review
+
+Audited independent export at 144000 iterations. Actor metrics {'psnr': 32.9174012535303, 'ssim': 0.8091942303710514, 'lpips': 0.12987257767882612}. Six Full HD views inspected. Four performers visible without obvious box truncation. Contour halos and floating background fragments persist. [Views](marshawn_908_1268_diagnostics/frame939_final_review/final_contact.jpg).
+
+### Frame 940 final review
+
+Audited independent export at 150000 iterations. Actor metrics {'psnr': 32.967355889215376, 'ssim': 0.8115395506223043, 'lpips': 0.13548224833276537}. Six Full HD views inspected. Four performers visible without obvious box truncation. Contour halos and floating background fragments persist. [Views](marshawn_908_1268_diagnostics/frame940_final_review/final_contact.jpg).
