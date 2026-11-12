@@ -338,3 +338,12 @@ Seed evacuation завершена 2026-11-12 02:04 UTC: `seed361_complete.json`
 Ещё восемь моделей завершили150k обучение и прошли export/visual audit шести Full HD видов:954,956,1227,947,937,961,939,940. Явного обрезания боксом нет; ореолы/фоновые фрагменты сохраняются. Обучено и проверено109/361. Новая Silver-партия стартовала;991 на последней проверке ещё готовился, семь остальных уже имели живые NN PID.
 
 Dense queue optimization: future local Silver jobs with canonical native/transfer_complete.json and source_cache_released.json are prioritized. A consumer without a ready next job can take a ready unstarted job from another donor; a live local donor keeps its sole ready next job. Active jobs are not moved or restarted. This prevents avoidable future GPU idle time while other inputs cross the slow WS07 link. 14 scheduling/retirement tests passed.
+
+### 2026-11-12: exterior-only matting revision
+User forbids MatAnyone changes to interiors, overlaps, and props. Latest output:
+`operations/flying_exterior_only_20261112/Marshawn_exterior_only_matte.mp4`.
+Code and limitations: `experiments/marshawn_exterior_only_matte.md`.
+This supersedes region-based body reduction; preserves the accepted low trajectory.
+Drive: https://drive.google.com/file/d/1VxwHr-Sb7OQgrU0DFGdnElIf7_cbR-R-/view
+Residual contour haze remains. Separate heuristic raw-torso restoration is logged;
+MatAnyone protected pixels are checked for exact equality before restoration.
