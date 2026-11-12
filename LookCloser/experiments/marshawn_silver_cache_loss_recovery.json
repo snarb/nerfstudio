@@ -1,0 +1,250 @@
+{
+  "scope": "Marshawn908-1263 sparse24; read-only live recovery audit after reported Silver cache loss",
+  "verified_selected_count": 20,
+  "verified_selected_frames": [
+    908,
+    913,
+    953,
+    993,
+    998,
+    1053,
+    1073,
+    1078,
+    1083,
+    1098,
+    1108,
+    1123,
+    1148,
+    1158,
+    1163,
+    1183,
+    1188,
+    1203,
+    1228,
+    1243
+  ],
+  "missing_selected_frames": [
+    918,
+    923,
+    928,
+    933,
+    938,
+    943,
+    948,
+    958,
+    963,
+    968,
+    973,
+    978,
+    983,
+    988,
+    1003,
+    1008,
+    1013,
+    1018,
+    1023,
+    1028,
+    1033,
+    1038,
+    1043,
+    1048,
+    1058,
+    1063,
+    1068,
+    1088,
+    1093,
+    1103,
+    1113,
+    1118,
+    1128,
+    1133,
+    1138,
+    1143,
+    1153,
+    1168,
+    1173,
+    1178,
+    1193,
+    1198,
+    1208,
+    1213,
+    1218,
+    1223,
+    1233,
+    1238,
+    1248,
+    1253,
+    1258,
+    1263
+  ],
+  "surviving_models": [
+    {
+      "host": "ws07",
+      "path": "/home/pavlo/marshawn_campaign_20261109/frames/000908/model/inference.ckpt",
+      "frame": 908,
+      "sha256": "e56b810da9921b2a587655d151eaca3aac3aeb13410dca3bfeaf12b2ef2fef0b",
+      "selected_frame": 908,
+      "matches_selected": true
+    },
+    {
+      "host": "ws07",
+      "path": "/home/pavlo/marshawn_campaign_20261109/frames/000913/model/inference.ckpt",
+      "frame": 913,
+      "sha256": "4afdca7e52fdc0088d91d5c1f6575fe31645bab3442ab23d058358f79f5c2731",
+      "selected_frame": 913,
+      "matches_selected": true
+    },
+    {
+      "host": "ws07",
+      "path": "/home/pavlo/marshawn_campaign_20261109/frames/000988/model/inference.ckpt",
+      "frame": 988,
+      "sha256": "74698bf954785a3d5203928034e4f6a39b323716fc59ef055547c725e3763a08",
+      "selected_frame": null,
+      "matches_selected": false
+    },
+    {
+      "host": "ws07",
+      "path": "/home/pavlo/marshawn_campaign_20261109/frames/000993/model/inference.ckpt",
+      "frame": 993,
+      "sha256": "4278e2572b5e32f72e2c4b3618a831b39d420a73ed1ae9b9565d3dc9d5aa08a0",
+      "selected_frame": 993,
+      "matches_selected": true
+    },
+    {
+      "host": "ws07",
+      "path": "/home/pavlo/marshawn_campaign_20261109/frames/000998/model/inference.ckpt",
+      "frame": 998,
+      "sha256": "3365697a20fba27b938fd55c336f7dfc770e5ae6c114320c7bf4650aef30a741",
+      "selected_frame": 998,
+      "matches_selected": true
+    },
+    {
+      "host": "ws07",
+      "path": "/home/pavlo/marshawn_campaign_20261109/frames/001073/model/inference.ckpt",
+      "frame": 1073,
+      "sha256": "a67c61a370a7156ee600045161b8e939ddbe76f63f01d8873d7af00268c9f08d",
+      "selected_frame": 1073,
+      "matches_selected": true
+    },
+    {
+      "host": "ws07",
+      "path": "/home/pavlo/marshawn_campaign_20261109/frames/001078/model/inference.ckpt",
+      "frame": 1078,
+      "sha256": "38b7463ce239100c868a1d1b57cfbf87647f65eb75a5bf2d7c10f9b14d063b51",
+      "selected_frame": 1078,
+      "matches_selected": true
+    },
+    {
+      "host": "ws07",
+      "path": "/home/pavlo/marshawn_campaign_20261109/frames/001083/model/inference.ckpt",
+      "frame": 1083,
+      "sha256": "76ff033991b571b29d89d562257fa20f4e972a1a9bfc869a834ba8060302be64",
+      "selected_frame": 1083,
+      "matches_selected": true
+    },
+    {
+      "host": "ws07",
+      "path": "/home/pavlo/marshawn_campaign_20261109/frames/001108/model/inference.ckpt",
+      "frame": 1108,
+      "sha256": "30f05a18e8728562a857cb914aa0a27c7e8fa096551f4ef3d813f1de59c46204",
+      "selected_frame": 1108,
+      "matches_selected": true
+    },
+    {
+      "host": "ws08",
+      "frame": 1123,
+      "path": "/home/nvuser/lookcloser/campaigns/marshawn908_20261109/frames/001123/model/inference.ckpt",
+      "sha256": "248f39a3fa67ec785219b33921659ceac1eef4f23c32eacf462530d788a75626",
+      "matches_selected": true
+    },
+    {
+      "host": "ws08",
+      "frame": 1148,
+      "path": "/home/nvuser/lookcloser/campaigns/marshawn908_20261109/frames/001148/model/inference.ckpt",
+      "sha256": "20a35acbfcf8a83f2269f3090affe4fcf7ba966b288eda9e09c9089374398437",
+      "matches_selected": true
+    },
+    {
+      "host": "ws08",
+      "frame": 1163,
+      "path": "/home/nvuser/lookcloser/campaigns/marshawn908_20261109/frames/001163/model/inference.ckpt",
+      "sha256": "b7f7f1b67e7ab9d90909eb3672c259d03e7fc97bc6267b7ec6f33244a7b85221",
+      "matches_selected": true
+    },
+    {
+      "host": "ws08",
+      "frame": 1188,
+      "path": "/home/nvuser/lookcloser/campaigns/marshawn908_20261109/frames/001188/model/inference.ckpt",
+      "sha256": "859bd4b9ed0671c239759b04a17c9c7a3752ed0f03559f6df3d426d773c1cc91",
+      "matches_selected": true
+    },
+    {
+      "host": "ws08",
+      "frame": 1203,
+      "path": "/home/nvuser/lookcloser/campaigns/marshawn908_20261109/frames/001203/model/inference.ckpt",
+      "sha256": "b2cf7501e42a6be2f13431e344701830585ba24e95c2cbbf5542370790f6d334",
+      "matches_selected": true
+    },
+    {
+      "host": "ws08",
+      "frame": 1228,
+      "path": "/home/nvuser/lookcloser/campaigns/marshawn908_20261109/frames/001228/model/inference.ckpt",
+      "sha256": "2ab38496aa30a95593173f710336fa8968295646238ed62e28b27677aeb9b1e2",
+      "matches_selected": true
+    },
+    {
+      "host": "ws08",
+      "frame": 1243,
+      "path": "/home/nvuser/lookcloser/campaigns/marshawn908_20261109/frames/001243/model/inference.ckpt",
+      "sha256": "8221a22f7fbce6513aa933916a699000081a630ec0897a323c2a7d485232f0da",
+      "matches_selected": true
+    },
+    {
+      "host": "olive",
+      "frame": 953,
+      "path": "/fsx/tmp/marshawn908_20261109/olive/frames/000953/model/inference.ckpt",
+      "sha256": "6a99ec4e6605a3fe3763153f29ee357a37ab6a5464cccbd53e9ca23a5069e314",
+      "matches_selected": true
+    },
+    {
+      "host": "olive",
+      "frame": 1053,
+      "path": "/fsx/tmp/marshawn908_20261109/olive/frames/001053/model/inference.ckpt",
+      "sha256": "fdbf2af87c16b7fe2ed5c6ce52c8f28482775b64d43a3a901d23479db2781e2c",
+      "matches_selected": true
+    },
+    {
+      "host": "olive",
+      "frame": 1098,
+      "path": "/fsx/tmp/marshawn908_20261109/olive/frames/001098/model/inference.ckpt",
+      "sha256": "f7bcaf87903d57651bd423f83d5b65b6b1a9f7b77274ed5b98108aea20c1f072",
+      "matches_selected": true
+    },
+    {
+      "host": "olive",
+      "frame": 1158,
+      "path": "/fsx/tmp/marshawn908_20261109/olive/frames/001158/model/inference.ckpt",
+      "sha256": "4da36cca32d3f161e00eee41df7ca02294e9056f759c3af50814519ec23a9adb",
+      "matches_selected": true
+    },
+    {
+      "host": "olive",
+      "frame": 1183,
+      "path": "/fsx/tmp/marshawn908_20261109/olive/frames/001183/model/inference.ckpt",
+      "sha256": "4be954f2a4ca2e8daaea08252ff86151cfaeed044358822e447373d6ca40c1dc",
+      "matches_selected": true
+    }
+  ],
+  "source_png_counts": {
+    "ws07_frames": 41,
+    "ws08_frames": 31,
+    "cameras_per_frame": 72,
+    "all_present": true
+  },
+  "notes": [
+    "No weights copied or training started during this audit.",
+    "Clever campaign scan found no completed inference exports; relocation code removes local artifacts after archive verification.",
+    "Dev3 retains tuning models; not additional verified final-sequence models.",
+    "No independent full archive identified. Infrastructure snapshots have not been audited."
+  ]
+}
