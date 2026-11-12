@@ -38,7 +38,13 @@ def validate(native,frame):
         if not (native/row['camera_row']['mask_path']).is_file():
             raise ValueError('Sampling mask absent')
     if not (native/'points3D.txt').is_file():
-        seed=ROOT/'seed_points'/f'{frame:06d}/sparse/text/points3D.txt'
+        seed_receipt=BACKUP/'seed361_complete.json'
+        if not seed_receipt.exists():
+            raise RuntimeError('Shared seed preservation is not yet verified')
+        seeds=read(seed_receipt)
+        seed=Path(seeds['path'])/f'{frame:06d}/sparse/text/points3D.txt'
+        expected=next(r['sha256'] for r in seeds['records'] if r['frame']==frame)
+        if sha(seed)!=expected:raise ValueError('Shared seed checksum differs')
         shutil.copy2(seed,native/'points3D.txt')
     return dict(frame=frame,cameras=72,native_no_resize=True,native_ready_sha256=sha(native/'native_ready.json'),seed_sha256=sha(native/'points3D.txt'),path=str(native),time=time.time())
 
