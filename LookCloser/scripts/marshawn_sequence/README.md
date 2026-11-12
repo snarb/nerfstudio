@@ -1,5 +1,12 @@
 # Native Marshawn sequence runner
 
+**Current engineering reference:** [end-to-end LookCloser knowledge transfer](../../LOOKCLOSER_ENGINEERING_HANDOFF.md).
+The paragraphs below describe the historical campaign. The user subsequently
+limited delivery to 72 frames on the 24-fps grid (908–1263, stride 5) and stopped
+training. Do not resume the old 361-frame queue. Silver's `/cache` was later lost;
+see the [recovery audit](../../experiments/marshawn_silver_cache_loss_recovery.md)
+for surviving model copies rather than assuming historical paths still exist.
+
 Campaign root on Silver: `/cache/ubuntu/lookcloser/campaigns/marshawn908_20261109`.
 The persisted tuning deadline is 2026-11-09 17:08:12 PST; restarting services
 must preserve `campaign_state.json`. The coordinator then writes the measured
