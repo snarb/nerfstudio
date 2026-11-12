@@ -40,6 +40,39 @@ support и фильтрацию плотности вдоль луча; не п�
 Модель и admission grid не менялись; raw-рендер всех72 кадров отличается от
 предыдущего экспорта максимум на1 уровень8-bitRGB.
 
+## Дополнение 12 ноября: пролёт и native BC slow motion
+
+Готово видео3.5сек,84кадра,FullHD24fps:
+https://drive.google.com/file/d/1kA9tJue9g9nbU0xCFHEtBmth5ZIkXvdq/view
+
+На Silver: `operations/flying_strict_low_20261112/Marshawn908_1267_flying_strict_BC_slowmo_24fps.mp4`.
+Сплайн GC→FB→EB→DD→CD→BC;70NeRFкадров908..1253, затем14исходных
+BC-фотографий1254..1267 (120fps→24fps,замедление5×). Все3секунды исходного
+действия сохранены. Финальные0.583сек — modest native crop zoom2074→1920px
+и подъём140px. Источник не уменьшается; выбранныйкроп одинраз сэмплируется
+вFullHD, последнийкроп1:1. Поза/intrinsics настыке совпадают.
+
+NeRF очищен depth/opacity gate; финальныйGT использует исходныйSAMsoftalpha
+с5кадровой motion-aligned median. Это разные источники matte; не называть
+весьролик чистымNeRF или финальныйGTбезмасочным. Низкийракурс уменьшает
+видимостьAABBсреза поднятыхдредов, но не восстанавливаетотсутствующуюгеометрию.
+Все70использованныхвесов SHA-проверены безизменений; проверены84декодированных
+кадра, геометриялучейcrop и точныйстык. ИсходнаяпроверкаSHA:
+`operations/flying_strict_20261112/validation.json`, геометрияфинала:
+`operations/flying_strict_low_20261112/validation.json`.
+
+Подробности: `experiments/marshawn_908_1267_flying_strict.md`.
+Реплей: `tools/flying_delivery.py --root <campaign> --output <output>`,
+затем `tools/flying_encode.py --output <output>`; исходныеBCкропы и codec
+сохранены в `operations/flying_strict_20261112/`, lowпапка ссылается на них.
+НЕ удалять базовуюпапку при очистке lowварианта. Обучение не запускалось.
+
+По отдельной просьбе пользователя запущен MatAnyone2 эксперимент в
+`operations/matanyone2_hair_20261112/`, отдельноеокружение и officialweights.
+Его результаты не применены к опубликованномувидео автоматически: MatAnyone2
+улучшил внешнийконтур, но first-frameSAMошибки могут сохранять фонмеждуволосами.
+Смотрите отдельный `experiments/marshawn_matanyone2_hair.md`, когда он завершён.
+
 ## Репозиторий
 
 - GitHub — https://github.com/snarb/nerfstudio

@@ -2291,3 +2291,14 @@ All 72 native datasets for the 24 fps priority grid are now verified on silver-s
 After sparse24 release, `scripts/marshawn_sequence/dense_scheduler.py` continues durable work stealing over all361 frame IDs. It shares the scheduler transaction/lock, refreshes workstation completion evidence before retirement, excludes stopped workstation executors from receivers, and preserves active jobs. Neural runtime and immutable recipe bindings are unchanged.
 
 Dense scheduling also prioritizes verified local native inputs for local consumers. It can relocate unstarted ready jobs from retired/remote donors, retaining a live local donor's sole ready next job. Existing active jobs remain unchanged; remote consumers are not treated as having Silver-local inputs.
+
+The inference-only Marshawn flying delivery interpolates calibrated train camera
+centers on a spherical spline and orientations with RotationSpline. Per-view
+opaque/depth support gates density before compositing; a component-level3D
+cross-check rejects detached islands. The exact final train-camera projection
+matches an animated native photographic crop. True120fps source photographs
+provide a5×slow-motion tail with flow-qualified temporal soft alpha. Path and
+renderer hashes guard resumable eight-GPU rendering; delivery checks source time,
+rotation validity, crop-ray parity, exact splice and unchanged checkpoint hashes.
+The photographic tail is identified separately from neural rendering. No training
+services are started by this workflow.
