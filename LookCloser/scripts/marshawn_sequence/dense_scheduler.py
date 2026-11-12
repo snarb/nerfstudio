@@ -1,5 +1,6 @@
 """Continue durable work stealing after the sparse24 barrier is complete."""
 import argparse
+import copy
 import fcntl
 import json
 import shlex
@@ -13,11 +14,33 @@ import priority_scheduler as scheduler
 ALL_FRAMES=set(range(908,1269))
 
 
-def plan(queues,states,roots,unavailable=()):
+def plan(queues,states,roots,unavailable=(),ready_frames=(),local_receivers=()):
     previous=scheduler.PRIORITY
     try:
         scheduler.PRIORITY=ALL_FRAMES
-        return scheduler.plan(queues,states,roots,unavailable)
+        prepared=copy.deepcopy(queues);ready=set(ready_frames);local=set(local_receivers);moves=[]
+        # Only local consumers can use canonical native data without a transfer.
+        # Keep each live local donor's sole prepared next job on that donor.
+        for receiver in prepared:
+            if receiver not in local or receiver in unavailable:continue
+            if any(scheduler.frame(j) in ready for j in scheduler.pending(prepared[receiver],states[receiver])):continue
+            candidates=[]
+            for donor,q in prepared.items():
+                if donor==receiver:continue
+                tasks=[j for j in scheduler.pending(q,states[donor]) if scheduler.frame(j) in ready]
+                if donor in local and donor not in unavailable and len(tasks)<2:continue
+                if tasks:candidates.append((donor in unavailable,len(tasks),donor,tasks[-1]))
+            if not candidates:continue
+            _,_,donor,job=max(candidates,key=lambda x:x[:3])
+            template=prepared[receiver]['jobs'][0]
+            prepared[donor]['jobs'].remove(job)
+            prepared[receiver]['jobs'].append(scheduler.relocate(job,template,roots[receiver]))
+            moves.append(dict(frame=scheduler.frame(job),donor=donor,receiver=receiver,reason='verified_local_native'))
+        result,extra=scheduler.plan(prepared,states,roots,unavailable)
+        for name in local:
+            if name in result:
+                result[name]['jobs'].sort(key=lambda j:0 if j['id'] in states[name].get('jobs',{}) else 1 if scheduler.frame(j) in ready else 2)
+        return result,moves+extra
     finally:
         scheduler.PRIORITY=previous
 
@@ -47,7 +70,9 @@ def tick(root):
     scheduler.recover(root,hosts)
     observed={n:observe(h) for n,h in hosts.items()}
     queues={n:q for n,(q,s) in observed.items()};states={n:s for n,(q,s) in observed.items()}
-    new,moves=plan(queues,states,{n:h.root for n,h in hosts.items()},unavailable={n for n,h in hosts.items() if h.offline})
+    ready={f for f in ALL_FRAMES if (root/'frames'/f'{f:06d}/native/transfer_complete.json').exists() and (root/'frames'/f'{f:06d}/native/source_cache_released.json').exists()}
+    local={n for n,h in hosts.items() if h.row.get('local') and h.root==root}
+    new,moves=plan(queues,states,{n:h.root for n,h in hosts.items()},unavailable={n for n,h in hosts.items() if h.offline},ready_frames=ready,local_receivers=local)
     changes={n:dict(before=queues[n],after=new[n]) for n in hosts if queues[n]!=new[n]}
     if changes:
         for n in changes:hosts[n].put(hosts[n].agent_root/'SCHEDULING',dict(time=time.time(),owner='dense_scheduler'))
