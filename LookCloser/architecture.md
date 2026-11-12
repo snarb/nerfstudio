@@ -2310,3 +2310,17 @@ hair and prop guards overriding both. Actual-frame checks enforce unchanged
 protected pixels and prohibit added RGB/background. Camera records and the
 selected native photographic tail are reused; multiview silhouette carving
 remains a rejected diagnostic rather than an inference default.
+
+The accepted flight now restores original integrated field RGB inside the union
+foreground, because a single depth gate can erase rear surfaces at bat/hat/body
+occlusions. Exterior-only matte reduction cannot repair such pre-existing holes.
+`restore_union_interior.py` uses positive-only support and preserves real gaps.
+
+`flying_native_hybrid.py` adds inference-only 4K single-camera detail transfer
+using the qualified Misha/Luster quantile visibility and detail merger. It binds
+same-frame calibrated native PNG crops and checkpoints, renders actual 4K field
+geometry/RGB, and preserves the accepted contour guide. Donor RGB is sampled at
+original pixel coordinates; source geometry resolution does not resize texture.
+`flying_hybrid_batch.py` runs eight durable workers and keeps photographic-tail
+content unchanged apart from the common 4K presentation resize. Hash receipts
+and exact exterior/fallback checks accompany each frame.
