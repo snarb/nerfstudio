@@ -70,3 +70,25 @@ Before/after1083: https://drive.google.com/file/d/1T7fZR3IdkKf3sgboT7JsZIivzoG5v
 SHA256:`e35a7a290b9f1a3475f3a0b823c184c217e4210523610c723e1f2cf6c135b219`.
 All84frames were inspected in contact sheets; native body/lying patches reviewed
 separately. No assertion of pixel-perfect semantic segmentation is made.
+
+## Native GT sleeve-overlap repair
+
+The user identified a ragged black stripe where the two men's sleeves overlap
+in the photographic tail. Original RGB confirms continuous fabric; MatAnyone2
+sets foreground alpha to near-zero there. SAM soft mask values inside clothing
+are often128–249, not255, so treating only>=250 as foreground misses this fabric.
+
+`fix_gt_sleeve_seam.py` restores opaque body interiors using the source-defined
+SAM foreground threshold128,41native-pixel closing for narrow internal cracks,
+and8–16pixel inward feather. The correction is limited below nativey620–660;
+Mat2 remains elsewhere. The real narrow opening beneath the foreground elbow
+(x<1200,y>1220) uses unclosed SAM geometry to avoid restoring visible studio
+hardware. General hole-filling was tested and rejected because it fills real gaps.
+Only14GT frames change;70cleaned neural frames, path, timing and source RGB remain.
+
+Native source/previous/restored patches at1254,1260,1267 were inspected, and all84
+encoded frames decode at1920×1080,24fps. The repair only increases alpha in its
+explicit body guard and preserves alpha exactly outside it. Output on Silver:
+`operations/flying_bodyclean_seamfix_20261112/Marshawn_body_clean_sleeve_seam_fixed.mp4`.
+SHA256:`81daa212605333d2032f160de03409b518ccf8bddbc32689fe9e28393154498d`.
+Repaired delivery: https://drive.google.com/file/d/1kPexjX19dz-UHBtP9JaKXc-saiTDw1eV/view .
