@@ -48,8 +48,8 @@ Per-frame assertions enforce unchanged exterior and exact neural fallback.
 The detached eight-GPU controller is restartable, validates finished PNG hashes,
 retries failed frames and encodes only after all frames exist.
 
-Pending: 4K pilot visual review and full sequence delivery. No training or model
-weights are modified by these inference jobs.
+Completed: pilot and full-sequence contact-sheet review, exact tail-resize checks,
+and full H264 decode validation. No training or model weights were modified.
 
 ### Pilot gate
 
@@ -60,3 +60,31 @@ Native-pixel comparisons show subtle added cloth/face detail and no new bat or
 hat/body holes in the inspected patches. Pilots passed visual review; the full
 sequence is running under the restartable controller. These are coverage values,
 not reference-image quality metrics or a claim of universal artifact removal.
+
+A user-requested interim delivery contains 34 finished 4K PNGs (flight indices
+0–32 plus pilot 50), each copied with verified SHA256 and uploaded individually:
+[PNG folder](https://drive.google.com/drive/folders/1Llq-e5LSWYdzOg2qHW7lsKT6-yB0lpXH).
+Silver `drive_png_receipt.json` binds their source indices, hashes and Drive IDs.
+
+### Final result
+
+All 70 hybrid instants completed. The full 84-frame H264 file decoded correctly:
+3840×2160, 24 fps, 3.5 seconds. Every original photographic-tail master matches
+its previous SHA256; all 14 presentation PNGs equal the specified 2× resize
+pixel-for-pixel. Exterior black pixels remain identical to the 4K neural baseline.
+Mean qualified transfer coverage is 62.87% (range 22.02–77.09%); this is coverage,
+not a quality metric. Mean per-frame runtime was 185.5 seconds.
+
+Reviewed the full contact sheet, early baseline/hybrid comparisons at indices
+0, 1, 3, 6, 7, 14, 15, and native-pixel bat/face/hat patches at 5 and 50.
+Residual baseline silhouette haze remains; no claim of perfect matting or
+quantified novel-view quality improvement is made.
+
+[Full 4K video](https://drive.google.com/file/d/1jl0Ly2OOVd7a1cRu-QbSpU-xIHOsH64Z/view).
+SHA256: `0b6cf90c0f3c47d4815ff2ac95bcc14703f2c2367e055c1a700916879d70e8cf`.
+Final audit: Silver `operations/flying_native_hybrid_4k_20261112/final_validation.json`.
+
+Final PNG delivery now contains all **70 hybrid flight frames** (indices 0–69)
+in the same Drive folder. Folder listing was read back and all 70 uploaded IDs
+matched; source PNG hashes were verified before upload. The 14 photographic
+presentation frames are in the video, not duplicated into this hybrid PNG folder.

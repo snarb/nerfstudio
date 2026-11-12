@@ -359,3 +359,19 @@ positive-only union interiors; preserve exterior cleanup. Tests and pixel
 invariants passed; visual patch checks confirm these improvements. User's reported
 half-shoulder loss at 3s not yet uniquely identified; requested screenshot, do not
 claim all defects resolved. No model changes or training.
+
+### 2026-11-12: completed native-camera hybrid flight in 4K
+- Video: https://drive.google.com/file/d/1jl0Ly2OOVd7a1cRu-QbSpU-xIHOsH64Z/view
+- All 70 hybrid PNGs: https://drive.google.com/drive/folders/1Llq-e5LSWYdzOg2qHW7lsKT6-yB0lpXH
+- Silver: `operations/flying_native_hybrid_4k_20261112/`.
+- Reuses qualified Misha/Luster single-source visibility/detail code: 16 donors,
+  sigma4/gain0.75, pixel_scale2. Field RGB/quantiles rendered natively3840x2160;
+  donors are original-pixel-size PNG crops, no resized RGB intermediate.
+- Accepted union-interior cleanup guides contours; black exterior and unsupported
+  fallback preserved. Final14photographic frames retain previous crops/alpha,
+  only2xLanczos4 presentation resize. Original14masters hash-identical.
+- All84frames decode at24fps/3.5s. Final validation and per-frame/hash/Drive receipts
+  are in the output folder. Full contact sheet and native pilot patches reviewed.
+- Code: `flying_native_hybrid.py`, `flying_hybrid_batch.py`,
+  `validate_flying_hybrid.py`; report `experiments/marshawn_flying_native_hybrid_4k.md`.
+- Inference controller finished. No training restarted.
